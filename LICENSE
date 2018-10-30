@@ -672,3 +672,19 @@ may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
+
+
+METADATALIBRARY, CRYSTAL REPORTS AND XCEED EXCEPTION
+
+    In addition, as a special exception, Software and More srl gives 
+    permission to link the code of this program with
+    the MetaEasyLibrary, Crystal Report and Xceed (or with modified 
+    versions of MetaEasyLibrary, Crystal Report and Xceed that use the
+    same license as MetaEasyLibrary, Crystal Report and Xceed), 
+    and distribute linked combinations including
+    the four.  You must obey the GNU General Public License in all
+    respects for all of the code used other than MetaEasyLibrary, 
+    Crystal Report and Xceed.  If you modify
+    this file, you may extend this exception to your version of the
+    file, but you are not obligated to do so.  If you do not wish to
+    do so, delete this exception statement from your version.
