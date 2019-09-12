@@ -1,0 +1,138 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaDettaglioDeduzioneCedolino.xsd" xmlns:mstns="http://tempuri.org/VistaDettaglioDeduzioneCedolino.xsd" xmlns="http://tempuri.org/VistaDettaglioDeduzioneCedolino.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="payrolldeduction">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpayroll" type="xs:int" />
+              <xs:element name="iddeduction" type="xs:int" />
+              <xs:element name="taxablecode" type="xs:string" minOccurs="0" />
+              <xs:element name="annualamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="curramount" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="payroll">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpayroll" type="xs:int" />
+              <xs:element name="npayroll" type="xs:int" />
+              <xs:element name="disbursementdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idresidence" type="xs:int" minOccurs="0"/>
+              <xs:element name="workingdays" type="xs:short" />
+              <xs:element name="feegross" type="xs:decimal" />
+              <xs:element name="flagcomputed" type="xs:string" />
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="currentrounding" type="xs:decimal" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="enabletaxrelief" type="xs:string" />
+              <xs:element name="fiscalyear" type="xs:int" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stop" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="deduction">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddeduction" type="xs:int" />
+              <xs:element name="calculationkind" type="xs:string" />
+              <xs:element name="taxablecode" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="evaluatesp" type="xs:string" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="validitystart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="validitystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="evaluationorder" type="xs:int" minOccurs="0" />
+              <xs:element name="flagdeductibleexpense" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="taxablekind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="taxablecode" type="xs:string" />
+              <xs:element name="evaluationorder" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idtaxablekind" type="xs:string" minOccurs="0" />
+              <xs:element name="roundingkind" type="xs:string" minOccurs="0" />
+              <xs:element name="spcalcrefertaxable" type="xs:string" />
+              <xs:element name="spcalcannualtaxable" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="deductioncode">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddeduction" type="xs:int" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="longdescription" type="xs:string" minOccurs="0" />
+              <xs:element name="exemption" type="xs:decimal" minOccurs="0" />
+              <xs:element name="maximal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rate" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:payrolldeduction" />
+      <xs:field xpath="mstns:idpayroll" />
+      <xs:field xpath="mstns:iddeduction" />
+    </xs:unique>
+    <xs:unique name="payroll_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:payroll" />
+      <xs:field xpath="mstns:idpayroll" />
+    </xs:unique>
+    <xs:unique name="deduction_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:deduction" />
+      <xs:field xpath="mstns:iddeduction" />
+    </xs:unique>
+    <xs:unique name="taxablekind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:taxablekind" />
+      <xs:field xpath="mstns:taxablecode" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="Constraint2">
+      <xs:selector xpath=".//mstns:taxablekind" />
+      <xs:field xpath="mstns:taxablecode" />
+    </xs:unique>
+    <xs:unique name="deductioncode_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:deductioncode" />
+      <xs:field xpath="mstns:iddeduction" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="deductioncode_Constraint2" msdata:ConstraintName="Constraint2">
+      <xs:selector xpath=".//mstns:deductioncode" />
+      <xs:field xpath="mstns:iddeduction" />
+    </xs:unique>
+    <xs:keyref name="deductioncodepayrolldeduction" refer="deductioncode_Constraint2">
+      <xs:selector xpath=".//mstns:payrolldeduction" />
+      <xs:field xpath="mstns:iddeduction" />
+    </xs:keyref>
+    <xs:keyref name="taxablekindpayrolldeduction" refer="Constraint2">
+      <xs:selector xpath=".//mstns:payrolldeduction" />
+      <xs:field xpath="mstns:taxablecode" />
+    </xs:keyref>
+    <xs:keyref name="deductionpayrolldeduction" refer="deduction_Constraint1">
+      <xs:selector xpath=".//mstns:payrolldeduction" />
+      <xs:field xpath="mstns:iddeduction" />
+    </xs:keyref>
+    <xs:keyref name="payrollpayrolldeduction" refer="payroll_Constraint1">
+      <xs:selector xpath=".//mstns:payrolldeduction" />
+      <xs:field xpath="mstns:idpayroll" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

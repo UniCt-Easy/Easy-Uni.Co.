@@ -1,0 +1,11 @@
+ORDINE DI ESECUZIONE DEGLI SCRIPT DI FASE 3:
+1. autokind.sql
+2. autokind_2.sql
+3. autocode.sql
+4. link.sql
+5. rebuild_link.sql
+6. Eseguire a mano EXEC rebuild_link
+7. expenselast.sql
+8. incomelast.sql
+9. finlast.sql
+10. income_expense_total.sql

@@ -1,0 +1,87 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistabilancioviewtree.xsd" xmlns:mstns="http://tempuri.org/Vistabilancioviewtree.xsd" xmlns="http://tempuri.org/Vistabilancioviewtree.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="finlevel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="flag" type="xs:short" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="finview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfin" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="finpart" type="xs:string" minOccurs="0" />
+              <xs:element name="codefin" type="xs:string" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="leveldescr" type="xs:string" />
+              <xs:element name="paridfin" type="xs:int" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="manager" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="prevision" type="xs:decimal" />
+              <xs:element name="currentprevision" type="xs:decimal" minOccurs="0" />
+              <xs:element name="availableprevision" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousprevision" type="xs:decimal" minOccurs="0" />
+              <xs:element name="secondaryprev" type="xs:decimal" minOccurs="0" />
+              <xs:element name="currentsecondaryprev" type="xs:decimal" minOccurs="0" />
+              <xs:element name="availablesecondaryprev" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previoussecondaryprev" type="xs:decimal" minOccurs="0" />
+              <xs:element name="currentarrears" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousarrears" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prevision2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prevision3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prevision4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prevision5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="flag" type="xs:unsignedByte" />
+              <xs:element name="flagusable" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="upb" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+				<xs:element name="idsor01" type="xs:int" minOccurs="0" />
+				<xs:element name="idsor02" type="xs:int" minOccurs="0" />
+				<xs:element name="idsor03" type="xs:int" minOccurs="0" />
+				<xs:element name="idsor04" type="xs:int" minOccurs="0" />
+				<xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finlevel" />
+      <xs:field xpath="mstns:ayear" />
+      <xs:field xpath="mstns:nlevel" />
+    </xs:unique>
+    <xs:unique name="finview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finview" />
+      <xs:field xpath="mstns:idfin" />
+    </xs:unique>
+    <xs:keyref name="finlevelfinview" refer="Constraint1">
+      <xs:selector xpath=".//mstns:finview" />
+      <xs:field xpath="mstns:ayear" />
+      <xs:field xpath="mstns:nlevel" />
+    </xs:keyref>
+    <xs:keyref name="finviewfinview" refer="finview_Constraint1">
+      <xs:selector xpath=".//mstns:finview" />
+      <xs:field xpath="mstns:paridfin" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

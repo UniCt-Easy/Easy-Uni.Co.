@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Questo file viene generato automaticamente dalla Progettazione schema XML. Contiene informazioni sul layout dei componenti nell'area di progettazione.-->
+<XSDDesignerLayout Style="TopDown" layoutVersion="2" viewPortLeft="1328" viewPortTop="482" zoom="100">
+    <vistaForm_XmlElement left="317" top="254" width="5292" height="2963" selected="0" zOrder="6" index="0" expanded="1">
+        <assetunload_XmlElement left="-30503" top="3725" width="5292" height="2963" selected="0" zOrder="22" index="0" expanded="1" />
+        <assetunloadmotive_XmlElement left="-24577" top="3725" width="5292" height="2963" selected="0" zOrder="39" index="1" expanded="1" />
+        <registry_XmlElement left="-18651" top="3725" width="5292" height="2963" selected="0" zOrder="44" index="2" expanded="1" />
+        <assetunloadincome_XmlElement left="-12725" top="3725" width="6615" height="2963" selected="0" zOrder="31" index="3" expanded="1" />
+        <incomephase_XmlElement left="-5476" top="3725" width="5292" height="2963" selected="0" zOrder="53" index="4" expanded="1" />
+        <incomeview_XmlElement left="450" top="3725" width="5292" height="2963" selected="0" zOrder="7" index="5" expanded="1" />
+        <assetunloadview_XmlElement left="6376" top="3725" width="6191" height="2963" selected="0" zOrder="10" index="6" expanded="1" />
+        <assetunloadkindview_XmlElement left="13201" top="3725" width="5292" height="2963" selected="0" zOrder="13" index="7" expanded="1" />
+        <assetpieceview_XmlElement left="19127" top="3725" width="5450" height="2963" selected="0" zOrder="16" index="8" expanded="1" />
+        <assetamortizationview_XmlElement left="25211" top="3725" width="5292" height="2963" selected="0" zOrder="19" index="9" expanded="1" />
+        <config_XmlElement left="31137" top="3725" width="5292" height="2963" selected="0" zOrder="55" index="10" expanded="1" />
+    </vistaForm_XmlElement>
+    <assetunloadassetamortizationview_XmlKeyref left="-251" top="7470" width="503" height="503" selected="0" zOrder="24" expanded="0" />
+    <incomeview_assetunloadincome_XmlKeyref left="-3081" top="7470" width="503" height="503" selected="0" zOrder="33" expanded="0" />
+    <assetunloadassetunloadincome_XmlKeyref left="-19219" top="7470" width="503" height="503" selected="0" zOrder="36" expanded="0" />
+    <assetunloadkindviewassetunload_XmlKeyref left="16752" top="9537" width="503" height="503" selected="0" zOrder="49" expanded="0" />
+    <assetunloadassetpieceview_XmlKeyref left="8496" top="9002" width="503" height="503" selected="0" zOrder="27" expanded="0" />
+    <assetunloadmotiveassetunload_XmlKeyref left="-25145" top="7470" width="503" height="503" selected="0" zOrder="41" expanded="0" />
+    <registryassetunload_XmlKeyref left="-22182" top="7470" width="503" height="503" selected="0" zOrder="46" expanded="0" />
+</XSDDesignerLayout>

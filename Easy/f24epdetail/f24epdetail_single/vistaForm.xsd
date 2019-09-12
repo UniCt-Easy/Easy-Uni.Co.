@@ -1,0 +1,87 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="f24epdetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idf24ep" type="xs:int" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="fiscaltaxcode" type="xs:string" minOccurs="0" />
+              <xs:element name="identifying_marks" type="xs:string" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="tiporiga" type="xs:string" minOccurs="0" />
+              <xs:element name="ycon" type="xs:int" />
+              <xs:element name="ncon" type="xs:int" />
+              <xs:element name="iddetail" type="xs:int" />
+              <xs:element name="rifb_month" type="xs:int" minOccurs="0" />
+              <xs:element name="rifb_year" type="xs:int" minOccurs="0" />
+              <xs:element name="rifa_month" type="xs:int" minOccurs="0" />
+              <xs:element name="rifa_year" type="xs:int" minOccurs="0" />
+              <xs:element name="rifa" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_rifa_monthname" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_rifb_monthname" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="monthname1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" type="xs:int" />
+              <xs:element name="cfvalue" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="monthname2">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" type="xs:int" />
+              <xs:element name="cfvalue" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="lookup_tiporigaf24ep">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tiporiga" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:f24epdetail" />
+      <xs:field xpath="mstns:ycon" />
+      <xs:field xpath="mstns:ncon" />
+      <xs:field xpath="mstns:iddetail" />
+    </xs:unique>
+    <xs:unique name="monthname1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:monthname1" />
+      <xs:field xpath="mstns:code" />
+    </xs:unique>
+    <xs:unique name="monthname2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:monthname2" />
+      <xs:field xpath="mstns:code" />
+    </xs:unique>
+    <xs:unique name="lookup_tiporigaf24ep_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:lookup_tiporigaf24ep" />
+      <xs:field xpath="mstns:tiporiga" />
+    </xs:unique>
+    <xs:keyref name="lookup_tiporigaf24ep_f24epdetail" refer="lookup_tiporigaf24ep_Constraint1">
+      <xs:selector xpath=".//mstns:f24epdetail" />
+      <xs:field xpath="mstns:tiporiga" />
+    </xs:keyref>
+    <xs:keyref name="monthname1_f24epdetail" refer="monthname2_Constraint1">
+      <xs:selector xpath=".//mstns:f24epdetail" />
+      <xs:field xpath="mstns:rifb_month" />
+    </xs:keyref>
+    <xs:keyref name="monthname_f24epdetail" refer="monthname1_Constraint1">
+      <xs:selector xpath=".//mstns:f24epdetail" />
+      <xs:field xpath="mstns:rifa_month" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,1 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LDAPService.aspx.cs" Inherits="EasyWebReport.LDAPService" %>

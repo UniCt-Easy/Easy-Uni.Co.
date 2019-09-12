@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="upbcommessaview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="yearstart" type="xs:short" minOccurs="0" />
+              <xs:element name="yearstop" type="xs:short" minOccurs="0" />
+              <xs:element name="idepupbkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccmotive_cost" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive_cost" type="xs:string" minOccurs="0" />
+              <xs:element name="motive_cost" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_revenue" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive_revenue" type="xs:string" minOccurs="0" />
+              <xs:element name="motive_revenue" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_deferredcost" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive_deferredcost" type="xs:string" minOccurs="0" />
+              <xs:element name="motive_deferredcost" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_accruals" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive_accruals" type="xs:string" minOccurs="0" />
+              <xs:element name="motive_accruals" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_cost" type="xs:string" minOccurs="0" />
+              <xs:element name="codeacc_cost" type="xs:string" minOccurs="0" />
+              <xs:element name="acc_cost" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_revenue" type="xs:string" minOccurs="0" />
+              <xs:element name="codeacc_revenue" type="xs:string" minOccurs="0" />
+              <xs:element name="acc_revenue" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_deferredcost" type="xs:string" minOccurs="0" />
+              <xs:element name="codeacc_deferredcost" type="xs:string" minOccurs="0" />
+              <xs:element name="acc_deferredcost" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_accruals" type="xs:string" minOccurs="0" />
+              <xs:element name="codeacc_accruals" type="xs:string" minOccurs="0" />
+              <xs:element name="acc_accruals" type="xs:string" minOccurs="0" />
+              <xs:element name="cost" type="xs:decimal" minOccurs="0" />
+              <xs:element name="reserve" type="xs:decimal" minOccurs="0" />
+              <xs:element name="revenue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="accruals" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="costi" type="xs:decimal" minOccurs="0" />
+              <xs:element name="risconti" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rateiattivi" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upbcommessaview" />
+      <xs:field xpath="mstns:idupb" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

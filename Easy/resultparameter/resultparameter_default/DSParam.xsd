@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="yes" ?>
+<xs:schema id="DSParam" targetNamespace="http://tempuri.org/DSParam.xsd" xmlns:mstns="http://tempuri.org/DSParam.xsd"
+	xmlns="http://tempuri.org/DSParam.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+	attributeFormDefault="qualified" elementFormDefault="qualified">
+	<xs:element name="vistaForm" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

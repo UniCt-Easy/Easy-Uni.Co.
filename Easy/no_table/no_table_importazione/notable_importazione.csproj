@@ -1,0 +1,1357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F0794F20-7AF7-420C-9CC6-7ADF6A77A088}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>notable_importazione</RootNamespace>
+    <AssemblyName>notable_importazione</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MagicLibrary, Version=1.7.4.0, Culture=neutral, PublicKeyToken=3a6eb82f876a49bc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\MagicLibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="metadatalibrary">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="metaeasylibrary">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\dll\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Vbe.Interop, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\dll\Microsoft.Vbe.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+    </COMReference>
+    <Reference Include="meta_registry">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_registry</Name>
+      <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_invoice">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_invoice</Name>
+      <HintPath>..\..\invoice\meta_invoice\bin\Debug\meta_invoice.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_invoicedetail">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_invoicedetail</Name>
+      <HintPath>..\..\invoicedetail\meta_invoicedetail\bin\Debug\meta_invoicedetail.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_invoicekind">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_invoicekind</Name>
+      <HintPath>..\..\invoicekind\meta_invoicekind\bin\Debug\meta_invoicekind.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_income">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_income</Name>
+      <HintPath>..\..\income\meta_income\bin\Debug\meta_income.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_incomeyear">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_incomeyear</Name>
+      <HintPath>..\..\incomeyear\meta_incomeyear\bin\Debug\meta_incomeyear.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_expenseyear">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_expenseyear</Name>
+      <HintPath>..\..\expenseyear\meta_expenseyear\bin\Debug\meta_expenseyear.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_expense">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_expense</Name>
+      <HintPath>..\..\expense\meta_expense\bin\Debug\meta_expense.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_manager">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_manager</Name>
+      <HintPath>..\..\manager\meta_manager\bin\Debug\meta_manager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_upb">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_upb</Name>
+      <HintPath>..\..\upb\meta_upb\bin\Debug\meta_upb.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_fin">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_fin</Name>
+      <HintPath>..\..\fin\meta_fin\bin\Debug\meta_fin.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_payment_bank">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_payment_bank</Name>
+      <HintPath>..\..\payment_bank\meta_payment_bank\bin\Debug\meta_payment_bank.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_proceeds_bank">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_proceeds_bank</Name>
+      <HintPath>..\..\proceeds_bank\meta_proceeds_bank\bin\Debug\meta_proceeds_bank.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_incomelast">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_incomelast</Name>
+      <HintPath>..\..\incomelast\meta_incomelast\bin\Debug\meta_incomelast.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_expenselast">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_expenselast</Name>
+      <HintPath>..\..\expenselast\meta_expenselast\bin\Debug\meta_expenselast.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="vistaAccountVar.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaAccountVar.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaCausaleContabile.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaCausaleContabile.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaCausaleSISEST.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaCausaleSISEST.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaClassCausaliEp.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaClassCausaliEp.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaAutoclassMov.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaAutoclassMov.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaEntiCsa.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaEntiCsa.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaListClass.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaListClass.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaProfiloSISEST.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaProfiloSISEST.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaResponsabiliCespiti.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaResponsabiliCespiti.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaRipUnicaContributiContrattiCSA.cs">
+      <DependentUpon>vistaRipUnicaContributiContrattiCSA.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaRipUnicaContrattiCSA.cs">
+      <DependentUpon>vistaRipUnicaContrattiCSA.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaRipImpegniBudgetContrattiCSA.cs">
+      <DependentUpon>vistaRipImpegniBudgetContrattiCSA.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaRipImpegniBudgetContributiContrattiCSA.cs">
+      <DependentUpon>vistaRipImpegniBudgetContributiContrattiCSA.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaRipContributiContrattiCSA.cs">
+      <DependentUpon>vistaRipContributiContrattiCSA.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaContributiTipiContrattoCSA.cs">
+      <DependentUpon>vistaContributiTipiContrattoCSA.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaContributiContrattiCSA.cs">
+      <DependentUpon>vistaContributiContrattiCSA.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaRipContrattiCSA.cs">
+      <DependentUpon>vistaRipContrattiCSA.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaMatricoleContrattiCSA.cs">
+      <DependentUpon>vistaMatricoleContrattiCSA.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaSubConsegnatariCespiti.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaSubConsegnatariCespiti.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaTipoContrattiCSA.cs">
+      <DependentUpon>vistaTipoContrattiCSA.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaContrattiCSA.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaContrattiCSA.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaList.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaList.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaListClassYear.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaListClassYear.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaConvertiPianoConti.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaConvertiPianoConti.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaCpassivi.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaCpassivi.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaScritture.cs">
+      <DependentUpon>vistaScritture.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaTipoDocIvaAnnuale.cs">
+      <DependentUpon>vistaTipoDocIvaAnnuale.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaTipoRegistroIva.cs">
+      <DependentUpon>vistaTipoRegistroIva.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaTipoDocIvaRegistroIva.cs">
+      <DependentUpon>vistaTipoDocIvaRegistroIva.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaRegistroIva.cs">
+      <DependentUpon>vistaRegistroIva.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaTipoDocIva.cs">
+      <DependentUpon>vistaTipoDocIva.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaCAttivi.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaCAttivi.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaConvertiBilancio.cs">
+      <DependentUpon>vistaConvertiBilancio.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="formtest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formtest.Designer.cs">
+      <DependentUpon>formtest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="funzioni_classificazioni.cs" />
+    <Compile Include="vistaAliquoteIVA.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaAliquoteIVA.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaCessati.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaCessati.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaClassIndirette.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaClassIndirette.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaClassPianoConti.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaClassPianoConti.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaClassUpb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaClassUpb.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaContatti.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaContatti.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaEsitazioni.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaEsitazioni.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaIndirizzi.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaIndirizzi.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaModPagamento.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaModPagamento.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaPartitePendenti.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaPartitePendenti.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaPianoConti.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaPianoConti.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaResponsabile.Designer.cs">
+      <DependentUpon>vistaResponsabile.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="FrmNotable_Importazione.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmNotable_Importazione.Designer.cs">
+      <DependentUpon>FrmNotable_Importazione.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="FrmNotable_SelezionaAggiungiAnagrafica.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmNotable_SelezionaAggiungiAnagrafica.Designer.cs">
+      <DependentUpon>FrmNotable_SelezionaAggiungiAnagrafica.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmShowTracciato.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmShowTracciato.Designer.cs">
+      <DependentUpon>FrmShowTracciato.cs</DependentUpon>
+    </Compile>
+    <Compile Include="vistaAmmortamenti.cs">
+      <DependentUpon>vistaAmmortamenti.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaAmmortamenti.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaAmmortamenti.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaAnagrafica.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaAnagrafica.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaAssetVar.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaAssetVar.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaAvanzo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaAvanzo.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaBilancio.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaBilancio.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaBuoniCarico.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaBuoniCarico.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaBuoniScarico.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaBuoniScarico.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaCespiti.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaCespiti.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaClassAnag.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaClassAnag.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaClassFin.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaClassFin.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaClassificazioni.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaClassificazioni.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaClassInventariale.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaClassInventariale.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaClassMov.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaClassMov.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="VistaConsegnatari.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VistaConsegnatari.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaFatture.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaFatture.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaForm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaManReve.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaManReve.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="VistaMovFin.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VistaMovFin.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaPrevBilancio.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaPrevBilancio.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaUbicazioni.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaUbicazioni.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaUbicazioniCespiti.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaUbicazioniCespiti.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaUPB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaUPB.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaVarBil.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaVarBil.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="vistaVarMov.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaVarMov.xsd</DependentUpon>
+    </Compile>
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="formtest.resx">
+      <DependentUpon>formtest.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmNotable_Importazione.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrmNotable_Importazione.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmNotable_SelezionaAggiungiAnagrafica.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrmNotable_SelezionaAggiungiAnagrafica.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmShowTracciato.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrmShowTracciato.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vistaCausaleSISEST.xsc">
+      <DependentUpon>vistaCausaleSISEST.xsd</DependentUpon>
+    </None>
+    <None Include="vistaCausaleSISEST.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaCausaleSISEST.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaCausaleSISEST.xss">
+      <DependentUpon>vistaCausaleSISEST.xsd</DependentUpon>
+    </None>
+    <None Include="vistaCessati.xsc">
+      <DependentUpon>vistaCessati.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassCausaliEp.xsc">
+      <DependentUpon>vistaClassCausaliEp.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassCausaliEp.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaClassCausaliEp.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaClassCausaliEp.xss">
+      <DependentUpon>vistaClassCausaliEp.xsd</DependentUpon>
+    </None>
+    <None Include="vistaAutoclassMov.xsc">
+      <DependentUpon>vistaAutoclassMov.xsd</DependentUpon>
+    </None>
+    <None Include="vistaAutoclassMov.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaAutoclassMov.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaAutoclassMov.xss">
+      <DependentUpon>vistaAutoclassMov.xsd</DependentUpon>
+    </None>
+    <None Include="vistaEntiCsa.xsc">
+      <DependentUpon>vistaEntiCsa.xsd</DependentUpon>
+    </None>
+    <None Include="vistaEntiCsa.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaEntiCsa.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaEntiCsa.xss">
+      <DependentUpon>vistaEntiCsa.xsd</DependentUpon>
+    </None>
+    <None Include="vistaProfiloSISEST.xsc">
+      <DependentUpon>vistaProfiloSISEST.xsd</DependentUpon>
+    </None>
+    <None Include="vistaProfiloSISEST.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaProfiloSISEST.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaProfiloSISEST.xss">
+      <DependentUpon>vistaProfiloSISEST.xsd</DependentUpon>
+    </None>
+    <None Include="vistaResponsabiliCespiti.xsc">
+      <DependentUpon>vistaResponsabiliCespiti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaResponsabiliCespiti.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaResponsabiliCespiti.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaResponsabiliCespiti.xss">
+      <DependentUpon>vistaResponsabiliCespiti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaRipUnicaContributiContrattiCSA.xsc">
+      <DependentUpon>vistaRipUnicaContributiContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaRipUnicaContributiContrattiCSA.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaRipUnicaContributiContrattiCSA.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaRipUnicaContributiContrattiCSA.xss">
+      <DependentUpon>vistaRipUnicaContributiContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaRipUnicaContrattiCSA.xsc">
+      <DependentUpon>vistaRipUnicaContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaRipUnicaContrattiCSA.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaRipUnicaContrattiCSA.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaRipUnicaContrattiCSA.xss">
+      <DependentUpon>vistaRipUnicaContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaRipImpegniBudgetContrattiCSA.xsc">
+      <DependentUpon>vistaRipImpegniBudgetContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaRipImpegniBudgetContrattiCSA.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaRipImpegniBudgetContrattiCSA.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaRipImpegniBudgetContrattiCSA.xss">
+      <DependentUpon>vistaRipImpegniBudgetContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaRipImpegniBudgetContributiContrattiCSA.xsc">
+      <DependentUpon>vistaRipImpegniBudgetContributiContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaRipImpegniBudgetContributiContrattiCSA.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaRipImpegniBudgetContributiContrattiCSA.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaRipImpegniBudgetContributiContrattiCSA.xss">
+      <DependentUpon>vistaRipImpegniBudgetContributiContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaRipContributiContrattiCSA.xsc">
+      <DependentUpon>vistaRipContributiContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaRipContributiContrattiCSA.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaRipContributiContrattiCSA.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaRipContributiContrattiCSA.xss">
+      <DependentUpon>vistaRipContributiContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaContributiTipiContrattoCSA.xsc">
+      <DependentUpon>vistaContributiTipiContrattoCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaContributiTipiContrattoCSA.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaContributiTipiContrattoCSA.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaContributiTipiContrattoCSA.xss">
+      <DependentUpon>vistaContributiTipiContrattoCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaContributiContrattiCSA.xsc">
+      <DependentUpon>vistaContributiContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaContributiContrattiCSA.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaContributiContrattiCSA.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaContributiContrattiCSA.xss">
+      <DependentUpon>vistaContributiContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaRipContrattiCSA.xsc">
+      <DependentUpon>vistaRipContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaRipContrattiCSA.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaRipContrattiCSA.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaRipContrattiCSA.xss">
+      <DependentUpon>vistaRipContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaMatricoleContrattiCSA.xsc">
+      <DependentUpon>vistaMatricoleContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaMatricoleContrattiCSA.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaMatricoleContrattiCSA.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaMatricoleContrattiCSA.xss">
+      <DependentUpon>vistaMatricoleContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaSubConsegnatariCespiti.xsc">
+      <DependentUpon>vistaSubConsegnatariCespiti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaSubConsegnatariCespiti.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaSubConsegnatariCespiti.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaSubConsegnatariCespiti.xss">
+      <DependentUpon>vistaSubConsegnatariCespiti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaTipoContrattiCSA.xsc">
+      <DependentUpon>vistaTipoContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaTipoContrattiCSA.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaTipoContrattiCSA.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaTipoContrattiCSA.xss">
+      <DependentUpon>vistaTipoContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaContrattiCSA.xsc">
+      <DependentUpon>vistaContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaContrattiCSA.xsd">
+      <Generator>HDSGene</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>vistaContrattiCSA.cs</LastGenOutput>
+    </None>
+    <None Include="vistaContrattiCSA.xss">
+      <DependentUpon>vistaContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaAccountVar.xsc">
+      <DependentUpon>vistaAccountVar.xsd</DependentUpon>
+    </None>
+    <None Include="vistaAccountVar.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaAccountVar.cs</LastGenOutput>
+    </None>
+    <None Include="vistaAccountVar.xss">
+      <DependentUpon>vistaAccountVar.xsd</DependentUpon>
+    </None>
+    <None Include="vistaCausaleContabile.xsc">
+      <DependentUpon>vistaCausaleContabile.xsd</DependentUpon>
+    </None>
+    <None Include="vistaCausaleContabile.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaCausaleContabile.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaCausaleContabile.xss">
+      <DependentUpon>vistaCausaleContabile.xsd</DependentUpon>
+    </None>
+    <None Include="vistaList.xsc">
+      <DependentUpon>vistaList.xsd</DependentUpon>
+    </None>
+    <None Include="vistaList.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaList.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaList.xss">
+      <DependentUpon>vistaList.xsd</DependentUpon>
+    </None>
+    <None Include="vistaListClassYear.xsc">
+      <DependentUpon>vistaListClassYear.xsd</DependentUpon>
+    </None>
+    <None Include="vistaListClassYear.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaListClassYear.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaListClassYear.xss">
+      <DependentUpon>vistaListClassYear.xsd</DependentUpon>
+    </None>
+    <None Include="vistaListClass.xsc">
+      <DependentUpon>vistaListClass.xsd</DependentUpon>
+    </None>
+    <None Include="vistaListClass.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaListClass.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaListClass.xss">
+      <DependentUpon>vistaListClass.xsd</DependentUpon>
+    </None>
+    <None Include="vistaConvertiPianoConti.xsc">
+      <DependentUpon>vistaConvertiPianoConti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaConvertiPianoConti.xsd">
+      <Generator>HDSGene</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>vistaConvertiPianoConti.cs</LastGenOutput>
+    </None>
+    <None Include="vistaConvertiPianoConti.xss">
+      <DependentUpon>vistaConvertiPianoConti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaScritture.xsc">
+      <DependentUpon>vistaScritture.xsd</DependentUpon>
+    </None>
+    <None Include="vistaScritture.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaScritture.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaScritture.xss">
+      <DependentUpon>vistaScritture.xsd</DependentUpon>
+    </None>
+    <None Include="vistaTipoDocIvaAnnuale.xsc">
+      <DependentUpon>vistaTipoDocIvaAnnuale.xsd</DependentUpon>
+    </None>
+    <None Include="vistaTipoDocIvaAnnuale.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaTipoDocIvaAnnuale.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaTipoDocIvaAnnuale.xss">
+      <DependentUpon>vistaTipoDocIvaAnnuale.xsd</DependentUpon>
+    </None>
+    <None Include="vistaTipoRegistroIva.xsc">
+      <DependentUpon>vistaTipoRegistroIva.xsd</DependentUpon>
+    </None>
+    <None Include="vistaTipoRegistroIva.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaTipoRegistroIva.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaTipoRegistroIva.xss">
+      <DependentUpon>vistaTipoRegistroIva.xsd</DependentUpon>
+    </None>
+    <None Include="vistaTipoDocIvaRegistroIva.xsc">
+      <DependentUpon>vistaTipoDocIvaRegistroIva.xsd</DependentUpon>
+    </None>
+    <None Include="vistaTipoDocIvaRegistroIva.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaTipoDocIvaRegistroIva.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaTipoDocIvaRegistroIva.xss">
+      <DependentUpon>vistaTipoDocIvaRegistroIva.xsd</DependentUpon>
+    </None>
+    <None Include="vistaRegistroIva.xsc">
+      <DependentUpon>vistaRegistroIva.xsd</DependentUpon>
+    </None>
+    <None Include="vistaRegistroIva.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaRegistroIva.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaRegistroIva.xss">
+      <DependentUpon>vistaRegistroIva.xsd</DependentUpon>
+    </None>
+    <None Include="vistaTipoDocIva.xsc">
+      <DependentUpon>vistaTipoDocIva.xsd</DependentUpon>
+    </None>
+    <None Include="vistaTipoDocIva.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaTipoDocIva.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaTipoDocIva.xss">
+      <DependentUpon>vistaTipoDocIva.xsd</DependentUpon>
+    </None>
+    <None Include="vistaCAttivi.xsc">
+      <DependentUpon>vistaCAttivi.xsd</DependentUpon>
+    </None>
+    <None Include="vistaCAttivi.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaCAttivi.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaCAttivi.xss">
+      <DependentUpon>vistaCAttivi.xsd</DependentUpon>
+    </None>
+    <None Include="vistaConvertiBilancio.xsc">
+      <DependentUpon>vistaConvertiBilancio.xsd</DependentUpon>
+    </None>
+    <None Include="vistaConvertiBilancio.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaConvertiBilancio.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaConvertiBilancio.xss">
+      <DependentUpon>vistaConvertiBilancio.xsd</DependentUpon>
+    </None>
+    <None Include="vistaAliquoteIVA.xsc">
+      <DependentUpon>vistaAliquoteIVA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaAliquoteIVA.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaAliquoteIVA.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaAliquoteIVA.xss">
+      <DependentUpon>vistaAliquoteIVA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaCessati.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaCessati.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaCessati.xss">
+      <DependentUpon>vistaCessati.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassIndirette.xsc">
+      <DependentUpon>vistaClassIndirette.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassIndirette.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaClassIndirette.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaClassIndirette.xss">
+      <DependentUpon>vistaClassIndirette.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassPianoConti.xsc">
+      <DependentUpon>vistaClassPianoConti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassPianoConti.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaClassPianoConti.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaClassPianoConti.xss">
+      <DependentUpon>vistaClassPianoConti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassUpb.xsc">
+      <DependentUpon>vistaClassUpb.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassUpb.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaClassUpb.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaClassUpb.xss">
+      <DependentUpon>vistaClassUpb.xsd</DependentUpon>
+    </None>
+    <None Include="vistaContatti.xsc">
+      <DependentUpon>vistaContatti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaContatti.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaContatti.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaContatti.xss">
+      <DependentUpon>vistaContatti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaCpassivi.xsc">
+      <DependentUpon>vistaCpassivi.xsd</DependentUpon>
+    </None>
+    <None Include="vistaCpassivi.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaCpassivi.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaCpassivi.xss">
+      <DependentUpon>vistaCpassivi.xsd</DependentUpon>
+    </None>
+    <None Include="vistaEsitazioni.xsc">
+      <DependentUpon>vistaEsitazioni.xsd</DependentUpon>
+    </None>
+    <None Include="vistaEsitazioni.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaEsitazioni.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaEsitazioni.xss">
+      <DependentUpon>vistaEsitazioni.xsd</DependentUpon>
+    </None>
+    <None Include="vistaIndirizzi.xsc">
+      <DependentUpon>vistaIndirizzi.xsd</DependentUpon>
+    </None>
+    <None Include="vistaIndirizzi.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaIndirizzi.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaIndirizzi.xss">
+      <DependentUpon>vistaIndirizzi.xsd</DependentUpon>
+    </None>
+    <None Include="vistaModPagamento.xsc">
+      <DependentUpon>vistaModPagamento.xsd</DependentUpon>
+    </None>
+    <None Include="vistaModPagamento.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaModPagamento.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaModPagamento.xss">
+      <DependentUpon>vistaModPagamento.xsd</DependentUpon>
+    </None>
+    <None Include="vistaPartitePendenti.xsc">
+      <DependentUpon>vistaPartitePendenti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaPartitePendenti.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaPartitePendenti.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaPartitePendenti.xss">
+      <DependentUpon>vistaPartitePendenti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaPianoConti.xsc">
+      <DependentUpon>vistaPianoConti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaPianoConti.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaPianoConti.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaPianoConti.xss">
+      <DependentUpon>vistaPianoConti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaResponsabile.xsc">
+      <DependentUpon>vistaResponsabile.xsd</DependentUpon>
+    </None>
+    <None Include="vistaResponsabile.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaResponsabile.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaResponsabile.xss">
+      <DependentUpon>vistaResponsabile.xsd</DependentUpon>
+    </None>
+    <None Include="vistaAmmortamenti.xsc">
+      <DependentUpon>vistaAmmortamenti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaAmmortamenti.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaAmmortamenti.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaAmmortamenti.xss">
+      <DependentUpon>vistaAmmortamenti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaAnagrafica.xsc">
+      <DependentUpon>vistaAnagrafica.xsd</DependentUpon>
+    </None>
+    <None Include="vistaAnagrafica.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaAnagrafica.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaAnagrafica.xss">
+      <DependentUpon>vistaAnagrafica.xsd</DependentUpon>
+    </None>
+    <None Include="vistaAssetVar.xsc">
+      <DependentUpon>vistaAssetVar.xsd</DependentUpon>
+    </None>
+    <None Include="vistaAssetVar.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaAssetVar.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaAssetVar.xss">
+      <DependentUpon>vistaAssetVar.xsd</DependentUpon>
+    </None>
+    <None Include="vistaAvanzo.xsc">
+      <DependentUpon>vistaAvanzo.xsd</DependentUpon>
+    </None>
+    <None Include="vistaAvanzo.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaAvanzo.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaAvanzo.xss">
+      <DependentUpon>vistaAvanzo.xsd</DependentUpon>
+    </None>
+    <None Include="vistaBilancio.xsc">
+      <DependentUpon>vistaBilancio.xsd</DependentUpon>
+    </None>
+    <None Include="vistaBilancio.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaBilancio.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaBilancio.xss">
+      <DependentUpon>vistaBilancio.xsd</DependentUpon>
+    </None>
+    <None Include="vistaBuoniCarico.xsc">
+      <DependentUpon>vistaBuoniCarico.xsd</DependentUpon>
+    </None>
+    <None Include="vistaBuoniCarico.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaBuoniCarico.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaBuoniCarico.xss">
+      <DependentUpon>vistaBuoniCarico.xsd</DependentUpon>
+    </None>
+    <None Include="vistaBuoniScarico.xsc">
+      <DependentUpon>vistaBuoniScarico.xsd</DependentUpon>
+    </None>
+    <None Include="vistaBuoniScarico.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaBuoniScarico.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaBuoniScarico.xss">
+      <DependentUpon>vistaBuoniScarico.xsd</DependentUpon>
+    </None>
+    <None Include="vistaCespiti.xsc">
+      <DependentUpon>vistaCespiti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaCespiti.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaCespiti.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaCespiti.xss">
+      <DependentUpon>vistaCespiti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassAnag.xsc">
+      <DependentUpon>vistaClassAnag.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassAnag.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaClassAnag.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaClassAnag.xss">
+      <DependentUpon>vistaClassAnag.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassFin.xsc">
+      <DependentUpon>vistaClassFin.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassFin.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaClassFin.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaClassFin.xss">
+      <DependentUpon>vistaClassFin.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassificazioni.xsc">
+      <DependentUpon>vistaClassificazioni.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassificazioni.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaClassificazioni.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaClassificazioni.xss">
+      <DependentUpon>vistaClassificazioni.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassInventariale.xsc">
+      <DependentUpon>vistaClassInventariale.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassInventariale.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaClassInventariale.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaClassInventariale.xss">
+      <DependentUpon>vistaClassInventariale.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassMov.xsc">
+      <DependentUpon>vistaClassMov.xsd</DependentUpon>
+    </None>
+    <None Include="vistaClassMov.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaClassMov.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaClassMov.xss">
+      <DependentUpon>vistaClassMov.xsd</DependentUpon>
+    </None>
+    <None Include="VistaConsegnatari.xsc">
+      <DependentUpon>VistaConsegnatari.xsd</DependentUpon>
+    </None>
+    <None Include="VistaConsegnatari.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>VistaConsegnatari.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="VistaConsegnatari.xss">
+      <DependentUpon>VistaConsegnatari.xsd</DependentUpon>
+    </None>
+    <None Include="vistaFatture.xsc">
+      <DependentUpon>vistaFatture.xsd</DependentUpon>
+    </None>
+    <None Include="vistaFatture.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaFatture.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaFatture.xss">
+      <DependentUpon>vistaFatture.xsd</DependentUpon>
+    </None>
+    <None Include="vistaForm.xsc">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+    <None Include="vistaForm.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaForm.xss">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+    <None Include="vistaManReve.xsc">
+      <DependentUpon>vistaManReve.xsd</DependentUpon>
+    </None>
+    <None Include="vistaManReve.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaManReve.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaManReve.xss">
+      <DependentUpon>vistaManReve.xsd</DependentUpon>
+    </None>
+    <None Include="VistaMovFin.xsc">
+      <DependentUpon>VistaMovFin.xsd</DependentUpon>
+    </None>
+    <None Include="VistaMovFin.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>VistaMovFin.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="VistaMovFin.xss">
+      <DependentUpon>VistaMovFin.xsd</DependentUpon>
+    </None>
+    <None Include="vistaPrevBilancio.xsc">
+      <DependentUpon>vistaPrevBilancio.xsd</DependentUpon>
+    </None>
+    <None Include="vistaPrevBilancio.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaPrevBilancio.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaPrevBilancio.xss">
+      <DependentUpon>vistaPrevBilancio.xsd</DependentUpon>
+    </None>
+    <None Include="vistaUbicazioni.xsc">
+      <DependentUpon>vistaUbicazioni.xsd</DependentUpon>
+    </None>
+    <None Include="vistaUbicazioni.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaUbicazioni.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaUbicazioni.xss">
+      <DependentUpon>vistaUbicazioni.xsd</DependentUpon>
+    </None>
+    <None Include="vistaUbicazioniCespiti.xsc">
+      <DependentUpon>vistaUbicazioniCespiti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaUbicazioniCespiti.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaUbicazioniCespiti.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaUbicazioniCespiti.xss">
+      <DependentUpon>vistaUbicazioniCespiti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaUPB.xsc">
+      <DependentUpon>vistaUPB.xsd</DependentUpon>
+    </None>
+    <None Include="vistaUPB.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaUPB.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaUPB.xss">
+      <DependentUpon>vistaUPB.xsd</DependentUpon>
+    </None>
+    <None Include="vistaVarBil.xsc">
+      <DependentUpon>vistaVarBil.xsd</DependentUpon>
+    </None>
+    <None Include="vistaVarBil.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaVarBil.cs</LastGenOutput>
+    </None>
+    <None Include="vistaVarBil.xss">
+      <DependentUpon>vistaVarBil.xsd</DependentUpon>
+    </None>
+    <None Include="vistaVarMov.xsc">
+      <DependentUpon>vistaVarMov.xsd</DependentUpon>
+    </None>
+    <None Include="vistaVarMov.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaVarMov.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaVarMov.xss">
+      <DependentUpon>vistaVarMov.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
+      <Project>{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}</Project>
+      <Name>funzioni_configurazione</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

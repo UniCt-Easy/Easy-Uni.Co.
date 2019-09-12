@@ -1,0 +1,60 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="no_table">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_no_table" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cliente">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CL001001" type="xs:int" minOccurs="0" />
+              <xs:element name="CL002001" type="xs:string" minOccurs="0" />
+              <xs:element name="CL003001" type="xs:string" minOccurs="0" />
+              <xs:element name="CL004001" type="xs:int" minOccurs="0" />
+              <xs:element name="CL004002" type="xs:int" minOccurs="0" />
+              <xs:element name="CL005001" type="xs:int" minOccurs="0" />
+              <xs:element name="CL006001" type="xs:int" minOccurs="0" />
+              <xs:element name="CL007001" type="xs:int" minOccurs="0" />
+              <xs:element name="CL008001" type="xs:int" minOccurs="0" />
+              <xs:element name="CL008002" type="xs:int" minOccurs="0" />
+              <xs:element name="CL009001" type="xs:int" minOccurs="0" />
+              <xs:element name="CL010001" type="xs:int" minOccurs="0" />
+              <xs:element name="CL011001" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fornitore">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="FR001001" type="xs:int" minOccurs="0" />
+              <xs:element name="FR002001" type="xs:string" minOccurs="0" />
+              <xs:element name="FR003001" type="xs:string" minOccurs="0" />
+              <xs:element name="FR004001" type="xs:int" minOccurs="0" />
+              <xs:element name="FR004002" type="xs:int" minOccurs="0" />
+              <xs:element name="FR005001" type="xs:int" minOccurs="0" />
+              <xs:element name="FR006001" type="xs:int" minOccurs="0" />
+              <xs:element name="FR007001" type="xs:int" minOccurs="0" />
+              <xs:element name="FR008001" type="xs:int" minOccurs="0" />
+              <xs:element name="FR009001" type="xs:int" minOccurs="0" />
+              <xs:element name="FR009002" type="xs:int" minOccurs="0" />
+              <xs:element name="FR010001" type="xs:int" minOccurs="0" />
+              <xs:element name="FR011001" type="xs:int" minOccurs="0" />
+              <xs:element name="FR012001" type="xs:int" minOccurs="0" />
+              <xs:element name="FR013001" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:no_table" />
+      <xs:field xpath="mstns:id_no_table" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

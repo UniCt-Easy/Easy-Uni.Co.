@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Questo file viene generato automaticamente dalla Progettazione schema XML. Contiene informazioni sul layout dei componenti nell'area di progettazione.-->
+<XSDDesignerLayout Style="TopDown" layoutVersion="2" viewPortLeft="0" viewPortTop="0" zoom="100">
+    <vistaForm_XmlElement left="317" top="254" width="5292" height="2963" selected="0" zOrder="2" index="0" expanded="1">
+        <assetconsignee_XmlElement left="-5926" top="3725" width="5292" height="4657" selected="0" zOrder="9" index="0" expanded="1" />
+        <inventoryagency_XmlElement left="0" top="3725" width="5292" height="2963" selected="0" zOrder="3" index="1" expanded="1" />
+        <assetconsigneeview_XmlElement left="5926" top="3725" width="5926" height="2963" selected="0" zOrder="6" index="2" expanded="1" />
+    </vistaForm_XmlElement>
+    <inventoryagencyassetconsignee_XmlKeyref left="-568" top="9164" width="503" height="503" selected="0" zOrder="11" expanded="0" />
+</XSDDesignerLayout>

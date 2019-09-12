@@ -1,0 +1,26 @@
+Unknown Table tipomovimento in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column sortingkind.flagcheckavailability in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column sortingkind.flagforced in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column sortingkind.flagmultiple in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column sortingkind.sortinglevel in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.admintaxkind in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.asset_numerationkind in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+BAD TYPE(System.String) of config.cashvaliditykind in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.casualcontract_flagnumbering in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.clawbackkind in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.employtaxkind in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.estimate_numerationkind in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.flagadmintax in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.flagarrearsadmintax in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.flagclawback in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.flagtax in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.flagtaxcompetency in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.invoice_numerationkind in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.mandate_numerationkind in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.parasubcontract_numerationkind in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.payments_groupingkind in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.previsionkind in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.proceeds_groupingkind in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.profservice_flagnumbering in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.secprevisionkind in : D:\easy\incomevar\incomevar_default\vistaForm.xsd
+Unknown column config.wageaddition_flagnumbering in : D:\easy\incomevar\incomevar_default\vistaForm.xsd

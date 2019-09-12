@@ -1,0 +1,142 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaMovimentoBancarioImport.xsd" xmlns:mstns="http://tempuri.org/VistaMovimentoBancarioImport.xsd" xmlns="http://tempuri.org/VistaMovimentoBancarioImport.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="banktransaction">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yban" type="xs:short" />
+              <xs:element name="nban" type="xs:int" />
+              <xs:element name="bankreference" type="xs:string" minOccurs="0" />
+              <xs:element name="transactiondate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="valuedate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="banktransactiondetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yban" type="xs:short" />
+              <xs:element name="nban" type="xs:int" />
+              <xs:element name="noperation" type="xs:int" />
+              <xs:element name="bankreference" type="xs:string" minOccurs="0" />
+              <xs:element name="transactiondate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="valuedate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="log">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" type="xs:int" minOccurs="0" />
+              <xs:element name="risultato_importazione" type="xs:string" minOccurs="0" />
+              <xs:element name="messaggio_importazione" type="xs:string" minOccurs="0" />
+              <xs:element name="identificativo" type="xs:string" minOccurs="0" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importo_esitato" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importo_da_esitare" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importo_nel_file" type="xs:decimal" minOccurs="0" />
+              <xs:element name="esitato_file" type="xs:decimal" minOccurs="0" />
+              <xs:element name="nuovo_importo_esitato" type="xs:decimal" minOccurs="0" />
+              <xs:element name="entita" type="xs:string" minOccurs="0" />
+              <xs:element name="data_operazione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="data_valuta" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="creditore_debitore" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="codice_cred_deb" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="logimportazionedocumento">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlogimportazionedocumento" type="xs:string" />
+              <xs:element name="esercdocumento" type="xs:short" />
+              <xs:element name="numdocumento" type="xs:int" />
+              <xs:element name="tipomovbancario" type="xs:string" />
+              <xs:element name="risultatoimportazione" type="xs:short" />
+              <xs:element name="importo" type="xs:decimal" />
+              <xs:element name="importoesitato" type="xs:decimal" />
+              <xs:element name="esitatofile" type="xs:decimal" />
+              <xs:element name="lastmoduser" type="xs:string" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" />
+              <xs:element name="messaggioimportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="importodaesitare" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importonelfile" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="logimportazionemovimenti">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlogimportazionedocumento" type="xs:string" />
+              <xs:element name="idlogimportazionemovimenti" type="xs:int" />
+              <xs:element name="entita" type="xs:string" minOccurs="0" />
+              <xs:element name="esercmovbancario" type="xs:short" minOccurs="0" />
+              <xs:element name="nummovbancario" type="xs:int" minOccurs="0" />
+              <xs:element name="tipomovbancario" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="rifbanca" type="xs:string" minOccurs="0" />
+              <xs:element name="dataoperazione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datavaluta" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoesitato" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flagesito" type="xs:string" minOccurs="0" />
+              <xs:element name="importodaesitare" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importonelfile" type="xs:decimal" minOccurs="0" />
+              <xs:element name="esitatofile" type="xs:decimal" minOccurs="0" />
+              <xs:element name="nuovoimportoesitato" type="xs:decimal" minOccurs="0" />
+              <xs:element name="esercdocumento" type="xs:short" minOccurs="0" />
+              <xs:element name="numdocumento" type="xs:int" minOccurs="0" />
+              <xs:element name="numoperazione" type="xs:int" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" />
+              <xs:element name="codicecreddeb" type="xs:int" minOccurs="0" />
+              <xs:element name="creditoredebitore" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:banktransaction" />
+      <xs:field xpath="mstns:yban" />
+      <xs:field xpath="mstns:nban" />
+    </xs:unique>
+    <xs:unique name="banktransactiondetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:banktransactiondetail" />
+      <xs:field xpath="mstns:yban" />
+      <xs:field xpath="mstns:nban" />
+      <xs:field xpath="mstns:noperation" />
+    </xs:unique>
+    <xs:unique name="logimportazionedocumento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:logimportazionedocumento" />
+      <xs:field xpath="mstns:idlogimportazionedocumento" />
+    </xs:unique>
+    <xs:unique name="logimportazionemovimenti_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:logimportazionemovimenti" />
+      <xs:field xpath="mstns:idlogimportazionedocumento" />
+      <xs:field xpath="mstns:idlogimportazionemovimenti" />
+    </xs:unique>
+    <xs:keyref name="logimportazionedocumentologimportazionemovimenti" refer="logimportazionedocumento_Constraint1">
+      <xs:selector xpath=".//mstns:logimportazionemovimenti" />
+      <xs:field xpath="mstns:idlogimportazionedocumento" />
+    </xs:keyref>
+    <xs:keyref name="banktransactionbanktransactiondetail" refer="Constraint1">
+      <xs:selector xpath=".//mstns:banktransactiondetail" />
+      <xs:field xpath="mstns:yban" />
+      <xs:field xpath="mstns:nban" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

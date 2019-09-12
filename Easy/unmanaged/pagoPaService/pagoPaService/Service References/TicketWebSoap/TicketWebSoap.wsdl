@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:intf="http://pmPay.it/ws/ticketWeb/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://pmPay.it/ws/ticketWeb/" targetNamespace="http://pmPay.it/ws/ticketWeb/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://pmPay.it/ws/ticketWeb/">
+      <xsd:element name="GetTicket">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="content" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetTicketResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GetTicketResult" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="GetTicketRequest">
+    <wsdl:part name="parameters" element="impl:GetTicket" />
+  </wsdl:message>
+  <wsdl:message name="GetTicketResponse">
+    <wsdl:part name="parameters" element="impl:GetTicketResponse" />
+  </wsdl:message>
+  <wsdl:portType name="TicketWebSoap">
+    <wsdl:operation name="GetTicket">
+      <wsdl:input name="GetTicketRequest" message="impl:GetTicketRequest" />
+      <wsdl:output name="GetTicketResponse" message="impl:GetTicketResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TicketWebSoapSoapBinding" type="impl:TicketWebSoap">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetTicket">
+      <wsdlsoap:operation soapAction="http://pmPay.it/ws/ticketWeb/GetTicket" />
+      <wsdl:input name="GetTicketRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetTicketResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TicketWeb">
+    <wsdl:port name="TicketWebSoap" binding="impl:TicketWebSoapSoapBinding">
+      <wsdlsoap:address location="http://service.pmpay.it/ticketWeb/services/TicketWebSoap" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

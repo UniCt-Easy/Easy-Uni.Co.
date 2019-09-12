@@ -1,0 +1,30 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistatipoinventario.xsd" xmlns:mstns="http://tempuri.org/vistatipoinventario.xsd" xmlns="http://tempuri.org/vistatipoinventario.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="multifieldkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmultifieldkind" type="xs:int" />
+              <xs:element name="fieldname" type="xs:string" />
+              <xs:element name="systype" type="xs:string" />
+              <xs:element name="allownull" type="xs:string" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="tag" type="xs:string" minOccurs="0" />
+              <xs:element name="len" type="xs:int" minOccurs="0" />
+              <xs:element name="fieldcode" type="xs:string" />
+              <xs:element name="tabname" type="xs:string" minOccurs="0" />
+              <xs:element name="ordernumber" type="xs:short" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:multifieldkind" />
+      <xs:field xpath="mstns:idmultifieldkind" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

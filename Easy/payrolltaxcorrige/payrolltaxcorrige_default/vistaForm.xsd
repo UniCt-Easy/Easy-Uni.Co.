@@ -1,0 +1,99 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="payrolltaxcorrige">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpayroll" type="xs:int" />
+              <xs:element name="idpayrolltaxcorrige" type="xs:int" />
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="taxablegross" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxablenet" type="xs:decimal" minOccurs="0" />
+              <xs:element name="employamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="adminamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idfiscaltaxregion" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tax">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="appliancebasis" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="fiscaltaxcode" type="xs:string" minOccurs="0" />
+              <xs:element name="flagunabatable" type="xs:string" minOccurs="0" />
+              <xs:element name="geoappliance" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_cost" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_debit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_pay" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="taxablecode" type="xs:string" minOccurs="0" />
+              <xs:element name="taxref" type="xs:string" />
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="maintaxcode" type="xs:int" minOccurs="0" />
+              <xs:element name="taxkind" type="xs:short" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="payroll">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpayroll" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="currentrounding" type="xs:decimal" />
+              <xs:element name="disbursementdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="enabletaxrelief" type="xs:string" />
+              <xs:element name="feegross" type="xs:decimal" />
+              <xs:element name="fiscalyear" type="xs:int" />
+              <xs:element name="flagbalance" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcomputed" type="xs:string" />
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="idresidence" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="netfee" type="xs:decimal" minOccurs="0" />
+              <xs:element name="npayroll" type="xs:int" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="workingdays" type="xs:short" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:payrolltaxcorrige" />
+      <xs:field xpath="mstns:idpayroll" />
+      <xs:field xpath="mstns:idpayrolltaxcorrige" />
+    </xs:unique>
+    <xs:unique name="tax_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tax" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:unique>
+    <xs:unique name="payroll_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:payroll" />
+      <xs:field xpath="mstns:idpayroll" />
+    </xs:unique>
+    <xs:keyref name="payrollpayrolltaxcorrige" refer="payroll_Constraint1">
+      <xs:selector xpath=".//mstns:payrolltaxcorrige" />
+      <xs:field xpath="mstns:idpayroll" />
+    </xs:keyref>
+    <xs:keyref name="taxpayrolltaxcorrige" refer="tax_Constraint1">
+      <xs:selector xpath=".//mstns:payrolltaxcorrige" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

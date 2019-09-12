@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="alert">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idalert" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="alertdetail" type="xs:string" minOccurs="0" />
+              <xs:element name="query" type="xs:string" minOccurs="0" />
+              <xs:element name="edittype" type="xs:string" minOccurs="0" />
+              <xs:element name="listtype" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dbuser">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="initpwd" type="xs:string" minOccurs="0" />
+              <xs:element name="login" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dbuseralert">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idalert" type="xs:int" />
+              <xs:element name="login" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="no_table">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnotable" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:alert" />
+      <xs:field xpath="mstns:idalert" />
+    </xs:unique>
+    <xs:unique name="dbuser_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:dbuser" />
+      <xs:field xpath="mstns:login" />
+    </xs:unique>
+    <xs:unique name="dbuseralert_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:dbuseralert" />
+      <xs:field xpath="mstns:idalert" />
+      <xs:field xpath="mstns:login" />
+    </xs:unique>
+    <xs:unique name="no_table_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:no_table" />
+      <xs:field xpath="mstns:idnotable" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="alert_dbuseralert" msdata:parent="alert" msdata:child="dbuseralert" msdata:parentkey="idalert" msdata:childkey="idalert" />
+      <msdata:Relationship name="dbuser_dbuseralert" msdata:parent="dbuser" msdata:child="dbuseralert" msdata:parentkey="login" msdata:childkey="login" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

@@ -1,0 +1,248 @@
+MIME-Version: 1.0
+Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
+X-Unsent: 1
+Content-Type: Multipart/related;
+  boundary="---------blocknote.net--PDH32YIMF9781PPIISODOMJRQ"
+
+
+-----------blocknote.net--PDH32YIMF9781PPIISODOMJRQ
+Content-Type: Text/HTML;
+  charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<HTML>
+  <HEAD>
+    <META http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf=
+-8">
+    <META name=3D"GENERATOR" content=3D"BLOCKNOTE.NET">
+    <META name=3D"source">
+    <BASEFONT face=3D"Times New Roman" size=3D"3">
+    <TITLE></TITLE><STYLE>BODY { FONT-FAMILY:Times New Roman; FONT-SIZE:1=
+2pt }
+P { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+DIV { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+</STYLE>
+  </HEAD>
+<BODY>
+<DIV align=3D"center"><STRONG><FONT size=3D"5" color=3D#0033ff>FASI DI GE=
+NERAZIONE DEI MOVIMENTI FINANZIARI</FONT></FONT></STRONG></DIV>
+<DIV align=3D"center">&nbsp;</DIV>
+<DIV align=3D"center">&nbsp;</DIV>
+<DIV>Dopo la lettura dei file =E2=80=9C<STRONG><FONT color=3D#0033ff>Stam=
+pa Riepiloghi</FONT></STRONG>=E2=80=9D e =E2=80=9C<STRONG><FONT color=3D#=
+0033ff>Stampa Versamenti</FONT></STRONG>=E2=80=9D il processo di <STRONG>=
+<FONT color=3D#0033ff>generazione</FONT></STRONG> dei <STRONG><FONT color=
+=3D#0033ff>Movimenti finanziari</FONT></STRONG> si articoler=C3=A0 in due=
+ <STRONG>FASI</STRONG> distinte che possiamo indicare come:</DIV>
+<OL>
+<OL>
+<LI>Fase del <STRONG>pagamento della Prestazione</STRONG> (LORDI)</LI>
+<LI>Fase di <STRONG>liquidazione Imposte</STRONG> (VERSAMENTI)</LI></OL>
+</OL>
+
+<DIV>Durante queste due fasi si potranno generare sia <STRONG>movimenti d=
+i Spesa</STRONG> che di <STRONG>Entrata</STRONG>, secondo uno schema che =
+dipende:</DIV>
+<BLOCKQUOTE>
+<DIV>a) dalle modalit=C3=A0 di applicazione di <STRONG>Contributi </STRON=
+G>e <STRONG>Ritenute</STRONG> o <STRONG>Recuperi</STRONG> al pagamento di=
+ una prestazione adottato in CSA;</DIV>
+<DIV>b) dalle modalit=C3=A0 di Liquidazione di <STRONG>Contributi</STRONG=
+> o <STRONG>Ritenute</STRONG> o <STRONG>Recuperi</STRONG> adottata in CSA=
+;</DIV>
+<DIV>c) dal <STRONG>segno</STRONG> degli importi letti nei file =E2=80=9C=
+Stampa Riepiloghi=E2=80=9D oppure =E2=80=9CStampa Versamenti=E2=80=9D.</D=
+IV></BLOCKQUOTE>
+
+<DIV>Affinch=C3=A9 sia possibile automatizzare la generazione di questi <=
+STRONG><FONT color=3D#0033ff>movimenti finanziari</FONT></STRONG>, c=E2=80=
+=99=C3=A8 bisogno di una fase intermedia di <STRONG>pre-elaborazione</STR=
+ONG>, successiva all=E2=80=99 importazione dei dati, detta Fase di INDIVI=
+DUAZIONE che, a partire da alcune maschere di configurazione predisposte =
+in EASY, cerca di imputare sulle singole righe importate dai file tutti (=
+o quasi tutti) i dati necessari: Anagrafiche, Voci di Bilancio di spesa e=
+ di Entrata, UPB ed eventuali Impegni preesistenti cui agganciare i movim=
+enti di spesa che saranno generati.</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>Laddove la<STRONG> fase di individuazione </STRONG>non sia riuscita =
+a calcolare tutti i dati necessari, sar=C3=A0 sempre possibile accedere t=
+ramite Easy alle singole righe del file che sono state importate per impu=
+tare manualmente i dati mancanti. Tale operazione comunque dovrebbe esser=
+e limitata a pochi casi isolati.</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>Elenchiamo ora per ciascuna delle due fasi quali tipi di <STRONG><FO=
+NT color=3D#0033ff>movimenti finanziari </FONT></STRONG>vengono generati =
+come <STRONG>automatismi</STRONG>:</DIV>
+<BLOCKQUOTE>
+<DIV>&nbsp;</DIV></BLOCKQUOTE>
+
+<OL>
+<LI><STRONG><U>Fase del pagamento della Prestazione (ELABORAZIONE LORDI)<=
+/U></STRONG></LI>
+<DIV>&nbsp;</DIV>
+<DIV>A partire dall=E2=80=99elaborazione dei file =E2=80=9C<STRONG><FONT =
+color=3D#0033ff>Stampa Riepiloghi</FONT></STRONG>=E2=80=9D e =E2=80=9C<ST=
+RONG><FONT color=3D#0033ff>Stampa Versamenti</FONT></STRONG>=E2=80=9D ven=
+gono generati i <STRONG>movimenti finanziari di Spesa</STRONG> e di <STRO=
+NG>Entrata</STRONG> relativi al <STRONG>costo di Lordi </STRONG>e <STRONG=
+>Contributi</STRONG> e all=E2=80=99applicazione di <STRONG>Ritenute</STRO=
+NG> e <STRONG>Recuperi</STRONG>. </DIV>
+<DIV>&nbsp;</DIV>
+<DIV>Le informazioni relative al <STRONG>pagamento principale</STRONG> de=
+lla <STRONG>prestazione</STRONG> sono lette dal file =E2=80=9C<STRONG><FO=
+NT color=3D#0033ff>Stampa Riepiloghi</FONT></STRONG>=E2=80=9D, mentre que=
+lle relative a <STRONG>Contributi</STRONG>, <STRONG>Ritenute</STRONG> e <=
+STRONG>Recuperi</STRONG>, sono lette dal file =E2=80=9C<STRONG><FONT colo=
+r=3D#0033ff>Stampa Versamenti</FONT></STRONG>=E2=80=9D il cui campo <STRO=
+NG>VOCE CSA</STRONG> identifica appunto o un <STRONG>Contributo</STRONG> =
+o una <STRONG>Ritenuta</STRONG> o un <STRONG>Recupero</STRONG> in CSA.</D=
+IV>
+<DIV>&nbsp;</DIV>
+<DIV>Gli importi da considerare sono:</DIV>
+<DIV>&nbsp;</DIV>
+<UL>
+<LI>nel caso del File =E2=80=9C<STRONG><FONT color=3D#0033ff>Stampa Riepi=
+loghi</FONT></STRONG>=E2=80=9D, la colonna LORDO</LI>
+<DIV>&nbsp;</DIV>
+<LI>nel caso del File =E2=80=9C<STRONG><FONT color=3D#0033ff>Stampa Versa=
+menti</FONT></STRONG>=E2=80=9D, la colonna IMP_TOT.</LI></UL>
+
+<DIV>&nbsp;</DIV>
+<DIV>In <STRONG>questa fase </STRONG>saranno generati:</DIV>
+<DIV>&nbsp;</DIV>
+<UL>
+<LI><STRONG><FONT color=3D#0033ff>Movimento finanziario di spesa principa=
+le <U>di pagamento</U> del Lordo</FONT></STRONG> della prestazione corris=
+pondenti a <STRONG>righe positive</STRONG> del file =E2=80=9C<STRONG><FON=
+T color=3D#0033ff>Stampa Riepiloghi</FONT></STRONG>=E2=80=9D;</LI>
+<DIV>&nbsp;</DIV>
+<LI><STRONG><FONT color=3D#0033ff>Movimenti finanziari di entrata <U>di r=
+icavo</U> per il Lordo</FONT></STRONG> della Prestazione corrispondenti a=
+ <STRONG>righe negative</STRONG> del file =E2=80=9C<STRONG><FONT color=3D=
+#0033ff>Stampa Riepiloghi</FONT></STRONG>=E2=80=9D;</LI>
+<DIV>&nbsp;</DIV>
+<LI>per quel che concerne i <STRONG>Contributi</STRONG>: in caso di liqui=
+dazione dei <STRONG>Contributi con transito su parite di giro</STRONG>:</=
+LI>
+<DIV>&nbsp;</DIV>
+<UL>
+<LI><STRONG><FONT color=3D#0033ff>Movimento di spesa per applicazione del=
+ costo </FONT></STRONG>del <STRONG><FONT color=3D#0033ff>contributo</FONT=
+></STRONG>;</LI>
+<DIV>&nbsp;</DIV>
+<LI><STRONG><FONT color=3D#0033ff>Movimento di entrata per applicazione d=
+el contributo</FONT></STRONG> su <STRONG><FONT color=3D#0033ff>partita di=
+ giro di entrata</FONT></STRONG>.</LI>
+<DIV>&nbsp;</DIV></UL>
+
+<DIV>A tal proposito =C3=A8 bene ricordare che, nell'ipotesi in cui i con=
+tributi venissero liquidati &nbsp;in maniera diretta, in questa fase NON =
+verrebbero generati movimenti legati all=E2=80=99applicazione del Contrib=
+uto</DIV>
+<DIV>&nbsp;</DIV></UL>
+
+<UL>
+<LI>per quel che concerne le <STRONG>Ritenute</STRONG>:</LI>
+<DIV>&nbsp;</DIV>
+<UL>
+<LI><STRONG><FONT color=3D#0033ff>Movimento finanziario di Entrata</FONT>=
+</STRONG> in presenza di <STRONG>importi positivi</STRONG> del file =E2=80=
+=9CStampa Versamenti=E2=80=9D</LI>
+<DIV>&nbsp;</DIV>
+<LI><STRONG><FONT color=3D#0033ff>Movimento finanziario di Spesa</FONT></=
+STRONG> in presenza di <STRONG>importi negativi</STRONG> del file =E2=80=9C=
+Stampa Versamenti=E2=80=9D.</LI></UL>
+
+<DIV>&nbsp;</DIV>
+<DIV>Nel caso delle Ritenute, infatti, c=E2=80=99=C3=A8 la possibilit=C3=A0=
+ che si presentino, in caso di Conguaglio, delle righe a importo negativo=
+=2E</DIV>
+<DIV>&nbsp;</DIV></UL>
+
+<UL>
+<LI>per quel che concerne i <STRONG>Recuperi</STRONG> (sia nel caso di Re=
+cuperi gestiti direttamente o con recupero con Transito da Partite di gir=
+o):</LI>
+<DIV>&nbsp;</DIV>
+<UL>
+<LI><STRONG><FONT color=3D#0033ff>Movimento di entrata </FONT></STRONG>pe=
+r applicazione <STRONG><FONT color=3D#0033ff>recupero</FONT></STRONG>.</L=
+I>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV></UL>
+</UL>
+
+<DIV>&nbsp;</DIV></OL>
+
+<OL>
+<LI><STRONG><U>Fase di liquidazione Imposte (ELABORAZIONE DEI VERSAMENTI)=
+</U></STRONG></LI>
+<DIV>&nbsp;</DIV>
+<DIV>A partire dal file =E2=80=9C<STRONG><FONT color=3D#0033ff>Stampa Ver=
+samenti</FONT></STRONG>=E2=80=9D vengono generati i <STRONG>movimenti fin=
+anziari di Spesa</STRONG> e di <STRONG>Entrata</STRONG> relativi al <STRO=
+NG>Versamento di Contributi</STRONG>, <STRONG>Ritenute</STRONG> e <STRONG=
+>Recuperi</STRONG>. </DIV>
+<DIV>&nbsp;</DIV>
+<DIV>In fase di <STRONG><FONT color=3D#0033ff>elaborazione dei versamenti=
+</FONT></STRONG>, poich=C3=A8 nel caso delle <STRONG>Ritenute</STRONG> e =
+dei <STRONG>Contributi</STRONG> c=E2=80=99=C3=A8 la possibilit=C3=A0 di a=
+vere, ad esempio in caso di Conguaglio, delle righe a importo negativo, s=
+aranno gestiti diversamente i casi degli importi positivi o negativi.</DI=
+V>
+<DIV>&nbsp;</DIV>
+<DIV>In particolare, ove si trattasse di:</DIV>
+<DIV>&nbsp;</DIV>
+<UL>
+<LI><STRONG><U>Ritenute</U></STRONG>, saranno generati:</LI>
+<DIV>&nbsp;</DIV>
+<UL>
+<LI><FONT color=3D#0033ff> <STRONG>Movimenti finanziari di spesa</FONT></=
+STRONG> per il versamento di Ritenute;</LI>
+<DIV>&nbsp;</DIV></UL>
+
+<LI><STRONG>Contributi gestiti con transito da Partite di Giro</STRONG>, =
+saranno generati:</LI>
+<DIV>&nbsp;</DIV>
+<UL>
+<LI><STRONG><FONT color=3D#0033ff>Movimenti finanziari di spesa </FONT></=
+STRONG>per il versamento di Contributi;</LI>
+<DIV>&nbsp;</DIV></UL>
+
+<LI><STRONG><U>Recuperi</U></STRONG>, saranno generati:</LI>
+<DIV>&nbsp;</DIV>
+<UL>
+<LI><FONT color=3D#0033ff> <STRONG>Movimenti finanziari di spesa</FONT></=
+STRONG> per il versamento di Recuperi;</LI>
+<LI><STRONG><FONT color=3D#0033ff>Movimenti finanziari di entrata </FONT>=
+</STRONG>post-versamento di Recuperi;</LI>
+<DIV>&nbsp;</DIV></UL>
+
+<LI><STRONG><U>Contributi gestiti con Liquidazione Diretta</U></STRONG>, =
+saranno generati:</LI>
+<DIV>&nbsp;</DIV>
+<UL>
+<LI>Movimenti finanziari di spesa per il versamento sulle voci di costo d=
+el tipo contratto o contratto;</LI>
+<LI>Movimenti finanziari di spesa per il versamento con collegamento a ev=
+entuale movimento esistente</LI></UL>
+</UL>
+
+<DIV>&nbsp;</DIV>
+<DIV>In presenza di righe a importo negativo nel caso di <STRONG>Contribu=
+ti</STRONG> e <STRONG>Ritenute</STRONG> saranno generati anche:</DIV>
+<DIV>&nbsp;</DIV>
+<UL>
+<LI><STRONG><FONT color=3D#0033ff>Movimenti finanziari di entrata </FONT>=
+</STRONG>per l'<STRONG>incasso </STRONG>di <STRONG>Ritenute</STRONG> dall=
+'Erario;</LI>
+<LI><STRONG><FONT color=3D#0033ff>Movimenti finanziari di entrata</FONT><=
+/STRONG> per l<STRONG>'incasso</STRONG> di <STRONG>Contributi</STRONG> da=
+ll'Erario.</LI></UL>
+</OL>
+
+</BODY>
+</HTML>
+
+-----------blocknote.net--PDH32YIMF9781PPIISODOMJRQ--

@@ -1,0 +1,77 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaFrmBusinessRuleControls.xsd" xmlns:mstns="http://tempuri.org/VistaFrmBusinessRuleControls.xsd" xmlns="http://tempuri.org/VistaFrmBusinessRuleControls.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="customobject">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="objectname" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="isreal" type="xs:string" />
+              <xs:element name="realtable" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="audit">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaudit" type="xs:string" />
+              <xs:element name="severity" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="flagsystem" type="xs:string" minOccurs="0" />
+              <xs:element name="consequence" type="xs:string" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="auditcheck">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="opkind" type="xs:string" />
+              <xs:element name="idaudit" type="xs:string" />
+              <xs:element name="idcheck" type="xs:short" />
+              <xs:element name="sqlcmd" type="xs:string" minOccurs="0" />
+              <xs:element name="message" type="xs:string" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="precheck" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_cash" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_comp" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_both" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_credit" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_proceeds" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customobject" />
+      <xs:field xpath="mstns:objectname" />
+    </xs:unique>
+    <xs:unique name="audit_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:audit" />
+      <xs:field xpath="mstns:idaudit" />
+    </xs:unique>
+    <xs:unique name="auditcheck_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:auditcheck" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:opkind" />
+      <xs:field xpath="mstns:idaudit" />
+      <xs:field xpath="mstns:idcheck" />
+    </xs:unique>
+    <xs:keyref name="auditauditcheck" refer="audit_Constraint1">
+      <xs:selector xpath=".//mstns:auditcheck" />
+      <xs:field xpath="mstns:idaudit" />
+    </xs:keyref>
+    <xs:keyref name="customobjectauditcheck" refer="Constraint1">
+      <xs:selector xpath=".//mstns:auditcheck" />
+      <xs:field xpath="mstns:tablename" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,2 @@
+EXEC rebuild_sortinglink
+GO

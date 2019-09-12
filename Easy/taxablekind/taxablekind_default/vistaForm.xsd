@@ -1,0 +1,61 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaTipoImponibileLista.xsd" xmlns:mstns="http://tempuri.org/VistaTipoImponibileLista.xsd" xmlns="http://tempuri.org/VistaTipoImponibileLista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="taxablekind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="taxablecode" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="evaluationorder" type="xs:int" />
+              <xs:element name="idtaxablekind" type="xs:string" minOccurs="0" />
+              <xs:element name="roundingkind" type="xs:string" minOccurs="0" />
+              <xs:element name="spcalcrefertaxable" type="xs:string" />
+              <xs:element name="spcalcannualtaxable" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tipoimponibile1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="taxablecode" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="evaluationorder" type="xs:int" />
+              <xs:element name="idtaxablekind" type="xs:string" minOccurs="0" />
+              <xs:element name="roundingkind" type="xs:string" minOccurs="0" />
+              <xs:element name="spcalcrefertaxable" type="xs:string" />
+              <xs:element name="spcalcannualtaxable" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:taxablekind" />
+      <xs:field xpath="mstns:taxablecode" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="tipoimponibile1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tipoimponibile1" />
+      <xs:field xpath="mstns:taxablecode" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="Constraint2">
+      <xs:selector xpath=".//mstns:tipoimponibile1" />
+      <xs:field xpath="mstns:taxablecode" />
+    </xs:unique>
+    <xs:keyref name="tipoimponibile1taxablekind" refer="Constraint2">
+      <xs:selector xpath=".//mstns:taxablekind" />
+      <xs:field xpath="mstns:taxablecode" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

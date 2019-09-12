@@ -1,0 +1,191 @@
+﻿/*
+    fieldset .stdfieldset {
+    padding-top:10px;
+    border:1px solid #666;
+    border-radius:8px;
+    box-shadow:0 0 10px #666;
+
+}
+
+fieldset .stdfieldset legend {
+  float:left;
+  margin-top:-20px;
+}
+*/
+
+
+
+div.stdfieldset > fieldset {
+     border: 1px groove #048; 
+     border-radius: 8px; 
+     padding: 0 1.4em 1.4em 1.4em; 
+     margin: 0 0 1.5em 0; 
+     -webkit-box-shadow: 0px 0px 0px 0px #000; 
+     box-shadow: 0px 0px 0px 0px #000;
+ }
+
+div.stdfieldset  legend {
+    text-align: left; 
+    width: auto; 
+    padding: 0 10px; 
+    border-bottom: none;
+    color: #004080;
+}
+
+div.gbox > fieldset {
+     border: 1px groove #048; 
+     border-radius: 8px; 
+     padding: 0 1.4em 1.4em 1.4em; 
+     margin: 0 0 1.5em 0; 
+     -webkit-box-shadow: 0px 0px 0px 0px #000; 
+     box-shadow: 0px 0px 0px 0px #000;
+ }
+
+div.gbox  legend {
+    text-align: left; 
+    width: auto; 
+    padding: 0 10px; 
+    border-bottom: none;
+    color: #004080;
+}
+
+/*
+ fieldset .stdfieldset legend + * {
+        clear: both;
+    }
+*/
+
+input::-ms-clear {
+  display: none;
+}
+
+
+
+/* ICONS */
+h1 .fa, h2 .fa, h3 .fa, h4 .fa {
+	background-color: #eb641f;
+}
+
+/* TITLE */
+h1.underline, h2.underline, h3.underline, h4.underline {
+	border-bottom-color: #004080;
+}
+
+/* LINK */
+a:hover,
+#main a:not(.btn):visited:hover {
+	color: #eb641f;
+}
+
+/* PANEL */
+.panel-primary {
+	border-color: #004080;
+}
+.panel-primary > .panel-heading {
+	background-color: #004080;
+	border-color: #004080;
+}
+
+/* TABS */
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+	border-top-color: #eb641f;
+}
+
+/* ENTRYPOINT */
+.btn-default.btn-entrypoint:not(:hover) {
+	border-color: #004080;
+	color: #004080 !important;
+}
+.btn-primary.btn-entrypoint:not(:hover) {
+	background-color: #004080;
+	border-color: #004080;
+}
+.btn-default.btn-entrypoint:active,
+.btn-default.btn-entrypoint:hover,
+.btn-default.btn-entrypoint:active:hover,
+.btn-info.btn-entrypoint:active,
+.btn-info.btn-entrypoint:hover,
+.btn-info.btn-entrypoint:active:hover {
+	background-color: #eb641f;
+	border-color: #eb641f;
+}
+
+/* TABLE */
+.table > thead > tr > th {
+	color: #004080;
+}
+.table-header > thead > tr > th {
+	background-color: #004080;
+	color: #fff;
+}
+caption {
+	color: #004080;
+}
+
+/* PAGINATION */
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+	background-color: #004080;
+}
+
+/* FORM */
+label,
+legend,
+.input-group-addon {
+	color: #004080;
+}
+
+/* BUTTON */
+.btn-primary:active,
+.btn-primary:hover,
+.btn-primary:active:hover,
+.btn-default:active,
+.btn-default:hover,
+.btn-default:active:hover,
+.btn-danger:active,
+.btn-danger:hover,
+.btn-danger:active:hover {
+	background-color: #eb641f;
+	border-color: #eb641f;
+}
+a.btn-default:active,
+a.btn-default:hover,
+a.btn-default:active:hover {
+	border-color: #eb641f;
+	color: #eb641f;
+}
+
+/* CAROUSEL */
+.carousel-indicators .active {
+	background-color: #eb641f;
+	border-color: #eb641f;
+}
+.carousel-btn > .fa {
+	color: #004080;
+}
+.carousel-btn > .fa:hover {
+	color: #eb641f;
+}
+
+fieldset.smart-tab {
+     border: 1px groove #048; 
+     border-radius: 8px; 
+     padding: 0 1.4em 1.4em 1.4em; 
+     margin: 0 0 1.5em 0; 
+     -webkit-box-shadow: 0px 0px 0px 0px #000; 
+     box-shadow: 0px 0px 0px 0px #000;
+ }
+
+legend.smart-tab {
+    text-align: left; 
+    width: auto; 
+    padding: 0 10px; 
+    border-bottom: none;
+    color: #004080;
+}

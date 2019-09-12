@@ -1,0 +1,11 @@
+BAD TYPE(System.String) of locationlevel.nlevel in : D:\easy\location\locationview_tree\vistaForm.xsd
+Unknown column locationlevel.codekind in : D:\easy\location\locationview_tree\vistaForm.xsd
+BAD TYPE(System.Int16) of locationlevel.codelen in : D:\easy\location\locationview_tree\vistaForm.xsd
+Unknown column locationlevel.flagrestart in : D:\easy\location\locationview_tree\vistaForm.xsd
+Unknown column locationlevel.flagusable in : D:\easy\location\locationview_tree\vistaForm.xsd
+BAD TYPE(System.String) of locationview.idlocation in : D:\easy\location\locationview_tree\vistaForm.xsd
+BAD TYPE(System.String) of locationview.nlevel in : D:\easy\location\locationview_tree\vistaForm.xsd
+BAD TYPE(System.String) of locationview.paridlocation in : D:\easy\location\locationview_tree\vistaForm.xsd
+Wrong Primary key LENGTH in locationview in : D:\easy\location\locationview_tree\vistaForm.xsd
+BAD TYPE(System.String) of locationsorting.idlocation in : D:\easy\location\location_default\vistaForm.xsd
+Wrong Primary key NAME (idlocation instead of idsorkind in : D:\easy\location\location_default\vistaForm.xsd

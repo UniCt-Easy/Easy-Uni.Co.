@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsContratto" targetNamespace="http://tempuri.org/dsContratto.xsd" xmlns:mstns="http://tempuri.org/dsContratto.xsd" xmlns="http://tempuri.org/dsContratto.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsContratto" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="parasubcontract">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="ycon" type="xs:int" />
+              <xs:element name="ncon" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="duty" type="xs:string" minOccurs="0" />
+              <xs:element name="idpayrollkind" type="xs:string" minOccurs="0" />
+              <xs:element name="idser" type="xs:int" />
+              <xs:element name="employed" type="xs:string" />
+              <xs:element name="payrollccinfo" type="xs:string" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="monthlen" type="xs:int" />
+              <xs:element name="grossamount" type="xs:decimal" />
+              <xs:element name="idpat" type="xs:int" minOccurs="0" />
+              <xs:element name="matricula" type="xs:int" minOccurs="0" />
+              <xs:element name="idmatriculabook" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_denominazione" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_causa" type="xs:string" minOccurs="0" />
+              <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="parasubcontractyear">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="regionaltax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="countrytax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="citytax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ratequantity" type="xs:int" minOccurs="0" />
+              <xs:element name="startmonth" type="xs:int" minOccurs="0" />
+              <xs:element name="suspendedregionaltax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="suspendedcitytax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="suspendedcountrytax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idotherinsurance" type="xs:string" minOccurs="0" />
+              <xs:element name="activitycode" type="xs:string" minOccurs="0" />
+              <xs:element name="idemenscontractkind" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="notaxappliance" type="xs:string" minOccurs="0" />
+              <xs:element name="applybrackets" type="xs:string" minOccurs="0" />
+              <xs:element name="highertax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxablecud" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cuddays" type="xs:short" minOccurs="0" />
+              <xs:element name="taxablecontract" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ndays" type="xs:int" minOccurs="0" />
+              <xs:element name="taxablepension" type="xs:decimal" minOccurs="0" />
+              <xs:element name="fiscaldeduction" type="xs:decimal" minOccurs="0" />
+              <xs:element name="notaxdeduction" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxablegross" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxablenet" type="xs:decimal" minOccurs="0" />
+              <xs:element name="startcompetency" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stopcompetency" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idresidence" type="xs:int" minOccurs="0" />
+              <xs:element name="flagbonusappliance" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="parasubcontractfamily">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="idfamily" type="xs:int" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="idaffinity" type="xs:string" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="idcitybirth" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="gender" type="xs:string" minOccurs="0" />
+              <xs:element name="flagforeign" type="xs:string" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="startapplication" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stopapplication" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="appliancepercentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="starthandicap" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="foreignresident" type="xs:string" />
+              <xs:element name="flagdependent" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="contrattonontrasferibile">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="_x0021_causa" type="xs:string" minOccurs="0" />
+              <xs:element name="ycon" type="xs:int" />
+              <xs:element name="ncon" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="duty" type="xs:string" minOccurs="0" />
+              <xs:element name="idpayrollkind" type="xs:string" minOccurs="0" />
+              <xs:element name="idser" type="xs:int" />
+              <xs:element name="employed" type="xs:string" />
+              <xs:element name="payrollccinfo" type="xs:string" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="monthlen" type="xs:int" />
+              <xs:element name="grossamount" type="xs:decimal" />
+              <xs:element name="idpat" type="xs:int" minOccurs="0" />
+              <xs:element name="matricula" type="xs:int" minOccurs="0" />
+              <xs:element name="idmatriculabook" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_denominazione" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="otherinsurance">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="idotherinsurance" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inpsactivity">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="activitycode" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="emenscontractkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idemenscontractkind" type="xs:string" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="flagactivityrequested" type="xs:string" minOccurs="0" />
+              <xs:element name="module" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="payroll">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpayroll" type="xs:int" />
+              <xs:element name="fiscalyear" type="xs:int" />
+              <xs:element name="enabletaxrelief" type="xs:string" />
+              <xs:element name="currentrounding" type="xs:decimal" />
+              <xs:element name="feegross" type="xs:decimal" />
+              <xs:element name="netfee" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="disbursementdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="flagcomputed" type="xs:string" />
+              <xs:element name="flagbalance" type="xs:string" minOccurs="0" />
+              <xs:element name="workingdays" type="xs:short" />
+              <xs:element name="idresidence" type="xs:int" minOccurs="0" />
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="npayroll" type="xs:int" />
+              <xs:element name="flagsummarybalance" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:parasubcontract" />
+      <xs:field xpath="mstns:idcon" />
+    </xs:unique>
+    <xs:unique name="parasubcontractyear_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:parasubcontractyear" />
+      <xs:field xpath="mstns:ayear" />
+      <xs:field xpath="mstns:idcon" />
+    </xs:unique>
+    <xs:unique name="parasubcontractfamily_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:parasubcontractfamily" />
+      <xs:field xpath="mstns:idcon" />
+      <xs:field xpath="mstns:idfamily" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="contrattonontrasferibile_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:contrattonontrasferibile" />
+      <xs:field xpath="mstns:idcon" />
+    </xs:unique>
+    <xs:unique name="otherinsurance_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:otherinsurance" />
+      <xs:field xpath="mstns:ayear" />
+      <xs:field xpath="mstns:idotherinsurance" />
+    </xs:unique>
+    <xs:unique name="inpsactivity_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inpsactivity" />
+      <xs:field xpath="mstns:ayear" />
+      <xs:field xpath="mstns:activitycode" />
+    </xs:unique>
+    <xs:unique name="emenscontractkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:emenscontractkind" />
+      <xs:field xpath="mstns:ayear" />
+      <xs:field xpath="mstns:idemenscontractkind" />
+    </xs:unique>
+    <xs:unique name="payroll_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:payroll" />
+      <xs:field xpath="mstns:idpayroll" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="parasubcontractpayroll" msdata:parent="parasubcontract" msdata:child="payroll" msdata:parentkey="idcon" msdata:childkey="idcon" />
+      <msdata:Relationship name="parasubcontractparasubcontractfamily" msdata:parent="parasubcontract" msdata:child="parasubcontractfamily" msdata:parentkey="idcon" msdata:childkey="idcon" />
+      <msdata:Relationship name="parasubcontractparasubcontractyear" msdata:parent="parasubcontract" msdata:child="parasubcontractyear" msdata:parentkey="idcon" msdata:childkey="idcon" />
+      <msdata:Relationship name="otherinsuranceparasubcontractyear" msdata:parent="otherinsurance" msdata:child="parasubcontractyear" msdata:parentkey="ayear idotherinsurance" msdata:childkey="ayear idotherinsurance" />
+      <msdata:Relationship name="inpsactivityparasubcontractyear" msdata:parent="inpsactivity" msdata:child="parasubcontractyear" msdata:parentkey="ayear activitycode" msdata:childkey="ayear activitycode" />
+      <msdata:Relationship name="emenscontractkindparasubcontractyear" msdata:parent="emenscontractkind" msdata:child="parasubcontractyear" msdata:parentkey="ayear idemenscontractkind" msdata:childkey="ayear idemenscontractkind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

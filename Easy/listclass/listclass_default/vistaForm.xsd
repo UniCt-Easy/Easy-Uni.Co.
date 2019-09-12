@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="listclass">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlistclass" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="codelistclass" type="xs:string" />
+              <xs:element name="paridlistclass" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="authrequired" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="idinv" type="xs:int" minOccurs="0" />
+              <xs:element name="assetkind" type="xs:string" minOccurs="0" />
+              <xs:element name="va3type" type="xs:string" minOccurs="0" />
+              <xs:element name="idintrastatsupplymethod" type="xs:int" minOccurs="0" />
+              <xs:element name="intra12operationkind" type="xs:string" minOccurs="0" />
+              <xs:element name="flagvisiblekind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="idfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accmotiveapplied">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaccmotive" type="xs:string" />
+              <xs:element name="paridaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="motive" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idepoperation" type="xs:string" minOccurs="0" />
+              <xs:element name="epoperation" type="xs:string" minOccurs="0" />
+              <xs:element name="in_use" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="intrastatservice">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idintrastatservice" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="code" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="intrastatsupplymethod">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idintrastatsupplymethod" type="xs:int" />
+              <xs:element name="code" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="listclassyear">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlistclass" type="xs:string" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="idintrastatservice" type="xs:int" minOccurs="0" />
+              <xs:element name="idintrastatcode" type="xs:int" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="intrastatcode">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="code" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idintrastatmeasure" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="idintrastatcode" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="intrastatmeasure">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idintrastatmeasure" type="xs:int" />
+              <xs:element name="code" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="intrastatcodeview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="idintrastatcode" type="xs:int" />
+              <xs:element name="code" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idintrastatmeasure" type="xs:int" minOccurs="0" />
+              <xs:element name="measurecode" type="xs:string" minOccurs="0" />
+              <xs:element name="measuredescription" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inventorytreeview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinv" type="xs:int" />
+              <xs:element name="codeinv" type="xs:string" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="leveldescr" type="xs:string" />
+              <xs:element name="paridinv" type="xs:int" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idinv_lev1" type="xs:int" />
+              <xs:element name="codeinv_lev1" type="xs:string" />
+              <xs:element name="lookupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="finmotive">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfinmotive" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="paridfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accmotiveapplied_credit">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaccmotive" type="xs:string" />
+              <xs:element name="paridaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="motive" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idepoperation" type="xs:string" minOccurs="0" />
+              <xs:element name="epoperation" type="xs:string" minOccurs="0" />
+              <xs:element name="in_use" type="xs:string" />
+              <xs:element name="flagamm" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdep" type="xs:string" minOccurs="0" />
+              <xs:element name="expensekind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="listclassyearview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlistclass" type="xs:string" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="codelistclass" type="xs:string" />
+              <xs:element name="paridlistclass" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="authrequired" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="motive" type="xs:string" minOccurs="0" />
+              <xs:element name="idinv" type="xs:int" minOccurs="0" />
+              <xs:element name="codeinv" type="xs:string" minOccurs="0" />
+              <xs:element name="inventorytree" type="xs:string" minOccurs="0" />
+              <xs:element name="assetkind" type="xs:string" minOccurs="0" />
+              <xs:element name="va3type" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="idintrastatsupplymethod" type="xs:int" minOccurs="0" />
+              <xs:element name="intra12operationkind" type="xs:string" minOccurs="0" />
+              <xs:element name="idintrastatservice" type="xs:int" minOccurs="0" />
+              <xs:element name="codeintrastatservice" type="xs:string" minOccurs="0" />
+              <xs:element name="intrastatservice" type="xs:string" minOccurs="0" />
+              <xs:element name="idintrastatcode" type="xs:int" minOccurs="0" />
+              <xs:element name="codeintrastatcode" type="xs:string" minOccurs="0" />
+              <xs:element name="intrastatcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idintrastatmeasure" type="xs:int" minOccurs="0" />
+              <xs:element name="measurecode" type="xs:string" minOccurs="0" />
+              <xs:element name="measuredescription" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="flagvisiblekind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="idfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="fincodemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="finmotive" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:listclass" />
+      <xs:field xpath="mstns:idlistclass" />
+    </xs:unique>
+    <xs:unique name="accmotiveapplied_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotiveapplied" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
+    <xs:unique name="intrastatservice_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:intrastatservice" />
+      <xs:field xpath="mstns:idintrastatservice" />
+    </xs:unique>
+    <xs:unique name="intrastatsupplymethod_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:intrastatsupplymethod" />
+      <xs:field xpath="mstns:idintrastatsupplymethod" />
+    </xs:unique>
+    <xs:unique name="listclassyear_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:listclassyear" />
+      <xs:field xpath="mstns:idlistclass" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="intrastatcode_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:intrastatcode" />
+      <xs:field xpath="mstns:idintrastatcode" />
+    </xs:unique>
+    <xs:unique name="intrastatmeasure_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:intrastatmeasure" />
+      <xs:field xpath="mstns:idintrastatmeasure" />
+    </xs:unique>
+    <xs:unique name="intrastatcodeview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:intrastatcodeview" />
+      <xs:field xpath="mstns:idintrastatcode" />
+    </xs:unique>
+    <xs:unique name="inventorytreeview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventorytreeview" />
+      <xs:field xpath="mstns:idinv" />
+    </xs:unique>
+    <xs:unique name="finmotive_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finmotive" />
+      <xs:field xpath="mstns:idfinmotive" />
+    </xs:unique>
+    <xs:unique name="accmotiveapplied_credit_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotiveapplied_credit" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
+    <xs:unique name="listclassyearview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:listclassyearview" />
+      <xs:field xpath="mstns:idlistclass" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="intrastatmeasure_intrastatcode" msdata:parent="intrastatmeasure" msdata:child="intrastatcode" msdata:parentkey="idintrastatmeasure" msdata:childkey="idintrastatmeasure" />
+      <msdata:Relationship name="listclass_listclassyear" msdata:parent="listclass" msdata:child="listclassyear" msdata:parentkey="idlistclass" msdata:childkey="idlistclass" />
+      <msdata:Relationship name="intrastatservice_listclassyear" msdata:parent="intrastatservice" msdata:child="listclassyear" msdata:parentkey="idintrastatservice" msdata:childkey="idintrastatservice" />
+      <msdata:Relationship name="intrastatcode_listclassyear" msdata:parent="intrastatcode" msdata:child="listclassyear" msdata:parentkey="idintrastatcode" msdata:childkey="idintrastatcode" />
+      <msdata:Relationship name="FK_accmotiveapplied_listclass" msdata:parent="accmotiveapplied" msdata:child="listclass" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotive" />
+      <msdata:Relationship name="FK_listclass_listclass" msdata:parent="listclass" msdata:child="listclass" msdata:parentkey="idlistclass" msdata:childkey="paridlistclass" />
+      <msdata:Relationship name="inventorytreeview_listclass" msdata:parent="inventorytreeview" msdata:child="listclass" msdata:parentkey="idinv" msdata:childkey="idinv" />
+      <msdata:Relationship name="intrastatsupplymethod_listclass" msdata:parent="intrastatsupplymethod" msdata:child="listclass" msdata:parentkey="idintrastatsupplymethod" msdata:childkey="idintrastatsupplymethod" />
+      <msdata:Relationship name="finmotive_listclass" msdata:parent="finmotive" msdata:child="listclass" msdata:parentkey="idfinmotive" msdata:childkey="idfinmotive" />
+      <msdata:Relationship name="accmotiveapplied_credit_listclass" msdata:parent="accmotiveapplied_credit" msdata:child="listclass" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivecredit" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

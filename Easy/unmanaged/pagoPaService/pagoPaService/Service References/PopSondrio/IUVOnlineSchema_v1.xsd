@@ -1,0 +1,1131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:commondata="http://schema.data.common.ws.popso.it/v9" xmlns:iuv="http://schema.iuvonline.nodospcit.ws.popso.it/v1" targetNamespace="http://schema.iuvonline.nodospcit.ws.popso.it/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="TipiData_v9.0/TipiComuniAnagrafeSchema_v9.0.xsd" namespace="http://schema.data.common.ws.popso.it/v9" />
+  <xsd:complexType name="IUVOnlineCreateRequest">
+    <xsd:sequence>
+      <xsd:element name="testata" type="iuv:Testata" />
+      <xsd:element name="IUVOnlineCreateRequestData" type="iuv:IUVOnlineCreateRequestData" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IUVOnlineCreateResponse">
+    <xsd:sequence>
+      <xsd:element name="testata" type="iuv:Testata" />
+      <xsd:element name="IUVOnlineCreateResponseData" type="iuv:IUVOnlineCreateResponseData" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IUVOnlineUpdateRequest">
+    <xsd:sequence>
+      <xsd:element name="testata" type="iuv:Testata" />
+      <xsd:element name="IUVOnlineUpdateRequestData" type="iuv:IUVOnlineUpdateRequestData" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IUVOnlineUpdateResponse">
+    <xsd:sequence>
+      <xsd:element name="testata" type="iuv:Testata" />
+      <xsd:element name="IUVOnlineUpdateResponseData" type="iuv:IUVOnlineUpdateResponseData" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IUVOnlineDeleteRequest">
+    <xsd:sequence>
+      <xsd:element name="testata" type="iuv:Testata" />
+      <xsd:element name="IUVOnlineDeleteRequestData" type="iuv:IUVOnlineDeleteRequestData" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IUVOnlineDeleteResponse">
+    <xsd:sequence>
+      <xsd:element name="testata" type="iuv:Testata" />
+      <xsd:element name="IUVOnlineDeleteResponseData" type="iuv:IUVOnlineDeleteResponseData" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="IUVOnlineCreateRequest" type="iuv:IUVOnlineCreateRequest" />
+  <xsd:element name="IUVOnlineCreateResponse" type="iuv:IUVOnlineCreateResponse" />
+  <xsd:element name="IUVOnlineUpdateRequest" type="iuv:IUVOnlineUpdateRequest" />
+  <xsd:element name="IUVOnlineUpdateResponse" type="iuv:IUVOnlineUpdateResponse" />
+  <xsd:element name="IUVOnlineDeleteRequest" type="iuv:IUVOnlineDeleteRequest" />
+  <xsd:element name="IUVOnlineDeleteResponse" type="iuv:IUVOnlineDeleteResponse" />
+  <xsd:complexType name="IUVOnlineCreateRequestData">
+    <xsd:sequence>
+      <xsd:element name="numero_disposizioni">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:nonNegativeInteger">
+            <xsd:minInclusive value="1" />
+            <xsd:maxInclusive value="24" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="informazioni_banca" type="iuv:InformazioniBanca" />
+      <xsd:element name="informazioni_debitore" type="iuv:InformazioniDebitore" />
+      <xsd:element minOccurs="1" maxOccurs="24" name="informazioni_pagamento" type="iuv:InformazioniPagamento" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IUVOnlineUpdateRequestData">
+    <xsd:sequence>
+      <xsd:element name="informazioni_banca" type="iuv:InformazioniBanca" />
+      <xsd:element name="informazioni_debitore_modifica" type="iuv:InformazioniDebitoreModifica" />
+      <xsd:element name="informazioni_pagamento_modifica" type="iuv:InformazioniPagamentoModifica" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IUVOnlineDeleteRequestData">
+    <xsd:sequence>
+      <xsd:element minOccurs="1" maxOccurs="1" name="codice_identificativo_bollettino">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:length value="18" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IUVOnlineDeleteResponseData">
+    <xsd:sequence>
+      <xsd:element name="timestamp_annullamento" type="xsd:dateTime" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Testata">
+    <xsd:sequence>
+      <xsd:element name="id_transazione" type="xsd:string" />
+      <xsd:element name="codice_servizio" type="iuv:CodiceServizio" />
+      <xsd:element name="codice_sottoservizio" type="iuv:CodiceSottoServizio" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="InformazioniBanca">
+    <xsd:sequence>
+      <xsd:element name="codice_servizio" type="iuv:CodiceServizio" />
+      <xsd:element name="codice_sottoservizio" type="iuv:CodiceSottoServizio" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="numero_lista" type="iuv:NumeroLista" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="InformazioniDebitore">
+    <xsd:sequence>
+      <xsd:element name="tipo_identificativo_univoco">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:length value="1" />
+            <xsd:enumeration value="F" />
+            <xsd:enumeration value="G" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="codice_fiscale_debitore" type="commondata:CodiceFiscale" />
+      <xsd:element name="codice_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="35" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="anagrafica_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="70" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="indirizzo_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="70" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="civico_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="16" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="cap_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="16" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="localita_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="35" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="provincia_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="35" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="nazione_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:length value="2" />
+            <xsd:enumeration value="AF" />
+            <xsd:enumeration value="AL" />
+            <xsd:enumeration value="DZ" />
+            <xsd:enumeration value="AD" />
+            <xsd:enumeration value="AO" />
+            <xsd:enumeration value="AI" />
+            <xsd:enumeration value="AQ" />
+            <xsd:enumeration value="AG" />
+            <xsd:enumeration value="SA" />
+            <xsd:enumeration value="AR" />
+            <xsd:enumeration value="AM" />
+            <xsd:enumeration value="AW" />
+            <xsd:enumeration value="AU" />
+            <xsd:enumeration value="AT" />
+            <xsd:enumeration value="AZ" />
+            <xsd:enumeration value="BS" />
+            <xsd:enumeration value="BH" />
+            <xsd:enumeration value="BD" />
+            <xsd:enumeration value="BB" />
+            <xsd:enumeration value="BE" />
+            <xsd:enumeration value="BZ" />
+            <xsd:enumeration value="BJ" />
+            <xsd:enumeration value="BM" />
+            <xsd:enumeration value="BT" />
+            <xsd:enumeration value="BY" />
+            <xsd:enumeration value="MM" />
+            <xsd:enumeration value="BO" />
+            <xsd:enumeration value="BA" />
+            <xsd:enumeration value="BW" />
+            <xsd:enumeration value="BR" />
+            <xsd:enumeration value="BN" />
+            <xsd:enumeration value="BG" />
+            <xsd:enumeration value="BF" />
+            <xsd:enumeration value="BI" />
+            <xsd:enumeration value="KH" />
+            <xsd:enumeration value="CM" />
+            <xsd:enumeration value="CA" />
+            <xsd:enumeration value="CV" />
+            <xsd:enumeration value="TD" />
+            <xsd:enumeration value="CL" />
+            <xsd:enumeration value="CN" />
+            <xsd:enumeration value="CY" />
+            <xsd:enumeration value="VA" />
+            <xsd:enumeration value="CO" />
+            <xsd:enumeration value="KM" />
+            <xsd:enumeration value="KP" />
+            <xsd:enumeration value="KR" />
+            <xsd:enumeration value="CI" />
+            <xsd:enumeration value="CR" />
+            <xsd:enumeration value="HR" />
+            <xsd:enumeration value="CU" />
+            <xsd:enumeration value="CW" />
+            <xsd:enumeration value="DK" />
+            <xsd:enumeration value="DM" />
+            <xsd:enumeration value="EC" />
+            <xsd:enumeration value="EG" />
+            <xsd:enumeration value="SV" />
+            <xsd:enumeration value="AE" />
+            <xsd:enumeration value="ER" />
+            <xsd:enumeration value="EE" />
+            <xsd:enumeration value="ET" />
+            <xsd:enumeration value="FJ" />
+            <xsd:enumeration value="PH" />
+            <xsd:enumeration value="FI" />
+            <xsd:enumeration value="FR" />
+            <xsd:enumeration value="GA" />
+            <xsd:enumeration value="GM" />
+            <xsd:enumeration value="GE" />
+            <xsd:enumeration value="GS" />
+            <xsd:enumeration value="DE" />
+            <xsd:enumeration value="GH" />
+            <xsd:enumeration value="JM" />
+            <xsd:enumeration value="JP" />
+            <xsd:enumeration value="GI" />
+            <xsd:enumeration value="DJ" />
+            <xsd:enumeration value="JO" />
+            <xsd:enumeration value="GR" />
+            <xsd:enumeration value="GD" />
+            <xsd:enumeration value="GL" />
+            <xsd:enumeration value="GP" />
+            <xsd:enumeration value="GU" />
+            <xsd:enumeration value="GT" />
+            <xsd:enumeration value="GG" />
+            <xsd:enumeration value="GN" />
+            <xsd:enumeration value="GW" />
+            <xsd:enumeration value="GQ" />
+            <xsd:enumeration value="GY" />
+            <xsd:enumeration value="GF" />
+            <xsd:enumeration value="HT" />
+            <xsd:enumeration value="HN" />
+            <xsd:enumeration value="HK" />
+            <xsd:enumeration value="IN" />
+            <xsd:enumeration value="ID" />
+            <xsd:enumeration value="IR" />
+            <xsd:enumeration value="IQ" />
+            <xsd:enumeration value="IE" />
+            <xsd:enumeration value="IS" />
+            <xsd:enumeration value="BV" />
+            <xsd:enumeration value="IM" />
+            <xsd:enumeration value="CX" />
+            <xsd:enumeration value="NF" />
+            <xsd:enumeration value="AX" />
+            <xsd:enumeration value="BQ" />
+            <xsd:enumeration value="KY" />
+            <xsd:enumeration value="CC" />
+            <xsd:enumeration value="CK" />
+            <xsd:enumeration value="FO" />
+            <xsd:enumeration value="FK" />
+            <xsd:enumeration value="HM" />
+            <xsd:enumeration value="MP" />
+            <xsd:enumeration value="MH" />
+            <xsd:enumeration value="UM" />
+            <xsd:enumeration value="PN" />
+            <xsd:enumeration value="SB" />
+            <xsd:enumeration value="VG" />
+            <xsd:enumeration value="VI" />
+            <xsd:enumeration value="IL" />
+            <xsd:enumeration value="IT" />
+            <xsd:enumeration value="JE" />
+            <xsd:enumeration value="KZ" />
+            <xsd:enumeration value="KE" />
+            <xsd:enumeration value="KG" />
+            <xsd:enumeration value="KI" />
+            <xsd:enumeration value="KW" />
+            <xsd:enumeration value="LA" />
+            <xsd:enumeration value="LS" />
+            <xsd:enumeration value="LV" />
+            <xsd:enumeration value="LB" />
+            <xsd:enumeration value="LR" />
+            <xsd:enumeration value="LY" />
+            <xsd:enumeration value="LI" />
+            <xsd:enumeration value="LT" />
+            <xsd:enumeration value="LU" />
+            <xsd:enumeration value="MO" />
+            <xsd:enumeration value="MK" />
+            <xsd:enumeration value="MG" />
+            <xsd:enumeration value="MW" />
+            <xsd:enumeration value="MY" />
+            <xsd:enumeration value="MV" />
+            <xsd:enumeration value="ML" />
+            <xsd:enumeration value="MT" />
+            <xsd:enumeration value="MA" />
+            <xsd:enumeration value="MQ" />
+            <xsd:enumeration value="MR" />
+            <xsd:enumeration value="MU" />
+            <xsd:enumeration value="YT" />
+            <xsd:enumeration value="MX" />
+            <xsd:enumeration value="FM" />
+            <xsd:enumeration value="MD" />
+            <xsd:enumeration value="MN" />
+            <xsd:enumeration value="ME" />
+            <xsd:enumeration value="MS" />
+            <xsd:enumeration value="MZ" />
+            <xsd:enumeration value="NA" />
+            <xsd:enumeration value="NR" />
+            <xsd:enumeration value="NP" />
+            <xsd:enumeration value="NI" />
+            <xsd:enumeration value="NE" />
+            <xsd:enumeration value="NG" />
+            <xsd:enumeration value="NU" />
+            <xsd:enumeration value="NO" />
+            <xsd:enumeration value="NC" />
+            <xsd:enumeration value="NZ" />
+            <xsd:enumeration value="OM" />
+            <xsd:enumeration value="NL" />
+            <xsd:enumeration value="PK" />
+            <xsd:enumeration value="PW" />
+            <xsd:enumeration value="PS" />
+            <xsd:enumeration value="PA" />
+            <xsd:enumeration value="PG" />
+            <xsd:enumeration value="PY" />
+            <xsd:enumeration value="PE" />
+            <xsd:enumeration value="PF" />
+            <xsd:enumeration value="PL" />
+            <xsd:enumeration value="PR" />
+            <xsd:enumeration value="PT" />
+            <xsd:enumeration value="MC" />
+            <xsd:enumeration value="QA" />
+            <xsd:enumeration value="GB" />
+            <xsd:enumeration value="CD" />
+            <xsd:enumeration value="CZ" />
+            <xsd:enumeration value="CF" />
+            <xsd:enumeration value="CG" />
+            <xsd:enumeration value="DO" />
+            <xsd:enumeration value="RE" />
+            <xsd:enumeration value="RO" />
+            <xsd:enumeration value="RW" />
+            <xsd:enumeration value="RU" />
+            <xsd:enumeration value="EH" />
+            <xsd:enumeration value="KN" />
+            <xsd:enumeration value="LC" />
+            <xsd:enumeration value="SH" />
+            <xsd:enumeration value="VC" />
+            <xsd:enumeration value="BL" />
+            <xsd:enumeration value="MF" />
+            <xsd:enumeration value="PM" />
+            <xsd:enumeration value="WS" />
+            <xsd:enumeration value="AS" />
+            <xsd:enumeration value="SM" />
+            <xsd:enumeration value="ST" />
+            <xsd:enumeration value="SN" />
+            <xsd:enumeration value="RS" />
+            <xsd:enumeration value="SC" />
+            <xsd:enumeration value="SL" />
+            <xsd:enumeration value="SG" />
+            <xsd:enumeration value="SX" />
+            <xsd:enumeration value="SY" />
+            <xsd:enumeration value="SK" />
+            <xsd:enumeration value="SI" />
+            <xsd:enumeration value="SO" />
+            <xsd:enumeration value="ES" />
+            <xsd:enumeration value="LK" />
+            <xsd:enumeration value="US" />
+            <xsd:enumeration value="ZA" />
+            <xsd:enumeration value="SD" />
+            <xsd:enumeration value="SS" />
+            <xsd:enumeration value="SR" />
+            <xsd:enumeration value="SJ" />
+            <xsd:enumeration value="SE" />
+            <xsd:enumeration value="CH" />
+            <xsd:enumeration value="SZ" />
+            <xsd:enumeration value="TW" />
+            <xsd:enumeration value="TJ" />
+            <xsd:enumeration value="TZ" />
+            <xsd:enumeration value="TF" />
+            <xsd:enumeration value="IO" />
+            <xsd:enumeration value="TH" />
+            <xsd:enumeration value="TL" />
+            <xsd:enumeration value="TG" />
+            <xsd:enumeration value="TK" />
+            <xsd:enumeration value="TO" />
+            <xsd:enumeration value="TT" />
+            <xsd:enumeration value="TN" />
+            <xsd:enumeration value="TR" />
+            <xsd:enumeration value="TM" />
+            <xsd:enumeration value="TC" />
+            <xsd:enumeration value="TV" />
+            <xsd:enumeration value="UA" />
+            <xsd:enumeration value="UG" />
+            <xsd:enumeration value="HU" />
+            <xsd:enumeration value="UY" />
+            <xsd:enumeration value="UZ" />
+            <xsd:enumeration value="VU" />
+            <xsd:enumeration value="VE" />
+            <xsd:enumeration value="VN" />
+            <xsd:enumeration value="WF" />
+            <xsd:enumeration value="YE" />
+            <xsd:enumeration value="ZM" />
+            <xsd:enumeration value="ZW" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="email_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="256" />
+            <xsd:pattern value="([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.-]+)" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="pec_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="256" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="altro_recapito_debitore" type="iuv:AltroRecapitoDebitore" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="InformazioniDebitoreModifica">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="tipo_identificativo_univoco">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:length value="1" />
+            <xsd:enumeration value="F" />
+            <xsd:enumeration value="G" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="codice_fiscale_debitore" type="commondata:CodiceFiscale" />
+      <xsd:element minOccurs="0" name="codice_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="35" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="anagrafica_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="70" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="indirizzo_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="70" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="civico_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="16" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="cap_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="16" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="localita_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="35" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="provincia_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="35" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="nazione_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:length value="2" />
+            <xsd:enumeration value="AF" />
+            <xsd:enumeration value="AL" />
+            <xsd:enumeration value="DZ" />
+            <xsd:enumeration value="AD" />
+            <xsd:enumeration value="AO" />
+            <xsd:enumeration value="AI" />
+            <xsd:enumeration value="AQ" />
+            <xsd:enumeration value="AG" />
+            <xsd:enumeration value="SA" />
+            <xsd:enumeration value="AR" />
+            <xsd:enumeration value="AM" />
+            <xsd:enumeration value="AW" />
+            <xsd:enumeration value="AU" />
+            <xsd:enumeration value="AT" />
+            <xsd:enumeration value="AZ" />
+            <xsd:enumeration value="BS" />
+            <xsd:enumeration value="BH" />
+            <xsd:enumeration value="BD" />
+            <xsd:enumeration value="BB" />
+            <xsd:enumeration value="BE" />
+            <xsd:enumeration value="BZ" />
+            <xsd:enumeration value="BJ" />
+            <xsd:enumeration value="BM" />
+            <xsd:enumeration value="BT" />
+            <xsd:enumeration value="BY" />
+            <xsd:enumeration value="MM" />
+            <xsd:enumeration value="BO" />
+            <xsd:enumeration value="BA" />
+            <xsd:enumeration value="BW" />
+            <xsd:enumeration value="BR" />
+            <xsd:enumeration value="BN" />
+            <xsd:enumeration value="BG" />
+            <xsd:enumeration value="BF" />
+            <xsd:enumeration value="BI" />
+            <xsd:enumeration value="KH" />
+            <xsd:enumeration value="CM" />
+            <xsd:enumeration value="CA" />
+            <xsd:enumeration value="CV" />
+            <xsd:enumeration value="TD" />
+            <xsd:enumeration value="CL" />
+            <xsd:enumeration value="CN" />
+            <xsd:enumeration value="CY" />
+            <xsd:enumeration value="VA" />
+            <xsd:enumeration value="CO" />
+            <xsd:enumeration value="KM" />
+            <xsd:enumeration value="KP" />
+            <xsd:enumeration value="KR" />
+            <xsd:enumeration value="CI" />
+            <xsd:enumeration value="CR" />
+            <xsd:enumeration value="HR" />
+            <xsd:enumeration value="CU" />
+            <xsd:enumeration value="CW" />
+            <xsd:enumeration value="DK" />
+            <xsd:enumeration value="DM" />
+            <xsd:enumeration value="EC" />
+            <xsd:enumeration value="EG" />
+            <xsd:enumeration value="SV" />
+            <xsd:enumeration value="AE" />
+            <xsd:enumeration value="ER" />
+            <xsd:enumeration value="EE" />
+            <xsd:enumeration value="ET" />
+            <xsd:enumeration value="FJ" />
+            <xsd:enumeration value="PH" />
+            <xsd:enumeration value="FI" />
+            <xsd:enumeration value="FR" />
+            <xsd:enumeration value="GA" />
+            <xsd:enumeration value="GM" />
+            <xsd:enumeration value="GE" />
+            <xsd:enumeration value="GS" />
+            <xsd:enumeration value="DE" />
+            <xsd:enumeration value="GH" />
+            <xsd:enumeration value="JM" />
+            <xsd:enumeration value="JP" />
+            <xsd:enumeration value="GI" />
+            <xsd:enumeration value="DJ" />
+            <xsd:enumeration value="JO" />
+            <xsd:enumeration value="GR" />
+            <xsd:enumeration value="GD" />
+            <xsd:enumeration value="GL" />
+            <xsd:enumeration value="GP" />
+            <xsd:enumeration value="GU" />
+            <xsd:enumeration value="GT" />
+            <xsd:enumeration value="GG" />
+            <xsd:enumeration value="GN" />
+            <xsd:enumeration value="GW" />
+            <xsd:enumeration value="GQ" />
+            <xsd:enumeration value="GY" />
+            <xsd:enumeration value="GF" />
+            <xsd:enumeration value="HT" />
+            <xsd:enumeration value="HN" />
+            <xsd:enumeration value="HK" />
+            <xsd:enumeration value="IN" />
+            <xsd:enumeration value="ID" />
+            <xsd:enumeration value="IR" />
+            <xsd:enumeration value="IQ" />
+            <xsd:enumeration value="IE" />
+            <xsd:enumeration value="IS" />
+            <xsd:enumeration value="BV" />
+            <xsd:enumeration value="IM" />
+            <xsd:enumeration value="CX" />
+            <xsd:enumeration value="NF" />
+            <xsd:enumeration value="AX" />
+            <xsd:enumeration value="BQ" />
+            <xsd:enumeration value="KY" />
+            <xsd:enumeration value="CC" />
+            <xsd:enumeration value="CK" />
+            <xsd:enumeration value="FO" />
+            <xsd:enumeration value="FK" />
+            <xsd:enumeration value="HM" />
+            <xsd:enumeration value="MP" />
+            <xsd:enumeration value="MH" />
+            <xsd:enumeration value="UM" />
+            <xsd:enumeration value="PN" />
+            <xsd:enumeration value="SB" />
+            <xsd:enumeration value="VG" />
+            <xsd:enumeration value="VI" />
+            <xsd:enumeration value="IL" />
+            <xsd:enumeration value="IT" />
+            <xsd:enumeration value="JE" />
+            <xsd:enumeration value="KZ" />
+            <xsd:enumeration value="KE" />
+            <xsd:enumeration value="KG" />
+            <xsd:enumeration value="KI" />
+            <xsd:enumeration value="KW" />
+            <xsd:enumeration value="LA" />
+            <xsd:enumeration value="LS" />
+            <xsd:enumeration value="LV" />
+            <xsd:enumeration value="LB" />
+            <xsd:enumeration value="LR" />
+            <xsd:enumeration value="LY" />
+            <xsd:enumeration value="LI" />
+            <xsd:enumeration value="LT" />
+            <xsd:enumeration value="LU" />
+            <xsd:enumeration value="MO" />
+            <xsd:enumeration value="MK" />
+            <xsd:enumeration value="MG" />
+            <xsd:enumeration value="MW" />
+            <xsd:enumeration value="MY" />
+            <xsd:enumeration value="MV" />
+            <xsd:enumeration value="ML" />
+            <xsd:enumeration value="MT" />
+            <xsd:enumeration value="MA" />
+            <xsd:enumeration value="MQ" />
+            <xsd:enumeration value="MR" />
+            <xsd:enumeration value="MU" />
+            <xsd:enumeration value="YT" />
+            <xsd:enumeration value="MX" />
+            <xsd:enumeration value="FM" />
+            <xsd:enumeration value="MD" />
+            <xsd:enumeration value="MN" />
+            <xsd:enumeration value="ME" />
+            <xsd:enumeration value="MS" />
+            <xsd:enumeration value="MZ" />
+            <xsd:enumeration value="NA" />
+            <xsd:enumeration value="NR" />
+            <xsd:enumeration value="NP" />
+            <xsd:enumeration value="NI" />
+            <xsd:enumeration value="NE" />
+            <xsd:enumeration value="NG" />
+            <xsd:enumeration value="NU" />
+            <xsd:enumeration value="NO" />
+            <xsd:enumeration value="NC" />
+            <xsd:enumeration value="NZ" />
+            <xsd:enumeration value="OM" />
+            <xsd:enumeration value="NL" />
+            <xsd:enumeration value="PK" />
+            <xsd:enumeration value="PW" />
+            <xsd:enumeration value="PS" />
+            <xsd:enumeration value="PA" />
+            <xsd:enumeration value="PG" />
+            <xsd:enumeration value="PY" />
+            <xsd:enumeration value="PE" />
+            <xsd:enumeration value="PF" />
+            <xsd:enumeration value="PL" />
+            <xsd:enumeration value="PR" />
+            <xsd:enumeration value="PT" />
+            <xsd:enumeration value="MC" />
+            <xsd:enumeration value="QA" />
+            <xsd:enumeration value="GB" />
+            <xsd:enumeration value="CD" />
+            <xsd:enumeration value="CZ" />
+            <xsd:enumeration value="CF" />
+            <xsd:enumeration value="CG" />
+            <xsd:enumeration value="DO" />
+            <xsd:enumeration value="RE" />
+            <xsd:enumeration value="RO" />
+            <xsd:enumeration value="RW" />
+            <xsd:enumeration value="RU" />
+            <xsd:enumeration value="EH" />
+            <xsd:enumeration value="KN" />
+            <xsd:enumeration value="LC" />
+            <xsd:enumeration value="SH" />
+            <xsd:enumeration value="VC" />
+            <xsd:enumeration value="BL" />
+            <xsd:enumeration value="MF" />
+            <xsd:enumeration value="PM" />
+            <xsd:enumeration value="WS" />
+            <xsd:enumeration value="AS" />
+            <xsd:enumeration value="SM" />
+            <xsd:enumeration value="ST" />
+            <xsd:enumeration value="SN" />
+            <xsd:enumeration value="RS" />
+            <xsd:enumeration value="SC" />
+            <xsd:enumeration value="SL" />
+            <xsd:enumeration value="SG" />
+            <xsd:enumeration value="SX" />
+            <xsd:enumeration value="SY" />
+            <xsd:enumeration value="SK" />
+            <xsd:enumeration value="SI" />
+            <xsd:enumeration value="SO" />
+            <xsd:enumeration value="ES" />
+            <xsd:enumeration value="LK" />
+            <xsd:enumeration value="US" />
+            <xsd:enumeration value="ZA" />
+            <xsd:enumeration value="SD" />
+            <xsd:enumeration value="SS" />
+            <xsd:enumeration value="SR" />
+            <xsd:enumeration value="SJ" />
+            <xsd:enumeration value="SE" />
+            <xsd:enumeration value="CH" />
+            <xsd:enumeration value="SZ" />
+            <xsd:enumeration value="TW" />
+            <xsd:enumeration value="TJ" />
+            <xsd:enumeration value="TZ" />
+            <xsd:enumeration value="TF" />
+            <xsd:enumeration value="IO" />
+            <xsd:enumeration value="TH" />
+            <xsd:enumeration value="TL" />
+            <xsd:enumeration value="TG" />
+            <xsd:enumeration value="TK" />
+            <xsd:enumeration value="TO" />
+            <xsd:enumeration value="TT" />
+            <xsd:enumeration value="TN" />
+            <xsd:enumeration value="TR" />
+            <xsd:enumeration value="TM" />
+            <xsd:enumeration value="TC" />
+            <xsd:enumeration value="TV" />
+            <xsd:enumeration value="UA" />
+            <xsd:enumeration value="UG" />
+            <xsd:enumeration value="HU" />
+            <xsd:enumeration value="UY" />
+            <xsd:enumeration value="UZ" />
+            <xsd:enumeration value="VU" />
+            <xsd:enumeration value="VE" />
+            <xsd:enumeration value="VN" />
+            <xsd:enumeration value="WF" />
+            <xsd:enumeration value="YE" />
+            <xsd:enumeration value="ZM" />
+            <xsd:enumeration value="ZW" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="email_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="256" />
+            <xsd:pattern value="([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.-]+)" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="pec_debitore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="256" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="altro_recapito_debitore" type="iuv:AltroRecapitoDebitore" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="InformazioniPagamento">
+    <xsd:sequence>
+      <xsd:element name="progressivo">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:nonNegativeInteger">
+            <xsd:minInclusive value="1" />
+            <xsd:maxInclusive value="24" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="codice_identificativo_bollettino">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="5" />
+            <xsd:maxLength value="35" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="identificativo_debito">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="35" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="importo">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:minInclusive value="0.01" />
+            <xsd:maxInclusive value="99999999.99" />
+            <xsd:totalDigits value="10" />
+            <xsd:fractionDigits value="2" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="10" name="dettaglio_voci" type="iuv:Voce" />
+      <xsd:element minOccurs="1" maxOccurs="1" name="scadenza" type="xsd:date" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="data_inizio_validita" type="xsd:date" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="data_fine_validita" type="xsd:date" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="anno_riferimento" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="identificativo_disposizione">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="85" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="causale_bollettino">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="2200" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="dati_specifici_riscossione" type="iuv:DatiSpecificiRiscossione" />
+      <xsd:element minOccurs="1" maxOccurs="1" name="causale_RPT" type="iuv:CausaleRPT" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="InformazioniPagamentoModifica">
+    <xsd:sequence>
+      <xsd:element minOccurs="1" maxOccurs="1" name="codice_identificativo_bollettino">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="5" />
+            <xsd:maxLength value="35" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="identificativo_debito">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="35" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="importo">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:minInclusive value="0.01" />
+            <xsd:maxInclusive value="99999999.99" />
+            <xsd:totalDigits value="10" />
+            <xsd:fractionDigits value="2" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="10" name="dettaglio_voci" type="iuv:Voce" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="scadenza" type="xsd:date" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="data_inizio_validita" type="xsd:date" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="data_fine_validita" type="xsd:date" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="anno_riferimento" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="identificativo_disposizione">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="85" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="causale_bollettino">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="2200" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="1" name="dati_specifici_riscossione" type="iuv:DatiSpecificiRiscossione" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="causale_RPT" type="iuv:CausaleRPT" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="CodiceServizio">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="\d{7}" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CodiceSottoServizio">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="\d{7}" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="NumeroLista">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="\d{13}" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="AltroRecapitoDebitore">
+    <xsd:sequence>
+      <xsd:element name="altro_tipo_recapito">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="35" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="altro_recapito">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="256" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Voce">
+    <xsd:sequence>
+      <xsd:element name="codice_voce">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="35" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="importo_voce">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:minInclusive value="0.01" />
+            <xsd:totalDigits value="9" />
+            <xsd:fractionDigits value="2" />
+            <xsd:maxExclusive value="9999999.99" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DatiSpecificiRiscossione">
+    <xsd:sequence>
+      <xsd:element name="tipo_contabilita">
+        <xsd:annotation>
+          <xsd:documentation>Rappresenta l???indicazione dell???imputazione della specifica entrata ed ?? cos?? articolato:</xsd:documentation>
+          <xsd:documentation>"tipo contabilit??"/"codice contabilit??", dove "tipo contabilit??" pu?? assumere i seguenti valori :</xsd:documentation>
+          <xsd:documentation>0 Capitolo e articolo di Entrata del Bilancio dello stato </xsd:documentation>
+          <xsd:documentation>1 Numero della contabilit?? speciale </xsd:documentation>
+          <xsd:documentation>2 Codice SIOPE</xsd:documentation>
+          <xsd:documentation>9 Altro codice ad uso dell???amministrazione</xsd:documentation>
+          <xsd:documentation>Esempio: 0/3321.00 per indicare il Contributo Unificato delle spese di giustizia</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:length value="1" />
+            <xsd:enumeration value="0" />
+            <xsd:enumeration value="1" />
+            <xsd:enumeration value="2" />
+            <xsd:enumeration value="9" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="codice_contabilita">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:pattern value="\S{3,138}" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CausaleRPT">
+    <xsd:sequence>
+      <xsd:choice>
+        <xsd:element name="causaleVersamento">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="1" />
+              <xsd:maxLength value="140" />
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element maxOccurs="6" name="spezzoniCausaleVersamento">
+          <xsd:complexType>
+            <xsd:choice>
+              <xsd:element name="spezzoneCausaleVersamento">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:minLength value="1" />
+                    <xsd:maxLength value="35" />
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="spezzoneStrutturatoCausaleVersamento">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="causaleSpezzone">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1" />
+                          <xsd:maxLength value="25" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="importoSpezzone">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:decimal">
+                          <xsd:minInclusive value="0.01" />
+                          <xsd:maxInclusive value="999999.99" />
+                          <xsd:totalDigits value="8" />
+                          <xsd:fractionDigits value="2" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:choice>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:choice>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IUVOnlineCreateResponseData">
+    <xsd:sequence>
+      <xsd:element name="numero_disposizioni">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:nonNegativeInteger">
+            <xsd:minInclusive value="1" />
+            <xsd:maxInclusive value="24" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="informazioni_banca" type="iuv:InformazioniBanca" />
+      <xsd:element name="informazioni_debitore" type="iuv:InformazioniDebitore" />
+      <xsd:element minOccurs="1" maxOccurs="24" name="informazioni_pagamento" type="iuv:InformazioniPagamento" />
+      <xsd:element minOccurs="1" maxOccurs="24" name="esito" type="iuv:Esito" />
+      <xsd:element minOccurs="0" name="PDF_bollettino" type="xsd:base64Binary" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IUVOnlineUpdateResponseData">
+    <xsd:sequence>
+      <xsd:element name="informazioni_banca" type="iuv:InformazioniBanca" />
+      <xsd:element name="informazioni_debitore" type="iuv:InformazioniDebitore" />
+      <xsd:element name="informazioni_pagamento_modifica" type="iuv:InformazioniPagamentoModifica" />
+      <xsd:element name="esito" type="iuv:Esito" />
+      <xsd:element minOccurs="0" name="PDF_bollettino" type="xsd:base64Binary" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Esito">
+    <xsd:sequence>
+      <xsd:element name="acquisito" type="iuv:IUVAcquisito" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IUVAcquisito">
+    <xsd:sequence>
+      <xsd:element name="progressivo_richiesta">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:nonNegativeInteger">
+            <xsd:minInclusive value="1" />
+            <xsd:maxInclusive value="24" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="valore_codice_barre">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string" />
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="immagine_codice_barre" type="xsd:base64Binary" />
+      <xsd:element name="valore_QR_code">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string" />
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="immagine_QR_code" type="xsd:base64Binary" />
+      <xsd:element name="codice_identificativo_bollettino">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="5" />
+            <xsd:maxLength value="35" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IUVNonAcquisito">
+    <xsd:sequence>
+      <xsd:element name="progressivo_richiesta">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:nonNegativeInteger">
+            <xsd:minInclusive value="1" />
+            <xsd:maxInclusive value="24" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="codice_errore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:nonNegativeInteger">
+            <xsd:minInclusive value="1" />
+            <xsd:maxInclusive value="9999999" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="descrizione_errore">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="1000" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

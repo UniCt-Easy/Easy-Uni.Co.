@@ -1,0 +1,72 @@
+MIME-Version: 1.0
+Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
+X-Unsent: 1
+Content-Type: Multipart/related;
+  boundary="---------blocknote.net--1CKEGU2I1J40KQYLEAK1GMJZ8"
+
+
+-----------blocknote.net--1CKEGU2I1J40KQYLEAK1GMJZ8
+Content-Type: Text/HTML;
+  charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<HTML>
+  <HEAD>
+    <META http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf=
+-8">
+    <META name=3D"GENERATOR" content=3D"BLOCKNOTE.NET">
+    <META name=3D"source" content=3D"file:///Z:\00Sviluppo_Assistenza\MAN=
+UALI e GUIDE\EASY\Organigramma\Gestione della Sicurezza - Organigramma.do=
+c">
+    <BASEFONT face=3D"Times New Roman" size=3D"3">
+    <TITLE></TITLE><STYLE>BODY { FONT-FAMILY:Times New Roman; FONT-SIZE:1=
+2pt }
+P { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+DIV { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+</STYLE>
+  </HEAD>
+<BODY>
+<P align=3D"center"><STRONG><FONT face=3D"Tahoma" size=3D"5">Gestione del=
+la sicurezza e modulo organigramma in Easy &nbsp;</FONT></STRONG></P>
+<P>&nbsp;</P>
+<P align=3D"justify"><FONT face=3D"Tahoma">Questa guida ha lo scopo di il=
+lustrare le funzioni che permettono di personalizzare l=E2=80=99accesso a=
+i moduli, alle stampe, alle esportazioni ed agli stessi dati del programm=
+a per determinati gruppi di utenti. Il programma fornisce tutti gli strum=
+enti necessari per impostare, in maniera granulare, sui singoli oggetti d=
+el programma le restrizioni di accesso desiderate, chiameremo genericamen=
+te questi strumenti <STRONG>Gestione della Sicurezza.</STRONG> Il program=
+ma fornisce anche un set di strumenti e funzioni <STRONG>preconfigurati</=
+STRONG> che consentono, con un maggior livello di astrazione, rapidamente=
+ e in maniera intuitiva, di realizzare i profili di sicurezza necessari, =
+chiameremo questi strumenti modulo <A href=3D"MODULO_ORGANIGRAMMA.mht" ta=
+rget=3D"_blank"><STRONG>Organigramma</STRONG></A>, in aggiunta alla carat=
+teristiche brevemente elencate l=E2=80=99organigramma consente anche attr=
+ibure determinati diritti di accesso per intervalli temporali.</FONT></P>
+<P>&nbsp;</P>
+<P><A href=3D"Abilitazione_delle_funzioni_di_sicurezza.mht" target=3D"_bl=
+ank"><STRONG><FONT face=3D"Tahoma">Abilitazione delle funzioni di sicurez=
+za</FONT></STRONG></A></FONT></STRONG></P>
+<P><A href=3D"Menu_configurazione_Gestione_Sicurezza.mht" target=3D"_blan=
+k"><STRONG><FONT face=3D"Tahoma">Menu di configurazione Gestione Sicurezz=
+a</FONT></STRONG></A></FONT></STRONG></P>
+<P><A href=3D"customgroup_default.mht" target=3D"_blank"><STRONG><FONT fa=
+ce=3D"Tahoma">Gruppi della gestione della sicurezza</FONT></STRONG></A></=
+FONT></STRONG></P>
+<P><A href=3D"customuser_default.mht" target=3D"_blank"><STRONG><FONT fac=
+e=3D"Tahoma">Associazione degli utenti ai gruppi per la gestione della si=
+curezza</FONT></STRONG></A></FONT></STRONG></P>
+<P><A href=3D"customuser_main.mht"><STRONG><FONT face=3D"Tahoma">Associaz=
+ione degli utenti al gruppo Organigramma</FONT></STRONG></A></FONT></STRO=
+NG></P>
+<P><A href=3D"customgroupoperation_default.mht" target=3D"_blank"><STRONG=
+><FONT face=3D"Tahoma">Operazioni sulle tabelle</FONT></STRONG></A></FONT=
+></STRONG></P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+</BODY>
+</HTML>
+
+-----------blocknote.net--1CKEGU2I1J40KQYLEAK1GMJZ8--

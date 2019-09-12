@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ivapay">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nivapay" type="xs:int" />
+              <xs:element name="yivapay" type="xs:int" />
+              <xs:element name="assesmentdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="creditamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="creditamountdeferred" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="dateivapay" type="xs:dateTime" />
+              <xs:element name="debitamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="debitamountdeferred" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="mixed" type="xs:decimal" minOccurs="0" />
+              <xs:element name="paymentamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="paymentdetails" type="xs:string" minOccurs="0" />
+              <xs:element name="paymentkind" type="xs:string" />
+              <xs:element name="prorata" type="xs:decimal" minOccurs="0" />
+              <xs:element name="refundamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="totalcredit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totaldebit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ivaintrastat12" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxableintrastat12" type="xs:decimal" minOccurs="0" />
+              <xs:element name="creditamount12" type="xs:decimal" minOccurs="0" />
+              <xs:element name="creditamountdeferred12" type="xs:decimal" minOccurs="0" />
+              <xs:element name="debitamount12" type="xs:decimal" minOccurs="0" />
+              <xs:element name="debitamountdeferred12" type="xs:decimal" minOccurs="0" />
+              <xs:element name="paymentamount12" type="xs:decimal" minOccurs="0" />
+              <xs:element name="refundamount12" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalcredit12" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totaldebit12" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flag" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="prev_debit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prev_debit12" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totaldebitsplit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="paymentamountsplit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="debitamountsplit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="debitamountdeferredsplit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxablesplit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ivasplit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prev_debitsplit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="startcredit_applied" type="xs:decimal" minOccurs="0" />
+              <xs:element name="advancecomputemethod" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ivapay" />
+      <xs:field xpath="mstns:nivapay" />
+      <xs:field xpath="mstns:yivapay" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

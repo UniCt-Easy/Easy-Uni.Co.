@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaCdCausale770.xsd" xmlns:mstns="http://tempuri.org/VistaCdCausale770.xsd" xmlns="http://tempuri.org/VistaCdCausale770.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msprop:Generator_DataSetName="vistaForm" msprop:Generator_UserDSName="vistaForm">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="mod770_socialsecuritycode" msprop:Generator_TableClassName="mod770_socialsecuritycodeDataTable" msprop:Generator_TableVarName="tablemod770_socialsecuritycode" msprop:Generator_TablePropName="mod770_socialsecuritycode" msprop:Generator_RowDeletingName="mod770_socialsecuritycodeRowDeleting" msprop:Generator_RowChangingName="mod770_socialsecuritycodeRowChanging" msprop:Generator_RowEvHandlerName="mod770_socialsecuritycodeRowChangeEventHandler" msprop:Generator_RowDeletedName="mod770_socialsecuritycodeRowDeleted" msprop:Generator_UserTableName="mod770_socialsecuritycode" msprop:Generator_RowChangedName="mod770_socialsecuritycodeRowChanged" msprop:Generator_RowEvArgName="mod770_socialsecuritycodeRowChangeEvent" msprop:Generator_RowClassName="mod770_socialsecuritycodeRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" msprop:Generator_ColumnVarNameInTable="columnayear" msprop:Generator_ColumnPropNameInRow="ayear" msprop:Generator_ColumnPropNameInTable="ayearColumn" msprop:Generator_UserColumnName="ayear" type="xs:short" />
+              <xs:element name="socialseccode" msprop:Generator_ColumnVarNameInTable="columnsocialseccode" msprop:Generator_ColumnPropNameInRow="socialseccode" msprop:Generator_ColumnPropNameInTable="socialseccodeColumn" msprop:Generator_UserColumnName="socialseccode" type="xs:string" />
+              <xs:element name="description" msprop:Generator_ColumnVarNameInTable="columndescription" msprop:Generator_ColumnPropNameInRow="description" msprop:Generator_ColumnPropNameInTable="descriptionColumn" msprop:Generator_UserColumnName="description" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnPropNameInTable="ltColumn" msprop:Generator_UserColumnName="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnPropNameInTable="luColumn" msprop:Generator_UserColumnName="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnPropNameInTable="cuColumn" msprop:Generator_UserColumnName="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnPropNameInTable="ctColumn" msprop:Generator_UserColumnName="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cfagency" msprop:Generator_ColumnVarNameInTable="columncfagency" msprop:Generator_ColumnPropNameInRow="cfagency" msprop:Generator_ColumnPropNameInTable="cfagencyColumn" msprop:Generator_UserColumnName="cfagency" type="xs:string" minOccurs="0" />
+              <xs:element name="titleagency" msprop:Generator_ColumnVarNameInTable="columntitleagency" msprop:Generator_ColumnPropNameInRow="titleagency" msprop:Generator_ColumnPropNameInTable="titleagencyColumn" msprop:Generator_UserColumnName="titleagency" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="vistaFormKey1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mod770_socialsecuritycode" />
+      <xs:field xpath="mstns:ayear" />
+      <xs:field xpath="mstns:socialseccode" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,33 @@
+﻿<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+    <TemplateData>
+        <Name>Template per Metadato ok</Name>
+        <Description>Metadato</Description>
+        <ProjectType>CSharp</ProjectType>
+        <ProjectSubType>MetaData </ProjectSubType>
+        <SortOrder>1</SortOrder>
+        <CreateInPlace>true</CreateInPlace>
+        <CreateNewFolder>false</CreateNewFolder>
+        <DefaultName>meta_</DefaultName>
+        <ProvideDefaultName>true</ProvideDefaultName>
+        <LocationField>Enabled</LocationField>
+        <Icon>__TemplateIcon.ico</Icon>
+    </TemplateData>
+    <TemplateContent>
+        <Project TargetFileName="meta_$tableName$.csproj" File="meta_tabella.csproj" ReplaceParameters="true">
+            <Folder Name="Properties" TargetFolderName="Properties" />
+            <ProjectItem ReplaceParameters="true" TargetFileName="meta_$tableName$.cs">meta_tabella.cs</ProjectItem>
+            <ProjectItem ReplaceParameters="true" TargetFileName="vista.xsd">vista.xsd</ProjectItem>
+            <ProjectItem ReplaceParameters="true" TargetFileName="vista.Designer.cs">vista.Designer.cs</ProjectItem>
+            <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+        </Project>
+        <CustomParameters>
+            <CustomParameter Name="$tableName$" Value="dummy"/>
+        </CustomParameters>
+
+    </TemplateContent>
+    <WizardExtension>
+        <Assembly>meta_vsix, Version=2.0.0, Culture=Neutral, PublicKeyToken=7ed04eb866c8e32c, Custom=null</Assembly>
+        <FullClassName>meta_vsix.WizardImplementation</FullClassName>
+    </WizardExtension>
+    
+</VSTemplate>

@@ -1,0 +1,76 @@
+MIME-Version: 1.0
+Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
+X-Unsent: 1
+Content-Type: Multipart/related;
+  boundary="---------blocknote.net--SBE6GBIVW0S61XJPEOE1CIZ0R9"
+
+
+-----------blocknote.net--SBE6GBIVW0S61XJPEOE1CIZ0R9
+Content-Type: Text/HTML;
+  charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<HTML>
+  <HEAD>
+    <META http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf=
+-8">
+    <META name=3D"GENERATOR" content=3D"BLOCKNOTE.NET">
+    <META name=3D"source" content=3D"file:///\\voispeed\Archivio1\AA-UTEN=
+TI\AntonioSaggese\Manuale Easy\definitivi\_Verifiche Patrimonio.mht">
+    <BASEFONT face=3D"Times New Roman" size=3D"3">
+    <TITLE></TITLE><STYLE>BODY { FONT-FAMILY:Times New Roman; FONT-SIZE:1=
+2pt }
+P { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+DIV { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+</STYLE>
+  </HEAD>
+<BODY>
+<H1>Stampe di Verifica del patrimonio</H1>
+<H2>Accessori non associati a cespiti</H2>
+<P>Elenco di tutti gli accessori che hanno un numero di cespite, ma tale =
+cespite non esiste.</P>
+<H2>Accessori non caricati</H2>
+<P>Elenco di tutti gli accessori che non sono stati inseriti in un carico=
+ di cespite.</P>
+<H2>Buoni di carico con ratifiche incoerenti</H2>
+<P>Elenco di:</P>
+<P>- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tutti i buoni di car=
+ico la cui data contabile =C3=A8 successiva alla data contabile del manda=
+to del pagamento (liquidazione che funge da ratifica) associato al buono =
+di carico;</P>
+<P>- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tutti i buoni di car=
+ico la cui data contabile =C3=A8 successiva alla data di ratifica (se non=
+ sono stati specificati liquidazioni che valgono come ratifiche).</P>
+<H2>Buoni senza ratifiche</H2>
+<P>Elenco di tutti i buoni di carico in cui non =C3=A8 stata specificata =
+la data di ratifica e non sono stati specificate nemmeno le liquidazioni =
+fungenti da ratifica.</P>
+<H2>Buoni di carico ratificati</H2>
+<P>Elenco di tutti i buoni di carico ratificati (ossia tutti i buoni di c=
+arico che o hanno la data di ratifica oppure hanno delle liquidazioni che=
+ li ratificano).</P>
+<H2>Carichi di accessori con quantit=C3=A0 errata</H2>
+<P>Elenco di tutti i carichi di accessori in cui la quantit=C3=A0 specifi=
+cata non corrisponde al numero di elementi presenti nell=E2=80=99elenco d=
+egli accessori che puntano al carico in questione.</P>
+<H2>Carichi di cespiti con quantit=C3=A0 errata</H2>
+<P>Elenco di tutti i carichi di cespiti (principali, non accessori) in cu=
+i la quantit=C3=A0 specificata non corrisponde al numero di elementi nell=
+=E2=80=99elenco dei cespiti che puntano al carico in questione.</P>
+<H2>Carichi senza cespiti</H2>
+<P>Elenco dei carichi il cui numero di carico non =C3=A8 specificato nel =
+numero di carico di nessun cespite (ossia nessun cespite =C3=A8 legato a =
+tale carico)</P>
+<H2>Cespiti non caricati</H2>
+<P>Cespiti (principali) per cui non esiste il carico col numero di carico=
+ in essi specificato.</P>
+<H2>Cespiti o accessori non ammortizzati</H2>
+<P>Cespiti o accessori che non hanno un=E2=80=99ammortizzazione e sono co=
+mpresi in buoni di carico oppure di nuova acquisizione e con la spunta su=
+ =E2=80=9Cnon includere in buono di carico=E2=80=9D.</P>
+<DIV>&nbsp;</DIV>
+</BODY>
+</HTML>
+
+-----------blocknote.net--SBE6GBIVW0S61XJPEOE1CIZ0R9--

@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D17EAC85-0483-4450-9330-0F1C8E059787}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>expense_levels</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>expense_levels</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\meta_expense\meta_expense.csproj">
+      <Project>{0027e37f-afa2-4973-aae5-98f9bc1a242e}</Project>
+      <Name>meta_expense</Name>
+    </ProjectReference>
+    <Reference Include="metadatalibrary">
+      <Name>metadatalibrary</Name>
+      <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_registry">
+      <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Design">
+      <Name>System.Design</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\..\casualcontract\calcolooccasionale\calcolooccasionale.csproj">
+      <Project>{EF1D2FBE-1425-40E7-94EC-5ABFB69A7CAE}</Project>
+      <Name>calcolooccasionale</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\unmanaged\chooseBill\chooseBill.csproj">
+      <Project>{9944E8AC-9EC1-4473-8A98-70DF8869BEE3}</Project>
+      <Name>chooseBill</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\unmanaged\ep_functions\ep_functions.csproj">
+      <Project>{13E495EF-B62D-494E-AEC7-E06E7826DCE6}</Project>
+      <Name>ep_functions</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
+      <Name>funzioni_configurazione</Name>
+      <Project>{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\unmanaged\gestioneclassificazioni\gestioneclassificazioni.csproj">
+      <Name>gestioneclassificazioni</Name>
+      <Project>{C7F92C58-E58A-4695-AF23-A7B698DEC777}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\unmanaged\movimentofunctions\movimentofunctions.csproj">
+      <Name>movimentofunctions</Name>
+      <Project>{A2BFADB0-5BCF-44DE-AFBF-8B7D485B29AE}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\unmanaged\SituazioneViewer\SituazioneViewer.csproj">
+      <Name>SituazioneViewer</Name>
+      <Project>{42D2BFEA-1727-4039-A978-5D366E5479D3}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>System.Data.DataSetExtensions</Name>
+    </Reference>
+    <Reference Include="meta_expenseyear">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_expenseyear</Name>
+      <HintPath>..\..\expenseyear\meta_expenseyear\bin\Debug\meta_expenseyear.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_expensevar">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_expensevar</Name>
+      <HintPath>..\..\expensevar\meta_expensevar\bin\Debug\meta_expensevar.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_upb">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_upb</Name>
+      <HintPath>..\..\upb\meta_upb\bin\Debug\meta_upb.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_finview">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_finview</Name>
+      <HintPath>..\..\fin\meta_finview\bin\Debug\meta_finview.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_mandate">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_mandate</Name>
+      <HintPath>..\..\mandate\meta_mandate\bin\Debug\meta_mandate.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_manager">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_manager</Name>
+      <HintPath>..\..\manager\meta_manager\bin\Debug\meta_manager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_casualcontract">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_casualcontract</Name>
+      <HintPath>..\..\casualcontract\meta_casualcontract\bin\Debug\meta_casualcontract.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_profservice">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_profservice</Name>
+      <HintPath>..\..\profservice\meta_profservice\bin\Debug\meta_profservice.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_wageaddition">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_wageaddition</Name>
+      <HintPath>..\..\wageaddition\meta_wageaddition\bin\Debug\meta_wageaddition.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_bill">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_bill</Name>
+      <HintPath>..\..\bill\meta_bill\bin\Debug\meta_bill.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_mandatekind">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_mandatekind</Name>
+      <HintPath>..\..\mandatekind\meta_mandatekind\bin\Debug\meta_mandatekind.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_expenselast">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_expenselast</Name>
+      <HintPath>..\..\expenselast\meta_expenselast\bin\Debug\meta_expenselast.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_payment">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_payment</Name>
+      <HintPath>..\..\payment\meta_payment\bin\Debug\meta_payment.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_expensesorted">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_expensesorted</Name>
+      <HintPath>..\..\expensesorted\meta_expensesorted\bin\Debug\meta_expensesorted.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_sorting">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_sorting</Name>
+      <HintPath>..\..\sorting\meta_sorting\bin\Debug\meta_sorting.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_sortingkind">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_sortingkind</Name>
+      <HintPath>..\..\sortingkind\meta_sortingkind\bin\Debug\meta_sortingkind.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_itineration">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_itineration</Name>
+      <HintPath>..\..\itineration\meta_itineration\bin\Debug\meta_itineration.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_invoice">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_invoice</Name>
+      <HintPath>..\..\invoice\meta_invoice\bin\Debug\meta_invoice.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_invoicekind">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_invoicekind</Name>
+      <HintPath>..\..\invoicekind\meta_invoicekind\bin\Debug\meta_invoicekind.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_payroll">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_payroll</Name>
+      <HintPath>..\..\payroll\meta_payroll\bin\Debug\meta_payroll.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_config">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_config</Name>
+      <HintPath>..\..\config\meta_config\bin\Debug\meta_config.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_account">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_account</Name>
+      <HintPath>..\..\account\meta_account\bin\Debug\meta_account.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_service">
+      <HintPath>..\..\service\meta_service\bin\Debug\meta_service.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_service</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_underwriting">
+      <HintPath>..\..\underwriting\meta_underwriting\bin\Debug\meta_underwriting.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_underwriting</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_geo_city">
+      <HintPath>..\..\geo_city\meta_geo_city\bin\Debug\meta_geo_city.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_geo_city</Name>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="vistaForm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </Compile>
+    <Content Include="vistaForm.xsd">
+      <Generator>HDSGene</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
+    </Content>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FrmAskDescr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAskNBill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAskNBill.Designer.cs">
+      <DependentUpon>FrmAskNBill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_expense_levels.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <EmbeddedResource Include="FrmAskDescr.resx">
+      <DependentUpon>FrmAskDescr.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAskNBill.resx">
+      <DependentUpon>FrmAskNBill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_expense_levels.resx">
+      <DependentUpon>Frm_expense_levels.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="vistaForm.xsc">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaForm.xss">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaForm.xsx">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

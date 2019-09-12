@@ -1,0 +1,176 @@
+<?xml version="1.0" standalone="yes" ?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistareportparametersingle.xsd"
+	xmlns:mstns="http://tempuri.org/Vistareportparametersingle.xsd" xmlns="http://tempuri.org/Vistareportparametersingle.xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+	attributeFormDefault="qualified" elementFormDefault="qualified">
+	<xs:element name="vistaForm" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="customobject">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="objectname" type="xs:string" />
+							<xs:element name="description" type="xs:string" minOccurs="0" />
+							<xs:element name="isreal" type="xs:string" />
+							<xs:element name="realtable" type="xs:string" minOccurs="0" />
+							<xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+							<xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="columntypes">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="tablename" type="xs:string" />
+							<xs:element name="field" type="xs:string" />
+							<xs:element name="iskey" type="xs:string" />
+							<xs:element name="sqltype" type="xs:string" />
+							<xs:element name="col_len" type="xs:int" minOccurs="0" />
+							<xs:element name="col_precision" type="xs:int" minOccurs="0" />
+							<xs:element name="col_scale" type="xs:int" minOccurs="0" />
+							<xs:element name="systemtype" type="xs:string" minOccurs="0" />
+							<xs:element name="sqldeclaration" type="xs:string" />
+							<xs:element name="allownull" type="xs:string" />
+							<xs:element name="defaultvalue" type="xs:string" minOccurs="0" />
+							<xs:element name="format" type="xs:string" minOccurs="0" />
+							<xs:element name="denynull" type="xs:string" />
+							<xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+							<xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+							<xs:element name="createuser" type="xs:string" minOccurs="0" />
+							<xs:element name="createtimestamp" type="xs:dateTime" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="columntypescombodescfield">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="tablename" type="xs:string" />
+							<xs:element name="field" type="xs:string" />
+							<xs:element name="iskey" type="xs:string" />
+							<xs:element name="sqltype" type="xs:string" />
+							<xs:element name="col_len" type="xs:int" minOccurs="0" />
+							<xs:element name="col_precision" type="xs:int" minOccurs="0" />
+							<xs:element name="col_scale" type="xs:int" minOccurs="0" />
+							<xs:element name="systemtype" type="xs:string" minOccurs="0" />
+							<xs:element name="sqldeclaration" type="xs:string" />
+							<xs:element name="allownull" type="xs:string" />
+							<xs:element name="defaultvalue" type="xs:string" minOccurs="0" />
+							<xs:element name="format" type="xs:string" minOccurs="0" />
+							<xs:element name="denynull" type="xs:string" />
+							<xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+							<xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+							<xs:element name="createuser" type="xs:string" minOccurs="0" />
+							<xs:element name="createtimestamp" type="xs:dateTime" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="tmp_tipo">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="codice" type="xs:string" />
+							<xs:element name="tipo" type="xs:string" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="customselection">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="selectioncode" type="xs:string" />
+							<xs:element name="editlisttype" type="xs:string" minOccurs="0" />
+							<xs:element name="fieldname" type="xs:string" minOccurs="0" />
+							<xs:element name="filter" type="xs:string" minOccurs="0" />
+							<xs:element name="relationfield" type="xs:string" minOccurs="0" />
+							<xs:element name="selectionname" type="xs:string" minOccurs="0" />
+							<xs:element name="selectiontype" type="xs:string" minOccurs="0" />
+							<xs:element name="tablename" type="xs:string" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="reportparameter">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="reportname" type="xs:string" />
+							<xs:element name="paramname" type="xs:string" />
+							<xs:element name="description" type="xs:string" />
+							<xs:element name="number" type="xs:short" />
+							<xs:element name="systype" type="xs:string" minOccurs="0" />
+							<xs:element name="tag" type="xs:string" minOccurs="0" />
+							<xs:element name="hintkind" type="xs:string" minOccurs="0" />
+							<xs:element name="hint" type="xs:string" minOccurs="0" />
+							<xs:element name="datasource" type="xs:string" minOccurs="0" />
+							<xs:element name="valuemember" type="xs:string" minOccurs="0" />
+							<xs:element name="displaymember" type="xs:string" minOccurs="0" />
+							<xs:element name="noselectionforall" type="xs:string" minOccurs="0" />
+							<xs:element name="help" type="xs:string" minOccurs="0" />
+							<xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+							<xs:element name="cu" type="xs:string" minOccurs="0" />
+							<xs:element name="filter" type="xs:string" minOccurs="0" />
+							<xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+							<xs:element name="lu" type="xs:string" minOccurs="0" />
+							<xs:element name="help2" type="xs:string" minOccurs="0" />
+							<xs:element name="selectioncode" type="xs:string" minOccurs="0" />
+							<xs:element name="iscombobox" type="xs:string" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+		<xs:unique name="vistaFormKey8" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:customobject" />
+			<xs:field xpath="mstns:objectname" />
+		</xs:unique>
+		<xs:unique name="vistaFormKey9" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:columntypes" />
+			<xs:field xpath="mstns:tablename" />
+			<xs:field xpath="mstns:field" />
+		</xs:unique>
+		<xs:unique name="vistaFormKey11" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:columntypescombodescfield" />
+			<xs:field xpath="mstns:tablename" />
+			<xs:field xpath="mstns:field" />
+		</xs:unique>
+		<xs:unique name="vistaFormKey13" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:tmp_tipo" />
+			<xs:field xpath="mstns:codice" />
+		</xs:unique>
+		<xs:unique name="vistaFormKey16" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:customselection" />
+			<xs:field xpath="mstns:selectioncode" />
+		</xs:unique>
+		<xs:keyref name="vistaFormKey12" refer="vistaFormKey8" msdata:RelationName="customobjectcolumntypescombodescfield">
+			<xs:selector xpath=".//mstns:columntypescombodescfield" />
+			<xs:field xpath="mstns:tablename" />
+		</xs:keyref>
+		<xs:keyref name="vistaFormKey10" refer="vistaFormKey8" msdata:RelationName="customobjectcolumntypes">
+			<xs:selector xpath=".//mstns:columntypes" />
+			<xs:field xpath="mstns:tablename" />
+		</xs:keyref>
+		<xs:keyref name="tmp_tiporeportparameter" refer="mstns:vistaFormKey13">
+			<xs:selector xpath=".//mstns:reportparameter" />
+			<xs:field xpath="mstns:systype" />
+		</xs:keyref>
+		<xs:keyref name="customselectionreportparameter" refer="mstns:vistaFormKey16">
+			<xs:selector xpath=".//mstns:reportparameter" />
+			<xs:field xpath="mstns:selectioncode" />
+		</xs:keyref>
+		<xs:keyref name="columntypescombodescfieldreportparameter" refer="mstns:vistaFormKey11">
+			<xs:selector xpath=".//mstns:reportparameter" />
+			<xs:field xpath="mstns:datasource" />
+			<xs:field xpath="mstns:displaymember" />
+		</xs:keyref>
+		<xs:keyref name="columntypesreportparameter" refer="mstns:vistaFormKey9">
+			<xs:selector xpath=".//mstns:reportparameter" />
+			<xs:field xpath="mstns:datasource" />
+			<xs:field xpath="mstns:valuemember" />
+		</xs:keyref>
+		<xs:keyref name="customobjectreportparameter" refer="mstns:vistaFormKey8">
+			<xs:selector xpath=".//mstns:reportparameter" />
+			<xs:field xpath="mstns:datasource" />
+		</xs:keyref>
+		<xs:key name="vistaFormKey117" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:reportparameter" />
+			<xs:field xpath="mstns:reportname" />
+			<xs:field xpath="mstns:paramname" />
+		</xs:key>
+	</xs:element>
+</xs:schema>

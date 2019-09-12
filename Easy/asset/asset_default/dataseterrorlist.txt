@@ -1,0 +1,4 @@
+Wrong Primary key LENGTH in assetview in : D:\easy\asset\asset_default\vistaForm.xsd
+Wrong Primary key LENGTH in assetacquireview in : D:\easy\asset\asset_default\vistaForm.xsd
+Wrong Primary key LENGTH in inventorytreeview in : D:\easy\asset\asset_default\vistaForm.xsd
+Wrong Primary key LENGTH in assetview in : D:\easy\asset\asset_default\vistaForm.xsd

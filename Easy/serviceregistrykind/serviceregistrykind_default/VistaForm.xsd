@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="VistaForm" targetNamespace="http://tempuri.org/VistaForm.xsd" xmlns:mstns="http://tempuri.org/VistaForm.xsd" xmlns="http://tempuri.org/VistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="VistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT" msprop:Generator_UserDSName="VistaForm" msprop:Generator_DataSetName="VistaForm">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="serviceregistrykind" msprop:Generator_TableClassName="serviceregistrykindDataTable" msprop:Generator_TableVarName="tableserviceregistrykind" msprop:Generator_TablePropName="serviceregistrykind" msprop:Generator_RowDeletingName="serviceregistrykindRowDeleting" msprop:Generator_RowChangingName="serviceregistrykindRowChanging" msprop:Generator_RowEvHandlerName="serviceregistrykindRowChangeEventHandler" msprop:Generator_RowDeletedName="serviceregistrykindRowDeleted" msprop:Generator_UserTableName="serviceregistrykind" msprop:Generator_RowChangedName="serviceregistrykindRowChanged" msprop:Generator_RowEvArgName="serviceregistrykindRowChangeEvent" msprop:Generator_RowClassName="serviceregistrykindRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idserviceregistrykind" msprop:Generator_ColumnVarNameInTable="columnidserviceregistrykind" msprop:Generator_ColumnPropNameInRow="idserviceregistrykind" msprop:Generator_ColumnPropNameInTable="idserviceregistrykindColumn" msprop:Generator_UserColumnName="idserviceregistrykind" type="xs:int" />
+              <xs:element name="title" msprop:Generator_ColumnVarNameInTable="columntitle" msprop:Generator_ColumnPropNameInRow="title" msprop:Generator_ColumnPropNameInTable="titleColumn" msprop:Generator_UserColumnName="title" type="xs:string" />
+              <xs:element name="description" msprop:Generator_ColumnVarNameInTable="columndescription" msprop:Generator_ColumnPropNameInRow="description" msprop:Generator_ColumnPropNameInTable="descriptionColumn" msprop:Generator_UserColumnName="description" type="xs:string" />
+              <xs:element name="totransmit" msprop:Generator_ColumnVarNameInTable="columntotransmit" msprop:Generator_ColumnPropNameInRow="totransmit" msprop:Generator_ColumnPropNameInTable="totransmitColumn" msprop:Generator_UserColumnName="totransmit" type="xs:string" />
+              <xs:element name="topublish" msprop:Generator_ColumnVarNameInTable="columntopublish" msprop:Generator_ColumnPropNameInRow="topublish" msprop:Generator_ColumnPropNameInTable="topublishColumn" msprop:Generator_UserColumnName="topublish" type="xs:string" />
+              <xs:element name="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnPropNameInTable="ctColumn" msprop:Generator_UserColumnName="ct" type="xs:dateTime" />
+              <xs:element name="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnPropNameInTable="cuColumn" msprop:Generator_UserColumnName="cu" type="xs:string" />
+              <xs:element name="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnPropNameInTable="ltColumn" msprop:Generator_UserColumnName="lt" type="xs:dateTime" />
+              <xs:element name="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnPropNameInTable="luColumn" msprop:Generator_UserColumnName="lu" type="xs:string" />
+              <xs:element name="active" msprop:Generator_ColumnVarNameInTable="columnactive" msprop:Generator_ColumnPropNameInRow="active" msprop:Generator_ColumnPropNameInTable="activeColumn" msprop:Generator_UserColumnName="active" type="xs:string" />
+              <xs:element name="flagconferringstructure" msprop:Generator_ColumnVarNameInTable="columnflagconferringstructure" msprop:Generator_ColumnPropNameInRow="flagconferringstructure" msprop:Generator_ColumnPropNameInTable="flagconferringstructureColumn" msprop:Generator_UserColumnName="flagconferringstructure" type="xs:short" minOccurs="0" />
+              <xs:element name="flagordinancelink" msprop:Generator_ColumnVarNameInTable="columnflagordinancelink" msprop:Generator_ColumnPropNameInRow="flagordinancelink" msprop:Generator_ColumnPropNameInTable="flagordinancelinkColumn" msprop:Generator_UserColumnName="flagordinancelink" type="xs:short" minOccurs="0" />
+              <xs:element name="flagauthorizingstructure" msprop:Generator_ColumnVarNameInTable="columnflagauthorizingstructure" msprop:Generator_ColumnPropNameInRow="flagauthorizingstructure" msprop:Generator_ColumnPropNameInTable="flagauthorizingstructureColumn" msprop:Generator_UserColumnName="flagauthorizingstructure" type="xs:short" minOccurs="0" />
+              <xs:element name="flagauthorizinglink" msprop:Generator_ColumnVarNameInTable="columnflagauthorizinglink" msprop:Generator_ColumnPropNameInRow="flagauthorizinglink" msprop:Generator_ColumnPropNameInTable="flagauthorizinglinkColumn" msprop:Generator_UserColumnName="flagauthorizinglink" type="xs:short" minOccurs="0" />
+              <xs:element name="flagactreference" msprop:Generator_ColumnVarNameInTable="columnflagactreference" msprop:Generator_ColumnPropNameInRow="flagactreference" msprop:Generator_ColumnPropNameInTable="flagactreferenceColumn" msprop:Generator_UserColumnName="flagactreference" type="xs:short" minOccurs="0" />
+              <xs:element name="flagannouncementlink" msprop:Generator_ColumnVarNameInTable="columnflagannouncementlink" msprop:Generator_ColumnPropNameInRow="flagannouncementlink" msprop:Generator_ColumnPropNameInTable="flagannouncementlinkColumn" msprop:Generator_UserColumnName="flagannouncementlink" type="xs:short" minOccurs="0" />
+              <xs:element name="flagotherservice" msprop:Generator_ColumnVarNameInTable="columnflagotherservice" msprop:Generator_ColumnPropNameInRow="flagotherservice" msprop:Generator_ColumnPropNameInTable="flagotherserviceColumn" msprop:Generator_UserColumnName="flagotherservice" type="xs:short" minOccurs="0" />
+              <xs:element name="flagprofessionalservice" msprop:Generator_ColumnVarNameInTable="columnflagprofessionalservice" msprop:Generator_ColumnPropNameInRow="flagprofessionalservice" msprop:Generator_ColumnPropNameInTable="flagprofessionalserviceColumn" msprop:Generator_UserColumnName="flagprofessionalservice" type="xs:short" minOccurs="0" />
+              <xs:element name="flagcomponentsvariable" msprop:Generator_ColumnVarNameInTable="columnflagcomponentsvariable" msprop:Generator_ColumnPropNameInRow="flagcomponentsvariable" msprop:Generator_ColumnPropNameInTable="flagcomponentsvariableColumn" msprop:Generator_UserColumnName="flagcomponentsvariable" type="xs:short" minOccurs="0" />
+              <xs:element name="flagcvattachment" msprop:Generator_ColumnVarNameInTable="columnflagcvattachment" msprop:Generator_ColumnPropNameInRow="flagcvattachment" msprop:Generator_ColumnPropNameInTable="flagcvattachmentColumn" msprop:Generator_UserColumnName="flagcvattachment" type="xs:short" minOccurs="0" />
+              <xs:element name="employkind" msprop:Generator_ColumnVarNameInTable="columnemploykind" msprop:Generator_ColumnPropNameInRow="employkind" msprop:Generator_ColumnPropNameInTable="employkindColumn" msprop:Generator_UserColumnName="employkind" type="xs:string" minOccurs="0" />
+              <xs:element name="flagemploytime" msprop:Generator_ColumnVarNameInTable="columnflagemploytime" msprop:Generator_ColumnPropNameInRow="flagemploytime" msprop:Generator_ColumnPropNameInTable="flagemploytimeColumn" msprop:Generator_UserColumnName="flagemploytime" type="xs:short" minOccurs="0" />
+              <xs:element name="otherservice" msprop:Generator_ColumnVarNameInTable="columnotherservice" msprop:Generator_ColumnPropNameInRow="otherservice" msprop:Generator_ColumnPropNameInTable="otherserviceColumn" msprop:Generator_UserColumnName="otherservice" type="xs:string" minOccurs="0" />
+              <xs:element name="professionalservice" msprop:Generator_ColumnVarNameInTable="columnprofessionalservice" msprop:Generator_ColumnPropNameInRow="professionalservice" msprop:Generator_ColumnPropNameInTable="professionalserviceColumn" msprop:Generator_UserColumnName="professionalservice" type="xs:string" minOccurs="0" />
+              <xs:element name="componentsvariable" msprop:Generator_ColumnVarNameInTable="columncomponentsvariable" msprop:Generator_ColumnPropNameInRow="componentsvariable" msprop:Generator_ColumnPropNameInTable="componentsvariableColumn" msprop:Generator_UserColumnName="componentsvariable" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcertinterestconflicts" msprop:Generator_ColumnVarNameInTable="columnflagcertinterestconflicts" msprop:Generator_ColumnPropNameInRow="flagcertinterestconflicts" msprop:Generator_ColumnPropNameInTable="flagcertinterestconflictsColumn" msprop:Generator_UserColumnName="flagcertinterestconflicts" type="xs:short" minOccurs="0" />
+              <xs:element name="certinterestconflicts" msprop:Generator_ColumnVarNameInTable="columncertinterestconflicts" msprop:Generator_ColumnPropNameInRow="certinterestconflicts" msprop:Generator_ColumnPropNameInTable="certinterestconflictsColumn" msprop:Generator_UserColumnName="certinterestconflicts" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:serviceregistrykind" />
+      <xs:field xpath="mstns:idserviceregistrykind" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

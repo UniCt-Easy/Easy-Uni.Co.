@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaRipImpegniBudgetContributiContrattiCSA" targetNamespace="http://tempuri.org/vistaRipContributiContrattiCSA.xsd" xmlns:mstns="http://tempuri.org/vistaRipImpegniBudgetContributiContrattiCSA.xsd" xmlns="http://tempuri.org/vistaRipContributiContrattiCSA.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaRipImpegniBudgetContributiContrattiCSA" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="csa_contract">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcsa_contract" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="ycontract" type="xs:short" />
+              <xs:element name="ncontract" type="xs:int" />
+              <xs:element name="idcsa_contractkind" type="xs:int" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="flagkeepalive" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_main" type="xs:string" minOccurs="0" />
+              <xs:element name="idexp_main" type="xs:int" minOccurs="0" />
+              <xs:element name="idfin_main" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="flagrecreate" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor_siope_main" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriting" type="xs:int" minOccurs="0" />
+              <xs:element name="idepexp_main" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="csa_contractkindyear">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcsa_contractkind" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_main" type="xs:string" minOccurs="0" />
+              <xs:element name="idfin_main" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idsor_siope_main" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="csa_contractkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcsa_contractkind" type="xs:int" />
+              <xs:element name="contractkindcode" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagcr" type="xs:string" />
+              <xs:element name="flagkeepalive" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idunderwriting" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="csa_contracttax">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcsa_contract" type="xs:int" />
+              <xs:element name="idcsa_contracttax" type="xs:int" />
+              <xs:element name="vocecsa" type="xs:string" />
+              <xs:element name="idfin" type="xs:int" minOccurs="0" />
+              <xs:element name="idexp" type="xs:int" minOccurs="0" />
+              <xs:element name="idacc" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
+              <xs:element name="idepexp" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="csa_contracttaxepexp">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcsa_contract" type="xs:int" />
+              <xs:element name="idcsa_contracttax" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="ndetail" type="xs:int" />
+              <xs:element name="quota" type="xs:decimal" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idepexp" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_contract" />
+      <xs:field xpath="mstns:idcsa_contract" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="csa_contractkindyear_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_contractkindyear" />
+      <xs:field xpath="mstns:idcsa_contractkind" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="csa_contractkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_contractkind" />
+      <xs:field xpath="mstns:idcsa_contractkind" />
+    </xs:unique>
+    <xs:unique name="csa_contracttax_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_contracttax" />
+      <xs:field xpath="mstns:idcsa_contract" />
+      <xs:field xpath="mstns:idcsa_contracttax" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="csa_contracttaxepexp_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_contracttaxepexp" />
+      <xs:field xpath="mstns:idcsa_contract" />
+      <xs:field xpath="mstns:idcsa_contracttax" />
+      <xs:field xpath="mstns:ayear" />
+      <xs:field xpath="mstns:ndetail" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="csa_contract_csa_contracttax" msdata:parent="csa_contract" msdata:child="csa_contracttax" msdata:parentkey="idcsa_contract ayear" msdata:childkey="idcsa_contract ayear" />
+      <msdata:Relationship name="csa_contractkind_csa_contractkindyear" msdata:parent="csa_contractkind" msdata:child="csa_contractkindyear" msdata:parentkey="idcsa_contractkind" msdata:childkey="idcsa_contractkind" />
+      <msdata:Relationship name="csa_contractkind_csa_contract" msdata:parent="csa_contractkind" msdata:child="csa_contract" msdata:parentkey="idcsa_contractkind" msdata:childkey="idcsa_contractkind" />
+      <msdata:Relationship name="csa_contracttax_csa_contracttaxexpense" msdata:parent="csa_contracttax" msdata:child="csa_contracttaxepexp" msdata:parentkey="idcsa_contract idcsa_contracttax ayear" msdata:childkey="idcsa_contract idcsa_contracttax ayear" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

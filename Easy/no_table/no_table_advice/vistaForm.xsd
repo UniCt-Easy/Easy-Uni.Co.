@@ -1,0 +1,77 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dbuser">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="initpwd" type="xs:string" minOccurs="0" />
+              <xs:element name="login" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="no_table">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnotable" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="advice">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codeadvice" type="xs:string" />
+              <xs:element name="title" type="xs:string"/>
+              <xs:element name="adate" type="xs:dateTime"/>
+              <xs:element name="description" type="xs:string"/>
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dbuseradvice">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codeadvice" type="xs:string" />
+              <xs:element name="login" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:dbuser" />
+      <xs:field xpath="mstns:login" />
+    </xs:unique>
+    <xs:unique name="no_table_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:no_table" />
+      <xs:field xpath="mstns:idnotable" />
+    </xs:unique>
+    <xs:unique name="advice_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:advice" />
+      <xs:field xpath="mstns:codeadvice" />
+    </xs:unique>
+    <xs:unique name="dbuseradvice_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:dbuseradvice" />
+      <xs:field xpath="mstns:codeadvice" />
+      <xs:field xpath="mstns:login" />
+    </xs:unique>
+    <xs:keyref name="FK_dbuser_dbuseradvice" refer="Constraint1">
+      <xs:selector xpath=".//mstns:dbuseradvice" />
+      <xs:field xpath="mstns:login" />
+    </xs:keyref>
+    <xs:keyref name="advice_dbuseradvice" refer="advice_Constraint1">
+      <xs:selector xpath=".//mstns:dbuseradvice" />
+      <xs:field xpath="mstns:codeadvice" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

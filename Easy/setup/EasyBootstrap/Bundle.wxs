@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix
+  xmlns="http://schemas.microsoft.com/wix/2006/wi"
+  xmlns:bal="http://schemas.microsoft.com/wix/BalExtension"
+  xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+
+  <Bundle
+    Name="Easy" Version="4.16.12.23"
+    Manufacturer="Tempo Srl"
+    SplashScreenSourceFile="banner.png"
+    IconSourceFile="logo.ico"
+    UpgradeCode="300ff395-9432-4e0d-b9b5-cc06901dadfc">
+
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense">
+      <bal:WixStandardBootstrapperApplication
+        LicenseFile="license.rtf"
+        LogoFile="tempo.png" ThemeFile="theme\ClassicTheme.xml"
+        LocalizationFile="theme\ClassicTheme.wxl" />
+    </BootstrapperApplicationRef>
+
+    <Chain>
+
+      <!-- .NET Framework 4.5.2 -->
+      <PackageGroupRef Id="NetFx452Redist" />
+      <RollbackBoundary />
+
+      <!-- Visual C++ 2005 Service Pack 1 ATL Security Update (richiesto dal setup di CrystalReport 13.0) -->
+      <ExePackage
+        Id="vcredist_x86"
+        Cache="no"
+        Compressed="yes"
+        PerMachine="yes"
+        Permanent="yes"
+        Vital="yes"
+        Name="Redist\vcredist_x86.exe"
+        DisplayName="Visual C++ 2005 Service Pack 1 ATL Security Update"
+        SourceFile="bundle\x86\vcredist_x86.exe"
+        InstallCommand="/q"
+        InstallCondition="NOT VersionNT64">
+
+        <!-- Ignora l'errore 1935 (installazione del .NET Framework danneggiata) -->
+        <ExitCode Value="1935" Behavior="success" />
+      </ExePackage>
+      <ExePackage
+        Id="vcredist_x64"
+        Cache="no"
+        Compressed="yes"
+        PerMachine="yes"
+        Permanent="yes"
+        Vital="yes"
+        Name="Redist\vcredist_x64.exe"
+        DisplayName="Visual C++ 2005 Service Pack 1 ATL Security Update"
+        SourceFile="bundle\x64\vcredist_x64.exe"
+        InstallCommand="/q"
+        InstallCondition="VersionNT64">
+
+        <!-- Ignora l'errore 1935 (installazione del .NET Framework danneggiata) -->
+        <ExitCode Value="1935" Behavior="success" />
+      </ExePackage>
+      <RollbackBoundary />
+
+      <!-- CrystalReports 13 -->
+      <MsiPackage
+        Id="crruntime_x86"
+        Permanent="no"
+        Vital="yes"
+        ForcePerMachine="yes"
+        Name="Redist\CRRuntime_32bit_13_0_18.msi"
+        DisplayName="CrystalReports 13.0 (release 18)"
+        DisplayInternalUI="no"
+        InstallCondition="NOT VersionNT64"
+        SourceFile="bundle\x86\CRRuntime_32bit_13_0_18.msi" />
+      <MsiPackage
+        Id="crruntime_x64"
+        Permanent="no"
+        Vital="yes"
+        ForcePerMachine="yes"
+        Name="Redist\CRRuntime_64bit_13_0_18.msi"
+        DisplayName="CrystalReports 13.0 (release 18)"
+        DisplayInternalUI="no"
+        InstallCondition="VersionNT64"
+        SourceFile="bundle\x64\CRRuntime_64bit_13_0_18.msi" />
+      <RollbackBoundary />
+
+      <!-- Easy -->
+      <MsiPackage
+        Id="easy"
+        DisplayName="Easy"
+        DisplayInternalUI="no"
+        SourceFile="..\EasySetup\bin\debug\EasySetup.msi" />
+
+    </Chain>
+
+  </Bundle>
+
+</Wix>

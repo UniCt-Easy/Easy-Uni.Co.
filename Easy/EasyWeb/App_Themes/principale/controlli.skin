@@ -1,0 +1,57 @@
+<%--
+Default skin template. The following skins are provided as examples only.
+
+1. Named control skin. The SkinId should be uniquely defined because
+   duplicate SkinId's per control type are not allowed in the same theme.
+
+<asp:GridView runat="server" SkinId="gridviewSkin" BackColor="White" >
+   <AlternatingRowStyle BackColor="Blue" />
+</asp:GridView>
+
+2. Default skin. The SkinId is not defined. Only one default 
+   control skin per control type is allowed in the same theme.
+
+<asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
+--%>
+<asp:Label
+    runat="server" Font-Bold="false" 
+    Font-Size="X-Large" Font-Names="Arial">
+ </asp:Label>
+
+<asp:Label  SkinId="rosso"
+            runat="server" Font-Names="Arial" Font-Bold="True"
+            ForeColor="#CC0000" Width="560px" Font-Size="Small"
+            >
+</asp:Label>
+<asp:Label
+    SkinId="verde"
+    runat="server" Font-Bold="True" 
+    Font-Size="X-Large" Font-Names="Arial">
+ </asp:Label>
+ 
+    <asp:Label runat="server" SkinId="blu"
+	Width="472px" ForeColor="#333399" Font-Names="Comic Sans MS" Font-Size="X-Large">
+	</asp:Label>
+	
+	<asp:Label runat="server" SkinId = "giallo"
+    ForeColor="LightYellow" Font-Names="Comic Sans MS" Font-Size="X-Large">
+   </asp:Label>
+				
+  <asp:RequiredFieldValidator 
+   runat="server" Font-Names="Arial" Font-Bold="True"
+   ForeColor="#CC0000" Width="560px" Font-Size="Small">
+   </asp:RequiredFieldValidator>
+  
+   <asp:TextBox  runat="server" 
+   BackColor="white">
+   </asp:TextBox>
+   
+   <asp:Button runat="server" 
+    BackColor="#FFFF66" 
+    Font-Bold="True" 
+    ForeColor="#0000CC" Visible="True">
+    </asp:Button>
+     
+    <asp:Table 	runat="server" ForeColor="LightYellow" 
+    ></asp:Table>
+   

@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistatransactionrule.xsd" xmlns:mstns="http://tempuri.org/vistatransactionrule.xsd" xmlns="http://tempuri.org/vistatransactionrule.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="journalfieldsetup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="opkind" type="xs:string" />
+              <xs:element name="dbfield" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="journaltablesetup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="opkind" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customobject">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="objectname" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="isreal" type="xs:string" />
+              <xs:element name="realtable" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="columntypes">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="field" type="xs:string" />
+              <xs:element name="iskey" type="xs:string" />
+              <xs:element name="sqltype" type="xs:string" />
+              <xs:element name="col_len" type="xs:int" minOccurs="0" />
+              <xs:element name="col_precision" type="xs:int" minOccurs="0" />
+              <xs:element name="col_scale" type="xs:int" minOccurs="0" />
+              <xs:element name="systemtype" type="xs:string" minOccurs="0" />
+              <xs:element name="sqldeclaration" type="xs:string" />
+              <xs:element name="allownull" type="xs:string" />
+              <xs:element name="defaultvalue" type="xs:string" minOccurs="0" />
+              <xs:element name="format" type="xs:string" minOccurs="0" />
+              <xs:element name="denynull" type="xs:string" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="createuser" type="xs:string" minOccurs="0" />
+              <xs:element name="createtimestamp" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:journalfieldsetup" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:opkind" />
+      <xs:field xpath="mstns:dbfield" />
+    </xs:unique>
+    <xs:unique name="journaltablesetup_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:journaltablesetup" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:opkind" />
+    </xs:unique>
+    <xs:unique name="customobject_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customobject" />
+      <xs:field xpath="mstns:objectname" />
+    </xs:unique>
+    <xs:unique name="columntypes_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:columntypes" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:field" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="customobjectjournaltablesetup" msdata:parent="customobject" msdata:child="journaltablesetup" msdata:parentkey="objectname" msdata:childkey="tablename" />
+      <msdata:Relationship name="journaltablesetupjournalfieldsetup" msdata:parent="journaltablesetup" msdata:child="journalfieldsetup" msdata:parentkey="tablename opkind" msdata:childkey="tablename opkind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

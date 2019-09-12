@@ -1,0 +1,38 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="tempds" targetNamespace="http://tempuri.org/tempds.xsd" xmlns:mstns="http://tempuri.org/tempds.xsd" xmlns="http://tempuri.org/tempds.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="tempds" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="prevfindetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfin" type="xs:int" />
+              <xs:element name="codefin" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="floatfund" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedpayments" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedproceeds" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedexpenditure" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedrevenue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="incometopartitioncompetency" type="xs:decimal" minOccurs="0" />
+              <xs:element name="incometopartitioncash" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cash" type="xs:decimal" minOccurs="0" />
+              <xs:element name="competency" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedcreditsurplus" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedfloatfund" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prevision2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prevision3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prevision4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prevision5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="availableprevision" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:prevfindetail" />
+      <xs:field xpath="mstns:idfin" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7BB59C36-B8E0-4840-9AE0-B219800C281F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>flussocrediti_default</RootNamespace>
+    <AssemblyName>flussocrediti_default</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MagicLibrary, Version=1.7.4.0, Culture=neutral, PublicKeyToken=3a6eb82f876a49bc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\MagicLibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="metadatalibrary">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="metaeasylibrary">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="zxing">
+      <HintPath>..\..\dll\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_config">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_config</Name>
+      <HintPath>..\..\config\meta_config\bin\Debug\meta_config.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_estimatedetail">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_estimatedetail</Name>
+      <HintPath>..\..\estimatedetail\meta_estimatedetail\bin\Debug\meta_estimatedetail.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_invoicedetail">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_invoicedetail</Name>
+      <HintPath>..\..\invoicedetail\meta_invoicedetail\bin\Debug\meta_invoicedetail.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_estimatekind">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_estimatekind</Name>
+      <HintPath>..\..\estimatekind\meta_estimatekind\bin\Debug\meta_estimatekind.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_invoicekind">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_invoicekind</Name>
+      <HintPath>..\..\invoicekind\meta_invoicekind\bin\Debug\meta_invoicekind.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_flussocrediti">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_flussocrediti</Name>
+      <HintPath>..\meta_flussocrediti\bin\Debug\meta_flussocrediti.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_flussocreditidetail">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_flussocreditidetail</Name>
+      <HintPath>..\..\flussocreditidetail\meta_flussocreditidetail\bin\Debug\meta_flussocreditidetail.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_sorting">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_sorting</Name>
+      <HintPath>..\..\sorting\meta_sorting\bin\Debug\meta_sorting.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="FrmErrori.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmErrori.Designer.cs">
+      <DependentUpon>FrmErrori.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmWizardScegliDettagliFattura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmWizardScegliDettagliContratto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_flussocrediti_default.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_flussocrediti_default.Designer.cs">
+      <DependentUpon>Frm_flussocrediti_default.cs</DependentUpon>
+    </Compile>
+    <Compile Include="vistaForm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vistaForm.xsc">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+    <None Include="vistaForm.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaForm.xss">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FrmErrori.resx">
+      <DependentUpon>FrmErrori.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmWizardScegliDettagliFattura.resx">
+      <DependentUpon>FrmWizardScegliDettagliFattura.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmWizardScegliDettagliContratto.resx">
+      <DependentUpon>FrmWizardScegliDettagliContratto.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_flussocrediti_default.resx">
+      <DependentUpon>Frm_flussocrediti_default.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
+      <Project>{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}</Project>
+      <Name>funzioni_configurazione</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\unmanaged\pagoPaService\pagoPaService\pagoPaService.csproj">
+      <Project>{0dc2a503-5cc5-4afd-a1b5-1776f0557559}</Project>
+      <Name>pagoPaService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y
+</PostBuildEvent>
+  </PropertyGroup>
+</Project>

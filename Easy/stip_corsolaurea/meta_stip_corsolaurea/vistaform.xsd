@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<xs:schema id="vistaform" targetNamespace="http://tempuri.org/vistaform.xsd" xmlns:mstns="http://tempuri.org/vistaform.xsd" xmlns="http://tempuri.org/vistaform.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaform" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="stip_corsolaurea">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstipcorsolaurea" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stip_corsolaurea" />
+      <xs:field xpath="mstns:idstipcorsolaurea" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

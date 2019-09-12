@@ -1,0 +1,21 @@
+Unknown column asset.idassetunloadkind in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+Unknown column asset.yassetunload in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+Unknown column asset.nassetunload in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+BAD TYPE(System.String) of inventorytree.idinv in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+BAD TYPE(System.String) of inventorytree.paridinv in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+BAD TYPE(System.String) of inventorytree.nlevel in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+BAD TYPE(System.String) of assetacquire.idmot in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+BAD TYPE(System.String) of assetacquire.idinv in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+BAD TYPE(System.String) of assetacquire.idinventory in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+Unknown column assetacquire.idassetloadkind in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+Unknown column assetacquire.yassetload in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+Unknown column assetacquire.nassetload in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+Unknown column assetacquire.flagload in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+Unknown column assetacquire.loadkind in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+BAD TYPE(System.String) of assetview.idlocation in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+BAD TYPE(System.String) of assetview.idinv in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+BAD TYPE(System.String) of assetview.idinventory in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+BAD TYPE(System.String) of assetview.idassetloadkind in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+BAD TYPE(System.String) of assetview.idassetunloadkind in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+Wrong Primary key LENGTH in assetview in : D:\easy\asset\asset_dettaglio\vistaForm.xsd
+BAD TYPE(System.String) of location.nlevel in : D:\easy\asset\asset_dettaglio\vistaForm.xsd

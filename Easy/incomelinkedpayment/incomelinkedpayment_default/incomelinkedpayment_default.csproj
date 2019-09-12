@@ -1,0 +1,29 @@
+<VisualStudioProject>
+  <CSHARP ProjectType="Local" ProductVersion="7.10.3077" SchemaVersion="2.0" ProjectGuid="{E2F100CD-7CAA-4E65-A75B-D264D54C3D2A}">
+    <Build>
+      <Settings ApplicationIcon="" AssemblyKeyContainerName="" AssemblyName="incomelinkedpayment_default" AssemblyOriginatorKeyFile="" DefaultClientScript="JScript" DefaultHTMLPageLayout="Grid" DefaultTargetSchema="IE50" DelaySign="false" OutputType="Library" PreBuildEvent="" PostBuildEvent="" RootNamespace="incomelinkedpayment_default" RunPostBuildEvent="OnBuildSuccess" StartupObject="">
+        <Config Name="Debug" AllowUnsafeBlocks="false" BaseAddress="285212672" CheckForOverflowUnderflow="false" ConfigurationOverrideFile="" DefineConstants="DEBUG;TRACE" DocumentationFile="" DebugSymbols="true" FileAlignment="4096" IncrementalBuild="true" NoStdLib="false" NoWarn="" Optimize="false" OutputPath="..\..\mainform\bin\debug\" RegisterForComInterop="false" RemoveIntegerChecks="false" TreatWarningsAsErrors="false" WarningLevel="4" />
+        <Config Name="Release" AllowUnsafeBlocks="false" BaseAddress="285212672" CheckForOverflowUnderflow="false" ConfigurationOverrideFile="" DefineConstants="TRACE" DocumentationFile="" DebugSymbols="false" FileAlignment="4096" IncrementalBuild="false" NoStdLib="false" NoWarn="" Optimize="true" OutputPath="bin\Release\" RegisterForComInterop="false" RemoveIntegerChecks="false" TreatWarningsAsErrors="false" WarningLevel="4" />
+      </Settings>
+      <References>
+        <Reference Name="System" AssemblyName="System" HintPath="..\..\..\WINNT\Microsoft.NET\Framework\v1.0.3705\System.dll" />
+        <Reference Name="System.Data" AssemblyName="System.Data" HintPath="..\..\..\WINNT\Microsoft.NET\Framework\v1.0.3705\System.Data.dll" />
+        <Reference Name="System.Drawing" AssemblyName="System.Drawing" HintPath="..\..\..\WINNT\Microsoft.NET\Framework\v1.0.3705\System.Drawing.dll" />
+        <Reference Name="System.Windows.Forms" AssemblyName="System.Windows.Forms" HintPath="..\..\..\WINNT\Microsoft.NET\Framework\v1.0.3705\System.Windows.Forms.dll" />
+        <Reference Name="System.XML" AssemblyName="System.Xml" HintPath="..\..\..\WINNT\Microsoft.NET\Framework\v1.0.3705\System.XML.dll" />
+        <Reference Name="metadatalibrary" AssemblyName="metadatalibrary" HintPath="..\..\DLL\metadatalibrary.dll" Private="False" />
+        <Reference Name="metaeasylibrary" AssemblyName="metaeasylibrary" HintPath="..\DLL\metaeasylibrary.dll" Private="False" />
+      </References>
+    </Build>
+    <Files>
+      <Include>
+        <File RelPath="AssemblyInfo.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="dettentratepagamentivista.xsd" BuildAction="Content" Generator="MSDataSetGenerator" LastGenOutput="dettentratepagamentivista.cs" />
+        <File RelPath="dettentratepagamentivista.cs" DependentUpon="dettentratepagamentivista.xsd" SubType="code" BuildAction="Compile" DesignTime="True" AutoGen="True" />
+        <File RelPath="dettentratepagamentivista.xsx" DependentUpon="dettentratepagamentivista.xsd" BuildAction="None" />
+        <File RelPath="Frm_incomelinkedpayment_default.cs" SubType="Form" BuildAction="Compile" />
+        <File RelPath="Frm_incomelinkedpayment_default.resx" DependentUpon="Frm_incomelinkedpayment_default.cs" BuildAction="EmbeddedResource" />
+      </Include>
+    </Files>
+  </CSHARP>
+</VisualStudioProject>

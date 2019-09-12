@@ -1,0 +1,119 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="DataSet3" targetNamespace="http://tempuri.org/DataSet3.xsd" xmlns:mstns="http://tempuri.org/DataSet3.xsd" xmlns="http://tempuri.org/DataSet3.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="DataSet3" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="list">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlist" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="intcode" type="xs:string" />
+              <xs:element name="intbarcode" type="xs:string" minOccurs="0" />
+              <xs:element name="extcode" type="xs:string" minOccurs="0" />
+              <xs:element name="extbarcode" type="xs:string" minOccurs="0" />
+              <xs:element name="validitystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="idunit" type="xs:int" minOccurs="0" />
+              <xs:element name="unitsforpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="has_expiry" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idlistclass" type="xs:string" />
+              <xs:element name="pic" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="picext" type="xs:string" minOccurs="0" />
+              <xs:element name="nmin" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ntoreorder" type="xs:decimal" minOccurs="0" />
+              <xs:element name="tounload" type="xs:string" minOccurs="0" />
+              <xs:element name="timesupply" type="xs:int" minOccurs="0" />
+              <xs:element name="nmaxorder" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="unit">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idunit" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="package">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpackage" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="listclass">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlistclass" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="codelistclass" type="xs:string" />
+              <xs:element name="paridlistclass" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="authrequired" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="idinv" type="xs:int" minOccurs="0" />
+              <xs:element name="assetkind" type="xs:string" minOccurs="0" />
+              <xs:element name="va3type" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="idintrastatsupplymethod" type="xs:int" minOccurs="0" />
+              <xs:element name="intra12operationkind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:list" />
+      <xs:field xpath="mstns:idlist" />
+    </xs:unique>
+    <xs:unique name="unit_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:unit" />
+      <xs:field xpath="mstns:idunit" />
+    </xs:unique>
+    <xs:unique name="package_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:package" />
+      <xs:field xpath="mstns:idpackage" />
+    </xs:unique>
+    <xs:unique name="listclass_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:listclass" />
+      <xs:field xpath="mstns:idlistclass" />
+    </xs:unique>
+    <xs:keyref name="listclass_list" refer="listclass_Constraint1">
+      <xs:selector xpath=".//mstns:list" />
+      <xs:field xpath="mstns:idlistclass" />
+    </xs:keyref>
+    <xs:keyref name="package_list" refer="package_Constraint1">
+      <xs:selector xpath=".//mstns:list" />
+      <xs:field xpath="mstns:idpackage" />
+    </xs:keyref>
+    <xs:keyref name="unit_list" refer="unit_Constraint1">
+      <xs:selector xpath=".//mstns:list" />
+      <xs:field xpath="mstns:idunit" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

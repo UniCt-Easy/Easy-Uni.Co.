@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <appSettings>
+    
+    <!-- Attenzione l'elenco dei parametri per l'accesso al database è posizionale e separato da ; -->
+    <!-- Di seguito la formattazione della stringa                                                 -->
+    <!-- DSN; HostName; DbName; DbUser; DbPass;                                                    -->
+    <add key="DSN1" value="Unina;serversw12;Unina2_Easy;amministrazione;PASSWORD"/>
+    <add key="DSN2" value="DSNDescription;HostName;DbName;DbUser;DBPass"/>
+
+  </appSettings>
+</configuration>

@@ -1,0 +1,56 @@
+/*
+    Easy
+    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+using System;
+using System.Data;
+using metadatalibrary;
+using metaeasylibrary;
+
+namespace meta_proceedstransmissionview{//meta_trasmdocincassoview//
+	/// <summary>
+	/// Summary description for Class1.
+	/// Author: Leo, 11 Dec 2002, End 12 Dec 2002
+	/// </summary>
+	public class Meta_proceedstransmissionview : Meta_easydata {
+		public Meta_proceedstransmissionview(DataAccess Conn, MetaDataDispatcher Dispatcher):
+			base(Conn, Dispatcher, "proceedstransmissionview") {
+			ListingTypes.Add("lista");   
+		}
+        private string[] mykey = new string[] { "kproceedstransmission" };
+        public override string[] primaryKey() {
+            return mykey;
+        }
+        public override void DescribeColumns(DataTable T, string ListingType) {			
+			base.DescribeColumns(T, ListingType);
+			if (ListingType=="lista") {
+				foreach(DataColumn C in T.Columns) {
+					DescribeAColumn(T, C.ColumnName, "");
+				}
+                int nPos = 1;
+                DescribeAColumn(T, "yproceedstransmission", "Eserc. distinta", nPos++);
+				DescribeAColumn(T, "nproceedstransmission", "Num. distinta", nPos++);
+				DescribeAColumn(T, "manager", "Responsabile", nPos++);
+				DescribeAColumn(T, "idtreasurer", ".#Cassiere", nPos++);
+                DescribeAColumn(T, "codetreasurer", "Cod. Cassiere", nPos++);
+                DescribeAColumn(T, "treasurer", "Cassiere", nPos++);
+                DescribeAColumn(T, "transmissiondate", "Data trasm.", nPos++);
+				DescribeAColumn(T, "total", "Totale distinta", nPos++);
+			}
+		}
+	}
+}

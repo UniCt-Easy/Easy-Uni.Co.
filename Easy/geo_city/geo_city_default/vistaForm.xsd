@@ -1,0 +1,244 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaGeo_Comune.xsd" xmlns:mstns="http://tempuri.org/VistaGeo_Comune.xsd" xmlns="http://tempuri.org/VistaGeo_Comune.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="geo_city">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcity" type="xs:int" />
+              <xs:element name="oldcity" type="xs:int" minOccurs="0" />
+              <xs:element name="newcity" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcountry" type="xs:int" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="geo_country">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcountry" type="xs:int" />
+              <xs:element name="province" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="oldcountry" type="xs:int" minOccurs="0" />
+              <xs:element name="newcountry" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idregion" type="xs:int" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="geo_city_agency">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcity" type="xs:int" />
+              <xs:element name="idagency" type="xs:int" />
+              <xs:element name="idcode" type="xs:int" />
+              <xs:element name="version" type="xs:int" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="value" type="xs:string" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="geo_comuni_da_importare">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcomune" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+              <xs:element name="nome" type="xs:string" minOccurs="0" />
+              <xs:element name="idprovincia" type="xs:int" minOccurs="0" />
+              <xs:element name="sigla_provincia" type="xs:string" minOccurs="0" />
+              <xs:element name="datainizio" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datafine" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="fisco" type="xs:string" minOccurs="0" />
+              <xs:element name="catasto" type="xs:string" minOccurs="0" />
+              <xs:element name="istat" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="valore1" type="xs:string" minOccurs="0" />
+              <xs:element name="valore2" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tutte_le_coppie">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcomune1" type="xs:int" minOccurs="0" />
+              <xs:element name="idcomune2" type="xs:int" minOccurs="0" />
+              <xs:element name="idprovincia1" type="xs:int" minOccurs="0" />
+              <xs:element name="idprovincia2" type="xs:int" minOccurs="0" />
+              <xs:element name="provincia1" type="xs:string" minOccurs="0" />
+              <xs:element name="provincia2" type="xs:string" minOccurs="0" />
+              <xs:element name="nome1" type="xs:string" minOccurs="0" />
+              <xs:element name="nome2" type="xs:string" minOccurs="0" />
+              <xs:element name="isnuovo1" type="xs:boolean" minOccurs="0" />
+              <xs:element name="isnuovo2" type="xs:boolean" minOccurs="0" />
+              <xs:element name="matching" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tutti_i_single1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcomune" type="xs:int" minOccurs="0" />
+              <xs:element name="idprovincia" type="xs:int" minOccurs="0" />
+              <xs:element name="nome" type="xs:string" minOccurs="0" />
+              <xs:element name="provincia" type="xs:string" minOccurs="0" />
+              <xs:element name="isnuovo" type="xs:boolean" minOccurs="0" />
+              <xs:element name="matching" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tutti_i_single2">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcomune" type="xs:int" minOccurs="0" />
+              <xs:element name="idprovincia" type="xs:int" minOccurs="0" />
+              <xs:element name="denominazione" type="xs:string" minOccurs="0" />
+              <xs:element name="provincia" type="xs:string" minOccurs="0" />
+              <xs:element name="isnuovo" type="xs:boolean" minOccurs="0" />
+              <xs:element name="matching" type="xs:integer" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="coppie_della_provincia_corrente">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcomune1" type="xs:int" minOccurs="0" />
+              <xs:element name="idcomune2" type="xs:int" minOccurs="0" />
+              <xs:element name="nome1" type="xs:string" minOccurs="0" />
+              <xs:element name="nome2" type="xs:string" minOccurs="0" />
+              <xs:element name="isnuovo1" type="xs:boolean" minOccurs="0" />
+              <xs:element name="isnuovo2" type="xs:boolean" minOccurs="0" />
+              <xs:element name="matching" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dettagli">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcomune" type="xs:int" minOccurs="0" />
+              <xs:element name="data_inizio" type="xs:date" minOccurs="0" />
+              <xs:element name="data_fine" type="xs:date" minOccurs="0" />
+              <xs:element name="status" type="xs:string" minOccurs="0" />
+              <xs:element name="provincia" type="xs:string" minOccurs="0" />
+              <xs:element name="denominazione" type="xs:string" minOccurs="0" />
+              <xs:element name="fisco" type="xs:string" minOccurs="0" />
+              <xs:element name="catasto" type="xs:string" minOccurs="0" />
+              <xs:element name="istat" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="vecchio_comune" type="xs:string" minOccurs="0" />
+              <xs:element name="nuovo_comune" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="single1_della_provincia_corrente">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcomune" type="xs:int" minOccurs="0" />
+              <xs:element name="nome" type="xs:string" minOccurs="0" />
+              <xs:element name="idprovincia" type="xs:int" minOccurs="0" />
+              <xs:element name="isnuovo" type="xs:boolean" minOccurs="0" />
+              <xs:element name="matching" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="single2_della_provincia_corrente">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcomune" type="xs:int" minOccurs="0" />
+              <xs:element name="denominazione" type="xs:string" minOccurs="0" />
+              <xs:element name="idprovincia" type="xs:int" minOccurs="0" />
+              <xs:element name="isnuovo" type="xs:boolean" minOccurs="0" />
+              <xs:element name="matching" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="province_selezionate">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idprovincia" type="xs:int" minOccurs="0" />
+              <xs:element name="sigla" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="geo_aggiornamento">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_aggiornamento" type="xs:int" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tabella_originale" type="xs:string" minOccurs="0" />
+              <xs:element name="tabella_geo" type="xs:string" minOccurs="0" />
+              <xs:element name="tipo" type="xs:string" minOccurs="0" />
+              <xs:element name="comune_importato" type="xs:string" minOccurs="0" />
+              <xs:element name="geo_comune" type="xs:string" minOccurs="0" />
+              <xs:element name="chiave" type="xs:string" minOccurs="0" />
+              <xs:element name="vecchio_valore" type="xs:string" minOccurs="0" />
+              <xs:element name="nuovo_valore" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="geo_importazione_dati">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idente" type="xs:int" />
+              <xs:element name="nome_importazione" type="xs:string" minOccurs="0" />
+              <xs:element name="tabella_sorgente" type="xs:string" minOccurs="0" />
+              <xs:element name="cln_valore1" type="xs:string" minOccurs="0" />
+              <xs:element name="cln_valore2" type="xs:string" minOccurs="0" />
+              <xs:element name="cln_denominazione" type="xs:string" minOccurs="0" />
+              <xs:element name="cln_id_provincia" type="xs:string" minOccurs="0" />
+              <xs:element name="cln_sigla_provincia" type="xs:string" minOccurs="0" />
+              <xs:element name="cln_data_inizio" type="xs:string" minOccurs="0" />
+              <xs:element name="cln_data_fine" type="xs:string" minOccurs="0" />
+              <xs:element name="cln_istat" type="xs:string" minOccurs="0" />
+              <xs:element name="cln_fisco" type="xs:string" minOccurs="0" />
+              <xs:element name="cln_catasto" type="xs:string" minOccurs="0" />
+              <xs:element name="cln_cap" type="xs:string" minOccurs="0" />
+              <xs:element name="correzione_fofc_pspu" type="xs:string" minOccurs="0" />
+              <xs:element name="correzione_datainizio_1960_01_01" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="vistaFormKey1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_city" />
+      <xs:field xpath="mstns:idcity" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey2" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_country" />
+      <xs:field xpath="mstns:idcountry" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey3" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_city_agency" />
+      <xs:field xpath="mstns:idcity" />
+      <xs:field xpath="mstns:idagency" />
+      <xs:field xpath="mstns:idcode" />
+      <xs:field xpath="mstns:version" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey5" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_comuni_da_importare" />
+      <xs:field xpath="mstns:idcomune" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey6" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_aggiornamento" />
+      <xs:field xpath="mstns:id_aggiornamento" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey7" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_importazione_dati" />
+      <xs:field xpath="mstns:idente" />
+    </xs:unique>
+    <xs:keyref name="vistaFormKey4" refer="vistaFormKey1" msdata:RelationName="geo_citygeo_city_agency">
+      <xs:selector xpath=".//mstns:geo_city_agency" />
+      <xs:field xpath="mstns:idcity" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

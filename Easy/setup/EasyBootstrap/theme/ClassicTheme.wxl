@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="it-it" Language="1040" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="Caption">Installazione di [WixBundleName]</String>
+  <String Id="Title">[WixBundleName]</String>
+  <String Id="ConfirmCancelMessage">Sei sicuro di voler annullare l'operazione?</String>
+  <String Id="HelpHeader">Aiuto</String>
+  <String Id="HelpText">
+/install | /repair | /uninstall | /layout [cartella] - installa, ripara, disinstalla oppure crea una copia
+  locale completa del pacchetto nella cartella specificata. L'installazione è l'operazione predefinita.
+
+/passive | /quiet - visualizza un'interfaccia minimale senza interazioni con l'utente oppure non visualizza
+  nessuna interfaccia utente. Normalmente viene visualizzata un'interfaccia utente completa ed è richiesta
+  l'interazione con l'utente.
+
+/norestart   - ignora qualsiasi tentativo di riavviare. Normalmente l'interfaccia utente richiederà il riavvio
+  in caso di necessità.
+
+/log log.txt - registra le attività in un file specifico. Normalmente il file di registro viene creato in %TEMP%.
+  </String>
+  <String Id="HelpCloseButton">&amp;Chiudi</String>
+  <String Id="InstallAcceptCheckbox">&amp;Accetto i termini e le condizioni della licenza d'uso.</String>
+  <String Id="InstallOptionsButton">&amp;Opzioni</String>
+  <String Id="InstallInstallButton">&amp;Installa</String>
+  <String Id="InstallCloseButton">&amp;Chiudi</String>
+  <String Id="OptionsHeader">Opzioni d'installazione</String>
+  <String Id="OptionsLocationLabel">Percorso d'installazione:</String>
+  <String Id="OptionsBrowseButton">&amp;Sfoglia</String>
+  <String Id="OptionsOkButton">&amp;OK</String>
+  <String Id="OptionsCancelButton">A&amp;nnulla</String>
+  <String Id="ProgressHeader">Fase d'installazione</String>
+  <String Id="ProgressLabel">Operazione corrente:</String>
+  <String Id="OverallProgressPackageText">Inizializzazione...</String>
+  <String Id="ProgressCancelButton">A&amp;nnulla</String>
+  <String Id="ModifyHeader">Modifica installazione</String>
+  <String Id="ModifyRepairButton">&amp;Ripara</String>
+  <String Id="ModifyUninstallButton">&amp;Disinstalla</String>
+  <String Id="ModifyCloseButton">&amp;Chiudi</String>
+  <String Id="SuccessHeader">Installazione completata</String>
+  <String Id="SuccessLaunchButton">A&amp;vvia</String>
+  <String Id="SuccessRestartText">Devi riavviare il tuo computer prima di poter utilizzare il programma.</String>
+  <String Id="SuccessRestartButton">&amp;Riavvia</String>
+  <String Id="SuccessCloseButton">&amp;Chiudi</String>
+  <String Id="FailureHeader">Installazione fallita</String>
+  <String Id="FailureHyperlinkLogText">Uno o più problemi hanno causato l'interruzione dell'installazione. Per favore, risolvi i problemi e riprova ad installare. Per maggiori informazioni guarda il &lt;a href="#"&gt;file di registro&lt;/a&gt;.</String>
+  <String Id="FailureRestartText">Devi riavviare il tuo computer per completare la rimozione del programma.</String>
+  <String Id="FailureRestartButton">&amp;Riavvia</String>
+  <String Id="FailureCloseButton">&amp;Chiudi</String>
+  <String Id="WillInstall">[WixBundleName] verrà installato sul tuo computer.</String>
+  <String Id="InstallLicenseLinkText">Installando il programma, accetti implicitamente i &lt;a href="#"&gt;termini della licenza d'uso&lt;/a&gt;.</String>
+</WixLocalization>

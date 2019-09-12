@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="sdi_acquisto">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsdi_acquisto" type="xs:int" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="zipfilename" type="xs:string" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="xml" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="identificativo_sdi" type="xs:int" minOccurs="0" />
+              <xs:element name="mt" type="xs:string" minOccurs="0" />
+              <xs:element name="ec" type="xs:string" minOccurs="0" />
+              <xs:element name="ec_sent" type="xs:string" minOccurs="0" />
+              <xs:element name="se" type="xs:string" minOccurs="0" />
+              <xs:element name="dt" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_unseen" type="xs:int" minOccurs="0" />
+              <xs:element name="idsdi_status" type="xs:short" />
+              <xs:element name="position" type="xs:int" />
+              <xs:element name="ec_number" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="ninvoice" type="xs:string" minOccurs="0" />
+              <xs:element name="riferimento_amministrazione" type="xs:string" minOccurs="0" />
+              <xs:element name="codice_ipa" type="xs:string" minOccurs="0" />
+              <xs:element name="total" type="xs:decimal" minOccurs="0" />
+              <xs:element name="discount_amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="protocoldate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="arrivalprotocolnum" type="xs:string" minOccurs="0" />
+              <xs:element name="rejectreason" type="xs:string" minOccurs="0" />
+              <xs:element name="ec_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="mt_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="se_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="dt_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="utente_accettata" type="xs:string" minOccurs="0" />
+              <xs:element name="utente_rifiutata" type="xs:string" minOccurs="0" />
+              <xs:element name="data_accettata" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="data_rifiutata" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="protocol_error" type="xs:string" minOccurs="0" />
+              <xs:element name="total_easy" type="xs:decimal" minOccurs="0" />
+              <xs:element name="tipodocumento" type="xs:string" minOccurs="0" />
+              <xs:element name="notcreacontabilita" type="xs:string" minOccurs="0" />
+              <xs:element name="notcreacontabilitareason" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sdi_acquisto" />
+      <xs:field xpath="mstns:idsdi_acquisto" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

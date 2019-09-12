@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:intf="http://pmPay.it/ws/authPA/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://pmPay.it/ws/authPA/" targetNamespace="http://pmPay.it/ws/authPA/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://pmPay.it/ws/authPA/">
+      <xsd:element name="GetTicket">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="content" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetTicketResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GetTicketResult" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetIUV">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="content" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetIUVResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GetIUVResult" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="GetTicketResponse">
+    <wsdl:part name="parameters" element="impl:GetTicketResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIUVResponse">
+    <wsdl:part name="parameters" element="impl:GetIUVResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTicketRequest">
+    <wsdl:part name="parameters" element="impl:GetTicket" />
+  </wsdl:message>
+  <wsdl:message name="GetIUVRequest">
+    <wsdl:part name="parameters" element="impl:GetIUV" />
+  </wsdl:message>
+  <wsdl:portType name="AuthPASoap">
+    <wsdl:operation name="GetTicket">
+      <wsdl:input name="GetTicketRequest" message="impl:GetTicketRequest" />
+      <wsdl:output name="GetTicketResponse" message="impl:GetTicketResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIUV">
+      <wsdl:input name="GetIUVRequest" message="impl:GetIUVRequest" />
+      <wsdl:output name="GetIUVResponse" message="impl:GetIUVResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AuthPASoapSoapBinding" type="impl:AuthPASoap">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetTicket">
+      <wsdlsoap:operation soapAction="http://pmPay.it/ws/authPA/GetTicket" />
+      <wsdl:input name="GetTicketRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetTicketResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIUV">
+      <wsdlsoap:operation soapAction="http://pmPay.it/ws/authPA/GetIUV" />
+      <wsdl:input name="GetIUVRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetIUVResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AuthPA">
+    <wsdl:port name="AuthPASoap" binding="impl:AuthPASoapSoapBinding">
+      <wsdlsoap:address location="http://service.pmpay.it/authPA/services/AuthPASoap" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

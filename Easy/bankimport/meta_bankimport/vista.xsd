@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="bankimport">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idbankimport" type="xs:int" />
+              <xs:element name="lastpayment" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastproceeds" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastbillincome" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastbillexpense" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="totalpayment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalproceeds" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalbillincome_plus" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalbillincome_minus" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalbillexpense_plus" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalbillexpense_minus" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idbank" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ayear" type="xs:short" minOccurs="0" />
+              <xs:element name="identificativo_flusso_bt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bankimport" />
+      <xs:field xpath="mstns:idbankimport" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

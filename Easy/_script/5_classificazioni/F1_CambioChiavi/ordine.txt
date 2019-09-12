@@ -1,0 +1,11 @@
+1. sortingkind (da 1 a 6)
+2. sorting (da 1 a 6)
+3. sortinglevel
+4. paymethod
+5. division
+6. expirationkind
+7. underwriter
+8. registrykind
+9. banktransactionsorting
+10. pettycashoperationsorted
+11. prevfin

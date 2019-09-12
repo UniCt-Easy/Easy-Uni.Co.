@@ -1,0 +1,77 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="foreigngroupruledetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idforeigngrouprule" type="xs:int" />
+              <xs:element name="iddetail" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="minincomeclass" type="xs:int" />
+              <xs:element name="maxincomeclass" type="xs:int" />
+              <xs:element name="foreigngroupnumber" type="xs:short" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="position">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="maxincomeclass" type="xs:short" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="foreigngroup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="foreigngroupnumber" type="xs:short" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:foreigngroupruledetail" />
+      <xs:field xpath="mstns:idforeigngrouprule" />
+      <xs:field xpath="mstns:iddetail" />
+    </xs:unique>
+    <xs:unique name="position_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="foreigngroup_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:foreigngroup" />
+      <xs:field xpath="mstns:foreigngroupnumber" />
+      <xs:field xpath="mstns:start" />
+    </xs:unique>
+    <xs:unique name="Constraint2">
+      <xs:selector xpath=".//mstns:foreigngroup" />
+      <xs:field xpath="mstns:foreigngroupnumber" />
+    </xs:unique>
+    <xs:keyref name="position_foreigngroupruledetail" refer="position_Constraint1">
+      <xs:selector xpath=".//mstns:foreigngroupruledetail" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:keyref>
+    <xs:keyref name="foreigngroup_foreigngroupruledetail" refer="Constraint2">
+      <xs:selector xpath=".//mstns:foreigngroupruledetail" />
+      <xs:field xpath="mstns:foreigngroupnumber" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

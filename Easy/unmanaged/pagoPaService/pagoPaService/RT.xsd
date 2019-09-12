@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.digitpa.gov.it/schemas/2011/Pagamenti/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="RT">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:byte" name="versioneOggetto"/>
+        <xs:element name="dominio">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="identificativoDominio"/>
+              <xs:element type="xs:string" name="identificativoStazioneRichiedente"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="identificativoMessaggioRicevuta"/>
+        <xs:element type="xs:dateTime" name="dataOraMessaggioRicevuta"/>
+        <xs:element type="xs:string" name="riferimentoMessaggioRichiesta"/>
+        <xs:element type="xs:date" name="riferimentoDataRichiesta"/>
+        <xs:element name="istitutoAttestante">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativoUnivocoAttestante">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="tipoIdentificativoUnivoco"/>
+                    <xs:element type="xs:string" name="codiceIdentificativoUnivoco"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:string" name="denominazioneAttestante"/>
+              <xs:element type="xs:string" name="codiceUnitOperAttestante"/>
+              <xs:element type="xs:string" name="denomUnitOperAttestante"/>
+              <xs:element type="xs:string" name="indirizzoAttestante"/>
+              <xs:element type="xs:byte" name="civicoAttestante"/>
+              <xs:element type="xs:string" name="capAttestante"/>
+              <xs:element type="xs:string" name="localitaAttestante"/>
+              <xs:element type="xs:string" name="provinciaAttestante"/>
+              <xs:element type="xs:string" name="nazioneAttestante"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="enteBeneficiario">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativoUnivocoBeneficiario">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="tipoIdentificativoUnivoco"/>
+                    <xs:element type="xs:string" name="codiceIdentificativoUnivoco"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:string" name="denominazioneBeneficiario"/>
+              <xs:element type="xs:string" name="indirizzoBeneficiario"/>
+              <xs:element type="xs:string" name="capBeneficiario"/>
+              <xs:element type="xs:string" name="localitaBeneficiario"/>
+              <xs:element type="xs:string" name="provinciaBeneficiario"/>
+              <xs:element type="xs:string" name="nazioneBeneficiario"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="soggettoVersante">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativoUnivocoVersante">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="tipoIdentificativoUnivoco"/>
+                    <xs:element type="xs:string" name="codiceIdentificativoUnivoco"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:string" name="anagraficaVersante"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="soggettoPagatore">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativoUnivocoPagatore">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="tipoIdentificativoUnivoco"/>
+                    <xs:element type="xs:string" name="codiceIdentificativoUnivoco"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:string" name="anagraficaPagatore"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="datiPagamento">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:byte" name="codiceEsitoPagamento"/>
+              <xs:element type="xs:decimal" name="importoTotalePagato"/>
+              <xs:element type="xs:string" name="identificativoUnivocoVersamento"/>
+              <xs:element type="xs:string" name="CodiceContestoPagamento"/>
+              <xs:element name="datiSingoloPagamento">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:decimal" name="singoloImportoPagato"/>
+                    <xs:element type="xs:string" name="esitoSingoloPagamento"/>
+                    <xs:element type="xs:date" name="dataEsitoSingoloPagamento"/>
+                    <xs:element type="xs:string" name="identificativoUnivocoRiscossione"/>
+                    <xs:element type="xs:string" name="causaleVersamento"/>
+                    <xs:element type="xs:string" name="datiSpecificiRiscossione"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

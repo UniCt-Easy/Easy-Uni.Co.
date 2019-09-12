@@ -1,0 +1,345 @@
+MIME-Version: 1.0
+Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
+X-Unsent: 1
+Content-Type: Multipart/related;
+  boundary="---------blocknote.net--11OUBANJ8ZIP21GQA8J8V2RQX9"
+
+
+-----------blocknote.net--11OUBANJ8ZIP21GQA8J8V2RQX9
+Content-Type: Text/HTML;
+  charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<HTML>
+  <HEAD>
+    <META http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf=
+-8">
+    <META name=3D"GENERATOR" content=3D"BLOCKNOTE.NET">
+    <META name=3D"source">
+    <BASEFONT face=3D"Times New Roman" size=3D"3">
+    <TITLE></TITLE><STYLE>BODY { FONT-FAMILY:Times New Roman; FONT-SIZE:1=
+2pt }
+P { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+DIV { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+</STYLE>
+  </HEAD>
+<BODY>
+<DIV align=3D"center"><STRONG><FONT face=3D"@Arial Unicode MS">Tipo Ammor=
+tamento</FONT></STRONG></DIV>
+<DIV align=3D"center">&nbsp;</DIV>
+<DIV><FONT face=3D"@Arial Unicode MS">Menu: <STRONG>Configurazione -&gt; =
+Cespiti -&gt; Tipo Ammortamento</FONT></STRONG></DIV>
+<DIV align=3D"center">&nbsp;</DIV>
+<DIV align=3D"justify"><FONT face=3D"@Arial Unicode MS">In questo from =C3=
+=A8 possibile configurare il tipo di ammortamento o rivalutazione da appl=
+icare annualmente ai beni inventariali (fig.1). Possono essere configurat=
+e pi=C3=B9 tipologie di ammortamento, ciascuna caratterizzata dai paramet=
+ri che di seguito specifichiamo.</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"center"><FONT face=3D"@Arial Unicode MS">(fig. 1)</FONT></D=
+IV>
+<DIV>&nbsp;</DIV>
+<DIV align=3D"center"><IMG src=3D"cid:H7VV34LICHBKQY99JG11UOLI7"></DIV>
+<DIV align=3D"center">&nbsp;</DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><FONT face=3D"@Arial Unicode MS">Codice: <=
+/STRONG>codice alfanumero univoco che individua la tipologia di ammortame=
+nto.</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><FONT face=3D"@Arial Unicode MS">Et=C3=A0 =
+minima (minore stretto : </STRONG>consente di impostare un filtro per &nb=
+sp;l'applicazione dell'ammortamento in base all'et=C3=A0 del bene. Il par=
+ametro indica il minimo numero di anni che un cespite deve avere affinch=C3=
+=A8 la tipologia di ammortamento in oggetto venga applicata.<STRONG> </ST=
+RONG>L'et=C3=A0 del calcolo di un cespite si calcola basandosi sulla <A h=
+ref=3D"asset_dettaglio.mht">data di inizio esistenza cespite</A>, nell'es=
+ercizio contabile 2010 un bene con data di inizio esistenza cespite del 0=
+1/05/2009 ha et=C3=A0 2, pertanto et=C3=A0 1 =C3=A8 l'et=C3=A0 di inizio =
+esistenza del bene.</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><FONT face=3D"@Arial Unicode MS">Et=C3=A0 =
+massima (maggiore o uguale): </STRONG>consente di impostare un filtro per=
+ &nbsp;l'applicazione dell'ammortamento in base all'et=C3=A0 del bene. Il=
+ parametro indica il minimo numero di anni che un cespite deve avere affi=
+nch=C3=A8 la tipologia di ammortamento in oggetto venga applicata.</FONT>=
+</DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><U><FONT face=3D"@Arial Unicode MS">N.B.: =
+per avere un corretto calcolo dell'ammortamento, =C3=A8 fondamentale che =
+tutti i beni abbiano una data inizio esistenza.</FONT></U></STRONG></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><FONT face=3D"@Arial Unicode MS">Valore mi=
+nimo: </STRONG>consente di impostare un filtro per l'applicazione dell'am=
+mortamento in base al valore minimo che un bene deve avere.</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><FONT face=3D"@Arial Unicode MS">Valore ma=
+ssimo: </STRONG>consente di impostare un filtro per l'applicazione dell'a=
+mmortamento in base al valore massimo che un bene deve avere.</FONT></DIV=
+>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><U><FONT face=3D"@Arial Unicode MS">N.B.: i parame=
+tri Et=C3=A0 min/max e Valore min/max possono essere congiuntamente valor=
+izzati per avere un filtro pi=C3=B9 specifico nell'applicazione della tip=
+ologia di ammortamento.</FONT></U></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><FONT face=3D"@Arial Unicode MS">Descrizio=
+ne: </STRONG>breve descrizione che individua in modo univoco la tipologia=
+ di ammortamento.</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><FONT face=3D"@Arial Unicode MS">Tipo Calc=
+olo: </STRONG>il tipo di calcolo dell'ammortamento pu=C3=B2 essere Mensil=
+e o Annuale. Il primo tiene conto delle frazioni di anno nel caso in cui =
+la data di inizio esistenza del bene non coincide con la data inizio dell=
+'anno solare.</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><FONT face=3D"@Arial Unicode MS">Ammortame=
+nto o Svalutazione: </STRONG>la tipologia ammortamento =C3=A8 periodica m=
+entre la tipologia svalutazione ha carattere eccezionale.</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><FONT face=3D"@Arial Unicode MS">Applica r=
+ivalutazione al valore comprensivo di IVA: </STRONG>l'abilitazione di tal=
+e opzione consente di comprendere nel valore complessivo del bene l'impor=
+to dell'Iva indetraibile.</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><FONT face=3D"@Arial Unicode MS">Ufficiale=
+: </STRONG>per rendere ufficiale la tipologia di ammortamento configurata=
+=2E</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><FONT face=3D"@Arial Unicode MS">Attivo: <=
+/STRONG>per rendere attiva la tipologia di ammortamento configurata.</FON=
+T></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+</BODY>
+</HTML>
+
+-----------blocknote.net--11OUBANJ8ZIP21GQA8J8V2RQX9
+Content-Type: image/x-png
+Content-Id: <H7VV34LICHBKQY99JG11UOLI7>
+Content-Transfer-Encoding: base64
+Content-Location: file://C:/Users/Cinzia/Desktop/Immagine.png
+
+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
+QmCC=
+
+-----------blocknote.net--11OUBANJ8ZIP21GQA8J8V2RQX9--

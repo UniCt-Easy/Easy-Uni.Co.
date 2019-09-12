@@ -1,0 +1,231 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="admpay">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yadmpay" type="xs:int" />
+              <xs:element name="nadmpay" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="processed" type="xs:string" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SPT_00">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tiporecord" type="xs:string" minOccurs="0" />
+              <xs:element name="rata" type="xs:int" minOccurs="0" />
+              <xs:element name="dataelaborazione" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SPT_99">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tiporecord" type="xs:string" minOccurs="0" />
+              <xs:element name="rata" type="xs:int" minOccurs="0" />
+              <xs:element name="dataelaborazione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="totalepartite" type="xs:int" minOccurs="0" />
+              <xs:element name="totaleimporto" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SPT_01">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="numeroriga" type="xs:int" minOccurs="0" />
+              <xs:element name="tiporecord" type="xs:string" minOccurs="0" />
+              <xs:element name="iscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="rata" type="xs:int" minOccurs="0" />
+              <xs:element name="dataemissione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dpt" type="xs:string" minOccurs="0" />
+              <xs:element name="codicefiscale" type="xs:string" minOccurs="0" />
+              <xs:element name="cognome1" type="xs:string" minOccurs="0" />
+              <xs:element name="nome1" type="xs:string" minOccurs="0" />
+              <xs:element name="indirizzo" type="xs:string" minOccurs="0" />
+              <xs:element name="localita" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="provinciaresid" type="xs:string" minOccurs="0" />
+              <xs:element name="modalpagamento" type="xs:int" minOccurs="0" />
+              <xs:element name="tiposervizio" type="xs:string" minOccurs="0" />
+              <xs:element name="iban" type="xs:string" minOccurs="0" />
+              <xs:element name="cin" type="xs:string" minOccurs="0" />
+              <xs:element name="abi" type="xs:string" minOccurs="0" />
+              <xs:element name="cab" type="xs:string" minOccurs="0" />
+              <xs:element name="contocorrente" type="xs:string" minOccurs="0" />
+              <xs:element name="ufficioservizio" type="xs:string" minOccurs="0" />
+              <xs:element name="capitolospesa" type="xs:int" minOccurs="0" />
+              <xs:element name="capitolobilancio" type="xs:int" minOccurs="0" />
+              <xs:element name="qualifica" type="xs:string" minOccurs="0" />
+              <xs:element name="livello" type="xs:int" minOccurs="0" />
+              <xs:element name="classe" type="xs:int" minOccurs="0" />
+              <xs:element name="scatti" type="xs:int" minOccurs="0" />
+              <xs:element name="aliquotamedia" type="xs:int" minOccurs="0" />
+              <xs:element name="dataprossimoaps" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="imponibilerataannocorrente" type="xs:int" minOccurs="0" />
+              <xs:element name="irpefrataannocorrente" type="xs:int" minOccurs="0" />
+              <xs:element name="irpefarretratiannocorrente" type="xs:int" minOccurs="0" />
+              <xs:element name="irpefarretratiannoprecedente" type="xs:int" minOccurs="0" />
+              <xs:element name="irpeftotalenetta" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoannuolordo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importomensilelordo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importomensilenetto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importonetto13ma" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoprev13ma" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoirpef13ma" type="xs:decimal" minOccurs="0" />
+              <xs:element name="percptime" type="xs:int" minOccurs="0" />
+              <xs:element name="numerofigli" type="xs:int" minOccurs="0" />
+              <xs:element name="numeroaltrifam" type="xs:int" minOccurs="0" />
+              <xs:element name="detrazionibase" type="xs:decimal" minOccurs="0" />
+              <xs:element name="detrazioniconiuge" type="xs:decimal" minOccurs="0" />
+              <xs:element name="detrazionifigli" type="xs:decimal" minOccurs="0" />
+              <xs:element name="detrazionialtrifam" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flageffettoconiuge" type="xs:string" minOccurs="0" />
+              <xs:element name="totaledetrazioni" type="xs:decimal" minOccurs="0" />
+              <xs:element name="numerominori3anni" type="xs:decimal" minOccurs="0" />
+              <xs:element name="codiceregimecontributivo" type="xs:string" minOccurs="0" />
+              <xs:element name="codregioneirap" type="xs:int" minOccurs="0" />
+              <xs:element name="aliquotamassima" type="xs:decimal" minOccurs="0" />
+              <xs:element name="aliquotamaxforzata" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CodiceComuneAccon" type="xs:string" minOccurs="0" />
+              <xs:element name="CodiceComuneSaldo" type="xs:string" minOccurs="0" />
+              <xs:element name="CodiceAccontoDich" type="xs:string" minOccurs="0" />
+              <xs:element name="CodiceAccontoCong" type="xs:string" minOccurs="0" />
+              <xs:element name="CodiceAc" type="xs:string" minOccurs="0" />
+              <xs:element name="CodiceAcCong" type="xs:string" minOccurs="0" />
+              <xs:element name="CodiceComuneRes" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SPT_02">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="numeroriga" type="xs:int" minOccurs="0" />
+              <xs:element name="tiporecord" type="xs:string" minOccurs="0" />
+              <xs:element name="iscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="rata" type="xs:int" minOccurs="0" />
+              <xs:element name="dataemissione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="codiceassegno" type="xs:string" minOccurs="0" />
+              <xs:element name="sottocodiceassegno" type="xs:string" minOccurs="0" />
+              <xs:element name="importolordotabellare" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importolordorata" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoriduzionept" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoriduzionete" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoritprev" type="xs:decimal" minOccurs="0" />
+              <xs:element name="datascadassegno" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="flagimponfiscale" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SPT_03">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="numeroriga" type="xs:int" minOccurs="0" />
+              <xs:element name="tiporecord" type="xs:string" minOccurs="0" />
+              <xs:element name="iscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="rata" type="xs:int" minOccurs="0" />
+              <xs:element name="dataemissione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="codiceassegno" type="xs:string" minOccurs="0" />
+              <xs:element name="codritprevass" type="xs:string" minOccurs="0" />
+              <xs:element name="aliquotalavoratore" type="xs:int" minOccurs="0" />
+              <xs:element name="percentualeapplicazione" type="xs:int" minOccurs="0" />
+              <xs:element name="imponibile" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoritenuta" type="xs:decimal" minOccurs="0" />
+              <xs:element name="aliquotadatore" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importodatore" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SPT_04">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="numeroriga" type="xs:int" minOccurs="0" />
+              <xs:element name="tiporecord" type="xs:string" minOccurs="0" />
+              <xs:element name="iscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="rata" type="xs:int" minOccurs="0" />
+              <xs:element name="dataemissione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="codiceritenuta" type="xs:string" minOccurs="0" />
+              <xs:element name="tiporitenuta" type="xs:string" minOccurs="0" />
+              <xs:element name="flagriduzimpon" type="xs:string" minOccurs="0" />
+              <xs:element name="progressivodebito" type="xs:int" minOccurs="0" />
+              <xs:element name="importoritenuta" type="xs:decimal" minOccurs="0" />
+              <xs:element name="datascadritextra" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SPT_05">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="numeroriga" type="xs:int" minOccurs="0" />
+              <xs:element name="tiporecord" type="xs:string" minOccurs="0" />
+              <xs:element name="iscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="rata" type="xs:int" minOccurs="0" />
+              <xs:element name="dataemissione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="codiceritenutacategoria" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceassegno" type="xs:string" minOccurs="0" />
+              <xs:element name="importoritenuta" type="xs:decimal" minOccurs="0" />
+              <xs:element name="datascadritcat" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tiporitcat" type="xs:string" minOccurs="0" />
+              <xs:element name="percapplritcat" type="xs:decimal" minOccurs="0" />
+              <xs:element name="percritcat" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SPT_06">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="numeroriga" type="xs:int" minOccurs="0" />
+              <xs:element name="tiporecord" type="xs:string" minOccurs="0" />
+              <xs:element name="iscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="rata" type="xs:int" minOccurs="0" />
+              <xs:element name="dataemissione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="codiceassegno" type="xs:string" minOccurs="0" />
+              <xs:element name="codicearretrato" type="xs:string" minOccurs="0" />
+              <xs:element name="datalotto" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="numlotto" type="xs:int" minOccurs="0" />
+              <xs:element name="annoriferimento" type="xs:int" minOccurs="0" />
+              <xs:element name="importolordorata" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoriduzionept" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoriduzionepe" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoritenute" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SPT_07">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="numeroriga" type="xs:int" minOccurs="0" />
+              <xs:element name="tiporecord" type="xs:string" minOccurs="0" />
+              <xs:element name="iscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="rata" type="xs:int" minOccurs="0" />
+              <xs:element name="dataemissione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="codiceassegno" type="xs:string" minOccurs="0" />
+              <xs:element name="codicearretrato" type="xs:string" minOccurs="0" />
+              <xs:element name="datalotto" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="numlotto" type="xs:int" minOccurs="0" />
+              <xs:element name="annoriferimento" type="xs:int" minOccurs="0" />
+              <xs:element name="codritprevass" type="xs:string" minOccurs="0" />
+              <xs:element name="imponibile" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoritlavoratore" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoritdatore" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:admpay" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

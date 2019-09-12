@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone="yes"?>
+<vistaForm xmlns="http://tempuri.org/VistaConfigLiveUpdate.xsd">
+  <configtable>
+    <localreportdir></localreportdir>
+    <httpupdatepath>http://www.temposrl.com/easy2/</httpupdatepath>
+    <httpupdatepath2 />
+    <httpupdatepath3 />
+  </configtable>
+</vistaForm>

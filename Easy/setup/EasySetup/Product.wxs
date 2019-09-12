@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix
+  xmlns="http://schemas.microsoft.com/wix/2006/wi"
+  xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  
+	<Product
+    Id="DE055627-B0CE-4BB8-8D53-D671519901B0"
+    UpgradeCode="7950A4AB-2C9F-4BD0-B5DE-22539E6812CD"
+    Language="1040" Codepage="1252"
+    Manufacturer="Tempo Srl" Name="Easy" Version="4.16.12.23">
+    
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<Media Id="1" Cabinet="Easy.cab" EmbedCab="yes" />
+
+    <PropertyRef Id="WIX_ACCOUNT_USERS" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir" DiskId="1">
+
+      <Directory Id="ProgramFilesFolder" Name="Program Files">
+        <Directory Id="MANUFACTURERFOLDER" Name="Tempo Srl">
+          <Directory Id="INSTALLFOLDER" Name="Easy">
+            <Directory Id="BINARYFOLDER" Name="bin">
+              <Component Id="BinaryComponent" Guid="C76CC601-13D4-42E0-A2E0-5F41BA1E1F8D">
+                
+                <!-- Set permissions -->
+                <CreateFolder>
+                  <util:PermissionEx User="[WIX_ACCOUNT_USERS]" GenericAll="yes" ChangePermission="yes" />
+                </CreateFolder>
+                
+                <!-- Loader -->
+                <File Source="..\..\output\loader.exe" KeyPath='yes' />
+                
+                <!-- Easy executables -->
+                <File Source="..\..\output\mainform.exe" />
+                
+                <!-- Easy libraries -->
+                <File Source="..\..\output\accountingyear_confcontabile.dll" />
+                <File Source="..\..\output\AskDate.dll" />
+                <File Source="..\..\output\BackupRestore.dll" />
+                <File Source="..\..\output\CambiaDataContabile.dll" />
+                <File Source="..\..\output\CambiaEsercizio.dll" />
+                <File Source="..\..\output\checkflags.dll" />
+                <File Source="..\..\output\ConfigLiveUpdate.dll" />
+                <File Source="..\..\output\download.dll" />
+                <File Source="..\..\output\funzioni_configurazione.dll" />
+                <File Source="..\..\output\GeneraLiveUpdate.dll" />
+                <File Source="..\..\output\GeneraSQL.dll" />
+                <File Source="..\..\output\install.dll" />
+                <File Source="..\..\output\LiveUpdate.dll" />
+                <File Source="..\..\output\mainformfunctions.dll" />
+                <File Source="..\..\output\menu_default.dll" />
+                <File Source="..\..\output\MenuUpdate.dll" />
+                <File Source="..\..\output\meta_resultparameter.dll" />
+                <File Source="..\..\output\resultparameter_default.dll" />
+                <File Source="..\..\output\security_function.dll" />
+                <File Source="..\..\output\utility.dll" />
+                <File Source="..\..\output\ViewError.dll" />
+                
+                <!-- Core libraries -->
+                <File Source="..\..\dll\MagicLibrary.dll" />
+                <File Source="..\..\dll\HelpWeb.dll" />
+                <File Source="..\..\dll\edtFTPnet.dll" />
+                <File Source="..\..\dll\metadatalibrary.dll" />
+                <File Source="..\..\dll\metaeasylibrary.dll" />
+                
+                <!-- Xceed libraries -->
+                <File Source="..\..\dll\Xceed.Compression.v5.6.dll" />
+                <File Source="..\..\dll\Xceed.Editors.v2.6.dll" />
+                <File Source="..\..\dll\Xceed.FileSystem.v5.6.dll" />
+                <File Source="..\..\dll\Xceed.Grid.v3.9.dll" />
+                <File Source="..\..\dll\Xceed.UI.v1.4.dll" />
+                <File Source="..\..\dll\Xceed.Validation.v1.3.dll" />
+                <File Source="..\..\dll\Xceed.Zip.v5.6.dll" />
+                
+                <!-- LiveUpdate Configuration -->
+                <File Id="UPDATECONFIG" Source="updateconfig.xml" />
+                <util:XmlConfig Id="LiveUpdateConfig" File="[#UPDATECONFIG]" Sequence="1" On="install"
+                                ElementPath="/vistaForm/configtable/localreportdir"
+                                Action="create" Node="value" Value="[REPORTFOLDER]" />
+                
+                <!-- Accessories -->
+                <File Source="logo.ico" />
+              </Component>
+            </Directory>
+
+            <Directory Id="REPORTFOLDER" Name="report">
+              <Component Id="ReportComponent" Guid="1FE2679B-DBD4-4125-A902-1604AE9B0767">
+                <!-- Set permissions -->
+                <CreateFolder>
+                  <util:PermissionEx User="[WIX_ACCOUNT_USERS]" GenericAll="yes" ChangePermission="yes" />
+                </CreateFolder>
+              </Component>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="Tempo Srl" />
+      </Directory>
+
+      <Directory Id="DesktopFolder" Name="Desktop" />
+      
+    </Directory>
+
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="LoaderShortcut" Guid="458EB953-E04D-4653-B90E-2AAD20FF30C1">
+        <Shortcut Id="LoaderShortcut" Name="Easy" Description="Avvia Easy" Target="[BINARYFOLDER]loader.exe" WorkingDirectory="BINARYFOLDER" Icon="logo.ico" IconIndex="0" />
+        <RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\Tempo Srl\Easy" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+    
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="LoaderShortcutDesktop" Guid="BCC25913-7E92-432C-A021-F68EF5FDC221">
+        <Shortcut Id="LoaderShortcutDesktop" Name="Easy" Description="Avvia Easy" Target="[BINARYFOLDER]loader.exe" WorkingDirectory="BINARYFOLDER" Icon="logo.ico" IconIndex="0" />
+        <RemoveFolder Id="RemoveDesktopFolder" Directory="DesktopFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\Tempo Srl\Easy" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+    
+    <Feature Id="ProductFeature" Title="Easy" Level="1">
+      <ComponentRef Id="BinaryComponent" />
+      <ComponentRef Id="ReportComponent" />
+      <ComponentRef Id="LoaderShortcut" />
+      <ComponentRef Id="LoaderShortcutDesktop" />
+    </Feature>
+
+    <Icon Id="logo.ico" SourceFile="logo.ico" />
+
+	</Product>
+
+</Wix>

@@ -1,0 +1,130 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaAliquotaRegionaleLista.xsd" xmlns:mstns="http://tempuri.org/VistaAliquotaRegionaleLista.xsd" xmlns="http://tempuri.org/VistaAliquotaRegionaleLista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="geo_region_view">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idregion" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="oldregion" type="xs:int" minOccurs="0" />
+              <xs:element name="newregion" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" />
+              <xs:element name="idcontinent" type="xs:int" minOccurs="0" />
+              <xs:element name="nation" type="xs:string" minOccurs="0" />
+              <xs:element name="nationdatestart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="nationdatestop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="oldnation" type="xs:int" minOccurs="0" />
+              <xs:element name="newnation" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tax">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="taxkind" type="xs:short" minOccurs="0" />
+              <xs:element name="fiscaltaxcode" type="xs:string" minOccurs="0" />
+              <xs:element name="flagunabatable" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="taxablecode" type="xs:string" minOccurs="0" />
+              <xs:element name="geoappliance" type="xs:string" minOccurs="0" />
+              <xs:element name="appliancebasis" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="regionalratebracket">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="idregion" type="xs:int" />
+              <xs:element name="validitystart" type="xs:dateTime" />
+              <xs:element name="nbracket" type="xs:int" />
+              <xs:element name="minamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="maxamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_descrizione" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="regionalrateview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="idregion" type="xs:int" />
+              <xs:element name="region" type="xs:string" minOccurs="0" />
+              <xs:element name="validitystart" type="xs:dateTime" />
+              <xs:element name="nbracket" type="xs:int" />
+              <xs:element name="ratestart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="rate" type="xs:decimal" />
+              <xs:element name="enforcement" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="regionalrate">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="idregion" type="xs:int" />
+              <xs:element name="validitystart" type="xs:dateTime" />
+              <xs:element name="nbracket" type="xs:int" />
+              <xs:element name="publishmentdate" type="xs:dateTime" />
+              <xs:element name="enforcement" type="xs:string" />
+              <xs:element name="rate" type="xs:decimal" />
+              <xs:element name="ratestart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_region_view" />
+      <xs:field xpath="mstns:idregion" />
+    </xs:unique>
+    <xs:unique name="tax_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tax" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:unique>
+    <xs:unique name="regionalratebracket_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:regionalratebracket" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:idregion" />
+      <xs:field xpath="mstns:validitystart" />
+      <xs:field xpath="mstns:nbracket" />
+    </xs:unique>
+    <xs:unique name="regionalrate_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:regionalrate" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:idregion" />
+      <xs:field xpath="mstns:validitystart" />
+      <xs:field xpath="mstns:nbracket" />
+      <xs:field xpath="mstns:publishmentdate" />
+    </xs:unique>
+    <xs:keyref name="geo_region_viewregionalrate" refer="Constraint1">
+      <xs:selector xpath=".//mstns:regionalrate" />
+      <xs:field xpath="mstns:idregion" />
+    </xs:keyref>
+    <xs:keyref name="regionalratebracketregionalrate" refer="regionalratebracket_Constraint1">
+      <xs:selector xpath=".//mstns:regionalrate" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:idregion" />
+      <xs:field xpath="mstns:validitystart" />
+      <xs:field xpath="mstns:nbracket" />
+    </xs:keyref>
+    <xs:keyref name="taxregionalrate" refer="tax_Constraint1">
+      <xs:selector xpath=".//mstns:regionalrate" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

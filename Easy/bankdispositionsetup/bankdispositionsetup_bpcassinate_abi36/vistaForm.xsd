@@ -1,0 +1,89 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="bankdispositionsetup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="kpaymenttransmission" type="xs:int" minOccurs="0" />
+              <xs:element name="kproceedstransmission" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="paymenttransmission">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="npaymenttransmission" type="xs:int" />
+              <xs:element name="ypaymenttransmission" type="xs:short" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="transmissiondate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="kpaymenttransmission" type="xs:int" />
+              <xs:element name="flagmailsent" type="xs:string" minOccurs="0" />
+              <xs:element name="transmissionkind" type="xs:string" minOccurs="0" />
+              <xs:element name="streamdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="flagtransmissionenabled" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="proceedstransmission">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nproceedstransmission" type="xs:int" />
+              <xs:element name="yproceedstransmission" type="xs:short" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="transmissiondate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="kproceedstransmission" type="xs:int" />
+              <xs:element name="transmissionkind" type="xs:string" minOccurs="0" />
+              <xs:element name="streamdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="flagtransmissionenabled" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="xmldocs">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="pk" type="xs:int" />
+              <xs:element name="xCol" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bankdispositionsetup" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="paymenttransmission_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:paymenttransmission" />
+      <xs:field xpath="mstns:kpaymenttransmission" />
+    </xs:unique>
+    <xs:unique name="proceedstransmission_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:proceedstransmission" />
+      <xs:field xpath="mstns:kproceedstransmission" />
+    </xs:unique>
+    <xs:unique name="xmldocs_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:xmldocs" />
+      <xs:field xpath="mstns:pk" />
+    </xs:unique>
+    <xs:keyref name="proceedstransmission_bankdispositionsetup" refer="proceedstransmission_Constraint1">
+      <xs:selector xpath=".//mstns:bankdispositionsetup" />
+      <xs:field xpath="mstns:kproceedstransmission" />
+    </xs:keyref>
+    <xs:keyref name="paymenttransmission_bankdispositionsetup" refer="paymenttransmission_Constraint1">
+      <xs:selector xpath=".//mstns:bankdispositionsetup" />
+      <xs:field xpath="mstns:kpaymenttransmission" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

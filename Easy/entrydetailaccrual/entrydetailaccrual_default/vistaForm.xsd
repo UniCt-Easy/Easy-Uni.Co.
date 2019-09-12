@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="entrydetailaccrual">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yentry" type="xs:short" />
+              <xs:element name="nentry" type="xs:int" />
+              <xs:element name="ndetail" type="xs:int" />
+              <xs:element name="idaccrual" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="yentrylinked" type="xs:short" minOccurs="0" />
+              <xs:element name="nentrylinked" type="xs:int" minOccurs="0" />
+              <xs:element name="ndetaillinked" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="entrykind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identrykind" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="entrykind_linked">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identrykind" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="entrydetailview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yentry" type="xs:short" />
+              <xs:element name="nentry" type="xs:int" />
+              <xs:element name="ndetail" type="xs:int" />
+              <xs:element name="idacc" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="give" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="have" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="codeacc" type="xs:string" minOccurs="0" />
+              <xs:element name="account" type="xs:string" minOccurs="0" />
+              <xs:element name="registry" type="xs:string" minOccurs="0" />
+              <xs:element name="upb" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccountkind" type="xs:string" minOccurs="0" />
+              <xs:element name="flagregistry" type="xs:string" minOccurs="0" />
+              <xs:element name="flagupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idrelated" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="identrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="competencystart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="competencystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="entrydetailview_linked">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yentry" type="xs:short" />
+              <xs:element name="nentry" type="xs:int" />
+              <xs:element name="ndetail" type="xs:int" />
+              <xs:element name="idacc" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="give" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="have" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor1" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="codeacc" type="xs:string" minOccurs="0" />
+              <xs:element name="account" type="xs:string" minOccurs="0" />
+              <xs:element name="registry" type="xs:string" minOccurs="0" />
+              <xs:element name="upb" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccountkind" type="xs:string" minOccurs="0" />
+              <xs:element name="flagregistry" type="xs:string" minOccurs="0" />
+              <xs:element name="flagupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idrelated" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="identrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="competencystart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="competencystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="entrydetailaccrualview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yentry" type="xs:short" />
+              <xs:element name="nentry" type="xs:int" />
+              <xs:element name="ndetail" type="xs:int" />
+              <xs:element name="idacc" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="rateamount" type="xs:decimal" />
+              <xs:element name="available" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:string" />
+              <xs:element name="cu" type="xs:dateTime" />
+              <xs:element name="lt" type="xs:string" />
+              <xs:element name="lu" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="codeacc" type="xs:string" minOccurs="0" />
+              <xs:element name="account" type="xs:string" minOccurs="0" />
+              <xs:element name="registry" type="xs:string" minOccurs="0" />
+              <xs:element name="upb" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccountkind" type="xs:string" minOccurs="0" />
+              <xs:element name="flagregistry" type="xs:string" minOccurs="0" />
+              <xs:element name="flagupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idrelated" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="adate" type="xs:string" />
+              <xs:element name="doc" type="xs:dateTime" />
+              <xs:element name="docdate" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="accmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="identrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="competencystart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="competencystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="flagap" type="xs:string" minOccurs="0" />
+              <xs:element name="idepexp" type="xs:int" minOccurs="0" />
+              <xs:element name="idepacc" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:entrydetailaccrual" />
+      <xs:field xpath="mstns:yentry" />
+      <xs:field xpath="mstns:nentry" />
+      <xs:field xpath="mstns:ndetail" />
+      <xs:field xpath="mstns:idaccrual" />
+    </xs:unique>
+    <xs:unique name="entrykind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:entrykind" />
+      <xs:field xpath="mstns:identrykind" />
+    </xs:unique>
+    <xs:unique name="entrykind_linked_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:entrykind_linked" />
+      <xs:field xpath="mstns:identrykind" />
+    </xs:unique>
+    <xs:unique name="entrydetailview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:entrydetailview" />
+      <xs:field xpath="mstns:yentry" />
+      <xs:field xpath="mstns:nentry" />
+      <xs:field xpath="mstns:ndetail" />
+    </xs:unique>
+    <xs:unique name="entrydetailview_linked_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:entrydetailview_linked" />
+      <xs:field xpath="mstns:yentry" />
+      <xs:field xpath="mstns:nentry" />
+      <xs:field xpath="mstns:ndetail" />
+    </xs:unique>
+    <xs:unique name="entrydetailaccrualview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:entrydetailaccrualview" />
+      <xs:field xpath="mstns:yentry" />
+      <xs:field xpath="mstns:nentry" />
+      <xs:field xpath="mstns:ndetail" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="entrykind_linkedentrydetailview_linked" msdata:parent="entrykind_linked" msdata:child="entrydetailview_linked" msdata:parentkey="identrykind" msdata:childkey="identrykind" />
+      <msdata:Relationship name="entrykindentrydetailview" msdata:parent="entrykind" msdata:child="entrydetailview" msdata:parentkey="identrykind" msdata:childkey="identrykind" />
+      <msdata:Relationship name="entrydetailview_entrydetailaccrual" msdata:parent="entrydetailview" msdata:child="entrydetailaccrual" msdata:parentkey="yentry nentry ndetail" msdata:childkey="yentry nentry ndetail" />
+      <msdata:Relationship name="entrydetailview_linkedentrydetailaccrual" msdata:parent="entrydetailview_linked" msdata:child="entrydetailaccrual" msdata:parentkey="yentry nentry ndetail" msdata:childkey="yentrylinked nentrylinked ndetaillinked" />
+      <msdata:Relationship name="entrydetailaccrualview_entrydetailaccrual" msdata:parent="entrydetailaccrualview" msdata:child="entrydetailaccrual" msdata:parentkey="yentry nentry ndetail" msdata:childkey="yentrylinked nentrylinked ndetaillinked" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

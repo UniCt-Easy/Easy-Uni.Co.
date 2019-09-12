@@ -1,0 +1,94 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaFrmCustomUser.xsd" xmlns:mstns="http://tempuri.org/VistaFrmCustomUser.xsd" xmlns="http://tempuri.org/VistaFrmCustomUser.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="customuser">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomuser" type="xs:string" />
+              <xs:element name="username" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customusergroup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomgroup" type="xs:string" />
+              <xs:element name="idcustomuser" type="xs:string" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customgroup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomgroup" type="xs:string" />
+              <xs:element name="groupname" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="userenvironment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomuser" type="xs:string" />
+              <xs:element name="variablename" type="xs:string" />
+              <xs:element name="value" type="xs:string" minOccurs="0" />
+              <xs:element name="flagadmin" type="xs:string" minOccurs="0" />
+              <xs:element name="kind" type="xs:string" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_attuale" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customuser" />
+      <xs:field xpath="mstns:idcustomuser" />
+    </xs:unique>
+    <xs:unique name="customusergroup_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customusergroup" />
+      <xs:field xpath="mstns:idcustomgroup" />
+      <xs:field xpath="mstns:idcustomuser" />
+    </xs:unique>
+    <xs:unique name="customgroup_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customgroup" />
+      <xs:field xpath="mstns:idcustomgroup" />
+    </xs:unique>
+    <xs:unique name="userenvironment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:userenvironment" />
+      <xs:field xpath="mstns:idcustomuser" />
+      <xs:field xpath="mstns:variablename" />
+    </xs:unique>
+    <xs:keyref name="customuseruserenvironment" refer="Constraint1">
+      <xs:selector xpath=".//mstns:userenvironment" />
+      <xs:field xpath="mstns:idcustomuser" />
+    </xs:keyref>
+    <xs:keyref name="customgroupcustomusergroup" refer="customgroup_Constraint1">
+      <xs:selector xpath=".//mstns:customusergroup" />
+      <xs:field xpath="mstns:idcustomgroup" />
+    </xs:keyref>
+    <xs:keyref name="customusercustomusergroup" refer="Constraint1">
+      <xs:selector xpath=".//mstns:customusergroup" />
+      <xs:field xpath="mstns:idcustomuser" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

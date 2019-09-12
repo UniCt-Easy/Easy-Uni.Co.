@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistamodulereportparameter.xsd" xmlns:mstns="http://tempuri.org/Vistamodulereportparameter.xsd" xmlns="http://tempuri.org/Vistamodulereportparameter.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="report">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="groupname" type="xs:string" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="orientation" type="xs:string" />
+              <xs:element name="papersize" type="xs:string" minOccurs="0" />
+              <xs:element name="modulename" type="xs:string" />
+              <xs:element name="reportname" type="xs:string" />
+              <xs:element name="webvisible" type="xs:string" minOccurs="0" />
+              <xs:element name="timeout" type="xs:int" minOccurs="0" />
+              <xs:element name="flag_both" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_cash" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_comp" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_credit" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_proceeds" type="xs:string" minOccurs="0" />
+              <xs:element name="print_rs" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="reportparameter">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="reportname" type="xs:string" />
+              <xs:element name="paramname" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="tag" type="xs:string" minOccurs="0" />
+              <xs:element name="systype" type="xs:string" minOccurs="0" />
+              <xs:element name="number" type="xs:short" />
+              <xs:element name="hintkind" type="xs:string" minOccurs="0" />
+              <xs:element name="hint" type="xs:string" minOccurs="0" />
+              <xs:element name="iscombobox" type="xs:string" minOccurs="0" />
+              <xs:element name="datasource" type="xs:string" minOccurs="0" />
+              <xs:element name="valuemember" type="xs:string" minOccurs="0" />
+              <xs:element name="displaymember" type="xs:string" minOccurs="0" />
+              <xs:element name="noselectionforall" type="xs:string" minOccurs="0" />
+              <xs:element name="help" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="filter" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="help2" type="xs:string" minOccurs="0" />
+              <xs:element name="selectioncode" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:report" />
+      <xs:field xpath="mstns:reportname" />
+    </xs:unique>
+    <xs:unique name="reportparameter_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:reportparameter" />
+      <xs:field xpath="mstns:reportname" />
+      <xs:field xpath="mstns:paramname" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="reportreportparameter" msdata:parent="report" msdata:child="reportparameter" msdata:parentkey="reportname" msdata:childkey="reportname" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

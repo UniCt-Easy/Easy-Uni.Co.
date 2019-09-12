@@ -1,0 +1,89 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="foreignallowancerule">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idforeignallowancerule" type="xs:int" />
+              <xs:element name="idforeigncountry" type="xs:int" />
+              <xs:element name="_x0021_foreigncountry" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="foreignallowanceruledetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idforeignallowancerule" type="xs:int" />
+              <xs:element name="iddetail" type="xs:int" />
+              <xs:element name="minforeigngroupnumber" type="xs:short" />
+              <xs:element name="maxforeigngroupnumber" type="xs:short" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="advancepercentage" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="foreigncountry">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idforeigncountry" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="flag_ue" type="xs:string" minOccurs="0" />
+              <xs:element name="codeforeigncountry" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="foreignallowanceruleview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idforeignallowancerule" type="xs:int" />
+              <xs:element name="idforeigncountry" type="xs:int" />
+              <xs:element name="foreigncountry" type="xs:string" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="codeforeigncountry" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:foreignallowancerule" />
+      <xs:field xpath="mstns:idforeignallowancerule" />
+    </xs:unique>
+    <xs:unique name="foreignallowanceruledetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:foreignallowanceruledetail" />
+      <xs:field xpath="mstns:idforeignallowancerule" />
+      <xs:field xpath="mstns:iddetail" />
+    </xs:unique>
+    <xs:unique name="foreigncountry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:foreigncountry" />
+      <xs:field xpath="mstns:idforeigncountry" />
+    </xs:unique>
+    <xs:unique name="foreignallowanceruleview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:foreignallowanceruleview" />
+      <xs:field xpath="mstns:idforeignallowancerule" />
+    </xs:unique>
+    <xs:keyref name="foreignallowancerule_foreignallowanceruledetail" refer="Constraint1">
+      <xs:selector xpath=".//mstns:foreignallowanceruledetail" />
+      <xs:field xpath="mstns:idforeignallowancerule" />
+    </xs:keyref>
+    <xs:keyref name="foreigncountry_foreignallowancerule" refer="foreigncountry_Constraint1">
+      <xs:selector xpath=".//mstns:foreignallowancerule" />
+      <xs:field xpath="mstns:idforeigncountry" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

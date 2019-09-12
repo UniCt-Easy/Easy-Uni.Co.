@@ -1,0 +1,38 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaAlertAddress.xsd" xmlns:mstns="http://tempuri.org/VistaAlertAddress.xsd" xmlns="http://tempuri.org/VistaAlertAddress.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="delete_alertaddress">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="name" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mailsetup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmailsetup" type="xs:int" />
+              <xs:element name="smtp" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="email" type="xs:string" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="vistaFormKey1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:delete_alertaddress" />
+      <xs:field xpath="mstns:name" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey2" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mailsetup" />
+      <xs:field xpath="mstns:idmailsetup" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

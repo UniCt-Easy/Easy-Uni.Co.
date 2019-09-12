@@ -1,0 +1,57 @@
+/*
+    Easy
+    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+using System;
+using metaeasylibrary;
+using metadatalibrary;
+using System.Data;
+using System.Windows.Forms;
+
+
+namespace meta_cu_details
+{
+	/// <summary>
+	/// Summary description for meta_cu_details.
+	/// </summary>
+	public class Meta_cu_details : Meta_easydata {
+		public Meta_cu_details(DataAccess Conn, MetaDataDispatcher Dispatcher):
+			base(Conn, Dispatcher, "cu_details") {		
+			EditTypes.Add("default");
+			ListingTypes.Add("default");
+		}
+
+
+		protected override Form GetForm(string FormName) {
+ 
+            switch (FormName)
+            {
+                case "default":
+                    {
+                        DefaultListType = "default";
+                        Name = "Certificazione Unica";
+                        return MetaData.GetFormByDllName("cu_details_default");
+                    }
+            }
+            
+            return null;
+		}
+
+
+	}
+}
+

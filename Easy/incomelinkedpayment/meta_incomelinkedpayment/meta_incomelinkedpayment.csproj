@@ -1,0 +1,24 @@
+<VisualStudioProject>
+  <CSHARP ProjectType="Local" ProductVersion="7.10.2292" SchemaVersion="2.0" ProjectGuid="{F1CEBEE3-A2A2-44FF-BE43-8F2DFE938C77}">
+    <Build>
+      <Settings ApplicationIcon="" AssemblyKeyContainerName="" AssemblyName="meta_incomelinkedpayment" AssemblyOriginatorKeyFile="" DefaultClientScript="JScript" DefaultHTMLPageLayout="Grid" DefaultTargetSchema="IE50" DelaySign="false" OutputType="Library" PreBuildEvent="" PostBuildEvent="" RootNamespace="meta_incomelinkedpayment" RunPostBuildEvent="OnBuildSuccess" StartupObject="">
+        <Config Name="Debug" AllowUnsafeBlocks="false" BaseAddress="285212672" CheckForOverflowUnderflow="false" ConfigurationOverrideFile="" DefineConstants="DEBUG;TRACE" DocumentationFile="" DebugSymbols="true" FileAlignment="4096" IncrementalBuild="true" NoStdLib="false" NoWarn="" Optimize="false" OutputPath="..\..\mainform\bin\debug" RegisterForComInterop="false" RemoveIntegerChecks="false" TreatWarningsAsErrors="false" WarningLevel="4" />
+        <Config Name="Release" AllowUnsafeBlocks="false" BaseAddress="285212672" CheckForOverflowUnderflow="false" ConfigurationOverrideFile="" DefineConstants="TRACE" DocumentationFile="" DebugSymbols="false" FileAlignment="4096" IncrementalBuild="false" NoStdLib="false" NoWarn="" Optimize="true" OutputPath="..\..\mainform\bin\Release" RegisterForComInterop="false" RemoveIntegerChecks="false" TreatWarningsAsErrors="false" WarningLevel="4" />
+      </Settings>
+      <References>
+        <Reference Name="System" AssemblyName="System" HintPath="..\..\..\WINNT\Microsoft.NET\Framework\v1.0.3705\System.dll" />
+        <Reference Name="System.Data" AssemblyName="System.Data" HintPath="..\..\..\WINNT\Microsoft.NET\Framework\v1.0.3705\System.Data.dll" />
+        <Reference Name="System.XML" AssemblyName="System.Xml" HintPath="..\..\..\WINNT\Microsoft.NET\Framework\v1.0.3705\System.XML.dll" />
+        <Reference Name="metadatalibrary" AssemblyName="metadatalibrary" HintPath="..\..\DLL\metadatalibrary.dll" Private="False" />
+        <Reference Name="metaeasylibrary" AssemblyName="metaeasylibrary" HintPath="..\DLL\metaeasylibrary.dll" Private="False" />
+        <Reference Name="System.Windows.Forms" AssemblyName="System.Windows.Forms" HintPath="..\..\..\WINNT\Microsoft.NET\Framework\v1.0.3705\System.Windows.Forms.dll" />
+      </References>
+    </Build>
+    <Files>
+      <Include>
+        <File RelPath="AssemblyInfo.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="meta_incomelinkedpayment.cs" SubType="Code" BuildAction="Compile" />
+      </Include>
+    </Files>
+  </CSHARP>
+</VisualStudioProject>

@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ticket.temposrl.it/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ticket.temposrl.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://ticket.temposrl.it/">
+      <s:element name="registerCliente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idstruttura" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tel1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tel2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cell" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nome" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cognome" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessoMF" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="titolo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="registerClienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="registerClienteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="aggiornaCliente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idcliente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tel1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tel2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cell" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nome" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cognome" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessoMF" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="titolo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="aggiornaClienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aggiornaClienteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="registerStruttura">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nomeDip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idente" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="registerStrutturaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="registerStrutturaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="registerEnte">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nomeEnte" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_iva" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="registerEnteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="registerEnteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="elencaEnti">
+        <s:complexType />
+      </s:element>
+      <s:element name="elencaEntiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="elencaEntiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getStatoTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idticket" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getStatoTicketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getStatoTicketResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="creaTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idcliente" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idstruttura" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idente" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dataSet" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="immagine" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="stato" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachment" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="outputView" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dlllist" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="problema" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="creaTicketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="creaTicketResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="registerClienteSoapIn">
+    <wsdl:part name="parameters" element="tns:registerCliente" />
+  </wsdl:message>
+  <wsdl:message name="registerClienteSoapOut">
+    <wsdl:part name="parameters" element="tns:registerClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="aggiornaClienteSoapIn">
+    <wsdl:part name="parameters" element="tns:aggiornaCliente" />
+  </wsdl:message>
+  <wsdl:message name="aggiornaClienteSoapOut">
+    <wsdl:part name="parameters" element="tns:aggiornaClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="registerStrutturaSoapIn">
+    <wsdl:part name="parameters" element="tns:registerStruttura" />
+  </wsdl:message>
+  <wsdl:message name="registerStrutturaSoapOut">
+    <wsdl:part name="parameters" element="tns:registerStrutturaResponse" />
+  </wsdl:message>
+  <wsdl:message name="registerEnteSoapIn">
+    <wsdl:part name="parameters" element="tns:registerEnte" />
+  </wsdl:message>
+  <wsdl:message name="registerEnteSoapOut">
+    <wsdl:part name="parameters" element="tns:registerEnteResponse" />
+  </wsdl:message>
+  <wsdl:message name="elencaEntiSoapIn">
+    <wsdl:part name="parameters" element="tns:elencaEnti" />
+  </wsdl:message>
+  <wsdl:message name="elencaEntiSoapOut">
+    <wsdl:part name="parameters" element="tns:elencaEntiResponse" />
+  </wsdl:message>
+  <wsdl:message name="getStatoTicketSoapIn">
+    <wsdl:part name="parameters" element="tns:getStatoTicket" />
+  </wsdl:message>
+  <wsdl:message name="getStatoTicketSoapOut">
+    <wsdl:part name="parameters" element="tns:getStatoTicketResponse" />
+  </wsdl:message>
+  <wsdl:message name="creaTicketSoapIn">
+    <wsdl:part name="parameters" element="tns:creaTicket" />
+  </wsdl:message>
+  <wsdl:message name="creaTicketSoapOut">
+    <wsdl:part name="parameters" element="tns:creaTicketResponse" />
+  </wsdl:message>
+  <wsdl:portType name="doHelpDeskSoap">
+    <wsdl:operation name="registerCliente">
+      <wsdl:input message="tns:registerClienteSoapIn" />
+      <wsdl:output message="tns:registerClienteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaCliente">
+      <wsdl:input message="tns:aggiornaClienteSoapIn" />
+      <wsdl:output message="tns:aggiornaClienteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="registerStruttura">
+      <wsdl:input message="tns:registerStrutturaSoapIn" />
+      <wsdl:output message="tns:registerStrutturaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="registerEnte">
+      <wsdl:input message="tns:registerEnteSoapIn" />
+      <wsdl:output message="tns:registerEnteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="elencaEnti">
+      <wsdl:input message="tns:elencaEntiSoapIn" />
+      <wsdl:output message="tns:elencaEntiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getStatoTicket">
+      <wsdl:input message="tns:getStatoTicketSoapIn" />
+      <wsdl:output message="tns:getStatoTicketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="creaTicket">
+      <wsdl:input message="tns:creaTicketSoapIn" />
+      <wsdl:output message="tns:creaTicketSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="doHelpDeskSoap" type="tns:doHelpDeskSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="registerCliente">
+      <soap:operation soapAction="http://ticket.temposrl.it/registerCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaCliente">
+      <soap:operation soapAction="http://ticket.temposrl.it/aggiornaCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerStruttura">
+      <soap:operation soapAction="http://ticket.temposrl.it/registerStruttura" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerEnte">
+      <soap:operation soapAction="http://ticket.temposrl.it/registerEnte" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="elencaEnti">
+      <soap:operation soapAction="http://ticket.temposrl.it/elencaEnti" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getStatoTicket">
+      <soap:operation soapAction="http://ticket.temposrl.it/getStatoTicket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="creaTicket">
+      <soap:operation soapAction="http://ticket.temposrl.it/creaTicket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="doHelpDeskSoap12" type="tns:doHelpDeskSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="registerCliente">
+      <soap12:operation soapAction="http://ticket.temposrl.it/registerCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaCliente">
+      <soap12:operation soapAction="http://ticket.temposrl.it/aggiornaCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerStruttura">
+      <soap12:operation soapAction="http://ticket.temposrl.it/registerStruttura" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerEnte">
+      <soap12:operation soapAction="http://ticket.temposrl.it/registerEnte" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="elencaEnti">
+      <soap12:operation soapAction="http://ticket.temposrl.it/elencaEnti" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getStatoTicket">
+      <soap12:operation soapAction="http://ticket.temposrl.it/getStatoTicket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="creaTicket">
+      <soap12:operation soapAction="http://ticket.temposrl.it/creaTicket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="doHelpDesk">
+    <wsdl:port name="doHelpDeskSoap" binding="tns:doHelpDeskSoap">
+      <soap:address location="http://localhost/helpdeskService/doHelpDesk.asmx" />
+    </wsdl:port>
+    <wsdl:port name="doHelpDeskSoap12" binding="tns:doHelpDeskSoap12">
+      <soap12:address location="http://localhost/helpdeskService/doHelpDesk.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

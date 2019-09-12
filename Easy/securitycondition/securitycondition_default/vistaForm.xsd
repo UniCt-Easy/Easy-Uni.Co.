@@ -1,0 +1,96 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="securitycondition">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idrestrictedfunction" type="xs:int" />
+              <xs:element name="idsecuritycondition" type="xs:int" />
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="operation" type="xs:string" />
+              <xs:element name="idcustomgroup" type="xs:string" />
+              <xs:element name="allowcondition" type="xs:string" minOccurs="0" />
+              <xs:element name="denycondition" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultisdeny" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="restrictedfunction">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idrestrictedfunction" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="variablename" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customobject">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="objectname" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="isreal" type="xs:string" />
+              <xs:element name="realtable" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customgroup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomgroup" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="groupname" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:securitycondition" />
+      <xs:field xpath="mstns:idrestrictedfunction" />
+      <xs:field xpath="mstns:idsecuritycondition" />
+    </xs:unique>
+    <xs:unique name="restrictedfunction_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:restrictedfunction" />
+      <xs:field xpath="mstns:idrestrictedfunction" />
+    </xs:unique>
+    <xs:unique name="customobject_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customobject" />
+      <xs:field xpath="mstns:objectname" />
+    </xs:unique>
+    <xs:unique name="customgroup_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customgroup" />
+      <xs:field xpath="mstns:idcustomgroup" />
+    </xs:unique>
+    <xs:keyref name="customgroup_securitycondition" refer="customgroup_Constraint1">
+      <xs:selector xpath=".//mstns:securitycondition" />
+      <xs:field xpath="mstns:idcustomgroup" />
+    </xs:keyref>
+    <xs:keyref name="customobject_securitycondition" refer="customobject_Constraint1">
+      <xs:selector xpath=".//mstns:securitycondition" />
+      <xs:field xpath="mstns:tablename" />
+    </xs:keyref>
+    <xs:keyref name="restrictedfunction_securitycondition" refer="restrictedfunction_Constraint1">
+      <xs:selector xpath=".//mstns:securitycondition" />
+      <xs:field xpath="mstns:idrestrictedfunction" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

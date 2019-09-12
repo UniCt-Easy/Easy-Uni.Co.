@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:intf="http://pmpay.it/ws/payPA/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://pmpay.it/ws/payPA/" targetNamespace="http://pmpay.it/ws/payPA/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://pmpay.it/ws/payPA/">
+      <xsd:element name="Pagamento">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="request" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="PagamentoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="response" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetRT">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="content" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetRTResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GetRTResult" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetBOLLO">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="content" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetBOLLOResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GetBOLLOResponse" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="PagamentoEsistente">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="request" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="PagamentoEsistenteResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="PagamentoEsistenteResult" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="RegistraPagamento">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="request" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="RegistraPagamentoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="response" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="PagamentoEsistenteBollettino">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="request" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="PagamentoEsistenteBollettinoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="esito" type="xsd:string" />
+            <xsd:element minOccurs="0" name="errore" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="PagamentoRequest">
+    <wsdl:part name="parameters" element="impl:Pagamento" />
+  </wsdl:message>
+  <wsdl:message name="GetRTRequest">
+    <wsdl:part name="parameters" element="impl:GetRT" />
+  </wsdl:message>
+  <wsdl:message name="PagamentoEsistenteResponse">
+    <wsdl:part name="parameters" element="impl:PagamentoEsistenteResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBOLLOResponse">
+    <wsdl:part name="parameters" element="impl:GetBOLLOResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBOLLORequest">
+    <wsdl:part name="parameters" element="impl:GetBOLLO" />
+  </wsdl:message>
+  <wsdl:message name="PagamentoEsistenteRequest">
+    <wsdl:part name="parameters" element="impl:PagamentoEsistente" />
+  </wsdl:message>
+  <wsdl:message name="PagamentoResponse">
+    <wsdl:part name="parameters" element="impl:PagamentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRTResponse">
+    <wsdl:part name="parameters" element="impl:GetRTResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistraPagamentoRequest">
+    <wsdl:part name="parameter" element="impl:RegistraPagamento" />
+  </wsdl:message>
+  <wsdl:message name="RegistraPagamentoResponse">
+    <wsdl:part name="parameter" element="impl:RegistraPagamentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="PagamentoEsistenteBollettinoRequest">
+    <wsdl:part name="parameters" element="impl:PagamentoEsistenteBollettino" />
+  </wsdl:message>
+  <wsdl:message name="PagamentoEsistenteBollettinoResponse">
+    <wsdl:part name="parameters" element="impl:PagamentoEsistenteBollettinoResponse" />
+    <wsdl:part xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmime:expectedContentTypes="*/*" name="bollettino" type="xsd:base64Binary" />
+  </wsdl:message>
+  <wsdl:portType name="PayPA">
+    <wsdl:operation name="Pagamento">
+      <wsdl:input name="PagamentoRequest" message="impl:PagamentoRequest" />
+      <wsdl:output name="PagamentoResponse" message="impl:PagamentoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRT">
+      <wsdl:input name="GetRTRequest" message="impl:GetRTRequest" />
+      <wsdl:output name="GetRTResponse" message="impl:GetRTResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBOLLO">
+      <wsdl:input name="GetBOLLORequest" message="impl:GetBOLLORequest" />
+      <wsdl:output name="GetBOLLOResponse" message="impl:GetBOLLOResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="PagamentoEsistente">
+      <wsdl:input name="PagamentoEsistenteRequest" message="impl:PagamentoEsistenteRequest" />
+      <wsdl:output name="PagamentoEsistenteResponse" message="impl:PagamentoEsistenteResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraPagamento">
+      <wsdl:input name="RegistraPagamentoRequest" message="impl:RegistraPagamentoRequest" />
+      <wsdl:output name="RegistraPagamentoResponse" message="impl:RegistraPagamentoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="PagamentoEsistenteBollettino">
+      <wsdl:input name="PagamentoEsistenteBollettinoRequest" message="impl:PagamentoEsistenteBollettinoRequest" />
+      <wsdl:output name="PagamentoEsistenteBollettinoResponse" message="impl:PagamentoEsistenteBollettinoResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PayPASoapSoapBinding" type="impl:PayPA">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Pagamento">
+      <wsdlsoap:operation soapAction="http://pmpay.it/ws/payPA/Pagamento" />
+      <wsdl:input name="PagamentoRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="PagamentoResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRT">
+      <wsdlsoap:operation soapAction="http://pmpay.it/ws/payPA/GetRT" />
+      <wsdl:input name="GetRTRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetRTResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBOLLO">
+      <wsdlsoap:operation soapAction="http://pmpay.it/ws/payPA/GetBOLLO" />
+      <wsdl:input name="GetBOLLORequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetBOLLOResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PagamentoEsistente">
+      <wsdlsoap:operation soapAction="http://pmpay.it/ws/payPA/PagamentoEsistente" />
+      <wsdl:input name="PagamentoEsistenteRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="PagamentoEsistenteResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraPagamento">
+      <wsdlsoap:operation soapAction="http://pmpay.it/ws/payPA/RegistraPagamento" />
+      <wsdl:input name="RegistraPagamentoRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="RegistraPagamentoResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PagamentoEsistenteBollettino">
+      <wsdlsoap:operation soapAction="http://pmpay.it/ws/payPA/PagamentoEsistenteBollettino" />
+      <wsdl:input name="PagamentoEsistenteBollettinoRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="PagamentoEsistenteBollettinoResponse">
+        <mime:multipartRelated>
+          <mime:part>
+            <wsdlsoap:body use="literal" />
+          </mime:part>
+          <mime:part>
+            <mime:content part="bollettino" type="*/*" />
+          </mime:part>
+        </mime:multipartRelated>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PayPA">
+    <wsdl:port name="PayPA" binding="impl:PayPASoapSoapBinding">
+      <wsdlsoap:address location="http://service.pmpay.it/payPA/services/PayPA" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,26 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaFom" targetNamespace="http://tempuri.org/vistaFom.xsd" xmlns:mstns="http://tempuri.org/vistaFom.xsd" xmlns="http://tempuri.org/vistaFom.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaFom" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="filetype">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfiletype" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="ext" type="xs:string" minOccurs="0" />
+              <xs:element name="connectionstring" type="xs:string" minOccurs="0" />
+              <xs:element name="querystring" type="xs:string" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:filetype" />
+      <xs:field xpath="mstns:idfiletype" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
