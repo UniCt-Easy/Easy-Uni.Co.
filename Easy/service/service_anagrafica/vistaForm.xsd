@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistatipoprestazione_Anagrafica.xsd" xmlns:mstns="http://tempuri.org/vistatipoprestazione_Anagrafica.xsd" xmlns="http://tempuri.org/vistatipoprestazione_Anagrafica.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="tax">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="taxref" type="xs:string" minOccurs="0" />
+              <xs:element name="taxkind" type="xs:short" minOccurs="0" />
+              <xs:element name="fiscaltaxcode" type="xs:string" minOccurs="0" />
+              <xs:element name="flagunabatable" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="servicetax">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="idser" type="xs:int" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="certificationmodel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcertificationmodel" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="motive770">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmot" type="xs:string" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="motive770service">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idser" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="idmot" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="service">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idser" type="xs:int" />
+              <xs:element name="codeser" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagonlyfiscalabatement" type="xs:string" />
+              <xs:element name="ivaamount" type="xs:string" minOccurs="0" />
+              <xs:element name="certificatekind" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="flagapplyabatements" type="xs:string" minOccurs="0" />
+              <xs:element name="idmotive" type="xs:int" minOccurs="0" />
+              <xs:element name="itinerationvisible" type="xs:string" minOccurs="0" />
+              <xs:element name="flagalwaysinfiscalmodels" type="xs:string" minOccurs="0" />
+              <xs:element name="module" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedit" type="xs:string" minOccurs="0" />
+              <xs:element name="rec770kind" type="xs:string" minOccurs="0" />
+              <xs:element name="flagneedbalance" type="xs:string" minOccurs="0" />
+              <xs:element name="flagforeign" type="xs:string" minOccurs="0" />
+              <xs:element name="voce8000" type="xs:string" minOccurs="0" />
+              <xs:element name="webdefault" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdistraint" type="xs:string" minOccurs="0" />
+              <xs:element name="voce8000refund_i" type="xs:string" minOccurs="0" />
+              <xs:element name="voce8000refund_e" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcsausability" type="xs:string" minOccurs="0" />
+              <xs:element name="flagnoexemptionquote" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdalia" type="xs:string" minOccurs="0" />
+              <xs:element name="servicecode770" type="xs:string" minOccurs="0" />
+              <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
+              <xs:element name="flagnoncumula" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="servicesorting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idser" type="xs:int" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="quota" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_codiceclass" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_descrizione" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sorting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="defaultN1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultS1" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS2" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS3" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS4" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS5" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultv1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="movkind" type="xs:string" minOccurs="0" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="paridsor" type="xs:int" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="sortcode" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="voce8000">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="voce" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="kind" type="xs:string" minOccurs="0" />
+              <xs:element name="capitolo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="voce8000_s">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="voce" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="kind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="voce8000_s1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="voce" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="kind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tax" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:unique>
+    <xs:unique name="servicetax_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:servicetax" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:idser" />
+    </xs:unique>
+    <xs:unique name="certificationmodel_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:certificationmodel" />
+      <xs:field xpath="mstns:idcertificationmodel" />
+    </xs:unique>
+    <xs:unique name="motive770_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:motive770" />
+      <xs:field xpath="mstns:idmot" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="motive770service_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:motive770service" />
+      <xs:field xpath="mstns:idser" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="service_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:service" />
+      <xs:field xpath="mstns:idser" />
+    </xs:unique>
+    <xs:unique name="servicesorting_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:servicesorting" />
+      <xs:field xpath="mstns:idser" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
+    <xs:unique name="sorting_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sorting" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
+    <xs:unique name="voce8000_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:voce8000" />
+      <xs:field xpath="mstns:voce" />
+    </xs:unique>
+    <xs:unique name="voce8000_s_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:voce8000_s" />
+      <xs:field xpath="mstns:voce" />
+    </xs:unique>
+    <xs:unique name="voce8000_s1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:voce8000_s1" />
+      <xs:field xpath="mstns:voce" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="sortingservicesorting" msdata:parent="sorting" msdata:child="servicesorting" msdata:parentkey="idsor" msdata:childkey="idsor" />
+      <msdata:Relationship name="serviceservicesorting" msdata:parent="service" msdata:child="servicesorting" msdata:parentkey="idser" msdata:childkey="idser" />
+      <msdata:Relationship name="FK_voce8000_service" msdata:parent="voce8000" msdata:child="service" msdata:parentkey="voce" msdata:childkey="voce8000" />
+      <msdata:Relationship name="certificationmodelservice" msdata:parent="certificationmodel" msdata:child="service" msdata:parentkey="idcertificationmodel" msdata:childkey="certificatekind" />
+      <msdata:Relationship name="voce8000_s_service" msdata:parent="voce8000_s" msdata:child="service" msdata:parentkey="voce" msdata:childkey="voce8000refund_i" />
+      <msdata:Relationship name="voce8000_s1_service" msdata:parent="voce8000_s1" msdata:child="service" msdata:parentkey="voce" msdata:childkey="voce8000refund_e" />
+      <msdata:Relationship name="servicemotive770service" msdata:parent="service" msdata:child="motive770service" msdata:parentkey="idser" msdata:childkey="idser" />
+      <msdata:Relationship name="motive770motive770service" msdata:parent="motive770" msdata:child="motive770service" msdata:parentkey="idmot ayear" msdata:childkey="idmot ayear" />
+      <msdata:Relationship name="serviceservicetax" msdata:parent="service" msdata:child="servicetax" msdata:parentkey="idser" msdata:childkey="idser" />
+      <msdata:Relationship name="taxservicetax" msdata:parent="tax" msdata:child="servicetax" msdata:parentkey="taxcode" msdata:childkey="taxcode" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

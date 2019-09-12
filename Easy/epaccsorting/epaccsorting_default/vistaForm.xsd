@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="sorting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="defaultN1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultS1" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS2" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS3" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS4" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS5" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultv1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="movkind" type="xs:string" minOccurs="0" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="paridsor" type="xs:int" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="sortcode" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="epaccsorting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="idepacc" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="rownum" type="xs:int" />
+              <xs:element name="kind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sortingapplicabilityview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="nphaseincome" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="incomephase" type="xs:string" minOccurs="0" />
+              <xs:element name="nphaseexpense" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="expensephase" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcheckavailability" type="xs:string" />
+              <xs:element name="flagforced" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="stop" type="xs:short" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sortingkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagdate" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN1" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN2" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN3" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN4" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN5" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS1" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS2" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS3" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS4" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS5" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv1" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv2" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv3" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv4" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv5" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfordate" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln1" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln2" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln3" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln4" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln5" type="xs:string" minOccurs="0" />
+              <xs:element name="labels1" type="xs:string" minOccurs="0" />
+              <xs:element name="labels2" type="xs:string" minOccurs="0" />
+              <xs:element name="labels3" type="xs:string" minOccurs="0" />
+              <xs:element name="labels4" type="xs:string" minOccurs="0" />
+              <xs:element name="labels5" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv1" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv2" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv3" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv4" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv5" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN1" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN2" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN3" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN4" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN5" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS1" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS2" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS3" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS4" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS5" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv1" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv2" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv3" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv4" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv5" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nodatelabel" type="xs:string" minOccurs="0" />
+              <xs:element name="totalexpression" type="xs:string" minOccurs="0" />
+              <xs:element name="nphaseexpense" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="nphaseincome" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="codesorkind" type="xs:string" />
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="flag" type="xs:unsignedByte" />
+              <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="stop" type="xs:short" minOccurs="0" />
+              <xs:element name="idparentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sortinglevel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="flag" type="xs:short" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sorting" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
+    <xs:unique name="epaccsorting_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epaccsorting" />
+      <xs:field xpath="mstns:idepacc" />
+      <xs:field xpath="mstns:rownum" />
+    </xs:unique>
+    <xs:unique name="sortingapplicabilityview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sortingapplicabilityview" />
+      <xs:field xpath="mstns:idsorkind" />
+    </xs:unique>
+    <xs:unique name="sortingkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sortingkind" />
+      <xs:field xpath="mstns:idsorkind" />
+    </xs:unique>
+    <xs:unique name="sortinglevel_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sortinglevel" />
+      <xs:field xpath="mstns:idsorkind" />
+      <xs:field xpath="mstns:nlevel" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="sorting_epaccsorting" msdata:parent="sorting" msdata:child="epaccsorting" msdata:parentkey="idsor" msdata:childkey="idsor" />
+      <msdata:Relationship name="sortinglevel_sorting" msdata:parent="sortinglevel" msdata:child="sorting" msdata:parentkey="idsorkind nlevel" msdata:childkey="idsorkind nlevel" />
+      <msdata:Relationship name="sortingkind_sorting" msdata:parent="sortingkind" msdata:child="sorting" msdata:parentkey="idsorkind" msdata:childkey="idsorkind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

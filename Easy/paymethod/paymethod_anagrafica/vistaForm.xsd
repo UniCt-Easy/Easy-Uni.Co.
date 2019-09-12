@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaModalitaPagamentoAnag.xsd" xmlns:mstns="http://tempuri.org/VistaModalitaPagamentoAnag.xsd" xmlns="http://tempuri.org/VistaModalitaPagamentoAnag.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="paymethod">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpaymethod" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="methodbankcode" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="allowdeputy" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" />
+              <xs:element name="footerpaymentadvice" type="xs:string" minOccurs="0" />
+              <xs:element name="committeeamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="committeecode" type="xs:string" minOccurs="0" />
+              <xs:element name="minamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="maxamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="abi_label" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="abi_label_lookup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="abi_label" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:paymethod" />
+      <xs:field xpath="mstns:idpaymethod" />
+    </xs:unique>
+    <xs:unique name="abi_label_lookup_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:abi_label_lookup" />
+      <xs:field xpath="mstns:abi_label" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="abi_label_lookup_paymethod" msdata:parent="abi_label_lookup" msdata:child="paymethod" msdata:parentkey="abi_label" msdata:childkey="abi_label" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

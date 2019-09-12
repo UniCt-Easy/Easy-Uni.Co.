@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="assetgrantview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idasset" type="xs:int" />
+              <xs:element name="idpiece" type="xs:int" />
+              <xs:element name="idgrant" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ygrant" type="xs:short" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idgrantload" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="motive" type="xs:string" minOccurs="0" />
+              <xs:element name="idunderwriting" type="xs:int" minOccurs="0" />
+              <xs:element name="codeunderwriting" type="xs:string" minOccurs="0" />
+              <xs:element name="underwriting" type="xs:string" minOccurs="0" />
+              <xs:element name="ninventory" type="xs:int" minOccurs="0" />
+              <xs:element name="idinventory" type="xs:int" />
+              <xs:element name="codeinventory" type="xs:string" />
+              <xs:element name="inventory" type="xs:string" />
+              <xs:element name="idinventoryagency" type="xs:int" />
+              <xs:element name="codeinventoryagency" type="xs:string" />
+              <xs:element name="inventoryagency" type="xs:string" />
+              <xs:element name="idinv" type="xs:int" />
+              <xs:element name="codeinv" type="xs:string" />
+              <xs:element name="inventorytree" type="xs:string" />
+              <xs:element name="cost" type="xs:string" minOccurs="0" />
+              <xs:element name="assetacquiretotal" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetgrantview" />
+      <xs:field xpath="mstns:idasset" />
+      <xs:field xpath="mstns:idpiece" />
+      <xs:field xpath="mstns:idgrant" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

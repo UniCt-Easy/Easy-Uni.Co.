@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1f52f5f4-943a-49f5-a293-b3084e1092d4" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="D:\easy\unmanaged\pagoPaService\pagoPaService\IUVOnlineService-scrittura-wsdl-1-1.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="FaultSchema_v8.xsd" MetadataType="Schema" ID="92dd8f80-771a-4db8-8481-f60544b316e7" SourceId="1" SourceUrl="file:///D:/easy/unmanaged/pagoPaService/schema/TipiTestata_v8.0/fault/FaultSchema_v8.0.xsd" />
+    <MetadataFile FileName="IUVOnlineService_v1.wsdl" MetadataType="Wsdl" ID="5c81c9ab-5a38-480e-b91b-90108c3907cb" SourceId="1" SourceUrl="file:///D:/easy/unmanaged/pagoPaService/pagoPaService/IUVOnlineService-scrittura-wsdl-1-1.wsdl" />
+    <MetadataFile FileName="TestataSchema_v8.xsd" MetadataType="Schema" ID="05acd549-54f8-49f2-b483-501f6396cfb7" SourceId="1" SourceUrl="file:///D:/easy/unmanaged/pagoPaService/schema/TipiTestata_v8.0/TestataSchema_v8.0.xsd" />
+    <MetadataFile FileName="TipiTestataSchema_v8.xsd" MetadataType="Schema" ID="8ace1196-bf70-498e-9c3f-8a7bf6e715fa" SourceId="1" SourceUrl="file:///D:/easy/unmanaged/pagoPaService/schema/TipiTestata_v8.0/TipiTestataSchema_v8.0.xsd" />
+    <MetadataFile FileName="IUVOnlineSchema_v1.xsd" MetadataType="Schema" ID="96d719bd-8d62-4bdf-9853-b9c52456d0f0" SourceId="1" SourceUrl="file:///D:/easy/unmanaged/pagoPaService/schema/IUVOnlineSchema_v1.1.xsd" />
+    <MetadataFile FileName="TipiComuniAnagrafeSchema_v9.xsd" MetadataType="Schema" ID="09886705-9c65-40de-baf6-d5314e50ae28" SourceId="1" SourceUrl="file:///D:/easy/unmanaged/pagoPaService/schema/TipiData_v9.0/TipiComuniAnagrafeSchema_v9.0.xsd" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

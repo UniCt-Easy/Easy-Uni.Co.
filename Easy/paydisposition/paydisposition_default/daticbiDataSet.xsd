@@ -1,0 +1,78 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="daticbiDataSet" targetNamespace="http://tempuri.org/daticbiDataSet.xsd" xmlns:mstns="http://tempuri.org/daticbiDataSet.xsd" xmlns="http://tempuri.org/daticbiDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="daticbiDataSet" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="RigheDisposizioni">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdDisposizione" type="xs:int" />
+              <xs:element name="IdRiga" type="xs:int" />
+              <xs:element name="DataScadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AbiCliente" type="xs:string" minOccurs="0" />
+              <xs:element name="CabCliente" type="xs:string" minOccurs="0" />
+              <xs:element name="CCCliente" type="xs:string" minOccurs="0" />
+              <xs:element name="CinCliente" type="xs:string" minOccurs="0" />
+              <xs:element name="IBANCliente" type="xs:string" minOccurs="0" />
+              <xs:element name="PagamentoPerBonifico" type="xs:string" minOccurs="0" />
+              <xs:element name="PagamentoPerCassa" type="xs:string" minOccurs="0" />
+              <xs:element name="PagamentoPerAssegnoCircolare" type="xs:string" minOccurs="0" />
+              <xs:element name="PagamentoPerAssegnoCircolareNonTrasf" type="xs:string" minOccurs="0" />
+              <xs:element name="PagamentoPerAssegnoQuietanza" type="xs:string" minOccurs="0" />
+              <xs:element name="TipoCodice" type="xs:int" minOccurs="0" />
+              <xs:element name="CodiceBeneficiario" type="xs:string" minOccurs="0" />
+              <xs:element name="DescrizioneBeneficiario" type="xs:string" minOccurs="0" />
+              <xs:element name="CodiceFiscaleBeneficiario" type="xs:string" minOccurs="0" />
+              <xs:element name="IndirizzoBeneficiario" type="xs:string" minOccurs="0" />
+              <xs:element name="CapBeneficiario" type="xs:string" minOccurs="0" />
+              <xs:element name="LocalitaBeneficiario" type="xs:string" minOccurs="0" />
+              <xs:element name="SiglaProvincia" type="xs:string" minOccurs="0" />
+              <xs:element name="NumeroDocumento" type="xs:string" minOccurs="0" />
+              <xs:element name="DataDocumento" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="NumeroRicevuta" type="xs:int" minOccurs="0" />
+              <xs:element name="TipoDocBeneficiario" type="xs:int" minOccurs="0" />
+              <xs:element name="RichiestaEsito" type="xs:int" minOccurs="0" />
+              <xs:element name="StampaAvviso" type="xs:int" minOccurs="0" />
+              <xs:element name="ChiaveControllo" type="xs:string" minOccurs="0" />
+              <xs:element name="Causale" type="xs:string" minOccurs="0" />
+              <xs:element name="CausaleDescrittiva" type="xs:string" minOccurs="0" />
+              <xs:element name="DataValuta" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TestataDisposizioni">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdInvio" type="xs:int" />
+              <xs:element name="CodiceSia" type="xs:string" minOccurs="0" />
+              <xs:element name="Descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="AbiAzienda" type="xs:string" minOccurs="0" />
+              <xs:element name="CabAzienda" type="xs:string" minOccurs="0" />
+              <xs:element name="ContoAzienda" type="xs:string" minOccurs="0" />
+              <xs:element name="DataDisposizioni" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="NomeSupporto" type="xs:string" minOccurs="0" />
+              <xs:element name="DescrizioneAzienda" type="xs:string" minOccurs="0" />
+              <xs:element name="LocalitaAzienda" type="xs:string" minOccurs="0" />
+              <xs:element name="IndirizzoAzienda" type="xs:string" minOccurs="0" />
+              <xs:element name="CodificaFiscale" type="xs:string" minOccurs="0" />
+              <xs:element name="RagioneSociale" type="xs:string" minOccurs="0" />
+              <xs:element name="ProvinciaFinanza" type="xs:string" minOccurs="0" />
+              <xs:element name="NumeroAutorizzazione" type="xs:string" minOccurs="0" />
+              <xs:element name="DataAutorizzazione" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:RigheDisposizioni" />
+      <xs:field xpath="mstns:IdDisposizione" />
+      <xs:field xpath="mstns:IdRiga" />
+    </xs:unique>
+    <xs:unique name="TestataDisposizioni_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:TestataDisposizioni" />
+      <xs:field xpath="mstns:IdInvio" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

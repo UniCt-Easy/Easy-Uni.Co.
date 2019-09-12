@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="genconfig" targetNamespace="http://tempuri.org/genconfig.xsd" xmlns:mstns="http://tempuri.org/genconfig.xsd" xmlns="http://tempuri.org/genconfig.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="genconfig" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="genconfig" msprop:Generator_UserDSName="genconfig">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="config" msprop:Generator_TableClassName="configDataTable" msprop:Generator_TableVarName="tableconfig" msprop:Generator_TablePropName="config" msprop:Generator_RowDeletingName="configRowDeleting" msprop:Generator_RowChangingName="configRowChanging" msprop:Generator_RowEvHandlerName="configRowChangeEventHandler" msprop:Generator_RowDeletedName="configRowDeleted" msprop:Generator_UserTableName="config" msprop:Generator_RowChangedName="configRowChanged" msprop:Generator_RowEvArgName="configRowChangeEvent" msprop:Generator_RowClassName="configRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dirdiff" msprop:Generator_ColumnVarNameInTable="columndirdiff" msprop:Generator_ColumnPropNameInRow="dirdiff" msprop:Generator_ColumnPropNameInTable="dirdiffColumn" msprop:Generator_UserColumnName="dirdiff" type="xs:string" minOccurs="0" />
+              <xs:element name="diruff_main" msprop:Generator_ColumnVarNameInTable="columndiruff_main" msprop:Generator_ColumnPropNameInRow="diruff_main" msprop:Generator_ColumnPropNameInTable="diruff_mainColumn" msprop:Generator_UserColumnName="diruff_main" type="xs:string" minOccurs="0" />
+              <xs:element name="dirweb_main" msprop:Generator_ColumnVarNameInTable="columndirweb_main" msprop:Generator_ColumnPropNameInRow="dirweb_main" msprop:Generator_ColumnPropNameInTable="dirweb_mainColumn" msprop:Generator_UserColumnName="dirweb_main" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

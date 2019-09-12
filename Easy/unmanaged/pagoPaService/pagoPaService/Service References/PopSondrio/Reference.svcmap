@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="9448418a-4bc9-4a1b-8043-9f6f799b0626" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="D:\Dropbox\integrazioni\Gianni\POPSO luglio 2018\IuvOnLineSvil\IUVOnlineService_v1.1\IUVOnlineService\interfaces\IUVOnlineService-scrittura-wsdl-1.1.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="TestataSchema_v8.xsd" MetadataType="Schema" ID="b516633c-f09c-4e38-9f28-6dedf939c5a1" SourceId="1" SourceUrl="file:///D:/Dropbox/integrazioni/Gianni/POPSO luglio 2018/IuvOnLineSvil/IUVOnlineService_v1.1/IUVOnlineService/schema/TipiTestata_v8.0/TestataSchema_v8.0.xsd" />
+    <MetadataFile FileName="IUVOnlineService_v1.wsdl" MetadataType="Wsdl" ID="643c6cb7-ad69-4fbd-9352-d675f4361f29" SourceId="1" SourceUrl="file:///D:/Dropbox/integrazioni/Gianni/POPSO luglio 2018/IuvOnLineSvil/IUVOnlineService_v1.1/IUVOnlineService/interfaces/IUVOnlineService-scrittura-wsdl-1.1.wsdl" />
+    <MetadataFile FileName="TipiComuniAnagrafeSchema_v9.xsd" MetadataType="Schema" ID="2af34d0d-3273-48c2-bd49-a7831142c9ef" SourceId="1" SourceUrl="file:///D:/Dropbox/integrazioni/Gianni/POPSO luglio 2018/IuvOnLineSvil/IUVOnlineService_v1.1/IUVOnlineService/schema/TipiData_v9.0/TipiComuniAnagrafeSchema_v9.0.xsd" />
+    <MetadataFile FileName="TipiTestataSchema_v8.xsd" MetadataType="Schema" ID="4cf72c5f-a09c-49fc-9157-2bf3a7d3d0ce" SourceId="1" SourceUrl="file:///D:/Dropbox/integrazioni/Gianni/POPSO luglio 2018/IuvOnLineSvil/IUVOnlineService_v1.1/IUVOnlineService/schema/TipiTestata_v8.0/TipiTestataSchema_v8.0.xsd" />
+    <MetadataFile FileName="IUVOnlineSchema_v1.xsd" MetadataType="Schema" ID="22bb7321-00a2-4386-a63e-91e82f4c1afc" SourceId="1" SourceUrl="file:///D:/Dropbox/integrazioni/Gianni/POPSO luglio 2018/IuvOnLineSvil/IUVOnlineService_v1.1/IUVOnlineService/schema/IUVOnlineSchema_v1.1.xsd" />
+    <MetadataFile FileName="FaultSchema_v8.xsd" MetadataType="Schema" ID="b0de606e-b79e-4e4e-b978-7ce732a24692" SourceId="1" SourceUrl="file:///D:/Dropbox/integrazioni/Gianni/POPSO luglio 2018/IuvOnLineSvil/IUVOnlineService_v1.1/IUVOnlineService/schema/TipiTestata_v8.0/fault/FaultSchema_v8.0.xsd" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

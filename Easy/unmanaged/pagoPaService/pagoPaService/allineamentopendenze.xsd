@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+    targetNamespace="http://tempuri.org/ALLINEAMENTOPENDENZE.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/ALLINEAMENTOPENDENZE.xsd"
+    xmlns:mstns="http://tempuri.org/ALLINEAMENTOPENDENZE.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="allineamentopendenze">
+    <xs:complexType>
+      <xs:sequence>
+
+        <xs:element name="CREDITORE" type="xs:string"/>
+
+        <xs:element name="CODICE_PARTITARIO " type="xs:string"/>
+
+        <xs:element name="DEBITORE" type="xs:string"/>
+
+        <xs:element name="ID_DEBITO" type="xs:string"/>
+
+        <xs:element name="ID_PAGAMENTO" type="xs:string"/>
+
+        <xs:element name="DATA_SCADENZA " type="xs:date" minOccurs="0"/>
+
+        <xs:element name="DATA_INIZIO_VALIDITA" type="xs:date" minOccurs="0"/>
+
+        <xs:element name="DATA_FINE_VALIDITA" type="xs:date" minOccurs="0"/>
+
+        <xs:element name="CAUSALE_PAGAMENTO" type="xs:string" minOccurs="0"/>
+
+        <xs:element name="STATO_PAGAMENTO" type="xs:string"/>
+
+        <xs:element name="IMPORTO_PAGAMENTO" type="xs:decimal"/>
+
+        <xs:element name="VOCI_PAGAMENTO" type="xs:string" minOccurs="0"/>
+
+        <xs:element name="ANNO_RIFERIMENTO" type="xs:int" minOccurs="0"/>
+
+        <xs:element name="NOTE_DEBITO" type="xs:string" minOccurs="0"/>
+
+        <xs:element name="CAUSALE_DEBITO" type="xs:string" minOccurs="0"/>
+
+        <xs:element name="IMPORTO_PAGATO" type="xs:decimal" minOccurs="0"/>
+
+        <xs:element name="DATA_VALUTA_ACCREDITO" type="xs:date" minOccurs="0"/>
+
+        <xs:element name="CANALE_PAGAMENTO" type="xs:string" minOccurs="0"/>
+
+        <xs:element name="DATA_PAGAMENTO" type="xs:dateTime" minOccurs="0"/>
+
+        <xs:element name="NOTE_PAGAMENTO" type="xs:string" minOccurs="0"/>
+
+        <xs:element name="PAGATO_PIATTAFORMA" type="xs:string" minOccurs="0"/>
+
+      </xs:sequence>
+
+    </xs:complexType>
+
+  </xs:element>
+
+</xs:schema>

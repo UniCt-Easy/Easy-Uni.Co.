@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistatrattamentobollo.xsd" xmlns:mstns="http://tempuri.org/Vistatrattamentobollo.xsd" xmlns="http://tempuri.org/Vistatrattamentobollo.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msprop:Generator_DataSetName="vistaForm" msprop:Generator_UserDSName="vistaForm">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="stamphandling" msprop:Generator_UserTableName="stamphandling" msprop:Generator_RowEvArgName="stamphandlingRowChangeEvent" msprop:Generator_TableVarName="tablestamphandling" msprop:Generator_TablePropName="stamphandling" msprop:Generator_RowDeletingName="stamphandlingRowDeleting" msprop:Generator_RowChangingName="stamphandlingRowChanging" msprop:Generator_RowDeletedName="stamphandlingRowDeleted" msprop:Generator_RowEvHandlerName="stamphandlingRowChangeEventHandler" msprop:Generator_TableClassName="stamphandlingDataTable" msprop:Generator_RowChangedName="stamphandlingRowChanged" msprop:Generator_RowClassName="stamphandlingRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstamphandling" msprop:Generator_ColumnVarNameInTable="columnidstamphandling" msprop:Generator_ColumnPropNameInRow="idstamphandling" msprop:Generator_ColumnPropNameInTable="idstamphandlingColumn" msprop:Generator_UserColumnName="idstamphandling" type="xs:int" />
+              <xs:element name="description" msprop:Generator_ColumnVarNameInTable="columndescription" msprop:Generator_ColumnPropNameInRow="description" msprop:Generator_ColumnPropNameInTable="descriptionColumn" msprop:Generator_UserColumnName="description" type="xs:string" />
+              <xs:element name="flagdefault" msprop:Generator_ColumnVarNameInTable="columnflagdefault" msprop:Generator_ColumnPropNameInRow="flagdefault" msprop:Generator_ColumnPropNameInTable="flagdefaultColumn" msprop:Generator_UserColumnName="flagdefault" type="xs:string" />
+              <xs:element name="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnPropNameInTable="cuColumn" msprop:Generator_UserColumnName="cu" type="xs:string" />
+              <xs:element name="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnPropNameInTable="ctColumn" msprop:Generator_UserColumnName="ct" type="xs:dateTime" />
+              <xs:element name="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnPropNameInTable="luColumn" msprop:Generator_UserColumnName="lu" type="xs:string" />
+              <xs:element name="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnPropNameInTable="ltColumn" msprop:Generator_UserColumnName="lt" type="xs:dateTime" />
+              <xs:element name="active" msprop:Generator_ColumnVarNameInTable="columnactive" msprop:Generator_ColumnPropNameInRow="active" msprop:Generator_ColumnPropNameInTable="activeColumn" msprop:Generator_UserColumnName="active" type="xs:string" minOccurs="0" />
+              <xs:element name="handlingbankcode" msprop:Generator_ColumnVarNameInTable="columnhandlingbankcode" msprop:Generator_ColumnPropNameInRow="handlingbankcode" msprop:Generator_ColumnPropNameInTable="handlingbankcodeColumn" msprop:Generator_UserColumnName="handlingbankcode" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" msprop:Generator_ColumnVarNameInTable="columnflag" msprop:Generator_ColumnPropNameInRow="flag" msprop:Generator_ColumnPropNameInTable="flagColumn" msprop:Generator_UserColumnName="flag" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stamphandling" />
+      <xs:field xpath="mstns:idstamphandling" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

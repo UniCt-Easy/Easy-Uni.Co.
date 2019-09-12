@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="tabledescr">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="isdbo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:length value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="idapplication" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="coldescr">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="colname" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="sql_type" type="xs:string" minOccurs="0" />
+              <xs:element name="col_len" type="xs:int" minOccurs="0" />
+              <xs:element name="col_scale" type="xs:int" minOccurs="0" />
+              <xs:element name="col_precision" type="xs:int" minOccurs="0" />
+              <xs:element name="sql_declaration" type="xs:string" minOccurs="0" />
+              <xs:element name="system_type" type="xs:string" minOccurs="0" />
+              <xs:element name="primarykey" type="xs:string" minOccurs="0" />
+              <xs:element name="kind" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:length value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="colvalue">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="colname" type="xs:string" />
+              <xs:element name="value" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="colbit">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="colname" type="xs:string" />
+              <xs:element name="nbit" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="relation_parent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="parenttable" type="xs:string" />
+              <xs:element name="childtable" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="idrelation" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="relationcol">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idrelation" type="xs:int" />
+              <xs:element name="parentcol" type="xs:string" />
+              <xs:element name="childcol" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="relation_child">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="parenttable" type="xs:string" />
+              <xs:element name="childtable" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="idrelation" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="relationcol_child">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idrelation" type="xs:int" />
+              <xs:element name="parentcol" type="xs:string" />
+              <xs:element name="childcol" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="applicationlist">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idapplication" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tabledescr" />
+      <xs:field xpath="mstns:tablename" />
+    </xs:unique>
+    <xs:unique name="coldescr_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:coldescr" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:colname" />
+    </xs:unique>
+    <xs:unique name="colvalue_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:colvalue" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:colname" />
+      <xs:field xpath="mstns:value" />
+    </xs:unique>
+    <xs:unique name="colbit_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:colbit" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:colname" />
+      <xs:field xpath="mstns:nbit" />
+    </xs:unique>
+    <xs:unique name="relation_parent_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:relation_parent" />
+      <xs:field xpath="mstns:idrelation" />
+    </xs:unique>
+    <xs:unique name="relationcol_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:relationcol" />
+      <xs:field xpath="mstns:idrelation" />
+      <xs:field xpath="mstns:parentcol" />
+    </xs:unique>
+    <xs:unique name="relation_child_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:relation_child" />
+      <xs:field xpath="mstns:idrelation" />
+    </xs:unique>
+    <xs:unique name="relationcol_child_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:relationcol_child" />
+      <xs:field xpath="mstns:idrelation" />
+      <xs:field xpath="mstns:parentcol" />
+    </xs:unique>
+    <xs:unique name="applicationlist_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:applicationlist" />
+      <xs:field xpath="mstns:idapplication" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="relation_relationcol" msdata:parent="relation_parent" msdata:child="relationcol" msdata:parentkey="idrelation" msdata:childkey="idrelation" />
+      <msdata:Relationship name="coldescr_colbit" msdata:parent="coldescr" msdata:child="colbit" msdata:parentkey="tablename colname" msdata:childkey="tablename colname" />
+      <msdata:Relationship name="coldescr_colvalue" msdata:parent="coldescr" msdata:child="colvalue" msdata:parentkey="tablename colname" msdata:childkey="tablename colname" />
+      <msdata:Relationship name="tabledescr_coldescr" msdata:parent="tabledescr" msdata:child="coldescr" msdata:parentkey="tablename" msdata:childkey="tablename" />
+      <msdata:Relationship name="tabledescr_relation1" msdata:parent="tabledescr" msdata:child="relation_child" msdata:parentkey="tablename" msdata:childkey="parenttable" />
+      <msdata:Relationship name="tabledescr_relation" msdata:parent="tabledescr" msdata:child="relation_parent" msdata:parentkey="tablename" msdata:childkey="childtable" />
+      <msdata:Relationship name="relation_child_relationcol_child" msdata:parent="relation_child" msdata:child="relationcol_child" msdata:parentkey="idrelation" msdata:childkey="idrelation" />
+      <msdata:Relationship name="applicationlist_tabledescr" msdata:parent="applicationlist" msdata:child="tabledescr" msdata:parentkey="idapplication" msdata:childkey="idapplication" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

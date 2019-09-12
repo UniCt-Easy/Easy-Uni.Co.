@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="sdi_vendita">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsdi_vendita" type="xs:int" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="adate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="xml" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="identificativo_sdi" type="xs:int" minOccurs="0" />
+              <xs:element name="ns" type="xs:string" minOccurs="0" />
+              <xs:element name="mc" type="xs:string" minOccurs="0" />
+              <xs:element name="rc" type="xs:string" minOccurs="0" />
+              <xs:element name="ne" type="xs:string" minOccurs="0" />
+              <xs:element name="dt" type="xs:string" minOccurs="0" />
+              <xs:element name="at" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_unseen" type="xs:int" minOccurs="0" />
+              <xs:element name="idsdi_status" type="xs:short" minOccurs="0" />
+              <xs:element name="idsdi_deliverystatus" type="xs:short" minOccurs="0" />
+              <xs:element name="position" type="xs:int" minOccurs="0" />
+              <xs:element name="exported" type="xs:string" />
+              <xs:element name="zipfilename" type="xs:string" minOccurs="0" />
+              <xs:element name="arrivalprotocolnum" type="xs:string" minOccurs="0" />
+              <xs:element name="ns_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="mc_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="rc_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="ne_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="dt_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="at_prot" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="idsdi_rifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="protocol_error" type="xs:string" minOccurs="0" />
+              <xs:element name="signedxml" type="xs:string" minOccurs="0" />
+              <xs:element name="signedxmlfilename" type="xs:string" minOccurs="0" />
+              <xs:element name="issigned" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sdi_vendita" />
+      <xs:field xpath="mstns:idsdi_vendita" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

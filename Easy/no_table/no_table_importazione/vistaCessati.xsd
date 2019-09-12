@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaCessati" targetNamespace="http://tempuri.org/vistaCessati.xsd" xmlns:mstns="http://tempuri.org/vistaCessati.xsd" xmlns="http://tempuri.org/vistaCessati.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaCessati" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="lookup_manager">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmanager" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="dipdest" type="xs:string" />
+              <xs:element name="diporigine" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:lookup_manager" />
+      <xs:field xpath="mstns:idmanager" />
+      <xs:field xpath="mstns:diporigine" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

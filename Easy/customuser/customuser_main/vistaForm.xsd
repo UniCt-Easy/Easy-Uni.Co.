@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="customuser">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomuser" type="xs:string" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="username" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dbaccess">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="alpha1" type="xs:string" minOccurs="0" />
+              <xs:element name="iddbdepartment" type="xs:string" />
+              <xs:element name="login" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customuser" />
+      <xs:field xpath="mstns:idcustomuser" />
+    </xs:unique>
+    <xs:unique name="dbaccess_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:dbaccess" />
+      <xs:field xpath="mstns:iddbdepartment" />
+      <xs:field xpath="mstns:login" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="dbaccess_customuser" msdata:parent="dbaccess" msdata:child="customuser" msdata:parentkey="login" msdata:childkey="username" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

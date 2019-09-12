@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaCustomGroupPrint.xsd" xmlns:mstns="http://tempuri.org/VistaCustomGroupPrint.xsd" xmlns="http://tempuri.org/VistaCustomGroupPrint.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="DATABASEConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="DATABASEConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.customusergroup_default.Properties.Settings.GlobalReference.Default.DATABASEConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msprop:Generator_DataSetName="vistaForm" msprop:Generator_UserDSName="vistaForm">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="customgroup" msprop:Generator_TableClassName="customgroupDataTable" msprop:Generator_TableVarName="tablecustomgroup" msprop:Generator_TablePropName="customgroup" msprop:Generator_RowDeletingName="customgroupRowDeleting" msprop:Generator_RowChangingName="customgroupRowChanging" msprop:Generator_RowEvHandlerName="customgroupRowChangeEventHandler" msprop:Generator_RowDeletedName="customgroupRowDeleted" msprop:Generator_UserTableName="customgroup" msprop:Generator_RowChangedName="customgroupRowChanged" msprop:Generator_RowEvArgName="customgroupRowChangeEvent" msprop:Generator_RowClassName="customgroupRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomgroup" msprop:Generator_ColumnVarNameInTable="columnidcustomgroup" msprop:Generator_ColumnPropNameInRow="idcustomgroup" msprop:Generator_ColumnPropNameInTable="idcustomgroupColumn" msprop:Generator_UserColumnName="idcustomgroup" type="xs:string" />
+              <xs:element name="groupname" msprop:Generator_ColumnVarNameInTable="columngroupname" msprop:Generator_ColumnPropNameInRow="groupname" msprop:Generator_ColumnPropNameInTable="groupnameColumn" msprop:Generator_UserColumnName="groupname" type="xs:string" minOccurs="0" />
+              <xs:element name="description" msprop:Generator_ColumnVarNameInTable="columndescription" msprop:Generator_ColumnPropNameInRow="description" msprop:Generator_ColumnPropNameInTable="descriptionColumn" msprop:Generator_UserColumnName="description" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmoduser" msprop:Generator_ColumnVarNameInTable="columnlastmoduser" msprop:Generator_ColumnPropNameInRow="lastmoduser" msprop:Generator_ColumnPropNameInTable="lastmoduserColumn" msprop:Generator_UserColumnName="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" msprop:Generator_ColumnVarNameInTable="columnlastmodtimestamp" msprop:Generator_ColumnPropNameInRow="lastmodtimestamp" msprop:Generator_ColumnPropNameInTable="lastmodtimestampColumn" msprop:Generator_UserColumnName="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnPropNameInTable="ctColumn" msprop:Generator_UserColumnName="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnPropNameInTable="cuColumn" msprop:Generator_UserColumnName="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnPropNameInTable="ltColumn" msprop:Generator_UserColumnName="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnPropNameInTable="luColumn" msprop:Generator_UserColumnName="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customusergroup" msprop:Generator_TableClassName="customusergroupDataTable" msprop:Generator_TableVarName="tablecustomusergroup" msprop:Generator_TablePropName="customusergroup" msprop:Generator_RowDeletingName="customusergroupRowDeleting" msprop:Generator_RowChangingName="customusergroupRowChanging" msprop:Generator_RowEvHandlerName="customusergroupRowChangeEventHandler" msprop:Generator_RowDeletedName="customusergroupRowDeleted" msprop:Generator_UserTableName="customusergroup" msprop:Generator_RowChangedName="customusergroupRowChanged" msprop:Generator_RowEvArgName="customusergroupRowChangeEvent" msprop:Generator_RowClassName="customusergroupRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomgroup" msprop:Generator_ColumnVarNameInTable="columnidcustomgroup" msprop:Generator_ColumnPropNameInRow="idcustomgroup" msprop:Generator_ColumnPropNameInTable="idcustomgroupColumn" msprop:Generator_UserColumnName="idcustomgroup">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="idcustomuser" msprop:Generator_ColumnVarNameInTable="columnidcustomuser" msprop:Generator_ColumnPropNameInRow="idcustomuser" msprop:Generator_ColumnPropNameInTable="idcustomuserColumn" msprop:Generator_UserColumnName="idcustomuser">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="lastmodtimestamp" msprop:Generator_ColumnVarNameInTable="columnlastmodtimestamp" msprop:Generator_ColumnPropNameInRow="lastmodtimestamp" msprop:Generator_ColumnPropNameInTable="lastmodtimestampColumn" msprop:Generator_UserColumnName="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" msprop:Generator_ColumnVarNameInTable="columnlastmoduser" msprop:Generator_ColumnPropNameInRow="lastmoduser" msprop:Generator_ColumnPropNameInTable="lastmoduserColumn" msprop:Generator_UserColumnName="lastmoduser" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="64" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnPropNameInTable="ctColumn" msprop:Generator_UserColumnName="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnPropNameInTable="cuColumn" msprop:Generator_UserColumnName="cu" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="64" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnPropNameInTable="ltColumn" msprop:Generator_UserColumnName="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnPropNameInTable="luColumn" msprop:Generator_UserColumnName="lu" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="64" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="_x0021_nomegruppo" msprop:Generator_ColumnVarNameInTable="_column_nomegruppo" msprop:Generator_ColumnPropNameInRow="__nomegruppo" msprop:Generator_ColumnPropNameInTable="__nomegruppoColumn" msprop:Generator_UserColumnName="!nomegruppo" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_nomeutente" msprop:Generator_ColumnVarNameInTable="_column_nomeutente" msprop:Generator_ColumnPropNameInRow="__nomeutente" msprop:Generator_ColumnPropNameInTable="__nomeutenteColumn" msprop:Generator_UserColumnName="!nomeutente" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customuser" msprop:Generator_TableClassName="customuserDataTable" msprop:Generator_TableVarName="tablecustomuser" msprop:Generator_TablePropName="customuser" msprop:Generator_RowDeletingName="customuserRowDeleting" msprop:Generator_RowChangingName="customuserRowChanging" msprop:Generator_RowEvHandlerName="customuserRowChangeEventHandler" msprop:Generator_RowDeletedName="customuserRowDeleted" msprop:Generator_UserTableName="customuser" msprop:Generator_RowChangedName="customuserRowChanged" msprop:Generator_RowEvArgName="customuserRowChangeEvent" msprop:Generator_RowClassName="customuserRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomuser" msprop:Generator_ColumnVarNameInTable="columnidcustomuser" msprop:Generator_ColumnPropNameInRow="idcustomuser" msprop:Generator_ColumnPropNameInTable="idcustomuserColumn" msprop:Generator_UserColumnName="idcustomuser">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="lastmodtimestamp" msprop:Generator_ColumnVarNameInTable="columnlastmodtimestamp" msprop:Generator_ColumnPropNameInRow="lastmodtimestamp" msprop:Generator_ColumnPropNameInTable="lastmodtimestampColumn" msprop:Generator_UserColumnName="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" msprop:Generator_ColumnVarNameInTable="columnlastmoduser" msprop:Generator_ColumnPropNameInRow="lastmoduser" msprop:Generator_ColumnPropNameInTable="lastmoduserColumn" msprop:Generator_UserColumnName="lastmoduser" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="64" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="username" msprop:Generator_ColumnVarNameInTable="columnusername" msprop:Generator_ColumnPropNameInRow="username" msprop:Generator_ColumnPropNameInTable="usernameColumn" msprop:Generator_UserColumnName="username">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnPropNameInTable="ctColumn" msprop:Generator_UserColumnName="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnPropNameInTable="cuColumn" msprop:Generator_UserColumnName="cu" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="64" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnPropNameInTable="ltColumn" msprop:Generator_UserColumnName="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnPropNameInTable="luColumn" msprop:Generator_UserColumnName="lu" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="64" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="vistaFormKey4" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customgroup" />
+      <xs:field xpath="mstns:idcustomgroup" />
+    </xs:unique>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customusergroup" />
+      <xs:field xpath="mstns:idcustomgroup" />
+      <xs:field xpath="mstns:idcustomuser" />
+    </xs:unique>
+    <xs:unique name="customuser_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customuser" />
+      <xs:field xpath="mstns:idcustomuser" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="customuser_customusergroup" msdata:parent="customuser" msdata:child="customusergroup" msdata:parentkey="idcustomuser" msdata:childkey="idcustomuser" msprop:Generator_UserChildTable="customusergroup" msprop:Generator_ChildPropName="GetcustomusergroupRows" msprop:Generator_UserRelationName="customuser_customusergroup" msprop:Generator_RelationVarName="relationcustomuser_customusergroup" msprop:Generator_UserParentTable="customuser" msprop:Generator_ParentPropName="customuserRow" />
+      <msdata:Relationship name="customgroup_customusergroup" msdata:parent="customgroup" msdata:child="customusergroup" msdata:parentkey="idcustomgroup" msdata:childkey="idcustomgroup" msprop:Generator_UserChildTable="customusergroup" msprop:Generator_ChildPropName="GetcustomusergroupRows" msprop:Generator_UserRelationName="customgroup_customusergroup" msprop:Generator_ParentPropName="customgroupRow" msprop:Generator_RelationVarName="relationcustomgroup_customusergroup" msprop:Generator_UserParentTable="customgroup" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

@@ -1,0 +1,23 @@
+<?xml version="1.0" standalone="yes" ?>
+<xs:schema id="dblist" targetNamespace="http://tempuri.org/dblist.xsd" xmlns:mstns="http://tempuri.org/dblist.xsd"
+	xmlns="http://tempuri.org/dblist.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+	attributeFormDefault="qualified" elementFormDefault="qualified">
+	<xs:element name="dblist" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="db">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="description" type="xs:string" minOccurs="0" />
+							<xs:element name="server" type="xs:string" minOccurs="0" />
+							<xs:element name="database" type="xs:string" minOccurs="0" />
+							<xs:element name="user" type="xs:string" minOccurs="0" />
+							<xs:element name="department" type="xs:string" minOccurs="0" />
+							<xs:element name="ntuser" type="xs:string" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

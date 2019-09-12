@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0DC2A503-5CC5-4AFD-A1B5-1776F0557559}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>pagoPaService</RootNamespace>
+    <AssemblyName>pagoPaService</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="metadatalibrary">
+      <HintPath>..\..\..\dll\metadatalibrary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="metaeasylibrary">
+      <HintPath>..\..\..\dll\metaeasylibrary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\dll\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp">
+      <HintPath>..\..\..\dll\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting">
+      <HintPath>..\..\..\dll\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Serialization" />
+    <Reference Include="zxing">
+      <HintPath>..\..\..\dll\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_flussoincassi">
+      <HintPath>..\..\..\flussoincassi\meta_flussoincassi\bin\Debug\meta_flussoincassi.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_flussoincassi</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_flussoincassidetail">
+      <HintPath>..\..\..\flussoincassidetail\meta_flussoincassidetail\bin\Debug\meta_flussoincassidetail.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_flussoincassidetail</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_flussocreditidetail">
+      <HintPath>..\..\..\flussocreditidetail\meta_flussocreditidetail\bin\Debug\meta_flussocreditidetail.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_flussocreditidetail</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_flussocrediti">
+      <HintPath>..\..\..\flussocrediti\meta_flussocrediti\bin\Debug\meta_flussocrediti.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_flussocrediti</Name>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Service References\bsondrio1_1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="SiopePlus\SiopePlusREST.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Valtellinese\FlussoRiversamento_1_0_4.designer.cs" />
+    <Compile Include="Valtellinese\allineamentopendenze.designer.cs" />
+    <Compile Include="genericSerializer.cs" />
+    <Compile Include="Valtellinese\RT.Designer.cs" />
+    <Compile Include="Valtellinese\AuthPA_GetTicket_GetIUV.designer.cs" />
+    <Compile Include="BancaSondrio\bollettino.cs" />
+    <Compile Include="BancaSondrio\flusso_bps.cs" />
+    <Compile Include="BancaSondrio\servizio.cs" />
+    <Compile Include="EnvelopeNamespace.cs" />
+    <Compile Include="GovPay\Servizio.cs" />
+    <Compile Include="IntesaSanPaolo\EServizio.cs" />
+    <Compile Include="IntesaSanPaolo\Servizio.cs" />
+    <Compile Include="IntesaSanPaolo\StruttureDati_EasyBridge.cs" />
+    <Compile Include="IntesaSanPaolo\StruttureDati_InfoGroup.cs" />
+    <Compile Include="IUV.cs" />
+    <Compile Include="pagoPaService.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Valtellinese\payPA.designer.cs" />
+    <Compile Include="Service References\AuthPASoap\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PayPA\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\TicketWebSoap\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\UbiBancaService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\UnicreditService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\unicredit_b\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="UbiBanca\UbiBancaService.cs" />
+    <Compile Include="Unicredit\bollettino.cs" />
+    <Compile Include="Unicredit\flusso_unicredit.cs" />
+    <Compile Include="Unicredit\UnicreditB.cs" />
+    <Compile Include="Unicredit\UniCreditService.cs" />
+    <Compile Include="Valtellinese\ValtellineseREST.cs" />
+    <Compile Include="Valtellinese\ValtellineseService.cs" />
+    <Compile Include="vistaForm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="allineamentopendenze.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="AuthPA_GetTicket_GetIUV.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FlussoRiversamento_1_0_4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="payPA.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="RT.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AuthPASoap\AuthPASoap.wsdl" />
+    <None Include="Service References\bsondrio1_1\FaultSchema_v8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\bsondrio1_1\IUVOnlineSchema_v1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\bsondrio1_1\IUVOnlineService_v1.wsdl" />
+    <None Include="Service References\bsondrio1_1\pagoPaService.bsondrio1_1.IUVOnlineCreateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\bsondrio1_1\pagoPaService.bsondrio1_1.IUVOnlineDeleteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\bsondrio1_1\pagoPaService.bsondrio1_1.IUVOnlineUpdateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\bsondrio1_1\TestataSchema_v8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\bsondrio1_1\TipiComuniAnagrafeSchema_v9.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\bsondrio1_1\TipiTestataSchema_v8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PayPA\pagoPaService.PayPA.PagamentoEsistenteBollettinoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PayPA\pagoPaService.PayPA.PagamentoEsistenteBollettinoResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PayPA\pagoPaService.PayPA.RegistraPagamentoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PayPA\pagoPaService.PayPA.RegistraPagamentoResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PayPA\PayPA.wsdl">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TicketWebSoap\pagoPaService.TicketWebSoap.GetTicketResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TicketWebSoap\TicketWebSoap.wsdl" />
+    <None Include="Service References\UbiBancaService\gestorePosizioni.wsdl" />
+    <None Include="Service References\UbiBancaService\pagoPaService.UbiBancaService.inserimentoPosizioneResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UnicreditService\gestorePosizioni.wsdl" />
+    <None Include="Service References\UnicreditService\pagoPaService.UnicreditService.inserimentoPosizioneResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UnicreditService\pagoPaService.UnicreditService.inserimentoPosizioneResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\unicredit_b\CarrelloPosizioniImplService.wsdl" />
+    <None Include="Service References\unicredit_b\pagoPaService.unicredit_b.paInviaCarrelloPosizioniResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\unicredit_b\pagoPaService.unicredit_b.paInviaCarrelloPosizioniResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="SiopePlus\OPI_GIORNALE_DI_CASSA_V_1_3.XSD">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaForm.xsc">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+    <None Include="vistaForm.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaForm.xss">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AuthPASoap\" />
+    <WCFMetadataStorage Include="Service References\bsondrio1_1\" />
+    <WCFMetadataStorage Include="Service References\PayPA\" />
+    <WCFMetadataStorage Include="Service References\TicketWebSoap\" />
+    <WCFMetadataStorage Include="Service References\UbiBancaService\" />
+    <WCFMetadataStorage Include="Service References\UnicreditService\" />
+    <WCFMetadataStorage Include="Service References\unicredit_b\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UnicreditService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UnicreditService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UnicreditService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\funzioni_configurazione\funzioni_configurazione.csproj">
+      <Project>{c0dacf4d-2f3e-44d6-a718-7c9821a1bdcd}</Project>
+      <Name>funzioni_configurazione</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\unicredit_b\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\unicredit_b\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\unicredit_b\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UbiBancaService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UbiBancaService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UbiBancaService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TicketWebSoap\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TicketWebSoap\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TicketWebSoap\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PayPA\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PayPA\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PayPA\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AuthPASoap\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AuthPASoap\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AuthPASoap\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\bsondrio1_1\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\bsondrio1_1\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\bsondrio1_1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

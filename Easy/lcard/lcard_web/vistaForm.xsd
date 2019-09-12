@@ -1,0 +1,123 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="lcard">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlcard" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="ystart" type="xs:short" minOccurs="0" />
+              <xs:element name="ystop" type="xs:short" minOccurs="0" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idman" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="idstore" type="xs:int" />
+              <xs:element name="extcode" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="manager">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="passwordweb" type="xs:string" minOccurs="0" />
+              <xs:element name="phonenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="userweb" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" />
+              <xs:element name="iddivision" type="xs:int" />
+              <xs:element name="wantswarn" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="store">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstore" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="deliveryaddress" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="lcardcf">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlcard" type="xs:int" />
+              <xs:element name="cf" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="lcardtotal">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlcard" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:lcard" />
+      <xs:field xpath="mstns:idlcard" />
+    </xs:unique>
+    <xs:unique name="manager_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:manager" />
+      <xs:field xpath="mstns:idman" />
+    </xs:unique>
+    <xs:unique name="store_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:store" />
+      <xs:field xpath="mstns:idstore" />
+    </xs:unique>
+    <xs:unique name="lcardcf_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:lcardcf" />
+      <xs:field xpath="mstns:idlcard" />
+      <xs:field xpath="mstns:cf" />
+    </xs:unique>
+    <xs:unique name="lcardtotal_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:lcardtotal" />
+      <xs:field xpath="mstns:idlcard" />
+    </xs:unique>
+    <xs:keyref name="FK_lcard_lcardcf" refer="Constraint1">
+      <xs:selector xpath=".//mstns:lcardcf" />
+      <xs:field xpath="mstns:idlcard" />
+    </xs:keyref>
+    <xs:keyref name="lcardtotal_lcard" refer="lcardtotal_Constraint1">
+      <xs:selector xpath=".//mstns:lcard" />
+      <xs:field xpath="mstns:idlcard" />
+    </xs:keyref>
+    <xs:keyref name="FK_store_lcard" refer="store_Constraint1">
+      <xs:selector xpath=".//mstns:lcard" />
+      <xs:field xpath="mstns:idstore" />
+    </xs:keyref>
+    <xs:keyref name="FK_manager_lcard" refer="manager_Constraint1">
+      <xs:selector xpath=".//mstns:lcard" />
+      <xs:field xpath="mstns:idman" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

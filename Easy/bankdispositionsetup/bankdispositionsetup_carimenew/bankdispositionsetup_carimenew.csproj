@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{057D84B0-1CFF-4537-8DE1-866C75AE06F6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>bankdispositionsetup_carimenew</RootNamespace>
+    <AssemblyName>bankdispositionsetup_carimenew</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="metadatalibrary">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="metaeasylibrary">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EsportazioneDistinteIncasso.cs" />
+    <Compile Include="EsportazioneDistintePagamento.cs" />
+    <Compile Include="frmBankdispositionsetup_carimenew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBankdispositionsetup_carimenew.Designer.cs">
+      <DependentUpon>frmBankdispositionsetup_carimenew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="FrmViewError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmViewError.Designer.cs">
+      <DependentUpon>FrmViewError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ORDINATIVI_incassi.Designer.cs">
+      <DependentUpon>ORDINATIVI_incassi.XSD</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ORDINATIVI_pagamenti.Designer.cs">
+      <DependentUpon>ORDINATIVI_pagamenti.XSD</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaForm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="XmlHelper.cs" />
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ORDINATIVI_incassi.XSD">
+      <Generator>MSDatasetGenerator</Generator>
+      <LastGenOutput>ORDINATIVI_incassi.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ORDINATIVI_incassi.xsx">
+      <DependentUpon>ORDINATIVI_incassi.XSD</DependentUpon>
+    </None>
+    <None Include="ORDINATIVI_pagamenti.XSD">
+      <Generator>MSDatasetGenerator</Generator>
+      <LastGenOutput>ORDINATIVI_pagamenti.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ORDINATIVI_pagamenti.xsx">
+      <DependentUpon>ORDINATIVI_pagamenti.XSD</DependentUpon>
+    </None>
+    <None Include="vistaForm.xsc">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+    <None Include="vistaForm.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaForm.xss">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="frmBankdispositionsetup_carimenew.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmBankdispositionsetup_carimenew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmViewError.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrmViewError.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
+      <Project>{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}</Project>
+      <Name>funzioni_configurazione</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\bankdispositionsetup_importnew\bankdispositionsetup_importnew.csproj">
+      <Project>{E3350629-515C-48C9-9A11-CB9B2684C06B}</Project>
+      <Name>bankdispositionsetup_importnew</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

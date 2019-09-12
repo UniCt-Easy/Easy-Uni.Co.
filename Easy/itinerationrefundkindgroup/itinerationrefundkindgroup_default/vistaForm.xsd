@@ -1,0 +1,67 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistagruppoestero.xsd" xmlns:mstns="http://tempuri.org/vistagruppoestero.xsd" xmlns="http://tempuri.org/vistagruppoestero.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="itinerationrefundkindgroup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iditinerationrefundkindgroup" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="allowalways" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationrefundkindgroupreduction">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iditinerationrefundkindgroup" type="xs:int" />
+              <xs:element name="idreduction" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="reduction">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreduction" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefundkindgroup" />
+      <xs:field xpath="mstns:iditinerationrefundkindgroup" />
+    </xs:unique>
+    <xs:unique name="itinerationrefundkindgroupreduction_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefundkindgroupreduction" />
+      <xs:field xpath="mstns:iditinerationrefundkindgroup" />
+      <xs:field xpath="mstns:idreduction" />
+    </xs:unique>
+    <xs:unique name="reduction_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:reduction" />
+      <xs:field xpath="mstns:idreduction" />
+    </xs:unique>
+    <xs:keyref name="itinerationrefundkindgroup_itinerationrefundkindgroupreduction" refer="Constraint1">
+      <xs:selector xpath=".//mstns:itinerationrefundkindgroupreduction" />
+      <xs:field xpath="mstns:iditinerationrefundkindgroup" />
+    </xs:keyref>
+    <xs:keyref name="reduction_itinerationrefundkindgroupreduction" refer="reduction_Constraint1">
+      <xs:selector xpath=".//mstns:itinerationrefundkindgroupreduction" />
+      <xs:field xpath="mstns:idreduction" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

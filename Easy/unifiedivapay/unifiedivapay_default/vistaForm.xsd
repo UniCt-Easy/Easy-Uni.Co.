@@ -1,0 +1,134 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="unifiedivapay">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yunifiedivapay" type="xs:int" />
+              <xs:element name="nunifiedivapay" type="xs:int" />
+              <xs:element name="iddepartment" type="xs:int" />
+              <xs:element name="assesmentdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="creditamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="creditamountdeferred" type="xs:decimal" minOccurs="0" />
+              <xs:element name="debitamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="debitamountdeferred" type="xs:decimal" minOccurs="0" />
+              <xs:element name="paymentamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="refundamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="paymentkind" type="xs:string" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="paymentdetails" type="xs:string" minOccurs="0" />
+              <xs:element name="mixed" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prorata" type="xs:decimal" minOccurs="0" />
+              <xs:element name="dateivapay" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="department">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddepartment" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="server" type="xs:string" minOccurs="0" />
+              <xs:element name="db" type="xs:string" minOccurs="0" />
+              <xs:element name="userdep" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ivaregisterkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idivaregisterkind" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="registerclass" type="xs:string" />
+              <xs:element name="idivaregisterkindunified" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="unifiedivapaydetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yunifiedivapay" type="xs:int" />
+              <xs:element name="nunifiedivapay" type="xs:int" />
+              <xs:element name="idivaregisterkindunified" type="xs:string" />
+              <xs:element name="iddepartment" type="xs:int" />
+              <xs:element name="iva" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ivadeferred" type="xs:decimal" minOccurs="0" />
+              <xs:element name="unabatable" type="xs:decimal" minOccurs="0" />
+              <xs:element name="unabatabledeferred" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ivanet" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ivanetdeferred" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prorata" type="xs:decimal" minOccurs="0" />
+              <xs:element name="mixed" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_ivacredit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_department" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_registerkindunified" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_registerclass" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:unifiedivapay" />
+      <xs:field xpath="mstns:yunifiedivapay" />
+      <xs:field xpath="mstns:nunifiedivapay" />
+      <xs:field xpath="mstns:iddepartment" />
+    </xs:unique>
+    <xs:unique name="department_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:department" />
+      <xs:field xpath="mstns:iddepartment" />
+    </xs:unique>
+    <xs:unique name="ivaregisterkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ivaregisterkind" />
+      <xs:field xpath="mstns:idivaregisterkind" />
+    </xs:unique>
+    <xs:unique name="Constraint2">
+      <xs:selector xpath=".//mstns:ivaregisterkind" />
+      <xs:field xpath="mstns:idivaregisterkindunified" />
+    </xs:unique>
+    <xs:unique name="unifiedivapaydetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:unifiedivapaydetail" />
+      <xs:field xpath="mstns:yunifiedivapay" />
+      <xs:field xpath="mstns:nunifiedivapay" />
+      <xs:field xpath="mstns:idivaregisterkindunified" />
+      <xs:field xpath="mstns:iddepartment" />
+    </xs:unique>
+    <xs:keyref name="ivaregisterkindunifiedivapaydetail" refer="Constraint2">
+      <xs:selector xpath=".//mstns:unifiedivapaydetail" />
+      <xs:field xpath="mstns:idivaregisterkindunified" />
+    </xs:keyref>
+    <xs:keyref name="unifiedivapayunifiedivapaydetail" refer="Constraint1">
+      <xs:selector xpath=".//mstns:unifiedivapaydetail" />
+      <xs:field xpath="mstns:yunifiedivapay" />
+      <xs:field xpath="mstns:nunifiedivapay" />
+      <xs:field xpath="mstns:iddepartment" />
+    </xs:keyref>
+    <xs:keyref name="departmentunifiedivapaydetail" refer="department_Constraint1">
+      <xs:selector xpath=".//mstns:unifiedivapaydetail" />
+      <xs:field xpath="mstns:iddepartment" />
+    </xs:keyref>
+    <xs:keyref name="departmentunifiedivapay" refer="department_Constraint1">
+      <xs:selector xpath=".//mstns:unifiedivapay" />
+      <xs:field xpath="mstns:iddepartment" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

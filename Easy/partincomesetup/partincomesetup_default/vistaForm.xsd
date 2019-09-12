@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistaripassegnazione.xsd" xmlns:mstns="http://tempuri.org/Vistaripassegnazione.xsd" xmlns="http://tempuri.org/Vistaripassegnazione.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="partincomesetup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfinincome" type="xs:int" />
+              <xs:element name="idfinexpense" type="xs:int" />
+              <xs:element name="percentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fin">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfin" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="flag" type="xs:unsignedByte" />
+              <xs:element name="codefin" type="xs:string" />
+              <xs:element name="paridfin" type="xs:int" minOccurs="0" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fin1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfin" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="flag" type="xs:unsignedByte" />
+              <xs:element name="codefin" type="xs:string" />
+              <xs:element name="paridfin" type="xs:int" minOccurs="0" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:partincomesetup" />
+      <xs:field xpath="mstns:idfinincome" />
+      <xs:field xpath="mstns:idfinexpense" />
+    </xs:unique>
+    <xs:unique name="fin_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:fin" />
+      <xs:field xpath="mstns:idfin" />
+    </xs:unique>
+    <xs:unique name="fin1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:fin1" />
+      <xs:field xpath="mstns:idfin" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="fin1partincomesetup" msdata:parent="fin1" msdata:child="partincomesetup" msdata:parentkey="idfin" msdata:childkey="idfinexpense" />
+      <msdata:Relationship name="finpartincomesetup" msdata:parent="fin" msdata:child="partincomesetup" msdata:parentkey="idfin" msdata:childkey="idfinincome" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

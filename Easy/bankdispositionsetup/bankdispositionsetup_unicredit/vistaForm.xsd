@@ -1,0 +1,270 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="EF06_TestaCoda">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ISTTS1" type="xs:int" minOccurs="0" />
+              <xs:element name="FILTESE" type="xs:string" minOccurs="0" />
+              <xs:element name="CODENT1" type="xs:int" minOccurs="0" />
+              <xs:element name="ESERC1" type="xs:int" minOccurs="0" />
+              <xs:element name="TIPREC" type="xs:string" minOccurs="0" />
+              <xs:element name="WA035" type="xs:string" minOccurs="0" />
+              <xs:element name="WA040" type="xs:string" minOccurs="0" />
+              <xs:element name="FILLER" type="xs:string" minOccurs="0" />
+              <xs:element name="NOINC" type="xs:int" minOccurs="0" />
+              <xs:element name="SEGNO1" type="xs:string" minOccurs="0" />
+              <xs:element name="ITOIN2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NOPPAG" type="xs:int" minOccurs="0" />
+              <xs:element name="SEGNOP" type="xs:string" minOccurs="0" />
+              <xs:element name="ITOPA2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SEGNOG" type="xs:string" minOccurs="0" />
+              <xs:element name="IGIACZ" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IUTANZ" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IVIANZ" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IPROI1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IPROP1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IFCPR1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SEGNOF" type="xs:string" minOccurs="0" />
+              <xs:element name="BYTLEU" type="xs:string" minOccurs="0" />
+              <xs:element name="NOINC_" type="xs:int" minOccurs="0" />
+              <xs:element name="SEGNO1_" type="xs:string" minOccurs="0" />
+              <xs:element name="ITOIN2_" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NOPPAG_" type="xs:int" minOccurs="0" />
+              <xs:element name="SEGNOP_" type="xs:string" minOccurs="0" />
+              <xs:element name="ITOPA2_" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SEGNOG_" type="xs:string" minOccurs="0" />
+              <xs:element name="IGIACZ_" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IUTANZ_" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IVIANZ_" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IPROI1_" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IPROP1_" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IFCPR1_" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SEGNOF_" type="xs:string" minOccurs="0" />
+              <xs:element name="BYTLEU_" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="EF06">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ISTTS1" type="xs:int" minOccurs="0" />
+              <xs:element name="FILTESE" type="xs:string" minOccurs="0" />
+              <xs:element name="CODENT1" type="xs:int" minOccurs="0" />
+              <xs:element name="ESERC1" type="xs:int" minOccurs="0" />
+              <xs:element name="TIPREC" type="xs:string" minOccurs="0" />
+              <xs:element name="TIPDOC" type="xs:string" minOccurs="0" />
+              <xs:element name="NUMDO1" type="xs:string" minOccurs="0" />
+              <xs:element name="PRODO1" type="xs:string" minOccurs="0" />
+              <xs:element name="CAPBI2" type="xs:int" minOccurs="0" />
+              <xs:element name="ARBTI2" type="xs:int" minOccurs="0" />
+              <xs:element name="ANNOC1" type="xs:int" minOccurs="0" />
+              <xs:element name="IMPMA1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SEGNOP" type="xs:string" minOccurs="0" />
+              <xs:element name="DTPAG9" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DVALP2" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PROST1" type="xs:int" minOccurs="0" />
+              <xs:element name="ANABE" type="xs:string" minOccurs="0" />
+              <xs:element name="DCAP" type="xs:string" minOccurs="0" />
+              <xs:element name="CODGEN" type="xs:string" minOccurs="0" />
+              <xs:element name="IMPRI1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="INDREG" type="xs:string" minOccurs="0" />
+              <xs:element name="DESTU" type="xs:string" minOccurs="0" />
+              <xs:element name="INDCBI" type="xs:string" minOccurs="0" />
+              <xs:element name="CAUTS" type="xs:string" minOccurs="0" />
+              <xs:element name="NUMOA1" type="xs:string" minOccurs="0" />
+              <xs:element name="PROGA1" type="xs:string" minOccurs="0" />
+              <xs:element name="DVALB2" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CODVER" type="xs:string" minOccurs="0" />
+              <xs:element name="NUMPRA" type="xs:string" minOccurs="0" />
+              <xs:element name="DESVER" type="xs:string" minOccurs="0" />
+              <xs:element name="NUMPR1" type="xs:string" minOccurs="0" />
+              <xs:element name="PROGP1" type="xs:string" minOccurs="0" />
+              <xs:element name="MANRI1" type="xs:string" minOccurs="0" />
+              <xs:element name="PRORI1" type="xs:string" minOccurs="0" />
+              <xs:element name="DTELT2" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IBOLL1" type="xs:int" minOccurs="0" />
+              <xs:element name="INDBOL" type="xs:string" minOccurs="0" />
+              <xs:element name="ICOMT1" type="xs:int" minOccurs="0" />
+              <xs:element name="INDCOM" type="xs:string" minOccurs="0" />
+              <xs:element name="ISPEP1" type="xs:int" minOccurs="0" />
+              <xs:element name="INDSPT" type="xs:string" minOccurs="0" />
+              <xs:element name="BYTLEU" type="xs:string" minOccurs="0" />
+              <xs:element name="BYTLEC" type="xs:string" minOccurs="0" />
+              <xs:element name="INDMO" type="xs:string" minOccurs="0" />
+              <xs:element name="INDSI" type="xs:string" minOccurs="0" />
+              <xs:element name="TPAGTS" type="xs:int" minOccurs="0" />
+              <xs:element name="CABIT1" type="xs:int" minOccurs="0" />
+              <xs:element name="CABDTX" type="xs:int" minOccurs="0" />
+              <xs:element name="NUMBO" type="xs:string" minOccurs="0" />
+              <xs:element name="CINRT" type="xs:string" minOccurs="0" />
+              <xs:element name="CDMEC2" type="xs:long" minOccurs="0" />
+              <xs:element name="IMPMA2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FILLER" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="IN0109">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ISTTS" type="xs:int" minOccurs="0" />
+              <xs:element name="CODEN" type="xs:int" minOccurs="0" />
+              <xs:element name="ESERC" type="xs:int" minOccurs="0" />
+              <xs:element name="DESC" type="xs:string" minOccurs="0" />
+              <xs:element name="NDG" type="xs:long" minOccurs="0" />
+              <xs:element name="DTELAB" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="FILTS" type="xs:int" minOccurs="0" />
+              <xs:element name="SEG_FDO" type="xs:string" minOccurs="0" />
+              <xs:element name="FDO" type="xs:decimal" minOccurs="0" />
+              <xs:element name="REV_INC" type="xs:decimal" minOccurs="0" />
+              <xs:element name="REV_CAR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IMP_PPI" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MAN_PAG" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MAN_CAR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IMP_PPP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SAL_DIR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SAL_FAT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FIDO" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IMP_LIB" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IMP_NTU" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IMP_TU" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IMP_ANT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FILLER" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="bankdispositionsetup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="appname" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="electronictrasmission" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="motivelen" type="xs:short" minOccurs="0" />
+              <xs:element name="motiveprefix" type="xs:string" minOccurs="0" />
+              <xs:element name="motiveseparator" type="xs:string" minOccurs="0" />
+              <xs:element name="paymentsgroupingkind" type="xs:string" minOccurs="0" />
+              <xs:element name="proceedsgroupingkind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="banktransaction">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nban" type="xs:int" />
+              <xs:element name="yban" type="xs:short" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="bankreference" type="xs:string" minOccurs="0" />
+              <xs:element name="kind" type="xs:string" />
+              <xs:element name="transactiondate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="valuedate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idpay" type="xs:int" minOccurs="0" />
+              <xs:element name="idpro" type="xs:int" minOccurs="0" />
+              <xs:element name="idexp" type="xs:int" minOccurs="0" />
+              <xs:element name="idinc" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="payment_bank">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpay" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="kpay" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="proceeds_bank">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpro" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="kpro" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="bill">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ybill" type="xs:short" />
+              <xs:element name="nbill" type="xs:int" />
+              <xs:element name="billkind" type="xs:string" />
+              <xs:element name="registry" type="xs:string" minOccurs="0" />
+              <xs:element name="covered" type="xs:decimal" minOccurs="0" />
+              <xs:element name="total" type="xs:decimal" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="motive" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bankdispositionsetup" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="banktransaction_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:banktransaction" />
+      <xs:field xpath="mstns:nban" />
+      <xs:field xpath="mstns:yban" />
+    </xs:unique>
+    <xs:unique name="payment_bank_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:payment_bank" />
+      <xs:field xpath="mstns:idpay" />
+      <xs:field xpath="mstns:kpay" />
+    </xs:unique>
+    <xs:unique name="Constraint2">
+      <xs:selector xpath=".//mstns:payment_bank" />
+      <xs:field xpath="mstns:idpay" />
+    </xs:unique>
+    <xs:unique name="proceeds_bank_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:proceeds_bank" />
+      <xs:field xpath="mstns:idpro" />
+      <xs:field xpath="mstns:kpro" />
+    </xs:unique>
+    <xs:unique name="proceeds_bank_Constraint2" msdata:ConstraintName="Constraint2">
+      <xs:selector xpath=".//mstns:proceeds_bank" />
+      <xs:field xpath="mstns:idpro" />
+    </xs:unique>
+    <xs:unique name="bill_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bill" />
+      <xs:field xpath="mstns:ybill" />
+      <xs:field xpath="mstns:nbill" />
+      <xs:field xpath="mstns:billkind" />
+    </xs:unique>
+    <xs:keyref name="proceeds_bankbanktransaction" refer="proceeds_bank_Constraint2">
+      <xs:selector xpath=".//mstns:banktransaction" />
+      <xs:field xpath="mstns:idpro" />
+    </xs:keyref>
+    <xs:keyref name="payment_bankbanktransaction" refer="Constraint2">
+      <xs:selector xpath=".//mstns:banktransaction" />
+      <xs:field xpath="mstns:idpay" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

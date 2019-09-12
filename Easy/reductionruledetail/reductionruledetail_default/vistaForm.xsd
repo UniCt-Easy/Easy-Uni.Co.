@@ -1,0 +1,48 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="reductionruledetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreductionrule" type="xs:int" />
+              <xs:element name="iddetail" type="xs:int" />
+              <xs:element name="idreduction" type="xs:string" />
+              <xs:element name="reductionpercentage" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="reduction">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreduction" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:reductionruledetail" />
+      <xs:field xpath="mstns:idreductionrule" />
+      <xs:field xpath="mstns:iddetail" />
+    </xs:unique>
+    <xs:unique name="reduction_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:reduction" />
+      <xs:field xpath="mstns:idreduction" />
+    </xs:unique>
+    <xs:keyref name="FK_reduction_reductionruledetail" refer="reduction_Constraint1">
+      <xs:selector xpath=".//mstns:reductionruledetail" />
+      <xs:field xpath="mstns:idreduction" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

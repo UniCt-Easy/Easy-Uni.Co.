@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT" msprop:Generator_DataSetName="vista" msprop:Generator_UserDSName="vista">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="registryclass" msprop:Generator_TableClassName="registryclassDataTable" msprop:Generator_TableVarName="tableregistryclass" msprop:Generator_TablePropName="registryclass" msprop:Generator_RowDeletingName="registryclassRowDeleting" msprop:Generator_RowChangingName="registryclassRowChanging" msprop:Generator_RowEvHandlerName="registryclassRowChangeEventHandler" msprop:Generator_RowDeletedName="registryclassRowDeleted" msprop:Generator_UserTableName="registryclass" msprop:Generator_RowChangedName="registryclassRowChanged" msprop:Generator_RowEvArgName="registryclassRowChangeEvent" msprop:Generator_RowClassName="registryclassRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" msprop:Generator_ColumnVarNameInTable="columnactive" msprop:Generator_ColumnPropNameInRow="active" msprop:Generator_ColumnPropNameInTable="activeColumn" msprop:Generator_UserColumnName="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnPropNameInTable="ctColumn" msprop:Generator_UserColumnName="ct" type="xs:dateTime" />
+              <xs:element name="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnPropNameInTable="cuColumn" msprop:Generator_UserColumnName="cu" type="xs:string" />
+              <xs:element name="description" msprop:Generator_ColumnVarNameInTable="columndescription" msprop:Generator_ColumnPropNameInRow="description" msprop:Generator_ColumnPropNameInTable="descriptionColumn" msprop:Generator_UserColumnName="description" type="xs:string" />
+              <xs:element name="flagbadgecode" msprop:Generator_ColumnVarNameInTable="columnflagbadgecode" msprop:Generator_ColumnPropNameInRow="flagbadgecode" msprop:Generator_ColumnPropNameInTable="flagbadgecodeColumn" msprop:Generator_UserColumnName="flagbadgecode" type="xs:string" />
+              <xs:element name="flagbadgecode_forced" msprop:Generator_ColumnVarNameInTable="columnflagbadgecode_forced" msprop:Generator_ColumnPropNameInRow="flagbadgecode_forced" msprop:Generator_ColumnPropNameInTable="flagbadgecode_forcedColumn" msprop:Generator_UserColumnName="flagbadgecode_forced" type="xs:string" />
+              <xs:element name="flagCF" msprop:Generator_ColumnVarNameInTable="columnflagCF" msprop:Generator_ColumnPropNameInRow="flagCF" msprop:Generator_ColumnPropNameInTable="flagCFColumn" msprop:Generator_UserColumnName="flagCF" type="xs:string" />
+              <xs:element name="flagcf_forced" msprop:Generator_ColumnVarNameInTable="columnflagcf_forced" msprop:Generator_ColumnPropNameInRow="flagcf_forced" msprop:Generator_ColumnPropNameInTable="flagcf_forcedColumn" msprop:Generator_UserColumnName="flagcf_forced" type="xs:string" />
+              <xs:element name="flagcfbutton" msprop:Generator_ColumnVarNameInTable="columnflagcfbutton" msprop:Generator_ColumnPropNameInRow="flagcfbutton" msprop:Generator_ColumnPropNameInTable="flagcfbuttonColumn" msprop:Generator_UserColumnName="flagcfbutton" type="xs:string" minOccurs="0" />
+              <xs:element name="flagextmatricula" msprop:Generator_ColumnVarNameInTable="columnflagextmatricula" msprop:Generator_ColumnPropNameInRow="flagextmatricula" msprop:Generator_ColumnPropNameInTable="flagextmatriculaColumn" msprop:Generator_UserColumnName="flagextmatricula" type="xs:string" />
+              <xs:element name="flagextmatricula_forced" msprop:Generator_ColumnVarNameInTable="columnflagextmatricula_forced" msprop:Generator_ColumnPropNameInRow="flagextmatricula_forced" msprop:Generator_ColumnPropNameInTable="flagextmatricula_forcedColumn" msprop:Generator_UserColumnName="flagextmatricula_forced" type="xs:string" />
+              <xs:element name="flagfiscalresidence" msprop:Generator_ColumnVarNameInTable="columnflagfiscalresidence" msprop:Generator_ColumnPropNameInRow="flagfiscalresidence" msprop:Generator_ColumnPropNameInTable="flagfiscalresidenceColumn" msprop:Generator_UserColumnName="flagfiscalresidence" type="xs:string" />
+              <xs:element name="flagfiscalresidence_forced" msprop:Generator_ColumnVarNameInTable="columnflagfiscalresidence_forced" msprop:Generator_ColumnPropNameInRow="flagfiscalresidence_forced" msprop:Generator_ColumnPropNameInTable="flagfiscalresidence_forcedColumn" msprop:Generator_UserColumnName="flagfiscalresidence_forced" type="xs:string" />
+              <xs:element name="flagforeigncf" msprop:Generator_ColumnVarNameInTable="columnflagforeigncf" msprop:Generator_ColumnPropNameInRow="flagforeigncf" msprop:Generator_ColumnPropNameInTable="flagforeigncfColumn" msprop:Generator_UserColumnName="flagforeigncf" type="xs:string" />
+              <xs:element name="flagforeigncf_forced" msprop:Generator_ColumnVarNameInTable="columnflagforeigncf_forced" msprop:Generator_ColumnPropNameInRow="flagforeigncf_forced" msprop:Generator_ColumnPropNameInTable="flagforeigncf_forcedColumn" msprop:Generator_UserColumnName="flagforeigncf_forced" type="xs:string" />
+              <xs:element name="flaghuman" msprop:Generator_ColumnVarNameInTable="columnflaghuman" msprop:Generator_ColumnPropNameInRow="flaghuman" msprop:Generator_ColumnPropNameInTable="flaghumanColumn" msprop:Generator_UserColumnName="flaghuman" type="xs:string" minOccurs="0" />
+              <xs:element name="flaginfofromcfbutton" msprop:Generator_ColumnVarNameInTable="columnflaginfofromcfbutton" msprop:Generator_ColumnPropNameInRow="flaginfofromcfbutton" msprop:Generator_ColumnPropNameInTable="flaginfofromcfbuttonColumn" msprop:Generator_UserColumnName="flaginfofromcfbutton" type="xs:string" minOccurs="0" />
+              <xs:element name="flagmaritalstatus" msprop:Generator_ColumnVarNameInTable="columnflagmaritalstatus" msprop:Generator_ColumnPropNameInRow="flagmaritalstatus" msprop:Generator_ColumnPropNameInTable="flagmaritalstatusColumn" msprop:Generator_UserColumnName="flagmaritalstatus" type="xs:string" />
+              <xs:element name="flagmaritalstatus_forced" msprop:Generator_ColumnVarNameInTable="columnflagmaritalstatus_forced" msprop:Generator_ColumnPropNameInRow="flagmaritalstatus_forced" msprop:Generator_ColumnPropNameInTable="flagmaritalstatus_forcedColumn" msprop:Generator_UserColumnName="flagmaritalstatus_forced" type="xs:string" />
+              <xs:element name="flagmaritalsurname" msprop:Generator_ColumnVarNameInTable="columnflagmaritalsurname" msprop:Generator_ColumnPropNameInRow="flagmaritalsurname" msprop:Generator_ColumnPropNameInTable="flagmaritalsurnameColumn" msprop:Generator_UserColumnName="flagmaritalsurname" type="xs:string" />
+              <xs:element name="flagmaritalsurname_forced" msprop:Generator_ColumnVarNameInTable="columnflagmaritalsurname_forced" msprop:Generator_ColumnPropNameInRow="flagmaritalsurname_forced" msprop:Generator_ColumnPropNameInTable="flagmaritalsurname_forcedColumn" msprop:Generator_UserColumnName="flagmaritalsurname_forced" type="xs:string" />
+              <xs:element name="flagothers" msprop:Generator_ColumnVarNameInTable="columnflagothers" msprop:Generator_ColumnPropNameInRow="flagothers" msprop:Generator_ColumnPropNameInTable="flagothersColumn" msprop:Generator_UserColumnName="flagothers" type="xs:string" />
+              <xs:element name="flagothers_forced" msprop:Generator_ColumnVarNameInTable="columnflagothers_forced" msprop:Generator_ColumnPropNameInRow="flagothers_forced" msprop:Generator_ColumnPropNameInTable="flagothers_forcedColumn" msprop:Generator_UserColumnName="flagothers_forced" type="xs:string" />
+              <xs:element name="flagp_iva" msprop:Generator_ColumnVarNameInTable="columnflagp_iva" msprop:Generator_ColumnPropNameInRow="flagp_iva" msprop:Generator_ColumnPropNameInTable="flagp_ivaColumn" msprop:Generator_UserColumnName="flagp_iva" type="xs:string" />
+              <xs:element name="flagp_iva_forced" msprop:Generator_ColumnVarNameInTable="columnflagp_iva_forced" msprop:Generator_ColumnPropNameInRow="flagp_iva_forced" msprop:Generator_ColumnPropNameInTable="flagp_iva_forcedColumn" msprop:Generator_UserColumnName="flagp_iva_forced" type="xs:string" />
+              <xs:element name="flagqualification" msprop:Generator_ColumnVarNameInTable="columnflagqualification" msprop:Generator_ColumnPropNameInRow="flagqualification" msprop:Generator_ColumnPropNameInTable="flagqualificationColumn" msprop:Generator_UserColumnName="flagqualification" type="xs:string" />
+              <xs:element name="flagqualification_forced" msprop:Generator_ColumnVarNameInTable="columnflagqualification_forced" msprop:Generator_ColumnPropNameInRow="flagqualification_forced" msprop:Generator_ColumnPropNameInTable="flagqualification_forcedColumn" msprop:Generator_UserColumnName="flagqualification_forced" type="xs:string" />
+              <xs:element name="flagresidence" msprop:Generator_ColumnVarNameInTable="columnflagresidence" msprop:Generator_ColumnPropNameInRow="flagresidence" msprop:Generator_ColumnPropNameInTable="flagresidenceColumn" msprop:Generator_UserColumnName="flagresidence" type="xs:string" />
+              <xs:element name="flagresidence_forced" msprop:Generator_ColumnVarNameInTable="columnflagresidence_forced" msprop:Generator_ColumnPropNameInRow="flagresidence_forced" msprop:Generator_ColumnPropNameInTable="flagresidence_forcedColumn" msprop:Generator_UserColumnName="flagresidence_forced" type="xs:string" />
+              <xs:element name="flagtitle" msprop:Generator_ColumnVarNameInTable="columnflagtitle" msprop:Generator_ColumnPropNameInRow="flagtitle" msprop:Generator_ColumnPropNameInTable="flagtitleColumn" msprop:Generator_UserColumnName="flagtitle" type="xs:string" />
+              <xs:element name="flagtitle_forced" msprop:Generator_ColumnVarNameInTable="columnflagtitle_forced" msprop:Generator_ColumnPropNameInRow="flagtitle_forced" msprop:Generator_ColumnPropNameInTable="flagtitle_forcedColumn" msprop:Generator_UserColumnName="flagtitle_forced" type="xs:string" />
+              <xs:element name="idregistryclass" msprop:Generator_ColumnVarNameInTable="columnidregistryclass" msprop:Generator_ColumnPropNameInRow="idregistryclass" msprop:Generator_ColumnPropNameInTable="idregistryclassColumn" msprop:Generator_UserColumnName="idregistryclass" type="xs:string" />
+              <xs:element name="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnPropNameInTable="ltColumn" msprop:Generator_UserColumnName="lt" type="xs:dateTime" />
+              <xs:element name="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnPropNameInTable="luColumn" msprop:Generator_UserColumnName="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryclass" />
+      <xs:field xpath="mstns:idregistryclass" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

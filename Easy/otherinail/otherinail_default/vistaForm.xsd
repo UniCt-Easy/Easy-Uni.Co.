@@ -1,0 +1,26 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaAltreCollaborazioniInail.xsd" xmlns:mstns="http://tempuri.org/VistaAltreCollaborazioniInail.xsd" xmlns="http://tempuri.org/VistaAltreCollaborazioniInail.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="otherinail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="idotherinail" type="xs:int" />
+              <xs:element name="taxable" type="xs:decimal" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="nmonths" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="vistaFormKey1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:otherinail" />
+      <xs:field xpath="mstns:idcon" />
+      <xs:field xpath="mstns:idotherinail" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

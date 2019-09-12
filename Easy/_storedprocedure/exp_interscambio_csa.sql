@@ -1,0 +1,1 @@
+-- Non esiste più. E' stata sostituita dalla exp_interscambio_csa_missioni_single, in analogia a quelle degli altri compensi.

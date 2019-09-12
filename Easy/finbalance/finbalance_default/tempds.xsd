@@ -1,0 +1,45 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="tempds" targetNamespace="http://tempuri.org/tempds.xsd" xmlns:mstns="http://tempuri.org/tempds.xsd" xmlns="http://tempuri.org/tempds.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="tempds" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="finbalancedetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfin" type="xs:int" />
+              <xs:element name="codefin" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="supposedcash" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedcredits" type="xs:decimal" minOccurs="0" />
+              <xs:element name="revenue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="expenditure" type="xs:decimal" minOccurs="0" />
+              <xs:element name="actualcashsurplus" type="xs:decimal" minOccurs="0" />
+              <xs:element name="actualcreditsurplus" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="previsionvariation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="secondaryprevvariation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="creditvariation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cashvariation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedrevenue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedexpenditure" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedavailableprev" type="xs:decimal" minOccurs="0" />
+              <xs:element name="actualavailableprev" type="xs:decimal" minOccurs="0" />
+              <xs:element name="actualprev" type="xs:decimal" minOccurs="0" />
+              <xs:element name="payment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="proceeds" type="xs:decimal" minOccurs="0" />
+              <xs:element name="assignedcash" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_revenuevariation" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finbalancedetail" />
+      <xs:field xpath="mstns:idfin" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

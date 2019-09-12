@@ -1,0 +1,88 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="bankdispositionsetup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="carime">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codiceistituto" type="xs:int" minOccurs="0" />
+              <xs:element name="codicedipendenza" type="xs:int" minOccurs="0" />
+              <xs:element name="codiceente" type="xs:int" minOccurs="0" />
+              <xs:element name="codiceesercizio" type="xs:int" minOccurs="0" />
+              <xs:element name="codicedivisaente" type="xs:string" minOccurs="0" />
+              <xs:element name="abi" type="xs:int" minOccurs="0" />
+              <xs:element name="cab" type="xs:int" minOccurs="0" />
+              <xs:element name="numeroconto" type="xs:string" minOccurs="0" />
+              <xs:element name="datamovimento" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tipomovimento" type="xs:string" minOccurs="0" />
+              <xs:element name="numdocumento" type="xs:int" minOccurs="0" />
+              <xs:element name="numsub" type="xs:int" minOccurs="0" />
+              <xs:element name="numricevuta" type="xs:int" minOccurs="0" />
+              <xs:element name="numcapitolo" type="xs:int" minOccurs="0" />
+              <xs:element name="numarticolo" type="xs:int" minOccurs="0" />
+              <xs:element name="annoresiduo" type="xs:int" minOccurs="0" />
+              <xs:element name="codicedivisacliente" type="xs:string" minOccurs="0" />
+              <xs:element name="importodivisacliente" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoricevuta" type="xs:decimal" minOccurs="0" />
+              <xs:element name="segno" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceesecuzione" type="xs:int" minOccurs="0" />
+              <xs:element name="codicebolli" type="xs:int" minOccurs="0" />
+              <xs:element name="importibolli" type="xs:decimal" minOccurs="0" />
+              <xs:element name="codicespese" type="xs:int" minOccurs="0" />
+              <xs:element name="importospese" type="xs:decimal" minOccurs="0" />
+              <xs:element name="datavaluta" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="numdocrif" type="xs:int" minOccurs="0" />
+              <xs:element name="numsubrif" type="xs:int" minOccurs="0" />
+              <xs:element name="abicliente" type="xs:int" minOccurs="0" />
+              <xs:element name="cabcliente" type="xs:int" minOccurs="0" />
+              <xs:element name="descrizionecliente" type="xs:string" minOccurs="0" />
+              <xs:element name="codicecausale" type="xs:int" minOccurs="0" />
+              <xs:element name="causale1" type="xs:string" minOccurs="0" />
+              <xs:element name="causale2" type="xs:string" minOccurs="0" />
+              <xs:element name="causale3" type="xs:string" minOccurs="0" />
+              <xs:element name="codicetipoimputazione" type="xs:string" minOccurs="0" />
+              <xs:element name="imputazionefruttifera" type="xs:int" minOccurs="0" />
+              <xs:element name="imputazioneinfruttifera" type="xs:int" minOccurs="0" />
+              <xs:element name="imputazionevincolata" type="xs:int" minOccurs="0" />
+              <xs:element name="imputazionedelegazioni" type="xs:int" minOccurs="0" />
+              <xs:element name="imputazionegiornaliera" type="xs:int" minOccurs="0" />
+              <xs:element name="destfruttiferainfruttifera" type="xs:int" minOccurs="0" />
+              <xs:element name="indicatoreadisposizione" type="xs:int" minOccurs="0" />
+              <xs:element name="entratauscita" type="xs:string" minOccurs="0" />
+              <xs:element name="codicedivisaesercizio" type="xs:string" minOccurs="0" />
+              <xs:element name="importodivisaente" type="xs:decimal" minOccurs="0" />
+              <xs:element name="space01" type="xs:string" minOccurs="0" />
+              <xs:element name="space02" type="xs:string" minOccurs="0" />
+              <xs:element name="space03" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceresiduo" type="xs:int" minOccurs="0" />
+              <xs:element name="numerosubcaricati" type="xs:int" minOccurs="0" />
+              <xs:element name="numerosottoconto" type="xs:string" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="codicefornitore" type="xs:int" minOccurs="0" />
+              <xs:element name="numerocro" type="xs:string" minOccurs="0" />
+              <xs:element name="numeroassegnoda" type="xs:string" minOccurs="0" />
+              <xs:element name="numeroassegnoa" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizionecausaleaggiuntiva" type="xs:string" minOccurs="0" />
+              <xs:element name="codicebeneficiario" type="xs:string" minOccurs="0" />
+              <xs:element name="filler" type="xs:string" minOccurs="0" />
+              <xs:element name="tipdoc" type="xs:string" minOccurs="0" />
+              <xs:element name="indreg" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bankdispositionsetup" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

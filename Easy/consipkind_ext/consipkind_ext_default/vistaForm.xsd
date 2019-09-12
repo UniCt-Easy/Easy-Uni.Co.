@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="DATABASEConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="DATABASEConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.consipkind_ext_ext_default.Properties.Settings.GlobalReference.Default.DATABASEConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT" msprop:Generator_DataSetName="vistaForm" msprop:Generator_UserDSName="vistaForm">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="consipkind_ext" msprop:Generator_TableClassName="consipkind_extDataTable" msprop:Generator_TableVarName="tableconsipkind_ext" msprop:Generator_TablePropName="consipkind_ext" msprop:Generator_RowDeletingName="consipkind_extRowDeleting" msprop:Generator_RowChangingName="consipkind_extRowChanging" msprop:Generator_RowEvHandlerName="consipkind_extRowChangeEventHandler" msprop:Generator_RowDeletedName="consipkind_extRowDeleted" msprop:Generator_UserTableName="consipkind_ext" msprop:Generator_RowChangedName="consipkind_extRowChanged" msprop:Generator_RowEvArgName="consipkind_extRowChangeEvent" msprop:Generator_RowClassName="consipkind_extRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idconsipkind" msprop:Generator_ColumnVarNameInTable="columnidconsipkind" msprop:Generator_ColumnPropNameInRow="idconsipkind" msprop:Generator_ColumnPropNameInTable="idconsipkindColumn" msprop:Generator_UserColumnName="idconsipkind" type="xs:int" />
+              <xs:element name="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnPropNameInTable="ctColumn" msprop:Generator_UserColumnName="ct" type="xs:dateTime" />
+              <xs:element name="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnPropNameInTable="cuColumn" msprop:Generator_UserColumnName="cu">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="64" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="description" msprop:Generator_ColumnVarNameInTable="columndescription" msprop:Generator_ColumnPropNameInRow="description" msprop:Generator_ColumnPropNameInTable="descriptionColumn" msprop:Generator_UserColumnName="description">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="600" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnPropNameInTable="ltColumn" msprop:Generator_UserColumnName="lt" type="xs:dateTime" />
+              <xs:element name="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnPropNameInTable="luColumn" msprop:Generator_UserColumnName="lu">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="64" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="active" msprop:Generator_ColumnVarNameInTable="columnactive" msprop:Generator_ColumnPropNameInRow="active" msprop:Generator_ColumnPropNameInTable="activeColumn" msprop:Generator_UserColumnName="active" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="position" msprop:Generator_ColumnVarNameInTable="columnposition" msprop:Generator_ColumnPropNameInRow="position" msprop:Generator_ColumnPropNameInTable="positionColumn" msprop:Generator_UserColumnName="position" type="xs:int" minOccurs="0" />
+              <xs:element name="flagheader" msprop:Generator_ColumnVarNameInTable="columnflagheader" msprop:Generator_ColumnPropNameInRow="flagheader" msprop:Generator_ColumnPropNameInTable="flagheaderColumn" msprop:Generator_UserColumnName="flagheader" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="shortdescription" msprop:Generator_ColumnVarNameInTable="columnshortdescription" msprop:Generator_ColumnPropNameInRow="shortdescription" msprop:Generator_ColumnPropNameInTable="shortdescriptionColumn" msprop:Generator_UserColumnName="shortdescription" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="200" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:consipkind_ext" />
+      <xs:field xpath="mstns:idconsipkind" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="stip_voce">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstipvoce" type="xs:int" />
+              <xs:element name="codicevoce" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="stip_tassa">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstiptassa" type="xs:int" />
+              <xs:element name="codicetassa" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="stip_decodifica">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstipdecodifica" type="xs:int" />
+              <xs:element name="idstiptassa" type="xs:int" />
+              <xs:element name="idstipvoce" type="xs:int" />
+              <xs:element name="idstipcorsolaurea" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccmotiverevenue" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotiveundotax" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotiveundotaxpost" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accmotiveapplied_credit">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaccmotive" type="xs:string" />
+              <xs:element name="paridaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="motive" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idepoperation" type="xs:string" minOccurs="0" />
+              <xs:element name="epoperation" type="xs:string" minOccurs="0" />
+              <xs:element name="in_use" type="xs:string" />
+              <xs:element name="flagamm" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdep" type="xs:string" minOccurs="0" />
+              <xs:element name="expensekind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accmotiveapplied_revenue">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaccmotive" type="xs:string" />
+              <xs:element name="paridaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="motive" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idepoperation" type="xs:string" minOccurs="0" />
+              <xs:element name="epoperation" type="xs:string" minOccurs="0" />
+              <xs:element name="in_use" type="xs:string" />
+              <xs:element name="flagamm" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdep" type="xs:string" minOccurs="0" />
+              <xs:element name="expensekind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accmotiveapplied_undotax">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaccmotive" type="xs:string" />
+              <xs:element name="paridaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="motive" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idepoperation" type="xs:string" minOccurs="0" />
+              <xs:element name="epoperation" type="xs:string" minOccurs="0" />
+              <xs:element name="in_use" type="xs:string" />
+              <xs:element name="flagamm" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdep" type="xs:string" minOccurs="0" />
+              <xs:element name="expensekind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accmotiveapplied_undotaxpost">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaccmotive" type="xs:string" />
+              <xs:element name="paridaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="motive" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idepoperation" type="xs:string" minOccurs="0" />
+              <xs:element name="epoperation" type="xs:string" minOccurs="0" />
+              <xs:element name="in_use" type="xs:string" />
+              <xs:element name="flagamm" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdep" type="xs:string" minOccurs="0" />
+              <xs:element name="expensekind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="finmotive_income">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfinmotive" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="paridfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="stip_corsolaurea" msprop:SkipSecurity="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:TableForPosting="" msprop:TableForReading="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstipcorsolaurea" type="xs:int" />
+              <xs:element name="codicecorsolaurea" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="anno" type="xs:int" minOccurs="0" />
+              <xs:element name="dipartimento" type="xs:string" minOccurs="0" />
+              <xs:element name="percorso" type="xs:string" minOccurs="0" />
+              <xs:element name="sede" type="xs:string" minOccurs="0" />
+              <xs:element name="codicedipartimento" type="xs:string" minOccurs="0" />
+              <xs:element name="codicepercorso" type="xs:string" minOccurs="0" />
+              <xs:element name="codicesede" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizionecorsolaurea" type="xs:string" minOccurs="0" />
+              <xs:element name="codicecausale" type="xs:string" minOccurs="0" />
+              <xs:element name="causale" type="xs:string" minOccurs="0" />
+              <xs:element name="idstiptassa" type="xs:int" minOccurs="0" />
+              <xs:element name="idstipvoce" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stip_voce" />
+      <xs:field xpath="mstns:idstipvoce" />
+    </xs:unique>
+    <xs:unique name="stip_tassa_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stip_tassa" />
+      <xs:field xpath="mstns:idstiptassa" />
+    </xs:unique>
+    <xs:unique name="stip_decodifica_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stip_decodifica" />
+      <xs:field xpath="mstns:idstipdecodifica" />
+    </xs:unique>
+    <xs:unique name="accmotiveapplied_credit_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotiveapplied_credit" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
+    <xs:unique name="accmotiveapplied_revenue_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotiveapplied_revenue" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
+    <xs:unique name="accmotiveapplied_undotax_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotiveapplied_undotax" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
+    <xs:unique name="accmotiveapplied_undotaxpost_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotiveapplied_undotaxpost" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
+    <xs:unique name="finmotive_income_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finmotive_income" />
+      <xs:field xpath="mstns:idfinmotive" />
+    </xs:unique>
+    <xs:unique name="stip_corsolaurea_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stip_corsolaurea" />
+      <xs:field xpath="mstns:idstipcorsolaurea" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="stip_voce_stip_decodifica" msdata:parent="stip_voce" msdata:child="stip_decodifica" msdata:parentkey="idstipvoce" msdata:childkey="idstipvoce" />
+      <msdata:Relationship name="stip_tassa_stip_decodifica" msdata:parent="stip_tassa" msdata:child="stip_decodifica" msdata:parentkey="idstiptassa" msdata:childkey="idstiptassa" />
+      <msdata:Relationship name="finmotive_stip_decodifica" msdata:parent="finmotive_income" msdata:child="stip_decodifica" msdata:parentkey="idfinmotive" msdata:childkey="idfinmotive" />
+      <msdata:Relationship name="accmotiveapplied_credit_stip_decodifica" msdata:parent="accmotiveapplied_credit" msdata:child="stip_decodifica" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivecredit" />
+      <msdata:Relationship name="accmotiveapplied_revenue_stip_decodifica" msdata:parent="accmotiveapplied_revenue" msdata:child="stip_decodifica" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotiverevenue" />
+      <msdata:Relationship name="accmotiveapplied_undotax_stip_decodifica" msdata:parent="accmotiveapplied_undotax" msdata:child="stip_decodifica" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotiveundotax" />
+      <msdata:Relationship name="accmotiveapplied_undotaxpost_stip_decodifica" msdata:parent="accmotiveapplied_undotaxpost" msdata:child="stip_decodifica" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotiveundotaxpost" />
+      <msdata:Relationship name="stip_corsolaurea_stip_decodifica" msdata:parent="stip_corsolaurea" msdata:child="stip_decodifica" msdata:parentkey="idstipcorsolaurea" msdata:childkey="idstipcorsolaurea" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

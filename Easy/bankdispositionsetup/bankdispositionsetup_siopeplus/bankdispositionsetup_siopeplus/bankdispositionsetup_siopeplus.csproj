@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{07853DFC-ADB6-471B-83AE-66A635178D52}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>bankdispositionsetup_siopeplus</RootNamespace>
+    <AssemblyName>bankdispositionsetup_siopeplus</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="funzioni_configurazione">
+      <HintPath>..\..\..\unmanaged\funzioni_configurazione\bin\Debug\funzioni_configurazione.dll</HintPath>
+    </Reference>
+    <Reference Include="metadatalibrary">
+      <HintPath>..\..\..\dll\metadatalibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="pagoPaService">
+      <HintPath>..\..\..\unmanaged\pagoPaService\pagoPaService\bin\Debug\pagoPaService.dll</HintPath>
+    </Reference>
+    <Reference Include="siopeplus_functions">
+      <HintPath>..\..\..\siopeplus_functions\bin\Debug\siopeplus_functions.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Xceed.Compression.v5.6, Version=5.6.14475.14160, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\dll\Xceed.Compression.v5.6.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.FileSystem.v5.6, Version=5.6.14475.14160, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\dll\Xceed.FileSystem.v5.6.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Zip.v5.6, Version=5.6.14475.14160, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\dll\Xceed.Zip.v5.6.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="FrmBankdispositionsetup_siopeplus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBankdispositionsetup_siopeplus.Designer.cs">
+      <DependentUpon>FrmBankdispositionsetup_siopeplus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmErrori.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmErrori.Designer.cs">
+      <DependentUpon>FrmErrori.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmViewError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmViewError.Designer.cs">
+      <DependentUpon>FrmViewError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OPI_incassi.designer.cs" />
+    <Compile Include="OPI_pagamenti.designer.cs" />
+    <Compile Include="vistaForm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="FrmBankdispositionsetup_siopeplus.resx">
+      <DependentUpon>FrmBankdispositionsetup_siopeplus.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmErrori.resx">
+      <DependentUpon>FrmErrori.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmViewError.resx">
+      <DependentUpon>FrmViewError.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="OPI_incassi.XSD">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="OPI_pagamenti.XSD">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaForm.xsc">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+    <None Include="vistaForm.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaForm.xss">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

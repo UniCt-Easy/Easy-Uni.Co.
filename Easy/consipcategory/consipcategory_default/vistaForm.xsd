@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="DATABASEConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="DATABASEConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.consipcategory_default.Properties.Settings.GlobalReference.Default.DATABASEConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT" msprop:Generator_DataSetName="vistaForm" msprop:Generator_UserDSName="vistaForm">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="consipcategory" msprop:Generator_TableClassName="consipcategoryDataTable" msprop:Generator_TableVarName="tableconsipcategory" msprop:Generator_TablePropName="consipcategory" msprop:Generator_RowDeletingName="consipcategoryRowDeleting" msprop:Generator_RowChangingName="consipcategoryRowChanging" msprop:Generator_RowEvHandlerName="consipcategoryRowChangeEventHandler" msprop:Generator_RowDeletedName="consipcategoryRowDeleted" msprop:Generator_UserTableName="consipcategory" msprop:Generator_RowChangedName="consipcategoryRowChanged" msprop:Generator_RowEvArgName="consipcategoryRowChangeEvent" msprop:Generator_RowClassName="consipcategoryRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idconsipcategory" msprop:Generator_ColumnVarNameInTable="columnidconsipcategory" msprop:Generator_ColumnPropNameInRow="idconsipcategory" msprop:Generator_ColumnPropNameInTable="idconsipcategoryColumn" msprop:Generator_UserColumnName="idconsipcategory" type="xs:int" />
+              <xs:element name="description" msprop:Generator_ColumnVarNameInTable="columndescription" msprop:Generator_ColumnPropNameInRow="description" msprop:Generator_ColumnPropNameInTable="descriptionColumn" msprop:Generator_UserColumnName="description" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="active" msprop:Generator_ColumnVarNameInTable="columnactive" msprop:Generator_ColumnPropNameInRow="active" msprop:Generator_ColumnPropNameInTable="activeColumn" msprop:Generator_UserColumnName="active" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:consipcategory" />
+      <xs:field xpath="mstns:idconsipcategory" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

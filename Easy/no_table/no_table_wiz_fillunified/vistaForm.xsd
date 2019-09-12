@@ -1,0 +1,86 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="unifiedtax">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idunifiedtax" type="xs:int" />
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="nbracket" type="xs:int" minOccurs="0" />
+              <xs:element name="abatements" type="xs:decimal" minOccurs="0" />
+              <xs:element name="adminnumerator" type="xs:decimal" minOccurs="0" />
+              <xs:element name="admindenominator" type="xs:decimal" minOccurs="0" />
+              <xs:element name="adminrate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="admintax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="employnumerator" type="xs:decimal" minOccurs="0" />
+              <xs:element name="employdenominator" type="xs:decimal" minOccurs="0" />
+              <xs:element name="employrate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="employtax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxablenumerator" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxabledenominator" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxablegross" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxablenet" type="xs:decimal" minOccurs="0" />
+              <xs:element name="exemptionquota" type="xs:decimal" minOccurs="0" />
+              <xs:element name="competencydate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idfiscaltaxregion" type="xs:string" minOccurs="0" />
+              <xs:element name="ayear" type="xs:short" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nmonth" type="xs:short" minOccurs="0" />
+              <xs:element name="iddbdepartment" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="servicestart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="servicestop" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="unifiedtaxcorrige">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idunifiedtaxcorrige" type="xs:int" />
+              <xs:element name="idexpensetaxcorrige" type="xs:int" />
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" minOccurs="0" />
+              <xs:element name="employamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="adminamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idfiscaltaxregion" type="xs:string" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nmonth" type="xs:short" minOccurs="0" />
+              <xs:element name="servicestart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="servicestop" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="no_table">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_no_table" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:unifiedtax" />
+      <xs:field xpath="mstns:idunifiedtax" />
+    </xs:unique>
+    <xs:unique name="unifiedtaxcorrige_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:unifiedtaxcorrige" />
+      <xs:field xpath="mstns:idunifiedtaxcorrige" />
+    </xs:unique>
+    <xs:unique name="no_table_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:no_table" />
+      <xs:field xpath="mstns:id_no_table" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

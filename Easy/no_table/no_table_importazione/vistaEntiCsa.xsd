@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaEntiCsa" targetNamespace="http://tempuri.org/vistaEntiCsa.xsd" xmlns:mstns="http://tempuri.org/vistaEntiCsa.xsd" xmlns="http://tempuri.org/vistaEntiCsa.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaEntiCsa" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="csa_agency">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcsa_agency" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="ente" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="isinternal" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="csa_agencypaymethod">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcsa_agency" type="xs:int" />
+              <xs:element name="idcsa_agencypaymethod" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idregistrypaymethod" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="vocecsa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_agency" />
+      <xs:field xpath="mstns:idcsa_agency" />
+    </xs:unique>
+    <xs:unique name="csa_agencypaymethod_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_agencypaymethod" />
+      <xs:field xpath="mstns:idcsa_agency" />
+      <xs:field xpath="mstns:idcsa_agencypaymethod" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="csa_agency_csa_agencypaymethod" msdata:parent="csa_agency" msdata:child="csa_agencypaymethod" msdata:parentkey="idcsa_agency" msdata:childkey="idcsa_agency" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

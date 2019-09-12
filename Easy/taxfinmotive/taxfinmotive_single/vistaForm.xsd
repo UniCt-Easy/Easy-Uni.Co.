@@ -1,0 +1,187 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="taxfinmotive">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="idser" type="xs:int" />
+              <xs:element name="idmotincomeintra" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idmotincomeemploy" type="xs:string" minOccurs="0" />
+              <xs:element name="idmotadmintax" type="xs:string" minOccurs="0" />
+              <xs:element name="idmotexpenseemploy" type="xs:string" minOccurs="0" />
+              <xs:element name="idmotexpensecontra" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="service">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedit" type="xs:string" minOccurs="0" />
+              <xs:element name="certificatekind" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagalwaysinfiscalmodels" type="xs:string" minOccurs="0" />
+              <xs:element name="flagapplyabatements" type="xs:string" minOccurs="0" />
+              <xs:element name="flagonlyfiscalabatement" type="xs:string" />
+              <xs:element name="idmotive" type="xs:int" minOccurs="0" />
+              <xs:element name="itinerationvisible" type="xs:string" minOccurs="0" />
+              <xs:element name="ivaamount" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="module" type="xs:string" minOccurs="0" />
+              <xs:element name="rec770kind" type="xs:string" minOccurs="0" />
+              <xs:element name="codeser" type="xs:string" />
+              <xs:element name="idser" type="xs:int" />
+              <xs:element name="flagneedbalance" type="xs:string" minOccurs="0" />
+              <xs:element name="flagforeign" type="xs:string" minOccurs="0" />
+              <xs:element name="voce8000" type="xs:string" minOccurs="0" />
+              <xs:element name="webdefault" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdistraint" type="xs:string" minOccurs="0" />
+              <xs:element name="voce8000refund_i" type="xs:string" minOccurs="0" />
+              <xs:element name="voce8000refund_e" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcsausability" type="xs:int" minOccurs="0" />
+              <xs:element name="flagnoexemptionquote" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="finmotive_incomeintra">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfinmotive" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="paridfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="finmotive_admintax">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfinmotive" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="paridfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="finmotive_expensecontra">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfinmotive" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="paridfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="finmotive_incomeemploy">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfinmotive" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="paridfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="finmotive_expenseemploy">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfinmotive" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="paridfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:taxfinmotive" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:idser" />
+    </xs:unique>
+    <xs:unique name="service_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:service" />
+      <xs:field xpath="mstns:idser" />
+    </xs:unique>
+    <xs:unique name="finmotive_incomeintra_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finmotive_incomeintra" />
+      <xs:field xpath="mstns:idfinmotive" />
+    </xs:unique>
+    <xs:unique name="finmotive_admintax_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finmotive_admintax" />
+      <xs:field xpath="mstns:idfinmotive" />
+    </xs:unique>
+    <xs:unique name="finmotive_expensecontra_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finmotive_expensecontra" />
+      <xs:field xpath="mstns:idfinmotive" />
+    </xs:unique>
+    <xs:unique name="finmotive_incomeemploy_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finmotive_incomeemploy" />
+      <xs:field xpath="mstns:idfinmotive" />
+    </xs:unique>
+    <xs:unique name="finmotive_expenseemploy_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finmotive_expenseemploy" />
+      <xs:field xpath="mstns:idfinmotive" />
+    </xs:unique>
+    <xs:keyref name="FK_service_taxfinmotive" refer="service_Constraint1">
+      <xs:selector xpath=".//mstns:taxfinmotive" />
+      <xs:field xpath="mstns:idser" />
+    </xs:keyref>
+    <xs:keyref name="FK_finmotive_incomeintra_taxfinmotive" refer="finmotive_incomeintra_Constraint1">
+      <xs:selector xpath=".//mstns:taxfinmotive" />
+      <xs:field xpath="mstns:idmotincomeintra" />
+    </xs:keyref>
+    <xs:keyref name="FK_finmotive_admintax_taxfinmotive" refer="finmotive_admintax_Constraint1">
+      <xs:selector xpath=".//mstns:taxfinmotive" />
+      <xs:field xpath="mstns:idmotadmintax" />
+    </xs:keyref>
+    <xs:keyref name="FK_finmotive_expensecontra_taxfinmotive" refer="finmotive_expensecontra_Constraint1">
+      <xs:selector xpath=".//mstns:taxfinmotive" />
+      <xs:field xpath="mstns:idmotexpensecontra" />
+    </xs:keyref>
+    <xs:keyref name="FK_finmotive_incomeemploy_taxfinmotive" refer="finmotive_incomeemploy_Constraint1">
+      <xs:selector xpath=".//mstns:taxfinmotive" />
+      <xs:field xpath="mstns:idmotincomeemploy" />
+    </xs:keyref>
+    <xs:keyref name="FK_finmotive_expenseemploy_taxfinmotive" refer="finmotive_expenseemploy_Constraint1">
+      <xs:selector xpath=".//mstns:taxfinmotive" />
+      <xs:field xpath="mstns:idmotexpenseemploy" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

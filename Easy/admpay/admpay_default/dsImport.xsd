@@ -1,0 +1,548 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="dsImport" targetNamespace="http://tempuri.org/dsImport.xsd" xmlns:mstns="http://tempuri.org/dsImport.xsd" xmlns="http://tempuri.org/dsImport.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsImport" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="admpay">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yadmpay" type="xs:int" />
+              <xs:element name="nadmpay" type="xs:int" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="processed" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="admpay_expense">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yadmpay" type="xs:int" />
+              <xs:element name="nadmpay" type="xs:int" />
+              <xs:element name="nexpense" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idser" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nappropriation" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="admpay_employtax">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yadmpay" type="xs:int" />
+              <xs:element name="nadmpay" type="xs:int" />
+              <xs:element name="nexpense" type="xs:int" />
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="nbracket" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="admpay_admintax">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yadmpay" type="xs:int" />
+              <xs:element name="nadmpay" type="xs:int" />
+              <xs:element name="nexpense" type="xs:int" />
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="nbracket" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nappropriation" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="admpay_expensesorted">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yadmpay" type="xs:int" />
+              <xs:element name="nadmpay" type="xs:int" />
+              <xs:element name="nexpense" type="xs:int" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="idsubclass" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="admpay_clawback">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yadmpay" type="xs:int" />
+              <xs:element name="nadmpay" type="xs:int" />
+              <xs:element name="nexpense" type="xs:int" />
+              <xs:element name="idclawback" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sorting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="defaultN1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultS1" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS2" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS3" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS4" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS5" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultv1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="movkind" type="xs:string" minOccurs="0" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="paridsor" type="xs:int" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="sortcode" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sortingkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagdate" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN1" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN2" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN3" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN4" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedN5" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS1" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS2" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS3" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS4" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedS5" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv1" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv2" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv3" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv4" type="xs:string" minOccurs="0" />
+              <xs:element name="forcedv5" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfordate" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln1" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln2" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln3" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln4" type="xs:string" minOccurs="0" />
+              <xs:element name="labeln5" type="xs:string" minOccurs="0" />
+              <xs:element name="labels1" type="xs:string" minOccurs="0" />
+              <xs:element name="labels2" type="xs:string" minOccurs="0" />
+              <xs:element name="labels3" type="xs:string" minOccurs="0" />
+              <xs:element name="labels4" type="xs:string" minOccurs="0" />
+              <xs:element name="labels5" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv1" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv2" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv3" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv4" type="xs:string" minOccurs="0" />
+              <xs:element name="labelv5" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN1" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN2" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN3" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN4" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedN5" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS1" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS2" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS3" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS4" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedS5" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv1" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv2" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv3" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv4" type="xs:string" minOccurs="0" />
+              <xs:element name="lockedv5" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nodatelabel" type="xs:string" minOccurs="0" />
+              <xs:element name="nphaseexpense" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="nphaseincome" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="totalexpression" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tax">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="taxref" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="appliancebasis" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="fiscaltaxcode" type="xs:string" minOccurs="0" />
+              <xs:element name="flagunabatable" type="xs:string" minOccurs="0" />
+              <xs:element name="geoappliance" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_cost" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_debit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_pay" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="taxablecode" type="xs:string" minOccurs="0" />
+              <xs:element name="taxkind" type="xs:short" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="taxsorting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="quota" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sortingtranslation">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsortingchild" type="xs:int" />
+              <xs:element name="idsortingmaster" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="defaultN1" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultN2" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultN3" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultN4" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultN5" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS1" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS2" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS3" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS4" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS5" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultv1" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultv2" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultv3" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultv4" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultv5" type="xs:string" minOccurs="0" />
+              <xs:element name="denominator" type="xs:int" minOccurs="0" />
+              <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="numerator" type="xs:int" minOccurs="0" />
+              <xs:element name="percentage" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="admpay_appropriation">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yadmpay" type="xs:int" />
+              <xs:element name="nadmpay" type="xs:int" />
+              <xs:element name="nappropriation" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idexp" type="xs:int" minOccurs="0" />
+              <xs:element name="idfin" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="wageimportsetup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idwageimportsetup" type="xs:int" />
+              <xs:element name="idsorkind_fin" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_upb" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_registry" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_tax" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_clawback" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_service" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_sortingmaster1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_sortingmaster2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_sortingmaster3" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_sortingmaster4" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_sortingmaster5" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_sortingchild1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_sortingchild2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_sortingchild3" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_sortingchild4" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_sortingchild5" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_accmotivegroup1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind_accmotivegroup2" type="xs:int" minOccurs="0" />
+              <xs:element name="listfield" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="kind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="clawbacksorting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idclawback" type="xs:int" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="quota" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="admpay_income">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yadmpay" type="xs:int" />
+              <xs:element name="nadmpay" type="xs:int" />
+              <xs:element name="nincome" type="xs:int" />
+              <xs:element name="nassessment" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="admpay_incomesorted">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yadmpay" type="xs:int" />
+              <xs:element name="nadmpay" type="xs:int" />
+              <xs:element name="nincome" type="xs:int" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="idsubclass" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="admpay_assessment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yadmpay" type="xs:int" />
+              <xs:element name="nadmpay" type="xs:int" />
+              <xs:element name="nassessment" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idfin" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idinc" type="xs:int" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:admpay" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+    </xs:unique>
+    <xs:unique name="admpay_expense_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:admpay_expense" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+      <xs:field xpath="mstns:nexpense" />
+    </xs:unique>
+    <xs:unique name="admpay_employtax_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:admpay_employtax" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+      <xs:field xpath="mstns:nexpense" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:nbracket" />
+    </xs:unique>
+    <xs:unique name="admpay_admintax_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:admpay_admintax" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+      <xs:field xpath="mstns:nexpense" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:nbracket" />
+    </xs:unique>
+    <xs:unique name="admpay_expensesorted_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:admpay_expensesorted" />
+      <xs:field xpath="mstns:idsor" />
+      <xs:field xpath="mstns:idsubclass" />
+      <xs:field xpath="mstns:nadmpay" />
+      <xs:field xpath="mstns:nexpense" />
+      <xs:field xpath="mstns:yadmpay" />
+    </xs:unique>
+    <xs:unique name="admpay_clawback_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:admpay_clawback" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+      <xs:field xpath="mstns:nexpense" />
+      <xs:field xpath="mstns:idclawback" />
+    </xs:unique>
+    <xs:unique name="sorting_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sorting" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
+    <xs:unique name="sortingkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sortingkind" />
+      <xs:field xpath="mstns:idsorkind" />
+    </xs:unique>
+    <xs:unique name="tax_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tax" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:unique>
+    <xs:unique name="taxsorting_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:taxsorting" />
+      <xs:field xpath="mstns:idsor" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:unique>
+    <xs:unique name="sortingtranslation_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sortingtranslation" />
+      <xs:field xpath="mstns:idsortingchild" />
+      <xs:field xpath="mstns:idsortingmaster" />
+    </xs:unique>
+    <xs:unique name="admpay_appropriation_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:admpay_appropriation" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+      <xs:field xpath="mstns:nappropriation" />
+    </xs:unique>
+    <xs:unique name="wageimportsetup_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:wageimportsetup" />
+      <xs:field xpath="mstns:idwageimportsetup" />
+    </xs:unique>
+    <xs:unique name="clawbacksorting_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:clawbacksorting" />
+      <xs:field xpath="mstns:idclawback" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
+    <xs:unique name="admpay_income_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:admpay_income" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+      <xs:field xpath="mstns:nincome" />
+    </xs:unique>
+    <xs:unique name="admpay_incomesorted_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:admpay_incomesorted" />
+      <xs:field xpath="mstns:idsor" />
+      <xs:field xpath="mstns:idsubclass" />
+      <xs:field xpath="mstns:nadmpay" />
+      <xs:field xpath="mstns:nincome" />
+      <xs:field xpath="mstns:yadmpay" />
+    </xs:unique>
+    <xs:unique name="admpay_assessment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:admpay_assessment" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+      <xs:field xpath="mstns:nassessment" />
+    </xs:unique>
+    <xs:keyref name="admpay_admpay_assessment" refer="Constraint1">
+      <xs:selector xpath=".//mstns:admpay_assessment" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+    </xs:keyref>
+    <xs:keyref name="sorting_admpay_incomesorted" refer="sorting_Constraint1">
+      <xs:selector xpath=".//mstns:admpay_incomesorted" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:keyref>
+    <xs:keyref name="admpay_admpay_income" refer="Constraint1">
+      <xs:selector xpath=".//mstns:admpay_income" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+    </xs:keyref>
+    <xs:keyref name="admpay_assessment_admpay_income" refer="admpay_assessment_Constraint1">
+      <xs:selector xpath=".//mstns:admpay_income" />
+      <xs:field xpath="mstns:nassessment" />
+      <xs:field xpath="mstns:nadmpay" />
+      <xs:field xpath="mstns:yadmpay" />
+    </xs:keyref>
+    <xs:keyref name="admpayadmpay_appropriation" refer="Constraint1">
+      <xs:selector xpath=".//mstns:admpay_appropriation" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+    </xs:keyref>
+    <xs:keyref name="admpayadmpay_clawback" refer="Constraint1">
+      <xs:selector xpath=".//mstns:admpay_clawback" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+    </xs:keyref>
+    <xs:keyref name="admpayadmpay_expensesorted" refer="Constraint1">
+      <xs:selector xpath=".//mstns:admpay_expensesorted" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+    </xs:keyref>
+    <xs:keyref name="sortingadmpay_expensesorted" refer="sorting_Constraint1">
+      <xs:selector xpath=".//mstns:admpay_expensesorted" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:keyref>
+    <xs:keyref name="admpayadmpay_admintax" refer="Constraint1">
+      <xs:selector xpath=".//mstns:admpay_admintax" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+    </xs:keyref>
+    <xs:keyref name="admpayadmpay_employtax" refer="Constraint1">
+      <xs:selector xpath=".//mstns:admpay_employtax" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+    </xs:keyref>
+    <xs:keyref name="admpayadmpay_expense" refer="Constraint1">
+      <xs:selector xpath=".//mstns:admpay_expense" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+    </xs:keyref>
+    <xs:keyref name="admpay_appropriationadmpay_expense" refer="admpay_appropriation_Constraint1">
+      <xs:selector xpath=".//mstns:admpay_expense" />
+      <xs:field xpath="mstns:yadmpay" />
+      <xs:field xpath="mstns:nadmpay" />
+      <xs:field xpath="mstns:nappropriation" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

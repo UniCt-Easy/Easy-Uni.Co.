@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistafrmclassspesemissione.xsd" xmlns:mstns="http://tempuri.org/Vistafrmclassspesemissione.xsd" xmlns="http://tempuri.org/Vistafrmclassspesemissione.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="itinerationrefundkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iditinerationrefundkind" type="xs:int" />
+              <xs:element name="codeitinerationrefundkind" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="iditinerationrefundkindgroup" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_itinerationrefundkindgroup" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="flagbalance" type="xs:string" minOccurs="0" />
+              <xs:element name="flagadvance" type="xs:string" minOccurs="0" />
+              <xs:element name="flagmedia" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="flagvisible" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accmotiveapplied">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaccmotive" type="xs:string" />
+              <xs:element name="paridaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="motive" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idepoperation" type="xs:string" />
+              <xs:element name="epoperation" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationrefundkindgroup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iditinerationrefundkindgroup" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefundkind" />
+      <xs:field xpath="mstns:iditinerationrefundkind" />
+    </xs:unique>
+    <xs:unique name="accmotiveapplied_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotiveapplied" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
+    <xs:unique name="itinerationrefundkindgroup_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefundkindgroup" />
+      <xs:field xpath="mstns:iditinerationrefundkindgroup" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="itinerationrefundkindgroupitinerationrefundkind" msdata:parent="itinerationrefundkindgroup" msdata:child="itinerationrefundkind" msdata:parentkey="iditinerationrefundkindgroup" msdata:childkey="iditinerationrefundkindgroup" />
+      <msdata:Relationship name="accmotiveapplieditinerationrefundkind" msdata:parent="accmotiveapplied" msdata:child="itinerationrefundkind" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotive" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

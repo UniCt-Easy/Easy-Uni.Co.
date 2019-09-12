@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="customindirectrel" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomindirectrel" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="edittype" type="xs:string" />
+              <xs:element name="filtermiddle" type="xs:string" minOccurs="0" />
+              <xs:element name="filterparenttable2" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" />
+              <xs:element name="insertfilterparenttable1" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="listtype" type="xs:string" minOccurs="0" />
+              <xs:element name="middletable" type="xs:string" minOccurs="0" />
+              <xs:element name="navigationfilterparenttable1" type="xs:string" minOccurs="0" />
+              <xs:element name="parenttable1" type="xs:string" />
+              <xs:element name="parenttable2" type="xs:string" />
+              <xs:element name="parenttable2view" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customindirectrelcol" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomindirectrel" type="xs:int" />
+              <xs:element name="parentfield" type="xs:string" />
+              <xs:element name="parentnumber" type="xs:int" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="middlefield" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customobject_middle" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="objectname" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="isreal" type="xs:string" />
+              <xs:element name="realtable" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customobject_parent1" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="objectname" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="isreal" type="xs:string" />
+              <xs:element name="realtable" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customobject_parent2" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="objectname" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="isreal" type="xs:string" />
+              <xs:element name="realtable" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customobject_parent2view" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="objectname" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="isreal" type="xs:string" />
+              <xs:element name="realtable" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="edittype" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="edit" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="listtype" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="list" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customindirectrel" />
+      <xs:field xpath="mstns:idcustomindirectrel" />
+    </xs:unique>
+    <xs:unique name="customindirectrelcol_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customindirectrelcol" />
+      <xs:field xpath="mstns:idcustomindirectrel" />
+      <xs:field xpath="mstns:parentfield" />
+      <xs:field xpath="mstns:parentnumber" />
+    </xs:unique>
+    <xs:unique name="customobject_middle_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customobject_middle" />
+      <xs:field xpath="mstns:objectname" />
+    </xs:unique>
+    <xs:unique name="customobject_parent1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customobject_parent1" />
+      <xs:field xpath="mstns:objectname" />
+    </xs:unique>
+    <xs:unique name="customobject_parent2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customobject_parent2" />
+      <xs:field xpath="mstns:objectname" />
+    </xs:unique>
+    <xs:unique name="customobject_parent2view_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customobject_parent2view" />
+      <xs:field xpath="mstns:objectname" />
+    </xs:unique>
+    <xs:unique name="edittype_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:edittype" />
+      <xs:field xpath="mstns:edit" />
+    </xs:unique>
+    <xs:unique name="listtype_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:listtype" />
+      <xs:field xpath="mstns:list" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="customindirectrel_customindirectrelcol" msdata:parent="customindirectrel" msdata:child="customindirectrelcol" msdata:parentkey="idcustomindirectrel" msdata:childkey="idcustomindirectrel" />
+      <msdata:Relationship name="customobject_middle_customindirectrel" msdata:parent="customobject_middle" msdata:child="customindirectrel" msdata:parentkey="objectname" msdata:childkey="middletable" />
+      <msdata:Relationship name="customobject_parent1_customindirectrel" msdata:parent="customobject_parent1" msdata:child="customindirectrel" msdata:parentkey="objectname" msdata:childkey="parenttable1" />
+      <msdata:Relationship name="customobject_parent2_customindirectrel" msdata:parent="customobject_parent2" msdata:child="customindirectrel" msdata:parentkey="objectname" msdata:childkey="parenttable2" />
+      <msdata:Relationship name="customobject_parent2view_customindirectrel" msdata:parent="customobject_parent2view" msdata:child="customindirectrel" msdata:parentkey="objectname" msdata:childkey="parenttable2view" />
+      <msdata:Relationship name="listtype_customindirectrel" msdata:parent="listtype" msdata:child="customindirectrel" msdata:parentkey="list" msdata:childkey="listtype" />
+      <msdata:Relationship name="edittype_customindirectrel" msdata:parent="edittype" msdata:child="customindirectrel" msdata:parentkey="edit" msdata:childkey="edittype" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

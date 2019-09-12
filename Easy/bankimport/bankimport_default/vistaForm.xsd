@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="bankimport" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idbankimport" type="xs:int" />
+              <xs:element name="lastpayment" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastproceeds" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastbillincome" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastbillexpense" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="totalpayment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalproceeds" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalbillincome_plus" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalbillincome_minus" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalbillexpense_plus" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalbillexpense_minus" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idbank" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ayear" type="xs:string" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="identificativo_flusso_bt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="bankimportbill" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idbankimport" type="xs:int" />
+              <xs:element name="iddetail" type="xs:int" />
+              <xs:element name="billkind" type="xs:string" />
+              <xs:element name="ybill" type="xs:short" />
+              <xs:element name="nbill" type="xs:int" minOccurs="0" />
+              <xs:element name="banknum" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="motive" type="xs:string" minOccurs="0" />
+              <xs:element name="registry" type="xs:string" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="notes" type="xs:string" minOccurs="0" />
+              <xs:element name="bankcode" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="idbank" type="xs:string" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="banktransaction" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nban" type="xs:int" />
+              <xs:element name="yban" type="xs:short" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="bankreference" type="xs:string" minOccurs="0" />
+              <xs:element name="kind" type="xs:string" />
+              <xs:element name="transactiondate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="valuedate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idpay" type="xs:int" minOccurs="0" />
+              <xs:element name="idpro" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idexp" type="xs:int" minOccurs="0" />
+              <xs:element name="idinc" type="xs:int" minOccurs="0" />
+              <xs:element name="kpay" type="xs:int" minOccurs="0" />
+              <xs:element name="kpro" type="xs:int" minOccurs="0" />
+              <xs:element name="idbankimport" type="xs:int" minOccurs="0" />
+              <xs:element name="motive" type="xs:string" minOccurs="0" />
+              <xs:element name="nbill" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="bank" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idbank" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagusable" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="billtransaction" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ybilltran" type="xs:short" />
+              <xs:element name="nbilltran" type="xs:int" />
+              <xs:element name="nbill" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="adate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="kind" type="xs:string" minOccurs="0" />
+              <xs:element name="idbankimport" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bankimport" />
+      <xs:field xpath="mstns:idbankimport" />
+    </xs:unique>
+    <xs:unique name="bankimportbill_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bankimportbill" />
+      <xs:field xpath="mstns:idbankimport" />
+      <xs:field xpath="mstns:iddetail" />
+    </xs:unique>
+    <xs:unique name="banktransaction_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:banktransaction" />
+      <xs:field xpath="mstns:nban" />
+      <xs:field xpath="mstns:yban" />
+    </xs:unique>
+    <xs:unique name="bank_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bank" />
+      <xs:field xpath="mstns:idbank" />
+    </xs:unique>
+    <xs:unique name="billtransaction_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:billtransaction" />
+      <xs:field xpath="mstns:ybilltran" />
+      <xs:field xpath="mstns:nbilltran" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="bankimport_billtransaction" msdata:parent="bankimport" msdata:child="billtransaction" msdata:parentkey="idbankimport" msdata:childkey="idbankimport" />
+      <msdata:Relationship name="bankimport_banktransaction" msdata:parent="bankimport" msdata:child="banktransaction" msdata:parentkey="idbankimport" msdata:childkey="idbankimport" />
+      <msdata:Relationship name="bankimport_bankimportbill" msdata:parent="bankimport" msdata:child="bankimportbill" msdata:parentkey="idbankimport" msdata:childkey="idbankimport" />
+      <msdata:Relationship name="bank_bankimport" msdata:parent="bank" msdata:child="bankimport" msdata:parentkey="idbank" msdata:childkey="idbank" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

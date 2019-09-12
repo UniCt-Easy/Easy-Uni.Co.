@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{81F1BFAE-EBBE-40EA-97AC-44E24A9C0CF8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>sdi_acquisto_default</RootNamespace>
+    <AssemblyName>sdi_acquisto_default</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="metadatalibrary">
+      <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="metaeasylibrary">
+      <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FrmAskProtocollo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAskProtocollo.Designer.cs">
+      <DependentUpon>FrmAskProtocollo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAskAnagrafica.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAskAnagrafica.Designer.cs">
+      <DependentUpon>FrmAskAnagrafica.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAskCambio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAskCambio.Designer.cs">
+      <DependentUpon>FrmAskCambio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_sdi_acquisto_default.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_sdi_acquisto_default.Designer.cs">
+      <DependentUpon>Frm_sdi_acquisto_default.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="VistaForm.cs">
+      <DependentUpon>VistaForm.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="VistaForm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VistaForm.xsd</DependentUpon>
+    </Compile>
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="VistaForm.xsc">
+      <DependentUpon>VistaForm.xsd</DependentUpon>
+    </None>
+    <None Include="VistaForm.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>VistaForm.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="VistaForm.xss">
+      <DependentUpon>VistaForm.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
+      <Project>{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}</Project>
+      <Name>funzioni_configurazione</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FrmAskProtocollo.resx">
+      <DependentUpon>FrmAskProtocollo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAskAnagrafica.resx">
+      <DependentUpon>FrmAskAnagrafica.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAskCambio.resx">
+      <DependentUpon>FrmAskCambio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_sdi_acquisto_default.resx">
+      <DependentUpon>Frm_sdi_acquisto_default.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

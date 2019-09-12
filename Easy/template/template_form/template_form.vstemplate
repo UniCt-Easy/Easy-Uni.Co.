@@ -1,0 +1,28 @@
+﻿<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+    <TemplateData>
+        <Name>MetaData Form</Name>
+        <Description>Template per Form di Metadata </Description>
+        <ProjectType>CSharp</ProjectType>
+        <ProjectSubType>Metadata </ProjectSubType>
+        <SortOrder>1</SortOrder>
+        <CreateNewFolder>true</CreateNewFolder>
+        <DefaultName>Table_EditType</DefaultName>
+        <ProvideDefaultName>true</ProvideDefaultName>
+        <LocationField>Enabled</LocationField>
+        <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+        <Icon>template_form.ico</Icon>
+    </TemplateData>
+    <TemplateContent>
+        <Project TargetFileName="frm$safeprojectname$.csproj" File="ProjectTemplate.csproj" ReplaceParameters="true">
+            <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+            <ProjectItem ReplaceParameters="true" TargetFileName="frm$safeprojectname$.cs">frmTable_EditType.cs</ProjectItem>
+            <ProjectItem ReplaceParameters="true" TargetFileName="frm$safeprojectname$.Designer.cs">frmTable_EditType.Designer.cs</ProjectItem>
+            <ProjectItem ReplaceParameters="true" TargetFileName="frm$safeprojectname$.resx">frmTable_EditType.resx</ProjectItem>
+            <Folder Name="Properties" TargetFolderName="Properties" />
+            <ProjectItem ReplaceParameters="true" TargetFileName="vista.xsd">vista.xsd</ProjectItem>
+            <ProjectItem ReplaceParameters="true" TargetFileName="vista.Designer.cs">vista.Designer.cs</ProjectItem>
+            <ProjectItem ReplaceParameters="false" TargetFileName="vista.xsc">vista.xsc</ProjectItem>
+            <ProjectItem ReplaceParameters="false" TargetFileName="vista.xss">vista.xss</ProjectItem>
+        </Project>
+    </TemplateContent>
+</VSTemplate>

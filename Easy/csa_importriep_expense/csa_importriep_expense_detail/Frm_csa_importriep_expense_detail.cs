@@ -1,0 +1,203 @@
+/*
+    Easy
+    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+ï»¿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using AskInfo;
+using metadatalibrary;
+using funzioni_configurazione;
+
+
+namespace csa_importriep_expense_detail {
+    public partial class Frm_csa_importriep_expense_detail :Form {
+        MetaData Meta;
+        DataAccess Conn;
+        public Frm_csa_importriep_expense_detail() {
+            InitializeComponent();
+            }
+
+        CQueryHelper QHC;
+        QueryHelper QHS;
+        public void MetaData_AfterLink() {
+            Meta = MetaData.GetMetaData(this);
+            Conn = Meta.Conn;
+            QHC = new CQueryHelper();
+            QHS = Conn.GetQueryHelper();
+            GetData.CacheTable(DS.expensephase, QHS.AppAnd(QHS.CmpNe("nphase", Meta.GetSys("maxexpensephase")),
+                   QHS.CmpGe("nphase", Meta.GetSys("expensefinphase"))), "nphase", true);
+            HelpForm.SetDenyNull(DS.csa_importriep_expense.Columns["idexp"], true);
+            }
+
+        public void MetaData_AfterFill() {
+                VisualizzaMovimentoSpesa();
+            }
+        private void VisualizzaMovimentoSpesa() {
+            if (MetaData.Empty(this)) return;
+            //Calcola e riempie i campi relativi alla fase precedente:
+            object idexp = DS.Tables["csa_importriep_expense"].Rows[0]["idexp"];
+            string filter = QHS.CmpEq("idexp", idexp);
+            DataTable DT = Conn.RUN_SELECT("expense", "idexp,ymov,nmov,nphase", null, filter, null, true);
+            if (DT.Rows.Count == 0) return;
+            txtEserc.Text = DT.Rows[0]["ymov"].ToString();
+            txtNum.Text = DT.Rows[0]["nmov"].ToString();
+            cmbFaseSpesa.SelectedValue = DT.Rows[0]["nphase"];
+            }
+
+        object Get_Registry_Csa() {
+            if (Meta.IsEmpty) return DBNull.Value;
+            object esercizio = Meta.GetSys("esercizio");
+            string filter = QHS.CmpEq("ayear", Conn.GetSys("esercizio"));
+            DataTable t = Conn.RUN_SELECT("config", "*", null, filter, null, null, true);
+            if (t == null) return DBNull.Value;
+            if (t.Rows.Count == 0) return DBNull.Value;
+            DataRow rConfig = t.Rows[0];
+            return rConfig["idreg_csa"];
+            }
+
+        private void btnSpesa_Click(object sender, EventArgs e) {
+            if (Meta.IsEmpty) return;
+            Meta.GetFormData(true);
+
+            DataRow Curr = DS.csa_importriep_expense.Rows[0];
+            string filter = "";
+            int selectedfase = CfgFn.GetNoNullInt32(cmbFaseSpesa.SelectedValue);
+            object idregcsa = Get_Registry_Csa();
+            if (selectedfase > 0) {
+                filter = QHS.AppAnd(filter, QHS.CmpEq("nphase", selectedfase),
+                         QHS.DoPar(QHS.NullOrEq("idreg", idregcsa)));
+                }
+            else {
+                filter = QHS.AppAnd(filter, QHS.CmpNe("nphase", Meta.GetSys("maxexpensephase")),
+                         QHS.CmpGe("nphase", Meta.GetSys("expensefinphase")),
+                         QHS.DoPar(QHS.NullOrEq("idreg", idregcsa)));
+                }
+
+            int ymov = CfgFn.GetNoNullInt32(txtEserc.Text.Trim());
+            int nmov = CfgFn.GetNoNullInt32(txtNum.Text.Trim());
+            if ((ymov != 0) && (nmov != 0)) {
+                filter = QHS.AppAnd(filter, QHS.CmpEq("ymov", ymov), QHS.CmpEq("nmov", nmov));
+                }
+            else {
+                var f = new FrmAskInfo(Meta, "S", true).EnableManagerSelection(false);
+
+                if (f.ShowDialog() != DialogResult.OK) return;
+
+                if (ymov != 0) {
+                    filter = QHS.AppAnd(filter, QHS.CmpEq("ymov", ymov));
+                }
+
+                if ((nmov != 0)) {
+                    filter = QHS.AppAnd(filter, QHS.CmpEq("nmov", nmov));
+                }
+
+                string filterUpb = QHC.CmpEq("idupb", "0001");
+                string filterFin = "";
+                // Aggiunta filtro dell'UPB e del Bilancio
+                if (f.GetUPB() != DBNull.Value) {
+
+                    filterUpb = QHS.CmpEq("idupb", f.GetUPB());
+
+                    if (f.GetFin() != DBNull.Value) {
+                        filterFin = QHS.CmpEq("idfin", f.GetFin());
+                    }
+                }
+
+                filter = QHS.AppAnd(filter, filterUpb);
+                if (filterFin != "") {
+                    filter = QHS.AppAnd(filter, filterFin);
+                }
+            }
+
+            MetaData E = Meta.Dispatcher.Get("expense");
+            E.FilterLocked = true;
+            E.DS = DS.Clone();
+            DataRow Choosen = E.SelectOne("default", filter, "expense", null);
+            if (Choosen == null) return;
+            int oldIdExp = CfgFn.GetNoNullInt32(Curr["idexp"]);
+            int newIdExp = CfgFn.GetNoNullInt32(Choosen["idexp"]);
+            Curr["idexp"] = Choosen["idexp"];
+
+            DS.expenseview.Clear();
+            Meta.Conn.RUN_SELECT_INTO_TABLE(DS.expenseview, null,
+                QHS.AppAnd(QHS.CmpEq("idexp", Curr["idexp"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio"))),
+                null, true);
+            txtEserc.Text = Choosen["ymov"].ToString();
+            txtNum.Text = Choosen["nmov"].ToString();
+            cmbFaseSpesa.SelectedValue = Choosen["nphase"];
+
+
+            Meta.FreshForm(false);
+            }
+
+        private void cmbFaseSpesa_SelectedIndexChanged(object sender, EventArgs e) {
+            if (Meta.IsEmpty) return;
+            if (!Meta.DrawStateIsDone) return;
+            DataRow Curr = DS.csa_importriep_expense.Rows[0];
+            if (CfgFn.GetNoNullInt32(Curr["idexp"]) != 0) {
+                int oldNphase = CfgFn.GetNoNullInt32(DS.expenseview.Rows[0]["nphase"]);
+                int newNPhase = CfgFn.GetNoNullInt32(cmbFaseSpesa.SelectedValue);
+                if (oldNphase != newNPhase) {
+                    txtNum.Text = "";
+                    txtEserc.Text = "";
+                    DS.expenseview.Clear();
+                    Curr["idexp"] = DBNull.Value;
+                    }
+                }
+            }
+
+        private void txtEserc_Leave(object sender, EventArgs e) {
+            HelpForm.FormatLikeYear(txtEserc);
+            if (Meta.IsEmpty) return;
+            DataRow Curr = DS.csa_importriep_expense.Rows[0];
+            if (CfgFn.GetNoNullInt32(Curr["idexp"]) != 0) {
+                if (txtEserc.Text.Trim() == "") {
+                    txtNum.Text = "";
+                    DS.expenseview.Clear();
+                    Curr["idexp"] = DBNull.Value;
+                    }
+                else {
+                    int oldYmov = CfgFn.GetNoNullInt32(DS.expenseview.Rows[0]["ymov"]);
+                    int newYmov = CfgFn.GetNoNullInt32(txtEserc.Text.Trim());
+                    if (oldYmov != newYmov) {
+                        txtNum.Text = "";
+                        DS.expenseview.Clear();
+                        Curr["idexp"] = DBNull.Value;
+                        }
+                    }
+
+                }
+            }
+
+        private void txtNum_Leave(object sender, EventArgs e) {
+            if (Meta.IsEmpty) return;
+            if (txtNum.ReadOnly) return;
+            DataRow Curr = DS.csa_importriep_expense.Rows[0];
+            if ((CfgFn.GetNoNullInt32(Curr["idexp"]) != 0) && (txtNum.Text.Trim() == "")) {
+                DS.expenseview.Clear();
+                Curr["idexp"] = DBNull.Value;
+                }
+            btnSpesa_Click(sender, e);
+            }
+        }
+    }
+

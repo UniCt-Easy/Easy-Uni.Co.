@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2015 sp1 (x64) (http://www.altova.com) by Manuele Acquistapace (MetaJ Solution S.r.l.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:pmpay" targetNamespace="urn:pmpay" elementFormDefault="qualified">
+	<xs:element name="PAGAMENTO_REQUEST" type="PAGAMENTO_REQUEST"/>
+	<xs:element name="PAGAMENTO_RESPONSE" type="PAGAMENTO_RESPONSE"/>
+	<xs:element name="RICHIEDI_RT_REQUEST" type="RICHIEDI_RT_REQUEST"/>
+	<xs:element name="RICHIEDI_RT_RESPONSE" type="RICHIEDI_RT_RESPONSE"/>
+	<xs:element name="RICHIEDI_BOLLO_REQUEST" type="RICHIEDI_BOLLO_REQUEST"/>
+	<xs:element name="RICHIEDI_BOLLO_RESPONSE" type="RICHIEDI_BOLLO_RESPONSE"/>
+	<xs:element name="PAGAMENTOESISTENTE_REQUEST" type="PAGAMENTOESISTENTE_REQUEST"/>
+	<xs:element name="REGISTRAPAGAMENTO_REQUEST" type="REGISTRAPAGAMENTO_REQUEST"/>
+	<xs:element name="REGISTRAPAGAMENTO_RESPONSE" type="REGISTRAPAGAMENTO_RESPONSE"/>
+	<xs:complexType name="PAGAMENTO_REQUEST">
+		<xs:sequence>
+			<xs:element name="headerPagamento" type="headerPagamento"/>
+			<xs:element name="anagraficaPagamento" type="anagraficaPagamento"/>
+			<xs:element name="pagamento" type="pagamento" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="headerPagamento">
+		<xs:sequence>
+			<xs:element name="ID_CLIENT" type="xs:string"/>
+			<xs:element name="TOKEN" type="xs:string"/>
+			<xs:element name="DATA_RICHIESTA" type="xs:dateTime"/>
+			<xs:element name="ID_RICHIESTA" type="xs:string"/>
+			<xs:element name="CODICE_AZIENDA" type="xs:string"/>
+			<xs:element name="CODICE_FISCALE" type="xs:string"/>
+			<xs:element name="TIPO_CLIENT" type="xs:string"/>
+			<xs:element name="URL_OK" type="xs:string"/>
+			<xs:element name="URL_KO" type="xs:string"/>
+			<xs:element name="URL_CANCEL" type="xs:string"/>
+			<xs:element name="URL_S2S" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="anagraficaPagamento">
+		<xs:sequence>
+			<xs:element name="NOME">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="COGNOME" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="INDIRIZZO" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CITTA" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CAP" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="PROVINCIA" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MAIL" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RIF_TELEFONICO" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pagamento">
+		<xs:sequence>
+			<xs:element name="RIF_PRATICA" type="xs:string"/>
+			<xs:element name="CAUSALE_PAGAMENTO" type="xs:string"/>
+			<xs:element name="SERVIZIO_PAGAMENTO" type="xs:string"/>
+			<xs:element name="DIVISA" type="xs:string"/>
+			<xs:element name="IMPORTO_TOTALE" type="xs:decimal"/>
+			<xs:element name="DATA_PAGAMENTO" type="xs:date"/>
+			<xs:element name="DATI_BOLLO" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TIPO_BOLLO">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="01"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="IMPRONTA">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="44"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="PROVINCIA_RESIDENZA">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="2"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PAGAMENTO_RESPONSE">
+		<xs:sequence>
+			<xs:element name="DATA_RICHIESTA" type="xs:dateTime"/>
+			<xs:element name="ID_RICHIESTA" type="xs:string"/>
+			<xs:element name="CODICE_AZIENDA" type="xs:string"/>
+			<xs:element name="URL_TO_CALL" type="xs:string"/>
+			<xs:element name="CODICE_ERRORE" type="xs:integer" minOccurs="0"/>
+			<xs:element name="DESCRIZIONE_ERRORE" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RICHIEDI_RT_REQUEST">
+		<xs:sequence>
+			<xs:element name="headerRichiestaRT" type="headerRichiestaRT"/>
+			<xs:element name="richiestaRT" type="richiestaRT"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="headerRichiestaRT">
+		<xs:sequence>
+			<xs:element name="ID_CLIENT" type="xs:string"/>
+			<xs:element name="TOKEN" type="xs:string"/>
+			<xs:element name="DATA_RICHIESTA" type="xs:dateTime"/>
+			<xs:element name="ID_RICHIESTA" type="xs:string"/>
+			<xs:element name="CODICE_AZIENDA" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="richiestaRT">
+		<xs:sequence>
+			<xs:element name="RIF_INTERNO" type="xs:string"/>
+			<xs:element name="IUV" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RICHIEDI_RT_RESPONSE">
+		<xs:sequence>
+			<xs:element name="DATA_RICHIESTA" type="xs:dateTime"/>
+			<xs:element name="ID_RICHIESTA" type="xs:string"/>
+			<xs:element name="CODICE_AZIENDA" type="xs:string"/>
+			<xs:element name="STREAM_RT" type="xs:string"/>
+			<xs:element name="CODICE_ERRORE" type="xs:integer" minOccurs="0"/>
+			<xs:element name="DESCRIZIONE_ERRORE" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RICHIEDI_BOLLO_REQUEST">
+		<xs:sequence>
+			<xs:element name="headerRichiestaBOLLO" type="headerRichiestaBOLLO"/>
+			<xs:element name="richiestaBOLLO" type="richiestaBOLLO"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="headerRichiestaBOLLO">
+		<xs:sequence>
+			<xs:element name="ID_CLIENT" type="xs:string"/>
+			<xs:element name="TOKEN" type="xs:string"/>
+			<xs:element name="DATA_RICHIESTA" type="xs:dateTime"/>
+			<xs:element name="ID_RICHIESTA" type="xs:string"/>
+			<xs:element name="CODICE_AZIENDA" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="richiestaBOLLO">
+		<xs:sequence>
+			<xs:element name="IMPRONTA">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="44"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RICHIEDI_BOLLO_RESPONSE">
+		<xs:sequence>
+			<xs:element name="DATA_RICHIESTA" type="xs:dateTime"/>
+			<xs:element name="ID_RICHIESTA" type="xs:string"/>
+			<xs:element name="CODICE_AZIENDA" type="xs:string"/>
+			<xs:element name="STREAM_BOLLO" type="xs:string"/>
+			<xs:element name="CODICE_ERRORE" type="xs:integer" minOccurs="0"/>
+			<xs:element name="DESCRIZIONE_ERRORE" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PAGAMENTOESISTENTE_REQUEST">
+		<xs:sequence>
+			<xs:element name="headerPagamento" type="headerPagamento"/>
+			<xs:element name="pagamentoEsistente" type="pagamentoEsistente"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pagamentoEsistente">
+		<xs:sequence>
+			<xs:element name="RIF_PRATICA" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="REGISTRAPAGAMENTO_REQUEST">
+		<xs:sequence>
+			<xs:element name="headerRegistraPagamento" type="headerRegistraPagamento"/>
+			<xs:choice>
+				<xs:element name="registraPagamento" type="registraPagamento"/>
+				<xs:element name="annullaPagamento" type="annullaPagamento"/>
+				<xs:element name="pagamentoEsterno" type="pagamentoEsterno"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="headerRegistraPagamento">
+		<xs:sequence>
+			<xs:element name="ID_CLIENT" type="xs:string"/>
+			<xs:element name="TOKEN" type="xs:string"/>
+			<xs:element name="DATA_RICHIESTA" type="xs:dateTime"/>
+			<xs:element name="ID_RICHIESTA" type="xs:string"/>
+			<xs:element name="CODICE_AZIENDA" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="registraPagamento">
+		<xs:sequence>
+			<xs:element name="ID_DEBITO" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RIF_PRATICA">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="35"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CAUSALE_PAGAMENTO">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="SERVIZIO_PAGAMENTO">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CODICE_FISCALE">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+						<xs:minLength value="11"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DIVISA">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="EUR"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="IMPORTO_TOTALE">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:minExclusive value="0"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DATA_SCADENZA" type="xs:date"/>
+			<xs:element name="DATI_BOLLO" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TIPO_BOLLO">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="01"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="IMPRONTA">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="44"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="PROVINCIA_RESIDENZA">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="2"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ANAGRAFICA" type="anagraficaPagamento" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="annullaPagamento">
+		<xs:choice>
+			<xs:element name="ID_DEBITO">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="IUV">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="35"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="pagamentoEsterno">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="ID_DEBITO">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="64"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="IUV">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="35"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="DATA_PAGAMENTO" type="xs:date"/>
+			<xs:element name="NOTE_PAGAMENTO" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="REGISTRAPAGAMENTO_RESPONSE">
+		<xs:sequence>
+			<xs:element name="DATA_RICHIESTA" type="xs:dateTime"/>
+			<xs:element name="ID_RICHIESTA" type="xs:string"/>
+			<xs:element name="CODICE_AZIENDA" type="xs:string"/>
+			<xs:element name="ESITO">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="OK"/>
+						<xs:enumeration value="KO"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CODICE_ERRORE" type="xs:integer" minOccurs="0"/>
+			<xs:element name="DESCRIZIONE_ERRORE" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

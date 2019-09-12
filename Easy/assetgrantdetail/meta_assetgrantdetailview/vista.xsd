@@ -1,0 +1,33 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="dsmeta" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="assetgrantdetailview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idasset" type="xs:int" />
+              <xs:element name="idpiece" type="xs:int" />
+              <xs:element name="ninventory" type="xs:int" minOccurs="0" />
+              <xs:element name="idinventory" type="xs:int" />
+              <xs:element name="inventory" type="xs:string" />
+              <xs:element name="codeinventory" type="xs:string" />
+              <xs:element name="idgrant" type="xs:int" />
+              <xs:element name="grantdescription" type="xs:string" minOccurs="0" />
+              <xs:element name="iddetail" type="xs:int" />
+              <xs:element name="ydetail" type="xs:short" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetgrantdetailview" />
+      <xs:field xpath="mstns:idasset" />
+      <xs:field xpath="mstns:idpiece" />
+      <xs:field xpath="mstns:idgrant" />
+      <xs:field xpath="mstns:iddetail" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,87 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaTrasmissioneRitenute.xsd" xmlns:mstns="http://tempuri.org/VistaTrasmissioneRitenute.xsd" xmlns="http://tempuri.org/VistaTrasmissioneRitenute.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="trasmissioneritenute">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idtrasmissioneritenute" type="xs:int" />
+              <xs:element name="flagconferma" type="xs:string" />
+              <xs:element name="eserciziocompetenza" type="xs:int" minOccurs="0" />
+              <xs:element name="createuser" type="xs:string" />
+              <xs:element name="createtimestamp" type="xs:dateTime" />
+              <xs:element name="lastmoduser" type="xs:string" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="payedtaxview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idexp" type="xs:string" />
+              <xs:element name="taxcode" type="xs:string" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="city" type="xs:string" minOccurs="0" />
+              <xs:element name="country" type="xs:string" minOccurs="0" />
+              <xs:element name="nation" type="xs:string" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="nphase" type="xs:string" />
+              <xs:element name="phase" type="xs:string" />
+              <xs:element name="ymov" type="xs:short" />
+              <xs:element name="nmov" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="registry" type="xs:string" />
+              <xs:element name="expensedescription" type="xs:string" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="idser" type="xs:string" minOccurs="0" />
+              <xs:element name="service" type="xs:string" minOccurs="0" />
+              <xs:element name="certificatekind" type="xs:string" minOccurs="0" />
+              <xs:element name="servicestart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="servicestop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="taxkind" type="xs:string" minOccurs="0" />
+              <xs:element name="taxable" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxableoriginal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="employrate" type="xs:double" minOccurs="0" />
+              <xs:element name="employnumerator" type="xs:double" minOccurs="0" />
+              <xs:element name="employdenominator" type="xs:double" minOccurs="0" />
+              <xs:element name="employtax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="adminrate" type="xs:double" minOccurs="0" />
+              <xs:element name="adminnumerator" type="xs:double" minOccurs="0" />
+              <xs:element name="admindenominator" type="xs:double" minOccurs="0" />
+              <xs:element name="admintax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="competencydate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datetaxpay" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ytaxpay" type="xs:short" minOccurs="0" />
+              <xs:element name="ntaxpay" type="xs:int" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idtrasmissioneritenute" type="xs:int" minOccurs="0" />
+              <xs:element name="esercdocpagamento" type="xs:int" minOccurs="0" />
+              <xs:element name="numdocpagamento" type="xs:int" minOccurs="0" />
+              <xs:element name="datacontabilemandato" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="vistaFormKey1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:trasmissioneritenute" />
+      <xs:field xpath="mstns:idtrasmissioneritenute" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey2" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:payedtaxview" />
+      <xs:field xpath="mstns:idexp" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:unique>
+    <xs:keyref name="vistaFormKey3" refer="vistaFormKey1" msdata:RelationName="trasmissioneritenutepayedtaxview">
+      <xs:selector xpath=".//mstns:payedtaxview" />
+      <xs:field xpath="mstns:idtrasmissioneritenute" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="upb">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="flagactivity" type="xs:short" minOccurs="0" />
+              <xs:element name="flagkind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="newcodeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idepupbkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="manager">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="passwordweb" type="xs:string" minOccurs="0" />
+              <xs:element name="phonenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="userweb" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" />
+              <xs:element name="iddivision" type="xs:int" />
+              <xs:element name="wantswarn" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="newidman" type="xs:int" minOccurs="0" />
+              <xs:element name="financeactive" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="account">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idacc" type="xs:string" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="codeacc" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="flagregistry" type="xs:string" minOccurs="0" />
+              <xs:element name="flagtransitory" type="xs:string" minOccurs="0" />
+              <xs:element name="flagupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccountkind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nlevel" type="xs:string" />
+              <xs:element name="paridacc" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idpatrimony" type="xs:string" minOccurs="0" />
+              <xs:element name="idplaccount" type="xs:string" minOccurs="0" />
+              <xs:element name="flagprofit" type="xs:string" minOccurs="0" />
+              <xs:element name="flagloss" type="xs:string" minOccurs="0" />
+              <xs:element name="placcount_sign" type="xs:string" minOccurs="0" />
+              <xs:element name="patrimony_sign" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcompetency" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="idacc_special" type="xs:string" minOccurs="0" />
+              <xs:element name="flagenablebudgetprev" type="xs:string" minOccurs="0" />
+              <xs:element name="flagaccountusage" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upbaccountview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idacc" type="xs:string" />
+              <xs:element name="codeacc" type="xs:string" />
+              <xs:element name="account" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="upb" type="xs:string" />
+              <xs:element name="currentprev" type="xs:decimal" minOccurs="0" />
+              <xs:element name="currentprev2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="currentprev3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="currentprev4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="currentprev5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epexp1" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epexp1_2" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epexp1_3" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epexp1_4" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epexp1_5" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epexp2" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epexp2_2" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epexp2_3" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epexp2_4" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epexp2_5" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="dare" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="avere" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="flagactivity" type="xs:short" minOccurs="0" />
+              <xs:element name="activity" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="flagkind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="kinddidattica" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="kindricerca" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="contabilitaspeciale" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="manager" type="xs:string" minOccurs="0" />
+              <xs:element name="idepupbkind" type="xs:int" minOccurs="0" />
+              <xs:element name="epupbkind" type="xs:string" minOccurs="0" />
+              <xs:element name="flagaccountusage" type="xs:int" minOccurs="0" />
+              <xs:element name="rateiattivi" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="rateipassivi" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="riscontiattivi" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="riscontipassivi" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="credit" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="debit" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="cost" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="revenue" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="fixedassets" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="freeusesurplus" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="captiveusesurplus" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="reserve" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="flagenablebudgetprev" type="xs:string" minOccurs="0" />
+              <xs:element name="flagprofit" type="xs:string" minOccurs="0" />
+              <xs:element name="flagloss" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcompetency" type="xs:string" minOccurs="0" />
+              <xs:element name="contoordine" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="isresource" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="available" type="xs:decimal" minOccurs="0" />
+              <xs:element name="sortcode_investimenti" type="xs:string" minOccurs="0" />
+              <xs:element name="sortcode_economico" type="xs:string" minOccurs="0" />
+              <xs:element name="provision" type="xs:string" minOccurs="0" />
+              <xs:element name="flagusable" type="xs:string" minOccurs="0" />
+              <xs:element name="epacc1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epacc1_2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epacc1_3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epacc1_4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epacc1_5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epacc2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epacc2_2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epacc2_3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epacc2_4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="epacc2_5" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="epupbkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idepupbkind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="isresource" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="manager_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:manager" />
+      <xs:field xpath="mstns:idman" />
+    </xs:unique>
+    <xs:unique name="account_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:account" />
+      <xs:field xpath="mstns:idacc" />
+    </xs:unique>
+    <xs:unique name="upbaccountview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upbaccountview" />
+      <xs:field xpath="mstns:idacc" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="epupbkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epupbkind" />
+      <xs:field xpath="mstns:idepupbkind" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_epupbkind_upbaccountview" msdata:parent="epupbkind" msdata:child="upbaccountview" msdata:parentkey="idepupbkind" msdata:childkey="idepupbkind" />
+      <msdata:Relationship name="FK_account_upbaccountview" msdata:parent="account" msdata:child="upbaccountview" msdata:parentkey="idacc" msdata:childkey="idacc" />
+      <msdata:Relationship name="FK_manager_upbaccountview" msdata:parent="manager" msdata:child="upbaccountview" msdata:parentkey="idman" msdata:childkey="idman" />
+      <msdata:Relationship name="FK_upb_upbaccountview" msdata:parent="upb" msdata:child="upbaccountview" msdata:parentkey="idupb" msdata:childkey="idupb" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

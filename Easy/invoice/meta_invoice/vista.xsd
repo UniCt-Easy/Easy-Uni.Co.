@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="invoice">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ninv" type="xs:int" />
+              <xs:element name="yinv" type="xs:short" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="exchangerate" type="xs:double" minOccurs="0" />
+              <xs:element name="flagdeferred" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="officiallyprinted" type="xs:string" />
+              <xs:element name="packinglistdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="packinglistnum" type="xs:string" minOccurs="0" />
+              <xs:element name="paymentexpiring" type="xs:short" minOccurs="0" />
+              <xs:element name="registryreference" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idinvkind" type="xs:int" />
+              <xs:element name="idcurrency" type="xs:int" minOccurs="0" />
+              <xs:element name="idexpirationkind" type="xs:short" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="flagintracom" type="xs:string" minOccurs="0" />
+              <xs:element name="iso_origin" type="xs:string" minOccurs="0" />
+              <xs:element name="iso_provenance" type="xs:string" minOccurs="0" />
+              <xs:element name="iso_destination" type="xs:string" minOccurs="0" />
+              <xs:element name="idcountry_origin" type="xs:int" minOccurs="0" />
+              <xs:element name="idcountry_destination" type="xs:int" minOccurs="0" />
+              <xs:element name="idintrastatkind" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit_crg" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit_datacrg" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idintrastatpaymethod" type="xs:int" minOccurs="0" />
+              <xs:element name="iso_payment" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_ddt" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="idblacklist" type="xs:int" minOccurs="0" />
+              <xs:element name="idinvkind_real" type="xs:int" minOccurs="0" />
+              <xs:element name="yinv_real" type="xs:short" minOccurs="0" />
+              <xs:element name="ninv_real" type="xs:int" minOccurs="0" />
+              <xs:element name="autoinvoice" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="protocoldate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idfepaymethodcondition" type="xs:string" minOccurs="0" />
+              <xs:element name="idfepaymethod" type="xs:string" minOccurs="0" />
+              <xs:element name="nelectronicinvoice" type="xs:int" minOccurs="0" />
+              <xs:element name="yelectronicinvoice" type="xs:short" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="arrivalprotocolnum" type="xs:string" minOccurs="0" />
+              <xs:element name="toincludeinpaymentindicator" type="xs:string" minOccurs="0" />
+              <xs:element name="resendingpcc" type="xs:string" minOccurs="0" />
+              <xs:element name="touniqueregister" type="xs:string" minOccurs="0" />
+              <xs:element name="idstampkind" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_auto_split_payment" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_enable_split_payment" type="xs:string" minOccurs="0" />
+              <xs:element name="idsdi_acquisto" type="xs:int" minOccurs="0" />
+              <xs:element name="idsdi_vendita" type="xs:int" minOccurs="0" />
+              <xs:element name="flag_reverse_charge" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_acq" type="xs:string" minOccurs="0" />
+              <xs:element name="rifamm_acq" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_ven_emittente" type="xs:string" minOccurs="0" />
+              <xs:element name="rifamm_ven_emittente" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_ven_cliente" type="xs:string" minOccurs="0" />
+              <xs:element name="rifamm_ven_cliente" type="xs:string" minOccurs="0" />
+              <xs:element name="ssntipospesa" type="xs:string" minOccurs="0" />
+              <xs:element name="ssnflagtipospesa" type="xs:string" minOccurs="0" />
+              <xs:element name="idinvkind_forwarder" type="xs:int" minOccurs="0" />
+              <xs:element name="yinv_forwarder" type="xs:short" minOccurs="0" />
+              <xs:element name="ninv_forwarder" type="xs:int" minOccurs="0" />
+              <xs:element name="flagbit" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="ssn_nprot" type="xs:string" minOccurs="0" />
+              <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
+              <xs:element name="idnocigmotive" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_sostituto" type="xs:int" minOccurs="0" />
+              <xs:element name="pec_ven_cliente" type="xs:string" minOccurs="0" />
+              <xs:element name="email_ven_cliente" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:invoice" />
+      <xs:field xpath="mstns:ninv" />
+      <xs:field xpath="mstns:yinv" />
+      <xs:field xpath="mstns:idinvkind" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

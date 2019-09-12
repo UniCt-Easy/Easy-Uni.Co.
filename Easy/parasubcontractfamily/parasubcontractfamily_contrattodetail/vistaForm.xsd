@@ -1,0 +1,165 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaFamiliareDettaglio.xsd" xmlns:mstns="http://tempuri.org/VistaFamiliareDettaglio.xsd" xmlns="http://tempuri.org/VistaFamiliareDettaglio.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="parasubcontractfamily">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="idfamily" type="xs:int" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="idaffinity" type="xs:string" />
+              <xs:element name="_x0021_descrparentela" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="idcitybirth" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_comune" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_sigla" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_nazione" type="xs:string" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="flagforeign" type="xs:string" minOccurs="0" />
+              <xs:element name="gender" type="xs:string" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="startapplication" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stopapplication" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="appliancepercentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="starthandicap" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="foreignresident" type="xs:string" />
+              <xs:element name="flagdependent" type="xs:string" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="childasparent" type="xs:string" minOccurs="0"/>
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="geo_cityview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcity" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="oldcity" type="xs:int" minOccurs="0" />
+              <xs:element name="newcity" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcountry" type="xs:int" />
+              <xs:element name="provincecode" type="xs:string" minOccurs="0" />
+              <xs:element name="country" type="xs:string" minOccurs="0" />
+              <xs:element name="oldcountry" type="xs:int" minOccurs="0" />
+              <xs:element name="newcountry" type="xs:int" minOccurs="0" />
+              <xs:element name="countrydatestart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="countrydatestop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idregion" type="xs:int" />
+              <xs:element name="region" type="xs:string" minOccurs="0" />
+              <xs:element name="regiondatestart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="regiondatestop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="oldregion" type="xs:int" minOccurs="0" />
+              <xs:element name="newregion" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" />
+              <xs:element name="idcontinent" type="xs:int" minOccurs="0" />
+              <xs:element name="nation" type="xs:string" minOccurs="0" />
+              <xs:element name="nationdatestart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="nationdatestop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="oldnation" type="xs:int" minOccurs="0" />
+              <xs:element name="newnation" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="affinity">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaffinity" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="geo_nation">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnation" type="xs:int" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="idcontinent" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="newnation" type="xs:int" minOccurs="0" />
+              <xs:element name="oldnation" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="parasubcontractfamilyview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="idfamily" type="xs:int" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="idaffinity" type="xs:string" />
+              <xs:element name="affinity" type="xs:string" />
+              <xs:element name="idcitybirth" type="xs:int" minOccurs="0" />
+              <xs:element name="city" type="xs:string" minOccurs="0" />
+              <xs:element name="province" type="xs:string" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="nation" type="xs:string" minOccurs="0" />
+              <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="flagforeign" type="xs:string" minOccurs="0" />
+              <xs:element name="gender" type="xs:string" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="startapplication" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stopapplication" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="appliancepercentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="starthandicap" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="foreignresident" type="xs:string" />
+              <xs:element name="flagdependent" type="xs:string" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="childasparent" type="xs:string" minOccurs="0"/>
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:parasubcontractfamily" />
+      <xs:field xpath="mstns:idcon" />
+      <xs:field xpath="mstns:idfamily" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="geo_cityview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_cityview" />
+      <xs:field xpath="mstns:idcity" />
+    </xs:unique>
+    <xs:unique name="affinity_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:affinity" />
+      <xs:field xpath="mstns:idaffinity" />
+    </xs:unique>
+    <xs:unique name="geo_nation_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_nation" />
+      <xs:field xpath="mstns:idnation" />
+    </xs:unique>
+    <xs:keyref name="geo_nationparasubcontractfamily" refer="geo_nation_Constraint1">
+      <xs:selector xpath=".//mstns:parasubcontractfamily" />
+      <xs:field xpath="mstns:idnation" />
+    </xs:keyref>
+    <xs:keyref name="affinityparasubcontractfamily" refer="affinity_Constraint1">
+      <xs:selector xpath=".//mstns:parasubcontractfamily" />
+      <xs:field xpath="mstns:idaffinity" />
+    </xs:keyref>
+    <xs:keyref name="geo_cityviewparasubcontractfamily" refer="geo_cityview_Constraint1">
+      <xs:selector xpath=".//mstns:parasubcontractfamily" />
+      <xs:field xpath="mstns:idcitybirth" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

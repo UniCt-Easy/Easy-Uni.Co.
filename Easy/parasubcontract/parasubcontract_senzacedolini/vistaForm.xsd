@@ -1,0 +1,130 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaContratto_SenzaCedolini.xsd" xmlns:mstns="http://tempuri.org/VistaContratto_SenzaCedolini.xsd" xmlns="http://tempuri.org/VistaContratto_SenzaCedolini.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="parasubcontract">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="ycon" type="xs:int" />
+              <xs:element name="ncon" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="duty" type="xs:string" minOccurs="0" />
+              <xs:element name="idpayrollkind" type="xs:string" minOccurs="0" />
+              <xs:element name="idser" type="xs:int" />
+              <xs:element name="employed" type="xs:string" />
+              <xs:element name="payrollccinfo" type="xs:string" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="monthlen" type="xs:int" />
+              <xs:element name="grossamount" type="xs:decimal" />
+              <xs:element name="idpat" type="xs:int" minOccurs="0" />
+              <xs:element name="matricula" type="xs:int" minOccurs="0" />
+              <xs:element name="idmatriculabook" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="payroll">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpayroll" type="xs:int" />
+              <xs:element name="fiscalyear" type="xs:int" />
+              <xs:element name="npayroll" type="xs:int" />
+              <xs:element name="flagbalance" type="xs:string" minOccurs="0" />
+              <xs:element name="disbursementdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idresidence" type="xs:int" minOccurs="0"/>
+              <xs:element name="workingdays" type="xs:short" />
+              <xs:element name="feegross" type="xs:decimal" />
+              <xs:element name="flagcomputed" type="xs:string" />
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="currentrounding" type="xs:decimal" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="enabletaxrelief" type="xs:string" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stop" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="parasubcontractview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="ycon" type="xs:int" />
+              <xs:element name="ncon" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="registry" type="xs:string" />
+              <xs:element name="matricula" type="xs:int" minOccurs="0" />
+              <xs:element name="duty" type="xs:string" minOccurs="0" />
+              <xs:element name="idpayrollkind" type="xs:string" minOccurs="0" />
+              <xs:element name="payroll" type="xs:string" minOccurs="0" />
+              <xs:element name="idser" type="xs:int" />
+              <xs:element name="service" type="xs:string" />
+              <xs:element name="idresidence" type="xs:int" minOccurs="0" />
+              <xs:element name="city" type="xs:string" minOccurs="0" />
+              <xs:element name="idcountry" type="xs:int" minOccurs="0" />
+              <xs:element name="country" type="xs:string" minOccurs="0" />
+              <xs:element name="employed" type="xs:string" />
+              <xs:element name="payrollccinfo" type="xs:string" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="monthlen" type="xs:int" />
+              <xs:element name="grossamount" type="xs:decimal" />
+              <xs:element name="activitycode" type="xs:string" minOccurs="0" />
+              <xs:element name="activity" type="xs:string" minOccurs="0" />
+              <xs:element name="idotherinsurance" type="xs:string" minOccurs="0" />
+              <xs:element name="otherinsurance" type="xs:string" minOccurs="0" />
+              <xs:element name="idpat" type="xs:int" minOccurs="0" />
+              <xs:element name="patcode" type="xs:string" minOccurs="0" />
+              <xs:element name="pat" type="xs:string" minOccurs="0" />
+              <xs:element name="idmatriculabook" type="xs:string" minOccurs="0" />
+              <xs:element name="matriculabook" type="xs:string" minOccurs="0" />
+              <xs:element name="regionaltax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="countrytax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="citytax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ratequantity" type="xs:int" minOccurs="0" />
+              <xs:element name="startmonth" type="xs:int" minOccurs="0" />
+              <xs:element name="suspendedregionaltax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="suspendedcountrytax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="suspendedcitytax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="notaxappliance" type="xs:string" minOccurs="0" />
+              <xs:element name="applybrackets" type="xs:string" minOccurs="0" />
+              <xs:element name="highertax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxablecud" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cuddays" type="xs:short" minOccurs="0" />
+              <xs:element name="taxablecontract" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ndays" type="xs:int" minOccurs="0" />
+              <xs:element name="taxablepension" type="xs:decimal" minOccurs="0" />
+              <xs:element name="fiscaldeduction" type="xs:decimal" minOccurs="0" />
+              <xs:element name="notaxdeduction" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxablegross" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxablenet" type="xs:decimal" minOccurs="0" />
+              <xs:element name="startcompetency" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stopcompetency" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:parasubcontract" />
+      <xs:field xpath="mstns:idcon" />
+    </xs:unique>
+    <xs:unique name="payroll_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:payroll" />
+      <xs:field xpath="mstns:idpayroll" />
+    </xs:unique>
+    <xs:keyref name="parasubcontractpayroll" refer="Constraint1">
+      <xs:selector xpath=".//mstns:payroll" />
+      <xs:field xpath="mstns:idcon" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

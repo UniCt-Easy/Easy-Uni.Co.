@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vista_dettvarpatrimonio_Detail.xsd" xmlns:mstns="http://tempuri.org/Vista_dettvarpatrimonio_Detail.xsd" xmlns="http://tempuri.org/Vista_dettvarpatrimonio_Detail.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="assetvardetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idassetvar" type="xs:int" />
+              <xs:element name="idassetvardetail" type="xs:int" />
+              <xs:element name="idinv" type="xs:int" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idinventory" type="xs:int" minOccurs="0" />
+              <xs:element name="idmot" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inventorytreeview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinv" type="xs:int" />
+              <xs:element name="codeinv" type="xs:string" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="leveldescr" type="xs:string" />
+              <xs:element name="paridinv" type="xs:int" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inventory">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinventory" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idinventoryagency" type="xs:int" />
+              <xs:element name="idinventorykind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="startnumber" type="xs:int" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="assetloadmotive">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmot" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetvardetail" />
+      <xs:field xpath="mstns:idassetvar" />
+      <xs:field xpath="mstns:idassetvardetail" />
+    </xs:unique>
+    <xs:unique name="inventorytreeview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventorytreeview" />
+      <xs:field xpath="mstns:idinv" />
+    </xs:unique>
+    <xs:unique name="inventory_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventory" />
+      <xs:field xpath="mstns:idinventory" />
+    </xs:unique>
+    <xs:unique name="assetloadmotive_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetloadmotive" />
+      <xs:field xpath="mstns:idmot" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="inventoryassetvardetail" msdata:parent="inventory" msdata:child="assetvardetail" msdata:parentkey="idinventory" msdata:childkey="idinventory" />
+      <msdata:Relationship name="inventorytreeviewassetvardetail" msdata:parent="inventorytreeview" msdata:child="assetvardetail" msdata:parentkey="idinv" msdata:childkey="idinv" />
+      <msdata:Relationship name="assetloadmotive_assetvardetail" msdata:parent="assetloadmotive" msdata:child="assetvardetail" msdata:parentkey="idmot" msdata:childkey="idmot" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

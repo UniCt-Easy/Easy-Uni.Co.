@@ -1,0 +1,48 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ddt_in_motive">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idddt_in_motive" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idstoreload_motive" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_storeload_motive" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="storeload_motive">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstoreload_motive" type="xs:int" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ddt_in_motive" />
+      <xs:field xpath="mstns:idddt_in_motive" />
+    </xs:unique>
+    <xs:unique name="storeload_motive_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:storeload_motive" />
+      <xs:field xpath="mstns:idstoreload_motive" />
+    </xs:unique>
+    <xs:keyref name="storeload_motive_ddt_in_motive" refer="storeload_motive_Constraint1">
+      <xs:selector xpath=".//mstns:ddt_in_motive" />
+      <xs:field xpath="mstns:idstoreload_motive" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

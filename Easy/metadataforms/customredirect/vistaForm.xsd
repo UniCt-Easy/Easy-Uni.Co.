@@ -1,0 +1,85 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaCustomRedirect.xsd" xmlns:mstns="http://tempuri.org/VistaCustomRedirect.xsd" xmlns="http://tempuri.org/VistaCustomRedirect.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="customredirect">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="objectname" type="xs:string" />
+              <xs:element name="viewname" type="xs:string" />
+              <xs:element name="objecttarget" type="xs:string" />
+              <xs:element name="viewtarget" type="xs:string" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customobject">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="objectname" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="isreal" type="xs:string" />
+              <xs:element name="realtable" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="objectname" type="xs:string" />
+              <xs:element name="viewname" type="xs:string" />
+              <xs:element name="header" type="xs:string" minOccurs="0" />
+              <xs:element name="footer" type="xs:string" minOccurs="0" />
+              <xs:element name="topmargin" type="xs:double" minOccurs="0" />
+              <xs:element name="bottommargin" type="xs:double" minOccurs="0" />
+              <xs:element name="rightmargin" type="xs:double" minOccurs="0" />
+              <xs:element name="leftmargin" type="xs:double" minOccurs="0" />
+              <xs:element name="lefttoright" type="xs:short" minOccurs="0" />
+              <xs:element name="hcenter" type="xs:short" minOccurs="0" />
+              <xs:element name="vcenter" type="xs:short" minOccurs="0" />
+              <xs:element name="gridlines" type="xs:short" minOccurs="0" />
+              <xs:element name="rowheading" type="xs:short" minOccurs="0" />
+              <xs:element name="colheading" type="xs:short" minOccurs="0" />
+              <xs:element name="landscape" type="xs:short" minOccurs="0" />
+              <xs:element name="scale" type="xs:short" minOccurs="0" />
+              <xs:element name="fittopage" type="xs:short" minOccurs="0" />
+              <xs:element name="vpages" type="xs:short" minOccurs="0" />
+              <xs:element name="hpages" type="xs:short" minOccurs="0" />
+              <xs:element name="isreal" type="xs:string" minOccurs="0" />
+              <xs:element name="issystem" type="xs:string" minOccurs="0" />
+              <xs:element name="staticfilter" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="vistaFormKey1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customredirect" />
+      <xs:field xpath="mstns:objectname" />
+      <xs:field xpath="mstns:viewname" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey3" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customobject" />
+      <xs:field xpath="mstns:objectname" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey4" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customview" />
+      <xs:field xpath="mstns:objectname" />
+      <xs:field xpath="mstns:viewname" />
+    </xs:unique>
+    <xs:keyref name="vistaFormKey5" refer="vistaFormKey3" msdata:RelationName="customobjectcustomview">
+      <xs:selector xpath=".//mstns:customview" />
+      <xs:field xpath="mstns:objectname" />
+    </xs:keyref>
+    <xs:keyref name="vistaFormKey2" refer="vistaFormKey3" msdata:RelationName="customobjectcustomredirect">
+      <xs:selector xpath=".//mstns:customredirect" />
+      <xs:field xpath="mstns:objecttarget" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

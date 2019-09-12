@@ -1,0 +1,445 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaColname.xsd" xmlns:mstns="http://tempuri.org/VistaColname.xsd" xmlns="http://tempuri.org/VistaColname.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="colname">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="oldtable" type="xs:string" />
+              <xs:element name="oldcol" type="xs:string" />
+              <xs:element name="newcol" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tablename">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="oldtable" type="xs:string" />
+              <xs:element name="newtable" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sysobjects">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" type="xs:int" />
+              <xs:element name="name" type="xs:string" minOccurs="0" />
+              <xs:element name="parent_obj" type="xs:int" minOccurs="0" />
+              <xs:element name="xtype" type="xs:string" minOccurs="0" />
+              <xs:element name="uid" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sysforeignkeys">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="constid" type="xs:int" />
+              <xs:element name="fkeyid" type="xs:int" minOccurs="0" />
+              <xs:element name="rkeyid" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="storedprocedurename">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="oldprocedure" type="xs:string" />
+              <xs:element name="newprocedure" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="syscomments">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" type="xs:int" minOccurs="0" />
+              <xs:element name="text" type="xs:string" minOccurs="0" />
+              <xs:element name="encrypted" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="syscolumns">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="name" type="xs:string" minOccurs="0" />
+              <xs:element name="id" type="xs:int" />
+              <xs:element name="colid" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="auditcheck">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="opkind" type="xs:string" />
+              <xs:element name="idaudit" type="xs:string" />
+              <xs:element name="idcheck" type="xs:short" />
+              <xs:element name="sqlcmd" type="xs:string" minOccurs="0" />
+              <xs:element name="message" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customdirectrel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomdirectrel" type="xs:int" />
+              <xs:element name="fromtable" type="xs:string" />
+              <xs:element name="totable" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="edittype" type="xs:string" />
+              <xs:element name="flag" type="xs:int" />
+              <xs:element name="filter" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="navigationfilterparent" type="xs:string" minOccurs="0" />
+              <xs:element name="insertfilterparent" type="xs:string" minOccurs="0" />
+              <xs:element name="listtype" type="xs:string" minOccurs="0" />
+              <xs:element name="totableview" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customindirectrel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomindirectrel" type="xs:int" />
+              <xs:element name="parenttable1" type="xs:string" />
+              <xs:element name="parenttable2" type="xs:string" />
+              <xs:element name="middletable" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flag" type="xs:int" />
+              <xs:element name="edittype" type="xs:string" />
+              <xs:element name="filterparenttable2" type="xs:string" minOccurs="0" />
+              <xs:element name="filtermiddle" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="navigationfilterparenttable1" type="xs:string" minOccurs="0" />
+              <xs:element name="insertfilterparenttable1" type="xs:string" minOccurs="0" />
+              <xs:element name="listtype" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customindirectrelcol">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomindirectrel" type="xs:int" />
+              <xs:element name="parentnumber" type="xs:int" />
+              <xs:element name="parentfield" type="xs:string" />
+              <xs:element name="middlefield" type="xs:string" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customdirectrelcol">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcustomdirectrel" type="xs:int" />
+              <xs:element name="fromfield" type="xs:string" />
+              <xs:element name="tofield" type="xs:string" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="customgroupoperation">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="groupnumber" type="xs:string" />
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="operation" type="xs:string" />
+              <xs:element name="defaultisdeny" type="xs:string" />
+              <xs:element name="allowcondition" type="xs:string" minOccurs="0" />
+              <xs:element name="denycondition" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="procedures">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="oldname" type="xs:string" />
+              <xs:element name="newname" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ruleparameter">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="opkind" type="xs:string" />
+              <xs:element name="parameterid" type="xs:short" />
+              <xs:element name="paramtable" type="xs:string" />
+              <xs:element name="paramcolumn" type="xs:string" />
+              <xs:element name="flagoldvalue" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="alias">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dataset" type="xs:string" />
+              <xs:element name="tabella" type="xs:string" />
+              <xs:element name="alias" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="aliascol">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dataset" type="xs:string" />
+              <xs:element name="tabella" type="xs:string" />
+              <xs:element name="colonna" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ren_cs">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="directory" type="xs:string" />
+              <xs:element name="cs" type="xs:string" />
+              <xs:element name="idprogetto" type="xs:string" minOccurs="0" />
+              <xs:element name="subtype" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ren_riferimento">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idprogetto" type="xs:string" />
+              <xs:element name="idriferimento" type="xs:string" />
+              <xs:element name="riferimento" type="xs:string" minOccurs="0" />
+              <xs:element name="private" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ren_progetto">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idprogetto" type="xs:string" />
+              <xs:element name="progetto" type="xs:string" minOccurs="0" />
+              <xs:element name="directory" type="xs:string" minOccurs="0" />
+              <xs:element name="csproj" type="xs:string" minOccurs="0" />
+              <xs:element name="tabella" type="xs:string" minOccurs="0" />
+              <xs:element name="AssemblyName" type="xs:string" minOccurs="0" />
+              <xs:element name="RootNamespace" type="xs:string" minOccurs="0" />
+              <xs:element name="namespace" type="xs:string" minOccurs="0" />
+              <xs:element name="outputpath" type="xs:string" minOccurs="0" />
+              <xs:element name="edittype" type="xs:string" minOccurs="0" />
+              <xs:element name="nuovadirectory" type="xs:string" minOccurs="0" />
+              <xs:element name="nuovonome" type="xs:string" minOccurs="0" />
+              <xs:element name="numeroform" type="xs:int" minOccurs="0" />
+              <xs:element name="referenti" type="xs:int" minOccurs="0" />
+              <xs:element name="nuovireferenti" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ren_form">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="metadata" type="xs:string" />
+              <xs:element name="edittype" type="xs:string" />
+              <xs:element name="namespace" type="xs:string" minOccurs="0" />
+              <xs:element name="form" type="xs:string" minOccurs="0" />
+              <xs:element name="directory" type="xs:string" minOccurs="0" />
+              <xs:element name="cs" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="bank">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idbank" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cab">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idbank" type="xs:string" />
+              <xs:element name="idcab" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="country" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ren_tempvar">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="oldname" type="xs:string" />
+              <xs:element name="newname" type="xs:string" minOccurs="0" />
+              <xs:element name="occur" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:colname" />
+      <xs:field xpath="mstns:oldtable" />
+      <xs:field xpath="mstns:oldcol" />
+    </xs:unique>
+    <xs:unique name="tablename_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tablename" />
+      <xs:field xpath="mstns:oldtable" />
+    </xs:unique>
+    <xs:unique name="sysobjects_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:sysobjects" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:unique name="syscolumns_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:syscolumns" />
+      <xs:field xpath="mstns:id" />
+      <xs:field xpath="mstns:colid" />
+    </xs:unique>
+    <xs:unique name="auditcheck_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:auditcheck" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:opkind" />
+      <xs:field xpath="mstns:idaudit" />
+      <xs:field xpath="mstns:idcheck" />
+    </xs:unique>
+    <xs:unique name="customdirectrel_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customdirectrel" />
+      <xs:field xpath="mstns:idcustomdirectrel" />
+    </xs:unique>
+    <xs:unique name="customindirectrel_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customindirectrel" />
+      <xs:field xpath="mstns:idcustomindirectrel" />
+    </xs:unique>
+    <xs:unique name="customindirectrelcol_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customindirectrelcol" />
+      <xs:field xpath="mstns:idcustomindirectrel" />
+      <xs:field xpath="mstns:parentnumber" />
+      <xs:field xpath="mstns:parentfield" />
+    </xs:unique>
+    <xs:unique name="customdirectrelcol_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customdirectrelcol" />
+      <xs:field xpath="mstns:idcustomdirectrel" />
+      <xs:field xpath="mstns:fromfield" />
+      <xs:field xpath="mstns:tofield" />
+    </xs:unique>
+    <xs:unique name="customgroupoperation_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customgroupoperation" />
+      <xs:field xpath="mstns:groupnumber" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:operation" />
+    </xs:unique>
+    <xs:unique name="ruleparameter_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ruleparameter" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:opkind" />
+      <xs:field xpath="mstns:parameterid" />
+    </xs:unique>
+    <xs:unique name="alias_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:alias" />
+      <xs:field xpath="mstns:dataset" />
+      <xs:field xpath="mstns:tabella" />
+    </xs:unique>
+    <xs:unique name="aliascol_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:aliascol" />
+      <xs:field xpath="mstns:dataset" />
+      <xs:field xpath="mstns:tabella" />
+      <xs:field xpath="mstns:colonna" />
+    </xs:unique>
+    <xs:unique name="ren_cs_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ren_cs" />
+      <xs:field xpath="mstns:directory" />
+      <xs:field xpath="mstns:cs" />
+    </xs:unique>
+    <xs:unique name="ren_riferimento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ren_riferimento" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idriferimento" />
+    </xs:unique>
+    <xs:unique name="ren_progetto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ren_progetto" />
+      <xs:field xpath="mstns:idprogetto" />
+    </xs:unique>
+    <xs:unique name="ren_form_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ren_form" />
+      <xs:field xpath="mstns:metadata" />
+      <xs:field xpath="mstns:edittype" />
+    </xs:unique>
+    <xs:unique name="bank_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bank" />
+      <xs:field xpath="mstns:idbank" />
+    </xs:unique>
+    <xs:unique name="cab_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cab" />
+      <xs:field xpath="mstns:idbank" />
+      <xs:field xpath="mstns:idcab" />
+    </xs:unique>
+    <xs:unique name="ren_tempvar_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ren_tempvar" />
+      <xs:field xpath="mstns:oldname" />
+    </xs:unique>
+    <xs:keyref name="ren_csren_form" refer="ren_cs_Constraint1">
+      <xs:selector xpath=".//mstns:ren_form" />
+      <xs:field xpath="mstns:directory" />
+      <xs:field xpath="mstns:cs" />
+    </xs:keyref>
+    <xs:keyref name="ren_progettoren_riferimento" refer="ren_progetto_Constraint1">
+      <xs:selector xpath=".//mstns:ren_riferimento" />
+      <xs:field xpath="mstns:idriferimento" />
+    </xs:keyref>
+    <xs:keyref name="ren_progettoren_riferimento_1" refer="ren_progetto_Constraint1">
+      <xs:selector xpath=".//mstns:ren_riferimento" />
+      <xs:field xpath="mstns:idprogetto" />
+    </xs:keyref>
+    <xs:keyref name="ren_progettoren_cs" refer="ren_progetto_Constraint1">
+      <xs:selector xpath=".//mstns:ren_cs" />
+      <xs:field xpath="mstns:idprogetto" />
+    </xs:keyref>
+    <xs:keyref name="customdirectrelcustomdirectrelcol" refer="customdirectrel_Constraint1">
+      <xs:selector xpath=".//mstns:customdirectrelcol" />
+      <xs:field xpath="mstns:idcustomdirectrel" />
+    </xs:keyref>
+    <xs:keyref name="customindirectrelcustomindirectrelcol" refer="customindirectrel_Constraint1">
+      <xs:selector xpath=".//mstns:customindirectrelcol" />
+      <xs:field xpath="mstns:idcustomindirectrel" />
+    </xs:keyref>
+    <xs:keyref name="sysobjectssyscolumns" refer="sysobjects_Constraint1">
+      <xs:selector xpath=".//mstns:syscolumns" />
+      <xs:field xpath="mstns:id" />
+    </xs:keyref>
+    <xs:keyref name="sysobjectssyscomments" refer="sysobjects_Constraint1">
+      <xs:selector xpath=".//mstns:syscomments" />
+      <xs:field xpath="mstns:id" />
+    </xs:keyref>
+    <xs:keyref name="sysobjectssysforeignkeys" refer="sysobjects_Constraint1">
+      <xs:selector xpath=".//mstns:sysforeignkeys" />
+      <xs:field xpath="mstns:constid" />
+    </xs:keyref>
+    <xs:keyref name="sysobjectssysforeignkeys_1" refer="sysobjects_Constraint1">
+      <xs:selector xpath=".//mstns:sysforeignkeys" />
+      <xs:field xpath="mstns:rkeyid" />
+    </xs:keyref>
+    <xs:keyref name="sysobjectssysforeignkeys_2" refer="sysobjects_Constraint1">
+      <xs:selector xpath=".//mstns:sysforeignkeys" />
+      <xs:field xpath="mstns:fkeyid" />
+    </xs:keyref>
+    <xs:keyref name="sysobjectssysobjects" refer="sysobjects_Constraint1">
+      <xs:selector xpath=".//mstns:sysobjects" />
+      <xs:field xpath="mstns:parent_obj" />
+    </xs:keyref>
+    <xs:keyref name="tablenamecolname" refer="tablename_Constraint1">
+      <xs:selector xpath=".//mstns:colname" />
+      <xs:field xpath="mstns:oldtable" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,116 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistatipoinventario.xsd" xmlns:mstns="http://tempuri.org/vistatipoinventario.xsd" xmlns="http://tempuri.org/vistatipoinventario.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="inventorykind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinventorykind" type="xs:int" />
+              <xs:element name="codeinventorykind" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flag" type="xs:unsignedByte" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idinv_allow" type="xs:int" minOccurs="0" />
+              <xs:element name="idinv_deny" type="xs:int" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inventorytreeview_allow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinv" type="xs:int" />
+              <xs:element name="codeinv" type="xs:string" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="leveldescr" type="xs:string" />
+              <xs:element name="paridinv" type="xs:int" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idinv_lev1" type="xs:int" />
+              <xs:element name="codeinv_lev1" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inventorytreeview_deny">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinv" type="xs:int" />
+              <xs:element name="codeinv" type="xs:string" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="leveldescr" type="xs:string" />
+              <xs:element name="paridinv" type="xs:int" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idinv_lev1" type="xs:int" />
+              <xs:element name="codeinv_lev1" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inventorykindview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinventorykind" type="xs:int" />
+              <xs:element name="codeinventorykind" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flag" type="xs:unsignedByte" />
+              <xs:element name="idinv_allow" type="xs:int" minOccurs="0" />
+              <xs:element name="codeinv_allow" type="xs:string" minOccurs="0" />
+              <xs:element name="inventorytree_allow" type="xs:string" minOccurs="0" />
+              <xs:element name="idinv_deny" type="xs:int" minOccurs="0" />
+              <xs:element name="codeinv_deny" type="xs:string" minOccurs="0" />
+              <xs:element name="inventorytree_deny" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventorykind" />
+      <xs:field xpath="mstns:idinventorykind" />
+    </xs:unique>
+    <xs:unique name="inventorytreeview_allow_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventorytreeview_allow" />
+      <xs:field xpath="mstns:idinv" />
+      <xs:field xpath="mstns:idinv_lev1" />
+    </xs:unique>
+    <xs:unique name="Constraint2">
+      <xs:selector xpath=".//mstns:inventorytreeview_allow" />
+      <xs:field xpath="mstns:idinv" />
+    </xs:unique>
+    <xs:unique name="inventorytreeview_deny_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventorytreeview_deny" />
+      <xs:field xpath="mstns:idinv" />
+      <xs:field xpath="mstns:idinv_lev1" />
+    </xs:unique>
+    <xs:unique name="inventorytreeview_deny_Constraint2" msdata:ConstraintName="Constraint2">
+      <xs:selector xpath=".//mstns:inventorytreeview_deny" />
+      <xs:field xpath="mstns:idinv" />
+    </xs:unique>
+    <xs:unique name="inventorykindview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventorykindview" />
+      <xs:field xpath="mstns:idinventorykind" />
+    </xs:unique>
+    <xs:keyref name="inventorytreeview_deny_inventorykind" refer="inventorytreeview_deny_Constraint2">
+      <xs:selector xpath=".//mstns:inventorykind" />
+      <xs:field xpath="mstns:idinv_deny" />
+    </xs:keyref>
+    <xs:keyref name="inventorytreeview_allow_inventorykind" refer="Constraint2">
+      <xs:selector xpath=".//mstns:inventorykind" />
+      <xs:field xpath="mstns:idinv_allow" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

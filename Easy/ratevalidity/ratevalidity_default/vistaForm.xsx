@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Questo file viene generato automaticamente dalla Progettazione schema XML. Contiene informazioni sul layout dei componenti nell'area di progettazione.-->
+<XSDDesignerLayout layoutVersion="1" viewPortLeft="0" viewPortTop="0">
+    <ratevalidity_XmlElement left="11006" top="4656" width="5292" height="2963" selected="0" zOrder="0" index="0" />
+    <ratebracket_XmlElement left="1931" top="4023" width="5292" height="2963" selected="0" zOrder="1" index="1" />
+    <tax_XmlElement left="11749" top="661" width="5292" height="2963" selected="0" zOrder="2" index="2" />
+    <ratevalidityratebracket_XmlKeyRef left="8744" top="5171" width="503" height="503" selected="0" zOrder="7" />
+    <taxratevalidity_XmlKeyRef left="9462" top="3162" width="503" height="503" selected="0" zOrder="3" />
+</XSDDesignerLayout>

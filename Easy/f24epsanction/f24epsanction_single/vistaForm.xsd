@@ -1,0 +1,131 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="f24epsanction">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idf24ep" type="xs:int" />
+              <xs:element name="idsanction" type="xs:int" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ayear" type="xs:short" minOccurs="0" />
+              <xs:element name="idfiscaltaxregion" type="xs:string" minOccurs="0" />
+              <xs:element name="idsanctionf24" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="f24epsanctionkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsanction" type="xs:int" />
+              <xs:element name="fiscaltaxcode" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="flagagency" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fiscaltaxregion">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfiscaltaxregion" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="f24epsanctionview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idf24ep" type="xs:int" />
+              <xs:element name="idsanction" type="xs:int" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="city" type="xs:string" minOccurs="0" />
+              <xs:element name="idfiscaltaxregion" type="xs:string" minOccurs="0" />
+              <xs:element name="region" type="xs:string" minOccurs="0" />
+              <xs:element name="idsanctionf24" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="geo_city">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcity" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="newcity" type="xs:int" minOccurs="0" />
+              <xs:element name="oldcity" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcountry" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="geo_country">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcountry" type="xs:int" />
+              <xs:element name="idregion" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="newcountry" type="xs:int" minOccurs="0" />
+              <xs:element name="oldcountry" type="xs:int" minOccurs="0" />
+              <xs:element name="province" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:f24epsanction" />
+      <xs:field xpath="mstns:idf24ep" />
+      <xs:field xpath="mstns:idsanctionf24" />
+    </xs:unique>
+    <xs:unique name="f24epsanctionkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:f24epsanctionkind" />
+      <xs:field xpath="mstns:idsanction" />
+    </xs:unique>
+    <xs:unique name="fiscaltaxregion_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:fiscaltaxregion" />
+      <xs:field xpath="mstns:idfiscaltaxregion" />
+    </xs:unique>
+    <xs:unique name="f24epsanctionview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:f24epsanctionview" />
+      <xs:field xpath="mstns:idsanctionf24" />
+    </xs:unique>
+    <xs:unique name="geo_city_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_city" />
+      <xs:field xpath="mstns:idcity" />
+    </xs:unique>
+    <xs:unique name="geo_country_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_country" />
+      <xs:field xpath="mstns:idcountry" />
+    </xs:unique>
+    <xs:keyref name="geo_country_geo_city" refer="geo_country_Constraint1">
+      <xs:selector xpath=".//mstns:geo_city" />
+      <xs:field xpath="mstns:idcountry" />
+    </xs:keyref>
+    <xs:keyref name="geo_city_f24epsanction" refer="geo_city_Constraint1">
+      <xs:selector xpath=".//mstns:f24epsanction" />
+      <xs:field xpath="mstns:idcity" />
+    </xs:keyref>
+    <xs:keyref name="FK_fiscaltaxregion_f24epsanction" refer="fiscaltaxregion_Constraint1">
+      <xs:selector xpath=".//mstns:f24epsanction" />
+      <xs:field xpath="mstns:idfiscaltaxregion" />
+    </xs:keyref>
+    <xs:keyref name="f24epsanctionkind_f24epsanction" refer="f24epsanctionkind_Constraint1">
+      <xs:selector xpath=".//mstns:f24epsanction" />
+      <xs:field xpath="mstns:idsanction" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,136 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistaaliquotaritenuta.xsd" xmlns:mstns="http://tempuri.org/Vistaaliquotaritenuta.xsd" xmlns="http://tempuri.org/Vistaaliquotaritenuta.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="taxrate">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="validitystart" type="xs:dateTime" />
+              <xs:element name="nbracket" type="xs:short" />
+              <xs:element name="ratestart" type="xs:dateTime" />
+              <xs:element name="taxablenumerator" type="xs:double" minOccurs="0" />
+              <xs:element name="taxabledenominator" type="xs:double" minOccurs="0" />
+              <xs:element name="adminrate" type="xs:double" minOccurs="0" />
+              <xs:element name="adminnumerator" type="xs:double" minOccurs="0" />
+              <xs:element name="admindenominator" type="xs:double" minOccurs="0" />
+              <xs:element name="employrate" type="xs:double" minOccurs="0" />
+              <xs:element name="employnumerator" type="xs:double" minOccurs="0" />
+              <xs:element name="employdenominator" type="xs:double" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tax">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="taxkind" type="xs:string" minOccurs="0" />
+              <xs:element name="fiscaltaxcode" type="xs:string" minOccurs="0" />
+              <xs:element name="flagunabatable" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ratebracket">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="validitystart" type="xs:dateTime" />
+              <xs:element name="nbracket" type="xs:short" />
+              <xs:element name="_x0021_numeroscaglionestringa" type="xs:string" minOccurs="0" />
+              <xs:element name="minamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="maxamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ratevalidity">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="validitystart" type="xs:dateTime" />
+              <xs:element name="_x0021_datainiziostrutturastringa" type="xs:string" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="vistaFormKey1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:taxrate" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:validitystart" />
+      <xs:field xpath="mstns:nbracket" />
+      <xs:field xpath="mstns:ratestart" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey2">
+      <xs:selector xpath=".//mstns:taxrate" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey3">
+      <xs:selector xpath=".//mstns:taxrate" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:validitystart" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey7" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tax" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey8" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ratebracket" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:validitystart" />
+      <xs:field xpath="mstns:nbracket" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey9">
+      <xs:selector xpath=".//mstns:ratebracket" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey11" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ratevalidity" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:validitystart" />
+    </xs:unique>
+    <xs:keyref name="vistaFormKey12" refer="vistaFormKey7" msdata:RelationName="taxratevalidity">
+      <xs:selector xpath=".//mstns:ratevalidity" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:keyref>
+    <xs:keyref name="vistaFormKey10" refer="vistaFormKey11" msdata:RelationName="ratevalidityratebracket">
+      <xs:selector xpath=".//mstns:ratebracket" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:validitystart" />
+    </xs:keyref>
+    <xs:keyref name="vistaFormKey4" refer="vistaFormKey8" msdata:RelationName="ratebrackettaxrate">
+      <xs:selector xpath=".//mstns:taxrate" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:validitystart" />
+      <xs:field xpath="mstns:nbracket" />
+    </xs:keyref>
+    <xs:keyref name="vistaFormKey5" refer="vistaFormKey7" msdata:RelationName="taxtaxrate">
+      <xs:selector xpath=".//mstns:taxrate" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:keyref>
+    <xs:keyref name="vistaFormKey6" refer="vistaFormKey11" msdata:RelationName="ratevaliditytaxrate">
+      <xs:selector xpath=".//mstns:taxrate" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:validitystart" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

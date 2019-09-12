@@ -1,0 +1,117 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaUbicazioni" targetNamespace="http://tempuri.org/vistaUbicazioni.xsd" xmlns:mstns="http://tempuri.org/vistaUbicazioni.xsd" xmlns="http://tempuri.org/vistaUbicazioni.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaUbicazioni" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="location">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="locationcode" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="idlocation" type="xs:int" />
+              <xs:element name="paridlocation" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="locationlevel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codelen" type="xs:unsignedByte" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="flag" type="xs:unsignedByte" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="manager">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="passwordweb" type="xs:string" minOccurs="0" />
+              <xs:element name="phonenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="userweb" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" />
+              <xs:element name="iddivision" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="division">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddivision" type="xs:int" />
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="city" type="xs:string" minOccurs="0" />
+              <xs:element name="codedivision" type="xs:string" />
+              <xs:element name="country" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="faxnumber" type="xs:string" minOccurs="0" />
+              <xs:element name="faxprefix" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="phonenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="phoneprefix" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:location" />
+      <xs:field xpath="mstns:idlocation" />
+    </xs:unique>
+    <xs:unique name="locationlevel_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:locationlevel" />
+      <xs:field xpath="mstns:nlevel" />
+    </xs:unique>
+    <xs:unique name="manager_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:manager" />
+      <xs:field xpath="mstns:idman" />
+    </xs:unique>
+    <xs:unique name="division_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:division" />
+      <xs:field xpath="mstns:iddivision" />
+    </xs:unique>
+    <xs:keyref name="division_manager" refer="division_Constraint1">
+      <xs:selector xpath=".//mstns:manager" />
+      <xs:field xpath="mstns:iddivision" />
+    </xs:keyref>
+    <xs:keyref name="location_location" refer="Constraint1">
+      <xs:selector xpath=".//mstns:location" />
+      <xs:field xpath="mstns:paridlocation" />
+    </xs:keyref>
+    <xs:keyref name="manager_location" refer="manager_Constraint1">
+      <xs:selector xpath=".//mstns:location" />
+      <xs:field xpath="mstns:idman" />
+    </xs:keyref>
+    <xs:keyref name="locationlevel_location" refer="locationlevel_Constraint1">
+      <xs:selector xpath=".//mstns:location" />
+      <xs:field xpath="mstns:nlevel" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

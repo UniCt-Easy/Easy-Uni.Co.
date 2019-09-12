@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistatrasmdocpagamento_gener_auto.xsd" xmlns:mstns="http://tempuri.org/Vistatrasmdocpagamento_gener_auto.xsd" xmlns="http://tempuri.org/Vistatrasmdocpagamento_gener_auto.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="treasurer">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idtreasurer" type="xs:int" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdefault" type="xs:string" />
+              <xs:element name="cin" type="xs:string" minOccurs="0" />
+              <xs:element name="idbank" type="xs:string" minOccurs="0" />
+              <xs:element name="idcab" type="xs:string" minOccurs="0" />
+              <xs:element name="cc" type="xs:string" minOccurs="0" />
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="city" type="xs:string" minOccurs="0" />
+              <xs:element name="country" type="xs:string" minOccurs="0" />
+              <xs:element name="phoneprefix" type="xs:string" minOccurs="0" />
+              <xs:element name="phonenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="faxprefix" type="xs:string" minOccurs="0" />
+              <xs:element name="faxnumber" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idaccmotive_payment" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_proceeds" type="xs:string" minOccurs="0" />
+              <xs:element name="agencycodefortransmission" type="xs:string" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="manager">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idman" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="iddivision" type="xs:int" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="phonenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="userweb" type="xs:string" minOccurs="0" />
+              <xs:element name="passwordweb" type="xs:string" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="paymenttransmission">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="kpaymenttransmission" type="xs:int" />
+              <xs:element name="ypaymenttransmission" type="xs:short" />
+              <xs:element name="npaymenttransmission" type="xs:int" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="transmissiondate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="flagmailsent" type="xs:string" minOccurs="0" />
+              <xs:element name="transmissionkind" type="xs:string" minOccurs="0" />
+              <xs:element name="flagtransmissionenabled" type="xs:string" minOccurs="0" />
+              <xs:element name="noep" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="payment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="kpay" type="xs:int" />
+              <xs:element name="ypay" type="xs:short" />
+              <xs:element name="npay" type="xs:int" />
+              <xs:element name="npay_treasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="idstamphandling" type="xs:int" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:unsignedByte" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idfin" type="xs:int" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="printdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="kpaymenttransmission" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accountkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaccountkind" type="xs:string" />
+              <xs:element name="flagda" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="config">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="automanagekind" type="xs:int" minOccurs="0" />
+              <xs:element name="agencycode" type="xs:string" minOccurs="0" />
+              <xs:element name="appname" type="xs:string" minOccurs="0" />
+              <xs:element name="appropriationphasecode" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="assessmentphasecode" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="asset_flagnumbering" type="xs:string" minOccurs="0" />
+              <xs:element name="asset_flagrestart" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_autodocnumbering" type="xs:int" minOccurs="0" />
+              <xs:element name="assetload_flag" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="boxpartitiontitle" type="xs:string" minOccurs="0" />
+              <xs:element name="cashvaliditykind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="casualcontract_flagrestart" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="currpartitiontitle" type="xs:string" minOccurs="0" />
+              <xs:element name="deferredexpensephase" type="xs:string" minOccurs="0" />
+              <xs:element name="deferredincomephase" type="xs:string" minOccurs="0" />
+              <xs:element name="electronicimport" type="xs:string" minOccurs="0" />
+              <xs:element name="electronictrasmission" type="xs:string" minOccurs="0" />
+              <xs:element name="expense_expiringdays" type="xs:short" minOccurs="0" />
+              <xs:element name="expensephase" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="flag_paymentamount" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="flagautopayment" type="xs:string" minOccurs="0" />
+              <xs:element name="flagautoproceeds" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcredit" type="xs:string" minOccurs="0" />
+              <xs:element name="flagepexp" type="xs:string" minOccurs="0" />
+              <xs:element name="flagfruitful" type="xs:string" minOccurs="0" />
+              <xs:element name="flagpayment" type="xs:string" minOccurs="0" />
+              <xs:element name="flagproceeds" type="xs:string" minOccurs="0" />
+              <xs:element name="flagrefund" type="xs:string" minOccurs="0" />
+              <xs:element name="taxvaliditykind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="foreignhours" type="xs:int" minOccurs="0" />
+              <xs:element name="idacc_accruedcost" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_accruedrevenue" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_customer" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_deferredcost" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_deferredcredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_deferreddebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_deferredrevenue" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_ivapayment" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_ivarefund" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_patrimony" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_pl" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_supplier" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_admincar" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_foot" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_owncar" type="xs:string" minOccurs="0" />
+              <xs:element name="idclawback" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinexpense" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinexpensesurplus" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinincomesurplus" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinivapayment" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinivarefund" type="xs:int" minOccurs="0" />
+              <xs:element name="idivapayperiodicity" type="xs:int" minOccurs="0" />
+              <xs:element name="idregauto" type="xs:int" minOccurs="0" />
+              <xs:element name="idsortingkind1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsortingkind2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsortingkind3" type="xs:int" minOccurs="0" />
+              <xs:element name="importappname" type="xs:string" minOccurs="0" />
+              <xs:element name="income_expiringdays" type="xs:short" minOccurs="0" />
+              <xs:element name="incomephase" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="linktoinvoice" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="minpayment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="minrefund" type="xs:decimal" minOccurs="0" />
+              <xs:element name="motivelen" type="xs:short" minOccurs="0" />
+              <xs:element name="motiveprefix" type="xs:string" minOccurs="0" />
+              <xs:element name="motiveseparator" type="xs:string" minOccurs="0" />
+              <xs:element name="payment_finlevel" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="payment_flag" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="payment_flagautoprintdate" type="xs:string" minOccurs="0" />
+              <xs:element name="paymentagency" type="xs:int" minOccurs="0" />
+              <xs:element name="flagbank_grouping" type="xs:int" minOccurs="0" />
+              <xs:element name="fin_kind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="prevpartitiontitle" type="xs:string" minOccurs="0" />
+              <xs:element name="proceeds_finlevel" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="proceeds_flag" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="proceeds_flagautoprintdate" type="xs:string" minOccurs="0" />
+              <xs:element name="profservice_flagrestart" type="xs:string" minOccurs="0" />
+              <xs:element name="refundagency" type="xs:int" minOccurs="0" />
+              <xs:element name="wageaddition_flagrestart" type="xs:string" minOccurs="0" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tax">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="appliancebasis" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="fiscaltaxcode" type="xs:string" minOccurs="0" />
+              <xs:element name="flagunabatable" type="xs:string" minOccurs="0" />
+              <xs:element name="geoappliance" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_cost" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_debit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive_pay" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="taxablecode" type="xs:string" minOccurs="0" />
+              <xs:element name="taxkind" type="xs:short" minOccurs="0" />
+              <xs:element name="taxref" type="xs:string" />
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="maintaxcode" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:treasurer" />
+      <xs:field xpath="mstns:idtreasurer" />
+    </xs:unique>
+    <xs:unique name="manager_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:manager" />
+      <xs:field xpath="mstns:idman" />
+    </xs:unique>
+    <xs:unique name="paymenttransmission_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:paymenttransmission" />
+      <xs:field xpath="mstns:kpaymenttransmission" />
+    </xs:unique>
+    <xs:unique name="payment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:payment" />
+      <xs:field xpath="mstns:kpay" />
+    </xs:unique>
+    <xs:unique name="accountkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accountkind" />
+      <xs:field xpath="mstns:idaccountkind" />
+    </xs:unique>
+    <xs:unique name="config_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:config" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="tax_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tax" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="paymenttransmissionpayment" msdata:parent="paymenttransmission" msdata:child="payment" msdata:parentkey="kpaymenttransmission" msdata:childkey="kpaymenttransmission" />
+      <msdata:Relationship name="managerpaymenttransmission" msdata:parent="manager" msdata:child="paymenttransmission" msdata:parentkey="idman" msdata:childkey="idman" />
+      <msdata:Relationship name="treasurerpaymenttransmission" msdata:parent="treasurer" msdata:child="paymenttransmission" msdata:parentkey="idtreasurer" msdata:childkey="idtreasurer" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

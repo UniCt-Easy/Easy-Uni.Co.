@@ -1,0 +1,127 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="patrimonylevel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="nlevel" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="patrimonylookupview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="oldidpatrimony" type="xs:string" />
+              <xs:element name="oldayear" type="xs:short" />
+              <xs:element name="oldcodepatrimony" type="xs:string" />
+              <xs:element name="oldtitle" type="xs:string" />
+              <xs:element name="oldpatpart" type="xs:string" />
+              <xs:element name="newidpatrimony" type="xs:string" />
+              <xs:element name="newayear" type="xs:short" />
+              <xs:element name="newcodepatrimony" type="xs:string" />
+              <xs:element name="newtitle" type="xs:string" />
+              <xs:element name="newpatpart" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="patrimonylookup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="oldidpatrimony" type="xs:string" />
+              <xs:element name="newidpatrimony" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="patrimony">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpatrimony" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="codepatrimony" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nlevel" type="xs:string" />
+              <xs:element name="paridpatrimony" type="xs:string" />
+              <xs:element name="patpart" type="xs:string" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="patrimony1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpatrimony" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="codepatrimony" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nlevel" type="xs:string" />
+              <xs:element name="paridpatrimony" type="xs:string" />
+              <xs:element name="patpart" type="xs:string" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:patrimonylevel" />
+      <xs:field xpath="mstns:ayear" />
+      <xs:field xpath="mstns:nlevel" />
+    </xs:unique>
+    <xs:unique name="patrimonylookupview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:patrimonylookupview" />
+      <xs:field xpath="mstns:oldidpatrimony" />
+      <xs:field xpath="mstns:newidpatrimony" />
+    </xs:unique>
+    <xs:unique name="patrimonylookup_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:patrimonylookup" />
+      <xs:field xpath="mstns:oldidpatrimony" />
+      <xs:field xpath="mstns:newidpatrimony" />
+    </xs:unique>
+    <xs:unique name="patrimony_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:patrimony" />
+      <xs:field xpath="mstns:idpatrimony" />
+    </xs:unique>
+    <xs:unique name="patrimony1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:patrimony1" />
+      <xs:field xpath="mstns:idpatrimony" />
+    </xs:unique>
+    <xs:keyref name="patrimony1_patrimonylookup" refer="patrimony1_Constraint1">
+      <xs:selector xpath=".//mstns:patrimonylookup" />
+      <xs:field xpath="mstns:newidpatrimony" />
+    </xs:keyref>
+    <xs:keyref name="patrimony_patrimonylookup" refer="patrimony_Constraint1">
+      <xs:selector xpath=".//mstns:patrimonylookup" />
+      <xs:field xpath="mstns:oldidpatrimony" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

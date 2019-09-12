@@ -1,0 +1,64 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="roma">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ente" type="xs:string" minOccurs="0" />
+              <xs:element name="esercdocumento" type="xs:short" minOccurs="0" />
+              <xs:element name="numtipomovimento" type="xs:string" minOccurs="0" />
+              <xs:element name="rifbanca" type="xs:int" minOccurs="0" />
+              <xs:element name="numdocumento" type="xs:int" minOccurs="0" />
+              <xs:element name="progrdoc" type="xs:string" minOccurs="0" />
+              <xs:element name="datapagamento" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="divisa" type="xs:string" minOccurs="0" />
+              <xs:element name="codicebollo" type="xs:string" minOccurs="0" />
+              <xs:element name="creditoredebitore" type="xs:string" minOccurs="0" />
+              <xs:element name="codicessd" type="xs:string" minOccurs="0" />
+              <xs:element name="causale" type="xs:string" minOccurs="0" />
+              <xs:element name="tipo" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="datavaluta" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="capitolo" type="xs:int" minOccurs="0" />
+              <xs:element name="articolo" type="xs:int" minOccurs="0" />
+              <xs:element name="annoresiduo" type="xs:string" minOccurs="0" />
+              <xs:element name="importooriginalesub" type="xs:string" minOccurs="0" />
+              <xs:element name="divisaios" type="xs:string" minOccurs="0" />
+              <xs:element name="datacaricamento" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tipopagamento" type="xs:int" minOccurs="0" />
+              <xs:element name="datavalutabeneficiario" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="abi" type="xs:int" minOccurs="0" />
+              <xs:element name="cab" type="xs:int" minOccurs="0" />
+              <xs:element name="conto" type="xs:string" minOccurs="0" />
+              <xs:element name="cin" type="xs:string" minOccurs="0" />
+              <xs:element name="indirizzo" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="localita" type="xs:string" minOccurs="0" />
+              <xs:element name="voceeconomica" type="xs:string" minOccurs="0" />
+              <xs:element name="competenzaresidui" type="xs:string" minOccurs="0" />
+              <xs:element name="attribuito" type="xs:string" minOccurs="0" />
+              <xs:element name="dataimportazione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tipdoc" type="xs:string" minOccurs="0" />
+              <xs:element name="segno" type="xs:string" minOccurs="0" />
+              <xs:element name="indreg" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="bankdispositionsetup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:bankdispositionsetup" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

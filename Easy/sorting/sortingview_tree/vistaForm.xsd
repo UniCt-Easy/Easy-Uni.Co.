@@ -1,0 +1,65 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistafrmClassMovimentiViewTreeSelect.xsd" xmlns:mstns="http://tempuri.org/VistafrmClassMovimentiViewTreeSelect.xsd" xmlns="http://tempuri.org/VistafrmClassMovimentiViewTreeSelect.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="sortinglevel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flag" type="xs:short" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sortingview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="sortcode" type="xs:string" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="leveldescr" type="xs:string" />
+              <xs:element name="paridsor" type="xs:int" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="ayear" type="xs:short" minOccurs="0" />
+              <xs:element name="incomeprevision" type="xs:decimal" minOccurs="0" />
+              <xs:element name="expenseprevision" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="stop" type="xs:short" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sortinglevel" />
+      <xs:field xpath="mstns:nlevel" />
+      <xs:field xpath="mstns:idsorkind" />
+    </xs:unique>
+    <xs:unique name="sortingview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sortingview" />
+      <xs:field xpath="mstns:idsorkind" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
+    <xs:keyref name="sortingviewsortingview" refer="sortingview_Constraint1">
+      <xs:selector xpath=".//mstns:sortingview" />
+      <xs:field xpath="mstns:idsorkind" />
+      <xs:field xpath="mstns:paridsor" />
+    </xs:keyref>
+    <xs:keyref name="sortinglevelsortingview" refer="Constraint1">
+      <xs:selector xpath=".//mstns:sortingview" />
+      <xs:field xpath="mstns:nlevel" />
+      <xs:field xpath="mstns:idsorkind" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

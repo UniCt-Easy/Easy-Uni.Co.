@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaTipoDeduzioneLista.xsd" xmlns:mstns="http://tempuri.org/VistaTipoDeduzioneLista.xsd" xmlns="http://tempuri.org/VistaTipoDeduzioneLista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="taxablekind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="taxablecode" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="evaluationorder" type="xs:int" />
+              <xs:element name="roundingkind" type="xs:string" minOccurs="0" />
+              <xs:element name="spcalcrefertaxable" type="xs:string" />
+              <xs:element name="spcalcannualtaxable" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="deductioncode">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddeduction" type="xs:int" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="exemption" type="xs:decimal" minOccurs="0" />
+              <xs:element name="maximal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="longdescription" type="xs:string" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="deduction">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddeduction" type="xs:int" />
+              <xs:element name="_x0021_codicededuzione" type="xs:string" minOccurs="0" />
+              <xs:element name="calculationkind" type="xs:string" />
+              <xs:element name="taxablecode" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="evaluatesp" type="xs:string" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="validitystart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="validitystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="evaluationorder" type="xs:int" minOccurs="0" />
+              <xs:element name="flagdeductibleexpense" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_franchigia" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_massimale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_aliquota" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="deductionview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddeduction" type="xs:int" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="deductioncode" type="xs:string" minOccurs="0" />
+              <xs:element name="calculationkind" type="xs:string" />
+              <xs:element name="taxablecode" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="longdescription" type="xs:string" minOccurs="0" />
+              <xs:element name="validitystart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="validitystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="evaluatesp" type="xs:string" />
+              <xs:element name="evaluationorder" type="xs:int" minOccurs="0" />
+              <xs:element name="deductiontitle" type="xs:string" minOccurs="0" />
+              <xs:element name="exemption" type="xs:decimal" minOccurs="0" />
+              <xs:element name="maximal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flagdeductibleexpense" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:taxablekind" />
+      <xs:field xpath="mstns:taxablecode" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="deductioncode_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:deductioncode" />
+      <xs:field xpath="mstns:iddeduction" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="deduction_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:deduction" />
+      <xs:field xpath="mstns:iddeduction" />
+    </xs:unique>
+    <xs:unique name="deductionview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:deductionview" />
+      <xs:field xpath="mstns:iddeduction" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="taxablekinddeduction" msdata:parent="taxablekind" msdata:child="deduction" msdata:parentkey="taxablecode" msdata:childkey="taxablecode" />
+      <msdata:Relationship name="deductiondeductioncode" msdata:parent="deduction" msdata:child="deductioncode" msdata:parentkey="iddeduction" msdata:childkey="iddeduction" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

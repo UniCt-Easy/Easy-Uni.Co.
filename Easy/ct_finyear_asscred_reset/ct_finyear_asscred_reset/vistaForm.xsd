@@ -1,0 +1,92 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="finvar">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nvar" type="xs:int" />
+              <xs:element name="yvar" type="xs:short" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="enactment" type="xs:string" minOccurs="0" />
+              <xs:element name="enactmentdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="flagcredit" type="xs:string" />
+              <xs:element name="flagprevision" type="xs:string" />
+              <xs:element name="flagproceeds" type="xs:string" />
+              <xs:element name="flagsecondaryprev" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nenactment" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="official" type="xs:string" minOccurs="0" />
+              <xs:element name="nofficial" type="xs:int" minOccurs="0" />
+              <xs:element name="variationkind" type="xs:unsignedByte" />
+              <xs:element name="idfinvarstatus" type="xs:short" minOccurs="0" />
+              <xs:element name="idenactment" type="xs:int" minOccurs="0" />
+              <xs:element name="reason" type="xs:string" minOccurs="0" />
+              <xs:element name="limit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinvarkind" type="xs:int" minOccurs="0" />
+              <xs:element name="moneytransfer" type="xs:string" minOccurs="0" />
+              <xs:element name="varflag" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="finvardetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="nvar" type="xs:int" />
+              <xs:element name="yvar" type="xs:short" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idfin" type="xs:int" />
+              <xs:element name="limit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="idlcard" type="xs:int" minOccurs="0" />
+              <xs:element name="rownum" type="xs:int" />
+              <xs:element name="idunderwriting" type="xs:int" minOccurs="0" />
+              <xs:element name="prevision2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="prevision3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="createexpense" type="xs:string" minOccurs="0" />
+              <xs:element name="idexp" type="xs:int" minOccurs="0" />
+              <xs:element name="residual" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousprevision" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finvar" />
+      <xs:field xpath="mstns:nvar" />
+      <xs:field xpath="mstns:yvar" />
+    </xs:unique>
+    <xs:unique name="finvardetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finvardetail" />
+      <xs:field xpath="mstns:nvar" />
+      <xs:field xpath="mstns:yvar" />
+      <xs:field xpath="mstns:rownum" />
+    </xs:unique>
+    <xs:keyref name="FK_finvar_finvardetail" refer="Constraint1">
+      <xs:selector xpath=".//mstns:finvardetail" />
+      <xs:field xpath="mstns:nvar" />
+      <xs:field xpath="mstns:yvar" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,210 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaComunicazioneDaCaf.xsd" xmlns:mstns="http://tempuri.org/VistaComunicazioneDaCaf.xsd" xmlns="http://tempuri.org/VistaComunicazioneDaCaf.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="cafdocument">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcafdocument" type="xs:int" />
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="cafdocumentkind" type="xs:string" />
+              <xs:element name="docdate" type="xs:dateTime" />
+              <xs:element name="citytaxtorefundhusband" type="xs:decimal" minOccurs="0" />
+              <xs:element name="citytaxtorefund" type="xs:decimal" minOccurs="0" />
+              <xs:element name="citytaxtoretainhusband" type="xs:decimal" minOccurs="0" />
+              <xs:element name="citytaxtoretain" type="xs:decimal" minOccurs="0" />
+              <xs:element name="regionaltaxtorefundhusband" type="xs:decimal" minOccurs="0" />
+              <xs:element name="regionaltaxtorefund" type="xs:decimal" minOccurs="0" />
+              <xs:element name="regionaltaxtoretainhusband" type="xs:decimal" minOccurs="0" />
+              <xs:element name="regionaltaxtoretain" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idfiscaltaxregion" type="xs:string" minOccurs="0" />
+              <xs:element name="irpeftorefund" type="xs:decimal" minOccurs="0" />
+              <xs:element name="irpeftoretain" type="xs:decimal" minOccurs="0" />
+              <xs:element name="startmonth" type="xs:int" minOccurs="0" />
+              <xs:element name="monthfirstinstalment" type="xs:int" minOccurs="0" />
+              <xs:element name="monthsecondinstalment" type="xs:int" minOccurs="0" />
+              <xs:element name="ratequantity" type="xs:int" minOccurs="0" />
+              <xs:element name="nquotafirstinstalment" type="xs:int" minOccurs="0" />
+              <xs:element name="nquotasecondinstalment" type="xs:int" minOccurs="0" />
+              <xs:element name="firstrateadvance" type="xs:decimal" minOccurs="0" />
+              <xs:element name="separatedincomehusband" type="xs:decimal" minOccurs="0" />
+              <xs:element name="separatedincome" type="xs:decimal" minOccurs="0" />
+              <xs:element name="secondrateadvance" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="citytaxaccount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="citytaxaccounthusband" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="monthname">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="cfvalue" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fiscaltaxregion">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfiscaltaxregion" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idcountry" type="xs:int" minOccurs="0" />
+              <xs:element name="idregion" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="geo_city_agencyview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcity" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="idagency" type="xs:int" />
+              <xs:element name="agencyname" type="xs:string" minOccurs="0" />
+              <xs:element name="agencywebsite" type="xs:string" minOccurs="0" />
+              <xs:element name="idcode" type="xs:int" />
+              <xs:element name="version" type="xs:int" />
+              <xs:element name="codename" type="xs:string" minOccurs="0" />
+              <xs:element name="value" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="provincecode" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cafdocumentview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcafdocument" type="xs:int" />
+              <xs:element name="idcon" type="xs:string" />
+              <xs:element name="ycon" type="xs:int" />
+              <xs:element name="ncon" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="registry" type="xs:string" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="cafdocumentkind" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" />
+              <xs:element name="citytaxtorefundhusband" type="xs:decimal" minOccurs="0" />
+              <xs:element name="citytaxtorefund" type="xs:decimal" minOccurs="0" />
+              <xs:element name="citytaxtoretainhusband" type="xs:decimal" minOccurs="0" />
+              <xs:element name="citytaxtoretain" type="xs:decimal" minOccurs="0" />
+              <xs:element name="regionaltaxtorefundhusband" type="xs:decimal" minOccurs="0" />
+              <xs:element name="regionaltaxtorefund" type="xs:decimal" minOccurs="0" />
+              <xs:element name="regionaltaxtoretainhusband" type="xs:decimal" minOccurs="0" />
+              <xs:element name="regionaltaxtoretain" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="citycode" type="xs:string" minOccurs="0" />
+              <xs:element name="idfiscaltaxregion" type="xs:string" minOccurs="0" />
+              <xs:element name="fiscaltaxregion" type="xs:string" minOccurs="0" />
+              <xs:element name="irpeftorefund" type="xs:decimal" minOccurs="0" />
+              <xs:element name="irpeftoretain" type="xs:decimal" minOccurs="0" />
+              <xs:element name="startmonth" type="xs:int" minOccurs="0" />
+              <xs:element name="monthfirstinstalment" type="xs:int" minOccurs="0" />
+              <xs:element name="monthsecondinstalment" type="xs:int" minOccurs="0" />
+              <xs:element name="ratequantity" type="xs:int" minOccurs="0" />
+              <xs:element name="nquotafirstinstalment" type="xs:int" minOccurs="0" />
+              <xs:element name="nquotasecondinstalment" type="xs:int" minOccurs="0" />
+              <xs:element name="firstrateadvance" type="xs:decimal" minOccurs="0" />
+              <xs:element name="separatedincomehusband" type="xs:decimal" minOccurs="0" />
+              <xs:element name="separatedincome" type="xs:decimal" minOccurs="0" />
+              <xs:element name="secondrateadvance" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="citytaxaccount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="citytaxaccounthusband" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="monthname1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="cfvalue" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="monthname2">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="cfvalue" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cafdocument" />
+      <xs:field xpath="mstns:idcafdocument" />
+      <xs:field xpath="mstns:idcon" />
+    </xs:unique>
+    <xs:unique name="monthname_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:monthname" />
+      <xs:field xpath="mstns:code" />
+    </xs:unique>
+    <xs:unique name="fiscaltaxregion_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:fiscaltaxregion" />
+      <xs:field xpath="mstns:idfiscaltaxregion" />
+    </xs:unique>
+    <xs:unique name="geo_city_agencyview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_city_agencyview" />
+      <xs:field xpath="mstns:idcity" />
+      <xs:field xpath="mstns:idagency" />
+      <xs:field xpath="mstns:idcode" />
+      <xs:field xpath="mstns:version" />
+    </xs:unique>
+    <xs:unique name="Constraint2">
+      <xs:selector xpath=".//mstns:geo_city_agencyview" />
+      <xs:field xpath="mstns:idcity" />
+    </xs:unique>
+    <xs:unique name="cafdocumentview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cafdocumentview" />
+      <xs:field xpath="mstns:idcafdocument" />
+      <xs:field xpath="mstns:idcon" />
+    </xs:unique>
+    <xs:unique name="monthname1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:monthname1" />
+      <xs:field xpath="mstns:code" />
+    </xs:unique>
+    <xs:unique name="monthname2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:monthname2" />
+      <xs:field xpath="mstns:code" />
+    </xs:unique>
+    <xs:keyref name="monthname2_cafdocument" refer="monthname2_Constraint1">
+      <xs:selector xpath=".//mstns:cafdocument" />
+      <xs:field xpath="mstns:monthsecondinstalment" />
+    </xs:keyref>
+    <xs:keyref name="monthname1_cafdocument" refer="monthname1_Constraint1">
+      <xs:selector xpath=".//mstns:cafdocument" />
+      <xs:field xpath="mstns:monthfirstinstalment" />
+    </xs:keyref>
+    <xs:keyref name="monthname_cafdocument" refer="monthname_Constraint1">
+      <xs:selector xpath=".//mstns:cafdocument" />
+      <xs:field xpath="mstns:startmonth" />
+    </xs:keyref>
+    <xs:keyref name="geo_city_agencyviewcafdocument" refer="Constraint2">
+      <xs:selector xpath=".//mstns:cafdocument" />
+      <xs:field xpath="mstns:idcity" />
+    </xs:keyref>
+    <xs:keyref name="fiscaltaxregioncafdocument" refer="fiscaltaxregion_Constraint1">
+      <xs:selector xpath=".//mstns:cafdocument" />
+      <xs:field xpath="mstns:idfiscaltaxregion" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,96 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="VistaUpb" targetNamespace="http://tempuri.org/VistaUpb.xsd" xmlns:mstns="http://tempuri.org/VistaUpb.xsd" xmlns="http://tempuri.org/VistaUpb.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="VistaUpb" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="upb">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:string" minOccurs="0" />
+              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="finvar">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="yvar" type="xs:short" />
+              <xs:element name="nvar" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="enactment" type="xs:string" minOccurs="0" />
+              <xs:element name="variationkind" type="xs:string" minOccurs="0" />
+              <xs:element name="nenactment" type="xs:string" minOccurs="0" />
+              <xs:element name="enactmentdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="flagprevision" type="xs:string" />
+              <xs:element name="flagcredit" type="xs:string" />
+              <xs:element name="flagproceeds" type="xs:string" />
+              <xs:element name="flagsecondaryprev" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="finvardetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfin" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="nvar" type="xs:int" />
+              <xs:element name="yvar" type="xs:short" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="finvar_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finvar" />
+      <xs:field xpath="mstns:yvar" />
+      <xs:field xpath="mstns:nvar" />
+    </xs:unique>
+    <xs:unique name="finvardetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finvardetail" />
+      <xs:field xpath="mstns:idfin" />
+      <xs:field xpath="mstns:idupb" />
+      <xs:field xpath="mstns:nvar" />
+      <xs:field xpath="mstns:yvar" />
+    </xs:unique>
+    <xs:keyref name="finvarfinvardetail" refer="finvar_Constraint1">
+      <xs:selector xpath=".//mstns:finvardetail" />
+      <xs:field xpath="mstns:yvar" />
+      <xs:field xpath="mstns:nvar" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

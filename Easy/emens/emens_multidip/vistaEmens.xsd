@@ -1,0 +1,116 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaEmens" targetNamespace="http://tempuri.org/vistaEmens.xsd" xmlns:mstns="http://tempuri.org/vistaEmens.xsd" xmlns="http://tempuri.org/vistaEmens.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaEmens" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Azienda">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AnnoMeseDenuncia" type="xs:string" />
+              <xs:element name="CFAzienda" type="xs:string" />
+              <xs:element name="RagSocAzienda" type="xs:string" />
+              <xs:element name="CAP" type="xs:string" minOccurs="0" />
+              <xs:element name="ISTAT" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Collaboratore">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CFCollaboratore" type="xs:string" />
+              <xs:element name="Cognome" type="xs:string" minOccurs="0" />
+              <xs:element name="Nome" type="xs:string" minOccurs="0" />
+              <xs:element name="CodiceComune" type="xs:string" minOccurs="0" />
+              <xs:element name="TipoRapporto" type="xs:string" />
+              <xs:element name="CodiceAttivita" type="xs:string" minOccurs="0" />
+              <xs:element name="Imponibile" type="xs:string" minOccurs="0" />
+              <xs:element name="Aliquota" type="xs:string" />
+              <xs:element name="AltraAss" type="xs:string" minOccurs="0" />
+              <xs:element name="Dal" type="xs:string" minOccurs="0" />
+              <xs:element name="Al" type="xs:string" minOccurs="0" />
+              <xs:element name="CodCalamita" type="xs:string" minOccurs="0" />
+              <xs:element name="CodCertificazione" type="xs:string" minOccurs="0" />
+              <xs:element name="AnnoMeseDenuncia" type="xs:string" />
+              <xs:element name="CFAzienda" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Emens">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AnnoMeseDenuncia" type="xs:string" />
+              <xs:element name="CFAzienda" type="xs:string" />
+              <xs:element name="CFCollaboratore" type="xs:string" />
+              <xs:element name="Cognome" type="xs:string" minOccurs="0" />
+              <xs:element name="Nome" type="xs:string" minOccurs="0" />
+              <xs:element name="CodiceComune" type="xs:string" minOccurs="0" />
+              <xs:element name="TipoRapporto" type="xs:string" />
+              <xs:element name="CodiceAttivita" type="xs:string" minOccurs="0" />
+              <xs:element name="Imponibile" type="xs:string" minOccurs="0" />
+              <xs:element name="Aliquota" type="xs:string" />
+              <xs:element name="AltraAss" type="xs:string" minOccurs="0" />
+              <xs:element name="Dal" type="xs:string" minOccurs="0" />
+              <xs:element name="Al" type="xs:string" minOccurs="0" />
+              <xs:element name="CodCalamita" type="xs:string" minOccurs="0" />
+              <xs:element name="CodCertificazione" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inpscenter">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinpscenter" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="ccp" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="emenscontractkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="idemenscontractkind" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Azienda" />
+      <xs:field xpath="mstns:AnnoMeseDenuncia" />
+      <xs:field xpath="mstns:CFAzienda" />
+    </xs:unique>
+    <xs:unique name="Collaboratore_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Collaboratore" />
+      <xs:field xpath="mstns:CFCollaboratore" />
+      <xs:field xpath="mstns:AnnoMeseDenuncia" />
+      <xs:field xpath="mstns:CFAzienda" />
+      <xs:field xpath="mstns:TipoRapporto" />
+      <xs:field xpath="mstns:Aliquota" />
+    </xs:unique>
+    <xs:unique name="Emens_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Emens" />
+      <xs:field xpath="mstns:AnnoMeseDenuncia" />
+      <xs:field xpath="mstns:CFAzienda" />
+      <xs:field xpath="mstns:CFCollaboratore" />
+      <xs:field xpath="mstns:TipoRapporto" />
+      <xs:field xpath="mstns:Aliquota" />
+    </xs:unique>
+    <xs:unique name="inpscenter_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inpscenter" />
+      <xs:field xpath="mstns:idinpscenter" />
+    </xs:unique>
+    <xs:unique name="emenscontractkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:emenscontractkind" />
+      <xs:field xpath="mstns:ayear" />
+      <xs:field xpath="mstns:idemenscontractkind" />
+    </xs:unique>
+    <xs:keyref name="AziendaCollaboratore" refer="Constraint1">
+      <xs:selector xpath=".//mstns:Collaboratore" />
+      <xs:field xpath="mstns:AnnoMeseDenuncia" />
+      <xs:field xpath="mstns:CFAzienda" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

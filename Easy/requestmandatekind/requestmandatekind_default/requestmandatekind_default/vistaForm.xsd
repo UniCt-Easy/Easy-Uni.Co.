@@ -1,0 +1,146 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="requestmandatekind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmankind_original" type="xs:string" />
+              <xs:element name="idmankind" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mandatekind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmankind" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="faxnumber" type="xs:string" minOccurs="0" />
+              <xs:element name="office" type="xs:string" minOccurs="0" />
+              <xs:element name="phonenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="linktoasset" type="xs:string" minOccurs="0" />
+              <xs:element name="linktoinvoice" type="xs:string" minOccurs="0" />
+              <xs:element name="multireg" type="xs:string" minOccurs="0" />
+              <xs:element name="deltaamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="deltapercentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flag_autodocnumbering" type="xs:string" minOccurs="0" />
+              <xs:element name="flagactivity" type="xs:short" minOccurs="0" />
+              <xs:element name="name_c" type="xs:string" minOccurs="0" />
+              <xs:element name="name_l" type="xs:string" minOccurs="0" />
+              <xs:element name="name_r" type="xs:string" minOccurs="0" />
+              <xs:element name="title_c" type="xs:string" minOccurs="0" />
+              <xs:element name="title_l" type="xs:string" minOccurs="0" />
+              <xs:element name="title_r" type="xs:string" minOccurs="0" />
+              <xs:element name="notes1" type="xs:string" minOccurs="0" />
+              <xs:element name="notes2" type="xs:string" minOccurs="0" />
+              <xs:element name="notes3" type="xs:string" minOccurs="0" />
+              <xs:element name="warnmail" type="xs:string" minOccurs="0" />
+              <xs:element name="isrequest" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="assetkind" type="xs:unsignedByte" />
+              <xs:element name="dangermail" type="xs:string" minOccurs="0" />
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="header" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="touniqueregister" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="riferimento_amministrazione" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcreatedoubleentry" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mandatekind_original">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmankind" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="faxnumber" type="xs:string" minOccurs="0" />
+              <xs:element name="office" type="xs:string" minOccurs="0" />
+              <xs:element name="phonenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="linktoasset" type="xs:string" minOccurs="0" />
+              <xs:element name="linktoinvoice" type="xs:string" minOccurs="0" />
+              <xs:element name="multireg" type="xs:string" minOccurs="0" />
+              <xs:element name="deltaamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="deltapercentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flag_autodocnumbering" type="xs:string" minOccurs="0" />
+              <xs:element name="flagactivity" type="xs:short" minOccurs="0" />
+              <xs:element name="name_c" type="xs:string" minOccurs="0" />
+              <xs:element name="name_l" type="xs:string" minOccurs="0" />
+              <xs:element name="name_r" type="xs:string" minOccurs="0" />
+              <xs:element name="title_c" type="xs:string" minOccurs="0" />
+              <xs:element name="title_l" type="xs:string" minOccurs="0" />
+              <xs:element name="title_r" type="xs:string" minOccurs="0" />
+              <xs:element name="notes1" type="xs:string" minOccurs="0" />
+              <xs:element name="notes2" type="xs:string" minOccurs="0" />
+              <xs:element name="notes3" type="xs:string" minOccurs="0" />
+              <xs:element name="warnmail" type="xs:string" minOccurs="0" />
+              <xs:element name="isrequest" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="assetkind" type="xs:unsignedByte" />
+              <xs:element name="dangermail" type="xs:string" minOccurs="0" />
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="header" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="touniqueregister" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="riferimento_amministrazione" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcreatedoubleentry" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:requestmandatekind" />
+      <xs:field xpath="mstns:idmankind_original" />
+      <xs:field xpath="mstns:idmankind" />
+    </xs:unique>
+    <xs:unique name="mandatekind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mandatekind" />
+      <xs:field xpath="mstns:idmankind" />
+    </xs:unique>
+    <xs:unique name="mandatekind_original_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mandatekind_original" />
+      <xs:field xpath="mstns:idmankind" />
+    </xs:unique>
+    <xs:keyref name="mandatekind_original_requestmandatekind" refer="mandatekind_original_Constraint1">
+      <xs:selector xpath=".//mstns:requestmandatekind" />
+      <xs:field xpath="mstns:idmankind_original" />
+    </xs:keyref>
+    <xs:keyref name="mandatekind_requestmandatekind" refer="mandatekind_Constraint1">
+      <xs:selector xpath=".//mstns:requestmandatekind" />
+      <xs:field xpath="mstns:idmankind" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

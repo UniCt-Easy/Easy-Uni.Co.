@@ -1,0 +1,63 @@
+<?xml version="1.0" standalone="yes" ?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaFrmLicenzaUsoEstesa.xsd"
+	xmlns:mstns="http://tempuri.org/vistaFrmLicenzaUsoEstesa.xsd" xmlns="http://tempuri.org/vistaFrmLicenzaUsoEstesa.xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+	attributeFormDefault="qualified" elementFormDefault="qualified">
+	<xs:element name="vistaForm" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="license">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="departmentname" type="xs:string" minOccurs="0" />
+							<xs:element name="agencyname" type="xs:string" minOccurs="0" />
+							<xs:element name="address1" type="xs:string" minOccurs="0" />
+							<xs:element name="address2" type="xs:string" minOccurs="0" />
+							<xs:element name="cap" type="xs:string" minOccurs="0" />
+							<xs:element name="location" type="xs:string" minOccurs="0" />
+							<xs:element name="country" type="xs:string" minOccurs="0" />
+							<xs:element name="cf" type="xs:string" minOccurs="0" />
+							<xs:element name="p_iva" type="xs:string" minOccurs="0" />
+							<xs:element name="agencycode" type="xs:string" minOccurs="0" />
+							<xs:element name="idreg" type="xs:int" minOccurs="0" />
+							<xs:element name="sent" type="xs:string" minOccurs="0" />
+							<xs:element name="swmorecode" type="xs:string" minOccurs="0" />
+							<xs:element name="swmoreflag" type="xs:int" minOccurs="0" />
+							<xs:element name="iddb" type="xs:int" minOccurs="0" />
+							<xs:element name="servername" type="xs:string" minOccurs="0" />
+							<xs:element name="dbname" type="xs:string" minOccurs="0" />
+							<xs:element name="lickind" type="xs:string" minOccurs="0" />
+							<xs:element name="expiringlic" type="xs:dateTime" minOccurs="0" />
+							<xs:element name="licstatus" type="xs:string" minOccurs="0" />
+							<xs:element name="checklic" type="xs:string" minOccurs="0" />
+							<xs:element name="mankind" type="xs:string" minOccurs="0" />
+							<xs:element name="expiringman" type="xs:dateTime" minOccurs="0" />
+							<xs:element name="manstatus" type="xs:string" minOccurs="0" />
+							<xs:element name="checkman" type="xs:string" minOccurs="0" />
+							<xs:element name="checkflag" type="xs:string" minOccurs="0" />
+							<xs:element name="agency" type="xs:string" minOccurs="0" />
+							<xs:element name="department" type="xs:string" minOccurs="0" />
+							<xs:element name="referent" type="xs:string" minOccurs="0" />
+							<xs:element name="phonenumber" type="xs:string" minOccurs="0" />
+							<xs:element name="fax" type="xs:string" minOccurs="0" />
+							<xs:element name="email" type="xs:string" minOccurs="0" />
+							<xs:element name="annotations" type="xs:string" minOccurs="0" />
+							<xs:element name="nmsgs" type="xs:int" minOccurs="0" />
+							<xs:element name="dummykey" type="xs:string" />
+							<xs:element name="lu" type="xs:string" minOccurs="0" />
+							<xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+							<xs:element name="serverbackup1" type="xs:string" minOccurs="0" />
+							<xs:element name="checkbackup1" type="xs:string" minOccurs="0" />
+							<xs:element name="serverbackup2" type="xs:string" minOccurs="0" />
+							<xs:element name="checkbackup2" type="xs:string" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+		<xs:unique name="vistaFormKey1" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:license" />
+			<xs:field xpath="mstns:dummykey" />
+		</xs:unique>
+	</xs:element>
+</xs:schema>

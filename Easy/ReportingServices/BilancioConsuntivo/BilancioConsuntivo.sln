@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "BilancioConsuntivo", "BilancioConsuntivo\BilancioConsuntivo.rptproj", "{7B45582F-E8C0-4ADB-ABCF-E976730A22CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		DebugLocal|Default = DebugLocal|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B45582F-E8C0-4ADB-ABCF-E976730A22CD}.Debug|Default.ActiveCfg = Debug
+		{7B45582F-E8C0-4ADB-ABCF-E976730A22CD}.Debug|Default.Build.0 = Debug
+		{7B45582F-E8C0-4ADB-ABCF-E976730A22CD}.Debug|Default.Deploy.0 = Debug
+		{7B45582F-E8C0-4ADB-ABCF-E976730A22CD}.DebugLocal|Default.ActiveCfg = DebugLocal
+		{7B45582F-E8C0-4ADB-ABCF-E976730A22CD}.DebugLocal|Default.Build.0 = DebugLocal
+		{7B45582F-E8C0-4ADB-ABCF-E976730A22CD}.Release|Default.ActiveCfg = Release
+		{7B45582F-E8C0-4ADB-ABCF-E976730A22CD}.Release|Default.Build.0 = Release
+		{7B45582F-E8C0-4ADB-ABCF-E976730A22CD}.Release|Default.Deploy.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

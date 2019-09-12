@@ -1,0 +1,64 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaCustomViewColumn.xsd" xmlns:mstns="http://tempuri.org/vistaCustomViewColumn.xsd" xmlns="http://tempuri.org/vistaCustomViewColumn.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="customviewcolumn">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="objectname" type="xs:string" />
+              <xs:element name="viewname" type="xs:string" />
+              <xs:element name="colnumber" type="xs:short" />
+              <xs:element name="heading" type="xs:string" minOccurs="0" />
+              <xs:element name="colwidth" type="xs:int" minOccurs="0" />
+              <xs:element name="visible" type="xs:short" minOccurs="0" />
+              <xs:element name="fontname" type="xs:string" minOccurs="0" />
+              <xs:element name="fontsize" type="xs:short" minOccurs="0" />
+              <xs:element name="bold" type="xs:short" minOccurs="0" />
+              <xs:element name="italic" type="xs:short" minOccurs="0" />
+              <xs:element name="underline" type="xs:short" minOccurs="0" />
+              <xs:element name="strikeout" type="xs:short" minOccurs="0" />
+              <xs:element name="color" type="xs:int" minOccurs="0" />
+              <xs:element name="format" type="xs:string" minOccurs="0" />
+              <xs:element name="isreal" type="xs:string" minOccurs="0" />
+              <xs:element name="expression" type="xs:string" minOccurs="0" />
+              <xs:element name="colname" type="xs:string" minOccurs="0" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+              <xs:element name="systemtype" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="columntypes">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="field" type="xs:string" />
+              <xs:element name="lastmodtimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lastmoduser" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="vistaFormKey1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:customviewcolumn" />
+      <xs:field xpath="mstns:objectname" />
+      <xs:field xpath="mstns:viewname" />
+      <xs:field xpath="mstns:colnumber" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey3" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:columntypes" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:field" />
+    </xs:unique>
+    <xs:unique name="vistaFormKey4">
+      <xs:selector xpath=".//mstns:columntypes" />
+      <xs:field xpath="mstns:field" />
+    </xs:unique>
+    <xs:keyref name="vistaFormKey2" refer="vistaFormKey4" msdata:RelationName="columntypescustomviewcolumn">
+      <xs:selector xpath=".//mstns:customviewcolumn" />
+      <xs:field xpath="mstns:colname" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

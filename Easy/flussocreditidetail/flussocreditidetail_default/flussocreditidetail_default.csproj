@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BEBF4D53-481E-4EAA-ADC3-10D6ADA36957}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>flussocreditidetail_default</RootNamespace>
+    <AssemblyName>flussocreditidetail_default</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ep_functions">
+      <HintPath>..\..\unmanaged\ep_functions\bin\Debug\ep_functions.dll</HintPath>
+    </Reference>
+    <Reference Include="funzioni_configurazione">
+      <HintPath>..\..\unmanaged\funzioni_configurazione\bin\Debug\funzioni_configurazione.dll</HintPath>
+    </Reference>
+    <Reference Include="metadatalibrary">
+      <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="meta_estimatekind">
+      <HintPath>..\..\estimatekind\meta_estimatekind\bin\Debug\meta_estimatekind.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_estimatekind</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_flussocreditidetail">
+      <HintPath>..\meta_flussocreditidetail\bin\Debug\meta_flussocreditidetail.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_flussocreditidetail</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_invoicekind">
+      <HintPath>..\..\invoicekind\meta_invoicekind\bin\Debug\meta_invoicekind.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_invoicekind</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_accmotiveapplied">
+      <HintPath>..\..\accmotive\meta_accmotiveapplied\bin\Debug\meta_accmotiveapplied.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_accmotiveapplied</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_upb">
+      <HintPath>..\..\upb\meta_upb\bin\Debug\meta_upb.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_upb</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_sorting">
+      <HintPath>..\..\sorting\meta_sorting\bin\Debug\meta_sorting.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_sorting</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_ivakind">
+      <HintPath>..\..\ivakind\meta_ivakind\bin\Debug\meta_ivakind.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_ivakind</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_list">
+      <HintPath>..\..\list\meta_list\bin\Debug\meta_list.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_list</Name>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Frm_flussocreditidetail_default.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_flussocreditidetail_default.Designer.cs">
+      <DependentUpon>Frm_flussocreditidetail_default.cs</DependentUpon>
+    </Compile>
+    <Compile Include="vistaForm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vistaForm.xsc">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+    <None Include="vistaForm.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaForm.xss">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Frm_flussocreditidetail_default.resx">
+      <DependentUpon>Frm_flussocreditidetail_default.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\unmanaged\pagoPaService\pagoPaService\pagoPaService.csproj">
+      <Project>{0dc2a503-5cc5-4afd-a1b5-1776f0557559}</Project>
+      <Name>pagoPaService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

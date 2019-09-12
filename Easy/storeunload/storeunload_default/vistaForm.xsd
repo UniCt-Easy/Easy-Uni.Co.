@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="storeunload">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstoreunload" type="xs:int" />
+              <xs:element name="idstoreunload_motive" type="xs:int" />
+              <xs:element name="ystoreunload" type="xs:short" />
+              <xs:element name="nstoreunload" type="xs:int" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idddt_out" type="xs:int" minOccurs="0" />
+              <xs:element name="idstore" type="xs:int" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="storeunloaddetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstoreunload" type="xs:int" />
+              <xs:element name="idstoreunloaddetail" type="xs:int" />
+              <xs:element name="idstock" type="xs:int" />
+              <xs:element name="number" type="xs:decimal" />
+              <xs:element name="idbooking" type="xs:int" minOccurs="0" />
+              <xs:element name="idinvkind" type="xs:int" minOccurs="0" />
+              <xs:element name="yinv" type="xs:short" minOccurs="0" />
+              <xs:element name="ninv" type="xs:int" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="rownum" type="xs:int" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_ybooking" type="xs:short" minOccurs="0" />
+              <xs:element name="_x0021_nbooking" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_intcode" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_list" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idstore" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_manager" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_store" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_surname" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_forename" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="badgecode" type="xs:string" minOccurs="0" />
+              <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="foreigncf" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="gender" type="xs:string" minOccurs="0" />
+              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
+              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="maritalsurname" type="xs:string" minOccurs="0" />
+              <xs:element name="p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="residence" type="xs:int" />
+              <xs:element name="idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="authorization_free" type="xs:string" minOccurs="0" />
+              <xs:element name="multi_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="toredirect" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="storeunload_motive">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstoreunload_motive" type="xs:int" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="store">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstore" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="deliveryaddress" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="booking">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idbooking" type="xs:int" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="ybooking" type="xs:short" />
+              <xs:element name="nbooking" type="xs:int" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="stockview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstock" type="xs:int" />
+              <xs:element name="idstore" type="xs:int" />
+              <xs:element name="store" type="xs:string" />
+              <xs:element name="idlist" type="xs:int" />
+              <xs:element name="number" type="xs:decimal" />
+              <xs:element name="residual" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="expiry" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idmankind" type="xs:string" minOccurs="0" />
+              <xs:element name="mandatekind" type="xs:string" minOccurs="0" />
+              <xs:element name="yman" type="xs:short" minOccurs="0" />
+              <xs:element name="nman" type="xs:int" minOccurs="0" />
+              <xs:element name="man_idgroup" type="xs:int" minOccurs="0" />
+              <xs:element name="idinvkind" type="xs:int" minOccurs="0" />
+              <xs:element name="invoicekind" type="xs:string" minOccurs="0" />
+              <xs:element name="yinv" type="xs:short" minOccurs="0" />
+              <xs:element name="ninv" type="xs:int" minOccurs="0" />
+              <xs:element name="inv_idgroup" type="xs:int" minOccurs="0" />
+              <xs:element name="idddt_in" type="xs:int" minOccurs="0" />
+              <xs:element name="idstoreload_motive" type="xs:int" minOccurs="0" />
+              <xs:element name="storeload_motive" type="xs:string" minOccurs="0" />
+              <xs:element name="list" type="xs:string" />
+              <xs:element name="intcode" type="xs:string" />
+              <xs:element name="yddt_in" type="xs:short" minOccurs="0" />
+              <xs:element name="nddt_in" type="xs:string" minOccurs="0" />
+              <xs:element name="listclass" type="xs:string" minOccurs="0" />
+              <xs:element name="authrequired" type="xs:string" minOccurs="0" />
+              <xs:element name="codelistclass" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="manager">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="passwordweb" type="xs:string" minOccurs="0" />
+              <xs:element name="phonenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="userweb" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" />
+              <xs:element name="iddivision" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:storeunload" />
+      <xs:field xpath="mstns:idstoreunload" />
+    </xs:unique>
+    <xs:unique name="storeunloaddetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:storeunloaddetail" />
+      <xs:field xpath="mstns:idstoreunload" />
+      <xs:field xpath="mstns:idstoreunloaddetail" />
+    </xs:unique>
+    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="storeunload_motive_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:storeunload_motive" />
+      <xs:field xpath="mstns:idstoreunload_motive" />
+    </xs:unique>
+    <xs:unique name="store_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:store" />
+      <xs:field xpath="mstns:idstore" />
+    </xs:unique>
+    <xs:unique name="booking_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:booking" />
+      <xs:field xpath="mstns:idbooking" />
+    </xs:unique>
+    <xs:unique name="stockview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stockview" />
+      <xs:field xpath="mstns:idstock" />
+    </xs:unique>
+    <xs:unique name="manager_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:manager" />
+      <xs:field xpath="mstns:idman" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="manager_storeunloaddetail" msdata:parent="manager" msdata:child="storeunloaddetail" msdata:parentkey="idman" msdata:childkey="idman" />
+      <msdata:Relationship name="stockview_storeunloaddetail" msdata:parent="stockview" msdata:child="storeunloaddetail" msdata:parentkey="idstock" msdata:childkey="idstock" />
+      <msdata:Relationship name="booking_storeunloaddetail" msdata:parent="booking" msdata:child="storeunloaddetail" msdata:parentkey="idbooking" msdata:childkey="idbooking" />
+      <msdata:Relationship name="storeunload_storeunloaddetail" msdata:parent="storeunload" msdata:child="storeunloaddetail" msdata:parentkey="idstoreunload" msdata:childkey="idstoreunload" />
+      <msdata:Relationship name="store_storeunload" msdata:parent="store" msdata:child="storeunload" msdata:parentkey="idstore" msdata:childkey="idstore" />
+      <msdata:Relationship name="registry_storeunload" msdata:parent="registry" msdata:child="storeunload" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="storeunload_motive_storeunload" msdata:parent="storeunload_motive" msdata:child="storeunload" msdata:parentkey="idstoreunload_motive" msdata:childkey="idstoreunload_motive" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

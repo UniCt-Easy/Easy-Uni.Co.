@@ -1,0 +1,84 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="giornaledicassa">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DATAPRODUZIONEFLUSSO" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CODICEFILIALE" type="xs:int" minOccurs="0" />
+              <xs:element name="CODICEENTE" type="xs:int" minOccurs="0" />
+              <xs:element name="ESERCIZIOFINANZIARIO" type="xs:int" minOccurs="0" />
+              <xs:element name="DATADIRIFERIMENTO" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="TIPORECORD" type="xs:int" minOccurs="0" />
+              <xs:element name="PROGRESSIVODIFLUSSO" type="xs:int" minOccurs="0" />
+              <xs:element name="NUMEROORDINATIVO_O_CARTACONTABILE" type="xs:int" minOccurs="0" />
+              <xs:element name="PROGRESSIVODISPOSIZIONE" type="xs:int" minOccurs="0" />
+              <xs:element name="FLAGORDINATIVO_CARTACONTABILE" type="xs:int" minOccurs="0" />
+              <xs:element name="BENEFICIARIO_O_OBBLIGATO" type="xs:string" minOccurs="0" />
+              <xs:element name="FLAGCOMPETENZA_RESIDUI" type="xs:int" minOccurs="0" />
+              <xs:element name="FLAGENTRATE_USCITE" type="xs:int" minOccurs="0" />
+              <xs:element name="IMPORTO" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FLAGFRUTTIFERO_INFRUTTIFERO" type="xs:int" minOccurs="0" />
+              <xs:element name="IMPORTOFRUTTIFERO" type="xs:decimal" minOccurs="0" />
+              <xs:element name="STORNO" type="xs:int" minOccurs="0" />
+              <xs:element name="BOLLETTA" type="xs:int" minOccurs="0" />
+              <xs:element name="CONTOCORRENTE" type="xs:int" minOccurs="0" />
+              <xs:element name="DATAVALUTA" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="VALUTASPECIALE" type="xs:int" minOccurs="0" />
+              <xs:element name="GIROFONDI" type="xs:int" minOccurs="0" />
+              <xs:element name="DIVISAOPERAZIONE" type="xs:string" minOccurs="0" />
+              <xs:element name="CONTROVALOREDIVISAOPERAZIONE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MODALITADIESECUZIONE" type="xs:string" minOccurs="0" />
+              <xs:element name="CARTACONTABILE" type="xs:int" minOccurs="0" />
+              <xs:element name="DATIRISERVATIALLENTE" type="xs:string" minOccurs="0" />
+              <xs:element name="DESCRIZIONEOPERAZIONE" type="xs:string" minOccurs="0" />
+              <xs:element name="CRO_NUMEROASSEGNO" type="xs:long" minOccurs="0" />
+              <xs:element name="FILLER" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="gdc">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TIPORECORD1" type="xs:int" minOccurs="0" />
+              <xs:element name="PROGRESSIVODIFLUSSO1" type="xs:int" minOccurs="0" />
+              <xs:element name="TIPOFLUSSO" type="xs:int" minOccurs="0" />
+              <xs:element name="DATAPRODUZIONEFLUSSO" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PROGRESSIVOPERDATA" type="xs:int" minOccurs="0" />
+              <xs:element name="CODICEFILIALE" type="xs:int" minOccurs="0" />
+              <xs:element name="CODICEENTE" type="xs:int" minOccurs="0" />
+              <xs:element name="ANAGRAFICAENTE" type="xs:string" minOccurs="0" />
+              <xs:element name="ESERCIZIOFINANZIARIO" type="xs:int" minOccurs="0" />
+              <xs:element name="DATADIRIFERIMENTO" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DIVISA" type="xs:string" minOccurs="0" />
+              <xs:element name="FILLER1" type="xs:string" minOccurs="0" />
+              <xs:element name="TIPORECORD3" type="xs:string" minOccurs="0" />
+              <xs:element name="PROGRESSIVODIFLUSSO3" type="xs:string" minOccurs="0" />
+              <xs:element name="RISCOSSIONIGIORNATA" type="xs:string" minOccurs="0" />
+              <xs:element name="PAGAMENTIGIORNATA" type="xs:string" minOccurs="0" />
+              <xs:element name="RISCOSSIONIGIORNATEPRECEDENTI" type="xs:string" minOccurs="0" />
+              <xs:element name="PAGAMENTIGIORNATEPRECEDENTI" type="xs:string" minOccurs="0" />
+              <xs:element name="RISCOSSIONITOTALI" type="xs:string" minOccurs="0" />
+              <xs:element name="PAGAMENTITOTALI" type="xs:string" minOccurs="0" />
+              <xs:element name="SALDOINIZIALE" type="xs:string" minOccurs="0" />
+              <xs:element name="SALDOALLADATARIFERIMENTO" type="xs:string" minOccurs="0" />
+              <xs:element name="SALDOFRUTTIFERO" type="xs:string" minOccurs="0" />
+              <xs:element name="SALDOINFRUTTIFERO" type="xs:string" minOccurs="0" />
+              <xs:element name="ECCEDENZAGIACENZAMASSIMA" type="xs:string" minOccurs="0" />
+              <xs:element name="FILLER3" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="bankdispositionsetup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

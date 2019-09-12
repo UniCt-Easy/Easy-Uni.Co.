@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="schemaFlusso"
+    targetNamespace="http://tempuri.org/schemaFlusso.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/schemaFlusso.xsd"
+    xmlns:mstns="http://tempuri.org/schemaFlusso.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:simpleType name="tipoOperazione">
+    <xs:restriction base="xs:string">
+      <xs:enumeration  value="Inserimento"/>
+      <xs:enumeration  value="Modifica"/>
+      <xs:enumeration  value="Annullamento"/>
+    </xs:restriction>
+      
+  </xs:simpleType>
+  <xs:complexType name="posCreditoria">
+    <xs:sequence>
+      <xs:element name="codice_fiscale" minOccurs="0" type="xs:string"/>
+      <xs:element name="descrizione" type="xs:string"/>
+      <xs:element name="IUV" type="xs:string"/>
+      <xs:element name="operazione" type="tipoOperazione"/>
+      <xs:element name ="inizioCompetenza" type="xs:date"/>
+      <xs:element name ="data_fine_competenza" type="xs:date"/>
+      <xs:element name ="codice_causale_ep_ricavo" type="xs:string"/>
+      <xs:element name ="codice_causale_ep_credito" type="xs:string"/>
+      <xs:element name ="codice_causale_finanziaria" type="xs:string"/>
+      <xs:element name ="codice_upb" type="xs:string"/>
+      <xs:element name ="importo" type="xs:decimal"/>
+      <xs:element name ="codice_tipo_contratto" type="xs:string"/>
+      <xs:element name ="data_contabile" type="xs:date"/>
+      <xs:element name ="nome" type="xs:string"/>
+      <xs:element name ="cognome" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="versamento">
+    <xs:sequence>
+      <xs:element name ="data_TRN" type="xs:date"/>
+      <xs:element name="TRN" type="xs:string"/>
+      <xs:element name="codice_fiscale" minOccurs="0" type="xs:string"/>
+      <xs:element name="IUV" type="xs:string"/>
+      <xs:element name="importo" type="tipoOperazione"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name ="listaPosCreditorie">
+    <xs:sequence>
+      <xs:element name="credito" type="posCreditoria"  minOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name ="listaIncassi">
+    <xs:sequence>
+      <xs:element name="incasso" type="versamento"  minOccurs="1" />
+    </xs:sequence>   
+  </xs:simpleType>
+
+</xs:schema>

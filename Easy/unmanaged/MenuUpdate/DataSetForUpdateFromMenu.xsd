@@ -1,0 +1,72 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="DataSetForUpdateFromMenu" targetNamespace="http://tempuri.org/DataSetForUpdateFromMenu.xsd" xmlns:mstns="http://tempuri.org/DataSetForUpdateFromMenu.xsd" xmlns="http://tempuri.org/DataSetForUpdateFromMenu.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="DataSetForUpdateFromMenu" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="menu">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmenu" type="xs:int" />
+              <xs:element name="edittype" type="xs:string" minOccurs="0" />
+              <xs:element name="menucode" type="xs:string" minOccurs="0" />
+              <xs:element name="metadata" type="xs:string" minOccurs="0" />
+              <xs:element name="modal" type="xs:string" minOccurs="0" />
+              <xs:element name="ordernumber" type="xs:int" minOccurs="0" />
+              <xs:element name="parameter" type="xs:string" minOccurs="0" />
+              <xs:element name="paridmenu" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="userid" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sortingkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nphaseexpense" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="nphaseincome" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="codesorkind" type="xs:string" />
+              <xs:element name="idsorkind" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sortingapplicabilityview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="codesorkind" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="nphaseincome" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="incomephase" type="xs:string" minOccurs="0" />
+              <xs:element name="nphaseexpense" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="expensephase" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcheckavailability" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="flagforced" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="tablename" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:menu" />
+      <xs:field xpath="mstns:idmenu" />
+    </xs:unique>
+    <xs:unique name="sortingkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sortingkind" />
+      <xs:field xpath="mstns:idsorkind" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

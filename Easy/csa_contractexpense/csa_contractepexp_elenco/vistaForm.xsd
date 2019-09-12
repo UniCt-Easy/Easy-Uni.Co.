@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="csa_contract">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcsa_contract" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="ycontract" type="xs:short" />
+              <xs:element name="ncontract" type="xs:int" />
+              <xs:element name="idcsa_contractkind" type="xs:int" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="flagkeepalive" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_main" type="xs:string" minOccurs="0" />
+              <xs:element name="idexp_main" type="xs:int" minOccurs="0" />
+              <xs:element name="idfin_main" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="flagrecreate" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor_siope_main" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriting" type="xs:int" minOccurs="0" />
+              <xs:element name="idepexp_main" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="csa_contractkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcsa_contractkind" type="xs:int" />
+              <xs:element name="contractkindcode" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagcr" type="xs:string" />
+              <xs:element name="flagkeepalive" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idunderwriting" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="csa_contractkindyear">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcsa_contractkind" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_main" type="xs:string" minOccurs="0" />
+              <xs:element name="idfin_main" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idsor_siope_main" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="csa_contractepexp">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcsa_contract" type="xs:int" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="ndetail" type="xs:int" />
+              <xs:element name="quota" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idepexp" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="epexp">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idepexp" type="xs:int" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idrelated" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nepexp" type="xs:int" />
+              <xs:element name="nphase" type="xs:short" />
+              <xs:element name="paridepexp" type="xs:int" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="yepexp" type="xs:short" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fase_epexp">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nphase" type="xs:int" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="epexpview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idepexp" type="xs:int" />
+              <xs:element name="yepexp" type="xs:short" />
+              <xs:element name="nepexp" type="xs:int" />
+              <xs:element name="nphase" type="xs:short" />
+              <xs:element name="phase" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="amount2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totamount" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="curramount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="curramount2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="curramount3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="curramount4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="curramount5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totcurramount" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="available" type="xs:decimal" minOccurs="0" />
+              <xs:element name="available2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="available3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="available4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="available5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totavailable" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalcost" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totaldebit" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="idacc" type="xs:string" />
+              <xs:element name="codeacc" type="xs:string" />
+              <xs:element name="account" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="upb" type="xs:string" />
+              <xs:element name="paridepexp" type="xs:int" minOccurs="0" />
+              <xs:element name="parentyepexp" type="xs:short" minOccurs="0" />
+              <xs:element name="parentnepexp" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="registry" type="xs:string" minOccurs="0" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="manager" type="xs:string" minOccurs="0" />
+              <xs:element name="idrelated" type="xs:string" minOccurs="0" />
+              <xs:element name="flagaccountusage" type="xs:int" minOccurs="0" />
+              <xs:element name="rateiattivi" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="rateipassivi" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="riscontiattivi" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="riscontipassivi" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="debit" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="credit" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="cost" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="revenue" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="fixedassets" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="freeusesurplus" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="captiveusesurplus" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="reserve" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="csa_contractepexpview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="idcsa_contract" type="xs:int" />
+              <xs:element name="ndetail" type="xs:int" />
+              <xs:element name="quota" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idepexp" type="xs:int" minOccurs="0" />
+              <xs:element name="yepexp" type="xs:short" minOccurs="0" />
+              <xs:element name="nepexp" type="xs:int" minOccurs="0" />
+              <xs:element name="nphase" type="xs:short" minOccurs="0" />
+              <xs:element name="phase" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="ycontract" type="xs:short" />
+              <xs:element name="ncontract" type="xs:int" />
+              <xs:element name="idcsa_contractkind" type="xs:int" />
+              <xs:element name="contractkindcode" type="xs:string" />
+              <xs:element name="contractkind" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="upb" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc" type="xs:string" minOccurs="0" />
+              <xs:element name="codeacc" type="xs:string" minOccurs="0" />
+              <xs:element name="account" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_contract" />
+      <xs:field xpath="mstns:idcsa_contract" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="csa_contractkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_contractkind" />
+      <xs:field xpath="mstns:idcsa_contractkind" />
+    </xs:unique>
+    <xs:unique name="csa_contractkindyear_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_contractkindyear" />
+      <xs:field xpath="mstns:idcsa_contractkind" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="csa_contractepexp_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_contractepexp" />
+      <xs:field xpath="mstns:idcsa_contract" />
+      <xs:field xpath="mstns:ayear" />
+      <xs:field xpath="mstns:ndetail" />
+    </xs:unique>
+    <xs:unique name="epexp_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epexp" />
+      <xs:field xpath="mstns:idepexp" />
+    </xs:unique>
+    <xs:unique name="fase_epexp_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:fase_epexp" />
+      <xs:field xpath="mstns:nphase" />
+    </xs:unique>
+    <xs:unique name="epexpview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epexpview" />
+      <xs:field xpath="mstns:idepexp" />
+    </xs:unique>
+    <xs:unique name="csa_contractepexpview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:csa_contractepexpview" />
+      <xs:field xpath="mstns:ayear" />
+      <xs:field xpath="mstns:idcsa_contract" />
+      <xs:field xpath="mstns:ndetail" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="csa_contract_csa_contractepexp" msdata:parent="csa_contract" msdata:child="csa_contractepexp" msdata:parentkey="idcsa_contract ayear" msdata:childkey="idcsa_contract ayear" />
+      <msdata:Relationship name="epexp_csa_contractepexp" msdata:parent="epexp" msdata:child="csa_contractepexp" msdata:parentkey="idepexp" msdata:childkey="idepexp" />
+      <msdata:Relationship name="epexpview_csa_contractepexp" msdata:parent="epexpview" msdata:child="csa_contractepexp" msdata:parentkey="idepexp" msdata:childkey="idepexp" />
+      <msdata:Relationship name="FK_csa_contractkindyear_csa_contractkind" msdata:parent="csa_contractkind" msdata:child="csa_contractkindyear" msdata:parentkey="idcsa_contractkind" msdata:childkey="idcsa_contractkind" />
+      <msdata:Relationship name="FK_csa_contractkind_csa_contract" msdata:parent="csa_contractkind" msdata:child="csa_contract" msdata:parentkey="idcsa_contractkind" msdata:childkey="idcsa_contractkind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

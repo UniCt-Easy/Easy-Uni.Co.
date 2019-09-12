@@ -1,0 +1,33 @@
+<VisualStudioProject>
+  <CSHARP ProjectType="Local" ProductVersion="7.10.3077" SchemaVersion="2.0" ProjectGuid="{00EAA0F9-0388-42C0-8580-FC080D759305}">
+    <Build>
+      <Settings ApplicationIcon="" AssemblyKeyContainerName="" AssemblyName="trasmissioneritenute" AssemblyOriginatorKeyFile="" DefaultClientScript="JScript" DefaultHTMLPageLayout="Grid" DefaultTargetSchema="IE50" DelaySign="false" OutputType="Library" PreBuildEvent="" PostBuildEvent="" RootNamespace="trasmissioneritenute" RunPostBuildEvent="OnBuildSuccess" StartupObject="">
+        <Config Name="Debug" AllowUnsafeBlocks="false" BaseAddress="285212672" CheckForOverflowUnderflow="false" ConfigurationOverrideFile="" DefineConstants="DEBUG;TRACE" DocumentationFile="" DebugSymbols="true" FileAlignment="4096" IncrementalBuild="false" NoStdLib="false" NoWarn="" Optimize="false" OutputPath="bin\debug\" RegisterForComInterop="false" RemoveIntegerChecks="false" TreatWarningsAsErrors="false" WarningLevel="4" />
+        <Config Name="Release" AllowUnsafeBlocks="false" BaseAddress="285212672" CheckForOverflowUnderflow="false" ConfigurationOverrideFile="" DefineConstants="TRACE" DocumentationFile="" DebugSymbols="false" FileAlignment="4096" IncrementalBuild="false" NoStdLib="false" NoWarn="" Optimize="true" OutputPath="bin\Release\" RegisterForComInterop="false" RemoveIntegerChecks="false" TreatWarningsAsErrors="false" WarningLevel="4" />
+      </Settings>
+      <References>
+        <Reference Name="System" AssemblyName="System" HintPath="..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll" />
+        <Reference Name="System.Data" AssemblyName="System.Data" HintPath="..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll" />
+        <Reference Name="System.XML" AssemblyName="System.Xml" HintPath="..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll" />
+        <Reference Name="System.Drawing" AssemblyName="System.Drawing" HintPath="..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll" />
+        <Reference Name="System.Windows.Forms" AssemblyName="System.Windows.Forms" HintPath="..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.dll" />
+        <Reference Name="metadatalibrary" AssemblyName="metadatalibrary" HintPath="..\..\DLL\metadatalibrary.dll" Private="False" />
+        <Reference Name="exportdata" Project="{53D6C69D-74BC-4447-8DA3-0712CD12206E}" Package="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}" Private="True" />
+        <Reference Name="funzioni_configurazione" Project="{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}" Package="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}" Private="True" />
+        <Reference Name="Xceed.Compression" AssemblyName="Xceed.Compression" HintPath="..\..\..\Programmi\Xceed Components\Xceed Zip for .NET 2.0\Bin\v2.0.100.0\Xceed.Compression.dll" AssemblyFolderKey="hklm\xceed zip for .net v2.0.100.0" />
+        <Reference Name="Xceed.Zip" AssemblyName="Xceed.Zip" HintPath="..\..\..\Programmi\Xceed Components\Xceed Zip for .NET 2.0\Bin\v2.0.100.0\Xceed.Zip.dll" AssemblyFolderKey="hklm\xceed zip for .net v2.0.100.0" />
+      </References>
+    </Build>
+    <Files>
+      <Include>
+        <File RelPath="AssemblyInfo.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="FrmTrasmissioneRitenute.cs" SubType="Form" BuildAction="Compile" />
+        <File RelPath="FrmTrasmissioneRitenute.resx" DependentUpon="FrmTrasmissioneRitenute.cs" BuildAction="EmbeddedResource" />
+        <File RelPath="SubForm.cs" SubType="Form" BuildAction="Compile" />
+        <File RelPath="SubForm.resx" DependentUpon="SubForm.cs" BuildAction="EmbeddedResource" />
+        <File RelPath="vistaForm.xsd" BuildAction="Content" LastGenOutput="vistaForm.cs" />
+        <File RelPath="vistaForm.xsx" DependentUpon="vistaForm.xsd" BuildAction="None" ParentElement="vistaForm.xsd" />
+      </Include>
+    </Files>
+  </CSHARP>
+</VisualStudioProject>

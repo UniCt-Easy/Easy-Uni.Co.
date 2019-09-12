@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaUbicazioneViewTree.xsd" xmlns:mstns="http://tempuri.org/VistaUbicazioneViewTree.xsd" xmlns="http://tempuri.org/VistaUbicazioneViewTree.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msprop:Generator_DataSetName="vistaForm" msprop:Generator_UserDSName="vistaForm">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="locationlevel" msprop:Generator_TableClassName="locationlevelDataTable" msprop:Generator_TableVarName="tablelocationlevel" msprop:Generator_TablePropName="locationlevel" msprop:Generator_RowDeletingName="locationlevelRowDeleting" msprop:Generator_RowChangingName="locationlevelRowChanging" msprop:Generator_RowEvHandlerName="locationlevelRowChangeEventHandler" msprop:Generator_RowDeletedName="locationlevelRowDeleted" msprop:Generator_UserTableName="locationlevel" msprop:Generator_RowChangedName="locationlevelRowChanged" msprop:Generator_RowEvArgName="locationlevelRowChangeEvent" msprop:Generator_RowClassName="locationlevelRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nlevel" msprop:Generator_ColumnVarNameInTable="columnnlevel" msprop:Generator_ColumnPropNameInRow="nlevel" msprop:Generator_ColumnPropNameInTable="nlevelColumn" msprop:Generator_UserColumnName="nlevel" type="xs:unsignedByte" />
+              <xs:element name="description" msprop:Generator_ColumnVarNameInTable="columndescription" msprop:Generator_ColumnPropNameInRow="description" msprop:Generator_ColumnPropNameInTable="descriptionColumn" msprop:Generator_UserColumnName="description" type="xs:string" />
+              <xs:element name="codelen" msprop:Generator_ColumnVarNameInTable="columncodelen" msprop:Generator_ColumnPropNameInRow="codelen" msprop:Generator_ColumnPropNameInTable="codelenColumn" msprop:Generator_UserColumnName="codelen" type="xs:unsignedByte" />
+              <xs:element name="flag" msprop:Generator_ColumnVarNameInTable="columnflag" msprop:Generator_ColumnPropNameInRow="flag" msprop:Generator_ColumnPropNameInTable="flagColumn" msprop:Generator_UserColumnName="flag" type="xs:unsignedByte" />
+              <xs:element name="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnPropNameInTable="cuColumn" msprop:Generator_UserColumnName="cu" type="xs:string" />
+              <xs:element name="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnPropNameInTable="ctColumn" msprop:Generator_UserColumnName="ct" type="xs:dateTime" />
+              <xs:element name="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnPropNameInTable="luColumn" msprop:Generator_UserColumnName="lu" type="xs:string" />
+              <xs:element name="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnPropNameInTable="ltColumn" msprop:Generator_UserColumnName="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="locationview" msprop:Generator_TableClassName="locationviewDataTable" msprop:Generator_TableVarName="tablelocationview" msprop:Generator_TablePropName="locationview" msprop:Generator_RowDeletingName="locationviewRowDeleting" msprop:Generator_RowChangingName="locationviewRowChanging" msprop:Generator_RowEvHandlerName="locationviewRowChangeEventHandler" msprop:Generator_RowDeletedName="locationviewRowDeleted" msprop:Generator_UserTableName="locationview" msprop:Generator_RowChangedName="locationviewRowChanged" msprop:Generator_RowEvArgName="locationviewRowChangeEvent" msprop:Generator_RowClassName="locationviewRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlocation" msprop:Generator_ColumnVarNameInTable="columnidlocation" msprop:Generator_ColumnPropNameInRow="idlocation" msprop:Generator_ColumnPropNameInTable="idlocationColumn" msprop:Generator_UserColumnName="idlocation" type="xs:int" />
+              <xs:element name="nlevel" msprop:Generator_ColumnVarNameInTable="columnnlevel" msprop:Generator_ColumnPropNameInRow="nlevel" msprop:Generator_ColumnPropNameInTable="nlevelColumn" msprop:Generator_UserColumnName="nlevel" type="xs:unsignedByte" />
+              <xs:element name="leveldescr" msprop:Generator_ColumnVarNameInTable="columnleveldescr" msprop:Generator_ColumnPropNameInRow="leveldescr" msprop:Generator_ColumnPropNameInTable="leveldescrColumn" msprop:Generator_UserColumnName="leveldescr" type="xs:string" />
+              <xs:element name="locationcode" msprop:Generator_ColumnVarNameInTable="columnlocationcode" msprop:Generator_ColumnPropNameInRow="locationcode" msprop:Generator_ColumnPropNameInTable="locationcodeColumn" msprop:Generator_UserColumnName="locationcode" type="xs:string" />
+              <xs:element name="paridlocation" msprop:Generator_ColumnVarNameInTable="columnparidlocation" msprop:Generator_ColumnPropNameInRow="paridlocation" msprop:Generator_ColumnPropNameInTable="paridlocationColumn" msprop:Generator_UserColumnName="paridlocation" type="xs:int" minOccurs="0" />
+              <xs:element name="description" msprop:Generator_ColumnVarNameInTable="columndescription" msprop:Generator_ColumnPropNameInRow="description" msprop:Generator_ColumnPropNameInTable="descriptionColumn" msprop:Generator_UserColumnName="description" type="xs:string" />
+              <xs:element name="idman" msprop:Generator_ColumnVarNameInTable="columnidman" msprop:Generator_ColumnPropNameInRow="idman" msprop:Generator_ColumnPropNameInTable="idmanColumn" msprop:Generator_UserColumnName="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="manager" msprop:Generator_ColumnVarNameInTable="columnmanager" msprop:Generator_ColumnPropNameInRow="manager" msprop:Generator_ColumnPropNameInTable="managerColumn" msprop:Generator_UserColumnName="manager" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnPropNameInTable="cuColumn" msprop:Generator_UserColumnName="cu" type="xs:string" />
+              <xs:element name="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnPropNameInTable="ctColumn" msprop:Generator_UserColumnName="ct" type="xs:dateTime" />
+              <xs:element name="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnPropNameInTable="luColumn" msprop:Generator_UserColumnName="lu" type="xs:string" />
+              <xs:element name="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnPropNameInTable="ltColumn" msprop:Generator_UserColumnName="lt" type="xs:dateTime" />
+              <xs:element name="idsor01" msprop:Generator_ColumnVarNameInTable="columnidsor01" msprop:Generator_ColumnPropNameInRow="idsor01" msprop:Generator_ColumnPropNameInTable="idsor01Column" msprop:Generator_UserColumnName="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" msprop:Generator_ColumnVarNameInTable="columnidsor02" msprop:Generator_ColumnPropNameInRow="idsor02" msprop:Generator_ColumnPropNameInTable="idsor02Column" msprop:Generator_UserColumnName="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" msprop:Generator_ColumnVarNameInTable="columnidsor03" msprop:Generator_ColumnPropNameInRow="idsor03" msprop:Generator_ColumnPropNameInTable="idsor03Column" msprop:Generator_UserColumnName="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" msprop:Generator_ColumnVarNameInTable="columnidsor04" msprop:Generator_ColumnPropNameInRow="idsor04" msprop:Generator_ColumnPropNameInTable="idsor04Column" msprop:Generator_UserColumnName="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" msprop:Generator_ColumnVarNameInTable="columnidsor05" msprop:Generator_ColumnPropNameInRow="idsor05" msprop:Generator_ColumnPropNameInTable="idsor05Column" msprop:Generator_UserColumnName="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:locationlevel" />
+      <xs:field xpath="mstns:nlevel" />
+    </xs:unique>
+    <xs:unique name="locationview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:locationview" />
+      <xs:field xpath="mstns:idlocation" />
+    </xs:unique>
+    <xs:keyref name="locationlevellocationview" refer="Constraint1" msprop:rel_Generator_UserChildTable="locationview" msprop:rel_Generator_ChildPropName="GetlocationviewRows" msprop:rel_Generator_UserRelationName="locationlevellocationview" msprop:rel_Generator_ParentPropName="locationlevelRow" msprop:rel_Generator_RelationVarName="relationlocationlevellocationview" msprop:rel_Generator_UserParentTable="locationlevel">
+      <xs:selector xpath=".//mstns:locationview" />
+      <xs:field xpath="mstns:nlevel" />
+    </xs:keyref>
+    <xs:keyref name="locationviewlocationview" refer="locationview_Constraint1" msprop:rel_Generator_UserChildTable="locationview" msprop:rel_Generator_ChildPropName="GetlocationviewRows" msprop:rel_Generator_UserRelationName="locationviewlocationview" msprop:rel_Generator_RelationVarName="relationlocationviewlocationview" msprop:rel_Generator_UserParentTable="locationview" msprop:rel_Generator_ParentPropName="locationviewRowParent">
+      <xs:selector xpath=".//mstns:locationview" />
+      <xs:field xpath="mstns:paridlocation" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

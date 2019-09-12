@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="config_pagopa" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dummykey" type="xs:int" />
+              <xs:element name="codicecontrattostudenti" type="xs:string" minOccurs="0" />
+              <xs:element name="flussocrediti_transmitted" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb_sisest" type="xs:string" minOccurs="0" />
+              <xs:element name="tipologiaservizio" type="xs:string" minOccurs="0" />
+              <xs:element name="codicesia" type="xs:string" minOccurs="0" />
+              <xs:element name="urlserviziopagamento" type="xs:string" minOccurs="0" />
+              <xs:element name="urlsitoistituzionale" type="xs:string" minOccurs="0" />
+              <xs:element name="titolaredatiprivacy" type="xs:string" minOccurs="0" />
+              <xs:element name="codicecontrattorimborsi" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:config_pagopa" />
+      <xs:field xpath="mstns:dummykey" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
