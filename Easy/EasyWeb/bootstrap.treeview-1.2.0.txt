@@ -1,2 +1,0 @@
-Creare la cartella bootstrap-treeview-1.2.0 e copiare il contenuto della version 1.2.0
-https://www.nuget.org/packages/bootstrap.treeview/1.2.0
