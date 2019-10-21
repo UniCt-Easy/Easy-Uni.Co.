@@ -4,7 +4,7 @@
 
 publiccodeYmlVersion: '0.2'
 name: UNI.co. Easy
-url: 'https://github.com/UniCt-Easy/Easy-Uni.Co./'
+url: 'https://github.com/UniCt-Easy/Easy-Uni.Co.'
 releaseDate: '2019-09-12'
 developmentStatus: stable
 softwareType: standalone/other
@@ -32,7 +32,7 @@ maintenance:
   contractors:
     - name: Tempo srl
       until: '2021-10-01'
-      website: www.temposrl.com
+      website: https://www.temposrl.com
 legal:
   license: GPL-3.0-or-later
   mainCopyrightOwner: Università degli Studi di Catania
@@ -204,18 +204,16 @@ description:
     features:
       - Budget autorizzatorio annuale e pluriennale
       - Contabilità Finanziaria
-      - >-
-        Contabilità IVA, Istituzionale, Commerciale, Prorata, Promiscuo, Intra \
-        Extra UE, Comunicazione periodica liquidazione IVA  (Li.Pe Xml ) ,
-        Esterometro Xml
-      - >-
-        Compensi occasionali, professionali, parasubordinati, liquidazione
-        ritenute, certificazione unica
+      - Contabilità IVA, Istituzionale, Commerciale, Prorata, Promiscuo, Intra \
+        Extra UE
+      - Comunicazione periodica liquidazione IVA  (Li.Pe Xml ), Esterometro Xml
+      - Compensi occasionali, professionali, parasubordinati
+      - Liquidazione ritenute, certificazione unica
       - Gestione magazzino
       - Contabilità Generale (metodo della partita doppia)
       - >-
         Gestione cespiti (calcolo automatico ammortamenti e contributi agli
-        investimenti )
+        investimenti)
       - Fondo economale
       - 'Gestione flussi con la Banca - Supporto completo a Siope + '
       - Riconciliazione automatica degli incassi provenienti da PagoPA
