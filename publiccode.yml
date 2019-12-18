@@ -48,6 +48,9 @@ localisation:
   availableLanguages:
     - it
 it:
+  countryExtensionVersion: "0.2"
+  riuso:
+    codiceIPA: uni_ct
   piattaforme:
     pagopa: true
     spid: false
