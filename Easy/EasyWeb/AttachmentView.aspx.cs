@@ -1,6 +1,6 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -122,7 +122,7 @@ namespace EasyWebReport {
                 FS.Close();
             }
             catch { 
-                string mym = "Non Ë stato possibile completare il salvataggio del file. \r";
+                string mym = "Non √® stato possibile completare il salvataggio del file. \r";
                 Session["CloseWindow"] = true;
                 Session["Messaggio"] = mym;
                 Response.Redirect("Messaggio.aspx");
