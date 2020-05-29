@@ -1,6 +1,6 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿using System;
+ï»¿using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
