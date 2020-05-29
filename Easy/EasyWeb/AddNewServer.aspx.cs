@@ -1,6 +1,6 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -77,12 +77,12 @@ namespace EasyWebReport
             Easy_DataAccess Conn = new Easy_DataAccess(
                 "mydsn", ip, db, user, pwd, user, pwd, DateTime.Now.Year, DateTime.Now);
             if (Conn == null) {
-                lblmessages.Text = "Non Ë stato possibile collegarsi al server.";
+                lblmessages.Text = "Non √® stato possibile collegarsi al server.";
                 return;
             }
             Conn.Open();
             if (Conn.OpenError) {
-                lblmessages.Text = "Non Ë stato possibile collegarsi al server.";
+                lblmessages.Text = "Non √® stato possibile collegarsi al server.";
                 return;
             }
             Conn.Close();
@@ -90,7 +90,7 @@ namespace EasyWebReport
             if (sys.RUN_SELECT_COUNT("CodiciDipartimenti",
                 "(CodiceDipartimento=" +
                 QueryCreator.quotedstrvalue(codice, true) + ")", true) > 0) {
-                lblmessages.Text = "Codice dipartimento gi‡ esistente.";
+                lblmessages.Text = "Codice dipartimento gi√† esistente.";
                 return;
             }
             DataTable T = DS.Tables[0];
