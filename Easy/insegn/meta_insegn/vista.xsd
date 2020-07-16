@@ -13,7 +13,7 @@
               <xs:element name="idcorsostudio" type="xs:int" minOccurs="0" />
               <xs:element name="idcorsostudiokind" type="xs:int" minOccurs="0" />
               <xs:element name="idinsegn" type="xs:int" />
-              <xs:element name="idlocation_struttura" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
             </xs:sequence>

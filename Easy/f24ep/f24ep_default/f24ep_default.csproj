@@ -68,9 +68,6 @@
     <Compile Include="SubF24.Designer.cs">
       <DependentUpon>SubF24.cs</DependentUpon>
     </Compile>
-    <Compile Include="vistaForm.cs">
-      <DependentUpon>vistaForm.xsd</DependentUpon>
-    </Compile>
     <Compile Include="vistaForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -88,6 +85,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
@@ -107,9 +105,7 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

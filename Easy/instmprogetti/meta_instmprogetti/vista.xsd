@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="instmprogetti">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="abstractprogetto" type="xs:string" minOccurs="0" />
+              <xs:element name="acronimo" type="xs:string" minOccurs="0" />
+              <xs:element name="annoapprovazione" type="xs:int" minOccurs="0" />
+              <xs:element name="annobando" type="xs:int" minOccurs="0" />
+              <xs:element name="causaleproroga" type="xs:string" minOccurs="0" />
+              <xs:element name="codice" type="xs:string" minOccurs="0" />
+              <xs:element name="costicofinanziatiapprovati" type="xs:decimal" minOccurs="0" />
+              <xs:element name="costicofinanziatipresentati" type="xs:decimal" minOccurs="0" />
+              <xs:element name="costiinstmapprovati" type="xs:decimal" minOccurs="0" />
+              <xs:element name="costiinstmpresentati" type="xs:decimal" minOccurs="0" />
+              <xs:element name="costitotaliapprovati" type="xs:decimal" minOccurs="0" />
+              <xs:element name="costitotalipresentati" type="xs:decimal" minOccurs="0" />
+              <xs:element name="datanuovascadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dataproroga" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datascadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datastipula" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datidelbando" type="xs:string" minOccurs="0" />
+              <xs:element name="decretoprotocollo" type="xs:string" minOccurs="0" />
+              <xs:element name="duratamesi" type="xs:int" minOccurs="0" />
+              <xs:element name="idinstmentieroganti" type="xs:int" minOccurs="0" />
+              <xs:element name="idinstmprogetti" type="xs:int" />
+              <xs:element name="idinstmprogettikind" type="xs:int" />
+              <xs:element name="idinstmprogettistatus" type="xs:int" minOccurs="0" />
+              <xs:element name="idinstmseztematichekind" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_cliente" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_instmuser" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_instmuser_co" type="xs:int" minOccurs="0" />
+              <xs:element name="keywords" type="xs:string" minOccurs="0" />
+              <xs:element name="note" type="xs:string" minOccurs="0" />
+              <xs:element name="numero" type="xs:string" />
+              <xs:element name="numerocontratto" type="xs:string" minOccurs="0" />
+              <xs:element name="riferimentobando" type="xs:string" minOccurs="0" />
+              <xs:element name="ruoloinstm" type="xs:string" minOccurs="0" />
+              <xs:element name="scadenzabando" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tematicabando" type="xs:string" minOccurs="0" />
+              <xs:element name="titolo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:instmprogetti" />
+      <xs:field xpath="mstns:idinstmprogetti" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

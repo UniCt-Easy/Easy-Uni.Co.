@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -112,6 +112,11 @@
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="certinterestconflicts" type="xs:string" minOccurs="0" />
               <xs:element name="website_annulled" type="xs:string" minOccurs="0" />
+              <xs:element name="perla_error" type="xs:string" minOccurs="0" />
+              <xs:element name="codicepaipa" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceaooipa" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceuoipa" type="xs:string" minOccurs="0" />
+              <xs:element name="dichiarazione_incarichi" type="xs:base64Binary" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -384,34 +389,16 @@
       <xs:selector xpath=".//mstns:sorting05" />
       <xs:field xpath="mstns:idsor" />
     </xs:unique>
-    <xs:keyref name="FK_servicetrasmissionkind_servicetrasmission" refer="servicetrasmissionkind_Constraint1">
-      <xs:selector xpath=".//mstns:servicetrasmission" />
-      <xs:field xpath="mstns:idservicetrasmissionkind" />
-    </xs:keyref>
-    <xs:keyref name="sorting01_servicetrasmission" refer="sorting01_Constraint1">
-      <xs:selector xpath=".//mstns:servicetrasmission" />
-      <xs:field xpath="mstns:idsor01" />
-    </xs:keyref>
-    <xs:keyref name="sorting03_servicetrasmission" refer="sorting03_Constraint1">
-      <xs:selector xpath=".//mstns:servicetrasmission" />
-      <xs:field xpath="mstns:idsor03" />
-    </xs:keyref>
-    <xs:keyref name="sorting04_servicetrasmission" refer="sorting04_Constraint1">
-      <xs:selector xpath=".//mstns:servicetrasmission" />
-      <xs:field xpath="mstns:idsor04" />
-    </xs:keyref>
-    <xs:keyref name="sorting05_servicetrasmission" refer="sorting05_Constraint1">
-      <xs:selector xpath=".//mstns:servicetrasmission" />
-      <xs:field xpath="mstns:idsor05" />
-    </xs:keyref>
-    <xs:keyref name="sorting02_servicetrasmission" refer="sorting02_Constraint1">
-      <xs:selector xpath=".//mstns:servicetrasmission" />
-      <xs:field xpath="mstns:idsor02" />
-    </xs:keyref>
-    <xs:keyref name="serviceregistry_servicepayment" refer="serviceregistry_Constraint1">
-      <xs:selector xpath=".//mstns:servicepayment" />
-      <xs:field xpath="mstns:yservreg" />
-      <xs:field xpath="mstns:nservreg" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="sorting02_servicetrasmission" msdata:parent="sorting02" msdata:child="servicetrasmission" msdata:parentkey="idsor" msdata:childkey="idsor02" />
+      <msdata:Relationship name="sorting05_servicetrasmission" msdata:parent="sorting05" msdata:child="servicetrasmission" msdata:parentkey="idsor" msdata:childkey="idsor05" />
+      <msdata:Relationship name="sorting04_servicetrasmission" msdata:parent="sorting04" msdata:child="servicetrasmission" msdata:parentkey="idsor" msdata:childkey="idsor04" />
+      <msdata:Relationship name="sorting03_servicetrasmission" msdata:parent="sorting03" msdata:child="servicetrasmission" msdata:parentkey="idsor" msdata:childkey="idsor03" />
+      <msdata:Relationship name="sorting01_servicetrasmission" msdata:parent="sorting01" msdata:child="servicetrasmission" msdata:parentkey="idsor" msdata:childkey="idsor01" />
+      <msdata:Relationship name="FK_servicetrasmissionkind_servicetrasmission" msdata:parent="servicetrasmissionkind" msdata:child="servicetrasmission" msdata:parentkey="idservicetrasmissionkind" msdata:childkey="idservicetrasmissionkind" />
+      <msdata:Relationship name="serviceregistry_servicepayment" msdata:parent="serviceregistry" msdata:child="servicepayment" msdata:parentkey="yservreg nservreg" msdata:childkey="yservreg nservreg" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

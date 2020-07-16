@@ -6,26 +6,21 @@
         <xs:element name="registry_instmuser">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="maritalcf" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
-              <xs:element name="idattach" type="xs:int" minOccurs="0" />
-              <xs:element name="idinstmqualifies" type="xs:int" minOccurs="0" />
-              <xs:element name="idinstmresearchunit" type="xs:int" minOccurs="0" />
-              <xs:element name="idinstmseztematichekind" type="xs:int" minOccurs="0" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="idinstmseztematichekind" type="xs:int" />
               <xs:element name="idinstmseztematichekind_2" type="xs:int" minOccurs="0" />
               <xs:element name="idinstmusercategorykind" type="xs:int" minOccurs="0" />
-              <xs:element name="idlocation" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idreg_istituto" type="xs:int" minOccurs="0" />
-              <xs:element name="idsasd" type="xs:int" minOccurs="0" />
-              <xs:element name="interest" type="xs:string" minOccurs="0" />
+              <xs:element name="interest" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="newsletter" type="xs:string" />
               <xs:element name="otherbelonging" type="xs:string" minOccurs="0" />
               <xs:element name="privacy" type="xs:string" />
               <xs:element name="regulationaccept" type="xs:string" />
-              <xs:element name="termoffice" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

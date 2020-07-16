@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -175,7 +172,7 @@ namespace mandate_default {
             filter = QHS.AppAnd(filter, filterNoInvoice);
             int count = Conn.RUN_SELECT_COUNT("mandatedetailgroupview", filter, true);
             if (count == 0) {
-                MessageBox.Show(this, "Nel contratto selezionato non esistono dettagli da annullare", "Avviso",
+                MessageBox.Show(this, "Nel contratto selezionato non esistono dettagli da annullare, potrebbero essere stati parzialmente fatturati", "Avviso",
                  MessageBoxButtons.OK);
                 return;
             }
@@ -369,7 +366,7 @@ namespace mandate_default {
             ricalcolaImporti();
         }
 
-        private void txtNewIvaValuta_TextChanged(object sender, EventArgs e) {
+        private void txtNewIvaValuta_Leave(object sender, EventArgs e) {
             if (inChiusura) return;
             RicalcolaIvaIndeducibile();
             CalcolaImportiEUR();
@@ -642,4 +639,4 @@ namespace mandate_default {
             MetaData.UnregisterAllEvents(this);
         }
     }
-}
+}

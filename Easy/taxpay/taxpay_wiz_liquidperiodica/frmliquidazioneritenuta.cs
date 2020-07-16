@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -94,10 +91,10 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
         QueryHelper QHS;
         CQueryHelper QHC;
 
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.Container components = null;
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.Container components = null;
 
         public Frm_taxpay_wiz_liquidperiodica() {
             InitializeComponent();
@@ -128,411 +125,411 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_taxpay_wiz_liquidperiodica));
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmbRitenuta = new System.Windows.Forms.ComboBox();
-            this.DS = new taxpay_wiz_liquidperiodica.vistaForm();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtDataInizio = new System.Windows.Forms.TextBox();
-            this.txtDataFine = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.gridMovSpesa = new System.Windows.Forms.DataGrid();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtImporto2 = new System.Windows.Forms.TextBox();
-            this.btnAnnulla = new System.Windows.Forms.Button();
-            this.btnOK = new System.Windows.Forms.Button();
-            this.btnScollegaS = new System.Windows.Forms.Button();
-            this.btnCollegaS = new System.Windows.Forms.Button();
-            this.dgDettaglioRitenute = new System.Windows.Forms.DataGrid();
-            this.tabController = new Crownwood.Magic.Controls.TabControl();
-            this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new Crownwood.Magic.Controls.TabPage();
-            this.btnSelezionaTutto = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtImporto1 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.tabPage3 = new Crownwood.Magic.Controls.TabPage();
-            this.btnCambiaBilancio = new System.Windows.Forms.Button();
-            this.btnBack = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridMovSpesa)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgDettaglioRitenute)).BeginInit();
-            this.tabController.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_taxpay_wiz_liquidperiodica));
+			this.label1 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.cmbRitenuta = new System.Windows.Forms.ComboBox();
+			this.DS = new taxpay_wiz_liquidperiodica.vistaForm();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
+			this.txtDataInizio = new System.Windows.Forms.TextBox();
+			this.txtDataFine = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.gridMovSpesa = new System.Windows.Forms.DataGrid();
+			this.label6 = new System.Windows.Forms.Label();
+			this.txtImporto2 = new System.Windows.Forms.TextBox();
+			this.btnAnnulla = new System.Windows.Forms.Button();
+			this.btnOK = new System.Windows.Forms.Button();
+			this.btnScollegaS = new System.Windows.Forms.Button();
+			this.btnCollegaS = new System.Windows.Forms.Button();
+			this.dgDettaglioRitenute = new System.Windows.Forms.DataGrid();
+			this.tabController = new Crownwood.Magic.Controls.TabControl();
+			this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.tabPage2 = new Crownwood.Magic.Controls.TabPage();
+			this.btnSelezionaTutto = new System.Windows.Forms.Button();
+			this.label8 = new System.Windows.Forms.Label();
+			this.txtImporto1 = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.tabPage3 = new Crownwood.Magic.Controls.TabPage();
+			this.btnCambiaBilancio = new System.Windows.Forms.Button();
+			this.btnBack = new System.Windows.Forms.Button();
+			this.btnNext = new System.Windows.Forms.Button();
+			this.panel1 = new System.Windows.Forms.Panel();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.gridMovSpesa)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgDettaglioRitenute)).BeginInit();
+			this.tabController.SuspendLayout();
+			this.tabPage1.SuspendLayout();
+			this.tabPage2.SuspendLayout();
+			this.tabPage3.SuspendLayout();
+			this.panel1.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// label1
+			// 
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.Location = new System.Drawing.Point(4, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(932, 30);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Questa procedura permette di effettuare tutte le operazioni di contabilità finanz" +
+			this.label1.Location = new System.Drawing.Point(4, 8);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(1107, 30);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "Questa procedura permette di effettuare tutte le operazioni di contabilità finanz" +
     "iaria connesse con la liquidazione periodica di una ritenuta.";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(381, 32);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 21);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Ritenuta:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cmbRitenuta
-            // 
-            this.cmbRitenuta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(381, 32);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(72, 21);
+			this.label2.TabIndex = 1;
+			this.label2.Text = "Ritenuta:";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cmbRitenuta
+			// 
+			this.cmbRitenuta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbRitenuta.DataSource = this.DS.tax;
-            this.cmbRitenuta.DisplayMember = "description";
-            this.cmbRitenuta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbRitenuta.Location = new System.Drawing.Point(459, 32);
-            this.cmbRitenuta.MaxDropDownItems = 40;
-            this.cmbRitenuta.Name = "cmbRitenuta";
-            this.cmbRitenuta.Size = new System.Drawing.Size(473, 23);
-            this.cmbRitenuta.TabIndex = 2;
-            this.cmbRitenuta.Tag = "";
-            this.cmbRitenuta.ValueMember = "taxcode";
-            this.cmbRitenuta.SelectedIndexChanged += new System.EventHandler(this.cmbRitenuta_SelectedIndexChanged);
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(8, 32);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 21);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Periodo dal:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(140, 32);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(24, 21);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "al:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDataInizio
-            // 
-            this.txtDataInizio.Location = new System.Drawing.Point(82, 31);
-            this.txtDataInizio.Name = "txtDataInizio";
-            this.txtDataInizio.ReadOnly = true;
-            this.txtDataInizio.Size = new System.Drawing.Size(60, 23);
-            this.txtDataInizio.TabIndex = 5;
-            // 
-            // txtDataFine
-            // 
-            this.txtDataFine.Location = new System.Drawing.Point(170, 32);
-            this.txtDataFine.Name = "txtDataFine";
-            this.txtDataFine.ReadOnly = true;
-            this.txtDataFine.Size = new System.Drawing.Size(64, 23);
-            this.txtDataFine.TabIndex = 6;
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbRitenuta.DataSource = this.DS.tax;
+			this.cmbRitenuta.DisplayMember = "description";
+			this.cmbRitenuta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbRitenuta.Location = new System.Drawing.Point(459, 32);
+			this.cmbRitenuta.MaxDropDownItems = 40;
+			this.cmbRitenuta.Name = "cmbRitenuta";
+			this.cmbRitenuta.Size = new System.Drawing.Size(648, 23);
+			this.cmbRitenuta.TabIndex = 2;
+			this.cmbRitenuta.Tag = "";
+			this.cmbRitenuta.ValueMember = "taxcode";
+			this.cmbRitenuta.SelectedIndexChanged += new System.EventHandler(this.cmbRitenuta_SelectedIndexChanged);
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(8, 32);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(72, 21);
+			this.label3.TabIndex = 3;
+			this.label3.Text = "Periodo dal:";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label4
+			// 
+			this.label4.Location = new System.Drawing.Point(140, 32);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(24, 21);
+			this.label4.TabIndex = 4;
+			this.label4.Text = "al:";
+			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDataInizio
+			// 
+			this.txtDataInizio.Location = new System.Drawing.Point(82, 31);
+			this.txtDataInizio.Name = "txtDataInizio";
+			this.txtDataInizio.ReadOnly = true;
+			this.txtDataInizio.Size = new System.Drawing.Size(60, 23);
+			this.txtDataInizio.TabIndex = 5;
+			// 
+			// txtDataFine
+			// 
+			this.txtDataFine.Location = new System.Drawing.Point(170, 32);
+			this.txtDataFine.Name = "txtDataFine";
+			this.txtDataFine.ReadOnly = true;
+			this.txtDataFine.Size = new System.Drawing.Size(64, 23);
+			this.txtDataFine.TabIndex = 6;
+			// 
+			// label5
+			// 
+			this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.Location = new System.Drawing.Point(8, 8);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(952, 20);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Se l\'operazione viene confermata verranno generati i seguenti movimenti di contab" +
+			this.label5.Location = new System.Drawing.Point(8, 8);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(1127, 20);
+			this.label5.TabIndex = 7;
+			this.label5.Text = "Se l\'operazione viene confermata verranno generati i seguenti movimenti di contab" +
     "ilità finanziaria.";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // gridMovSpesa
-            // 
-            this.gridMovSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// gridMovSpesa
+			// 
+			this.gridMovSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridMovSpesa.DataMember = "";
-            this.gridMovSpesa.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.gridMovSpesa.Location = new System.Drawing.Point(8, 32);
-            this.gridMovSpesa.Name = "gridMovSpesa";
-            this.gridMovSpesa.Size = new System.Drawing.Size(924, 356);
-            this.gridMovSpesa.TabIndex = 8;
-            this.gridMovSpesa.Paint += new System.Windows.Forms.PaintEventHandler(this.gridMovSpesa_Paint);
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label6.Location = new System.Drawing.Point(8, 396);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(56, 16);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Importo:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtImporto2
-            // 
-            this.txtImporto2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtImporto2.Location = new System.Drawing.Point(64, 392);
-            this.txtImporto2.Name = "txtImporto2";
-            this.txtImporto2.ReadOnly = true;
-            this.txtImporto2.Size = new System.Drawing.Size(120, 23);
-            this.txtImporto2.TabIndex = 10;
-            this.txtImporto2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // btnAnnulla
-            // 
-            this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAnnulla.Location = new System.Drawing.Point(600, 472);
-            this.btnAnnulla.Name = "btnAnnulla";
-            this.btnAnnulla.Size = new System.Drawing.Size(72, 23);
-            this.btnAnnulla.TabIndex = 17;
-            this.btnAnnulla.Text = "Chiudi";
-            // 
-            // btnOK
-            // 
-            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOK.Enabled = false;
-            this.btnOK.Location = new System.Drawing.Point(656, 392);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(64, 23);
-            this.btnOK.TabIndex = 16;
-            this.btnOK.Tag = "";
-            this.btnOK.Text = "Salva";
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
-            // btnScollegaS
-            // 
-            this.btnScollegaS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnScollegaS.Enabled = false;
-            this.btnScollegaS.Location = new System.Drawing.Point(376, 392);
-            this.btnScollegaS.Name = "btnScollegaS";
-            this.btnScollegaS.Size = new System.Drawing.Size(136, 23);
-            this.btnScollegaS.TabIndex = 19;
-            this.btnScollegaS.Text = "Annulla il collegamento";
-            this.btnScollegaS.Click += new System.EventHandler(this.btnScollegaS_Click);
-            // 
-            // btnCollegaS
-            // 
-            this.btnCollegaS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCollegaS.Enabled = false;
-            this.btnCollegaS.Location = new System.Drawing.Point(192, 392);
-            this.btnCollegaS.Name = "btnCollegaS";
-            this.btnCollegaS.Size = new System.Drawing.Size(176, 23);
-            this.btnCollegaS.TabIndex = 18;
-            this.btnCollegaS.Text = "Collega a movimento esistente...";
-            this.btnCollegaS.Click += new System.EventHandler(this.btnCollega_Click);
-            // 
-            // dgDettaglioRitenute
-            // 
-            this.dgDettaglioRitenute.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gridMovSpesa.DataMember = "";
+			this.gridMovSpesa.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.gridMovSpesa.Location = new System.Drawing.Point(8, 32);
+			this.gridMovSpesa.Name = "gridMovSpesa";
+			this.gridMovSpesa.Size = new System.Drawing.Size(1099, 408);
+			this.gridMovSpesa.TabIndex = 8;
+			this.gridMovSpesa.Paint += new System.Windows.Forms.PaintEventHandler(this.gridMovSpesa_Paint);
+			// 
+			// label6
+			// 
+			this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.label6.Location = new System.Drawing.Point(8, 448);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(56, 16);
+			this.label6.TabIndex = 9;
+			this.label6.Text = "Importo:";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtImporto2
+			// 
+			this.txtImporto2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.txtImporto2.Location = new System.Drawing.Point(64, 444);
+			this.txtImporto2.Name = "txtImporto2";
+			this.txtImporto2.ReadOnly = true;
+			this.txtImporto2.Size = new System.Drawing.Size(120, 23);
+			this.txtImporto2.TabIndex = 10;
+			this.txtImporto2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// btnAnnulla
+			// 
+			this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnAnnulla.Location = new System.Drawing.Point(600, 524);
+			this.btnAnnulla.Name = "btnAnnulla";
+			this.btnAnnulla.Size = new System.Drawing.Size(72, 23);
+			this.btnAnnulla.TabIndex = 17;
+			this.btnAnnulla.Text = "Chiudi";
+			// 
+			// btnOK
+			// 
+			this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnOK.Enabled = false;
+			this.btnOK.Location = new System.Drawing.Point(656, 444);
+			this.btnOK.Name = "btnOK";
+			this.btnOK.Size = new System.Drawing.Size(64, 23);
+			this.btnOK.TabIndex = 16;
+			this.btnOK.Tag = "";
+			this.btnOK.Text = "Salva";
+			this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+			// 
+			// btnScollegaS
+			// 
+			this.btnScollegaS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnScollegaS.Enabled = false;
+			this.btnScollegaS.Location = new System.Drawing.Point(376, 444);
+			this.btnScollegaS.Name = "btnScollegaS";
+			this.btnScollegaS.Size = new System.Drawing.Size(136, 23);
+			this.btnScollegaS.TabIndex = 19;
+			this.btnScollegaS.Text = "Annulla il collegamento";
+			this.btnScollegaS.Click += new System.EventHandler(this.btnScollegaS_Click);
+			// 
+			// btnCollegaS
+			// 
+			this.btnCollegaS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnCollegaS.Enabled = false;
+			this.btnCollegaS.Location = new System.Drawing.Point(192, 444);
+			this.btnCollegaS.Name = "btnCollegaS";
+			this.btnCollegaS.Size = new System.Drawing.Size(176, 23);
+			this.btnCollegaS.TabIndex = 18;
+			this.btnCollegaS.Text = "Collega a movimento esistente...";
+			this.btnCollegaS.Click += new System.EventHandler(this.btnCollega_Click);
+			// 
+			// dgDettaglioRitenute
+			// 
+			this.dgDettaglioRitenute.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgDettaglioRitenute.DataMember = "";
-            this.dgDettaglioRitenute.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgDettaglioRitenute.Location = new System.Drawing.Point(8, 90);
-            this.dgDettaglioRitenute.Name = "dgDettaglioRitenute";
-            this.dgDettaglioRitenute.Size = new System.Drawing.Size(924, 326);
-            this.dgDettaglioRitenute.TabIndex = 20;
-            this.dgDettaglioRitenute.Paint += new System.Windows.Forms.PaintEventHandler(this.dgDettaglioRitenute_Paint);
-            // 
-            // tabController
-            // 
-            this.tabController.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tabController.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabController.IDEPixelArea = true;
-            this.tabController.Location = new System.Drawing.Point(0, 0);
-            this.tabController.Name = "tabController";
-            this.tabController.SelectedIndex = 0;
-            this.tabController.SelectedTab = this.tabPage1;
-            this.tabController.Size = new System.Drawing.Size(944, 456);
-            this.tabController.TabIndex = 21;
-            this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
+			this.dgDettaglioRitenute.DataMember = "";
+			this.dgDettaglioRitenute.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgDettaglioRitenute.Location = new System.Drawing.Point(8, 90);
+			this.dgDettaglioRitenute.Name = "dgDettaglioRitenute";
+			this.dgDettaglioRitenute.Size = new System.Drawing.Size(1099, 378);
+			this.dgDettaglioRitenute.TabIndex = 20;
+			this.dgDettaglioRitenute.Paint += new System.Windows.Forms.PaintEventHandler(this.dgDettaglioRitenute_Paint);
+			// 
+			// tabController
+			// 
+			this.tabController.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.tabController.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabController.IDEPixelArea = true;
+			this.tabController.Location = new System.Drawing.Point(0, 0);
+			this.tabController.Name = "tabController";
+			this.tabController.SelectedIndex = 0;
+			this.tabController.SelectedTab = this.tabPage1;
+			this.tabController.Size = new System.Drawing.Size(1119, 508);
+			this.tabController.TabIndex = 21;
+			this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
             this.tabPage1,
             this.tabPage2,
             this.tabPage3});
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			// 
+			// tabPage1
+			// 
+			this.tabPage1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Location = new System.Drawing.Point(0, 0);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(944, 431);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Title = "Presentazione";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.tabPage1.Controls.Add(this.textBox1);
+			this.tabPage1.Location = new System.Drawing.Point(0, 0);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Size = new System.Drawing.Size(1119, 483);
+			this.tabPage1.TabIndex = 3;
+			this.tabPage1.Title = "Presentazione";
+			// 
+			// textBox1
+			// 
+			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(8, 8);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(924, 412);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = resources.GetString("textBox1.Text");
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.textBox1.Location = new System.Drawing.Point(8, 8);
+			this.textBox1.Multiline = true;
+			this.textBox1.Name = "textBox1";
+			this.textBox1.ReadOnly = true;
+			this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.textBox1.Size = new System.Drawing.Size(1099, 464);
+			this.textBox1.TabIndex = 0;
+			this.textBox1.Text = resources.GetString("textBox1.Text");
+			// 
+			// tabPage2
+			// 
+			this.tabPage2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabPage2.Controls.Add(this.btnSelezionaTutto);
-            this.tabPage2.Controls.Add(this.dgDettaglioRitenute);
-            this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.cmbRitenuta);
-            this.tabPage2.Controls.Add(this.txtDataFine);
-            this.tabPage2.Controls.Add(this.txtImporto1);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.txtDataInizio);
-            this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Location = new System.Drawing.Point(0, 0);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Selected = false;
-            this.tabPage2.Size = new System.Drawing.Size(944, 431);
-            this.tabPage2.TabIndex = 4;
-            this.tabPage2.Title = "Ritenute da liquidare";
-            // 
-            // btnSelezionaTutto
-            // 
-            this.btnSelezionaTutto.Location = new System.Drawing.Point(8, 60);
-            this.btnSelezionaTutto.Name = "btnSelezionaTutto";
-            this.btnSelezionaTutto.Size = new System.Drawing.Size(88, 23);
-            this.btnSelezionaTutto.TabIndex = 24;
-            this.btnSelezionaTutto.Text = "Seleziona tutto";
-            this.btnSelezionaTutto.Click += new System.EventHandler(this.btnSelezionaTutto_Click);
-            // 
-            // label8
-            // 
-            this.label8.Location = new System.Drawing.Point(100, 64);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(791, 23);
-            this.label8.TabIndex = 23;
-            this.label8.Text = "Tenere premuto il tasto CTRL o MAIUSC e contemporaneamente cliccare con il mouse " +
+			this.tabPage2.Controls.Add(this.btnSelezionaTutto);
+			this.tabPage2.Controls.Add(this.dgDettaglioRitenute);
+			this.tabPage2.Controls.Add(this.label8);
+			this.tabPage2.Controls.Add(this.cmbRitenuta);
+			this.tabPage2.Controls.Add(this.txtDataFine);
+			this.tabPage2.Controls.Add(this.txtImporto1);
+			this.tabPage2.Controls.Add(this.label7);
+			this.tabPage2.Controls.Add(this.txtDataInizio);
+			this.tabPage2.Controls.Add(this.label3);
+			this.tabPage2.Controls.Add(this.label2);
+			this.tabPage2.Controls.Add(this.label4);
+			this.tabPage2.Controls.Add(this.label1);
+			this.tabPage2.Location = new System.Drawing.Point(0, 0);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Selected = false;
+			this.tabPage2.Size = new System.Drawing.Size(1119, 483);
+			this.tabPage2.TabIndex = 4;
+			this.tabPage2.Title = "Ritenute da liquidare";
+			// 
+			// btnSelezionaTutto
+			// 
+			this.btnSelezionaTutto.Location = new System.Drawing.Point(8, 60);
+			this.btnSelezionaTutto.Name = "btnSelezionaTutto";
+			this.btnSelezionaTutto.Size = new System.Drawing.Size(88, 23);
+			this.btnSelezionaTutto.TabIndex = 24;
+			this.btnSelezionaTutto.Text = "Seleziona tutto";
+			this.btnSelezionaTutto.Click += new System.EventHandler(this.btnSelezionaTutto_Click);
+			// 
+			// label8
+			// 
+			this.label8.Location = new System.Drawing.Point(100, 64);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(791, 23);
+			this.label8.TabIndex = 23;
+			this.label8.Text = "Tenere premuto il tasto CTRL o MAIUSC e contemporaneamente cliccare con il mouse " +
     "per selezionare più ritenute da liquidare";
-            // 
-            // txtImporto1
-            // 
-            this.txtImporto1.Location = new System.Drawing.Point(302, 32);
-            this.txtImporto1.Name = "txtImporto1";
-            this.txtImporto1.ReadOnly = true;
-            this.txtImporto1.Size = new System.Drawing.Size(82, 23);
-            this.txtImporto1.TabIndex = 22;
-            this.txtImporto1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(240, 32);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 21);
-            this.label7.TabIndex = 21;
-            this.label7.Text = "Importo:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			// 
+			// txtImporto1
+			// 
+			this.txtImporto1.Location = new System.Drawing.Point(302, 32);
+			this.txtImporto1.Name = "txtImporto1";
+			this.txtImporto1.ReadOnly = true;
+			this.txtImporto1.Size = new System.Drawing.Size(82, 23);
+			this.txtImporto1.TabIndex = 22;
+			this.txtImporto1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label7
+			// 
+			this.label7.Location = new System.Drawing.Point(240, 32);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(56, 21);
+			this.label7.TabIndex = 21;
+			this.label7.Text = "Importo:";
+			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// tabPage3
+			// 
+			this.tabPage3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabPage3.Controls.Add(this.btnCambiaBilancio);
-            this.tabPage3.Controls.Add(this.gridMovSpesa);
-            this.tabPage3.Controls.Add(this.btnScollegaS);
-            this.tabPage3.Controls.Add(this.btnCollegaS);
-            this.tabPage3.Controls.Add(this.label5);
-            this.tabPage3.Controls.Add(this.label6);
-            this.tabPage3.Controls.Add(this.txtImporto2);
-            this.tabPage3.Controls.Add(this.btnOK);
-            this.tabPage3.Location = new System.Drawing.Point(0, 0);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Selected = false;
-            this.tabPage3.Size = new System.Drawing.Size(944, 431);
-            this.tabPage3.TabIndex = 5;
-            this.tabPage3.Title = "Liquidazione";
-            // 
-            // btnCambiaBilancio
-            // 
-            this.btnCambiaBilancio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCambiaBilancio.Location = new System.Drawing.Point(520, 392);
-            this.btnCambiaBilancio.Name = "btnCambiaBilancio";
-            this.btnCambiaBilancio.Size = new System.Drawing.Size(128, 23);
-            this.btnCambiaBilancio.TabIndex = 20;
-            this.btnCambiaBilancio.Text = "Cambia Voce Bilancio";
-            this.btnCambiaBilancio.Click += new System.EventHandler(this.btnCambiaBilancio_Click);
-            // 
-            // btnBack
-            // 
-            this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnBack.Location = new System.Drawing.Point(312, 472);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(75, 23);
-            this.btnBack.TabIndex = 22;
-            this.btnBack.Text = "< Indietro";
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // btnNext
-            // 
-            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnNext.Location = new System.Drawing.Point(408, 472);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(75, 23);
-            this.btnNext.TabIndex = 23;
-            this.btnNext.Text = "Avanti >";
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.tabPage3.Controls.Add(this.btnCambiaBilancio);
+			this.tabPage3.Controls.Add(this.gridMovSpesa);
+			this.tabPage3.Controls.Add(this.btnScollegaS);
+			this.tabPage3.Controls.Add(this.btnCollegaS);
+			this.tabPage3.Controls.Add(this.label5);
+			this.tabPage3.Controls.Add(this.label6);
+			this.tabPage3.Controls.Add(this.txtImporto2);
+			this.tabPage3.Controls.Add(this.btnOK);
+			this.tabPage3.Location = new System.Drawing.Point(0, 0);
+			this.tabPage3.Name = "tabPage3";
+			this.tabPage3.Selected = false;
+			this.tabPage3.Size = new System.Drawing.Size(1119, 483);
+			this.tabPage3.TabIndex = 5;
+			this.tabPage3.Title = "Liquidazione";
+			// 
+			// btnCambiaBilancio
+			// 
+			this.btnCambiaBilancio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnCambiaBilancio.Location = new System.Drawing.Point(520, 444);
+			this.btnCambiaBilancio.Name = "btnCambiaBilancio";
+			this.btnCambiaBilancio.Size = new System.Drawing.Size(128, 23);
+			this.btnCambiaBilancio.TabIndex = 20;
+			this.btnCambiaBilancio.Text = "Cambia Voce Bilancio";
+			this.btnCambiaBilancio.Click += new System.EventHandler(this.btnCambiaBilancio_Click);
+			// 
+			// btnBack
+			// 
+			this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnBack.Location = new System.Drawing.Point(312, 524);
+			this.btnBack.Name = "btnBack";
+			this.btnBack.Size = new System.Drawing.Size(75, 23);
+			this.btnBack.TabIndex = 22;
+			this.btnBack.Text = "< Indietro";
+			this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+			// 
+			// btnNext
+			// 
+			this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnNext.Location = new System.Drawing.Point(408, 524);
+			this.btnNext.Name = "btnNext";
+			this.btnNext.Size = new System.Drawing.Size(75, 23);
+			this.btnNext.TabIndex = 23;
+			this.btnNext.Text = "Avanti >";
+			this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+			// 
+			// panel1
+			// 
+			this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.tabController);
-            this.panel1.Location = new System.Drawing.Point(8, 8);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(944, 456);
-            this.panel1.TabIndex = 24;
-            // 
-            // Frm_taxpay_wiz_liquidperiodica
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(960, 502);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnNext);
-            this.Controls.Add(this.btnBack);
-            this.Controls.Add(this.btnAnnulla);
-            this.Name = "Frm_taxpay_wiz_liquidperiodica";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmliquidazioneritenuta";
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridMovSpesa)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgDettaglioRitenute)).EndInit();
-            this.tabController.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.ResumeLayout(false);
+			this.panel1.Controls.Add(this.tabController);
+			this.panel1.Location = new System.Drawing.Point(8, 8);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(1119, 508);
+			this.panel1.TabIndex = 24;
+			// 
+			// Frm_taxpay_wiz_liquidperiodica
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(1135, 554);
+			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.btnNext);
+			this.Controls.Add(this.btnBack);
+			this.Controls.Add(this.btnAnnulla);
+			this.Name = "Frm_taxpay_wiz_liquidperiodica";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "frmliquidazioneritenuta";
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.gridMovSpesa)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgDettaglioRitenute)).EndInit();
+			this.tabController.ResumeLayout(false);
+			this.tabPage1.ResumeLayout(false);
+			this.tabPage1.PerformLayout();
+			this.tabPage2.ResumeLayout(false);
+			this.tabPage2.PerformLayout();
+			this.tabPage3.ResumeLayout(false);
+			this.tabPage3.PerformLayout();
+			this.panel1.ResumeLayout(false);
+			this.ResumeLayout(false);
 
         }
 
@@ -1104,8 +1101,8 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
                 //Per ogni ritenuta a ogni dipartimento, crea una riga girofondo
                 addGirofondo(codiceritenuta, descrizione, AutoG["idtreasurer"], total);
             }
-
-            for (int i = 0; i < Ordered_SP_Res.Length; i++) {
+ 
+			for (int i = 0; i < Ordered_SP_Res.Length; i++) {
                 importoLiquidazione += CfgFn.GetNoNullDouble(Ordered_SP_Res[i]["amount"]);
                 DataRow Auto = Ordered_SP_Res[i];
                 int idSP = CfgFn.GetNoNullInt32(Auto["#"]);
@@ -1130,7 +1127,8 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
                     }
                 }
 
-                foreach (DataRow rFase in DS.expensephase.Select(null, "nphase")) {
+
+            foreach (DataRow rFase in DS.expensephase.Select(null, "nphase")) {
 
                     DS.Tables["expense"].Columns["nphase"].DefaultValue = rFase["nphase"];
                     DataRow NewSpesaRow = MetaSpesa.Get_New_Row(parentRow, DS.expense);
@@ -1138,7 +1136,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
                     serviceForIdExp[CfgFn.GetNoNullInt32(s)] = serviceOfMov[idSP];
                     parentRow = NewSpesaRow;
                     int faseCorrente = Convert.ToInt32(rFase["nphase"]);
-
+                   
                     FillMovimento(NewSpesaRow, Auto);
 
                     if (faseCorrente < faseCreditoreDebitoreSpesa) {
@@ -1153,7 +1151,8 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
                     }
                     NewSpesaRow["description"] = descrmovimento;
 
-                    if (faseCorrente == maxfasespesa) {
+				 
+					if (faseCorrente == maxfasespesa) {
                         object codicecreddeb = Auto["idreg"];
                         if (codicecreddeb == DBNull.Value) {
                             MessageBox.Show(this,
@@ -1226,7 +1225,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
                 if (R["livsupid"] == DBNull.Value) continue;
                 object idtolink = R["livsupid"];
 
-                object idmov = R["idmovimento"];
+                object idmov = R["idmovimento"];  
 
                 int nfasetolink =
                     CfgFn.GetNoNullInt32(Meta.Conn.DO_READ_VALUE("expense", QHS.CmpEq("idexp", idtolink), "nphase"));
@@ -1242,7 +1241,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
 
             }
 
-            //Cancella tutto ciò che non ha figli e non è di ultima fase sino a che non trova + nulla
+           //Cancella tutto ciò che non ha figli e non è di ultima fase sino a che non trova + nulla
             bool keep = true;
             while (keep) {
                 keep = false;
@@ -1260,8 +1259,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
                 }
             }
 
-
-            NewLiquidRitenRow["taxcode"] = codiceritenuta;
+			NewLiquidRitenRow["taxcode"] = codiceritenuta;
             //NewLiquidRitenRow["esercliquidazione"]=esercizio;
             //NewLiquidRitenRow["numliquidazione"]=MetaData.MaxFromColumn(DS.Tables["liquidazioneritenuta"],"numliquidazione")+1;
             NewLiquidRitenRow["amount"] = importoLiquidazione;
@@ -1897,9 +1895,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
             return diversi;
         }
 
-        void RicalcolaCampiCalcolati() {
-
-
+       void RicalcolaCampiCalcolati() {
             foreach (DataRow RS in DS.expenseview.Rows) {
 //				RS["!fondorip"]= RS["idres"].ToString()+"#"+RS["idpar"].ToString();
                 object livsup = RS["parentidexp"];
@@ -2703,4 +2699,3 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
         }
     }
 }
-

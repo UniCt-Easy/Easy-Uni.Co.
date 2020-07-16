@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -62,6 +59,17 @@ public class didproggruppRow: MetaRow  {
 	public String cuOriginal { 
 		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
 	}
+	public Int32? idcorsostudio{ 
+		get {if (this["idcorsostudio"]==DBNull.Value)return null; return  (Int32?)this["idcorsostudio"];}
+		set {if (value==null) this["idcorsostudio"]= DBNull.Value; else this["idcorsostudio"]= value;}
+	}
+	public object idcorsostudioValue { 
+		get{ return this["idcorsostudio"];}
+		set {if (value==null|| value==DBNull.Value) this["idcorsostudio"]= DBNull.Value; else this["idcorsostudio"]= value;}
+	}
+	public Int32? idcorsostudioOriginal { 
+		get {if (this["idcorsostudio",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idcorsostudio",DataRowVersion.Original];}
+	}
 	public Int32? iddidprog{ 
 		get {if (this["iddidprog"]==DBNull.Value)return null; return  (Int32?)this["iddidprog"];}
 		set {if (value==null) this["iddidprog"]= DBNull.Value; else this["iddidprog"]= value;}
@@ -106,6 +114,9 @@ public class didproggruppRow: MetaRow  {
 	public String luOriginal { 
 		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Denominazione
+	///</summary>
 	public String title{ 
 		get {if (this["title"]==DBNull.Value)return null; return  (String)this["title"];}
 		set {if (value==null) this["title"]= DBNull.Value; else this["title"]= value;}
@@ -129,6 +140,7 @@ public class didproggruppTable : MetaTableBase<didproggruppRow> {
 			{"codice",createColumn("codice",typeof(string),true,false)},
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
 			{"cu",createColumn("cu",typeof(string),false,false)},
+			{"idcorsostudio",createColumn("idcorsostudio",typeof(int),false,false)},
 			{"iddidprog",createColumn("iddidprog",typeof(int),false,false)},
 			{"iddidproggrupp",createColumn("iddidproggrupp",typeof(int),false,false)},
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
@@ -138,4 +150,3 @@ public class didproggruppTable : MetaTableBase<didproggruppRow> {
 	}
 }
 }
-

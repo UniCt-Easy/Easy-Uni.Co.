@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -976,6 +973,28 @@ public class treasurerRow: MetaRow  {
 	public String tramite_bt_codeOriginal { 
 		get {if (this["tramite_bt_code",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["tramite_bt_code",DataRowVersion.Original];}
 	}
+	public String tramite_agency_code{ 
+		get {if (this["tramite_agency_code"]==DBNull.Value)return null; return  (String)this["tramite_agency_code"];}
+		set {if (value==null) this["tramite_agency_code"]= DBNull.Value; else this["tramite_agency_code"]= value;}
+	}
+	public object tramite_agency_codeValue { 
+		get{ return this["tramite_agency_code"];}
+		set {if (value==null|| value==DBNull.Value) this["tramite_agency_code"]= DBNull.Value; else this["tramite_agency_code"]= value;}
+	}
+	public String tramite_agency_codeOriginal { 
+		get {if (this["tramite_agency_code",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["tramite_agency_code",DataRowVersion.Original];}
+	}
+	public String agency_istat_code{ 
+		get {if (this["agency_istat_code"]==DBNull.Value)return null; return  (String)this["agency_istat_code"];}
+		set {if (value==null) this["agency_istat_code"]= DBNull.Value; else this["agency_istat_code"]= value;}
+	}
+	public object agency_istat_codeValue { 
+		get{ return this["agency_istat_code"];}
+		set {if (value==null|| value==DBNull.Value) this["agency_istat_code"]= DBNull.Value; else this["agency_istat_code"]= value;}
+	}
+	public String agency_istat_codeOriginal { 
+		get {if (this["agency_istat_code",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["agency_istat_code",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -1052,8 +1071,9 @@ public class treasurerTable : MetaTableBase<treasurerRow> {
 			{"ftpport",createColumn("ftpport",typeof(int),true,false)},
 			{"ftpdir",createColumn("ftpdir",typeof(string),true,false)},
 			{"tramite_bt_code",createColumn("tramite_bt_code",typeof(string),true,false)},
+			{"tramite_agency_code",createColumn("tramite_agency_code",typeof(string),true,false)},
+			{"agency_istat_code",createColumn("agency_istat_code",typeof(string),true,false)},
 		};
 	}
 }
 }
-

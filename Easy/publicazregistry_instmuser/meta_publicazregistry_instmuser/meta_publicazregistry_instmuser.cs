@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -37,17 +34,15 @@ namespace meta_publicazregistry_instmuser
 
 		//$PrymaryKey$
 
-				public override void SetDefaults(DataTable PrimaryTable) {
-			base.SetDefaults(PrimaryTable);
-		}
-
+		//$SetDefault$
 
 		public override DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
+			
+			RowChange.MarkAsAutoincrement(T.Columns["idpublicazregistry_instmuser"], null, null, 0);
+			RowChange.setMinimumTempValue(T.Columns["idpublicazregistry_instmuser"], 9990000);
+			//$Get_New_Row$
 
-            RowChange.MarkAsAutoincrement(T.Columns["idpublicaz"], null, null, 12);
-            RowChange.setMinimumTempValue(T.Columns["idpublicaz"], 9990000);
-
-            DataRow R = base.Get_New_Row(ParentRow, T);
+			DataRow R = base.Get_New_Row(ParentRow, T);
 			return R;
 		}
 
@@ -69,22 +64,17 @@ namespace meta_publicazregistry_instmuser
 					
 			switch (ListingType) {
 				case "instmuser": {
-						DescribeAColumn(T, "annopub", "Anno pubblicazione", nPos++);
 						DescribeAColumn(T, "title", "Titolo", nPos++);
-                        DescribeAColumn(T, "!idinstmseztematiche_instmseztematichekind_title", "Sezione tematica", nPos++);
-                        break;
+						DescribeAColumn(T, "!idinstmseztematichekind_instmseztematichekind_title", "Sezione tematica", nPos++);
+						DescribeAColumn(T, "annopub", "Anno", nPos++);
+						DescribeAColumn(T, "idpublicazregistry_instmuser", "Identificativo", nPos++);
+						break;
 					}
 					//$DescribeAColumn$
 			}
 		}
 
-		public override string GetSorting(string ListingType) {
-
-			switch (ListingType) {
-				//$GetSorting$
-			}
-			return base.GetSorting(ListingType);
-		}
+		//$GetSortings$
 
 		public override string GetStaticFilter(string ListingType) {
 			switch (ListingType) {
@@ -96,4 +86,3 @@ namespace meta_publicazregistry_instmuser
 		//$CustomCode$
     }
 }
-

@@ -1,11 +1,11 @@
 MIME-Version: 1.0
-Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occ.)
+Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ"
+  boundary="---------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ"
 
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -31,12 +31,18 @@ a</FONT></STRONG></P><HR>
 <DIV><FONT size=3D"4">Link guide correlate:</FONT></DIV>
 <DIV><A href=3D"cartadebito.mht"><STRONG><FONT size=3D"4" color=3D#0033ff=
 >Carta Docente</FONT></STRONG></A></FONT></STRONG></DIV>
+<DIV><A href=3D"modifiche_cpfatture.mht"><STRONG><FONT size=3D"4">Fatture=
+ con importo diverso dal contratto</FONT></STRONG></A></FONT></STRONG></D=
+IV>
+<DIV><A href=3D"reinvio_fattura.mht"><STRONG><FONT size=3D"4">Nuovo invio=
+ di una fattura elettronica di vendita a seguito di modifiche</FONT></STR=
+ONG></A></FONT></STRONG></DIV>
 <DIV align=3D"justify"><A href=3D"contabilizzazioneNC.mht"><STRONG><FONT =
 size=3D"4" color=3D#0033ff>Inserimento e contabilizzazione Nota di credit=
 o</FONT></STRONG></A></FONT></STRONG></DIV>
 <DIV align=3D"justify"><A href=3D"electronicinvoice_default.mht"><STRONG>=
 <FONT size=3D"4" color=3D#0033ff>Fattura Elettronica</FONT><FONT size=3D"=
-4"> attiva</A></FONT></STRONG></DIV>
+4"> attiva</FONT></STRONG></A></FONT></STRONG></DIV>
 <DIV align=3D"justify"><A href=3D"registro_unico.mht"><STRONG><FONT size=3D=
 "4" color=3D#0033ff>Re</FONT></A><A href=3D"pcc_wizard_calcolo.mht"><FONT=
  size=3D"4">gistro unico</FONT></STRONG></A></FONT></STRONG></DIV>
@@ -54,7 +60,13 @@ on split payment e ritenuta d'acconto (professionisti)</FONT></STRONG></A=
 ></FONT></STRONG></DIV>
 <DIV align=3D"justify"><A href=3D"annullamento_mandatofatturasplitpayment=
 =2Emht"><STRONG><FONT size=3D"4">Annullamento mandato pagamento Fattura S=
-plit Payment</FONT></STRONG></A></FONT></STRONG></DIV><HR>
+plit Payment</FONT></STRONG></A></FONT></STRONG></DIV>
+<DIV align=3D"justify"><A href=3D"indicatore_temp.mht"><STRONG><FONT size=
+=3D"4">Indicatore tempestivit=C3=A0 dei pagamenti</FONT></STRONG></A></FO=
+NT></STRONG></DIV>
+<DIV align=3D"justify"><A href=3D"Modifiche_postinventar.mht"><STRONG><FO=
+NT size=3D"4">Modifiche su documenti relativi a beni gi=C3=A0 inventariat=
+i</A></FONT></STRONG></DIV><HR>
 <DIV align=3D"justify">&nbsp;</DIV>
 <DIV align=3D"justify">L'applicativo Easy consente di inserire differenti=
  tipologie di <STRONG>Documenti IVA </STRONG>configurabili dal menu <EM>O=
@@ -67,7 +79,7 @@ M>, <EM>Attributi</EM>, <EM>Fatt. Elettronica, Reg. Unico, Allegati, Tess=
 era Sanitaria, Altro.</EM></DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:CANPS7KV17D61KCGR6V19TF3QQ"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:ENGAJKJ9HBCT12ESC6P1JZ2XTC"></DIV>
 <P align=3D"center"><EM>Fig. 1</EM></P><HR><HR>
 <DIV align=3D"justify">&nbsp;</DIV>
 <DIV align=3D"justify"><STRONG>PRINCIPALE</STRONG></DIV>
@@ -152,7 +164,7 @@ data che appare sul registro).</DIV></LI>
 A e viene automaticamente valorizzata all=E2=80=99atto della registrazion=
 e della fattura.</DIV></UL>
 
-<DIV align=3D"center"><IMG src=3D"cid:DI24WRKBUND21QUKJ2ZPRSAJD"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:BAK20PIQ2DNW1S7OGIC1BKNYT"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"center"><EM>Fig.2</EM></DIV>
 <DIV align=3D"center">&nbsp;</DIV><HR><HR>
@@ -177,7 +189,7 @@ tico dal programma solo<STRONG> </STRONG>se l'anagrafica inserita in fatt=
 ura, nella scheda <STRONG>Altri dati</STRONG>, ha il flag <STRONG>Ente Pu=
 bblico</STRONG> valorizzato.</DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1GN9T9YK7L2CC607YQCDR47BD"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1JE9KWDKB65YB1MSRMH5QF0CW8"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 <DIV><STRONG>REVERSE CHARGE (Legge stabilit=C3=A0 2015)</STRONG></DIV>
@@ -195,7 +207,7 @@ V>
 ag Abilita modifica manuale deve essere valorizzato. (solo pochi utenti d=
 evono possedere tale funzione)</DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:AAD5S1I7QJMH1VIT0H61NH94A1"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:5QZR0BL24IXV1AQ63SF1PI1P7O"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 <DIV><STRONG>INTRASTAT</STRONG></DIV>
@@ -223,7 +235,7 @@ vi).</LI>
  in calce, la Natura della transazione &quot;Acquisto vendita (compreso b=
 aratto)&quot; afferisce al codice numero 1.</DIV></UL>
 
-<DIV align=3D"center"><IMG src=3D"cid:1B97GX0LR7VI4RD66BX1DWT3EQ"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:M21EDULKCE9F1ITQL4YB8MLMS"></DIV>
 <P align=3D"center"><EM>Fig. 3</EM></P>
 <DIV>In caso di fattura di Vendita (Fig. 4):</DIV>
 <UL>
@@ -233,7 +245,7 @@ igine della merce</LI>
 a merce</LI>
 <LI><STRONG>Natura della transazione</STRONG></LI></UL>
 
-<DIV align=3D"center"><IMG src=3D"cid:46L11XLCSXSUWGU4R813H8P77"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1T8BJYOJFK0BA53PX251SRLL49"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"center"><EM>Fig. 4</EM></DIV>
 <DIV>&nbsp;</DIV>
@@ -258,7 +270,7 @@ tta in Kilogrammi &nbsp;per i beni.</DIV></LI>
 i erogazione per i servizi.</DIV></LI></UL>
 
 <DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:UV4BZJCGJWPV184VB193IFCX"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1UDC79BKNQLLMWYTBCM13DTDYW"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"center"><EM>Fig. 5</EM></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
@@ -283,7 +295,7 @@ getti UE non residenti in Italia=E2=80=9D;</LI>
 IVA sui servizi in applicazione artt. 7-quarter, 7-quinquies, 7-sexies e =
 7-se=C3=A8ties del DPR n. 633 del 1972 =E2=80=9D.</LI></UL>
 
-<DIV align=3D"center"><IMG src=3D"cid:I31KRHLZQQWNRBV6WSKTU41K"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:23EGN6KZG7EJM7HK171LX4H31"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"center"><EM>Fig. 6</EM></DIV>
 <DIV align=3D"center">&nbsp;</DIV><HR><HR>
@@ -309,7 +321,7 @@ tilizzando il bottone Crea da Contratto Professionale.</LI></UL>
 <P align=3D"justify">Nella modalit=C3=A0 di inserimento manuale, cliccand=
 o sul tasto <EM>Aggiungi</EM> comparir=C3=A0 la maschera del <EM>Dettagli=
 o documento IVA</EM> (Fig. 7) .</P>
-<P align=3D"center"><IMG src=3D"cid:UCQMJKI6KRIEM7EGE918L4MR"></P>
+<P align=3D"center"><IMG src=3D"cid:1SFYP94JZ5ZED106832T1CLHWSO"></P>
 <P align=3D"center"><EM>Fig. 7</EM></P>
 <P align=3D"center">Il dettaglio del documento IVA =C3=A8 composto da una=
  parte generale e da quattro schede (<EM>Finanziario</EM>, <EM>Analitico<=
@@ -342,7 +354,7 @@ porto totale dell'IVA applicata.</DIV>
 o indica l'importo dell'IVA non detraibile.</DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1AR8OWIIHGU8E1S31RR2RWBYSC"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:N6U869J98CE017QX081DKYSM7"></DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
 <DIV align=3D"center"><EM>Fig. 8</EM></DIV>
 <DIV align=3D"justify">&nbsp;</DIV><HR>
@@ -359,7 +371,7 @@ legato al dettaglio fattura.</DIV>
 <DIV align=3D"justify"><A href=3D"codice_CUP_codice_CIG.mht">Per l'inseri=
 mento del codice CUP e codice CIG si rinvia alla relativa pagina</A>.</DI=
 V>
-<P align=3D"center"><IMG src=3D"cid:1KE0W8CLFUDQ3AYXYTO1Y6TW2Z"></P>
+<P align=3D"center"><IMG src=3D"cid:H6EOYELVESTK10DI7QUQ8J529"></P>
 <P align=3D"center"><EM>Fig. 9</EM></P><HR>
 <DIV align=3D"left">&nbsp;</DIV>
 <DIV align=3D"left">La scheda <EM>Analitico </EM>(Fig. 10) permette di in=
@@ -369,21 +381,21 @@ serire &nbsp;una classificazione analitica opportunamente configurata dal=
 dell'ordine vengono impostate dal men=C3=B9 di configurazione delle spese=
  (<EM>Opzioni &gt; Configurazione annuale &gt; Spese &gt; Analitico</EM>)=
 =2E</DIV>
-<P align=3D"center"><IMG src=3D"cid:15PT13MI957GG12EJRTT1NK42JC"></P>
+<P align=3D"center"><IMG src=3D"cid:L6WGAVJA591AX9PVA8CCNOHO"></P>
 <P align=3D"center"><EM>Fig. 10</EM></P><HR>
 <P align=3D"left">La scheda <EM>E/P </EM>(Fig. 11) consente l'inserimento=
  delle causali di costo per la contabilit=C3=A0 economico-patrimoniale.</=
 P>
-<P align=3D"center"><IMG src=3D"cid:RT4PB2IG14A41YK56RV1NFTNAG"></P>
+<P align=3D"center"><IMG src=3D"cid:KU0RFKIUKJQZ1OA9BIAYTSXV4"></P>
 <P align=3D"center"><EM>Fig. 11</EM></P><HR>
 <P align=3D"justify">La scheda <EM>Liquidazione IVA </EM>(Fig. 12) consen=
 te di inserire la data di competenza ai fini della liquidazione IVA.</P>
-<P align=3D"center"><IMG src=3D"cid:T95GLAITBGFI5K65RAZBKQQL"></P>
+<P align=3D"center"><IMG src=3D"cid:1IT9RLVIAII5XMGMHL114QSLLP"></P>
 <P align=3D"center"><EM>Fig. 12</EM></P><HR>
 <P align=3D"left">La scheda <EM>Quadro VF24 </EM>(Fig. 13) consente di im=
 postare la tipologia della spesa necessaria per il quadro VF24 richiesto =
 dalla dichiarazione IVA.</P>
-<P align=3D"center"><IMG src=3D"cid:1OSLPAHJU2PQ01VBWT6G1LPJC2R"></P>
+<P align=3D"center"><IMG src=3D"cid:9GFIJXIGXDGWKFU6CC1I4FQJ4"></P>
 <P align=3D"center"><EM>Fig. 13</EM></P><HR>
 <DIV align=3D"left">&nbsp;</DIV>
 <DIV align=3D"left">La scheda <EM>Comunicazioni </EM>(Fig. 14) permette d=
@@ -424,18 +436,18 @@ enzialmente essere appartenente alla black list.</LI></UL>
 <DIV>E' quindi opportuno, all=E2=80=99atto dell=E2=80=99inserimento di un=
 a nuova anagrafica, specificare sempre la residenza del cliente/fornitore=
 =2E</DIV>
-<P align=3D"center"><IMG src=3D"cid:1W02YKHJKJY5W1X1VSTD17R6HCV"></P>
+<P align=3D"center"><IMG src=3D"cid:538A9QLRQF1RHXWRD5D2TI1I"></P>
 <P align=3D"center"><EM>Fig. 14</EM></P><HR>
 <P align=3D"left">La scheda <EM>Appunti </EM>(Fig. 15) consente di inseri=
 re eventuali annotazioni.</P>
-<P align=3D"center"><IMG src=3D"cid:1A122QMM2G6M71N8PIUZV5GDI9"></P>
+<P align=3D"center"><IMG src=3D"cid:X3961GKXEDIC1NLYAI51YBY8IT"></P>
 <P align=3D"center"><EM>Fig. 15</EM></P><HR>
 <DIV align=3D"left">&nbsp;</DIV>
 <DIV align=3D"left">La scheda <EM>Spesometro </EM>(Fig. 16) =C3=A8 un'ela=
 borazione delle fatture IVA ad acquirenti stranieri.</DIV>
 <DIV>La compilazione dei dettagli permette la trasmissione delle informaz=
 ioni all'Agenzia delle Entrate, &nbsp;richiesta annualmente.</DIV>
-<P align=3D"center"><IMG src=3D"cid:S85BI3IPCTDV1C7SUYB11WS4J5"></P>
+<P align=3D"center"><IMG src=3D"cid:18VVAQ9JV8MS1B6F3Q21N79FRA"></P>
 <P align=3D"center"><EM>Fig. 16</EM></P>
 <P align=3D"center">&nbsp;</P>
 <DIV>Il pulsante <STRONG>Collega a carico</STRONG> cespite permetter=C3=A0=
@@ -447,7 +459,7 @@ arico cespite non riportante le informazioni della fattura) (Fig. 17):</D=
 IV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1UGZLQ4L85J4J1OYO81B1FTDLX8"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1KWIODVKRDHMC1DH3OOT127BWJE"></DIV>
 <DIV align=3D"center"><EM>Fig. 17</EM></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"center">&nbsp;</DIV>
@@ -457,7 +469,7 @@ nfermare l'operazione, l'imponibile e l'iva del carico saranno aggiornati=
  in base a quanto presente in fattura (Figura 18):</DIV>
 <DIV align=3D"left">&nbsp;</DIV>
 <DIV align=3D"left">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1WG4IJSLOUR5S13W54EC1QYEMAG"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:Z85AHKHXDBMOH3TQ5TJL9M2I"></DIV>
 <DIV align=3D"center"><EM>Fig. 18</EM></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <P align=3D"left">&nbsp;</P><HR>
@@ -504,7 +516,7 @@ rato.</DIV>
 l rispettivo numero di protocollo al momento del salvataggio della fattur=
 a.</DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:BREGLHI93QVXBR62ZZIT9E3P"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1N1KHNIJPYFOE18DDJ1Z1EKG103"></DIV>
 <P align=3D"center"><EM>Fig</EM>. 19</P><HR><HR>
 <P align=3D"justify"><STRONG>LIQUIDAZIONE IVA</STRONG></P>
 <DIV align=3D"justify">La scheda <EM>Liquidazione IVA</EM> (Fig. 20), vis=
@@ -512,7 +524,7 @@ ualizza l'importo dell'IVA (detraibile e indetraibile) calcolata ai fini =
 della liquidazione periodica, nonch=C3=A9, l'esercizio e il numero di liq=
 uidazione periodica in cui =C3=A8 rientrata la liquidazione.</DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1NZS46YIBFTQBLTEQH2E0HSL5"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1CDE39SIXB6ZO18RZ1DG98QCEL"></DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
 <DIV align=3D"center"><EM>Fig</EM>. 20</DIV>
 <DIV align=3D"center">&nbsp;</DIV><HR><HR>
@@ -523,7 +535,7 @@ e informazioni inserite a livello dei singoli dettagli. Inoltre permette =
 l'indicazione delle causali di debito se queste sono diverse da quelle di=
  default configurabili dal men=C3=B9 <EM>Opzioni &gt; Configurazione annu=
 ale &gt; E/P</EM>.</P>
-<P align=3D"center"><IMG src=3D"cid:1YOAU8QINPSLV1KD64Z11Q1Q8N"></P>
+<P align=3D"center"><IMG src=3D"cid:TGLLZPI0KYC51SWFV5U1A2Y7CO"></P>
 <P align=3D"center"><EM>Fig</EM>. 21</P><HR><HR>
 <P align=3D"justify"><STRONG>CLASSIFICAZIONI</STRONG></P>
 <P align=3D"justify">La scheda <EM>Classificazioni</EM> (Fig. 22) permett=
@@ -537,7 +549,7 @@ tra quelli associati al Contratto Passivo e presenti in <EM>Opzioni -&gt;=
  Rivelazioni analitiche -&gt; Tipo di Rivelazione analitica -&gt; Applica=
 bilit=C3=A0.</EM></DIV>
 <P align=3D"justify">&nbsp;</P>
-<P align=3D"center"><IMG src=3D"cid:1E3WOELJ2NOOY15771KT1EIAGBB"></P>
+<P align=3D"center"><IMG src=3D"cid:P8P5XNIETQP917KUQI91AVW6AC"></P>
 <P align=3D"center"><EM>Fig</EM>. 22</P><HR><HR>
 <P><STRONG>MAGAZZINO</STRONG></P>
 <P>Nella scheda <EM>Magazzino</EM> (Fig. 23) vengono fornite indicazioni =
@@ -545,13 +557,13 @@ in merito al carico di magazzino riferito ai beni oggetto di fatturazione=
 =2E L'informazione verr=C3=A0 visualizzata qualora i dettagli della fattu=
 ra siano stati inseriti scegliendo dalla scheda listino del dettaglio e d=
 opo aver salvato la fattura in oggetto.</P>
-<P align=3D"center"><IMG src=3D"cid:QPKO0PJMNXW4CBXTITWYXX4R"></P>
+<P align=3D"center"><IMG src=3D"cid:1RHZJD1K8UUIT167O1HP1Y248DS"></P>
 <P align=3D"center"><EM>Fig</EM>. 23</P>
 <P align=3D"justify">Il pulsante <STRONG><U>Modifica</U></STRONG> (Fig. 2=
 4) consente di inserire le informazioni relative alla Data di scadenza e =
 alle coordinate di magazzino se queste non sono state gi=C3=A0 inserite i=
 n precedenza.</P>
-<DIV align=3D"center"><IMG src=3D"cid:8TDBBFK4BURFTW4LG21O89IKM"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1TTUG43L9XGHY1YPR3481JTI7RX"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"center"><EM>Fig</EM>. 24</DIV>
 <DIV align=3D"center">&nbsp;</DIV><HR><HR>
@@ -597,7 +609,7 @@ edere o no alla comunicazione, a seconda dei casi specifici.</DIV>
 <DIV>A questo scopo si riferisce la voce precedente vista e presente in D=
 ettagli &gt; Comunicazioni (Fig. 25).</DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:UH7J73L9F7WO1ED48LF1UGTBY8"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1IDXNU0KECH7ZID6Z771FO2G0G"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV align=3D"center"><EM>Fig</EM>. 25</DIV>
 <DIV>&nbsp;</DIV><HR><HR>
@@ -616,7 +628,7 @@ Opzioni &gt; Configurazione pluriennale &gt; Attributi</EM>.</DIV>
 <DIV align=3D"justify">In caso contrario, occorrer=C3=A0 impostarli.</DIV=
 >
 <DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:BRNVJGK49WOR1XEKS6MIM0KUE"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:16F5ILHJ56PPA7IM8IF1QZSZHX"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV align=3D"center"><EM>Fig</EM>. 26</DIV>
 <DIV>&nbsp;</DIV>
@@ -640,7 +652,7 @@ C =C3=A8 necessario inserire la tipologia di spesa;</LI>
 dovessimo comunicare nuovamente una fattura gi=C3=A0 inserita nella piatt=
 aforma della certificazione dei crediti</LI></OL>
 
-<DIV align=3D"center"><IMG src=3D"cid:187WPNZISVR4Y1AN9AK81IAH7YM"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1LTKOYTKV5B759VSUQ07CECIY"></DIV>
 <DIV align=3D"center"><EM>Fig</EM>. 27</DIV>
 <DIV>&nbsp;</DIV>
 <DIV><STRONG><EM>Per maggiori informazioni si rimanda alla guida in linea=
@@ -656,7 +668,7 @@ ioni afferenti alle Bolle doganali, ai carichi cespite associati (e dunqu=
 e i carichi cespite eseguiti a seguito del contratto passivo), alla Black=
 list.</DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1UEHV09JF4AOX1S9KAF3ZR5JU5"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:151EH29J2LQ4V12UN79C1U8WVYJ"></DIV>
 <DIV align=3D"center"><EM>Fig</EM>. 28</DIV>
 <DIV>&nbsp;</DIV><HR><HR>
 <DIV>&nbsp;</DIV>
@@ -664,9 +676,9 @@ list.</DIV>
 </BODY>
 </HTML>
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/x-png
-Content-Id: <CANPS7KV17D61KCGR6V19TF3QQ>
+Content-Id: <ENGAJKJ9HBCT12ESC6P1JZ2XTC>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Francesco/Desktop/Immagine1.png
 
@@ -1242,9 +1254,9 @@ YRiGYRg21hDQGIZhGIZhGDbBENAYhmEYhmEYNsEQ0BiGYRiGYRg2wRDQGIZhGIZh
 GDbBnICW/zAMwzAMwzAMG2knAAAAAAAwgT++8TMYhmEYhmEYho2yGz/z/wMt47yg
 sqigYQAAAABJRU5ErkJggg===
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/x-png
-Content-Id: <DI24WRKBUND21QUKJ2ZPRSAJD>
+Content-Id: <BAK20PIQ2DNW1S7OGIC1BKNYT>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Francesco/Desktop/Immagini/Immagine2.png
 
@@ -1913,9 +1925,9 @@ aGgMwzAMwzAMm2ZoaAzDMAzDMAybZmhoDMMwDMMwDJtmqqHlF4ZhGIZhGIZhI81p
 aAAAAAAAmMafve8zGIZhGIZhGIaNtfd95v8HKNLCqiJWkkwAAAAASUVORK5CYII=
 =
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/x-png
-Content-Id: <1GN9T9YK7L2CC607YQCDR47BD>
+Content-Id: <1JE9KWDKB65YB1MSRMH5QF0CW8>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Francesco/Desktop/Immagini/Immagine3.png
 
@@ -2412,9 +2424,9 @@ yIbnbAAAQHQQ2QAAgOggsgEAANFBZAMAAKKjYO3m2BPEAAAAeY0+GwAAEB1ENgAA
 IDqIbAAAQHQQ2QAAgOggsgEAANFR8MnndupRAACAvGYY/x+odi3PLl8j4wAAAABJ
 RU5ErkJggg===
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/x-png
-Content-Id: <AAD5S1I7QJMH1VIT0H61NH94A1>
+Content-Id: <5QZR0BL24IXV1AQ63SF1PI1P7O>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Francesco/Desktop/Immagini/Immagine4.png
 
@@ -3200,9 +3212,9 @@ AAAAoCgl+D3TG/7zNrkCAAAAAFDEYgfTP6VgGgAAAAAAAlh2/PALl5+HOdMAAAAA
 AAkat6K3VyYBAAAAACAe4267DROjAQAAAAASgWkeAAAAAAAJQjANAAAAAJCgkrGx
 sZKSkguf2S8zAAAAAAAggBcuP+//A8bvd/5vgCv0AAAAAElFTkSuQmCC=
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <1B97GX0LR7VI4RD66BX1DWT3EQ>
+Content-Id: <M21EDULKCE9F1ITQL4YB8MLMS>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/okkbis.jpg
 
@@ -5304,9 +5316,9 @@ Byrz+9h/w7X8O/8AQn/DX/wVRf8Axij/AIdr+Hf+hP8Ahr/4Kov/AIxRRR7efl9y
 /wAg5V5/ez1L9nj9ntvgjqLJb2+iWOlrayQw2unIYo4i0iucIEVQCdxOO596KKK8
 3FScql2dlCKUEf/Z=
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <46L11XLCSXSUWGU4R813H8P77>
+Content-Id: <1T8BJYOJFK0BA53PX251SRLL49>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/okk.jpg
 
@@ -7331,9 +7343,9 @@ P+GdPh9/0Ing3/wS23/xFFFH1Wl/Kg9vU7sP+GdPh9/0Ing3/wAEtt/8RR/wzp8P
 v+hE8G/+CW2/+Iooo+q0v5UHt6ndm94Y8I6P4A0prfRNJ03R7SSUyvDYW6WqM5GC
 xVAAThAM9cAelFFFZxirBKTuf//Z=
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <UV4BZJCGJWPV184VB193IFCX>
+Content-Id: <1UDC79BKNQLLMWYTBCM13DTDYW>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/ok.jpg
 
@@ -8960,9 +8972,9 @@ i06XTbiW10m5SeJHhaEPGxuSA6I52EghfTHFY1+K8BOlKKbu0+h6WTfRv4zw2YUM
 RVhT5YTjJ/vFspJvodD+yT/yb54f/wC3n/0ploo/ZJ/5N88P/wDbz/6Uy0V/YnBH
 /JO4D/rxS/8ATcT+F/GP/kvs8/7DMT/6emf/2Q===
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <I31KRHLZQQWNRBV6WSKTU41K>
+Content-Id: <23EGN6KZG7EJM7HK171LX4H31>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/pon.jpg
 
@@ -10051,9 +10063,9 @@ RRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABR
 RRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQB+jlFFFf6eH/O
 Gf/Z=
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/x-png
-Content-Id: <UCQMJKI6KRIEM7EGE918L4MR>
+Content-Id: <1SFYP94JZ5ZED106832T1CLHWSO>
 Content-Transfer-Encoding: base64
 Content-Location: dettagli_fattura.png
 
@@ -11144,9 +11156,9 @@ OmC5unzVml+RlZUVsV4xawEAAAAAgGKoMVbUWCvqliDVc0WFK7UqYCFciSYVrqge
 LCsmaFldUbGKKjMrAAAAAACA4ugHBKXHOdVjrajbgqyJcCXidMji+DcvPg0AAAAA
 AOggJUhmrBX9r8i/A54LaPueiNo5AAAAAElFTkSuQmCC=
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/x-png
-Content-Id: <1AR8OWIIHGU8E1S31RR2RWBYSC>
+Content-Id: <N6U869J98CE017QX081DKYSM7>
 Content-Transfer-Encoding: base64
 Content-Location: dettagli_fattura1.png
 
@@ -11711,9 +11723,9 @@ AAAAACrstNOdoPs0gm4AAAAAACru9DNOl1WrVsmqbX8/wejlAAAAAABUUFPLmXL6
 CredgJuYGwAAAACAxdEDljv/O815rXIC8FWr5P8HuXic/kHdn6kAAAAASUVORK5C
 YII==
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/x-png
-Content-Id: <1KE0W8CLFUDQ3AYXYTO1Y6TW2Z>
+Content-Id: <H6EOYELVESTK10DI7QUQ8J529>
 Content-Transfer-Encoding: base64
 Content-Location: dettagli_fattura_finanziario.png
 
@@ -12052,9 +12064,9 @@ iBnBNgAAAAAAMbMfkKbHAQAAAABADGr+5clHFk784YScPHFSTp48KQvW/wAAAAAA
 QOFqrP+dcsopUvO9px9bsMjCSRVmW4E2sTYAAAAAAMWpUf+vkf8PH/tfFYhpJYoA
 AAAASUVORK5CYII==
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <15PT13MI957GG12EJRTT1NK42JC>
+Content-Id: <L6WGAVJA591AX9PVA8CCNOHO>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/34.jpg
 
@@ -12843,9 +12855,9 @@ AFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUU
 AFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUU
 Af/Z=
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <RT4PB2IG14A41YK56RV1NFTNAG>
+Content-Id: <KU0RFKIUKJQZ1OA9BIAYTSXV4>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/8.jpg
 
@@ -13745,9 +13757,9 @@ D/8AKDpn/wAj1w2tftH+M/2oP2jfBmv+OdZ/tzVrS7sdPhn+yQW2yBboyKm2FEU/
 NK5yRn5uuAKzfEmGxtehQpRkn7SG6X8y82fXcIeBGf8ACk8Zm+Y1qMqaw1eNoSm5
 XlTdtJU4r8T7Aooor+8j/Jk//9k==
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <T95GLAITBGFI5K65RAZBKQQL>
+Content-Id: <1IT9RLVIAII5XMGMHL114QSLLP>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/9.jpg
 
@@ -14458,9 +14470,9 @@ r+KOrSu918dvH1y8kYhZpby7csgbcFJNz03AHHTIzVKb9nTxR4g8XaJqviT4ma/4
 o/sPUBqEMWpCa4w5eNpNpknbaZPLQMwGTtXOcCofBPFFaUISwLiuaDb9pSdkpJva
 d9kfQcM8SeHuR42WZf2/Cq4060VBYfFJydSjUppXdKy1kt9D/9k==
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <1OSLPAHJU2PQ01VBWT6G1LPJC2R>
+Content-Id: <9GFIJXIGXDGWKFU6CC1I4FQJ4>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/10.jpg
 
@@ -15377,9 +15389,9 @@ w17+2/4T8UHTrPTXt9MlsJEt7L7KJWVLyUuy+bLuY+by27nA44yXhq2ElmWBVHEQ
 m/rFHSMrv+JE+n4f4F4lyrAZzi80y+rRpf2fjVzTjZXdCdlv1PcqKKK/sA/gA//Z
 =
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <1W02YKHJKJY5W1X1VSTD17R6HCV>
+Content-Id: <538A9QLRQF1RHXWRD5D2TI1I>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/12.jpg
 
@@ -16166,9 +16178,9 @@ DCt/4TQ/+aj9jt1v4J0nS7G0sbyS1R4rCFLdDL9mQDarOSchFCjLEntX5+/8FtJb
 gRD/APGqP+GEfCP/AEEfEf8A4EQ//Gq48fleY4nDzocsFzK1+eT/APcZ9PwZw9kG
 QZ3hs5+uVqnsZc3L9XhG/lf6zK2/ZntdFFFf2cf5rn//2Q===
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <1A122QMM2G6M71N8PIUZV5GDI9>
+Content-Id: <X3961GKXEDIC1NLYAI51YBY8IT>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/49.jpg
 
@@ -16793,9 +16805,9 @@ SfyZBLH5niS8by3HRhmThh6jmud8X/GDxb8QdLt7HXvFHiLXLK1bfBb6hqU1zFC3
 zcqrsQp+d+QP4m9TXDmPFlLE4adBU2uZd0fWcC/RrzLIc+wucVsZTnGjPmaUZJvy
 V9D76ooor/QKOisf5BS3P//Z=
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <S85BI3IPCTDV1C7SUYB11WS4J5>
+Content-Id: <18VVAQ9JV8MS1B6F3Q21N79FRA>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/13.jpg
 
@@ -18968,9 +18980,9 @@ LZPiT8QvFHi7S7bS9Q8Z6n/arx20qPD5sktxLKEAdyqhpRgMScY5OCaK/f8Awuwm
 Iw3DOHo4qnKnNOpeMk4yV6s2rp2aumn6H4r9IfH4PGce4yvgK8K1Pkw0VOnOM4Nx
 wtGMuWUW4u0k07PdNbn/2Q===
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/x-png
-Content-Id: <1UGZLQ4L85J4J1OYO81B1FTDLX8>
+Content-Id: <1KWIODVKRDHMC1DH3OOT127BWJE>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/1.png
 
@@ -21414,9 +21426,9 @@ iIiIBp+4MdPS0p5gneo+/yohVRoaGip+DREREREREdEQtm3btseuU/FoX7qGOwlZ
 heLZAAAAAAAMuQxd3YAdKnrEOgUAAAAAYISxTgEAAAAAo491CgAAAAAYfffv3/8/
 pPFXSkML+tkAAAAASUVORK5CYII==
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/x-png
-Content-Id: <1WG4IJSLOUR5S13W54EC1QYEMAG>
+Content-Id: <Z85AHKHXDBMOH3TQ5TJL9M2I>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/2.png
 
@@ -21958,9 +21970,9 @@ K4FMFsYVNzaG4tpJJLYPDrYSCA/6is6DaixMbCVKrGBDFg20aDTQZcCAAQMGDBh/
 4CFMKTZaW1EE5zcVVbKprw9lFW2XdgwNicoq/D8AAAAAiAGf//8BICiHklfDGlYA
 AAAASUVORK5CYII==
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <BREGLHI93QVXBR62ZZIT9E3P>
+Content-Id: <1N1KHNIJPYFOE18DDJ1Z1EKG103>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/MM.jpg
 
@@ -22881,9 +22893,9 @@ o/4ZL8D/APPnrf8A4UWpf/H6KKPqlD+Rfcg+tVv5397D/hkvwP8A8+et/wDhRal/
 /wAfo/4ZL8D/APPnrf8A4UWpf/H6KKPqlD+Rfcg+tVv5397O08EeCtN+HPhqDSNH
 ge2sLdpHRHnknbdJI0jkvIzOxLux5J60UUVuopKyRi227s//2Q===
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <1NZS46YIBFTQBLTEQH2E0HSL5>
+Content-Id: <1CDE39SIXB6ZO18RZ1DG98QCEL>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/99.jpg
 
@@ -23873,9 +23885,9 @@ RR/wzp8Pv+hE8G/+CW2/+Iooo9jT/lX3B7Wfdh/wzp8Pv+hE8G/+CW2/+Io/4Z0+
 H3/QieDf/BLbf/EUUUexp/yr7g9rPuzf8K+DNH8Cae9pomk6bo1rJIZnhsbVLeNn
 IALFUABOFUZ64A9K091FFWkkrIhtvVn/2Q===
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <1YOAU8QINPSLV1KD64Z11Q1Q8N>
+Content-Id: <TGLLZPI0KYC51SWFV5U1A2Y7CO>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/LL.jpg
 
@@ -25108,9 +25120,9 @@ o+qUP5F9yD61W/nf3sP+GS/A/wDz563/AOFFqX/x+j/hkvwP/wA+et/+FFqX/wAf
 ooo+qUP5F9yD61W/nf3s7TwR4K034c+GoNI0eB7awt2kdEeeSdt0kjSOS8jM7Eu7
 HknrRRRW6ikrJGLbbuz/2Q===
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <1E3WOELJ2NOOY15771KT1EIAGBB>
+Content-Id: <P8P5XNIETQP917KUQI91AVW6AC>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/KK.jpg
 
@@ -26579,9 +26591,9 @@ FFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFF
 FFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFF
 FFABRRRQAUUUUAf/2Q===
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/x-png
-Content-Id: <QPKO0PJMNXW4CBXTITWYXX4R>
+Content-Id: <1RHZJD1K8UUIT167O1HP1Y248DS>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine.png
 
@@ -26881,9 +26893,9 @@ yZOlGwAAAAAARMwpvFMIAAAAAABiCpRCAAAAAAAApRAAAAAAAEApBAAAAAAABJRC
 AAAAAAAApRAAAAAAAEApBAAAAAAABJRCAAAAAAAApRAAAAAAAEApBAAAAAAAmqb9
 fys28kOiP3mtAAAAAElFTkSuQmCC=
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/x-png
-Content-Id: <8TDBBFK4BURFTW4LG21O89IKM>
+Content-Id: <1TTUG43L9XGHY1YPR3481JTI7RX>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine1.png
 
@@ -27461,9 +27473,9 @@ GTEmPGsGAACAGxkxRQLy0wkfUAAASCcBeXWWP80iIiAjporYB3NyWL0AAKQRcW2W
 MRFRIMSkhNj/AjmBOnXq6DIAAEgD4tIsr9HExCoZxv8HMtxSLgCwJ/8AAAAASUVO
 RK5CYII==
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <UH7J73L9F7WO1ED48LF1UGTBY8>
+Content-Id: <1IDXNU0KECH7ZID6Z771FO2G0G>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/88.jpg
 
@@ -28398,9 +28410,9 @@ o/sbE9l94f2pQ8zo/wBoP/k+zQf+xDuv/Thb1sVxHhT4PSaB4/XxJqPi3xd4p1OP
 T5NNibWbmGYQwvJHIwUpEjfejXGSQMtxzXab697L8NOjR5J7niY6tGrV54bH/9k=
 =
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/jpeg
-Content-Id: <BRNVJGK49WOR1XEKS6MIM0KUE>
+Content-Id: <16F5ILHJ56PPA7IM8IF1QZSZHX>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Gaetano/Desktop/76.jpg
 
@@ -29703,9 +29715,9 @@ b/4iiij2NP8AlX3B7Wfdh/wzp8Pv+hE8G/8Agltv/iKP+GdPh9/0Ing3/wAEtt/8
 RRRR7Gn/ACr7g9rPuzf8K+DNH8Cae9pomk6bo1rJIZnhsbVLeNnIALFUABOFUZ64
 A9K+26KK8DPUkqaXn+h7OTtvnb8v1P/Z=
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/x-png
-Content-Id: <187WPNZISVR4Y1AN9AK81IAH7YM>
+Content-Id: <1LTKOYTKV5B759VSUQ07CECIY>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/registrounico&pcc/mht fatture/01_fattura2.png
 
@@ -30145,9 +30157,9 @@ DAoAAICgkUEBAAAQtNBLbx/Rs4YRDhuXn3faU089pZcBAACAZigtLb365rkhMSf/
 0+6t7ejNoGsemaMXAAAAgGaLnkFf3B7JoAAAAECq3Vpfzf2gAAAACBoZFAAAAEEj
 gwIAACBoZFAAAAAEjQwKAACAYBnG/wO5lJ9fjRW0ngAAAABJRU5ErkJggg===
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ
 Content-Type: image/x-png
-Content-Id: <1UEHV09JF4AOX1S9KAF3ZR5JU5>
+Content-Id: <151EH29J2LQ4V12UN79C1U8WVYJ>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/3.png
 
@@ -32339,4 +32351,4 @@ L/HUi90AAAAAAAAAn4dGmX9ch94mTQEAAAAAAAAmE9IUAAAAAAAAphjSFAAAAAAA
 AKYY0hQAAAAAAACmGNIUAAAAAAAAppQ88P8DL6D9Bk6KtYQAAAAASUVORK5CYII=
 =
 
------------blocknote.net--VR1W0RLY8EI9WLRYJF1VMVHQ--
+-----------blocknote.net--1OE4K5DJ0U8Q28RA7QA1BRU4LZ--

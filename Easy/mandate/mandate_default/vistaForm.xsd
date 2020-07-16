@@ -66,6 +66,7 @@
               <xs:element name="publishdate" type="xs:dateTime" minOccurs="0" />
               <xs:element name="publishdatekind" type="xs:string" minOccurs="0" />
               <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
+              <xs:element name="flagbit" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -414,6 +415,7 @@
               <xs:element name="refundagency" type="xs:int" minOccurs="0" />
               <xs:element name="wageaddition_flagrestart" type="xs:string" minOccurs="0" />
               <xs:element name="flag_autodocnumbering" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1044,86 +1046,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="mandateview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idmankind" type="xs:string" />
-              <xs:element name="yman" type="xs:short" />
-              <xs:element name="nman" type="xs:int" />
-              <xs:element name="mankind" type="xs:string" />
-              <xs:element name="idreg" type="xs:int" minOccurs="0" />
-              <xs:element name="registry" type="xs:string" minOccurs="0" />
-              <xs:element name="registryreference" type="xs:string" minOccurs="0" />
-              <xs:element name="description" type="xs:string" />
-              <xs:element name="idman" type="xs:int" minOccurs="0" />
-              <xs:element name="manager" type="xs:string" minOccurs="0" />
-              <xs:element name="deliveryexpiration" type="xs:string" minOccurs="0" />
-              <xs:element name="deliveryaddress" type="xs:string" minOccurs="0" />
-              <xs:element name="paymentexpiring" type="xs:short" minOccurs="0" />
-              <xs:element name="idexpirationkind" type="xs:short" minOccurs="0" />
-              <xs:element name="idcurrency" type="xs:int" minOccurs="0" />
-              <xs:element name="codecurrency" type="xs:string" minOccurs="0" />
-              <xs:element name="currency" type="xs:string" minOccurs="0" />
-              <xs:element name="exchangerate" type="xs:double" minOccurs="0" />
-              <xs:element name="doc" type="xs:string" minOccurs="0" />
-              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="adate" type="xs:dateTime" />
-              <xs:element name="officiallyprinted" type="xs:string" />
-              <xs:element name="txt" type="xs:string" minOccurs="0" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="taxable_euro" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="iva_euro" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="total" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="active" type="xs:string" minOccurs="0" />
-              <xs:element name="flagintracom" type="xs:string" minOccurs="0" />
-              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
-              <xs:element name="codemotivedebit" type="xs:string" minOccurs="0" />
-              <xs:element name="idaccmotivedebit_crg" type="xs:string" minOccurs="0" />
-              <xs:element name="codemotivedebit_crg" type="xs:string" minOccurs="0" />
-              <xs:element name="idaccmotivedebit_datacrg" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="applierannotations" type="xs:string" minOccurs="0" />
-              <xs:element name="idmandatestatus" type="xs:short" minOccurs="0" />
-              <xs:element name="mandatestatus" type="xs:string" minOccurs="0" />
-              <xs:element name="idstore" type="xs:int" minOccurs="0" />
-              <xs:element name="store" type="xs:string" minOccurs="0" />
-              <xs:element name="statusimage" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
-              <xs:element name="listingorder" type="xs:short" minOccurs="0" />
-              <xs:element name="linkedtotal" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="isrequest" type="xs:string" minOccurs="0" />
-              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
-              <xs:element name="idsor01" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor02" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor03" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor04" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor05" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
-              <xs:element name="idconsipkind" type="xs:int" minOccurs="0" />
-              <xs:element name="flagdanger" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
-              <xs:element name="mankind_origin" type="xs:string" minOccurs="0" />
-              <xs:element name="idmankind_origin" type="xs:string" minOccurs="0" />
-              <xs:element name="yman_origin" type="xs:short" minOccurs="0" />
-              <xs:element name="nman_origin" type="xs:int" minOccurs="0" />
-              <xs:element name="mankind_dest" type="xs:string" minOccurs="0" />
-              <xs:element name="idmankind_dest" type="xs:string" minOccurs="0" />
-              <xs:element name="yman_dest" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="nman_dest" type="xs:string" minOccurs="0" />
-              <xs:element name="subappropriation" type="xs:string" minOccurs="0" />
-              <xs:element name="finsubappropriation" type="xs:short" minOccurs="0" />
-              <xs:element name="adatesubappropriation" type="xs:int" minOccurs="0" />
-              <xs:element name="iduniqueregister" type="xs:int" minOccurs="0" />
-              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="expirationkind" type="xs:string" minOccurs="0" />
-              <xs:element name="rupanac" type="xs:string" minOccurs="0" />
-              <xs:element name="anacreduced" type="xs:double" minOccurs="0" />
-              <xs:element name="motiveassignment" type="xs:string" minOccurs="0" />
-              <xs:element name="consipkind" type="xs:string" minOccurs="0" />
-              <xs:element name="consipkind_ext" type="xs:string" minOccurs="0" />
-              <xs:element name="tenderresult" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="uniqueregister" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -1380,6 +1302,105 @@
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="active" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mandateview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmankind" type="xs:string" />
+              <xs:element name="yman" type="xs:short" />
+              <xs:element name="nman" type="xs:int" />
+              <xs:element name="mankind" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="registry" type="xs:string" minOccurs="0" />
+              <xs:element name="registryreference" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="manager" type="xs:string" minOccurs="0" />
+              <xs:element name="deliveryexpiration" type="xs:string" minOccurs="0" />
+              <xs:element name="deliveryaddress" type="xs:string" minOccurs="0" />
+              <xs:element name="paymentexpiring" type="xs:short" minOccurs="0" />
+              <xs:element name="idexpirationkind" type="xs:short" minOccurs="0" />
+              <xs:element name="idcurrency" type="xs:int" minOccurs="0" />
+              <xs:element name="codecurrency" type="xs:string" minOccurs="0" />
+              <xs:element name="currency" type="xs:string" minOccurs="0" />
+              <xs:element name="exchangerate" type="xs:double" minOccurs="0" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="officiallyprinted" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="taxable_euro" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="iva_euro" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="total" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="flagintracom" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit_crg" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotivedebit_crg" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit_datacrg" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="applierannotations" type="xs:string" minOccurs="0" />
+              <xs:element name="idmandatestatus" type="xs:short" minOccurs="0" />
+              <xs:element name="mandatestatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idstore" type="xs:int" minOccurs="0" />
+              <xs:element name="store" type="xs:string" minOccurs="0" />
+              <xs:element name="statusimage" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="listingorder" type="xs:short" minOccurs="0" />
+              <xs:element name="linkedtotal" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="isrequest" type="xs:string" minOccurs="0" />
+              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="idconsipkind" type="xs:int" minOccurs="0" />
+              <xs:element name="consipkind" type="xs:string" minOccurs="0" />
+              <xs:element name="idconsipkind_ext" type="xs:int" minOccurs="0" />
+              <xs:element name="consipkind_ext" type="xs:string" minOccurs="0" />
+              <xs:element name="consipmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdanger" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="mankind_origin" type="xs:string" minOccurs="0" />
+              <xs:element name="idmankind_origin" type="xs:string" minOccurs="0" />
+              <xs:element name="yman_origin" type="xs:short" minOccurs="0" />
+              <xs:element name="nman_origin" type="xs:int" minOccurs="0" />
+              <xs:element name="mankind_dest" type="xs:string" minOccurs="0" />
+              <xs:element name="idmankind_dest" type="xs:string" minOccurs="0" />
+              <xs:element name="yman_dest" type="xs:short" minOccurs="0" />
+              <xs:element name="nman_dest" type="xs:int" minOccurs="0" />
+              <xs:element name="subappropriation" type="xs:string" minOccurs="0" />
+              <xs:element name="finsubappropriation" type="xs:string" minOccurs="0" />
+              <xs:element name="adatesubappropriation" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="arrivalprotocolnum" type="xs:string" minOccurs="0" />
+              <xs:element name="arrivaldate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="iduniqueregister" type="xs:int" minOccurs="0" />
+              <xs:element name="resendingpcc" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="expirationkind" type="xs:string" minOccurs="0" />
+              <xs:element name="expiration" msdata:ReadOnly="true" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="external_reference" type="xs:string" minOccurs="0" />
+              <xs:element name="officecode" type="xs:string" minOccurs="0" />
+              <xs:element name="officedescription" type="xs:string" minOccurs="0" />
+              <xs:element name="officetitle" type="xs:string" minOccurs="0" />
+              <xs:element name="flagtenderresult" type="xs:string" minOccurs="0" />
+              <xs:element name="motiveassignment" type="xs:string" minOccurs="0" />
+              <xs:element name="anacreduced" type="xs:double" minOccurs="0" />
+              <xs:element name="idreg_rupanac" type="xs:int" minOccurs="0" />
+              <xs:element name="rupanac" type="xs:string" minOccurs="0" />
+              <xs:element name="tenderresult" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="tenderkind" type="xs:string" minOccurs="0" />
+              <xs:element name="tenderkinddescr" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="publishdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="publishdatekind" type="xs:string" minOccurs="0" />
+              <xs:element name="publishdatekinddescr" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -112,7 +112,7 @@
       <DependentUpon>Frm_customprocedure_default.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="vistaForm.xsd">
-      <Generator>MSDataSetGenerator</Generator>
+      <Generator>HDSGene</Generator>
       <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
     </Content>
     <None Include="vistaForm.xsx">

@@ -1,21 +1,17 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 ﻿using System;
 using System.Collections.Generic;
@@ -43,6 +39,14 @@ public partial class mandate_default_new02 : MetaPage {
         }
     }
 
+    bool skip_default {
+        get {
+            return (bool)PState.var["skip_default"];
+        }
+        set {
+            PState.var["skip_default"] = value;
+        }
+    }
     public override DataSet GetDataSet() {
         return DS;
     }
@@ -74,7 +78,7 @@ public partial class mandate_default_new02 : MetaPage {
                 "ivanotes", "taxable", "discount", "flagactivity", "idupb", "cupcode", "cigcode",
                 "idinv","idlocation", "assetkind", "toinvoice", "idsor1", "idsor2", "idsor3","idcostpartition", "competencystart", "competencystop",
                 "idaccmotive", "idreg", "va3type", "idlist", "idunit", "idpackage", "unitsforpackage", "flagto_unload",
-                "epkind"
+                "epkind", "expensekind"
             }) {
             rDT[field] = RC[field];
         }
@@ -93,13 +97,13 @@ public partial class mandate_default_new02 : MetaPage {
     bool IsManager = false;
     public override void AfterLink(bool firsttime, bool formToLink) {
 
-        if (firsttime)
+        if (firsttime){
             DoSendMail = false;
-
+        }
+        skip_default = false;
         PState.var["Consip2Disabilitato"] = false;
         PState.var["lastValidConsipExtIndex"] = 0;
-        PState.var["lastValidConsipIndex"] = 0;
-
+         PState.var["lastValidConsipIndex"] = 0;
         Meta.Name = "Prenotazione d'ordine";
         if (formToLink) {
             txtConsipMotive.Attributes.Add("readonly", "readonly");
@@ -188,6 +192,11 @@ public partial class mandate_default_new02 : MetaPage {
                 //EnableDisableControls(cmbresponsabile, true);
             }
         }
+
+        DataAccess.SetTableForReading(DS.sorting1, "sorting");
+        DataAccess.SetTableForReading(DS.sorting2, "sorting");
+        DataAccess.SetTableForReading(DS.sorting3, "sorting");
+
         btnAvanzaStato.Enabled = false;
     }
 
@@ -328,6 +337,7 @@ public partial class mandate_default_new02 : MetaPage {
 
         object idoffice = R["idoffice"];
         Current["idoffice"] = idoffice;
+        skip_default= (R["skip_default"].ToString()=="S");
         SetRunningCommand("mainsave");
         CommFun.SaveFormData();
         PState.var["notifyStatusChangeParams"] = null;
@@ -337,6 +347,38 @@ public partial class mandate_default_new02 : MetaPage {
         }
         else {
             PState.var["notifyStatusChangeParams"] = parametri;
+        }
+        // Invia la mail al Ricevente, usando l'output della sp
+        string email_ricevente = null;
+        email_ricevente = R["email_ricevente"].ToString();
+        if (email_ricevente != "") {
+            SendMail SM = new SendMail();
+            SM.UseSMTPLoginAsFromField = true;
+            SM.To = email_ricevente;
+            SM.Subject = R["oggetto_mail_ricevente"].ToString();
+            SM.MessageBody = R["testo_mail_ricevente"].ToString(); 
+            SM.Conn = Conn as DataAccess;
+            DoSendMail = false;
+            if (!SM.Send()) {
+                if (SM.ErrorMessage.Trim() != "")
+                    ShowClientMessage(SM.ErrorMessage, "Errore");
+            }
+        }
+        // Invia la mail al Richiedente, usando l'output della sp
+        string email_richiedente = null;
+        email_richiedente = R["email_richiedente"].ToString();
+        if (email_richiedente != "") {
+            SendMail SM2 = new SendMail();
+            SM2.UseSMTPLoginAsFromField = true;
+            SM2.To = email_richiedente;
+            SM2.Subject = R["oggetto_mail_richiededente"].ToString();//nella sp c'è un errore di digitazione
+            SM2.MessageBody = R["testo_mail_richiededente"].ToString();
+            SM2.Conn = Conn as DataAccess;
+            DoSendMail = false;
+            if (!SM2.Send()) {
+                if (SM2.ErrorMessage.Trim() != "")
+                    ShowClientMessage(SM2.ErrorMessage, "Errore");
+            }
         }
 
     }
@@ -1058,12 +1100,14 @@ public partial class mandate_default_new02 : MetaPage {
                     LockUnLockControls(true);
                     EnableDisableControls(btnAvanzaStato, false);
                     EnableDisableControls(HwEditAllegato, false);
+                    skip_default = false;
                 }
                 else {
                     if (Tsp.Rows.Count == 1) {
                         DataRow Rsp = Tsp.Rows[0];
                         btnAvanzaStato.Text = leggiStato(Rsp) + "(" + leggiUfficio(Rsp) + ")";
                         btnAvanzaStato.Visible = true;
+                        skip_default = (Rsp["skip_default"].ToString() == "S");
                     }
                     if (Tsp.Rows.Count > 1) {
                         btnAvanzaStato.Text = "Avanza Stato";
@@ -1191,7 +1235,7 @@ public partial class mandate_default_new02 : MetaPage {
     }
 
     public override void AfterPost() {
-        if (DoSendMail) {
+        if ((DoSendMail) && (!skip_default)){
             string ManKindDesc = "";
             string MsgBody = "";
             DataRow CurrentRow = DS.mandate.Rows[0];

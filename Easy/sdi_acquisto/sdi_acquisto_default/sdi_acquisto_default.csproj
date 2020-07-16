@@ -44,6 +44,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -73,17 +77,20 @@
       <DependentUpon>Frm_sdi_acquisto_default.cs</DependentUpon>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="VistaForm.cs">
-      <DependentUpon>VistaForm.xsd</DependentUpon>
-    </Compile>
     <Compile Include="VistaForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>VistaForm.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Web References\webReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="VistaForm.xsc">
       <DependentUpon>VistaForm.xsd</DependentUpon>
     </None>
@@ -95,6 +102,14 @@
     <None Include="VistaForm.xss">
       <DependentUpon>VistaForm.xsd</DependentUpon>
     </None>
+    <None Include="Web References\webReference\datiProtocollo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\webReference\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\webReference\webProt.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
@@ -116,6 +131,28 @@
     <EmbeddedResource Include="Frm_sdi_acquisto_default.resx">
       <DependentUpon>Frm_sdi_acquisto_default.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://192.168.0.107/webProt/webProt.asmx%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\webReference\</RelPath>
+      <UpdateFromURL>http://192.168.0.107/webProt/webProt.asmx%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>sdi_acquisto_default_webReference_webProt</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

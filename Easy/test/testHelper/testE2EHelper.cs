@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -161,14 +158,15 @@ namespace TestHelper {
     public class testE2EMainHelper {
         public frmMain mainForm;
         public MyListener ls;
-        public testE2EMainHelper() {
-            string[] parConn = DbConn.getParams("test");
+        public testE2EMainHelper(string dns="test") {
+            string[] parConn = DbConn.getParams(dns);
 
             frmMain.argCopy = new string[] {"autostart", parConn[0], parConn[4], parConn[5],"31/12/2018","2018"};
             
             ErrorLogger.Logger= new TestErrorLogger();
             
             mainForm = new frmMain();
+            mainForm.isUnderTest = true;
             mainForm.Show();
             var lsGetter = mainForm.GetType().GetField("TS",BindingFlags.NonPublic|BindingFlags.Instance);
             ls = lsGetter.GetValue(mainForm) as MyListener;
@@ -213,6 +211,7 @@ namespace TestHelper {
         /// </summary>
         public void close() {
             mainForm.Close();
+            Application.DoEvents();
         }
 
         /// <summary>
@@ -384,4 +383,3 @@ namespace TestHelper {
         }
     }
 }
-

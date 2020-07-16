@@ -23,6 +23,7 @@
               <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivecost" type="xs:string" minOccurs="0" />
               <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="idestimkind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -167,6 +168,40 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="estimatekind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idestimkind" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="faxnumber" type="xs:string" minOccurs="0" />
+              <xs:element name="office" type="xs:string" minOccurs="0" />
+              <xs:element name="phonenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="linktoinvoice" type="xs:string" minOccurs="0" />
+              <xs:element name="multireg" type="xs:string" minOccurs="0" />
+              <xs:element name="deltaamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="deltapercentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flag_autodocnumbering" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="header" type="xs:string" minOccurs="0" />
+              <xs:element name="idivakind_forced" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -201,6 +236,10 @@
       <xs:selector xpath=".//mstns:accmotiveapplied_cost" />
       <xs:field xpath="mstns:idaccmotive" />
     </xs:unique>
+    <xs:unique name="estimatekind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:estimatekind" />
+      <xs:field xpath="mstns:idestimkind" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -211,6 +250,7 @@
       <msdata:Relationship name="finmotive_income_stip_gomp" msdata:parent="finmotive_income" msdata:child="stip_gomp" msdata:parentkey="idfinmotive" msdata:childkey="idfinmotive" />
       <msdata:Relationship name="accmotiveapplied_debit_stip_gomp" msdata:parent="accmotiveapplied_debit" msdata:child="stip_gomp" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivedebit" />
       <msdata:Relationship name="accmotiveapplied_cost_stip_gomp" msdata:parent="accmotiveapplied_cost" msdata:child="stip_gomp" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivecost" />
+      <msdata:Relationship name="estimatekind_stip_gomp" msdata:parent="estimatekind" msdata:child="stip_gomp" msdata:parentkey="idestimkind" msdata:childkey="idestimkind" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

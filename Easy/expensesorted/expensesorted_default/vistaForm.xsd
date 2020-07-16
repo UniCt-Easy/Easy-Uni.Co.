@@ -103,6 +103,11 @@
               <xs:element name="labelfordate" type="xs:string" minOccurs="0" />
               <xs:element name="nodatelabel" type="xs:string" minOccurs="0" />
               <xs:element name="totalexpression" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS1" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS2" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS3" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS4" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS5" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

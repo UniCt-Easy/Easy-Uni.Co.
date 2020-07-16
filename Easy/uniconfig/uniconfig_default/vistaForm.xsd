@@ -42,7 +42,12 @@
               <xs:element name="rea_number" type="xs:string" minOccurs="0" />
               <xs:element name="rea_socialcapital" type="xs:decimal" minOccurs="0" />
               <xs:element name="rea_partner" type="xs:string" minOccurs="0" />
+              <xs:element name="perla_codicepaipa" type="xs:string" minOccurs="0" />
+              <xs:element name="perla_codiceaoopa" type="xs:string" minOccurs="0" />
+              <xs:element name="perla_codiceuopa" type="xs:string" minOccurs="0" />
+              <xs:element name="perla_codicefiscalepa" type="xs:string" minOccurs="0" />
               <xs:element name="rea_closingstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="webprotaddress" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

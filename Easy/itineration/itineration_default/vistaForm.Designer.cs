@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -32,13 +29,15 @@ using meta_upb;
 using meta_accmotiveapplied;
 using meta_config;
 using meta_manager;
+using meta_dalia_funzionale;
+using meta_dalia_dipartimento;
 using metadatalibrary;
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedMember.Global
 namespace itineration_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -275,6 +274,12 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable dalia_recruitmentmotive 		=> (MetaTable)Tables["dalia_recruitmentmotive"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public dalia_funzionaleTable dalia_funzionale 		=> (dalia_funzionaleTable)Tables["dalia_funzionale"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public dalia_dipartimentoTable dalia_dipartimento 		=> (dalia_dipartimentoTable)Tables["dalia_dipartimento"];
+
 	#endregion
 
 
@@ -302,7 +307,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// ITINERATION /////////////////////////////////
 	var titineration= new itinerationTable();
-	titineration.addBaseColumns("yitineration","nitineration","description","idreg","idser","authorizationdate","start","stop","adate","admincarkmcost","owncarkmcost","footkmcost","admincarkm","owncarkm","footkm","grossfactor","netfee","totalgross","total","totadvance","txt","rtf","cu","ct","lu","lt","active","completed","idaccmotive","idupb","idsor1","idsor2","idsor3","iditineration","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","idregistrylegalstatus","flagweb","iditinerationstatus","applierannotations","idman","idauthmodel","webwarn","authneeded","authdoc","authdocdate","noauthreason","clause_accepted","vehicle_info","vehicle_motive","location","idsor01","idsor02","idsor03","idsor04","idsor05","datecompleted","iddaliaposition","additionalannotations","idsor_siope","iditineration_ref","supposedtravel","supposedliving","supposedfood","nfood","flagownfunds","idforeigncountry","advancepercentage","supposedamount","idregistrypaymethod","flagmove","flagoutside","advanceapplied","iddaliarecruitmentmotive","starttime","stoptime");
+	titineration.addBaseColumns("yitineration","nitineration","description","idreg","idser","authorizationdate","start","stop","adate","admincarkmcost","owncarkmcost","footkmcost","admincarkm","owncarkm","footkm","grossfactor","netfee","totalgross","total","totadvance","txt","rtf","cu","ct","lu","lt","active","completed","idaccmotive","idupb","idsor1","idsor2","idsor3","iditineration","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","idregistrylegalstatus","flagweb","iditinerationstatus","applierannotations","idman","idauthmodel","webwarn","authneeded","authdoc","authdocdate","noauthreason","clause_accepted","vehicle_info","vehicle_motive","location","idsor01","idsor02","idsor03","idsor04","idsor05","datecompleted","iddaliaposition","additionalannotations","idsor_siope","iditineration_ref","supposedtravel","supposedliving","supposedfood","nfood","flagownfunds","idforeigncountry","advancepercentage","supposedamount","idregistrypaymethod","flagmove","flagoutside","advanceapplied","iddaliarecruitmentmotive","starttime","stoptime","iddalia_dipartimento","iddalia_funzionale");
 	Tables.Add(titineration);
 	titineration.defineKey("iditineration");
 
@@ -426,7 +431,7 @@ private void initClass() {
 
 	//////////////////// SORTING /////////////////////////////////
 	var tsorting= new sortingTable();
-	tsorting.addBaseColumns("idsorkind","idsor","sortcode","paridsor","nlevel","description","txt","rtf","cu","ct","lu","lt","defaultn1","defaultn2","defaultn3","defaultn4","defaultn5","defaults1","defaults2","defaults3","defaults4","defaults5","flagnodate","movkind","printingorder","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5");
+	tsorting.addBaseColumns("idsorkind","idsor","sortcode","paridsor","nlevel","description","txt","rtf","cu","ct","lu","lt","defaultn1","defaultn2","defaultn3","defaultn4","defaultn5","defaults1","defaults2","defaults3","defaults4","defaults5","flagnodate","movkind","printingorder","defaultv1","defaultv2","defaultv3","defaultv4","idsor01","idsor02","idsor03","idsor04","idsor05","defaultv5");
 	Tables.Add(tsorting);
 	tsorting.defineKey("idsor");
 
@@ -453,7 +458,7 @@ private void initClass() {
 	//////////////////// SORTING1 /////////////////////////////////
 	var tsorting1= new sortingTable();
 	tsorting1.TableName = "sorting1";
-	tsorting1.addBaseColumns("idsorkind","idsor","sortcode","paridsor","nlevel","description","txt","rtf","cu","ct","lu","lt","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","flagnodate","movkind","printingorder","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5");
+	tsorting1.addBaseColumns("idsorkind","idsor","sortcode","paridsor","nlevel","description","txt","rtf","cu","ct","lu","lt","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","flagnodate","movkind","printingorder","defaultv1","defaultv2","defaultv3","defaultv4","idsor01","idsor02","idsor03","idsor04","idsor05","defaultv5");
 	tsorting1.ExtendedProperties["TableForPosting"]="sorting";
 	tsorting1.ExtendedProperties["TableForReading"]="sorting";
 	Tables.Add(tsorting1);
@@ -462,7 +467,7 @@ private void initClass() {
 	//////////////////// SORTING2 /////////////////////////////////
 	var tsorting2= new sortingTable();
 	tsorting2.TableName = "sorting2";
-	tsorting2.addBaseColumns("idsorkind","idsor","sortcode","paridsor","nlevel","description","txt","rtf","cu","ct","lu","lt","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","flagnodate","movkind","printingorder","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5");
+	tsorting2.addBaseColumns("idsorkind","idsor","sortcode","paridsor","nlevel","description","txt","rtf","cu","ct","lu","lt","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","flagnodate","movkind","printingorder","defaultv1","defaultv2","defaultv3","defaultv4","idsor01","idsor02","idsor03","idsor04","idsor05","defaultv5");
 	tsorting2.ExtendedProperties["TableForReading"]="sorting";
 	Tables.Add(tsorting2);
 	tsorting2.defineKey("idsor");
@@ -470,7 +475,7 @@ private void initClass() {
 	//////////////////// SORTING3 /////////////////////////////////
 	var tsorting3= new sortingTable();
 	tsorting3.TableName = "sorting3";
-	tsorting3.addBaseColumns("idsorkind","idsor","sortcode","paridsor","nlevel","description","txt","rtf","cu","ct","lu","lt","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","flagnodate","movkind","printingorder","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5");
+	tsorting3.addBaseColumns("idsorkind","idsor","sortcode","paridsor","nlevel","description","txt","rtf","cu","ct","lu","lt","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","flagnodate","movkind","printingorder","defaultv1","defaultv2","defaultv3","defaultv4","idsor01","idsor02","idsor03","idsor04","idsor05","defaultv5");
 	tsorting3.ExtendedProperties["TableForReading"]="sorting";
 	Tables.Add(tsorting3);
 	tsorting3.defineKey("idsor");
@@ -631,13 +636,14 @@ private void initClass() {
 	titinerationattachment.defineColumn("lu", typeof(string),false);
 	titinerationattachment.defineColumn("ct", typeof(DateTime),false);
 	titinerationattachment.defineColumn("cu", typeof(string),false);
+	titinerationattachment.defineColumn("description", typeof(string));
 	Tables.Add(titinerationattachment);
 	titinerationattachment.defineKey("iditineration", "idattachment");
 
 	//////////////////// SORTING01 /////////////////////////////////
 	var tsorting01= new sortingTable();
 	tsorting01.TableName = "sorting01";
-	tsorting01.addBaseColumns("ct","cu","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5","description","flagnodate","lt","lu","movkind","printingorder","rtf","sortcode","txt","idsorkind","idsor","paridsor","nlevel","start","stop");
+	tsorting01.addBaseColumns("ct","cu","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5","description","flagnodate","lt","lu","movkind","printingorder","rtf","sortcode","txt","idsorkind","idsor","paridsor","nlevel","start","idsor01","idsor02","idsor03","idsor04","idsor05","stop");
 	tsorting01.ExtendedProperties["TableForReading"]="sorting";
 	Tables.Add(tsorting01);
 	tsorting01.defineKey("idsor");
@@ -645,7 +651,7 @@ private void initClass() {
 	//////////////////// SORTING02 /////////////////////////////////
 	var tsorting02= new sortingTable();
 	tsorting02.TableName = "sorting02";
-	tsorting02.addBaseColumns("ct","cu","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5","description","flagnodate","lt","lu","movkind","printingorder","rtf","sortcode","txt","idsorkind","idsor","paridsor","nlevel","start","stop");
+	tsorting02.addBaseColumns("ct","cu","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5","description","flagnodate","lt","lu","movkind","printingorder","rtf","sortcode","txt","idsorkind","idsor","paridsor","nlevel","start","idsor01","idsor02","idsor03","idsor04","idsor05","stop");
 	tsorting02.ExtendedProperties["TableForReading"]="sorting";
 	Tables.Add(tsorting02);
 	tsorting02.defineKey("idsor");
@@ -653,7 +659,7 @@ private void initClass() {
 	//////////////////// SORTING03 /////////////////////////////////
 	var tsorting03= new sortingTable();
 	tsorting03.TableName = "sorting03";
-	tsorting03.addBaseColumns("ct","cu","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5","description","flagnodate","lt","lu","movkind","printingorder","rtf","sortcode","txt","idsorkind","idsor","paridsor","nlevel","start","stop");
+	tsorting03.addBaseColumns("ct","cu","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5","description","flagnodate","lt","lu","movkind","printingorder","rtf","sortcode","txt","idsorkind","idsor","paridsor","nlevel","start","idsor01","idsor02","idsor03","idsor04","idsor05","stop");
 	tsorting03.ExtendedProperties["TableForReading"]="sorting";
 	Tables.Add(tsorting03);
 	tsorting03.defineKey("idsor");
@@ -661,7 +667,7 @@ private void initClass() {
 	//////////////////// SORTING04 /////////////////////////////////
 	var tsorting04= new sortingTable();
 	tsorting04.TableName = "sorting04";
-	tsorting04.addBaseColumns("ct","cu","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5","description","flagnodate","lt","lu","movkind","printingorder","rtf","sortcode","txt","idsorkind","idsor","paridsor","nlevel","start","stop");
+	tsorting04.addBaseColumns("ct","cu","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5","description","flagnodate","lt","lu","movkind","printingorder","rtf","sortcode","txt","idsorkind","idsor","paridsor","nlevel","start","idsor01","idsor02","idsor03","idsor04","idsor05","stop");
 	tsorting04.ExtendedProperties["TableForReading"]="sorting";
 	Tables.Add(tsorting04);
 	tsorting04.defineKey("idsor");
@@ -669,7 +675,7 @@ private void initClass() {
 	//////////////////// SORTING05 /////////////////////////////////
 	var tsorting05= new sortingTable();
 	tsorting05.TableName = "sorting05";
-	tsorting05.addBaseColumns("ct","cu","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5","description","flagnodate","lt","lu","movkind","printingorder","rtf","sortcode","txt","idsorkind","idsor","paridsor","nlevel","start","stop");
+	tsorting05.addBaseColumns("ct","cu","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5","description","flagnodate","lt","lu","movkind","printingorder","rtf","sortcode","txt","idsorkind","idsor","paridsor","nlevel","start","idsor01","idsor02","idsor03","idsor04","idsor05","stop");
 	tsorting05.ExtendedProperties["TableForReading"]="sorting";
 	Tables.Add(tsorting05);
 	tsorting05.defineKey("idsor");
@@ -713,6 +719,11 @@ private void initClass() {
 	tsortingview1.defineColumn("defaults4", typeof(string));
 	tsortingview1.defineColumn("defaults5", typeof(string));
 	tsortingview1.defineColumn("flagnodate", typeof(string));
+	tsortingview1.defineColumn("idsor01", typeof(int));
+	tsortingview1.defineColumn("idsor02", typeof(int));
+	tsortingview1.defineColumn("idsor03", typeof(int));
+	tsortingview1.defineColumn("idsor04", typeof(int));
+	tsortingview1.defineColumn("idsor05", typeof(int));
 	tsortingview1.defineColumn("movkind", typeof(string));
 	Tables.Add(tsortingview1);
 	tsortingview1.defineKey("idsor");
@@ -739,7 +750,7 @@ private void initClass() {
 	//////////////////// SORTING_SIOPE /////////////////////////////////
 	var tsorting_siope= new sortingTable();
 	tsorting_siope.TableName = "sorting_siope";
-	tsorting_siope.addBaseColumns("ct","cu","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5","description","flagnodate","lt","lu","movkind","printingorder","rtf","sortcode","txt","idsorkind","idsor","paridsor","nlevel","start","stop","email");
+	tsorting_siope.addBaseColumns("ct","cu","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5","description","flagnodate","lt","lu","movkind","printingorder","rtf","sortcode","txt","idsorkind","idsor","paridsor","nlevel","start","stop","idsor01","idsor02","idsor03","idsor04","idsor05","email");
 	tsorting_siope.ExtendedProperties["TableForReading"]="sorting";
 	Tables.Add(tsorting_siope);
 	tsorting_siope.defineKey("idsor");
@@ -812,6 +823,18 @@ private void initClass() {
 	tdalia_recruitmentmotive.defineColumn("lt", typeof(DateTime),false);
 	Tables.Add(tdalia_recruitmentmotive);
 	tdalia_recruitmentmotive.defineKey("iddaliarecruitmentmotive");
+
+	//////////////////// DALIA_FUNZIONALE /////////////////////////////////
+	var tdalia_funzionale= new dalia_funzionaleTable();
+	tdalia_funzionale.addBaseColumns("iddalia_funzionale","codefunz","title","ct","cu","lt","lu");
+	Tables.Add(tdalia_funzionale);
+	tdalia_funzionale.defineKey("iddalia_funzionale");
+
+	//////////////////// DALIA_DIPARTIMENTO /////////////////////////////////
+	var tdalia_dipartimento= new dalia_dipartimentoTable();
+	tdalia_dipartimento.addBaseColumns("iddalia_dipartimento","codedip","title","ct","cu","lt","lu");
+	Tables.Add(tdalia_dipartimento);
+	tdalia_dipartimento.defineKey("iddalia_dipartimento");
 
 	#endregion
 
@@ -889,9 +912,10 @@ private void initClass() {
 	this.defineRelation("itineration_itinerationflights","itineration","itinerationflights","iditineration");
 	this.defineRelation("registrypaymethod_itineration","registrypaymethod","itineration","idreg","idregistrypaymethod");
 	this.defineRelation("dalia_recruitmentmotive_itineration","dalia_recruitmentmotive","itineration","iddaliarecruitmentmotive");
+	this.defineRelation("dalia_funzionale_itineration","dalia_funzionale","itineration","iddalia_funzionale");
+	this.defineRelation("dalia_dipartimento_itineration","dalia_dipartimento","itineration","iddalia_dipartimento");
 	#endregion
 
 }
 }
 }
-

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -262,20 +259,6 @@ public class didprogRow: MetaRow  {
 		get {if (this["idgraduatoriaesiti",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idgraduatoriaesiti",DataRowVersion.Original];}
 	}
 	///<summary>
-	///Sede
-	///</summary>
-	public Int32? idlocation_sede{ 
-		get {if (this["idlocation_sede"]==DBNull.Value)return null; return  (Int32?)this["idlocation_sede"];}
-		set {if (value==null) this["idlocation_sede"]= DBNull.Value; else this["idlocation_sede"]= value;}
-	}
-	public object idlocation_sedeValue { 
-		get{ return this["idlocation_sede"];}
-		set {if (value==null|| value==DBNull.Value) this["idlocation_sede"]= DBNull.Value; else this["idlocation_sede"]= value;}
-	}
-	public Int32? idlocation_sedeOriginal { 
-		get {if (this["idlocation_sede",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idlocation_sede",DataRowVersion.Original];}
-	}
-	///<summary>
 	///Lingua di erogazione
 	///</summary>
 	public Int32? idnation_lang{ 
@@ -330,6 +313,20 @@ public class didprogRow: MetaRow  {
 	}
 	public Int32? idreg_docentiOriginal { 
 		get {if (this["idreg_docenti",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idreg_docenti",DataRowVersion.Original];}
+	}
+	///<summary>
+	///Sede
+	///</summary>
+	public Int32? idsede{ 
+		get {if (this["idsede"]==DBNull.Value)return null; return  (Int32?)this["idsede"];}
+		set {if (value==null) this["idsede"]= DBNull.Value; else this["idsede"]= value;}
+	}
+	public object idsedeValue { 
+		get{ return this["idsede"];}
+		set {if (value==null|| value==DBNull.Value) this["idsede"]= DBNull.Value; else this["idsede"]= value;}
+	}
+	public Int32? idsedeOriginal { 
+		get {if (this["idsede",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsede",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Sessione
@@ -606,7 +603,7 @@ public class didprogRow: MetaRow  {
 public class didprogTable : MetaTableBase<didprogRow> {
 	public didprogTable() : base("didprog"){
 		baseColumns = new Dictionary<string, DataColumn>(){
-			{"aa",createColumn("aa",typeof(string),true,false)},
+			{"aa",createColumn("aa",typeof(string),false,false)},
 			{"annosolare",createColumn("annosolare",typeof(int),true,false)},
 			{"attribdebiti",createColumn("attribdebiti",typeof(string),true,false)},
 			{"ciclo",createColumn("ciclo",typeof(int),true,false)},
@@ -619,15 +616,15 @@ public class didprogTable : MetaTableBase<didprogRow> {
 			{"idcorsostudio",createColumn("idcorsostudio",typeof(int),false,false)},
 			{"iddidprog",createColumn("iddidprog",typeof(int),false,false)},
 			{"iddidprognumchiusokind",createColumn("iddidprognumchiusokind",typeof(int),true,false)},
-			{"iddidprogsuddannokind",createColumn("iddidprogsuddannokind",typeof(int),true,false)},
+			{"iddidprogsuddannokind",createColumn("iddidprogsuddannokind",typeof(int),false,false)},
 			{"iderogazkind",createColumn("iderogazkind",typeof(int),true,false)},
 			{"idgraduatoria",createColumn("idgraduatoria",typeof(int),true,false)},
 			{"idgraduatoriaesiti",createColumn("idgraduatoriaesiti",typeof(int),true,false)},
-			{"idlocation_sede",createColumn("idlocation_sede",typeof(int),true,false)},
 			{"idnation_lang",createColumn("idnation_lang",typeof(int),true,false)},
 			{"idnation_lang2",createColumn("idnation_lang2",typeof(int),true,false)},
 			{"idnation_langvis",createColumn("idnation_langvis",typeof(int),true,false)},
 			{"idreg_docenti",createColumn("idreg_docenti",typeof(int),true,false)},
+			{"idsede",createColumn("idsede",typeof(int),true,false)},
 			{"idsessione",createColumn("idsessione",typeof(int),true,false)},
 			{"idtitolokind",createColumn("idtitolokind",typeof(int),true,false)},
 			{"immatoltreauth",createColumn("immatoltreauth",typeof(string),true,false)},
@@ -651,4 +648,3 @@ public class didprogTable : MetaTableBase<didprogRow> {
 	}
 }
 }
-

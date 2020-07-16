@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -44,28 +41,10 @@ namespace sortingkind_lista//tipoclassmovimentibase//
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox txtCodice;
         private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label16;
-		private System.Windows.Forms.Label label17;
-		private System.Windows.Forms.Label label18;
 		private System.Windows.Forms.TextBox etN5;
 		private System.Windows.Forms.CheckBox lockN5;
 		private System.Windows.Forms.CheckBox forceN5;
 		private System.Windows.Forms.Label label15;
-		private System.Windows.Forms.TextBox etS5;
-		private System.Windows.Forms.CheckBox lockS5;
-		private System.Windows.Forms.CheckBox forceS5;
-		private System.Windows.Forms.TextBox etS4;
-		private System.Windows.Forms.CheckBox lockS4;
-		private System.Windows.Forms.CheckBox forceS4;
-		private System.Windows.Forms.TextBox etS3;
-		private System.Windows.Forms.CheckBox lockS3;
-		private System.Windows.Forms.CheckBox forceS3;
-		private System.Windows.Forms.TextBox etS2;
-		private System.Windows.Forms.CheckBox lockS2;
-		private System.Windows.Forms.CheckBox forceS2;
-		private System.Windows.Forms.TextBox etS1;
-		private System.Windows.Forms.CheckBox lockS1;
-		private System.Windows.Forms.CheckBox forceS1;
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.TextBox etN4;
 		private System.Windows.Forms.CheckBox lockN4;
@@ -87,11 +66,6 @@ namespace sortingkind_lista//tipoclassmovimentibase//
 		private System.Windows.Forms.Label label20;
 		private System.Windows.Forms.Label label25;
 		private System.Windows.Forms.Label label26;
-		private System.Windows.Forms.Label label14;
-		private System.Windows.Forms.Label label13;
-		private System.Windows.Forms.Label label12;
-		private System.Windows.Forms.Label label11;
-		private System.Windows.Forms.Label label10;
 		public vistaForm DS;
 		private System.ComponentModel.IContainer components;
 		private System.Windows.Forms.TextBox etDate;
@@ -146,6 +120,36 @@ namespace sortingkind_lista//tipoclassmovimentibase//
         private ComboBox cmbClassPrecedente;
         private Label label36;
 		MetaData Meta;
+        private TabPage tabPage4;
+        private Label label37;
+        private TextBox textBox8;
+        private TextBox textBox7;
+        private TextBox textBox6;
+        private Label label16;
+        private Label label17;
+        private Label label18;
+        private CheckBox lockS5;
+        private CheckBox forceS5;
+        private TextBox etS4;
+        private TextBox etS5;
+        private CheckBox forceS4;
+        private TextBox etS3;
+        private CheckBox lockS3;
+        private CheckBox forceS3;
+        private CheckBox lockS4;
+        private CheckBox lockS2;
+        private CheckBox forceS2;
+        private TextBox etS1;
+        private CheckBox lockS1;
+        private TextBox etS2;
+        private CheckBox forceS1;
+        private Label label14;
+        private Label label13;
+        private Label label12;
+        private Label label11;
+        private Label label10;
+        private TextBox textBox5;
+        private TextBox textBox4;
         private CheckBox checkBox1;
         //DataAccess Conn;
 
@@ -238,28 +242,10 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             this.txtCodice = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDenom = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.etN5 = new System.Windows.Forms.TextBox();
             this.lockN5 = new System.Windows.Forms.CheckBox();
             this.forceN5 = new System.Windows.Forms.CheckBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.etS5 = new System.Windows.Forms.TextBox();
-            this.lockS5 = new System.Windows.Forms.CheckBox();
-            this.forceS5 = new System.Windows.Forms.CheckBox();
-            this.etS4 = new System.Windows.Forms.TextBox();
-            this.lockS4 = new System.Windows.Forms.CheckBox();
-            this.forceS4 = new System.Windows.Forms.CheckBox();
-            this.etS3 = new System.Windows.Forms.TextBox();
-            this.lockS3 = new System.Windows.Forms.CheckBox();
-            this.forceS3 = new System.Windows.Forms.CheckBox();
-            this.etS2 = new System.Windows.Forms.TextBox();
-            this.lockS2 = new System.Windows.Forms.CheckBox();
-            this.forceS2 = new System.Windows.Forms.CheckBox();
-            this.etS1 = new System.Windows.Forms.TextBox();
-            this.lockS1 = new System.Windows.Forms.CheckBox();
-            this.forceS1 = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.etN4 = new System.Windows.Forms.TextBox();
             this.lockN4 = new System.Windows.Forms.CheckBox();
@@ -303,11 +289,6 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             this.label31 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.etDate = new System.Windows.Forms.TextBox();
             this.etichettaignoradate = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
@@ -338,6 +319,36 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label37 = new System.Windows.Forms.Label();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.lockS5 = new System.Windows.Forms.CheckBox();
+            this.forceS5 = new System.Windows.Forms.CheckBox();
+            this.etS4 = new System.Windows.Forms.TextBox();
+            this.etS5 = new System.Windows.Forms.TextBox();
+            this.forceS4 = new System.Windows.Forms.CheckBox();
+            this.etS3 = new System.Windows.Forms.TextBox();
+            this.lockS3 = new System.Windows.Forms.CheckBox();
+            this.forceS3 = new System.Windows.Forms.CheckBox();
+            this.lockS4 = new System.Windows.Forms.CheckBox();
+            this.lockS2 = new System.Windows.Forms.CheckBox();
+            this.forceS2 = new System.Windows.Forms.CheckBox();
+            this.etS1 = new System.Windows.Forms.TextBox();
+            this.lockS1 = new System.Windows.Forms.CheckBox();
+            this.etS2 = new System.Windows.Forms.TextBox();
+            this.forceS1 = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.MetaDataDetail.SuspendLayout();
@@ -346,6 +357,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // images
@@ -454,7 +466,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             this.dataGrid1.Location = new System.Drawing.Point(16, 64);
             this.dataGrid1.Name = "dataGrid1";
             this.dataGrid1.ParentRowsVisible = false;
-            this.dataGrid1.Size = new System.Drawing.Size(840, 280);
+            this.dataGrid1.Size = new System.Drawing.Size(840, 316);
             this.dataGrid1.TabIndex = 1;
             this.dataGrid1.TabStop = false;
             this.dataGrid1.Tag = "sortingkind.default";
@@ -493,33 +505,9 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             this.txtDenom.TabIndex = 2;
             this.txtDenom.Tag = "sortingkind.description";
             // 
-            // label16
-            // 
-            this.label16.Location = new System.Drawing.Point(80, 16);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(72, 16);
-            this.label16.TabIndex = 99;
-            this.label16.Text = "Etichetta";
-            // 
-            // label17
-            // 
-            this.label17.Location = new System.Drawing.Point(224, 16);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(64, 16);
-            this.label17.TabIndex = 98;
-            this.label17.Text = "obbligatorio";
-            // 
-            // label18
-            // 
-            this.label18.Location = new System.Drawing.Point(176, 16);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(48, 16);
-            this.label18.TabIndex = 97;
-            this.label18.Text = "Visibile";
-            // 
             // etN5
             // 
-            this.etN5.Location = new System.Drawing.Point(352, 160);
+            this.etN5.Location = new System.Drawing.Point(112, 151);
             this.etN5.Name = "etN5";
             this.etN5.Size = new System.Drawing.Size(104, 20);
             this.etN5.TabIndex = 40;
@@ -529,7 +517,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // lockN5
             // 
-            this.lockN5.Location = new System.Drawing.Point(464, 152);
+            this.lockN5.Location = new System.Drawing.Point(234, 152);
             this.lockN5.Name = "lockN5";
             this.lockN5.Size = new System.Drawing.Size(16, 24);
             this.lockN5.TabIndex = 41;
@@ -537,7 +525,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // forceN5
             // 
-            this.forceN5.Location = new System.Drawing.Point(496, 152);
+            this.forceN5.Location = new System.Drawing.Point(272, 152);
             this.forceN5.Name = "forceN5";
             this.forceN5.Size = new System.Drawing.Size(16, 24);
             this.forceN5.TabIndex = 42;
@@ -545,146 +533,16 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(272, 152);
+            this.label15.Location = new System.Drawing.Point(40, 152);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(64, 16);
             this.label15.TabIndex = 93;
             this.label15.Text = "Valuta 5";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // etS5
-            // 
-            this.etS5.Location = new System.Drawing.Point(88, 160);
-            this.etS5.Name = "etS5";
-            this.etS5.Size = new System.Drawing.Size(104, 20);
-            this.etS5.TabIndex = 25;
-            this.etS5.Tag = "sortingkind.labels5";
-            this.etS5.Text = "etS5";
-            this.etS5.TextChanged += new System.EventHandler(this.etS5_TextChanged);
-            // 
-            // lockS5
-            // 
-            this.lockS5.Location = new System.Drawing.Point(200, 152);
-            this.lockS5.Name = "lockS5";
-            this.lockS5.Size = new System.Drawing.Size(16, 24);
-            this.lockS5.TabIndex = 26;
-            this.lockS5.Tag = "sortingkind.lockeds5:S:N";
-            // 
-            // forceS5
-            // 
-            this.forceS5.Location = new System.Drawing.Point(232, 152);
-            this.forceS5.Name = "forceS5";
-            this.forceS5.Size = new System.Drawing.Size(16, 24);
-            this.forceS5.TabIndex = 27;
-            this.forceS5.Tag = "sortingkind.forceds5:S:N";
-            // 
-            // etS4
-            // 
-            this.etS4.Location = new System.Drawing.Point(88, 128);
-            this.etS4.Name = "etS4";
-            this.etS4.Size = new System.Drawing.Size(104, 20);
-            this.etS4.TabIndex = 22;
-            this.etS4.Tag = "sortingkind.labels4";
-            this.etS4.Text = "etS4";
-            this.etS4.TextChanged += new System.EventHandler(this.etS5_TextChanged);
-            // 
-            // lockS4
-            // 
-            this.lockS4.Location = new System.Drawing.Point(200, 120);
-            this.lockS4.Name = "lockS4";
-            this.lockS4.Size = new System.Drawing.Size(16, 24);
-            this.lockS4.TabIndex = 23;
-            this.lockS4.Tag = "sortingkind.lockeds4:S:N";
-            // 
-            // forceS4
-            // 
-            this.forceS4.Location = new System.Drawing.Point(232, 120);
-            this.forceS4.Name = "forceS4";
-            this.forceS4.Size = new System.Drawing.Size(16, 24);
-            this.forceS4.TabIndex = 24;
-            this.forceS4.Tag = "sortingkind.forceds4:S:N";
-            // 
-            // etS3
-            // 
-            this.etS3.Location = new System.Drawing.Point(88, 104);
-            this.etS3.Name = "etS3";
-            this.etS3.Size = new System.Drawing.Size(104, 20);
-            this.etS3.TabIndex = 19;
-            this.etS3.Tag = "sortingkind.labels3";
-            this.etS3.Text = "etS3";
-            this.etS3.TextChanged += new System.EventHandler(this.etS5_TextChanged);
-            // 
-            // lockS3
-            // 
-            this.lockS3.Location = new System.Drawing.Point(200, 96);
-            this.lockS3.Name = "lockS3";
-            this.lockS3.Size = new System.Drawing.Size(16, 24);
-            this.lockS3.TabIndex = 20;
-            this.lockS3.Tag = "sortingkind.lockeds3:S:N";
-            // 
-            // forceS3
-            // 
-            this.forceS3.Location = new System.Drawing.Point(232, 96);
-            this.forceS3.Name = "forceS3";
-            this.forceS3.Size = new System.Drawing.Size(16, 24);
-            this.forceS3.TabIndex = 21;
-            this.forceS3.Tag = "sortingkind.forceds3:S:N";
-            // 
-            // etS2
-            // 
-            this.etS2.Location = new System.Drawing.Point(88, 72);
-            this.etS2.Name = "etS2";
-            this.etS2.Size = new System.Drawing.Size(104, 20);
-            this.etS2.TabIndex = 16;
-            this.etS2.Tag = "sortingkind.labels2";
-            this.etS2.Text = "etS2";
-            this.etS2.TextChanged += new System.EventHandler(this.etS5_TextChanged);
-            // 
-            // lockS2
-            // 
-            this.lockS2.Location = new System.Drawing.Point(200, 64);
-            this.lockS2.Name = "lockS2";
-            this.lockS2.Size = new System.Drawing.Size(16, 24);
-            this.lockS2.TabIndex = 17;
-            this.lockS2.Tag = "sortingkind.lockeds2:S:N";
-            // 
-            // forceS2
-            // 
-            this.forceS2.Location = new System.Drawing.Point(232, 64);
-            this.forceS2.Name = "forceS2";
-            this.forceS2.Size = new System.Drawing.Size(16, 24);
-            this.forceS2.TabIndex = 18;
-            this.forceS2.Tag = "sortingkind.forceds2:S:N";
-            // 
-            // etS1
-            // 
-            this.etS1.Location = new System.Drawing.Point(88, 40);
-            this.etS1.Name = "etS1";
-            this.etS1.Size = new System.Drawing.Size(104, 20);
-            this.etS1.TabIndex = 13;
-            this.etS1.Tag = "sortingkind.labels1";
-            this.etS1.Text = "etS1";
-            this.etS1.TextChanged += new System.EventHandler(this.etS5_TextChanged);
-            // 
-            // lockS1
-            // 
-            this.lockS1.Location = new System.Drawing.Point(200, 32);
-            this.lockS1.Name = "lockS1";
-            this.lockS1.Size = new System.Drawing.Size(16, 24);
-            this.lockS1.TabIndex = 14;
-            this.lockS1.Tag = "sortingkind.lockeds1:S:N";
-            // 
-            // forceS1
-            // 
-            this.forceS1.Location = new System.Drawing.Point(232, 32);
-            this.forceS1.Name = "forceS1";
-            this.forceS1.Size = new System.Drawing.Size(16, 24);
-            this.forceS1.TabIndex = 15;
-            this.forceS1.Tag = "sortingkind.forceds1:S:N";
-            // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(344, 16);
+            this.label9.Location = new System.Drawing.Point(104, 16);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(72, 16);
             this.label9.TabIndex = 72;
@@ -692,7 +550,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // etN4
             // 
-            this.etN4.Location = new System.Drawing.Point(352, 128);
+            this.etN4.Location = new System.Drawing.Point(112, 126);
             this.etN4.Name = "etN4";
             this.etN4.Size = new System.Drawing.Size(104, 20);
             this.etN4.TabIndex = 37;
@@ -702,7 +560,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // lockN4
             // 
-            this.lockN4.Location = new System.Drawing.Point(464, 120);
+            this.lockN4.Location = new System.Drawing.Point(234, 120);
             this.lockN4.Name = "lockN4";
             this.lockN4.Size = new System.Drawing.Size(16, 24);
             this.lockN4.TabIndex = 38;
@@ -710,7 +568,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // forceN4
             // 
-            this.forceN4.Location = new System.Drawing.Point(496, 120);
+            this.forceN4.Location = new System.Drawing.Point(272, 120);
             this.forceN4.Name = "forceN4";
             this.forceN4.Size = new System.Drawing.Size(16, 24);
             this.forceN4.TabIndex = 39;
@@ -718,7 +576,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(272, 120);
+            this.label8.Location = new System.Drawing.Point(40, 121);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(64, 16);
             this.label8.TabIndex = 68;
@@ -727,7 +585,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // etN3
             // 
-            this.etN3.Location = new System.Drawing.Point(352, 104);
+            this.etN3.Location = new System.Drawing.Point(112, 100);
             this.etN3.Name = "etN3";
             this.etN3.Size = new System.Drawing.Size(104, 20);
             this.etN3.TabIndex = 34;
@@ -737,7 +595,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // lockN3
             // 
-            this.lockN3.Location = new System.Drawing.Point(464, 96);
+            this.lockN3.Location = new System.Drawing.Point(234, 96);
             this.lockN3.Name = "lockN3";
             this.lockN3.Size = new System.Drawing.Size(16, 24);
             this.lockN3.TabIndex = 35;
@@ -745,7 +603,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // forceN3
             // 
-            this.forceN3.Location = new System.Drawing.Point(496, 96);
+            this.forceN3.Location = new System.Drawing.Point(272, 96);
             this.forceN3.Name = "forceN3";
             this.forceN3.Size = new System.Drawing.Size(16, 24);
             this.forceN3.TabIndex = 36;
@@ -753,7 +611,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(272, 96);
+            this.label7.Location = new System.Drawing.Point(40, 97);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(64, 16);
             this.label7.TabIndex = 64;
@@ -762,7 +620,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // etN2
             // 
-            this.etN2.Location = new System.Drawing.Point(352, 72);
+            this.etN2.Location = new System.Drawing.Point(112, 72);
             this.etN2.Name = "etN2";
             this.etN2.Size = new System.Drawing.Size(104, 20);
             this.etN2.TabIndex = 31;
@@ -772,7 +630,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // lockN2
             // 
-            this.lockN2.Location = new System.Drawing.Point(464, 64);
+            this.lockN2.Location = new System.Drawing.Point(234, 64);
             this.lockN2.Name = "lockN2";
             this.lockN2.Size = new System.Drawing.Size(16, 24);
             this.lockN2.TabIndex = 32;
@@ -780,7 +638,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // forceN2
             // 
-            this.forceN2.Location = new System.Drawing.Point(496, 64);
+            this.forceN2.Location = new System.Drawing.Point(272, 64);
             this.forceN2.Name = "forceN2";
             this.forceN2.Size = new System.Drawing.Size(16, 24);
             this.forceN2.TabIndex = 33;
@@ -788,7 +646,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(272, 72);
+            this.label4.Location = new System.Drawing.Point(40, 73);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(64, 16);
             this.label4.TabIndex = 60;
@@ -797,7 +655,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(488, 16);
+            this.label5.Location = new System.Drawing.Point(264, 16);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 16);
             this.label5.TabIndex = 59;
@@ -805,15 +663,15 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(440, 16);
+            this.label6.Location = new System.Drawing.Point(216, 16);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(48, 16);
             this.label6.TabIndex = 58;
-            this.label6.Text = "Visbile";
+            this.label6.Text = "Invisibile";
             // 
             // etN1
             // 
-            this.etN1.Location = new System.Drawing.Point(352, 40);
+            this.etN1.Location = new System.Drawing.Point(112, 40);
             this.etN1.Name = "etN1";
             this.etN1.Size = new System.Drawing.Size(104, 20);
             this.etN1.TabIndex = 28;
@@ -823,7 +681,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // lockN1
             // 
-            this.lockN1.Location = new System.Drawing.Point(464, 32);
+            this.lockN1.Location = new System.Drawing.Point(234, 32);
             this.lockN1.Name = "lockN1";
             this.lockN1.Size = new System.Drawing.Size(16, 24);
             this.lockN1.TabIndex = 29;
@@ -831,7 +689,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // forceN1
             // 
-            this.forceN1.Location = new System.Drawing.Point(496, 32);
+            this.forceN1.Location = new System.Drawing.Point(272, 32);
             this.forceN1.Name = "forceN1";
             this.forceN1.Size = new System.Drawing.Size(16, 24);
             this.forceN1.TabIndex = 30;
@@ -839,7 +697,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label20
             // 
-            this.label20.Location = new System.Drawing.Point(272, 40);
+            this.label20.Location = new System.Drawing.Point(40, 41);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(64, 16);
             this.label20.TabIndex = 54;
@@ -848,15 +706,16 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label34
             // 
-            this.label34.Location = new System.Drawing.Point(160, 184);
+            this.label34.Location = new System.Drawing.Point(190, 196);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(432, 16);
             this.label34.TabIndex = 127;
-            this.label34.Text = "Nota: scegliendo Visibile=\'grigiato\' il campo sar‡ visibile ma non modificabile.";
+            this.label34.Text = "Nota: scegliendo Invisibile=\'grigiato\' il campo sar‡ visibile ma non modificabile" +
+    ".";
             // 
             // label24
             // 
-            this.label24.Location = new System.Drawing.Point(616, 16);
+            this.label24.Location = new System.Drawing.Point(425, 13);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(72, 16);
             this.label24.TabIndex = 125;
@@ -864,7 +723,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // etV4
             // 
-            this.etV4.Location = new System.Drawing.Point(624, 128);
+            this.etV4.Location = new System.Drawing.Point(433, 125);
             this.etV4.Name = "etV4";
             this.etV4.Size = new System.Drawing.Size(104, 20);
             this.etV4.TabIndex = 52;
@@ -873,7 +732,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // etV3
             // 
-            this.etV3.Location = new System.Drawing.Point(624, 104);
+            this.etV3.Location = new System.Drawing.Point(433, 101);
             this.etV3.Name = "etV3";
             this.etV3.Size = new System.Drawing.Size(104, 20);
             this.etV3.TabIndex = 49;
@@ -882,7 +741,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // etV2
             // 
-            this.etV2.Location = new System.Drawing.Point(624, 72);
+            this.etV2.Location = new System.Drawing.Point(433, 69);
             this.etV2.Name = "etV2";
             this.etV2.Size = new System.Drawing.Size(104, 20);
             this.etV2.TabIndex = 46;
@@ -891,7 +750,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // etV1
             // 
-            this.etV1.Location = new System.Drawing.Point(624, 40);
+            this.etV1.Location = new System.Drawing.Point(433, 37);
             this.etV1.Name = "etV1";
             this.etV1.Size = new System.Drawing.Size(104, 20);
             this.etV1.TabIndex = 43;
@@ -900,7 +759,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // etV5
             // 
-            this.etV5.Location = new System.Drawing.Point(624, 160);
+            this.etV5.Location = new System.Drawing.Point(433, 152);
             this.etV5.Name = "etV5";
             this.etV5.Size = new System.Drawing.Size(104, 20);
             this.etV5.TabIndex = 55;
@@ -909,7 +768,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // forceV5
             // 
-            this.forceV5.Location = new System.Drawing.Point(768, 152);
+            this.forceV5.Location = new System.Drawing.Point(577, 149);
             this.forceV5.Name = "forceV5";
             this.forceV5.Size = new System.Drawing.Size(16, 24);
             this.forceV5.TabIndex = 57;
@@ -917,7 +776,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // lockV4
             // 
-            this.lockV4.Location = new System.Drawing.Point(736, 120);
+            this.lockV4.Location = new System.Drawing.Point(545, 117);
             this.lockV4.Name = "lockV4";
             this.lockV4.Size = new System.Drawing.Size(16, 24);
             this.lockV4.TabIndex = 53;
@@ -925,7 +784,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // forceV4
             // 
-            this.forceV4.Location = new System.Drawing.Point(768, 120);
+            this.forceV4.Location = new System.Drawing.Point(577, 117);
             this.forceV4.Name = "forceV4";
             this.forceV4.Size = new System.Drawing.Size(16, 24);
             this.forceV4.TabIndex = 54;
@@ -933,7 +792,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // lockV3
             // 
-            this.lockV3.Location = new System.Drawing.Point(736, 96);
+            this.lockV3.Location = new System.Drawing.Point(545, 93);
             this.lockV3.Name = "lockV3";
             this.lockV3.Size = new System.Drawing.Size(16, 24);
             this.lockV3.TabIndex = 50;
@@ -941,7 +800,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // forceV3
             // 
-            this.forceV3.Location = new System.Drawing.Point(768, 96);
+            this.forceV3.Location = new System.Drawing.Point(577, 93);
             this.forceV3.Name = "forceV3";
             this.forceV3.Size = new System.Drawing.Size(16, 24);
             this.forceV3.TabIndex = 51;
@@ -949,7 +808,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // lockV2
             // 
-            this.lockV2.Location = new System.Drawing.Point(736, 64);
+            this.lockV2.Location = new System.Drawing.Point(545, 61);
             this.lockV2.Name = "lockV2";
             this.lockV2.Size = new System.Drawing.Size(16, 24);
             this.lockV2.TabIndex = 47;
@@ -957,7 +816,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // forceV2
             // 
-            this.forceV2.Location = new System.Drawing.Point(768, 64);
+            this.forceV2.Location = new System.Drawing.Point(577, 61);
             this.forceV2.Name = "forceV2";
             this.forceV2.Size = new System.Drawing.Size(16, 24);
             this.forceV2.TabIndex = 48;
@@ -965,7 +824,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label27
             // 
-            this.label27.Location = new System.Drawing.Point(760, 16);
+            this.label27.Location = new System.Drawing.Point(569, 13);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(64, 16);
             this.label27.TabIndex = 121;
@@ -973,15 +832,15 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label28
             // 
-            this.label28.Location = new System.Drawing.Point(712, 16);
+            this.label28.Location = new System.Drawing.Point(521, 13);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(48, 16);
             this.label28.TabIndex = 120;
-            this.label28.Text = "Visibile";
+            this.label28.Text = "Invisibile";
             // 
             // lockV1
             // 
-            this.lockV1.Location = new System.Drawing.Point(736, 32);
+            this.lockV1.Location = new System.Drawing.Point(545, 29);
             this.lockV1.Name = "lockV1";
             this.lockV1.Size = new System.Drawing.Size(16, 24);
             this.lockV1.TabIndex = 44;
@@ -989,7 +848,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // forceV1
             // 
-            this.forceV1.Location = new System.Drawing.Point(768, 32);
+            this.forceV1.Location = new System.Drawing.Point(577, 29);
             this.forceV1.Name = "forceV1";
             this.forceV1.Size = new System.Drawing.Size(16, 24);
             this.forceV1.TabIndex = 45;
@@ -997,7 +856,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // lockV5
             // 
-            this.lockV5.Location = new System.Drawing.Point(736, 152);
+            this.lockV5.Location = new System.Drawing.Point(545, 149);
             this.lockV5.Name = "lockV5";
             this.lockV5.Size = new System.Drawing.Size(16, 24);
             this.lockV5.TabIndex = 56;
@@ -1005,7 +864,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label29
             // 
-            this.label29.Location = new System.Drawing.Point(544, 152);
+            this.label29.Location = new System.Drawing.Point(353, 149);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(64, 16);
             this.label29.TabIndex = 126;
@@ -1014,7 +873,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label30
             // 
-            this.label30.Location = new System.Drawing.Point(544, 120);
+            this.label30.Location = new System.Drawing.Point(353, 117);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(64, 16);
             this.label30.TabIndex = 124;
@@ -1023,7 +882,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label31
             // 
-            this.label31.Location = new System.Drawing.Point(544, 96);
+            this.label31.Location = new System.Drawing.Point(353, 93);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(64, 16);
             this.label31.TabIndex = 123;
@@ -1032,7 +891,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label32
             // 
-            this.label32.Location = new System.Drawing.Point(544, 72);
+            this.label32.Location = new System.Drawing.Point(353, 69);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(64, 16);
             this.label32.TabIndex = 122;
@@ -1041,61 +900,16 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label33
             // 
-            this.label33.Location = new System.Drawing.Point(544, 40);
+            this.label33.Location = new System.Drawing.Point(353, 37);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(64, 16);
             this.label33.TabIndex = 119;
             this.label33.Text = "Valore 1";
             this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(16, 152);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(56, 16);
-            this.label14.TabIndex = 101;
-            this.label14.Text = "Testo 5";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label13
-            // 
-            this.label13.Location = new System.Drawing.Point(16, 120);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(56, 16);
-            this.label13.TabIndex = 100;
-            this.label13.Text = "Testo 4";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label12
-            // 
-            this.label12.Location = new System.Drawing.Point(16, 96);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(56, 16);
-            this.label12.TabIndex = 99;
-            this.label12.Text = "Testo 3";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label11
-            // 
-            this.label11.Location = new System.Drawing.Point(8, 64);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(64, 16);
-            this.label11.TabIndex = 98;
-            this.label11.Text = "Testo 2";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label10
-            // 
-            this.label10.Location = new System.Drawing.Point(8, 40);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(64, 16);
-            this.label10.TabIndex = 97;
-            this.label10.Text = "Testo 1";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // etDate
             // 
-            this.etDate.Location = new System.Drawing.Point(32, 232);
+            this.etDate.Location = new System.Drawing.Point(142, 253);
             this.etDate.Name = "etDate";
             this.etDate.Size = new System.Drawing.Size(232, 20);
             this.etDate.TabIndex = 58;
@@ -1103,7 +917,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // etichettaignoradate
             // 
-            this.etichettaignoradate.Location = new System.Drawing.Point(328, 232);
+            this.etichettaignoradate.Location = new System.Drawing.Point(380, 253);
             this.etichettaignoradate.Name = "etichettaignoradate";
             this.etichettaignoradate.Size = new System.Drawing.Size(232, 20);
             this.etichettaignoradate.TabIndex = 59;
@@ -1111,7 +925,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label25
             // 
-            this.label25.Location = new System.Drawing.Point(328, 208);
+            this.label25.Location = new System.Drawing.Point(380, 229);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(256, 16);
             this.label25.TabIndex = 103;
@@ -1119,7 +933,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             // 
             // label26
             // 
-            this.label26.Location = new System.Drawing.Point(32, 208);
+            this.label26.Location = new System.Drawing.Point(142, 229);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(160, 16);
             this.label26.TabIndex = 101;
@@ -1163,10 +977,11 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             this.MetaDataDetail.Controls.Add(this.tabPage1);
             this.MetaDataDetail.Controls.Add(this.tabPage2);
             this.MetaDataDetail.Controls.Add(this.tabPage3);
-            this.MetaDataDetail.Location = new System.Drawing.Point(16, 352);
+            this.MetaDataDetail.Controls.Add(this.tabPage4);
+            this.MetaDataDetail.Location = new System.Drawing.Point(16, 386);
             this.MetaDataDetail.Name = "MetaDataDetail";
             this.MetaDataDetail.SelectedIndex = 0;
-            this.MetaDataDetail.Size = new System.Drawing.Size(840, 288);
+            this.MetaDataDetail.Size = new System.Drawing.Size(840, 313);
             this.MetaDataDetail.TabIndex = 3;
             // 
             // tabPage1
@@ -1183,7 +998,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             this.tabPage1.Controls.Add(this.txtDenom);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(832, 262);
+            this.tabPage1.Size = new System.Drawing.Size(832, 287);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Mov.Finanziari";
             // 
@@ -1255,28 +1070,11 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             this.tabPage2.Controls.Add(this.etDate);
             this.tabPage2.Controls.Add(this.label25);
             this.tabPage2.Controls.Add(this.label26);
-            this.tabPage2.Controls.Add(this.label16);
-            this.tabPage2.Controls.Add(this.label17);
-            this.tabPage2.Controls.Add(this.label18);
             this.tabPage2.Controls.Add(this.etN5);
             this.tabPage2.Controls.Add(this.lockN5);
             this.tabPage2.Controls.Add(this.forceN5);
             this.tabPage2.Controls.Add(this.label15);
             this.tabPage2.Controls.Add(this.forceN1);
-            this.tabPage2.Controls.Add(this.lockS5);
-            this.tabPage2.Controls.Add(this.forceS5);
-            this.tabPage2.Controls.Add(this.etS4);
-            this.tabPage2.Controls.Add(this.etS5);
-            this.tabPage2.Controls.Add(this.forceS4);
-            this.tabPage2.Controls.Add(this.etS3);
-            this.tabPage2.Controls.Add(this.lockS3);
-            this.tabPage2.Controls.Add(this.forceS3);
-            this.tabPage2.Controls.Add(this.lockS4);
-            this.tabPage2.Controls.Add(this.lockS2);
-            this.tabPage2.Controls.Add(this.forceS2);
-            this.tabPage2.Controls.Add(this.etS1);
-            this.tabPage2.Controls.Add(this.lockS1);
-            this.tabPage2.Controls.Add(this.etS2);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.etN4);
             this.tabPage2.Controls.Add(this.lockN4);
@@ -1297,7 +1095,6 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             this.tabPage2.Controls.Add(this.etV3);
             this.tabPage2.Controls.Add(this.etV2);
             this.tabPage2.Controls.Add(this.etV1);
-            this.tabPage2.Controls.Add(this.forceS1);
             this.tabPage2.Controls.Add(this.etV5);
             this.tabPage2.Controls.Add(this.forceV5);
             this.tabPage2.Controls.Add(this.lockV4);
@@ -1316,18 +1113,13 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             this.tabPage2.Controls.Add(this.label31);
             this.tabPage2.Controls.Add(this.label32);
             this.tabPage2.Controls.Add(this.label33);
-            this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.label13);
-            this.tabPage2.Controls.Add(this.label12);
-            this.tabPage2.Controls.Add(this.label11);
-            this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.etN1);
             this.tabPage2.Controls.Add(this.etichettaignoradate);
             this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(832, 262);
+            this.tabPage2.Size = new System.Drawing.Size(832, 287);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Campi Aggiuntivi";
             // 
@@ -1347,7 +1139,7 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             this.tabPage3.Controls.Add(this.listView1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(832, 262);
+            this.tabPage3.Size = new System.Drawing.Size(832, 287);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Applicabilit‡";
             // 
@@ -1463,10 +1255,301 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             this.listView1.Tag = "sortabletable.solodescrizione";
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.label37);
+            this.tabPage4.Controls.Add(this.textBox8);
+            this.tabPage4.Controls.Add(this.textBox7);
+            this.tabPage4.Controls.Add(this.textBox6);
+            this.tabPage4.Controls.Add(this.label16);
+            this.tabPage4.Controls.Add(this.label17);
+            this.tabPage4.Controls.Add(this.label18);
+            this.tabPage4.Controls.Add(this.lockS5);
+            this.tabPage4.Controls.Add(this.forceS5);
+            this.tabPage4.Controls.Add(this.etS4);
+            this.tabPage4.Controls.Add(this.etS5);
+            this.tabPage4.Controls.Add(this.forceS4);
+            this.tabPage4.Controls.Add(this.etS3);
+            this.tabPage4.Controls.Add(this.lockS3);
+            this.tabPage4.Controls.Add(this.forceS3);
+            this.tabPage4.Controls.Add(this.lockS4);
+            this.tabPage4.Controls.Add(this.lockS2);
+            this.tabPage4.Controls.Add(this.forceS2);
+            this.tabPage4.Controls.Add(this.etS1);
+            this.tabPage4.Controls.Add(this.lockS1);
+            this.tabPage4.Controls.Add(this.etS2);
+            this.tabPage4.Controls.Add(this.forceS1);
+            this.tabPage4.Controls.Add(this.label14);
+            this.tabPage4.Controls.Add(this.label13);
+            this.tabPage4.Controls.Add(this.label12);
+            this.tabPage4.Controls.Add(this.label11);
+            this.tabPage4.Controls.Add(this.label10);
+            this.tabPage4.Controls.Add(this.textBox5);
+            this.tabPage4.Controls.Add(this.textBox4);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(832, 287);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Valori ammessi";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label37
+            // 
+            this.label37.Location = new System.Drawing.Point(202, 18);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(259, 16);
+            this.label37.TabIndex = 158;
+            this.label37.Text = "Valori ammessi(value1|value2|...valueN)";
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(195, 46);
+            this.textBox8.Multiline = true;
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(266, 36);
+            this.textBox8.TabIndex = 157;
+            this.textBox8.Tag = "sortingkind.allowedS1";
+            this.textBox8.Text = "valS1";
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(195, 88);
+            this.textBox7.Multiline = true;
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(266, 36);
+            this.textBox7.TabIndex = 156;
+            this.textBox7.Tag = "sortingkind.allowedS2";
+            this.textBox7.Text = "valS2";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(195, 133);
+            this.textBox6.Multiline = true;
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(266, 36);
+            this.textBox6.TabIndex = 155;
+            this.textBox6.Tag = "sortingkind.allowedS3";
+            this.textBox6.Text = "valS3";
+            // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(78, 17);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(72, 16);
+            this.label16.TabIndex = 152;
+            this.label16.Text = "Etichetta";
+            // 
+            // label17
+            // 
+            this.label17.Location = new System.Drawing.Point(535, 16);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(64, 16);
+            this.label17.TabIndex = 149;
+            this.label17.Text = "obbligatorio";
+            // 
+            // label18
+            // 
+            this.label18.Location = new System.Drawing.Point(484, 16);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(48, 16);
+            this.label18.TabIndex = 148;
+            this.label18.Text = "Invisibile";
+            // 
+            // lockS5
+            // 
+            this.lockS5.Location = new System.Drawing.Point(500, 223);
+            this.lockS5.Name = "lockS5";
+            this.lockS5.Size = new System.Drawing.Size(16, 24);
+            this.lockS5.TabIndex = 145;
+            this.lockS5.Tag = "sortingkind.lockeds5:S:N";
+            // 
+            // forceS5
+            // 
+            this.forceS5.Location = new System.Drawing.Point(543, 223);
+            this.forceS5.Name = "forceS5";
+            this.forceS5.Size = new System.Drawing.Size(16, 24);
+            this.forceS5.TabIndex = 146;
+            this.forceS5.Tag = "sortingkind.forceds5:S:N";
+            // 
+            // etS4
+            // 
+            this.etS4.Location = new System.Drawing.Point(76, 176);
+            this.etS4.Name = "etS4";
+            this.etS4.Size = new System.Drawing.Size(109, 20);
+            this.etS4.TabIndex = 141;
+            this.etS4.Tag = "sortingkind.labels4";
+            this.etS4.Text = "etS4";
+            // 
+            // etS5
+            // 
+            this.etS5.Location = new System.Drawing.Point(76, 223);
+            this.etS5.Name = "etS5";
+            this.etS5.Size = new System.Drawing.Size(109, 20);
+            this.etS5.TabIndex = 144;
+            this.etS5.Tag = "sortingkind.labels5";
+            this.etS5.Text = "etS5";
+            // 
+            // forceS4
+            // 
+            this.forceS4.Location = new System.Drawing.Point(543, 176);
+            this.forceS4.Name = "forceS4";
+            this.forceS4.Size = new System.Drawing.Size(16, 24);
+            this.forceS4.TabIndex = 143;
+            this.forceS4.Tag = "sortingkind.forceds4:S:N";
+            // 
+            // etS3
+            // 
+            this.etS3.Location = new System.Drawing.Point(81, 133);
+            this.etS3.Name = "etS3";
+            this.etS3.Size = new System.Drawing.Size(104, 20);
+            this.etS3.TabIndex = 138;
+            this.etS3.Tag = "sortingkind.labels3";
+            this.etS3.Text = "etS3";
+            this.etS3.TextChanged += new System.EventHandler(this.etS3_TextChanged);
+            // 
+            // lockS3
+            // 
+            this.lockS3.Location = new System.Drawing.Point(500, 136);
+            this.lockS3.Name = "lockS3";
+            this.lockS3.Size = new System.Drawing.Size(16, 24);
+            this.lockS3.TabIndex = 139;
+            this.lockS3.Tag = "sortingkind.lockeds3:S:N";
+            // 
+            // forceS3
+            // 
+            this.forceS3.Location = new System.Drawing.Point(543, 133);
+            this.forceS3.Name = "forceS3";
+            this.forceS3.Size = new System.Drawing.Size(16, 24);
+            this.forceS3.TabIndex = 140;
+            this.forceS3.Tag = "sortingkind.forceds3:S:N";
+            // 
+            // lockS4
+            // 
+            this.lockS4.Location = new System.Drawing.Point(500, 176);
+            this.lockS4.Name = "lockS4";
+            this.lockS4.Size = new System.Drawing.Size(16, 24);
+            this.lockS4.TabIndex = 142;
+            this.lockS4.Tag = "sortingkind.lockeds4:S:N";
+            // 
+            // lockS2
+            // 
+            this.lockS2.Location = new System.Drawing.Point(500, 92);
+            this.lockS2.Name = "lockS2";
+            this.lockS2.Size = new System.Drawing.Size(16, 24);
+            this.lockS2.TabIndex = 136;
+            this.lockS2.Tag = "sortingkind.lockeds2:S:N";
+            // 
+            // forceS2
+            // 
+            this.forceS2.Location = new System.Drawing.Point(543, 87);
+            this.forceS2.Name = "forceS2";
+            this.forceS2.Size = new System.Drawing.Size(16, 24);
+            this.forceS2.TabIndex = 137;
+            this.forceS2.Tag = "sortingkind.forceds2:S:N";
+            // 
+            // etS1
+            // 
+            this.etS1.Location = new System.Drawing.Point(81, 46);
+            this.etS1.Name = "etS1";
+            this.etS1.Size = new System.Drawing.Size(104, 20);
+            this.etS1.TabIndex = 132;
+            this.etS1.Tag = "sortingkind.labels1";
+            this.etS1.Text = "etS1";
+            // 
+            // lockS1
+            // 
+            this.lockS1.Location = new System.Drawing.Point(500, 46);
+            this.lockS1.Name = "lockS1";
+            this.lockS1.Size = new System.Drawing.Size(16, 24);
+            this.lockS1.TabIndex = 133;
+            this.lockS1.Tag = "sortingkind.lockeds1:S:N";
+            // 
+            // etS2
+            // 
+            this.etS2.Location = new System.Drawing.Point(81, 88);
+            this.etS2.Name = "etS2";
+            this.etS2.Size = new System.Drawing.Size(104, 20);
+            this.etS2.TabIndex = 135;
+            this.etS2.Tag = "sortingkind.labels2";
+            this.etS2.Text = "etS2";
+            // 
+            // forceS1
+            // 
+            this.forceS1.Location = new System.Drawing.Point(543, 46);
+            this.forceS1.Name = "forceS1";
+            this.forceS1.Size = new System.Drawing.Size(16, 24);
+            this.forceS1.TabIndex = 134;
+            this.forceS1.Tag = "sortingkind.forceds1:S:N";
+            // 
+            // label14
+            // 
+            this.label14.Location = new System.Drawing.Point(16, 225);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(56, 16);
+            this.label14.TabIndex = 154;
+            this.label14.Text = "Testo 5";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label13
+            // 
+            this.label13.Location = new System.Drawing.Point(15, 175);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(56, 16);
+            this.label13.TabIndex = 153;
+            this.label13.Text = "Testo 4";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label12
+            // 
+            this.label12.Location = new System.Drawing.Point(20, 134);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(56, 16);
+            this.label12.TabIndex = 151;
+            this.label12.Text = "Testo 3";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label11
+            // 
+            this.label11.Location = new System.Drawing.Point(22, 87);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(53, 24);
+            this.label11.TabIndex = 150;
+            this.label11.Text = "Testo 2";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(25, 43);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(50, 24);
+            this.label10.TabIndex = 147;
+            this.label10.Text = "Testo 1";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(195, 178);
+            this.textBox5.Multiline = true;
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(266, 36);
+            this.textBox5.TabIndex = 131;
+            this.textBox5.Tag = "sortingkind.allowedS4";
+            this.textBox5.Text = "valS4";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(195, 223);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(266, 36);
+            this.textBox4.TabIndex = 130;
+            this.textBox4.Tag = "sortingkind.allowedS5";
+            this.textBox4.Text = "valS5";
+            // 
             // Frm_sortingkind_lista
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(864, 645);
+            this.ClientSize = new System.Drawing.Size(864, 704);
             this.Controls.Add(this.MetaDataDetail);
             this.Controls.Add(this.dataGrid1);
             this.Controls.Add(this.MetaDataToolBar);
@@ -1484,6 +1567,8 @@ namespace sortingkind_lista//tipoclassmovimentibase//
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1541,7 +1626,9 @@ namespace sortingkind_lista//tipoclassmovimentibase//
 			etichettaignoradate.ReadOnly=!usaDate.Checked;
 
 		}
-		
-	}
+
+        private void etS3_TextChanged(object sender, EventArgs e) {
+
+        }
+    }
 }
-

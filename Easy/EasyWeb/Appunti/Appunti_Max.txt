@@ -1,0 +1,169 @@
+Per referenziare gli assembly di Crystal XI nel progetto Visual Studio 2005, ho aggiunto dalla cartella
+	C:\Program Files\Business Objects\Common\3.5\managed\dotnet2 
+I riferimenti prima alla DLL  	CrystalDecisions.CrystalReports.Engine
+e poi alla DLL					CrystalDecisions.Shared
+
+Tutto è andato a posto, almemo per quanto riguarda la compilazione, 
+perchè a runtime si continuano ad avere problemi nella stampa.
+____________________________________________________________________________________________________________
+
+sp_change_users_login 'UPDATE_ONE','Italianistica','Italianistica'
+
+
+_____________________________________________________________________________________________________________
+Attenzione il codice del dipartimento deve essere uguale al nome utente del dipartimento.
+
+__________________________________________________________________
+Utilizza Installa.aspx per configurare il WebReport (Nome db: WebReport)
+(Ti conviene cancellare il file config.xml, perchè sembra che non venga aggiornato durante il salvataggio)
+
+
+Poi utilizza AddServer.aspx per configurare il database del dipartimento.
+____________________________________________________
+SourceSafe
+A SouceSafe vanno aggiunti tutti i progetti.
+Non vanno aggiunte le cartelle Bin.
+Va aggiunto il file della solution *.sln, ma non il file *.suo
+Il file Config.xml non va aggiunto, perchè non può avere l'attributo di sola lettura.
+
+
+
+_______________________________________________________________________________________________________________
+CARICARE I DATI
+
+l'istruzione per leggere in una tabella, aggiungendo le righe a quelle esistenti, è:
+RUN_SELECT_INTO_TABLE(DataTable T, string sort_by, string filter, string TOP, bool prepare)
+ossia ad esempio
+Conn.RUN_SELECT_INTO_TABLE(DS.Tables["mandate"], null,filter,null,false)
+
+una volta che ti sei caricata la riga, prendi la chiave,
+idmankind/yman/nman,
+e in base al filtro sulla chiave ti carichi le righe della figlia con un'altra istruzione
+tipo:
+DataRow MainRow= DS.Tables["mandate"].Rows[0];
+string filter= QHS.Mcmp(MainRow,"idmankind","yman","nman");
+Conn.RUN_SELECT_INTO_TABLE(DS.Tables["mandatedetail"], null,filter,null,false)
+
+_______________________________________________________________
+NUOVE RIGHE
+per le nuove righe c'è una "procedura " apposita:
+ad esempio mandate:
+Meta_EasyDispatcher Dispatcher = new Meta_EasyDispatcher(UsrConn);
+MetaData metaMandate = Dispatcher.Get("mandate");
+metaMandate.SetDefaults(dtMandate);
+DataRow drMandate = metaMandate.Get_New_Row(null, dtMandate);
+il null in questo caso sta per la riga padre che non c'è
+nel caso di mandatedetail sarebbe la riga di mandate
+
+Questo caso richiede la presenza delle DLL meta_mandate, meta_mandateDetail, etc.
+
+__________________
+
+SALVATAGGIO
+
+Easy_PostData Post= new Easy_PostData();
+Post.InitClass(DS,Conn);
+ProcedureMessageCollection Msg= Post.DO_POST_SERVICE();
+
+ProcedureMessageCollection è un ArrayList di oggetti di tipo:ProcedureMessage
+la cui definizione è:
+public class EasyProcedureMessage: ProcedureMessage {
+  public bool Enabled;
+  public String ShortMess;
+  public String Operation; //Update/Insert/Delete
+  public String TableName;
+  public String ErrorType; //Avvertimento / Errore
+  public String AuditID;     //ex. FIN 000074 - indexes table audit 
+  public String EnforcementNumber;  //ex. 0001 - indexes  auditcheck coupled with AuditName
+....
+ShortMess è il messaggio breve
+Operation è U/I/D
+TableName il nome della tabella su cui c'era l'errore
+ErrorType  = Avvertimento oppure Errore
+AuditID il codice dell'errore
+
+ProcedureMessageCollection ha pure una proprietà, che si chiama CanIgnore
+che vale true se gli errori contenuti sono tutti ignorabili
+in tal caso l'utente può dare l'OK
+
+esegui nuovamente DO_POST_SERVICE()  per salvare
+
+_____________________________________________________________
+
+Esegui una stored procedure
+
+DataSet Out = Conn.CallSP("show_mandate",
+				new Object[5] { idmankind,
+								  numordine,
+								  esercordine,
+								  Meta.GetSys("datacontabile"),
+								  Meta.GetSys("esercizio")
+							  }
+				);
+if (Out==null) return;
+Out.Tables[0].TableName="Situazione Ordine";
+
+____________________
+
+public override void DescribeColumns(DataTable T, string listtype){
+   base.DescribeColumns(T, listtype);
+   if (listtype=="lista") {
+    foreach (DataColumn C in T.Columns)
+     DescribeAColumn(T, C.ColumnName, "",-1);
+                int nPos = 1;
+                DescribeAColumn(T, "idgroup", "#", nPos++);
+                DescribeAColumn(T, "detaildescription", "Descrizione", nPos++);
+                DescribeAColumn(T, "number", "Q.tà", nPos++);
+    HelpForm.SetFormatForColumn(T.Columns["number"], "n");
+                DescribeAColumn(T, "taxable", "Importo unitario", nPos++);
+    HelpForm.SetFormatForColumn(T.Columns["taxable"], "n");
+                DescribeAColumn(T, "taxrate", "IVA", nPos++);
+    HelpForm.SetFormatForColumn(T.Columns["taxrate"], "p");
+                DescribeAColumn(T, "discount", "Sconto", nPos++);
+    HelpForm.SetFormatForColumn(T.Columns["discount"], "p");
+                DescribeAColumn(T, "!totaleriga", "Totale riga", nPos++);
+                HelpForm.SetFormatForColumn(T.Columns["!totaleriga"], "n");
+                DescribeAColumn(T, "start", "Inizio val.", nPos++);
+                DescribeAColumn(T, "stop", "Fine val.", nPos++);
+                DescribeAColumn(T, "competencystart", "Inizio comp.", nPos++);
+                DescribeAColumn(T, "competencystop", "Fine comp.", nPos++);
+                DescribeAColumn(T, "!codeupb", "UPB", "upb_detail.codeupb", nPos++);
+                DescribeAColumn(T, "!registry", "Fornitore", "registry.title",nPos++);
+
+    ComputeRowsAs(T, listtype);
+   }
+
+public override void CalculateFields(DataRow R, string list_type) {
+            if (list_type == "lista" || list_type == "listaimpon" || list_type == "listaimpos" || list_type == "default")
+                //||list_type=="default") 
+            {
+    decimal imponibile=CfgFn.GetNoNullDecimal(R["taxable"]);
+    double imponibilereale = Convert.ToDouble(imponibile);
+    double imposta=CfgFn.GetNoNullDouble(R["taxrate"]);
+    double sconto=CfgFn.GetNoNullDouble(R["discount"]);
+    double quantita=CfgFn.GetNoNullDouble(R["number"]);
+    double impo = CfgFn.RoundValuta(imponibilereale*quantita*(1-sconto));
+    double iva  =  CfgFn.GetNoNullDouble(R["tax"]);
+     //CfgFn.RoundValuta(imponibilereale*quantita*(1-sconto)*imposta);
+    R["!totaleriga"]= impo+iva;
+   }
+  }
+
+
+dopo che hai calcolato il dettaglio della riga mi ricalcola
+GetTemporaryValues(T)
+
+
+
+  public static void DescribeAColumn(DataTable T, string ColName, string Caption,
+   string expression,int listcolpos){
+   if (T.Columns[ColName]==null) return;
+   T.Columns[ColName].Caption= Caption;
+   QueryCreator.SetExpression(T.Columns[ColName], expression);
+   T.Columns[ColName].ExtendedProperties["ListColPos"]= listcolpos;		//Se è = -1 non va visualizzata
+  }
+public static void SetExpression(DataColumn C, string S){
+            C.ExtendedProperties[IsTempColumn]=S;
+        }
+private const string IsTempColumn = "IsTemporaryColumn";
+

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -123,6 +120,12 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tax 		=> Tables["tax"];
 
+	///<summary>
+	///U.P.B.
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable upb 		=> Tables["upb"];
+
 	#endregion
 
 
@@ -223,6 +226,7 @@ private void initClass() {
 	tpayroll.Columns.Add( new DataColumn("start", typeof(DateTime)));
 	tpayroll.Columns.Add( new DataColumn("stop", typeof(DateTime)));
 	tpayroll.Columns.Add( new DataColumn("flagsummarybalance", typeof(string)));
+	tpayroll.Columns.Add( new DataColumn("idupb", typeof(string)));
 	Tables.Add(tpayroll);
 	tpayroll.PrimaryKey =  new DataColumn[]{tpayroll.Columns["idpayroll"]};
 
@@ -584,6 +588,8 @@ private void initClass() {
 	tpayrollview.Columns.Add( new DataColumn("flagbalance", typeof(string)));
 	tpayrollview.Columns.Add( new DataColumn("netfee", typeof(decimal)));
 	Tables.Add(tpayrollview);
+	tpayrollview.PrimaryKey =  new DataColumn[]{tpayrollview.Columns["idpayroll"]};
+
 
 	//////////////////// PAYROLLTAXBRACKET /////////////////////////////////
 	var tpayrolltaxbracket= new DataTable("payrolltaxbracket");
@@ -729,6 +735,53 @@ private void initClass() {
 	ttax.PrimaryKey =  new DataColumn[]{ttax.Columns["taxcode"]};
 
 
+	//////////////////// UPB /////////////////////////////////
+	var tupb= new DataTable("upb");
+	C= new DataColumn("idupb", typeof(string));
+	C.AllowDBNull=false;
+	tupb.Columns.Add(C);
+	C= new DataColumn("codeupb", typeof(string));
+	C.AllowDBNull=false;
+	tupb.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	tupb.Columns.Add(C);
+	tupb.Columns.Add( new DataColumn("paridupb", typeof(string)));
+	tupb.Columns.Add( new DataColumn("idunderwriter", typeof(int)));
+	tupb.Columns.Add( new DataColumn("idman", typeof(int)));
+	tupb.Columns.Add( new DataColumn("requested", typeof(decimal)));
+	tupb.Columns.Add( new DataColumn("granted", typeof(decimal)));
+	tupb.Columns.Add( new DataColumn("previousappropriation", typeof(decimal)));
+	tupb.Columns.Add( new DataColumn("previousassessment", typeof(decimal)));
+	tupb.Columns.Add( new DataColumn("expiration", typeof(DateTime)));
+	tupb.Columns.Add( new DataColumn("txt", typeof(string)));
+	tupb.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tupb.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tupb.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tupb.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tupb.Columns.Add(C);
+	tupb.Columns.Add( new DataColumn("assured", typeof(string)));
+	C= new DataColumn("printingorder", typeof(string));
+	C.AllowDBNull=false;
+	tupb.Columns.Add(C);
+	tupb.Columns.Add( new DataColumn("active", typeof(string)));
+	tupb.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tupb.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tupb.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tupb.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tupb.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(tupb);
+	tupb.PrimaryKey =  new DataColumn[]{tupb.Columns["idupb"]};
+
+
 	#endregion
 
 
@@ -805,9 +858,12 @@ private void initClass() {
 	cChild = new []{payroll.Columns["npayroll"]};
 	Relations.Add(new DataRelation("monthnamepayroll",cPar,cChild,false));
 
+	cPar = new []{upb.Columns["idupb"]};
+	cChild = new []{payroll.Columns["idupb"]};
+	Relations.Add(new DataRelation("upb_payroll",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

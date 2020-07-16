@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -48,11 +45,12 @@ namespace meta_epexp
 			if (!base.IsValid(R, out errmess, out errfield)) return false;
             int nphase = CfgFn.GetNoNullInt32(R["nphase"]);
 			int codicecreddeb = CfgFn.GetNoNullInt32(R["idreg"]);
-            if (nphase > 1 && codicecreddeb <= 0) {
-    			errmess="Attenzione! E' necessario selezionare un Cliente/Fornitore.";
-				errfield="idreg";
-				return false;
-			}
+            string idrelated = R["idrelated"].ToString();
+            if (nphase > 1 && codicecreddeb <= 0 && (idrelated.IndexOf("upbcommessa") < 0)) {
+                errmess = "Attenzione! E' necessario selezionare un Cliente/Fornitore.";
+                errfield = "idreg";
+                return false;
+            }
             if (nphase > 1){
                 if (R["paridepexp"] == DBNull.Value) {
                     errmess = "E' necessario scegliere il preimpegno di budget";
@@ -125,4 +123,3 @@ namespace meta_epexp
 		}
 	}
 }
-

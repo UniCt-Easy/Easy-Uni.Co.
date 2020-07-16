@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -37,26 +37,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="placcountview">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idplaccount" type="xs:string" />
-              <xs:element name="ayear" type="xs:short" />
-              <xs:element name="placcpart" type="xs:string" />
-              <xs:element name="codeplaccount" type="xs:string" />
-              <xs:element name="nlevel" type="xs:string" />
-              <xs:element name="leveldescr" type="xs:string" />
-              <xs:element name="paridplaccount" type="xs:string" />
-              <xs:element name="printingorder" type="xs:string" />
-              <xs:element name="title" type="xs:string" />
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="lt" type="xs:dateTime" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -68,22 +48,11 @@
       <xs:field xpath="mstns:ayear" />
       <xs:field xpath="mstns:nlevel" />
     </xs:unique>
-    <xs:unique name="placcountview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:placcountview" />
-      <xs:field xpath="mstns:idplaccount" />
-    </xs:unique>
-    <xs:keyref name="placcountplaccountview" refer="Constraint1">
-      <xs:selector xpath=".//mstns:placcountview" />
-      <xs:field xpath="mstns:idplaccount" />
-    </xs:keyref>
-    <xs:keyref name="placcountplaccount" refer="Constraint1">
-      <xs:selector xpath=".//mstns:placcount" />
-      <xs:field xpath="mstns:paridplaccount" />
-    </xs:keyref>
-    <xs:keyref name="placcountlevelplaccount" refer="placcountlevel_Constraint1">
-      <xs:selector xpath=".//mstns:placcount" />
-      <xs:field xpath="mstns:ayear" />
-      <xs:field xpath="mstns:nlevel" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="placcountlevelplaccount" msdata:parent="placcountlevel" msdata:child="placcount" msdata:parentkey="ayear nlevel" msdata:childkey="ayear nlevel" />
+      <msdata:Relationship name="placcountplaccount" msdata:parent="placcount" msdata:child="placcount" msdata:parentkey="idplaccount" msdata:childkey="paridplaccount" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

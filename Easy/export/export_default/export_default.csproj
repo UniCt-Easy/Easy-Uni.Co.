@@ -80,6 +80,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
+      <Project>{c0dacf4d-2f3e-44d6-a718-7c9821a1bdcd}</Project>
+      <Name>funzioni_configurazione</Name>
+    </ProjectReference>
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>

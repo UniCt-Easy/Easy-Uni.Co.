@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -2485,10 +2482,9 @@ namespace income_wizardestimatedetail {
             if (AutoSelectedMov != null) FillMovimento(AutoSelectedMov);
 
             string filterfase = QHS.CmpEq("nphase", fasecontratto);
-            string descfasecontratto = "";
-            descfasecontratto = Conn.DO_READ_VALUE("incomephase", filterfase, "description").ToString();
-            if (descfasecontratto != "") {
-                gboxMovimento.Text = descfasecontratto;
+            object descfasecontratto = Conn.DO_READ_VALUE("incomephase", filterfase, "description")??"";
+            if (!String.IsNullOrEmpty(descfasecontratto?.ToString())) {
+                gboxMovimento.Text = descfasecontratto.ToString();
             }
 
         }
@@ -2499,11 +2495,12 @@ namespace income_wizardestimatedetail {
             SelezioneMovimentiEffettuata = true; //!!
             int primafaseentrata = 1;
             string filterfase = QHS.CmpEq("nphase", primafaseentrata);
-            string descfase = "";
-            descfase = Conn.DO_READ_VALUE("incomephase", filterfase, "description").ToString();
-            if (descfase != "") {
-                gboxMovimento.Text = descfase;
+            
+            object descfase = Conn.DO_READ_VALUE("incomephase", filterfase, "description");
+            if (descfase != null) {
+                gboxMovimento.Text = descfase.ToString();
             }
+
 
         }
 
@@ -3888,4 +3885,3 @@ namespace income_wizardestimatedetail {
 
     }
 }
-

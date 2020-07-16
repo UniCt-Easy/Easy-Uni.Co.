@@ -13,7 +13,7 @@
               <xs:element name="xml" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="identificativo_sdi" type="xs:int" minOccurs="0" />
+              <xs:element name="identificativo_sdi" type="xs:long" minOccurs="0" />
               <xs:element name="mt" type="xs:string" minOccurs="0" />
               <xs:element name="ec" type="xs:string" minOccurs="0" />
               <xs:element name="ec_sent" type="xs:string" minOccurs="0" />
@@ -44,6 +44,7 @@
               <xs:element name="tipodocumento" type="xs:string" minOccurs="0" />
               <xs:element name="notcreacontabilita" type="xs:string" minOccurs="0" />
               <xs:element name="notcreacontabilitareason" type="xs:string" minOccurs="0" />
+              <xs:element name="signedxml" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -60,6 +61,46 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="uniconfig">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dummykey" type="xs:int" />
+              <xs:element name="expensefinphase" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="incomefinphase" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="expenseregphase" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="incomeregphase" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="flagresearchagency" type="xs:string" />
+              <xs:element name="idsorkind01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsorkind05" type="xs:int" minOccurs="0" />
+              <xs:element name="sorkind01asfilter" type="xs:string" minOccurs="0" />
+              <xs:element name="sorkind02asfilter" type="xs:string" minOccurs="0" />
+              <xs:element name="sorkind03asfilter" type="xs:string" minOccurs="0" />
+              <xs:element name="sorkind04asfilter" type="xs:string" minOccurs="0" />
+              <xs:element name="sorkind05asfilter" type="xs:string" minOccurs="0" />
+              <xs:element name="tree_upb_withdescr" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="ep360days" type="xs:string" minOccurs="0" />
+              <xs:element name="idente" type="xs:int" minOccurs="0" />
+              <xs:element name="publicagency" type="xs:string" minOccurs="0" />
+              <xs:element name="ssn_codasl" type="xs:string" minOccurs="0" />
+              <xs:element name="ssn_codregione" type="xs:string" minOccurs="0" />
+              <xs:element name="ssn_codssa" type="xs:string" minOccurs="0" />
+              <xs:element name="rea_provinceoffice" type="xs:string" minOccurs="0" />
+              <xs:element name="rea_number" type="xs:string" minOccurs="0" />
+              <xs:element name="rea_socialcapital" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rea_partner" type="xs:string" minOccurs="0" />
+              <xs:element name="rea_closingstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="perla_codicepaipa" type="xs:string" minOccurs="0" />
+              <xs:element name="perla_codiceaoopa" type="xs:string" minOccurs="0" />
+              <xs:element name="perla_codiceuopa" type="xs:string" minOccurs="0" />
+              <xs:element name="perla_codicefiscalepa" type="xs:string" minOccurs="0" />
+              <xs:element name="webprotaddress" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -69,6 +110,10 @@
     <xs:unique name="sdi_status_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sdi_status" />
       <xs:field xpath="mstns:idsdi_status" />
+    </xs:unique>
+    <xs:unique name="uniconfig_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:uniconfig" />
+      <xs:field xpath="mstns:dummykey" />
     </xs:unique>
   </xs:element>
   <xs:annotation>

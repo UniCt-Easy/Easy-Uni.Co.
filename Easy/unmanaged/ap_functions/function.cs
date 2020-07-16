@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -234,7 +231,7 @@ namespace ap_functions {
                 MetaData Doc = Meta.Dispatcher.Get(table);
                 Doc.ContextFilter = filter;
                 Form F = null;
-                if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+                if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
                 bool result = Doc.Edit(F, "default", false);
                 string listtype = Doc.DefaultListType;
                 DataRow RR = Doc.SelectOne(listtype, filter, null, null);
@@ -261,7 +258,7 @@ namespace ap_functions {
             string checkfilter = QHS.CmpEq("idrelated", idrelated);
             ToMeta.ContextFilter = checkfilter;
             Form F = null;
-            if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+            if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
             bool result = ToMeta.Edit(F, "default", false);
             string listtype = ToMeta.DefaultListType;
             DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
@@ -283,7 +280,7 @@ namespace ap_functions {
             string checkfilter = QHS.AppAnd(QHS.CmpEq("yservreg", ysrvreg), QHS.CmpEq("nservreg", nsrvreg));
             ToMeta.ContextFilter = checkfilter;
             Form F = null;
-            if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+            if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
             bool result = ToMeta.Edit(F, "default", false);
             string listtype = ToMeta.DefaultListType;
             DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
@@ -338,7 +335,7 @@ namespace ap_functions {
             string checkfilter = QHS.MCmp(R, new string[] { "yservreg", "nservreg" });
             ToMeta.ContextFilter = checkfilter;
             Form F = null;
-            if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+            if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
             bool result = ToMeta.Edit(F, "default", false);
             string listtype = ToMeta.DefaultListType;
             DataRow RR = ToMeta.SelectOne(listtype, checkfilter, null, null);
@@ -514,4 +511,4 @@ namespace ap_functions {
         }
 
     }
-}
+}

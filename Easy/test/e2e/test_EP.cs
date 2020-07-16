@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -94,7 +91,7 @@ namespace e2e {
                 "Ci sono dettagli pari al doppio dei dett. contratti");
 
             var taxableTotal = tMandateDetail._Filter(null)
-                ._Reduce<decimal, DataRow>((x, r) => x = x + CfgFn.GetNoNullDecimal(r["taxable"]), 0);
+                ._Reduce<decimal, DataRow>((x, r) => x += CfgFn.GetNoNullDecimal(r["taxable"]), 0);
             var avere = (decimal) dsEP.Tables["entrydetail"]._Filter(q.gt("amount", 0)).GetSum<decimal>("amount");
             var dare = (decimal) dsEP.Tables["entrydetail"]._Filter(q.lt("amount", 0)).GetSum<decimal>("amount");
             Assert.AreEqual(taxableTotal, -dare, "Dare pari all'imponibile");
@@ -114,7 +111,9 @@ namespace e2e {
                 Assert.AreEqual(1, tMandate.Rows.Count, "Il contratto esiste");
                 DataRow rMan = tMandate.Rows[0];
                 t.deleteEp(rMan);
+                metaeasylibrary.Easy_PostData.rulesToIgnore.Add("ECOPA047");
                 t.generateEP(rMan);
+                metaeasylibrary.Easy_PostData.rulesToIgnore.Clear();
                 var dsEP = t.getEpData(t.testConn, rMan);
                 Assert.AreEqual(nManDet * 2, dsEP.Tables["entrydetail"].Rows.Count,
                     $"Ci sono dettagli pari al doppio dei dett. del contratto VARI_GEST_nofattura/2018/{nMandate} ");
@@ -188,4 +187,3 @@ namespace e2e {
         //
     }
 }
-

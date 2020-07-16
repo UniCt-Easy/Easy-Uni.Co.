@@ -37,8 +37,7 @@ DBPass:		Password per l'accesso
 
 Esempio di parametri
 
-<add key="DSN1" value="unitus test;serversw12;unitus;assistenza;PASSWORD"/>
-<add key="DSN2" value="Universita Aldo Moro;serversw12;Uniroma2;assistenza;PASSWORD"/>
+<add key="codicedb" value="descrizione db;nome server;nome db;nome utente;password utente"/>
 
 Nel progetto DBConn è presente un file DBConn.dll.config.sample da utilizzare come esempio.
 

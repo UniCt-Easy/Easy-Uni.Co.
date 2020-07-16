@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -72,6 +69,11 @@
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.DS = new csa_import_inail_maxphase.dsmeta();
 			this.openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
+			this.CMenu = new System.Windows.Forms.ContextMenu();
+			this.MenuEnterPwd = new System.Windows.Forms.MenuItem();
+			this.btnVerifica = new System.Windows.Forms.Button();
+			this.dgrVerificheFin = new System.Windows.Forms.DataGrid();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			((System.ComponentModel.ISupportInitialize)(this.dsFinancial)).BeginInit();
 			this.tabController.SuspendLayout();
 			this.tabSelect.SuspendLayout();
@@ -84,6 +86,8 @@
 			this.tabRisultati.SuspendLayout();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgrVerificheFin)).BeginInit();
+			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// dsFinancial
@@ -144,9 +148,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabSelect.BackColor = System.Drawing.SystemColors.Control;
+			this.tabSelect.Controls.Add(this.btnVerifica);
 			this.tabSelect.Controls.Add(this.btnDelSospesi);
 			this.tabSelect.Controls.Add(this.lblTask);
 			this.tabSelect.Controls.Add(this.groupBox1);
+			this.tabSelect.Controls.Add(this.groupBox2);
 			this.tabSelect.Controls.Add(this.btnInputSospesi);
 			this.tabSelect.Controls.Add(this.gBoxBollettaVersamenti);
 			this.tabSelect.Controls.Add(this.grpVerifiche);
@@ -159,7 +165,7 @@
 			// 
 			// btnDelSospesi
 			// 
-			this.btnDelSospesi.Location = new System.Drawing.Point(431, 12);
+			this.btnDelSospesi.Location = new System.Drawing.Point(447, 12);
 			this.btnDelSospesi.Name = "btnDelSospesi";
 			this.btnDelSospesi.Size = new System.Drawing.Size(167, 23);
 			this.btnDelSospesi.TabIndex = 25;
@@ -181,11 +187,12 @@
 			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox1.Controls.Add(this.dgrSospesi);
-			this.groupBox1.Location = new System.Drawing.Point(9, 77);
+			this.groupBox1.Location = new System.Drawing.Point(385, 77);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(775, 161);
+			this.groupBox1.Size = new System.Drawing.Size(399, 161);
 			this.groupBox1.TabIndex = 23;
 			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Sospesi";
 			// 
 			// dgrSospesi
 			// 
@@ -196,12 +203,12 @@
 			this.dgrSospesi.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrSospesi.Location = new System.Drawing.Point(10, 20);
 			this.dgrSospesi.Name = "dgrSospesi";
-			this.dgrSospesi.Size = new System.Drawing.Size(757, 133);
+			this.dgrSospesi.Size = new System.Drawing.Size(381, 133);
 			this.dgrSospesi.TabIndex = 4;
 			// 
 			// btnInputSospesi
 			// 
-			this.btnInputSospesi.Location = new System.Drawing.Point(604, 12);
+			this.btnInputSospesi.Location = new System.Drawing.Point(620, 12);
 			this.btnInputSospesi.Name = "btnInputSospesi";
 			this.btnInputSospesi.Size = new System.Drawing.Size(167, 23);
 			this.btnInputSospesi.TabIndex = 22;
@@ -277,11 +284,12 @@
 			this.grpVerifiche.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpVerifiche.Controls.Add(this.dgrVersamentiAnnuali);
-			this.grpVerifiche.Location = new System.Drawing.Point(9, 234);
+			this.grpVerifiche.Location = new System.Drawing.Point(9, 244);
 			this.grpVerifiche.Name = "grpVerifiche";
-			this.grpVerifiche.Size = new System.Drawing.Size(775, 205);
+			this.grpVerifiche.Size = new System.Drawing.Size(775, 195);
 			this.grpVerifiche.TabIndex = 8;
 			this.grpVerifiche.TabStop = false;
+			this.grpVerifiche.Text = "Pagamenti e Incassi posticipati";
 			// 
 			// dgrVersamentiAnnuali
 			// 
@@ -292,7 +300,7 @@
 			this.dgrVersamentiAnnuali.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrVersamentiAnnuali.Location = new System.Drawing.Point(10, 22);
 			this.dgrVersamentiAnnuali.Name = "dgrVersamentiAnnuali";
-			this.dgrVersamentiAnnuali.Size = new System.Drawing.Size(757, 177);
+			this.dgrVersamentiAnnuali.Size = new System.Drawing.Size(757, 167);
 			this.dgrVersamentiAnnuali.TabIndex = 4;
 			// 
 			// btnVersamenti
@@ -402,6 +410,50 @@
 			this.DS.DataSetName = "vistaForm";
 			this.DS.EnforceConstraints = false;
 			// 
+			// CMenu
+			// 
+			this.CMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.MenuEnterPwd});
+			// 
+			// MenuEnterPwd
+			// 
+			this.MenuEnterPwd.Index = 0;
+			this.MenuEnterPwd.Text = "Visualizza tracciato";
+			this.MenuEnterPwd.Click += new System.EventHandler(this.MenuEnterPwd_Click);
+			// 
+			// btnVerifica
+			// 
+			this.btnVerifica.Location = new System.Drawing.Point(19, 445);
+			this.btnVerifica.Name = "btnVerifica";
+			this.btnVerifica.Size = new System.Drawing.Size(167, 23);
+			this.btnVerifica.TabIndex = 26;
+			this.btnVerifica.Text = "Verifica Disponibile Mov. finanziari Residui";
+			this.btnVerifica.Click += new System.EventHandler(this.btnVerifica_Click);
+			// 
+			// dgrVerificheFin
+			// 
+			this.dgrVerificheFin.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgrVerificheFin.DataMember = "";
+			this.dgrVerificheFin.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgrVerificheFin.Location = new System.Drawing.Point(10, 19);
+			this.dgrVerificheFin.Name = "dgrVerificheFin";
+			this.dgrVerificheFin.Size = new System.Drawing.Size(352, 131);
+			this.dgrVerificheFin.TabIndex = 4;
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox2.Controls.Add(this.dgrVerificheFin);
+			this.groupBox2.Location = new System.Drawing.Point(21, 77);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(370, 161);
+			this.groupBox2.TabIndex = 27;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Verifiche";
+			// 
 			// frmcsa_import_inail_maxphase
 			// 
 			this.ClientSize = new System.Drawing.Size(832, 556);
@@ -424,6 +476,8 @@
 			this.tabRisultati.ResumeLayout(false);
 			this.panel1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgrVerificheFin)).EndInit();
+			this.groupBox2.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -459,7 +513,11 @@
 		private System.Windows.Forms.OpenFileDialog openInputFileDlg;
 		private System.Windows.Forms.Button btnDelSospesi;
 		private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ContextMenu CMenu;
+        private System.Windows.Forms.MenuItem MenuEnterPwd;
+		private System.Windows.Forms.Button btnVerifica;
+		private System.Windows.Forms.DataGrid dgrVerificheFin;
+		private System.Windows.Forms.GroupBox groupBox2;
 	}
 }
 
-

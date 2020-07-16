@@ -83,12 +83,12 @@
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="metaeasylibrary">
       <Name>metaeasylibrary</Name>
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

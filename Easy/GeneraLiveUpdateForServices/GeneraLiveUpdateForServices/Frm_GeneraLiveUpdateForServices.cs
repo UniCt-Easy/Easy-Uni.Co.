@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -26,7 +23,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
-using System.Windows.Forms;
 using LiveUpdate;//LiveUpdate
 using System.IO;
 using System.Xml.XPath;
@@ -71,6 +67,7 @@ namespace GeneraLiveUpdateForServices {
 
         [STAThread]
         static void Main(string[] args) {
+	        initLicenses();
             Frm_GeneraLiveUpdateForServices F = new Frm_GeneraLiveUpdateForServices();
             try {
                 Application.Run(F);
@@ -438,6 +435,31 @@ namespace GeneraLiveUpdateForServices {
             for (int j = 0; j < checkList.Items.Count; j++) {
                 checkList.SetItemChecked(j, true);
             }
+        }
+
+        static void initLicenses() {
+	        string txtFile = "";
+	        string licFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "licenses.dat");
+	        if (File.Exists(licFileName)) {
+		        var b = File.ReadAllBytes(licFileName);
+		        var c = DataAccess.DecryptBytes(b);
+		        txtFile = UTF32Encoding.UTF8.GetString(c).Trim();
+	        }
+	        else {
+		        //txtFile ="Grid;GGGG-GGGG-GGGG-GGGG|Editors;EEEE-EEEE-EEEE-EEEE|Zip;ZZZZZZZZZZZZZZZZZZZ|Ftp;FFFFFFFFFFFFFFFFFFF";
+		        //var c = DataAccess.CryptBytes(UTF32Encoding.UTF8.GetBytes(txtFile));
+		        //File.WriteAllBytes(licFileName, c);
+	        }
+
+	        var couples = txtFile.Split('|');
+	        foreach (var cc in couples) {
+		        var kv = cc.Split(';');
+		        if (kv[0] == "Grid") Xceed.Grid.Licenser.LicenseKey = kv[1];
+		        if (kv[0] == "Editors") Xceed.Editors.Licenser.LicenseKey = kv[1];
+		        if (kv[0] == "Zip") Xceed.Zip.Licenser.LicenseKey = kv[1];
+		        if (kv[0] == "Ftp") Xceed.Ftp.Licenser.LicenseKey = kv[1];
+	        }
+
         }
 
         /// <summary>
@@ -935,28 +957,28 @@ namespace GeneraLiveUpdateForServices {
 
     public class EasyPaymentConfig : configLiveUpdate {
         public EasyPaymentConfig(string webRootDir):base(webRootDir) {
-            addFilterExtension("dll","exe","cer","pfx");
+            addFilterExtension("dll","exe","cer","pfx","dat");
             subDirectories = new List<string>() { };
         }
     }
     
     public class EasyMultiSdiConfig : configLiveUpdate {
         public EasyMultiSdiConfig(string webRootDir):base(webRootDir) {
-            addFilterExtension("dll","exe","cer","pfx");
+            addFilterExtension("dll","exe","cer","pfx","dat");
             subDirectories = new List<string>() { };
         }
     }
 
     public class EasyWebConfig : configLiveUpdate {
         public EasyWebConfig(string webRootDir):base(webRootDir) {
-            addFilterExtension("html", "dll","aspx","cs","js","css","jpg","exe","ico","png","gif","cer","pfx");
+            addFilterExtension("html", "dll","aspx","cs","js","css","jpg","exe","ico","png","gif","cer","pfx","dat");
             subDirectories = new List<string>() {"App_Code", "js","css","bin","img",
                 "immagini","Immagini_CheckBox","saml" };
         }
     }
     public class SdiConfig : configLiveUpdate {
         public SdiConfig(string webRootDir):base(webRootDir) {
-            addFilterExtension("dll", "exe");
+            addFilterExtension("dll", "exe","dat");
             subDirectories = new List<string>() { };
             
         }
@@ -968,16 +990,15 @@ namespace GeneraLiveUpdateForServices {
     }
     public class WebProtConfig : configLiveUpdate {
         public WebProtConfig(string webRootDir):base(webRootDir) {
-            addFilterExtension("html", "dll","aspx","cs","js","css","jpg","exe","ico","png","gif","wsdl","cer","pfx");
+            addFilterExtension("html", "dll","aspx","cs","js","css","jpg","exe","ico","png","gif","wsdl","cer","pfx","dat");
             subDirectories = new List<string>() {"WebApp", "WebApp\\App_Code","WebApp\\Bin","WebApp\\Dll"};
         }
     }
     public class PortaleConfig : configLiveUpdate {
         public PortaleConfig(string webRootDir):base(webRootDir) {
-            addFilterExtension("html", "dll","aspx","cs","js","css","jpg","exe","ico","png","gif","wsdl","cer","pfx");
+            addFilterExtension("html", "dll","aspx","cs","js","css","jpg","exe","ico","png","gif","wsdl","cer","pfx","pdf","dat");
             subDirectories = new List<string>() {"App_Code","App_Code\\Data","App_Code\\Extensions","App_Code\\Extra",
                 "js","css","Bin","immagini","Immagini_CheckBox" };
         }
     }
 }
-

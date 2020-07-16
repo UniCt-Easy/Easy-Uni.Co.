@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -26,7 +23,7 @@ using metaeasylibrary;
 using System.Data;
 using System.Windows.Forms;
 using System.Reflection;
-
+using funzioni_configurazione;
 
 namespace export_default//ExportForm//
 {
@@ -388,7 +385,7 @@ namespace export_default//ExportForm//
             grp.Name = "gb" + Param["paramname"].ToString();
             descr = myDA.Compile(descr, true);
             grp.Text = descr;
-            if (descr == "") grp.Enabled = false;
+            if (descr ==null || descr=="" || descr=="null") grp.Enabled=false;
             this.Controls.Add(grp);
             //la riduzione di VPosition serve per l'allineamento con l'help
             grp.Location = new Point(HPosition, VPosition - 4);
@@ -599,6 +596,7 @@ namespace export_default//ExportForm//
                     string selectiontype = selRow["selectiontype"].ToString();
                     string fieldname = selRow["fieldname"].ToString();
                     string filter = myDA.Compile(selRow["filter"].ToString(), true);
+                    if (filter == "(idsorkind='null')") return false; //filter = "(idsorkind is null)";
                     string filterapp = filter;
                     AddCustomTableToDS(selRow, paramname, IsAlias);
                     if (IsAlias) parenttable += AliasCount;
@@ -746,6 +744,9 @@ namespace export_default//ExportForm//
             string Filter = customRow["filter"].ToString().Trim();
             if (Filter != "") {
                 Filter = myDA.Compile(Filter, true);
+                if (Filter == "(idsorkind='null')") {
+                    Filter = "(idsorkind is null)";
+                }
                 GetData.SetStaticFilter(ParentTable, Filter);
             }
             string Extra = customRow["extraparameter"].ToString();
@@ -899,11 +900,13 @@ namespace export_default//ExportForm//
 
 		public void MetaData_AfterLink() {
 			Meta = MetaData.GetMetaData(this);
-            Meta.CanInsert = false;
-            Meta.CanInsertCopy = false;
-            Meta.CanSave = false;
-            Meta.SearchEnabled = false;
-            Meta.CanCancel = false;
+			Meta.CanInsert=false;
+			Meta.CanInsertCopy=false;
+			Meta.CanSave=false;
+			Meta.SearchEnabled=false;
+			Meta.CanCancel=false;
+			Meta.mainRefreshEnabled = false;
+
             QHC = new CQueryHelper();
             QHS = Meta.Conn.GetQueryHelper();
 		}
@@ -1306,13 +1309,14 @@ namespace export_default//ExportForm//
             string field_getsys_sortkind = "idsortingkind" + NtoS;
             object idsorkind = Conn.GetSys(field_getsys_sortkind);
 
-            if (idsorkind == null || idsorkind == DBNull.Value) {
+            if (idsorkind == null || idsorkind.ToString()=="null" || idsorkind == DBNull.Value) {
                 allowSelection = false;
                 allowNull = true;
                 defaultValue = DBNull.Value;
                 return;
             }
 
+            idsorkind = CfgFn.GetNoNullInt32(idsorkind);
             filterkind = QHS.CmpEq("idsorkind", idsorkind);
 
 
@@ -1398,4 +1402,3 @@ namespace export_default//ExportForm//
         }
     }
 }
-

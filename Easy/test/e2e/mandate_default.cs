@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -56,12 +53,9 @@ namespace e2e {
         public void MyTestInitialize() {
             
             testE2EFrmHelper.registerFormTest("mandate", "default", testTab_ANAC_Present);
-
-        
         }
         
         private testE2EFrmHelper testF;
-
         
         public void testTab_ANAC_Present(Form form) {
             testF = new testE2EFrmHelper(form);
@@ -81,7 +75,6 @@ namespace e2e {
         public void testChildFormRegistryPayMethod() {            
             mainTester.openFromMenu("mandate", "default");
             Assert.IsTrue(testE2EFrmHelper.hasBeenInvoked("mandate","default"));
-           
         }
 
         //Use TestCleanup to run code after each test has run
@@ -141,6 +134,7 @@ namespace e2e {
         [TestCleanup()]
         public void MyTestCleanup() {
             testF.closeForm();
+            Application.DoEvents();
         }
 
 
@@ -158,4 +152,3 @@ namespace e2e {
         }
     }
 }
-

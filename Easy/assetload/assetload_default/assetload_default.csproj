@@ -121,13 +121,13 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_assetload</Name>
       <HintPath>..\meta_assetload\bin\Debug\meta_assetload.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_assetloadkind">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_assetloadkind</Name>
       <HintPath>..\..\assetloadkind\meta_assetloadkind\bin\Debug\meta_assetloadkind.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions">
       <SpecificVersion>False</SpecificVersion>

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -2074,11 +2071,16 @@ namespace surplus_default {//situazioneammin//
 			MyFilter = CreaFiltro_Residui_Attivi_Passivi("R","E");
 			strExpr  = "SUM(ISNULL(residualamount,0))";
 			ResiduiAttiviPrecEff = CK(Conn.DO_READ_VALUE("revenuearrears",MyFilter,strExpr));
-		
-			decimal ResiduiAttiviAnno;
-			MyFilter = CreaFiltro_Residui_Attivi_Passivi("C","E");
-			ResiduiAttiviAnno = CK(Conn.DO_READ_VALUE("revenuearrears",MyFilter,strExpr));
-		
+
+			MyFilter = CreaFiltro_Residui_Attivi_Passivi("C", "E");
+			decimal ResiduiAttiviAnno = 0;
+			//decimal ResiduiAttiviAnno = CK(Conn.DO_READ_VALUE("revenuearrears", MyFilter, strExpr)); 
+			string query = "SELECT SUM(residualamount) FROM revenuearrears  "
+						  + " WHERE " + MyFilter;
+
+			ResiduiAttiviAnno = CfgFn.GetNoNullDecimal(Conn.DO_SYS_CMD(query));
+
+
 			decimal ResiduiPassiviPrecEff;
 			MyFilter = CreaFiltro_Residui_Attivi_Passivi("R","E");	
 			ResiduiPassiviPrecEff = CK(Conn.DO_READ_VALUE("expenditurearrears",MyFilter,strExpr));
@@ -2765,4 +2767,4 @@ namespace surplus_default {//situazioneammin//
 
 		}
 	}
-}
+}

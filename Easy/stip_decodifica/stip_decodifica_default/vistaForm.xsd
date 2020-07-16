@@ -45,6 +45,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idestimkind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -173,6 +174,40 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="estimatekind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idestimkind" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="faxnumber" type="xs:string" minOccurs="0" />
+              <xs:element name="office" type="xs:string" minOccurs="0" />
+              <xs:element name="phonenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="linktoinvoice" type="xs:string" minOccurs="0" />
+              <xs:element name="multireg" type="xs:string" minOccurs="0" />
+              <xs:element name="deltaamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="deltapercentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flag_autodocnumbering" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="header" type="xs:string" minOccurs="0" />
+              <xs:element name="idivakind_forced" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -211,6 +246,10 @@
       <xs:selector xpath=".//mstns:stip_corsolaurea" />
       <xs:field xpath="mstns:idstipcorsolaurea" />
     </xs:unique>
+    <xs:unique name="estimatekind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:estimatekind" />
+      <xs:field xpath="mstns:idestimkind" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -222,6 +261,7 @@
       <msdata:Relationship name="accmotiveapplied_undotax_stip_decodifica" msdata:parent="accmotiveapplied_undotax" msdata:child="stip_decodifica" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotiveundotax" />
       <msdata:Relationship name="accmotiveapplied_undotaxpost_stip_decodifica" msdata:parent="accmotiveapplied_undotaxpost" msdata:child="stip_decodifica" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotiveundotaxpost" />
       <msdata:Relationship name="stip_corsolaurea_stip_decodifica" msdata:parent="stip_corsolaurea" msdata:child="stip_decodifica" msdata:parentkey="idstipcorsolaurea" msdata:childkey="idstipcorsolaurea" />
+      <msdata:Relationship name="estimatekind_stip_decodifica" msdata:parent="estimatekind" msdata:child="stip_decodifica" msdata:parentkey="idestimkind" msdata:childkey="idestimkind" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

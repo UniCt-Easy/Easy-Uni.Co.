@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -125,6 +122,7 @@ namespace no_table_entry_verifica {
                 ep.disableIntegratedPosting();
                 ep.setForcedCurrentRow(curr);
                 ep.etichetteAbilitate = false;
+                ep.autoIgnore = true;
                 ep.silent = silent;
                 ep.beforePost();
                 ep.afterPost(true);
@@ -208,7 +206,7 @@ namespace no_table_entry_verifica {
             progBar.Value = 0;
             foreach (DataRow r in t.Rows) {
                 DataSet D = new DataSet("paymenttransmDS");
-                DataTable T = Conn.RUN_SELECT("paymenttransmission", "*", null, QHS.CmpKey(r), null, false);
+                DataTable T = Conn.RUN_SELECT("paymenttransmission", "*", null, QHS.CmpEq("kpaymenttransmission",r["kpaymenttransmission"]), null, false);
                 if (T.Rows.Count == 0) continue;
                 D.Tables.Add(T);
                 txtCurrent.Text = "Elenco di trasmissione n." + r["npaymenttransmission"];
@@ -241,7 +239,7 @@ namespace no_table_entry_verifica {
             progBar.Value = 0;
             foreach (DataRow r in t.Rows) {
                 DataSet D = new DataSet("proceedstransmissionDS");
-                DataTable T = Conn.RUN_SELECT("proceedstransmission", "*", null, QHS.CmpKey(r), null, false);
+                DataTable T = Conn.RUN_SELECT("proceedstransmission", "*", null, QHS.CmpEq("kproceedstransmission",r["kproceedstransmission"]), null, false);
                 if (T.Rows.Count == 0) continue;
                 D.Tables.Add(T);
                 txtCurrent.Text = "Elenco di trasmissione n." + r["nproceedstransmission"];
@@ -2973,8 +2971,42 @@ WHERE
             }
         }
 
+		private void btnImpegni_3_Click(object sender, EventArgs e) {
+			string sql = "select EP.yepexp,EP.nepexp,EP.nphase," +
+						 " EP.idrelated, EP.ayear,EP.description,MAND.detaildescription,"+
+						 "EP.totcurramount, MAND.taxable_euro, "+
+						 "EP.idreg, MAND.idreg,"+
+						 " EP.idepexp, MAND.idepexp, " +
+						 " *" +
+						 " from epexpview EP " +
+						 " join mandatedetailview MAND  on EP.idrelated = " +
+						 " 'man§' + convert(varchar(30), MAND.idmankind) + '§' + " +
+						 " convert(varchar(30), MAND.yman) + '§' + " +
+						 " convert(varchar(30), MAND.nman) + '§' + " +
+						 " convert(varchar(30), MAND.rownum) " +
+						 " where  ( "+
+							"(EP.description <> MAND.detaildescription)  " +
+                               "OR ((EP.totcurramount <> MAND.taxable_euro) and flagactivity <>1) " +
+                               "OR ((EP.totcurramount <> MAND.rowtotal) and flagactivity =1 ) " +
+                               " or (isnull(EP.idreg,MAND.idreg)<> isnull(MAND.idreg,0))" +
+							")  " +
+						 " and EP.ayear = isnull(year(MAND.start), MAND.yman) and EP.nphase = 2  " +
+						 " and MAND.stop is null " +
+						 " and EP.ayear = " + esercizio;
 
-        private void btnNoBudgetSuspect_Click(object sender, EventArgs e) {
+			DataTable t = Conn.SQLRunner(sql, false, 0);
+			if (t?.Rows.Count > 0) {
+				DataSet d = new DataSet();
+				d.Tables.Add(t);
+				t.TableName = "epexp";
+				frmErrorView f = new frmErrorView(Meta.myHelpForm, txtAccertamenti_3.Text, t, Meta.Dispatcher, "default");
+				f.Show(this);
+			} else {
+				MessageBox.Show(this, "Nessun problema riscontrato", "Avviso");
+			}
+		}
+
+		private void btnNoBudgetSuspect_Click(object sender, EventArgs e) {
             string sql = "  select* from account where flagenablebudgetprev = 'N' " +
                          "and(flagaccountusage & (64 + 128 + 256)) <> 0 " +
                          "and(not exists(select * from account A2 where A2.paridacc = account.idacc)) " +
@@ -3099,7 +3131,91 @@ WHERE
             }
         }
 
-        private void btnImpegniResiduiErrati_Click(object sender, EventArgs e) {
+
+
+		private void btnCorreggiCPassiviIncoerenti_Click(object sender, EventArgs e) {
+			string sql = "select EP.idepexp,MAND.idmankind,MAND.yman, MAND.nman " +
+						 " from epexpview EP " +
+						 " join mandatedetailview MAND  on EP.idrelated = " +
+						 " 'man§' + convert(varchar(30), MAND.idmankind) + '§' + " +
+						 " convert(varchar(30), MAND.yman) + '§' + " +
+						 " convert(varchar(30), MAND.nman) + '§' + " +
+						 " convert(varchar(30), MAND.rownum) " +
+						 " where  ((EP.description <> MAND.detaildescription)  " +
+						 "OR (EP.totcurramount <> MAND.taxable_euro) or (isnull(EP.idreg,MAND.idreg)<> isnull(MAND.idreg,0)))  " +
+						 " and EP.ayear = isnull(year(MAND.start), MAND.yman) and EP.nphase = 2   and MAND.stop is null and MAND.stop is null" +
+						 " and EP.ayear = isnull(year(MAND.start), MAND.yman) and EP.nphase = 2  " +
+						 " and MAND.stop is null " +
+						 " and EP.ayear = " + esercizio;
+
+			DataTable elencoImpegniBudget = Conn.SQLRunner(sql, false, 0);
+			int maxEsercizioEP = CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("account", null, "max(ayear)"));
+			if (elencoImpegniBudget.Rows.Count > 0) {
+				DataTable invkind = Conn.RUN_SELECT("invoicekind", "*", null, null, null, false);
+
+				progBar.Maximum = elencoImpegniBudget.Rows.Count;
+				progBar.Value = 0;
+				var cPassiviElaborati = new Dictionary<string, bool>();
+				foreach (DataRow rImpBudget in elencoImpegniBudget.Rows) {
+					int lastVal = progBar.Value;
+					//Risalva il contratto attivo collegato
+					string keyCPassivo = $"{rImpBudget["idmankind"]}§{rImpBudget["yman"]}§{rImpBudget["nman"]}§";
+					bool checkFatture = false;
+					if (!cPassiviElaborati.ContainsKey(keyCPassivo)) {
+						cPassiviElaborati.Add(keyCPassivo, true);
+						//Risalva il c.attivo in questione
+						rigeneraContrattoAttivo(rImpBudget);
+						progBar.Value = lastVal;
+						checkFatture = true;
+
+					}
+					//Per ogni esercizio fino all'ultimo a partire dall'attuale:
+					for (int ayear = Conn.GetEsercizio(); ayear <= maxEsercizioEP; ayear++) {
+						//ricalcola  i totali dell'anno sull'impegno in questione    
+						Conn.CallSP("rebuild_epexptotal_idmov", new[] { ayear, rImpBudget["idepexp"] });
+
+						//ricalcola i residui dell'impegno ove vi sia un anno successivo
+						if (ayear < maxEsercizioEP) {
+							Conn.CallSP("trg_evaluatearrearsepexp", new[] { rImpBudget["idepexp"], ayear });
+						}
+					}
+
+					//Risalva eventuali fatture collegate  al c.attivo, nell'anno corrente
+					if (checkFatture) {
+						var tFatture = Conn.RUN_SELECT("invoicemandateview", "*", null,
+							QHS.MCmp(rImpBudget, "idmankind", "yman", "nman"), null, null, false);
+						if (tFatture?.Rows.Count > 0) {
+
+							foreach (DataRow rFatt in tFatture.Rows) {
+								DataTable inv = Conn.RUN_SELECT("invoiceview",
+									"idinvkind, yinv, ninv, codeinvkind, invoicekind", null,
+									QHS.MCmp(rFatt, "idinvkind", "yinv", "ninv"), null, false);
+
+								rigeneraFattura(inv.Rows[0], invkind);
+								progBar.Value = lastVal;
+							}
+						}
+					}
+
+
+
+
+
+					progBar.Increment(1);
+					progBar.Update();
+					Application.DoEvents();
+				}
+				progBar.Value = 0;
+				txtCurrent.Text = "";
+				MessageBox.Show(this, "Operazione terminata", "Avviso");
+			} else {
+				MessageBox.Show(this, "Nessun problema riscontrato", "Avviso");
+			}
+		}
+
+
+
+		private void btnImpegniResiduiErrati_Click(object sender, EventArgs e) {
             string sql = "select epexp.yepexp as 'anno impegno', epexp.nepexp as 'n. impegno' , epexp.nphase as 'fase'," +
                             "AM.codemotive 'cod.causale', CurrA.codeacc as 'codice conto anno prec', CurrA.title as 'Conto anno prec.'," +
                           "actual.codeacc as 'codice conto anno curr.', actual.title as 'Conto anno curr.', " +
@@ -4949,10 +5065,50 @@ WHERE
 				MessageBox.Show(this, "Nessun problema riscontrato", "Avviso");
 			}
 		}
-	 
 
-		//paytrans§2016§100
-	}
+        private void btnRigeneraLiqImposte_Click(object sender, EventArgs e) {
+            //taxcode, ytaxpay, ntaxpay
+            string cmd = txtComando.Text;
+            string filter = QHS.CmpEq("ytaxpay", esercizio);
+            DataTable t = new DataTable();
+            if (cmd.Trim() == "") {
+                t = Conn.RUN_SELECT("taxpay", "ytaxpay, ntaxpay, taxcode", "ntaxpay", filter,
+                    null, false);
+            }
+            else {
+                t = Meta.Conn.SQLRunner(cmd, false, 300);
+                if ((t == null) || (t.Rows.Count == 0)) return;
+                if (!(t.Columns.Contains("taxcode")) || !(t.Columns.Contains("ytaxpay")) ||
+                    !(t.Columns.Contains("ntaxpay"))
+                    ) return;
+                t.TableName = "taxpay";
+            }
+
+
+            btnRigeneraLiqImposte.Visible = false;
+            int n = t.Rows.Count;
+            progBar.Maximum = n;
+            progBar.Value = 0;
+            foreach (DataRow r in t.Rows) {
+                DataSet D = new DataSet("taxPayDS");
+                DataTable T = Conn.RUN_SELECT("taxpay", "*", null, QHS.CmpKey(r), null, false);
+                if (T.Rows.Count == 0) continue;
+
+                DataRow rv = T.Rows[0];
+                D.Tables.Add(T);
+                txtCurrent.Text = "Liquidazione imposte n." + r["ntaxpay"];
+                rigeneraScrittura(T.Rows[0], "taxpay");
+                progBar.Increment(1);
+                progBar.Update();
+            }
+            txtCurrent.Text = "";
+            progBar.Value = 0;
+            progBar.Update();
+            btnRigeneraLiqImposte.Visible = true;
+        }
+
+
+        //paytrans§2016§100
+    }
 
 }
-

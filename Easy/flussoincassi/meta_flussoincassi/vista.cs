@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -22,6 +19,8 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using metadatalibrary;
 #pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_flussoincassi {
 public class flussoincassiRow: MetaRow  {
 	public flussoincassiRow(DataRowBuilder rb) : base(rb) {} 
@@ -30,16 +29,16 @@ public class flussoincassiRow: MetaRow  {
 	///<summary>
 	///#
 	///</summary>
-	public Int32? idflusso{ 
-		get {if (this["idflusso"]==DBNull.Value)return null; return  (Int32?)this["idflusso"];}
-		set {if (value==null) this["idflusso"]= DBNull.Value; else this["idflusso"]= value;}
+	public Int32 idflusso{ 
+		get {return  (Int32)this["idflusso"];}
+		set {this["idflusso"]= value;}
 	}
 	public object idflussoValue { 
 		get{ return this["idflusso"];}
-		set {if (value==null|| value==DBNull.Value) this["idflusso"]= DBNull.Value; else this["idflusso"]= value;}
+		set {this["idflusso"]= value;}
 	}
-	public Int32? idflussoOriginal { 
-		get {if (this["idflusso",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idflusso",DataRowVersion.Original];}
+	public Int32 idflussoOriginal { 
+		get {return  (Int32)this["idflusso",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Codice
@@ -318,28 +317,27 @@ public class flussoincassiRow: MetaRow  {
 public class flussoincassiTable : MetaTableBase<flussoincassiRow> {
 	public flussoincassiTable() : base("flussoincassi"){
 		baseColumns = new Dictionary<string, DataColumn>(){
-			{"idflusso",createColumn("idflusso",typeof(Int32),false,false)},
-			{"codiceflusso",createColumn("codiceflusso",typeof(String),true,false)},
-			{"trn",createColumn("trn",typeof(String),true,false)},
+			{"idflusso",createColumn("idflusso",typeof(int),false,false)},
+			{"codiceflusso",createColumn("codiceflusso",typeof(string),true,false)},
+			{"trn",createColumn("trn",typeof(string),true,false)},
 			{"ct",createColumn("ct",typeof(DateTime),true,false)},
-			{"cu",createColumn("cu",typeof(String),true,false)},
+			{"cu",createColumn("cu",typeof(string),true,false)},
 			{"lt",createColumn("lt",typeof(DateTime),true,false)},
-			{"lu",createColumn("lu",typeof(String),true,false)},
-			{"ayear",createColumn("ayear",typeof(Int16),true,false)},
-			{"causale",createColumn("causale",typeof(String),true,false)},
+			{"lu",createColumn("lu",typeof(string),true,false)},
+			{"ayear",createColumn("ayear",typeof(short),true,false)},
+			{"causale",createColumn("causale",typeof(string),true,false)},
 			{"dataincasso",createColumn("dataincasso",typeof(DateTime),true,false)},
-			{"nbill",createColumn("nbill",typeof(Int32),true,false)},
-			{"importo",createColumn("importo",typeof(Decimal),true,false)},
-			{"to_complete",createColumn("to_complete",typeof(String),true,false)},
-			{"elaborato",createColumn("elaborato",typeof(String),true,false)},
-			{"active",createColumn("active",typeof(String),true,false)},
-			{"idsor01",createColumn("idsor01",typeof(Int32),true,false)},
-			{"idsor02",createColumn("idsor02",typeof(Int32),true,false)},
-			{"idsor03",createColumn("idsor03",typeof(Int32),true,false)},
-			{"idsor04",createColumn("idsor04",typeof(Int32),true,false)},
-			{"idsor05",createColumn("idsor05",typeof(Int32),true,false)},
+			{"nbill",createColumn("nbill",typeof(int),true,false)},
+			{"importo",createColumn("importo",typeof(decimal),true,false)},
+			{"to_complete",createColumn("to_complete",typeof(string),true,false)},
+			{"elaborato",createColumn("elaborato",typeof(string),true,false)},
+			{"active",createColumn("active",typeof(string),true,false)},
+			{"idsor01",createColumn("idsor01",typeof(int),true,false)},
+			{"idsor02",createColumn("idsor02",typeof(int),true,false)},
+			{"idsor03",createColumn("idsor03",typeof(int),true,false)},
+			{"idsor04",createColumn("idsor04",typeof(int),true,false)},
+			{"idsor05",createColumn("idsor05",typeof(int),true,false)},
 		};
 	}
 }
 }
-

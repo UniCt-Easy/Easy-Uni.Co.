@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -396,7 +393,7 @@ namespace paydispositiondetail_single {
             | System.Windows.Forms.AnchorStyles.Left)));
 			this.btnScollega.Location = new System.Drawing.Point(275, 46);
 			this.btnScollega.Name = "btnScollega";
-			this.btnScollega.Size = new System.Drawing.Size(132, 30);
+			this.btnScollega.Size = new System.Drawing.Size(132, 19);
 			this.btnScollega.TabIndex = 13;
 			this.btnScollega.TabStop = false;
 			this.btnScollega.Tag = "";
@@ -420,7 +417,7 @@ namespace paydispositiondetail_single {
             | System.Windows.Forms.AnchorStyles.Left)));
 			this.btnCollega.Location = new System.Drawing.Point(137, 45);
 			this.btnCollega.Name = "btnCollega";
-			this.btnCollega.Size = new System.Drawing.Size(132, 31);
+			this.btnCollega.Size = new System.Drawing.Size(132, 20);
 			this.btnCollega.TabIndex = 12;
 			this.btnCollega.TabStop = false;
 			this.btnCollega.Tag = "";
@@ -1528,4 +1525,4 @@ namespace paydispositiondetail_single {
 		private System.Windows.Forms.Button btnChargeHandling;
 		private System.Windows.Forms.CheckBox chk_bank_charges_exempt;
 	}
-}
+}

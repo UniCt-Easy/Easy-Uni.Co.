@@ -90,6 +90,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="cupcode" type="xs:string" minOccurs="0" />
               <xs:element name="idacc" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -632,6 +633,27 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="accmotiveapplied">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaccmotive" type="xs:string" />
+              <xs:element name="paridaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="motive" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idepoperation" type="xs:string" minOccurs="0" />
+              <xs:element name="epoperation" type="xs:string" minOccurs="0" />
+              <xs:element name="in_use" type="xs:string" />
+              <xs:element name="flagamm" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdep" type="xs:string" minOccurs="0" />
+              <xs:element name="expensekind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -711,6 +733,10 @@
       <xs:selector xpath=".//mstns:account" />
       <xs:field xpath="mstns:idacc" />
     </xs:unique>
+    <xs:unique name="accmotiveapplied_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotiveapplied" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -736,6 +762,7 @@
       <msdata:Relationship name="finfin" msdata:parent="fin" msdata:child="fin" msdata:parentkey="idfin" msdata:childkey="paridfin" />
       <msdata:Relationship name="sortingview_finsorting" msdata:parent="sortingview" msdata:child="finsorting" msdata:parentkey="idsor" msdata:childkey="idsor" />
       <msdata:Relationship name="finfinsorting" msdata:parent="fin" msdata:child="finsorting" msdata:parentkey="idfin" msdata:childkey="idfin" />
+      <msdata:Relationship name="accmotiveapplied_finlast" msdata:parent="accmotiveapplied" msdata:child="finlast" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotive" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

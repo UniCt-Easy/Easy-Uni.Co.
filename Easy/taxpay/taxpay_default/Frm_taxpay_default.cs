@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -537,9 +534,19 @@ namespace taxpay_default{//liquidazioneritenutaperiodica//
 			Meta.CanInsert=false;
 			Meta.CanInsertCopy = false;
             GetData.SetStaticFilter(DS.taxpayexpenseview,QHS.CmpEq("ayear",Meta.GetSys("esercizio")));
+            
 		    EPM = new EP_Manager(Meta, null, null, null, null, btnGeneraEP, btnVisualizzaEP, labEP, null, "taxpay");
-            DS.taxpayexpenseview.setTableForPosting("expensetax");
-		    //Meta.CanSave =false;
+            //DS.taxpayexpenseview.setTableForPosting("expensetax");
+            // grid movimenti finanziari Ë taxpayexpenseview
+            // grid  ritenute Ë payedtaxview
+            // grid correz.ritenute Ë expensetaxcorrigeview
+            
+            //DS.taxpayexpenseview.setTableForPosting("expensetax");
+            DS.payedtaxview.setTableForPosting("expensetax");
+            
+            //DS.Relations["taxpaytaxpayexpenseview"].ExtendedProperties["isSubentity"] = false;
+            DS.Relations["taxpay_payedtaxview"].ExtendedProperties["isSubentity"] = false;
+            //Meta.CanSave =false;
 		}
 
 	    
@@ -589,4 +596,4 @@ namespace taxpay_default{//liquidazioneritenutaperiodica//
 	        EPM.afterPost();
 	    }
 	}
-}
+}

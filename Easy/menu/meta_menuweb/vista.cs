@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -106,21 +103,32 @@ public class menuwebRow: MetaRow  {
 	public Int32? sortOriginal { 
 		get {if (this["sort",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["sort",DataRowVersion.Original];}
 	}
+	public String link{ 
+		get {if (this["link"]==DBNull.Value)return null; return  (String)this["link"];}
+		set {if (value==null) this["link"]= DBNull.Value; else this["link"]= value;}
+	}
+	public object linkValue { 
+		get{ return this["link"];}
+		set {if (value==null|| value==DBNull.Value) this["link"]= DBNull.Value; else this["link"]= value;}
+	}
+	public String linkOriginal { 
+		get {if (this["link",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["link",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
 public class menuwebTable : MetaTableBase<menuwebRow> {
 	public menuwebTable() : base("menuweb"){
 		baseColumns = new Dictionary<string, DataColumn>(){
-			{"idmenuweb",createColumn("idmenuweb",typeof(int),false,true)},
+			{"idmenuweb",createColumn("idmenuweb",typeof(int),false,false)},
 			{"idmenuwebparent",createColumn("idmenuwebparent",typeof(int),true,false)},
 			{"app",createColumn("app",typeof(string),true,false)},
 			{"tableName",createColumn("tableName",typeof(string),true,false)},
 			{"editType",createColumn("editType",typeof(string),true,false)},
 			{"label",createColumn("label",typeof(string),false,false)},
 			{"sort",createColumn("sort",typeof(int),true,false)},
+			{"link",createColumn("link",typeof(string),true,false)},
 		};
 	}
 }
 }
-

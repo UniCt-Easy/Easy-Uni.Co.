@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -187,8 +184,9 @@ namespace no_table_entry_integrazione {
                                     conn.DO_READ_VALUE("account", QHS.CmpEq("idacc", idAcc), "codeacc"), "Errore");
                     continue;
                 }
-                object idRateoAttivo = attualizzaAccount(curr["idacc_accruals"]); // getRateoAttivo(Curr["idupb"].ToString());
-                if (identrykind == 8 && newIdAcc.Equals(idRateoAttivo)) {
+
+                int usage = CfgFn.GetNoNullInt32(curr["flagaccountusage"]);
+                if ((usage & 1) != 0) {
                     upbRateoAttivo[curr["idupb"].ToString()] = true;
                 }
             }
@@ -240,20 +238,19 @@ namespace no_table_entry_integrazione {
 
                 int flagaccountusage = CfgFn.GetNoNullInt32(curr["flagaccountusage"]);
                 //per le tipo 8 (Assestamento Commessa Completata) prende solo i risconti
-                //if ((identrykind == 8) && ((flagaccountusage & 12)==0)) continue; 
+                //if ((identrykind == 8) && ((flagaccountusage & 12)==0)) continue;  //16/10 Emilia , task 14422
 
                 //per le tipo 3  (Risconto Rettifica)  salta i conti di risconto
-                if ((identrykind==3) && (newIdAcc.Equals(idacc_riscontoA)) || (newIdAcc.Equals(idRiscontoPassivo))) continue;
+                if ((identrykind==3) && (newIdAcc.Equals(idacc_riscontoA) || newIdAcc.Equals(idRiscontoPassivo))) continue;
 
                 //per le tipo 8 (Assestamento Commessa Completata) salta i conti di rateo attivo
-                //if (identrykind == 8 && newIdAcc.Equals(idRateoAttivo)) continue;
+                if (identrykind == 8 && newIdAcc.Equals(idRateoAttivo)) continue; //16/10 Emilia , task 14422
 
-                //per le tipo 8 (Assestamento Commessa Completata) salta quelle che non sono di ricavo in dare
-                if ((identrykind == 8) && ((placcpart != "R"))) continue; //||(importoDettaglio>0) task  11249 non filtro più dare o avere
-
+                //per le tipo 8 (Assestamento Commessa Completata) salta quelle che non sono di (parte conto economico) ricavo 
+                if ((identrykind == 8) && (placcpart != "R")) continue; //||(importoDettaglio>0) task  11249 non filtro più dare o avere
 
                 //per le tipo 13 (Assestamento Percentuale di Completamento) salta quelle che non sono di ricavo in avere
-                if ((identrykind == 13) && ((placcpart != "R") || (importoDettaglio < 0))) continue;
+                if ((identrykind == 13) && ((placcpart != "R") )) continue; //|| (importoDettaglio < 0)  commento sotto indicaz. di Emilia 16/10 , task 14422
 
                 
                 if ((identrykind == 13) && (placcpart == "C")) {
@@ -298,25 +295,6 @@ namespace no_table_entry_integrazione {
                     "idaccmotive", "competencystart", "competencystop","idrelated"}) {
                     rEntryDetailCR[field] = curr[field];
                 }
-
-                //EP.EffettuaScrittura(idepcontext, importoRisconto, idAcc, Curr["idreg"], Curr["idupb"],
-                //    jan01, Curr["competencystop"], null, Curr["idaccmotive"]);
-               
-                //// Dettaglio RISCONTO               
-                //string filter = costruisciFiltro(riscontoChoosen, Curr);
-                //if (tEntryDetail.Select(filter).Length > 0) {
-                //    DataRow rFound = tEntryDetail.Select(filter)[0];
-                //    rFound["amount"] = CfgFn.GetNoNullDecimal(rFound["amount"]) + importoDettaglio;
-                //}
-                //else {
-                //    DataRow rEntryDetailRis = MEntryDetail.Get_New_Row(rEntry, ds.Tables["entrydetail"]);
-                //    rEntryDetailRis["amount"] = importoDettaglio;
-                //    rEntryDetailRis["idacc"] = idaccountAvere;
-                //    foreach (string field in new string[] {"idreg", "idupb", "idepexp", "idepacc", "idsor1", "idsor2", "idsor3",
-                //    "idaccmotive", "competencystart", "competencystop"}) {
-                //        rEntryDetailRis[field] = Curr[field];
-                //    }
-                //}
 
                 DataRow rEntryDetailRis = MEntryDetail.Get_New_Row(rEntry, ds.Tables["entrydetail"]);
                 rEntryDetailRis["amount"] = importoDettaglio;
@@ -371,7 +349,7 @@ namespace no_table_entry_integrazione {
             string checkfilter = QHS.MCmp(rEntry, new string[] { "yentry", "nentry" });
             ToMeta.ContextFilter = checkfilter;
             Form F = null;
-            if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+            if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
             bool result = ToMeta.Edit(F, "default", false);
             string listtype = ToMeta.DefaultListType;
             DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
@@ -432,4 +410,4 @@ namespace no_table_entry_integrazione {
 
         }
     }
-}
+}

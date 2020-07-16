@@ -10,9 +10,9 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="idreg_docenti" type="xs:int" />
-              <xs:element name="idrendicont" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -20,7 +20,8 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:rendicont" />
-      <xs:field xpath="mstns:idrendicont" />
+      <xs:field xpath="mstns:aa" />
+      <xs:field xpath="mstns:idreg_docenti" />
     </xs:unique>
   </xs:element>
 </xs:schema>

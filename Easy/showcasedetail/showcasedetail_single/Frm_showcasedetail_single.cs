@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -153,7 +150,7 @@ namespace showcasedetail_single {
         }
 
         private void CalcolaImporti(bool LeggiDati) {
-            if (Meta.inchiusura) return;
+            if (Meta.formController.isClosing) return;
             if (Meta.destroyed) return;
             if (DS.showcasedetail.Rows.Count == 0) return;
 
@@ -171,7 +168,7 @@ namespace showcasedetail_single {
 
         }
         public void MetaData_AfterRowSelect(DataTable T, DataRow R) {
-            if (Meta.destroyed || Meta.inchiusura) return;
+            if (Meta.destroyed || Meta.formController.isClosing) return;
             if (T.TableName == "ivakind") {
                 if (R != null) {
                     aliquota = CfgFn.GetNoNullDouble(R["rate"]);
@@ -185,7 +182,7 @@ namespace showcasedetail_single {
             }
         }
         private void txtPrezzoUnitario_Leave(object sender, EventArgs e) {
-            if (Meta.inchiusura) return;
+            if (Meta.formController.isClosing) return;
             if (Meta.destroyed) return;
             if (DS.showcasedetail.Rows.Count == 0) return;
 
@@ -194,4 +191,4 @@ namespace showcasedetail_single {
         }
     }
 
-}
+}

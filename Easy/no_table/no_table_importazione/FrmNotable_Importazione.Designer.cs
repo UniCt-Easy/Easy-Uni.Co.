@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -45,6 +42,7 @@
 			this.txtIntro = new System.Windows.Forms.TextBox();
 			this.tabControl1 = new Crownwood.Magic.Controls.TabControl();
 			this.tabPage9 = new Crownwood.Magic.Controls.TabPage();
+			this.btnContributiContrattiCSAnuovaversione = new System.Windows.Forms.Button();
 			this.btnRipartUnicaContributiContrattiCSA = new System.Windows.Forms.Button();
 			this.btnRipartUnicaContrattiCSA = new System.Windows.Forms.Button();
 			this.btnImportaEntiCsa = new System.Windows.Forms.Button();
@@ -137,12 +135,18 @@
 			this.btnListClass = new System.Windows.Forms.Button();
 			this.btnList = new System.Windows.Forms.Button();
 			this.tabPage8 = new Crownwood.Magic.Controls.TabPage();
+			this.btnImportEpexpvarEpexpvar_trg = new System.Windows.Forms.Button();
+			this.btnImportEpexpvarEpexpvar = new System.Windows.Forms.Button();
+			this.btnImportEpexpEpacc = new System.Windows.Forms.Button();
 			this.btnImportaAccountvar = new System.Windows.Forms.Button();
 			this.btnImportaCausali = new System.Windows.Forms.Button();
 			this.btnImportaConvertiPianoConti = new System.Windows.Forms.Button();
 			this.btnImportaScrittureEP = new System.Windows.Forms.Button();
 			this.btnImportaClassPianoConti = new System.Windows.Forms.Button();
 			this.btnPianoConti = new System.Windows.Forms.Button();
+			this.tabPage10 = new Crownwood.Magic.Controls.TabPage();
+			this.btnAssociaTassaFlussiStudenti = new System.Windows.Forms.Button();
+			this.btnFlussiStudenti = new System.Windows.Forms.Button();
 			this.tabPage7 = new Crownwood.Magic.Controls.TabPage();
 			this.txtLastLine = new System.Windows.Forms.TextBox();
 			this.label21 = new System.Windows.Forms.Label();
@@ -183,6 +187,7 @@
 			this.tabPage6.SuspendLayout();
 			this.tabPageMagazzino.SuspendLayout();
 			this.tabPage8.SuspendLayout();
+			this.tabPage10.SuspendLayout();
 			this.tabPage7.SuspendLayout();
 			this.tabRisultati.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
@@ -197,7 +202,7 @@
 			this.txtIntro.Name = "txtIntro";
 			this.txtIntro.ReadOnly = true;
 			this.txtIntro.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtIntro.Size = new System.Drawing.Size(930, 102);
+			this.txtIntro.Size = new System.Drawing.Size(1598, 102);
 			this.txtIntro.TabIndex = 0;
 			// 
 			// tabControl1
@@ -208,9 +213,9 @@
 			this.tabControl1.IDEPixelArea = true;
 			this.tabControl1.Location = new System.Drawing.Point(3, 154);
 			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 8;
-			this.tabControl1.SelectedTab = this.tabPage9;
-			this.tabControl1.Size = new System.Drawing.Size(930, 462);
+			this.tabControl1.SelectedIndex = 11;
+			this.tabControl1.SelectedTab = this.tabRisultati;
+			this.tabControl1.Size = new System.Drawing.Size(1598, 556);
 			this.tabControl1.TabIndex = 1;
 			this.tabControl1.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
             this.tabPage1,
@@ -222,12 +227,14 @@
             this.tabPageMagazzino,
             this.tabPage8,
             this.tabPage9,
+            this.tabPage10,
             this.tabPage7,
             this.tabRisultati});
 			this.tabControl1.SelectionChanged += new System.EventHandler(this.tabControl1_SelectionChanged);
 			// 
 			// tabPage9
 			// 
+			this.tabPage9.Controls.Add(this.btnContributiContrattiCSAnuovaversione);
 			this.tabPage9.Controls.Add(this.btnRipartUnicaContributiContrattiCSA);
 			this.tabPage9.Controls.Add(this.btnRipartUnicaContrattiCSA);
 			this.tabPage9.Controls.Add(this.btnImportaEntiCsa);
@@ -243,37 +250,49 @@
 			this.tabPage9.Controls.Add(this.btnMatricoleContrattiCSA);
 			this.tabPage9.Location = new System.Drawing.Point(0, 0);
 			this.tabPage9.Name = "tabPage9";
-			this.tabPage9.Size = new System.Drawing.Size(930, 437);
+			this.tabPage9.Selected = false;
+			this.tabPage9.Size = new System.Drawing.Size(1598, 531);
 			this.tabPage9.TabIndex = 13;
 			this.tabPage9.Title = "Stipendi CSA";
 			// 
+			// btnContributiContrattiCSAnuovaversione
+			// 
+			this.btnContributiContrattiCSAnuovaversione.Location = new System.Drawing.Point(33, 188);
+			this.btnContributiContrattiCSAnuovaversione.Name = "btnContributiContrattiCSAnuovaversione";
+			this.btnContributiContrattiCSAnuovaversione.Size = new System.Drawing.Size(393, 23);
+			this.btnContributiContrattiCSAnuovaversione.TabIndex = 44;
+			this.btnContributiContrattiCSAnuovaversione.Tag = "79";
+			this.btnContributiContrattiCSAnuovaversione.Text = "79  Importa Contributi Regole specifiche CSA (n. gest.)";
+			this.btnContributiContrattiCSAnuovaversione.UseVisualStyleBackColor = true;
+			this.btnContributiContrattiCSAnuovaversione.Click += new System.EventHandler(this.btnContributiContrattiCSAnuovaversione_Click);
+			// 
 			// btnRipartUnicaContributiContrattiCSA
 			// 
-			this.btnRipartUnicaContributiContrattiCSA.Location = new System.Drawing.Point(33, 391);
+			this.btnRipartUnicaContributiContrattiCSA.Location = new System.Drawing.Point(33, 275);
 			this.btnRipartUnicaContributiContrattiCSA.Name = "btnRipartUnicaContributiContrattiCSA";
-			this.btnRipartUnicaContributiContrattiCSA.Size = new System.Drawing.Size(359, 23);
+			this.btnRipartUnicaContributiContrattiCSA.Size = new System.Drawing.Size(393, 23);
 			this.btnRipartUnicaContributiContrattiCSA.TabIndex = 43;
 			this.btnRipartUnicaContributiContrattiCSA.Tag = "73";
-			this.btnRipartUnicaContributiContrattiCSA.Text = "73  Importa Ripart. Unica Costo Contributi Contratti CSA(n. gest.)";
+			this.btnRipartUnicaContributiContrattiCSA.Text = "73  Importa Ripart. Unica Costo Contributi Regole specifiche CSA(n. gest.)";
 			this.btnRipartUnicaContributiContrattiCSA.UseVisualStyleBackColor = true;
 			this.btnRipartUnicaContributiContrattiCSA.Click += new System.EventHandler(this.btnRipartUnicaContributiContrattiCSA_Click);
 			// 
 			// btnRipartUnicaContrattiCSA
 			// 
-			this.btnRipartUnicaContrattiCSA.Location = new System.Drawing.Point(33, 362);
+			this.btnRipartUnicaContrattiCSA.Location = new System.Drawing.Point(33, 246);
 			this.btnRipartUnicaContrattiCSA.Name = "btnRipartUnicaContrattiCSA";
-			this.btnRipartUnicaContrattiCSA.Size = new System.Drawing.Size(359, 23);
+			this.btnRipartUnicaContrattiCSA.Size = new System.Drawing.Size(393, 23);
 			this.btnRipartUnicaContrattiCSA.TabIndex = 42;
 			this.btnRipartUnicaContrattiCSA.Tag = "72";
-			this.btnRipartUnicaContrattiCSA.Text = "72  Importa Ripart. Unica Costo Contratti CSA (n. gest.)";
+			this.btnRipartUnicaContrattiCSA.Text = "72  Importa Ripart. Unica Costo Regole specifiche CSA (n. gest.)";
 			this.btnRipartUnicaContrattiCSA.UseVisualStyleBackColor = true;
 			this.btnRipartUnicaContrattiCSA.Click += new System.EventHandler(this.btnRipartUnicaContrattiCSA_Click);
 			// 
 			// btnImportaEntiCsa
 			// 
-			this.btnImportaEntiCsa.Location = new System.Drawing.Point(33, 333);
+			this.btnImportaEntiCsa.Location = new System.Drawing.Point(33, 217);
 			this.btnImportaEntiCsa.Name = "btnImportaEntiCsa";
-			this.btnImportaEntiCsa.Size = new System.Drawing.Size(359, 23);
+			this.btnImportaEntiCsa.Size = new System.Drawing.Size(393, 23);
 			this.btnImportaEntiCsa.TabIndex = 41;
 			this.btnImportaEntiCsa.Tag = "71";
 			this.btnImportaEntiCsa.Text = "71 Importa Enti Csa";
@@ -282,45 +301,51 @@
 			// 
 			// btnRipartEPContributiContrattiCSA
 			// 
-			this.btnRipartEPContributiContrattiCSA.Location = new System.Drawing.Point(33, 304);
+			this.btnRipartEPContributiContrattiCSA.Enabled = false;
+			this.btnRipartEPContributiContrattiCSA.Location = new System.Drawing.Point(463, 275);
 			this.btnRipartEPContributiContrattiCSA.Name = "btnRipartEPContributiContrattiCSA";
-			this.btnRipartEPContributiContrattiCSA.Size = new System.Drawing.Size(359, 23);
+			this.btnRipartEPContributiContrattiCSA.Size = new System.Drawing.Size(524, 23);
 			this.btnRipartEPContributiContrattiCSA.TabIndex = 40;
 			this.btnRipartEPContributiContrattiCSA.Tag = "70";
-			this.btnRipartEPContributiContrattiCSA.Text = "70  Importa Ripart. Impegni di Budget Costo Contributi Contratti CSA";
+			this.btnRipartEPContributiContrattiCSA.Text = "70  Importa Ripart. Impegni di Budget Costo Contributi Regole specifiche CSA  - v" +
+    "ecchia gestione";
 			this.btnRipartEPContributiContrattiCSA.UseVisualStyleBackColor = true;
 			this.btnRipartEPContributiContrattiCSA.Click += new System.EventHandler(this.btnRipartEPContributiContrattiCSA_Click);
 			// 
 			// btnRipartEPContrattiCSA
 			// 
-			this.btnRipartEPContrattiCSA.Location = new System.Drawing.Point(33, 275);
+			this.btnRipartEPContrattiCSA.Enabled = false;
+			this.btnRipartEPContrattiCSA.Location = new System.Drawing.Point(463, 246);
 			this.btnRipartEPContrattiCSA.Name = "btnRipartEPContrattiCSA";
-			this.btnRipartEPContrattiCSA.Size = new System.Drawing.Size(359, 23);
+			this.btnRipartEPContrattiCSA.Size = new System.Drawing.Size(524, 23);
 			this.btnRipartEPContrattiCSA.TabIndex = 39;
 			this.btnRipartEPContrattiCSA.Tag = "69";
-			this.btnRipartEPContrattiCSA.Text = "69  Importa Ripart. Impegni di Budget Costo Contratti CSA";
+			this.btnRipartEPContrattiCSA.Text = "69  Importa Ripart. Impegni di Budget Costo Regole specifiche CSA - vecchia gesti" +
+    "one";
 			this.btnRipartEPContrattiCSA.UseVisualStyleBackColor = true;
 			this.btnRipartEPContrattiCSA.Click += new System.EventHandler(this.btnRipartEPContrattiCSA_Click);
 			// 
 			// btnRipartContributiContrattiCSA
 			// 
-			this.btnRipartContributiContrattiCSA.Location = new System.Drawing.Point(33, 246);
+			this.btnRipartContributiContrattiCSA.Enabled = false;
+			this.btnRipartContributiContrattiCSA.Location = new System.Drawing.Point(463, 217);
 			this.btnRipartContributiContrattiCSA.Name = "btnRipartContributiContrattiCSA";
-			this.btnRipartContributiContrattiCSA.Size = new System.Drawing.Size(359, 23);
+			this.btnRipartContributiContrattiCSA.Size = new System.Drawing.Size(524, 23);
 			this.btnRipartContributiContrattiCSA.TabIndex = 38;
 			this.btnRipartContributiContrattiCSA.Tag = "60";
-			this.btnRipartContributiContrattiCSA.Text = "60  Importa Ripart. Costo Contributi Contratti CSA";
+			this.btnRipartContributiContrattiCSA.Text = "60  Importa Ripart. Costo Contributi Regole specifiche CSA - vecchia gestione";
 			this.btnRipartContributiContrattiCSA.UseVisualStyleBackColor = true;
 			this.btnRipartContributiContrattiCSA.Click += new System.EventHandler(this.btnRipartContributiContrattiCSA_Click);
 			// 
 			// btnRipartContrattiCSA
 			// 
-			this.btnRipartContrattiCSA.Location = new System.Drawing.Point(33, 217);
+			this.btnRipartContrattiCSA.Enabled = false;
+			this.btnRipartContrattiCSA.Location = new System.Drawing.Point(463, 188);
 			this.btnRipartContrattiCSA.Name = "btnRipartContrattiCSA";
-			this.btnRipartContrattiCSA.Size = new System.Drawing.Size(359, 23);
+			this.btnRipartContrattiCSA.Size = new System.Drawing.Size(524, 23);
 			this.btnRipartContrattiCSA.TabIndex = 37;
 			this.btnRipartContrattiCSA.Tag = "59";
-			this.btnRipartContrattiCSA.Text = "59  Importa Ripart. Costo Contratti CSA";
+			this.btnRipartContrattiCSA.Text = "59  Importa Ripart. Costo Regole specifiche CSA - vecchia gestione";
 			this.btnRipartContrattiCSA.UseVisualStyleBackColor = true;
 			this.btnRipartContrattiCSA.Click += new System.EventHandler(this.btnRipartContrattiCSA_Click);
 			// 
@@ -328,21 +353,22 @@
 			// 
 			this.btnRegoleIndividuazioneCSA.Location = new System.Drawing.Point(33, 45);
 			this.btnRegoleIndividuazioneCSA.Name = "btnRegoleIndividuazioneCSA";
-			this.btnRegoleIndividuazioneCSA.Size = new System.Drawing.Size(359, 23);
+			this.btnRegoleIndividuazioneCSA.Size = new System.Drawing.Size(393, 23);
 			this.btnRegoleIndividuazioneCSA.TabIndex = 36;
 			this.btnRegoleIndividuazioneCSA.Tag = "54";
-			this.btnRegoleIndividuazioneCSA.Text = "54  Importa Regole Individuazione Tipi Contratti CSA";
+			this.btnRegoleIndividuazioneCSA.Text = "54  Importa Regole Individuazione generali CSA";
 			this.btnRegoleIndividuazioneCSA.UseVisualStyleBackColor = true;
 			this.btnRegoleIndividuazioneCSA.Click += new System.EventHandler(this.btnRegoleIndividuazioneCSA_Click);
 			// 
 			// btnContributiContrattiCSA
 			// 
-			this.btnContributiContrattiCSA.Location = new System.Drawing.Point(33, 188);
+			this.btnContributiContrattiCSA.Enabled = false;
+			this.btnContributiContrattiCSA.Location = new System.Drawing.Point(463, 159);
 			this.btnContributiContrattiCSA.Name = "btnContributiContrattiCSA";
-			this.btnContributiContrattiCSA.Size = new System.Drawing.Size(359, 23);
+			this.btnContributiContrattiCSA.Size = new System.Drawing.Size(524, 23);
 			this.btnContributiContrattiCSA.TabIndex = 35;
 			this.btnContributiContrattiCSA.Tag = "58";
-			this.btnContributiContrattiCSA.Text = "58  Importa Contributi Contratti CSA";
+			this.btnContributiContrattiCSA.Text = "58  Importa Contributi Regole specifiche CSA - vecchia gestione";
 			this.btnContributiContrattiCSA.UseVisualStyleBackColor = true;
 			this.btnContributiContrattiCSA.Click += new System.EventHandler(this.btnContributiContrattiCSA_Click);
 			// 
@@ -350,10 +376,10 @@
 			// 
 			this.btnContributiTipoContrattoCSA.Location = new System.Drawing.Point(33, 74);
 			this.btnContributiTipoContrattoCSA.Name = "btnContributiTipoContrattoCSA";
-			this.btnContributiTipoContrattoCSA.Size = new System.Drawing.Size(359, 23);
+			this.btnContributiTipoContrattoCSA.Size = new System.Drawing.Size(393, 23);
 			this.btnContributiTipoContrattoCSA.TabIndex = 34;
 			this.btnContributiTipoContrattoCSA.Tag = "55";
-			this.btnContributiTipoContrattoCSA.Text = "55  Importa Contributi Tipi Contratti CSA";
+			this.btnContributiTipoContrattoCSA.Text = "55  Importa Contributi Regole generali CSA";
 			this.btnContributiTipoContrattoCSA.UseVisualStyleBackColor = true;
 			this.btnContributiTipoContrattoCSA.Click += new System.EventHandler(this.btnContributiTipoContrattoCSA_Click);
 			// 
@@ -361,10 +387,10 @@
 			// 
 			this.btnContrattiCSA.Location = new System.Drawing.Point(33, 130);
 			this.btnContrattiCSA.Name = "btnContrattiCSA";
-			this.btnContrattiCSA.Size = new System.Drawing.Size(359, 23);
+			this.btnContrattiCSA.Size = new System.Drawing.Size(393, 23);
 			this.btnContrattiCSA.TabIndex = 33;
 			this.btnContrattiCSA.Tag = "56";
-			this.btnContrattiCSA.Text = "56  Importa Contratti CSA";
+			this.btnContrattiCSA.Text = "56  Importa Regole specifiche CSA";
 			this.btnContrattiCSA.UseVisualStyleBackColor = true;
 			this.btnContrattiCSA.Click += new System.EventHandler(this.btnContrattiCSA_Click);
 			// 
@@ -372,10 +398,10 @@
 			// 
 			this.btnTipiContrattiCSA.Location = new System.Drawing.Point(33, 16);
 			this.btnTipiContrattiCSA.Name = "btnTipiContrattiCSA";
-			this.btnTipiContrattiCSA.Size = new System.Drawing.Size(359, 23);
+			this.btnTipiContrattiCSA.Size = new System.Drawing.Size(393, 23);
 			this.btnTipiContrattiCSA.TabIndex = 32;
 			this.btnTipiContrattiCSA.Tag = "53";
-			this.btnTipiContrattiCSA.Text = "53  Importa Tipi Contratto CSA";
+			this.btnTipiContrattiCSA.Text = "53  Importa Regole generali CSA";
 			this.btnTipiContrattiCSA.UseVisualStyleBackColor = true;
 			this.btnTipiContrattiCSA.Click += new System.EventHandler(this.btnTipiContrattiCSA_Click);
 			// 
@@ -383,10 +409,10 @@
 			// 
 			this.btnMatricoleContrattiCSA.Location = new System.Drawing.Point(33, 159);
 			this.btnMatricoleContrattiCSA.Name = "btnMatricoleContrattiCSA";
-			this.btnMatricoleContrattiCSA.Size = new System.Drawing.Size(359, 23);
+			this.btnMatricoleContrattiCSA.Size = new System.Drawing.Size(393, 23);
 			this.btnMatricoleContrattiCSA.TabIndex = 32;
 			this.btnMatricoleContrattiCSA.Tag = "57";
-			this.btnMatricoleContrattiCSA.Text = "57  Importa Matricole Contratti CSA";
+			this.btnMatricoleContrattiCSA.Text = "57  Importa Matricole Regole specifiche CSA";
 			this.btnMatricoleContrattiCSA.UseVisualStyleBackColor = true;
 			this.btnMatricoleContrattiCSA.Click += new System.EventHandler(this.btnMatricoleContrattiCSA_Click);
 			// 
@@ -404,7 +430,7 @@
 			this.tabPage1.Location = new System.Drawing.Point(0, 0);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Selected = false;
-			this.tabPage1.Size = new System.Drawing.Size(930, 437);
+			this.tabPage1.Size = new System.Drawing.Size(1598, 531);
 			this.tabPage1.TabIndex = 3;
 			this.tabPage1.Title = "Anagrafica";
 			// 
@@ -537,7 +563,7 @@
 			this.tabPage2.Location = new System.Drawing.Point(0, 0);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Selected = false;
-			this.tabPage2.Size = new System.Drawing.Size(930, 437);
+			this.tabPage2.Size = new System.Drawing.Size(1598, 531);
 			this.tabPage2.TabIndex = 4;
 			this.tabPage2.Title = "Patrimonio";
 			this.tabPage2.PropertyChanged += new Crownwood.Magic.Controls.TabPage.PropChangeHandler(this.tabPage2_PropertyChanged);
@@ -803,7 +829,7 @@
 			this.tabPage3.Location = new System.Drawing.Point(0, 0);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Selected = false;
-			this.tabPage3.Size = new System.Drawing.Size(930, 437);
+			this.tabPage3.Size = new System.Drawing.Size(1598, 531);
 			this.tabPage3.TabIndex = 5;
 			this.tabPage3.Title = "Bilancio e UPB";
 			// 
@@ -895,7 +921,7 @@
 			this.tabPage4.Location = new System.Drawing.Point(0, 0);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Selected = false;
-			this.tabPage4.Size = new System.Drawing.Size(930, 437);
+			this.tabPage4.Size = new System.Drawing.Size(1598, 531);
 			this.tabPage4.TabIndex = 6;
 			this.tabPage4.Title = "Movimenti finanziari";
 			// 
@@ -989,7 +1015,7 @@
 			this.tabPage5.Location = new System.Drawing.Point(0, 0);
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.Selected = false;
-			this.tabPage5.Size = new System.Drawing.Size(930, 437);
+			this.tabPage5.Size = new System.Drawing.Size(1598, 531);
 			this.tabPage5.TabIndex = 7;
 			this.tabPage5.Title = "Classificazioni";
 			// 
@@ -1109,7 +1135,7 @@
 			this.tabPage6.Location = new System.Drawing.Point(0, 0);
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.Selected = false;
-			this.tabPage6.Size = new System.Drawing.Size(930, 437);
+			this.tabPage6.Size = new System.Drawing.Size(1598, 531);
 			this.tabPage6.TabIndex = 8;
 			this.tabPage6.Title = "Ordini e fatture";
 			// 
@@ -1252,7 +1278,7 @@
 			this.tabPageMagazzino.Location = new System.Drawing.Point(0, 0);
 			this.tabPageMagazzino.Name = "tabPageMagazzino";
 			this.tabPageMagazzino.Selected = false;
-			this.tabPageMagazzino.Size = new System.Drawing.Size(930, 437);
+			this.tabPageMagazzino.Size = new System.Drawing.Size(1598, 531);
 			this.tabPageMagazzino.TabIndex = 12;
 			this.tabPageMagazzino.Title = "Magazzino";
 			// 
@@ -1291,6 +1317,9 @@
 			// 
 			// tabPage8
 			// 
+			this.tabPage8.Controls.Add(this.btnImportEpexpvarEpexpvar_trg);
+			this.tabPage8.Controls.Add(this.btnImportEpexpvarEpexpvar);
+			this.tabPage8.Controls.Add(this.btnImportEpexpEpacc);
 			this.tabPage8.Controls.Add(this.btnImportaAccountvar);
 			this.tabPage8.Controls.Add(this.btnImportaCausali);
 			this.tabPage8.Controls.Add(this.btnImportaConvertiPianoConti);
@@ -1300,9 +1329,42 @@
 			this.tabPage8.Location = new System.Drawing.Point(0, 0);
 			this.tabPage8.Name = "tabPage8";
 			this.tabPage8.Selected = false;
-			this.tabPage8.Size = new System.Drawing.Size(930, 437);
+			this.tabPage8.Size = new System.Drawing.Size(1598, 531);
 			this.tabPage8.TabIndex = 11;
 			this.tabPage8.Title = "EP";
+			// 
+			// btnImportEpexpvarEpexpvar_trg
+			// 
+			this.btnImportEpexpvarEpexpvar_trg.Location = new System.Drawing.Point(322, 171);
+			this.btnImportEpexpvarEpexpvar_trg.Name = "btnImportEpexpvarEpexpvar_trg";
+			this.btnImportEpexpvarEpexpvar_trg.Size = new System.Drawing.Size(330, 23);
+			this.btnImportEpexpvarEpexpvar_trg.TabIndex = 33;
+			this.btnImportEpexpvarEpexpvar_trg.Tag = "76";
+			this.btnImportEpexpvarEpexpvar_trg.Text = "76 Variazioni ai movimenti di Budget con trigger abilitati";
+			this.btnImportEpexpvarEpexpvar_trg.UseVisualStyleBackColor = true;
+			this.btnImportEpexpvarEpexpvar_trg.Click += new System.EventHandler(this.btnImportEpexpvarEpexpvar_trg_Click);
+			// 
+			// btnImportEpexpvarEpexpvar
+			// 
+			this.btnImportEpexpvarEpexpvar.Location = new System.Drawing.Point(322, 142);
+			this.btnImportEpexpvarEpexpvar.Name = "btnImportEpexpvarEpexpvar";
+			this.btnImportEpexpvarEpexpvar.Size = new System.Drawing.Size(330, 23);
+			this.btnImportEpexpvarEpexpvar.TabIndex = 32;
+			this.btnImportEpexpvarEpexpvar.Tag = "75";
+			this.btnImportEpexpvarEpexpvar.Text = "75 Variazioni ai movimenti di Budget";
+			this.btnImportEpexpvarEpexpvar.UseVisualStyleBackColor = true;
+			this.btnImportEpexpvarEpexpvar.Click += new System.EventHandler(this.btnImportEpexpvarEpexpvar_Click);
+			// 
+			// btnImportEpexpEpacc
+			// 
+			this.btnImportEpexpEpacc.Location = new System.Drawing.Point(322, 102);
+			this.btnImportEpexpEpacc.Name = "btnImportEpexpEpacc";
+			this.btnImportEpexpEpacc.Size = new System.Drawing.Size(232, 23);
+			this.btnImportEpexpEpacc.TabIndex = 31;
+			this.btnImportEpexpEpacc.Tag = "74";
+			this.btnImportEpexpEpacc.Text = "74 Movimenti di Budget";
+			this.btnImportEpexpEpacc.UseVisualStyleBackColor = true;
+			this.btnImportEpexpEpacc.Click += new System.EventHandler(this.btnImportEpexpEpacc_Click);
 			// 
 			// btnImportaAccountvar
 			// 
@@ -1370,8 +1432,45 @@
 			this.btnPianoConti.UseVisualStyleBackColor = true;
 			this.btnPianoConti.Click += new System.EventHandler(this.btnImportaPianoConti_Click);
 			// 
+			// tabPage10
+			// 
+			this.tabPage10.Controls.Add(this.btnAssociaTassaFlussiStudenti);
+			this.tabPage10.Controls.Add(this.btnFlussiStudenti);
+			this.tabPage10.Location = new System.Drawing.Point(0, 0);
+			this.tabPage10.Margin = new System.Windows.Forms.Padding(2);
+			this.tabPage10.Name = "tabPage10";
+			this.tabPage10.Selected = false;
+			this.tabPage10.Size = new System.Drawing.Size(1598, 531);
+			this.tabPage10.TabIndex = 14;
+			this.tabPage10.Title = "Configurazioni";
+			// 
+			// btnAssociaTassaFlussiStudenti
+			// 
+			this.btnAssociaTassaFlussiStudenti.Location = new System.Drawing.Point(12, 51);
+			this.btnAssociaTassaFlussiStudenti.Name = "btnAssociaTassaFlussiStudenti";
+			this.btnAssociaTassaFlussiStudenti.Size = new System.Drawing.Size(259, 23);
+			this.btnAssociaTassaFlussiStudenti.TabIndex = 35;
+			this.btnAssociaTassaFlussiStudenti.Tag = "78";
+			this.btnAssociaTassaFlussiStudenti.Text = "78 Associazione Tassa-Voce-Flussi studenti";
+			this.btnAssociaTassaFlussiStudenti.UseVisualStyleBackColor = true;
+			this.btnAssociaTassaFlussiStudenti.Click += new System.EventHandler(this.btnAssociaTassaFlussiStudenti_Click);
+			// 
+			// btnFlussiStudenti
+			// 
+			this.btnFlussiStudenti.Location = new System.Drawing.Point(12, 22);
+			this.btnFlussiStudenti.Name = "btnFlussiStudenti";
+			this.btnFlussiStudenti.Size = new System.Drawing.Size(259, 23);
+			this.btnFlussiStudenti.TabIndex = 34;
+			this.btnFlussiStudenti.Tag = "77";
+			this.btnFlussiStudenti.Text = "77 Corsi di Laurea-Flussi studenti";
+			this.btnFlussiStudenti.UseVisualStyleBackColor = true;
+			this.btnFlussiStudenti.Click += new System.EventHandler(this.btnFlussiStudenti_Click);
+			// 
 			// tabPage7
 			// 
+			this.tabPage7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabPage7.Controls.Add(this.txtLastLine);
 			this.tabPage7.Controls.Add(this.label21);
 			this.tabPage7.Controls.Add(this.label20);
@@ -1386,13 +1485,14 @@
 			this.tabPage7.Location = new System.Drawing.Point(0, 0);
 			this.tabPage7.Name = "tabPage7";
 			this.tabPage7.Selected = false;
-			this.tabPage7.Size = new System.Drawing.Size(930, 437);
+			this.tabPage7.Size = new System.Drawing.Size(1598, 531);
 			this.tabPage7.TabIndex = 10;
 			this.tabPage7.Title = "Batch";
 			// 
 			// txtLastLine
 			// 
-			this.txtLastLine.Location = new System.Drawing.Point(9, 401);
+			this.txtLastLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.txtLastLine.Location = new System.Drawing.Point(9, 497);
 			this.txtLastLine.Name = "txtLastLine";
 			this.txtLastLine.ReadOnly = true;
 			this.txtLastLine.Size = new System.Drawing.Size(914, 23);
@@ -1400,8 +1500,9 @@
 			// 
 			// label21
 			// 
+			this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.label21.AutoSize = true;
-			this.label21.Location = new System.Drawing.Point(12, 385);
+			this.label21.Location = new System.Drawing.Point(12, 481);
 			this.label21.Name = "label21";
 			this.label21.Size = new System.Drawing.Size(112, 15);
 			this.label21.TabIndex = 9;
@@ -1421,12 +1522,12 @@
 			this.txtBatch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtBatch.Location = new System.Drawing.Point(9, 192);
+			this.txtBatch.Location = new System.Drawing.Point(9, 193);
 			this.txtBatch.MaxLength = 900000;
 			this.txtBatch.Multiline = true;
 			this.txtBatch.Name = "txtBatch";
 			this.txtBatch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtBatch.Size = new System.Drawing.Size(914, 190);
+			this.txtBatch.Size = new System.Drawing.Size(1542, 282);
 			this.txtBatch.TabIndex = 3;
 			// 
 			// btnInterrompiBatch
@@ -1446,11 +1547,11 @@
 			this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.textBox2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textBox2.Location = new System.Drawing.Point(3, 3);
+			this.textBox2.Location = new System.Drawing.Point(9, 3);
 			this.textBox2.Multiline = true;
 			this.textBox2.Name = "textBox2";
 			this.textBox2.ReadOnly = true;
-			this.textBox2.Size = new System.Drawing.Size(907, 80);
+			this.textBox2.Size = new System.Drawing.Size(1580, 80);
 			this.textBox2.TabIndex = 5;
 			this.textBox2.TabStop = false;
 			this.textBox2.Text = resources.GetString("textBox2.Text");
@@ -1501,6 +1602,8 @@
 			// 
 			// tabRisultati
 			// 
+			this.tabRisultati.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabRisultati.Controls.Add(this.txtRisultato);
 			this.tabRisultati.Controls.Add(this.label15);
 			this.tabRisultati.Controls.Add(this.label12);
@@ -1509,8 +1612,7 @@
 			this.tabRisultati.Controls.Add(this.txtErrori);
 			this.tabRisultati.Location = new System.Drawing.Point(0, 0);
 			this.tabRisultati.Name = "tabRisultati";
-			this.tabRisultati.Selected = false;
-			this.tabRisultati.Size = new System.Drawing.Size(930, 437);
+			this.tabRisultati.Size = new System.Drawing.Size(1598, 531);
 			this.tabRisultati.TabIndex = 9;
 			this.tabRisultati.Title = "Risultati Importazione";
 			// 
@@ -1518,17 +1620,17 @@
 			// 
 			this.txtRisultato.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtRisultato.Location = new System.Drawing.Point(128, 404);
+			this.txtRisultato.Location = new System.Drawing.Point(12, 492);
 			this.txtRisultato.Name = "txtRisultato";
 			this.txtRisultato.ReadOnly = true;
-			this.txtRisultato.Size = new System.Drawing.Size(795, 23);
+			this.txtRisultato.Size = new System.Drawing.Size(1581, 23);
 			this.txtRisultato.TabIndex = 5;
 			// 
 			// label15
 			// 
 			this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.label15.AutoSize = true;
-			this.label15.Location = new System.Drawing.Point(9, 407);
+			this.label15.Location = new System.Drawing.Point(9, 582);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(125, 15);
 			this.label15.TabIndex = 4;
@@ -1537,7 +1639,7 @@
 			// label12
 			// 
 			this.label12.AutoSize = true;
-			this.label12.Location = new System.Drawing.Point(9, 185);
+			this.label12.Location = new System.Drawing.Point(10, 292);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(38, 15);
 			this.label12.TabIndex = 3;
@@ -1548,19 +1650,19 @@
 			this.txtAvvisi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtAvvisi.Location = new System.Drawing.Point(7, 201);
+			this.txtAvvisi.Location = new System.Drawing.Point(9, 320);
 			this.txtAvvisi.MaxLength = 900000;
 			this.txtAvvisi.Multiline = true;
 			this.txtAvvisi.Name = "txtAvvisi";
 			this.txtAvvisi.ReadOnly = true;
 			this.txtAvvisi.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtAvvisi.Size = new System.Drawing.Size(920, 187);
+			this.txtAvvisi.Size = new System.Drawing.Size(1578, 154);
 			this.txtAvvisi.TabIndex = 2;
 			// 
 			// label11
 			// 
 			this.label11.AutoSize = true;
-			this.label11.Location = new System.Drawing.Point(3, 7);
+			this.label11.Location = new System.Drawing.Point(9, 9);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(35, 15);
 			this.label11.TabIndex = 1;
@@ -1570,13 +1672,13 @@
 			// 
 			this.txtErrori.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtErrori.Location = new System.Drawing.Point(3, 23);
+			this.txtErrori.Location = new System.Drawing.Point(9, 27);
 			this.txtErrori.MaxLength = 900000;
 			this.txtErrori.Multiline = true;
 			this.txtErrori.Name = "txtErrori";
 			this.txtErrori.ReadOnly = true;
 			this.txtErrori.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtErrori.Size = new System.Drawing.Size(920, 146);
+			this.txtErrori.Size = new System.Drawing.Size(1581, 248);
 			this.txtErrori.TabIndex = 0;
 			// 
 			// label13
@@ -1630,7 +1732,7 @@
 			// 
 			this.chkMultiThread.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.chkMultiThread.AutoSize = true;
-			this.chkMultiThread.Location = new System.Drawing.Point(466, 626);
+			this.chkMultiThread.Location = new System.Drawing.Point(466, 720);
 			this.chkMultiThread.Name = "chkMultiThread";
 			this.chkMultiThread.Size = new System.Drawing.Size(420, 17);
 			this.chkMultiThread.TabIndex = 18;
@@ -1643,7 +1745,7 @@
 			// 
 			this.chkStoredProcedure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.chkStoredProcedure.AutoSize = true;
-			this.chkStoredProcedure.Location = new System.Drawing.Point(12, 626);
+			this.chkStoredProcedure.Location = new System.Drawing.Point(12, 720);
 			this.chkStoredProcedure.Name = "chkStoredProcedure";
 			this.chkStoredProcedure.Size = new System.Drawing.Size(305, 17);
 			this.chkStoredProcedure.TabIndex = 19;
@@ -1654,16 +1756,16 @@
 			// 
 			this.txtSPName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtSPName.Location = new System.Drawing.Point(87, 646);
+			this.txtSPName.Location = new System.Drawing.Point(87, 736);
 			this.txtSPName.Name = "txtSPName";
-			this.txtSPName.Size = new System.Drawing.Size(839, 20);
+			this.txtSPName.Size = new System.Drawing.Size(1507, 20);
 			this.txtSPName.TabIndex = 20;
 			// 
 			// labSqlCmd
 			// 
 			this.labSqlCmd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.labSqlCmd.AutoSize = true;
-			this.labSqlCmd.Location = new System.Drawing.Point(9, 649);
+			this.labSqlCmd.Location = new System.Drawing.Point(9, 743);
 			this.labSqlCmd.Name = "labSqlCmd";
 			this.labSqlCmd.Size = new System.Drawing.Size(72, 13);
 			this.labSqlCmd.TabIndex = 21;
@@ -1678,7 +1780,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(938, 666);
+			this.ClientSize = new System.Drawing.Size(1606, 760);
 			this.Controls.Add(this.labSqlCmd);
 			this.Controls.Add(this.txtSPName);
 			this.Controls.Add(this.chkStoredProcedure);
@@ -1704,6 +1806,7 @@
 			this.tabPage6.PerformLayout();
 			this.tabPageMagazzino.ResumeLayout(false);
 			this.tabPage8.ResumeLayout(false);
+			this.tabPage10.ResumeLayout(false);
 			this.tabPage7.ResumeLayout(false);
 			this.tabPage7.PerformLayout();
 			this.tabRisultati.ResumeLayout(false);
@@ -1847,5 +1950,12 @@
         private System.Windows.Forms.Button btnImportaEntiCsa;
 		private System.Windows.Forms.Button btnRipartUnicaContributiContrattiCSA;
 		private System.Windows.Forms.Button btnRipartUnicaContrattiCSA;
+        private System.Windows.Forms.Button btnImportEpexpvarEpexpvar;
+        private System.Windows.Forms.Button btnImportEpexpEpacc;
+        private System.Windows.Forms.Button btnImportEpexpvarEpexpvar_trg;
+        private Crownwood.Magic.Controls.TabPage tabPage10;
+        private System.Windows.Forms.Button btnFlussiStudenti;
+        private System.Windows.Forms.Button btnAssociaTassaFlussiStudenti;
+		private System.Windows.Forms.Button btnContributiContrattiCSAnuovaversione;
 	}
-}
+}

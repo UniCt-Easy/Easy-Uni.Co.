@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -20,6 +17,52 @@
 using System.ServiceModel;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using System.Net;
+using System.ServiceModel.Channels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ServiceModel.Description;
+using System.Xml;
+using System.IO;
+using XmlFormatter;
+
+namespace pagoPaService.govPayReference {
+	//public interface PagamentiTelematiciGPApp invece di IServizio
+
+	public static class PagamentiTelematiciGPAppService {
+		public static PagamentiTelematiciGPApp Create(string user, string pwd, string url) {
+			var binding0 = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
+			binding0.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
+			binding0.MaxReceivedMessageSize = 65536 * 100;
+
+			//var trBinding = new HttpsTransportBindingElement();
+			//trBinding.AuthenticationScheme = AuthenticationSchemes.Basic;
+            
+			//var binding = new CustomBinding(
+			//    new CustomTextMessageBindingElement("iso-8859-1", "text/xml", MessageVersion.Soap11),
+			//    trBinding);
+
+
+			//binding.TextEncoding = binding2;
+			var address = new EndpointAddress(url);
+
+
+			var factory = new ChannelFactory<PagamentiTelematiciGPApp>(binding0, address);
+			factory.Credentials.UserName.UserName = user;
+			factory.Credentials.UserName.Password = pwd;
+
+			factory.Endpoint.Behaviors.Add(new CleanNameSpacesBehavior("xsi", "xsd"));
+            
+			var vs = factory.Endpoint.EndpointBehaviors.FirstOrDefault((i) => i.GetType().Namespace == "Microsoft.VisualStudio.Diagnostics.ServiceModelSink");
+			if (vs != null) {
+				factory.Endpoint.Behaviors.Remove(vs);
+			}
+
+			return factory.CreateChannel();
+		}
+	}
+}
 
 namespace GovPay {
 
@@ -73,13 +116,37 @@ namespace GovPay {
         //private static readonly string PASSWORD = "govpay";
 
         public static IServizio Create(string user, string pwd, string url) {
-            var binding = new BasicHttpBinding(BasicHttpSecurityMode.Message);
+            
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls |SecurityProtocolType.Ssl3;
+            System.Net.ServicePointManager.Expect100Continue = false;
+            //var binding = new BasicHttpBinding(BasicHttpSecurityMode.None);
+            
+            var binding0 = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
+            binding0.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
+            binding0.MaxReceivedMessageSize = 65536 * 100;
 
+            //var trBinding = new HttpsTransportBindingElement();
+            //trBinding.AuthenticationScheme = AuthenticationSchemes.Basic;
+            
+            //var binding = new CustomBinding(
+            //    new CustomTextMessageBindingElement("iso-8859-1", "text/xml", MessageVersion.Soap11),
+            //    trBinding);
+
+
+            //binding.TextEncoding = binding2;
             var address = new EndpointAddress(url);
 
-            var factory = new ChannelFactory<IServizio>(binding, address);
+
+            var factory = new ChannelFactory<IServizio>(binding0, address);
             factory.Credentials.UserName.UserName = user;
             factory.Credentials.UserName.Password = pwd;
+
+            factory.Endpoint.Behaviors.Add(new CleanNameSpacesBehavior("xsi", "xsd"));
+            
+            var vs = factory.Endpoint.EndpointBehaviors.FirstOrDefault((i) => i.GetType().Namespace == "Microsoft.VisualStudio.Diagnostics.ServiceModelSink");
+            if (vs != null) {
+                factory.Endpoint.Behaviors.Remove(vs);
+            }
 
             return factory.CreateChannel();
         }
@@ -528,10 +595,10 @@ namespace GovPay {
             [XmlElement("codTributo", Form = XmlSchemaForm.Unqualified, Order = 3)]
             public string codTributo { get; set; }
 
-            [XmlElement("bolloTelematico", Form = XmlSchemaForm.Unqualified, Order = 3)]
+            [XmlElement("bolloTelematico", Form = XmlSchemaForm.Unqualified, Order = 4)]
             public BolloTelematico bolloTelematico { get; set; }
 
-            [XmlElement("tributo", Form = XmlSchemaForm.Unqualified, Order = 3)]
+            [XmlElement("tributo", Form = XmlSchemaForm.Unqualified, Order = 5)]
             public Tributo tributo { get; set; }
 
         }
@@ -566,13 +633,13 @@ namespace GovPay {
         [XmlElement("causale", typeof(string), Form = XmlSchemaForm.Unqualified, Order = 9)]
         public string causale { get; set; }
 
-        [XmlElement("spezzoneCausale", typeof(string), Form = XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement("spezzoneCausale", typeof(string), Form = XmlSchemaForm.Unqualified, Order = 10)]
         public string[] spezzoneCausale { get; set; }
 
-        [XmlElement("spezzoneCausaleStrutturata", typeof(SpezzoneCausaleStrutturata), Form = XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement("spezzoneCausaleStrutturata", typeof(SpezzoneCausaleStrutturata), Form = XmlSchemaForm.Unqualified, Order = 11)]
         public SpezzoneCausaleStrutturata[] spezzoneCausaleStrutturata { get; set; }
         
-        [XmlElement("singoloVersamento", Form = XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement("singoloVersamento", Form = XmlSchemaForm.Unqualified, Order = 12)]
         public SingoloVersamento[] singoloVersamento { get; set; }
     }
 
@@ -1048,11 +1115,11 @@ namespace GovPay {
     #region "Strutture dedicate (applicazioni)"
 
     [Serializable]
-    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
     public class gpGeneraIuvRequestBody {
 
         [Serializable]
-        [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+        [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
         public class IUVRichiesto {
 
             [XmlElement("codVersamentoEnte", Form = XmlSchemaForm.Unqualified, Order = 0)]
@@ -1073,7 +1140,7 @@ namespace GovPay {
     }
 
     [Serializable]
-    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
     public class gpGeneraIuvResponseBody : gpResponseBody {
 
         [XmlElement("iuvGenerato", Form = XmlSchemaForm.Unqualified, Order = 0)]
@@ -1081,11 +1148,11 @@ namespace GovPay {
     }
 
     [Serializable]
-    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
     public class gpCaricaIuvRequestBody {
 
         [Serializable]
-        [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+        [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
         public class IUVGenerato {
 
             [XmlElement("iuv", Form = XmlSchemaForm.Unqualified, Order = 0)]
@@ -1109,7 +1176,7 @@ namespace GovPay {
     }
 
     [Serializable]
-    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
     public class gpCaricaIuvResponseBody : gpResponseBody {
 
         [XmlElement("iuvCaricato", Form = XmlSchemaForm.Unqualified, Order = 0)]
@@ -1117,7 +1184,7 @@ namespace GovPay {
     }
 
     [Serializable]
-    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
     public class gpCaricaVersamentoRequestBody {
 
         [XmlElement("generaIuv", Form = XmlSchemaForm.Unqualified, Order = 0)]
@@ -1133,7 +1200,7 @@ namespace GovPay {
     }
 
     [Serializable]
-    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
     public class gpCaricaVersamentoResponseBody : gpResponseBody {
 
         [XmlElement("iuvGenerato", Form = XmlSchemaForm.Unqualified, Order = 0)]
@@ -1141,7 +1208,7 @@ namespace GovPay {
     }
 
     [Serializable]
-    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
     public class gpAnnullaVersamento {
 
         [XmlElement("codApplicazione", Form = XmlSchemaForm.Unqualified, Order = 0)]
@@ -1152,7 +1219,7 @@ namespace GovPay {
     }
 
     [Serializable]
-    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
     public class gpNotificaPagamentoRequestBody {
 
         [XmlElement("codApplicazione", Form = XmlSchemaForm.Unqualified, Order = 0)]
@@ -1163,7 +1230,7 @@ namespace GovPay {
     }
 
     [Serializable]
-    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
     public class gpChiediStatoVersamentoRequestBody {
 
         [XmlElement("codApplicazione", Form = XmlSchemaForm.Unqualified, Order = 0)]
@@ -1174,7 +1241,7 @@ namespace GovPay {
     }
 
     [Serializable]
-    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
     public class gpChiediStatoVersamentoResponseBody : gpResponseBody {
 
         [Serializable]
@@ -1204,15 +1271,25 @@ namespace GovPay {
     }
 
     [Serializable]
-    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
     public class gpChiediListaFlussiRendicontazioneRequestBody {
 
-        [XmlElement("codApplicazione", Form = XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement("codDominio", Form = XmlSchemaForm.Unqualified, Order = 0)]
+        public string codDominio { get; set; }
+
+        [XmlElement("codApplicazione", Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string codApplicazione { get; set; }
+
+        [XmlElement("dataInizio", Form = XmlSchemaForm.Unqualified, DataType = "date", Order = 2)]
+        public DateTime dataInizio { get; set; }
+
+        [XmlElement("dataFine", Form = XmlSchemaForm.Unqualified, DataType = "date", Order = 3)]
+        public DateTime dataFine { get; set; }
+
     }
 
     [Serializable]
-    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
     public class gpChiediListaFlussiRendicontazioneResponseBody : gpResponseBody {
 
         [XmlElement("codApplicazione", Form = XmlSchemaForm.Unqualified, Order = 0)]
@@ -1223,7 +1300,7 @@ namespace GovPay {
     }
 
     [Serializable]
-    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
     public class gpChiediFlussoRendicontazioneRequestBody {
 
         [XmlElement("codApplicazione", Form = XmlSchemaForm.Unqualified, Order = 0)]
@@ -1237,7 +1314,7 @@ namespace GovPay {
     }
 
     [Serializable]
-    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpApp/")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.govpay.it/servizi/gpRnd/")]
     public class gpChiediFlussoRendicontazioneResponseBody : gpResponseBody {
 
         [XmlElement("codApplicazione", Form = XmlSchemaForm.Unqualified, Order = 0)]
@@ -1254,7 +1331,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpGeneraIuvRequest {
 
-        [MessageBodyMember(Name = "gpGeneraIuv", Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Name = "gpGeneraIuv", Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpGeneraIuvRequestBody body;
 
         public gpGeneraIuvRequest() { }
@@ -1267,7 +1344,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpGeneraIuvResponse {
 
-        [MessageBodyMember(Name = "gpGeneraIuvResponse", Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Name = "gpGeneraIuvResponse", Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpGeneraIuvResponseBody body;
 
         public gpGeneraIuvResponse() { }
@@ -1280,7 +1357,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpCaricaIuvRequest {
 
-        [MessageBodyMember(Name = "gpCaricaIuv", Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Name = "gpCaricaIuv", Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpCaricaIuvRequestBody body;
 
         public gpCaricaIuvRequest() { }
@@ -1293,7 +1370,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpCaricaIuvResponse {
 
-        [MessageBodyMember(Name = "gpCaricaIuvResponse", Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Name = "gpCaricaIuvResponse", Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpCaricaIuvResponseBody body;
 
         public gpCaricaIuvResponse() { }
@@ -1306,7 +1383,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpCaricaVersamentoRequest {
 
-        [MessageBodyMember(Name = "gpCaricaVersamento", Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Name = "gpCaricaVersamento", Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpCaricaVersamentoRequestBody body;
 
         public gpCaricaVersamentoRequest() { }
@@ -1319,7 +1396,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpCaricaVersamentoResponse {
 
-        [MessageBodyMember(Name = "gpCaricaVersamentoResponse", Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Name = "gpCaricaVersamentoResponse", Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpCaricaVersamentoResponseBody body;
 
         public gpCaricaVersamentoResponse() { }
@@ -1332,7 +1409,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpAnnullaVersamentoRequest {
 
-        [MessageBodyMember(Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpAnnullaVersamento gpAnnullaVersamento;
 
         public gpAnnullaVersamentoRequest() { }
@@ -1345,7 +1422,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpAnnullaVersamentoResponse {
 
-        [MessageBodyMember(Name = "gpAnnullaVersamentoResponse", Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Name = "gpAnnullaVersamentoResponse", Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpResponseBody body;
 
         public gpAnnullaVersamentoResponse() { }
@@ -1358,7 +1435,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpNotificaPagamentoRequest {
 
-        [MessageBodyMember(Name = "gpNotificaPagamento", Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Name = "gpNotificaPagamento", Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpNotificaPagamentoRequestBody body;
 
         public gpNotificaPagamentoRequest() { }
@@ -1371,7 +1448,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpNotificaPagamentoResponse {
 
-        [MessageBodyMember(Name = "gpNotificaPagamentoResponse", Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Name = "gpNotificaPagamentoResponse", Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpResponseBody body;
 
         public gpNotificaPagamentoResponse() { }
@@ -1384,7 +1461,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpChiediStatoVersamentoRequest {
 
-        [MessageBodyMember(Name = "gpChiediStatoVersamento", Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Name = "gpChiediStatoVersamento", Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpChiediStatoVersamentoRequestBody body;
 
         public gpChiediStatoVersamentoRequest() { }
@@ -1397,7 +1474,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpChiediStatoVersamentoResponse {
 
-        [MessageBodyMember(Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpChiediStatoVersamentoResponseBody body;
 
         public gpChiediStatoVersamentoResponse() { }
@@ -1410,7 +1487,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpChiediListaFlussiRendicontazioneRequest {
 
-        [MessageBodyMember(Name = "gpChiediListaFlussiRendicontazione", Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Name = "gpChiediListaFlussiRendicontazione", Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpChiediListaFlussiRendicontazioneRequestBody body;
 
         public gpChiediListaFlussiRendicontazioneRequest() { }
@@ -1423,7 +1500,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpChiediListaFlussiRendicontazioneResponse {
 
-        [MessageBodyMember(Name = "gpChiediListaFlussiRendicontazioneResponse", Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Name = "gpChiediListaFlussiRendicontazioneResponse", Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpChiediListaFlussiRendicontazioneResponseBody body;
 
         public gpChiediListaFlussiRendicontazioneResponse() { }
@@ -1436,7 +1513,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpChiediFlussoRendicontazioneRequest {
 
-        [MessageBodyMember(Name = "gpChiediFlussoRendicontazione", Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Name = "gpChiediFlussoRendicontazione", Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpChiediFlussoRendicontazioneRequestBody body;
 
         public gpChiediFlussoRendicontazioneRequest() { }
@@ -1449,7 +1526,7 @@ namespace GovPay {
     [MessageContract(IsWrapped = false)]
     public class gpChiediFlussoRendicontazioneResponse {
 
-        [MessageBodyMember(Name = "gpChiediFlussoRendicontazioneResponse", Namespace = "http://www.govpay.it/servizi/gpApp/", Order = 0)]
+        [MessageBodyMember(Name = "gpChiediFlussoRendicontazioneResponse", Namespace = "http://www.govpay.it/servizi/gpRnd/", Order = 0)]
         public gpChiediFlussoRendicontazioneResponseBody body;
 
         public gpChiediFlussoRendicontazioneResponse() { }
@@ -1461,4 +1538,4 @@ namespace GovPay {
 
     #endregion
 
-}
+}

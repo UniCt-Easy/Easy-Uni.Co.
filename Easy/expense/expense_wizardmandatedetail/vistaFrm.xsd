@@ -196,6 +196,7 @@
               <xs:element name="idsor03" type="xs:int" minOccurs="0" />
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="flagbit" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

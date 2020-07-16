@@ -128,6 +128,10 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+    <ProjectReference Include="..\..\proceeds\meta_proceeds\meta_proceeds.csproj">
+      <Project>{9a369412-fa2d-496a-9e39-139a230bd1c6}</Project>
+      <Name>meta_proceeds</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\chooseBill\chooseBill.csproj">
       <Project>{9944E8AC-9EC1-4473-8A98-70DF8869BEE3}</Project>
       <Name>chooseBill</Name>
@@ -198,12 +202,6 @@
       <HintPath>..\..\sorting\meta_sorting\bin\Debug\meta_sorting.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_sorting</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="meta_proceeds">
-      <HintPath>..\..\proceeds\meta_proceeds\bin\Debug\meta_proceeds.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_proceeds</Name>
       <Private>False</Private>
     </Reference>
     <Reference Include="meta_treasurer">

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -141,6 +138,17 @@ public class applicazioneRow: MetaRow  {
 	public String metapagefolderOriginal { 
 		get {if (this["metapagefolder",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["metapagefolder",DataRowVersion.Original];}
 	}
+	public String scriptFolder{ 
+		get {if (this["scriptFolder"]==DBNull.Value)return null; return  (String)this["scriptFolder"];}
+		set {if (value==null) this["scriptFolder"]= DBNull.Value; else this["scriptFolder"]= value;}
+	}
+	public object scriptFolderValue { 
+		get{ return this["scriptFolder"];}
+		set {if (value==null|| value==DBNull.Value) this["scriptFolder"]= DBNull.Value; else this["scriptFolder"]= value;}
+	}
+	public String scriptFolderOriginal { 
+		get {if (this["scriptFolder",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["scriptFolder",DataRowVersion.Original];}
+	}
 	///<summary>
 	///File della solution
 	///</summary>
@@ -154,6 +162,17 @@ public class applicazioneRow: MetaRow  {
 	}
 	public String solutionfileOriginal { 
 		get {if (this["solutionfile",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["solutionfile",DataRowVersion.Original];}
+	}
+	public String testFolder{ 
+		get {if (this["testFolder"]==DBNull.Value)return null; return  (String)this["testFolder"];}
+		set {if (value==null) this["testFolder"]= DBNull.Value; else this["testFolder"]= value;}
+	}
+	public object testFolderValue { 
+		get{ return this["testFolder"];}
+		set {if (value==null|| value==DBNull.Value) this["testFolder"]= DBNull.Value; else this["testFolder"]= value;}
+	}
+	public String testFolderOriginal { 
+		get {if (this["testFolder",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["testFolder",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Nome
@@ -183,10 +202,11 @@ public class applicazioneTable : MetaTableBase<applicazioneRow> {
 			{"idmenuweb",createColumn("idmenuweb",typeof(int),true,false)},
 			{"metadati",createColumn("metadati",typeof(string),true,false)},
 			{"metapagefolder",createColumn("metapagefolder",typeof(string),true,false)},
+			{"scriptFolder",createColumn("scriptFolder",typeof(string),true,false)},
 			{"solutionfile",createColumn("solutionfile",typeof(string),true,false)},
+			{"testFolder",createColumn("testFolder",typeof(string),true,false)},
 			{"title",createColumn("title",typeof(string),true,false)},
 		};
 	}
 }
 }
-

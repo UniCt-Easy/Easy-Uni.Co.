@@ -204,6 +204,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>vistaAutoclassMov.xsd</DependentUpon>
     </Compile>
+    <Compile Include="vistaCorsoLaurea.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaCorsoLaurea.xsd</DependentUpon>
+    </Compile>
     <Compile Include="vistaEntiCsa.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -213,6 +218,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>vistaListClass.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="VistaMovBudget.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VistaMovBudget.xsd</DependentUpon>
     </Compile>
     <Compile Include="vistaProfiloSISEST.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -268,6 +278,11 @@
       <DependentUpon>vistaMatricoleContrattiCSA.xsd</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="vistaStipDecodifica.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaStipDecodifica.xsd</DependentUpon>
     </Compile>
     <Compile Include="vistaSubConsegnatariCespiti.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -553,6 +568,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>vistaVarMov.xsd</DependentUpon>
     </Compile>
+    <Compile Include="vistaVarMovBudget.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaVarMovBudget.xsd</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -610,6 +630,17 @@
     <None Include="vistaAutoclassMov.xss">
       <DependentUpon>vistaAutoclassMov.xsd</DependentUpon>
     </None>
+    <None Include="vistaCorsoLaurea.xsc">
+      <DependentUpon>vistaCorsoLaurea.xsd</DependentUpon>
+    </None>
+    <None Include="vistaCorsoLaurea.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaCorsoLaurea.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaCorsoLaurea.xss">
+      <DependentUpon>vistaCorsoLaurea.xsd</DependentUpon>
+    </None>
     <None Include="vistaEntiCsa.xsc">
       <DependentUpon>vistaEntiCsa.xsd</DependentUpon>
     </None>
@@ -620,6 +651,17 @@
     </None>
     <None Include="vistaEntiCsa.xss">
       <DependentUpon>vistaEntiCsa.xsd</DependentUpon>
+    </None>
+    <None Include="VistaMovBudget.xsc">
+      <DependentUpon>VistaMovBudget.xsd</DependentUpon>
+    </None>
+    <None Include="VistaMovBudget.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>VistaMovBudget.cs</LastGenOutput>
+    </None>
+    <None Include="VistaMovBudget.xss">
+      <DependentUpon>VistaMovBudget.xsd</DependentUpon>
     </None>
     <None Include="vistaProfiloSISEST.xsc">
       <DependentUpon>vistaProfiloSISEST.xsd</DependentUpon>
@@ -741,6 +783,17 @@
     </None>
     <None Include="vistaMatricoleContrattiCSA.xss">
       <DependentUpon>vistaMatricoleContrattiCSA.xsd</DependentUpon>
+    </None>
+    <None Include="vistaStipDecodifica.xsc">
+      <DependentUpon>vistaStipDecodifica.xsd</DependentUpon>
+    </None>
+    <None Include="vistaStipDecodifica.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaStipDecodifica.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaStipDecodifica.xss">
+      <DependentUpon>vistaStipDecodifica.xsd</DependentUpon>
     </None>
     <None Include="vistaSubConsegnatariCespiti.xsc">
       <DependentUpon>vistaSubConsegnatariCespiti.xsd</DependentUpon>
@@ -1332,6 +1385,17 @@
     </None>
     <None Include="vistaVarMov.xss">
       <DependentUpon>vistaVarMov.xsd</DependentUpon>
+    </None>
+    <None Include="vistaVarMovBudget.xsc">
+      <DependentUpon>vistaVarMovBudget.xsd</DependentUpon>
+    </None>
+    <None Include="vistaVarMovBudget.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaVarMovBudget.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaVarMovBudget.xss">
+      <DependentUpon>vistaVarMovBudget.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

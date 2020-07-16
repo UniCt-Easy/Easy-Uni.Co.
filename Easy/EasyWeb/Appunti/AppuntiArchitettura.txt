@@ -1,0 +1,114 @@
+﻿http://79.29.3.102/EasyWebReport/preindex.aspx
+
+Dipartimento: Italianistica
+
+User: aaa
+Password: aaa
+
+
+Ambiente di sviluppo: Visual Studio 2008
+Sql 2005 (conservo compatibilità con 2000)
+Tecnologia ASP.Net Framework 2.0
+Web Server IIS 6 o sup.
+Linguaggio lato server C#
+Linguaggi Client (Html,VBScript,JavaScript,ActionScript)
+
+Master Page
+E' stata introdotto l'utilizzo della MasterPage.
+La master page verrà applicata a tutte le pagine del sito in cui vorremo conservare
+l'intestazione grafica
+La master page espone metodi ed eventi propri, disponibili nelle relative content page.
+
+PAGINE:
+
+
+- LoginServizi.aspx
+Vengono verificati Login e Password inseriti interrogando:
+Registryreferenceview per i fornitori
+Manager per i responsabili.
+I valori vengono salvati nelle rispettive variabili di sessione.
+Sono stati implementati sia controlli Flash che controlli ASP.
+Il controllo Flash è Login.swf.
+Response.Redirect("IndiceReport.aspx")
+
+- ElencoServizi.aspx
+Pagina da realizzare che elenca le possibili operazioni che è possibile effettuare.
+Per esempio: Stampe, Richieste Buoni d'ordine, Variazioni di Bilancio, ecc.
+
+- IndiceReport.aspx
+Questa pagina andrà preceduta dalla pagina ElencoServizi.aspx che elenca le operazioni che è possibile effettuare.
+Qui lascieremo solo l'elenco delle stampe.
+La grafica di questo modulo non è stata ancora completata.
+
+- Registro_RichiesteBuonoOrdine.aspx
+Attualmente visualizza l'elenco dei buoni d'ordine (e non delle richieste), 
+facendo un interrogazione sulla tabella Mandate.
+Disegna i dati a video utilizzando l'oggetto DataGridWeb e consentendo la scelta della riga di Mandate da visualizzare.
+Qui servirebbe creare una select in Join con la tabella Registry per la visualizzazione anche del Fornitore.
+Dunque mi direte come comportarmi: ovvero se devo scrivere io lo statement e se posso utilizzare qualche funzione 
+per la creazione della select.
+
+Response.Redirect("RichiestaBuonoOrdine.aspx");
+
+
+- RichiestaBuonoOrdine.aspx
+Sto lavorando su questo modulo, cercando di fare il porting della logica del rispettivo modulo windows,
+sostituendo le varie funzioni windows con opportuni metodi web.
+Questo è il codice cs della pagina che ti passo giusto per renderti conto della complessità delle operazioni.
+http://79.29.3.102/EasyWebReport/RichiestaBuonoOrdine.pdf
+Il modulo verrà utilizzato sia per i nuovi inserimenti, sia per la visualizzazione in sola lettura, 
+sia per la modifica del Buono d'ordine (ove permesso).
+E' stata implementata la logica del PostData, con la gestione del ProcedureMessageCollection.
+I messaggi di errore vengono visualizzati attraverso l'uso del controllo personalizzato MessaggioErroreEasy.ascx,
+che compare all'interno della stessa pagina.
+
+
+Controlli personalizzati Non Compilati
+MessaggioErroreEasy.ascx
+RigaMandateDetail.ascx
+
+
+
+
+Controlli Personalizzati Compilati (DLL)
+Sono stati realizzati alcuni controlli Asp custom.
+- DataGridWeb
+E' l'equivalente del datagridview, ma interamente disegnato a RunTime.
+Accetta diversi parametri, tra cui:
+.Datatable  (fonte dati)
+.ArrayCampi (elenco campi da visualizzare)
+.ArrayTitoli (elenco Titoli da visualizzare)
+.Altezza Riga 
+.Presenza o meno del pulsante di selezione
+Integra come risorsa embedded un file Javascript per la gestione di alcuni effetti grafici lato client.
+Espone un evento che viene gestito nella pagine che usa il controllo, che restituisce il datarow selezionato,
+senza stare a impazzire con l'ID dei controlli per capire quale riga è stata selezionata.
+Il controllo si presente già formattato graficamente, e si presta anche alla personalizzazione con vari skin.
+
+
+MaxImageButton2
+E' un semplice ImageButton, con la possibilità però di associargli un oggetto lato server, che può essere 
+riletto dopo il postback (anche questo comodo in tutte quelle situazioni in cui è necessario accedere direttamente
+ad un oggetto associato al button, evitando di risalirci attraverso l'ID del controllo)
+
+
+
+
+Nozioni.
+Come lavora ASP:
+Quando l'utente con il suo browser accede ad una pagina aspx, 
+il web server IIS processa il codice associato alla pagina 
+ed invia al client un blocco nidificato HTML.
+All'interno dell'HTML sono contenuti i vari tag che servono a disegnare i controlli che compongono la pagina.
+Alcuni di questi controlli hanno l'attributo ASP e sono runat= "server",
+e sono visibili nel codice lato server a design time.
+Tra i vari tag rivestono importanza i tag <script>
+che contengono codice JavaScript o VBScript (che sono appunto due linguaggi di scripting).
+Attenzione non è possibile scrivere script lato client in C# (C# non è infatti un linguaggio di scripting),
+ovvero non è possibile eseguire codice C# per la gestione di eventi
+senza lo scambio di informazioni con il web server.
+Scambiare le informazioni con il web server significa ricaricare la pagina.
+
+
+
+

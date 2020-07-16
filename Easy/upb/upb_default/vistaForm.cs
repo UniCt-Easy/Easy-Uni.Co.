@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -27,7 +24,7 @@ using System.Runtime.Serialization;
 namespace upb_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -56,6 +53,9 @@ public class vistaForm: DataSet {
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable codicecofogmp 		=> Tables["codicecofogmp"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingview 		=> Tables["sortingview"];
@@ -408,9 +408,19 @@ private void initClass() {
 	tupb.Columns.Add( new DataColumn("cigcode", typeof(string)));
 	tupb.Columns.Add( new DataColumn("idepupbkind", typeof(int)));
 	tupb.Columns.Add( new DataColumn("flag", typeof(int)));
+	tupb.Columns.Add( new DataColumn("uesiopecode", typeof(string)));
+	tupb.Columns.Add( new DataColumn("cofogmpcode", typeof(string)));
 	Tables.Add(tupb);
 	tupb.PrimaryKey =  new DataColumn[]{tupb.Columns["idupb"]};
 
+
+	//////////////////// CODICECOFOGMP /////////////////////////////////
+	var tcodicecofogmp= new DataTable("codicecofogmp");
+	C= new DataColumn("codice", typeof(string));
+	C.AllowDBNull=false;
+	tcodicecofogmp.Columns.Add(C);
+	tcodicecofogmp.Columns.Add( new DataColumn("descrizione", typeof(string)));
+	Tables.Add(tcodicecofogmp);
 
 	//////////////////// SORTINGVIEW /////////////////////////////////
 	var tsortingview= new DataTable("sortingview");
@@ -967,6 +977,11 @@ private void initClass() {
 	tfinyearview.Columns.Add( new DataColumn("prevision3", typeof(decimal)));
 	tfinyearview.Columns.Add( new DataColumn("prevision4", typeof(decimal)));
 	tfinyearview.Columns.Add( new DataColumn("prevision5", typeof(decimal)));
+	tfinyearview.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tfinyearview.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tfinyearview.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tfinyearview.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tfinyearview.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
 	tfinyearview.Columns.Add(C);
@@ -1528,6 +1543,7 @@ private void initClass() {
 	tepupbkind.Columns.Add( new DataColumn("lt", typeof(DateTime)));
 	tepupbkind.Columns.Add( new DataColumn("lu", typeof(string)));
 	tepupbkind.Columns.Add( new DataColumn("active", typeof(string)));
+	tepupbkind.Columns.Add( new DataColumn("flag", typeof(int)));
 	Tables.Add(tepupbkind);
 	tepupbkind.PrimaryKey =  new DataColumn[]{tepupbkind.Columns["idepupbkind"]};
 
@@ -1746,11 +1762,14 @@ private void initClass() {
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
 	tupbyearview.Columns.Add(C);
+	tupbyearview.Columns.Add( new DataColumn("uesiopecode", typeof(string)));
+	tupbyearview.Columns.Add( new DataColumn("cofogmpcode", typeof(string)));
 	tupbyearview.Columns.Add( new DataColumn("idepupbkind", typeof(int)));
 	tupbyearview.Columns.Add( new DataColumn("epupbkind", typeof(string)));
 	tupbyearview.Columns.Add( new DataColumn("expiration", typeof(DateTime)));
 	tupbyearview.Columns.Add( new DataColumn("revenueprevision", typeof(decimal)));
 	tupbyearview.Columns.Add( new DataColumn("costprevision", typeof(decimal)));
+	tupbyearview.Columns.Add( new DataColumn("newcodeupb", typeof(decimal)));
 	Tables.Add(tupbyearview);
 	tupbyearview.PrimaryKey =  new DataColumn[]{tupbyearview.Columns["idupb"], tupbyearview.Columns["ayear"]};
 
@@ -1892,4 +1911,3 @@ private void initClass() {
 }
 }
 }
-

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -82,10 +79,8 @@ namespace bankdispositionsetup_importnew {
             if (tr.Read(buffer, 0, numCifre) != numCifre) {
                 QueryCreator.ShowError(form, "ERRORE DURANTE LA LETTURA DEL FILE", "Letti meno byte rispetto al previsto");
             }
-            string s = new string(buffer, 0, numCifre - 2)
-                + NumberFormatInfo.CurrentInfo.CurrencyDecimalSeparator
-                + new string(buffer, numCifre - 2, 2);
-            return decimal.Parse(s);
+            string s = new string(buffer, 0, numCifre);
+            return  decimal.Parse(s,NumberStyles.Currency)/100m;
         }
 
         public string leggiSegnoConDecimaleAoD(TextReader tr, int numCifre, out decimal decimale) {
@@ -99,9 +94,8 @@ namespace bankdispositionsetup_importnew {
             string segno = buffer[0] == 'A' ? "" : "-";
             string s = segno
                 + new string(buffer, 1, numCifre - 3)
-                + NumberFormatInfo.CurrentInfo.CurrencyDecimalSeparator
                 + new string(buffer, numCifre - 2, 2);
-            decimale = decimal.Parse(s);
+            decimale = decimal.Parse(s,NumberStyles.Currency)/100m;
             return buffer[0].ToString();
         }
 
@@ -114,11 +108,8 @@ namespace bankdispositionsetup_importnew {
             }
 
             //			string segno = buffer[0]=='A'? "": "-";
-            string s =
-                new string(buffer, 0, numCifre - 2)
-                + NumberFormatInfo.CurrentInfo.CurrencyDecimalSeparator
-                + new string(buffer, numCifre - 2, 2);
-            decimale = decimal.Parse(s);
+            string s = new string(buffer, 0, numCifre );
+            decimale =  decimal.Parse(s)/100m;
             return buffer[0].ToString();
         }
 
@@ -129,9 +120,8 @@ namespace bankdispositionsetup_importnew {
             segno = buffer[numCifre - 1].ToString();
             string s = buffer[numCifre - 1]
                 + new string(buffer, 0, numCifre - 3)
-                + NumberFormatInfo.CurrentInfo.CurrencyDecimalSeparator
                 + new string(buffer, numCifre - 3, 2);
-            return decimal.Parse(s);
+            return  decimal.Parse(s)/100m;
         }
 
         public object leggiDataGMA(TextReader tr, int numCifre) {
@@ -597,9 +587,9 @@ namespace bankdispositionsetup_importnew {
         public decimal leggiDecimaleCarime(TextReader tr, out string segno) {
             tr.Read(buffer, 0, 16);
 
-            decimal d = decimal.Parse(new string(buffer, 0, 15 - 2)
-            + NumberFormatInfo.CurrentInfo.CurrencyDecimalSeparator
-            + new string(buffer, 15 - 2, 2));
+            decimal d = decimal.Parse(new string(buffer, 0, 15 ),
+                NumberStyles.Currency)/100.0m;
+            
             segno = new string(buffer, 15, 1);
             if (segno == "-") {
                 return -d;
@@ -611,4 +601,3 @@ namespace bankdispositionsetup_importnew {
         abstract public BANCA getBanca();
     }
 }
-

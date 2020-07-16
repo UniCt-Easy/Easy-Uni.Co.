@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -26,6 +23,7 @@ using System.Threading;
 using System.Xml;
 using q = metadatalibrary.MetaExpression;
 using mainform;
+using System.Linq;
 using System.Windows.Forms;
 using helpMain = TestHelper.testE2EMainHelper;
 using TestHelper;
@@ -47,8 +45,9 @@ namespace e2e {
         public void testCreate() {
             string[] parConn = DbConn.getParams("test");
 
-            frmMain.argCopy = new string[] {"autostart", parConn[0], parConn[4], parConn[5]};
+            frmMain.argCopy = new string[] {"autostart", parConn[0], parConn[4], parConn[5],"31/12/2018","2018"};
             frmMain f = new frmMain();
+            f.isUnderTest = true;
             f.Show();
             Assert.IsFalse(f.IsDisposed,$"Form {f.Name} already IsDisposed.");
             var isInited = (bool) f.GetType().GetField("isInited",BindingFlags.NonPublic|BindingFlags.Instance).GetValue(f);
@@ -73,6 +72,7 @@ namespace e2e {
             frmMain.argCopy = new string[] {"autostart", parConn[0], parConn[4], parConn[5],"31/12/2018","2018"};
 
             frmMain f = new frmMain();
+            f.isUnderTest = true;
             MethodInfo dynMethod = f.GetType().GetMethod("connect", BindingFlags.NonPublic | BindingFlags.Instance);
             dynMethod.Invoke(f, new object[] { });
             
@@ -86,6 +86,7 @@ namespace e2e {
         [TestMethod]
         public void testMyListener() {
             frmMain f = new frmMain();
+            f.isUnderTest = true;
             var ls = f.GetType().GetField("TS",BindingFlags.NonPublic|BindingFlags.Instance);
             var LS = ls.GetValue(f) as MyListener;
             //var LS = q.getField("TS",f) as MyListener;
@@ -152,8 +153,78 @@ namespace e2e {
             Assert.IsTrue(menu.MenuItems.Count>0);
         }
 
-      
+        string checkUniqueIndex(MetaTableUniqueIndex index, DataTable t) {
+	        var fields = index.hash.keys;
+	        string me = $"{t.TableName} unique index on fields " + string.Join(",", fields);
+            //Check that all rows in tables are found in the index
+            int nRealRow = 0;
+            foreach (DataRow r in t.Select()) {
+	            nRealRow++;
+	            var rFound = index.getRow(index.hash.get(r));
+	            if (rFound == null)
+		            return $"Some row is not found in {me}";
+                if (rFound!=r) return $"Wrong row found in {me}";
+            }
 
+            int nIndexedRow = 0;
+            foreach (var r in index.lookup.Values) {
+                if (r==null) return $"Disposed row found in {me}";
+                if (r.RowState==DataRowState.Detached) return $"Detached row found  in {me}";
+                if (r.RowState==DataRowState.Deleted) return $"Deleted row found  in {me}";
+                nIndexedRow++;
+            }
+
+            if (nIndexedRow != nRealRow) return $"Expected {nRealRow} in index but {nIndexedRow} found in {me}";
+	        return null;
+        }
+        string checkNotUniqueIndex(MetaTableNotUniqueIndex index, DataTable t) {
+	        var fields = index.hash.keys;
+	        string me = $"{t.TableName} not unique index on fields " + string.Join(",", fields);
+	        //Check that all rows in tables are found in the index
+	        int nRealRow = 0;
+	        foreach (DataRow r in t.Select()) {
+		        nRealRow++;
+		        var rFound = index.getRows(index.hash.get(r));
+		        if (rFound == null || rFound.Length == 0) {
+			        return $"Some row is not found in {me}";
+		        }
+		        bool reallyFound = rFound._Filter(x=> x==r)._HasRows();
+		        if (!reallyFound) {
+			        return $"Some row found in {me}  but not the searched one.";
+		        }
+	        }
+	        int nIndexedRow = 0;
+	        foreach (var rList in index.lookup.Values) {
+		        foreach (var r in rList) {
+			        if (r == null) return $"Disposed row found in {me}";
+			        if (r.RowState == DataRowState.Detached) return $"Detached row found  in {me}";
+			        if (r.RowState == DataRowState.Deleted) return $"Deleted row found  in {me}";
+			        nIndexedRow++;
+		        }
+	        }
+
+	        if (nIndexedRow != nRealRow) return $"Expected {nRealRow} in index but {nIndexedRow} found in {me}";
+	        return null;
+        }
+        
+        string checkDataSetIndexes(DataSet d) {
+	        var idm = d.getIndexManager();
+	        if (idm == null) return "Index not found on Dataset in form ";
+
+	        foreach (var idx in idm.getIndexes()) {
+		        if (idx is MetaTableUniqueIndex) {
+			        var result = checkUniqueIndex((MetaTableUniqueIndex) idx, d.Tables[idx.tableName]);
+			        if (result != null) return result;
+		        }
+		        if (idx is MetaTableNotUniqueIndex) {
+			        var result = checkNotUniqueIndex((MetaTableNotUniqueIndex) idx, d.Tables[idx.tableName]);
+			        if (result != null) return result;
+		        }
+
+	        }
+	        
+	        return null;
+        }
      
         public void onActivationForm(Form form) {
             Form main = tester.mainForm;
@@ -173,7 +244,9 @@ namespace e2e {
             var mainTable = DS.Tables[meta.TableName];
             var eventManager = form.getInstance<IFormEventsManager>();
             Assert.IsNotNull(eventManager,"IFormEventsManager was found");
-            
+
+            Assert.AreEqual(null, checkDataSetIndexes(ctrl.ds), $"activation Indexes of {meta.TableName}  {form.Name} are correct");
+
             
             string friendlyName=meta.getName();
             if (ctrl.isList && !meta.startEmpty) {
@@ -186,15 +259,15 @@ namespace e2e {
             }
             Application.DoEvents();
             
-            Assert.IsTrue(ctrl.DrawStateIsDone,$"Form {form.Name} initialized correctly");
+            Assert.IsTrue(ctrl.DrawStateIsDone,$"Form {meta.TableName}  {form.Name} initialized correctly");
 
             if (meta.canInsert) {
                 ctrl.DoMainCommand("maininsert");
                 Application.DoEvents();
                 Assert.AreEqual(ctrl.InsertMode, true, $"{form.Name} got insert mode");
-
+                Assert.AreEqual(null, checkDataSetIndexes(ctrl.ds), $"maininsert Indexes of {meta.TableName}  {form.Name} are correct");
                 if (!ctrl.isList) {
-                    Assert.AreEqual(mainTable.Rows.Count,1,$"{form.Name} DS main table contains one row");
+                    Assert.AreEqual(mainTable.Rows.Count,1,$"{meta.TableName}  {form.Name} DS main table contains one row");
                 }
 
                 ctrl.DontWarnOnInsertCancel = true;
@@ -202,29 +275,31 @@ namespace e2e {
                 ctrl.DoMainCommand("maindelete");
                 Application.DoEvents();
                 if (ctrl.SearchEnabled && !(ctrl.isList && !ctrl.isTree)) {
-                    Assert.AreEqual(true, ctrl.IsEmpty, $"{form.Name} insert canceled ok");
+                    Assert.AreEqual(true, ctrl.IsEmpty, $"{meta.TableName}  {form.Name} insert canceled ok");
                 }
                 else {
-                    Assert.AreEqual(true, ctrl.EditMode, $"{form.Name} insert canceled ok");
+                    Assert.AreEqual(true, ctrl.EditMode, $"{meta.TableName}  {form.Name} insert canceled ok");
                 }
 
                 if (!ctrl.isList) {
                     Assert.AreEqual(mainTable.Rows.Count,0,$"{form.Name} DS main table contains no row");
                 }
+                Assert.AreEqual(null, checkDataSetIndexes(ctrl.ds), $"maindelete Indexes of {meta.TableName}  {form.Name} are correct");
             }
 
             ctrl.DoMainCommand("maindosearch");
+            Assert.AreEqual(null, checkDataSetIndexes(ctrl.ds), $"maindosearch Indexes of {meta.TableName} {form.Name} are correct");
             Application.DoEvents();
-            Assert.AreEqual(ctrl.EditMode,true,$"{form.Name} into search ok");
+            Assert.AreEqual(true, ctrl.EditMode,$"{form.Name} maindosearch caused from to switch into editMode");
 
 
             for (int i = 1; i <= 10; i++) {
                 if (!meta.CommandEnabled("gotonext")) continue;
                 ctrl.DoMainCommand("gotonext");
                 Application.DoEvents();
-                Assert.IsTrue(ctrl.DrawStateIsDone,$"Form {form.Name} is in good state");
+                Assert.IsTrue(ctrl.DrawStateIsDone,$"Form {meta.TableName}  {form.Name} is in good state");
                 Assert.AreEqual(ctrl.EditMode,true,$"{form.Name} gotonext {i} ok");
-
+                Assert.AreEqual(null, checkDataSetIndexes(ctrl.ds), $"gotonext Indexes of {meta.TableName}  {form.Name} are correct");
                 if (!ctrl.isList) {
                     Assert.AreEqual(mainTable.Rows.Count,1,$"{form.Name} DS main table contains one row");
                 }
@@ -239,7 +314,7 @@ namespace e2e {
                     Assert.AreEqual(mainTable.Rows.Count,1,$"{form.Name} DS main table contains one row");
                 }
             }
-
+            Assert.AreEqual(null, checkDataSetIndexes(ctrl.ds), $"end Indexes of {meta.TableName}  {form.Name} are correct");
             Application.DoEvents();
             if (form.Modal) {
                testE2EFrmHelper.delayedClose(form);
@@ -258,10 +333,12 @@ namespace e2e {
             Assert.IsNotNull(regMenu,$"{metaName}-{editType} not found in menu");
             testE2EFrmHelper.registerFormTest(metaName, editType, onActivationForm);
             tester.openFromMenu(metaName,editType);
+            Application.DoEvents();
 
             //Necessario solo per form MDI, quelli modali vengono chiusi nel metodo onActivationForm
             if (main.MdiChildren.Length > 0) {
                 main.MdiChildren[0].Close();
+                Assert.AreEqual(0,main.MdiChildren.Length,$"Form closed {metaName}-{editType}");
             }
             Assert.IsTrue(testE2EFrmHelper.hasBeenInvoked(metaName,editType),$"Funzione di test invocata per {metaName}-{editType}");
             
@@ -270,7 +347,6 @@ namespace e2e {
             string err = tester.getErrors();
             Assert.AreEqual(err,"",$"{metaName} {editType} got no errors");
             Application.DoEvents();
-           
         }
 
         [TestMethod]
@@ -290,44 +366,42 @@ namespace e2e {
             testGenericForm("estimatedetail", "default");
             testGenericForm("underwriting", "default");
             testGenericForm("underwriter", "lista");
-            testGenericForm("store","default");  //è form modale
-            testGenericForm("expense","gerarchico");
-            testGenericForm("expense","levels");
-            testGenericForm("income","gerarchico");
-            testGenericForm("income","levels");
-            testGenericForm("asset","default");
-            testGenericForm("assetacquire","default");
-            testGenericForm("assetload","default");
-            testGenericForm("assetunload","default");
-            testGenericForm("assetvar","default");
-            testGenericForm("wageaddition","default");
-            testGenericForm("itineration","default");
-            testGenericForm("parasubcontract","default");
-            testGenericForm("profservice","default");
-            testGenericForm("casualcontract","default");
-            testGenericForm("list","default");
-            testGenericForm("listclass","default");
-            testGenericForm("entry","default");
-            testGenericForm("finvar","default");
-            testGenericForm("accountvar","default");
-            testGenericForm("account","default");
-            testGenericForm("patrimony","default");
-            testGenericForm("placcount","default");
-            testGenericForm("payment","docmultiplo");
-            testGenericForm("paymenttransmission","default");
-            testGenericForm("proceeds","reversalemultipla");
-            testGenericForm("proceedstransmission","default");
-            testGenericForm("manager","default");
-            testGenericForm("pettycashoperation","default");
-            testGenericForm("epexp","default");
-            testGenericForm("epacc","default"); 
-            testGenericForm("treasurer","default");
-            testGenericForm("serviceregistry","default");
-            testGenericForm("inventorykind","default");
-            testGenericForm("service","anagrafica");
-            testGenericForm("pettycash","default");
-
-
+            testGenericForm("store", "default");  //è form modale
+            testGenericForm("expense", "gerarchico");
+            testGenericForm("expense", "levels");
+            testGenericForm("income", "gerarchico");
+            testGenericForm("income", "levels");
+            testGenericForm("asset", "default");
+            testGenericForm("assetacquire", "default");
+            testGenericForm("assetload", "default");
+            testGenericForm("assetunload", "default");
+            testGenericForm("assetvar", "default");
+            testGenericForm("wageaddition", "default");
+            testGenericForm("itineration", "default");
+            testGenericForm("parasubcontract", "default");
+            testGenericForm("profservice", "default");
+            testGenericForm("casualcontract", "default");
+            testGenericForm("list", "default");
+            testGenericForm("listclass", "default");
+            testGenericForm("entry", "default");
+            testGenericForm("finvar", "default");
+            testGenericForm("accountvar", "default");
+            testGenericForm("account", "default");
+            testGenericForm("patrimony", "default");
+            testGenericForm("placcount", "default");
+            testGenericForm("payment", "docmultiplo");
+            testGenericForm("paymenttransmission", "default");
+            testGenericForm("proceeds", "reversalemultipla");
+            testGenericForm("proceedstransmission", "default");
+            testGenericForm("manager", "default");
+            testGenericForm("pettycashoperation", "default");
+            testGenericForm("epexp", "default");
+            testGenericForm("epacc", "default");
+            testGenericForm("treasurer", "default");
+            testGenericForm("serviceregistry", "default");
+            testGenericForm("inventorykind", "default");
+            testGenericForm("service", "anagrafica");
+            testGenericForm("pettycash", "default");
         }
 
         
@@ -339,9 +413,11 @@ namespace e2e {
                 order_by:"metadata"); //
             bool result = true;
             foreach (DataRow r in tMenu.Rows) {
+                tester.clearErrors();
                 string meta = r["metadata"].ToString();
                 if (meta=="license")continue;
                 if (!testFormDataSet(meta, r["edittype"].ToString())) result = false;
+                Assert.AreEqual(0, tester.ls.Errors.Length, $"No errors opening {meta} edittype: {r["edittype"]} ");
             }
             Assert.IsTrue(result,"All forms are ok.");
 
@@ -372,10 +448,15 @@ namespace e2e {
             meta.DontWarnOnInsertCancel = true;
 
             string formName = meta.linkedForm.Name;
+
+            bool resTestDataSet=  testDataSet(ds, meta.Conn, $"{metaName}.{editType} form {formName}");
+
+            var controller=meta.formController;
             meta.formController.linkedForm.Close();      
-            Assert.IsNull(meta.formController.linkedForm,$"Chiuso form {metaName}.{editType} form {formName}");
+            Assert.IsNull(meta.formController,$"Controller della maschera {formName} del meta/edittype {metaName}.{editType} distrutto");
+            Assert.IsNull(controller.linkedForm,$"Distrutto form {metaName}.{editType} form {formName}");
             //Console.WriteLine($"verifico: {metaName}.{editType} form {formName}");
-            return testDataSet(ds,meta.Conn,$"{metaName}.{editType} form {formName}");
+            return resTestDataSet;
         }
 
         bool testDataSet(DataSet d, IDataAccess conn,string formName) {
@@ -490,4 +571,3 @@ namespace e2e {
 
     }
 }
-

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -130,7 +127,8 @@ namespace calcolocedolino { //calcolocedolino//
                         if (rSorg.RowState != DataRowState.Deleted) {
                             DataRow r = t.NewRow();
                             foreach (DataColumn c in t.Columns) {
-                                r[c] = rSorg[c.ColumnName];
+								if (c.ColumnName.Substring(0, 1) == "!") continue;
+									r[c] = rSorg[c.ColumnName];
                             }
                             t.Rows.Add(r);
                         }
@@ -6252,7 +6250,8 @@ namespace calcolocedolino { //calcolocedolino//
                 Console.WriteLine(i + " //////////// " + filtroRit);
                 foreach (DataColumn c in DSCococo.Tables[nomeTabella].Columns) {
                     if (!sc.Contains(c.ColumnName) && !r[c].Equals(rRitContr[c.ColumnName])) {
-                        Console.WriteLine(i + " - " + c.ColumnName + ": " + r[c] + " != " + rRitContr[c.ColumnName]);
+						if (c.ColumnName.Substring(0, 1) == "!") continue;
+						Console.WriteLine(i + " - " + c.ColumnName + ": " + r[c] + " != " + rRitContr[c.ColumnName]);
                         result = false;
                     }
                 }
@@ -7593,7 +7592,8 @@ namespace calcolocedolino { //calcolocedolino//
             DataRow[] rInDS = tCedolinoDest.Select(campiChiave);
             DataRow newRowDS = rInDS[0];
             foreach (DataColumn C in tCedolinoDest.Columns) {
-                newRowDS[C] = rCedolinoSorg[C.ColumnName];
+				if (C.ColumnName.Substring(0, 1) == "!") continue;
+				newRowDS[C] = rCedolinoSorg[C.ColumnName];
             }
         }
 
@@ -7628,9 +7628,10 @@ namespace calcolocedolino { //calcolocedolino//
                 DataRow rowDS = (rInDS.Length != 0) ? rInDS[0] : metaTabella.Get_New_Row(parentRowDest, tDest);
 
                 foreach (DataColumn C in tSorg.Columns) {
-                    rowDS[C.ColumnName] = rowSorg[C];
+					if (C.ColumnName.Substring(0, 1) == "!") continue;
+					rowDS[C.ColumnName] = rowSorg[C];
                 }
             }
         }
     }
-}
+}

@@ -106,11 +106,6 @@
     <Compile Include="FrmMod770_details_certificazioneunica.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="vistaForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -121,14 +116,10 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="vistaForm.xsd">
-      <Generator>MSDataSetGenerator</Generator>
+      <Generator>HDSGene</Generator>
       <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>

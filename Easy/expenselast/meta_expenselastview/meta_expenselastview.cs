@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -43,6 +40,7 @@ namespace meta_expenselastview {//meta_spesaview//
             ListingTypes.Add("movbancario");
             ListingTypes.Add("autogeneratips");//by leo
             ListingTypes.Add("movimentospesa");//Rosalba
+            ListingTypes.Add("elenco");
         }
         public override bool CanSelect(DataRow R) {
             if (R.Table.Columns["ayear"] != null) {
@@ -286,6 +284,31 @@ namespace meta_expenselastview {//meta_spesaview//
                         break;
                     }
 
+                 case "elenco": {
+                        foreach (DataColumn C in T.Columns) {
+                            DescribeAColumn(T, C.ColumnName, "", -1);
+                        }
+                        int nPos = 1;
+                        DescribeAColumn(T, "phase", "Fase", nPos++);
+                        DescribeAColumn(T, "ymov", "Eserc.", nPos++);
+                        DescribeAColumn(T, "nmov", "Numero", nPos++);
+                        DescribeAColumn(T, "description", "Descrizione", nPos++);
+                        DescribeAColumn(T, "registry", "Percipiente", nPos++);
+                        DescribeAColumn(T, "codefin", "Bilancio", nPos++);
+                        DescribeAColumn(T, "codeupb", "U.P.B.", nPos++);
+                        DescribeAColumn(T, "manager", "Resp. bil.", nPos++);
+                        DescribeAColumn(T, "curramount", "Importo", nPos++);
+                        DescribeAColumn(T, "available", "Disponibile", nPos++);
+                        DescribeAColumn(T, "performed", "Esitato", nPos++);
+                        DescribeAColumn(T, "notperformed", "Non esitato", nPos++);
+						DescribeAColumn(T, "net", "Netto", nPos++);
+                        DescribeAColumn(T, "nbill", "Bolletta", nPos++);
+                        DescribeAColumn(T, "npay", "Mandato", nPos++);
+                        DescribeAColumn(T, "idpay", "Numero movimento bancario", nPos++);
+						FilterRows(T);
+                        break;
+                    }
+
                 case "default": {
                         foreach (DataColumn C in T.Columns) {
                             DescribeAColumn(T, C.ColumnName, "", -1);
@@ -312,6 +335,7 @@ namespace meta_expenselastview {//meta_spesaview//
                         DescribeAColumn(T, "ypay", "Eserc.Mand.", nPos++);
                         DescribeAColumn(T, "npay", "Num.Mand.", nPos++);
                         DescribeAColumn(T, "paymentadate", "Data Cont. Mand.", nPos++);
+                        DescribeAColumn(T, "nbill", "Bolletta", nPos++);
                         DescribeAColumn(T, "regmodcode", ".Tipo Modalit‡", -1);
                         DescribeAColumn(T, "idregistrypaymethod", ".#", -1);
                         DescribeAColumn(T, "idpaymethod", ".Codice Mod.Pag.", -1);
@@ -331,9 +355,10 @@ namespace meta_expenselastview {//meta_spesaview//
                         DescribeAColumn(T, "autokind", ".Tipo Auto", -1);
                         DescribeAColumn(T, "flagarrear", ".Competenza", -1);
                         DescribeAColumn(T, "expiration", ".Data Scadenza", -1);
+
                         break;
                     }
             }
         }
     }
-}
+}

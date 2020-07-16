@@ -1,0 +1,8 @@
+﻿
+
+Impostare di una cella
+--Colore di sfondo
+--Bordo (Colore Spessore Bordo TopBottonRightLeft)
+--Tipo e Colore del Font
+--Immagine di sfondo della cella. (background-repeat: no-repeat; background-position: left top)
+

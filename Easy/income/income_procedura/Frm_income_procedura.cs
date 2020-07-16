@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -2965,10 +2962,10 @@ namespace income_procedura//entrataprocedura//
 			//Calcola e riempie i campi relativi alla fase precedente:
 			object Livsupid = DS.Tables["income"].Rows[0]["parentidinc"];
 			string filter = QHS.CmpEq("idinc", Livsupid);
-			DataTable DT = MyConn.RUN_SELECT("income","idinc,ymov,nmov",null,filter,null,true);
+			DataTable DT = MyConn.RUN_SELECT("income","idinc,ymov,nmov,autokind",null,filter,null,true);
 			if(DT.Rows.Count == 0)return;
 			txtEsercizioFasePrecedente.Text = DT.Rows[0]["ymov"].ToString();
-			txtNumeroFasePrecedente.Text = DT.Rows[0]["nmov"].ToString();
+			txtNumeroFasePrecedente.Text = DT.Rows[0]["nmov"].ToString(); 
 		}
 		
 		bool DocumentoContabilizzato(){
@@ -3050,7 +3047,12 @@ namespace income_procedura//entrataprocedura//
 			MetaData MFase = MetaData.GetMetaData(this,"incomeview");
 			MFase.FilterLocked=true;
 			MFase.DS=DS;
-			
+			if (Meta.InsertMode)
+			{
+				string valuelist = QHS.quote(30) + "," + QHS.quote(31)+ "," +QHS.quote(20) + "," + QHS.quote(21) ;
+				MyFilter = QHS.AppAnd(MyFilter, 
+                           QHS.DoPar(QHS.AppOr(QHS.IsNull("autokind"),QHS.FieldNotInList("autokind", valuelist))));
+			}
 			DataRow MyDR = MFase.SelectOne("elencofaseprec",MyFilter,null,null);
 			
 			if(MyDR == null) {
@@ -3424,13 +3426,16 @@ namespace income_procedura//entrataprocedura//
 	            return; 
 	        }
 
-	        if (checkPresenzaContabilizzazione())impostaBitUltimaFase(false);
+	        if (checkPresenzaContabilizzazione()) {
+	            impostaBitUltimaFase(false);
+	            return;
+	        }
             
 	        var rIncYear = DS.incomeyear.First();
 	        if (rIncYear == null) return;
 	        if (rIncYear.idfin != null) {
 	            var flag = CfgFn.GetNoNullInt32(MyConn.readValue("fin",q.eq("idfin",rIncYear.idfin),"flag"));
-	            if ((flag & 64) != 0) {
+	            if ((flag & 2) != 0) {
 	                impostaBitUltimaFase(false);
 	                return;
 	            }                
@@ -3442,11 +3447,11 @@ namespace income_procedura//entrataprocedura//
 	    void impostaBitUltimaFase(bool imposta) {
 	        var rLast = DS.incomelast.First();
 	        if (rLast == null) return;
-	        if (imposta) {
-	            rLast.flag =(byte) ((rLast.flag??0) &  ~128 );//toglie il bit
+	        if (imposta) {                
+	            rLast.flag =(byte) ((rLast.flag??0) |  128 );//mette il bit
 	        }
 	        else {
-	            rLast.flag =(byte) ((rLast.flag??0) |  128 );//mette il bit
+	            rLast.flag =(byte) ((rLast.flag??0) &  ~128 );//toglie il bit
 	        }
 	    }
 
@@ -3459,7 +3464,7 @@ namespace income_procedura//entrataprocedura//
 	        if (EstimateLinked != null) {
 	            //solo se ordine non collegabile a fattura
 	            var rEstimKind = DS.estimatekind.First(q.eq("idestimkind", EstimateLinked["idestimkind"]));
-	            return rEstimKind.linktoinvoice?.ToUpper()=="N";
+	            return rEstimKind?.linktoinvoice?.ToUpper()=="N";
 	        }
 
 	        return false;
@@ -4328,11 +4333,17 @@ namespace income_procedura//entrataprocedura//
 		private void btnGeneraClassAutomatiche_Click(object sender, System.EventArgs e) {
 			ManageClassificazioni.btnGeneraClass_Click(faseinizio,faseentratafine);
             //if siopekind.newcomputesorting ='S' aggiunge le class. , leggendo il Cod.Class. dal documento contabilizzato 
-            string newcomputesorting = Meta.Conn.DO_READ_VALUE("siopekind", QHC.CmpEq("codesorkind_siopeentrate", Meta.GetSys("codesorkind_siopeentrate")), "newcomputesorting").ToString();
+            string newcomputesorting = Meta.Conn.DO_READ_VALUE("siopekind",
+	            QHS.AppAnd( QHS.CmpEq("codesorkind_siopeentrate", Meta.GetSys("codesorkind_siopeentrate")),
+		            QHS.CmpEq("ayear",CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")))
+	            ), 
+	            "newcomputesorting")?.ToString();
             if ((newcomputesorting == "S") && (faseentratafine == faseentratamax)) {
                 //Classifica il movimento in base all'idsor_siope specificato nel documento contabilizzato
                 ManageClassificazioni.ClassificaTramiteClassDocumento(DS, null);
-            }
+				ManageClassificazioni.completaClassificazioniSiope(DS.incomesorted, DS);
+				Meta.FreshForm();
+			}
         }
 
 
@@ -5998,6 +6009,10 @@ namespace income_procedura//entrataprocedura//
 					object idupb= getupb;
                     MyFilterEstimateOperativo = QHS.AppAnd(MyFilterEstimateOperativo, QHS.DoPar(QHS.AppOr(QHS.IsNull("idupb"), QHS.CmpEq("idupb", idupb), QHS.CmpEq("idupb_iva", idupb))));
 				}
+				if (faseentratamax == 1) {
+					MyFilterEstimateOperativo =
+						QHS.AppAnd(MyFilterEstimateOperativo, QHS.CmpEq("linktoinvoice", "N"));
+				}
 			}
 			if (Meta.IsEmpty){
 				int fasecred = ManageCreditore.faseattivazione;
@@ -6045,16 +6060,14 @@ namespace income_procedura//entrataprocedura//
 				}
 				return;
 			}
-			string selectord= 
-				"(idestimkind="+QueryCreator.quotedstrvalue(MyDREstimate["idestimkind"],true)+")AND"+
-				"(yestim='"+MyDREstimate["yestim"].ToString()+"')AND"+
-				"(nestim='"+MyDREstimate["nestim"].ToString()+"')";
+			string selectord = QHS.MCmp(MyDREstimate, "idestimkind", "yestim", "nestim");
+
 
 			string columnlist = QueryCreator.ColumnNameList(DS.estimate)+
 				",registry";
 			DataTable Temp = Meta.Conn.RUN_SELECT("estimateview",columnlist,null,selectord,null,null,true);
 			
-			//if (Temp.Rows.Count==0) return;
+			if (Temp.Rows.Count==0) return;
 
 			DataRow MyDR = Temp.Rows[0];
 
@@ -6843,7 +6856,7 @@ namespace income_procedura//entrataprocedura//
             if (!(Meta.IsEmpty) && (chkFilterAvailable.Checked) && (Tupbunderwritingyearview.Rows.Count > 0)){
                 MetaData MetaUpbunderwritingyearview = MetaData.GetMetaData(this, "upbunderwritingyearview");
                 MetaUpbunderwritingyearview.DS = new DataSet();
-                MetaUpbunderwritingyearview.LinkedForm = this;
+                MetaUpbunderwritingyearview.linkedForm = this;
                 MetaUpbunderwritingyearview.FilterLocked = true;
                 DataRow Upbunderwritingyearview = MetaUpbunderwritingyearview.SelectOne("default", filterFinanziamento, "upbunderwritingyearview", null);
                 if (Upbunderwritingyearview == null) return;
@@ -6929,7 +6942,7 @@ namespace income_procedura//entrataprocedura//
             }
             MetaData MetaUpb = MetaData.GetMetaData(this, "upbyearview");
             MetaUpb.DS = new DataSet();
-            MetaUpb.LinkedForm = this;
+            MetaUpb.linkedForm = this;
             MetaUpb.FilterLocked = true;
             DataRow Upb = MetaUpb.SelectOne("income", filter, "upbyearview", null);
             if(Upb == null) return;
@@ -7044,4 +7057,3 @@ namespace income_procedura//entrataprocedura//
         }
     }
 }
-

@@ -1,39 +1,32 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Data;
-using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
-using metadatalibrary;
-using System.Collections.Generic;
-using System.IO;
 using funzioni_configurazione;
-using System.Globalization;
-using System.Text;
+using metadatalibrary;
 using pagoPaService;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Text;
+using System.Windows.Forms;
 
 namespace bankdispositionsetup_importnew {
 
 
-  
+
 
     /// <summary>
     /// Classe base per righe di importazione mandati e reversali
@@ -417,6 +410,7 @@ namespace bankdispositionsetup_importnew {
 
     public class DatiImportati {
         public bool DatiValidi = true;
+        public string error = null;
         public List<RigaMandato> Mandati = new List<RigaMandato>();
         public List<RigaReversale> Reversali = new List<RigaReversale>();
         public List<ProvvisorioEntrata> BolletteEntrata = new List<ProvvisorioEntrata>();
@@ -425,17 +419,25 @@ namespace bankdispositionsetup_importnew {
         public List<EsitoProvvisorio> EsitiBolletteEntrata = new List<EsitoProvvisorio>();
         public string identificativo_flusso_BT = "";
         public string idbank = "";
+        public int esercizioflusso ;
+
+        public DatiImportati(int esercizio) {
+	        esercizioflusso = esercizio;
+        }
 
         public DataTable GetTabellaMandati(DataTable T) {
             foreach (RigaMandato P in Mandati) {
                 P.AddToTable(T);
-            } 
+            }
+
             return T;
         }
+
         public DataTable GetTabellaReversali(DataTable T) {
             foreach (RigaReversale P in Reversali) {
                 P.AddToTable(T);
             }
+
             return T;
         }
 
@@ -444,99 +446,120 @@ namespace bankdispositionsetup_importnew {
             foreach (ProvvisorioEntrata P in BolletteEntrata) {
                 P.AddToTable(T);
             }
+
             return T;
         }
+
         public DataTable GetTabellaBolletteSpesa(DataTable T) {
             foreach (ProvvisorioSpesa P in BolletteSpesa) {
                 P.AddToTable(T);
             }
+
             return T;
         }
+
         public DataTable GetTabellaEsitiBolletteSpesa(DataTable T) {
             foreach (EsitoProvvisorio P in EsitiBolletteSpesa) {
                 P.AddToTable(T);
             }
+
             return T;
         }
+
         public DataTable GetTabellaEsitiBolletteEntrata(DataTable T) {
             foreach (EsitoProvvisorio P in EsitiBolletteEntrata) {
                 P.AddToTable(T);
             }
+
             return T;
         }
 
-     
+
         /// <summary>
         /// Calcola kdoc in base a ndoc, dei mandati, reversali ed esiti dei sospesi. Eventualente anche la chiave interna nbill
         /// </summary>
         /// <param name="Conn"></param>
-        public bool CalcolaChiaviDocumenti(DataAccess Conn){
-            bool res = true;
-            QueryHelper Q=Conn.GetQueryHelper();
-            TableCache tPayment= new TableCache(Conn,"npay","payment",new string[]{"kpay"},
-                            Q.CmpEq("ypay",Conn.GetSys("esercizio")));
-            TableCache tProceeds = new TableCache(Conn, "npro", "proceeds", new string[] { "kpro" },
-                            Q.CmpEq("ypro", Conn.GetSys("esercizio")));
+        public bool CalcolaChiaviDocumenti(DataAccess Conn) {
+            QueryHelper Q = Conn.GetQueryHelper();
+            TableCache tPayment = new TableCache(Conn, "npay", "payment", new string[] {"kpay"},
+                Q.CmpEq("ypay", esercizioflusso));
+            TableCache tProceeds = new TableCache(Conn, "npro", "proceeds", new string[] {"kpro"},
+                Q.CmpEq("ypro", esercizioflusso));
 
             object[] npay = new object[Mandati.Count];
             for (int i = 0; i < Mandati.Count; i++) {
                 npay[i] = Mandati[i].ndoc;
             }
+
             object[] npro = new object[Reversali.Count];
             for (int i = 0; i < Reversali.Count; i++) {
                 npro[i] = Reversali[i].ndoc;
             }
 
-            tPayment.ReadValuesRelatedTo(npay,"npay");
+            tPayment.ReadValuesRelatedTo(npay, "npay");
             tProceeds.ReadValuesRelatedTo(npro, "npro");
             List<string> msgs = new List<string>();
             foreach (RigaMandato rp in Mandati) {
-                int k=CfgFn.GetNoNullInt32(tPayment.getField(rp.ndoc, "kpay"));
-                if (k==0){
-                    string msg="Non esiste il mandato numero "+rp.ndoc.ToString()+" nell'esercizio corrente.";
+                int k = CfgFn.GetNoNullInt32(tPayment.getField(rp.ndoc, "kpay"));
+                if (k == 0) {
+                    string msg = $"{$"Non esiste il mandato numero "}{rp.ndoc.ToString()} nell'anno {esercizioflusso}.";
                     if (!msgs.Contains(msg)) {
-                        MessageBox.Show(msg, "Errore");
+                        //MessageBox.Show(msg, "Errore");
                         msgs.Add(msg);
                     }
-                    
-                    res = false;
+                    continue;
                 }
+
                 if (rp.progressivo == 0) {
-                    string msg = "Non Ë ammissibile il progressivo zero per il mandato numero " + rp.ndoc.ToString() + ".";
+                    string msg = $"Non Ë ammissibile il progressivo zero per il mandato numero {rp.ndoc.ToString()} del {esercizioflusso}.";
                     if (!msgs.Contains(msg)) {
-                        MessageBox.Show(msg, "Errore");
+                        //MessageBox.Show(msg, "Errore");
                         msgs.Add(msg);
                     }
-                    res = false;
+                    continue;
                 }
+
                 rp.kdoc = k;
             }
 
             foreach (RigaReversale rr in Reversali) {
                 int k = CfgFn.GetNoNullInt32(tProceeds.getField(rr.ndoc, "kpro"));
                 if (k == 0) {
-                    string msg = "Non esiste la reversale numero " + rr.ndoc.ToString() + " nell'esercizio corrente.";
+                    string msg = $"Non esiste la reversale numero {rr.ndoc.ToString()} nell'esercizio {esercizioflusso}.";
                     if (!msgs.Contains(msg)) {
-                        MessageBox.Show(msg, "Errore");
-                        msgs.Add(msg);
-                    }                    
-                    res = false;
-                }
-                if (rr.progressivo == 0) {
-                    string msg = "Non Ë ammissibile il progressivo zero per la reversale numero " + rr.ndoc.ToString() + ".";
-                    if (!msgs.Contains(msg)) {
-                        MessageBox.Show(msg, "Errore");
+                        //MessageBox.Show(msg, "Errore");
                         msgs.Add(msg);
                     }
-                    res = false;
+
+                    continue;
                 }
+
+                if (rr.progressivo == 0) {
+                    string msg = $"Non Ë ammissibile il progressivo zero per la reversale numero {rr.ndoc.ToString()} del {esercizioflusso}.";
+                    if (!msgs.Contains(msg)) {
+                        //MessageBox.Show(msg, "Errore");
+                        msgs.Add(msg);
+                    }
+
+                    continue;
+                }
+
                 rr.kdoc = k;
             }
 
 
+            if (msgs.Count > 0) {
+                StringBuilder sb = new StringBuilder();
 
+                foreach (var err in msgs) {
+                    sb.Append(err);
+                }
 
-            return res;
+                DatiValidi = false;
+                error = sb.ToString();
+            }
+
+            return msgs.Count == 0;
         }
 
     }
@@ -578,8 +601,10 @@ namespace bankdispositionsetup_importnew {
             if (idbank.ToString() == "05216") I = import_creditosiciliano.ImportaFile(Conn, fname);  // Credito Valtellinese
             //if (idbank.ToString() == "01030") I = import_mps_abi36.ImportaFile(Conn, fname); //Monte dei Paschi di Siena ABI 36
             if (I == null) return null;
-            if (!verificaDoppiaImportazioneNonOpi(Conn,I,idbank)) I.DatiValidi=false;
-            if (!I.CalcolaChiaviDocumenti(Conn)) I.DatiValidi=false;
+            if (doppiaImportazioneNonOpi(Conn, I, idbank)) {
+                return I;
+            }
+            I.CalcolaChiaviDocumenti(Conn);                                      
             return I;
         }
 
@@ -593,31 +618,51 @@ namespace bankdispositionsetup_importnew {
             string errore;
             var Giornaledicassa = PagoPaService.LeggiGiornaledicassa(Conn, inizio, fine, out errore);
             if (errore != null) {
-                MessageBox.Show(errore, "Errore");
-                ErrorLogger.Logger.logException("Errore - PagoPaService.LeggiGiornaledicassa()[WS OPI]");
-                return null;
+                //ErrorLogger.Logger.logException("Errore - PagoPaService.LeggiGiornaledicassa()[WS OPI]");
+                DatiImportati[] error1 = new DatiImportati[1];
+                error1[0] = new bankdispositionsetup_importnew.DatiImportati(Conn.GetEsercizio());
+                error1[0].DatiValidi = false;
+                error1[0].error = "Errore - PagoPaService.LeggiGiornaledicassa()[WS OPI]\n\r"+errore;
+                return error1;
             }
             if (Giornaledicassa == null) {
-                MessageBox.Show("Nessun file ricevuto", "Errore");
-                ErrorLogger.Logger.logException("Avviso - Nessun file ricevuto[WS OPI]");
-                return null;
+                //ErrorLogger.Logger.logException("Avviso - Nessun file ricevuto[WS OPI]");
+                DatiImportati[] error1 = new DatiImportati[1];
+                error1[0] = new bankdispositionsetup_importnew.DatiImportati(Conn.GetEsercizio());
+                error1[0].DatiValidi = false;
+                error1[0].error = "Avviso - Nessun file ricevuto[WS OPI]";
+                return error1;
             }
             int nDoc = Giornaledicassa.Length;
             DatiImportati[] allDatiImportati = new DatiImportati[nDoc];
             int i = 0;
-            
+            Dictionary<string, bool> importatiInMemoria= new Dictionary<string, bool>();
             string idbank = null;
-            foreach (Stream Giornale in Giornaledicassa) {
-                
+            foreach (Stream Giornale in Giornaledicassa) {                
                 var I = import_siopeplus.ImportaFile(Conn, Giornale, out idbank);//Da valutare un'eventuale condizione
                 Giornale.Close();
                 Giornale.Dispose();
-                if (I == null) return null;
-                if (GiornaleGiaImportato(Conn, I, idbank)) I.DatiValidi = false;
-                //if (!verificaDoppiaImportazioneNonOpi(Conn, I, idbank)) I.DatiValidi = false;
-                if (!I.CalcolaChiaviDocumenti(Conn)) I.DatiValidi = false;
+                if (I == null) {
+                    continue;
+                }
                 allDatiImportati[i] = I;
                 i++;
+                if (importatiInMemoria.ContainsKey(I.identificativo_flusso_BT)) {
+	                I.DatiValidi = false;
+	                I.error = $"Identificativo duplicato nel flusso ricevuto dalla banca ({I.identificativo_flusso_BT})";
+	                continue;
+                }
+
+                importatiInMemoria[I.identificativo_flusso_BT] = true;
+
+                if (giornaleGiaImportato(Conn, I, idbank)) {
+                    continue;
+                }
+
+                
+
+                //if (!verificaDoppiaImportazioneNonOpi(Conn, I, idbank)) I.DatiValidi = false;
+                I.CalcolaChiaviDocumenti(Conn);             
             }
             return allDatiImportati; 
         }
@@ -630,6 +675,7 @@ namespace bankdispositionsetup_importnew {
             return dataDt;
 
         }
+
         /// <summary>
         /// Cerca di capire se il file in esame Ë stato gi‡ oggetto di elaborazione, nel qual caso avvisa e restituisce false
         /// </summary>
@@ -637,7 +683,7 @@ namespace bankdispositionsetup_importnew {
         /// <param name="M"></param>
         /// <param name="idbank"></param>
         /// <returns></returns>
-        
+
 
         public static DatiImportati ImportFileManualeSiopePlus(DataAccess Conn, string fname) {
             //if (idbank == null || idbank == DBNull.Value) {
@@ -651,23 +697,23 @@ namespace bankdispositionsetup_importnew {
 
             I = import_siopeplus.ImportaFileManuale(Conn, fname, out idbank);
             if (I == null) return null;
-            if (GiornaleGiaImportato(Conn, I, idbank)) I.DatiValidi = false;
+            if (giornaleGiaImportato(Conn, I, idbank)) return I;
+            I.CalcolaChiaviDocumenti(Conn);
             //if (!verificaDoppiaImportazione(Conn, I, idbank)) I.DatiValidi = false;
-            if (!I.CalcolaChiaviDocumenti(Conn)) I.DatiValidi = false;
-           
+
             return I;
         }
 
 
 
         /// <summary>
-        /// Cerca di capire se il file in esame Ë stato gi‡ oggetto di elaborazione, nel qual caso avvisa e restituisce false
+        /// Cerca di capire se il file in esame Ë stato gi‡ oggetto di elaborazione, nel qual caso avvisa e restituisce true
         /// </summary>
         /// <param name="dataGrid1"></param>
         /// <param name="txtInizioElaborazione"></param>
         /// <param name="txtFineElaborazione"></param>
         /// <returns></returns>
-        private static bool verificaDoppiaImportazioneNonOpi(DataAccess Conn, DatiImportati M, object idbank) {
+        private static bool doppiaImportazioneNonOpi(DataAccess Conn, DatiImportati M, object idbank) {
             QueryHelper QHS = Conn.GetQueryHelper();
             DateTime lastpayment = new DateTime(1900, 1, 1);
             DateTime lastproceeds = new DateTime(1900, 1, 1);
@@ -714,14 +760,13 @@ namespace bankdispositionsetup_importnew {
 
             if (Conn.RUN_SELECT_COUNT("bankimport", cond, false) > 0) {
                 if (M.Mandati.Count == 0 && M.Reversali.Count == 0) {
-                    if (verificaDoppiaImportazioneSospesi(Conn, M)) {//caso speciale solo bollette
+                    if (!sospesiDaImportare(Conn, M)) {//caso speciale solo bollette
                         return true;
                     }                   
                 }
-                MessageBox.Show(
-                    "Il file selezionato Ë stato gi‡ IN PASSATO importato nel db. Operazione non consentita.",
-                    "Errore");
-                return false;
+                M.error="Il file selezionato Ë stato gi‡ IN PASSATO importato nel db. Operazione non consentita.";
+                M.DatiValidi = false;
+                return true;
             }
 
             //if (!verificaDoppiaImportazioneSolodate(Conn, M,idbank, lastbillexpense, lastbillincome, lastpayment, lastproceeds)) {
@@ -729,37 +774,39 @@ namespace bankdispositionsetup_importnew {
             //    return false;
             //}
 
-            return true;
+            return false;   // non Ë doppia importazione
         }
-
-        /// Cerca di capire se il file in esame Ë stato gi‡ oggetto di elaborazione, nel qual caso avvisa e restituisce false
+        
+        /// Cerca di capire se il file in esame Ë stato gi‡ oggetto di elaborazione, nel qual caso avvisa e restituisce true
         /// </summary>
         /// <param name="Conn"></param>
         /// <param name="M"></param>
         /// <param name="idbank"></param>
         /// <returns></returns>
-        private static bool GiornaleGiaImportato(DataAccess Conn, DatiImportati M, object idbank) {
+        private static bool giornaleGiaImportato(DataAccess Conn, DatiImportati M, object idbank) {
             QueryHelper QHS = Conn.GetQueryHelper();
             string identificativo_flusso_BT = M.identificativo_flusso_BT;
-            if (identificativo_flusso_BT == null) {
-                MessageBox.Show(
-                    "Il flusso non ha l'identificativo, non Ë possibile importarlo.",
-                    "Errore");
+            if (string.IsNullOrEmpty(identificativo_flusso_BT)) {              
+                M.error=   "Il flusso non ha l'identificativo, non Ë possibile importarlo.";
+                M.DatiValidi = false;
                 return true;
             }
-            //GDC-2019011720190117185938720#001#001
-            //GDC - 2019 01 17 2019 01 17 185938720#001#001
-            string datainizio = identificativo_flusso_BT.Substring(4, 8);
-            string datafine = identificativo_flusso_BT.Substring(13, 8);
+			
+			//GDC-2019011720190117185938720#001#001
+			//GDC - 2019 01 17 2019 01 17 185938720#001#001
+			//string datainizio = identificativo_flusso_BT.Substring(4, 8);
+   //         string datafine = identificativo_flusso_BT.Substring(13, 8);
 
-            //Non serve, essendo il formato AAAAMMDD possiamo confrontare direttamente le stringhe
-            //DateTime datainizioDt = CalcolaData(datainizio);
-            //DateTime datafineDt = CalcolaData(datafine);
+			
+			//Non serve, essendo il formato AAAAMMDD possiamo confrontare direttamente le stringhe
+			//DateTime datainizioDt = CalcolaData(datainizio);
+			//DateTime datafineDt = CalcolaData(datafine);
 
-            string cond = QHS.AppAnd(
+			string cond = QHS.CmpEq("identificativo_flusso_BT", identificativo_flusso_BT);
+                 //QHS.AppAnd(
                 //QHS.CmpEq("idbank", idbank),
-                QHS.CmpEq("ayear",Conn.GetEsercizio()),
-                QHS.CmpEq("identificativo_flusso_BT", identificativo_flusso_BT));
+                //QHS.CmpEq("ayear",Conn.GetEsercizio()),
+                //QHS.CmpEq("identificativo_flusso_BT", identificativo_flusso_BT));
             //    QHS.IsNotNull("identificativo_flusso_BT"),
             //    QHS.DoPar(QHS.AppOr(
             //        QHS.Between("substring(identificativo_flusso_bt,5,8)",datainizio, datafine),
@@ -768,9 +815,9 @@ namespace bankdispositionsetup_importnew {
             //);
 
             if (Conn.RUN_SELECT_COUNT("bankimport", cond, false) > 0) {
-                MessageBox.Show(
-                    "Il file selezionato Ë stato gi‡ IN PASSATO importato nel db. Operazione non consentita(flusso_BT)."+ identificativo_flusso_BT,
-                    "Errore");
+                // Rimosso ocme richiesto nel task 15009
+                //M.error="Il file selezionato Ë stato gi‡ IN PASSATO importato nel db. Operazione non consentita(flusso_BT)." +identificativo_flusso_BT;
+                M.DatiValidi = false;
                 return true;
             }
 
@@ -783,7 +830,7 @@ namespace bankdispositionsetup_importnew {
         /// <param name="Conn"></param>
         /// <param name="M"></param>
         /// <returns></returns>
-        private static bool verificaDoppiaImportazioneSospesi(DataAccess Conn, DatiImportati M) {
+        private static bool sospesiDaImportare(DataAccess Conn, DatiImportati M) {
             QueryHelper Q = Conn.GetQueryHelper();
             CQueryHelper QHC = new CQueryHelper();
             DataTable billDebit = Conn.RUN_SELECT("bill", "ybill, nbill, billkind", null,
@@ -858,4 +905,3 @@ namespace bankdispositionsetup_importnew {
 
         }
 }
-

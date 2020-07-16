@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -27,6 +24,7 @@ using metadatalibrary;
 using funzioni_configurazione;
 using bankdispositionsetup_importnew;
 using System.Collections;
+using System.ServiceModel.Description;
 using ep_functions;
 using q = metadatalibrary.MetaExpression;
 
@@ -171,7 +169,7 @@ namespace bankimport_default {
         public DatiImportati RicavaDatiImportatiDaDataSet() {
             DataRow curr = DS.bankimport.Rows[0];
             object idbankimport = curr["idbankimport"];
-            DatiImportati I = new DatiImportati();
+            DatiImportati I = new DatiImportati(conn.Security.GetEsercizio());
             DataTable btranview = conn.readTable("banktransactionview", q.eq("idbankimport", idbankimport), order_by: "npay asc,npro asc,registry asc");
             foreach (DataRow r in btranview.Rows) {
                 bool mandato = (r["kind"].ToString() == "D");
@@ -415,16 +413,18 @@ namespace bankimport_default {
             DatiImportati I = ImportazioneEsitiBancari.ImportFile(conn as DataAccess, fname, txtBanca.Text);
 
             if (I != null) {
-                DataRow Curr = DS.bankimport.Rows[0];
-                travasaInDataSet(I, Curr);
-                if (Meta.inchiusura) return;
+                if (controller.isClosing) return;
                 if (!I.DatiValidi) {
-                    MessageBox.Show("Poiché i dati importati non sono validi, non sarà possibile salvare.", "Avviso");
+                    QueryCreator.ShowError(this, "Poiché i dati importati non sono validi, non sarà possibile salvare.",
+                        I.error);
                     Meta.CanSave = false;
                 }
                 else {
                     Meta.CanSave = true;
                 }
+                DataRow Curr = DS.bankimport.Rows[0];
+                travasaInDataSet(I, Curr);
+
 
                 model.MarkTableAsNotEntityChild(DS.bankimport, DS.banktransaction);
                 model.MarkTableAsNotEntityChild(DS.bankimport, DS.billtransaction);
@@ -687,24 +687,28 @@ namespace bankimport_default {
         private void btnImportaDaSiope_Click(object sender, EventArgs e) {
             if (!controller.IsEmpty) return;
 
-            object dataInizio = HelpForm.GetObjectFromString(typeof(DateTime), txtDataInizioSiope.Text,
-                txtDataInizioSiope.Tag.ToString());
-            DateTime inizio= (DateTime)dataInizio;
-            object dataFine = HelpForm.GetObjectFromString(typeof(DateTime), txtDataFineSiope.Text,
-                txtDataFineSiope.Tag.ToString());
+            object dataInizio = HelpForm.GetObjectFromString(typeof(DateTime), txtDataInizioSiope.Text,txtDataInizioSiope.Tag.ToString());
+            if (dataInizio == null || dataInizio==DBNull.Value) return;
+            var inizio= (DateTime)dataInizio;
+
+            object dataFine = HelpForm.GetObjectFromString(typeof(DateTime), txtDataFineSiope.Text, txtDataFineSiope.Tag.ToString());
+            if (dataFine == null || dataFine==DBNull.Value) return;
             DateTime fine = (DateTime)dataFine;
+
             var All_I = ImportazioneEsitiBancari.ImportFileSiopePlus(conn as DataAccess, /*txtBanca.Text,*/ inizio, fine);
 
             model.MarkTableAsNotEntityChild(DS.bankimport, DS.banktransaction);
             model.MarkTableAsNotEntityChild(DS.bankimport, DS.billtransaction);
-            foreach (DatiImportati E in All_I) {
+            foreach (var E in All_I) {
                 controller.Clear();
                 controller.DoMainCommand("maininsert");
-                DataRow Curr = DS.bankimport.Rows[0];
+                var Curr = DS.bankimport.Rows[0];
                 travasaInDataSet(E, Curr);
-                if (Meta.inchiusura) return;
+                if (controller.isClosing) return;
                 if (!E.DatiValidi) {
-                    MessageBox.Show("Poiché i dati importati non sono validi, non sarà possibile salvare una delle pagine del giornale.", "Avviso");
+                    QueryCreator.ShowError(this,
+                        "Poiché i dati importati non sono validi, non sarà possibile salvare una delle pagine del giornale.",
+                        E.error);
                     controller.DontWarnOnInsertCancel = true;
                     controller.Clear();
                     continue;
@@ -749,9 +753,9 @@ namespace bankimport_default {
                 DataRow Curr = DS.bankimport.Rows[0];
                 travasaInDataSet(I, Curr);
                 btnImportManualeSiope.Enabled = false;
-                if (Meta.inchiusura) return;
+                if (controller.isClosing) return;
                 if (!I.DatiValidi) {
-                    MessageBox.Show("Poiché i dati importati non sono validi, non sarà possibile salvare.", "Avviso");
+                    QueryCreator.ShowError(this,"Poiché i dati importati non sono validi, non sarà possibile salvare.",I.error);
                     Meta.CanSave = false;
                 }
                 else {
@@ -858,4 +862,3 @@ namespace bankimport_default {
 
     }
 }
-

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -388,72 +385,75 @@ namespace estimate_default {
             DS.incomevar.Clear();
             DS.incomesorted.Clear();
 
-            foreach (DataRow rDettaglio in DS.estimatedetail.Rows) {
-                if ((rDettaglio.RowState != DataRowState.Modified)
-                    && (rDettaglio.RowState != DataRowState.Added)) continue;
+			foreach (DataRow rDettaglio in DS.estimatedetail.Rows) {
+				if ((rDettaglio.RowState != DataRowState.Modified)
+					&& (rDettaglio.RowState != DataRowState.Added)) continue;
 
 
-                if ((rDettaglio["idinc_taxable"] == DBNull.Value) &&
-                    (rDettaglio["idinc_iva"] == DBNull.Value))
-                    continue;
+				if ((rDettaglio["idinc_taxable"] == DBNull.Value) &&
+					(rDettaglio["idinc_iva"] == DBNull.Value))
+					continue;
 
-                if (rDettaglio.RowState == DataRowState.Modified) {
-                    int yearOriginalStart = rDettaglio["start", DataRowVersion.Original] == DBNull.Value
-                        ? 0
-                        : ((DateTime)rDettaglio["start", DataRowVersion.Original]).Year;
-                    int yearCurrentStart = rDettaglio["start"] == DBNull.Value
-                        ? 0
-                        : ((DateTime)rDettaglio["start"]).Year;
-                    int yearOriginalStop = rDettaglio["stop", DataRowVersion.Original] == DBNull.Value
-                        ? 0
-                        : ((DateTime)rDettaglio["stop", DataRowVersion.Original]).Year;
-                    int yearCurrentStop = rDettaglio["stop"] == DBNull.Value ? 0 : ((DateTime)rDettaglio["stop"]).Year;
+				if (rDettaglio.RowState == DataRowState.Modified) {
+					int yearOriginalStart = rDettaglio["start", DataRowVersion.Original] == DBNull.Value
+						? 0
+						: ((DateTime)rDettaglio["start", DataRowVersion.Original]).Year;
+					int yearCurrentStart = rDettaglio["start"] == DBNull.Value
+						? 0
+						: ((DateTime)rDettaglio["start"]).Year;
+					int yearOriginalStop = rDettaglio["stop", DataRowVersion.Original] == DBNull.Value
+						? 0
+						: ((DateTime)rDettaglio["stop", DataRowVersion.Original]).Year;
+					int yearCurrentStop = rDettaglio["stop"] == DBNull.Value ? 0 : ((DateTime)rDettaglio["stop"]).Year;
+					bool todo = true;
+					if (todo && yearOriginalStop == 0 && yearCurrentStop > 0 && yearCurrentStop == esercizio) {
+						//stiamo annullando un dettaglio contabilizzato. La sostituzione di norma non segue questo metodo
+						// ossia Ë una azione manuale dell'utente
+						generaVariazione("-", rDettaglio);
+						todo = false;
+					}
+					if (todo && yearOriginalStop > 0 && yearCurrentStop == 0 && yearOriginalStop == esercizio) {
+						//stiamo togliendo la data stop, con una azione che annulla quella precedente. La sostituzione di norma
+						// non segue questo metodo
+						generaVariazione("+", rDettaglio);
+						todo = false;
+					}
 
-                    if (yearOriginalStop == 0 && yearCurrentStop > 0 && yearCurrentStop == esercizio) {
-                        //stiamo annullando un dettaglio contabilizzato. La sostituzione di norma non segue questo metodo
-                        // ossia Ë una azione manuale dell'utente
-                        generaVariazione("-", rDettaglio);
-                    }
-                    if (yearOriginalStop > 0 && yearCurrentStop == 0 && yearOriginalStop == esercizio) {
-                        //stiamo togliendo la data stop, con una azione che annulla quella precedente. La sostituzione di norma
-                        // non segue questo metodo
-                        generaVariazione("+", rDettaglio);
-                    }
+					if (todo &&
+					   ((yearOriginalStart == 0 && yearCurrentStart > 0) ||
+						(yearOriginalStart > 0 && yearCurrentStart > 0 && ImportoVariato(rDettaglio)
+						)
+					   )
 
-                    if (((yearOriginalStart == 0 && yearCurrentStart > 0) ||
-                         (yearOriginalStart > 0 && yearCurrentStart > 0 && ImportoVariato(rDettaglio)
-                             )
-                        )
-                        && yearCurrentStart == esercizio) {
-                        //Questo Ë un dettaglio che gi‡ era contabilizzato, e che stiamo modificando. Nelle righe aggiunte
-                        // vi sar‡ una riga con i valori uguali a quelli originali di questo dettaglio, e data stop valorizzata
-                        generaVariazione("+", rDettaglio);
-                        //>>l'operazione "manuale" di mettere una data inizio ad un dettaglio contabilizzato va impedita di norma, fisicamente
-                    }
-                }
-                else {
-                    //Se il dettaglio Ë in stato di inserimento, crea una variazione su esso
-                    int yearCurrentStop = rDettaglio["stop"] == DBNull.Value ? 0 : ((DateTime)rDettaglio["stop"]).Year;
+					   && yearCurrentStart == esercizio) {
+						//Questo Ë un dettaglio che gi‡ era contabilizzato, e che stiamo modificando. Nelle righe aggiunte
+						// vi sar‡ una riga con i valori uguali a quelli originali di questo dettaglio, e data stop valorizzata
+						generaVariazione("+", rDettaglio);
+						todo = false;
+						//>>l'operazione "manuale" di mettere una data inizio ad un dettaglio contabilizzato va impedita di norma, fisicamente
+					}
+				} else {
+					//Se il dettaglio Ë in stato di inserimento, crea una variazione su esso
+					int yearCurrentStop = rDettaglio["stop"] == DBNull.Value ? 0 : ((DateTime)rDettaglio["stop"]).Year;
 
-                    if (yearCurrentStop != 0 && yearCurrentStop == esercizio) {
-                        generaVariazione("-", rDettaglio);
-                    }
-                }
-                if (rDettaglio.RowState == DataRowState.Added) {
-                    //int yearOriginalStart = rDettaglio["start", DataRowVersion.Original] == DBNull.Value
-                    //                            ? 0
-                    //                            : ((DateTime)rDettaglio["start", DataRowVersion.Original]).Year;
-                    int yearCurrentStart = rDettaglio["start"] == DBNull.Value
-                        ? 0
-                        : ((DateTime)rDettaglio["start"]).Year;
+					if (yearCurrentStop != 0 && yearCurrentStop == esercizio) {
+						generaVariazione("-", rDettaglio);
+						continue;
+					}
+				}
 
-                    if (yearCurrentStart > 0 && yearCurrentStart == esercizio) {
-                        //Questo Ë un dettaglio creato con il rimpiazzo, Ë nuovo e acquisisce l'idexp del dettaglio annullato
-                        generaVariazione("+", rDettaglio);
-                    }
-                }
-            }
+				if (rDettaglio.RowState == DataRowState.Added) {
+					int yearCurrentStart = rDettaglio["start"] == DBNull.Value ? 0 : ((DateTime) rDettaglio["start"]).Year;
+					int yearCurrentStop = rDettaglio["stop"] == DBNull.Value ? 0 : ((DateTime) rDettaglio["stop"]).Year;
 
+					if (yearCurrentStop == 0 && yearCurrentStart > 0 && yearCurrentStart == esercizio) {
+						{
+							//Questo Ë un dettaglio creato con il rimpiazzo, Ë nuovo e acquisisce l'idexp del dettaglio annullato
+							generaVariazione("+", rDettaglio);
+						}
+					}
+				}
+			}
             foreach (DataRow NewVar in DS.incomevar.Select()) {
                 if (CfgFn.GetNoNullDecimal(NewVar["amount"]) == 0) NewVar.Delete();
             }
@@ -2181,7 +2181,7 @@ namespace estimate_default {
             double quantitaConfezioni = newnpackage;
             double sconto = CfgFn.GetNoNullDouble(rBrotherSplitted["discount"]);
             double imponibiletot = CfgFn.RoundValuta((imponibile * quantitaConfezioni * (1 - sconto)));
-            double imponibiletotEUR = CfgFn.RoundValuta(imponibiletot * tassocambio);
+            double imponibiletotEUR = CfgFn.RoundValuta((imponibile * quantitaConfezioni * (1 - sconto)*tassocambio));
             double ivaEUR = CfgFn.RoundValuta(imponibiletotEUR * aliquota);
             if (fieldname == "tax") {
                 return ivaEUR;
@@ -2613,8 +2613,8 @@ namespace estimate_default {
                     DataRow Curr = DS.estimate.Rows[0];
                     Curr["idaccmotivecredit"] = R["idaccmotivecredit"];
                     DS.accmotiveapplied_credit.Clear();
-                    Conn.RUN_SELECT_INTO_TABLE(DS.accmotiveapplied_credit,
-                        q.eq("idaccmotive", Curr["idaccmotivecredit"]) & q.eq("idepoperation", "fatven_cred"));
+                    Conn.RUN_SELECT_INTO_TABLE(DS.accmotiveapplied_credit,null,
+                        (q.eq("idaccmotive", Curr["idaccmotivecredit"]) & q.eq("idepoperation", "fatven_cred")).toSql(QHS),null,false);
                     Meta.helpForm.FillControls(gBoxCausaleCredito.Controls);
                 }
 
@@ -2905,15 +2905,15 @@ namespace estimate_default {
                 if (rDetail["stop"].ToString() != "") { rDetail["toinvoice"] = "N"; } //TASK 10671 
             }
 
-            List<RowPair> Coppie = new List<RowPair>();
+            var Coppie = new List<RowPair>();
             // Passo 3. - Creazione nuovo dettaglio gi‡ splittato
             int idGroup = creaDettagliSplittati(rContratto, wiz, Coppie);
 
             // Passo 4. - Raffinamento dello split (usando il form dello split gi‡ esistente)
             DataRow[] listaDettagliSplittati = DS.estimatedetail.Select(QHC.CmpEq("idgroup", idGroup), "rownum");
             if ((listaDettagliSplittati.Length > 1) && (listaDettagliSplittati.Length <= 10)) {
-                frmAskInfo frm = new frmAskInfo(listaDettagliSplittati, Meta, Meta.Dispatcher);
-                DialogResult dr2 = frm.ShowDialog();
+                var frm = new frmAskInfo(listaDettagliSplittati, Meta, Meta.Dispatcher);
+                var dr2 = frm.ShowDialog();
                 if (dr2 != DialogResult.OK) {
                     MessageBox.Show(this, "Operazione di split annullata");
                     return;
@@ -2937,7 +2937,7 @@ namespace estimate_default {
         }
 
         private int creaDettagliSplittati(DataRow rContratto, WizSostituisciDettaglio wiz, List<RowPair> coppie) {
-            DataRow rDettaglioAnnullato = wiz.rOldDettaglio;
+            var rDettaglioAnnullato = wiz.rOldDettaglio;
             string filter = QHC.MCmp(rDettaglioAnnullato, new string[] { "idestimkind", "yestim", "nestim", "idgroup" });
 
             object dataInizio = HelpForm.GetObjectFromString(typeof(DateTime), wiz.txtStart.Text, "x.y");
@@ -3059,7 +3059,7 @@ namespace estimate_default {
                 string checkfilter = QHS.CmpEq("idrevenuepartition", idrevenuepartition);
                 ToMeta.ContextFilter = checkfilter;
                 Form F = null;
-                if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+                if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
                 bool result = ToMeta.Edit(F, "default", false);
 
                 string listtype = ToMeta.DefaultListType;
@@ -3110,4 +3110,4 @@ namespace estimate_default {
 
         }
     }
-}
+}

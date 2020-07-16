@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -1228,8 +1225,9 @@ namespace mandate_default {
             this.txtNewIvaEuro.Name = "txtNewIvaEuro";
             this.txtNewIvaEuro.Size = new System.Drawing.Size(72, 20);
             this.txtNewIvaEuro.TabIndex = 21;
-            this.txtNewIvaEuro.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtNewIvaEuro.TextChanged += new System.EventHandler(this.txtNewIvaValuta_TextChanged);
+			this.txtNewIvaEuro.Tag = "";
+			this.txtNewIvaEuro.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtNewIvaEuro.Leave += new System.EventHandler(this.txtNewIvaValuta_Leave);
             // 
             // txtNewImponibileEuro
             // 
@@ -1425,4 +1423,4 @@ namespace mandate_default {
         private System.Windows.Forms.RadioButton rdoOldAttivita3;
         private System.Windows.Forms.RadioButton rdoNewAttivita3;
     }
-}
+}

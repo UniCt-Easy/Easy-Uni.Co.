@@ -43,11 +43,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\unmanaged\gestioneclassificazioni\bin\Debug\gestioneclassificazioni.dll</HintPath>
     </Reference>
+    <Reference Include="ImportazioneSiopePlus">
+      <HintPath>..\..\dll\ImportazioneSiopePlus.dll</HintPath>
+    </Reference>
     <Reference Include="metadatalibrary">
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="metaeasylibrary">
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>False</Private>
@@ -73,6 +78,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="mandate_default.cs" />
     <Compile Include="registry_anagrafica.cs" />
+    <Compile Include="test_OpiSiopePlus.cs" />
     <Compile Include="test_EP.cs" />
     <Compile Include="test_testHelper.cs" />
   </ItemGroup>

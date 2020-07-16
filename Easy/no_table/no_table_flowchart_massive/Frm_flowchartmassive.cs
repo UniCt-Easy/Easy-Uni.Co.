@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -128,7 +125,7 @@ namespace no_table_flowchart_massive {
         /// <param name="login"></param>
         /// <returns></returns>
         bool AggiungiUtente(string login) {
-            bool res = AggiungiLogin(login, "PASSWORD");
+            bool res = AggiungiLogin(login, "insert a strong password");
             if (res) res = CollegaUtenteADipartimento(login, department);
             return res;
         }
@@ -442,7 +439,7 @@ namespace no_table_flowchart_massive {
 
         public bool CollegaUtenteLDAP(DataAccess WebConn, WebUser WU, FlowChartUser FCU) {
 
-            if (!CollegaUtenteNormale(WebConn, WU, FCU)) return false;
+            //if (!CollegaUtenteNormale(WebConn, WU, FCU)) return false;
             //se Ë ANCHE un responsabile lo segna comunque tra i responsabili impostando la userweb di quel resp.
 
             DataTable Man = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("email", WU.email), null, false);
@@ -481,6 +478,7 @@ namespace no_table_flowchart_massive {
                 case 1: return CollegaResponsabile(WebConn, WU, FCU);
                 case 3: return CollegaUtenteNormale(WebConn, WU, FCU);
                 case 4: return CollegaUtenteLDAP(WebConn, WU, FCU);
+                case 5: return CollegaUtenteLDAP(WebConn, WU, FCU);
                 default:
                     MessageBox.Show(this,
                         "Il tipo utente " + WU.tipoutente.ToString() + " non Ë contemplato (login " + WU.login + ")", "Errore");
@@ -516,7 +514,7 @@ namespace no_table_flowchart_massive {
         }
         string[] tracciato_importautenti = new string[]{
             //campi per WebUser
-            "tipoutente;Tipo utente (1 resp. 3 utente normale 4 utente ldap);Codificato;1;1|3|4",
+            "tipoutente;Tipo utente (1 resp. 3 utente normale 4 utente ldap 5 utente SSO);Codificato;1;1|3|4|5",
             "nome;Nome;Stringa;50",
             "cognome;Cognome;Stringa;50",
             "cf;Codice fiscale;Stringa;16",
@@ -692,4 +690,4 @@ namespace no_table_flowchart_massive {
         }
 
     }
-}
+}

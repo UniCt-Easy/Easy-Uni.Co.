@@ -80,6 +80,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ivaregister\meta_ivaregister\meta_ivaregister.csproj">
+      <Project>{8a907c2d-9448-47bb-a500-93cd4e8a10a0}</Project>
+      <Name>meta_ivaregister</Name>
+    </ProjectReference>
     <ProjectReference Include="..\meta_invoice\meta_invoice.csproj">
       <Project>{7ac2a9c3-7716-4565-82c7-cb1604e82902}</Project>
       <Name>meta_invoice</Name>
@@ -153,7 +157,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_registry</Name>
       <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_invoicedetail">
       <SpecificVersion>False</SpecificVersion>
@@ -165,7 +169,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_ivakind</Name>
       <HintPath>..\..\ivakind\meta_ivakind\bin\Debug\meta_ivakind.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_ivaregisterkind">
       <SpecificVersion>False</SpecificVersion>
@@ -236,12 +240,6 @@
     <Reference Include="System.Data.DataSetExtensions">
       <SpecificVersion>False</SpecificVersion>
       <Name>System.Data.DataSetExtensions</Name>
-    </Reference>
-    <Reference Include="meta_ivaregister">
-      <HintPath>..\..\ivaregister\meta_ivaregister\bin\Debug\meta_ivaregister.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_ivaregister</Name>
-      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

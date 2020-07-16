@@ -37,6 +37,8 @@
               <xs:element name="_x0021_underwritingkind_desc" type="xs:string" minOccurs="0" />
               <xs:element name="annotation" type="xs:string" minOccurs="0" />
               <xs:element name="prevcassa" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idinv" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_account" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -380,6 +382,7 @@
               <xs:element name="underwritingkind" type="xs:string" minOccurs="0" />
               <xs:element name="flagaccountusage" type="xs:int" minOccurs="0" />
               <xs:element name="prevcassa" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idinv" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

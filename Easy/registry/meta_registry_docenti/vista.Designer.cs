@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -80,20 +77,6 @@ public class registry_docentiRow: MetaRow  {
 		get {if (this["idclassconsorsuale",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idclassconsorsuale",DataRowVersion.Original];}
 	}
 	///<summary>
-	///Struttura di afferenza
-	///</summary>
-	public Int32? idlocation_struttura{ 
-		get {if (this["idlocation_struttura"]==DBNull.Value)return null; return  (Int32?)this["idlocation_struttura"];}
-		set {if (value==null) this["idlocation_struttura"]= DBNull.Value; else this["idlocation_struttura"]= value;}
-	}
-	public object idlocation_strutturaValue { 
-		get{ return this["idlocation_struttura"];}
-		set {if (value==null|| value==DBNull.Value) this["idlocation_struttura"]= DBNull.Value; else this["idlocation_struttura"]= value;}
-	}
-	public Int32? idlocation_strutturaOriginal { 
-		get {if (this["idlocation_struttura",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idlocation_struttura",DataRowVersion.Original];}
-	}
-	///<summary>
 	///Codice Istituto
 	///</summary>
 	public Int32? idreg{ 
@@ -134,6 +117,20 @@ public class registry_docentiRow: MetaRow  {
 	}
 	public Int32? idsasdOriginal { 
 		get {if (this["idsasd",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsasd",DataRowVersion.Original];}
+	}
+	///<summary>
+	///Struttura di afferenza
+	///</summary>
+	public Int32? idstruttura{ 
+		get {if (this["idstruttura"]==DBNull.Value)return null; return  (Int32?)this["idstruttura"];}
+		set {if (value==null) this["idstruttura"]= DBNull.Value; else this["idstruttura"]= value;}
+	}
+	public object idstrutturaValue { 
+		get{ return this["idstruttura"];}
+		set {if (value==null|| value==DBNull.Value) this["idstruttura"]= DBNull.Value; else this["idstruttura"]= value;}
+	}
+	public Int32? idstrutturaOriginal { 
+		get {if (this["idstruttura",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idstruttura",DataRowVersion.Original];}
 	}
 	public DateTime? lt{ 
 		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
@@ -212,10 +209,10 @@ public class registry_docentiTable : MetaTableBase<registry_docentiRow> {
 			{"cu",createColumn("cu",typeof(string),false,false)},
 			{"cv",createColumn("cv",typeof(string),true,false)},
 			{"idclassconsorsuale",createColumn("idclassconsorsuale",typeof(int),true,false)},
-			{"idlocation_struttura",createColumn("idlocation_struttura",typeof(int),true,false)},
 			{"idreg",createColumn("idreg",typeof(int),false,false)},
 			{"idreg_istituti",createColumn("idreg_istituti",typeof(int),true,false)},
 			{"idsasd",createColumn("idsasd",typeof(int),true,false)},
+			{"idstruttura",createColumn("idstruttura",typeof(int),true,false)},
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
 			{"lu",createColumn("lu",typeof(string),false,false)},
 			{"matricola",createColumn("matricola",typeof(string),true,false)},
@@ -225,4 +222,3 @@ public class registry_docentiTable : MetaTableBase<registry_docentiRow> {
 	}
 }
 }
-

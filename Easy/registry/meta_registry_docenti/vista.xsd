@@ -10,10 +10,10 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="cv" type="xs:string" minOccurs="0" />
               <xs:element name="idclassconsorsuale" type="xs:int" minOccurs="0" />
-              <xs:element name="idlocation_struttura" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idreg_istituti" type="xs:int" minOccurs="0" />
               <xs:element name="idsasd" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="matricola" type="xs:string" minOccurs="0" />

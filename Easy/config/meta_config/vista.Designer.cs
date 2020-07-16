@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -2886,6 +2883,17 @@ public class configRow: MetaRow  {
 	public Int32? flagOriginal { 
 		get {if (this["flag",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["flag",DataRowVersion.Original];}
 	}
+	public Decimal? assignedrequirement{ 
+		get {if (this["assignedrequirement"]==DBNull.Value)return null; return  (Decimal?)this["assignedrequirement"];}
+		set {if (value==null) this["assignedrequirement"]= DBNull.Value; else this["assignedrequirement"]= value;}
+	}
+	public object assignedrequirementValue { 
+		get{ return this["assignedrequirement"];}
+		set {if (value==null|| value==DBNull.Value) this["assignedrequirement"]= DBNull.Value; else this["assignedrequirement"]= value;}
+	}
+	public Decimal? assignedrequirementOriginal { 
+		get {if (this["assignedrequirement",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["assignedrequirement",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -3092,8 +3100,8 @@ public class configTable : MetaTableBase<configRow> {
 			{"idsor_siopeivainc",createColumn("idsor_siopeivainc",typeof(int),true,false)},
 			{"idsor_siopeiva12inc",createColumn("idsor_siopeiva12inc",typeof(int),true,false)},
 			{"flag",createColumn("flag",typeof(int),true,false)},
+			{"assignedrequirement",createColumn("assignedrequirement",typeof(decimal),true,false)},
 		};
 	}
 }
 }
-

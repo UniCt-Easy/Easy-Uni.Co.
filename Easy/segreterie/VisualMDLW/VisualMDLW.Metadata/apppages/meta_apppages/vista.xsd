@@ -6,10 +6,14 @@
         <xs:element name="apppages">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="additionaltables" type="xs:string" minOccurs="0" />
               <xs:element name="anonimous" type="xs:string" minOccurs="0" />
               <xs:element name="autosearch" type="xs:string" />
+              <xs:element name="calendarstart" type="xs:string" minOccurs="0" />
+              <xs:element name="calendarstop" type="xs:string" minOccurs="0" />
+              <xs:element name="calendartitle" type="xs:string" minOccurs="0" />
               <xs:element name="cancancel" type="xs:string" />
-              <xs:element name="cancmdclose" type="xs:string" minOccurs="0" />
+              <xs:element name="cancmdclose" type="xs:string" />
               <xs:element name="caninsert" type="xs:string" />
               <xs:element name="caninsertcopy" type="xs:string" />
               <xs:element name="cansave" type="xs:string" />
@@ -23,7 +27,7 @@
               <xs:element name="footer" type="xs:string" minOccurs="0" />
               <xs:element name="header" type="xs:string" minOccurs="0" />
               <xs:element name="icon" type="xs:string" minOccurs="0" />
-              <xs:element name="idapplicazione" type="xs:int" minOccurs="0" />
+              <xs:element name="idapplicazione" type="xs:int" />
               <xs:element name="idapppages" type="xs:int" />
               <xs:element name="idmenuweb" type="xs:int" minOccurs="0" />
               <xs:element name="isvalid" type="xs:string" minOccurs="0" />
@@ -31,6 +35,7 @@
               <xs:element name="principale" type="xs:string" minOccurs="0" />
               <xs:element name="staticfilter" type="xs:string" minOccurs="0" />
               <xs:element name="tablename" type="xs:string" minOccurs="0" />
+              <xs:element name="testcustom" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
               <xs:element name="vocabolario" type="xs:string" minOccurs="0" />
             </xs:sequence>

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -36,14 +33,49 @@ namespace FormReport {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            // Set the processing mode for the ReportViewer to Remote  
+        
+
+
+        }
+
+        private string ExportReport(string format,string extension) {
+            Warning[] warnings;
+            string[] streamids;
+            string mimeType;
+            string encoding;
+            string filenameExtension;
+
+
+            ReportParameterInfoCollection pInfo = reportViewer1.ServerReport.GetParameters();
+            string filenameParams = "output";
+
+
+            byte[] bytes;
+            if (reportViewer1.ProcessingMode == ProcessingMode.Local) {
+                bytes = reportViewer1.LocalReport.Render(format, null, out mimeType,
+                 out encoding, out filenameExtension, out streamids, out warnings);
+            }
+            else {
+                bytes = reportViewer1.ServerReport.Render(format, null, out mimeType,
+                 out encoding, out filenameExtension, out streamids, out warnings);
+            }
+
+
+            string filename = Path.Combine(Path.GetTempPath(), filenameParams + extension);
+            using (FileStream fs = new FileStream(filename, FileMode.Create)) { fs.Write(bytes, 0, bytes.Length); }
+
+            return filename;
+        }
+
+		private void BtnCalcola_Click(object sender, EventArgs e) {
+			    // Set the processing mode for the ReportViewer to Remote  
             reportViewer1.ProcessingMode = ProcessingMode.Remote;
 
             ServerReport serverReport = reportViewer1.ServerReport;
 
             // Get a reference to the default credentials  
             System.Net.ICredentials credentials =
-                new System.Net.NetworkCredential("administrator", "PASSWORD");
+                new System.Net.NetworkCredential(txtUser.Text,txtPassword.Text);
 
             // Get a reference to the report server credentials  
             ReportServerCredentials rsCredentials =
@@ -96,38 +128,7 @@ namespace FormReport {
                 string exp6 = ExportReport("XML", ".xml"); System.Diagnostics.Process.Start(exp6);
                 string exp7 = ExportReport("Image", ".tif"); System.Diagnostics.Process.Start(exp7);
             }
-
-
-        }
-
-        private string ExportReport(string format,string extension) {
-            Warning[] warnings;
-            string[] streamids;
-            string mimeType;
-            string encoding;
-            string filenameExtension;
-
-
-            ReportParameterInfoCollection pInfo = reportViewer1.ServerReport.GetParameters();
-            string filenameParams = "output";
-
-
-            byte[] bytes;
-            if (reportViewer1.ProcessingMode == ProcessingMode.Local) {
-                bytes = reportViewer1.LocalReport.Render(format, null, out mimeType,
-                 out encoding, out filenameExtension, out streamids, out warnings);
-            }
-            else {
-                bytes = reportViewer1.ServerReport.Render(format, null, out mimeType,
-                 out encoding, out filenameExtension, out streamids, out warnings);
-            }
-
-
-            string filename = Path.Combine(Path.GetTempPath(), filenameParams + extension);
-            using (FileStream fs = new FileStream(filename, FileMode.Create)) { fs.Write(bytes, 0, bytes.Length); }
-
-            return filename;
-        }
+		}
 
 
 
@@ -136,75 +137,74 @@ namespace FormReport {
 
 
 
-        //private string ExportReportPDF() {
-        //    Warning[] warnings;
-        //    string[] streamids;
-        //    string mimeType;
-        //    string encoding;
-        //    string filenameExtension;
+		//private string ExportReportPDF() {
+		//    Warning[] warnings;
+		//    string[] streamids;
+		//    string mimeType;
+		//    string encoding;
+		//    string filenameExtension;
 
 
-        //    ReportParameterInfoCollection pInfo = reportViewer1.ServerReport.GetParameters();
-        //    string filenameParams = "";
+		//    ReportParameterInfoCollection pInfo = reportViewer1.ServerReport.GetParameters();
+		//    string filenameParams = "";
 
 
-        //    byte[] bytes;
-        //    if (reportViewer1.ProcessingMode == ProcessingMode.Local) {
-        //        bytes = reportViewer1.LocalReport.Render("PDF", null, out mimeType,
-        //         out encoding, out filenameExtension, out streamids, out warnings);
-        //    }
-        //    else {
-        //        bytes = reportViewer1.ServerReport.Render("PDF", null, out mimeType,
-        //         out encoding, out filenameExtension, out streamids, out warnings);
-        //    }
+		//    byte[] bytes;
+		//    if (reportViewer1.ProcessingMode == ProcessingMode.Local) {
+		//        bytes = reportViewer1.LocalReport.Render("PDF", null, out mimeType,
+		//         out encoding, out filenameExtension, out streamids, out warnings);
+		//    }
+		//    else {
+		//        bytes = reportViewer1.ServerReport.Render("PDF", null, out mimeType,
+		//         out encoding, out filenameExtension, out streamids, out warnings);
+		//    }
 
 
-        //    string filename = Path.Combine(Path.GetTempPath(), filenameParams + ".pdf");
-        //    using (FileStream fs = new FileStream(filename, FileMode.Create)) { fs.Write(bytes, 0, bytes.Length); }
+		//    string filename = Path.Combine(Path.GetTempPath(), filenameParams + ".pdf");
+		//    using (FileStream fs = new FileStream(filename, FileMode.Create)) { fs.Write(bytes, 0, bytes.Length); }
 
-        //    return filename;
-        //}
-
-
-        //private string ExportReportExcel() {
-        //    Warning[] warnings;
-        //    string[] streamids;
-        //    string mimeType;
-        //    string encoding;
-        //    string filenameExtension;
+		//    return filename;
+		//}
 
 
-        //    ReportParameterInfoCollection pInfo = reportViewer1.ServerReport.GetParameters();
-        //    string filenameParams = "";
+		//private string ExportReportExcel() {
+		//    Warning[] warnings;
+		//    string[] streamids;
+		//    string mimeType;
+		//    string encoding;
+		//    string filenameExtension;
 
 
-        //    byte[] bytes;
-        //    if (reportViewer1.ProcessingMode == ProcessingMode.Local) {
-        //        bytes = reportViewer1.LocalReport.Render(
-        //               "Excel", null, out mimeType, out encoding,
-        //                out filenameExtension,
-        //               out streamids, out warnings);
-
-        //    }
-        //    else {
-        //        bytes = reportViewer1.ServerReport.Render(
-        //               "Excel", null, out mimeType, out encoding,
-        //                out filenameExtension,
-        //               out streamids, out warnings);
-
-        //    }
-
-        //    string filename = Path.Combine(Path.GetTempPath(), filenameParams + "output.xls");
-
-        //    FileStream fss = new FileStream(filename,
-        //    FileMode.Create);
-        //    fss.Write(bytes, 0, bytes.Length);
-        //    fss.Close();
-
-        //    return filename;
-        //}
+		//    ReportParameterInfoCollection pInfo = reportViewer1.ServerReport.GetParameters();
+		//    string filenameParams = "";
 
 
-    }
+		//    byte[] bytes;
+		//    if (reportViewer1.ProcessingMode == ProcessingMode.Local) {
+		//        bytes = reportViewer1.LocalReport.Render(
+		//               "Excel", null, out mimeType, out encoding,
+		//                out filenameExtension,
+		//               out streamids, out warnings);
+
+		//    }
+		//    else {
+		//        bytes = reportViewer1.ServerReport.Render(
+		//               "Excel", null, out mimeType, out encoding,
+		//                out filenameExtension,
+		//               out streamids, out warnings);
+
+		//    }
+
+		//    string filename = Path.Combine(Path.GetTempPath(), filenameParams + "output.xls");
+
+		//    FileStream fss = new FileStream(filename,
+		//    FileMode.Create);
+		//    fss.Write(bytes, 0, bytes.Length);
+		//    fss.Close();
+
+		//    return filename;
+		//}
+
+
+	}
 }
-

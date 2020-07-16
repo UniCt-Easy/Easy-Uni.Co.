@@ -1,0 +1,681 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>metaeasylibrary</name>
+    </assembly>
+    <members>
+        <member name="M:metaeasylibrary.Easy_DataAccess.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.DateTime)">
+            <summary>
+            Constructuctor for SQL Based Security
+            </summary>
+            <param name="DSN"></param>
+            <param name="Server"></param>
+            <param name="Database"></param>
+            <param name="User"></param>
+            <param name="Password"></param>
+            <param name="esercizio_sessione"></param>
+            <param name="DataContabile"></param>
+        </member>
+        <member name="M:metaeasylibrary.Easy_DataAccess.sha256UserPassword">
+            <summary>
+            Restituisce la password dell'utente criptata con SHA
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.Easy_DataAccess.xor(System.Byte[],System.Byte[])">
+            <summary>
+            Esegue lo XOR tra due array di byte
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.Easy_DataAccess.getDepPassword(System.Byte[],System.Byte[])">
+            <summary>
+            Restituisce la password del dipartimento a partire da alfa (password criptata dell'utente)
+            e alfa'
+            </summary>
+            <param name="alfa"></param>
+            <param name="alfa1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.Easy_DataAccess.fixDepartmentAccessPassword(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Cambia la password del'utente in automatico 
+            </summary>
+            <param name="rAccess">Riga che NON deve appartenere ad un DataSet</param>
+            <param name="departmentPassword"></param>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.Easy_DataAccess.obfuscatePassword(System.String)">
+            <summary>
+            Cambia casualmente il bit 7 di ciascun carattere della password
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.Easy_DataAccess.unObfuscatePassword(System.String)">
+            <summary>
+            A partire dalla password offuscata (con il bit 7 di ciascun carattere variato casualmente)
+            restituisce la password iniziale
+            </summary>
+            <param name="obfuscated"></param>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.Easy_DataAccess.getRealDepartmentPassword(metadatalibrary.DataAccess,System.String,System.String,System.String,System.String,System.String@)">
+            <summary>
+            Restituisce la password del dipartimento
+            </summary>
+            <param name="iddbdepartment"></param>
+            <param name="error"></param>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.Easy_DataAccess.changeUserPassword(System.Byte[],System.Byte[])">
+            <summary>
+            Cambia la password dell'utente
+            </summary>
+            <param name="alfa2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.Easy_DataAccess.linkUserToDepartment(metadatalibrary.DataAccess,System.String,System.String,System.String,System.String,System.String@)">
+            <summary>
+            Abilita un utente ad accedere ad un dipartimento. Restituisce la connessione a tale dipartimento.
+            DETTAGLI:
+            Prova a connettersi al dipartimento con user=iddbdepartment e password=depPasswordToTry
+            Se ci riesce allora aggiorna le tabelle dbdepartment, dbaccess e duser affinchè
+            da ora in poi l'utente potrà accedere a tale dipartimento con la sua user e password.
+            </summary>
+            <param name="Conn"></param>
+            <param name="userPwd"></param>
+            <param name="idDbDepartment"></param>
+            <param name="depPasswordToTry"></param>
+            <param name="readConfiguration">true se deve eseguire 			
+            CalculateGroupList(), RecalcUserEnvironment() e	ReadAllGroupOperations();</param>
+            <param name="error"></param>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.Easy_DataAccess.linkUserToDepartment(System.String,System.String@)">
+            <summary>
+            Azzera la password di un utente oppure lo aggiunge al dipartimento corrente
+            </summary>
+            <param name="username"></param>
+            <param name="error"></param>
+        </member>
+        <member name="M:metaeasylibrary.Easy_DataAccess.Duplicate">
+            <summary>
+            Crea un duplicato di un DataAccess, con una nuova connessione allo stesso DB. 
+            Utile se la connessione deve essere usata in un nuovo thread.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.Easy_DataAccess.CanSelect(System.Data.DataRow)">
+            <summary>
+            Must return false if the given row can be selected with "mainselect" in the
+             form named edit_type. Should also display to user the reason for which 
+             row can't be selected.
+            </summary>
+            <param name="R"></param>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.Easy_DataAccess.CalculateGroupList">
+            <summary>
+            Calcola l'elenco dei gruppi di sicurezza di cui l'utente fa parte. Il risultato è messo in usr["usergrouplist"]
+            </summary>
+        </member>
+        <member name="T:metaeasylibrary.Meta_easydata">
+            <summary>
+            Base class for all easy MetaData http://ticket.temposrl.it/LiveLog/DoLog.aspx  
+            </summary>
+        </member>
+        <member name="M:metaeasylibrary.easy_node_dispatcher.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Node builder
+            </summary>
+            <param name="level_table">Table with tree-level description</param>
+            <param name="level_field">level field of tree_table rows</param>
+            <param name="descr_level_field">level description, field of level_table </param>
+            <param name="selectable_level_field">field that contains "flagoperativo" in level table</param>
+            <param name="descr_field">field to put in tooltip</param>
+            <param name="code_string">field to display in tree view near level description</param>
+        </member>
+        <member name="M:metaeasylibrary.easy_tree_node.Text">
+            <summary>
+            Label that appears in treeview for each node
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.easy_tree_node.ToolTip">
+            <summary>
+            String that should appear in tooltip
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.easy_tree_node.CanSelect">
+            <summary>
+            True if "selectable" and with "no chidren"
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyRowChange.PreProcNameToCall">
+            <summary>
+            Get the name of Stored procedure to call in pre-check phase
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyRowChange.PostProcNameToCall">
+            <summary>
+            get the name of Stored procedure to call in post-check phase
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyRowChange.FilterTableOp">
+            <summary>Gets a filter of TableName AND dboperation (I/U/D)</summary>
+            <returns>filter String</returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyRowChange.FilterPostTableOp">
+            <summary>
+            Gets a filter on Posting Table and DB operation 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyRowChange.PrepareForPosting(System.String,metadatalibrary.DataAccess,System.Boolean)">
+            <summary>
+            Completes the row to be changed with createuser,createtimestamp,
+            lastmoduser, lastmodtimestamp fields, depending on the operation type.
+            </summary>
+            <param name="Acc"></param>
+        </member>
+        <member name="F:metaeasylibrary.EasyDataJournaling.LogOld">
+            <summary>
+            se = true registra anche il vecchio valore in una colonna oldvalue
+            </summary>
+        </member>
+        <member name="M:metaeasylibrary.EasyDataJournaling.DO_SingleLog(metadatalibrary.RowChange,System.Data.DataRow)">
+            <summary>
+            Log "FieldToLog" field of RowChange
+            </summary>
+            <param name="R">RowChange to log</param>
+            <param name="FieldToLog">Field to log</param>
+        </member>
+        <member name="M:metaeasylibrary.EasyDataJournaling.DO_Journaling(metadatalibrary.RowChangeCollection)">
+            <summary>
+            Append log messages basing on the specified audits
+            </summary>
+            <param name="Tran">Transaction in which operation are nested</param>
+            <returns>true if OK</returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyDataJournaling.CreateDataSet(metadatalibrary.DataAccess,metadatalibrary.RowChangeCollection)">
+            <summary>
+            Gets the set of all audit and auditcheck related to RowChanges
+            </summary>
+            <param name="Conn">Open connection</param>
+        </member>
+        <member name="T:metaeasylibrary.EasyAudits">
+            <summary>
+            Interface to the Easy Business Audits and Enforcements
+            </summary>
+        </member>
+        <member name="P:metaeasylibrary.EasyAudits.Business">
+            <summary>
+            Aggregates of auditcheck
+            There is a Business Audit for every kind of operation of any table in the DataBase.
+            </summary>
+        </member>
+        <member name="P:metaeasylibrary.EasyAudits.Enforcement">
+            <summary>
+            Single condition on a database operation, included in a Business Audit
+            </summary>
+        </member>
+        <member name="P:metaeasylibrary.EasyAudits.Parameter">
+            <summary>
+            Parameters for a Business Audit
+            </summary>
+        </member>
+        <member name="M:metaeasylibrary.EasyAudits.CreateDataSet(metadatalibrary.DataAccess,metadatalibrary.RowChangeCollection)">
+            <summary>
+            Calcola l'insieme di tutte le audit e auditcheck relative ad un insieme di RowChanges
+            Non considera l'applicabilità degli auditcheck relativa alla configurazione annuale 
+            </summary>
+            <param name="Conn">Open connection</param>
+        </member>
+        <member name="M:metaeasylibrary.EasyAudits.GetNewKeys(System.String)">
+            <summary>
+            Gets all parameters (old values and new values) still present in sqlcmd 
+            </summary>
+            <param name="sqlcmd"></param>
+            <returns>An array of strings</returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyAudits.EvaluateParameters(metadatalibrary.DataAccess,metaeasylibrary.VistaEasyAudits,System.String,System.String,System.Collections.Hashtable@,System.Boolean)">
+            <summary>
+            Given the table auditcheck evaluates the table parameter and the Hashtable Substitutions
+            </summary>
+            <param name="CR"></param>
+        </member>
+        <member name="M:metaeasylibrary.EasyAudits.SkipComments.closeBlock(System.String,System.Int32,System.Char,System.Char)">
+            <summary>
+            Restituisce la posizione della fine di un blocco, saltando i blocchi annidati 
+             o -1 se il blocco non si chiude
+            </summary>
+            <param name="S"></param>
+            <param name="start"></param>
+            <param name="BEGIN"></param>
+            <param name="END"></param>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyAudits.SkipComments.nextNonComment(System.String,System.Int32)">
+            <summary>
+            Restituisce l'indice del prossimo non-commento e non-blank, o -1 se non ce ne sono. 
+            </summary>
+            <param name="S"></param>
+            <param name="start"></param>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyAudits.ExprAggregation.GetSelection(metaeasylibrary.EasyAudits.Expression[],System.Int32)">
+            <summary>
+            Emette la selezione di un gruppo di espressioni (semplici - non raggruppate), con condizione comune
+            </summary>
+            <param name="Expr"></param>
+            <param name="NAudit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyAudits.Expression.CalculateDefaultWeight">
+            <summary>
+            Calcola euristicamente il peso iniziale di ogni variabile, considerando nullo
+             il peso delle variabili annidate. Questo andrà poi rifinito sommando il reale peso delle
+             variabili annidate.
+            </summary>
+        </member>
+        <member name="M:metaeasylibrary.EasyAudits.CompileExpressions(System.Collections.Hashtable@,System.Collections.ArrayList@,System.Text.StringBuilder@,System.String,System.Int32)">
+            <summary>
+            Compiles sqlcmd contained in square brackets [ ] with variables @varN reusing 
+             eventually existing variables
+            </summary>
+            <param name="Expr">list of compiled variables</param>
+            <param name="storedproc">instructions to add to stored procedure</param>
+            <param name="sqlcmd">sqlcmd to compile</param>
+            <param name="start">start position from which start the compilation</param>
+            <returns>compiled sqlcmd</returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyAudits.GetAuditForOperation(metadatalibrary.DataAccess,System.String,System.String,System.Data.DataTable@,System.Boolean,System.String)">
+            <summary>
+            Calcola il testo della stored procedure per una regola e la tabella dei
+             parametri da mettere nella table parameter
+            </summary>
+            <param name="Conn"></param>
+            <param name="table"></param>
+            <param name="op"></param>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyAudits.DO_CALC_MESSAGES(metadatalibrary.QueryHelper,metadatalibrary.RowChange,System.Boolean[],System.Boolean)">
+            <summary>
+            Evaluates all error messages that can appear for all changes to be made.
+            </summary>
+        </member>
+        <member name="F:metaeasylibrary.onesubst.error">
+            <summary>
+            When true, substitition is wrong
+            </summary>
+        </member>
+        <member name="F:metaeasylibrary.onesubst.original">
+            <summary>
+            tabella presente nelle parentesi angolari
+            </summary>
+        </member>
+        <member name="F:metaeasylibrary.onesubst.tablename">
+            <summary>
+            tabella principale del messaggio, ossia quella della regola
+            </summary>
+        </member>
+        <member name="F:metaeasylibrary.onesubst.fromtable">
+            <summary>
+            nome della tabella principale nel dataset
+            </summary>
+        </member>
+        <member name="T:metaeasylibrary.EasyProcedureMessage">
+            <summary>
+            A single message of error/warning about a change in a DataRow
+            </summary>
+        </member>
+        <member name="M:metaeasylibrary.EasyProcedureMessage.CompileParameter(metadatalibrary.RowChange,System.Int32,System.String)">
+            <summary>Translate a Parameter name into a value, taking data from A and related.</summary>
+            <param name="C"> RowChange to consider</param>
+            <param name="EsercizioSessione" >Implicit parameter "Esercizio"</param>
+            <param name="Parameter">Parameter to compile</param>
+            <returns>Compiled Parameter</returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyProcedureMessage.#ctor(metadatalibrary.QueryHelper,metadatalibrary.RowChange,System.String,System.Int32,System.String,System.Int32,metaeasylibrary.EasyAudits)">
+            <summary>
+            Creates an error/warning message compiling messages stored in auditcheck 
+            </summary>
+            <param name="C">Single DataRow Change considered, with Related compiled</param>
+            <param name="AuditID">Business Audit to consider (= auditID column of audit and auditcheck table)</param>
+            <param name="EnforcementID">Audit Enforcement to consider (= enforcementID column of auditcheck table)</param>
+            <param name="Conn" >Connection to Easy DataBase</param>
+        </member>
+        <member name="T:metaeasylibrary.EasyProcedureMessageCollection">
+            <summary>
+            Collection of Stored Procedure Error Messages
+            </summary>
+        </member>
+        <member name="M:metaeasylibrary.EasyProcedureMessageCollection.ShowMessages">
+            <summary>
+            Presents messages to the user and eventually ask him to take a decision (ignore/cancel)
+            </summary>
+            <returns>true if change operation has to be done</returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyProcedureMessageCollection.DO_CALL_CHECKS(metadatalibrary.DataAccess,metaeasylibrary.EasyAudits,System.Boolean,metadatalibrary.RowChangeCollection)">
+            <summary>
+            Get all error messages related to the entire RowChanges list,
+             and merge them in a SortedList, ordered by auditID/EnforcementID
+            </summary>
+            <param name="Post">true if Checks are POST checks</param>
+            <param name="Audits">Previously ignored rules</param>
+            <returns>List of error messages</returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyProcedureMessageCollection.AddParametersFor(metadatalibrary.DataAccess,metaeasylibrary.EasyAudits,metadatalibrary.RowChange,System.Boolean)">
+            <summary>
+             Evaluates the list of all input parameter for the stored procedure to
+             call, managing the corrispondence new / old value with tags
+            </summary>
+            <remarks>Unchecked</remarks>
+            <returns>true if some parameter was marked as "new"</returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyProcedureMessageCollection.IsTemporaryValue(System.Data.DataRow,System.String,System.Boolean)">
+            <summary>
+            Establish if a field must be passed to Business audits
+            </summary>
+            <param name="R"></param>
+            <param name="exclude">when true, Autoincrement properties are 
+            				not considered on R fields, but only in parents</param>
+            <param name="ColumnName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.EasyProcedureMessageCollection.DO_ADD_MESSAGES(metadatalibrary.QueryHelper,metaeasylibrary.EasyAudits,metadatalibrary.RowChange,System.Boolean[],metaeasylibrary.EasyProcedureMessageCollection,System.Boolean)">
+            <summary>
+            Appends error messages related to R to AllMess Collection
+            </summary>
+            <param name="R">RowChange referred by error messages</param>
+            <param name="result">errors returned by stored procedures</param>
+            <param name="AllMess" type = "output">updated messages List</param>
+            <remarks>
+            IMPORTANT:
+            This function assumes that the order of the array result matches
+            the order of messages stored in R.EnforcementMessages. This is 
+            essentially the order auditID-EnforcementID</remarks>
+        </member>
+        <member name="M:metaeasylibrary.frmCambioFlowChart.cmb_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+            <summary>
+            Evento generato prima di KeyPress. Lo uso per gestire la pressione dei tasti 
+            "SINISTRA", "DESTRA", "HOME" e "CANC"
+            che altrimenti non riuscirei ad intercettare con KeyPress.
+            Precondizione: nel ComboBox DEVE ESSERE DropDownStyle = DropDown
+            </summary>
+            <param name="sender">il ComboBox da gestire</param>
+            <param name="e">l'evento</param>
+        </member>
+        <member name="F:metaeasylibrary.frmCambioFlowChart.components">
+            <summary>
+            Variabile di progettazione necessaria.
+            </summary>
+        </member>
+        <member name="M:metaeasylibrary.frmCambioFlowChart.Dispose(System.Boolean)">
+            <summary>
+            Liberare le risorse in uso.
+            </summary>
+            <param name="disposing">ha valore true se le risorse gestite devono essere eliminate, false in caso contrario.</param>
+        </member>
+        <member name="M:metaeasylibrary.frmCambioFlowChart.InitializeComponent">
+            <summary>
+            Metodo necessario per il supporto della finestra di progettazione. Non modificare
+            il contenuto del metodo con l'editor di codice.
+            </summary>
+        </member>
+        <member name="F:metaeasylibrary.frmCreaTicket.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:metaeasylibrary.frmCreaTicket.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:metaeasylibrary.frmCreaTicket.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:metaeasylibrary.frmEasyConnect">
+            <summary>
+            Summary description for frmEasyConnect.
+            </summary>
+        </member>
+        <member name="F:metaeasylibrary.frmEasyConnect.MyDataAccess">
+            <summary>
+            Output DataAccess Object
+            </summary>
+        </member>
+        <member name="F:metaeasylibrary.frmEasyConnect.GoodData">
+            <summary>
+            String to search in ODBC registry for DB description. Es. "Easy Local Source"
+            </summary>
+        </member>
+        <member name="F:metaeasylibrary.frmEasyConnect.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:metaeasylibrary.frmEasyConnect.GetDBList">
+            <summary>
+            Legge la lista dei db da file xml
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:metaeasylibrary.frmEasyConnect.AddDummytoList(System.Data.DataSet)">
+            <summary>
+            Aggiunge una o più righe a dblist prendendole dall'ODBC list
+            </summary>
+            <param name="dbl"></param>
+        </member>
+        <member name="M:metaeasylibrary.frmEasyConnect.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:metaeasylibrary.frmEasyConnect.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:metaeasylibrary.FrmElencoErrori">
+            <summary>
+            Summary description for FrmElencoErrori.
+            </summary>
+        </member>
+        <member name="M:metaeasylibrary.FrmElencoErrori.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:metaeasylibrary.FrmElencoErrori.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:metaeasylibrary.ReportDispatcherClass">
+            <summary>
+            Summary description for ReportDispatcher.
+            </summary>
+        </member>
+        <member name="M:metaeasylibrary.ReportDispatcherClass.GetReport(metadatalibrary.DataAccess,System.Data.DataRow,System.Collections.Hashtable,System.String@)">
+            <summary>
+            Evaluates a ReportDocument, returns null if errors (ErrMess is the reason)
+            </summary>
+            <param name="Conn"></param>
+            <param name="ModuleReport"></param>
+            <param name="Params"></param>
+            <param name="ErrMess"></param>
+            <returns></returns>
+        </member>
+        <member name="T:metaeasylibrary.helpDeskService.doHelpDesk">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.#ctor">
+            <remarks/>
+        </member>
+        <member name="E:metaeasylibrary.helpDeskService.doHelpDesk.registerClienteCompleted">
+            <remarks/>
+        </member>
+        <member name="E:metaeasylibrary.helpDeskService.doHelpDesk.aggiornaClienteCompleted">
+            <remarks/>
+        </member>
+        <member name="E:metaeasylibrary.helpDeskService.doHelpDesk.registerStrutturaCompleted">
+            <remarks/>
+        </member>
+        <member name="E:metaeasylibrary.helpDeskService.doHelpDesk.registerEnteCompleted">
+            <remarks/>
+        </member>
+        <member name="E:metaeasylibrary.helpDeskService.doHelpDesk.elencaEntiCompleted">
+            <remarks/>
+        </member>
+        <member name="E:metaeasylibrary.helpDeskService.doHelpDesk.getStatoTicketCompleted">
+            <remarks/>
+        </member>
+        <member name="E:metaeasylibrary.helpDeskService.doHelpDesk.creaTicketCompleted">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.registerCliente(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.registerClienteAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.registerClienteAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.aggiornaCliente(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.aggiornaClienteAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.aggiornaClienteAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.registerStruttura(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.registerStrutturaAsync(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.registerStrutturaAsync(System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.registerEnte(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.registerEnteAsync(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.registerEnteAsync(System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.elencaEnti">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.elencaEntiAsync">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.elencaEntiAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.getStatoTicket(System.Int32)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.getStatoTicketAsync(System.Int32)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.getStatoTicketAsync(System.Int32,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.creaTicket(System.Int32,System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.creaTicketAsync(System.Int32,System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.creaTicketAsync(System.Int32,System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:metaeasylibrary.helpDeskService.doHelpDesk.CancelAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="T:metaeasylibrary.helpDeskService.registerClienteCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:metaeasylibrary.helpDeskService.registerClienteCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:metaeasylibrary.helpDeskService.registerClienteCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:metaeasylibrary.helpDeskService.aggiornaClienteCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:metaeasylibrary.helpDeskService.aggiornaClienteCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:metaeasylibrary.helpDeskService.aggiornaClienteCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:metaeasylibrary.helpDeskService.registerStrutturaCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:metaeasylibrary.helpDeskService.registerStrutturaCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:metaeasylibrary.helpDeskService.registerStrutturaCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:metaeasylibrary.helpDeskService.registerEnteCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:metaeasylibrary.helpDeskService.registerEnteCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:metaeasylibrary.helpDeskService.registerEnteCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:metaeasylibrary.helpDeskService.elencaEntiCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:metaeasylibrary.helpDeskService.elencaEntiCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:metaeasylibrary.helpDeskService.elencaEntiCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:metaeasylibrary.helpDeskService.getStatoTicketCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:metaeasylibrary.helpDeskService.getStatoTicketCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:metaeasylibrary.helpDeskService.getStatoTicketCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:metaeasylibrary.helpDeskService.creaTicketCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:metaeasylibrary.helpDeskService.creaTicketCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:metaeasylibrary.helpDeskService.creaTicketCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+    </members>
+</doc>

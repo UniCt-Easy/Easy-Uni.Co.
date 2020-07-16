@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -558,6 +555,28 @@ public class paydispositiondetailRow: MetaRow  {
 	public Int32? idexpOriginal { 
 		get {if (this["idexp",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idexp",DataRowVersion.Original];}
 	}
+	public Int32? flag{ 
+		get {if (this["flag"]==DBNull.Value)return null; return  (Int32?)this["flag"];}
+		set {if (value==null) this["flag"]= DBNull.Value; else this["flag"]= value;}
+	}
+	public object flagValue { 
+		get{ return this["flag"];}
+		set {if (value==null|| value==DBNull.Value) this["flag"]= DBNull.Value; else this["flag"]= value;}
+	}
+	public Int32? flagOriginal { 
+		get {if (this["flag",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["flag",DataRowVersion.Original];}
+	}
+	public Int32? idchargehandling{ 
+		get {if (this["idchargehandling"]==DBNull.Value)return null; return  (Int32?)this["idchargehandling"];}
+		set {if (value==null) this["idchargehandling"]= DBNull.Value; else this["idchargehandling"]= value;}
+	}
+	public object idchargehandlingValue { 
+		get{ return this["idchargehandling"];}
+		set {if (value==null|| value==DBNull.Value) this["idchargehandling"]= DBNull.Value; else this["idchargehandling"]= value;}
+	}
+	public Int32? idchargehandlingOriginal { 
+		get {if (this["idchargehandling",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idchargehandling",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -604,8 +623,9 @@ public class paydispositiondetailTable : MetaTableBase<paydispositiondetailRow> 
 			{"flagtaxrefund",createColumn("flagtaxrefund",typeof(string),true,false)},
 			{"calendaryear",createColumn("calendaryear",typeof(int),true,false)},
 			{"idexp",createColumn("idexp",typeof(int),true,false)},
+			{"flag",createColumn("flag",typeof(int),true,false)},
+			{"idchargehandling",createColumn("idchargehandling",typeof(int),true,false)},
 		};
 	}
 }
 }
-

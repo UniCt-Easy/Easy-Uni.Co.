@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -1526,6 +1523,9 @@ namespace expense_wizardlinkexptoinc {//spesawizardelimina//
                 MyFilter = QHS.AppAnd(MyFilter, QHS.CmpEq("nmov", txtNmovExpense.Text.Trim()));
 
             MyFilter = QHS.AppAnd(MyFilter, QHS.IsNull("npaymenttransmission"));
+            
+            MyFilter = QHS.AppAnd(MyFilter, QHS.IsNull("nbill"));
+
             //DataTable ExpenseTax = Meta.Conn.RUN_SELECT("expensetax","idexp",null, QHS.CmpEq("ayear",Meta.GetSys("esercizio")),null,true);
             //string lista = QHC.DistinctVal(ExpenseTax.Select(), "idexp");
             //MyFilter = QHS.AppAnd(MyFilter, QHS.Not(QHS.FieldInList("idexp", lista)));            
@@ -1533,14 +1533,29 @@ namespace expense_wizardlinkexptoinc {//spesawizardelimina//
                                     QHS.CmpEq("ayear", Meta.GetSys("esercizio")) + "))");
 
             bool IsAdmin = false;
-            if (Meta.GetSys("manage_prestazioni") != null)
-                IsAdmin = (Meta.GetSys("manage_prestazioni").ToString() == "S");
+            if (Meta.GetSys("manage_prestazioni") != null) {
+	            IsAdmin = (Meta.GetSys("manage_prestazioni").ToString() == "S");
+            }
 
-		    if (!IsAdmin) {
-		        string autokind = "REFPS";
-		        object idAutokind = Conn.DO_READ_VALUE("autokind", QHS.CmpEq("code", autokind), "idautokind");
-		        MyFilter = QHS.AppAnd(MyFilter, QHS.NullOrEq("autokind",idAutokind));
-		    }
+            bool isStipendi = false;
+            if (Meta.GetUsr("stipendi") != null) {
+	            isStipendi = Meta.GetUsr("stipendi").ToString().ToUpper() == "'S'";
+            }
+
+            if (!IsAdmin) {
+	            object idAutokindRefPs = Conn.DO_READ_VALUE("autokind", QHS.CmpEq("code", "REFPS"), "idautokind"); //3
+	            if (isStipendi) {
+		            MyFilter = QHS.AppAnd(MyFilter,
+			            QHS.DoPar(
+				            QHS.AppOr(QHS.IsNull("autokind"), QHS.CmpEq("autokind",idAutokindRefPs),QHS.CmpEq("autokind", 30), QHS.CmpEq("autokind", 31))
+			            )
+		            );
+	            }
+	            else {
+		            MyFilter = QHS.AppAnd(MyFilter, QHS.NullOrEq("autokind",idAutokindRefPs));
+	            }
+
+            }
 
 		    return MyFilter;
 		}
@@ -1561,13 +1576,30 @@ namespace expense_wizardlinkexptoinc {//spesawizardelimina//
             MyFilter = QHS.AppAnd(MyFilter, QHS.IsNull("idpayment"));
 
             bool IsAdmin = false;
-            if (Meta.GetSys("manage_prestazioni") != null)
-                IsAdmin = (Meta.GetSys("manage_prestazioni").ToString() == "S");
+            if (Meta.GetSys("manage_prestazioni") != null) {
+	            IsAdmin = (Meta.GetSys("manage_prestazioni").ToString() == "S");
+            }
 
-            if (!IsAdmin)
-                MyFilter = QHS.AppAnd(MyFilter, "(autokind is null)");
+            bool isStipendi = false;
+            if (Meta.GetUsr("stipendi") != null) {
+	            isStipendi = Meta.GetUsr("stipendi").ToString().ToUpper() == "'S'";
+            }
 
 
+            if (!IsAdmin) {
+	            object idAutokindRefPs = Conn.DO_READ_VALUE("autokind", QHS.CmpEq("code", "REFPS"), "idautokind"); //3
+	            if (isStipendi) {
+		            MyFilter = QHS.AppAnd(MyFilter,
+			            QHS.DoPar(
+				            QHS.AppOr(QHS.IsNull("autokind"),QHS.CmpEq("autokind", 30), QHS.CmpEq("autokind", 31), QHS.CmpEq("autokind", idAutokindRefPs))
+			            )
+		            );
+	            }
+	            else {
+		            MyFilter = QHS.AppAnd(MyFilter, QHS.NullOrEq("autokind",idAutokindRefPs));
+	            }
+
+            }
             // Aggiungo il fitro sullo stesso creditore di spesa: non Ë necessario che l'anagrafica sia la stessa
             //DataRow CurrExpense = DS.expense.Rows[0];
             //MyFilter = QHS.AppAnd(MyFilter, QHS.CmpEq("idreg", CurrExpense["idreg"]));
@@ -1790,4 +1822,4 @@ namespace expense_wizardlinkexptoinc {//spesawizardelimina//
 
         }
 	}
-}
+}

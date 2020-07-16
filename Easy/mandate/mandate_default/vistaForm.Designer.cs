@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -42,7 +39,7 @@ using metadatalibrary;
 namespace mandate_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -210,9 +207,6 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable mandatecig 		=> (MetaTable)Tables["mandatecig"];
 
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable mandateview 		=> (MetaTable)Tables["mandateview"];
-
 	///<summary>
 	///Registro unico
 	///</summary>
@@ -273,6 +267,9 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable attachmentkind 		=> (MetaTable)Tables["attachmentkind"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable mandateview 		=> (MetaTable)Tables["mandateview"];
+
 	#endregion
 
 
@@ -300,7 +297,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// MANDATE /////////////////////////////////
 	var tmandate= new mandateTable();
-	tmandate.addBaseColumns("yman","nman","idreg","registryreference","description","idman","deliveryexpiration","deliveryaddress","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","officiallyprinted","txt","rtf","cu","ct","lu","lt","active","idmankind","flagintracom","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","applierannotations","idmandatestatus","idstore","cigcode","idsor01","idsor02","idsor03","idsor04","idsor05","idconsipkind","flagdanger","idmankind_origin","yman_origin","nman_origin","subappropriation","finsubappropriation","adatesubappropriation","arrivalprotocolnum","arrivaldate","annotations","resendingpcc","external_reference","idconsipkind_ext","consipmotive","flagtenderresult","motiveassignment","idreg_rupanac","tenderkind","anacreduced","publishdate","publishdatekind","requested_doc");
+	tmandate.addBaseColumns("yman","nman","idreg","registryreference","description","idman","deliveryexpiration","deliveryaddress","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","officiallyprinted","txt","rtf","cu","ct","lu","lt","active","idmankind","flagintracom","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","applierannotations","idmandatestatus","idstore","cigcode","idsor01","idsor02","idsor03","idsor04","idsor05","idconsipkind","flagdanger","idmankind_origin","yman_origin","nman_origin","subappropriation","finsubappropriation","adatesubappropriation","arrivalprotocolnum","arrivaldate","annotations","resendingpcc","external_reference","idconsipkind_ext","consipmotive","flagtenderresult","motiveassignment","idreg_rupanac","tenderkind","anacreduced","publishdate","publishdatekind","requested_doc","flagbit");
 	Tables.Add(tmandate);
 	tmandate.defineKey("yman", "nman", "idmankind");
 
@@ -416,7 +413,7 @@ private void initClass() {
 
 	//////////////////// CONFIG /////////////////////////////////
 	var tconfig= new configTable();
-	tconfig.addBaseColumns("ayear","agencycode","appname","appropriationphasecode","assessmentphasecode","asset_flagnumbering","asset_flagrestart","assetload_flag","boxpartitiontitle","cashvaliditykind","casualcontract_flagrestart","ct","cu","currpartitiontitle","deferredexpensephase","deferredincomephase","electronicimport","electronictrasmission","expense_expiringdays","expensephase","flagautopayment","flagautoproceeds","flagcredit","flagepexp","flagfruitful","flagpayment","flagproceeds","flagrefund","foreignhours","idacc_accruedcost","idacc_accruedrevenue","idacc_customer","idacc_deferredcost","idacc_deferredcredit","idacc_deferreddebit","idacc_deferredrevenue","idacc_ivapayment","idacc_ivarefund","idacc_patrimony","idacc_pl","idacc_supplier","idaccmotive_admincar","idaccmotive_foot","idaccmotive_owncar","idclawback","idfinexpense","idfinexpensesurplus","idfinincomesurplus","idfinivapayment","idfinivarefund","idivapayperiodicity","idregauto","idsortingkind1","idsortingkind2","idsortingkind3","importappname","income_expiringdays","incomephase","linktoinvoice","lt","lu","minpayment","minrefund","motivelen","motiveprefix","motiveseparator","payment_finlevel","payment_flag","payment_flagautoprintdate","paymentagency","prevpartitiontitle","proceeds_finlevel","proceeds_flag","proceeds_flagautoprintdate","profservice_flagrestart","refundagency","wageaddition_flagrestart","flag_autodocnumbering");
+	tconfig.addBaseColumns("ayear","agencycode","appname","appropriationphasecode","assessmentphasecode","asset_flagnumbering","asset_flagrestart","assetload_flag","boxpartitiontitle","cashvaliditykind","casualcontract_flagrestart","ct","cu","currpartitiontitle","deferredexpensephase","deferredincomephase","electronicimport","electronictrasmission","expense_expiringdays","expensephase","flagautopayment","flagautoproceeds","flagcredit","flagepexp","flagfruitful","flagpayment","flagproceeds","flagrefund","foreignhours","idacc_accruedcost","idacc_accruedrevenue","idacc_customer","idacc_deferredcost","idacc_deferredcredit","idacc_deferreddebit","idacc_deferredrevenue","idacc_ivapayment","idacc_ivarefund","idacc_patrimony","idacc_pl","idacc_supplier","idaccmotive_admincar","idaccmotive_foot","idaccmotive_owncar","idclawback","idfinexpense","idfinexpensesurplus","idfinincomesurplus","idfinivapayment","idfinivarefund","idivapayperiodicity","idregauto","idsortingkind1","idsortingkind2","idsortingkind3","importappname","income_expiringdays","incomephase","linktoinvoice","lt","lu","minpayment","minrefund","motivelen","motiveprefix","motiveseparator","payment_finlevel","payment_flag","payment_flagautoprintdate","paymentagency","prevpartitiontitle","proceeds_finlevel","proceeds_flag","proceeds_flagautoprintdate","profservice_flagrestart","refundagency","wageaddition_flagrestart","flag_autodocnumbering","flag");
 	Tables.Add(tconfig);
 	tconfig.defineKey("ayear");
 
@@ -965,84 +962,6 @@ private void initClass() {
 	Tables.Add(tmandatecig);
 	tmandatecig.defineKey("idmankind", "yman", "nman", "cigcode");
 
-	//////////////////// MANDATEVIEW /////////////////////////////////
-	var tmandateview= new MetaTable("mandateview");
-	tmandateview.defineColumn("idmankind", typeof(string),false);
-	tmandateview.defineColumn("yman", typeof(short),false);
-	tmandateview.defineColumn("nman", typeof(int),false);
-	tmandateview.defineColumn("mankind", typeof(string),false);
-	tmandateview.defineColumn("idreg", typeof(int));
-	tmandateview.defineColumn("registry", typeof(string));
-	tmandateview.defineColumn("registryreference", typeof(string));
-	tmandateview.defineColumn("description", typeof(string),false);
-	tmandateview.defineColumn("idman", typeof(int));
-	tmandateview.defineColumn("manager", typeof(string));
-	tmandateview.defineColumn("deliveryexpiration", typeof(string));
-	tmandateview.defineColumn("deliveryaddress", typeof(string));
-	tmandateview.defineColumn("paymentexpiring", typeof(short));
-	tmandateview.defineColumn("idexpirationkind", typeof(short));
-	tmandateview.defineColumn("idcurrency", typeof(int));
-	tmandateview.defineColumn("codecurrency", typeof(string));
-	tmandateview.defineColumn("currency", typeof(string));
-	tmandateview.defineColumn("exchangerate", typeof(double));
-	tmandateview.defineColumn("doc", typeof(string));
-	tmandateview.defineColumn("docdate", typeof(DateTime));
-	tmandateview.defineColumn("adate", typeof(DateTime),false);
-	tmandateview.defineColumn("officiallyprinted", typeof(string),false);
-	tmandateview.defineColumn("txt", typeof(string));
-	tmandateview.defineColumn("cu", typeof(string),false);
-	tmandateview.defineColumn("ct", typeof(DateTime),false);
-	tmandateview.defineColumn("lu", typeof(string),false);
-	tmandateview.defineColumn("lt", typeof(DateTime),false);
-	tmandateview.defineColumn("taxable_euro", typeof(decimal),true,true);
-	tmandateview.defineColumn("iva_euro", typeof(decimal),true,true);
-	tmandateview.defineColumn("total", typeof(decimal),true,true);
-	tmandateview.defineColumn("active", typeof(string));
-	tmandateview.defineColumn("flagintracom", typeof(string));
-	tmandateview.defineColumn("idaccmotivedebit", typeof(string));
-	tmandateview.defineColumn("codemotivedebit", typeof(string));
-	tmandateview.defineColumn("idaccmotivedebit_crg", typeof(string));
-	tmandateview.defineColumn("codemotivedebit_crg", typeof(string));
-	tmandateview.defineColumn("idaccmotivedebit_datacrg", typeof(DateTime));
-	tmandateview.defineColumn("applierannotations", typeof(string));
-	tmandateview.defineColumn("idmandatestatus", typeof(short));
-	tmandateview.defineColumn("mandatestatus", typeof(string));
-	tmandateview.defineColumn("idstore", typeof(int));
-	tmandateview.defineColumn("store", typeof(string));
-	tmandateview.defineColumn("statusimage", typeof(string),true,true);
-	tmandateview.defineColumn("listingorder", typeof(short));
-	tmandateview.defineColumn("linkedtotal", typeof(decimal),true,true);
-	tmandateview.defineColumn("isrequest", typeof(string));
-	tmandateview.defineColumn("cigcode", typeof(string));
-	tmandateview.defineColumn("idsor01", typeof(int),true,true);
-	tmandateview.defineColumn("idsor02", typeof(int),true,true);
-	tmandateview.defineColumn("idsor03", typeof(int),true,true);
-	tmandateview.defineColumn("idsor04", typeof(int),true,true);
-	tmandateview.defineColumn("idsor05", typeof(int),true,true);
-	tmandateview.defineColumn("idconsipkind", typeof(int));
-	tmandateview.defineColumn("flagdanger", typeof(string),true,true);
-	tmandateview.defineColumn("mankind_origin", typeof(string));
-	tmandateview.defineColumn("idmankind_origin", typeof(string));
-	tmandateview.defineColumn("yman_origin", typeof(short));
-	tmandateview.defineColumn("nman_origin", typeof(int));
-	tmandateview.defineColumn("mankind_dest", typeof(string));
-	tmandateview.defineColumn("idmankind_dest", typeof(string));
-	tmandateview.defineColumn("yman_dest", typeof(DateTime));
-	tmandateview.defineColumn("nman_dest", typeof(string));
-	tmandateview.defineColumn("subappropriation", typeof(string));
-	tmandateview.defineColumn("finsubappropriation", typeof(short));
-	tmandateview.defineColumn("adatesubappropriation", typeof(int));
-	tmandateview.defineColumn("iduniqueregister", typeof(int));
-	tmandateview.defineColumn("expiration", typeof(DateTime));
-	tmandateview.defineColumn("expirationkind", typeof(string));
-	tmandateview.defineColumn("rupanac", typeof(string));
-	tmandateview.defineColumn("anacreduced", typeof(double));
-	tmandateview.defineColumn("motiveassignment", typeof(string));
-	tmandateview.defineColumn("consipkind", typeof(string));
-	tmandateview.defineColumn("consipkind_ext", typeof(string));
-	tmandateview.defineColumn("tenderresult", typeof(string));
-	Tables.Add(tmandateview);
-
 	//////////////////// UNIQUEREGISTER /////////////////////////////////
 	var tuniqueregister= new MetaTable("uniqueregister");
 	tuniqueregister.defineColumn("iduniqueregister", typeof(int),false);
@@ -1210,6 +1129,103 @@ private void initClass() {
 	Tables.Add(tattachmentkind);
 	tattachmentkind.defineKey("idattachmentkind");
 
+	//////////////////// MANDATEVIEW /////////////////////////////////
+	var tmandateview= new MetaTable("mandateview");
+	tmandateview.defineColumn("idmankind", typeof(string),false);
+	tmandateview.defineColumn("yman", typeof(short),false);
+	tmandateview.defineColumn("nman", typeof(int),false);
+	tmandateview.defineColumn("mankind", typeof(string),false);
+	tmandateview.defineColumn("idreg", typeof(int));
+	tmandateview.defineColumn("registry", typeof(string));
+	tmandateview.defineColumn("registryreference", typeof(string));
+	tmandateview.defineColumn("description", typeof(string),false);
+	tmandateview.defineColumn("idman", typeof(int));
+	tmandateview.defineColumn("manager", typeof(string));
+	tmandateview.defineColumn("deliveryexpiration", typeof(string));
+	tmandateview.defineColumn("deliveryaddress", typeof(string));
+	tmandateview.defineColumn("paymentexpiring", typeof(short));
+	tmandateview.defineColumn("idexpirationkind", typeof(short));
+	tmandateview.defineColumn("idcurrency", typeof(int));
+	tmandateview.defineColumn("codecurrency", typeof(string));
+	tmandateview.defineColumn("currency", typeof(string));
+	tmandateview.defineColumn("exchangerate", typeof(double));
+	tmandateview.defineColumn("doc", typeof(string));
+	tmandateview.defineColumn("docdate", typeof(DateTime));
+	tmandateview.defineColumn("adate", typeof(DateTime),false);
+	tmandateview.defineColumn("officiallyprinted", typeof(string),false);
+	tmandateview.defineColumn("txt", typeof(string));
+	tmandateview.defineColumn("cu", typeof(string),false);
+	tmandateview.defineColumn("ct", typeof(DateTime),false);
+	tmandateview.defineColumn("lu", typeof(string),false);
+	tmandateview.defineColumn("lt", typeof(DateTime),false);
+	tmandateview.defineColumn("taxable_euro", typeof(decimal),true,true);
+	tmandateview.defineColumn("iva_euro", typeof(decimal),true,true);
+	tmandateview.defineColumn("total", typeof(decimal),true,true);
+	tmandateview.defineColumn("active", typeof(string));
+	tmandateview.defineColumn("flagintracom", typeof(string));
+	tmandateview.defineColumn("idaccmotivedebit", typeof(string));
+	tmandateview.defineColumn("codemotivedebit", typeof(string));
+	tmandateview.defineColumn("idaccmotivedebit_crg", typeof(string));
+	tmandateview.defineColumn("codemotivedebit_crg", typeof(string));
+	tmandateview.defineColumn("idaccmotivedebit_datacrg", typeof(DateTime));
+	tmandateview.defineColumn("applierannotations", typeof(string));
+	tmandateview.defineColumn("idmandatestatus", typeof(short));
+	tmandateview.defineColumn("mandatestatus", typeof(string));
+	tmandateview.defineColumn("idstore", typeof(int));
+	tmandateview.defineColumn("store", typeof(string));
+	tmandateview.defineColumn("statusimage", typeof(string),true,true);
+	tmandateview.defineColumn("listingorder", typeof(short));
+	tmandateview.defineColumn("linkedtotal", typeof(decimal),true,true);
+	tmandateview.defineColumn("isrequest", typeof(string));
+	tmandateview.defineColumn("cigcode", typeof(string));
+	tmandateview.defineColumn("idsor01", typeof(int));
+	tmandateview.defineColumn("idsor02", typeof(int));
+	tmandateview.defineColumn("idsor03", typeof(int));
+	tmandateview.defineColumn("idsor04", typeof(int));
+	tmandateview.defineColumn("idsor05", typeof(int));
+	tmandateview.defineColumn("idconsipkind", typeof(int));
+	tmandateview.defineColumn("consipkind", typeof(string));
+	tmandateview.defineColumn("idconsipkind_ext", typeof(int));
+	tmandateview.defineColumn("consipkind_ext", typeof(string));
+	tmandateview.defineColumn("consipmotive", typeof(string));
+	tmandateview.defineColumn("flagdanger", typeof(string),true,true);
+	tmandateview.defineColumn("mankind_origin", typeof(string));
+	tmandateview.defineColumn("idmankind_origin", typeof(string));
+	tmandateview.defineColumn("yman_origin", typeof(short));
+	tmandateview.defineColumn("nman_origin", typeof(int));
+	tmandateview.defineColumn("mankind_dest", typeof(string));
+	tmandateview.defineColumn("idmankind_dest", typeof(string));
+	tmandateview.defineColumn("yman_dest", typeof(short));
+	tmandateview.defineColumn("nman_dest", typeof(int));
+	tmandateview.defineColumn("subappropriation", typeof(string));
+	tmandateview.defineColumn("finsubappropriation", typeof(string));
+	tmandateview.defineColumn("adatesubappropriation", typeof(DateTime));
+	tmandateview.defineColumn("arrivalprotocolnum", typeof(string));
+	tmandateview.defineColumn("arrivaldate", typeof(DateTime));
+	tmandateview.defineColumn("annotations", typeof(string));
+	tmandateview.defineColumn("iduniqueregister", typeof(int));
+	tmandateview.defineColumn("resendingpcc", typeof(string));
+	tmandateview.defineColumn("ipa_fe", typeof(string));
+	tmandateview.defineColumn("expirationkind", typeof(string));
+	tmandateview.defineColumn("expiration", typeof(DateTime),true,true);
+	tmandateview.defineColumn("external_reference", typeof(string));
+	tmandateview.defineColumn("officecode", typeof(string));
+	tmandateview.defineColumn("officedescription", typeof(string));
+	tmandateview.defineColumn("officetitle", typeof(string));
+	tmandateview.defineColumn("flagtenderresult", typeof(string));
+	tmandateview.defineColumn("motiveassignment", typeof(string));
+	tmandateview.defineColumn("anacreduced", typeof(double));
+	tmandateview.defineColumn("idreg_rupanac", typeof(int));
+	tmandateview.defineColumn("rupanac", typeof(string));
+	tmandateview.defineColumn("tenderresult", typeof(string),true,true);
+	tmandateview.defineColumn("tenderkind", typeof(string));
+	tmandateview.defineColumn("tenderkinddescr", typeof(string),true,true);
+	tmandateview.defineColumn("publishdate", typeof(DateTime));
+	tmandateview.defineColumn("publishdatekind", typeof(string));
+	tmandateview.defineColumn("publishdatekinddescr", typeof(string),true,true);
+	tmandateview.defineColumn("requested_doc", typeof(int));
+	Tables.Add(tmandateview);
+
 	#endregion
 
 
@@ -1279,4 +1295,3 @@ private void initClass() {
 }
 }
 }
-

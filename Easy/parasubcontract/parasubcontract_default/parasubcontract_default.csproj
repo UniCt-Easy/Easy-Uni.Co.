@@ -94,6 +94,12 @@
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="meta_dalia_dipartimento">
+      <HintPath>..\..\dalia_dipartimento\meta_dalia_dipartimento\bin\Debug\meta_dalia_dipartimento.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_dalia_funzionale">
+      <HintPath>..\..\dalia_funzionale\meta_dalia_funzionale\bin\Debug\meta_dalia_funzionale.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -138,36 +144,58 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_parasubcontract</Name>
       <HintPath>..\meta_parasubcontract\bin\Debug\meta_parasubcontract.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_registry">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_registry</Name>
       <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_payroll">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_payroll</Name>
       <HintPath>..\..\payroll\meta_payroll\bin\Debug\meta_payroll.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_sorting">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_sorting</Name>
       <HintPath>..\..\sorting\meta_sorting\bin\Debug\meta_sorting.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_upb">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_upb</Name>
       <HintPath>..\..\upb\meta_upb\bin\Debug\meta_upb.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_config">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_config</Name>
       <HintPath>..\..\config\meta_config\bin\Debug\meta_config.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_service">
+      <HintPath>..\..\service\meta_service\bin\Debug\meta_service.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_service</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_geo_city">
+      <HintPath>..\..\geo_city\meta_geo_city\bin\Debug\meta_geo_city.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_geo_city</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>System.Data.DataSetExtensions</Name>
+    </Reference>
+    <Reference Include="meta_accmotiveapplied">
+      <HintPath>..\..\accmotive\meta_accmotiveapplied\bin\Debug\meta_accmotiveapplied.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_accmotiveapplied</Name>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

@@ -97,6 +97,12 @@
       <Name>meta_list</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="meta_flussocrediti">
+      <HintPath>..\..\flussocrediti\meta_flussocrediti\bin\Debug\meta_flussocrediti.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_flussocrediti</Name>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />

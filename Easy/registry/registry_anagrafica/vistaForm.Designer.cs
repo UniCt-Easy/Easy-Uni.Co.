@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -24,6 +21,7 @@ using System.Runtime.Serialization;
 #pragma warning disable 1591
 using meta_registry;
 using meta_registryreference;
+using meta_address;
 using meta_registryclass;
 using meta_geo_city;
 using meta_registryaddress;
@@ -119,7 +117,7 @@ public class dsmeta: DataSet {
 	///Tipo Indirizzo  (anagrafica)
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable address 		=> (MetaTable)Tables["address"];
+	public addressTable address 		=> (addressTable)Tables["address"];
 
 	///<summary>
 	///Tipologie classificazione
@@ -431,13 +429,8 @@ private void initClass() {
 	tresidence.defineKey("idresidence");
 
 	//////////////////// ADDRESS /////////////////////////////////
-	var taddress= new MetaTable("address");
-	taddress.defineColumn("idaddress", typeof(int),false);
-	taddress.defineColumn("description", typeof(string),false);
-	taddress.defineColumn("lt", typeof(DateTime));
-	taddress.defineColumn("lu", typeof(string));
-	taddress.defineColumn("active", typeof(string));
-	taddress.defineColumn("codeaddress", typeof(string));
+	var taddress= new addressTable();
+	taddress.addBaseColumns("idaddress","description","lt","lu","active","codeaddress");
 	Tables.Add(taddress);
 	taddress.defineKey("idaddress");
 
@@ -831,4 +824,3 @@ private void initClass() {
 }
 }
 }
-

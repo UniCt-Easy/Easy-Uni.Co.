@@ -65,33 +65,14 @@
     <Reference Include="zxing">
       <HintPath>..\..\..\dll\zxing.dll</HintPath>
     </Reference>
-    <Reference Include="meta_flussoincassi">
-      <HintPath>..\..\..\flussoincassi\meta_flussoincassi\bin\Debug\meta_flussoincassi.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_flussoincassi</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="meta_flussoincassidetail">
-      <HintPath>..\..\..\flussoincassidetail\meta_flussoincassidetail\bin\Debug\meta_flussoincassidetail.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_flussoincassidetail</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="meta_flussocreditidetail">
-      <HintPath>..\..\..\flussocreditidetail\meta_flussocreditidetail\bin\Debug\meta_flussocreditidetail.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_flussocreditidetail</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="meta_flussocrediti">
-      <HintPath>..\..\..\flussocrediti\meta_flussocrediti\bin\Debug\meta_flussocrediti.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_flussocrediti</Name>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Service References\bsondrio1_1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\govPayReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -180,13 +161,13 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AuthPASoap\AuthPASoap.wsdl" />
-    <None Include="Service References\bsondrio1_1\FaultSchema_v8.xsd">
+    <None Include="Service References\bsondrio1_1\FaultSchema_v81.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\bsondrio1_1\IUVOnlineSchema_v1.xsd">
+    <None Include="Service References\bsondrio1_1\IUVOnlineSchema_v11.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\bsondrio1_1\IUVOnlineService_v1.wsdl" />
+    <None Include="Service References\bsondrio1_1\IUVOnlineService_v11.wsdl" />
     <None Include="Service References\bsondrio1_1\pagoPaService.bsondrio1_1.IUVOnlineCreateResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -196,14 +177,60 @@
     <None Include="Service References\bsondrio1_1\pagoPaService.bsondrio1_1.IUVOnlineUpdateResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\bsondrio1_1\TestataSchema_v8.xsd">
+    <None Include="Service References\bsondrio1_1\TestataSchema_v81.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\bsondrio1_1\TipiComuniAnagrafeSchema_v9.xsd">
+    <None Include="Service References\bsondrio1_1\TipiComuniAnagrafeSchema_v91.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\bsondrio1_1\TipiTestataSchema_v8.xsd">
+    <None Include="Service References\bsondrio1_1\TipiTestataSchema_v81.xsd">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\govPayReference\GP.wsdl" />
+    <None Include="Service References\govPayReference\pagoPaService.govPayReference.gpAnnullaVersamentoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\govPayReference\pagoPaService.govPayReference.gpCaricaIuvResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\govPayReference\pagoPaService.govPayReference.gpCaricaIuvResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\govPayReference\pagoPaService.govPayReference.gpCaricaVersamentoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\govPayReference\pagoPaService.govPayReference.gpCaricaVersamentoResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\govPayReference\pagoPaService.govPayReference.gpChiediFlussoRendicontazioneResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\govPayReference\pagoPaService.govPayReference.gpChiediFlussoRendicontazioneResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\govPayReference\pagoPaService.govPayReference.gpChiediListaFlussiRendicontazioneResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\govPayReference\pagoPaService.govPayReference.gpChiediListaFlussiRendicontazioneResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\govPayReference\pagoPaService.govPayReference.gpChiediStatoVersamentoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\govPayReference\pagoPaService.govPayReference.gpChiediStatoVersamentoResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\govPayReference\pagoPaService.govPayReference.gpGeneraIuvResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\govPayReference\pagoPaService.govPayReference.gpGeneraIuvResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\govPayReference\pagoPaService.govPayReference.gpNotificaPagamentoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\govPayReference\pagoPaService.govPayReference.gpResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\PayPA\pagoPaService.PayPA.PagamentoEsistenteBollettinoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -263,6 +290,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\AuthPASoap\" />
     <WCFMetadataStorage Include="Service References\bsondrio1_1\" />
+    <WCFMetadataStorage Include="Service References\govPayReference\" />
     <WCFMetadataStorage Include="Service References\PayPA\" />
     <WCFMetadataStorage Include="Service References\TicketWebSoap\" />
     <WCFMetadataStorage Include="Service References\UbiBancaService\" />
@@ -283,6 +311,22 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\flussocreditidetail\meta_flussocreditidetail\meta_flussocreditidetail.csproj">
+      <Project>{5684b3c6-5bbc-4431-939e-bcedd5cbd9d8}</Project>
+      <Name>meta_flussocreditidetail</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\flussocrediti\meta_flussocrediti\meta_flussocrediti.csproj">
+      <Project>{980fcadc-e57e-455f-bc6a-2a93f5c8e86b}</Project>
+      <Name>meta_flussocrediti</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\flussoincassidetail\meta_flussoincassidetail\meta_flussoincassidetail.csproj">
+      <Project>{b9953068-0990-465d-afac-23ab67826f80}</Project>
+      <Name>meta_flussoincassidetail</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\flussoincassi\meta_flussoincassi\meta_flussoincassi.csproj">
+      <Project>{1914094a-959c-402f-a371-602a5a28ca93}</Project>
+      <Name>meta_flussoincassi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\funzioni_configurazione\funzioni_configurazione.csproj">
       <Project>{c0dacf4d-2f3e-44d6-a718-7c9821a1bdcd}</Project>
       <Name>funzioni_configurazione</Name>
@@ -356,6 +400,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\bsondrio1_1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\govPayReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\govPayReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\govPayReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

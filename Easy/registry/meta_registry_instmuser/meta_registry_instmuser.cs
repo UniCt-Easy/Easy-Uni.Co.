@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -32,17 +29,14 @@ namespace meta_registry_instmuser
 				Name = "Pagina di registrazione";
 			EditTypes.Add("instmuser");
 			ListingTypes.Add("instmuser");
+			EditTypes.Add("instmuser_anagrafica");
+			ListingTypes.Add("instmuser_anagrafica");
 			//$EditTypes$
         }
 
 		//$PrymaryKey$
 
-
-		public override void SetDefaults(DataTable PrimaryTable) {
-			base.SetDefaults(PrimaryTable);
-						SetDefault(PrimaryTable, "idinstmusercategorykind", "2");
-		}
-
+		//$SetDefault$
 
 		public override DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
 			
@@ -70,38 +64,26 @@ namespace meta_registry_instmuser
 					
 			switch (ListingType) {
 				case "instmuser": {
-						DescribeAColumn(T, "!idinstmqualifies_instmqualifies_title", "Qualifica", nPos++);
-						DescribeAColumn(T, "!idinstmresearchunit_instmresearchunit_title", "Unità di Ricerca", nPos++);
 						DescribeAColumn(T, "!idinstmseztematichekind_instmseztematichekind_title", "Sezione tematica prescelta", nPos++);
-						DescribeAColumn(T, "!idinstmseztematichekind_instmseztematichekind_description", "Sezione tematica prescelta", nPos++);
 						DescribeAColumn(T, "!idinstmseztematichekind_2_instmseztematichekind_title", "Seconda sezione tematica prescelta", nPos++);
-						DescribeAColumn(T, "!idinstmseztematichekind_2_instmseztematichekind_description", "Seconda sezione tematica prescelta", nPos++);
 						DescribeAColumn(T, "!idinstmusercategorykind_instmusercategorykind_title", "Categoria di afferenza", nPos++);
-						DescribeAColumn(T, "!idinstmusercategorykind_instmusercategorykind_description", "Categoria di afferenza", nPos++);
-						DescribeAColumn(T, "!idlocation_locationsorting_idsor", "Dipartimento", nPos++);
-						DescribeAColumn(T, "!idlocation_locationsorting_idlocation", "Dipartimento", nPos++);
-						DescribeAColumn(T, "!idreg_istituto_registry_title", "Università Consorziata a INSTM o Ente accademico collegato", nPos++);
-						DescribeAColumn(T, "!idsasd_sasd_title", "Settore Disciplinare", nPos++);
+						DescribeAColumn(T, "maritalcf", "Maritalcf", nPos++);
 						DescribeAColumn(T, "interest", "Interessi di Ricerca", nPos++);
 						DescribeAColumn(T, "newsletter", "Autorizzo l’invio della Newsletter istituzionale", nPos++);
 						DescribeAColumn(T, "otherbelonging", "Eventuale afferenza ad altri Consorzi (specificare quale/i, uno per riga):", nPos++);
 						DescribeAColumn(T, "privacy", "Presa visione dell’informativa e consenso al trattamento dei dati", nPos++);
 						DescribeAColumn(T, "regulationaccept", "Do il consenso", nPos++);
-						DescribeAColumn(T, "termoffice", "Data di Scadenza Incarico ", nPos++);
-						if (T.Columns.Contains("termoffice")) T.Columns["termoffice"].ExtendedProperties["format"] = "g";
+						break;
+					}
+				case "instmuser_anagrafica": {
+						DescribeAColumn(T, "maritalcf", "Maritalcf", nPos++);
 						break;
 					}
 					//$DescribeAColumn$
 			}
 		}
 
-		public override string GetSorting(string ListingType) {
-
-			switch (ListingType) {
-				//$GetSorting$
-			}
-			return base.GetSorting(ListingType);
-		}
+		//$GetSortings$
 
 		public override string GetStaticFilter(string ListingType) {
 			switch (ListingType) {
@@ -113,4 +95,3 @@ namespace meta_registry_instmuser
 		//$CustomCode$
     }
 }
-

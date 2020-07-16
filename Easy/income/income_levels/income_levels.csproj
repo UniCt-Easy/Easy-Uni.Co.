@@ -128,6 +128,14 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+    <ProjectReference Include="..\..\config\meta_config\meta_config.csproj">
+      <Project>{548b48f0-3ffc-43fc-aa33-85805f2a6264}</Project>
+      <Name>meta_config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\proceeds\meta_proceeds\meta_proceeds.csproj">
+      <Project>{9a369412-fa2d-496a-9e39-139a230bd1c6}</Project>
+      <Name>meta_proceeds</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\chooseBill\chooseBill.csproj">
       <Project>{9944E8AC-9EC1-4473-8A98-70DF8869BEE3}</Project>
       <Name>chooseBill</Name>
@@ -162,79 +170,79 @@
       <HintPath>..\meta_income\bin\Debug\meta_income.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_income</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_manager">
       <HintPath>..\..\manager\meta_manager\bin\Debug\meta_manager.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_manager</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_incomeyear">
       <HintPath>..\..\incomeyear\meta_incomeyear\bin\Debug\meta_incomeyear.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_incomeyear</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_registry">
       <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_registry</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_incomevar">
       <HintPath>..\..\incomevar\meta_incomevar\bin\Debug\meta_incomevar.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_incomevar</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_incomesorted">
       <HintPath>..\..\incomesorted\meta_incomesorted\bin\Debug\meta_incomesorted.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_incomesorted</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_sortingkind">
       <HintPath>..\..\sortingkind\meta_sortingkind\bin\Debug\meta_sortingkind.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_sortingkind</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_sorting">
       <HintPath>..\..\sorting\meta_sorting\bin\Debug\meta_sorting.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_sorting</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_proceedspart">
       <HintPath>..\..\proceedspart\meta_proceedspart\bin\Debug\meta_proceedspart.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_proceedspart</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_invoice">
       <HintPath>..\..\invoice\meta_invoice\bin\Debug\meta_invoice.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_invoice</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_invoicekind">
       <HintPath>..\..\invoicekind\meta_invoicekind\bin\Debug\meta_invoicekind.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_invoicekind</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_upb">
       <HintPath>..\..\upb\meta_upb\bin\Debug\meta_upb.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_upb</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_finview">
       <HintPath>..\..\fin\meta_finview\bin\Debug\meta_finview.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_finview</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_bill">
       <HintPath>..\..\bill\meta_bill\bin\Debug\meta_bill.dll</HintPath>
@@ -246,31 +254,19 @@
       <HintPath>..\..\estimate\meta_estimate\bin\Debug\meta_estimate.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_estimate</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_estimatekind">
       <HintPath>..\..\estimatekind\meta_estimatekind\bin\Debug\meta_estimatekind.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_estimatekind</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_incomelast">
       <HintPath>..\..\incomelast\meta_incomelast\bin\Debug\meta_incomelast.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_incomelast</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="meta_config">
-      <HintPath>..\..\config\meta_config\bin\Debug\meta_config.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_config</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="meta_proceeds">
-      <HintPath>..\..\proceeds\meta_proceeds\bin\Debug\meta_proceeds.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_proceeds</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_account">
       <HintPath>..\..\account\meta_account\bin\Debug\meta_account.dll</HintPath>
@@ -282,7 +278,7 @@
       <HintPath>..\..\underwriting\meta_underwriting\bin\Debug\meta_underwriting.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_underwriting</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions">
       <SpecificVersion>False</SpecificVersion>

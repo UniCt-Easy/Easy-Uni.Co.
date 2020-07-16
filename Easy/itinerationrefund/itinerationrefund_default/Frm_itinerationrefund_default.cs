@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -1264,6 +1261,7 @@ namespace itinerationrefund_default{
                 return -1;
             }
 
+            if (inizio.Year < 1000) return -1;
             DateTime fine;
             try {
                 fine = (DateTime)dataFine;
@@ -1271,6 +1269,7 @@ namespace itinerationrefund_default{
             catch {
                 return -1;
             }
+            if (fine.Year < 1000) return -1;
 
             double dinizio = 0;
             double dfine = 0;
@@ -1639,7 +1638,7 @@ namespace itinerationrefund_default{
         }
 
         private void txtPercAnticipoItaliaEstero_Leave(object sender, EventArgs e) {
-            if (Meta.inchiusura) return;
+            if (Meta.formController.isClosing) return;
             if (!CheckLimiteAnticipo()) DialogResult = DialogResult.None;
 
         }
@@ -1655,4 +1654,3 @@ namespace itinerationrefund_default{
         }
 	}
 }
-

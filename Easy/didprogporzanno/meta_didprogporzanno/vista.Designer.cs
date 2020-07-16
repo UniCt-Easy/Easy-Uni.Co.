@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -29,6 +26,17 @@ public class didprogporzannoRow: MetaRow  {
 	public didprogporzannoRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
+	public String aa{ 
+		get {if (this["aa"]==DBNull.Value)return null; return  (String)this["aa"];}
+		set {if (value==null) this["aa"]= DBNull.Value; else this["aa"]= value;}
+	}
+	public object aaValue { 
+		get{ return this["aa"];}
+		set {if (value==null|| value==DBNull.Value) this["aa"]= DBNull.Value; else this["aa"]= value;}
+	}
+	public String aaOriginal { 
+		get {if (this["aa",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["aa",DataRowVersion.Original];}
+	}
 	public DateTime? ct{ 
 		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
 		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
@@ -50,6 +58,17 @@ public class didprogporzannoRow: MetaRow  {
 	}
 	public String cuOriginal { 
 		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+	}
+	public Int32? idcorsostudio{ 
+		get {if (this["idcorsostudio"]==DBNull.Value)return null; return  (Int32?)this["idcorsostudio"];}
+		set {if (value==null) this["idcorsostudio"]= DBNull.Value; else this["idcorsostudio"]= value;}
+	}
+	public object idcorsostudioValue { 
+		get{ return this["idcorsostudio"];}
+		set {if (value==null|| value==DBNull.Value) this["idcorsostudio"]= DBNull.Value; else this["idcorsostudio"]= value;}
+	}
+	public Int32? idcorsostudioOriginal { 
+		get {if (this["idcorsostudio",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idcorsostudio",DataRowVersion.Original];}
 	}
 	public Int32? iddidprog{ 
 		get {if (this["iddidprog"]==DBNull.Value)return null; return  (Int32?)this["iddidprog"];}
@@ -106,6 +125,9 @@ public class didprogporzannoRow: MetaRow  {
 	public Int32? iddidprogporzannoOriginal { 
 		get {if (this["iddidprogporzanno",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["iddidprogporzanno",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Durata
+	///</summary>
 	public Int32? iddidprogporzannokind{ 
 		get {if (this["iddidprogporzannokind"]==DBNull.Value)return null; return  (Int32?)this["iddidprogporzannokind"];}
 		set {if (value==null) this["iddidprogporzannokind"]= DBNull.Value; else this["iddidprogporzannokind"]= value;}
@@ -150,6 +172,9 @@ public class didprogporzannoRow: MetaRow  {
 	public String luOriginal { 
 		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Dal
+	///</summary>
 	public DateTime? start{ 
 		get {if (this["start"]==DBNull.Value)return null; return  (DateTime?)this["start"];}
 		set {if (value==null) this["start"]= DBNull.Value; else this["start"]= value;}
@@ -161,6 +186,9 @@ public class didprogporzannoRow: MetaRow  {
 	public DateTime? startOriginal { 
 		get {if (this["start",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["start",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Al
+	///</summary>
 	public DateTime? stop{ 
 		get {if (this["stop"]==DBNull.Value)return null; return  (DateTime?)this["stop"];}
 		set {if (value==null) this["stop"]= DBNull.Value; else this["stop"]= value;}
@@ -181,8 +209,10 @@ public class didprogporzannoRow: MetaRow  {
 public class didprogporzannoTable : MetaTableBase<didprogporzannoRow> {
 	public didprogporzannoTable() : base("didprogporzanno"){
 		baseColumns = new Dictionary<string, DataColumn>(){
+			{"aa",createColumn("aa",typeof(string),false,false)},
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
 			{"cu",createColumn("cu",typeof(string),false,false)},
+			{"idcorsostudio",createColumn("idcorsostudio",typeof(int),false,false)},
 			{"iddidprog",createColumn("iddidprog",typeof(int),false,false)},
 			{"iddidproganno",createColumn("iddidproganno",typeof(int),false,false)},
 			{"iddidprogcurr",createColumn("iddidprogcurr",typeof(int),false,false)},
@@ -198,4 +228,3 @@ public class didprogporzannoTable : MetaTableBase<didprogporzannoRow> {
 	}
 }
 }
-

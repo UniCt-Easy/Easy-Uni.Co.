@@ -1,32 +1,43 @@
-(function() {
+(function () {
 	
-    var MetaPage = window.appMeta.MetaPage;
+    var MetaPage = window.appMeta.Meta_APP_Page;
 
     function metaPage_tabella() {
-        MetaPage.apply(this, arguments);
+		MetaPage.apply(this, ['tabella', 'tipoedit', Principale]);
         this.name = 'titolopagina';
 		this.defaultListType = 'tipoedit';
-		//rowSelectedEventManager
-		//buttonClickEndEventManager
+		//pageHeaderDeclaration
     }
 
     metaPage_tabella.prototype = _.extend(
-        new MetaPage('tabella', 'tipoedit', Principale),
+        new MetaPage(),
         {
             constructor: metaPage_tabella,
             superClass: MetaPage.prototype,
 
-            getName:function () {
+            getName: function () {
                return this.name;
-            },
+			},
+
+			//isValidFunction
+
+			//afterGetFormData
 			
 			//beforeFill
 
+			//afterFill
+
 			//afterLink
+
+			//afterRowSelect
+
+			//afterActivation
 
 			//rowSelected
 
 			//buttonClickEnd
+
+			//insertClick
 
 			//buttons
         });

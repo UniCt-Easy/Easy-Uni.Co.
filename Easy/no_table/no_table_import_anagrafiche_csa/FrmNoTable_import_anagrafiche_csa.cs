@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -28,6 +25,7 @@ using metaeasylibrary;
 using funzioni_configurazione;
 using System.Text;
 using System.Globalization;
+using q= metadatalibrary.MetaExpression;
 
 namespace no_table_import_anagrafiche_csa {
     /// <summary>
@@ -1203,29 +1201,55 @@ namespace no_table_import_anagrafiche_csa {
             //if (idposition == DBNull.Value) return false;
 
             object idReg = Reg["idreg"];
-
+            
             string filterkey = QHS.AppAnd(QHS.CmpEq("idreg", idReg),
                 QHS.CmpEq("csa_compartment", rCSADati["comparto"]), QHS.CmpEq("csa_role", rCSADati["ruolo"]),
                 QHS.CmpEq("start", rCSADati["in_vigore_giur"]), QHS.CmpEq("incomeclass", rCSADati["classestipendiale"]));
+         
             int rKey = Conn.RUN_SELECT_COUNT("registrylegalstatus", filterkey, true);
-            DataRow R;
+            DataRow R=null;
             if (rKey > 0) {
                 // Aggiorner‡ solo i campi NON chiave, in realt‡ sta controllando i campi principali.
                 DataAccess.RUN_SELECT_INTO_TABLE(Conn, D.Tables["registrylegalstatus"], null, filterkey, null, true);
-                string filterkeyDS = QHC.AppAnd(QHC.CmpEq("idreg", idReg),
-                    QHC.CmpEq("csa_compartment", rCSADati["comparto"]), QHC.CmpEq("csa_role", rCSADati["ruolo"]),
-                    QHC.CmpEq("start", rCSADati["in_vigore_giur"]),
-                    QHC.CmpEq("incomeclass", rCSADati["classestipendiale"]));
-                DataRow[] rFound = D.Tables["registrylegalstatus"].Select(filterkeyDS);
+                DataRow[] rFound = D.Tables["registrylegalstatus"].Select(
+	                QHC.AppAnd(QHS.CmpEq("idreg", idReg),
+		                QHC.CmpEq("csa_compartment", rCSADati["comparto"]), QHC.CmpEq("csa_role", rCSADati["ruolo"]),
+		                QHC.CmpEq("start", rCSADati["in_vigore_giur"]), QHC.CmpEq("incomeclass", rCSADati["classestipendiale"]))
+	                );
                 R = rFound[0];
             }
             else {
-                // Inserisce un nuovo inquadramento, perchË nel DB non ne esiste uno con quei campi.
-                R = MetaRegistryLegalStatus.Get_New_Row(Reg, D.Tables["registrylegalstatus"]);
-                R["idreg"] = idReg;
+	            bool foundprec = false;
+	            if (rCSADati["in_vigore_giur"] != DBNull.Value) {
+		            DateTime oldStart = (DateTime) rCSADati["in_vigore_giur"];
+		            oldStart = oldStart.AddDays(-1);
+		            //Cerca l'inquadramento che finisce nel giorno precedente
+		            string filterkeyOld = QHS.AppAnd(QHS.CmpEq("idreg", idReg),
+			            QHS.CmpEq("csa_compartment", rCSADati["comparto"]), QHS.CmpEq("csa_role", rCSADati["ruolo"]),
+			            QHS.CmpEq("stop",oldStart), 
+			            QHS.CmpEq("incomeclass", rCSADati["classestipendiale"]));
+		            DataAccess.RUN_SELECT_INTO_TABLE(Conn, D.Tables["registrylegalstatus"],"start desc", filterkeyOld, "1", true);
+		            DataRow[] rFound = D.Tables["registrylegalstatus"].Select(
+			            QHC.AppAnd(QHC.CmpEq("idreg", idReg),
+				            QHC.CmpEq("csa_compartment", rCSADati["comparto"]),
+				            QHC.CmpEq("csa_role", rCSADati["ruolo"]),
+				            QHC.CmpEq("stop",oldStart), 
+				            QHC.CmpEq("incomeclass", rCSADati["classestipendiale"])));
+		            if (rFound.Length > 0) {
+			            R = rFound[0];
+			            foundprec = true;
+		            }
+	            }
+
+	            if (!foundprec) {
+		            // Inserisce un nuovo inquadramento, perchË nel DB non ne esiste uno con quei campi.
+		            R = MetaRegistryLegalStatus.Get_New_Row(Reg, D.Tables["registrylegalstatus"]);
+		            R["idreg"] = idReg;
+		            R["start"] = rCSADati["in_vigore_giur"];
+	            }
             }
 
-            R["start"] = rCSADati["in_vigore_giur"];
+          
             R["stop"] = rCSADati["termine"];
             R["active"] = "S";
             R["idposition"] = idposition;
@@ -1244,8 +1268,7 @@ namespace no_table_import_anagrafiche_csa {
             if (supposedincome == 0) return false;
             DataRow R = null;
             object idReg = Reg["idreg"];
-            string filter = QHS.AppAnd(QHS.CmpEq("idreg", idReg), QHS.CmpEq("start", start),
-                QHS.CmpEq("supposedincome", supposedincome));
+            string filter = QHS.AppAnd(QHS.CmpEq("idreg", idReg), QHS.CmpEq("start", start),QHS.CmpEq("active","S"), QHS.CmpEq("supposedincome", supposedincome));
             int N = Conn.RUN_SELECT_COUNT("registrytaxablestatus", filter, true);
             // Controlla che nel DB ci sia una riga con quei dati, se c'Ë esce.
             if (N > 0) return false;
@@ -1253,10 +1276,15 @@ namespace no_table_import_anagrafiche_csa {
             bool toCreate = false;
             // controlla se la riga del DB ha importo  >. Se lo Ë esce.
             string filterkey = QHS.CmpEq("idreg", idReg);
-            DataTable ReddPres = Meta.Conn.RUN_SELECT("registrytaxablestatus", "idreg, start,supposedincome ",
-                "start DESC", filterkey, "1", false);
+            DataTable ReddPres = Meta.Conn.RUN_SELECT("registrytaxablestatus", "idreg, start,supposedincome ","start DESC",
+					QHS.AppAnd(QHS.CmpEq("active","S"),filterkey), "1", false);
 
             if (ReddPres.Select(QHC.CmpEq("start", start)).Length == 1) {
+                //Esiste un reddito precedente attivo
+	            decimal redditoPrecedente = CfgFn.GetNoNullDecimal(ReddPres.Rows[0]["supposedincome"]);
+
+	            if (redditoPrecedente == supposedincome) return false; //Non c'Ë bisogno di aggiornarlo
+
                 DataAccess.RUN_SELECT_INTO_TABLE(Conn, D.Tables["registrytaxablestatus"], "start DESC",
                     QHS.AppAnd(QHS.CmpEq("idreg", idReg), QHS.CmpEq("start", start)), "1", false);
                 string filterkeyDS = QHC.AppAnd(QHC.CmpEq("idreg", idReg), QHC.CmpEq("start", start));
@@ -1325,4 +1353,3 @@ namespace no_table_import_anagrafiche_csa {
     }
 }
 
-

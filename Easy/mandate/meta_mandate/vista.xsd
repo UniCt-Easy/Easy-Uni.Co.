@@ -67,6 +67,7 @@
               <xs:element name="publishdate" type="xs:dateTime" minOccurs="0" />
               <xs:element name="publishdatekind" type="xs:string" minOccurs="0" />
               <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
+              <xs:element name="flagbit" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

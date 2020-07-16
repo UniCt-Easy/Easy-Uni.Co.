@@ -2,10 +2,10 @@ MIME-Version: 1.0
 Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF"
+  boundary="---------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8"
 
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -26,6 +26,13 @@ TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
 </STYLE>
   </HEAD>
 <BODY>
+<DIV><STRONG><FONT face=3D"Arial">Guide collegate</FONT></STRONG></DIV>
+<DIV>&nbsp;</DIV>
+<DIV><A href=3D"Duplicazione_CFPI.mht"><EM><FONT face=3D"Arial">Funzione =
+di duplicazione codice fiscale/partita IVA per le anagrafiche</FONT></EM>=
+</A></FONT></EM></DIV>
+<DIV>&nbsp;</DIV><HR>
+<DIV>&nbsp;</DIV>
 <P><STRONG>Menu: </STRONG>Anagrafiche &gt; Anagrafica &gt; Anagrafica</P>
 <H1>La gestione delle Anagrafiche</H1>
 <DIV align=3D"justify">Il modulo <STRONG>Anagrafica</STRONG> =C3=A8 un mo=
@@ -74,7 +81,7 @@ zione">Classificazione</A>, <A href=3D"#Scheda Dati Storici">Dati Storici=
 <P align=3D"justify">In base alla scelta del tipo di soggetto da anagrafa=
 re il modulo presenter=C3=A0 i campi pi=C3=B9 opportuni ad esso associato=
  e che dovranno essere compilati.</P>
-<P align=3D"center"><IMG src=3D"cid:3LXW9UJ6HIQS1CXW2W61VQZHMD"></P>
+<P align=3D"center"><IMG src=3D"cid:1ACQWNPI3BWMK1MHV2X21QTKBWB"></P>
 <P>&nbsp;</P>
 <DIV>Espandendo la lista a tendina relativa al campo <STRONG>Tipologia</S=
 TRONG><U>,</U> sar=C3=A0 possibile selezionare la tipologia del soggetto =
@@ -90,15 +97,15 @@ inita da <EM>Configurazione</EM> &gt; <EM>Anagrafiche</EM> &gt; <A href=3D=
 zioni internazionali/Societ=C3=A0, enti commerciali, ditte individuali e =
 studi associati</U></STRONG></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:14YS1P6IW72ZJ18BNF011BJUV78"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:KK064HM0G8FK111XN0E1YOOFWK"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1JMIC5ILXBLN25JIT1I1AGY3CL"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:T9ZH0ZLMXV6C1SZTJTXCIE59U"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV><STRONG><U>SCELTA 2: Persona fisica</U></STRONG></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:EJUKJQKOVVDY1MXRKBPBVHII4"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:7WYPZGKPMQ241W3ZH6D1FP638Y"></DIV>
 <DIV>&nbsp;</DIV>
 <H3>Descrizione campi</H3>
 <TABLE border=3D"1" width=3D"100%">
@@ -125,14 +132,14 @@ a per il creditore/debitore tra quelle elencate da <STRONG>Easy. </STRONG=
 >In base alla tipologia scelta, il modulo presenter=C3=A0 solo i campi ut=
 ili al soggetto scelto. E' possibile inserire una nuova tipologia o perso=
 nalizzare una gi=C3=A0 esistente cliccando sul pulsante <U><IMG src=3D"ci=
-d:10O2E3LJICGMX18QOMTT1P0WJZD"></U>.</TD>
+d:1NEG4Q3JGHTV01C6J9MU7XS1QA"></U>.</TD>
   </TR>
   <TR>
     <TD><STRONG>Titolo</STRONG></TD>
     <TD>riportare il titolo del soggetto persona fisica (campo facoltativ=
 o). Se il titolo non =C3=A8 presente tra quelli elencati =C3=A8 possibile=
- inserirlo direttamene cliccando sul pulsante <IMG src=3D"cid:F15GZOKYL67=
-P18AO43HQNJV2B">.</TD>
+ inserirlo direttamene cliccando sul pulsante <IMG src=3D"cid:8SEV6LK78R5=
+YVCGA7W1BACWMT">.</TD>
   </TR>
   <TR>
     <TD><STRONG>Tipo residenza</STRONG></TD>
@@ -144,7 +151,7 @@ RONG>Easy</STRONG>. E' possibile inserire altre tipologie di residenza da=
     <TD><STRONG>Stato civile</STRONG></TD>
     <TD>indicare facoltativamente lo stato civile del soggetto persona fi=
 sica tra quelli elencati, altrimenti inserirlo dal pulsante <U><IMG src=3D=
-"cid:8POQ4SLGQTNA1HD85Y1309EQE"></U>.</TD>
+"cid:1SC2OAWJTDZWQ5Z8WI8RY55DC"></U>.</TD>
   </TR>
   <TR>
     <TD><STRONG>Denominazione</STRONG></TD>
@@ -176,14 +183,14 @@ to estero. Tutti i dati devono essere inseriti in maniera corretta per il=
     <TD><STRONG>Codice Fiscale</STRONG></TD>
     <TD>indicare correttamente il codice fiscale. Per alcune tipologie, c=
 ome Persona fisica, l=E2=80=99inserimento del codice fiscale =C3=A8 obbli=
-gatorio. &nbsp;Il pulsante <U><IMG src=3D"cid:FVZZAOLFXB9E168T2FB1L7PCPE"=
-></U>&nbsp;&nbsp;consente di determinare il codice fiscale del soggetto p=
-ersona fisica dopo aver inserito correttamente cognome, nome, sesso, data=
- e comune di nascita. Invece il pulsante <U><IMG src=3D"cid:1I0ZT3JLLC0QS=
-1OGH9QT1LRBDO"></U>, consente di ricavare le informazioni pi=C3=B9 import=
-anti dopo aver inserito il codice fiscale. La visualizzazione dei predett=
-i tasti =C3=A8 influenzata dalla <EM>Tipologia</EM> scelta e da eventuali=
- personalizzazioni.</TD>
+gatorio. &nbsp;Il pulsante <U><IMG src=3D"cid:CVH43DKVGNPKXGOFC86Q7RZ"></=
+U>&nbsp;&nbsp;consente di determinare il codice fiscale del soggetto pers=
+ona fisica dopo aver inserito correttamente cognome, nome, sesso, data e =
+comune di nascita. Invece il pulsante <U><IMG src=3D"cid:FQCONUHSDCX3LKF5=
+IH10KWBBS"></U>, consente di ricavare le informazioni pi=C3=B9 importanti=
+ dopo aver inserito il codice fiscale. La visualizzazione dei predetti ta=
+sti =C3=A8 influenzata dalla <EM>Tipologia</EM> scelta e da eventuali per=
+sonalizzazioni.</TD>
   </TR>
   <TR>
     <TD><STRONG>Partita IVA</STRONG></TD>
@@ -241,7 +248,7 @@ orm principale.</P>
 <P>In questo modo con il &nbsp;pulsante <STRONG>Aggiungi</STRONG> =C3=A8 =
 possibile inserire nella finestra che appare i dati relativi alla <A href=
 =3D"registrypaymethod_anagrafica.mht">Modalit=C3=A0 di pagamento</A>.</P>
-<P align=3D"center"><IMG src=3D"cid:1HNW0Y4IXKOMQ17Z5OZH1PDW9SB"></P>
+<P align=3D"center"><IMG src=3D"cid:1NS767ZK9LEW81AE3D7FPSNKUT"></P>
 <P>&nbsp;</P>
 <P>Gli stessi dati potranno poi essere modificati o eliminati con l=E2=80=
 =99utilizzo dei pulsanti <STRONG>Correggi </STRONG>e <STRONG>Cancella</ST=
@@ -277,7 +284,7 @@ l soggetto a cui si =C3=A8 erogato il compenso.</P>
 <P>Dai relativi pulsanti di comando =C3=A8 possibile aggiungere, corregge=
 re e cancellare uno o pi=C3=B9 indirizzi. <A href=3D"registryaddress_anag=
 raficasingle.mht">Per saperne di pi=C3=B9</A></P>
-<P align=3D"center"><IMG src=3D"cid:1N5C5PLIWPPI1O6RPFZUW0ISM"></P>
+<P align=3D"center"><IMG src=3D"cid:43P7H9IPNBQ41JNF8VD1M3136F"></P>
 <P align=3D"right"><A><STRONG>Torna su</STRONG></A></STRONG></P>
 <P>A proposito della scheda Indirizzi, poi, ricodiamo che ove si trattass=
 e di residenti all'estero sarebbe necessario aggiungere un ulteriore indi=
@@ -296,14 +303,14 @@ e Entrate del 21 settembre 2007, n. 261 (pdf 5KB).</P>
 <P>Per le pensioni erogate dall'INPS, quindi, si applicano le aliquote pr=
 eviste per le addizionali della Regione Lazio e del Comune di Roma.</P>
 <P>&nbsp;</P>
-<P align=3D"center"><IMG src=3D"cid:1FGNQA7K7VZZ0FHFRFU1VFLJJ9"></P>
+<P align=3D"center"><IMG src=3D"cid:1DKCMAHJEL8AP1IHF2K919BQXIH"></P>
 <P>&nbsp;</P>
 <P>&nbsp;</P><HR>
 <H2><A name=3D"Scheda Altri Dati">Scheda Altri Dati</A></H2>
 <P>La scheda <STRONG><EM>Altri Dati &nbsp;</EM></STRONG>consente di integ=
 rare l=E2=80=99anagrafica con informazioni e classificazioni che possono =
 presentarsi per specifiche esigenze dell=E2=80=99utente.</P>
-<P align=3D"center"><IMG src=3D"cid:BJ3M4PLJTL06A4KE5711ERIZT"></P>
+<P align=3D"center"><IMG src=3D"cid:1IXK1IQJY4M5F4T2ZEF633FKT"></P>
 <P>&nbsp;</P>
 <P>Procediamo brevemente a descrivere le singole voci:</P>
 <TABLE border=3D"1" width=3D"100%">
@@ -314,8 +321,8 @@ presentarsi per specifiche esigenze dell=E2=80=99utente.</P>
   <TR>
     <TD><STRONG>Classificazione</STRONG></TD>
     <TD>consente di indicare una specifica classificazione, precedentemen=
-te creata e configurata. Dal pulsante <U><IMG src=3D"cid:KXH62OI2NC971MIF=
-Z40AOGEXW"></U>&nbsp;possono essere create le singole voci di classificaz=
+te creata e configurata. Dal pulsante <U><IMG src=3D"cid:Y7TLVSIRBHL7G7V6=
+P21KG1KYG"></U>&nbsp;possono essere create le singole voci di classificaz=
 ione. <A href=3D"registrykind_lista.mht">Per saperne di pi=C3=B9</A></TD>
   </TR>
   <TR>
@@ -395,7 +402,7 @@ mento, account di skype, numeri telefonici di riferimento.</P>
 <P>Inoltre =C3=A8 possibile inserire il nome <U>utente</U> e la <U>passwo=
 rd</U> &nbsp;che consentono l=E2=80=99accesso al servizio di <STRONG><EM>=
 WEB</EM></STRONG> <STRONG><EM>REPORT</EM></STRONG>.</P>
-<P align=3D"center"><IMG src=3D"cid:19G25ZZI9TSXP38WN1JNI50XN"></P>
+<P align=3D"center"><IMG src=3D"cid:M6XGRZL4TVXP45O4V1EDNT5D"></P>
 <P>&nbsp;</P>
 <TABLE align=3D"center" border=3D"1" width=3D"100%">
   <TR>
@@ -419,10 +426,10 @@ ne giuridica e della posizione retributiva consentir=C3=A0 la ricerca del=
 <P>Come illustrato qui di seguito, la scheda <U>Dati per Missioni</U> si =
 presenta suddivisa in due sezioni: <STRONG>Inquadramento</STRONG> indican=
 te <EM>Posizione</EM> <EM>Giuridica</EM></P>
-<P align=3D"center"><IMG src=3D"cid:T7IBE0IHQ60DCYHOJW1CHQPEA"></P>
+<P align=3D"center"><IMG src=3D"cid:1BX7AZNLNGTYV16VN5AJ1DZBGIX"></P>
 <P>e il <STRONG>Reddito annuo presunto</STRONG> che identifica la <EM>Pos=
 izione</EM> <EM>Retributiva</EM></P>
-<P align=3D"center"><IMG src=3D"cid:DDCTPAI6FIHQVX6O3T3UV9ZQ"></P>
+<P align=3D"center"><IMG src=3D"cid:BW4GWLJKRL283E4MGG1UHKI5S"></P>
 <P>&nbsp;</P>
 <P align=3D"left">In entrambe le sezioni =C3=A8 consentito aggiungere, co=
 rreggere e cancellare le informazioni relative alla posizione giuridica e=
@@ -436,7 +443,7 @@ one</U>. Tali classificazioni se opportunamente configurate permetteranno=
  la generazione di numerosi automatismi in grado di semplificare notevolm=
 ente la gestione operativa (vedi ad esempio la classificazione SIOPE).</P=
 >
-<P align=3D"center"><IMG src=3D"cid:O0992YI8PPV9S1TRQJEZFOLK"></P>
+<P align=3D"center"><IMG src=3D"cid:5UOC5XI5DP7D1FMT3T21YWGLFN"></P>
 <P>Nella relativa scheda =C3=A8 consentito aggiungere, correggere e cance=
 llare una o pi=C3=B9 classificazioni. <A href=3D"registrysorting_default.=
 mht">Per saperne di pi=C3=B9</A></P>
@@ -447,8 +454,8 @@ A></STRONG></P>
 <P>La scheda Dati Storici consente di avere traccia della storicit=C3=A0 =
 del Codice Fiscale e/o della Partita IVA del percipiente, qualora queste =
 siano cambiate.</P>
-<P align=3D"center"><IMG src=3D"cid:HNMRBSLQ357I1W8GZAE4DOY13"></P>
-<P align=3D"center"><IMG src=3D"cid:1CJ3DGFHWOKG4YRLWA0K38F1X"></P>
+<P align=3D"center"><IMG src=3D"cid:4HBJ1VM3NU2V1FP4A79KO9UY6"></P>
+<P align=3D"center"><IMG src=3D"cid:16PKQY7J26UW2S44K361R3GFIH"></P>
 <P>&nbsp;</P>
 <P align=3D"center">&nbsp;</P>
 <DIV>Per il Codice Fiscale andranno inseriti solo i vecchi CF e non quell=
@@ -472,7 +479,7 @@ ti gli operatori della struttura che utilizzeranno quell'anagrafica, evit=
 ando cos=C3=AC che vengano richiesti Durc quando l'Ente =C3=A8 gi=C3=A0 i=
 n possesso di un Durc valido.</DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:E1X4AQL906HC5Q91NY1IZCMK"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:14RAOLBJO49GN130BEKQ18P4ZNN"></DIV>
 <DIV>&nbsp;</DIV>
 <P align=3D"right"><A><STRONG>Torna su</STRONG></A></STRONG></P>
 <H2>&nbsp;</H2><HR>
@@ -487,7 +494,7 @@ lo richiama in automatico la scheda inserita nella presente funzionalit=C3=
 =A0 delle Anagrafiche. Per tali soggetti e per assolvere agli obblighi di=
  trasparenza richiesti dalla normativa, =C3=A8 necessario allegare all'an=
 agrafica del soggetto, il file del curriculum vitae.</P>
-<P align=3D"center"><IMG src=3D"cid:1ADQW2PK8KYBO1I0LUHYRIHOE9"></P>
+<P align=3D"center"><IMG src=3D"cid:1042857J5NGB3RTCCK2BA2XOJ"></P>
 <P align=3D"right"><A><STRONG>Torna su</STRONG></A></STRONG></P><HR>
 <H2>Scheda Mod. 770</H2>
 <P><U>La scheda consente di caricare il <EM>Curriculum Vitae</EM> relativ=
@@ -507,9 +514,9 @@ P>
 </BODY>
 </HTML>
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <3LXW9UJ6HIQS1CXW2W61VQZHMD>
+Content-Id: <1ACQWNPI3BWMK1MHV2X21QTKBWB>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/2.png
 
@@ -831,9 +838,9 @@ f08EAADQ80g/AAAgLaQfAACQFtIPAABIC+kHAACkpYH0o7oCAAAMnk88tp30AwAA
 EkL6AQAAaSH9AACAtJB+AABAWkg/AAAgLfH0o1oBAAAGVST9UBRFURRFDXYV0g8A
 AEAKSD8AACAtpB8AAJCS+//4/wFwfscLPuCU+QAAAABJRU5ErkJggg===
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <14YS1P6IW72ZJ18BNF011BJUV78>
+Content-Id: <KK064HM0G8FK111XN0E1YOOFWK>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/3.png
 
@@ -1264,9 +1271,9 @@ FgAAAHqJnfWvxUk/3PcDAAD8hfQDAAD8hfQDAAD8hfQDAAD8xXXX87b613QpAABA
 X/Kdkx/97bLzuOsZAAD4EekHAAD4C+kHAAD4C+kHAAD4C+kHAAD4S/g7XxfvOqiL
 AAAA+p7Qd77C6UeVAwAA9Fky9ljW/werrm+MMHliCgAAAABJRU5ErkJggg===
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <1JMIC5ILXBLN25JIT1I1AGY3CL>
+Content-Id: <T9ZH0ZLMXV6C1SZTJTXCIE59U>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/5.png
 
@@ -1699,9 +1706,9 @@ AICAI+4AAICAM7cqb294XS8DAAAEyXdOfETvDgAACDjiDgAACDjiDgAACDjiDgAA
 CDjiDgAACDj5k1kX7zqgFwAAAAAAANDHDNha02RmAQAAgsey/n/4dUpUEdB50gAA
 AABJRU5ErkJggg===
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <EJUKJQKOVVDY1MXRKBPBVHII4>
+Content-Id: <7WYPZGKPMQ241W3ZH6D1FP638Y>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/4.png
 
@@ -2275,9 +2282,9 @@ APA+Ih4AAOB98snlzbte1ykAAAAP+Z8P//PyqEE8uQwAADICEQ8AAPA+Ih4AAOB9
 RDwAAMD7iHgAAID3ZX1052E9CwAA4Dnqu1o6AQAA4FXyl0SJegAAgOfxHA8AAPA6
 w/j/AScck/mrYF7nAAAAAElFTkSuQmCC=
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <10O2E3LJICGMX18QOMTT1P0WJZD>
+Content-Id: <1NEG4Q3JGHTV01C6J9MU7XS1QA>
 Content-Transfer-Encoding: base64
 Content-Location: 11476828.png
 
@@ -2292,9 +2299,9 @@ Pu1yMkbss2KQ0AwmnyrpqjiH3BXKsTsD4l3twG8KXsMTFh/sztchuid/K3jS1QOT
 Ob0jaQj+Y0QwMyKYmYlgXAjxMYKLohCYMIIFLjQ8AO6ZzIBQO9fMAAAAAElFTkSu
 QmCC=
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <F15GZOKYL67P18AO43HQNJV2B>
+Content-Id: <8SEV6LK78R5YVCGA7W1BACWMT>
 Content-Transfer-Encoding: base64
 Content-Location: 11620312.png
 
@@ -2307,9 +2314,9 @@ Uda+JaTMPTMtlDF1DA4vymla5/SNWeSDmbGOAEQxwdNjckxRqqPzYzDXVA71/w7z
 HwSimEAUE4hiAlFMvKL0T+CyEqULEGYSBbZQdAdZBz/mtUGIVAAAAABJRU5ErkJg
 gg===
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <8POQ4SLGQTNA1HD85Y1309EQE>
+Content-Id: <1SC2OAWJTDZWQ5Z8WI8RY55DC>
 Content-Transfer-Encoding: base64
 Content-Location: 12349046.png
 
@@ -2325,9 +2332,9 @@ hE2ScHjWHOCKCklrI+y7wWLkoNHmUzFiHfO2o2n4WkISXtPJs8gHytl8kjApbCJc
 geWjjg3Q9QpK8mJErkSj0RgpaXkQnuSUJIuX08vj873X7R+jkgpQSQWopAKSkuCG
 shJIggUlxJOkpLiZPwrXKOMf2ta1AAAAAElFTkSuQmCC=
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <FVZZAOLFXB9E168T2FB1L7PCPE>
+Content-Id: <CVH43DKVGNPKXGOFC86Q7RZ>
 Content-Transfer-Encoding: base64
 Content-Location: 13077156.png
 
@@ -2346,9 +2353,9 @@ T54Rhpwwh2KE2tk9T+orNIIDGo2OmXEz+gZO5shNgJCwBglix6NYIb+Px8ga5fpj
 jG2uYJws7Wj9SJ4R6D2OmyzVrug5q6/CCMr/RI2gAGoEBVAjKIAaQQHUCArAGsEN
 KusjMoK7UNZKa/4AySBNWXwtmp0AAAAASUVORK5CYII==
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <1I0ZT3JLLC0QS1OGH9QT1LRBDO>
+Content-Id: <FQCONUHSDCX3LKF5IH10KWBBS>
 Content-Transfer-Encoding: base64
 Content-Location: 13170984.png
 
@@ -2373,9 +2380,9 @@ f0QnrQpW/FvtpjY1N9/PNIitr+QhbcXex1iig3PQ+gTkU9YZdHEjLKjdgL1Pvt2M
 tSQvbTdzEXVu1mxzkWfEjuXkHul0antFgwDw+0CDABCABgEgAA0CQAAaBICApkHo
 BgDQkhuE/gAAbPBfTQBwuaS/07OXYDEyUqwAAAAASUVORK5CYII==
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <1HNW0Y4IXKOMQ17Z5OZH1PDW9SB>
+Content-Id: <1NS767ZK9LEW81AE3D7FPSNKUT>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/1.PNG
 
@@ -3212,9 +3219,9 @@ npOkeLmRhaBuYiET5m0sJJnwu5fF2TNnTgmnT5389QeduJEFAAAIR+/pe6Z02X/e
 eXF7IwsZmOmkIGM0HapZM633t2kAAKAlnNOmTZs2bf5/7KPlYyg95SMAAAAASUVO
 RK5CYII==
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <1N5C5PLIWPPI1O6RPFZUW0ISM>
+Content-Id: <43P7H9IPNBQ41JNF8VD1M3136F>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/6.png
 
@@ -4144,9 +4151,9 @@ kAp9OM0Jnie7f7gYR0K0qBEFyeAHARBEFRWsWP+IiIaTAkU5lMUBkCT6fjj7zBkx
 k4vIguJexVC0CNcHAAAxxXjtFkGKHr0oHO+I+IbDHQp8ZIKzVWYfWkSUYSIE6iPr
 4KrMu7gIgDTt/wc/zYnpkaWw4wAAAABJRU5ErkJggg===
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <1FGNQA7K7VZZ0FHFRFU1VFLJJ9>
+Content-Id: <1DKCMAHJEL8AP1IHF2K919BQXIH>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/7.png
 
@@ -5001,9 +5008,9 @@ HtnRr7j1SWN91t/8mFj+y256WN37ufHBtTc8IH8HTF5/PwAAdBp1U+cGdV9HeZ2b
 HlbPs25+TD/SekJ9eNk5Hv/BlnebRz3bGmfT88ie/xfc0vE2LzP05wAAAABJRU5E
 rkJggg===
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <BJ3M4PLJTL06A4KE5711ERIZT>
+Content-Id: <1IXK1IQJY4M5F4T2ZEF633FKT>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/8.png
 
@@ -5593,9 +5600,9 @@ LtTTAAAAKS9Ce08Ncc/yp3+pJwAAABqIOOOer3dvrScAAAAaiA3bj3nGPbzfAwAA
 DwAA8AviHgAA4BfEPQAAwC+IewAAgF8Ev8912ZYKlQQAAND4vNOznSHiHhX6AAAA
 NG66vQcAAKCRM4z/D81BHYJf6xGnAAAAAElFTkSuQmCC=
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <KXH62OI2NC971MIFZ40AOGEXW>
+Content-Id: <Y7TLVSIRBHL7G7V6P21KG1KYG>
 Content-Transfer-Encoding: base64
 Content-Location: 16693656.png
 
@@ -5622,9 +5629,9 @@ wKyvrztAwBGjfxgvq75qg8IoZ4BBZBdwpCySaZQ+SqVYGC+rvv4JFBkDFEqbHBjE
 AKQzCgvjZdVXFBTOrNWTB4qbrNWVA5W1ypqav52P1QwBGchWAAAAAElFTkSuQmCC
 =
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <19G25ZZI9TSXP38WN1JNI50XN>
+Content-Id: <M6XGRZL4TVXP45O4V1EDNT5D>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/9.png
 
@@ -6811,9 +6818,9 @@ TUgpQu4R/okowFCZyzFclBH7fPheH/qP/nGxpyoVCYvwZRG/bgAAaPLqJp8axHDD
 JR8x8XBlrsDdJ3T2cItxAYgeWh1+hMzT+HMPY/8Pd6uD1Lm+nX4AAAAASUVORK5C
 YII==
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <T7IBE0IHQ60DCYHOJW1CHQPEA>
+Content-Id: <1BX7AZNLNGTYV16VN5AJ1DZBGIX>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/10.png
 
@@ -7474,9 +7481,9 @@ os+JY+dFSYZreiDkkVepK2IOAACQifOjETFHWENLDwAAAIQbtPQAAACAdSH0AAAA
 gCXU070FAAAAEAbQvQUAAABWgdADAAAAloDQAwAAAJaA0AMAAACWgNADAAAAluD0
 6S1eBQAAABB+HKGHjwMAAACEIUn6/wEaehyu2rMiugAAAABJRU5ErkJggg===
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <DDCTPAI6FIHQVX6O3T3UV9ZQ>
+Content-Id: <BW4GWLJKRL283E4MGG1UHKI5S>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/11.png
 
@@ -8038,9 +8045,9 @@ Rw4mE48YNZB2dMgh6JSGoIO0Z0KJ849KLrKoiDQjqmTQ0dSxHFl9+rS6Uw6iB1S3
 JiuJUeT0AKDcAlsTFUbslGLIXKNyjIw1IuDogqw2ldXEKGoYSUWdanoaclLBG4KO
 F8v6/wEL1pVzv0ZoRAAAAABJRU5ErkJggg===
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <O0992YI8PPV9S1TRQJEZFOLK>
+Content-Id: <5UOC5XI5DP7D1FMT3T21YWGLFN>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/45.png
 
@@ -8697,9 +8704,9 @@ AJy7AwAAAGkBcQcAAAAsDnEHAAAALA5xBwAAACwu9qnKAAAAABaAU5UBAAAgLSDu
 AAAAgMUh7gAAAIDFIe4AAACAxSHuAAAAgMWxb2aJIgAAAIDl3H7LDf8fWRTmKiFG
 wwAAAAAASUVORK5CYII==
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <HNMRBSLQ357I1W8GZAE4DOY13>
+Content-Id: <4HBJ1VM3NU2V1FP4A79KO9UY6>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/44.png
 
@@ -9224,9 +9231,9 @@ oVAoFAqFUislX9aR1hQKhUKhUCi1VZw8I1KzjvutHwAAgMJz8owg6wAAgPJw8owg
 AABlRtYBAABlRtYBAABlprOO/A8AAEApffe73/3/AWdADmw0ngjtAAAAAElFTkSu
 QmCC=
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <1CJ3DGFHWOKG4YRLWA0K38F1X>
+Content-Id: <16PKQY7J26UW2S44K361R3GFIH>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/43.png
 
@@ -9774,9 +9781,9 @@ wor+ZYWs08ARdxAHb+gRIuYek+8iAFA90XOMb6Yh6EAg7iA+UeJLlWEIAGoo3kBD
 1oFC3EE1VZljCDoAakmVIYaUAxfiDhKAZAOg3hFxEEUo7ugKIKFIQgASiEyDapNx
 RxcBAACCxzD+f+bctAAJrodBAAAAAElFTkSuQmCC=
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <E1X4AQL906HC5Q91NY1IZCMK>
+Content-Id: <14RAOLBJO49GN130BEKQ18P4ZNN>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/42.png
 
@@ -10640,9 +10647,9 @@ VTkwIliCj7IF0sUCAIAj5cNRCU9oqKJp1KGhDYt16CMJd+SbqxOsGC1J0wJN8GiH
 fdijISIbGvaIcIemaYJO4808tBiNfsisSuTDAx4EPXVOkv5/u+owA9OVyLIAAAAA
 SUVORK5CYII==
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8
 Content-Type: image/x-png
-Content-Id: <1ADQW2PK8KYBO1I0LUHYRIHOE9>
+Content-Id: <1042857J5NGB3RTCCK2BA2XOJ>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/41.png
 
@@ -11083,4 +11090,4 @@ CwAAILnRmQUAAFJXda07c+bM0SMAAABJL+ZPZr38zMO6BAAA0EjEFnc6duauHQAA
 AAAAwxF3AACA4Yg7AADAcMQdAABgOP3JLD0GAABgHBl3dBEAAMBEafMLi3URAADA
 PJb1/wBYcFfJew9pMAAAAABJRU5ErkJggg===
 
------------blocknote.net--EIUHRM33LSA1I1GE5YYAK5GF--
+-----------blocknote.net--155CHHOI6OCQ918JP2N3HAQ3G8--

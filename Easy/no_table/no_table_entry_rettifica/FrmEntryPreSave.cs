@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -260,15 +257,17 @@ namespace no_table_entry_rettifica {
         private void assegnaClass(DataRow r, int nSor) {
             if ((tExpenseSetup == null) || (tExpenseSetup.Rows.Count == 0)) return;
             DataRow rExp = tExpenseSetup.Rows[0];
-            object idsor = r["idsor" + nSor];
+            object idsor = r["idsor" + nSor.ToString()];
 
             if (idsor == DBNull.Value) return;
             if (!CodeSorting.ContainsKey(idsor.ToString())) {
                 var o = Conn.readObject("sorting", QHS.CmpEq("idsor", idsor), "sortcode");
-                CodeSorting[idsor.ToString()] = o["sortcode"].ToString();                
+				if (o==null) return;
+
+				CodeSorting[idsor.ToString()] = o["sortcode"].ToString();                
             }
             if (CodeSorting.ContainsKey(idsor.ToString())) {
-                r["!class" + nSor] = CodeSorting[idsor.ToString()];
+                r["!class" + nSor.ToString()] = CodeSorting[idsor.ToString()];
             }           
         }
         void preScanAll(DataTable t) {
@@ -308,4 +307,4 @@ namespace no_table_entry_rettifica {
 
         }
     }
-}
+}

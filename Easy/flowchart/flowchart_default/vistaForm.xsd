@@ -888,6 +888,10 @@
       <xs:selector xpath=".//mstns:authmodel" />
       <xs:field xpath="mstns:idauthmodel" />
     </xs:unique>
+    <xs:unique name="sortingview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sortingview" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
     <xs:unique name="sorting01_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sorting01" />
       <xs:field xpath="mstns:idsor" />

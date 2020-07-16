@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -34,12 +31,14 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace csa_import_inail_maxphase {
+	
 	public partial class frmcsa_import_inail_maxphase :Form {
 		MetaData Meta;
 		DataAccess Conn;
 		CQueryHelper QHC = new CQueryHelper();
 		QueryHelper QHS;
 		EntityDispatcher Dispatcher;
+		System.EventHandler[] AllList = new System.EventHandler[100];
 		int esercizio;
 		private DataTable OutTable;
 		private DataTable SP_Result;
@@ -66,11 +65,78 @@ namespace csa_import_inail_maxphase {
 			GetData.SetStaticFilter(DS.bill_versamenti, billfilter);
 			GetData.SetStaticFilter(DS.bill_netti, billfilter);
 			GetData.SetStaticFilter(DS.bill_ripartizione, billfilter);
+			btnInputSospesi.ContextMenu = CMenu;
+			InitializeAllList();
+
+		}
+		private void InitializeAllList() {
+			// 25) Movimenti padre con disponibile insufficiente
+			AllList[0] = this.btn25_Click;
+			// 26) Upb Bilancio con disponibile insufficiente
+			AllList[1] = this.btn26_Click;
 		}
 
+		private void btn25_Click(object sender, EventArgs e) {
+			//25) Movimenti padre con disponibile insufficiente
+			//SELECT COUNT(*) FROM csa_importver_deferred_parentview where parentayear = @ayear AND available<0 ) > 0
+			string filter = QHS.AppAnd(QHS.CmpEq("parentayear", esercizio-1),QHS.CmpLt("available",0));
 
+			//kind,parentidinc, parentidexp,ymov, nmov, nphase,phase, parentayear, 
+			//parentavailable,parentayear_new, parentavailable_new, tot_amount, available
+			string sqlCmd = " SELECT kind as 'Tipo'," +
+							" phase as 'Fase', " +
+							" ymov as 'Eserc. Mov.', " +
+							" nmov as 'Numero Movimento', " +
+							" parentayear_new as 'Eserc. Creazione Pagamenti', " +
+							" tot_amount as 'Tot. Pagamenti', " +
+							" available as 'Nuovo Importo disp.', " +
+							" idcsa_incomesetup as 'Conf. Incassi'" +
+							" FROM csa_importver_deferred_parentview " +
+							" WHERE  " + filter;
+
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+
+			if (T != null) {
+				VisualizzaDati(sender, e, T);
+			}
+		}
+
+		private void VisualizzaDati(object sender, EventArgs e, DataTable T) {
+			Excel_Click(sender, e, T);
+
+		}
+
+		private void VisualizzaDati2(object sender, EventArgs e, DataTable T, string dataTable, string view,
+			string listType, string filter, string filterView) {
+			Excel_Click(sender, e, T);
+		}
+
+		private void Excel_Click(object sender, EventArgs e, DataTable T) {
+			if (T.Rows.Count == 0) {
+				MessageBox.Show("Nessun elemento trovato");
+				return;
+			}
+			exportclass.DataTableToExcel(T, true);
+		}
+
+		private void btn26_Click(object sender, EventArgs e) {
+			//26) Coppie Bilancio - UPB con previsione disponibile insufficiente 
+			string errMess;
+			DataSet ds = Conn.CallSP("exp_csa_deferred_fin_upb_available",
+				new object[] {esercizio-1}, 600, out errMess);
+			if (errMess != null) {
+				MessageBox.Show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
+			}
+
+			DataTable tResult = ds.Tables[0];
+			if (tResult.Rows.Count != 0) {
+				VisualizzaDati(sender, e, tResult);
+			}
+		}
 		public void MetaData_AfterClear() {
 			DisplayTabs(tabController.SelectedIndex);
+			dgrVerificheFin.DataSource = null;
 		}
 
 		private void btnCancel_Click(object sender, System.EventArgs e) {
@@ -138,6 +204,20 @@ namespace csa_import_inail_maxphase {
 		}
 
 		private void FormatDataGrid(DataGrid dgr, DataTable tResult) {
+
+			if (dgr.Name == "dgrVerificheFin") {
+				foreach (DataColumn C in tResult.Columns) {
+					tResult.Columns[C.ColumnName].Caption = "";
+				}
+				tResult.Columns["errorcode"].Caption = "#";
+				tResult.Columns["errordescr"].Caption = "Descrizione";
+				tResult.Columns["blockingerror"].Caption = "Bloccante";
+
+				tResult.Columns["errorcode"].ExtendedProperties["ListColPos"] = 0;
+				tResult.Columns["errordescr"].ExtendedProperties["ListColPos"] = 1;
+				tResult.Columns["blockingerror"].ExtendedProperties["ListColPos"] = 2;
+			}
+
 			HelpForm.SetGridStyle(dgr, tResult);
 			metadatalibrary.formatgrids fg = new formatgrids(dgr);
 			fg.AutosizeColumnWidth();
@@ -238,17 +318,18 @@ namespace csa_import_inail_maxphase {
 			return lookupAccount[ID];
 		}
 
-		Dictionary<object, bool> _agency_not_use_nbill = new Dictionary<object, bool>();
-		bool agency_not_use_nbill(object idcsa_agency) {
+		Dictionary<object, bool> _agency_does_not_use_nbill = new Dictionary<object, bool>();
+		bool agency_does_not_use_nbill(object idcsa_agency) {
 			if ((idcsa_agency == DBNull.Value) || (idcsa_agency == null)) return true;
-			if (_agency_not_use_nbill.ContainsKey(idcsa_agency)) {
-				return _agency_not_use_nbill[idcsa_agency];
+			if (_agency_does_not_use_nbill.ContainsKey(idcsa_agency)) {
+				return _agency_does_not_use_nbill[idcsa_agency];
 			} else {
 				int flag = CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("csa_agency", QHS.CmpEq("idcsa_agency", idcsa_agency), "(ISNULL(csa_agency.flag, 0)&2)"));
-				_agency_not_use_nbill[idcsa_agency] = flag != 0;
-				return _agency_not_use_nbill[idcsa_agency];
+				_agency_does_not_use_nbill[idcsa_agency] = flag != 0;
+				return _agency_does_not_use_nbill[idcsa_agency];
 			}
 		}
+
 		private bool doSave() {
 			int faseMax = CfgFn.GetNoNullInt32(Meta.GetSys("maxexpensephase"));
 
@@ -297,48 +378,38 @@ namespace csa_import_inail_maxphase {
 			E_S.EndEdit();
 		}
 
-		private void ValorizzaNettoAPagare(DataTable T) {
+        
 
-			for (int ii = 0; ii < T.Rows.Count; ii++) {
-				DataRow R = T.Rows[ii];
-				if (R["kind"].ToString() != "Spesa") R["netto"] = 0;
-				// l'importo è negativo perchè quello della variazione di azzeramento perciò lo cambio di segno
-				else R["netto"] = -CfgFn.GetNoNullDecimal(R["amount"]);
-				// Ciclo per determinare il netto a pagare
-				for (int i = 0; i < T.Rows.Count; i++) {
-					DataRow R1 = T.Rows[i];
-					if (R1["kind"].ToString() != "Spesa") continue;
-					if (R1["idpayment"] == R["idexp"]) {
-						R["netto"] = CfgFn.GetNoNullDecimal(R["netto"]) +
-								  // l'importo è negativo perchè quello della variazione di azzeramento
-								  CfgFn.GetNoNullDecimal(R["amount"]);
-					}
-				}
-			}
-		}
-		Dictionary<int, Dictionary<int, decimal>> listaSospesi = new Dictionary<int, Dictionary<int, decimal>>();
+        Dictionary<int, Dictionary<int, decimal>> listaSospesi = new Dictionary<int, Dictionary<int, decimal>>();
 		private void ValorizzaSospeso(DataTable T) {
 			object nBill = getSospeso();
-
+            //if (nBill == null || nBill == DBNull.Value || CfgFn.GetNoNullInt32(nBill) == 0) return;
 			DataTable csaBill =  csa_bill_global;
 			listaSospesi = getElencoSospesi(csaBill);
 			// Valorizzo i sospesi sulle righe
 
 			if (!T.Columns.Contains("nbill"))
 				T.Columns.Add("nbill", typeof(Int32));
-			foreach (DataRow r in SP_Result.Rows) {
-				if (r["kind"].ToString() != "Spesa") continue;
-				if ((CfgFn.GetNoNullDecimal(r["netto"]) != 0) && (r["kind"].ToString() == "Spesa")) {
-					// Per alcuni enti versamento non si deve specificare il sospeso sui movimenti di tipo 4, Versamento Contributi e Ritenute
-					object idcsa_agency = _spesaEnte[r["idexp"]];
-					if (agency_not_use_nbill(idcsa_agency))
-						r["nbill"] = DBNull.Value;
-					else
-						r["nbill"] = (nBill != null && nBill != DBNull.Value && CfgFn.GetNoNullInt32(nBill) != 0) ? nBill : DBNull.Value;
-				} else
-					r["nbill"] = DBNull.Value;  // Entrate o eventuali movimenti a netto 0
-			}
-		}
+            foreach (DataRow r in SP_Result.Rows) {
+                if (r["kind"].ToString() != "Spesa") continue;
+                if (CfgFn.GetNoNullDecimal(r["netto"]) != 0) {
+                    // Per alcuni enti versamento non si deve specificare il sospeso sui movimenti di tipo 4, Versamento Contributi e Ritenute
+                    object idcsa_agency = _spesaEnte[r["idexp"]];
+                    if (agency_does_not_use_nbill(idcsa_agency)) {
+                        r["nbill"] = DBNull.Value;
+                    }
+                    else {
+                        int idreg = CfgFn.GetNoNullInt32(r["idreg"]); 
+                        r["nbill"] = nBill;
+                        
+                    }
+                }
+                else {
+                    r["nbill"] = DBNull.Value; // Entrate o eventuali movimenti a netto 0
+                }
+                    
+            }
+        }
 
 	 
 
@@ -352,41 +423,69 @@ namespace csa_import_inail_maxphase {
 			MetaData MetaPartitionVer = Meta.Dispatcher.Get(tableName);
 			MetaPartitionVer.SetDefaults(dsFinancial.Tables[tableName]);
 
-			if ((TMain != null) && (TMain.Rows.Count > 0))
-				foreach (DataRow RRipart in TMain.Rows) {
-					DataRow ImportMovRow = MetaPartition.Get_New_Row(null, dsFinancial.Tables[tableNameMain]);
-					ImportMovRow["idcsa_import"] = RRipart["idcsa_import"];
-					ImportMovRow["movkind"] = RRipart["movkind"];
-					ImportMovRow[fieldName] = (IoE == "E") ? getNewIdExp(RRipart[fieldName]): getNewIdInc(RRipart[fieldName]); ;
-		 
-					ImportMovRow["cu"] = "import";
-					ImportMovRow["ct"] = DateTime.Now;
-					ImportMovRow["lu"] = "import";
-					ImportMovRow["lt"] = DateTime.Now;
-				}
+            if ((TMain != null) && (TMain.Rows.Count > 0)) {
+                var movLinked = new Dictionary<string, bool>();
+                foreach (DataRow RRipart in TMain.Rows) {
+                    object idmov=(IoE == "E") ? getNewIdExp(RRipart[fieldName]) : getNewIdInc(RRipart[fieldName]);
+                    if (idmov == DBNull.Value) continue;
+                    string hash = $"{RRipart["idcsa_import"]}*{RRipart["movkind"]}*{idmov}";
+                    if (movLinked.ContainsKey(hash)) continue;
+                    movLinked[hash] = true;
+                    DataRow ImportMovRow = MetaPartition.Get_New_Row(null, dsFinancial.Tables[tableNameMain]);
+                    ImportMovRow["idcsa_import"] = RRipart["idcsa_import"];
+                    ImportMovRow["movkind"] = RRipart["movkind"];
+                    ImportMovRow[fieldName] = idmov;
+                    
 
-			if ((TPartition != null) && (TPartition.Rows.Count > 0))
-				foreach (DataRow RRipart in TPartition.Rows) {
-					DataRow ImportMovRow = MetaPartitionVer.Get_New_Row(null, dsFinancial.Tables[tableName]);
-					ImportMovRow["idcsa_import"] = RRipart["idcsa_import"];
-					ImportMovRow["movkind"] = RRipart["movkind"];
-					ImportMovRow[fieldName] = (IoE == "E") ? getNewIdExp(RRipart[fieldName]) : getNewIdInc(RRipart[fieldName]); ;
-					ImportMovRow["cu"] = "import";
-					ImportMovRow["ct"] = DateTime.Now;
-					ImportMovRow["lu"] = "import";
-					ImportMovRow["lt"] = DateTime.Now;
+                    ImportMovRow["cu"] = "import";
+                    ImportMovRow["ct"] = DateTime.Now;
+                    ImportMovRow["lu"] = "import";
+                    ImportMovRow["lt"] = DateTime.Now;
+                }
+            }
 
-					if (ImportMovRow.Table.Columns.Contains("ndetail")) {
-						ImportMovRow["ndetail"] = RRipart["ndetail"];
-					}
-					if (ImportMovRow.Table.Columns.Contains("idver")) {
-						ImportMovRow["idver"] = RRipart["idver"];
-					}
-					if (ImportMovRow.Table.Columns.Contains("amount")) {
-						ImportMovRow["amount"] = RRipart["originalamount"];
-					}
-				}
-		}
+            if ((TPartition != null) && (TPartition.Rows.Count > 0)) {
+                var movLinked = new Dictionary<string, bool>();
+                foreach (DataRow RRipart in TPartition.Rows) {
+
+                    object idmov = (IoE == "E") ? getNewIdExp(RRipart[fieldName]) : getNewIdInc(RRipart[fieldName]);
+                    if (idmov == DBNull.Value) continue;
+
+                    string hash = $"{RRipart["idcsa_import"]}*{RRipart["movkind"]}*{idmov}";
+                    if (dsFinancial.Tables[tableName].Columns.Contains("ndetail")) {
+                        hash += "*" + RRipart["ndetail"];
+                    }
+
+                    if (dsFinancial.Tables[tableName].Columns.Contains("idver")) {
+                        hash += "*" + RRipart["idver"];
+                    }
+
+                    if (movLinked.ContainsKey(hash)) continue;
+                    movLinked[hash] = true;
+                    DataRow ImportMovRow = MetaPartitionVer.Get_New_Row(null, dsFinancial.Tables[tableName]);
+
+                    ImportMovRow["idcsa_import"] = RRipart["idcsa_import"];
+                    ImportMovRow["movkind"] = RRipart["movkind"];
+                    ImportMovRow[fieldName] = idmov;
+                    ImportMovRow["cu"] = "import";
+                    ImportMovRow["ct"] = DateTime.Now;
+                    ImportMovRow["lu"] = "import";
+                    ImportMovRow["lt"] = DateTime.Now;
+
+                    if (ImportMovRow.Table.Columns.Contains("ndetail")) {
+                        ImportMovRow["ndetail"] = RRipart["ndetail"];
+                    }
+
+                    if (ImportMovRow.Table.Columns.Contains("idver")) {
+                        ImportMovRow["idver"] = RRipart["idver"];
+                    }
+
+                    if (ImportMovRow.Table.Columns.Contains("amount")) {
+                        ImportMovRow["amount"] = RRipart["originalamount"];
+                    }
+                }
+            }
+        }
 
 		// Dictionary associazione tra idspesa originale e ente 
 		Dictionary<object, object> _spesaEnte = new Dictionary<object, object>();
@@ -411,11 +510,10 @@ namespace csa_import_inail_maxphase {
 		Hashtable hSospesi = null;
 		object getSospeso() {
 			int nbill = 0;
-			if (txtNumBollettaVersamenti.Text.Trim() != "")
-				nbill = CfgFn.GetNoNullInt32(HelpForm.GetObjectFromString(typeof(int),
+			if (txtNumBollettaVersamenti.Text.Trim() != "") nbill = CfgFn.GetNoNullInt32(HelpForm.GetObjectFromString(typeof(int),
 				txtNumBollettaVersamenti.Text, HelpForm.GetStandardTag(txtNumBollettaVersamenti.Tag)));
 			if (nbill != 0) return nbill;
-			else return DBNull.Value;
+			return DBNull.Value;
 		}
 		Dictionary<int, Dictionary<int, decimal>> getElencoSospesi(DataTable t) {
 			var l = new Dictionary<int, Dictionary<int, decimal>>();
@@ -471,14 +569,20 @@ namespace csa_import_inail_maxphase {
 
 			foreach (DataRow RSor in OriginalSorting.Rows) {
 				if (RSor[field_for_idsor] == DBNull.Value) continue;
+				object newIdMov = (kind == "Spesa")? getNewIdExp(RSor[idMovField]):getNewIdInc(RSor[idMovField]);
+				if (newIdMov == DBNull.Value) continue;
 				dsFinancial.Tables[tMainSorted].Columns["idsor"].DefaultValue = RSor[field_for_idsor];
 				DataRow SortedMovRow = MetaSortedMov.Get_New_Row(null, dsFinancial.Tables[tMainSorted]);
 				SortedMovRow["idsor"] = RSor[field_for_idsor];
 				SortedMovRow["amount"] = RSor["originalamount"];
-				if (kind == "Spesa")
-					SortedMovRow[idMovField] = getNewIdExp(RSor[idMovField]);
-				else
-					SortedMovRow[idMovField] = getNewIdInc(RSor[idMovField]);
+				SortedMovRow[idMovField] = newIdMov;
+				for (int N = 1; N <= 5; N++) {
+					foreach (char C in new char[] {'n', 'v', 's'}) {
+						string fieldName = "value"+C + N.ToString();
+						SortedMovRow[fieldName] = RSor[fieldName];
+					}
+				}
+
 				SortedMovRow["ayear"] = esercizio;
 				SortedMovRow["cu"] = "import";
 				SortedMovRow["ct"] = DateTime.Now;
@@ -495,10 +599,12 @@ namespace csa_import_inail_maxphase {
 			string accountFieldName = (IoE == "I") ? "idacccredit": "idaccdebit";
 			MetaData MetaMBill = Meta.Dispatcher.Get(tMainBill);
 			MetaMBill.SetDefaults(dsFinancial.Tables[tMainBill]);
+		
 			string tableBillName="";
 
 			if (IoE == "E") {
-				bool regolarizzazioneEffettuata = false;
+				accountFieldName = "idaccdebit";
+                bool regolarizzazioneEffettuata = false;
 				// Se il movimento è a regolarizzazione mette la bolletta
 				// Verifico l'esistenza di sospesi multipli
 				decimal amount = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(R["amount"]));
@@ -512,15 +618,28 @@ namespace csa_import_inail_maxphase {
 				// Ripartizione 
 				if ((bill.Keys.Count > 1) && (CfgFn.GetNoNullDecimal(R["netto"]) != 0)) {
 					foreach (int nBill in bill.Keys) {
+                        if (amount == 0) continue;
+                        if (bill[nBill] == 0) continue;
 						var newBill = MetaMBill.Get_New_Row(NewLastMov, dsFinancial.Tables[tMainBill]);
 						newBill["nbill"] = nBill;
 						newBill["ybill"] = esercizio;
-						newBill["amount"] = bill[nBill];
-					}
+                        if (amount >= bill[nBill]) {
+                            //svuota questo sospeso
+                            newBill["amount"] = bill[nBill];
+                            amount -= bill[nBill];
+                            bill[nBill] = 0;
+                        }
+                        else {
+                            //prende dal sospeso la parte che serve
+                            newBill["amount"] = amount;
+                            bill[nBill] -= amount;
+                            amount = 0;
+                        }
+                    }
 					regolarizzazioneEffettuata = true;
 				}
 
-				if ((bill.Keys.Count == 0) && (R["nbill"] != DBNull.Value)) {
+				if ((bill.Keys.Count == 0) && (R["nbill"] != DBNull.Value)  && (CfgFn.GetNoNullDecimal(R["netto"]) != 0)) {
 					NewLastMov["nbill"] = R["nbill"];
 					NewLastMov["flag"] = CfgFn.GetNoNullInt32(NewLastMov["flag"]) | 1;
 					regolarizzazioneEffettuata = true;
@@ -534,13 +653,13 @@ namespace csa_import_inail_maxphase {
 					NewLastMov["flag"] = CfgFn.GetNoNullInt32(NewLastMov["flag"]) | 1;
 				}
 				else {
-				// Se non è a regolrizzazione, copia la modalità di pagamento dalla riga vecchia
-				string[] fields_to_copy = new string[] {
+					// Se non è a regolrizzazione, copia la modalità di pagamento dalla riga vecchia
+					string[] fields_to_copy = new string[] {
 						"cc", "cin", "flag","iban","idbank","idcab","iddeputy","idregistrypaymethod",
 						"paymentdescr","refexternaldoc","idpaymethod","biccode","extracode","paymethod_allowdeputy",
 						"paymethod_flag","idchargehandling"};
 
-					accountFieldName = "idaccdebit";
+					
 					foreach (string field in fields_to_copy) {
 						if (R.Table.Columns[field] == null) continue;
 						NewLastMov[field] = R[field];
@@ -569,8 +688,9 @@ namespace csa_import_inail_maxphase {
 
 		private void updateIdPayment() {
 			foreach (DataRow RIncome in dsFinancial.Tables["income"].Rows) {
-				if (NewIdPayment.ContainsKey(RIncome["idpayment"]))
-					RIncome["idpayment"] = NewIdPayment[RIncome["idpayment"]];
+				if (RIncome["idpayment"] == DBNull.Value) continue;
+				if (NewIdPayment.ContainsKey((int)RIncome["idpayment"]))
+					RIncome["idpayment"] = NewIdPayment[(int)RIncome["idpayment"]];
 			}
 		}
 
@@ -578,7 +698,7 @@ namespace csa_import_inail_maxphase {
 
 		private object get_FlagEsenteSpese_CSA() {
 			// flag di gestione dell'esenzione da spese, per chi non usa Circ. ABI 26, come Unicredit
-			if (Meta.IsEmpty) return DBNull.Value;
+			//if (Meta.IsEmpty) return DBNull.Value;
 			if (__myFlagEsenteSpese_CSA != null)
 				return __myFlagEsenteSpese_CSA;
 			object esercizio = Meta.GetSys("esercizio");
@@ -595,7 +715,7 @@ namespace csa_import_inail_maxphase {
 
 		private object get_idchargehandling_CSA() {
 			// flag di gestione del tipo trattamento spese CSA, obbligatorio per circolare ABI 36
-			if (Meta.IsEmpty) return DBNull.Value;
+			//if (Meta.IsEmpty) return DBNull.Value;
 			if (__myidchargehandliing_CSA != null)
 				return __myidchargehandliing_CSA;
 			object esercizio = Meta.GetSys("esercizio");
@@ -641,7 +761,7 @@ namespace csa_import_inail_maxphase {
 		/// </summary>
 		/// <param name="IoE"></param>
 		/// <returns></returns>
-		Dictionary<object, object> NewIdPayment = new Dictionary<object, object>();
+		Dictionary<int, int> NewIdPayment = new Dictionary<int, int>();
 		private bool generaMovPrincipali(string IoE) {
           
             string tMain = (IoE == "I") ? "income" : "expense";
@@ -654,6 +774,7 @@ namespace csa_import_inail_maxphase {
             string tImportMainVerPlus = (IoE == "I") ? "csa_importver_partition_income" : "csa_importver_partition_expense";
             string tImportMainRiepPlus = (IoE == "I") ? "csa_importriep_partition_income" : "csa_importriep_partition_expense";
 
+			
             MetaData MetaM = Meta.Dispatcher.Get(tMain);
             MetaM.SetDefaults(dsFinancial.Tables[tMain]);
 
@@ -708,25 +829,44 @@ namespace csa_import_inail_maxphase {
 
 			// Automatismi di entrata o spesa
 			string kind = (IoE == "I") ? "Entrata" : "Spesa";
-			string filterAuto =  QHC.CmpEq("kind", kind);
+			string filterAutoYear =  QHS.AppAnd( QHS.CmpEq("kind", kind),QHS.CmpEq("ayear",esercizio-1));
 			string filterAutoS =   QHS.CmpEq("kind", kind);
 			string filterEsercizioPrecS = QHS.CmpEq("ayear", esercizio - 1);
 			string filterOriginal = QHS.AppAnd(filterAutoS,filterEsercizioPrecS);
 			List<DataRow> Auto = new List<DataRow>();
 
 
-			SP_Result = DataAccess.RUN_SELECT(Meta.Conn, "csa_importver_varresidualview", "*", null, filterAuto, null, true);
-			SP_Result.Columns.Add("idmovimento", typeof(string));
-			SP_Result.Columns.Add("netto", typeof(string));
-			
-			DataTable OriginalImpPartition  = DataAccess.RUN_SELECT(Meta.Conn, "csa_import_originalpartitionview",
-										"*", null, filterOriginal, null, true);
-			DataTable OriginalVerPartition = DataAccess.RUN_SELECT(Meta.Conn, "csa_importver_originalpartitionview",
-										"*", null, filterOriginal, null, true);
-			DataTable OriginalSorting = DataAccess.RUN_SELECT(Meta.Conn, "csa_originalsortingview",
-										"*", null, filterOriginal, null, true);
+			SP_Result = DataAccess.RUN_SELECT(Meta.Conn, "csa_importver_varresidualview", "*", null, filterAutoYear, null, true);
+			SP_Result.Columns.Add("idmovimento", typeof(int));
+			SP_Result.Columns.Add("netto", typeof(decimal));
+			if (IoE == "I") {
+				foreach (DataRow r in SP_Result.Rows) {
+					r["netto"] = 0;
+				}
+			}
+			else {
+				var RigheSpesaPerIdExp = new Dictionary<int, DataRow>();
+				foreach (DataRow r in SP_Result.Rows) {
+					r["netto"] = -CfgFn.GetNoNullDecimal(r["amount"]);
+					RigheSpesaPerIdExp[CfgFn.GetNoNullInt32(r["idexp"])] = r;
+				}
+				var incomeResult = DataAccess.RUN_SELECT(Meta.Conn, "csa_importver_varresidualview", "*", null,   
+							QHS.AppAnd( QHS.CmpEq("kind", "Entrata"),QHS.CmpEq("ayear",esercizio-1)), null, true);
+				foreach (DataRow r in incomeResult.Rows) {
+					int idexp = CfgFn.GetNoNullInt32(r["idpayment"]);
+					if (idexp == 0) continue;
+					DataRow RExp;
+					if (!RigheSpesaPerIdExp.TryGetValue(idexp, out RExp)) continue;
+					RExp["netto"] = CfgFn.GetNoNullDecimal(RExp["netto"]) +
+					                // l'importo è negativo perchè quello della variazione di azzeramento
+					                CfgFn.GetNoNullDecimal(r["amount"]);
+				}
+			}
+			DataTable OriginalImpPartition  = DataAccess.RUN_SELECT(Meta.Conn, "csa_import_originalpartitionview","*", null, filterOriginal, null, true);
+			DataTable OriginalVerPartition = DataAccess.RUN_SELECT(Meta.Conn, "csa_importver_originalpartitionview","*", null, filterOriginal, null, true);
+			DataTable OriginalSorting = DataAccess.RUN_SELECT(Meta.Conn, "csa_originalsortingview","*", null, filterOriginal, null, true);
 			getEnteVersamento(OriginalVerPartition);
-			ValorizzaNettoAPagare(SP_Result);
+			
 			ValorizzaSospeso(SP_Result);
 			for (int ii = 0; ii < SP_Result.Rows.Count; ii++) {
 				DataRow R = SP_Result.Rows[ii];
@@ -745,31 +885,44 @@ namespace csa_import_inail_maxphase {
 				R["idmovimento"] = NewMovRow[idMovField];
 				NewMovRow["nphase"] = faseCorrente;
 				NewMovRow["autokind"] = 31;
+				
+			
+				if (kind == "Spesa") {
+					int newIdExp = (int) NewMovRow["idexp"];
+					NewIdPayment[(int)R["idexp"]] = newIdExp;
+				}
 
 				if (R["idpayment"] != DBNull.Value) {
-					int indice = CfgFn.GetNoNullInt32(R["idpayment"]);
-					if (!NewIdPayment.ContainsKey(indice))
-						NewIdPayment[indice] = CfgFn.GetNoNullInt32(NewMovRow[idMovField]);
-					NewMovRow["idpayment"] = NewIdPayment[indice];
+					int oldIdPayment = CfgFn.GetNoNullInt32(R["idpayment"]);
+					
+					NewMovRow["idpayment"] = NewIdPayment[oldIdPayment];
 					// Devo propagare ala modifica alle fasi precedenti se ci sono
-					DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn,dsFinancial.Tables[tMain],null, QHS.CmpEq("idpayment", R["idpayment"]),null,true);
+                    DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn,dsFinancial.Tables[tMain],null, 
+                            //non rilegge le ultime fasi in memoria, perchè di quelle NON va aggiornato l'idpayment, visto che non sono residue e sono incassi 
+                            QHS.AppAnd( QHS.CmpEq("idpayment", R["idpayment"]), QHS.CmpLt("nphase",fasemax))
+                            ,null,true);
 				}
 
 				// Valorizzo una tabella di lookup con la corrispondenza tra nuova e vecchia chiave
 				lookupIdMov[R[idMovField]] = NewMovRow[idMovField];
 
+				if (kind == "Spesa") {
+					MetaData.SetDefault(dsFinancial.Tables[tMainLast],"paymethod_flag",0);//Altrimenti rimane null
+				}
+
 				DataRow NewLastRow = MetaL.Get_New_Row(NewMovRow, dsFinancial.Tables[tMainLast]);
-				fillLastMovimento(IoE, R, NewLastRow);
-				 
-				DataRow NewImpMov = ImpMov.NewRow();
+                if (CfgFn.GetNoNullDecimal(R["netto"]) != 0) {
+                    fillLastMovimento(IoE, R, NewLastRow);
+                }
+                
+                DataRow NewImpMov = ImpMov.NewRow();
 
 				fillImputazioneMovimento(IoE, R, NewImpMov);
 				NewImpMov[idMovField] = NewMovRow[idMovField];
 				NewImpMov["ayear"] = esercizio;
 
 				ImpMov.Rows.Add(NewImpMov);
-
-			}
+            }
 
 			fillMovSortedFaseMAX(IoE, OriginalSorting); // ricrea  le classificazioni 
 			fillImportMov(IoE, OriginalImpPartition, OriginalVerPartition); // ricrea le ripartizioni 
@@ -812,12 +965,14 @@ namespace csa_import_inail_maxphase {
 				DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, dsFinancial.sortingkind,
 					null, null, null, true);
 			}
+
+			NewIdPayment.Clear();
+
 			// Verificare l'esistenza di movimenti finanziari precedentemente generati
 			if (!generaMovPrincipali("E")) {
 				MessageBox.Show(this, "Errore nella generazione dei movimenti finanziari di spesa");
                 dsFinancial.Clear();
                 dsFinancial.AcceptChanges();
-   
                 return;
             }
 
@@ -842,7 +997,11 @@ namespace csa_import_inail_maxphase {
 		bool executing = false;
 
 		private void btnVersamenti_Click(object sender, EventArgs e) {
-            if (executing) return;
+			if (executing) return;
+			if (!VerificaIndividuazione()) {
+				MessageBox.Show(this, "Errori bloccanti nella chiamata della procedura di verifica:", "Errore");
+				return;
+			}
             btnVersamenti.Visible = false;
             executing = true;
             tabController.SelectedTab = tabRisultati;
@@ -936,19 +1095,19 @@ namespace csa_import_inail_maxphase {
 		}
 
 		private void MenuEnterPwd_Click(object sender, EventArgs e) {
-			if (sender == null) return;
-			if (!(typeof(MenuItem).IsAssignableFrom(sender.GetType()))) return;
-			object mysender = ((MenuItem)sender).Parent.GetContextMenu().SourceControl;
-			string tracciato = "";
-			DataTable TableTracciato = null;
+            if (sender == null) return;
+            if (!(typeof(MenuItem).IsAssignableFrom(sender.GetType()))) return;
+            object mysender = ((MenuItem)sender).Parent.GetContextMenu().SourceControl;
+            string tracciato = "";
+            DataTable TableTracciato = null;
 
-			tracciato = getTracciato(tracciato_sospeso);
-			TableTracciato = getTableTracciato(tracciato_sospeso);
-			FrmShowTracciato FT = new FrmShowTracciato(tracciato, TableTracciato, "struttura");
-			FT.ShowDialog();
-		}
+            tracciato = getTracciato(tracciato_sospeso);
+            TableTracciato = getTableTracciato(tracciato_sospeso);
+            FrmShowTracciato FT = new FrmShowTracciato(tracciato, TableTracciato, "struttura");
+            FT.ShowDialog();
+        }
 
-		string[] tracciato_sospeso =
+        string[] tracciato_sospeso =
 		  new string[]{
 							"DENOMINAZIONE_ANAGRAFICA;Anagrafica;Stringa;150",
 							"N_SOSPESO;Numero sospeso(nbill);Intero;8",
@@ -1212,5 +1371,86 @@ namespace csa_import_inail_maxphase {
 			dgrSospesi.TableStyles.Clear();
 		}
 
+		private bool VerificaIndividuazione() {
+			 
+			string sp_name = "check_csa_available_deferred";
+			 
+			DataGrid dgr = dgrVerificheFin;
+
+			int esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
+			string errMess;
+
+			DataSet ds = Conn.CallSP(sp_name,
+				new object[] {esercizio -1}, 600, out errMess);
+			if (errMess != null) {
+				MessageBox.Show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
+				return false;
+			}
+			DataTable tResult = ds.Tables[0];
+			if (tResult.Rows.Count != 0) {
+				// Visualizzazione del grid
+
+				dgr.DataBindings.Clear();
+				dgr.DataSource = null;
+				dgr.TableStyles.Clear();
+				HelpForm.SetDataGrid(dgr, tResult);
+				FormatDataGrid(dgr, tResult);
+
+				if (tResult.Select(QHC.CmpEq("blockingerror", "S")).Length > 0)
+					return false;
+				else {
+					return true;
+				}
+			} else return true;
+		}
+		private void btnVerifica_Click(object sender, EventArgs e) {
+			if (!VerificaIndividuazione()) MessageBox.Show(this, "Errori bloccanti nella chiamata della procedura di verifica:" ,"Errore"); 
+			else MessageBox.Show(this, "La procedura di verifica non ha restituito errori:", "Avviso");
+		}
+
+		private void dgrVerifiche_DoubleClick(object sender, EventArgs e) {
+			DataGrid dataGrid = (DataGrid)sender;
+			DataRow RigheSelezionata = GetGridSelectedRows(dataGrid);
+			string kind_of_errors = "FIN";
+			 
+			if (RigheSelezionata == null)
+				return;
+
+			if (CfgFn.GetNoNullInt32(RigheSelezionata["errorcode"]) > 0)
+				VisualizzaElenchi(CfgFn.GetNoNullInt32(RigheSelezionata["errorcode"]));
+		}
+
+		private void VisualizzaElenchi(int errorcode) {
+			if (Meta.IsEmpty) return;
+			if (errorcode <= 0) return;
+			if (errorcode > AllList.Length) {
+				MessageBox.Show(
+					"Aggiornare il programma, la DLL di importazione CSA non è allineata con i check del db.",
+					"Errore");
+				return;
+			}
+			AllList[errorcode - 1](null, null);
+			 
+		}
+
+		private DataRow GetGridSelectedRows(DataGrid G) {
+			DataSet DSV = (DataSet) G.DataSource;
+			if (DSV == null) return null;
+			DataTable TV = DSV.Tables[G.DataMember];
+			if (TV == null) return null;
+
+			if (TV.Rows.Count == 0) return null;
+			DataRowView DV = null;
+			try {
+				DV = (DataRowView)G.BindingContext[DSV, TV.TableName].Current;
+			} catch {
+				DV = null;
+			}
+			if (DV == null) return null;
+
+			DataRow R = DV.Row;
+			return R;
+		}
 	}
-}
+
+}

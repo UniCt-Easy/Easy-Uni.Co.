@@ -6,11 +6,13 @@
         <xs:element name="canale">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="CUIN" type="xs:string" minOccurs="0" />
               <xs:element name="idattivform" type="xs:int" />
               <xs:element name="idcanale" type="xs:int" />
+              <xs:element name="idcorsostudio" type="xs:int" />
               <xs:element name="iddidprog" type="xs:int" />
               <xs:element name="iddidproganno" type="xs:int" />
               <xs:element name="iddidprogcurr" type="xs:int" />
@@ -28,8 +30,10 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:canale" />
+      <xs:field xpath="mstns:aa" />
       <xs:field xpath="mstns:idattivform" />
       <xs:field xpath="mstns:idcanale" />
+      <xs:field xpath="mstns:idcorsostudio" />
       <xs:field xpath="mstns:iddidprog" />
       <xs:field xpath="mstns:iddidproganno" />
       <xs:field xpath="mstns:iddidprogcurr" />

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="instmscadenziariocontratto">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="datafattura" type="xs:int" minOccurs="0" />
+              <xs:element name="datascadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idinstmcontratto" type="xs:int" />
+              <xs:element name="idinstmscadenziariocontratto" type="xs:int" />
+              <xs:element name="idinstmscadenziariocontrattokind" type="xs:int" minOccurs="0" />
+              <xs:element name="imponibile" type="xs:decimal" minOccurs="0" />
+              <xs:element name="iva" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="note" type="xs:string" minOccurs="0" />
+              <xs:element name="numerofattura" type="xs:int" minOccurs="0" />
+              <xs:element name="pagato" type="xs:string" minOccurs="0" />
+              <xs:element name="quotagestione" type="xs:decimal" minOccurs="0" />
+              <xs:element name="quotaudr" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:instmscadenziariocontratto" />
+      <xs:field xpath="mstns:idinstmscadenziariocontratto" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

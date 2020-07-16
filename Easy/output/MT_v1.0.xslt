@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:a="http://www.fatturapa.gov.it/sdi/messaggi/v1.0">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:a="http://www.fatturapa.gov.it/sdi/messaggi/v1.0" xmlns:ns3="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fattura/messaggi/v1.0">
 	<xsl:output version="4.0" method="html" indent="no" encoding="UTF-8" doctype-public="-//W3C//DTD HTML 4.0 Transitional//EN" doctype-system="http://www.w3.org/TR/html4/loose.dtd"/>
 	<xsl:param name="SV_OutputFormat" select="'HTML'"/>
 	<xsl:variable name="XML" select="/"/>
@@ -53,6 +53,62 @@
 			<body>
 				
 			<xsl:for-each select="a:MetadatiInvioFile">
+				
+				<div id="notifica-container">
+					<div id="notifica">
+						<div class="page">
+						
+							<div class="versione">
+								Versione <xsl:value-of select="@versione"/>
+							</div>
+							<h1>Notifica Metadati</h1>
+						
+							<ul>
+								<li>
+									Identificativo SdI:
+									<span><xsl:value-of select="IdentificativoSdI" /></span>
+								</li>
+
+								<li>
+									Nome File:
+									<span><xsl:value-of select="NomeFile" /></span>
+								</li>
+
+								<li>
+									Codice Destinatario:
+									<span><xsl:value-of select="CodiceDestinatario" /></span>
+								</li>
+
+								<li>
+									Formato:
+									<span><xsl:value-of select="Formato" /></span>
+								</li>
+
+								<li>
+									Tentativi Invio:
+									<span><xsl:value-of select="TentativiInvio" /></span>
+								</li>
+
+								<li>
+									Message Id:
+									<span><xsl:value-of select="MessageId" /></span>
+								</li>
+
+								<xsl:if test="Note">
+									<li>
+										Note:
+										<span><xsl:value-of select="Note" /></span>
+									</li>
+								</xsl:if>
+							</ul>
+							
+						</div>
+					</div>
+				</div>
+				
+				</xsl:for-each>
+			
+						<xsl:for-each select="ns3:FileMetadati">
 				
 				<div id="notifica-container">
 					<div id="notifica">

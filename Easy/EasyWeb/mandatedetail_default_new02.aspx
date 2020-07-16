@@ -2,7 +2,13 @@
 
 <%@ Register Assembly="HelpWeb" Namespace="HelpWeb" TagPrefix="cc1" %>
 <asp:Content ID="Content4" ContentPlaceHolderID="CHP_PC" Runat="Server" >
-
+	
+<ul id="mainTabControl" class="nav nav-tabs nav-justified">
+<li><a data-toggle="tab" href="#tabmain">Principale</a></li>
+<li><a data-toggle="tab" href="#tabAnalitico">Analitico</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabmain" class="tab-pane fade in active">
     <div class="row">
         <div class="col-md-12">
             <fieldset>
@@ -202,6 +208,17 @@
                     </fieldset>
                 </div>
             </div>
+	
+<div class="row" style="padding:10px">
+	<div class="col-md-3 col-xs-12">
+		<label for="txtDataInizioCompetenza">Data Inizio Competenza</label>
+		<cc1:hwTextBox ID="txtDataInizioCompetenza" runat="server"  CssClass="form-control" Tag="mandatedetail.competencystart"></cc1:hwTextBox>           
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<label for="txtDataFineCompetenza">Data Fine Competenza</label>
+		<cc1:hwTextBox ID="txtDataFineCompetenza" runat="server" CssClass="form-control" Tag="mandatedetail.competencystop"></cc1:hwTextBox>           
+	</div>
+</div>
 
             <div class="row">
                 <div class="col-md-12">
@@ -293,6 +310,74 @@
                 <div class="col-md-5">
                 </div>
             </div>
+	
+	</div>
+		<div id="tabAnalitico" class="tab-pane fade">
+			<div title="Analitico">
+				<asp:Panel ID="PanelAnalitico" runat="server">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <fieldset>
+                                <legend>Analitico</legend>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <!-- Classificazione 1-->
+
+                                                <cc1:hwPanel GroupingText="Classificazione 1" CssClass="gbox stdfieldset form-group" ID="gboxclass1" runat="server" Tag="AutoManage.txtCodice1.treeclassmovimenti">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <cc1:hwButton runat="server" ID="btnCodice1" Tag="manage.sorting1.tree" TabIndex="400" Text="Codice"></cc1:hwButton>
+                                                            <cc1:hwTextBox runat="server" ID="txtCodice1" CssClass="form-control input-md" Tag="sorting1.sortcode?x" TabIndex="410"></cc1:hwTextBox>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <cc1:hwTextBox runat="server" ID="txtDenom1" CssClass="form-control input-md" Tag="sorting1.description" TextMode="MultiLine" Rows="3" TabIndex="-1" ReadOnly="true"></cc1:hwTextBox>
+                                                        </div>
+                                                    </div>
+                                                </cc1:hwPanel>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <!-- Classificazione 2-->
+                                                <cc1:hwPanel GroupingText="Classificazione 2" CssClass="gbox stdfieldset form-group" ID="gboxclass2" runat="server" Tag="AutoManage.txtCodice2.treeclassmovimenti">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <cc1:hwButton runat="server" ID="btnCodice2" Tag="manage.sorting2.tree" TabIndex="400" Text="Codice"></cc1:hwButton>
+                                                            <cc1:hwTextBox runat="server" ID="txtCodice2" CssClass="form-control input-md" Tag="sorting2.sortcode?x" TabIndex="410"></cc1:hwTextBox>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <cc1:hwTextBox runat="server" ID="txtDenom2" CssClass="form-control input-md" Tag="sorting2.description" TextMode="MultiLine" Rows="3" TabIndex="-1" ReadOnly="true"></cc1:hwTextBox>
+                                                        </div>
+                                                    </div>
+                                                </cc1:hwPanel>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- Classificazione 3-->
+                                        <cc1:hwPanel GroupingText="Classificazione 3" CssClass="gbox stdfieldset form-group" ID="gboxclass3" runat="server" Tag="AutoManage.txtCodice3.treeclassmovimenti">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <cc1:hwButton runat="server" ID="btnCodice3" Tag="manage.sorting3.tree" TabIndex="400" Text="Codice"></cc1:hwButton>
+                                                    <cc1:hwTextBox runat="server" ID="txtCodice3" CssClass="form-control input-md" Tag="sorting3.sortcode?x" TabIndex="410"></cc1:hwTextBox>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <cc1:hwTextBox runat="server" ID="txtDenom3" CssClass="form-control input-md" Tag="sorting3.description" TextMode="MultiLine" Rows="3" TabIndex="-1" ReadOnly="true"></cc1:hwTextBox>
+                                                </div>
+                                            </div>
+                                        </cc1:hwPanel>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                    </div><!-- chiude sezione Classificazioni Analitiche-->
+				</asp:Panel>
+			</div>
+		</div>
+</div>
 
 
 </asp:Content>

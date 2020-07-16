@@ -90,9 +90,6 @@
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="siopeplus_functions">
-      <HintPath>..\..\siopeplus_functions\bin\Debug\siopeplus_functions.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -108,6 +105,10 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+    <ProjectReference Include="..\..\siopeplus_functions\siopeplus_functions.csproj">
+      <Project>{7d85344b-860d-48e2-b073-a8cfef78bf07}</Project>
+      <Name>siopeplus_functions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
       <Name>funzioni_configurazione</Name>
       <Project>{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}</Project>
@@ -117,37 +118,37 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_payment</Name>
       <HintPath>..\meta_payment\bin\Debug\meta_payment.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_fin">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_fin</Name>
       <HintPath>..\..\fin\meta_fin\bin\Debug\meta_fin.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_manager">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_manager</Name>
       <HintPath>..\..\manager\meta_manager\bin\Debug\meta_manager.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_treasurer">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_treasurer</Name>
       <HintPath>..\..\treasurer\meta_treasurer\bin\Debug\meta_treasurer.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_registry">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_registry</Name>
       <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_config">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_config</Name>
       <HintPath>..\..\config\meta_config\bin\Debug\meta_config.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

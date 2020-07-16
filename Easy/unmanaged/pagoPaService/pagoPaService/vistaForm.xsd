@@ -43,6 +43,9 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="cf" type="xs:string" minOccurs="0" />
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="codicepsp" type="xs:string" minOccurs="0" />
+              <xs:element name="identificativounivocoriscossione" type="xs:string" minOccurs="0" />
+              <xs:element name="dataesitopagamento" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

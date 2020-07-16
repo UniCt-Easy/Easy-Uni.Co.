@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -124,7 +121,7 @@ namespace csa_import_default {
     }
 
     public class quotaMovimento {
-        public DataRow mov;
+        public DataRow mov;		//movimento finanziario
         public decimal quota;
         public quotaMovimento(DataRow mov,decimal quota) {
             this.mov = mov;
@@ -410,12 +407,16 @@ namespace csa_import_default {
 
             QuoteCsa lookupQuote;
             var groupedMovs = grouper.elabora(out lookupQuote);
-            //lookupQuote = elenco di associazioni "nuova riga"(int) a "elenco righe csa originali, pro quota"
-            //  "nuova riga" è proprio l'indice in groupedMovs 
+			//formtest frm = new formtest(groupedMovs , movimentiCsa);
+
+			//DialogResult dr = frm.ShowDialog();
+
+			//lookupQuote = elenco di associazioni "nuova riga"(int) a "elenco righe csa originali, pro quota"
+			//  "nuova riga" è proprio l'indice in groupedMovs 
 
 
-            //Effettua i collegamenti entrate-spese sui movimenti raggruppati
-            var linkedMovs = collegaEntrateASpese(groupedMovs, conn);
+			//Effettua i collegamenti entrate-spese sui movimenti raggruppati
+			var linkedMovs = collegaEntrateASpese(groupedMovs, conn);
             if (linkedMovs == null) {
                 quote = null;
                 return null;
@@ -567,14 +568,17 @@ namespace csa_import_default {
         string getHash(DataRow r) {
             string []fields = null;
             if (r["movkind"].ToString() == "Spesa") {
-                fields = new[] {"parentidexp", "idman","idreg","idfin","idupb","idsor","idacc","idunderwriting"};
+                fields = new[] { "parentidexp", "idman","idreg","idfin","idupb","idsor","idacc","idunderwriting"};
             }
             else {
-                fields = new[] {"parentidexp", "idman","idreg","idfin","idupb","idsor","idacc","idunderwriting"};
+                fields = new[] { "parentidexp", "idman","idreg","idfin","idupb","idsor","idacc","idunderwriting"};
             }
+             
+			string keytemp =string.Join("§", (from field in fields select r[field].ToString()).ToArray());
+			if (r["idver"] != DBNull.Value) return keytemp + "ver";
+			else return keytemp + "riep";
 
-            return string.Join("§", (from field in fields select r[field].ToString()).ToArray());
-        }
+		}
 
         int createNewMovAs(DataRow sample) {
             int currIndice = mov.Rows.Count;
@@ -673,4 +677,3 @@ namespace csa_import_default {
 
     }
 }
-

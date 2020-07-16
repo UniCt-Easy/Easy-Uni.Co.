@@ -15,7 +15,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
-              <xs:element name="idepoperation" type="xs:string" />
+              <xs:element name="idepoperation" type="xs:string"   />
               <xs:element name="epoperation" type="xs:string" minOccurs="0" />
               <xs:element name="in_use" type="xs:string" />
               <xs:element name="flagamm" type="xs:string" minOccurs="0" />

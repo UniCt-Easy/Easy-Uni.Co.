@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -27,7 +24,7 @@ using System.Runtime.Serialization;
 namespace profservice_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -565,6 +562,11 @@ private void initClass() {
 	tsorting.Columns.Add( new DataColumn("defaultv2", typeof(decimal)));
 	tsorting.Columns.Add( new DataColumn("defaultv3", typeof(decimal)));
 	tsorting.Columns.Add( new DataColumn("defaultv4", typeof(decimal)));
+	tsorting.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting.Columns.Add( new DataColumn("defaultv5", typeof(decimal)));
 	Tables.Add(tsorting);
 	tsorting.PrimaryKey =  new DataColumn[]{tsorting.Columns["idsor"]};
@@ -648,6 +650,11 @@ private void initClass() {
 	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
 	tsorting1.Columns.Add(C);
+	tsorting1.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting1.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting1.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting1.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting1.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
 	tsorting1.Columns.Add(C);
@@ -728,6 +735,11 @@ private void initClass() {
 	tsorting2.Columns.Add( new DataColumn("defaultv2", typeof(decimal)));
 	tsorting2.Columns.Add( new DataColumn("defaultv3", typeof(decimal)));
 	tsorting2.Columns.Add( new DataColumn("defaultv4", typeof(decimal)));
+	tsorting2.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting2.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting2.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting2.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting2.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting2.Columns.Add( new DataColumn("defaultv5", typeof(decimal)));
 	Tables.Add(tsorting2);
 	tsorting2.PrimaryKey =  new DataColumn[]{tsorting2.Columns["idsor"]};
@@ -782,6 +794,11 @@ private void initClass() {
 	tsorting3.Columns.Add( new DataColumn("defaultv2", typeof(decimal)));
 	tsorting3.Columns.Add( new DataColumn("defaultv3", typeof(decimal)));
 	tsorting3.Columns.Add( new DataColumn("defaultv4", typeof(decimal)));
+	tsorting3.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting3.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting3.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting3.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting3.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting3.Columns.Add( new DataColumn("defaultv5", typeof(decimal)));
 	Tables.Add(tsorting3);
 	tsorting3.PrimaryKey =  new DataColumn[]{tsorting3.Columns["idsor"]};
@@ -1108,6 +1125,11 @@ private void initClass() {
 	tsorting01.Columns.Add(C);
 	tsorting01.Columns.Add( new DataColumn("start", typeof(short)));
 	tsorting01.Columns.Add( new DataColumn("stop", typeof(short)));
+	tsorting01.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting01.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting01.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting01.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting01.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	Tables.Add(tsorting01);
 	tsorting01.PrimaryKey =  new DataColumn[]{tsorting01.Columns["idsor"]};
 
@@ -1163,6 +1185,11 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tsorting02.Columns.Add(C);
 	tsorting02.Columns.Add( new DataColumn("start", typeof(short)));
+	tsorting02.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting02.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting02.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting02.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting02.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting02.Columns.Add( new DataColumn("stop", typeof(short)));
 	Tables.Add(tsorting02);
 	tsorting02.PrimaryKey =  new DataColumn[]{tsorting02.Columns["idsor"]};
@@ -1219,6 +1246,11 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tsorting03.Columns.Add(C);
 	tsorting03.Columns.Add( new DataColumn("start", typeof(short)));
+	tsorting03.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting03.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting03.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting03.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting03.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting03.Columns.Add( new DataColumn("stop", typeof(short)));
 	Tables.Add(tsorting03);
 	tsorting03.PrimaryKey =  new DataColumn[]{tsorting03.Columns["idsor"]};
@@ -1275,6 +1307,11 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tsorting04.Columns.Add(C);
 	tsorting04.Columns.Add( new DataColumn("start", typeof(short)));
+	tsorting04.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting04.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting04.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting04.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting04.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting04.Columns.Add( new DataColumn("stop", typeof(short)));
 	Tables.Add(tsorting04);
 	tsorting04.PrimaryKey =  new DataColumn[]{tsorting04.Columns["idsor"]};
@@ -1331,6 +1368,11 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tsorting05.Columns.Add(C);
 	tsorting05.Columns.Add( new DataColumn("start", typeof(short)));
+	tsorting05.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting05.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting05.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting05.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting05.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting05.Columns.Add( new DataColumn("stop", typeof(short)));
 	Tables.Add(tsorting05);
 	tsorting05.PrimaryKey =  new DataColumn[]{tsorting05.Columns["idsor"]};
@@ -1494,6 +1536,11 @@ private void initClass() {
 	tsortingview1.Columns.Add( new DataColumn("defaults4", typeof(string)));
 	tsortingview1.Columns.Add( new DataColumn("defaults5", typeof(string)));
 	tsortingview1.Columns.Add( new DataColumn("flagnodate", typeof(string)));
+	tsortingview1.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsortingview1.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsortingview1.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsortingview1.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsortingview1.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsortingview1.Columns.Add( new DataColumn("movkind", typeof(string)));
 	Tables.Add(tsortingview1);
 	tsortingview1.PrimaryKey =  new DataColumn[]{tsortingview1.Columns["idsor"]};
@@ -1652,6 +1699,11 @@ private void initClass() {
 	tsorting_siope.Columns.Add(C);
 	tsorting_siope.Columns.Add( new DataColumn("start", typeof(short)));
 	tsorting_siope.Columns.Add( new DataColumn("stop", typeof(short)));
+	tsorting_siope.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tsorting_siope.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tsorting_siope.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tsorting_siope.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tsorting_siope.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tsorting_siope.Columns.Add( new DataColumn("email", typeof(string)));
 	Tables.Add(tsorting_siope);
 	tsorting_siope.PrimaryKey =  new DataColumn[]{tsorting_siope.Columns["idsor"]};
@@ -1817,4 +1869,3 @@ private void initClass() {
 }
 }
 }
-

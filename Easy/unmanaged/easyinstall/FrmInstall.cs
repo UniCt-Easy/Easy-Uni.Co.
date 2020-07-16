@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -2258,7 +2255,7 @@ namespace EasyInstall {//Install//
 				2000, DateTime.Now);
 
 			myConn.Open();
-			if (myConn.OpenError){
+			if (myConn.openError){
 				QueryCreator.ShowError(this, 
 					"Non Ë stato possibile connettersi al dipartimento "+idDbDepartment, myConn.LastError);
 				return false;
@@ -2441,7 +2438,7 @@ namespace EasyInstall {//Install//
 						return false;
 					}
 					TempConn.Open();
-					if (TempConn.OpenError){
+					if (TempConn.openError){
 						TempConn.Destroy();
 						return false;
 					}
@@ -2584,7 +2581,7 @@ namespace EasyInstall {//Install//
 				return;
 			}
 			MASTERConn.Open();
-			if (MASTERConn.OpenError){
+			if (MASTERConn.openError){
 				MASTERConn.Destroy();
 				EnableDisableNavigation(true);
 				MessageBox.Show(this,"Non Ë stato possibile collegarsi al server "+txtServerName.Text);
@@ -2618,7 +2615,7 @@ namespace EasyInstall {//Install//
 				txtUserName.Text.Trim(), txtUserPwd.Text.Trim(), 2000,DateTime.Now);	
 			MainConn.Open();
 
-			if (MainConn.OpenError){
+			if (MainConn.openError){
 				MainConn.Destroy();
 				MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtDBName.Text);
 				EnableDisableNavigation(true);
@@ -2721,7 +2718,7 @@ namespace EasyInstall {//Install//
 			DataAccess TempConn= new AllLocal_DataAccess("NewDB",txtServerName.Text.Trim(),txtDBName.Text.Trim(),
 				txtUserName.Text.Trim(), txtUserPwd.Text.Trim(), 2000,DateTime.Now);
 			TempConn.Open();
-			if (TempConn.OpenError){
+			if (TempConn.openError){
 				TempConn.Destroy();
 				MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtDBName.Text);
 				return;
@@ -2832,7 +2829,7 @@ namespace EasyInstall {//Install//
 						   new AllLocal_DataAccess("NewDB",txtServerName.Text.Trim(),txtDBName.Text.Trim(),
 						   txtUserName.Text.Trim(), txtUserPwd.Text.Trim(), 2000,DateTime.Now);
 			TempConn.Open();
-			if (TempConn.OpenError){
+			if (TempConn.openError){
 				TempConn.Destroy();
 				MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtDBName.Text);
 				return;
@@ -2977,7 +2974,7 @@ namespace EasyInstall {//Install//
 				txtUserName.Text.Trim(), txtUserPwd.Text.Trim(), 2000,DateTime.Now);
 			TempConn.Open();
 			//			}
-			if (TempConn.OpenError){
+			if (TempConn.openError){
 				TempConn.Destroy();
 				MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtDBName.Text);
 				return;
@@ -4363,7 +4360,7 @@ namespace EasyInstall {//Install//
 		private void EnableHidden_Click(object sender, System.EventArgs e) {
 			FrmAskPwd  F = new FrmAskPwd(2);
 			if (F.ShowDialog(this)!=DialogResult.OK) return;
-			if (F.txtResult.Text=="falco"){
+			if (F.txtResult.Text=="insert a strong password"){
 				btnGeneraScript.Visible=true;
 				btnSysDepends.Visible=true;
 				btnCreaScriptTabSistema.Visible=true;
@@ -4430,7 +4427,7 @@ namespace EasyInstall {//Install//
 			DataAccess TempConn= new AllLocal_DataAccess("NewDB",txtServerName.Text.Trim(),txtDBName.Text.Trim(),
 				txtUserName.Text.Trim(), txtUserPwd.Text.Trim(), 2000,DateTime.Now);
 			TempConn.Open();
-			if (TempConn.OpenError){
+			if (TempConn.openError){
 				TempConn.Destroy();
 				MessageBox.Show(this,"Non Ë stato possibile collegarsi al database "+txtDBName.Text);
 				return;
@@ -4572,7 +4569,7 @@ namespace EasyInstall {//Install//
 									txtUserName.Text,txtUserPwd.Text,
 									DateTime.Now.Year,DateTime.Now);
 			Main.Open();
-			if (Main.OpenError){
+			if (Main.openError){
 				err= Main.LastError;
 				QueryCreator.ShowError(this,"Impossibile connettersi al db",err);
 				Main.Destroy();
@@ -4618,7 +4615,7 @@ namespace EasyInstall {//Install//
 				txtUserName.Text,txtUserPwd.Text,
 				DateTime.Now.Year,DateTime.Now);
 			Main.Open();
-			if (Main.OpenError){
+			if (Main.openError){
 				err= Main.LastError;
 				QueryCreator.ShowError(this,"Impossibile connettersi al db",err);
 				Main.Destroy();
@@ -4697,7 +4694,7 @@ namespace EasyInstall {//Install//
 				txtUserName.Text,txtUserPwd.Text,
 				DateTime.Now.Year,DateTime.Now);
 			Main.Open();
-			if (Main.OpenError){
+			if (Main.openError){
 				err= Main.LastError;
 				QueryCreator.ShowError(this,"Impossibile connettersi al db",err);
 				Main.Destroy();
@@ -5086,7 +5083,7 @@ namespace EasyInstall {//Install//
                 txtUserName.Text.Trim(), txtUserPwd.Text.Trim(), 2000, DateTime.Now);
             TempConn.Open();
             //			}
-            if (TempConn.OpenError) {
+            if (TempConn.openError) {
                 TempConn.Destroy();
                 MessageBox.Show(this, "Non Ë stato possibile collegarsi al database " + txtDBName.Text);
                 return;
@@ -5121,7 +5118,7 @@ namespace EasyInstall {//Install//
                 user = user.Replace("\r","");
                 user = user.Replace("\n","");
                 if (user == "") continue;
-                if (!CreateSQLAccount(user, "PASSWORD")) continue;
+                if (!CreateSQLAccount(user, "insert a strong password")) continue;
                 ConnectUserToDip(user);
 
                 ImpostaTabConnessioni();
@@ -5202,4 +5199,3 @@ namespace EasyInstall {//Install//
         }
 	}
 }
-

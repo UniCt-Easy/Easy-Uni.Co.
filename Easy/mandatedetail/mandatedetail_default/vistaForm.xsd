@@ -551,6 +551,7 @@
               <xs:element name="listclass" type="xs:string" />
               <xs:element name="package" type="xs:string" minOccurs="0" />
               <xs:element name="unit" type="xs:string" minOccurs="0" />
+              <xs:element name="price" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

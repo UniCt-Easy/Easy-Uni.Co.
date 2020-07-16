@@ -1,21 +1,17 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 ﻿using System;
 using System.Data;
@@ -155,7 +151,68 @@ public partial class mandatedetail_default_new02 : MetaPage {
                 GetData.SetStaticFilter(DS.ivakind, statfilterivakind);
         }
 
+        DataAccess.SetTableForReading(DS.sorting1, "sorting");
+        DataAccess.SetTableForReading(DS.sorting2, "sorting");
+        DataAccess.SetTableForReading(DS.sorting3, "sorting");
+
+        DataTable tExpSetup = Conn.RUN_SELECT("config", "*", null,  QHS.CmpEq("ayear", Conn.GetSys("esercizio")), null, null, true);
+        if ((tExpSetup != null) && (tExpSetup.Rows.Count > 0)) {
+	        DataRow R = tExpSetup.Rows[0];
+	        object idsorkind1 = R["idsortingkind1"];
+	        object idsorkind2 = R["idsortingkind2"];
+	        object idsorkind3 = R["idsortingkind3"];
+	        SetGBoxClass(1, idsorkind1);
+	        SetGBoxClass(2, idsorkind2);
+	        SetGBoxClass(3, idsorkind3);
+	        if (idsorkind1 == DBNull.Value && idsorkind2 == DBNull.Value && idsorkind3 == DBNull.Value) {
+		        PanelAnalitico.Visible = false;// tabControl2.TabPages.Remove(tabAnalitico);
+	        }
+        }
+
         Register_fn_TotImponibile();
+    }
+
+	
+    void SetGBoxClass(int num, object sortingkind) {
+	    string nums = num.ToString();
+	    hwPanel gbox = new hwPanel();
+	    hwButton btncodice = new hwButton();
+	    //HtmlGenericControl gboxlabel = new HtmlGenericControl();
+
+	    switch (num) {
+		    case 1:
+			    gbox = gboxclass1;
+			    btncodice = btnCodice1;
+			    //gboxlabel = gboxlblgboxclass1;
+			    break;
+		    case 2:
+			    gbox = gboxclass2;
+			    btncodice = btnCodice2;
+			    //gboxlabel = gboxlblgboxclass2;
+			    break;
+		    case 3:
+			    gbox = gboxclass3;
+			    btncodice = btnCodice3;
+			    //gboxlabel = gboxlblgboxclass3;
+			    break;
+	    }
+
+
+	    if (sortingkind == DBNull.Value) {
+		    gbox.Enabled = false;
+	    }
+	    else {
+		    string filter = QHS.CmpEq("idsorkind", sortingkind);
+		    GetData.SetStaticFilter(DS.Tables["sorting" + nums], filter);
+
+		    string title = Conn.DO_READ_VALUE("sortingkind", filter, "description").ToString();
+		    //gboxlabel.InnerText = title;
+		    gbox.GroupingText = title;
+		    gbox.Tag = "AutoManage.txtCodice" + nums + ".tree." + filter;
+		    btncodice.Tag = "manage.sorting" + nums + ".tree." + filter;
+		    DS.Tables["sorting" + nums].ExtendedProperties[ExtraParams] = filter;
+
+	    }
     }
 
     private void ImpostaTageFiltriUPB(int mandatedetailFlagactivity, object idupbToinclude) {

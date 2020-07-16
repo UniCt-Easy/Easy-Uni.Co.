@@ -121,7 +121,7 @@
       <DependentUpon>Frm_menu_default.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="menuvista.xsd">
-      <Generator>MSDataSetGenerator</Generator>
+      <Generator>HDSGene</Generator>
       <LastGenOutput>menuvista.Designer.cs</LastGenOutput>
     </Content>
     <None Include="menuvista.xsc">

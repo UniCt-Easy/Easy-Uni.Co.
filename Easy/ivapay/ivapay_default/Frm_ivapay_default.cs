@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -217,6 +214,8 @@ namespace ivapay_default {//liquidazioneiva//
         private RadioButton rdbMetodoAcconto1;
         private RadioButton rdbMetodoAcconto3;
         private RadioButton rdbMetodoAcconto2;
+        private Label label45;
+        private TextBox txtF24ep;
         private EP_Manager epm;
 		public Frm_ivapay_default() {
 			InitializeComponent();
@@ -434,6 +433,8 @@ namespace ivapay_default {//liquidazioneiva//
             this.rdbMetodoAcconto3 = new System.Windows.Forms.RadioButton();
             this.rdbMetodoAcconto2 = new System.Windows.Forms.RadioButton();
             this.DS = new ivapay_default.vistaForm();
+            this.label45 = new System.Windows.Forms.Label();
+            this.txtF24ep = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.gboxmanuale.SuspendLayout();
@@ -498,6 +499,8 @@ namespace ivapay_default {//liquidazioneiva//
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label45);
+            this.tabPage1.Controls.Add(this.txtF24ep);
             this.tabPage1.Controls.Add(this.label43);
             this.tabPage1.Controls.Add(this.textBox14);
             this.tabPage1.Controls.Add(this.gboxmanuale);
@@ -2345,6 +2348,24 @@ namespace ivapay_default {//liquidazioneiva//
             this.DS.EnforceConstraints = false;
             this.DS.Locale = new System.Globalization.CultureInfo("en-US");
             // 
+            // label45
+            // 
+            this.label45.Location = new System.Drawing.Point(531, 405);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(47, 17);
+            this.label45.TabIndex = 25;
+            this.label45.Text = "F24 EP";
+            // 
+            // txtF24ep
+            // 
+            this.txtF24ep.Location = new System.Drawing.Point(587, 401);
+            this.txtF24ep.Name = "txtF24ep";
+            this.txtF24ep.Size = new System.Drawing.Size(42, 20);
+            this.txtF24ep.TabIndex = 24;
+            this.txtF24ep.TabStop = false;
+            this.txtF24ep.Tag = "ivapay.idf24ep";
+            this.txtF24ep.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // Frm_ivapay_default
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -2678,7 +2699,9 @@ namespace ivapay_default {//liquidazioneiva//
             chkCommerciale.Enabled = !disable;
             chkIstituzionale.Enabled = !disable;
             chkSplit.Enabled = !disable;
-		}
+            txtF24ep.ReadOnly = disable;
+
+        }
 
 		private void SvuotaCampi() {
             txtSaldoPrec.Text = "";
@@ -3044,4 +3067,4 @@ namespace ivapay_default {//liquidazioneiva//
        
 		
     }
-}
+}

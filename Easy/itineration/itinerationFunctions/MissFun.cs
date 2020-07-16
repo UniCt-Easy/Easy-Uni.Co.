@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -746,7 +743,11 @@ namespace itinerationFunctions//FunzioniMissione//
                 msg += "Avviso ricevuto:\r\n";
                 msg += Itineration["webwarn"].ToString() + "\r\n";
             }
-            msg = "Da: " + GetDipartimento(Conn) + "\r\n" + msg;
+            
+            string NomeDipartimento = GetDipartimento(Conn);
+            if (NomeDipartimento != "") {
+                msg = "Da: " + NomeDipartimento + "\r\n" + msg;
+            }
             object public_address = Conn.DO_READ_VALUE("web_config",null,"public_address");
 
             if (public_address != null && public_address != DBNull.Value) {
@@ -803,12 +804,10 @@ namespace itinerationFunctions//FunzioniMissione//
             QueryHelper q = Conn.GetQueryHelper();
             string StatusDescription = Conn.DO_READ_VALUE("itinerationstatus",  q.CmpEq("iditinerationstatus", status), "description").ToString();
 
-            string svolta = (DataInizio.CompareTo(DateTime.Now)) < 0 ? " svoltasi " : " che si svolger‡ ";
-            svolta += "tra il " + DataInizio.ToShortDateString() + " ed il " + DataFine.ToShortDateString();
-            string msg = "La " + GetNomeMissione(Conn, Itineration) + //svolta +  //non serve aggiungere 'svolta' perchË le info sono gi‡ presenti in GetNomeMissione()
-                  " necessita di autorizzazione.";
-            //msg += "Descrizione della missione:\r\n"; // In GetNomeMissione() Ë gi‡ presente questa info.
-            //msg += Itineration["description"].ToString() + "\r\n";
+            string msg = "La " + GetNomeBreveMissione(Conn, Itineration) + 
+                  " necessita di autorizzazione.\r\n";
+            msg += "Descrizione della missione:\r\n"; 
+            msg += Itineration["description"].ToString() + "\r\n";
 
             DataTable Tappe = Conn.RUN_SELECT("itinerationlapview", "*", "lapnumber", q.CmpEq("iditineration", Itineration["iditineration"]), null, false);
             if (Tappe.Rows.Count > 0) {
@@ -828,7 +827,10 @@ namespace itinerationFunctions//FunzioniMissione//
             }
 
             msg += "\r\n";
-            msg = "Da: " + GetDipartimento(Conn) + "\r\n" + msg;
+            string NomeDipartimento = GetDipartimento(Conn);
+            if (NomeDipartimento != "") {
+                msg = "Da: " + NomeDipartimento + "\r\n" + msg;
+            }
             SendMail SM = new SendMail();
             SM.UseSMTPLoginAsFromField = true;
             SM.To = emailaddress;
@@ -917,4 +919,3 @@ namespace itinerationFunctions//FunzioniMissione//
         }
     }
 }
-

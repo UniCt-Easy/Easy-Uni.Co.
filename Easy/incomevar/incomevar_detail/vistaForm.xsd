@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaVariazioneEntrataDettaglio.xsd" xmlns:mstns="http://tempuri.org/VistaVariazioneEntrataDettaglio.xsd" xmlns="http://tempuri.org/VistaVariazioneEntrataDettaglio.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaVariazioneEntrataDettaglio.xsd" xmlns:mstns="http://tempuri.org/VistaVariazioneEntrataDettaglio.xsd" xmlns="http://tempuri.org/VistaVariazioneEntrataDettaglio.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -24,6 +24,9 @@
               <xs:element name="autokind" type="xs:unsignedByte" minOccurs="0" />
               <xs:element name="movkind" type="xs:short" minOccurs="0" />
               <xs:element name="kproceedstransmission" type="xs:int" minOccurs="0" />
+              <xs:element name="idinvkind" type="xs:int" minOccurs="0" />
+              <xs:element name="yinv" type="xs:short" minOccurs="0" />
+              <xs:element name="ninv" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -71,9 +74,10 @@
       <xs:selector xpath=".//mstns:proceedstransmission" />
       <xs:field xpath="mstns:kproceedstransmission" />
     </xs:unique>
-    <xs:keyref name="proceedstransmission_incomevar" refer="proceedstransmission_Constraint1">
-      <xs:selector xpath=".//mstns:incomevar" />
-      <xs:field xpath="mstns:kproceedstransmission" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="proceedstransmission_incomevar" msdata:parent="proceedstransmission" msdata:child="incomevar" msdata:parentkey="kproceedstransmission" msdata:childkey="kproceedstransmission" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

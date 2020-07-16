@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -37,8 +34,8 @@ namespace meta_itinerationlap//meta_missionetappa//
 			ListingTypes.Add("default");
 			Name = "Tappa";
 			//----------------------------------instm-------------------------------begin
-			EditTypes.Add("instmuser");
-			ListingTypes.Add("instmuser");
+			EditTypes.Add("instm_instmuser");
+			ListingTypes.Add("instm_instmuser");
 			//$EditTypes$
 			//----------------------------------instm-------------------------------end
 		}
@@ -120,47 +117,32 @@ namespace meta_itinerationlap//meta_missionetappa//
 
 			switch (ListingType) {
 				//----------------------------------instm-------------------------------begin
-				case "instmuser": {
+				case "instm_instmuser": {
 						DescribeAColumn(T, "!idforeigncountry_foreigncountry_description", "Stato Estero", nPos++);
 						DescribeAColumn(T, "starttime", "Inizio", nPos++);
 						if (T.Columns.Contains("starttime")) T.Columns["starttime"].ExtendedProperties["format"] = "g";
 						DescribeAColumn(T, "stoptime", "Termine", nPos++);
 						if (T.Columns.Contains("stoptime")) T.Columns["stoptime"].ExtendedProperties["format"] = "g";
-						DescribeAColumn(T, "!idcity_departure_geo_city_title", "Localit‡ di partenza", nPos++);
-						DescribeAColumn(T, "!idcity_destination_geo_city_title", "Localit‡ di arrivo", nPos++);
 						break;
 					}
 					//$DescribeAColumn$
 				//----------------------------------instm-------------------------------end
 				case "default": {
-						DescribeAColumn(T, "!italiaestero", "Italia/estero");
-						DescribeAColumn(T, "starttime", "Inizio");
-						DescribeAColumn(T, "stoptime", "Termine");
-						DescribeAColumn(T, "days", "Giorni");
-						DescribeAColumn(T, "hours", "Ore");
-						DescribeAColumn(T, "!localita", "Localit‡", "foreigncountry.description");
-						DescribeAColumn(T, "description", "Descrizione");
-						DescribeAColumn(T, "!indennita", "Indennita totale Euro");
-						DescribeAColumn(T, "!indennitalorda", "Indennita lorda");
+						DescribeAColumn(T, "!italiaestero", "Italia/estero", nPos++);
+						DescribeAColumn(T, "starttime", "Inizio", nPos++);
+						DescribeAColumn(T, "stoptime", "Termine", nPos++);
+						DescribeAColumn(T, "days", "Giorni", nPos++);
+						DescribeAColumn(T, "hours", "Ore", nPos++);
+						DescribeAColumn(T, "!localita", "Localit‡", "foreigncountry.description", nPos++);
+						DescribeAColumn(T, "description", "Descrizione", nPos++);
+						DescribeAColumn(T, "!indennita", "Indennita totale Euro", nPos++);
+						DescribeAColumn(T, "!indennitalorda", "Indennita lorda", nPos++);
 						ComputeRowsAs(T, "default");
 						break;
 					}
 			}
 		}
 
-		//----------------------------------instm-------------------------------begin
-		public override string GetSorting(string ListingType) {
-
-			switch (ListingType) {
-				case "instmuser": {
-						return "starttime desc, stoptime desc";
-					}
-					//$GetSorting$
-			}
-			return base.GetSorting(ListingType);
-		}
-		//----------------------------------instm-------------------------------end
-
 
 	}
-}
+}

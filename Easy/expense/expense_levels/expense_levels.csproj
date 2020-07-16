@@ -93,6 +93,9 @@
       <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="meta_registrypaymethod">
+      <HintPath>..\..\registrypaymethod\meta_registrypaymethod\bin\Debug\meta_registrypaymethod.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -302,6 +305,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="vistaForm.cs">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </Compile>
     <Compile Include="vistaForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

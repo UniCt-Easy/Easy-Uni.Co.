@@ -6,10 +6,11 @@
         <xs:element name="rendicontaltro">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="data" type="xs:dateTime" />
-              <xs:element name="idrendicont" type="xs:int" />
+              <xs:element name="idreg_docenti" type="xs:int" />
               <xs:element name="idrendicontaltro" type="xs:int" />
               <xs:element name="idrendicontaltrokind" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
@@ -22,6 +23,8 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:rendicontaltro" />
+      <xs:field xpath="mstns:aa" />
+      <xs:field xpath="mstns:idreg_docenti" />
       <xs:field xpath="mstns:idrendicontaltro" />
     </xs:unique>
   </xs:element>

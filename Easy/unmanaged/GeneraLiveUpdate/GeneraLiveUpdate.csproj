@@ -117,24 +117,19 @@
       <HintPath>..\..\dll\Xceed.Compression.v5.6.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xceed.Editors.v2.6, Version=2.6.14265.12340, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\helpdesk\DLL\Xceed.Editors.v2.6.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Xceed.Editors.v2.6">
+      <HintPath>..\..\dll\Xceed.Editors.v2.6.dll</HintPath>
     </Reference>
     <Reference Include="Xceed.FileSystem.v5.6">
       <HintPath>..\..\dll\Xceed.FileSystem.v5.6.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xceed.Ftp.v5.6, Version=5.6.14475.14160, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\progetti\sdiftp\dll\Xceed.Ftp.v5.6.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Xceed.Ftp.v5.6">
+      <HintPath>..\..\dll\Xceed.Ftp.v5.6.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Grid.v3.9, Version=3.9.14265.12340, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+    <Reference Include="Xceed.Grid.v3.9, Version=3.9.13165.12030, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\helpdesk\DLL\Xceed.Grid.v3.9.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\dll\Xceed.Grid.v3.9.dll</HintPath>
     </Reference>
     <Reference Include="Xceed.Zip.v5.6">
       <HintPath>..\..\dll\Xceed.Zip.v5.6.dll</HintPath>
@@ -154,18 +149,10 @@
     <Compile Include="Frm_GeneraLiveUpdate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="genconfig.cs">
-      <DependentUpon>genconfig.xsd</DependentUpon>
-    </Compile>
     <Compile Include="genconfig.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>genconfig.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FrmAskName.resx">
       <DependentUpon>FrmAskName.cs</DependentUpon>
@@ -183,14 +170,10 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="genconfig.xsd">
-      <Generator>MSDataSetGenerator</Generator>
+      <Generator>HDSGene</Generator>
       <LastGenOutput>genconfig.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="genconfig.xsc">
       <DependentUpon>genconfig.xsd</DependentUpon>
     </None>

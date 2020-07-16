@@ -28,6 +28,7 @@
               <xs:element name="reductionpercentage" type="xs:decimal" minOccurs="0" />
               <xs:element name="starttime" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stoptime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="extension" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

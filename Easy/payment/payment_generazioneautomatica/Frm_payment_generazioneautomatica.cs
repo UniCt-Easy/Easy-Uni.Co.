@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -1312,8 +1309,8 @@ namespace payment_generazioneautomatica { //documentopagamento_gener_auto//
             }
 
             if (currblockLen > 0) sb.AppendLine(";");
-            sb.AppendLine($"exec  trasmele_expense_opisiopeplus_ins {Conn.GetEsercizio()},null,@lista");
-            return Conn.SQLRunner(sb.ToString());
+            sb.AppendLine($"exec  trasmele_expense_opisiopeplus_ins {Conn.GetEsercizio()},null,'N',@lista");
+            return Conn.SQLRunner(sb.ToString(),false,300);
         }
 
         /// </summary>
@@ -1325,7 +1322,6 @@ namespace payment_generazioneautomatica { //documentopagamento_gener_auto//
             int dimensioneMovCorrente = 0;
 
             int dimensioneMandatoVuoto = 0;
-            //string listaMov = null;
             string Dsingolo = null;
             string DocMandatoVuoto = null;
             siopeplus_export SS = new siopeplus_export(Conn);
@@ -1339,6 +1335,7 @@ namespace payment_generazioneautomatica { //documentopagamento_gener_auto//
             object flagautostampa = Meta.Conn.DO_READ_VALUE("config",
                 "(ayear='" + Meta.GetSys("esercizio").ToString() + "')", "payment_flagautoprintdate");
             List<DataRow> Lpagamenti = new List<DataRow>();
+
             Dictionary<int, DataRow> rowsByIdExp = new Dictionary<int, DataRow>();
             foreach (DataRow r in DS.expenselastview.Rows) rowsByIdExp[(int) r["idexp"]] = r;
 
@@ -1356,8 +1353,14 @@ namespace payment_generazioneautomatica { //documentopagamento_gener_auto//
             if (MM.Length == 0) {
                 return false;
             }
-
             var mandatoVuoto = SS.creaMandato(MM[0]);
+
+            mandatoVuoto.dati_a_disposizione_ente_mandato = new pagamenti.ctDati_a_disposizione_ente_mandato();
+            mandatoVuoto.dati_a_disposizione_ente_mandato.struttura = MM[0]["dati_codice_struttura"].ToString();
+            mandatoVuoto.dati_a_disposizione_ente_mandato.codice_struttura = MM[0]["dati_codice_struttura"].ToString();
+            mandatoVuoto.dati_a_disposizione_ente_mandato.codice_ipa_struttura =MM[0]["dati_codice_ipa_struttura"].ToString();
+
+
             DocMandatoVuoto = mandatoVuoto.toXml();
             dimensioneMandatoVuoto = DocMandatoVuoto.Length+50;//include header xml 
             dimensioneTotale = dimensioneMandatoVuoto;
@@ -1366,8 +1369,8 @@ namespace payment_generazioneautomatica { //documentopagamento_gener_auto//
 
             foreach (DataRow CurrSpesa in Lpagamenti) {
                 object idexp = CurrSpesa["idexp"];
-
                 infoBeneficiario = infoBeneficiari[(int) idexp];
+
                 Dsingolo = infoBeneficiario.toXml();
                 dimensioneMovCorrente = Dsingolo.Length;
 
@@ -1378,7 +1381,6 @@ namespace payment_generazioneautomatica { //documentopagamento_gener_auto//
                 else {
                     //Salva l'i-esimo mandato
                     dimensioneTotale = dimensioneMandatoVuoto + dimensioneMovCorrente;
-                    DocMandatoVuoto = null;
                     if ((flagautostampa != null) && (flagautostampa.ToString().ToUpper() == "S")) {
                         Curr["printdate"] = Curr["adate"];
                     }
@@ -1456,6 +1458,7 @@ namespace payment_generazioneautomatica { //documentopagamento_gener_auto//
         private void fillPaymentBank() {
             if (DS.payment.Rows.Count == 0) return;
             foreach (DataRow Curr in DS.payment.Select()) {
+	            if (Curr.RowState == DataRowState.Added) continue;
                 DataSet Out = Meta.Conn.CallSP("compute_payment_bank",
                     new object[] {Curr["kpay"]}, false, 0);
             }
@@ -1483,4 +1486,3 @@ namespace payment_generazioneautomatica { //documentopagamento_gener_auto//
         }
     }
 }
-

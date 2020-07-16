@@ -6,11 +6,12 @@
         <xs:element name="didproganno">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="aa" type="xs:string" minOccurs="0" />
+              <xs:element name="aa" type="xs:string" />
               <xs:element name="anno" type="xs:int" minOccurs="0" />
               <xs:element name="cf" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
               <xs:element name="iddidprog" type="xs:int" />
               <xs:element name="iddidproganno" type="xs:int" />
               <xs:element name="iddidprogcurr" type="xs:int" />
@@ -24,6 +25,8 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:didproganno" />
+      <xs:field xpath="mstns:aa" />
+      <xs:field xpath="mstns:idcorsostudio" />
       <xs:field xpath="mstns:iddidprog" />
       <xs:field xpath="mstns:iddidproganno" />
       <xs:field xpath="mstns:iddidprogcurr" />

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -29,10 +26,9 @@ namespace treasurer_default {//istitutocassiere//
 	/// <summary>
 	/// Summary description for frmistitutocassiere.
 	/// </summary>
-    public class Frm_treasurer_default : System.Windows.Forms.Form
+    public class Frm_treasurer_default : MetaDataForm
     {
-        public vistaForm DS;
-		MetaData Meta;
+        public dsmeta DS;
 		string lastCIN = "";
 		object lastABI = DBNull.Value;
 		object lastCAB = DBNull.Value;
@@ -228,11 +224,8 @@ namespace treasurer_default {//istitutocassiere//
 
 		public Frm_treasurer_default() {
 			InitializeComponent();
-//			DataAccess.SetTableForReading(DS.accmotiveapplied1,"accmotiveapplied");
-			DataAccess.SetTableForReading(DS.accmotive1,"accmotive");
-            DataAccess.SetTableForReading(DS.bankcbi, "bank");
-            DataAccess.SetTableForReading(DS.cabcbi, "cab");
-		}
+		
+        }
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -433,7 +426,7 @@ namespace treasurer_default {//istitutocassiere//
             this.label40 = new System.Windows.Forms.Label();
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.label39 = new System.Windows.Forms.Label();
-            this.DS = new treasurer_default.vistaForm();
+            this.DS = new treasurer_default.dsmeta();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.rdbAlfanumerico = new System.Windows.Forms.RadioButton();
             this.rdbNumerico = new System.Windows.Forms.RadioButton();
@@ -2460,28 +2453,16 @@ namespace treasurer_default {//istitutocassiere//
 			inserisciBBAN();
 		}
 
-        CQueryHelper QHC;
-        QueryHelper QHS;
-		public void MetaData_AfterLink() {
-			Meta = MetaData.GetMetaData(this);
-            QHC = new CQueryHelper();
-            QHS = Meta.Conn.GetQueryHelper();
-            HelpForm.SetDenyNull(DS.treasurer.Columns["flagfruitful"], true);
-            HelpForm.SetDenyNull(DS.treasurer.Columns["flagedisp"], true);
-            HelpForm.SetDenyNull(DS.treasurer.Columns["enable_ndoc_treasurer"], true);
-            HelpForm.SetDenyNull(DS.treasurer.Columns["active"], true);
-            HelpForm.SetDenyNull(DS.treasurer.Columns["flag"], true);
-            DataAccess.SetTableForReading(DS.sorting01, "sorting");
-            DataAccess.SetTableForReading(DS.sorting02, "sorting");
-            DataAccess.SetTableForReading(DS.sorting03, "sorting");
-            DataAccess.SetTableForReading(DS.sorting04, "sorting");
-            DataAccess.SetTableForReading(DS.sorting05, "sorting");
+        public void metaData_AfterLink() {
+            DS.treasurer.Columns["flagfruitful"].SetDenyNull();
+            DS.treasurer.Columns["flagedisp"].SetDenyNull();
+            DS.treasurer.Columns["enable_ndoc_treasurer"].SetDenyNull();
+            DS.treasurer.Columns["active"].SetDenyNull();
+            DS.treasurer.Columns["flag"].SetDenyNull();
 
-            DataTable tUniConfig = Meta.Conn.RUN_SELECT("uniconfig", "*", null,
-              null, null, null, true);
-            if ((tUniConfig != null) && (tUniConfig.Rows.Count > 0))
-            {
-                DataRow r = tUniConfig.Rows[0];
+            var tUniConfig = getTable("uniconfig");
+            if ((tUniConfig != null) && (tUniConfig.Rows.Count > 0)) {
+                var r = tUniConfig.Rows[0];
                 object idsorkind1 = r["idsorkind01"];
                 object idsorkind2 = r["idsorkind02"];
                 object idsorkind3 = r["idsorkind03"];
@@ -2493,46 +2474,13 @@ namespace treasurer_default {//istitutocassiere//
                 CfgFn.SetGBoxClass0(this, 4, idsorkind4);
                 CfgFn.SetGBoxClass0(this, 5, idsorkind5);
                 if (idsorkind1 == DBNull.Value && idsorkind2 == DBNull.Value &&
-                    idsorkind3 == DBNull.Value && idsorkind4 == DBNull.Value && idsorkind5 == DBNull.Value)
-                {
+                    idsorkind3 == DBNull.Value && idsorkind4 == DBNull.Value && idsorkind5 == DBNull.Value) {
                     tabControl1.TabPages.Remove(tabAttributi);
                 }
             }
         }
 
-        object GetCtrlByName(string Name)
-        {
-            System.Reflection.FieldInfo Ctrl = this.GetType().GetField(Name);
-            if (Ctrl == null) return null;
-            return Ctrl.GetValue(this);
-        }
-
-        void SetGBoxClass0(int num, object sortingkind)
-        {
-            string nums = num.ToString();
-            if (sortingkind == DBNull.Value)
-            {
-                GroupBox G = (GroupBox)GetCtrlByName("gboxclass0" + nums);
-                G.Visible = false;
-                ComboBox C = (ComboBox)GetCtrlByName("cmbCodice0" + nums);
-                C.Tag = null;
-                C.DataSource = null;
-            }
-            else
-            {
-                string filter = QHS.CmpEq("idsorkind", sortingkind);
-                GetData.SetStaticFilter(DS.Tables["sorting0" + nums], filter);
-                GroupBox gboxclass = (GroupBox)GetCtrlByName("gboxclass0" + nums);
-                Button btnCodice = (Button)GetCtrlByName("btnCodice0" + nums);
-                //gboxclass.Tag = "AutoManage.txtCodice0" + nums + ".tree." + filter;
-                string title = Meta.Conn.DO_READ_VALUE("sortingkind", filter, "description").ToString();
-                gboxclass.Text = title;
-                btnCodice.Tag = "manage.sorting0" + nums + ".tree." + filter;
-                DS.Tables["sorting0" + nums].ExtendedProperties[MetaData.ExtraParams] = filter;
-            }
-        }
-            
-         private void chkNonRaggruppIncassi_CheckStateChanged(object sender, EventArgs e) {
+        private void chkNonRaggruppIncassi_CheckStateChanged(object sender, EventArgs e) {
             if (chkNonRaggruppIncassi.CheckState == CheckState.Checked){
                    chkRaggruppaIncassiVersante.Checked = false;
                    chkRaggProceedCausale.Checked = false;
@@ -2591,31 +2539,29 @@ namespace treasurer_default {//istitutocassiere//
         }
 
 		
-        void ClearCab() {
+        void clearCab() {
             DS.cab.Clear();
             txtCab.Text = "";
             txtCabDescr.Text = "";
-            if (!Meta.IsEmpty) {
-                DataRow Curr = DS.treasurer.Rows[0];
-                Curr["idcab"] = DBNull.Value;
+            if (!isEmpty) {
+                currentRow["idcab"] = DBNull.Value;
             }
 
         }
 
-		public void MetaData_AfterClear() {
+		public void metaData_AfterClear() {
 			txtBBAN.Text = "";
 			azzeraVarDiConfronto();
-            SetAutoCab(DBNull.Value);
+            setAutoCab(DBNull.Value);
         }
 
 
-		public void MetaData_AfterFill() {
-            if (Meta.FirstFillForThisRow) {
-                DataRow Curr = DS.treasurer.Rows[0];
-                SetAutoCab(Curr["idbank"]);
+		public void metaData_AfterFill() {
+            if (firstFillForThisRow) {
+                setAutoCab(currentRow["idbank"]);
             }
 
-			if ((Meta.FirstFillForThisRow) && (Meta.EditMode)) {
+			if (firstFillForThisRow && editMode) {
 				assegnaVarDiConfronto();
 				calcolaBBAN();
 			}
@@ -2624,13 +2570,13 @@ namespace treasurer_default {//istitutocassiere//
 		public void assegnaVarDiConfronto() {
 			azzeraVarDiConfronto();
 
-			if (Meta.IsEmpty) return;
-			DataRow Curr = DS.treasurer.Rows[0];
+			if (isEmpty) return;
+			var curr = currentRow;
 
-			lastCIN = (Curr["cin"] == DBNull.Value) ? "" : Curr["cin"].ToString().ToUpper();
-			lastABI = Curr["idbank"];
-            lastCAB = Curr["idcab"];
-			lastCC = (Curr["cc"] == DBNull.Value) ? "" : Curr["cc"].ToString();
+			lastCIN = (curr["cin"] == DBNull.Value) ? "" : curr["cin"].ToString().ToUpper();
+			lastABI = curr["idbank"];
+            lastCAB = curr["idcab"];
+			lastCC = (curr["cc"] == DBNull.Value) ? "" : curr["cc"].ToString();
 		}
 
 		public void azzeraVarDiConfronto() {
@@ -2642,7 +2588,7 @@ namespace treasurer_default {//istitutocassiere//
 		}
 
 		private void inserisciBBAN() {
-			frmaskbban BBAN = new frmaskbban(0);
+			var BBAN = new frmaskbban(0);
 			if (BBAN.ShowDialog()!=DialogResult.OK) return;
 			if (BBAN.insertedBBAN == "") return;
 
@@ -2653,13 +2599,14 @@ namespace treasurer_default {//istitutocassiere//
 			string CAB = BBAN.insertedBBAN.Substring(6,5);
 			string CC = BBAN.insertedBBAN.Substring(11,12);
             string iban = CfgFn.calcolaIBAN("IT", BBAN.insertedBBAN);
-			if ((Meta.InsertMode) || (Meta.EditMode)) {
-				DS.treasurer.Rows[0]["cin"] = CIN;
-				DS.treasurer.Rows[0]["idbank"] = ABI;
-				DS.treasurer.Rows[0]["idcab"] = CAB;
-				DS.treasurer.Rows[0]["cc"] = CC;
-                DS.treasurer.Rows[0]["iban"] = iban;
-				Meta.FreshForm();
+            var curr = currentRow;
+			if (insertMode || editMode) {
+                curr["cin"] = CIN;
+                curr["idbank"] = ABI;
+                curr["idcab"] = CAB;
+                curr["cc"] = CC;
+                curr["iban"] = iban;
+				freshForm();
 			}
 			else {
                 txtBanca.Text = ABI;
@@ -2673,17 +2620,16 @@ namespace treasurer_default {//istitutocassiere//
 
         private bool controllaBanca(string insertedBBAN) {
             string ABI = insertedBBAN.Substring(1, 5);
-			string filtroBanca = QHS.CmpEq("idbank", ABI);
-			object codiceABI = Meta.Conn.DO_READ_VALUE("bank", filtroBanca, "idbank");
+			var filtroBanca = eq("idbank", ABI);
+			object codiceABI = readValue("bank", filtroBanca, "idbank");
 			if (codiceABI == null) {
-				MessageBox.Show("La banca inserita nel BBAN non esiste!");
+                showError("La banca inserita nel BBAN non esiste!");
 				return false;
 			}
             string CAB = insertedBBAN.Substring(6, 5);
-			filtroBanca = QHS.AppAnd(filtroBanca, QHS.CmpEq("idcab", CAB));
-			object codiceCAB = Meta.Conn.DO_READ_VALUE("cab", filtroBanca, "idcab");
+			object codiceCAB = readValue("cab", filtroBanca & eq("idcab", CAB), "idcab");
 			if (codiceCAB == null) {
-				MessageBox.Show("Lo sportello inserito nel BBAN non esiste!");
+				showError("Lo sportello inserito nel BBAN non esiste!");
 				return false;
 			}
 			return true;
@@ -2691,7 +2637,7 @@ namespace treasurer_default {//istitutocassiere//
 
 		private void txtCin_Leave(object sender, System.EventArgs e) {
 			if (inChiusura) return;
-			if (Meta.IsEmpty) return;
+			if (isEmpty) return;
 			if (txtCin.Text == "") {
 				txtBBAN.Text = "";
 				lastCIN = "";
@@ -2704,7 +2650,7 @@ namespace treasurer_default {//istitutocassiere//
 
 		private void txtNumConto_Leave(object sender, System.EventArgs e) {
 			if (inChiusura) return;
-			if (Meta.IsEmpty) return;
+			if (isEmpty) return;
 			if (txtNumConto.Text == "") {
 				txtBBAN.Text = "";
 				lastCC = "";
@@ -2714,35 +2660,37 @@ namespace treasurer_default {//istitutocassiere//
 			lastCC = txtNumConto.Text;
 			calcolaBBAN();
 		}
-        void SetAutoCab(object idbank) {
+        void setAutoCab(object idbank) {
             string Autochoose = "AutoChoose.txtCab.default.";
             string Choose = "Choose.cab.default.";
-            string filter;
+            MetaExpression filter;
             if (idbank != DBNull.Value) {
                 //Imposta il filtro sulla banca nello sportello
-                filter = QHS.AppAnd(QHS.CmpEq("idbank", idbank), QHS.CmpNe("flagusable", "N"));
+                filter = mCmp(new {idbank, flagusable = "S"}); //(qhs.CmpEq("idbank", idbank), qhs.CmpNe("flagusable", "N"));
             }
             else {
                 //Rimuove il filtro sulla banca nello sportello
-                filter = QHS.CmpNe("flagusable", "N");
+                filter = eq("flagusable", "S");
             }
-            gboxSportello.Tag = Autochoose + filter;
-            btnCab.Tag = Choose + filter;
-            Meta.SetAutoMode(gboxSportello);
+
+            gboxSportello.Tag = Autochoose + toString(filter);
+            btnCab.Tag = Choose + toString(filter);
+
+            controller.SetAutoMode(gboxSportello);
         }
 
-		public void MetaData_AfterRowSelect(DataTable T, DataRow R) {
-            if (T.TableName == "bank" && Meta.DrawStateIsDone) {
+		public void metaData_AfterRowSelect(DataTable T, DataRow R) {
+            if (T.TableName == "bank" && drawStateIsDone) {
                 if (R == null) {
-                    SetAutoCab(DBNull.Value);
+                    setAutoCab(DBNull.Value);
                 }
                 else {
-                    SetAutoCab(R["idbank"]);
+                    setAutoCab(R["idbank"]);
                 }
-                ClearCab();
+                clearCab();
              }
 
-			if (Meta.IsEmpty) return;
+			if (isEmpty) return;
 			switch(T.TableName) {
 				case "bank": {
 
@@ -2757,15 +2705,16 @@ namespace treasurer_default {//istitutocassiere//
 					break;
 				}
 				case "cab": {
-                    if (R != null && Meta.DrawStateIsDone && txtBanca.Text == "") {
+                    if (R != null && drawStateIsDone && txtBanca.Text == "") {
                         DS.bank.Clear();
-                        Meta.Conn.RUN_SELECT_INTO_TABLE(DS.bank, null, QHS.CmpEq("idbank", R["idbank"]), null, false);
+                        var r = DS.bank.get(conn, mCmp(R, "idbank"));// anche mCmp(new {idbank}) eq("idbank",R["idbank"])
+                        selectIntoTable(DS.bank, mCmp(R, "idbank"));
                         if (DS.bank.Rows.Count > 0) {
-                            DataRow B = DS.bank.Rows[0];
+                            var B = DS.bank.First();
                             txtBanca.Text = B["idbank"].ToString();
                             txtDescrBanca.Text = B["description"].ToString();
                         }
-                        SetAutoCab(R["idbank"]);
+                        setAutoCab(R["idbank"]);
                     }
 
 					if (R == null) {
@@ -2782,28 +2731,28 @@ namespace treasurer_default {//istitutocassiere//
 		}
 
 		private void calcolaBBAN() {
-			if (DS.treasurer.Rows.Count == 0) return;
-			if (Meta.DrawStateIsDone) Meta.GetFormData(true);
-			DataRow Curr = DS.treasurer.Rows[0];
+			if (isEmpty) return;
+			if (drawStateIsDone) getFormData();
+			var curr = DS.treasurer.First();
 			bool puoiCalcolare =
-				((Curr["cin"] != DBNull.Value) &&
-				(Curr["idbank"] != DBNull.Value) &&
-				(Curr["idcab"] != DBNull.Value) &&
-				(Curr["cc"] != DBNull.Value) &&
-				(Curr["cin"].ToString() != "") &&
-				(Curr["idbank"].ToString() != "") &&
-				(Curr["idcab"].ToString() != "") &&
-				(Curr["cc"].ToString() != ""));
+				((curr["cin"] != DBNull.Value) &&
+				(curr["idbank"] != DBNull.Value) &&
+				(curr["idcab"] != DBNull.Value) &&
+				(curr["cc"] != DBNull.Value) &&
+				(curr["cin"].ToString() != "") &&
+				(curr["idbank"].ToString() != "") &&
+				(curr["idcab"].ToString() != "") &&
+				(curr["cc"].ToString() != ""));
 			if (!puoiCalcolare) {
 				txtBBAN.Text = "";
 				return;
 			}
-			Curr["cin"] = Curr["cin"].ToString().ToUpper();
-			bool cinCorretto = CfgFn.CheckCIN(Curr["cin"].ToString(),Curr["idcab"].ToString(),Curr["idbank"].ToString(),Curr["cc"].ToString());
+            curr["cin"] = curr["cin"].ToString().ToUpper();
+			bool cinCorretto = CfgFn.CheckCIN(curr["cin"].ToString(),curr["idcab"].ToString(),curr["idbank"].ToString(),curr["cc"].ToString());
 			if (cinCorretto) {
-				txtBBAN.Text = Curr["cin"].ToString() + Curr["idbank"].ToString() + Curr["idcab"].ToString() + Curr["cc"].ToString();
+				txtBBAN.Text = curr["cin"].ToString() + curr["idbank"].ToString() + curr["idcab"].ToString() + curr["cc"].ToString();
                 txtIBAN.Text = CfgFn.calcolaIBAN("IT", txtBBAN.Text);
-                Curr["iban"] = txtIBAN.Text;
+                curr["iban"] = txtIBAN.Text;
 			}
 			else {
 				txtBBAN.Text = "CIN non corretto!";
@@ -2811,76 +2760,74 @@ namespace treasurer_default {//istitutocassiere//
 			}
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            FrmAskIban frm = new FrmAskIban(txtIBAN.Text);
+        private void button3_Click(object sender, EventArgs e) {
+            var frm = new FrmAskIban(txtIBAN.Text);
             if (frm.ShowDialog(this) != DialogResult.OK) return;
-            if (frm.insertedIBAN == "")
-            {
+            if (frm.insertedIBAN == "") {
                 txtIBAN.Text = frm.insertedIBAN;
                 return;
             }
-            if (!frm.insertedIBAN.StartsWith("IT"))
-            {
-                if ((Meta.InsertMode) || (Meta.EditMode))
-                {
-                    DS.treasurer.Rows[0]["iban"] = frm.insertedIBAN;
-                    DS.treasurer.Rows[0]["cin"] = DBNull.Value;
-                    DS.treasurer.Rows[0]["idbank"] = DBNull.Value;
-                    DS.treasurer.Rows[0]["idcab"] = DBNull.Value;
-                    DS.treasurer.Rows[0]["cc"] = DBNull.Value;
-                    Meta.FreshForm();
+
+            if (!frm.insertedIBAN.StartsWith("IT")) {
+                if (insertMode || editMode) {
+                    var curr = DS.treasurer.First();
+                    curr["iban"] = frm.insertedIBAN;
+                    curr["cin"] = DBNull.Value;
+                    curr["idbank"] = DBNull.Value;
+                    curr["idcab"] = DBNull.Value;
+                    curr["cc"] = DBNull.Value;
+                    freshForm();
                 }
+
                 return;
             }
 
-            bool inserisciDati = controllaBanca(frm.insertedIBAN.Substring(4)); 
-            if (!inserisciDati) return;
+            if (!controllaBanca(frm.insertedIBAN.Substring(4))) return;
 
             string bban = frm.insertedIBAN.Substring(4);
             string CIN = bban.Substring(0, 1).ToUpper();
             string ABI = bban.Substring(1, 5);
             string CAB = bban.Substring(6, 5);
             string CC = bban.Substring(11, 12);
-            if ((Meta.InsertMode) || (Meta.EditMode))
-            {
-                DS.treasurer.Rows[0]["cin"] = CIN;
-                DS.treasurer.Rows[0]["idbank"] = ABI;
-                DS.treasurer.Rows[0]["idcab"] = CAB;
-                DS.treasurer.Rows[0]["cc"] = CC;
-                DS.treasurer.Rows[0]["iban"] = frm.insertedIBAN;
-                Meta.FreshForm();
+            if (insertMode || editMode) {
+                var curr = DS.treasurer.First();
+                curr.cin= CIN;
+                curr.idbank = ABI;
+                curr.idcab = CAB;
+                curr.cc = CC;
+                curr.iban = frm.insertedIBAN;
+                freshForm();
             }
-            else
-            {
+            else {
                 txtBanca.Text = ABI;
                 txtCab.Text = CAB;
                 txtCin.Text = CIN;
                 txtNumConto.Text = CC;
             }
+
             txtBBAN.Text = frm.insertedIBAN.Substring(4);
             txtIBAN.Text = frm.insertedIBAN;
         }
 
-        private void btnIBANcbi_Click(object sender, EventArgs e){
-            FrmAskIban frm = new FrmAskIban(txtIBANcbi.Text);
+        private void btnIBANcbi_Click(object sender, EventArgs e) {
+            var frm = new FrmAskIban(txtIBANcbi.Text);
             if (frm.ShowDialog(this) != DialogResult.OK) return;
-            if (frm.insertedIBAN == "")
-            {
+            if (frm.insertedIBAN == "") {
                 txtIBANcbi.Text = frm.insertedIBAN;
                 return;
             }
-            if (!frm.insertedIBAN.StartsWith("IT"))
-            {
-                if ((Meta.InsertMode) || (Meta.EditMode))
-                {
-                    DS.treasurer.Rows[0]["ibancbi"] = frm.insertedIBAN;
-                    DS.treasurer.Rows[0]["cincbi"] = DBNull.Value;
-                    DS.treasurer.Rows[0]["idbankcbi"] = DBNull.Value;
-                    DS.treasurer.Rows[0]["idcabcbi"] = DBNull.Value;
-                    DS.treasurer.Rows[0]["cccbi"] = DBNull.Value;
-                    Meta.FreshForm();
+
+            if (!frm.insertedIBAN.StartsWith("IT")) {
+                if (insertMode || editMode) {
+                    var curr = DS.treasurer.First();
+                    curr["ibancbi"] = frm.insertedIBAN;
+                    curr["cincbi"] = DBNull.Value;
+                    curr["idbankcbi"] = DBNull.Value;
+                    curr["idcabcbi"] = DBNull.Value;
+                    curr["cccbi"] = DBNull.Value;
+                    freshForm();
                 }
+
                 return;
             }
 
@@ -2892,31 +2839,31 @@ namespace treasurer_default {//istitutocassiere//
             string ABIcbi = bban.Substring(1, 5);
             string CABcbi = bban.Substring(6, 5);
             string CCcbi = bban.Substring(11, 12);
-            if ((Meta.InsertMode) || (Meta.EditMode))
-            {
-                DS.treasurer.Rows[0]["cincbi"] = CINcbi;
-                DS.treasurer.Rows[0]["idbankcbi"] = ABIcbi;
-                DS.treasurer.Rows[0]["idcabcbi"] = CABcbi;
-                DS.treasurer.Rows[0]["cccbi"] = CCcbi;
-                DS.treasurer.Rows[0]["ibancbi"] = frm.insertedIBAN;
-                Meta.FreshForm();
+            if (insertMode || editMode) {
+                var curr = DS.treasurer.First();
+                curr["cincbi"] = CINcbi;
+                curr["idbankcbi"] = ABIcbi;
+                curr["idcabcbi"] = CABcbi;
+                curr["cccbi"] = CCcbi;
+                curr["ibancbi"] = frm.insertedIBAN;
+                freshForm();
             }
-            else
-            {
+            else {
                 txtABIcbi.Text = ABIcbi;
                 txtCABcbi.Text = CABcbi;
                 txtcincbi.Text = CINcbi;
                 txtCCcbi.Text = CCcbi;
             }
+
             txtIBANcbi.Text = frm.insertedIBAN;
- 
+
 
         }
 
         private void btnChooseDir_Click(object sender, EventArgs e)
         {
             folderBrowserDialog1.SelectedPath = txtDir.Text;
-            DialogResult res = folderBrowserDialog1.ShowDialog(this);
+            var res = folderBrowserDialog1.ShowDialog(this);
             if (res != DialogResult.OK) return;
             txtDir.Text = folderBrowserDialog1.SelectedPath;
         }
@@ -2925,4 +2872,4 @@ namespace treasurer_default {//istitutocassiere//
 
         }
     }
-}
+}

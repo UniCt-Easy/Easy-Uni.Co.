@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -29,6 +26,17 @@ public class registry_instmuserRow: MetaRow  {
 	public registry_instmuserRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
+	public String maritalcf{ 
+		get {if (this["maritalcf"]==DBNull.Value)return null; return  (String)this["maritalcf"];}
+		set {if (value==null) this["maritalcf"]= DBNull.Value; else this["maritalcf"]= value;}
+	}
+	public object maritalcfValue { 
+		get{ return this["maritalcf"];}
+		set {if (value==null|| value==DBNull.Value) this["maritalcf"]= DBNull.Value; else this["maritalcf"]= value;}
+	}
+	public String maritalcfOriginal { 
+		get {if (this["maritalcf",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["maritalcf",DataRowVersion.Original];}
+	}
 	public DateTime? ct{ 
 		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
 		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
@@ -51,6 +59,9 @@ public class registry_instmuserRow: MetaRow  {
 	public String cuOriginal { 
 		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Documento di identità
+	///</summary>
 	public Int32? idattach{ 
 		get {if (this["idattach"]==DBNull.Value)return null; return  (Int32?)this["idattach"];}
 		set {if (value==null) this["idattach"]= DBNull.Value; else this["idattach"]= value;}
@@ -61,34 +72,6 @@ public class registry_instmuserRow: MetaRow  {
 	}
 	public Int32? idattachOriginal { 
 		get {if (this["idattach",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idattach",DataRowVersion.Original];}
-	}
-	///<summary>
-	///Qualifica
-	///</summary>
-	public Int32? idinstmqualifies{ 
-		get {if (this["idinstmqualifies"]==DBNull.Value)return null; return  (Int32?)this["idinstmqualifies"];}
-		set {if (value==null) this["idinstmqualifies"]= DBNull.Value; else this["idinstmqualifies"]= value;}
-	}
-	public object idinstmqualifiesValue { 
-		get{ return this["idinstmqualifies"];}
-		set {if (value==null|| value==DBNull.Value) this["idinstmqualifies"]= DBNull.Value; else this["idinstmqualifies"]= value;}
-	}
-	public Int32? idinstmqualifiesOriginal { 
-		get {if (this["idinstmqualifies",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idinstmqualifies",DataRowVersion.Original];}
-	}
-	///<summary>
-	///Unità di Ricerca
-	///</summary>
-	public Int32? idinstmresearchunit{ 
-		get {if (this["idinstmresearchunit"]==DBNull.Value)return null; return  (Int32?)this["idinstmresearchunit"];}
-		set {if (value==null) this["idinstmresearchunit"]= DBNull.Value; else this["idinstmresearchunit"]= value;}
-	}
-	public object idinstmresearchunitValue { 
-		get{ return this["idinstmresearchunit"];}
-		set {if (value==null|| value==DBNull.Value) this["idinstmresearchunit"]= DBNull.Value; else this["idinstmresearchunit"]= value;}
-	}
-	public Int32? idinstmresearchunitOriginal { 
-		get {if (this["idinstmresearchunit",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idinstmresearchunit",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Sezione tematica prescelta
@@ -132,20 +115,6 @@ public class registry_instmuserRow: MetaRow  {
 	public Int32? idinstmusercategorykindOriginal { 
 		get {if (this["idinstmusercategorykind",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idinstmusercategorykind",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Dipartimento
-	///</summary>
-	public Int32? idlocation{ 
-		get {if (this["idlocation"]==DBNull.Value)return null; return  (Int32?)this["idlocation"];}
-		set {if (value==null) this["idlocation"]= DBNull.Value; else this["idlocation"]= value;}
-	}
-	public object idlocationValue { 
-		get{ return this["idlocation"];}
-		set {if (value==null|| value==DBNull.Value) this["idlocation"]= DBNull.Value; else this["idlocation"]= value;}
-	}
-	public Int32? idlocationOriginal { 
-		get {if (this["idlocation",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idlocation",DataRowVersion.Original];}
-	}
 	public Int32? idreg{ 
 		get {if (this["idreg"]==DBNull.Value)return null; return  (Int32?)this["idreg"];}
 		set {if (value==null) this["idreg"]= DBNull.Value; else this["idreg"]= value;}
@@ -156,34 +125,6 @@ public class registry_instmuserRow: MetaRow  {
 	}
 	public Int32? idregOriginal { 
 		get {if (this["idreg",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idreg",DataRowVersion.Original];}
-	}
-	///<summary>
-	///Università Consorziata a INSTM o Ente accademico collegato
-	///</summary>
-	public Int32? idreg_istituto{ 
-		get {if (this["idreg_istituto"]==DBNull.Value)return null; return  (Int32?)this["idreg_istituto"];}
-		set {if (value==null) this["idreg_istituto"]= DBNull.Value; else this["idreg_istituto"]= value;}
-	}
-	public object idreg_istitutoValue { 
-		get{ return this["idreg_istituto"];}
-		set {if (value==null|| value==DBNull.Value) this["idreg_istituto"]= DBNull.Value; else this["idreg_istituto"]= value;}
-	}
-	public Int32? idreg_istitutoOriginal { 
-		get {if (this["idreg_istituto",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idreg_istituto",DataRowVersion.Original];}
-	}
-	///<summary>
-	///Settore Disciplinare
-	///</summary>
-	public Int32? idsasd{ 
-		get {if (this["idsasd"]==DBNull.Value)return null; return  (Int32?)this["idsasd"];}
-		set {if (value==null) this["idsasd"]= DBNull.Value; else this["idsasd"]= value;}
-	}
-	public object idsasdValue { 
-		get{ return this["idsasd"];}
-		set {if (value==null|| value==DBNull.Value) this["idsasd"]= DBNull.Value; else this["idsasd"]= value;}
-	}
-	public Int32? idsasdOriginal { 
-		get {if (this["idsasd",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsasd",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Interessi di Ricerca
@@ -277,48 +218,28 @@ public class registry_instmuserRow: MetaRow  {
 	public String regulationacceptOriginal { 
 		get {if (this["regulationaccept",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["regulationaccept",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Data di Scadenza Incarico 
-	///</summary>
-	public DateTime? termoffice{ 
-		get {if (this["termoffice"]==DBNull.Value)return null; return  (DateTime?)this["termoffice"];}
-		set {if (value==null) this["termoffice"]= DBNull.Value; else this["termoffice"]= value;}
-	}
-	public object termofficeValue { 
-		get{ return this["termoffice"];}
-		set {if (value==null|| value==DBNull.Value) this["termoffice"]= DBNull.Value; else this["termoffice"]= value;}
-	}
-	public DateTime? termofficeOriginal { 
-		get {if (this["termoffice",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["termoffice",DataRowVersion.Original];}
-	}
 	#endregion
 
 }
 public class registry_instmuserTable : MetaTableBase<registry_instmuserRow> {
 	public registry_instmuserTable() : base("registry_instmuser"){
 		baseColumns = new Dictionary<string, DataColumn>(){
+			{"maritalcf",createColumn("maritalcf",typeof(string),true,false)},
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
 			{"cu",createColumn("cu",typeof(string),false,false)},
-			{"idattach",createColumn("idattach",typeof(int),true,false)},
-			{"idinstmqualifies",createColumn("idinstmqualifies",typeof(int),true,false)},
-			{"idinstmresearchunit",createColumn("idinstmresearchunit",typeof(int),true,false)},
-			{"idinstmseztematichekind",createColumn("idinstmseztematichekind",typeof(int),true,false)},
+			{"idattach",createColumn("idattach",typeof(int),false,false)},
+			{"idinstmseztematichekind",createColumn("idinstmseztematichekind",typeof(int),false,false)},
 			{"idinstmseztematichekind_2",createColumn("idinstmseztematichekind_2",typeof(int),true,false)},
 			{"idinstmusercategorykind",createColumn("idinstmusercategorykind",typeof(int),true,false)},
-			{"idlocation",createColumn("idlocation",typeof(int),true,false)},
 			{"idreg",createColumn("idreg",typeof(int),false,false)},
-			{"idreg_istituto",createColumn("idreg_istituto",typeof(int),true,false)},
-			{"idsasd",createColumn("idsasd",typeof(int),true,false)},
-			{"interest",createColumn("interest",typeof(string),true,false)},
+			{"interest",createColumn("interest",typeof(string),false,false)},
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
 			{"lu",createColumn("lu",typeof(string),false,false)},
 			{"newsletter",createColumn("newsletter",typeof(string),false,false)},
 			{"otherbelonging",createColumn("otherbelonging",typeof(string),true,false)},
 			{"privacy",createColumn("privacy",typeof(string),false,false)},
 			{"regulationaccept",createColumn("regulationaccept",typeof(string),false,false)},
-			{"termoffice",createColumn("termoffice",typeof(DateTime),true,false)},
 		};
 	}
 }
 }
-

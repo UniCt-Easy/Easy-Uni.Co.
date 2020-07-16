@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -39,6 +36,7 @@ namespace estimate_default {
         public DataRow rOldDettaglio;
         double tassoCambio;
         bool inChiusura = false;
+        private IMetaModel model ;
         public WizSostituisciDettaglio(DataRow rContratto, DataAccess Conn, MetaDataDispatcher Disp) {
             this.rContratto = rContratto;
             this.Conn = Conn;
@@ -46,18 +44,42 @@ namespace estimate_default {
             QHC = new CQueryHelper();
             QHS = Conn.GetQueryHelper();
             InitializeComponent();
+            model= MetaFactory.factory.getSingleton<IMetaModel>();
+
+            DataTable EstimateKind = Conn.RUN_SELECT("estimatekind", "*", null,
+                QHS.CmpEq("idestimkind", rContratto["idestimkind"]), null, null, true);
+            string linktoinvoice = EstimateKind.Rows[0]["linktoinvoice"].ToString();
+            string statfilterivakind="";
+            if (linktoinvoice == "N") {
+                statfilterivakind = QHS.AppAnd(QHS.NullOrEq("active", "S"), QHS.NullOrEq("rate", 0));
+            }
+
+            string filterivakind = "";
+
+            string flagintracom = rContratto["flagintracom"].ToString();
+
+            if (flagintracom == "N") filterivakind = QHS.AppAnd(filterivakind, QHS.BitSet("flag", 6)); //Italia
+            if (flagintracom == "S") filterivakind = QHS.AppAnd(filterivakind, QHS.BitSet("flag", 7)); //Intra-UE
+            if (flagintracom == "X") filterivakind = QHS.AppAnd(filterivakind, QHS.BitSet("flag", 8)); //Extra-UE
+
+            statfilterivakind = QHS.AppAnd(statfilterivakind, filterivakind);
+
+            if (statfilterivakind != "") statfilterivakind = QHS.DoPar(statfilterivakind);
+
+
+
             tOldIvaKind = DataAccess.CreateTableByName(Conn, "ivakind", "*");
-            GetData.MarkToAddBlankRow(tOldIvaKind);
+            model.markToAddBlankRow(tOldIvaKind);
             GetData.Add_Blank_Row(tOldIvaKind);
-            DataAccess.RUN_SELECT_INTO_TABLE(Conn, tOldIvaKind, "description", null, null, true);
+            DataAccess.RUN_SELECT_INTO_TABLE(Conn, tOldIvaKind, "description", statfilterivakind, null, true);
             cmbOldTipoIva.DataSource = tOldIvaKind;
             cmbOldTipoIva.DisplayMember = "description";
             cmbOldTipoIva.ValueMember = "idivakind";
 
             tNewIvaKind = DataAccess.CreateTableByName(Conn, "ivakind", "*");
-            GetData.MarkToAddBlankRow(tNewIvaKind);
+            model.markToAddBlankRow(tNewIvaKind);
             GetData.Add_Blank_Row(tNewIvaKind);
-            DataAccess.RUN_SELECT_INTO_TABLE(Conn, tNewIvaKind, "description", null, null, true);
+            DataAccess.RUN_SELECT_INTO_TABLE(Conn, tNewIvaKind, "description", statfilterivakind, null, true);
             cmbNewTipoIva.DataSource = tNewIvaKind;
             cmbNewTipoIva.DisplayMember = "description";
             cmbNewTipoIva.ValueMember = "idivakind";
@@ -177,7 +199,6 @@ namespace estimate_default {
             }
 
             // Valorizzazione degli oggetti:
-
             HelpForm.SetComboBoxValue(cmbOldTipoIva, rDett["idivakind"]);
             DataRow[] IvaKind = tOldIvaKind.Select(QHC.CmpEq("idivakind", rDett["idivakind"]));
             if (IvaKind.Length > 0) {
@@ -392,7 +413,7 @@ namespace estimate_default {
         private void btnNewTipoIva_Click(object sender, EventArgs e) {
             MetaData MetaTipoIva = Disp.Get("ivakind");
             MetaTipoIva.FilterLocked = true;
-            MetaTipoIva.DS = new DataSet();
+            MetaTipoIva.ds = new DataSet();
 
             string filter = QHS.NullOrEq("active", 'S');
             DataRow rTipoIva = MetaTipoIva.SelectOne("default", filter, null, null);
@@ -402,4 +423,4 @@ namespace estimate_default {
             cmbNewTipoIva.SelectedValue = rTipoIva["idivakind"];
         }
     }
-}
+}

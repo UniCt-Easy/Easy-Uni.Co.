@@ -1,21 +1,17 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 ﻿using System;
 using System.Data;
@@ -170,15 +166,16 @@ public partial class itinerationauth_default_new02 : MetaPage {
 
         if (txtAnnotazioniRifiutoApprovazione.Text != "")
             DTItinerationAuthAgency.Rows[0]["annotationsrejectapproval"] = txtAnnotazioniRifiutoApprovazione.Text;
-        
+
         DataSet DSNew = new DataSet();
         DSNew.Tables.Add(DTItinerationAuthAgency);
 
         DataTable DTItineration = Conn.CreateTableByName("itineration", "*");
+
         DTItineration.setSkipSecurity();
         filter = QHS.CmpEq("iditineration", iditineration);
-        Conn.RUN_SELECT_INTO_TABLE(DTItineration,null,filter, null, false);
-        if (DTItineration.Rows.Count==0) {
+        Conn.RUN_SELECT_INTO_TABLE(DTItineration, null, filter, null, false);
+        if (DTItineration.Rows.Count == 0) {
             ShowClientMessage($"Non si dispone delle autorizzazioni sufficienti (filtro applicato:{filter})", "Errore");
             return false;
         }
@@ -200,12 +197,14 @@ public partial class itinerationauth_default_new02 : MetaPage {
         Easy_PostData PD = new Easy_PostData();
         PD.initClass(DSNew, Conn);
         ProcedureMessageCollection PMC = PD.DO_POST_SERVICE();
+
         if (!PMC.CanIgnore) {
             string longMessage = "";
             foreach (ProcedureMessage pm in PMC) {
-                longMessage += pm.GetKey() + " " + pm.LongMess + ( pm.CanIgnore ? " warning " : " error")+"\n\r";
+                longMessage += pm.GetKey() + " " + pm.LongMess + (pm.CanIgnore ? ". Warning. " : ". Error. ");// + "\n\r";
             }
-            ShowClientMessage("Regole di sicurezza hanno impedito l'aggiornamento del DataBase", "Errore",longMessage);
+            
+            ShowClientMessage("Regole non ignorabili hanno impedito il salvataggio. Espandere il messaggio per leggere il dettaglio.", "Errore",longMessage);
             return false;
         }
         if (PMC.CanIgnore) {
@@ -233,7 +232,9 @@ public partial class itinerationauth_default_new02 : MetaPage {
         //GetImpersonatedAuthAgency();
         DataRow Curr = DS.itinerationauthview.Rows[0];
         int iditineration = CfgFn.GetNoNullInt32(Curr["iditineration"]);
-        DoApprove(Curr);
+        bool res = DoApprove(Curr);
+        if (!res)
+            return;
 
         CommFun.DoMainCommand("mainsetsearch");
         CommFun.DoMainCommand("maindosearch");
@@ -245,7 +246,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         foreach (DataRow R in T.Rows) {
             bool res = DoApprove(R);
             if (!res)
-                break;
+                return;
         }
 
         CommFun.DoMainCommand("mainsetsearch");
@@ -287,7 +288,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         else {
             filter = QHS.AppAnd(filter, QHS.CmpEq("ismanager", "N"));
         }
-        //filter = "( iditineration = 62 ) "; // SOLO PER TEST
+
         mainfilter = filter;
         
         GetData.SetStaticFilter(DS.itinerationauthview, filter);
@@ -528,13 +529,29 @@ public partial class itinerationauth_default_new02 : MetaPage {
 
         DataRow Curr = DS.itinerationauthview.Rows[0];
         int iditineration = CfgFn.GetNoNullInt32(Curr["iditineration"]);
-
+        
         string Query = " select itinerationrefundkind.description as refunddes, itinerationrefund.amount as amount";
         Query += " from itinerationrefund join itinerationrefundkind on itinerationrefund.iditinerationrefundkind=itinerationrefundkind.iditinerationrefundkind ";
         Query += " where iditineration='" + iditineration.ToString() + "' and flagadvancebalance='A'";
 
         DataTable DT = Conn.SQLRunner(Query);
 
+
+        DataTable Titineration = Conn.CreateTableByName("itineration", "*");
+        Titineration.setSkipSecurity();
+        Conn.RUN_SELECT_INTO_TABLE(Titineration, null, QHS.CmpEq("iditineration", iditineration), null, false);
+        if (Titineration.Rows.Count == 0) {
+            ShowClientMessage($"Non si dispone delle autorizzazioni sufficienti", "Errore");
+            return;
+        }
+
+        DataRow Ritineration = Titineration.Rows[0];
+        if ((DT.Rows.Count == 1) && CfgFn.GetNoNullDecimal(Ritineration["supposedamount"])>0){
+            Query = " select 'Importo presunto della missione' as refunddes, supposedamount as amount";
+            Query += " from itineration ";
+            Query += " where iditineration='" + iditineration.ToString()+"'";
+            DT = Conn.SQLRunner(Query);
+        }
         DT.Columns["amount"].Caption = "Importo (EURO)";
         DT.Columns["refunddes"].Caption = "Classificazione";
         ShowFormattedResults(DT, "Spese Previste");
@@ -543,16 +560,18 @@ public partial class itinerationauth_default_new02 : MetaPage {
 
     public void ShowEmptyMessage(string TableName) {
         string OutHTML = "";
-        
+        OutHTML += "<div class=\"row\">";
+        OutHTML += "<div class=\"col-md-12\">";
         OutHTML += "<fieldset style=\"background-color: #eeeeee; font-size: 14px; \">";
         OutHTML += "<legend style=\"text-align :center\">" + TableName + "</legend>";
+        
 
         OutHTML += "<div class=\"row\">";
-        OutHTML += "<div class=\"col-md-4\"></div>";
-        OutHTML += "<div class=\"col-md-4\">";
+        OutHTML += "<div class=\"col-md-1\"></div>";
+        OutHTML += "<div class=\"col-md-10\">";
         OutHTML += "<label>Nessuna Riga Presente.</label>";
         OutHTML += "</div>";
-        OutHTML += "<div class=\"col-md-4\"></div>";
+        OutHTML += "<div class=\"col-md-1\"></div>";
         OutHTML += "</div>";//chiude la rows
 
         OutHTML += "<div class=\"row\">";//apre la rows del btnOK
@@ -564,12 +583,18 @@ public partial class itinerationauth_default_new02 : MetaPage {
         OutHTML += "</div>";//chiude rows del btnOK
 
         OutHTML += "</fieldset>";
-
+        OutHTML += "</div>";
+        OutHTML += "</div>";
         plcitems.InnerHtml = OutHTML;
         plcitems.Style.Remove("display");
         plcitems.Style.Add("display", "block");
         plcitems.Style.Remove("z-index");
         plcitems.Style.Add("z-index", "11000");
+        plcitems.Style.Remove("overflow");
+        plcitems.Style.Remove("max-height");
+        plcitems.Style.Add("max-height", "auto");
+        plcitems.Style.Remove("width");
+        plcitems.Style.Add("width", "auto");
 
 
         return;
@@ -587,6 +612,9 @@ public partial class itinerationauth_default_new02 : MetaPage {
 
 
         OutHTML = "";
+        OutHTML += "<div class=\"row\">";// row
+        OutHTML += "<div class=\"col-md-12\">"; // col
+
         OutHTML += "<fieldset style=\"background-color: #eeeeee; font-size: 14px; \">";
         OutHTML += "<legend style=\"text-align :center\">" + TableName + "</legend>";
 
@@ -632,6 +660,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         
         OutHTML += "</div>";// chiude class col-md-12
         OutHTML += "</div>";//chiude la rows
+
         OutHTML += "<div class=\"row\">";//apre la rows del btnOK
             OutHTML += "<div class=\"col-md-5\"></div>";
             OutHTML += "<div class=\"col-md-2\">";
@@ -640,11 +669,18 @@ public partial class itinerationauth_default_new02 : MetaPage {
             OutHTML += "<div class=\"col-md-5\"></div>";
             OutHTML += "</div>";//chiude rows del btnOK
             OutHTML += "</fieldset>";
+        OutHTML += "</div>";//chiude la colonna - new
+        OutHTML += "</div>";//chiude la riga - new
         plcitems.InnerHtml = OutHTML;
         plcitems.Style.Remove("display");
         plcitems.Style.Add("display", "block");
         plcitems.Style.Remove("z-index");
         plcitems.Style.Add("z-index", "11000");
+        plcitems.Style.Remove("overflow");
+        plcitems.Style.Remove("max-height");
+        plcitems.Style.Add("max-height","auto");
+        plcitems.Style.Remove("width");
+        plcitems.Style.Add("width", "auto");
 
     }
 

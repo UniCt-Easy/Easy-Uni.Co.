@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -981,7 +978,19 @@ namespace LiveUpdateSync {
 					int port=GetPort(R["port"].ToString());
 					string user=R["user"].ToString();
 					string pwd=R["pwd"].ToString();
-					Ftp ftpSlave=InitServerFTP(indirizzo, port, user, pwd, (R["active"].ToString().ToUpper() == "S"), false);
+					Ftp ftpSlave;
+					try {
+						ftpSlave=InitServerFTP(indirizzo, port, user, pwd, (R["active"].ToString().ToUpper() == "S"), false);
+					}
+					catch (Exception e) {
+						ShowMsg($"Errore nel collegamento al sito {indirizzo}\r\n"+e.Message);
+						continue;
+					}
+
+					if (ftpSlave == null) {
+						ShowMsg($"Errore nel collegamento al sito {indirizzo}");
+						continue;
+					}
                     if (R["active"].ToString().ToUpper() == "S") {
                         ftpSlave.SetActiveMode(true);
                     }
@@ -995,13 +1004,18 @@ namespace LiveUpdateSync {
 //					DataSet DSSlaveSQL=GetDSIndex_REMOTO(ftpSlave,tempdirslave,"S");
 //					DataSet DSSlaveSP=GetDSIndex_REMOTO(ftpSlave,tempdirslave,"P");
 //					DataSet DSSlaveOnDemand=GetDSIndex_REMOTO(ftpSlave,tempdirslave,"N");
-					
-					Sincronizza_LOCALE(localdir,
-						DSMasterDLL,DSMasterReport,DSMasterSQL,null,null,
-						ftpSlave, 
-						tempdirslave,
-						//DSSlaveDLL,DSSlaveReport,DSSlaveSQL,DSSlaveSP, DSSlaveOnDemand, 
-						tempdirmaster);
+					try {
+						Sincronizza_LOCALE(localdir,
+							DSMasterDLL, DSMasterReport, DSMasterSQL, null, null,
+							ftpSlave,
+							tempdirslave,
+							//DSSlaveDLL,DSSlaveReport,DSSlaveSQL,DSSlaveSP, DSSlaveOnDemand, 
+							tempdirmaster);
+					}
+					catch (Exception e) {
+						ShowMsg($"Errore nell'aggiornamento del sito {indirizzo}\r\n"+e.Message);
+					}
+
 					ftpSlave.Close();
 				}
                 
@@ -1749,4 +1763,3 @@ namespace LiveUpdateSync {
 }
 
 
-

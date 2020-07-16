@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mainform", "mainform\mainform.csproj", "{E04C2CEF-078B-4B25-904C-6374C88E0EE7}"
 EndProject
@@ -17,6 +17,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "proceeds_generazioneautomatica", "proceeds\proceeds_generazioneautomatica\proceeds_generazioneautomatica.csproj", "{DD2F911C-875E-4110-9973-BCFDE87D06F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "proceeds_reversalemultipla", "proceeds\proceeds_reversalemultipla\proceeds_reversalemultipla.csproj", "{23679115-FB90-47B5-8B75-A3B753370F36}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0D5B8503-0A34-4002-B8F0-70E30127AEEF} = {0D5B8503-0A34-4002-B8F0-70E30127AEEF}
+		{70855219-9EE3-439C-8152-69C8A464C405} = {70855219-9EE3-439C-8152-69C8A464C405}
+		{7D85344B-860D-48E2-B073-A8CFEF78BF07} = {7D85344B-860D-48E2-B073-A8CFEF78BF07}
+		{7A6DC9FA-7CC0-4087-A30F-879A022FE3D1} = {7A6DC9FA-7CC0-4087-A30F-879A022FE3D1}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "payment_generazioneautomatica", "payment\payment_generazioneautomatica\payment_generazioneautomatica.csproj", "{49B482D5-0D26-4F16-82AC-13795F85543A}"
 EndProject
@@ -115,6 +121,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "no_table_expbank", "no_table\no_table_expbank\no_table_expbank.csproj", "{88E46CAF-C64B-4F13-AFCB-153954641BCA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "paydisposition_default", "paydisposition\paydisposition_default\paydisposition_default.csproj", "{CAFD36AA-5CBF-4C90-98B3-C26C920594E5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0D5B8503-0A34-4002-B8F0-70E30127AEEF} = {0D5B8503-0A34-4002-B8F0-70E30127AEEF}
+		{C50CC65D-D0C8-49F6-B0D1-202A3A2162EB} = {C50CC65D-D0C8-49F6-B0D1-202A3A2162EB}
+		{813AF0DA-14B1-4B00-969C-1ADA22868542} = {813AF0DA-14B1-4B00-969C-1ADA22868542}
+		{1783CBFD-D698-42B5-A1DD-0B74C219BC30} = {1783CBFD-D698-42B5-A1DD-0B74C219BC30}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_paydisposition", "paydisposition\meta_paydisposition\meta_paydisposition.csproj", "{C50CC65D-D0C8-49F6-B0D1-202A3A2162EB}"
 EndProject
@@ -611,5 +623,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D6CCB76E-4E17-4DD0-A175-DEEFF2BFC1C3}
 	EndGlobalSection
 EndGlobal

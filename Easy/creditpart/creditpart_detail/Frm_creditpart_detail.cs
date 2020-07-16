@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -555,7 +552,7 @@ namespace creditpart_detail//assegnazionecreditidetail//
                                             QHS.CmpEq("finpart", "S"));
                 MetaData MetaUY = MetaData.GetMetaData(this, "upbfinyearview");
                 MetaUY.DS = new DataSet();
-                MetaUY.LinkedForm = this;
+                MetaUY.linkedForm = this;
                 MetaUY.FilterLocked = true;
                 DataRow Und = MetaUY.SelectOne("crediti", filter, "upbfinyearview", null);
                 if (Und == null) return;
@@ -578,7 +575,7 @@ namespace creditpart_detail//assegnazionecreditidetail//
                                             QHS.CmpEq("idunderwriting",idunderwriting));
                 MetaData MetaUnder = MetaData.GetMetaData(this, "upbunderwritingyearview");
                 MetaUnder.DS = new DataSet();
-                MetaUnder.LinkedForm = this;
+                MetaUnder.linkedForm = this;
                 MetaUnder.FilterLocked = true;
                 DataRow Und = MetaUnder.SelectOne("crediti", filter, "upbunderwritingyearview", null);
                 if (Und == null) return;
@@ -610,4 +607,3 @@ namespace creditpart_detail//assegnazionecreditidetail//
        
 	}
 }
-

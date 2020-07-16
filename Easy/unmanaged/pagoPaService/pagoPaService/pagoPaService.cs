@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -39,7 +36,6 @@ using pay = pagoPaService.PayPA;
 using bSondrio = pagoPaService.bsondrio1_1;
 using Valtellinese;
 using SiopePlus;
-using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 
@@ -1028,7 +1024,8 @@ namespace pagoPaService {
             string codiceIpa = rSiopeConfig.Config[3]; //tIPA.Rows[0]["ipa_fe"].ToString();
             string urlRestJournal = rSiopeConfig.Config[4];   // url ambiente REST
 
-            // Connessione al DB
+            // Connessione al DB
+
             var qhs = conn.GetQueryHelper();
             var qhc = new CQueryHelper();
 
@@ -1091,12 +1088,14 @@ namespace pagoPaService {
             }
             catch (Exception ex) {
                 errors.Add(ex.Message);
-                return errors;
+                return errors;
+
             }
 
             // Imposta il flusso come trasmesso solo se non ci sono stati errori
             if (errors.Count != 0) return errors;
-            
+            
+
             //DataRow curr = ds.Tables["flussocrediti"]._First();
             //curr["istransmitted"] = "S";
             //salvaDati(ds, errors, conn);
@@ -1131,21 +1130,34 @@ namespace pagoPaService {
         //CN=System Test Intesa Sanpaolo S.p.A. - CA Root Interna 02, O=Intesa Sanpaolo S.p.A., C=IT
 
         
+        
         public static bool checkCertificatiBancaSondrio(string thumbCert,string fileCert) {
 
             //if (checkCertificato(StoreName.AuthRoot,StoreLocation.CurrentUser,"popsocert_root.cer","CN=PopsoRootCA01, DC=popso, DC=root, DC=dom")==null) return false;
 
-            //po2018_intermedio_bsondrio    1f b8 6b 11 68 ec 74 31 54 06 2e 8c 9c c5 b1 71 a4 b7 cc b4
-            //if (checkPfx(StoreName.My,StoreLocation.CurrentUser, "popso_chain.pfx", "CN=BPS SVILUPPO 2018, OU=SOSI, O=BANCA POPOLARE DI SONDRIO, L=SONDRIO, S=IT, C=IR","sviluppo")==null) return false;
-            removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser, "1FB86B1168EC743154062E8C9CC5B171A4B7CCB4");
-            if (checkCertificateByThumbPrint(StoreName.My,StoreLocation.CurrentUser, "po2018_intermedio_bsondrio.cer", "1FB86B1168EC743154062E8C9CC5B171A4B7CCB4")==null) return false;            
+            if (DateTime.Now.CompareTo(new DateTime(2019, 1, 14,11,0,0)) >= 0) {
+	            removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser, "f158cb0b33b0ea1d219d192862086ff6730b2c9b".ToUpperInvariant());
+	            if (checkCertificateByThumbPrint(StoreName.My,StoreLocation.CurrentUser, "po2019_intermedio_bsondrio.cer", "f158cb0b33b0ea1d219d192862086ff6730b2c9b".ToUpperInvariant())==null) return false;            
+
+            }
+            else {
+	            removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser, "1FB86B1168EC743154062E8C9CC5B171A4B7CCB4");
+	            if (checkCertificateByThumbPrint(StoreName.My,StoreLocation.CurrentUser, "po2018_intermedio_bsondrio.cer", "1FB86B1168EC743154062E8C9CC5B171A4B7CCB4")==null) return false;            
+
+            }
+
+            if (DateTime.Now.CompareTo(new DateTime(2019, 1, 14,11,0,0)) >= 0) {
+	            removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser, "1fb86b1168ec743154062e8c9cc5b171a4b7ccb4".ToUpperInvariant());
+	            if (checkCertificateByThumbPrint(StoreName.My,StoreLocation.CurrentUser,"po2019_bsondrio.cer","1fb86b1168ec743154062e8c9cc5b171a4b7ccb4".ToUpperInvariant())==null) return false;
+            }
+            else {
+	            removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser, "A433B73E1854B0A8615CD32C6D36A658F2905724");
+	            if (checkCertificateByThumbPrint(StoreName.My,StoreLocation.CurrentUser,"po2018_bsondrio.cer","A433B73E1854B0A8615CD32C6D36A658F2905724")==null) return false;
+            }
 
             
-            //2019 - WS2019_POPSO_IT Public
-            removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser, "A433B73E1854B0A8615CD32C6D36A658F2905724");
-
-            if (checkCertificateByThumbPrint(StoreName.My,StoreLocation.CurrentUser,"po2018_bsondrio.cer","A433B73E1854B0A8615CD32C6D36A658F2905724")==null) return false;
             
+
             if (checkPfxByThumbPrint(StoreName.AuthRoot,StoreLocation.CurrentUser, "UNIPO_3001600_0000252.pfx", "3EB5D4157096C386F9F9EBB90F0B166EE38849D6",null)==null) return false;
             
 
@@ -1162,7 +1174,8 @@ namespace pagoPaService {
 
             //"C36663D47D8C70B2B9D40BA9174529DDD23A952A"
 
-
+
+
             if (checkCertificateByThumbPrint(StoreName.My,StoreLocation.CurrentUser,fileCert,thumbCert)==null) return false;
             
           
@@ -1609,6 +1622,8 @@ rootStore.Close();
             var user = pConf.Config[3];
             var pwd = pConf.Config[4];
             var url = pConf.Config[5];
+            
+            if (!url.EndsWith("PagamentiTelematiciGPAppService")) url += "PagamentiTelematiciGPAppService";
 
             // Costruisce l'elenco dei dettagli da esportare
             var tPosizioniDebitorie = conn.CallSP("exp_posizionidebitoriebsondrio", new[] { curr["idflusso"], esercizio }).Tables[0];
@@ -1639,17 +1654,19 @@ rootStore.Close();
             var servizio = GovPay.Servizio.Create(user, pwd, url);
 
             foreach (DataRow r in tPosizioniDebitorie.Rows) {
-                var codiceVersamento = r["iduniqueformcode"].ToString();
+                var idDisposizione = r["iduniqueformcode"].ToString();
+                if (!reference.ContainsKey(idDisposizione)) continue; //Non è oggetto di questo invio
+
                 var importo = Convert.ToDecimal(r["importo"]);
                 string email = DBNull.Value.Equals(r["email"]) ? null : firstEmail(r["email"].ToString());
                 var debitore = new GovPay.Versamento.Anagrafica() {
                     codUnivoco = DBNull.Value.Equals(r["codice"]) ? null : r["codice"].ToString(),
-                    ragioneSociale = DBNull.Value.Equals(r["anagrafica"]) ? null : r["anagrafica"].ToString(),
+                    ragioneSociale = DBNull.Value.Equals(r["anagrafica"]) ? null : maxLen(r["anagrafica"].ToString(), 70),
                     indirizzo = DBNull.Value.Equals(r["indirizzo"]) ? null : r["indirizzo"].ToString(),
                     civico = null, // civico non disponibile (incluso nell'indirizzo)
-                    cap = DBNull.Value.Equals(r["cap"]) ? null : r["cap"].ToString(),
-                    localita = DBNull.Value.Equals(r["citta"]) ? null : r["citta"].ToString(),
-                    provincia = DBNull.Value.Equals(r["provincia"]) ? null : r["provincia"].ToString(),
+                    cap = DBNull.Value.Equals(r["cap"]) ? null :maxLen(r["cap"].ToString(), 16),
+                    localita = DBNull.Value.Equals(r["citta"]) ? null : maxLen(r["citta"].ToString(), 35),
+                    provincia = DBNull.Value.Equals(r["provincia"]) ? null : maxLen(r["provincia"].ToString(), 35),
                     nazione = null, // codice ISO 3166 non disponibile
                     email = string.IsNullOrEmpty(email) ? null : email,
                     telefono = null, // telefono non disponibile
@@ -1658,7 +1675,7 @@ rootStore.Close();
                 };
 
                 var singoloVersamento = new GovPay.Versamento.SingoloVersamento() {
-                    codSingoloVersamentoEnte = codiceVersamento,
+                    codSingoloVersamentoEnte = idDisposizione,
                     importo = importo,
                     codTributo = "TRIBUTO", // TODO: specificare il codice tributo
                     tributo = null, // solo codTributo
@@ -1673,14 +1690,14 @@ rootStore.Close();
                     codApplicazione = codiceApplicazione,
                     codDominio = codiceDominio,
                     codUnitaOperativa = codiceUnitàOperativa,
-                    codVersamentoEnte = codiceVersamento,
+                    codVersamentoEnte = idDisposizione,
                     debitore = debitore,
                     importoTotale = importo,
                     //Dato OBBLIGATORIO.Come attualmente per il MAV,la data scadenza non comporta nessun annullo e nessuna impagabilità.
                     //Come da “regolamento” ateneo, se lo studente pagherà oltre la scadenza, si troverà una MORA.
                     dataScadenza = noNullDate(r["scadenza"], DateTime.MaxValue),
                     aggiornabile = false, // non supportiamo l'aggiornamento del versamento
-                    causale = causale,
+                    causale =  maxLen(causale, 140),
                     spezzoneCausale = null, // solo causale semplice
                     spezzoneCausaleStrutturata = null, // solo causale semplice
                     singoloVersamento = new[] { singoloVersamento },
@@ -1716,7 +1733,7 @@ rootStore.Close();
                     continue;
                 }
 
-                foreach (var rDs in reference[codiceVersamento]) {
+                foreach (var rDs in reference[idDisposizione]) {
                     rDs["iuv"] = iuvGenerato.iuv;
                     rDs["barcodevalue"] = Encoding.UTF8.GetString(iuvGenerato.barCode);
 
@@ -1765,10 +1782,10 @@ rootStore.Close();
             string messaggio = string.Format(@"Gent.mo {0},
                     Le inviamo la presente per notificarle una richiesta di pagamento emessa a suo nome da {1}.
                     Alleghiamo l'avviso di pagamento analogico con il quale potrà pagare, secondo Sua preferenza,
-                    presso le banche, Poste Italiane e altri prestatori di servizio di pagamento aderenti
-                    all’iniziativa tramite i canali da questi messi a disposizione (come ad esempio: home banking,
-                    ATM, APP da smartphone, sportello, ecc). L’elenco dei punti abilitati a ricevere pagamenti
-                    tramite pagoPA® è disponibile alla pagina https://wisp.pagopa.gov.it/elencopsp.
+                    presso le banche e altri prestatori di servizio di pagamento aderenti all’iniziativa tramite 
+                    i canali da questi messi a disposizione (come ad esempio: home banking, ATM, APP da smartphone,
+					sportello, ecc). L’elenco dei punti abilitati a ricevere pagamenti
+                    tramite pagoPA® è disponibile alla pagina https://www.agid.gov.it/it/piattaforme/pagopa/dove-pagare .
 
                     Per poter effettuare il pagamento occorre utilizzare il Codice Avviso di Pagamento
                     oppure il codice QR o il codice a barre, presenti sulla stampa dell'avviso.
@@ -1866,7 +1883,8 @@ rootStore.Close();
                 //string codice = getID_Tenant(r["idflusso"], r["idflusoo"]);
                 if (!reference.ContainsKey(codice)) {
                     reference[codice] = new List<DataRow>();
-                }
+                }
+
                 reference[codice].Add(r);
             }
 
@@ -2525,7 +2543,8 @@ rootStore.Close();
             var utente = pConf.Config[0];
             var password = pConf.Config[1];
             string url = null;
-            int codiceServizio;
+            int codiceServizio;
+
             if (!int.TryParse(pConf.Config[2], out codiceServizio)) {
                 errors.Add("CodiceServizio di partner_config non valido.");
                 return errors;
@@ -3647,7 +3666,6 @@ rootStore.Close();
                     var dataIncasso = ricevutaTelematica.dataInvioRt;
                     if (iuv != iuvToSearch) continue;
 
-
                     //Cerca incassi già presenti sia tramite iuv che tramite codice bollettino (iduniqueformcode) ove possibile
                     var incassiDetail = ds.flussoincassidetail.getFromDb(conn, q.eq("iuv", iuv));
                     if (incassiDetail.Length == 0 && !string.IsNullOrEmpty(codiceBollettino)) {
@@ -4219,14 +4237,14 @@ rootStore.Close();
                 if (iuvToSearch != null) {
                     var result = singoliPagamenti.Find(x =>
                         x.identificativoUnivocoVersamento == iuvToSearch &&
-                        x.codiceEsitoSingoloPagamento == stCodiceEsitoPagamento.Item0);
+                        (x.codiceEsitoSingoloPagamento != stCodiceEsitoPagamento.Item3));
                     if (result == null) return false; // salta elaborazione di questo rendiconto
                 }
 
                 // elaborazione dei singoli pagamento
                 foreach (var singoloPagamento in singoliPagamenti) {
                     var codiceEsitoSingoloPagamento = singoloPagamento.codiceEsitoSingoloPagamento;
-                    if (codiceEsitoSingoloPagamento != stCodiceEsitoPagamento.Item0) continue; // solo esito positivo
+                    if (codiceEsitoSingoloPagamento == stCodiceEsitoPagamento.Item3) continue; // solo esito positivo
                     string iuv = singoloPagamento.identificativoUnivocoVersamento; //918213010000181
                     string identificativoUnivocoRiscossione =
                         singoloPagamento.identificativoUnivocoRiscossione; //1830311100326023976
@@ -4372,6 +4390,9 @@ rootStore.Close();
                         importoCreditiAssegnati += CfgFn.GetNoNullDecimal(credito["importoversamento"]);
                         rFlussoIncassiDetail["iduniqueformcode"] = credito["iduniqueformcode"];
                         rFlussoIncassiDetail.iuv = iuv;
+                        rFlussoIncassiDetail["dataesitopagamento"] = dataEsitoSingoloPagamento;
+                        rFlussoIncassiDetail["codicepsp"] = codiceIdentificativoUnivoco;
+                        rFlussoIncassiDetail["identificativounivocoriscossione"] = identificativoUnivocoRiscossione;
                         rFlussoIncassiDetail["ct"] = DateTime.Now;
                         rFlussoIncassiDetail["cu"] = "flusso_riversamento";
                         rFlussoIncassiDetail["lt"] = DateTime.Now;
@@ -4588,4 +4609,3 @@ rootStore.Close();
 
 
 
-

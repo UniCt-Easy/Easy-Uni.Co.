@@ -14,12 +14,35 @@
             </div>
         </cc1:hwpanel>
 
+        <div class="row">
+            <div class="col-md-12">
+                <cc1:hwLabel CssClass="control-label" runat="server" for="txtDescrizione">Descrizione</cc1:hwLabel>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <cc1:hwTextBox runat="server" CssClass="input-md form-control" ID="txtDescrizione" Tag="itinerationattachment.description" TabIndex="70" ></cc1:hwTextBox>
+            </div>
+        </div>
+
         <div class="row">		 		
 	        <div class="col-md-12">	
-                <cc1:hwButton runat="server" id="btnVisualizza" TabIndex="5" Text="Scarica" Tag="visualizza"/>
+                <cc1:hwButton runat="server" id="btnVisualizza" TabIndex="5" Text="Visualizza" Tag="visualizza"/>
                 </div>
         </div>
-    <asp:FileUpload ID="btnFileUpload" runat="server" />
+    <asp:FileUpload  ID="btnFileUpload" data-id="btnFileUpload" runat="server" />
     </div>
 </div>
+</asp:Content>
+
+
+<asp:Content ContentPlaceHolderID="JScriptAfterLibs"  runat="server">
+
+	<script type="text/javascript">
+		$('[data-id="btnFileUpload"]').change(function(ev) {
+			__doPostBack('do_command', "aggiornaNome");
+		});
+	</script>
+
+
 </asp:Content>

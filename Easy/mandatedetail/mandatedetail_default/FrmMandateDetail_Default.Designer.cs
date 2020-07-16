@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -56,6 +53,10 @@ namespace mandatedetail_default {
             this.TxtImponibileValutaTot = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
+            this.txtIDGroup = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtRowNum = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.gBoxMagazzino = new System.Windows.Forms.GroupBox();
             this.txtStore = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
@@ -220,10 +221,8 @@ namespace mandatedetail_default {
             this.txtCausale = new System.Windows.Forms.TextBox();
             this.label32 = new System.Windows.Forms.Label();
             this.cmbStatodelDebito = new System.Windows.Forms.ComboBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.txtRowNum = new System.Windows.Forms.TextBox();
-            this.txtIDGroup = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
+            this.txtPrezzounitarioListino = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.grpRegistry.SuspendLayout();
             this.gBoxIvaKind.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
@@ -453,6 +452,40 @@ namespace mandatedetail_default {
             this.tabMain.TabIndex = 8;
             this.tabMain.Text = "Principale";
             this.tabMain.UseVisualStyleBackColor = true;
+            // 
+            // txtIDGroup
+            // 
+            this.txtIDGroup.Location = new System.Drawing.Point(819, 23);
+            this.txtIDGroup.Name = "txtIDGroup";
+            this.txtIDGroup.Size = new System.Drawing.Size(73, 20);
+            this.txtIDGroup.TabIndex = 21;
+            this.txtIDGroup.Tag = "mandatedetail.idgroup";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(767, 26);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(42, 13);
+            this.label20.TabIndex = 20;
+            this.label20.Text = "Gruppo";
+            // 
+            // txtRowNum
+            // 
+            this.txtRowNum.Location = new System.Drawing.Point(679, 24);
+            this.txtRowNum.Name = "txtRowNum";
+            this.txtRowNum.Size = new System.Drawing.Size(73, 20);
+            this.txtRowNum.TabIndex = 19;
+            this.txtRowNum.Tag = "mandatedetail.rownum";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(655, 27);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(18, 13);
+            this.label15.TabIndex = 18;
+            this.label15.Text = "N.";
             // 
             // gBoxMagazzino
             // 
@@ -764,6 +797,8 @@ namespace mandatedetail_default {
             // 
             // gboxListino
             // 
+            this.gboxListino.Controls.Add(this.txtPrezzounitarioListino);
+            this.gboxListino.Controls.Add(this.label26);
             this.gboxListino.Controls.Add(this.txtCoeffConversione);
             this.gboxListino.Controls.Add(this.label29);
             this.gboxListino.Controls.Add(this.cmbUnitaMisuraAcquisto);
@@ -2245,39 +2280,23 @@ namespace mandatedetail_default {
             this.cmbStatodelDebito.Tag = "mandatedetail.idpccdebitstatus";
             this.cmbStatodelDebito.ValueMember = "idpccdebitstatus";
             // 
-            // label15
+            // txtPrezzounitarioListino
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(655, 27);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(18, 13);
-            this.label15.TabIndex = 18;
-            this.label15.Text = "N.";
+            this.txtPrezzounitarioListino.Location = new System.Drawing.Point(420, 93);
+            this.txtPrezzounitarioListino.Name = "txtPrezzounitarioListino";
+            this.txtPrezzounitarioListino.ReadOnly = true;
+            this.txtPrezzounitarioListino.Size = new System.Drawing.Size(127, 20);
+            this.txtPrezzounitarioListino.TabIndex = 37;
+            this.txtPrezzounitarioListino.Tag = "";
             // 
-            // txtRowNum
+            // label26
             // 
-            this.txtRowNum.Location = new System.Drawing.Point(679, 24);
-            this.txtRowNum.Name = "txtRowNum";
-            this.txtRowNum.Size = new System.Drawing.Size(73, 20);
-            this.txtRowNum.TabIndex = 19;
-            this.txtRowNum.Tag = "mandatedetail.rownum";
-            // 
-            // txtIDGroup
-            // 
-            this.txtIDGroup.Location = new System.Drawing.Point(819, 23);
-            this.txtIDGroup.Name = "txtIDGroup";
-            this.txtIDGroup.Size = new System.Drawing.Size(73, 20);
-            this.txtIDGroup.TabIndex = 21;
-            this.txtIDGroup.Tag = "mandatedetail.idgroup";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(767, 26);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(42, 13);
-            this.label20.TabIndex = 20;
-            this.label20.Text = "Gruppo";
+            this.label26.Location = new System.Drawing.Point(321, 91);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(94, 23);
+            this.label26.TabIndex = 38;
+            this.label26.Text = "Prezzo unitario";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // FrmMandateDetail_Default
             // 
@@ -2548,5 +2567,7 @@ namespace mandatedetail_default {
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtIDGroup;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox txtPrezzounitarioListino;
+        private System.Windows.Forms.Label label26;
     }
-}
+}

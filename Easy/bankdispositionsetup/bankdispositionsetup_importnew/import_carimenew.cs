@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -56,7 +53,7 @@ namespace bankdispositionsetup_importnew {
 
 
         public static DatiImportati ElaboraXml(XmlDocument Xdoc, DataAccess Conn) {
-            DatiImportati M = new DatiImportati();
+            DatiImportati M = new DatiImportati(Conn.GetEsercizio());
             QueryHelper QHS = Conn.GetQueryHelper();
             DataTable Treasurer = Conn.RUN_SELECT("treasurer", "idtreasurer,trasmcode", null,
                             QHS.IsNotNull("trasmcode"), null, false);
@@ -70,7 +67,8 @@ namespace bankdispositionsetup_importnew {
             XmlNodeList ElencoFlussi = Xdoc.SelectNodes("/flusso_giornale_di_cassa");
             foreach (XmlNode XFlusso in ElencoFlussi) {
                 int esercizio = CfgFn.GetNoNullInt32(XFlusso["esercizio"].InnerText);
-                string codice_ente_BT = XFlusso["codice_ente_BT"].InnerText;
+				M.esercizioflusso = esercizio;
+				string codice_ente_BT = XFlusso["codice_ente_BT"].InnerText;
 
                 string data_inizio_periodo_riferimento = XFlusso["data_inizio_periodo_riferimento"].InnerText;
                 string data_fine_periodo_riferimento = XFlusso["data_inizio_periodo_riferimento"].InnerText;
@@ -80,8 +78,8 @@ namespace bankdispositionsetup_importnew {
                     string conto_evidenza = Xinfo_conto_evidenza["conto_evidenza"].InnerText;
                     foreach (XmlNode Xmovimento_conto_evidenza in Xinfo_conto_evidenza.SelectNodes("movimento_conto_evidenza")) {
 
-                        // "REVERSALE"   "MANDATO"   "SOSPESO ENTRATA"   "SOSPESO USCITA"
-                        string tipo_documento = Xmovimento_conto_evidenza["tipo_documento"].InnerText;
+						// "REVERSALE"   "MANDATO"   "SOSPESO ENTRATA"   "SOSPESO USCITA"
+						string tipo_documento = Xmovimento_conto_evidenza["tipo_documento"].InnerText;
                         string tipo_operazione = Xmovimento_conto_evidenza["tipo_operazione"].InnerText;
 
                         if (tipo_documento == "MANDATO") {
@@ -328,4 +326,3 @@ namespace bankdispositionsetup_importnew {
 
     }
 }
-

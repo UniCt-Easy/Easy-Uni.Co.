@@ -309,6 +309,10 @@
       <xs:selector xpath=".//mstns:multifieldkind" />
       <xs:field xpath="mstns:idmultifieldkind" />
     </xs:unique>
+    <xs:unique name="sortingview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sortingview" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
     <xs:unique name="accmotive_amortization_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:accmotive_amortization" />
       <xs:field xpath="mstns:idaccmotive" />

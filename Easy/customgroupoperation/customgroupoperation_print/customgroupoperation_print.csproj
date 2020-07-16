@@ -118,15 +118,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="vistaForm.xsd">
-      <Generator>MSDataSetGenerator</Generator>
+      <Generator>HDSGene</Generator>
       <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
     </Content>
-    <None Include="vistaForm.xsc">
-      <DependentUpon>vistaForm.xsd</DependentUpon>
-    </None>
-    <None Include="vistaForm.xss">
-      <DependentUpon>vistaForm.xsd</DependentUpon>
-    </None>
     <None Include="vistaForm.xsx">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>

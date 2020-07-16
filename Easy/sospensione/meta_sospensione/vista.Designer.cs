@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -52,18 +49,32 @@ public class sospensioneRow: MetaRow  {
 		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
 	}
 	///<summary>
-	///Sede, Edificio o Aula
+	///Aula
 	///</summary>
-	public Int32? idlocation{ 
-		get {if (this["idlocation"]==DBNull.Value)return null; return  (Int32?)this["idlocation"];}
-		set {if (value==null) this["idlocation"]= DBNull.Value; else this["idlocation"]= value;}
+	public Int32? idaula{ 
+		get {if (this["idaula"]==DBNull.Value)return null; return  (Int32?)this["idaula"];}
+		set {if (value==null) this["idaula"]= DBNull.Value; else this["idaula"]= value;}
 	}
-	public object idlocationValue { 
-		get{ return this["idlocation"];}
-		set {if (value==null|| value==DBNull.Value) this["idlocation"]= DBNull.Value; else this["idlocation"]= value;}
+	public object idaulaValue { 
+		get{ return this["idaula"];}
+		set {if (value==null|| value==DBNull.Value) this["idaula"]= DBNull.Value; else this["idaula"]= value;}
 	}
-	public Int32? idlocationOriginal { 
-		get {if (this["idlocation",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idlocation",DataRowVersion.Original];}
+	public Int32? idaulaOriginal { 
+		get {if (this["idaula",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idaula",DataRowVersion.Original];}
+	}
+	///<summary>
+	///Edificio
+	///</summary>
+	public Int32? idedificio{ 
+		get {if (this["idedificio"]==DBNull.Value)return null; return  (Int32?)this["idedificio"];}
+		set {if (value==null) this["idedificio"]= DBNull.Value; else this["idedificio"]= value;}
+	}
+	public object idedificioValue { 
+		get{ return this["idedificio"];}
+		set {if (value==null|| value==DBNull.Value) this["idedificio"]= DBNull.Value; else this["idedificio"]= value;}
+	}
+	public Int32? idedificioOriginal { 
+		get {if (this["idedificio",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idedificio",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Docente, Studente o Istituto
@@ -78,6 +89,20 @@ public class sospensioneRow: MetaRow  {
 	}
 	public Int32? idregOriginal { 
 		get {if (this["idreg",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idreg",DataRowVersion.Original];}
+	}
+	///<summary>
+	///Sede
+	///</summary>
+	public Int32? idsede{ 
+		get {if (this["idsede"]==DBNull.Value)return null; return  (Int32?)this["idsede"];}
+		set {if (value==null) this["idsede"]= DBNull.Value; else this["idsede"]= value;}
+	}
+	public object idsedeValue { 
+		get{ return this["idsede"];}
+		set {if (value==null|| value==DBNull.Value) this["idsede"]= DBNull.Value; else this["idsede"]= value;}
+	}
+	public Int32? idsedeOriginal { 
+		get {if (this["idsede",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsede",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Codice
@@ -165,8 +190,10 @@ public class sospensioneTable : MetaTableBase<sospensioneRow> {
 		baseColumns = new Dictionary<string, DataColumn>(){
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
 			{"cu",createColumn("cu",typeof(string),false,false)},
-			{"idlocation",createColumn("idlocation",typeof(int),true,false)},
+			{"idaula",createColumn("idaula",typeof(int),true,false)},
+			{"idedificio",createColumn("idedificio",typeof(int),true,false)},
 			{"idreg",createColumn("idreg",typeof(int),true,false)},
+			{"idsede",createColumn("idsede",typeof(int),true,false)},
 			{"idsospensione",createColumn("idsospensione",typeof(int),false,false)},
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
 			{"lu",createColumn("lu",typeof(string),false,false)},
@@ -177,4 +204,3 @@ public class sospensioneTable : MetaTableBase<sospensioneRow> {
 	}
 }
 }
-

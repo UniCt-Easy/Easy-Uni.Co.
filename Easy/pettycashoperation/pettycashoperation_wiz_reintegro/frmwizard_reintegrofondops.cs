@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -1311,6 +1308,7 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
                 }
 
                 string filter = QHC.CmpEq("idsorkind", idsorkind);
+				if (AllTipoClassMov.Select(filter).Length == 0) continue;
                 DataRow TipoR = AllTipoClassMov.Select(filter)[0];
                 int nphase;
                 string filterAutoMov;
@@ -1430,11 +1428,13 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
         }
 
 		bool CalcolaClassificazioni(DataAccess Conn,DataSet Auto){
+	 
 			DataTable AllTipoClassMov=DS.sortingkind;
 			DataRow rPettyCashSetup = Auto.Tables["pettycashsetup"].Select(QHC.CmpEq("idpettycash", cmbFondoPS.SelectedValue))[0];
 			string autoClassify = rPettyCashSetup["autoclassify"].ToString().ToUpper();
 			if (autoClassify == "S") {
 				GeneraClassificazioniAutomatiche();
+			 
 				return true;
 			}
 			//Genera le class.automatiche per ogni automatismo di spesa
@@ -1830,4 +1830,4 @@ namespace pettycashoperation_wiz_reintegro {//wizard_reintegrofondops//
 			btnScollegaS.Enabled = esisteSelezione&& esisteSelezioneCollegata && ! esisteSelezioneBloccata;
 		}
 	}
-}
+}

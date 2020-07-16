@@ -2,10 +2,10 @@ MIME-Version: 1.0
 Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR"
+  boundary="---------blocknote.net--AOT95RLPGMU945QNQC17KUWB3"
 
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -40,19 +40,25 @@ RONG></DIV>
 <DIV align=3D"justify"><FONT size=3D"4">Menu: <STRONG>Spese-Pagamento\Liq=
 uidazione (ultima fase di spesa)</FONT></STRONG></DIV><HR>
 <DIV><FONT size=3D"4">Link guide correlate:</FONT></DIV>
-<DIV><A href=3D"PagamentoRecupero.mht"><FONT size=3D"4">Pagamento con Rec=
-upero</FONT></A></FONT></DIV>
-<DIV><A href=3D"regolarizzazione compensi a stranieri.mht"><FONT size=3D"=
-4">Regolarizzazione compensi a stranieri</FONT></A></FONT></DIV>
-<DIV><A href=3D"cessionecredito.mht"><FONT size=3D"4">Pagamento con cessi=
-one del credito</A></FONT></DIV><HR>
+<DIV><A href=3D"PagamentoRecupero.mht"><STRONG><FONT size=3D"4">Pagamento=
+ con Recupero</FONT></STRONG></A></FONT></STRONG></DIV>
+<DIV><A href=3D"regolarizzazione compensi a stranieri.mht"><STRONG><FONT =
+size=3D"4">Regolarizzazione compensi a stranieri</FONT></STRONG></A></FON=
+T></STRONG></DIV>
+<DIV><A href=3D"cessionecredito.mht"><STRONG><FONT size=3D"4">Pagamento c=
+on cessione del credito</FONT></STRONG></A></FONT></STRONG></DIV>
+<DIV><A href=3D"modpagPagoPA.mht"><STRONG><FONT size=3D"4">Modalit=C3=A0 =
+di pagamento AVVISO PagoPa</A></FONT></STRONG></DIV>
+<DIV><A href=3D"opi_fabbisogno.mht"><STRONG><FONT size=3D"4">OPI pagament=
+i per ricerca esclusi dal calcolo del fabbisogno finanziario</FONT></STRO=
+NG></A></FONT></STRONG></DIV><HR>
 <P>Dal men=C3=B9 <STRONG>spese&gt;inserimento</STRONG> =C3=A8 possibile p=
 rocedere al pagamento (ed eventualmente alla contestuale generazione del =
 mandato) di un documento collegato al rispettivo impegno inserendo l'eser=
 cizio e il numero di quest ultimo. E' possibile in alternativa cliccare s=
 ul bottone <STRONG>&quot;Impegno&quot;</STRONG>e selezionarlo dall'elenco=
  che subito dopo comparir=C3=A0.</P>
-<P align=3D"center"><IMG src=3D"cid:1DCX88AJ4Y3VA1SUFXJPVA7NLW"></P>
+<P align=3D"center"><IMG src=3D"cid:JEOU2NI32GGID14R7216JEJVM"></P>
 <P>&nbsp;</P>
 <P><STRONG>N.B:</STRONG> Tale procedura <STRONG>=C3=A8 alternativa</STRON=
 G> al wizard &quot;contabilizzazione fatture di acquisto&quot; e consigli=
@@ -70,7 +76,7 @@ co la fattura che si intende pagare).</P>
 <P>Passiamo in rassegna le ulteriori scheda di cui si compone la fase liq=
 uidazione.</P>
 <P><STRONG>Scheda Classificazioni</STRONG></P>
-<P align=3D"center"><IMG src=3D"cid:ZY8O9TILIHH61J1IS24WFPY4A"></P>
+<P align=3D"center"><IMG src=3D"cid:1VEWKR8LCPOBWBPL1G19QAGX"></P>
 <DIV>Nella scheda Classificazioni vengano visualizzate le tipologie di cl=
 assificazioni da effettuare sulla fase di spesa (esempio SIOPE USCITE 201=
 8 sulla fase liquidazione). Il bottone <STRONG>Genera Classificazioni Aut=
@@ -81,13 +87,13 @@ una configurazione, il codice della classificazione da inviare in banca.<=
 <P>I bottoni Aggiungi, Correggi e Cancella, consentono, invece, di gestir=
 e manualmente l=E2=80=99inserimento, la modifica e la cancellazione di un=
 a classificazione.</P>
-<P align=3D"center"><IMG src=3D"cid:2830P0JI54Z81D9HJFLKX7VCT"></P>
+<P align=3D"center"><IMG src=3D"cid:1Y98SOAHWMS1F1HESKG8X13F4F"></P>
 <P>Il codice di classificazione pu=C3=B2 essere ricercato dal bottone <U>=
 Codice</U></P>
-<P align=3D"center"><IMG src=3D"cid:2U5FVOM6JYLI1M336AECC4TCR"></P>
+<P align=3D"center"><IMG src=3D"cid:1M9X9HSI6L5BQNEGOFDJ5A72V"></P>
 <P>&nbsp;</P>
 <P><STRONG>Scheda Altro</STRONG></P>
-<P align=3D"center"><IMG src=3D"cid:1JN51OLK4Q7JO44DCWO1MUTJJU"></P>
+<P align=3D"center"><IMG src=3D"cid:J893AVJ46AZHPA6YZ31K4HKD6"></P>
 <P>Nella scheda Altro =C3=A8 possibile modificare il conto EP di debito c=
 he si chiuder=C3=A0 nella scrittura e/p della distinta di trasmissione. S=
 i tenga presente che tale form verr=C3=A0 valorizzato di default con lo s=
@@ -96,7 +102,7 @@ ua assenza,<STRONG> </STRONG>con quello presente nella scheda altri dati =
 dell'anagrafica.</P>
 <P><STRONG>Scheda dettagli (valorizzata solo se la liquidazione contabili=
 zza una fattura)</STRONG></P>
-<P align=3D"center"><IMG src=3D"cid:NN5S7JU0PX83AOX4U8617M4"></P>
+<P align=3D"center"><IMG src=3D"cid:1RGB0MJKWXWYM1YARUZKKNQ8AN"></P>
 <DIV>&nbsp;</DIV>
 <DIV>Nella scheda Dettagli compaiono i dettagli della fattura legati alla=
  liquidazione tenendo presente che il campo Totale indica l=E2=80=99impor=
@@ -108,7 +114,7 @@ estire manualmente l=E2=80=99inclusione o meno di un dettaglio.</DIV>
  legata ad un impegno che contabilizza un contratto occasionale, una miss=
 ione, un cedolino o una parcella professionale)</STRONG></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1PB39J6I04YBL8IAW01496T1M"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1CGRZOZJO3B1DGVL0OA1TVXI2J"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>Nella scheda prestazione vengono visualizzate il tipo prestazione, l=
 e date di inizio e fine prestazione, le ritenute a carico del dipendente =
@@ -120,7 +126,7 @@ ipendente.</DIV>
 <DIV>Il costo totale della prestazione ammonter=C3=A0 invece al costo lor=
 do pi=C3=B9 la somma di tutti i contributi c/amministrazione.</DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:C0X89ZJ0X4SIIUJ7UQ10Z0MO1"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:2MU5N1L67IF0LD1N6J16YN0U9"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>Nella sottoscheda <STRONG>Ritenute</STRONG> =C3=A8 possibile, facend=
 o doppio clic, visualizzare singolarmente i dettagli di ogni ritenuta o c=
@@ -166,7 +172,7 @@ al caso la correzione sar=C3=A0 pari a -20.</P>
 e sullo stesso movimento di spesa oggetto della correzione anche se lo st=
 esso =C3=A8 stato portato gi=C3=A0 a pagamento</U>.</DIV>
 <DIV align=3D"center">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1QLD0HXJK5J4ONMGTKNLITL2T"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:SFCJ0TLP7QII1Z0ZXYG1PP4D54"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV>Sempre nel form di correzione, =C3=A8 possibile indicare il moviment=
 o di finanziario di spesa e di entrata a seconda se l=E2=80=99importo sia=
@@ -194,7 +200,7 @@ ttoscheda <A name=3D"riepilogo"><STRONG>Riepilogo</A> Storico</STRONG> il=
  quale serve appunto, ad informarci in ogni momento quanto abbiamo ritenu=
 to ad un percipiente.</DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:KUXFSCKZP6BLRHFDMKJTLFDG"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:6G9DWSLHBZ4FYGXHI7OA2FQ"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 <P align=3D"left">Il riepilogo storico viene compilato in automatico in f=
@@ -207,7 +213,7 @@ e rispettivamente quando un dettaglio ritenuta inizia o cessa la validit=C3=
 <P align=3D"left">Quindi se si introduce una correzione, il dettaglio rit=
 enuta oggetto della stessa dovr=C3=A0 possedere la data di fine validit=C3=
 =A0, mentre il nuovo dettaglio la data di inizio validit=C3=A0.</P>
-<DIV align=3D"center"><IMG src=3D"cid:D3T873ITIEDD1DGRDDSIBTIKN"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1N5W2TFJ5974RHCSQX1UKJNEP"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>Nel caso di riempimento manuale del riepilogo storico, a fronte dell=
 'inserimento di una correzione, vale la regola che la somma delle ritenut=
@@ -275,8 +281,8 @@ inserimento, la modifica o la cancellazione <STRONG>manuale</STRONG> di u=
 n recupero .</P>
 <P><U>N.B.: per poter effettuare la generazione del movimento di entrata,=
  il recupero deve essere preventivamente configurato.</U></P>
-<P align=3D"center"><IMG src=3D"cid:10QYUY1IELD5PK5Q94FN9DZZM"></P>
-<P align=3D"center"><IMG src=3D"cid:1N81RD7LKNEX91X2CMFUGUSQV4"></P>
+<P align=3D"center"><IMG src=3D"cid:1MW6YIUJO863NP6POSB1TF8D8L"></P>
+<P align=3D"center"><IMG src=3D"cid:1VMLFJIIB7VUU1QNUQO0EGO6SW"></P>
 <P>La scheda recuperi visualizza nel relativo campo (Totale dei recuperi =
 elencati), il totale dei recuperi inseriti.</P>
 <DIV>&nbsp;</DIV>
@@ -291,7 +297,7 @@ ternativa comunque presente in Anagrafica.</P>
 <P>In modalit=C3=A0 di ricerca o modifica =C3=A8 riportata anche l=E2=80=99=
 indicazione dell=E2=80=99esercizio e del numero del mandato (se presente)=
 </P>
-<P align=3D"center"><IMG src=3D"cid:109QH44L1DMCCHKWOLJ1NTFJ0M">.</P>
+<P align=3D"center"><IMG src=3D"cid:17MNLR7K28R6AGHSQ7G12BFBXI">.</P>
 <DIV>&nbsp;</DIV>
 <DIV>Dal bottone <EM>Modifica modalit=C3=A0 di pagamento</EM> =C3=A8 cons=
 entito apportare modifiche alla modalit=C3=A0 di pagamento in oggetto.</D=
@@ -300,7 +306,7 @@ IV>
 <DIV><STRONG>Scheda <A name=3D"variazioni">Variazioni</A></STRONG></DIV>
 <P>In questa scheda (visualizzabile solo in fase di modifica) possono ess=
 ere inserite o visualizzate variazioni al movimento.</P>
-<P align=3D"center"><IMG src=3D"cid:1E5ZOLFI20QVFL1KD6BD9NM0B"></P>
+<P align=3D"center"><IMG src=3D"cid:87VDKHIB6KDTH4DPJV1PGK5ZG"></P>
 <P>La variazione al movimento di spesa pu=C3=B2 essere di quattro tipi:</=
 P>
 <UL>
@@ -314,12 +320,12 @@ n cui si annulli il mandato di pagamento all'interno del quale =C3=A8 sta=
 to inserito il movimento di spesa. Infatti in tal caso il programma gener=
 er=C3=A0 in automatico le variazioni di annullamento per i movimenti di s=
 pesa inseriti inseriti in quest ultimo.</P>
-<P align=3D"center"><IMG src=3D"cid:1CM160NIV1C351YRM8Q843P2DE"></P>
+<P align=3D"center"><IMG src=3D"cid:N47DZ8IFEMRX1UBXEHW10L05KF"></P>
 <P align=3D"left">In caso di annullamento parziale di un mandato, si dovr=
 =C3=A0 semplicemente inserire una variazione di <EM><U>Annullamento Parzi=
 ale</U></EM> la quale produrr=C3=A0 l'aggiornamento automatico dell'impor=
 to netto e lordo del mandato.</P>
-<P align=3D"center"><IMG src=3D"cid:16W5O8PJ0CZEZ2OBLPJ12107KU"></P>
+<P align=3D"center"><IMG src=3D"cid:TVPA5ZLDJ3J4SVKVCM1DBATBZ"></P>
 <P>Nel caso in cui si renda necessario modificare<STRONG> solo i dati di =
 pagamento di un mandato gi=C3=A0 trasmesso</STRONG> (es. IBAN, codice SIO=
 PE) si dovr=C3=A0 inserire la variazione di tipo <EM><U>Modifica dati di =
@@ -334,9 +340,9 @@ tenute e contributi nella scheda Prestazione e/o di recuperi nella scheda=
 sa .</P>
 <P align=3D"center">&nbsp;</P>
 <P>In entrata</P>
-<P align=3D"center"><IMG src=3D"cid:UVJC4TIK2CIMSQ8Q6E1EOBG8K"></P>
+<P align=3D"center"><IMG src=3D"cid:1XMIC78JBQWPU1MED1A61MMEK96"></P>
 <P> e/o in spesa</P>
-<P align=3D"center"><IMG src=3D"cid:9YM6UWJP176F42WMNRWAM5OV"></P>
+<P align=3D"center"><IMG src=3D"cid:1VH0FFYHUPJCY17QE8W2U8V2H9"></P>
 <P align=3D"center">&nbsp;</P>
 <P>I bottoni <EM>Collega a movimento esistent</EM>e e <EM>Cambia voce di =
 Bilancio/Upb/Responsabile</EM> consentono rispettivamente di poter colleg=
@@ -347,13 +353,13 @@ o di cambiare la voce di bilancio di imputazione del movimento automatico=
 lmente indicare le classificazioni obbligatorie sia sui movimenti di entr=
 ata che di spesa tenendo conto che le stesse, se opportunamente configura=
 te, compariranno in automatico.</P>
-<P align=3D"center"><IMG src=3D"cid:18R5UT9KRVSDUMJUP4FYY99GY"></P>
+<P align=3D"center"><IMG src=3D"cid:1QK6QB3K0GAPQQ3JBEX1VM03TZ"></P>
 <P>Cliccando nuovamente su OK verranno generati gli automatismi delle rit=
 enute e/o dei contributi.</P>
 <P>Le numerazioni dei movimenti finanziari di entrata e/o di spesa potran=
 no essere visualizzati dal bottone <EM>Visualizza Automatismi</EM> che co=
 mpare nella scheda Prestazione.</P>
-<P align=3D"center"><IMG src=3D"cid:1I3OGFEL5IGNIXEOCY2AQUW6T"></P>
+<P align=3D"center"><IMG src=3D"cid:1XUJAHLLGOUP4VM0ASX83YLKD"></P>
 <P><STRONG>N.B.</STRONG> la spunta sulla casella <EM>=E2=80=9CGli automat=
 ismi sono gi=C3=A0 stati generati=E2=80=9D</EM> viene messa direttamente =
 dal programma dopo la generazione dei movimenti automatici delle ritenute=
@@ -365,9 +371,9 @@ ti si impedirebbe la generazione degli automatismi.</P>
 </BODY>
 </HTML>
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <1DCX88AJ4Y3VA1SUFXJPVA7NLW>
+Content-Id: <JEOU2NI32GGID14R7216JEJVM>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/1.JPG
 
@@ -3686,9 +3692,9 @@ fD/5I/XP4JTbf+Cvfg1fT4P+Kf8A09eG6K+Nv+CEf/BUu6/4Kb/8FT2vr3wXb+EZ
 PCfwm1uIeVqX237UJtX0LGcwx7dvlcAA53HpRXk5njKVTEOcdtPyR6WQ0a1LBRhW
 ppSvK+q6yb/I/9k==
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <ZY8O9TILIHH61J1IS24WFPY4A>
+Content-Id: <1VEWKR8LCPOBWBPL1G19QAGX>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/3.JPG
 
@@ -4989,9 +4995,9 @@ H+Rjf8JTrP8A0Jeqf+BVp/8AHqP+Ep1n/oS9U/8AAq0/+PVs0UXD2b/mf4f5GN/w
 lOs/9CXqn/gVaf8Ax6j/AISnWf8AoS9U/wDAq0/+PVs0UXD2b/mf4f5GN/wlOs/9
 CXqn/gVaf/HqK2aKLh7N/wAz/D/I/9k==
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <2830P0JI54Z81D9HJFLKX7VCT>
+Content-Id: <1Y98SOAHWMS1F1HESKG8X13F4F>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/n.JPG
 
@@ -5645,9 +5651,9 @@ FFABgelGB6UUUAGB6UYHpRRQAYHpRgelFFABgelGB6UUUAGB6UYHpRRQAYHpRgel
 FFABgelGB6UUUAGB6UYHpRRQAYHpRgelFFABgelGB6UUUAGB6UYHpRRQAYHpRgel
 FFABgelGB6UUUAGB6UYHpRRQAYHpRgZ6UUUASxgZ6VaT7tFFAj//2Q===
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <2U5FVOM6JYLI1M336AECC4TCR>
+Content-Id: <1M9X9HSI6L5BQNEGOFDJ5A72V>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/o.JPG
 
@@ -6826,9 +6832,9 @@ AAtXxL/ftf8Avz/9ej/haviX+/a/9+f/AK9FFHsaX8q+4PbVP5n94f8AC1fEv9+1
 9+f/AK9FFHsaX8q+4PbVP5n94g8d6zr97Y2GomBoXu4WOyPaQQ475r0PYvpRRXmY
 +MY8qirbno4KUpczk77H/9k==
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <1JN51OLK4Q7JO44DCWO1MUTJJU>
+Content-Id: <J893AVJ46AZHPA6YZ31K4HKD6>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/4.JPG
 
@@ -7729,9 +7735,9 @@ AFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUU
 AFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAHJ+HP+Q14q/wCwx/7a29FFFD3Z
 NH+FH0X5H//Z=
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <NN5S7JU0PX83AOX4U8617M4>
+Content-Id: <1RGB0MJKWXWYM1YARUZKKNQ8AN>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/5.JPG
 
@@ -8847,9 +8853,9 @@ nb/4/RRRcPZR8/vf+YfZfGP/AEMel/8Agnb/AOP0fZfGP/Qx6X/4J2/+P0UUXD2U
 fP73/mH2Xxj/ANDHpf8A4J2/+P0fZfGP/Qx6X/4J2/8Aj9FFFw9lHz+9/wCZ/9k=
 =
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <1PB39J6I04YBL8IAW01496T1M>
+Content-Id: <1CGRZOZJO3B1DGVL0OA1TVXI2J>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/6.JPG
 
@@ -10743,9 +10749,9 @@ P/Ce2v8A0DNV/wDAF6P+E9tf+gZqv/gC9VqKPYLuHtPIs/8ACe2v/QM1X/wBej/h
 PbX/AKBmq/8AgC9VqKPYLuHtPIs/8J7a/wDQM1X/AMAXrI8UeKYtZ8N3tjbabqYm
 mj2pusnAzkH+lXqKXsF3D2tugtFJRXQYn//Z=
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <C0X89ZJ0X4SIIUJ7UQ10Z0MO1>
+Content-Id: <2MU5N1L67IF0LD1N6J16YN0U9>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/8.JPG
 
@@ -13362,9 +13368,9 @@ AMAOWp3/AA/4J1P/AAmOjf8APW7/APACf/4isiS7h1bxPPd2gmMAtIY98sDx5YPK
 SAHAJ4YfnWcvifwyD/yF7b/vqrcPi7wyn/MYtv8Avo0c8Emkt/P/AIAuSd0308v+
 Cf/Z=
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <1QLD0HXJK5J4ONMGTKNLITL2T>
+Content-Id: <SFCJ0TLP7QII1Z0ZXYG1PP4D54>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/10.JPG
 
@@ -14491,9 +14497,9 @@ LVP5vw/4J0H27wn/ANBq0/8ABof/AIumSX/hpXhe31nTiUlVm83UiRgHPA39c468
 VhUUr0+z+/8A4AfvO/4f8EuanqekJ4c1FI9U0hpG02eFVgvAzMxDEKAW5zn65pvk
 H0psH3hWhRKUXFRigjGXM5SZ/9k==
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <KUXFSCKZP6BLRHFDMKJTLFDG>
+Content-Id: <6G9DWSLHBZ4FYGXHI7OA2FQ>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/11.JPG
 
@@ -16466,9 +16472,9 @@ UUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUU
 UUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUU
 UUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAf/9k==
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <D3T873ITIEDD1DGRDDSIBTIKN>
+Content-Id: <1N5W2TFJ5974RHCSQX1UKJNEP>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/13.JPG
 
@@ -18577,9 +18583,9 @@ Xf8A8do/4QjRv72qf+Di7/8AjtFFF2Hsqf8AKvuD/hCNG/vap/4OLv8A+O0f8IRo
 397VP/Bxd/8Ax2iii7D2VP8AlX3DJvAehXELwzrqMsUilHR9XuyrKRgggy8iujoo
 pFRjGPwqx//Z=
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <10QYUY1IELD5PK5Q94FN9DZZM>
+Content-Id: <1MW6YIUJO863NP6POSB1TF8D8L>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/15.JPG
 
@@ -20344,9 +20350,9 @@ ao/4mv8A0H73/vxbf/GqKKOSIczD/ia/9B+9/wC/Ft/8ao/4mv8A0H73/vxbf/Gq
 KKOSIczD/ia/9B+9/wC/Ft/8apttatBJcSzXMt1NcSCSSSUICSEVBwqqAMIO1FFC
 ilsDk2T4oxRRVEhijFFFAC4oxRRQB//Z=
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <1N81RD7LKNEX91X2CMFUGUSQV4>
+Content-Id: <1VMLFJIIB7VUU1QNUQO0EGO6SW>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/16.JPG
 
@@ -21848,9 +21854,9 @@ CxPB3/QzaX/4FL/jR/wsTwd/0M2l/wDgUv8AjR7B9w+s0vL7ztP+FgeGv+gpB/49
 2l/+BS/40ewfcPrVLuvvNHTf+RRtf+vFP/RYorJuviD4QktJkTxLpZZkYAfak5OP
 rRXq4WShFps+VzlynUi6avp0P//Z=
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <109QH44L1DMCCHKWOLJ1NTFJ0M>
+Content-Id: <17MNLR7K28R6AGHSQ7G12BFBXI>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/14.JPG
 
@@ -23988,9 +23994,9 @@ sf8AtHxp/wBAnQf/AAZTf/GKP7R8af8AQJ0H/wAGU3/xij2NPv8AmHt6v8v5f5k3
 xDOPht4h/wCwfN/6Aa1a5TX4vGOveHdQ0mTTtDhW9t3gMi6jMSm4YzjyOfpXV1rp
 0M4c3M21bbt59j//2Q===
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <1E5ZOLFI20QVFL1KD6BD9NM0B>
+Content-Id: <87VDKHIB6KDTH4DPJV1PGK5ZG>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/17.JPG
 
@@ -25956,9 +25962,9 @@ KFHlCiwXM77MPSj7MPStHyhR5QosFzO+zD0o+zD0rR8oUeUKLBczvsw9KPsw9K0f
 KFHlCiwXM77MPSj7MPStHyhR5QosFzO+zD0o+zD0rR8oUeUKLBcorbgdqsRxYqcR
 04LimAiLipBQBS0CP//Z=
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <1CM160NIV1C351YRM8Q843P2DE>
+Content-Id: <N47DZ8IFEMRX1UBXEHW10L05KF>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/18.JPG
 
@@ -27819,9 +27825,9 @@ lH/Cw9f/ALmm/wDgPJ/8cooov5L7kHIvP72H/Cw9f/uab/4Dyf8Axymv4/1yTb5k
 Olttbcu62c4Pr/rOtFFF/Jfcg5F5/eyG48V6pfWFxZmHTIUuIHgZorVgyowIOD5n
 vn60y1QBRRRTvdWEopO5oRjip8UUUwP/2Q===
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <16W5O8PJ0CZEZ2OBLPJ12107KU>
+Content-Id: <TVPA5ZLDJ3J4SVKVCM1DBATBZ>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/19.JPG
 
@@ -29529,9 +29535,9 @@ igAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACii
 igAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACii
 igAooooAKKKKACiiigAooooAKKKKAP/Z=
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <UVJC4TIK2CIMSQ8Q6E1EOBG8K>
+Content-Id: <1XMIC78JBQWPU1MED1A61MMEK96>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/20.JPG
 
@@ -30754,9 +30760,9 @@ tav835f5B/wuv/qX2/8AAz/7Cj/hdf8A1L7f+Bn/ANhRRRy0/wCX8/8AMPa1f5vy
 3bXTs0/htmZkCE/biMrnOOE9ayPFHjiPxLo4sYdJNl/pX2ln+0eZubawPG0Y+9+l
 FFXTcac1OMVdev8AmRUlOpFwlLR+n+R//9k==
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <9YM6UWJP176F42WMNRWAM5OV>
+Content-Id: <1VH0FFYHUPJCY17QE8W2U8V2H9>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/21.JPG
 
@@ -31926,9 +31932,9 @@ nRk+p/Oj2EP5n93/AAQ+tS/l/H/gH1TVK/Ny8ckUEEhUoCJI5gjbtw+UZ6cc5/Cv
 mPJ9T+dAJ9T+dHsIfzP7v+CP61L+X8f+AeyfFESReE4zMJBnVQV3yB8r5b4x6D27
 UV5FGMnmitOVJJLoc0qjlJyZ/9k==
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <18R5UT9KRVSDUMJUP4FYY99GY>
+Content-Id: <1QK6QB3K0GAPQQ3JBEX1VM03TZ>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/22.JPG
 
@@ -33029,9 +33035,9 @@ oo5pdwsg/t/W/wDoNaj/AOBT/wCNH9v63/0GtR/8Cn/xooo5pdwsg/t/W/8AoNaj
 wKf/ABooo5pdwsg/t7W/+g1qP/gU/wDjRJqmpXcJhu9TvJ4mI3Ry3DspwcjIJx1F
 FFHPLuJpCUUUUgP/2Q===
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3
 Content-Type: image/jpeg
-Content-Id: <1I3OGFEL5IGNIXEOCY2AQUW6T>
+Content-Id: <1XUJAHLLGOUP4VM0ASX83YLKD>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/expense_level/new/23.JPG
 
@@ -34845,4 +34851,4 @@ q9D+Rfcg/wCFveO/+hhm/wC/MX/xNH/C3vHf/Qwzf9+Yv/iaKKPa1P5n94fV6H8i
 3/fmL/4mj/hb3jv/AKGGb/vzF/8AE0UUe1qfzP7w+r0P5F9yPYvgpq17rnhTVNR1
 Wc3F3PqjmSUqF3YhhA4AA6AUUUV1wbcU2ZSSi7LY/9k==
 
------------blocknote.net--MY9V9AKMVGOIKCO23OH58HAR--
+-----------blocknote.net--AOT95RLPGMU945QNQC17KUWB3--

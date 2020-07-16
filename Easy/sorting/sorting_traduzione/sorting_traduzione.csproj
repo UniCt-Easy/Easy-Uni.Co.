@@ -100,6 +100,22 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+    <Reference Include="meta_sorting">
+      <HintPath>..\meta_sorting\bin\Debug\meta_sorting.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_sorting</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_sortingkind">
+      <HintPath>..\..\sortingkind\meta_sortingkind\bin\Debug\meta_sortingkind.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_sortingkind</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>System.Data.DataSetExtensions</Name>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs">

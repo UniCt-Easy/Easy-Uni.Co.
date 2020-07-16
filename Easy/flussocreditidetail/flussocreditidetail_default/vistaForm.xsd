@@ -532,6 +532,29 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="flussocrediti" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idflusso" type="xs:int" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="datacreazioneflusso" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="flusso" type="xs:string" minOccurs="0" />
+              <xs:element name="istransmitted" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="progday" type="xs:int" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idestimkind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -603,6 +626,10 @@
       <xs:selector xpath=".//mstns:upb_iva" />
       <xs:field xpath="mstns:idupb" />
     </xs:unique>
+    <xs:unique name="flussocrediti_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:flussocrediti" />
+      <xs:field xpath="mstns:idflusso" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -621,6 +648,7 @@
       <msdata:Relationship name="ivakind_flussocreditidetail" msdata:parent="ivakind" msdata:child="flussocreditidetail" msdata:parentkey="idivakind" msdata:childkey="idivakind" />
       <msdata:Relationship name="list_flussocreditidetail" msdata:parent="list" msdata:child="flussocreditidetail" msdata:parentkey="idlist" msdata:childkey="idlist" />
       <msdata:Relationship name="upb_iva_flussocreditidetail" msdata:parent="upb_iva" msdata:child="flussocreditidetail" msdata:parentkey="idupb" msdata:childkey="idupb_iva" />
+      <msdata:Relationship name="flussocrediti_flussocreditidetail" msdata:parent="flussocrediti" msdata:child="flussocreditidetail" msdata:parentkey="idflusso" msdata:childkey="idflusso" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

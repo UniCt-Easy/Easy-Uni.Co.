@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -58,60 +55,60 @@ namespace meta_costpartitiondetail {
 		public override void SetDefaults(DataTable PrimaryTable){
 			base.SetDefaults(PrimaryTable);
 		}
-		
-	
-		public override void DescribeColumns(DataTable T, string listtype){
+
+
+		public override void DescribeColumns(DataTable T, string listtype) {
 			base.DescribeColumns(T, listtype);
-			if (listtype=="default") {
-				foreach(DataColumn C in T.Columns) {
+			if (listtype == "default") {
+				foreach (DataColumn C in T.Columns) {
 					DescribeAColumn(T, C.ColumnName, "", -1);
 				}
-                int nPos = 1;
-                object title1 = DBNull.Value;
-                object title2 = DBNull.Value;
-                object title3 = DBNull.Value;
 
-                DescribeAColumn(T, "iddetail", "#", nPos);
-                DescribeAColumn(T, "amount", "Importo", nPos++);
-                DescribeAColumn(T, "rate", "Percentuale", nPos++);
-                string filter = QHS.CmpEq("ayear", GetSys("esercizio"));
-                DataTable tExpSetup = Conn.RUN_SELECT("config", "*", null,
-                filter, null, null, true);
+				int nPos = 1;
+				object title1 = DBNull.Value;
+				object title2 = DBNull.Value;
+				object title3 = DBNull.Value;
 
-                 if ((tExpSetup != null) && (tExpSetup.Rows.Count > 0))
-                 {
-                     DataRow r = tExpSetup.Rows[0];
-                     object idsorkind1 = r["idsortingkind1"];
-                     object idsorkind2 = r["idsortingkind2"];
-                     object idsorkind3 = r["idsortingkind3"];
+				DescribeAColumn(T, "iddetail", "#", nPos);
+				DescribeAColumn(T, "amount", "Importo", nPos++);
+				DescribeAColumn(T, "rate", "Percentuale", nPos++);
+				string filter = QHS.CmpEq("ayear", GetSys("esercizio"));
+				DataTable tExpSetup = Conn.RUN_SELECT("config", "*", null,
+					filter, null, null, true);
 
-                     if (idsorkind1 != DBNull.Value)
-                     {
-                         string filter1 = QHS.CmpEq("idsorkind", idsorkind1);
-                         title1 = Conn.DO_READ_VALUE("sortingkind", filter1, "description");
-                     }
-                     if (idsorkind2 != DBNull.Value)
-                     {
-                         string filter2 = QHS.CmpEq("idsorkind", idsorkind2);
-                         title2 = Conn.DO_READ_VALUE("sortingkind", filter2, "description");
-                     }
-                     if (idsorkind3 != DBNull.Value)
-                     {
-                         string filter3 = QHS.CmpEq("idsorkind", idsorkind3);
-                         title3 = Conn.DO_READ_VALUE("sortingkind", filter3, "description");
-                     }
+				if ((tExpSetup != null) && (tExpSetup.Rows.Count > 0)) {
+					DataRow r = tExpSetup.Rows[0];
+					object idsorkind1 = r["idsortingkind1"];
+					object idsorkind2 = r["idsortingkind2"];
+					object idsorkind3 = r["idsortingkind3"];
 
-                     if ((title1!=DBNull.Value)&&(title1!=null))
-                         DescribeAColumn(T, "!codesor1", title1.ToString(),"sorting1.sortcode", nPos++);
-                     if ((title2 != DBNull.Value)&&(title2!=null))
-                         DescribeAColumn(T, "!codesor2", title2.ToString(), "sorting2.sortcode", nPos++);
-                     if ((title3 != DBNull.Value)&&(title3!=null))
-                         DescribeAColumn(T, "!codesor3", title3.ToString(), "sorting3.sortcode", nPos++);
-                 }
-                 ComputeRowsAs(T, listtype);
-                HelpForm.SetFormatForColumn(T.Columns["rate"], "p");
+					if (idsorkind1 != DBNull.Value) {
+						string filter1 = QHS.CmpEq("idsorkind", idsorkind1);
+						title1 = Conn.DO_READ_VALUE("sortingkind", filter1, "description");
+					}
+
+					if (idsorkind2 != DBNull.Value) {
+						string filter2 = QHS.CmpEq("idsorkind", idsorkind2);
+						title2 = Conn.DO_READ_VALUE("sortingkind", filter2, "description");
+					}
+
+					if (idsorkind3 != DBNull.Value) {
+						string filter3 = QHS.CmpEq("idsorkind", idsorkind3);
+						title3 = Conn.DO_READ_VALUE("sortingkind", filter3, "description");
+					}
+
+					if ((title1 != DBNull.Value) && (title1 != null))
+						DescribeAColumn(T, "!codesor1", title1.ToString(), "sorting1.sortcode", nPos++);
+					if ((title2 != DBNull.Value) && (title2 != null))
+						DescribeAColumn(T, "!codesor2", title2.ToString(), "sorting2.sortcode", nPos++);
+					if ((title3 != DBNull.Value) && (title3 != null))
+						DescribeAColumn(T, "!codesor3", title3.ToString(), "sorting3.sortcode", nPos++);
+				}
+
+				ComputeRowsAs(T, listtype);
+				HelpForm.SetFormatForColumn(T.Columns["rate"], "p6");
 			}
-		}   
+		}
 
 		public override bool IsValid(DataRow R, out string errmess, out string errfield){
 
@@ -145,4 +142,4 @@ namespace meta_costpartitiondetail {
         }	
 
 	}
-}
+}

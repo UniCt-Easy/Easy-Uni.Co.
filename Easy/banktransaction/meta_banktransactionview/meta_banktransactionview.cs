@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -71,20 +68,27 @@ namespace meta_banktransactionview//meta_movimentobancarioview//
 					DescribeAColumn(T,C.ColumnName,"",-1);
 				}
 				int nPos = 1;
-				//DescribeAColumn(T,"yban","Eserc. Transazione", nPos++);
-				DescribeAColumn(T,"nban","Progressivo", nPos++);
-				DescribeAColumn(T,"transactiondate","Data Operazione", nPos++);
-				DescribeAColumn(T,"valuedate","Data Valuta", nPos++);
-				DescribeAColumn(T,"bankreference","Rif. Banca", nPos++);
-				//DescribeAColumn(T,"amount","Importo", nPos++);
-				DescribeAColumn(T,"income","Entrate", nPos++);
-				DescribeAColumn(T,"expense","Uscite", nPos++);
-				DescribeAColumn(T,"ypay","Eserc. Mandato", nPos++);
-				DescribeAColumn(T,"npay","Num. Mandato", nPos++);
-				DescribeAColumn(T,"ypro","Eserc. Reversale", nPos++);
-				DescribeAColumn(T,"npro","Num. Reversale", nPos++);
-                DescribeAColumn(T,"idbankimport", "Num. Importazione", nPos++);
-            } 
+				DescribeAColumn(T, "ypay", "Eserc. Mandato", nPos++);
+				DescribeAColumn(T, "npay", "Num. Mandato", nPos++);
+				DescribeAColumn(T, "ypro", "Eserc. Reversale", nPos++);
+				DescribeAColumn(T, "npro", "Num. Reversale", nPos++);
+
+				string nomefasespesa = Conn.DO_READ_VALUE("expensephase", "nphase=" + security.GetSys("maxexpensephase").ToString(), "description").ToString();
+				DescribeAColumn(T, "yexp", "Eserc. " + nomefasespesa, nPos++);
+				DescribeAColumn(T, "nexp", "Num. " + nomefasespesa, nPos++);
+
+				string nomefaseentrata = Conn.DO_READ_VALUE("incomephase", "nphase=" + security.GetSys("maxincomephase").ToString(), "description").ToString();
+				DescribeAColumn(T, "yinc", "Eserc. " + nomefaseentrata, nPos++);
+				DescribeAColumn(T, "ninc", "Num. " + nomefaseentrata, nPos++);
+
+
+				DescribeAColumn(T, "idpay", "Prog. sub Spesa/Entrata", nPos++);
+				DescribeAColumn(T, "amount", "Importo", nPos++);
+				DescribeAColumn(T, "transactiondate", "Data operazione", nPos++);
+				DescribeAColumn(T, "valuedate", "Data valuta", nPos++);
+				DescribeAColumn(T, "idbankimport", "Num. Importazione Esiti", nPos++);
+			} 
+			
         }   	
 		protected override Form GetForm(string FormName)
 		{
@@ -98,4 +102,3 @@ namespace meta_banktransactionview//meta_movimentobancarioview//
 		}
     }	
 }
-

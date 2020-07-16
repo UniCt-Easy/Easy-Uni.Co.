@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -29,6 +26,9 @@ public class apptabRow: MetaRow  {
 	public apptabRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
+	///<summary>
+	///Intestazione
+	///</summary>
 	public String header{ 
 		get {if (this["header"]==DBNull.Value)return null; return  (String)this["header"];}
 		set {if (value==null) this["header"]= DBNull.Value; else this["header"]= value;}
@@ -115,7 +115,7 @@ public class apptabTable : MetaTableBase<apptabRow> {
 		baseColumns = new Dictionary<string, DataColumn>(){
 			{"header",createColumn("header",typeof(string),true,false)},
 			{"icon",createColumn("icon",typeof(string),true,false)},
-			{"idapppages",createColumn("idapppages",typeof(int),true,false)},
+			{"idapppages",createColumn("idapppages",typeof(int),false,false)},
 			{"idapptab",createColumn("idapptab",typeof(int),false,false)},
 			{"position",createColumn("position",typeof(int),true,false)},
 			{"title",createColumn("title",typeof(string),true,false)},
@@ -123,4 +123,3 @@ public class apptabTable : MetaTableBase<apptabRow> {
 	}
 }
 }
-

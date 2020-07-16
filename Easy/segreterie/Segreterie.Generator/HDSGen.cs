@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -44,6 +41,7 @@ namespace HDSGeneVSIX
 		/**/
 		private string codeFileNameSpace = String.Empty;
 		private string codeFilePath = String.Empty;
+		public SqlConnection extConn = null;
 
 		/// <summary>
 		/// namespace for the file.
@@ -90,13 +88,18 @@ namespace HDSGeneVSIX
 
             }
         }
-        DataSet getDataSetFromString(string fileContent)
+
+        DataSet getDataSetFromString(string fileContent, string inputFileName)
         {
             log("getDataSetFromString 1");
             var sr = new StringReader(fileContent);
             var d = new DataSet();
-            d.ReadXmlSchema(sr);
-            sr.Close();
+			try {
+				d.ReadXmlSchema(sr);
+			} catch (Exception e ){
+				Console.WriteLine("ERROR: Impossibile costruire file di codice per il dataset  " + inputFileName + ". " + e.Message);
+			}
+			sr.Close();
             return d;
         }
 
@@ -111,7 +114,7 @@ namespace HDSGeneVSIX
         public byte[] iGenerateCode(string inputFileName, string inputFileContent) /*da private a public */
         {
             log("iGenerateCode 0");
-            var d = getDataSetFromString(inputFileContent);
+            var d = getDataSetFromString(inputFileContent, inputFileName);
 
             _compilazioneConMetaData = false;
             _hdsGenePath = Path.GetDirectoryName(findHDSGeneIniFile(inputFileName));
@@ -176,12 +179,16 @@ namespace HDSGeneVSIX
             if (_hdsGenePath == null) return null;
             var dbIniFile = Path.Combine(_hdsGenePath, "HDSGene.db");
             if (!File.Exists(dbIniFile)) return null;
-            var connString = File.ReadAllText(dbIniFile);
-            var d = new DataSet(meta);
+			var connString = File.ReadAllText(dbIniFile);
+			//var conn = new SqlConnection(connString);
+			var d = new DataSet(meta);
             log("getMetadataDescriptor 3");
-            using (var conn = new SqlConnection(connString))
+
+			var conn = extConn;
+
+			//using (conn)
             {
-                conn.Open();
+                //conn.Open();
                 var cmd1 = $"SELECT * from columntypes where tablename ='{meta}'";
                 var colTypes = new SqlDataAdapter(cmd1, conn);
                 colTypes.Fill(d, "columntypes");
@@ -1653,4 +1660,3 @@ namespace HDSGeneVSIX
 
 }
 
-

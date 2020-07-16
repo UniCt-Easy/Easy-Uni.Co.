@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -191,6 +188,10 @@
 			this.txtMovFin1 = new System.Windows.Forms.TextBox();
 			this.btnPagamentiNonCollegatiDoc = new System.Windows.Forms.Button();
 			this.tabPageMovBudget = new System.Windows.Forms.TabPage();
+			this.txtCorreggiCPassiviIncoerenti = new System.Windows.Forms.TextBox();
+			this.btnCorreggiCPassiviIncoerenti = new System.Windows.Forms.Button();
+			this.txtImpegni_3 = new System.Windows.Forms.TextBox();
+			this.btnImpegni_3 = new System.Windows.Forms.Button();
 			this.BtncrgAccertamentiBudgetEstimate = new System.Windows.Forms.Button();
 			this.txtCorreggiCAttiviIncoerenti = new System.Windows.Forms.TextBox();
 			this.btnCorreggiCAttiviIncoerenti = new System.Windows.Forms.Button();
@@ -209,6 +210,14 @@
 			this.txtAccertamentiBudgetNoEstimate = new System.Windows.Forms.TextBox();
 			this.btnAccertamentiBudgetNoEstimate = new System.Windows.Forms.Button();
 			this.tabMovBudget2 = new System.Windows.Forms.TabPage();
+			this.txtAccertamentiUpbIncoerentePadre = new System.Windows.Forms.TextBox();
+			this.btnAccertamentiUpbIncoerentePadre = new System.Windows.Forms.Button();
+			this.txtImpegniUpbIncoerentePadre = new System.Windows.Forms.TextBox();
+			this.btnImpegniUpbIncoerentePadre = new System.Windows.Forms.Button();
+			this.txtAccertamentiContoIncoerentePadre = new System.Windows.Forms.TextBox();
+			this.btnAccertamentiContoIncoerentePadre = new System.Windows.Forms.Button();
+			this.txtImpegniContoIncoerentePadre = new System.Windows.Forms.TextBox();
+			this.btnImpegniContoIncoerentePadre = new System.Windows.Forms.Button();
 			this.txtImpegniFattDuplicati = new System.Windows.Forms.TextBox();
 			this.btnImpegniFattDuplicati = new System.Windows.Forms.Button();
 			this.btnCrgDebitiSuAccertamenti = new System.Windows.Forms.Button();
@@ -287,14 +296,7 @@
 			this.progBar = new System.Windows.Forms.ProgressBar();
 			this.label3 = new System.Windows.Forms.Label();
 			this.txtCurrent = new System.Windows.Forms.TextBox();
-			this.txtImpegniContoIncoerentePadre = new System.Windows.Forms.TextBox();
-			this.btnImpegniContoIncoerentePadre = new System.Windows.Forms.Button();
-			this.txtAccertamentiContoIncoerentePadre = new System.Windows.Forms.TextBox();
-			this.btnAccertamentiContoIncoerentePadre = new System.Windows.Forms.Button();
-			this.txtAccertamentiUpbIncoerentePadre = new System.Windows.Forms.TextBox();
-			this.btnAccertamentiUpbIncoerentePadre = new System.Windows.Forms.Button();
-			this.txtImpegniUpbIncoerentePadre = new System.Windows.Forms.TextBox();
-			this.btnImpegniUpbIncoerentePadre = new System.Windows.Forms.Button();
+			this.btnRigeneraLiqImposte = new System.Windows.Forms.Button();
 			this.tabMovBudget.SuspendLayout();
 			this.tabFatture.SuspendLayout();
 			this.txtGene9.SuspendLayout();
@@ -943,6 +945,7 @@
 			// 
 			// tabRigenerazione
 			// 
+			this.tabRigenerazione.Controls.Add(this.btnRigeneraLiqImposte);
 			this.tabRigenerazione.Controls.Add(this.btnSpeseFondoEconomale);
 			this.tabRigenerazione.Controls.Add(this.btnRigeneraLiqIva);
 			this.tabRigenerazione.Controls.Add(this.btnTrg_evaluatearrearsepacc);
@@ -2029,6 +2032,10 @@
 			// 
 			// tabPageMovBudget
 			// 
+			this.tabPageMovBudget.Controls.Add(this.txtCorreggiCPassiviIncoerenti);
+			this.tabPageMovBudget.Controls.Add(this.btnCorreggiCPassiviIncoerenti);
+			this.tabPageMovBudget.Controls.Add(this.txtImpegni_3);
+			this.tabPageMovBudget.Controls.Add(this.btnImpegni_3);
 			this.tabPageMovBudget.Controls.Add(this.BtncrgAccertamentiBudgetEstimate);
 			this.tabPageMovBudget.Controls.Add(this.txtCorreggiCAttiviIncoerenti);
 			this.tabPageMovBudget.Controls.Add(this.btnCorreggiCAttiviIncoerenti);
@@ -2053,6 +2060,49 @@
 			this.tabPageMovBudget.TabIndex = 7;
 			this.tabPageMovBudget.Text = "Movimenti di Budget";
 			this.tabPageMovBudget.UseVisualStyleBackColor = true;
+			// 
+			// txtCorreggiCPassiviIncoerenti
+			// 
+			this.txtCorreggiCPassiviIncoerenti.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCorreggiCPassiviIncoerenti.Location = new System.Drawing.Point(130, 373);
+			this.txtCorreggiCPassiviIncoerenti.Name = "txtCorreggiCPassiviIncoerenti";
+			this.txtCorreggiCPassiviIncoerenti.ReadOnly = true;
+			this.txtCorreggiCPassiviIncoerenti.Size = new System.Drawing.Size(767, 20);
+			this.txtCorreggiCPassiviIncoerenti.TabIndex = 40;
+			this.txtCorreggiCPassiviIncoerenti.Text = "Prova a correggere impegni di Budget con dati incoerenti rispetto ai contratti a " +
+    "cui sono collegati";
+			// 
+			// btnCorreggiCPassiviIncoerenti
+			// 
+			this.btnCorreggiCPassiviIncoerenti.Location = new System.Drawing.Point(26, 370);
+			this.btnCorreggiCPassiviIncoerenti.Name = "btnCorreggiCPassiviIncoerenti";
+			this.btnCorreggiCPassiviIncoerenti.Size = new System.Drawing.Size(98, 23);
+			this.btnCorreggiCPassiviIncoerenti.TabIndex = 39;
+			this.btnCorreggiCPassiviIncoerenti.Text = "Correggi";
+			this.btnCorreggiCPassiviIncoerenti.UseVisualStyleBackColor = true;
+			this.btnCorreggiCPassiviIncoerenti.Click += new System.EventHandler(this.btnCorreggiCPassiviIncoerenti_Click);
+			// 
+			// txtImpegni_3
+			// 
+			this.txtImpegni_3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtImpegni_3.Location = new System.Drawing.Point(130, 344);
+			this.txtImpegni_3.Name = "txtImpegni_3";
+			this.txtImpegni_3.ReadOnly = true;
+			this.txtImpegni_3.Size = new System.Drawing.Size(767, 20);
+			this.txtImpegni_3.TabIndex = 38;
+			this.txtImpegni_3.Text = "Impegni di Budget con dati incoerenti rispetto ai contratti a cui sono collegati";
+			// 
+			// btnImpegni_3
+			// 
+			this.btnImpegni_3.Location = new System.Drawing.Point(26, 341);
+			this.btnImpegni_3.Name = "btnImpegni_3";
+			this.btnImpegni_3.Size = new System.Drawing.Size(98, 23);
+			this.btnImpegni_3.TabIndex = 37;
+			this.btnImpegni_3.Text = "Verifica";
+			this.btnImpegni_3.UseVisualStyleBackColor = true;
+			this.btnImpegni_3.Click += new System.EventHandler(this.btnImpegni_3_Click);
 			// 
 			// BtncrgAccertamentiBudgetEstimate
 			// 
@@ -2274,6 +2324,90 @@
 			this.tabMovBudget2.TabIndex = 8;
 			this.tabMovBudget2.Text = "Movimenti  di Budget";
 			this.tabMovBudget2.UseVisualStyleBackColor = true;
+			// 
+			// txtAccertamentiUpbIncoerentePadre
+			// 
+			this.txtAccertamentiUpbIncoerentePadre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtAccertamentiUpbIncoerentePadre.Location = new System.Drawing.Point(148, 364);
+			this.txtAccertamentiUpbIncoerentePadre.Name = "txtAccertamentiUpbIncoerentePadre";
+			this.txtAccertamentiUpbIncoerentePadre.ReadOnly = true;
+			this.txtAccertamentiUpbIncoerentePadre.Size = new System.Drawing.Size(590, 20);
+			this.txtAccertamentiUpbIncoerentePadre.TabIndex = 51;
+			this.txtAccertamentiUpbIncoerentePadre.Text = "Accertamenti con UPB incoerente rispetto a quello del Preaccertamento";
+			// 
+			// btnAccertamentiUpbIncoerentePadre
+			// 
+			this.btnAccertamentiUpbIncoerentePadre.Location = new System.Drawing.Point(8, 361);
+			this.btnAccertamentiUpbIncoerentePadre.Name = "btnAccertamentiUpbIncoerentePadre";
+			this.btnAccertamentiUpbIncoerentePadre.Size = new System.Drawing.Size(122, 23);
+			this.btnAccertamentiUpbIncoerentePadre.TabIndex = 50;
+			this.btnAccertamentiUpbIncoerentePadre.Text = "Verifica";
+			this.btnAccertamentiUpbIncoerentePadre.UseVisualStyleBackColor = true;
+			this.btnAccertamentiUpbIncoerentePadre.Click += new System.EventHandler(this.btnAccertamentiUpbIncoerentePadre_Click);
+			// 
+			// txtImpegniUpbIncoerentePadre
+			// 
+			this.txtImpegniUpbIncoerentePadre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtImpegniUpbIncoerentePadre.Location = new System.Drawing.Point(148, 327);
+			this.txtImpegniUpbIncoerentePadre.Name = "txtImpegniUpbIncoerentePadre";
+			this.txtImpegniUpbIncoerentePadre.ReadOnly = true;
+			this.txtImpegniUpbIncoerentePadre.Size = new System.Drawing.Size(590, 20);
+			this.txtImpegniUpbIncoerentePadre.TabIndex = 49;
+			this.txtImpegniUpbIncoerentePadre.Text = "Impegni  con UPB incoerente rispetto a quello del Preimpegno";
+			// 
+			// btnImpegniUpbIncoerentePadre
+			// 
+			this.btnImpegniUpbIncoerentePadre.Location = new System.Drawing.Point(8, 324);
+			this.btnImpegniUpbIncoerentePadre.Name = "btnImpegniUpbIncoerentePadre";
+			this.btnImpegniUpbIncoerentePadre.Size = new System.Drawing.Size(122, 23);
+			this.btnImpegniUpbIncoerentePadre.TabIndex = 48;
+			this.btnImpegniUpbIncoerentePadre.Text = "Verifica";
+			this.btnImpegniUpbIncoerentePadre.UseVisualStyleBackColor = true;
+			this.btnImpegniUpbIncoerentePadre.Click += new System.EventHandler(this.btnImpegniUpbIncoerentePadre_Click);
+			// 
+			// txtAccertamentiContoIncoerentePadre
+			// 
+			this.txtAccertamentiContoIncoerentePadre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtAccertamentiContoIncoerentePadre.Location = new System.Drawing.Point(148, 292);
+			this.txtAccertamentiContoIncoerentePadre.Name = "txtAccertamentiContoIncoerentePadre";
+			this.txtAccertamentiContoIncoerentePadre.ReadOnly = true;
+			this.txtAccertamentiContoIncoerentePadre.Size = new System.Drawing.Size(590, 20);
+			this.txtAccertamentiContoIncoerentePadre.TabIndex = 47;
+			this.txtAccertamentiContoIncoerentePadre.Text = "Accertamenti con Conto incoerente rispetto a quello del Preaccertamento";
+			// 
+			// btnAccertamentiContoIncoerentePadre
+			// 
+			this.btnAccertamentiContoIncoerentePadre.Location = new System.Drawing.Point(8, 289);
+			this.btnAccertamentiContoIncoerentePadre.Name = "btnAccertamentiContoIncoerentePadre";
+			this.btnAccertamentiContoIncoerentePadre.Size = new System.Drawing.Size(122, 23);
+			this.btnAccertamentiContoIncoerentePadre.TabIndex = 46;
+			this.btnAccertamentiContoIncoerentePadre.Text = "Verifica";
+			this.btnAccertamentiContoIncoerentePadre.UseVisualStyleBackColor = true;
+			this.btnAccertamentiContoIncoerentePadre.Click += new System.EventHandler(this.btnAccertamentiContoIncoerentePadre_Click);
+			// 
+			// txtImpegniContoIncoerentePadre
+			// 
+			this.txtImpegniContoIncoerentePadre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtImpegniContoIncoerentePadre.Location = new System.Drawing.Point(148, 255);
+			this.txtImpegniContoIncoerentePadre.Name = "txtImpegniContoIncoerentePadre";
+			this.txtImpegniContoIncoerentePadre.ReadOnly = true;
+			this.txtImpegniContoIncoerentePadre.Size = new System.Drawing.Size(590, 20);
+			this.txtImpegniContoIncoerentePadre.TabIndex = 45;
+			this.txtImpegniContoIncoerentePadre.Text = "Impegni  con Conto incoerente rispetto a quello del Preimpegno";
+			// 
+			// btnImpegniContoIncoerentePadre
+			// 
+			this.btnImpegniContoIncoerentePadre.Location = new System.Drawing.Point(8, 252);
+			this.btnImpegniContoIncoerentePadre.Name = "btnImpegniContoIncoerentePadre";
+			this.btnImpegniContoIncoerentePadre.Size = new System.Drawing.Size(122, 23);
+			this.btnImpegniContoIncoerentePadre.TabIndex = 44;
+			this.btnImpegniContoIncoerentePadre.Text = "Verifica";
+			this.btnImpegniContoIncoerentePadre.UseVisualStyleBackColor = true;
+			this.btnImpegniContoIncoerentePadre.Click += new System.EventHandler(this.btnImpegniContoIncoerentePadre_Click);
 			// 
 			// txtImpegniFattDuplicati
 			// 
@@ -3153,89 +3287,15 @@
 			this.txtCurrent.Size = new System.Drawing.Size(825, 20);
 			this.txtCurrent.TabIndex = 6;
 			// 
-			// txtImpegniContoIncoerentePadre
+			// btnRigeneraLiqImposte
 			// 
-			this.txtImpegniContoIncoerentePadre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtImpegniContoIncoerentePadre.Location = new System.Drawing.Point(148, 255);
-			this.txtImpegniContoIncoerentePadre.Name = "txtImpegniContoIncoerentePadre";
-			this.txtImpegniContoIncoerentePadre.ReadOnly = true;
-			this.txtImpegniContoIncoerentePadre.Size = new System.Drawing.Size(590, 20);
-			this.txtImpegniContoIncoerentePadre.TabIndex = 45;
-			this.txtImpegniContoIncoerentePadre.Text = "Impegni  con Conto incoerente rispetto a quello del Preimpegno";
-			// 
-			// btnImpegniContoIncoerentePadre
-			// 
-			this.btnImpegniContoIncoerentePadre.Location = new System.Drawing.Point(8, 252);
-			this.btnImpegniContoIncoerentePadre.Name = "btnImpegniContoIncoerentePadre";
-			this.btnImpegniContoIncoerentePadre.Size = new System.Drawing.Size(122, 23);
-			this.btnImpegniContoIncoerentePadre.TabIndex = 44;
-			this.btnImpegniContoIncoerentePadre.Text = "Verifica";
-			this.btnImpegniContoIncoerentePadre.UseVisualStyleBackColor = true;
-			this.btnImpegniContoIncoerentePadre.Click += new System.EventHandler(this.btnImpegniContoIncoerentePadre_Click);
-			// 
-			// txtAccertamentiContoIncoerentePadre
-			// 
-			this.txtAccertamentiContoIncoerentePadre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtAccertamentiContoIncoerentePadre.Location = new System.Drawing.Point(148, 292);
-			this.txtAccertamentiContoIncoerentePadre.Name = "txtAccertamentiContoIncoerentePadre";
-			this.txtAccertamentiContoIncoerentePadre.ReadOnly = true;
-			this.txtAccertamentiContoIncoerentePadre.Size = new System.Drawing.Size(590, 20);
-			this.txtAccertamentiContoIncoerentePadre.TabIndex = 47;
-			this.txtAccertamentiContoIncoerentePadre.Text = "Accertamenti con Conto incoerente rispetto a quello del Preaccertamento";
-			// 
-			// btnAccertamentiContoIncoerentePadre
-			// 
-			this.btnAccertamentiContoIncoerentePadre.Location = new System.Drawing.Point(8, 289);
-			this.btnAccertamentiContoIncoerentePadre.Name = "btnAccertamentiContoIncoerentePadre";
-			this.btnAccertamentiContoIncoerentePadre.Size = new System.Drawing.Size(122, 23);
-			this.btnAccertamentiContoIncoerentePadre.TabIndex = 46;
-			this.btnAccertamentiContoIncoerentePadre.Text = "Verifica";
-			this.btnAccertamentiContoIncoerentePadre.UseVisualStyleBackColor = true;
-			this.btnAccertamentiContoIncoerentePadre.Click += new System.EventHandler(this.btnAccertamentiContoIncoerentePadre_Click);
-			// 
-			// txtAccertamentiUpbIncoerentePadre
-			// 
-			this.txtAccertamentiUpbIncoerentePadre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtAccertamentiUpbIncoerentePadre.Location = new System.Drawing.Point(148, 364);
-			this.txtAccertamentiUpbIncoerentePadre.Name = "txtAccertamentiUpbIncoerentePadre";
-			this.txtAccertamentiUpbIncoerentePadre.ReadOnly = true;
-			this.txtAccertamentiUpbIncoerentePadre.Size = new System.Drawing.Size(590, 20);
-			this.txtAccertamentiUpbIncoerentePadre.TabIndex = 51;
-			this.txtAccertamentiUpbIncoerentePadre.Text = "Accertamenti con UPB incoerente rispetto a quello del Preaccertamento";
-			// 
-			// btnAccertamentiUpbIncoerentePadre
-			// 
-			this.btnAccertamentiUpbIncoerentePadre.Location = new System.Drawing.Point(8, 361);
-			this.btnAccertamentiUpbIncoerentePadre.Name = "btnAccertamentiUpbIncoerentePadre";
-			this.btnAccertamentiUpbIncoerentePadre.Size = new System.Drawing.Size(122, 23);
-			this.btnAccertamentiUpbIncoerentePadre.TabIndex = 50;
-			this.btnAccertamentiUpbIncoerentePadre.Text = "Verifica";
-			this.btnAccertamentiUpbIncoerentePadre.UseVisualStyleBackColor = true;
-			this.btnAccertamentiUpbIncoerentePadre.Click += new System.EventHandler(this.btnAccertamentiUpbIncoerentePadre_Click);
-			// 
-			// txtImpegniUpbIncoerentePadre
-			// 
-			this.txtImpegniUpbIncoerentePadre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtImpegniUpbIncoerentePadre.Location = new System.Drawing.Point(148, 327);
-			this.txtImpegniUpbIncoerentePadre.Name = "txtImpegniUpbIncoerentePadre";
-			this.txtImpegniUpbIncoerentePadre.ReadOnly = true;
-			this.txtImpegniUpbIncoerentePadre.Size = new System.Drawing.Size(590, 20);
-			this.txtImpegniUpbIncoerentePadre.TabIndex = 49;
-			this.txtImpegniUpbIncoerentePadre.Text = "Impegni  con UPB incoerente rispetto a quello del Preimpegno";
-			// 
-			// btnImpegniUpbIncoerentePadre
-			// 
-			this.btnImpegniUpbIncoerentePadre.Location = new System.Drawing.Point(8, 324);
-			this.btnImpegniUpbIncoerentePadre.Name = "btnImpegniUpbIncoerentePadre";
-			this.btnImpegniUpbIncoerentePadre.Size = new System.Drawing.Size(122, 23);
-			this.btnImpegniUpbIncoerentePadre.TabIndex = 48;
-			this.btnImpegniUpbIncoerentePadre.Text = "Verifica";
-			this.btnImpegniUpbIncoerentePadre.UseVisualStyleBackColor = true;
-			this.btnImpegniUpbIncoerentePadre.Click += new System.EventHandler(this.btnImpegniUpbIncoerentePadre_Click);
+			this.btnRigeneraLiqImposte.Location = new System.Drawing.Point(432, 92);
+			this.btnRigeneraLiqImposte.Name = "btnRigeneraLiqImposte";
+			this.btnRigeneraLiqImposte.Size = new System.Drawing.Size(197, 23);
+			this.btnRigeneraLiqImposte.TabIndex = 22;
+			this.btnRigeneraLiqImposte.Text = "Liquidazioni imposte";
+			this.btnRigeneraLiqImposte.UseVisualStyleBackColor = true;
+			this.btnRigeneraLiqImposte.Click += new System.EventHandler(this.btnRigeneraLiqImposte_Click);
 			// 
 			// frmEntry_Verifica
 			// 
@@ -3534,5 +3594,10 @@
 		private System.Windows.Forms.Button btnAccertamentiContoIncoerentePadre;
 		private System.Windows.Forms.TextBox txtImpegniContoIncoerentePadre;
 		private System.Windows.Forms.Button btnImpegniContoIncoerentePadre;
+		private System.Windows.Forms.TextBox txtCorreggiCPassiviIncoerenti;
+		private System.Windows.Forms.Button btnCorreggiCPassiviIncoerenti;
+		private System.Windows.Forms.TextBox txtImpegni_3;
+		private System.Windows.Forms.Button btnImpegni_3;
+		private System.Windows.Forms.Button btnRigeneraLiqImposte;
 	}
-}
+}

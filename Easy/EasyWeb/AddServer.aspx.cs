@@ -1,21 +1,17 @@
 /*
     Easy
     Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections;
@@ -73,12 +69,12 @@ namespace EasyWebReport
 				Easy_DataAccess Conn = new Easy_DataAccess(
 					"mydsn",ip,db,user,pwd,user,pwd,DateTime.Now.Year,DateTime.Now);
 				if (Conn==null){
-					labMsg.Text= "Non √® stato possibile collegarsi al server.";
+					labMsg.Text= "Non Ë stato possibile collegarsi al server.";
 					return;
 				}
 				Conn.Open();
-				if (Conn.OpenError){
-					labMsg.Text= "Non √® stato possibile collegarsi al server.";
+				if (Conn.openError){
+					labMsg.Text= "Non Ë stato possibile collegarsi al server.";
 					return;
 				}
 				Conn.Close();
@@ -86,7 +82,7 @@ namespace EasyWebReport
                 QueryHelper QHS = sys.GetQueryHelper();
                 string searchdip = QHS.CmpEq("CodiceDipartimento",codice);
                 if (sys.RUN_SELECT_COUNT("CodiciDipartimenti",searchdip, true) > 0) {
-                    labMsg.Text = "Codice dipartimento gi√† esistente, sar√† aggiornato.";
+                    labMsg.Text = "Codice dipartimento gi‡ esistente, sar‡ aggiornato.";
                     DataTable T = DS.Tables[0];
                     sys.RUN_SELECT_INTO_TABLE(T, null, searchdip, null, false);
                     DataRow R = T.Rows[0];

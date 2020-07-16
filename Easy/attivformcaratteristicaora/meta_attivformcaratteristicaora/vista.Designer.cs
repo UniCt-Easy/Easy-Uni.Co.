@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -29,6 +26,17 @@ public class attivformcaratteristicaoraRow: MetaRow  {
 	public attivformcaratteristicaoraRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
+	public String aa{ 
+		get {if (this["aa"]==DBNull.Value)return null; return  (String)this["aa"];}
+		set {if (value==null) this["aa"]= DBNull.Value; else this["aa"]= value;}
+	}
+	public object aaValue { 
+		get{ return this["aa"];}
+		set {if (value==null|| value==DBNull.Value) this["aa"]= DBNull.Value; else this["aa"]= value;}
+	}
+	public String aaOriginal { 
+		get {if (this["aa",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["aa",DataRowVersion.Original];}
+	}
 	public DateTime? ct{ 
 		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
 		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
@@ -83,6 +91,17 @@ public class attivformcaratteristicaoraRow: MetaRow  {
 	}
 	public Int32? idattivformcaratteristicaoraOriginal { 
 		get {if (this["idattivformcaratteristicaora",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idattivformcaratteristicaora",DataRowVersion.Original];}
+	}
+	public Int32? idcorsostudio{ 
+		get {if (this["idcorsostudio"]==DBNull.Value)return null; return  (Int32?)this["idcorsostudio"];}
+		set {if (value==null) this["idcorsostudio"]= DBNull.Value; else this["idcorsostudio"]= value;}
+	}
+	public object idcorsostudioValue { 
+		get{ return this["idcorsostudio"];}
+		set {if (value==null|| value==DBNull.Value) this["idcorsostudio"]= DBNull.Value; else this["idcorsostudio"]= value;}
+	}
+	public Int32? idcorsostudioOriginal { 
+		get {if (this["idcorsostudio",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idcorsostudio",DataRowVersion.Original];}
 	}
 	public Int32? iddidprog{ 
 		get {if (this["iddidprog"]==DBNull.Value)return null; return  (Int32?)this["iddidprog"];}
@@ -139,6 +158,9 @@ public class attivformcaratteristicaoraRow: MetaRow  {
 	public Int32? iddidprogporzannoOriginal { 
 		get {if (this["iddidprogporzanno",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["iddidprogporzanno",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Tipo
+	///</summary>
 	public Int32? idorakind{ 
 		get {if (this["idorakind"]==DBNull.Value)return null; return  (Int32?)this["idorakind"];}
 		set {if (value==null) this["idorakind"]= DBNull.Value; else this["idorakind"]= value;}
@@ -192,11 +214,13 @@ public class attivformcaratteristicaoraRow: MetaRow  {
 public class attivformcaratteristicaoraTable : MetaTableBase<attivformcaratteristicaoraRow> {
 	public attivformcaratteristicaoraTable() : base("attivformcaratteristicaora"){
 		baseColumns = new Dictionary<string, DataColumn>(){
+			{"aa",createColumn("aa",typeof(string),false,false)},
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
 			{"cu",createColumn("cu",typeof(string),false,false)},
 			{"idattivform",createColumn("idattivform",typeof(int),false,false)},
 			{"idattivformcaratteristica",createColumn("idattivformcaratteristica",typeof(int),false,false)},
 			{"idattivformcaratteristicaora",createColumn("idattivformcaratteristicaora",typeof(int),false,false)},
+			{"idcorsostudio",createColumn("idcorsostudio",typeof(int),false,false)},
 			{"iddidprog",createColumn("iddidprog",typeof(int),false,false)},
 			{"iddidproganno",createColumn("iddidproganno",typeof(int),false,false)},
 			{"iddidprogcurr",createColumn("iddidprogcurr",typeof(int),false,false)},
@@ -210,4 +234,3 @@ public class attivformcaratteristicaoraTable : MetaTableBase<attivformcaratteris
 	}
 }
 }
-

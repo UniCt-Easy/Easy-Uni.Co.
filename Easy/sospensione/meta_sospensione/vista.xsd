@@ -8,8 +8,10 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
-              <xs:element name="idlocation" type="xs:int" minOccurs="0" />
+              <xs:element name="idaula" type="xs:int" minOccurs="0" />
+              <xs:element name="idedificio" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idsede" type="xs:int" minOccurs="0" />
               <xs:element name="idsospensione" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -1192,7 +1189,6 @@ namespace expense_wizardinvoicedetailnomandate {
             bool manager_in_details = false;
             if (upb.Length == 1) {
                 if (upb[0].ToString() != "") idupb = upb[0];
-                //if (DS.upb.Select(QHC.CmpEq("idupb", idupb)).Length == 0) idupb = null;--> L'ho commentato perchË manca nel wizard mandate detail
             }
             else {
                 foreach (object myidupb in upb) {
@@ -1286,14 +1282,10 @@ namespace expense_wizardinvoicedetailnomandate {
             int esercizio = Convert.ToInt32(Meta.GetSys("esercizio"));
             string filter = QHS.CmpEq("idexp", idexp_selected);
             Conn.RUN_SELECT_INTO_TABLE(DS.expense, null, filter, null, false);
-            Conn.RUN_SELECT_INTO_TABLE(DS.expenseyear, null, QHS.AppAnd(filter, QHS.CmpEq("ayear", esercizio))
-                , null, false);
-            Conn.RUN_SELECT_INTO_TABLE(DS.expenseclawback, null, filter
-                , null, false);
-            Conn.RUN_SELECT_INTO_TABLE(DS.expenselast, null, filter
-                , null, false);
-            Conn.RUN_SELECT_INTO_TABLE(DS.expensesorted, null, filter
-                , null, false);
+            Conn.RUN_SELECT_INTO_TABLE(DS.expenseyear, null, QHS.AppAnd(filter, QHS.CmpEq("ayear", esercizio)) , null, false);
+            Conn.RUN_SELECT_INTO_TABLE(DS.expenseclawback, null, filter, null, false);
+            Conn.RUN_SELECT_INTO_TABLE(DS.expenselast, null, filter, null, false);
+            Conn.RUN_SELECT_INTO_TABLE(DS.expensesorted, null, filter, null, false);
             if (DS.expense.Rows.Count > 0) {
                 DataRow Inv = DS.invoice.Rows[0];
                 DataRow CurrExp = DS.expense.Rows[0];
@@ -1358,9 +1350,12 @@ namespace expense_wizardinvoicedetailnomandate {
             if (newcomputesorting == "S" && ! radioAddCont.Checked)  {         
                  GestioneClassificazioni ManageClassificazioni = new GestioneClassificazioni(Meta, null, null, null, null, null, null, null, null);
                  ManageClassificazioni.ClassificaTramiteClassDocumento(ga.DSP, DS);
-            }
+				 ManageClassificazioni.completaClassificazioniSiope(DS.expensesorted, ga.DSP);
+				 //Meta.FreshForm();
 
-            ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
+			}
+
+			ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
             bool res = ga.GeneraAutomatismiAfterPost(true);
             if (!res) {
                 MessageBox.Show(this,
@@ -1503,11 +1498,9 @@ namespace expense_wizardinvoicedetailnomandate {
         decimal GetIVADettagliFattura(DataRow[] SelectedRows) {
             if (DS.invoice.Rows.Count == 0)
                 return 0;
-            decimal tassocambio;
-            DataRow Fattura = DS.invoice.Rows[0];
-            tassocambio = CfgFn.GetNoNullDecimal(Fattura["exchangerate"]);
-            if (tassocambio == 0) tassocambio = 1;
 
+            DataRow Fattura = DS.invoice.Rows[0];
+             
             decimal imposta = 0;
             DataRow[] ToConsider = new DataRow[0];
             int CurrCausaleIva = GetCausaleIva();
@@ -1517,7 +1510,7 @@ namespace expense_wizardinvoicedetailnomandate {
             foreach (DataRow R in SelectedRows) {
                 if (R.RowState == DataRowState.Deleted) continue;
                 decimal R_imposta = CfgFn.GetNoNullDecimal(R["tax"]);
-                imposta += CfgFn.RoundValuta(R_imposta*tassocambio);
+                imposta += CfgFn.RoundValuta(R_imposta);
             }
 
             return imposta;
@@ -2656,4 +2649,4 @@ namespace expense_wizardinvoicedetailnomandate {
         }
     }
 
-}
+}

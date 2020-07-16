@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -170,7 +167,7 @@ namespace income_wizardinvoicedetailnoestimate {
         #endregion
 
         public void MetaData_AfterActivation() {
-            CustomTitle = "Wizard Contabilizzazione Dettagli Fattuta Vendita non associati a Contratto Attivo";
+            CustomTitle = "Wizard Contabilizzazione Dettagli Fattura Vendita non associati a Contratto Attivo";
             DisplayTabs(0);
         }
 
@@ -1050,6 +1047,7 @@ namespace income_wizardinvoicedetailnoestimate {
             }
 
             DataRow[] Selected = GetGridSelectedRows(gridDetails);
+
             object idupb = DBNull.Value;
             object[] upb = ValoriDiversi(Selected, "idupb");
             object[] upb_iva = ValoriDiversi(Selected, "idupb_iva");
@@ -1098,7 +1096,7 @@ namespace income_wizardinvoicedetailnoestimate {
 
             FrmAskInfo F = new FrmAskInfo(Meta, "E", upbToSelect)
                 .SetManager(idman_start)
-                .SetUPB(DBNull.Value)
+                .SetUPB(idupb)
                 .EnableManagerSelection(idman_start != DBNull.Value)
                 .EnableFilterAvailable(amount)
                 .EnableUPBSelection(upbToSelect);
@@ -1219,7 +1217,9 @@ namespace income_wizardinvoicedetailnoestimate {
             if (newcomputesorting == "S" && !radioAddCont.Checked) {
                 ManageClassificazioni = new GestioneClassificazioni(Meta, null, null, null, null, null, null, null, null);
                 ManageClassificazioni.ClassificaTramiteClassDocumento(ga.DSP, DS);
-            }
+				ManageClassificazioni.completaClassificazioniSiope(DS.incomesorted, ga.DSP);
+				//Meta.FreshForm();
+			}
             ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
             bool res = ga.GeneraAutomatismiAfterPost(true);
             if (!res) {
@@ -2260,4 +2260,4 @@ namespace income_wizardinvoicedetailnoestimate {
         }
     }
 
-}
+}

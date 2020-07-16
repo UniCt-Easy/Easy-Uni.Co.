@@ -1,9 +1,9 @@
 ﻿<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
     <TemplateData>
-        <Name>Template per Metadato ok</Name>
+        <Name>Template Metadato 2019</Name>
         <Description>Metadato</Description>
         <ProjectType>CSharp</ProjectType>
-        <ProjectSubType>MetaData </ProjectSubType>
+        <ProjectSubType>MetaData</ProjectSubType>
         <SortOrder>1</SortOrder>
         <CreateInPlace>true</CreateInPlace>
         <CreateNewFolder>false</CreateNewFolder>
@@ -26,7 +26,7 @@
 
     </TemplateContent>
     <WizardExtension>
-        <Assembly>meta_vsix, Version=2.0.0, Culture=Neutral, PublicKeyToken=7ed04eb866c8e32c, Custom=null</Assembly>
+        <Assembly>meta_vsix, Version=2.0.0.0, Culture=Neutral, PublicKeyToken=7ed04eb866c8e32c,  processorArchitecture=MSIL</Assembly>
         <FullClassName>meta_vsix.WizardImplementation</FullClassName>
     </WizardExtension>
     

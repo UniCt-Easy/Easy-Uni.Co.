@@ -223,6 +223,10 @@
       <xs:field xpath="mstns:ytaxpay" />
       <xs:field xpath="mstns:ntaxpay" />
     </xs:unique>
+    <xs:unique name="taxpayexpenseview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:taxpayexpenseview" />
+      <xs:field xpath="mstns:idexp" />
+    </xs:unique>
     <xs:unique name="payedtaxview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:payedtaxview" />
       <xs:field xpath="mstns:idexp" />
@@ -238,9 +242,9 @@
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="taxpayexpensetaxcorrigeview" msdata:parent="taxpay" msdata:child="expensetaxcorrigeview" msdata:parentkey="ytaxpay ntaxpay" msdata:childkey="ytaxpay ntaxpay" />
-      <msdata:Relationship name="taxpay_payedtaxview" msdata:parent="taxpay" msdata:child="payedtaxview" msdata:parentkey="ytaxpay ntaxpay" msdata:childkey="ytaxpay ntaxpay" />
       <msdata:Relationship name="taxpaytaxpayexpenseview" msdata:parent="taxpay" msdata:child="taxpayexpenseview" msdata:parentkey="taxcode ytaxpay ntaxpay" msdata:childkey="taxcode ytaxpay ntaxpay" />
       <msdata:Relationship name="taxtaxpay" msdata:parent="tax" msdata:child="taxpay" msdata:parentkey="taxcode" msdata:childkey="taxcode" />
+      <msdata:Relationship name="taxpay_payedtaxview" msdata:parent="taxpay" msdata:child="payedtaxview" msdata:parentkey="ytaxpay ntaxpay" msdata:childkey="ytaxpay ntaxpay" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>
