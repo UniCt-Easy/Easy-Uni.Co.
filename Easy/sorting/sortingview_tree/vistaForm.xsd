@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistafrmClassMovimentiViewTreeSelect.xsd" xmlns:mstns="http://tempuri.org/VistafrmClassMovimentiViewTreeSelect.xsd" xmlns="http://tempuri.org/VistafrmClassMovimentiViewTreeSelect.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistafrmClassMovimentiViewTreeSelect.xsd" xmlns:mstns="http://tempuri.org/VistafrmClassMovimentiViewTreeSelect.xsd" xmlns="http://tempuri.org/VistafrmClassMovimentiViewTreeSelect.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -36,6 +36,11 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="start" type="xs:short" minOccurs="0" />
               <xs:element name="stop" type="xs:short" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -51,15 +56,11 @@
       <xs:field xpath="mstns:idsorkind" />
       <xs:field xpath="mstns:idsor" />
     </xs:unique>
-    <xs:keyref name="sortingviewsortingview" refer="sortingview_Constraint1">
-      <xs:selector xpath=".//mstns:sortingview" />
-      <xs:field xpath="mstns:idsorkind" />
-      <xs:field xpath="mstns:paridsor" />
-    </xs:keyref>
-    <xs:keyref name="sortinglevelsortingview" refer="Constraint1">
-      <xs:selector xpath=".//mstns:sortingview" />
-      <xs:field xpath="mstns:nlevel" />
-      <xs:field xpath="mstns:idsorkind" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="sortinglevelsortingview" msdata:parent="sortinglevel" msdata:child="sortingview" msdata:parentkey="nlevel idsorkind" msdata:childkey="nlevel idsorkind" />
+      <msdata:Relationship name="sortingviewsortingview" msdata:parent="sortingview" msdata:child="sortingview" msdata:parentkey="idsorkind idsor" msdata:childkey="idsorkind paridsor" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

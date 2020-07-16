@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -140,8 +137,8 @@ namespace siopeplus_functions {
                 //qui vanno messi gli items
                 if (R["tipo_documento_siope"].ToString() == "ELETTRONICO") {
                     FF.tipo_documento_siope_e = FF.tipo_documento_siope_e = pagamenti.stTipo_documento_elettronico.ELETTRONICO;
-                    FF.identificativo_lotto_sdi_siope = CfgFn.GetNoNullInt32(R["identificativo_lotto_sdi_siope"]);
-                }
+                    FF.identificativo_lotto_sdi_siope = CfgFn.GetNoNullInt64(R["identificativo_lotto_sdi_siope"]);
+                 }
                 if (R["tipo_documento_siope"].ToString() == "ANALOGICO") {
                     FF.tipo_documento_siope_a = pagamenti.stTipo_documento_analogico.ANALOGICO;
                     switch (R["tipo_documento_analogico_siope"].ToString()) {
@@ -160,7 +157,7 @@ namespace siopeplus_functions {
                     case "CAPITALE": FF.dati_fattura_siope.natura_spesa_siope = pagamenti.ctDati_fattura_siopeNatura_spesa_siope.CAPITALE; break;
                 }
 
-                if (R["data_scadenza_pagam_siope"] != null) {
+                if (R["data_scadenza_pagam_siope"] != DBNull.Value) {
                     DateTime data_scadenza_pagam_siope = DateTime.Now;
                     DateTime.TryParse(R["data_scadenza_pagam_siope"].ToString(), out data_scadenza_pagam_siope);
                     FF.dati_fattura_siope.data_scadenza_pagam_siope = data_scadenza_pagam_siope;
@@ -188,7 +185,23 @@ namespace siopeplus_functions {
             return FF;
 
         }
-
+        public pagamenti.ctClassificazione_dati_siope_usciteDati_ARCONET_siope get_arconet_uscite(DataRow R) {
+            pagamenti.ctClassificazione_dati_siope_usciteDati_ARCONET_siope arconet_uscite = new pagamenti.ctClassificazione_dati_siope_usciteDati_ARCONET_siope();
+            arconet_uscite.codice_missione_siope = R["codice_missione_siope"].ToString();
+            arconet_uscite.codice_programma_siope = R["codice_programma_siope"].ToString();
+            arconet_uscite.codice_economico_siope = R["codice_economico_siope"].ToString();
+            arconet_uscite.importo_codice_economico_siope = CfgFn.GetNoNullDecimal(R["importo_codice_economico_siope"]);
+            arconet_uscite.codice_UE_siope = R["codice_UE_siope"].ToString();
+            arconet_uscite.cofog_siope.codice_cofog_siope = R["codice_cofog_siope"].ToString();
+            arconet_uscite.cofog_siope.importo_cofog_siope = CfgFn.GetNoNullDecimal(R["importo_cofog_siope"]);
+            return arconet_uscite;
+        }
+        //public pagamenti.ctClassificazione_dati_siope_usciteDati_ARCONET_siopeCofog_siope get_arconet_cofog(DataRow R) {
+        //    pagamenti.ctClassificazione_dati_siope_usciteDati_ARCONET_siopeCofog_siope arconet_cofog = new pagamenti.ctClassificazione_dati_siope_usciteDati_ARCONET_siopeCofog_siope();
+        //    arconet_cofog.codice_cofog_siope = R["codice_cofog_siope"].ToString();
+        //    arconet_cofog.importo_cofog_siope = CfgFn.GetNoNullDecimal(R["importo_cofog_siope"]);
+        //    return arconet_cofog;
+        //}
         public pagamenti.ctClassificazione_dati_siope_uscite get_classificazione_usciteIntestazione(DataRow R) {
             pagamenti.ctClassificazione_dati_siope_uscite ClassDatiSiope = new pagamenti.ctClassificazione_dati_siope_uscite();
             //Enum
@@ -256,6 +269,13 @@ namespace siopeplus_functions {
                     ClassDatiSiope.fattura_siope.Add(FF);
                 }
 
+            }
+            foreach(var item in Arconet_perIdexpIdsor) {
+                var itemKey = item.Key;
+                string[] ArrItemKey = itemKey.Split('_');
+                string itemIdexpIdsor = ArrItemKey[0].ToString() + '_' + ArrItemKey[1].ToString();
+                if (itemIdexpIdsor != idexp_idsor) continue;
+                ClassDatiSiope.dati_ARCONET_siope  = Arconet_perIdexpIdsor[itemIdexpIdsor];
             }
                 CC.classificazione_dati_siope_uscite = ClassDatiSiope;
             return CC;
@@ -515,6 +535,12 @@ namespace siopeplus_functions {
             //}
             pagamenti.informazioni_aggiuntive IA = new pagamenti.informazioni_aggiuntive();
             IA.riferimento_documento_esterno = GetStringValue(R["riferimento_documento_esterno"]);
+            if (R["tipo_pagamento"].ToString() == "AVVISOPAGOPA") {
+                var AvvPagoPa = new pagamenti.ctAvviso_pagoPA();
+                AvvPagoPa.numero_avviso = GetStringValue(R["numero_avviso_pagopa"]);
+                AvvPagoPa.codice_identificativo_ente = GetStringValue(R["codice_fiscale_beneficiario"]);
+                IA.avviso_pagoPA = AvvPagoPa;
+            }
             Rinfomazioni_beneficiario.informazioni_aggiuntive = IA;
             return Rinfomazioni_beneficiario;
         }
@@ -527,6 +553,9 @@ namespace siopeplus_functions {
         /// 
 
         Dictionary<string, pagamenti.ctFattura_siope> FatturaSiope_perIdexpIdsorFatt = new Dictionary<string, pagamenti.ctFattura_siope>();
+        Dictionary<string, pagamenti.ctClassificazione_dati_siope_usciteDati_ARCONET_siope> Arconet_perIdexpIdsor = new Dictionary<string, pagamenti.ctClassificazione_dati_siope_usciteDati_ARCONET_siope>();
+        Dictionary<string, incassi.ctClassificazione_dati_siope_entrateDati_ARCONET_siope> Arconet_perIdincIdsor = new Dictionary<string, incassi.ctClassificazione_dati_siope_entrateDati_ARCONET_siope>();
+        //Dictionary<string, pagamenti.ctClassificazione_dati_siope_usciteDati_ARCONET_siopeCofog_siope> ArconetCofog_perIdexpIdsorPxCof = new Dictionary<string, pagamenti.ctClassificazione_dati_siope_usciteDati_ARCONET_siopeCofog_siope>();
         Dictionary<string, pagamenti.ctClassificazione_dati_siope_uscite> ClassDatiSiopeIntestazione_perIdexpIdsorFatt = 
             new Dictionary<string, pagamenti.ctClassificazione_dati_siope_uscite>();
 
@@ -571,6 +600,15 @@ namespace siopeplus_functions {
                 if (R["kind"].ToString().Trim() == "CLASSIFICAZIONI") {
                     var ClassFattIntestazione = get_classificazione_usciteIntestazione(R);
                     ClassDatiSiopeIntestazione_perIdexpIdsorFatt[idexp_idsor] = ClassFattIntestazione;
+                }
+                if (R["kind"].ToString().Trim() == "ARCONET") {
+                    string programma = R["codice_programma_siope"].ToString();
+                    var Arconet = get_arconet_uscite(R);
+                    Arconet_perIdexpIdsor[idexp_idsor] = Arconet;
+
+                    //string idexp_idsor_px_cofog = idexp_idsor_px + '_' + R["codice_cofog_siope"].ToString(); ;
+                    //var ArconetCofog = get_arconet_cofog(R);
+                    //ArconetCofog_perIdexpIdsorPxCof[idexp_idsor_px_cofog] = ArconetCofog;
                 }
             }
 
@@ -739,7 +777,7 @@ namespace siopeplus_functions {
                 //qui vanno messi gli items
                 if (R["tipo_documento_siope"].ToString() == "ELETTRONICO") {
                     FF.tipo_documento_siope_e = FF.tipo_documento_siope_e = incassi.stTipo_documento_elettronico.ELETTRONICO;
-                    FF.identificativo_lotto_sdi_siope = CfgFn.GetNoNullInt32(R["identificativo_lotto_sdi_siope"]);
+                    FF.identificativo_lotto_sdi_siope = CfgFn.GetNoNullInt64(R["identificativo_lotto_sdi_siope"]);
                 }
                 if (R["tipo_documento_siope"].ToString() == "ANALOGICO") {
                     FF.tipo_documento_siope_a = incassi.stTipo_documento_analogico.ANALOGICO;
@@ -763,7 +801,7 @@ namespace siopeplus_functions {
                     case "CAPITALE": FF.dati_fattura_siope.natura_spesa_siope = incassi.ctDati_fattura_siopeNatura_spesa_siope.CAPITALE; break;
                 }
 
-                if (R["data_scadenza_pagam_siope"] != null) {
+                if (R["data_scadenza_pagam_siope"] != DBNull.Value) {
                     DateTime data_scadenza_pagam_siope = DateTime.Now;
                     DateTime.TryParse(R["data_scadenza_pagam_siope"].ToString(), out data_scadenza_pagam_siope);
                     FF.dati_fattura_siope.data_scadenza_pagam_siope = data_scadenza_pagam_siope;
@@ -790,6 +828,14 @@ namespace siopeplus_functions {
             }
 
             return FF;
+        }
+
+        public incassi.ctClassificazione_dati_siope_entrateDati_ARCONET_siope get_arconet_entrate(DataRow R) {
+            incassi.ctClassificazione_dati_siope_entrateDati_ARCONET_siope arconet_entrate = new incassi.ctClassificazione_dati_siope_entrateDati_ARCONET_siope();
+            arconet_entrate.codice_economico_siope = R["codice_economico_siope"].ToString();
+            arconet_entrate.importo_codice_economico_siope = CfgFn.GetNoNullDecimal(R["importo_codice_economico_siope"]);
+            arconet_entrate.codice_UE_siope = R["codice_UE_siope"].ToString();
+            return arconet_entrate;
         }
 
         public incassi.ctClassificazione_dati_siope_entrate get_classificazione_entrateIntestazione(DataRow R) {
@@ -907,7 +953,13 @@ namespace siopeplus_functions {
             //            FF = null;
             //            ClassDatiSiope.fattura_siope = FF;
             //        }
-
+            foreach (var item in Arconet_perIdincIdsor) {
+                var itemKey = item.Key;
+                string[] ArrItemKey = itemKey.Split('_');
+                string itemIdincIdsor = ArrItemKey[0].ToString() + '_' + ArrItemKey[1].ToString();
+                if (itemIdincIdsor != idinc_idsor) continue;
+                ClassDatiSiope.dati_ARCONET_siope = Arconet_perIdincIdsor[itemIdincIdsor];
+            }
             CC.classificazione_dati_siope_entrate = ClassDatiSiope;
             return CC;
         }
@@ -1015,9 +1067,10 @@ namespace siopeplus_functions {
             foreach (DataRow R in T.Rows) {
                 if (R.RowState == DataRowState.Deleted) continue;
                 string codice_cge = R["codice_cge"].ToString();
+                string motivo_scadenza_siope = R["motivo_scadenza_siope"].ToString();
                 int idinc = CfgFn.GetNoNullInt32(R["idinc"]);
                 string numero_fattura_siope = R["numero_fattura_siope"].ToString();//da sostituire con yinv_ninv_idinvkind
-                string idinc_idsor_fatt = idinc.ToString() + '_' + codice_cge + '_' + numero_fattura_siope;
+                string idinc_idsor_fatt = idinc.ToString() + '_' + codice_cge + '_' + numero_fattura_siope+'_'+ motivo_scadenza_siope;
                 if (R["kind"].ToString().Trim() == "CLASSIFICAZIONI_FATTURASIOPE") {
                     var FattSiope = get_classificazione_fatture_entrate(R);
                     FatturaSiope_perIdincIdsorFatt[idinc_idsor_fatt] = FattSiope;
@@ -1028,6 +1081,10 @@ namespace siopeplus_functions {
                 if (R["kind"].ToString().Trim() == "CLASSIFICAZIONI") {
                     var ClassFattIntestazione = get_classificazione_entrateIntestazione(R);
                     ClassDatiSiopeIntestazione_perIdincIdsorFatt[idinc_idsor] = ClassFattIntestazione;
+                }
+                if (R["kind"].ToString().Trim() == "ARCONET") {
+                    var Arconet = get_arconet_entrate(R);
+                    Arconet_perIdincIdsor[idinc_idsor] = Arconet;
                 }
             }
 
@@ -1138,4 +1195,3 @@ namespace siopeplus_functions {
 
     }
 }
-

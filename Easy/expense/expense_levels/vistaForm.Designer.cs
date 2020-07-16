@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -55,7 +52,7 @@ using metadatalibrary;
 namespace expense_levels {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -427,6 +424,9 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable invoicedetail_taxable_nc 		=> (MetaTable)Tables["invoicedetail_taxable_nc"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable income_linked 		=> (MetaTable)Tables["income_linked"];
+
 	#endregion
 
 
@@ -454,7 +454,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// EXPENSE /////////////////////////////////
 	var texpense= new expenseTable();
-	texpense.addBaseColumns("idexp","nphase","ymov","nmov","parentidexp","idreg","idman","doc","docdate","description","expiration","adate","txt","rtf","cu","ct","lu","lt","idclawback","autokind","autocode","idformerexpense","idpayment","cupcode","cigcode","external_reference");
+	texpense.addBaseColumns("idexp","nphase","ymov","nmov","parentidexp","idreg","idman","doc","docdate","description","expiration","adate","txt","rtf","cu","ct","lu","lt","idclawback","autokind","autocode","idformerexpense","idpayment","cupcode","cigcode","external_reference","idinc_linked");
 	Tables.Add(texpense);
 	texpense.defineKey("idexp");
 
@@ -634,7 +634,7 @@ private void initClass() {
 
 	//////////////////// SORTINGKIND /////////////////////////////////
 	var tsortingkind= new sortingkindTable();
-	tsortingkind.addBaseColumns("active","ct","cu","description","flagdate","forcedN1","forcedN2","forcedN3","forcedN4","forcedN5","forcedS1","forcedS2","forcedS3","forcedS4","forcedS5","forcedv1","forcedv2","forcedv3","forcedv4","forcedv5","labelfordate","labeln1","labeln2","labeln3","labeln4","labeln5","labels1","labels2","labels3","labels4","labels5","labelv1","labelv2","labelv3","labelv4","labelv5","lockedN1","lockedN2","lockedN3","lockedN4","lockedN5","lockedS1","lockedS2","lockedS3","lockedS4","lockedS5","lockedv1","lockedv2","lockedv3","lockedv4","lockedv5","lt","lu","nodatelabel","totalexpression","nphaseexpense","nphaseincome","codesorkind","idsorkind","flag");
+	tsortingkind.addBaseColumns("active","ct","cu","description","flagdate","forcedN1","forcedN2","forcedN3","forcedN4","forcedN5","forcedS1","forcedS2","forcedS3","forcedS4","forcedS5","forcedv1","forcedv2","forcedv3","forcedv4","forcedv5","labelfordate","labeln1","labeln2","labeln3","labeln4","labeln5","labels1","labels2","labels3","labels4","labels5","labelv1","labelv2","labelv3","labelv4","labelv5","lockedN1","lockedN2","lockedN3","lockedN4","lockedN5","lockedS1","lockedS2","lockedS3","lockedS4","lockedS5","lockedv1","lockedv2","lockedv3","lockedv4","lockedv5","lt","lu","nodatelabel","totalexpression","nphaseexpense","nphaseincome","codesorkind","idsorkind","flag","allowedS1","allowedS2","allowedS3","allowedS4","allowedS5");
 	tsortingkind.defineColumn("!importo", typeof(decimal));
 	Tables.Add(tsortingkind);
 	tsortingkind.defineKey("idsorkind");
@@ -663,7 +663,7 @@ private void initClass() {
 
 	//////////////////// MANDATE /////////////////////////////////
 	var tmandate= new mandateTable();
-	tmandate.addBaseColumns("idmankind","yman","nman","idreg","registryreference","description","idman","deliveryexpiration","deliveryaddress","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","officiallyprinted","cu","ct","lu","lt","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","applierannotations","idmandatestatus","cigcode","idsor01","idsor02","idsor03","idsor04","idsor05","requested_doc");
+	tmandate.addBaseColumns("idmankind","yman","nman","idreg","registryreference","description","idman","deliveryexpiration","deliveryaddress","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","officiallyprinted","cu","ct","lu","lt","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","applierannotations","idmandatestatus","cigcode","idsor01","idsor02","idsor03","idsor04","idsor05","requested_doc","flagbit");
 	Tables.Add(tmandate);
 	tmandate.defineKey("idmankind", "yman", "nman");
 
@@ -815,7 +815,7 @@ private void initClass() {
 
 	//////////////////// PAYROLL /////////////////////////////////
 	var tpayroll= new payrollTable();
-	tpayroll.addBaseColumns("idpayroll","fiscalyear","npayroll","flagbalance","disbursementdate","idresidence","workingdays","feegross","flagcomputed","idcon","currentrounding","lu","lt","cu","ct","enabletaxrelief","start","stop","netfee");
+	tpayroll.addBaseColumns("idpayroll","fiscalyear","npayroll","flagbalance","disbursementdate","idresidence","workingdays","feegross","flagcomputed","idcon","currentrounding","lu","lt","cu","ct","enabletaxrelief","start","stop","netfee","idupb");
 	Tables.Add(tpayroll);
 	tpayroll.defineKey("idpayroll");
 
@@ -1280,7 +1280,7 @@ private void initClass() {
 
 	//////////////////// EXPENSELAST /////////////////////////////////
 	var texpenselast= new expenselastTable();
-	texpenselast.addBaseColumns("idexp","cc","cin","flag","iban","idbank","idcab","iddeputy","idpaymethod","idser","ivaamount","kpay","paymentdescr","servicestart","servicestop","nbill","idpay","idregistrypaymethod","refexternaldoc","cu","ct","lu","lt","idaccdebit","biccode","paymethod_flag","paymethod_allowdeputy","extracode","idchargehandling");
+	texpenselast.addBaseColumns("idexp","cc","cin","flag","iban","idbank","idcab","iddeputy","idpaymethod","idser","ivaamount","kpay","paymentdescr","servicestart","servicestop","nbill","idpay","idregistrypaymethod","refexternaldoc","cu","ct","lu","lt","idaccdebit","biccode","paymethod_flag","paymethod_allowdeputy","extracode","idchargehandling","pagopanoticenum");
 	Tables.Add(texpenselast);
 	texpenselast.defineKey("idexp");
 
@@ -1313,7 +1313,7 @@ private void initClass() {
 
 	//////////////////// CONFIG /////////////////////////////////
 	var tconfig= new configTable();
-	tconfig.addBaseColumns("ayear","agencycode","appname","appropriationphasecode","assessmentphasecode","asset_flagnumbering","asset_flagrestart","assetload_flag","boxpartitiontitle","casualcontract_flagrestart","ct","cu","currpartitiontitle","deferredexpensephase","deferredincomephase","electronicimport","electronictrasmission","expense_expiringdays","expensephase","flagautopayment","flagautoproceeds","flagcredit","flagepexp","flagfruitful","flagpayment","flagproceeds","flagrefund","foreignhours","idacc_accruedcost","idacc_accruedrevenue","idacc_customer","idacc_deferredcost","idacc_deferredcredit","idacc_deferreddebit","idacc_deferredrevenue","idacc_ivapayment","idacc_ivarefund","idacc_patrimony","idacc_pl","idacc_supplier","idaccmotive_admincar","idaccmotive_foot","idaccmotive_owncar","idclawback","idfinexpense","idfinexpensesurplus","idfinincomesurplus","idfinivapayment","idfinivarefund","idregauto","importappname","income_expiringdays","incomephase","linktoinvoice","lt","lu","minpayment","minrefund","motivelen","motiveprefix","motiveseparator","payment_finlevel","payment_flag","payment_flagautoprintdate","paymentagency","prevpartitiontitle","proceeds_finlevel","proceeds_flag","proceeds_flagautoprintdate","profservice_flagrestart","refundagency","wageaddition_flagrestart","idivapayperiodicity","idsortingkind1","idsortingkind2","idsortingkind3","fin_kind","taxvaliditykind","flag_paymentamount","automanagekind","flag_autodocnumbering","flagbank_grouping","cashvaliditykind");
+	tconfig.addBaseColumns("ayear","agencycode","appname","appropriationphasecode","assessmentphasecode","asset_flagnumbering","asset_flagrestart","assetload_flag","boxpartitiontitle","casualcontract_flagrestart","ct","cu","currpartitiontitle","deferredexpensephase","deferredincomephase","electronicimport","electronictrasmission","expense_expiringdays","expensephase","flagautopayment","flagautoproceeds","flagcredit","flagepexp","flagfruitful","flagpayment","flagproceeds","flagrefund","foreignhours","idacc_accruedcost","idacc_accruedrevenue","idacc_customer","idacc_deferredcost","idacc_deferredcredit","idacc_deferreddebit","idacc_deferredrevenue","idacc_ivapayment","idacc_ivarefund","idacc_patrimony","idacc_pl","idacc_supplier","idaccmotive_admincar","idaccmotive_foot","idaccmotive_owncar","idclawback","idfinexpense","idfinexpensesurplus","idfinincomesurplus","idfinivapayment","idfinivarefund","idregauto","importappname","income_expiringdays","incomephase","linktoinvoice","lt","lu","minpayment","minrefund","motivelen","motiveprefix","motiveseparator","payment_finlevel","payment_flag","payment_flagautoprintdate","paymentagency","prevpartitiontitle","proceeds_finlevel","proceeds_flag","proceeds_flagautoprintdate","profservice_flagrestart","refundagency","wageaddition_flagrestart","idivapayperiodicity","idsortingkind1","idsortingkind2","idsortingkind3","fin_kind","taxvaliditykind","flag_paymentamount","automanagekind","flag_autodocnumbering","flagbank_grouping","cashvaliditykind","flag");
 	Tables.Add(tconfig);
 	tconfig.defineKey("ayear");
 
@@ -1732,6 +1732,35 @@ private void initClass() {
 	Tables.Add(tinvoicedetail_taxable_nc);
 	tinvoicedetail_taxable_nc.defineKey("ninv", "rownum", "yinv", "idinvkind");
 
+	//////////////////// INCOME_LINKED /////////////////////////////////
+	var tincome_linked= new MetaTable("income_linked");
+	tincome_linked.defineColumn("adate", typeof(DateTime),false);
+	tincome_linked.defineColumn("ct", typeof(DateTime),false);
+	tincome_linked.defineColumn("cu", typeof(string),false);
+	tincome_linked.defineColumn("description", typeof(string),false);
+	tincome_linked.defineColumn("doc", typeof(string));
+	tincome_linked.defineColumn("docdate", typeof(DateTime));
+	tincome_linked.defineColumn("expiration", typeof(DateTime));
+	tincome_linked.defineColumn("idreg", typeof(int));
+	tincome_linked.defineColumn("lt", typeof(DateTime),false);
+	tincome_linked.defineColumn("lu", typeof(string),false);
+	tincome_linked.defineColumn("nmov", typeof(int),false);
+	tincome_linked.defineColumn("rtf", typeof(Byte[]));
+	tincome_linked.defineColumn("txt", typeof(string));
+	tincome_linked.defineColumn("ymov", typeof(short),false);
+	tincome_linked.defineColumn("idpayment", typeof(int));
+	tincome_linked.defineColumn("idinc", typeof(int),false);
+	tincome_linked.defineColumn("parentidinc", typeof(int));
+	tincome_linked.defineColumn("nphase", typeof(byte),false);
+	tincome_linked.defineColumn("idman", typeof(int));
+	tincome_linked.defineColumn("autokind", typeof(byte));
+	tincome_linked.defineColumn("autocode", typeof(int));
+	tincome_linked.defineColumn("cupcode", typeof(string));
+	tincome_linked.defineColumn("idunderwriting", typeof(int));
+	tincome_linked.defineColumn("external_reference", typeof(string));
+	Tables.Add(tincome_linked);
+	tincome_linked.defineKey("idinc");
+
 	#endregion
 
 
@@ -1861,9 +1890,12 @@ private void initClass() {
 	cChild = new []{invoicedetail_taxable_nc.Columns["idexp_iva"], invoicedetail_taxable_nc.Columns["idinvkind"], invoicedetail_taxable_nc.Columns["yinv"], invoicedetail_taxable_nc.Columns["ninv"]};
 	Relations.Add(new DataRelation("expensevar_invoicedetail_taxable_nc1",cPar,cChild,false));
 
+	cPar = new []{income_linked.Columns["idinc"]};
+	cChild = new []{expense.Columns["idinc_linked"]};
+	Relations.Add(new DataRelation("income_expense",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

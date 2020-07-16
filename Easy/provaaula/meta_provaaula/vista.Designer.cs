@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -54,16 +51,27 @@ public class provaaulaRow: MetaRow  {
 	///<summary>
 	///Aula
 	///</summary>
-	public Int32? idlocation_aula{ 
-		get {if (this["idlocation_aula"]==DBNull.Value)return null; return  (Int32?)this["idlocation_aula"];}
-		set {if (value==null) this["idlocation_aula"]= DBNull.Value; else this["idlocation_aula"]= value;}
+	public Int32? idaula{ 
+		get {if (this["idaula"]==DBNull.Value)return null; return  (Int32?)this["idaula"];}
+		set {if (value==null) this["idaula"]= DBNull.Value; else this["idaula"]= value;}
 	}
-	public object idlocation_aulaValue { 
-		get{ return this["idlocation_aula"];}
-		set {if (value==null|| value==DBNull.Value) this["idlocation_aula"]= DBNull.Value; else this["idlocation_aula"]= value;}
+	public object idaulaValue { 
+		get{ return this["idaula"];}
+		set {if (value==null|| value==DBNull.Value) this["idaula"]= DBNull.Value; else this["idaula"]= value;}
 	}
-	public Int32? idlocation_aulaOriginal { 
-		get {if (this["idlocation_aula",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idlocation_aula",DataRowVersion.Original];}
+	public Int32? idaulaOriginal { 
+		get {if (this["idaula",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idaula",DataRowVersion.Original];}
+	}
+	public Int32? idedificio{ 
+		get {if (this["idedificio"]==DBNull.Value)return null; return  (Int32?)this["idedificio"];}
+		set {if (value==null) this["idedificio"]= DBNull.Value; else this["idedificio"]= value;}
+	}
+	public object idedificioValue { 
+		get{ return this["idedificio"];}
+		set {if (value==null|| value==DBNull.Value) this["idedificio"]= DBNull.Value; else this["idedificio"]= value;}
+	}
+	public Int32? idedificioOriginal { 
+		get {if (this["idedificio",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idedificio",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Prova
@@ -78,6 +86,17 @@ public class provaaulaRow: MetaRow  {
 	}
 	public Int32? idprovaOriginal { 
 		get {if (this["idprova",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idprova",DataRowVersion.Original];}
+	}
+	public Int32? idsede{ 
+		get {if (this["idsede"]==DBNull.Value)return null; return  (Int32?)this["idsede"];}
+		set {if (value==null) this["idsede"]= DBNull.Value; else this["idsede"]= value;}
+	}
+	public object idsedeValue { 
+		get{ return this["idsede"];}
+		set {if (value==null|| value==DBNull.Value) this["idsede"]= DBNull.Value; else this["idsede"]= value;}
+	}
+	public Int32? idsedeOriginal { 
+		get {if (this["idsede",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsede",DataRowVersion.Original];}
 	}
 	public DateTime? lt{ 
 		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
@@ -112,12 +131,13 @@ public class provaaulaTable : MetaTableBase<provaaulaRow> {
 		baseColumns = new Dictionary<string, DataColumn>(){
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
 			{"cu",createColumn("cu",typeof(string),false,false)},
-			{"idlocation_aula",createColumn("idlocation_aula",typeof(int),false,false)},
+			{"idaula",createColumn("idaula",typeof(int),false,false)},
+			{"idedificio",createColumn("idedificio",typeof(int),false,false)},
 			{"idprova",createColumn("idprova",typeof(int),false,false)},
+			{"idsede",createColumn("idsede",typeof(int),false,false)},
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
 			{"lu",createColumn("lu",typeof(string),false,false)},
 		};
 	}
 }
 }
-

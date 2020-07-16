@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mainform", "mainform\mainform.csproj", "{E04C2CEF-078B-4B25-904C-6374C88E0EE7}"
 EndProject
@@ -21,6 +21,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_pettycashoperation", "pettycashoperation\meta_pettycashoperation\meta_pettycashoperation.csproj", "{32640655-D959-45F5-886A-F81744D423D9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pettycashoperation_default", "pettycashoperation\pettycashoperation_default\pettycashoperation_default.csproj", "{7314DCC5-0DCE-474A-AB6B-2EF365BC7FDD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C7F92C58-E58A-4695-AF23-A7B698DEC777} = {C7F92C58-E58A-4695-AF23-A7B698DEC777}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "utility", "unmanaged\utility\utility.csproj", "{0E8D2FD1-710C-4B75-9779-EC6CFD2ECC62}"
 EndProject
@@ -233,5 +236,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2045D3B1-E957-4FD1-A080-67521C2B89D8}
 	EndGlobalSection
 EndGlobal

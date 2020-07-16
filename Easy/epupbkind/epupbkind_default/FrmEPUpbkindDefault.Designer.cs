@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -99,6 +96,7 @@
             this.SubEntity_Perc = new System.Windows.Forms.RadioButton();
             this.SubEntity_cost = new System.Windows.Forms.RadioButton();
             this.DS = new epupbkind_default.vistaForm();
+            this.chekflag = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -194,6 +192,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chekflag);
             this.tabPage1.Controls.Add(this.groupBox13);
             this.tabPage1.Controls.Add(this.groupBox12);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -717,6 +716,17 @@
             this.DS.DataSetName = "vistaForm";
             this.DS.EnforceConstraints = false;
             // 
+            // chekflag
+            // 
+            this.chekflag.AutoSize = true;
+            this.chekflag.Location = new System.Drawing.Point(371, 300);
+            this.chekflag.Name = "chekflag";
+            this.chekflag.Size = new System.Drawing.Size(287, 17);
+            this.chekflag.TabIndex = 13;
+            this.chekflag.Tag = "epupbkind.flag:0";
+            this.chekflag.Text = "Considera preimpegni di budget ai fini dell\'assestamento";
+            this.chekflag.UseVisualStyleBackColor = true;
+            // 
             // FrmEPUpbkindDefault
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -734,6 +744,7 @@
             this.Text = "Tipo UPB ai fini economico patrimoniali";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.gBoxCausaleCosto.ResumeLayout(false);
             this.gBoxCausaleCosto.PerformLayout();
@@ -828,5 +839,6 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox txtCodiceContoRicavi;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox chekflag;
     }
-}
+}

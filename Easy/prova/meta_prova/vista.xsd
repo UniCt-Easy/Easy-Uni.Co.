@@ -8,8 +8,9 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
-              <xs:element name="dataora" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idappello" type="xs:int" minOccurs="0" />
               <xs:element name="idcommiss" type="xs:int" minOccurs="0" />
+              <xs:element name="idcorsostudio" type="xs:int" minOccurs="0" />
               <xs:element name="iddidprog" type="xs:int" minOccurs="0" />
               <xs:element name="idprova" type="xs:int" />
               <xs:element name="idquestionario" type="xs:int" minOccurs="0" />
@@ -17,7 +18,9 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="programma" type="xs:string" minOccurs="0" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

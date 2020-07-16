@@ -94,6 +94,11 @@
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="certinterestconflicts" type="xs:string" minOccurs="0" />
               <xs:element name="website_annulled" type="xs:string" minOccurs="0" />
+              <xs:element name="perla_error" type="xs:string" minOccurs="0" />
+              <xs:element name="dichiarazione_incarichi" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="codicepaipa" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceaooipa" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceuoipa" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -210,110 +215,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="serviceregistryview">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="yservreg" type="xs:int" />
-              <xs:element name="nservreg" type="xs:int" />
-              <xs:element name="id_service" type="xs:string" minOccurs="0" />
-              <xs:element name="employkind" type="xs:string" minOccurs="0" />
-              <xs:element name="iddepartment" type="xs:int" minOccurs="0" />
-              <xs:element name="department" type="xs:string" minOccurs="0" />
-              <xs:element name="is_annulled" type="xs:string" minOccurs="0" />
-              <xs:element name="is_delivered" type="xs:string" minOccurs="0" />
-              <xs:element name="is_changed" type="xs:string" minOccurs="0" />
-              <xs:element name="idconsultingkind" type="xs:string" minOccurs="0" />
-              <xs:element name="consultingkind" type="xs:string" minOccurs="0" />
-              <xs:element name="p_iva" type="xs:string" minOccurs="0" />
-              <xs:element name="cf" type="xs:string" minOccurs="0" />
-              <xs:element name="flagforeign" type="xs:string" minOccurs="0" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
-              <xs:element name="codcity" type="xs:string" minOccurs="0" />
-              <xs:element name="surname" type="xs:string" minOccurs="0" />
-              <xs:element name="forename" type="xs:string" minOccurs="0" />
-              <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="gender" type="xs:string" minOccurs="0" />
-              <xs:element name="referencesemester" type="xs:int" minOccurs="0" />
-              <xs:element name="pa_code" type="xs:string" minOccurs="0" />
-              <xs:element name="idacquirekind" type="xs:string" minOccurs="0" />
-              <xs:element name="acquirekind" type="xs:string" minOccurs="0" />
-              <xs:element name="idapcontractkind" type="xs:string" minOccurs="0" />
-              <xs:element name="apcontractkind" type="xs:string" minOccurs="0" />
-              <xs:element name="idfinancialactivity" type="xs:string" minOccurs="0" />
-              <xs:element name="financialactivity" type="xs:string" minOccurs="0" />
-              <xs:element name="description" type="xs:string" minOccurs="0" />
-              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="servicevariation" type="xs:string" minOccurs="0" />
-              <xs:element name="expectedamount" type="xs:decimal" />
-              <xs:element name="payment" type="xs:string" minOccurs="0" />
-              <xs:element name="ypay" type="xs:int" minOccurs="0" />
-              <xs:element name="idapmanager" type="xs:string" minOccurs="0" />
-              <xs:element name="apmanager" type="xs:string" minOccurs="0" />
-              <xs:element name="idapregistrykind" type="xs:string" minOccurs="0" />
-              <xs:element name="apregistrykind" type="xs:string" minOccurs="0" />
-              <xs:element name="idapactivitykind" type="xs:string" minOccurs="0" />
-              <xs:element name="apactivitykind" type="xs:string" minOccurs="0" />
-              <xs:element name="pa_cf" type="xs:string" minOccurs="0" />
-              <xs:element name="pa_title" type="xs:string" minOccurs="0" />
-              <xs:element name="authorizationdate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="officeduty" type="xs:string" minOccurs="0" />
-              <xs:element name="annotation" type="xs:string" minOccurs="0" />
-              <xs:element name="referencerule" type="xs:string" minOccurs="0" />
-              <xs:element name="idreg" type="xs:int" minOccurs="0" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="city" type="xs:string" minOccurs="0" />
-              <xs:element name="idrelated" type="xs:string" minOccurs="0" />
-              <xs:element name="is_blocked" type="xs:string" minOccurs="0" />
-              <xs:element name="regulation" type="xs:string" minOccurs="0" />
-              <xs:element name="idapfinancialactivity" type="xs:int" minOccurs="0" />
-              <xs:element name="apfinancialactivitycode" type="xs:string" minOccurs="0" />
-              <xs:element name="apfinancialactivity" type="xs:string" minOccurs="0" />
-              <xs:element name="expectationsdate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="rulespecifics" type="xs:string" minOccurs="0" />
-              <xs:element name="paragraph" type="xs:string" minOccurs="0" />
-              <xs:element name="article" type="xs:string" minOccurs="0" />
-              <xs:element name="articlenumber" type="xs:string" minOccurs="0" />
-              <xs:element name="referencedate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="idreferencerule" type="xs:string" minOccurs="0" />
-              <xs:element name="referenceruledescription" type="xs:string" minOccurs="0" />
-              <xs:element name="conferring_piva" type="xs:string" minOccurs="0" />
-              <xs:element name="conferring_forename" type="xs:string" minOccurs="0" />
-              <xs:element name="conferring_surname" type="xs:string" minOccurs="0" />
-              <xs:element name="conferring_flagforeign" type="xs:string" minOccurs="0" />
-              <xs:element name="conferring_birthdate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="conferring_gender" type="xs:string" minOccurs="0" />
-              <xs:element name="conferring_codcity" type="xs:string" minOccurs="0" />
-              <xs:element name="conferring_idcity" type="xs:int" minOccurs="0" />
-              <xs:element name="idconferring" type="xs:int" minOccurs="0" />
-              <xs:element name="conferring_city" type="xs:string" minOccurs="0" />
-              <xs:element name="employtime" type="xs:string" minOccurs="0" />
-              <xs:element name="idserviceregistrykind" type="xs:int" minOccurs="0" />
-              <xs:element name="serviceregistrykind" type="xs:string" minOccurs="0" />
-              <xs:element name="conferringstructure" type="xs:string" minOccurs="0" />
-              <xs:element name="ordinancelink" type="xs:string" minOccurs="0" />
-              <xs:element name="authorizingstructure" type="xs:string" minOccurs="0" />
-              <xs:element name="authorizinglink" type="xs:string" minOccurs="0" />
-              <xs:element name="actreference" type="xs:string" minOccurs="0" />
-              <xs:element name="announcementlink" type="xs:string" minOccurs="0" />
-              <xs:element name="otherservice" type="xs:string" minOccurs="0" />
-              <xs:element name="professionalservice" type="xs:string" minOccurs="0" />
-              <xs:element name="componentsvariable" type="xs:string" minOccurs="0" />
-              <xs:element name="notes" type="xs:string" minOccurs="0" />
-              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
-              <xs:element name="certinterestconflicts" type="xs:string" minOccurs="0" />
-              <xs:element name="website_annulled" type="xs:string" minOccurs="0" />
-              <xs:element name="flaghuman" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="registry">
           <xs:complexType>
             <xs:sequence>
@@ -392,6 +293,9 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="codicepaipa" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceaooipa" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceuoipa" type="xs:string" minOccurs="0" />
               <xs:element name="idsor01" type="xs:int" minOccurs="0" />
               <xs:element name="idsor02" type="xs:int" minOccurs="0" />
               <xs:element name="idsor03" type="xs:int" minOccurs="0" />

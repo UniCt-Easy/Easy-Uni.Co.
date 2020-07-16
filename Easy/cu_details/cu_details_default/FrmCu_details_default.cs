@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -2859,7 +2856,7 @@ namespace cu_details_default {
             if (tMod770 == null) return;
             if (ht == null) return;
             if (co == null) return;
-
+            Meta.closeDisabled = true;
             string cf = co.cf;
             string progr = co.progr;
            
@@ -2997,6 +2994,7 @@ namespace cu_details_default {
                 ht["printdate_g"] = "28";
                 ht["printdate_m"] = "02";
             }
+            Meta.closeDisabled = false;
         }
 
         List<Collaboratore> getListaCollaboratoriDaMod770(DataTable tMod770, bool recordH) {
@@ -3039,14 +3037,7 @@ namespace cu_details_default {
         }
 
         PdfString getPdfString(string s) {
-            if (s == null) return new PdfString("");
-            if (s == "") return new PdfString("");
-            //Encoding sourceEncoding = Encoding.Default;
-            //Encoding targetEncoding = Encoding.Unicode;
-            //byte[] sourceBytes = sourceEncoding.GetBytes(s);
-            //byte[] targetBytes = Encoding.Convert(sourceEncoding, targetEncoding, sourceBytes);
-            //string targetString = targetEncoding.GetString(targetBytes);
-            return new PdfString(s,PdfStringEncoding.PDFDocEncoding);
+            return new PdfString(s ?? "", PdfStringEncoding.PDFDocEncoding);
         }
 
         private bool generaStampa(bool recordH, DataTable tMod770) {
@@ -3056,7 +3047,7 @@ namespace cu_details_default {
             //    MessageBox.Show(this, "Questa procedura produce solo modelli cud per l'anno 2019", "Errore");
             //    return false;
             //}
-            if ((CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) <2015 )|| (CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"))>2019)) {
+            if ((CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) <2015 )|| (CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"))>2020)) {
                 MessageBox.Show(this, "Procedura non eseguibile nell'esercizio corrente.", "Errore");
                 return false;
             }
@@ -3108,14 +3099,17 @@ namespace cu_details_default {
                 if (!chkConIndirizzo.Checked ) {
                     int firstPage = 0;
                     // Voglio rimuovere la prima pagina
+                    document.Pages[firstPage].Elements.Clear();
                     document.Pages.RemoveAt(firstPage);
                     
                 }
                 if (!chkDonazione.Checked) {
                     int pageCount = document.PageCount;
                     // Voglio rimuovere la penultima e l'ultima pagina
+                    document.Pages[pageCount - 1].Elements.Clear();
                     document.Pages.RemoveAt(pageCount-1);
                     pageCount = document.PageCount;
+                    document.Pages[pageCount - 1].Elements.Clear();
                     document.Pages.RemoveAt(pageCount-1);
                 }
 
@@ -3164,8 +3158,8 @@ namespace cu_details_default {
                         var field = document.AcroForm.Fields[fieldName];
                         field.ReadOnly = true;
                     }
-                        int indexFromRemove = (recordH) ? 2 : 4;
-                    int indexToRemove = (recordH) ? 9 : 5;
+                        int indexFromRemove = (recordH) ? 2 : 5;
+                    int indexToRemove = (recordH) ? 9 : 6;
 
                     if (chkConIndirizzo.Checked) {
                         indexFromRemove++;
@@ -3176,6 +3170,7 @@ namespace cu_details_default {
                     //pagine inutilizzate da cancellare 
                     int nPages = indexToRemove - indexFromRemove + 1;
                     for (int i =0; i < nPages; i++) {
+                        document.Pages[indexFromRemove].Elements.Clear();
                         document.Pages.RemoveAt(indexFromRemove);
                     }
 
@@ -3222,7 +3217,7 @@ namespace cu_details_default {
             //    // return;
             //}
 
-            if ((CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) < 2015) || (CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) > 2019)) {
+            if ((CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) < 2015) || (CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) > 2020)) {
                 MessageBox.Show(this, "Procedura non eseguibile nell'esercizio corrente.", "Errore");
             }
 
@@ -3291,14 +3286,17 @@ namespace cu_details_default {
                 if (!chkConIndirizzo.Checked) {
                     int firstPage = 0;
                     // Voglio rimuovere la prima pagina
+                    document.Pages[firstPage].Elements.Clear();
                     document.Pages.RemoveAt(firstPage);
 
                 }
                 if (!chkDonazione.Checked) {
                     int pageCount = document.PageCount;
                     // Voglio rimuovere la penultima e l''ultima pagina
+                    document.Pages[pageCount - 1].Elements.Clear();
                     document.Pages.RemoveAt(pageCount - 1);
                     pageCount = document.PageCount;
+                    document.Pages[pageCount - 1].Elements.Clear();
                     document.Pages.RemoveAt(pageCount - 1);
                 }
 
@@ -3352,8 +3350,8 @@ namespace cu_details_default {
                         field.ReadOnly = true;  
                     }
 
-                    int indexFromRemove = (recordH) ? 2 : 4;
-                    int indexToRemove = (recordH) ? 9 : 5;
+                    int indexFromRemove = (recordH) ? 2 : 5;
+                    int indexToRemove = (recordH) ? 9 : 6;
 
                     if (chkConIndirizzo.Checked) {
                         indexFromRemove++;
@@ -3364,6 +3362,7 @@ namespace cu_details_default {
                     //pagine inutilizzate da cancellare 
                     int nPages = indexToRemove - indexFromRemove + 1;
                     for (int i = 0; i < nPages; i++) {
+                        document.Pages[indexFromRemove].Elements.Clear();
                         document.Pages.RemoveAt(indexFromRemove);
                     }
                     string nomeFile = getNomeCompleto(co.cf, co.progr.PadLeft(3, '0'), co.modulo, denominazione);
@@ -4063,4 +4062,4 @@ namespace cu_details_default {
             mData.Clear();
         }
     }
-}
+}

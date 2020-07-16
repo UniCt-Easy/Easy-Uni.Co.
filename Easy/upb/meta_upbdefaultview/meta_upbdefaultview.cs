@@ -1,26 +1,19 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Data;
 using metadatalibrary;
 using metaeasylibrary;
@@ -33,18 +26,11 @@ namespace meta_upbdefaultview
 	{
         public Meta_upbdefaultview(DataAccess Conn, MetaDataDispatcher Dispatcher) :
             base(Conn, Dispatcher, "upbdefaultview") {
+				Name = "Unità previsionali di base";
 			EditTypes.Add("default");
-            ListingTypes.Add("default");
-            //$EditTypes$
+			ListingTypes.Add("default");
+			//$EditTypes$
         }
-
-		/// <summary>
-		/// Impostare la chiave, serve per le viste, non per le tabelle!!
-		/// </summary>
-		//private string[] mykey = new string[] { "campo chiave" /*,...campi chiave*/ };
-		//public override string[] primaryKey() {
-		//    return mykey;
-		//}
 
 		private string[] mykey = new string[] {"idupb"};
 
@@ -52,66 +38,11 @@ namespace meta_upbdefaultview
 			return mykey;
 		}
 
-		//protected override Form GetForm(string FormName) {
-		//    //if (FormName == "default") {
-		//    //    DefaultListType = "default";
-		//    //    Name = "Descrizione Form";
-		//    //    return MetaData.GetFormByDllName("upbdefaultview_default");
-		//    //}
-		//    return null;
-		//}
+		//$SetDefault$
 
-		public override void SetDefaults(DataTable PrimaryTable) {
-			base.SetDefaults(PrimaryTable);
-			switch (edit_type) {
-					//$SetDefault$
-			}
-		}
+		//$Get_New_Row$
 
-		public override DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
-			//T.setMySelector("ntabella", "nphase", 0);  //campo nphase  è selettore per calcolo di ntabella
-			//T.setMySelector("ntabella", "ytabella", 0);//campo ytabella  è selettore per calcolo di ntabella
-			//T.setAutoincrement("ntabella", null, null, 0);  //ntabella è campo ad autoincremento
-			//T.setAutoincrement("idtabella", null, null, 0);  //idtabella è campo ad autoincremento
-
-			//T.setMinimumTempValue("idtabella", 999900000);     //Da impostare  in caso di pericolo di conflitto
-			//$Get_New_Row$
-			DataRow R = base.Get_New_Row(ParentRow, T);
-			return R;
-		}
-
-		/// <summary>
-		/// FilterRow, si usa per i grid filtrati
-		/// </summary>
-		/// <param name="R"></param>
-		/// <param name="list_type"></param>
-		/// <returns></returns>
-		//public override bool FilterRow(DataRow R, string list_type) {
-			//if (list_type == "form_contenitore") {
-			//    if (R["chiave contenitore"] == DBNull.Value) return false;
-			//    return true;
-			//}
-
-			//return true;
-		//}
-
-		public override bool IsValid(DataRow R, out string errmess, out string errfield) {
-			if (!base.IsValid(R, out errmess, out errfield)) return false;
-
-			switch (edit_type) {
-				//$IsValid$
-			}
-
-			return true;
-		}
-
-		//public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable Exclude) {
-			//if (ListingType == "lista")
-			//    return base.SelectOne(ListingType, filter, "upbdefaultviewview", Exclude);
-			//else
-			//return base.SelectOne(ListingType, filter, "upbdefaultview", Exclude);
-		//}
-
+		//$IsValid$
 
 		public override void DescribeColumns(DataTable T, string ListingType) {
 			base.DescribeColumns(T, ListingType);
@@ -129,50 +60,56 @@ namespace meta_upbdefaultview
 						DescribeAColumn(T, "upb_assured", "Finanziamento certo (Non gestire assegnazione crediti/incassi)", nPos++);
 						DescribeAColumn(T, "upb_cigcode", "Codice CIG, Codice identificativo di gara", nPos++);
 						DescribeAColumn(T, "upb_codeupb", "codice upb", nPos++);
+						DescribeAColumn(T, "upb_cofogmpcode", "Cofogmpcode", nPos++);
 						DescribeAColumn(T, "upb_cupcode", "Codice CUP, Codice unico di progetto", nPos++);
 						DescribeAColumn(T, "upb_expiration", "scadenza", nPos++);
 						DescribeAColumn(T, "upb_flag", "flag vari", nPos++);
 						DescribeAColumn(T, "upb_flagactivity", "Tipo attività", nPos++);
 						DescribeAColumn(T, "upb_flagkind", "Funzione", nPos++);
 						DescribeAColumn(T, "upb_granted", "Finanziamento concesso", nPos++);
-						DescribeAColumn(T, "epupbkind_title", "ID Tipo UPB nell'economico patrimoniale (tabella epupbkind)", nPos++);
+						if (T.Columns.Contains("upb_granted")) T.Columns["upb_granted"].ExtendedProperties["format"] = "fixed.2";
+						DescribeAColumn(T, "epupbkind_title", "Denominazione ID Tipo UPB nell'economico patrimoniale (tabella epupbkind)", nPos++);
+						DescribeAColumn(T, "epupbkind_description", "Descrizione ID Tipo UPB nell'economico patrimoniale (tabella epupbkind)", nPos++);
 						DescribeAColumn(T, "treasurer_description", "Id cassiere (tabella treasurer)", nPos++);
 						DescribeAColumn(T, "underwriter_description", "ID Ente finanziatore (tabella underwriter)", nPos++);
 						DescribeAColumn(T, "upb_newcodeupb", "Codice di consolidamento", nPos++);
 						DescribeAColumn(T, "upbparent_title", "chiave parent U.P.B. (tabella upb) ", nPos++);
 						DescribeAColumn(T, "upb_previousappropriation", "Totale impegnato pregresso (previa informatizzazione)", nPos++);
+						if (T.Columns.Contains("upb_previousappropriation")) T.Columns["upb_previousappropriation"].ExtendedProperties["format"] = "fixed.2";
 						DescribeAColumn(T, "upb_previousassessment", "Totale accertato pregresso (previa informatizzazione)", nPos++);
+						if (T.Columns.Contains("upb_previousassessment")) T.Columns["upb_previousassessment"].ExtendedProperties["format"] = "fixed.2";
 						DescribeAColumn(T, "upb_printingorder", "Ordine di stampa", nPos++);
 						DescribeAColumn(T, "upb_requested", "Finanziamento richiesto", nPos++);
+						if (T.Columns.Contains("upb_requested")) T.Columns["upb_requested"].ExtendedProperties["format"] = "fixed.2";
 						DescribeAColumn(T, "upb_rtf", "allegati", nPos++);
+						DescribeAColumn(T, "upb_ri_ra_quota", "Ri_ra_quota", nPos++);
+						if (T.Columns.Contains("upb_ri_ra_quota")) T.Columns["upb_ri_ra_quota"].ExtendedProperties["format"] = "fixed.6";
 						DescribeAColumn(T, "upb_start", "data inizio", nPos++);
+						DescribeAColumn(T, "upb_ri_rb_quota", "Ri_rb_quota", nPos++);
+						if (T.Columns.Contains("upb_ri_rb_quota")) T.Columns["upb_ri_rb_quota"].ExtendedProperties["format"] = "fixed.6";
 						DescribeAColumn(T, "upb_stop", "data fine", nPos++);
+						DescribeAColumn(T, "upb_ri_sa_quota", "Ri_sa_quota", nPos++);
+						if (T.Columns.Contains("upb_ri_sa_quota")) T.Columns["upb_ri_sa_quota"].ExtendedProperties["format"] = "fixed.6";
 						DescribeAColumn(T, "upb_txt", "note testuali", nPos++);
+						DescribeAColumn(T, "upb_uesiopecode", "Uesiopecode", nPos++);
 						break;
 					}
-				//$DescribeAColumn$
+					//$DescribeAColumn$
 			}
 		}
 
 		public override string GetSorting(string ListingType) {
-
 			switch (ListingType) {
 				case "default": {
-						return "epupbkind_title desc, upbparent_title desc, title desc";
+						return "title asc ";
 					}
 				//$GetSorting$
 			}
 			return base.GetSorting(ListingType);
 		}
 
-		public override string GetStaticFilter(string ListingType) {
-			switch (ListingType) {
-				//$GetStaticFilter$
-			}
-			return base.GetStaticFilter(ListingType);
-		}
+		//$GetStaticFilter$
 		
 		//$CustomCode$
     }
 }
-

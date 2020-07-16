@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -273,6 +270,7 @@ namespace mandate_default { //ordinegenerico//
         private CheckBox chkDurc;
         private CheckBox chkVisura;
         private CheckBox chkCCdedicato;
+        private CheckBox chkRecuperoIvaIntraExtra;
         string ConnectionString;
 
         public Frm_mandate_default() {
@@ -686,7 +684,7 @@ namespace mandate_default { //ordinegenerico//
             if (header.Length == 0) return "";
             return header[0]["description"].ToString();
         }
-
+        private bool recuperoIntraUEAttivo = false;
         public void MetaData_AfterActivation() {
             Conn = Meta.Conn;
             //FillConsipKindTab(DS.consipkind);
@@ -694,7 +692,10 @@ namespace mandate_default { //ordinegenerico//
             //FillConsipKindTab_ext(DS.consipkind_ext);
             //FillConsipKindComboTab(DS.consipkind_ext);
             initConsipLabel();
-
+            if (DS.config.Rows.Count > 0) {
+                int flag  =CfgFn.GetNoNullInt32(DS.config.First().flag);
+                if ((flag & 1) != 0) recuperoIntraUEAttivo = true;
+            }
         }
 
 
@@ -759,6 +760,7 @@ namespace mandate_default { //ordinegenerico//
             this.txtDataContabile = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Principale = new System.Windows.Forms.TabPage();
+            this.chkRecuperoIvaIntraExtra = new System.Windows.Forms.CheckBox();
             this.grpCertificatiNecessari = new System.Windows.Forms.GroupBox();
             this.chkDurc = new System.Windows.Forms.CheckBox();
             this.chkVisura = new System.Windows.Forms.CheckBox();
@@ -929,10 +931,10 @@ namespace mandate_default { //ordinegenerico//
             this.progressBarImport = new System.Windows.Forms.ProgressBar();
             this.CMenu = new System.Windows.Forms.ContextMenu();
             this.MenuEnterPwd = new System.Windows.Forms.MenuItem();
-            ((System.ComponentModel.ISupportInitialize) (this.DS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.gboxContratto.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.detailgrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.detailgrid)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -945,9 +947,9 @@ namespace mandate_default { //ordinegenerico//
             this.tabAnac.SuspendLayout();
             this.tabControlAnac.SuspendLayout();
             this.tabPartecipanti.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.gridAVCP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridAVCP)).BeginInit();
             this.tabLotti.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.gridLotti)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridLotti)).BeginInit();
             this.tabEsito.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -956,13 +958,13 @@ namespace mandate_default { //ordinegenerico//
             this.grpEsitoGara.SuspendLayout();
             this.tabDettagli.SuspendLayout();
             this.Classificazioni.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dgrClassificazioni)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgrClassificazioni)).BeginInit();
             this.tabEP.SuspendLayout();
             this.gBoxCausaleDebitoAggiornata.SuspendLayout();
             this.gBoxCausaleDebito.SuspendLayout();
             this.tabAnalitico.SuspendLayout();
             this.tabMagazzino.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.gridStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridStock)).BeginInit();
             this.gBoxMagazzino.SuspendLayout();
             this.tabAttributi.SuspendLayout();
             this.gboxclass05.SuspendLayout();
@@ -971,17 +973,17 @@ namespace mandate_default { //ordinegenerico//
             this.gboxclass02.SuspendLayout();
             this.gboxclass01.SuspendLayout();
             this.tabAllegati.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGrid1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
             this.tabConsip.SuspendLayout();
             this.tabRegistroUnico.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dgrPCC)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgrPCC)).BeginInit();
             this.grpRegistroUnico.SuspendLayout();
             this.tabAltro.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gboxStato.SuspendLayout();
             this.gboxAction.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.consipkindBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize) (this.mandatedetailBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.consipkindBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mandatedetailBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // DS
@@ -992,8 +994,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // btnSituazione
             // 
-            this.btnSituazione.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F,
-                System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.btnSituazione.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSituazione.Location = new System.Drawing.Point(308, 130);
             this.btnSituazione.Name = "btnSituazione";
             this.btnSituazione.Size = new System.Drawing.Size(100, 23);
@@ -1015,10 +1016,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtCredDeb
             // 
-            this.txtCredDeb.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCredDeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCredDeb.Location = new System.Drawing.Point(6, 16);
             this.txtCredDeb.Name = "txtCredDeb";
             this.txtCredDeb.Size = new System.Drawing.Size(401, 20);
@@ -1027,10 +1026,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // cmbTipoScadenza
             // 
-            this.cmbTipoScadenza.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbTipoScadenza.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbTipoScadenza.DataSource = this.DS.expirationkind;
             this.cmbTipoScadenza.DisplayMember = "description";
             this.cmbTipoScadenza.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1052,9 +1049,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtScadenza
             // 
-            this.txtScadenza.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.txtScadenza.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtScadenza.Location = new System.Drawing.Point(370, 16);
             this.txtScadenza.Name = "txtScadenza";
             this.txtScadenza.Size = new System.Drawing.Size(88, 20);
@@ -1064,9 +1059,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // label12
             // 
-            this.label12.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.Location = new System.Drawing.Point(300, 17);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(64, 16);
@@ -1085,10 +1078,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtRiferminento
             // 
-            this.txtRiferminento.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRiferminento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRiferminento.Location = new System.Drawing.Point(422, 59);
             this.txtRiferminento.Multiline = true;
             this.txtRiferminento.Name = "txtRiferminento";
@@ -1107,10 +1098,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtIndirizzoConsegna
             // 
-            this.txtIndirizzoConsegna.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtIndirizzoConsegna.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtIndirizzoConsegna.Location = new System.Drawing.Point(11, 35);
             this.txtIndirizzoConsegna.Multiline = true;
             this.txtIndirizzoConsegna.Name = "txtIndirizzoConsegna";
@@ -1121,9 +1110,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // TxtTermConsegna
             // 
-            this.TxtTermConsegna.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.TxtTermConsegna.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.TxtTermConsegna.Location = new System.Drawing.Point(312, 12);
             this.TxtTermConsegna.Name = "TxtTermConsegna";
             this.TxtTermConsegna.Size = new System.Drawing.Size(152, 20);
@@ -1132,9 +1119,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // label8
             // 
-            this.label8.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.Location = new System.Drawing.Point(254, 13);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(56, 16);
@@ -1162,10 +1147,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtDataDoc
             // 
-            this.txtDataDoc.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDataDoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDataDoc.Location = new System.Drawing.Point(296, 16);
             this.txtDataDoc.Name = "txtDataDoc";
             this.txtDataDoc.Size = new System.Drawing.Size(101, 20);
@@ -1271,9 +1254,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtTotale
             // 
-            this.txtTotale.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTotale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTotale.Location = new System.Drawing.Point(784, 277);
             this.txtTotale.Name = "txtTotale";
             this.txtTotale.ReadOnly = true;
@@ -1284,9 +1265,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtIva
             // 
-            this.txtIva.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.txtIva.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.txtIva.Location = new System.Drawing.Point(644, 277);
             this.txtIva.Name = "txtIva";
             this.txtIva.ReadOnly = true;
@@ -1297,9 +1276,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtImponibile
             // 
-            this.txtImponibile.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.txtImponibile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.txtImponibile.Location = new System.Drawing.Point(482, 277);
             this.txtImponibile.Name = "txtImponibile";
             this.txtImponibile.ReadOnly = true;
@@ -1310,9 +1287,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // label16
             // 
-            this.label16.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.Location = new System.Drawing.Point(738, 279);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(40, 17);
@@ -1322,9 +1297,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // label17
             // 
-            this.label17.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label17.Location = new System.Drawing.Point(600, 279);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(38, 17);
@@ -1334,9 +1307,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // label18
             // 
-            this.label18.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label18.Location = new System.Drawing.Point(412, 279);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(64, 17);
@@ -1377,11 +1348,9 @@ namespace mandate_default { //ordinegenerico//
             // 
             // detailgrid
             // 
-            this.detailgrid.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.detailgrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.detailgrid.CaptionVisible = false;
             this.detailgrid.DataMember = "";
             this.detailgrid.HeaderForeColor = System.Drawing.SystemColors.ControlText;
@@ -1393,10 +1362,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.txtIndirizzoConsegna);
             this.groupBox3.Controls.Add(this.TxtTermConsegna);
@@ -1423,10 +1390,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // groupBox5
             // 
-            this.groupBox5.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.label42);
             this.groupBox5.Controls.Add(this.txtDataScadenza);
             this.groupBox5.Controls.Add(this.label12);
@@ -1442,9 +1407,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // label42
             // 
-            this.label42.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.label42.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label42.Location = new System.Drawing.Point(305, 45);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(56, 16);
@@ -1454,9 +1417,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtDataScadenza
             // 
-            this.txtDataScadenza.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDataScadenza.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDataScadenza.Location = new System.Drawing.Point(370, 42);
             this.txtDataScadenza.Name = "txtDataScadenza";
             this.txtDataScadenza.ReadOnly = true;
@@ -1467,8 +1428,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // chkCont
             // 
-            this.chkCont.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold,
-                System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.chkCont.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkCont.Location = new System.Drawing.Point(8, 170);
             this.chkCont.Name = "chkCont";
             this.chkCont.Size = new System.Drawing.Size(254, 15);
@@ -1478,10 +1438,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // gboxValuta
             // 
-            this.gboxValuta.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.gboxValuta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gboxValuta.Controls.Add(this.txtValuta);
             this.gboxValuta.Controls.Add(this.button2);
             this.gboxValuta.Controls.Add(this.txtCambio);
@@ -1495,10 +1453,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtValuta
             // 
-            this.txtValuta.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtValuta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtValuta.Location = new System.Drawing.Point(86, 16);
             this.txtValuta.Name = "txtValuta";
             this.txtValuta.Size = new System.Drawing.Size(189, 20);
@@ -1518,9 +1474,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtCambio
             // 
-            this.txtCambio.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCambio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCambio.Location = new System.Drawing.Point(366, 16);
             this.txtCambio.Name = "txtCambio";
             this.txtCambio.Size = new System.Drawing.Size(96, 20);
@@ -1530,9 +1484,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // label14
             // 
-            this.label14.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.Location = new System.Drawing.Point(278, 16);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(98, 16);
@@ -1542,7 +1494,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(438, 276);
+            this.label15.Location = new System.Drawing.Point(699, 277);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(84, 19);
             this.label15.TabIndex = 36;
@@ -1551,7 +1503,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtDataContabile
             // 
-            this.txtDataContabile.Location = new System.Drawing.Point(533, 276);
+            this.txtDataContabile.Location = new System.Drawing.Point(794, 277);
             this.txtDataContabile.Name = "txtDataContabile";
             this.txtDataContabile.Size = new System.Drawing.Size(88, 20);
             this.txtDataContabile.TabIndex = 10;
@@ -1559,11 +1511,9 @@ namespace mandate_default { //ordinegenerico//
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.Principale);
             this.tabControl1.Controls.Add(this.tabAnac);
             this.tabControl1.Controls.Add(this.tabDettagli);
@@ -1584,6 +1534,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // Principale
             // 
+            this.Principale.Controls.Add(this.chkRecuperoIvaIntraExtra);
             this.Principale.Controls.Add(this.grpCertificatiNecessari);
             this.Principale.Controls.Add(this.gboxResponsabile);
             this.Principale.Controls.Add(this.lblcig);
@@ -1604,6 +1555,18 @@ namespace mandate_default { //ordinegenerico//
             this.Principale.TabIndex = 0;
             this.Principale.Text = "Principale";
             this.Principale.UseVisualStyleBackColor = true;
+            this.Principale.Click += new System.EventHandler(this.Principale_Click);
+            // 
+            // chkRecuperoIvaIntraExtra
+            // 
+            this.chkRecuperoIvaIntraExtra.AutoSize = true;
+            this.chkRecuperoIvaIntraExtra.Location = new System.Drawing.Point(430, 267);
+            this.chkRecuperoIvaIntraExtra.Name = "chkRecuperoIvaIntraExtra";
+            this.chkRecuperoIvaIntraExtra.Size = new System.Drawing.Size(177, 17);
+            this.chkRecuperoIvaIntraExtra.TabIndex = 98;
+            this.chkRecuperoIvaIntraExtra.Tag = "mandate.flagbit:0";
+            this.chkRecuperoIvaIntraExtra.Text = "Recupero IVA Intra ed Extra-UE";
+            this.chkRecuperoIvaIntraExtra.UseVisualStyleBackColor = true;
             // 
             // grpCertificatiNecessari
             // 
@@ -1662,10 +1625,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtResponsabile
             // 
-            this.txtResponsabile.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtResponsabile.Location = new System.Drawing.Point(5, 14);
             this.txtResponsabile.Name = "txtResponsabile";
             this.txtResponsabile.Size = new System.Drawing.Size(402, 20);
@@ -1713,6 +1674,7 @@ namespace mandate_default { //ordinegenerico//
             this.rdbextracom.Tag = "mandate.flagintracom:X";
             this.rdbextracom.Text = "Contratto Extra-UE";
             this.rdbextracom.UseVisualStyleBackColor = true;
+            this.rdbextracom.CheckedChanged += new System.EventHandler(this.rdbextracom_CheckedChanged);
             // 
             // rdbintracom
             // 
@@ -1725,6 +1687,7 @@ namespace mandate_default { //ordinegenerico//
             this.rdbintracom.Tag = "mandate.flagintracom:S";
             this.rdbintracom.Text = "Contratto Intracom.";
             this.rdbintracom.UseVisualStyleBackColor = true;
+            this.rdbintracom.CheckedChanged += new System.EventHandler(this.rdbintracom_CheckedChanged);
             // 
             // rdbitalia
             // 
@@ -1751,11 +1714,9 @@ namespace mandate_default { //ordinegenerico//
             // 
             // tabControlAnac
             // 
-            this.tabControlAnac.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlAnac.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlAnac.Controls.Add(this.tabPartecipanti);
             this.tabControlAnac.Controls.Add(this.tabLotti);
             this.tabControlAnac.Controls.Add(this.tabEsito);
@@ -1804,11 +1765,9 @@ namespace mandate_default { //ordinegenerico//
             // 
             // gridAVCP
             // 
-            this.gridAVCP.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridAVCP.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gridAVCP.DataMember = "";
             this.gridAVCP.HeaderForeColor = System.Drawing.SystemColors.ControlText;
             this.gridAVCP.Location = new System.Drawing.Point(111, 32);
@@ -1895,9 +1854,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // btnPartecipantiNonAssociati
             // 
-            this.btnPartecipantiNonAssociati.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPartecipantiNonAssociati.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPartecipantiNonAssociati.Location = new System.Drawing.Point(688, 9);
             this.btnPartecipantiNonAssociati.Name = "btnPartecipantiNonAssociati";
             this.btnPartecipantiNonAssociati.Size = new System.Drawing.Size(183, 23);
@@ -1908,9 +1865,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // btnPartecipantiAlLotto
             // 
-            this.btnPartecipantiAlLotto.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
-                                                       System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPartecipantiAlLotto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnPartecipantiAlLotto.Location = new System.Drawing.Point(8, 213);
             this.btnPartecipantiAlLotto.Name = "btnPartecipantiAlLotto";
             this.btnPartecipantiAlLotto.Size = new System.Drawing.Size(77, 47);
@@ -1921,9 +1876,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // btnOrdiniNoPartecipanti
             // 
-            this.btnOrdiniNoPartecipanti.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOrdiniNoPartecipanti.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOrdiniNoPartecipanti.Location = new System.Drawing.Point(517, 9);
             this.btnOrdiniNoPartecipanti.Name = "btnOrdiniNoPartecipanti";
             this.btnOrdiniNoPartecipanti.Size = new System.Drawing.Size(149, 23);
@@ -1943,9 +1896,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // btnOrdiniNoLotti
             // 
-            this.btnOrdiniNoLotti.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOrdiniNoLotti.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOrdiniNoLotti.Location = new System.Drawing.Point(388, 9);
             this.btnOrdiniNoLotti.Name = "btnOrdiniNoLotti";
             this.btnOrdiniNoLotti.Size = new System.Drawing.Size(108, 23);
@@ -1974,11 +1925,9 @@ namespace mandate_default { //ordinegenerico//
             // 
             // gridLotti
             // 
-            this.gridLotti.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridLotti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gridLotti.DataMember = "";
             this.gridLotti.HeaderForeColor = System.Drawing.SystemColors.ControlText;
             this.gridLotti.Location = new System.Drawing.Point(114, 54);
@@ -2156,10 +2105,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtRUP
             // 
-            this.txtRUP.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRUP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRUP.Location = new System.Drawing.Point(8, 16);
             this.txtRUP.Name = "txtRUP";
             this.txtRUP.Size = new System.Drawing.Size(431, 20);
@@ -2168,10 +2115,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // grpEsitoGara
             // 
-            this.grpEsitoGara.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpEsitoGara.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpEsitoGara.Controls.Add(this.txtRibasso);
             this.grpEsitoGara.Controls.Add(this.label24);
             this.grpEsitoGara.Controls.Add(this.textBox8);
@@ -2188,9 +2133,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtRibasso
             // 
-            this.txtRibasso.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRibasso.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRibasso.Location = new System.Drawing.Point(776, 27);
             this.txtRibasso.Name = "txtRibasso";
             this.txtRibasso.Size = new System.Drawing.Size(74, 20);
@@ -2199,9 +2142,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // label24
             // 
-            this.label24.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label24.Location = new System.Drawing.Point(773, 8);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(56, 16);
@@ -2211,10 +2152,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // textBox8
             // 
-            this.textBox8.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox8.Location = new System.Drawing.Point(215, 24);
             this.textBox8.Multiline = true;
             this.textBox8.Name = "textBox8";
@@ -2296,9 +2235,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // btnRimpiazzaPerNuovoProrata
             // 
-            this.btnRimpiazzaPerNuovoProrata.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
-                                                       System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRimpiazzaPerNuovoProrata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnRimpiazzaPerNuovoProrata.Location = new System.Drawing.Point(118, 274);
             this.btnRimpiazzaPerNuovoProrata.Name = "btnRimpiazzaPerNuovoProrata";
             this.btnRimpiazzaPerNuovoProrata.Size = new System.Drawing.Size(111, 23);
@@ -2376,11 +2313,9 @@ namespace mandate_default { //ordinegenerico//
             // 
             // dgrClassificazioni
             // 
-            this.dgrClassificazioni.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgrClassificazioni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgrClassificazioni.DataMember = "";
             this.dgrClassificazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
             this.dgrClassificazioni.Location = new System.Drawing.Point(16, 46);
@@ -2585,9 +2520,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // btnVisualizzaPreimpegni
             // 
-            this.btnVisualizzaPreimpegni.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVisualizzaPreimpegni.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVisualizzaPreimpegni.Location = new System.Drawing.Point(416, 44);
             this.btnVisualizzaPreimpegni.Name = "btnVisualizzaPreimpegni";
             this.btnVisualizzaPreimpegni.Size = new System.Drawing.Size(168, 23);
@@ -2597,9 +2530,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // btnGeneraPreimpegni
             // 
-            this.btnGeneraPreimpegni.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGeneraPreimpegni.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGeneraPreimpegni.Location = new System.Drawing.Point(416, 15);
             this.btnGeneraPreimpegni.Name = "btnGeneraPreimpegni";
             this.btnGeneraPreimpegni.Size = new System.Drawing.Size(168, 23);
@@ -2609,9 +2540,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // btnGeneraEpExp
             // 
-            this.btnGeneraEpExp.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGeneraEpExp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGeneraEpExp.Location = new System.Drawing.Point(242, 15);
             this.btnGeneraEpExp.Name = "btnGeneraEpExp";
             this.btnGeneraEpExp.Size = new System.Drawing.Size(168, 23);
@@ -2621,9 +2550,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // btnVisualizzaEpExp
             // 
-            this.btnVisualizzaEpExp.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVisualizzaEpExp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVisualizzaEpExp.Location = new System.Drawing.Point(242, 44);
             this.btnVisualizzaEpExp.Name = "btnVisualizzaEpExp";
             this.btnVisualizzaEpExp.Size = new System.Drawing.Size(168, 23);
@@ -2654,11 +2581,9 @@ namespace mandate_default { //ordinegenerico//
             // 
             // gridStock
             // 
-            this.gridStock.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridStock.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gridStock.DataMember = "";
             this.gridStock.HeaderForeColor = System.Drawing.SystemColors.ControlText;
             this.gridStock.Location = new System.Drawing.Point(15, 69);
@@ -2714,10 +2639,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // gboxclass05
             // 
-            this.gboxclass05.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.gboxclass05.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gboxclass05.Controls.Add(this.txtCodice05);
             this.gboxclass05.Controls.Add(this.btnCodice05);
             this.gboxclass05.Controls.Add(this.txtDenom05);
@@ -2748,11 +2671,9 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtDenom05
             // 
-            this.txtDenom05.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDenom05.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDenom05.Location = new System.Drawing.Point(234, 8);
             this.txtDenom05.Multiline = true;
             this.txtDenom05.Name = "txtDenom05";
@@ -2764,10 +2685,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // gboxclass04
             // 
-            this.gboxclass04.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.gboxclass04.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gboxclass04.Controls.Add(this.txtCodice04);
             this.gboxclass04.Controls.Add(this.btnCodice04);
             this.gboxclass04.Controls.Add(this.txtDenom04);
@@ -2798,11 +2717,9 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtDenom04
             // 
-            this.txtDenom04.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDenom04.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDenom04.Location = new System.Drawing.Point(234, 12);
             this.txtDenom04.Multiline = true;
             this.txtDenom04.Name = "txtDenom04";
@@ -2844,11 +2761,9 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtDenom03
             // 
-            this.txtDenom03.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDenom03.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDenom03.Location = new System.Drawing.Point(233, 8);
             this.txtDenom03.Multiline = true;
             this.txtDenom03.Name = "txtDenom03";
@@ -2890,11 +2805,9 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtDenom02
             // 
-            this.txtDenom02.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDenom02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDenom02.Location = new System.Drawing.Point(233, 8);
             this.txtDenom02.Multiline = true;
             this.txtDenom02.Name = "txtDenom02";
@@ -2936,11 +2849,9 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtDenom01
             // 
-            this.txtDenom01.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDenom01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDenom01.Location = new System.Drawing.Point(233, 8);
             this.txtDenom01.Multiline = true;
             this.txtDenom01.Name = "txtDenom01";
@@ -2966,11 +2877,9 @@ namespace mandate_default { //ordinegenerico//
             // 
             // dataGrid1
             // 
-            this.dataGrid1.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGrid1.DataMember = "";
             this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
             this.dataGrid1.Location = new System.Drawing.Point(15, 48);
@@ -3042,10 +2951,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // cmbConsip2
             // 
-            this.cmbConsip2.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbConsip2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbConsip2.DataSource = this.DS.consipkind_ext;
             this.cmbConsip2.DisplayMember = "shortdescription";
             this.cmbConsip2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -3059,9 +2966,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // btnConsipkind
             // 
-            this.btnConsipkind.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConsipkind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnConsipkind.Location = new System.Drawing.Point(811, 82);
             this.btnConsipkind.Name = "btnConsipkind";
             this.btnConsipkind.Size = new System.Drawing.Size(75, 23);
@@ -3072,10 +2977,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // cmbConsip1
             // 
-            this.cmbConsip1.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbConsip1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbConsip1.DataSource = this.DS.consipkind;
             this.cmbConsip1.DisplayMember = "shortdescription";
             this.cmbConsip1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -3089,10 +2992,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtConsipMotive1
             // 
-            this.txtConsipMotive1.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtConsipMotive1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtConsipMotive1.Location = new System.Drawing.Point(7, 84);
             this.txtConsipMotive1.Multiline = true;
             this.txtConsipMotive1.Name = "txtConsipMotive1";
@@ -3125,11 +3026,9 @@ namespace mandate_default { //ordinegenerico//
             // 
             // dgrPCC
             // 
-            this.dgrPCC.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgrPCC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgrPCC.DataMember = "";
             this.dgrPCC.HeaderForeColor = System.Drawing.SystemColors.ControlText;
             this.dgrPCC.Location = new System.Drawing.Point(17, 188);
@@ -3151,10 +3050,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // grpRegistroUnico
             // 
-            this.grpRegistroUnico.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpRegistroUnico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpRegistroUnico.Controls.Add(this.btnCreaRegistroUnico);
             this.grpRegistroUnico.Controls.Add(this.label85);
             this.grpRegistroUnico.Controls.Add(this.txDataRicezioneRU);
@@ -3172,9 +3069,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // btnCreaRegistroUnico
             // 
-            this.btnCreaRegistroUnico.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCreaRegistroUnico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreaRegistroUnico.Location = new System.Drawing.Point(689, 91);
             this.btnCreaRegistroUnico.Name = "btnCreaRegistroUnico";
             this.btnCreaRegistroUnico.Size = new System.Drawing.Size(190, 23);
@@ -3238,10 +3133,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtAnnotazioniRU
             // 
-            this.txtAnnotazioniRU.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAnnotazioniRU.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAnnotazioniRU.Location = new System.Drawing.Point(501, 35);
             this.txtAnnotazioniRU.Multiline = true;
             this.txtAnnotazioniRU.Name = "txtAnnotazioniRU";
@@ -3305,10 +3198,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // textBox5
             // 
-            this.textBox5.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox5.Location = new System.Drawing.Point(113, 29);
             this.textBox5.Multiline = true;
             this.textBox5.Name = "textBox5";
@@ -3336,10 +3227,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // textBox6
             // 
-            this.textBox6.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox6.Location = new System.Drawing.Point(476, 60);
             this.textBox6.Multiline = true;
             this.textBox6.Name = "textBox6";
@@ -3349,10 +3238,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // textBox2
             // 
-            this.textBox2.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Location = new System.Drawing.Point(113, 60);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
@@ -3371,8 +3258,7 @@ namespace mandate_default { //ordinegenerico//
             // 
             // checkBox1
             // 
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold,
-                System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox1.Location = new System.Drawing.Point(425, 171);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(216, 21);
@@ -3382,10 +3268,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // txtApplierAnnotations
             // 
-            this.txtApplierAnnotations.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtApplierAnnotations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtApplierAnnotations.Location = new System.Drawing.Point(425, 118);
             this.txtApplierAnnotations.Multiline = true;
             this.txtApplierAnnotations.Name = "txtApplierAnnotations";
@@ -3415,10 +3299,8 @@ namespace mandate_default { //ordinegenerico//
             // 
             // cmbStatus
             // 
-            this.cmbStatus.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbStatus.DataSource = this.DS.mandatestatus;
             this.cmbStatus.DisplayMember = "description";
             this.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -3450,26 +3332,24 @@ namespace mandate_default { //ordinegenerico//
             this.btnintegra.TabStop = false;
             this.btnintegra.Tag = "";
             this.btnintegra.Text = "Richiedi integrazioni";
-            this.toolTip1.SetToolTip(this.btnintegra,
-                "Richiede a chi ha inserito la richiesta di effettuare delle modifiche");
+            this.toolTip1.SetToolTip(this.btnintegra, "Richiede a chi ha inserito la richiesta di effettuare delle modifiche");
             this.btnintegra.Click += new System.EventHandler(this.btnintegra_Click);
             // 
             // btnApprova
             // 
             this.btnApprova.Location = new System.Drawing.Point(263, 10);
             this.btnApprova.Name = "btnApprova";
-            this.btnApprova.Size = new System.Drawing.Size(97, 24);
+            this.btnApprova.Size = new System.Drawing.Size(137, 24);
             this.btnApprova.TabIndex = 43;
             this.btnApprova.TabStop = false;
             this.btnApprova.Tag = "";
-            this.btnApprova.Text = "Approva";
-            this.toolTip1.SetToolTip(this.btnApprova,
-                "Approva definitivamente la richiesta e la rende un buono dordine ufficiale");
+            this.btnApprova.Text = "Crea contratto passivo";
+            this.toolTip1.SetToolTip(this.btnApprova, "Approva definitivamente la richiesta e la rende un buono dordine ufficiale");
             this.btnApprova.Click += new System.EventHandler(this.btnApprova_Click);
             // 
             // btnAnnullaApprova
             // 
-            this.btnAnnullaApprova.Location = new System.Drawing.Point(515, 12);
+            this.btnAnnullaApprova.Location = new System.Drawing.Point(593, 12);
             this.btnAnnullaApprova.Name = "btnAnnullaApprova";
             this.btnAnnullaApprova.Size = new System.Drawing.Size(164, 24);
             this.btnAnnullaApprova.TabIndex = 44;
@@ -3488,21 +3368,20 @@ namespace mandate_default { //ordinegenerico//
             this.gboxAction.Controls.Add(this.btnApprova);
             this.gboxAction.Location = new System.Drawing.Point(8, 0);
             this.gboxAction.Name = "gboxAction";
-            this.gboxAction.Size = new System.Drawing.Size(698, 40);
+            this.gboxAction.Size = new System.Drawing.Size(785, 40);
             this.gboxAction.TabIndex = 1;
             this.gboxAction.TabStop = false;
             // 
             // btnAnnulla
             // 
-            this.btnAnnulla.Location = new System.Drawing.Point(379, 10);
+            this.btnAnnulla.Location = new System.Drawing.Point(457, 10);
             this.btnAnnulla.Name = "btnAnnulla";
             this.btnAnnulla.Size = new System.Drawing.Size(97, 24);
             this.btnAnnulla.TabIndex = 45;
             this.btnAnnulla.TabStop = false;
             this.btnAnnulla.Tag = "";
             this.btnAnnulla.Text = "Annulla";
-            this.toolTip1.SetToolTip(this.btnAnnulla,
-                "Approva definitivamente la richiesta e la rende un buono dordine ufficiale");
+            this.toolTip1.SetToolTip(this.btnAnnulla, "Approva definitivamente la richiesta e la rende un buono dordine ufficiale");
             this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
             // 
             // mandatedetailBindingSource
@@ -3520,8 +3399,7 @@ namespace mandate_default { //ordinegenerico//
             // CMenu
             // 
             this.CMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-                this.MenuEnterPwd
-            });
+            this.MenuEnterPwd});
             // 
             // MenuEnterPwd
             // 
@@ -3547,12 +3425,12 @@ namespace mandate_default { //ordinegenerico//
             this.Controls.Add(this.btnSituazione);
             this.Name = "Frm_mandate_default";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            ((System.ComponentModel.ISupportInitialize) (this.DS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.gboxContratto.ResumeLayout(false);
             this.gboxContratto.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.detailgrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.detailgrid)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -3574,10 +3452,10 @@ namespace mandate_default { //ordinegenerico//
             this.tabControlAnac.ResumeLayout(false);
             this.tabPartecipanti.ResumeLayout(false);
             this.tabPartecipanti.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.gridAVCP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridAVCP)).EndInit();
             this.tabLotti.ResumeLayout(false);
             this.tabLotti.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.gridLotti)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridLotti)).EndInit();
             this.tabEsito.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
@@ -3592,7 +3470,7 @@ namespace mandate_default { //ordinegenerico//
             this.tabDettagli.ResumeLayout(false);
             this.tabDettagli.PerformLayout();
             this.Classificazioni.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.dgrClassificazioni)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgrClassificazioni)).EndInit();
             this.tabEP.ResumeLayout(false);
             this.tabEP.PerformLayout();
             this.gBoxCausaleDebitoAggiornata.ResumeLayout(false);
@@ -3602,7 +3480,7 @@ namespace mandate_default { //ordinegenerico//
             this.tabAnalitico.ResumeLayout(false);
             this.tabMagazzino.ResumeLayout(false);
             this.tabMagazzino.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.gridStock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridStock)).EndInit();
             this.gBoxMagazzino.ResumeLayout(false);
             this.gBoxMagazzino.PerformLayout();
             this.tabAttributi.ResumeLayout(false);
@@ -3617,12 +3495,12 @@ namespace mandate_default { //ordinegenerico//
             this.gboxclass01.ResumeLayout(false);
             this.gboxclass01.PerformLayout();
             this.tabAllegati.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.dataGrid1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
             this.tabConsip.ResumeLayout(false);
             this.tabConsip.PerformLayout();
             this.tabRegistroUnico.ResumeLayout(false);
             this.tabRegistroUnico.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dgrPCC)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgrPCC)).EndInit();
             this.grpRegistroUnico.ResumeLayout(false);
             this.grpRegistroUnico.PerformLayout();
             this.tabAltro.ResumeLayout(false);
@@ -3631,8 +3509,8 @@ namespace mandate_default { //ordinegenerico//
             this.groupBox1.PerformLayout();
             this.gboxStato.ResumeLayout(false);
             this.gboxAction.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.consipkindBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize) (this.mandatedetailBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.consipkindBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mandatedetailBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3891,7 +3769,7 @@ namespace mandate_default { //ordinegenerico//
                 VisualizzaNascondiTabRegistroUnico(abilitaRegistroUnico(curridmankind));
                 RiposizionaTabAltro();
             }
-
+            chkRecuperoIvaIntraExtra.Visible = recuperoIntraUEAttivo;
         }
 
         /// <summary>
@@ -3997,7 +3875,7 @@ namespace mandate_default { //ordinegenerico//
 
         public void MetaData_AfterFill() {
 
-            if (EPM.esistonoScrittureCollegate()) Meta.CanCancel = false;
+            if (EPM.esistonoScrittureCollegate()) Meta.CanCancel = false;//9ms
             //gboxValuta.Enabled =  (DS.mandatedetail.Select().Length == 0) ;
             Current = DS.mandate.Rows[0];
             lastApplied = CfgFn.GetNoNullDouble(Current["exchangerate"]);
@@ -4037,7 +3915,7 @@ namespace mandate_default { //ordinegenerico//
 
             CheckCig();
 
-            EPM.mostraEtichette();
+            EPM.mostraEtichette();//115ms, anche molto di pi˘
 
             if (Meta.EditMode) {
                 // Metodo che annulla tutti i fratelli di un dettaglio ove lo stesso sia splittato.
@@ -4046,7 +3924,7 @@ namespace mandate_default { //ordinegenerico//
             }
 
             CalcolaImporto();
-            ImpostaTxtValuta();
+            ImpostaTxtValuta();//7ms
             txtEsercOrdine.ReadOnly = true;
             if (Meta.InsertMode) {
                 btnSituazione.Enabled = false;
@@ -4090,15 +3968,13 @@ namespace mandate_default { //ordinegenerico//
                 }
             }
 
-            object idivakind_forced = (row_mandatekind == null ? DBNull.Value : row_mandatekind["idivakind_forced"]);
             if ((Meta.InsertMode) || (Meta.EditMode)) {
 
                 if (DS.mandatedetail.Rows.Count == 0) {
-                    AzzeraDefaultDettagli(idivakind_forced == DBNull.Value);
-
+                    AzzeraDefaultDettagli(true);
+                    
                     object idupb_selected = (row_mandatekind == null ? DBNull.Value : row_mandatekind["idupb"]);
                     MetaData.SetDefault(DS.mandatedetail, "idupb", idupb_selected);
-
                 }
                 else {
                     int maxdetail = CfgFn.GetNoNullInt32(DS.mandatedetail.Compute("max(rownum)", null));
@@ -4144,14 +4020,28 @@ namespace mandate_default { //ordinegenerico//
                             }
                         }
                         else {
-                            AzzeraDefaultDettagli(idivakind_forced == DBNull.Value);
+                            AzzeraDefaultDettagli(true);
                         }
                     }
                     else {
-                        AzzeraDefaultDettagli(idivakind_forced == DBNull.Value);
+                        AzzeraDefaultDettagli(true);
                     }
                 }
+                object idivakind_forced = (row_mandatekind == null ? DBNull.Value : row_mandatekind["idivakind_forced"]);
 
+                if (idivakind_forced != DBNull.Value) {
+	                MetaData.SetDefault(DS.mandatedetail, "idivakind", idivakind_forced);
+
+	                DataTable tivakind = Conn.RUN_SELECT("ivakind", "*", null,
+		                QHC.CmpEq("idivakind", idivakind_forced), null, null, true);//5ms
+
+	                if (tivakind.Rows.Count > 0) {
+		                DataRow RIvaKind = tivakind.Rows[0];
+		                object taxrate_forced = RIvaKind["rate"];
+		                MetaData.SetDefault(DS.mandatedetail, "taxrate", taxrate_forced);
+	                }
+	                    
+                }
             }
 
             if (Meta.EditMode) {
@@ -4219,7 +4109,7 @@ namespace mandate_default { //ordinegenerico//
             }
 
             if (Meta.EditMode) {
-                EnableDisableMagazzino();
+                EnableDisableMagazzino();//8ms
             }
 
             if (Meta.InsertMode) {
@@ -4240,7 +4130,7 @@ namespace mandate_default { //ordinegenerico//
             }
 
             txtProgressivoRU.ReadOnly = true;
-            CalcolaDataScadenza();
+            CalcolaDataScadenza();//2ms
 
             if ((!Meta.IsEmpty) && (Meta.FirstFillForThisRow)) {
                 AbilitaDisabilitaConsip_Ext(CfgFn.GetNoNullInt32(Current["idconsipkind"]), true);
@@ -4392,8 +4282,8 @@ namespace mandate_default { //ordinegenerico//
             double imponibile = CfgFn.GetNoNullDouble(rBrotherSplitted["taxable"]);
             double quantitaConfezioni = newnpackage;
             double sconto = CfgFn.GetNoNullDouble(rBrotherSplitted["discount"]);
-            double imponibiletot = CfgFn.RoundValuta((imponibile * quantitaConfezioni * (1 - sconto)));
-            double imponibiletotEUR = CfgFn.RoundValuta(imponibiletot * tassocambio);
+            double imponibiletotEUR = CfgFn.RoundValuta((imponibile * quantitaConfezioni * (1 - sconto) * tassocambio));
+            //double imponibiletotEUR = CfgFn.RoundValuta(imponibiletot * tassocambio);
             double ivaEUR = CfgFn.RoundValuta(imponibiletotEUR * aliquota);
             double impindeducEUR = CfgFn.RoundValuta(ivaEUR * percindeduc);
             if (fieldname == "tax") {
@@ -5067,7 +4957,6 @@ namespace mandate_default { //ordinegenerico//
                 //decimal R_imposta  = RoundDecimal6(CfgFn.GetNoNullDecimal(R["taxrate"]));
                 decimal R_imposta = CfgFn.GetNoNullDecimal(R["tax"]);
                 decimal R_sconto = RoundDecimal6(CfgFn.GetNoNullDecimal(R["discount"]));
-                //imposta    +=  CfgFn.RoundValuta(R_imposta*tassocambio);
                 imposta += CfgFn.RoundValuta(R_imposta); //ora consideriamo l'iva gi‡ in euro e non in valuta
                 totimponibile_currgroup += R_imponibile;
                 lastexpr = CfgFn.RoundValuta((totimponibile_currgroup * R_quantitaConfezioni * (1 - R_sconto)) *
@@ -5153,6 +5042,8 @@ namespace mandate_default { //ordinegenerico//
             //if (CConsipKind_ext != null) CConsipKind_ext.SelectedIndex = -1; 
             initConsipLabel();
             btnImportFromExcel.Enabled = false;
+            chkRecuperoIvaIntraExtra.Visible = recuperoIntraUEAttivo;
+            chkRecuperoIvaIntraExtra.Enabled = true;
         }
 
         void initConsipLabel() {
@@ -5416,8 +5307,8 @@ namespace mandate_default { //ordinegenerico//
                     DataRow Curr = DS.mandate.Rows[0];
                     Curr["idaccmotivedebit"] = R["idaccmotivedebit"];
                     DS.accmotiveapplied_debit.Clear();
-                    Conn.RUN_SELECT_INTO_TABLE(DS.accmotiveapplied_debit,
-                        q.eq("idaccmotive", Curr["idaccmotivedebit"]) & q.eq("idepoperation", "fatacq_deb"));
+                    Conn.RUN_SELECT_INTO_TABLE(DS.accmotiveapplied_debit,null,
+                        (q.eq("idaccmotive", Curr["idaccmotivedebit"]) & q.eq("idepoperation", "fatacq_deb")).toSql(QHS),null,false);
                     Meta.helpForm.FillControls(gBoxCausaleDebito.Controls);
                 }
             }
@@ -5430,7 +5321,7 @@ namespace mandate_default { //ordinegenerico//
 
             if (T.TableName == "mandatekind") {
                 if (!Meta.IsEmpty) abilitaDisabilitaCertificatiRichiesti(R);
-                if (Meta.InsertMode) {
+                if (Meta.InsertMode || Meta.EditMode ) {
 
                     object idupb_selected = (R == null ? "" : R["idupb"]);
                     MetaData.SetDefault(DS.mandatedetail, "idupb", idupb_selected);
@@ -5455,18 +5346,21 @@ namespace mandate_default { //ordinegenerico//
                         MetaData.SetDefault(DS.mandatedetail, "idivakind", DBNull.Value);
                         MetaData.SetDefault(DS.mandatedetail, "taxrate", DBNull.Value);
                     }
-
-                    object idreg_rupanac_selected = (R == null ? DBNull.Value : R["idreg_rupanac"]);
-                    DataRow Curr = DS.mandate.Rows[0];
-                    if (idreg_rupanac_selected != DBNull.Value) {
-                        Curr["idreg_rupanac"] = idreg_rupanac_selected;
-                    }
-                    else {
-                        Curr["idreg_rupanac"] = DBNull.Value;
-                    }
-
-                    SetRUP(idreg_rupanac_selected);
                 }
+                if (Meta.InsertMode) {
+	                object idreg_rupanac_selected = (R == null ? DBNull.Value : R["idreg_rupanac"]);
+	                DataRow Curr = DS.mandate.Rows[0];
+	                if (idreg_rupanac_selected != DBNull.Value) {
+		                Curr["idreg_rupanac"] = idreg_rupanac_selected;
+	                }
+	                else {
+		                Curr["idreg_rupanac"] = DBNull.Value;
+	                }
+
+	                SetRUP(idreg_rupanac_selected);
+
+                }
+
             }
 
             if (T.TableName == "mandatekind" && R != null) {
@@ -6554,8 +6448,7 @@ namespace mandate_default { //ordinegenerico//
             //Parte che crea la copia
             MetaData M = Meta.Dispatcher.Get("mandate");
             M.Edit(this.ParentForm, "default", false);
-            M.LinkedForm.Location = new Point(M.LinkedForm.Location.X,
-                M.LinkedForm.Location.Y + 20);
+            M.linkedForm.Location = new Point(M.linkedForm.Location.X, M.linkedForm.Location.Y + 20);
             M.DoMainCommand("maininsert");
             DataRow RMain = M.DS.Tables["mandate"].Rows[0];
 
@@ -6765,6 +6658,8 @@ namespace mandate_default { //ordinegenerico//
             if (Meta == null)
                 return;
             DS.mandate.ExtendedProperties["flagintracom"] = GetFlagIntracom();
+            chkRecuperoIvaIntraExtra.Visible = recuperoIntraUEAttivo && (Meta.IsEmpty || !rdbitalia.Checked);
+            chkRecuperoIvaIntraExtra.Checked = false;
             return;
         }
 
@@ -6813,7 +6708,7 @@ namespace mandate_default { //ordinegenerico//
                 string checkfilter = QHS.CmpEq("idcostpartition", idcostpartition);
                 ToMeta.ContextFilter = checkfilter;
                 Form F = null;
-                if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+                if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
                 bool result = ToMeta.Edit(F, "default", false);
 
                 string listtype = ToMeta.DefaultListType;
@@ -7789,9 +7684,34 @@ namespace mandate_default { //ordinegenerico//
             RicalcolaIvaDettagli(tasso);
         }
 
+        private void Principale_Click(object sender, EventArgs e) {
+
+        }
+
+        private void rdbintracom_CheckedChanged(object sender, EventArgs e) {
+            if (Meta == null)
+                return;
+            chkRecuperoIvaIntraExtra.Visible = recuperoIntraUEAttivo && (Meta.IsEmpty || !rdbitalia.Checked);
+            if (Meta.DrawStateIsDone){
+                chkRecuperoIvaIntraExtra.Checked = recuperoIntraUEAttivo && (Meta.IsEmpty || !rdbitalia.Checked);
+            }
+            return;
+        }
+
+        private void rdbextracom_CheckedChanged(object sender, EventArgs e) {
+            if (Meta == null)
+                return;
+            chkRecuperoIvaIntraExtra.Visible = recuperoIntraUEAttivo && (Meta.IsEmpty || !rdbitalia.Checked);
+            if (Meta.DrawStateIsDone){
+                chkRecuperoIvaIntraExtra.Checked = recuperoIntraUEAttivo && (Meta.IsEmpty || !rdbitalia.Checked);
+            }
+            return;
+
+        }
+
         /// legge i dati dal foglio di Excel a mData
         /// </summary>
     }
 
 
-}
+}

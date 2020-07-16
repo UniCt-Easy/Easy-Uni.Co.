@@ -8,7 +8,7 @@
   <Shapes>
     <Shape ID="DesignTable:tax" ZOrder="5" X="294" Y="70" Height="219" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
     <Shape ID="DesignTable:registry" ZOrder="4" X="294" Y="359" Height="257" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
-    <Shape ID="DesignTable:payedtaxview" ZOrder="3" X="70" Y="70" Height="257" Width="154" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
+    <Shape ID="DesignTable:payedtaxview" ZOrder="3" X="70" Y="70" Height="257" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
   </Shapes>
   <Connectors>
     <Connector ID="DesignRelation:registrypayedtaxview" ZOrder="1" LineWidth="11">
@@ -34,7 +34,7 @@
           <Y>179</Y>
         </Point>
         <Point>
-          <X>224</X>
+          <X>228</X>
           <Y>179</Y>
         </Point>
       </RoutePoints>

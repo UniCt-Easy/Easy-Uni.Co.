@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -150,7 +147,7 @@ namespace mainform //MenuMaker//
             r["metadata"] = metadata;
             r["edittype"] = edittype;
             tMenu.Rows.Add(r);
-            return DA.CanSelect(r);
+            return DA.Security.CanSelect(r);
         }
         bool stampaConsentita(string modulo, string gruppo) {
             if (stampeConsentite == null) return true;
@@ -499,7 +496,13 @@ namespace mainform //MenuMaker//
                     "idsorkind", "description", "main", "expensesorted", false);
                 return true;
             }
-            if (menucode == "classhist") {
+			if (menucode == "classaccount") {
+				parent.setTitle("Classificazione piano dei conti");
+				createSubMenu(parent, "sortingapplicabilityview", null, "(tablename='account')",
+				"idsorkind", "description", "default", "accountsorting", false);
+				return true;
+			}
+			if (menucode == "classhist") {
                 parent.setTitle("Classificazioni");
                 createSubMenu(parent, "sortingkind", null,null,
                     "idsorkind", "description", "history", "sorting", false);
@@ -827,7 +830,7 @@ namespace mainform //MenuMaker//
         private void menuItem_Click(object sender, System.EventArgs e) {
             if (Dispatcher == null) return;
             if (Dispatcher.Conn == null) return;
-            if (Dispatcher.Conn.OpenError) {
+            if (Dispatcher.Conn.openError) {
                 MessageBox.Show("La connessione col db Ë stata interrotta. E' necessario ricollegarsi.", "Errore");
                 return;
             }
@@ -900,4 +903,3 @@ namespace mainform //MenuMaker//
 
 
 } //fine namespace
-

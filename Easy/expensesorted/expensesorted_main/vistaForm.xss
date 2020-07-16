@@ -11,22 +11,26 @@
     <Shape ID="DesignTable:sortingtranslation" ZOrder="7" X="290" Y="672" Height="229" Width="167" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="225" />
     <Shape ID="DesignTable:sorting" ZOrder="6" X="290" Y="973" Height="231" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="227" />
     <Shape ID="DesignTable:expenseview" ZOrder="5" X="290" Y="70" Height="231" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="227" />
-    <Shape ID="DesignTable:expensesortedview" ZOrder="8" X="527" Y="70" Height="231" Width="175" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="227" />
+    <Shape ID="DesignTable:expensesortedview" ZOrder="8" X="710" Y="66" Height="733" Width="175" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="729" />
   </Shapes>
   <Connectors>
-    <Connector ID="DesignRelation:sortingexpensesorted" ZOrder="4" LineWidth="11">
+    <Connector ID="DesignRelation:sortingkind_sorting" ZOrder="2" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>290</X>
-          <Y>990</Y>
+          <X>440</X>
+          <Y>602</Y>
         </Point>
         <Point>
-          <X>187</X>
-          <Y>990</Y>
+          <X>537</X>
+          <Y>602</Y>
         </Point>
         <Point>
-          <X>187</X>
-          <Y>300</Y>
+          <X>537</X>
+          <Y>973</Y>
+        </Point>
+        <Point>
+          <X>440</X>
+          <Y>973</Y>
         </Point>
       </RoutePoints>
     </Connector>
@@ -46,23 +50,19 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:sortingkind_sorting" ZOrder="2" LineWidth="11">
+    <Connector ID="DesignRelation:sortingexpensesorted" ZOrder="4" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>440</X>
-          <Y>602</Y>
+          <X>290</X>
+          <Y>990</Y>
         </Point>
         <Point>
-          <X>537</X>
-          <Y>602</Y>
+          <X>187</X>
+          <Y>990</Y>
         </Point>
         <Point>
-          <X>537</X>
-          <Y>973</Y>
-        </Point>
-        <Point>
-          <X>440</X>
-          <Y>973</Y>
+          <X>187</X>
+          <Y>300</Y>
         </Point>
       </RoutePoints>
     </Connector>

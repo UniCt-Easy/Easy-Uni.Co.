@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -273,35 +270,29 @@ namespace BancaSondrio {
             factory.Endpoint.Behaviors.Add(new CleanNameSpacesBehavior("xsi","xsd","iuv"));//"xsi", "xsd","xsd1"
 
             ispettore = ispettore?? new InspectorBehavior();
-            //factory.Endpoint.Behaviors.Add(ispettore);
-            //string rootCert    ="CN=PopsoRootCA01, DC=popso, DC=root, DC=dom";
-            //string certChain= "CN=BPS SVILUPPO 2018, OU=SOSI, O=BANCA POPOLARE DI SONDRIO, L=SONDRIO, S=IT, C=IR";//pfx
-            //"CN=wsdev.popso.it, OU=SOSI, O=BANCA POPOLARE DI SONDRIO, L=SONDRIO, S=SONDRIO, C=IT"
-
-
-            //factory.Credentials.ServiceCertificate.DefaultCertificate = 
-            //    pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My,StoreLocation.CurrentUser,"C36663D47D8C70B2B9D40BA9174529DDD23A952A");
-
-            //factory.Credentials.ClientCertificate.Certificate = 
-            //    pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My,StoreLocation.CurrentUser,"1fb86b1168ec743154062e8c9cc5b171a4b7ccb4");
-
-
+           
 
             if (url.Contains("wsdev")) {
-                // po2018_intermedio_bsondrio; d34e1f8c01a911110145142dbb8fb32358b8a725
-                //string certChain= "CN=BPS SVILUPPO 2018, OU=SOSI, O=BANCA POPOLARE DI SONDRIO, L=SONDRIO, S=IT, C=IR";//pfx
-                //string cert ="CN=wsdev.popso.it, OU=SOSI, O=BANCA POPOLARE DI SONDRIO, L=SONDRIO, S=SONDRIO, C=IT"; //d34e1f8c01a911110145142dbb8fb32358b8a725
-                //factory.Credentials.ServiceCertificate.SetDefaultCertificate(cert ,StoreLocation.CurrentUser, StoreName.My); //d34e1f8c01a911110145142dbb8fb32358b8a725
-                //factory.Credentials.ClientCertificate.SetCertificate(certChain,StoreLocation.CurrentUser, StoreName.My);
-
+               
                 //in test:d34e1f8c01a911110145142dbb8fb32358b8a725
+
+                //2019 "f158cb0b33b0ea1d219d192862086ff6730b2c9b".ToUpperInvariant()
+
                 factory.Credentials.ServiceCertificate.DefaultCertificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "d34e1f8c01a911110145142dbb8fb32358b8a725");
                 factory.Credentials.ClientCertificate.Certificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,
                     "C36663D47D8C70B2B9D40BA9174529DDD23A952A");
             }
             else {
                 // po2018_intermedio_bsondrio; 1fb86b1168ec743154062e8c9cc5b171a4b7ccb4
-                factory.Credentials.ServiceCertificate.DefaultCertificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "1FB86B1168EC743154062E8C9CC5B171A4B7CCB4");
+                string currCert;
+                if (DateTime.Now.CompareTo(new DateTime(2019, 1, 14,11,0,0)) >= 0) {
+	                currCert = "1fb86b1168ec743154062e8c9cc5b171a4b7ccb4".ToUpperInvariant();
+                }
+                else {
+	                currCert = "1FB86B1168EC743154062E8C9CC5B171A4B7CCB4";
+                }
+
+                factory.Credentials.ServiceCertificate.DefaultCertificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, currCert);
                 factory.Credentials.ClientCertificate.Certificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,thumb);
             }
             // C36663D47D8C70B2B9D40BA9174529DDD23A952A certificato fpx;   3EB5D4157096C386F9F9EBB90F0B166EE38849D6
@@ -788,4 +779,3 @@ namespace BancaSondrio {
     #endregion
 
 }
-

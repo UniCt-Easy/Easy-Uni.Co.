@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -29,6 +26,20 @@ public class appfielddetailRow: MetaRow  {
 	public appfielddetailRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
+	///<summary>
+	///Corpo della funzione nel caso sia un campo calcolato
+	///</summary>
+	public String calculatedfieldfunction{ 
+		get {if (this["calculatedfieldfunction"]==DBNull.Value)return null; return  (String)this["calculatedfieldfunction"];}
+		set {if (value==null) this["calculatedfieldfunction"]= DBNull.Value; else this["calculatedfieldfunction"]= value;}
+	}
+	public object calculatedfieldfunctionValue { 
+		get{ return this["calculatedfieldfunction"];}
+		set {if (value==null|| value==DBNull.Value) this["calculatedfieldfunction"]= DBNull.Value; else this["calculatedfieldfunction"]= value;}
+	}
+	public String calculatedfieldfunctionOriginal { 
+		get {if (this["calculatedfieldfunction",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["calculatedfieldfunction",DataRowVersion.Original];}
+	}
 	///<summary>
 	///Nome colonna
 	///</summary>
@@ -110,6 +121,9 @@ public class appfielddetailRow: MetaRow  {
 	public Int32? idapptabOriginal { 
 		get {if (this["idapptab",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idapptab",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Rappresentalo come checkbox (solo per char(1) S/N)
+	///</summary>
 	public String ischeckbox{ 
 		get {if (this["ischeckbox"]==DBNull.Value)return null; return  (String)this["ischeckbox"];}
 		set {if (value==null) this["ischeckbox"]= DBNull.Value; else this["ischeckbox"]= value;}
@@ -150,7 +164,7 @@ public class appfielddetailRow: MetaRow  {
 		get {if (this["isnullable",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["isnullable",DataRowVersion.Original];}
 	}
 	///<summary>
-	///Listtype (autochoose)
+	///Listtype (autochoose e select)
 	///</summary>
 	public String listtype{ 
 		get {if (this["listtype"]==DBNull.Value)return null; return  (String)this["listtype"];}
@@ -162,6 +176,20 @@ public class appfielddetailRow: MetaRow  {
 	}
 	public String listtypeOriginal { 
 		get {if (this["listtype",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["listtype",DataRowVersion.Original];}
+	}
+	///<summary>
+	///Combo master
+	///</summary>
+	public String master{ 
+		get {if (this["master"]==DBNull.Value)return null; return  (String)this["master"];}
+		set {if (value==null) this["master"]= DBNull.Value; else this["master"]= value;}
+	}
+	public object masterValue { 
+		get{ return this["master"];}
+		set {if (value==null|| value==DBNull.Value) this["master"]= DBNull.Value; else this["master"]= value;}
+	}
+	public String masterOriginal { 
+		get {if (this["master",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["master",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Posizione
@@ -191,6 +219,48 @@ public class appfielddetailRow: MetaRow  {
 	public String radiovaluesOriginal { 
 		get {if (this["radiovalues",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["radiovalues",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Campo in sola lettura
+	///</summary>
+	public String readonlyfield{ 
+		get {if (this["readonlyfield"]==DBNull.Value)return null; return  (String)this["readonlyfield"];}
+		set {if (value==null) this["readonlyfield"]= DBNull.Value; else this["readonlyfield"]= value;}
+	}
+	public object readonlyfieldValue { 
+		get{ return this["readonlyfield"];}
+		set {if (value==null|| value==DBNull.Value) this["readonlyfield"]= DBNull.Value; else this["readonlyfield"]= value;}
+	}
+	public String readonlyfieldOriginal { 
+		get {if (this["readonlyfield",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["readonlyfield",DataRowVersion.Original];}
+	}
+	///<summary>
+	///Filtro sulla tabella collegata
+	///</summary>
+	public String tablefilter{ 
+		get {if (this["tablefilter"]==DBNull.Value)return null; return  (String)this["tablefilter"];}
+		set {if (value==null) this["tablefilter"]= DBNull.Value; else this["tablefilter"]= value;}
+	}
+	public object tablefilterValue { 
+		get{ return this["tablefilter"];}
+		set {if (value==null|| value==DBNull.Value) this["tablefilter"]= DBNull.Value; else this["tablefilter"]= value;}
+	}
+	public String tablefilterOriginal { 
+		get {if (this["tablefilter",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["tablefilter",DataRowVersion.Original];}
+	}
+	public String testvalue{ 
+		get {if (this["testvalue"]==DBNull.Value)return null; return  (String)this["testvalue"];}
+		set {if (value==null) this["testvalue"]= DBNull.Value; else this["testvalue"]= value;}
+	}
+	public object testvalueValue { 
+		get{ return this["testvalue"];}
+		set {if (value==null|| value==DBNull.Value) this["testvalue"]= DBNull.Value; else this["testvalue"]= value;}
+	}
+	public String testvalueOriginal { 
+		get {if (this["testvalue",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["testvalue",DataRowVersion.Original];}
+	}
+	///<summary>
+	///Intestazione
+	///</summary>
 	public String text{ 
 		get {if (this["text"]==DBNull.Value)return null; return  (String)this["text"];}
 		set {if (value==null) this["text"]= DBNull.Value; else this["text"]= value;}
@@ -202,6 +272,9 @@ public class appfielddetailRow: MetaRow  {
 	public String textOriginal { 
 		get {if (this["text",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["text",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Rappresenta come textarea (solo per nvarchar nchar che non siano già max)
+	///</summary>
 	public String textarea{ 
 		get {if (this["textarea"]==DBNull.Value)return null; return  (String)this["textarea"];}
 		set {if (value==null) this["textarea"]= DBNull.Value; else this["textarea"]= value;}
@@ -227,6 +300,9 @@ public class appfielddetailRow: MetaRow  {
 	public String titleOriginal { 
 		get {if (this["title",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["title",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Disponi da solo sulla riga
+	///</summary>
 	public String uniqueonrow{ 
 		get {if (this["uniqueonrow"]==DBNull.Value)return null; return  (String)this["uniqueonrow"];}
 		set {if (value==null) this["uniqueonrow"]= DBNull.Value; else this["uniqueonrow"]= value;}
@@ -238,6 +314,9 @@ public class appfielddetailRow: MetaRow  {
 	public String uniqueonrowOriginal { 
 		get {if (this["uniqueonrow",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["uniqueonrow",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Inserito nella pagina di dettaglio
+	///</summary>
 	public String visible{ 
 		get {if (this["visible"]==DBNull.Value)return null; return  (String)this["visible"];}
 		set {if (value==null) this["visible"]= DBNull.Value; else this["visible"]= value;}
@@ -255,6 +334,7 @@ public class appfielddetailRow: MetaRow  {
 public class appfielddetailTable : MetaTableBase<appfielddetailRow> {
 	public appfielddetailTable() : base("appfielddetail"){
 		baseColumns = new Dictionary<string, DataColumn>(){
+			{"calculatedfieldfunction",createColumn("calculatedfieldfunction",typeof(string),true,false)},
 			{"columnname",createColumn("columnname",typeof(string),true,false)},
 			{"defaultvalue",createColumn("defaultvalue",typeof(string),true,false)},
 			{"hidden",createColumn("hidden",typeof(string),true,false)},
@@ -265,8 +345,12 @@ public class appfielddetailTable : MetaTableBase<appfielddetailRow> {
 			{"islinkingobj",createColumn("islinkingobj",typeof(string),true,false)},
 			{"isnullable",createColumn("isnullable",typeof(string),true,false)},
 			{"listtype",createColumn("listtype",typeof(string),true,false)},
+			{"master",createColumn("master",typeof(string),true,false)},
 			{"position",createColumn("position",typeof(int),true,false)},
 			{"radiovalues",createColumn("radiovalues",typeof(string),true,false)},
+			{"readonlyfield",createColumn("readonlyfield",typeof(string),true,false)},
+			{"tablefilter",createColumn("tablefilter",typeof(string),true,false)},
+			{"testvalue",createColumn("testvalue",typeof(string),true,false)},
 			{"text",createColumn("text",typeof(string),true,false)},
 			{"textarea",createColumn("textarea",typeof(string),false,false)},
 			{"title",createColumn("title",typeof(string),true,false)},
@@ -276,4 +360,3 @@ public class appfielddetailTable : MetaTableBase<appfielddetailRow> {
 	}
 }
 }
-

@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="dsCedolino" targetNamespace="http://tempuri.org/dsCedolino.xsd" xmlns:mstns="http://tempuri.org/dsCedolino.xsd" xmlns="http://tempuri.org/dsCedolino.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsCedolino" targetNamespace="http://tempuri.org/dsCedolino.xsd" xmlns:mstns="http://tempuri.org/dsCedolino.xsd" xmlns="http://tempuri.org/dsCedolino.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:element name="dsCedolino" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -33,6 +33,8 @@
               <xs:element name="netfee" type="xs:decimal" minOccurs="0" />
               <xs:element name="_x0021_causa" type="xs:string" minOccurs="0" />
               <xs:element name="flagsummarybalance" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_codeupb" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -136,6 +138,8 @@
               <xs:element name="netfee" type="xs:decimal" minOccurs="0" />
               <xs:element name="_x0021_denominazione" type="xs:string" minOccurs="0" />
               <xs:element name="flagsummarybalance" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_codeupb" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -162,6 +166,8 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="npayroll" type="xs:int" />
               <xs:element name="flagsummarybalance" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_codeupb" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -192,6 +198,8 @@
               <xs:element name="_x0021_denominazione" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_causa" type="xs:string" minOccurs="0" />
               <xs:element name="flagsummarybalance" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_codeupb" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -315,6 +323,130 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="upb_cedolinoerogato" msprop:SkipSecurity="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:TableForPosting="" msprop:TableForReading="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upb_payroll" msprop:SkipSecurity="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:TableForPosting="" msprop:TableForReading="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upb_cedolinonontrasferibile" msprop:SkipSecurity="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:TableForPosting="" msprop:TableForReading="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upb_cedolinoannosuccessivo" msprop:SkipSecurity="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:TableForPosting="" msprop:TableForReading="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -372,50 +504,40 @@
       <xs:field xpath="mstns:idpayroll" />
       <xs:field xpath="mstns:idpayrolltaxcorrige" />
     </xs:unique>
-    <xs:keyref name="payrollpayrolltaxcorrige" refer="Constraint1">
-      <xs:selector xpath=".//mstns:payrolltaxcorrige" />
-      <xs:field xpath="mstns:idpayroll" />
-    </xs:keyref>
-    <xs:keyref name="cedolinonontrasferibile_payrolltaxcorrige" refer="cedolinonontrasferibile_Constraint1">
-      <xs:selector xpath=".//mstns:payrolltaxcorrige" />
-      <xs:field xpath="mstns:idpayroll" />
-    </xs:keyref>
-    <xs:keyref name="parasubcontractparasubcontractyear" refer="parasubcontract_Constraint1">
-      <xs:selector xpath=".//mstns:parasubcontractyear" />
-      <xs:field xpath="mstns:idcon" />
-    </xs:keyref>
-    <xs:keyref name="service_parasubcontract" refer="service_Constraint1">
-      <xs:selector xpath=".//mstns:parasubcontract" />
-      <xs:field xpath="mstns:idser" />
-    </xs:keyref>
-    <xs:keyref name="parasubcontract_cedolinonontrasferibile" refer="parasubcontract_Constraint1">
-      <xs:selector xpath=".//mstns:cedolinonontrasferibile" />
-      <xs:field xpath="mstns:idcon" />
-    </xs:keyref>
-    <xs:keyref name="payrollpayrollabatement" refer="Constraint1">
-      <xs:selector xpath=".//mstns:payrollabatement" />
-      <xs:field xpath="mstns:idpayroll" />
-    </xs:keyref>
-    <xs:keyref name="payrollpayrolldeduction" refer="Constraint1">
-      <xs:selector xpath=".//mstns:payrolldeduction" />
-      <xs:field xpath="mstns:idpayroll" />
-    </xs:keyref>
-    <xs:keyref name="payrolltaxpayrolltaxbracket" refer="payrolltax_Constraint1">
-      <xs:selector xpath=".//mstns:payrolltaxbracket" />
-      <xs:field xpath="mstns:idpayroll" />
-      <xs:field xpath="mstns:idpayrolltax" />
-    </xs:keyref>
-    <xs:keyref name="cedolinonontrasferibile_payrolltax" refer="cedolinonontrasferibile_Constraint1">
-      <xs:selector xpath=".//mstns:payrolltax" />
-      <xs:field xpath="mstns:idpayroll" />
-    </xs:keyref>
-    <xs:keyref name="payrollpayrolltax" refer="Constraint1">
-      <xs:selector xpath=".//mstns:payrolltax" />
-      <xs:field xpath="mstns:idpayroll" />
-    </xs:keyref>
-    <xs:keyref name="parasubcontractpayroll" refer="parasubcontract_Constraint1">
-      <xs:selector xpath=".//mstns:payroll" />
-      <xs:field xpath="mstns:idcon" />
-    </xs:keyref>
+    <xs:unique name="upb_cedolinoerogato_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb_cedolinoerogato" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="upb_payroll_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb_payroll" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="upb_cedolinonontrasferibile_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb_cedolinonontrasferibile" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="upb_cedolinoannosuccessivo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb_cedolinoannosuccessivo" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="cedolinonontrasferibile_payrolltaxcorrige" msdata:parent="cedolinonontrasferibile" msdata:child="payrolltaxcorrige" msdata:parentkey="idpayroll" msdata:childkey="idpayroll" />
+      <msdata:Relationship name="payrollpayrolltaxcorrige" msdata:parent="payroll" msdata:child="payrolltaxcorrige" msdata:parentkey="idpayroll" msdata:childkey="idpayroll" />
+      <msdata:Relationship name="parasubcontractparasubcontractyear" msdata:parent="parasubcontract" msdata:child="parasubcontractyear" msdata:parentkey="idcon" msdata:childkey="idcon" />
+      <msdata:Relationship name="service_parasubcontract" msdata:parent="service" msdata:child="parasubcontract" msdata:parentkey="idser" msdata:childkey="idser" />
+      <msdata:Relationship name="parasubcontract_cedolinonontrasferibile" msdata:parent="parasubcontract" msdata:child="cedolinonontrasferibile" msdata:parentkey="idcon" msdata:childkey="idcon" />
+      <msdata:Relationship name="payrollpayrollabatement" msdata:parent="payroll" msdata:child="payrollabatement" msdata:parentkey="idpayroll" msdata:childkey="idpayroll" />
+      <msdata:Relationship name="payrollpayrolldeduction" msdata:parent="payroll" msdata:child="payrolldeduction" msdata:parentkey="idpayroll" msdata:childkey="idpayroll" />
+      <msdata:Relationship name="payrolltaxpayrolltaxbracket" msdata:parent="payrolltax" msdata:child="payrolltaxbracket" msdata:parentkey="idpayroll idpayrolltax" msdata:childkey="idpayroll idpayrolltax" />
+      <msdata:Relationship name="payrollpayrolltax" msdata:parent="payroll" msdata:child="payrolltax" msdata:parentkey="idpayroll" msdata:childkey="idpayroll" />
+      <msdata:Relationship name="cedolinonontrasferibile_payrolltax" msdata:parent="cedolinonontrasferibile" msdata:child="payrolltax" msdata:parentkey="idpayroll" msdata:childkey="idpayroll" />
+      <msdata:Relationship name="parasubcontractpayroll" msdata:parent="parasubcontract" msdata:child="payroll" msdata:parentkey="idcon" msdata:childkey="idcon" />
+      <msdata:Relationship name="upb_cedolinoerogato_cedolinoerogato" msdata:parent="upb_cedolinoerogato" msdata:child="cedolinoerogato" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="upb_payroll_payroll" msdata:parent="upb_payroll" msdata:child="payroll" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="upb_cedolinonontrasferibile_cedolinonontrasferibile" msdata:parent="upb_cedolinonontrasferibile" msdata:child="cedolinonontrasferibile" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="upb_cedolinoannosuccessivo_cedolinoannosuccessivo" msdata:parent="upb_cedolinoannosuccessivo" msdata:child="cedolinoannosuccessivo" msdata:parentkey="idupb" msdata:childkey="idupb" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

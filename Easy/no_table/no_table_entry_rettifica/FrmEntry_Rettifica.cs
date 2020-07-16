@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -103,8 +100,7 @@ namespace no_table_entry_rettifica {
                 //      Assestamento Commessa Completata
                 DataTable tEntryDetail = ottieniDettagliAssestamentoCommessaCompletata();
                 if (tEntryDetail == null) {
-                    MessageBox.Show(this, "Errore nel calcolo scritture pluriennali aperti di tipo Commessa Completata",
-                        "Errore");
+                    MessageBox.Show(this, "Errore nel calcolo scritture pluriennali aperti di tipo Commessa Completata","Errore");
                 }
                 else {
                     string noRows = "Progetti pluriennali ancora aperti: nessun importo da rettificare";
@@ -475,7 +471,7 @@ namespace no_table_entry_rettifica {
             string checkfilter = QHS.MCmp(rEntry, new string[] { "yentry", "nentry" });
             ToMeta.ContextFilter = checkfilter;
             Form F = null;
-            if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+            if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
             bool result = ToMeta.Edit(F, "default", false);
             string listtype = ToMeta.DefaultListType;
             DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
@@ -500,20 +496,20 @@ namespace no_table_entry_rettifica {
             return t;
         }
 
-        DataTable ottieniCostiUPB(object idupb) {
-            int currAyear = (int)Meta.GetSys("esercizio");
-            string strYear = QHS.quote(currAyear);
-            string query = "select  sum(ed.amount) as amount,  ed.idreg " +//,ed.idepexp,ed.idacc,
-                    " from entrydetail ed " +
-                    " join account A on ED.idacc=A.idacc " +
-                    " WHERE " +
-                    " A.flagaccountusage & 64 <> 0 " +  //costi
-                    " AND ED.yentry= " + strYear +  //scritture di quest'anno
-                    " AND ED.idupb= " + QHS.quote(idupb) +
-                    " group by  ed.idreg"; //,ed.idepexp,ed.idacc
-            DataTable t = Conn.SQLRunner(query, false,600);
-            return t;
-        }
+        //DataTable ottieniCostiUPB(object idupb) {
+        //    int currAyear = (int)Meta.GetSys("esercizio");
+        //    string strYear = QHS.quote(currAyear);
+        //    string query = "select  sum(ed.amount) as amount,  ed.idreg " +//,ed.idepexp,ed.idacc,
+        //            " from entrydetail ed " +
+        //            " join account A on ED.idacc=A.idacc " +
+        //            " WHERE " +
+        //            " A.flagaccountusage & 64 <> 0 " +  //costi
+        //            " AND ED.yentry= " + strYear +  //scritture di quest'anno
+        //            " AND ED.idupb= " + QHS.quote(idupb) +
+        //            " group by  ed.idreg"; //,ed.idepexp,ed.idacc
+        //    DataTable t = Conn.SQLRunner(query, false,600);
+        //    return t;
+        //}
 
 
         void ripartisciSommaInBaseARicavi(decimal somma, DataTable ricavi) {
@@ -569,7 +565,7 @@ namespace no_table_entry_rettifica {
             string strYear = QHS.quote(currAyear);
             string query =
                 "select U.idupb,  " +
-                "-sum(case when A.flagaccountusage & 64 <> 0 then ED.amount else 0 end) as cost," +
+                "-sum(case when A.flagaccountusage & (64+131072) <> 0 then ED.amount else 0 end) as cost," +
                 "sum(case when A.flagaccountusage & 128 <> 0 then ED.amount else 0 end) as revenue," +
                 "sum(case when A.flagaccountusage & 2048 <> 0 then ED.amount else 0 end) as reserve," +
                 "-sum(case when A.idacc = EU.idacc_accruals then ED.amount else 0 end) as accruals," +
@@ -838,14 +834,14 @@ namespace no_table_entry_rettifica {
                         //                  idem il rateo ma il rateo attivo ove assente prendere il rateo di config
                         decimal importoRateo = costi - (ricavi + riserve);
 
-                        DataTable tCosti = ottieniCostiUPB(Curr["idupb"]); //amount / idacc / idreg
-                        ripartisciSommaInBaseARicavi(importoRateo, tCosti);
+                        //DataTable tCosti = ottieniCostiUPB(Curr["idupb"]); //raggruppa su idreg
+                        //ripartisciSommaInBaseARicavi(importoRateo, tCosti);
 
-                        foreach (DataRow r in tCosti.Select()) {
+                        //foreach (DataRow r in tCosti.Select()) {
 
                             var idacc = Curr[campoRateoAttivo]; // r["idacc"];
-                            var amount = CfgFn.GetNoNullDecimal(r["amount"]);
-                            var idreg = r["idreg"];
+                            var amount = importoRateo; //CfgFn.GetNoNullDecimal(r["amount"]);
+                            var idreg = DBNull.Value; // r["idreg"];
 
                             if (Curr[campoRicavo] == DBNull.Value) {
                                 string codeupb = "(non trovato)";
@@ -897,7 +893,7 @@ namespace no_table_entry_rettifica {
                             //rEntryDetailCR["idaccmotive"] = Curr["idaccmotive"];
                             rDetail["competencystart"] = DBNull.Value;
                             rDetail["competencystop"] = DBNull.Value;
-                        }
+                        //}
                     }
                     else {
                         //se i costi sono inferiori ai ricavi
@@ -912,13 +908,14 @@ namespace no_table_entry_rettifica {
                         //  Ossia detto RIS = somma ricavi dell'anno - somma costi dell'anno, ed Rt la somma dei ricavi dell'anno,
                         //    i vari importi da riscontare ripartiti per ricavo saranno pari a RIS *(ricavo / Rt)
 
-                        DataTable tRicavi = ottieniRicaviUPB(Curr["idupb"], false,false); //amount / idacc / idreg
-                        ripartisciSommaInBaseARicavi(importo_risconto, tRicavi);
-                        foreach (DataRow r in tRicavi.Select()) {
-                            var idacc = r["idacc"];
-                            var idaccmotive = r["idaccmotive"];
-                            var amount = CfgFn.GetNoNullDecimal(r["amount"]);
-                            var idreg = r["idreg"];
+                        //DataTable tRicavi = ottieniRicaviUPB(Curr["idupb"], false,false); //amount / idacc / idreg
+                        //ripartisciSommaInBaseARicavi(importo_risconto, tRicavi);
+                        //foreach (DataRow r in tRicavi.Select()) {
+
+                        var idacc = Curr[campoRicavo]; // r["idacc"];
+                        var idaccmotive = Curr[causaleRicavo]; //r["idaccmotive"];
+                        var amount = importo_risconto; //CfgFn.GetNoNullDecimal(r["amount"]);
+                            var idreg = DBNull.Value; // r["idreg"];
                             if (amount == 0) continue;
 
                             if (idacc == DBNull.Value) {
@@ -969,7 +966,7 @@ namespace no_table_entry_rettifica {
                             rDetail["competencystart"] = DBNull.Value;
                             rDetail["competencystop"] = DBNull.Value;
 
-                        }
+                        //}
                     }
 
                     #endregion
@@ -1003,9 +1000,10 @@ namespace no_table_entry_rettifica {
             int n = tCommessaCompletata.Rows.Count;
             progBar.Maximum = n;
             progBar.Value = 0;
+            bool anyError = false;
             foreach (DataRow r in tCommessaCompletata.Rows) {               
                 txtCurrent.Text = $@"UPB {r["codeupb"]} {r["title"]}";
-                rigeneraScrittura(r);
+                if (!rigeneraScrittura(r)) anyError=true;
                 progBar.Increment(1);
                 progBar.Update();
                 Application.DoEvents();
@@ -1013,12 +1011,17 @@ namespace no_table_entry_rettifica {
             txtCurrent.Text = "";
             progBar.Value = 0;
             progBar.Update();
-
-            MessageBox.Show(this, "Generazione scritture completata.");
+            if (anyError) {
+	            MessageBox.Show(this, "Generazione scritture completata con ERRORI.");
+            }
+            else {
+	            MessageBox.Show(this, "Generazione scritture completata.");
+            }
+            
             return true;
         }
 
-        void rigeneraScrittura(DataRow curr) {
+        bool rigeneraScrittura(DataRow curr) {
             try { 
                 
                 m.DS = curr.Table.DataSet;             
@@ -1027,10 +1030,11 @@ namespace no_table_entry_rettifica {
                 ep.etichetteAbilitate = false;
                 ep.autoIgnore = true;
                 ep.chiediMovimentiParent = false;
+                ep.mostraDatiSalvati = false;
                 ep.beforePost();
                 ep.afterPost(false);
                 if (!ep.ultimaGenerazioneRiuscita) {
-                    return;
+	                return false;
                 }
             }
             catch (Exception e) {
@@ -1038,8 +1042,10 @@ namespace no_table_entry_rettifica {
                     $"Errore generando la scrittura per {txtCurrent.Text}, tabella {curr.Table.TableName} nella riga di chiave {QHC.CmpKey(curr)}";
                 Meta.LogError(msg, e);
                 QueryCreator.ShowException(msg, e);
+                return false;
             }
 
+            return true;
         }
 
 
@@ -1255,5 +1261,5 @@ namespace no_table_entry_rettifica {
 
             return true;
         }
-    }
-}
+	}
+}

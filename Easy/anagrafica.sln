@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mainform", "mainform\mainform.csproj", "{E04C2CEF-078B-4B25-904C-6374C88E0EE7}"
 EndProject
@@ -13,6 +13,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_registry", "registry\meta_registry\meta_registry.csproj", "{FD391545-B1FD-4123-817F-00EFDE40ED22}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registry_anagrafica", "registry\registry_anagrafica\registry_anagrafica.csproj", "{D17365BA-346C-49AD-AB78-BB986DF86906}"
+	ProjectSection(ProjectDependencies) = postProject
+		{06E985D5-AD63-44B5-99CA-F513E7C41F30} = {06E985D5-AD63-44B5-99CA-F513E7C41F30}
+		{5014E1DA-562A-4636-957D-4BF3A96BD67C} = {5014E1DA-562A-4636-957D-4BF3A96BD67C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_registrytaxablestatus", "registrytaxablestatus\meta_registrytaxablestatus\meta_registrytaxablestatus.csproj", "{85521F0C-09C8-4C74-9315-2278D60B57B7}"
 EndProject

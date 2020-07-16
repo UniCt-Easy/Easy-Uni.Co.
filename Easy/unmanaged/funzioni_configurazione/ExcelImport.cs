@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -227,8 +224,15 @@ namespace funzioni_configurazione {
 
                     if (col.DataType == typeof(DateTime)) {
                         if (val2.GetType() == typeof(string)) {
-                            string[] gma = val2.ToString().Split('/');
-                            r[col] = new DateTime(Convert.ToInt32(gma[2]), Convert.ToInt32(gma[1]), Convert.ToInt32(gma[0]));
+	                        try {
+		                        string[] gma = val2.ToString().Split('/');
+		                        r[col] = new DateTime(Convert.ToInt32(gma[2]), Convert.ToInt32(gma[1]),
+			                        Convert.ToInt32(gma[0]));
+	                        }
+	                        catch {
+		                        throw new Exception(
+			                        $"La stringa {val2} alla riga {nrigacorrente} colonna {col.ColumnName} non ha un formato di data valido");
+	                        }
                         }
                         else {
                             r[col] = DateTime.FromOADate(Convert.ToDouble(val2));
@@ -1020,4 +1024,3 @@ namespace funzioni_configurazione {
 
     }
 }
-

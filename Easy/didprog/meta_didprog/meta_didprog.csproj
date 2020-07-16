@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+ <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\dll\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="metadatalibrary">
       <HintPath>../../dll/metadatalibrary.dll</HintPath>
       <Private>False</Private>
@@ -48,28 +52,9 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="meta_didprog.cs" />
-    <Compile Include="vista.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>vista.xsd</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="vista.xsd">
-      <SubType>Designer</SubType>
-      <Generator>HDSGen</Generator>
-      <LastGenOutput>vista.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="vista.xss">
-      <DependentUpon>vista.xsd</DependentUpon>
-    </None>
-    <None Include="vista.xsc">
-      <DependentUpon>vista.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*" "$(SolutionDir)output" /Y 
-xcopy "$(TargetDir)$(TargetName).*" "$(SolutionDir)..\Progetti\portale\libraries" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*" "$(SolutionDir)output" /Y</PostBuildEvent>
   </PropertyGroup>
  </Project>

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -424,6 +421,13 @@ namespace ep_functions {
                     return ComposeObjects(new[] {"provision", R["idprovision", toConsider]});
                 case "provisiondetail":
                     return ComposeObjects(new[] {"provision", R["idprovision"], R["rownum"]});
+                case "ivapay":
+                    return ComposeObjects(
+                        new[] {
+                            "ivapay",
+                            R["yivapay", toConsider],
+                            R["nivapay", toConsider]
+                        });
             }
 
             return null;
@@ -468,7 +472,7 @@ namespace ep_functions {
             MetaData ToMeta = Meta.Dispatcher.Get(table);
             if (ToMeta == null) return false;
             ToMeta.ContextFilter = filter;
-            bool result = ToMeta.Edit(Meta.LinkedForm.ParentForm, "default", false);
+            bool result = ToMeta.Edit(Meta.linkedForm.ParentForm, "default", false);
             string listtype = "default";
             DataRow R = ToMeta.SelectOne(listtype, filter, null, null);
             if (R != null) {
@@ -726,7 +730,7 @@ namespace ep_functions {
                 MetaData Doc = meta.Dispatcher.Get(table);
                 Doc.ContextFilter = filter;
                 Form F = null;
-                if (meta.LinkedForm != null) F = meta.LinkedForm.ParentForm;
+                if (meta.linkedForm != null) F = meta.linkedForm.ParentForm;
                 bool result = Doc.Edit(F, "default", false);
                 string listtype = Doc.DefaultListType;
                 DataRow RR = Doc.SelectOne(listtype, filter, null, null);
@@ -768,7 +772,7 @@ namespace ep_functions {
             string checkfilter = QHS.AppAnd(filterRelated, QHS.CmpEq("nphase", nphase));
             ToMeta.ContextFilter = checkfilter;
             Form F = null;
-            if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+            if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
             bool result = ToMeta.Edit(F, "default", false);
             string listtype = ToMeta.DefaultListType;
             DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
@@ -1439,6 +1443,19 @@ namespace ep_functions {
             EpAccByIdRelated[k] = r;
         }
 
+		
+
+        public DataRow getEpExpRowLike(object idrelated, int nphase) {
+	        foreach (var existing in EpExpByIdRelated.Keys) {
+				var parts = existing.Split('*');
+				if (parts[1].ToString()!=nphase.ToString())continue;
+				if (parts[0] == idrelated.ToString()) return EpExpByIdRelated[existing];
+				if (parts[0].StartsWith(idrelated.ToString()+"ß")) return EpExpByIdRelated[existing];
+	        }
+
+	        return null;
+        }
+
         public DataRow getEpExpRow(object idrelated, int nphase) {
             string k = idrelated.ToString() + "*" + nphase;
             if (EpExpByIdRelated.ContainsKey(k)) {
@@ -1755,6 +1772,9 @@ namespace ep_functions {
             }
         }
 
+        /// <summary>
+        /// Cancella le righe che hanno importo zero
+        /// </summary>
         public void RemoveEmptyEpexp() {
             DataTable EpExp = D.Tables["epexp"];
             DataTable EpExpYear = D.Tables["epexpyear"];
@@ -2575,4 +2595,4 @@ namespace ep_functions {
 
 
     }
-}
+}

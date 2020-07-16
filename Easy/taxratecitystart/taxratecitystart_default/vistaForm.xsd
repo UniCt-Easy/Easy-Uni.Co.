@@ -58,22 +58,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="taxratecitystartview">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="taxcode" type="xs:int" />
-              <xs:element name="taxref" type="xs:string" />
-              <xs:element name="idcity" type="xs:int" />
-              <xs:element name="idtaxratecitystart" type="xs:int" />
-              <xs:element name="city" type="xs:string" minOccurs="0" />
-              <xs:element name="idcountry" type="xs:int" />
-              <xs:element name="country" type="xs:string" minOccurs="0" />
-              <xs:element name="start" type="xs:dateTime" />
-              <xs:element name="enforcement" type="xs:string" minOccurs="0" />
-              <xs:element name="annotations" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="taxratecitystart">
           <xs:complexType>
             <xs:sequence>
@@ -104,6 +88,38 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="taxratecitystartview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="taxref" type="xs:string" />
+              <xs:element name="idcity" type="xs:int" />
+              <xs:element name="idtaxratecitystart" type="xs:int" />
+              <xs:element name="city" type="xs:string" minOccurs="0" />
+              <xs:element name="idcountry" type="xs:int" />
+              <xs:element name="country" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="enforcement" type="xs:string" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="taxablemin" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="min1" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="max1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rate1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="min2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="max2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rate2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="min3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="max3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rate3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="min4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="max4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rate4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="min5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="max5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rate5" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -113,12 +129,6 @@
     <xs:unique name="tax_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:tax" />
       <xs:field xpath="mstns:taxcode" />
-    </xs:unique>
-    <xs:unique name="taxratecitystartview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:taxratecitystartview" />
-      <xs:field xpath="mstns:taxcode" />
-      <xs:field xpath="mstns:idcity" />
-      <xs:field xpath="mstns:idtaxratecitystart" />
     </xs:unique>
     <xs:unique name="taxratecitystart_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:taxratecitystart" />
@@ -132,6 +142,13 @@
       <xs:field xpath="mstns:taxcode" />
       <xs:field xpath="mstns:idtaxratecitystart" />
       <xs:field xpath="mstns:nbracket" />
+    </xs:unique>
+    <xs:unique name="taxratecitystartview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:taxratecitystartview" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:idcity" />
+      <xs:field xpath="mstns:idtaxratecitystart" />
+      <xs:field xpath="mstns:idcountry" />
     </xs:unique>
   </xs:element>
   <xs:annotation>

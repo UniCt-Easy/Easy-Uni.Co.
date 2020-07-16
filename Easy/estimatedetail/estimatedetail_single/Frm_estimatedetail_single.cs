@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -109,7 +106,7 @@ namespace estimatedetail_single {
         private GroupBox grpCausaleAnnullamento;
         private TextBox textBox2;
         private TextBox txtCodiceCausaleAnnullamento;
-        private Button button1;
+        private Button btnCausaleEPAnnullamento;
         private GroupBox gboxCompetenza;
         private TextBox textBox4;
         private TextBox textBox3;
@@ -118,7 +115,7 @@ namespace estimatedetail_single {
         private GroupBox grpCausale;
         private TextBox txtDescrizioneCausale;
         private TextBox txtCodiceCausale;
-        private Button button2;
+        private Button btnCausaleEP;
         private TabPage tabAppunti;
         private TabPage tabMain;
         private TextBox txtQuantita;
@@ -326,7 +323,7 @@ namespace estimatedetail_single {
             this.grpCausaleAnnullamento = new System.Windows.Forms.GroupBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.txtCodiceCausaleAnnullamento = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnCausaleEPAnnullamento = new System.Windows.Forms.Button();
             this.gboxCompetenza = new System.Windows.Forms.GroupBox();
             this.rdEPKind_N = new System.Windows.Forms.RadioButton();
             this.rdEPKind_F = new System.Windows.Forms.RadioButton();
@@ -338,7 +335,7 @@ namespace estimatedetail_single {
             this.grpCausale = new System.Windows.Forms.GroupBox();
             this.txtDescrizioneCausale = new System.Windows.Forms.TextBox();
             this.txtCodiceCausale = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnCausaleEP = new System.Windows.Forms.Button();
             this.tabAppunti = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.textBox9 = new System.Windows.Forms.TextBox();
@@ -1642,7 +1639,7 @@ namespace estimatedetail_single {
             // 
             this.grpCausaleAnnullamento.Controls.Add(this.textBox2);
             this.grpCausaleAnnullamento.Controls.Add(this.txtCodiceCausaleAnnullamento);
-            this.grpCausaleAnnullamento.Controls.Add(this.button1);
+            this.grpCausaleAnnullamento.Controls.Add(this.btnCausaleEPAnnullamento);
             this.grpCausaleAnnullamento.Location = new System.Drawing.Point(16, 224);
             this.grpCausaleAnnullamento.Name = "grpCausaleAnnullamento";
             this.grpCausaleAnnullamento.Size = new System.Drawing.Size(351, 144);
@@ -1670,15 +1667,15 @@ namespace estimatedetail_single {
             this.txtCodiceCausaleAnnullamento.TabIndex = 1;
             this.txtCodiceCausaleAnnullamento.Tag = "accmotiveappliedannulment.codemotive?x";
             // 
-            // button1
+            // btnCausaleEPAnnullamento
             // 
-            this.button1.Location = new System.Drawing.Point(10, 79);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(104, 23);
-            this.button1.TabIndex = 0;
-            this.button1.TabStop = false;
-            this.button1.Tag = "manage.accmotiveappliedannulment.tree";
-            this.button1.Text = "Causale";
+            this.btnCausaleEPAnnullamento.Location = new System.Drawing.Point(10, 79);
+            this.btnCausaleEPAnnullamento.Name = "btnCausaleEPAnnullamento";
+            this.btnCausaleEPAnnullamento.Size = new System.Drawing.Size(104, 23);
+            this.btnCausaleEPAnnullamento.TabIndex = 0;
+            this.btnCausaleEPAnnullamento.TabStop = false;
+            this.btnCausaleEPAnnullamento.Tag = "manage.accmotiveappliedannulment.tree";
+            this.btnCausaleEPAnnullamento.Text = "Causale";
             // 
             // gboxCompetenza
             // 
@@ -1765,7 +1762,7 @@ namespace estimatedetail_single {
             // 
             this.grpCausale.Controls.Add(this.txtDescrizioneCausale);
             this.grpCausale.Controls.Add(this.txtCodiceCausale);
-            this.grpCausale.Controls.Add(this.button2);
+            this.grpCausale.Controls.Add(this.btnCausaleEP);
             this.grpCausale.Location = new System.Drawing.Point(16, 12);
             this.grpCausale.Name = "grpCausale";
             this.grpCausale.Size = new System.Drawing.Size(351, 144);
@@ -1793,15 +1790,15 @@ namespace estimatedetail_single {
             this.txtCodiceCausale.TabIndex = 1;
             this.txtCodiceCausale.Tag = "accmotiveapplied.codemotive?x";
             // 
-            // button2
+            // btnCausaleEP
             // 
-            this.button2.Location = new System.Drawing.Point(6, 79);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(104, 23);
-            this.button2.TabIndex = 0;
-            this.button2.TabStop = false;
-            this.button2.Tag = "manage.accmotiveapplied.tree";
-            this.button2.Text = "Causale";
+            this.btnCausaleEP.Location = new System.Drawing.Point(6, 79);
+            this.btnCausaleEP.Name = "btnCausaleEP";
+            this.btnCausaleEP.Size = new System.Drawing.Size(104, 23);
+            this.btnCausaleEP.TabIndex = 0;
+            this.btnCausaleEP.TabStop = false;
+            this.btnCausaleEP.Tag = "manage.accmotiveapplied.tree";
+            this.btnCausaleEP.Text = "Causale";
             // 
             // tabAppunti
             // 
@@ -2181,9 +2178,29 @@ namespace estimatedetail_single {
             //    }
             //}
             SiopeObj = new siope_helper(this, txtCodSiope, txtDescSiope, btnSiope, grpBoxSiopeEP, false, DS.sorting_siope);
-        }
 
-        siope_helper SiopeObj;
+			int esercizio = Conn.GetEsercizio();
+			int yestim = CfgFn.GetNoNullInt32(DR["yestim"]);
+			DateTime primoGennaio = new DateTime(esercizio, 1, 1);
+
+			if ((yestim < esercizio) && (DR["idepacc"] != DBNull.Value)) {
+				//Non modifica la causale EP per dettagli degli anni precedenti associati a impegni di budget
+				btnListino.Enabled = false;
+				txtListino.ReadOnly = true;
+                btnCausaleEP.Enabled = false;
+                txtCodiceCausale.ReadOnly = true;
+                //btnCausaleEPAnnullamento.Enabled = false;
+                //txtCodiceCausaleAnnullamento.ReadOnly = true;
+                btnUPB.Enabled = false;
+                buttonupbIVA.Enabled = false;
+                txtUPB.ReadOnly = true;
+                txtUPBiva.ReadOnly = true;
+            }
+
+
+		}
+
+		siope_helper SiopeObj;
 
 
         //void DisablePostLinked() {
@@ -2389,16 +2406,14 @@ namespace estimatedetail_single {
                 double imponibile = CfgFn.GetNoNullDouble(Curr["taxable"]);
                 double quantita = CfgFn.GetNoNullDouble(Curr["number"]);
                 double sconto = CfgFn.GetNoNullDouble(Curr["discount"]);
-                double imponibiletot = CfgFn.RoundValuta((imponibile*quantita*(1 - sconto)));
-                double imponibiletotEUR = CfgFn.RoundValuta(imponibiletot*tassocambio);
+                double imponibiletotEUR = CfgFn.RoundValuta((imponibile*quantita*(1 - sconto)*tassocambio));
+                //double imponibiletotEUR = CfgFn.RoundValuta(imponibiletot*tassocambio);
                 double iva = CfgFn.GetNoNullDouble(Curr["tax"]);
                 double ivaEUR = CfgFn.RoundValuta(iva*tassocambio);
 
-                txtImponibileEUR.Text = HelpForm.StringValue(imponibiletotEUR,
-                    "x.y.fixed.2...1");
+                txtImponibileEUR.Text = HelpForm.StringValue(imponibiletotEUR,"x.y.fixed.2...1");
                 //imponibiletotEUR.ToString("n");
-                txtIvaEUR.Text = HelpForm.StringValue(ivaEUR,
-                    "x.y.fixed.2...1"); //                .ToString("n");
+                txtIvaEUR.Text = HelpForm.StringValue(ivaEUR, "x.y.fixed.2...1"); //                .ToString("n");
             }
             catch {
                 txtImponibileEUR.Text = "";
@@ -2416,7 +2431,8 @@ namespace estimatedetail_single {
                 double quantita = CfgFn.GetNoNullDouble(Curr["number"]);
                 double sconto = CfgFn.GetNoNullDouble(Curr["discount"]);
                 double imponibiletot = CfgFn.RoundValuta((imponibile*quantita*(1 - sconto)));
-                double imponibiletotEUR = CfgFn.RoundValuta(imponibiletot*tassocambio);
+                double imponibiletotEUR = CfgFn.RoundValuta((imponibile*quantita*(1 - sconto)*tassocambio));
+                //double imponibiletotEUR = CfgFn.RoundValuta(imponibiletot*tassocambio);
                 double iva = CfgFn.RoundValuta(imponibiletot*aliquota);
                 double ivaEUR = CfgFn.RoundValuta(iva*tassocambio);
                 TxtImponibileValutaTot.Text = HelpForm.StringValue(imponibiletot,
@@ -2755,4 +2771,3 @@ namespace estimatedetail_single {
         }
     }
 }
-

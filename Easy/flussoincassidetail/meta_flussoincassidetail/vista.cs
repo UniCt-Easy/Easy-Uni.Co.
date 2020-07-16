@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -32,30 +29,30 @@ public class flussoincassidetailRow: MetaRow  {
 	///<summary>
 	///#
 	///</summary>
-	public Int32? idflusso{ 
-		get {if (this["idflusso"]==DBNull.Value)return null; return  (Int32?)this["idflusso"];}
-		set {if (value==null) this["idflusso"]= DBNull.Value; else this["idflusso"]= value;}
+	public Int32 idflusso{ 
+		get {return  (Int32)this["idflusso"];}
+		set {this["idflusso"]= value;}
 	}
 	public object idflussoValue { 
 		get{ return this["idflusso"];}
-		set {if (value==null|| value==DBNull.Value) this["idflusso"]= DBNull.Value; else this["idflusso"]= value;}
+		set {this["idflusso"]= value;}
 	}
-	public Int32? idflussoOriginal { 
-		get {if (this["idflusso",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idflusso",DataRowVersion.Original];}
+	public Int32 idflussoOriginal { 
+		get {return  (Int32)this["idflusso",DataRowVersion.Original];}
 	}
 	///<summary>
 	///n. dettaglio
 	///</summary>
-	public Int32? iddetail{ 
-		get {if (this["iddetail"]==DBNull.Value)return null; return  (Int32?)this["iddetail"];}
-		set {if (value==null) this["iddetail"]= DBNull.Value; else this["iddetail"]= value;}
+	public Int32 iddetail{ 
+		get {return  (Int32)this["iddetail"];}
+		set {this["iddetail"]= value;}
 	}
 	public object iddetailValue { 
 		get{ return this["iddetail"];}
-		set {if (value==null|| value==DBNull.Value) this["iddetail"]= DBNull.Value; else this["iddetail"]= value;}
+		set {this["iddetail"]= value;}
 	}
-	public Int32? iddetailOriginal { 
-		get {if (this["iddetail",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["iddetail",DataRowVersion.Original];}
+	public Int32 iddetailOriginal { 
+		get {return  (Int32)this["iddetail",DataRowVersion.Original];}
 	}
 	///<summary>
 	///codice bollettino univoco o IUV
@@ -180,6 +177,17 @@ public class flussoincassidetailRow: MetaRow  {
 	public String p_ivaOriginal { 
 		get {if (this["p_iva",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["p_iva",DataRowVersion.Original];}
 	}
+	public DateTime? dataesitopagamento{ 
+		get {if (this["dataesitopagamento"]==DBNull.Value)return null; return  (DateTime?)this["dataesitopagamento"];}
+		set {if (value==null) this["dataesitopagamento"]= DBNull.Value; else this["dataesitopagamento"]= value;}
+	}
+	public object dataesitopagamentoValue { 
+		get{ return this["dataesitopagamento"];}
+		set {if (value==null|| value==DBNull.Value) this["dataesitopagamento"]= DBNull.Value; else this["dataesitopagamento"]= value;}
+	}
+	public DateTime? dataesitopagamentoOriginal { 
+		get {if (this["dataesitopagamento",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["dataesitopagamento",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -200,8 +208,8 @@ public class flussoincassidetailTable : MetaTableBase<flussoincassidetailRow> {
 			{"lu",createColumn("lu",typeof(string),true,false)},
 			{"cf",createColumn("cf",typeof(string),true,false)},
 			{"p_iva",createColumn("p_iva",typeof(string),true,false)},
+			{"dataesitopagamento",createColumn("dataesitopagamento",typeof(DateTime),true,false)},
 		};
 	}
 }
 }
-

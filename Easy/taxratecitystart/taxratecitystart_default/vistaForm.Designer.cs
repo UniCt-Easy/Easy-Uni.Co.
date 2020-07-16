@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -27,7 +24,7 @@ using System.Runtime.Serialization;
 namespace taxratecitystart_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -38,9 +35,6 @@ public class vistaForm: DataSet {
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tax 		=> Tables["tax"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable taxratecitystartview 		=> Tables["taxratecitystartview"];
 
 	///<summary>
 	///Struttura Imposta Comunale
@@ -53,6 +47,9 @@ public class vistaForm: DataSet {
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable taxratecitybracket 		=> Tables["taxratecitybracket"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable taxratecitystartview 		=> Tables["taxratecitystartview"];
 
 	#endregion
 
@@ -151,34 +148,6 @@ private void initClass() {
 	ttax.PrimaryKey =  new DataColumn[]{ttax.Columns["taxcode"]};
 
 
-	//////////////////// TAXRATECITYSTARTVIEW /////////////////////////////////
-	var ttaxratecitystartview= new DataTable("taxratecitystartview");
-	C= new DataColumn("taxcode", typeof(int));
-	C.AllowDBNull=false;
-	ttaxratecitystartview.Columns.Add(C);
-	C= new DataColumn("taxref", typeof(string));
-	C.AllowDBNull=false;
-	ttaxratecitystartview.Columns.Add(C);
-	C= new DataColumn("idcity", typeof(int));
-	C.AllowDBNull=false;
-	ttaxratecitystartview.Columns.Add(C);
-	C= new DataColumn("idtaxratecitystart", typeof(int));
-	C.AllowDBNull=false;
-	ttaxratecitystartview.Columns.Add(C);
-	ttaxratecitystartview.Columns.Add( new DataColumn("city", typeof(string)));
-	C= new DataColumn("idcountry", typeof(int));
-	C.AllowDBNull=false;
-	ttaxratecitystartview.Columns.Add(C);
-	ttaxratecitystartview.Columns.Add( new DataColumn("country", typeof(string)));
-	C= new DataColumn("start", typeof(DateTime));
-	C.AllowDBNull=false;
-	ttaxratecitystartview.Columns.Add(C);
-	ttaxratecitystartview.Columns.Add( new DataColumn("enforcement", typeof(string)));
-	ttaxratecitystartview.Columns.Add( new DataColumn("annotations", typeof(string)));
-	Tables.Add(ttaxratecitystartview);
-	ttaxratecitystartview.PrimaryKey =  new DataColumn[]{ttaxratecitystartview.Columns["taxcode"], ttaxratecitystartview.Columns["idcity"], ttaxratecitystartview.Columns["idtaxratecitystart"]};
-
-
 	//////////////////// TAXRATECITYSTART /////////////////////////////////
 	var ttaxratecitystart= new DataTable("taxratecitystart");
 	C= new DataColumn("idcity", typeof(int));
@@ -233,6 +202,54 @@ private void initClass() {
 	ttaxratecitybracket.PrimaryKey =  new DataColumn[]{ttaxratecitybracket.Columns["idcity"], ttaxratecitybracket.Columns["taxcode"], ttaxratecitybracket.Columns["idtaxratecitystart"], ttaxratecitybracket.Columns["nbracket"]};
 
 
+	//////////////////// TAXRATECITYSTARTVIEW /////////////////////////////////
+	var ttaxratecitystartview= new DataTable("taxratecitystartview");
+	C= new DataColumn("taxcode", typeof(int));
+	C.AllowDBNull=false;
+	ttaxratecitystartview.Columns.Add(C);
+	C= new DataColumn("taxref", typeof(string));
+	C.AllowDBNull=false;
+	ttaxratecitystartview.Columns.Add(C);
+	C= new DataColumn("idcity", typeof(int));
+	C.AllowDBNull=false;
+	ttaxratecitystartview.Columns.Add(C);
+	C= new DataColumn("idtaxratecitystart", typeof(int));
+	C.AllowDBNull=false;
+	ttaxratecitystartview.Columns.Add(C);
+	ttaxratecitystartview.Columns.Add( new DataColumn("city", typeof(string)));
+	C= new DataColumn("idcountry", typeof(int));
+	C.AllowDBNull=false;
+	ttaxratecitystartview.Columns.Add(C);
+	ttaxratecitystartview.Columns.Add( new DataColumn("country", typeof(string)));
+	C= new DataColumn("start", typeof(DateTime));
+	C.AllowDBNull=false;
+	ttaxratecitystartview.Columns.Add(C);
+	ttaxratecitystartview.Columns.Add( new DataColumn("enforcement", typeof(string)));
+	ttaxratecitystartview.Columns.Add( new DataColumn("annotations", typeof(string)));
+	C= new DataColumn("taxablemin", typeof(decimal));
+	C.ReadOnly=true;
+	ttaxratecitystartview.Columns.Add(C);
+	C= new DataColumn("min1", typeof(decimal));
+	C.ReadOnly=true;
+	ttaxratecitystartview.Columns.Add(C);
+	ttaxratecitystartview.Columns.Add( new DataColumn("max1", typeof(decimal)));
+	ttaxratecitystartview.Columns.Add( new DataColumn("rate1", typeof(decimal)));
+	ttaxratecitystartview.Columns.Add( new DataColumn("min2", typeof(decimal)));
+	ttaxratecitystartview.Columns.Add( new DataColumn("max2", typeof(decimal)));
+	ttaxratecitystartview.Columns.Add( new DataColumn("rate2", typeof(decimal)));
+	ttaxratecitystartview.Columns.Add( new DataColumn("min3", typeof(decimal)));
+	ttaxratecitystartview.Columns.Add( new DataColumn("max3", typeof(decimal)));
+	ttaxratecitystartview.Columns.Add( new DataColumn("rate3", typeof(decimal)));
+	ttaxratecitystartview.Columns.Add( new DataColumn("min4", typeof(decimal)));
+	ttaxratecitystartview.Columns.Add( new DataColumn("max4", typeof(decimal)));
+	ttaxratecitystartview.Columns.Add( new DataColumn("rate4", typeof(decimal)));
+	ttaxratecitystartview.Columns.Add( new DataColumn("min5", typeof(decimal)));
+	ttaxratecitystartview.Columns.Add( new DataColumn("max5", typeof(decimal)));
+	ttaxratecitystartview.Columns.Add( new DataColumn("rate5", typeof(decimal)));
+	Tables.Add(ttaxratecitystartview);
+	ttaxratecitystartview.PrimaryKey =  new DataColumn[]{ttaxratecitystartview.Columns["taxcode"], ttaxratecitystartview.Columns["idcity"], ttaxratecitystartview.Columns["idtaxratecitystart"], ttaxratecitystartview.Columns["idcountry"]};
+
+
 	#endregion
 
 
@@ -254,4 +271,3 @@ private void initClass() {
 }
 }
 }
-

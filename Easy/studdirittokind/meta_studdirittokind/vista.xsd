@@ -6,11 +6,11 @@
         <xs:element name="studdirittokind">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="active" type="xs:string" />
               <xs:element name="description" type="xs:string" />
               <xs:element name="idstuddirittokind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="sortorder" type="xs:int" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>

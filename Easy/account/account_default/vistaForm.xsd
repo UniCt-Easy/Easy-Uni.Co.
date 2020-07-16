@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -389,18 +389,13 @@
       <xs:selector xpath=".//mstns:placcount" />
       <xs:field xpath="mstns:idplaccount" />
     </xs:unique>
-    <xs:unique name="sortingview_Constraint1" msdata:ConstraintName="Constraint1">
+    <xs:unique name="sortingview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sortingview" />
       <xs:field xpath="mstns:idsor" />
     </xs:unique>
     <xs:unique name="accountspecial_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:accountspecial" />
       <xs:field xpath="mstns:idacc" />
-    </xs:unique>
-    <xs:unique name="Constraint2">
-      <xs:selector xpath=".//mstns:accountspecial" />
-      <xs:field xpath="mstns:idacc" />
-      <xs:field xpath="mstns:ayear" />
     </xs:unique>
     <xs:unique name="accountyear_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:accountyear" />
@@ -426,59 +421,22 @@
       <xs:selector xpath=".//mstns:sorting_investimenti" />
       <xs:field xpath="mstns:idsor" />
     </xs:unique>
-    <xs:keyref name="account_accountyearview" refer="Constraint1">
-      <xs:selector xpath=".//mstns:accountyearview" />
-      <xs:field xpath="mstns:idacc" />
-    </xs:keyref>
-    <xs:keyref name="account_accountvardetailview" refer="Constraint1">
-      <xs:selector xpath=".//mstns:accountvardetailview" />
-      <xs:field xpath="mstns:idacc" />
-    </xs:keyref>
-    <xs:keyref name="account_accountyear" refer="Constraint1">
-      <xs:selector xpath=".//mstns:accountyear" />
-      <xs:field xpath="mstns:idacc" />
-    </xs:keyref>
-    <xs:keyref name="accountaccountsorting" refer="Constraint1">
-      <xs:selector xpath=".//mstns:accountsorting" />
-      <xs:field xpath="mstns:idacc" />
-    </xs:keyref>
-    <xs:keyref name="FK_sortingview_accountsorting" refer="sortingview_Constraint1">
-      <xs:selector xpath=".//mstns:accountsorting" />
-      <xs:field xpath="mstns:idsor" />
-    </xs:keyref>
-    <xs:keyref name="accountspecial_account" refer="Constraint2">
-      <xs:selector xpath=".//mstns:account" />
-      <xs:field xpath="mstns:idacc_special" />
-      <xs:field xpath="mstns:ayear" />
-    </xs:keyref>
-    <xs:keyref name="placcountaccount" refer="placcount_Constraint1">
-      <xs:selector xpath=".//mstns:account" />
-      <xs:field xpath="mstns:idplaccount" />
-    </xs:keyref>
-    <xs:keyref name="patrimonyaccount" refer="patrimony_Constraint1">
-      <xs:selector xpath=".//mstns:account" />
-      <xs:field xpath="mstns:idpatrimony" />
-    </xs:keyref>
-    <xs:keyref name="accountaccount" refer="Constraint1">
-      <xs:selector xpath=".//mstns:account" />
-      <xs:field xpath="mstns:paridacc" />
-    </xs:keyref>
-    <xs:keyref name="accountkindaccount" refer="accountkind_Constraint1">
-      <xs:selector xpath=".//mstns:account" />
-      <xs:field xpath="mstns:idaccountkind" />
-    </xs:keyref>
-    <xs:keyref name="accountlevelaccount" refer="accountlevel_Constraint1">
-      <xs:selector xpath=".//mstns:account" />
-      <xs:field xpath="mstns:ayear" />
-      <xs:field xpath="mstns:nlevel" />
-    </xs:keyref>
-    <xs:keyref name="FK_sorting_economico_account" refer="sorting_economico_Constraint1">
-      <xs:selector xpath=".//mstns:account" />
-      <xs:field xpath="mstns:idsor_economicbudget" />
-    </xs:keyref>
-    <xs:keyref name="FK_sorting_investimenti_account" refer="sorting_investimenti_Constraint1">
-      <xs:selector xpath=".//mstns:account" />
-      <xs:field xpath="mstns:idsor_investmentbudget" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="account_accountyearview" msdata:parent="account" msdata:child="accountyearview" msdata:parentkey="idacc" msdata:childkey="idacc" />
+      <msdata:Relationship name="account_accountvardetailview" msdata:parent="account" msdata:child="accountvardetailview" msdata:parentkey="idacc" msdata:childkey="idacc" />
+      <msdata:Relationship name="accountaccountsorting" msdata:parent="account" msdata:child="accountsorting" msdata:parentkey="idacc" msdata:childkey="idacc" />
+      <msdata:Relationship name="FK_sortingview_accountsorting" msdata:parent="sortingview" msdata:child="accountsorting" msdata:parentkey="idsor" msdata:childkey="idsor" />
+      <msdata:Relationship name="accountspecial_account" msdata:parent="accountspecial" msdata:child="account" msdata:parentkey="idacc ayear" msdata:childkey="idacc_special ayear" />
+      <msdata:Relationship name="placcountaccount" msdata:parent="placcount" msdata:child="account" msdata:parentkey="idplaccount" msdata:childkey="idplaccount" />
+      <msdata:Relationship name="patrimonyaccount" msdata:parent="patrimony" msdata:child="account" msdata:parentkey="idpatrimony" msdata:childkey="idpatrimony" />
+      <msdata:Relationship name="accountaccount" msdata:parent="account" msdata:child="account" msdata:parentkey="idacc" msdata:childkey="paridacc" />
+      <msdata:Relationship name="accountkindaccount" msdata:parent="accountkind" msdata:child="account" msdata:parentkey="idaccountkind" msdata:childkey="idaccountkind" />
+      <msdata:Relationship name="accountlevelaccount" msdata:parent="accountlevel" msdata:child="account" msdata:parentkey="ayear nlevel" msdata:childkey="ayear nlevel" />
+      <msdata:Relationship name="FK_sorting_economico_account" msdata:parent="sorting_economico" msdata:child="account" msdata:parentkey="idsor" msdata:childkey="idsor_economicbudget" />
+      <msdata:Relationship name="FK_sorting_investimenti_account" msdata:parent="sorting_investimenti" msdata:child="account" msdata:parentkey="idsor" msdata:childkey="idsor_investmentbudget" />
+      <msdata:Relationship name="account_accountyear" msdata:parent="account" msdata:child="accountyear" msdata:parentkey="idacc" msdata:childkey="idacc" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

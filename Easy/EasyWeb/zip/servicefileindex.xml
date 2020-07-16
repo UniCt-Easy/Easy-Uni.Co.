@@ -104,8 +104,8 @@
   </DLL>
   <DLL>
     <dllname>catania_itineration_default.aspx</dllname>
-    <major>20181203</major>
-    <minor>151203</minor>
+    <major>20190606</major>
+    <minor>93756</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -230,8 +230,14 @@
   </DLL>
   <DLL>
     <dllname>itinerationauth_default_new02.aspx</dllname>
-    <major>20170529</major>
-    <minor>71935</minor>
+    <major>20190130</major>
+    <minor>74730</minor>
+    <build>0</build>
+  </DLL>
+  <DLL>
+    <dllname>itinerationflights_default.aspx</dllname>
+    <major>20181221</major>
+    <minor>74827</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -242,14 +248,14 @@
   </DLL>
   <DLL>
     <dllname>itinerationrefund_default_new02.aspx</dllname>
-    <major>20180918</major>
-    <minor>124423</minor>
+    <major>20190606</major>
+    <minor>93756</minor>
     <build>0</build>
   </DLL>
   <DLL>
     <dllname>itineration_default_new02.aspx</dllname>
-    <major>20181121</major>
-    <minor>134329</minor>
+    <major>20181218</major>
+    <minor>130238</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -356,14 +362,14 @@
   </DLL>
   <DLL>
     <dllname>mandatedetail_default_new02.aspx</dllname>
-    <major>20170410</major>
-    <minor>142405</minor>
+    <major>20191106</major>
+    <minor>143053</minor>
     <build>0</build>
   </DLL>
   <DLL>
     <dllname>mandate_default_new02.aspx</dllname>
-    <major>20170419</major>
-    <minor>74334</minor>
+    <major>20191105</major>
+    <minor>142234</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -500,14 +506,14 @@
   </DLL>
   <DLL>
     <dllname>accountvardetail_default_new02.aspx.cs</dllname>
-    <major>20181023</major>
-    <minor>70210</minor>
+    <major>20190926</major>
+    <minor>135043</minor>
     <build>0</build>
   </DLL>
   <DLL>
     <dllname>accountvar_default_new02.aspx.cs</dllname>
-    <major>20181025</major>
-    <minor>71621</minor>
+    <major>20191114</major>
+    <minor>162445</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -518,14 +524,14 @@
   </DLL>
   <DLL>
     <dllname>AddNewServer.aspx.cs</dllname>
-    <major>20160419</major>
-    <minor>112331</minor>
+    <major>20190724</major>
+    <minor>131459</minor>
     <build>0</build>
   </DLL>
   <DLL>
     <dllname>AddServer.aspx.cs</dllname>
-    <major>20160419</major>
-    <minor>112331</minor>
+    <major>20190724</major>
+    <minor>131459</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -566,8 +572,8 @@
   </DLL>
   <DLL>
     <dllname>CambioPassword.aspx.cs</dllname>
-    <major>20151218</major>
-    <minor>100504</minor>
+    <major>20190724</major>
+    <minor>131624</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -578,8 +584,8 @@
   </DLL>
   <DLL>
     <dllname>catania_itineration_default.aspx.cs</dllname>
-    <major>20181203</major>
-    <minor>151203</minor>
+    <major>20191009</major>
+    <minor>112251</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -667,9 +673,15 @@
     <build>0</build>
   </DLL>
   <DLL>
+    <dllname>Global.asax.cs</dllname>
+    <major>20130926</major>
+    <minor>91128</minor>
+    <build>0</build>
+  </DLL>
+  <DLL>
     <dllname>IndiceReport.aspx.cs</dllname>
-    <major>20181120</major>
-    <minor>95730</minor>
+    <major>20190418</major>
+    <minor>82343</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -686,8 +698,8 @@
   </DLL>
   <DLL>
     <dllname>Installa.aspx.cs</dllname>
-    <major>20150527</major>
-    <minor>131853</minor>
+    <major>20190724</major>
+    <minor>131609</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -704,8 +716,14 @@
   </DLL>
   <DLL>
     <dllname>itinerationauth_default_new02.aspx.cs</dllname>
-    <major>20180413</major>
-    <minor>84016</minor>
+    <major>20200205</major>
+    <minor>150319</minor>
+    <build>0</build>
+  </DLL>
+  <DLL>
+    <dllname>itinerationflights_default.aspx.cs</dllname>
+    <major>20181218</major>
+    <minor>130238</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -716,14 +734,14 @@
   </DLL>
   <DLL>
     <dllname>itinerationrefund_default_new02.aspx.cs</dllname>
-    <major>20180926</major>
-    <minor>133651</minor>
+    <major>20191024</major>
+    <minor>134934</minor>
     <build>0</build>
   </DLL>
   <DLL>
     <dllname>itineration_default_new02.aspx.cs</dllname>
-    <major>20180831</major>
-    <minor>162426</minor>
+    <major>20190903</major>
+    <minor>80047</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -776,14 +794,14 @@
   </DLL>
   <DLL>
     <dllname>LoginSAML.aspx.cs</dllname>
-    <major>20180301</major>
-    <minor>83732</minor>
+    <major>20191210</major>
+    <minor>84836</minor>
     <build>0</build>
   </DLL>
   <DLL>
     <dllname>LoginServizi.aspx.cs</dllname>
-    <major>20180301</major>
-    <minor>85259</minor>
+    <major>20190418</major>
+    <minor>103602</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -794,8 +812,8 @@
   </DLL>
   <DLL>
     <dllname>magazzino_ingresso.aspx.cs</dllname>
-    <major>20180301</major>
-    <minor>83732</minor>
+    <major>20190418</major>
+    <minor>90739</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -830,14 +848,14 @@
   </DLL>
   <DLL>
     <dllname>mandatedetail_default_new02.aspx.cs</dllname>
-    <major>20180216</major>
-    <minor>142852</minor>
+    <major>20191106</major>
+    <minor>143053</minor>
     <build>0</build>
   </DLL>
   <DLL>
     <dllname>mandate_default_new02.aspx.cs</dllname>
-    <major>20180327</major>
-    <minor>164910</minor>
+    <major>20200221</major>
+    <minor>135825</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -860,8 +878,8 @@
   </DLL>
   <DLL>
     <dllname>MetaMasterBootstrap.master.cs</dllname>
-    <major>20180301</major>
-    <minor>85550</minor>
+    <major>20190528</major>
+    <minor>83934</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -878,8 +896,8 @@
   </DLL>
   <DLL>
     <dllname>ReportParameter_default.aspx.cs</dllname>
-    <major>20180216</major>
-    <minor>143252</minor>
+    <major>20191024</major>
+    <minor>133050</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -944,8 +962,8 @@
   </DLL>
   <DLL>
     <dllname>viterbo_finvardetail_default.aspx.cs</dllname>
-    <major>20181120</major>
-    <minor>95730</minor>
+    <major>20190926</major>
+    <minor>135043</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -962,8 +980,8 @@
   </DLL>
   <DLL>
     <dllname>WebUsersManagement.aspx.cs</dllname>
-    <major>20180301</major>
-    <minor>83732</minor>
+    <major>20190619</major>
+    <minor>141313</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -985,27 +1003,45 @@
     <build>0</build>
   </DLL>
   <DLL>
-    <dllname>packages.config</dllname>
-    <major>20171207</major>
-    <minor>132549</minor>
+    <dllname>App_Code\AssemblyInfo.cs</dllname>
+    <major>20130926</major>
+    <minor>91128</minor>
     <build>0</build>
   </DLL>
   <DLL>
-    <dllname>saml.config</dllname>
-    <major>20170207</major>
-    <minor>102240</minor>
+    <dllname>App_Code\cartitem.cs</dllname>
+    <major>20130926</major>
+    <minor>91128</minor>
     <build>0</build>
   </DLL>
   <DLL>
-    <dllname>web.config</dllname>
-    <major>20180301</major>
-    <minor>84129</minor>
+    <dllname>App_Code\configManager.cs</dllname>
+    <major>20160108</major>
+    <minor>95316</minor>
+    <build>0</build>
+  </DLL>
+  <DLL>
+    <dllname>App_Code\FunzioniCondivise.cs</dllname>
+    <major>20131028</major>
+    <minor>100719</minor>
+    <build>0</build>
+  </DLL>
+  <DLL>
+    <dllname>App_Code\GetDataAccess.cs</dllname>
+    <major>20180317</major>
+    <minor>144833</minor>
+    <build>0</build>
+  </DLL>
+  <DLL>
+    <dllname>App_Code\ldapauth.cs</dllname>
+    <major>20190418</major>
+    <minor>90739</minor>
     <build>0</build>
   </DLL>
   <DLL>
     <dllname>js\allmine.js</dllname>
-    <major>20151017</major>
-    <minor>152248</minor>
+    <major>20190111</major>
+    <minor>92244</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -1070,8 +1106,8 @@
   </DLL>
   <DLL>
     <dllname>js\jquery-ui-1.11.4.js</dllname>
-    <major>20160511</major>
-    <minor>91659</minor>
+    <major>20190111</major>
+    <minor>92244</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -1210,7 +1246,7 @@
     <dllname>bin\AllDataSet.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>0</build>
+    <build>4</build>
   </DLL>
   <DLL>
     <dllname>bin\ComponentSpace.SAML2.dll</dllname>
@@ -1324,13 +1360,13 @@
     <dllname>bin\funzioni_configurazione.dll</dllname>
     <major>1</major>
     <minor>2</minor>
-    <build>73</build>
+    <build>88</build>
   </DLL>
   <DLL>
     <dllname>bin\HelpWeb.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>0</build>
+    <build>5</build>
   </DLL>
   <DLL>
     <dllname>bin\Interop.Excel.dll</dllname>
@@ -1342,7 +1378,7 @@
     <dllname>bin\itinerationFunctions.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>58</build>
+    <build>61</build>
   </DLL>
   <DLL>
     <dllname>bin\lcardmail.dll</dllname>
@@ -1359,14 +1395,14 @@
   <DLL>
     <dllname>bin\metadatalibrary.dll</dllname>
     <major>2</major>
-    <minor>2</minor>
-    <build>482</build>
+    <minor>3</minor>
+    <build>26</build>
   </DLL>
   <DLL>
     <dllname>bin\metaeasylibrary.dll</dllname>
     <major>2</major>
     <minor>1</minor>
-    <build>165</build>
+    <build>194</build>
   </DLL>
   <DLL>
     <dllname>bin\metaeasylibrary.XmlSerializers.dll</dllname>
@@ -1378,7 +1414,7 @@
     <dllname>bin\meta_account.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>27</build>
+    <build>28</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_accountenactment.dll</dllname>
@@ -1408,7 +1444,7 @@
     <dllname>bin\meta_accountvardetail.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>15</build>
+    <build>16</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_accountvarview.dll</dllname>
@@ -1462,13 +1498,13 @@
     <dllname>bin\meta_export.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>3</build>
+    <build>5</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_fin.dll</dllname>
     <major>1</major>
     <minor>2</minor>
-    <build>30</build>
+    <build>32</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_finusable.dll</dllname>
@@ -1504,7 +1540,7 @@
     <dllname>bin\meta_finview.dll</dllname>
     <major>1</major>
     <minor>1</minor>
-    <build>38</build>
+    <build>40</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_foreigncountry.dll</dllname>
@@ -1516,7 +1552,7 @@
     <dllname>bin\meta_itineration.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>41</build>
+    <build>51</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_itinerationattachment.dll</dllname>
@@ -1537,16 +1573,22 @@
     <build>6</build>
   </DLL>
   <DLL>
+    <dllname>bin\meta_itinerationflights.dll</dllname>
+    <major>1</major>
+    <minor>0</minor>
+    <build>1</build>
+  </DLL>
+  <DLL>
     <dllname>bin\meta_itinerationlap.dll</dllname>
     <major>1</major>
     <minor>1</minor>
-    <build>6</build>
+    <build>10</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_itinerationrefund.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>24</build>
+    <build>27</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_itinerationrefundkind.dll</dllname>
@@ -1558,7 +1600,7 @@
     <dllname>bin\meta_itinerationview.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>17</build>
+    <build>18</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_lcardcf.dll</dllname>
@@ -1582,7 +1624,7 @@
     <dllname>bin\meta_legalstatuscontract.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>8</build>
+    <build>9</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_list.dll</dllname>
@@ -1594,7 +1636,7 @@
     <dllname>bin\meta_listclass.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>5</build>
+    <build>6</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_listview.dll</dllname>
@@ -1605,14 +1647,14 @@
   <DLL>
     <dllname>bin\meta_location.dll</dllname>
     <major>1</major>
-    <minor>0</minor>
-    <build>12</build>
+    <minor>1</minor>
+    <build>11</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_locationview.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>15</build>
+    <build>16</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_manager.dll</dllname>
@@ -1630,7 +1672,7 @@
     <dllname>bin\meta_mandate.dll</dllname>
     <major>1</major>
     <minor>2</minor>
-    <build>73</build>
+    <build>80</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_mandateattachment.dll</dllname>
@@ -1648,7 +1690,7 @@
     <dllname>bin\meta_mandatedetail.dll</dllname>
     <major>1</major>
     <minor>3</minor>
-    <build>53</build>
+    <build>57</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_mandatedetailavailable.dll</dllname>
@@ -1685,6 +1727,18 @@
     <major>1</major>
     <minor>1</minor>
     <build>5</build>
+  </DLL>
+  <DLL>
+    <dllname>bin\meta_registrypaymethod.dll</dllname>
+    <major>1</major>
+    <minor>1</minor>
+    <build>37</build>
+  </DLL>
+  <DLL>
+    <dllname>bin\meta_registrypaymethodview.dll</dllname>
+    <major>1</major>
+    <minor>0</minor>
+    <build>6</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_showcase.dll</dllname>
@@ -1732,7 +1786,7 @@
     <dllname>bin\meta_treasurer.dll</dllname>
     <major>1</major>
     <minor>2</minor>
-    <build>12</build>
+    <build>14</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_underwriter.dll</dllname>
@@ -1762,13 +1816,19 @@
     <dllname>bin\meta_upb.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>15</build>
+    <build>19</build>
+  </DLL>
+  <DLL>
+    <dllname>bin\meta_upbitinerationavailable.dll</dllname>
+    <major>1</major>
+    <minor>0</minor>
+    <build>7</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_upbview.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>10</build>
+    <build>11</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_viterbo_finvar.dll</dllname>
@@ -1930,12 +1990,6 @@
     <dllname>bin\icona5.ico</dllname>
     <major>20170220</major>
     <minor>141644</minor>
-    <build>0</build>
-  </DLL>
-  <DLL>
-    <dllname>bin\metaeasylibrary.dll.config</dllname>
-    <major>20151218</major>
-    <minor>100504</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -2656,6 +2710,12 @@
     <dllname>saml\metadata.aspx.cs</dllname>
     <major>20170207</major>
     <minor>105236</minor>
+    <build>0</build>
+  </DLL>
+  <DLL>
+    <dllname>saml\cert.pfx</dllname>
+    <major>20161109</major>
+    <minor>114142</minor>
     <build>0</build>
   </DLL>
 </DsDLLIndex>

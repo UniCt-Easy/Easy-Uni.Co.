@@ -105,6 +105,10 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+    <ProjectReference Include="..\..\dalia_funzionale\meta_dalia_funzionale\meta_dalia_funzionale.csproj">
+      <Project>{ddd1dc65-9f89-45ba-bef0-2c6a2104af3e}</Project>
+      <Name>meta_dalia_funzionale</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\ap_functions\ap_functions.csproj">
       <Project>{9F636933-BFE2-4DA1-936C-D19CBA37DF0D}</Project>
       <Name>ap_functions</Name>
@@ -193,6 +197,12 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_service</Name>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_dalia_dipartimento">
+      <HintPath>..\..\dalia_dipartimento\meta_dalia_dipartimento\bin\Debug\meta_dalia_dipartimento.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_dalia_dipartimento</Name>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

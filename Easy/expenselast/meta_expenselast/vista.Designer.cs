@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -19,7 +16,11 @@
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using metadatalibrary;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_expenselast {
 public class expenselastRow: MetaRow  {
 	public expenselastRow(DataRowBuilder rb) : base(rb) {} 
@@ -321,7 +322,7 @@ public class expenselastRow: MetaRow  {
 		get {if (this["servicestop",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["servicestop",DataRowVersion.Original];}
 	}
 	///<summary>
-	///Chiave modalit? pagamento (tabella paymethod)
+	///Chiave modalità pagamento (tabella paymethod)
 	///</summary>
 	public Int32? idpaymethod{ 
 		get {if (this["idpaymethod"]==DBNull.Value)return null; return  (Int32?)this["idpaymethod"];}
@@ -392,7 +393,7 @@ public class expenselastRow: MetaRow  {
 	}
 	///<summary>
 	///Ammetti delegato
-	///	 N: Non ? vero che: "Ammetti delegato"
+	///	 N: Non è vero che: "Ammetti delegato"
 	///	 S: Ammetti delegato
 	///</summary>
 	public String paymethod_allowdeputy{ 
@@ -407,7 +408,7 @@ public class expenselastRow: MetaRow  {
 		get {if (this["paymethod_allowdeputy",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["paymethod_allowdeputy",DataRowVersion.Original];}
 	}
 	///<summary>
-	///flag su modalit? pagamento
+	///flag su modalità pagamento
 	///</summary>
 	public Int32? paymethod_flag{ 
 		get {if (this["paymethod_flag"]==DBNull.Value)return null; return  (Int32?)this["paymethod_flag"];}
@@ -434,6 +435,17 @@ public class expenselastRow: MetaRow  {
 	public Int32? idchargehandlingOriginal { 
 		get {if (this["idchargehandling",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idchargehandling",DataRowVersion.Original];}
 	}
+	public String pagopanoticenum{ 
+		get {if (this["pagopanoticenum"]==DBNull.Value)return null; return  (String)this["pagopanoticenum"];}
+		set {if (value==null) this["pagopanoticenum"]= DBNull.Value; else this["pagopanoticenum"]= value;}
+	}
+	public object pagopanoticenumValue { 
+		get{ return this["pagopanoticenum"];}
+		set {if (value==null|| value==DBNull.Value) this["pagopanoticenum"]= DBNull.Value; else this["pagopanoticenum"]= value;}
+	}
+	public String pagopanoticenumOriginal { 
+		get {if (this["pagopanoticenum",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["pagopanoticenum",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -441,102 +453,39 @@ public class expenselastRow: MetaRow  {
 ///Movimento di spesa - Dettaglio
 ///</summary>
 public class expenselastTable : MetaTableBase<expenselastRow> {
-	public expenselastTable() : base("expenselast"){}
-	public override void addBaseColumns(params string [] cols){
-		Dictionary<string,bool> definedColums=new Dictionary<string, bool>();
-		foreach(string col in cols) definedColums[col] = true;
-
-		#region add DataColumns
-		if (definedColums.ContainsKey("idexp")){ 
-			defineColumn("idexp", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("cc")){ 
-			defineColumn("cc", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("cin")){ 
-			defineColumn("cin", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("ct")){ 
-			defineColumn("ct", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("cu")){ 
-			defineColumn("cu", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("flag")){ 
-			defineColumn("flag", typeof(System.Byte),false);
-		}
-		if (definedColums.ContainsKey("iban")){ 
-			defineColumn("iban", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("idbank")){ 
-			defineColumn("idbank", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("idcab")){ 
-			defineColumn("idcab", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("iddeputy")){ 
-			defineColumn("iddeputy", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idpay")){ 
-			defineColumn("idpay", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idregistrypaymethod")){ 
-			defineColumn("idregistrypaymethod", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idser")){ 
-			defineColumn("idser", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("ivaamount")){ 
-			defineColumn("ivaamount", typeof(System.Decimal));
-		}
-		if (definedColums.ContainsKey("lt")){ 
-			defineColumn("lt", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("lu")){ 
-			defineColumn("lu", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("nbill")){ 
-			defineColumn("nbill", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("paymentdescr")){ 
-			defineColumn("paymentdescr", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("refexternaldoc")){ 
-			defineColumn("refexternaldoc", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("servicestart")){ 
-			defineColumn("servicestart", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("servicestop")){ 
-			defineColumn("servicestop", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("idpaymethod")){ 
-			defineColumn("idpaymethod", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("kpay")){ 
-			defineColumn("kpay", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idaccdebit")){ 
-			defineColumn("idaccdebit", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("biccode")){ 
-			defineColumn("biccode", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("extracode")){ 
-			defineColumn("extracode", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("paymethod_allowdeputy")){ 
-			defineColumn("paymethod_allowdeputy", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("paymethod_flag")){ 
-			defineColumn("paymethod_flag", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idchargehandling")){ 
-			defineColumn("idchargehandling", typeof(System.Int32));
-		}
-		#endregion
-
+	public expenselastTable() : base("expenselast"){
+		baseColumns = new Dictionary<string, DataColumn>(){
+			{"idexp",createColumn("idexp",typeof(int),false,false)},
+			{"cc",createColumn("cc",typeof(string),true,false)},
+			{"cin",createColumn("cin",typeof(string),true,false)},
+			{"ct",createColumn("ct",typeof(DateTime),false,false)},
+			{"cu",createColumn("cu",typeof(string),false,false)},
+			{"flag",createColumn("flag",typeof(byte),false,false)},
+			{"iban",createColumn("iban",typeof(string),true,false)},
+			{"idbank",createColumn("idbank",typeof(string),true,false)},
+			{"idcab",createColumn("idcab",typeof(string),true,false)},
+			{"iddeputy",createColumn("iddeputy",typeof(int),true,false)},
+			{"idpay",createColumn("idpay",typeof(int),true,false)},
+			{"idregistrypaymethod",createColumn("idregistrypaymethod",typeof(int),true,false)},
+			{"idser",createColumn("idser",typeof(int),true,false)},
+			{"ivaamount",createColumn("ivaamount",typeof(decimal),true,false)},
+			{"lt",createColumn("lt",typeof(DateTime),false,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
+			{"nbill",createColumn("nbill",typeof(int),true,false)},
+			{"paymentdescr",createColumn("paymentdescr",typeof(string),true,false)},
+			{"refexternaldoc",createColumn("refexternaldoc",typeof(string),true,false)},
+			{"servicestart",createColumn("servicestart",typeof(DateTime),true,false)},
+			{"servicestop",createColumn("servicestop",typeof(DateTime),true,false)},
+			{"idpaymethod",createColumn("idpaymethod",typeof(int),true,false)},
+			{"kpay",createColumn("kpay",typeof(int),true,false)},
+			{"idaccdebit",createColumn("idaccdebit",typeof(string),true,false)},
+			{"biccode",createColumn("biccode",typeof(string),true,false)},
+			{"extracode",createColumn("extracode",typeof(string),true,false)},
+			{"paymethod_allowdeputy",createColumn("paymethod_allowdeputy",typeof(string),true,false)},
+			{"paymethod_flag",createColumn("paymethod_flag",typeof(int),true,false)},
+			{"idchargehandling",createColumn("idchargehandling",typeof(int),true,false)},
+			{"pagopanoticenum",createColumn("pagopanoticenum",typeof(string),true,false)},
+		};
 	}
 }
 }
-

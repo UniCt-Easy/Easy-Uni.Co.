@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -181,7 +178,7 @@ namespace funzioni_configurazione{//funzioni_configurazione//
             var sec = F.getInstance<ISecurity>();
             var model = MetaFactory.factory.getSingleton<IMetaModel>();
             string nums = num.ToString();
-            if (sortingkind == DBNull.Value) {
+            if (sortingkind==null ||sortingkind == DBNull.Value || sortingkind.ToString()=="null" ) {
                 var g = (GroupBox)GetCtrlByName(F, "gboxclass0" + nums);
                 g.Tag = null;
                 g.Visible = false;
@@ -209,7 +206,7 @@ namespace funzioni_configurazione{//funzioni_configurazione//
                 }
 
                 QueryHelper qhs = conn.GetQueryHelper();
-                string filterkind = qhs.CmpEq("idsorkind", sortingkind);
+                string filterkind = qhs.CmpEq("idsorkind", CfgFn.GetNoNullInt32( sortingkind));
                 string filtercomplete = filterkind;
                 if (filterSec != null) filtercomplete = qhs.AppAnd(filtercomplete, filterSec.ToString());
                 model.setStaticFilter(ds.Tables["sorting0" + nums],filterkind);
@@ -249,7 +246,7 @@ namespace funzioni_configurazione{//funzioni_configurazione//
             var model = MetaFactory.factory.getSingleton<IMetaModel>();
             
             string nums = num.ToString();
-            if (sortingkind == DBNull.Value) {
+            if ( sortingkind==null || sortingkind == DBNull.Value || sortingkind.ToString()=="null" ) {
                 var g = (GroupBox)GetCtrlByName(F, "gboxclass" + nums);
                 g.Tag = null;
                 g.Visible = false;
@@ -260,7 +257,7 @@ namespace funzioni_configurazione{//funzioni_configurazione//
                 var filterSec = sec.GetSys("idflowchart");
                 
                 QueryHelper qhs = conn.GetQueryHelper();
-                var filter = qhs.CmpEq("idsorkind", sortingkind);
+                var filter = qhs.CmpEq("idsorkind", CfgFn.GetNoNullInt32( sortingkind));
                 model.setStaticFilter(ds.Tables["sorting" + nums],filter);
                 //GetData.SetStaticFilter(DS.Tables["sorting" + nums], filter);
                 var gboxclass = (GroupBox)GetCtrlByName(F, "gboxclass" + nums);
@@ -661,11 +658,22 @@ namespace funzioni_configurazione{//funzioni_configurazione//
 			}
 		}
 		public static decimal GetNoNullDecimal(object O){
-			if (O==null) return 0;
-			if (O == DBNull.Value) return 0;
-		    if (O.ToString() == "") return 0;
+			if (O==null || O==DBNull.Value) return 0;
+			//if (O == DBNull.Value) return 0;
+		    //if (O.ToString() == "") return 0;
 			try {
 				return Convert.ToDecimal(O);
+			}
+			catch {
+				return 0;
+			}
+		}
+		public static long GetNoNullInt64(object O){
+			if (O==null) return 0;
+			if (O == DBNull.Value) return 0;
+			if (O.ToString() == "") return 0;
+			try {
+				return Convert.ToInt64(O);
 			}
 			catch {
 				return 0;
@@ -898,4 +906,3 @@ namespace funzioni_configurazione{//funzioni_configurazione//
 	}
 
 }
-

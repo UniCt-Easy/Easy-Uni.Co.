@@ -114,49 +114,49 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_expensevar</Name>
       <HintPath>..\meta_expensevar\bin\Debug\meta_expensevar.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_invoicekind">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_invoicekind</Name>
       <HintPath>..\..\invoicekind\meta_invoicekind\bin\Debug\meta_invoicekind.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_expensesorted">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_expensesorted</Name>
       <HintPath>..\..\expensesorted\meta_expensesorted\bin\Debug\meta_expensesorted.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_sorting">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_sorting</Name>
       <HintPath>..\..\sorting\meta_sorting\bin\Debug\meta_sorting.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_sortingkind">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_sortingkind</Name>
       <HintPath>..\..\sortingkind\meta_sortingkind\bin\Debug\meta_sortingkind.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_invoice">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_invoice</Name>
       <HintPath>..\..\invoice\meta_invoice\bin\Debug\meta_invoice.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_config">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_config</Name>
       <HintPath>..\..\config\meta_config\bin\Debug\meta_config.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_paymenttransmission">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_paymenttransmission</Name>
       <HintPath>..\..\paymenttransmission\meta_paymenttransmission\bin\Debug\meta_paymenttransmission.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

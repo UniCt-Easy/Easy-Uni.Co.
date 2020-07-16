@@ -14,7 +14,9 @@
               <xs:element name="idmenuweb" type="xs:int" minOccurs="0" />
               <xs:element name="metadati" type="xs:string" minOccurs="0" />
               <xs:element name="metapagefolder" type="xs:string" minOccurs="0" />
+              <xs:element name="scriptFolder" type="xs:string" minOccurs="0" />
               <xs:element name="solutionfile" type="xs:string" minOccurs="0" />
+              <xs:element name="testFolder" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>

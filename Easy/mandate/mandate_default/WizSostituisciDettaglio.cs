@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -73,10 +70,41 @@ namespace mandate_default {
             QHC = new CQueryHelper();
             QHS = Conn.GetQueryHelper();
             InitializeComponent();
+            DataTable MandateKind = Conn.RUN_SELECT("mandatekind", "*", null,
+                QHS.CmpEq("idmankind", rContratto["idmankind"]), null, null, true);
+            //string filter_tipoIva = QHS.CmpEq("idivakind", MandateKind.Rows[0]["idivakind"]);
+            string linktoinvoice = MandateKind.Rows[0]["linktoinvoice"].ToString();
+            bool isrequest = MandateKind.Rows[0]["isrequest"].ToString().ToUpper() == "S";
+            string statfilterivakind="";
+            if (linktoinvoice == "N" && (isrequest == false)) {
+                statfilterivakind = QHS.AppAnd(QHS.NullOrEq("active", "S"), QHS.NullOrEq("rate", 0));
+            }
+            int flag = 0;
+            flag = CfgFn.GetNoNullInt32(MandateKind.Rows[0]["flagactivity"]);
+            string filterivakind = "";
+            if (flag == 1) filterivakind = QHS.BitSet("flag", 0);
+            if (flag == 2) filterivakind = QHS.BitSet("flag", 1);
+            if (flag == 3) filterivakind = QHS.BitSet("flag", 2);
+
+            string flagintracom = rContratto["flagintracom"].ToString();
+
+            if (flagintracom == "N") filterivakind = QHS.AppAnd(filterivakind, QHS.BitSet("flag", 6)); //Italia
+            if (flagintracom == "S") filterivakind = QHS.AppAnd(filterivakind, QHS.BitSet("flag", 7)); //Intra-UE
+            if (flagintracom == "X") filterivakind = QHS.AppAnd(filterivakind, QHS.BitSet("flag", 8)); //Extra-UE
+
+
+            //if (filterivakind != "" && DR["idivakind"] != DBNull.Value) {
+            //    filterivakind = QHS.AppOr(QHS.CmpEq("idivakind", DR["idivakind"]), filterivakind);
+            //}
+            statfilterivakind = QHS.AppAnd(statfilterivakind, filterivakind);
+
+            //statfilterivakind = QHS.AppOr(statfilterivakind, filterthis);
+            if (statfilterivakind != "") statfilterivakind = QHS.DoPar(statfilterivakind);
+
             tOldIvaKind = DataAccess.CreateTableByName(Conn, "ivakind", "*");
             GetData.MarkToAddBlankRow(tOldIvaKind);
             GetData.Add_Blank_Row(tOldIvaKind);
-            DataAccess.RUN_SELECT_INTO_TABLE(Conn, tOldIvaKind, "description", null, null, true);
+            DataAccess.RUN_SELECT_INTO_TABLE(Conn, tOldIvaKind, "description", statfilterivakind, null, true);
             cmbOldTipoIva.DataSource = tOldIvaKind;
             cmbOldTipoIva.DisplayMember = "description";
             cmbOldTipoIva.ValueMember = "idivakind";
@@ -84,7 +112,7 @@ namespace mandate_default {
             tNewIvaKind = DataAccess.CreateTableByName(Conn, "ivakind", "*");
             GetData.MarkToAddBlankRow(tNewIvaKind);
             GetData.Add_Blank_Row(tNewIvaKind);
-            DataAccess.RUN_SELECT_INTO_TABLE(Conn, tNewIvaKind, "description", QHS.NullOrEq("active", "S"), null, true);
+            DataAccess.RUN_SELECT_INTO_TABLE(Conn, tNewIvaKind, "description", statfilterivakind, null, true);
             cmbNewTipoIva.DataSource = tNewIvaKind;
             cmbNewTipoIva.DisplayMember = "description";
             cmbNewTipoIva.ValueMember = "idivakind";
@@ -444,7 +472,7 @@ namespace mandate_default {
             ricalcolaImporti();
         }
 
-        private void txtNewIvaValuta_TextChanged(object sender, EventArgs e) {
+        private void txtNewIvaValuta_Leave(object sender, EventArgs e) {
             if (inChiusura) return;
             RicalcolaIvaIndeducibile();
             CalcolaImportiEUR();
@@ -801,4 +829,4 @@ namespace mandate_default {
             MetaData.UnregisterAllEvents(this);
         }
     }
-}
+}

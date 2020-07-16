@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -114,7 +111,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.TextBox txtDescrizioneCausale;
 		private System.Windows.Forms.TextBox txtCodiceCausale;
-		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.Button btnCausaleEP;
 		private System.Windows.Forms.GroupBox grpTipoIva;
 		private System.Windows.Forms.Button btnTipo;
 		private System.Windows.Forms.ComboBox cmbTipoIVA;
@@ -134,7 +131,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
         private GroupBox grpCausaleAnnullamento;
         private TextBox textBox2;
         private TextBox txtCodiceCausaleAnnullamento;
-        private Button button1;
+        private Button btnCausaleAnnullamento;
         private RadioButton rdbIstituzionale;
         private RadioButton rdbQualsiasi;
         private RadioButton rdbCommerciale;
@@ -226,6 +223,8 @@ namespace mandatedetail_single//dettordinegenericosingle//
         private Label label24;
         private TextBox txtNumPreimpegno;
         private TextBox txtEsercPreImpegno;
+        private TextBox txtPrezzounitarioListino;
+        private Label label26;
         MetaData Meta;
 
 		public Frm_mandatedetail_single()
@@ -385,11 +384,11 @@ namespace mandatedetail_single//dettordinegenericosingle//
             this.grpCausaleAnnullamento = new System.Windows.Forms.GroupBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.txtCodiceCausaleAnnullamento = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnCausaleAnnullamento = new System.Windows.Forms.Button();
             this.grpCausale = new System.Windows.Forms.GroupBox();
             this.txtDescrizioneCausale = new System.Windows.Forms.TextBox();
             this.txtCodiceCausale = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnCausaleEP = new System.Windows.Forms.Button();
             this.tabMagazzino = new System.Windows.Forms.TabPage();
             this.chktounload = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -436,6 +435,8 @@ namespace mandatedetail_single//dettordinegenericosingle//
             this.txtQuantitaConfezioni = new System.Windows.Forms.TextBox();
             this.lblidpackage = new System.Windows.Forms.Label();
             this.btnSuggerimento = new System.Windows.Forms.Button();
+            this.txtPrezzounitarioListino = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.grpValoreUnitInValuta.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grpInventario.SuspendLayout();
@@ -1837,7 +1838,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             // 
             this.grpCausaleAnnullamento.Controls.Add(this.textBox2);
             this.grpCausaleAnnullamento.Controls.Add(this.txtCodiceCausaleAnnullamento);
-            this.grpCausaleAnnullamento.Controls.Add(this.button1);
+            this.grpCausaleAnnullamento.Controls.Add(this.btnCausaleAnnullamento);
             this.grpCausaleAnnullamento.Location = new System.Drawing.Point(463, 3);
             this.grpCausaleAnnullamento.Name = "grpCausaleAnnullamento";
             this.grpCausaleAnnullamento.Size = new System.Drawing.Size(213, 103);
@@ -1865,20 +1866,20 @@ namespace mandatedetail_single//dettordinegenericosingle//
             this.txtCodiceCausaleAnnullamento.TabIndex = 1;
             this.txtCodiceCausaleAnnullamento.Tag = "accmotiveappliedannulment.codemotive?x";
             // 
-            // button1
+            // btnCausaleAnnullamento
             // 
-            this.button1.Location = new System.Drawing.Point(6, 47);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(79, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Tag = "manage.accmotiveappliedannulment.tree";
-            this.button1.Text = "Causale";
+            this.btnCausaleAnnullamento.Location = new System.Drawing.Point(6, 47);
+            this.btnCausaleAnnullamento.Name = "btnCausaleAnnullamento";
+            this.btnCausaleAnnullamento.Size = new System.Drawing.Size(79, 23);
+            this.btnCausaleAnnullamento.TabIndex = 0;
+            this.btnCausaleAnnullamento.Tag = "manage.accmotiveappliedannulment.tree";
+            this.btnCausaleAnnullamento.Text = "Causale";
             // 
             // grpCausale
             // 
             this.grpCausale.Controls.Add(this.txtDescrizioneCausale);
             this.grpCausale.Controls.Add(this.txtCodiceCausale);
-            this.grpCausale.Controls.Add(this.button2);
+            this.grpCausale.Controls.Add(this.btnCausaleEP);
             this.grpCausale.Location = new System.Drawing.Point(11, 3);
             this.grpCausale.Name = "grpCausale";
             this.grpCausale.Size = new System.Drawing.Size(242, 103);
@@ -1906,14 +1907,14 @@ namespace mandatedetail_single//dettordinegenericosingle//
             this.txtCodiceCausale.TabIndex = 1;
             this.txtCodiceCausale.Tag = "accmotiveapplied.codemotive?x";
             // 
-            // button2
+            // btnCausaleEP
             // 
-            this.button2.Location = new System.Drawing.Point(6, 46);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(83, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Tag = "manage.accmotiveapplied.tree";
-            this.button2.Text = "Causale";
+            this.btnCausaleEP.Location = new System.Drawing.Point(6, 46);
+            this.btnCausaleEP.Name = "btnCausaleEP";
+            this.btnCausaleEP.Size = new System.Drawing.Size(83, 23);
+            this.btnCausaleEP.TabIndex = 0;
+            this.btnCausaleEP.Tag = "manage.accmotiveapplied.tree";
+            this.btnCausaleEP.Text = "Causale";
             // 
             // tabMagazzino
             // 
@@ -2279,6 +2280,8 @@ namespace mandatedetail_single//dettordinegenericosingle//
             // 
             // gboxListino
             // 
+            this.gboxListino.Controls.Add(this.txtPrezzounitarioListino);
+            this.gboxListino.Controls.Add(this.label26);
             this.gboxListino.Controls.Add(this.txtCoeffConversione);
             this.gboxListino.Controls.Add(this.label20);
             this.gboxListino.Controls.Add(this.cmbUnitaMisuraAcquisto);
@@ -2299,7 +2302,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             // txtCoeffConversione
             // 
             this.txtCoeffConversione.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCoeffConversione.Location = new System.Drawing.Point(402, 61);
+            this.txtCoeffConversione.Location = new System.Drawing.Point(402, 41);
             this.txtCoeffConversione.Name = "txtCoeffConversione";
             this.txtCoeffConversione.ReadOnly = true;
             this.txtCoeffConversione.Size = new System.Drawing.Size(85, 20);
@@ -2311,7 +2314,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             // 
             this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(285, 64);
+            this.label20.Location = new System.Drawing.Point(285, 44);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(107, 13);
             this.label20.TabIndex = 22;
@@ -2324,7 +2327,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             this.cmbUnitaMisuraAcquisto.DisplayMember = "description";
             this.cmbUnitaMisuraAcquisto.Enabled = false;
             this.cmbUnitaMisuraAcquisto.FormattingEnabled = true;
-            this.cmbUnitaMisuraAcquisto.Location = new System.Drawing.Point(401, 34);
+            this.cmbUnitaMisuraAcquisto.Location = new System.Drawing.Point(401, 14);
             this.cmbUnitaMisuraAcquisto.Name = "cmbUnitaMisuraAcquisto";
             this.cmbUnitaMisuraAcquisto.Size = new System.Drawing.Size(117, 21);
             this.cmbUnitaMisuraAcquisto.TabIndex = 7;
@@ -2335,7 +2338,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             // 
             this.lblIcmbdpackage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblIcmbdpackage.AutoSize = true;
-            this.lblIcmbdpackage.Location = new System.Drawing.Point(291, 37);
+            this.lblIcmbdpackage.Location = new System.Drawing.Point(291, 17);
             this.lblIcmbdpackage.Name = "lblIcmbdpackage";
             this.lblIcmbdpackage.Size = new System.Drawing.Size(106, 13);
             this.lblIcmbdpackage.TabIndex = 21;
@@ -2345,7 +2348,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             // 
             this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(324, 91);
+            this.label25.Location = new System.Drawing.Point(324, 71);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(71, 13);
             this.label25.TabIndex = 23;
@@ -2358,7 +2361,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             this.cmbUnitaMisuraCS.DisplayMember = "description";
             this.cmbUnitaMisuraCS.Enabled = false;
             this.cmbUnitaMisuraCS.FormattingEnabled = true;
-            this.cmbUnitaMisuraCS.Location = new System.Drawing.Point(401, 87);
+            this.cmbUnitaMisuraCS.Location = new System.Drawing.Point(401, 67);
             this.cmbUnitaMisuraCS.Name = "cmbUnitaMisuraCS";
             this.cmbUnitaMisuraCS.Size = new System.Drawing.Size(117, 21);
             this.cmbUnitaMisuraCS.TabIndex = 9;
@@ -2444,6 +2447,24 @@ namespace mandatedetail_single//dettordinegenericosingle//
             this.btnSuggerimento.TabIndex = 32;
             this.btnSuggerimento.Text = "Suggerimento su come effettuare l\'inserimento";
             this.btnSuggerimento.Click += new System.EventHandler(this.btnSuggerimento_Click);
+            // 
+            // txtPrezzounitarioListino
+            // 
+            this.txtPrezzounitarioListino.Location = new System.Drawing.Point(401, 93);
+            this.txtPrezzounitarioListino.Name = "txtPrezzounitarioListino";
+            this.txtPrezzounitarioListino.ReadOnly = true;
+            this.txtPrezzounitarioListino.Size = new System.Drawing.Size(117, 20);
+            this.txtPrezzounitarioListino.TabIndex = 35;
+            this.txtPrezzounitarioListino.Tag = "";
+            // 
+            // label26
+            // 
+            this.label26.Location = new System.Drawing.Point(302, 91);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(94, 23);
+            this.label26.TabIndex = 36;
+            this.label26.Text = "Prezzo unitario";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Frm_mandatedetail_single
             // 
@@ -2757,12 +2778,13 @@ namespace mandatedetail_single//dettordinegenericosingle//
 	            //MakeSpaceFrom(grpRegistry);
 
 	        }
+			string filterthis = null;
+	            if (Meta.EditMode) filterthis = QHS.CmpEq("idivakind", DR["idivakind"]);
+
 	        string linktoinvoice = MandateKind.Rows[0]["linktoinvoice"].ToString();
 	        if (linktoinvoice == "N" && (isrequest == false)) {
-	            string filterthis = null;
-	            if (Meta.EditMode) filterthis = QHS.CmpEq("idivakind", DR["idivakind"]);
-	            statfilterivakind = QHS.AppAnd(QHS.NullOrEq("active", "S"), QHS.DoPar(QHS.AppOr(
-	                QHS.NullOrEq("rate", 0), filterthis)));
+	          
+	            statfilterivakind = QHS.AppAnd(QHS.NullOrEq("active", "S"), QHS.NullOrEq("rate", 0));
 	        }
 	        DataTable parentTable = DR.Table.DataSet.Tables["mandate"];
 	        DataRow drParent = DR.GetParentRow(QueryCreator.GetParentChildRel(parentTable, DR.Table));
@@ -2820,6 +2842,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 	        if (filterAactivityUpb != "") {
 	            filterAactivityUpb = QHS.AppOr(QHS.CmpEq("flagactivity", 4), filterAactivityUpb);
 	        }
+	        
 
 
 
@@ -2837,21 +2860,20 @@ namespace mandatedetail_single//dettordinegenericosingle//
 	        DataRow DRP = Meta.SourceRow.GetParentRow("mandatemandatedetail");
 	        string flagintracom = DRP["flagintracom"].ToString();
 
-	        if (flagintracom == "N")
-	            filterivakind = QHS.AppAnd(filterivakind, QHS.BitSet("flag", 6)); //Italia
-	        if (flagintracom == "S")
-	            filterivakind = QHS.AppAnd(filterivakind, QHS.BitSet("flag", 7)); //Intra-UE
-	        if (flagintracom == "X")
-	            filterivakind = QHS.AppAnd(filterivakind, QHS.BitSet("flag", 8)); //Extra-UE
+	        if (flagintracom == "N") filterivakind = QHS.AppAnd(filterivakind, QHS.BitSet("flag", 6)); //Italia
+	        if (flagintracom == "S") filterivakind = QHS.AppAnd(filterivakind, QHS.BitSet("flag", 7)); //Intra-UE
+	        if (flagintracom == "X") filterivakind = QHS.AppAnd(filterivakind, QHS.BitSet("flag", 8)); //Extra-UE
 
 
 	        if (filterivakind != "" && DR["idivakind"] != DBNull.Value) {
 	            filterivakind = QHS.AppOr(QHS.CmpEq("idivakind", DR["idivakind"]), filterivakind);
 	        }
-	        if (filterivakind != "")
-	            statfilterivakind = QHS.AppAnd(statfilterivakind, filterivakind);
+	        statfilterivakind = QHS.AppAnd(statfilterivakind, filterivakind);
 
-	        if (statfilterivakind != "") GetData.SetStaticFilter(DS.ivakind, statfilterivakind);
+			statfilterivakind= QHS.AppOr(statfilterivakind, filterthis);
+			if (statfilterivakind!="")statfilterivakind = QHS.DoPar(statfilterivakind);
+
+	        GetData.SetStaticFilter(DS.ivakind, statfilterivakind);
 
 
 	        DataAccess.SetTableForReading(DS.sorting1, "sorting");
@@ -2961,10 +2983,27 @@ namespace mandatedetail_single//dettordinegenericosingle//
 	        GetData.SetSorting(DS.pccdebitstatus, "listingorder asc");
              SiopeObj = new siope_helper(this, txtCodSiope, txtDescSiope, btnSiope, grpBoxSiopeEP, true, DS.sorting_siope);
 
+			int esercizio = Conn.GetEsercizio();
+			int yman = CfgFn.GetNoNullInt32(DR["yman"]);
+			DateTime primoGennaio = new DateTime(esercizio, 1, 1);
 
-        }
+			if ((yman < esercizio) && (DR["idepexp"] != DBNull.Value)) {
+				//Non modifica la causale EP per dettagli degli anni precedenti associati a impegni di budget
+				btnListino.Enabled = false;
+			    txtListino.ReadOnly = true;
+                btnCausaleEP.Enabled = false;
+                txtCodiceCausale.ReadOnly = true;
+                //btnCausaleAnnullamento.Enabled = false;
+                //txtCodiceCausaleAnnullamento.ReadOnly = true;
+                btnUPB.Enabled = false;
+                txtUPB.ReadOnly = true;
+                buttonupbIVA.Enabled = false;
+                txtUPBiva.ReadOnly = true;
+            }
 
-        siope_helper SiopeObj;
+		}
+
+		siope_helper SiopeObj;
         void VisualizzaNascondiLotti(bool visualizza) {            
             lblcig.Visible = visualizza;
             cmbCIG.Visible = visualizza;
@@ -3436,9 +3475,8 @@ namespace mandatedetail_single//dettordinegenericosingle//
                 if (Meta.IsEmpty) return;
                 if (R == null) return;
                 if (R.RowState == DataRowState.Detached) return;
-                ImpostaAttivita(R);
-                if (R["cupcode"].ToString() == "") return;
-                txtCupCode.Text = R["cupcode"].ToString();
+                if (R["cupcode"].ToString() != "") txtCupCode.Text = R["cupcode"].ToString();
+                impostaAttivita(R);
                 return;
             }
 
@@ -3536,17 +3574,22 @@ namespace mandatedetail_single//dettordinegenericosingle//
 		}
 
 
-        void ImpostaAttivita(DataRow Rupb){
+        void impostaAttivita(DataRow Rupb){
             DataRow Curr = DS.mandatedetail.Rows[0];
-
-            if ((Curr["flagactivity"].ToString() != Rupb["flagactivity"].ToString()) 
-                && (Rupb["flagactivity"].ToString() == "1" || Rupb["flagactivity"].ToString() == "2"))
+            object upb_flagactivity = Rupb["flagactivity"];
+            if ((Curr["flagactivity"].ToString() != upb_flagactivity.ToString()) 
+                && (upb_flagactivity.ToString() == "1" || upb_flagactivity.ToString() == "2"))
             {
                if (MessageBox.Show("Cambio il Tipo attivit‡ in base all'UPB selezionato?",
 							"Conferma",MessageBoxButtons.OKCancel)==DialogResult.OK) {
-                                Curr["flagactivity"]=Rupb["flagactivity"];
-                                if (Rupb["flagactivity"].ToString() == "1") rdbIstituzionale.Checked = true;
-                                if (Rupb["flagactivity"].ToString() == "2") rdbCommerciale.Checked=true;
+                                Curr["flagactivity"]=upb_flagactivity;
+                                if (upb_flagactivity.ToString() == "1") {
+                                    rdbIstituzionale.Checked = true;
+                                }
+
+                                if (upb_flagactivity.ToString() == "2") {
+                                    rdbCommerciale.Checked=true;
+                                }
                             }
             }
         }
@@ -3634,8 +3677,8 @@ namespace mandatedetail_single//dettordinegenericosingle//
                 double quantita = CfgFn.GetNoNullDouble(Curr["npackage"]);
 				//double aliquota  = CfgFn.GetNoNullDouble(Curr["taxrate"]);
 				double sconto    = CfgFn.GetNoNullDouble(Curr["discount"]);
-				double imponibiletot = CfgFn.RoundValuta((imponibile*quantita*(1-sconto)));
-				double imponibiletotEUR = CfgFn.RoundValuta(imponibiletot*tassocambio);			
+				double imponibiletotEUR = CfgFn.RoundValuta((imponibile*quantita*(1-sconto))*tassocambio);
+				//double imponibiletotEUR = CfgFn.RoundValuta(imponibiletot);			
                 //double iva        = CfgFn.GetNoNullDouble(Curr["tax"]);
                 //double ivaEUR     = CfgFn.RoundValuta(iva*tassocambio);
                 //double impindeduc=	CfgFn.GetNoNullDouble(Curr["unabatable"]);
@@ -3875,7 +3918,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             txtListino.Text = (listRow != null) ? listRow["intcode"].ToString() : "";
             txtDescrizioneListino.Text = (listRow != null) ? listRow["description"].ToString() : "";
             txtCoeffConversione.Text = (listRow != null) ? listRow["unitsforpackage"].ToString() : "";
-
+            txtPrezzounitarioListino.Text = (listRow != null) ? listRow["price"].ToString() : "";
             HelpForm.SetComboBoxValue(cmbUnitaMisuraCS, listRow["idunit"]);
             HelpForm.SetComboBoxValue(cmbUnitaMisuraAcquisto, listRow["idpackage"]);
        }
@@ -3899,7 +3942,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
         private void svuotaOggetti(){
             txtDescrizioneListino.Text = "";
             txtCoeffConversione.Text = "";
-
+            txtPrezzounitarioListino.Text = "";
             if (cmbUnitaMisuraCS.SelectedIndex >= 0){
                 cmbUnitaMisuraCS.SelectedIndex = -1;
             }
@@ -3961,9 +4004,10 @@ namespace mandatedetail_single//dettordinegenericosingle//
             Curr["idunit"] = Choosen["idunit"];
             Curr["idpackage"] = Choosen["idpackage"];
             Curr["unitsforpackage"] = Choosen["unitsforpackage"];
-
-            // Legge la causale EP associata alla classificazione merceologica del listino, e la scrive nella causale EP del dettaglio ordine.
-            object idaccmotive = Conn.DO_READ_VALUE("listclass", QHS.CmpEq("idlistclass", Choosen["idlistclass"]), "idaccmotive");
+		
+			
+			// Legge la causale EP associata alla classificazione merceologica del listino, e la scrive nella causale EP del dettaglio ordine.
+			object idaccmotive = Conn.DO_READ_VALUE("listclass", QHS.CmpEq("idlistclass", Choosen["idlistclass"]), "idaccmotive");
             DS.accmotiveapplied.Clear();
             Meta.Conn.RUN_SELECT_INTO_TABLE(DS.accmotiveapplied, null, QHS.AppAnd(filterEpOperation, QHS.CmpEq("idaccmotive", idaccmotive)), null, false);
             if (DS.accmotiveapplied.Rows.Count > 0) {
@@ -3982,10 +4026,11 @@ namespace mandatedetail_single//dettordinegenericosingle//
 
             SiopeObj.setCausaleEPCorrente(Curr?["idaccmotive"]);
             SiopeObj.selectSiope();
-            riempiOggetti(Choosen);
-            AdeguaQuantitaTotale();
-        }
-        private string lastCodice;
+			riempiOggetti(Choosen);
+			AdeguaQuantitaTotale();
+
+		}
+		private string lastCodice;
         private void txtListino_Enter(object sender, EventArgs e) {
             lastCodice = txtListino.Text;
         }
@@ -4282,4 +4327,3 @@ namespace mandatedetail_single//dettordinegenericosingle//
         }
     }
 }
-

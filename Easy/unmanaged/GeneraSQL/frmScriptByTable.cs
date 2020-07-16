@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -643,6 +640,7 @@ namespace generaSQL//GeneraSQL//
 		#endregion
 
 		private void BindCombo() {
+            object oldSelection = cboTable.SelectedValue;
 			string filter = CalcolaFiltro();
 			DataTable t = Conn.RUN_SELECT("customobject","objectname","objectname ASC",filter, null, false);
             if (radioTable.Checked) {
@@ -661,7 +659,8 @@ namespace generaSQL//GeneraSQL//
             cboTable.DataSource = t;
 			cboTable.DisplayMember = "objectname";
 			cboTable.ValueMember = "objectname";
-		}
+            if (oldSelection!=null) cboTable.SelectedValue = oldSelection;
+        }
 
 		private string CalcolaFiltro() {
 			if (radioTable.Checked)
@@ -1033,7 +1032,7 @@ namespace generaSQL//GeneraSQL//
                     MessageBox.Show("Nessuna riga trovata nella tabella audit. Filtro:" + filter +
                         " Ultimo errore:" + Conn.LastError);
                 }
-            DataAccess.AddExtendedProperty(Conn, t);
+                Conn.AddExtendedProperty( t);
             DS.Tables.Add(t);            
             GeneraSQL.GeneraStrutturaEDati(/*true, */Conn, DS, txtOutputFile.Text.Trim(), false,
                 UpdateType.onlyInsert, DataGenerationType.onlyData, true);
@@ -1046,7 +1045,7 @@ namespace generaSQL//GeneraSQL//
                 MessageBox.Show("Nessuna riga trovata nella tabella auditcheck. Filtro:" + filter +
                     " Ultimo errore:" + Conn.LastError);
             }
-            DataAccess.AddExtendedProperty(Conn, t);
+            Conn.AddExtendedProperty(t);
             DS.Tables.Add(t);
             GeneraSQL.GeneraStrutturaEDati(/*true, */Conn, DS, txtOutputFile.Text.Trim(), true,
                 UpdateType.insertAndUpdate, DataGenerationType.onlyData, true);
@@ -1085,7 +1084,7 @@ namespace generaSQL//GeneraSQL//
                 if (t.Rows.Count == 0) {
                     continue;
                 }
-                DataAccess.AddExtendedProperty(Conn, t);
+                Conn.AddExtendedProperty(t);
                 DataSet DS = new DataSet();
                 DS.Tables.Add(t);
                 bool IsTable = true;
@@ -1249,4 +1248,4 @@ namespace generaSQL//GeneraSQL//
         }
 
     }
-}
+}

@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mainform", "mainform\mainform.csproj", "{E04C2CEF-078B-4B25-904C-6374C88E0EE7}"
 EndProject
@@ -9,6 +9,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "funzioni_configurazione", "unmanaged\funzioni_configurazione\funzioni_configurazione.csproj", "{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "assetacquire_default", "assetacquire\assetacquire_default\assetacquire_default.csproj", "{D9DAA7D1-519A-4892-A996-FC79193C93A3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{341E3FE8-5975-4397-9464-4A9E8D991022} = {341E3FE8-5975-4397-9464-4A9E8D991022}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "assetamortization_default", "assetamortization\assetamortization_default\assetamortization_default.csproj", "{30FD6D73-3527-4386-BD95-711000435200}"
 EndProject
@@ -113,6 +116,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_locationsorting", "locationsorting\meta_locationsorting\meta_locationsorting.csproj", "{8BD1E010-01E6-4EEB-B4BF-41E0D8E1E987}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asset_default", "asset\asset_default\asset_default.csproj", "{1A0260D6-FA76-481C-95E5-1076D186C7E4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A46F0CA7-3CAA-4AAD-8A75-880D281FC3CB} = {A46F0CA7-3CAA-4AAD-8A75-880D281FC3CB}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_assetlocation", "assetlocation\meta_assetlocation\meta_assetlocation.csproj", "{5811A30A-81C0-4C3B-9554-12E10F8C1251}"
 EndProject
@@ -149,6 +155,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_assetvardetailview", "assetvardetail\meta_assetvardetailview\meta_assetvardetailview.csproj", "{968706B5-686B-49A1-AE8A-ED871389F65B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "assetload_default", "assetload\assetload_default\assetload_default.csproj", "{0DD0AB54-2C88-429B-9D4E-D3DC60F23A88}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DC97227B-F17E-472D-B6A6-871BE1553F2E} = {DC97227B-F17E-472D-B6A6-871BE1553F2E}
+		{B96BCBFE-3AEE-49D2-A304-2046C0B89947} = {B96BCBFE-3AEE-49D2-A304-2046C0B89947}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_assetconsigneeview", "assetconsignee\meta_assetconsigneeview\meta_assetconsigneeview.csproj", "{E3BD4FE8-CA67-4439-ABE6-F8BC286BC983}"
 EndProject
@@ -237,6 +247,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneraSQL", "unmanaged\GeneraSQL\GeneraSQL.csproj", "{FB8B2892-0E74-458D-926D-EEA4D36AEEF9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "assetgrantdetail_single", "assetgrantdetail\assetgrantdetail_single\assetgrantdetail_single.csproj", "{5D6C9287-5C4D-4B82-9525-0CC143EA9771}"
+	ProjectSection(ProjectDependencies) = postProject
+		{131A6E4D-38A3-4D1C-951D-1F4734BA5777} = {131A6E4D-38A3-4D1C-951D-1F4734BA5777}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_assetgrantdetail", "assetgrantdetail\meta_assetgrantdetail\meta_assetgrantdetail.csproj", "{4637EFB1-4128-4487-99D4-EA186E609F86}"
 EndProject
@@ -249,10 +262,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "assetgrant_single", "assetgrant\assetgrant_single\assetgrant_single.csproj", "{F12146DD-0AA7-49B7-92F0-CD79BA2E2008}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grantload_default", "grantload\grantload_default\grantload_default.csproj", "{D58378C0-10D0-4446-9451-2A6C1673D610}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E559785C-376D-4367-B9A5-6794B0B6C6D7} = {E559785C-376D-4367-B9A5-6794B0B6C6D7}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_grantload", "grantload\meta_grantload\meta_grantload.csproj", "{59389642-E256-4EC5-9538-ABD43A02EFB2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "assetgrant_default", "assetgrant\assetgrant_default\assetgrant_default\assetgrant_default.csproj", "{2B750F0B-9182-40F1-9223-1F6FC77E3A4C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{131A6E4D-38A3-4D1C-951D-1F4734BA5777} = {131A6E4D-38A3-4D1C-951D-1F4734BA5777}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_assetgrantview", "assetgrant\meta_assetgrantview\meta_assetgrantview\meta_assetgrantview.csproj", "{E559785C-376D-4367-B9A5-6794B0B6C6D7}"
 EndProject
@@ -797,5 +816,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C1A0F678-1078-4F43-9F83-ABE6CB552EB5}
 	EndGlobalSection
 EndGlobal

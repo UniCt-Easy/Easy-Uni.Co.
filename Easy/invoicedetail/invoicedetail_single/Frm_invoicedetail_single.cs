@@ -1,6 +1,6 @@
 /*
     Easy
-    Copyright (C) 2020 Universit‡ degli Studi di Catania (www.unict.it)
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -48,8 +48,8 @@ namespace invoicedetail_single //dettdocumentoivasingle//
         private System.ComponentModel.Container components = null;
 
         private MetaData Meta;
-        private double tassocambio;
-        private double aliquota = 0;
+        private decimal tassocambio;
+        private decimal aliquota = 0;
         private System.Windows.Forms.ComboBox cmbTipoIVA;
         private System.Windows.Forms.Button btnTipo;
         private System.Windows.Forms.TextBox txtQuantitaConfezioni;
@@ -85,7 +85,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
         private System.Windows.Forms.TextBox txtIva;
         private System.Windows.Forms.TextBox txtImponibile;
         private System.Windows.Forms.TextBox txtImponibileValuta;
-        private double percindeduc = 0;
+        private decimal percindeduc = 0;
         private System.Windows.Forms.Button btnScollegaRiga;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
@@ -3625,8 +3625,8 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             }
             if (T.TableName == "ivakind") {
                 if (R != null) {
-                    aliquota = CfgFn.GetNoNullDouble(R["rate"]);
-                    percindeduc = CfgFn.GetNoNullDouble(R["unabatabilitypercentage"]);
+                    aliquota = CfgFn.GetNoNullDecimal(R["rate"]);
+                    percindeduc = CfgFn.GetNoNullDecimal(R["unabatabilitypercentage"]);
                     if ((AV != null) && (AV.ToString().ToUpper() == "V") && (percindeduc != 0)) {
                         percindeduc = 0; // per le fatture di vendita
                     }
@@ -3655,6 +3655,11 @@ namespace invoicedetail_single //dettdocumentoivasingle//
                 if (controller.DrawStateIsDone) {
                     calcolaImportiValuta(controller.DrawStateIsDone);
                     calcolaImportiEUR(controller.DrawStateIsDone);
+                    if (aliquota == 0) { //14773 Riporto riferimento normativo aliquota iva
+	                    txtRiferimentoNormativo.Text = R["description"].ToString();
+	                    DataRow Curr = DS.invoicedetail.Rows[0];
+	                    Curr["fereferencerule"] = R["description"];
+                    }
                 }
             }
             if ((T.TableName == "accmotive" || T.TableName == "accmotiveapplied") && controller.DrawStateIsDone) {
@@ -3782,19 +3787,18 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             DataRow Curr = DS.invoicedetail.Rows[0];
 
             try {
-                double imponibile = CfgFn.GetNoNullDouble(Curr["taxable"]);
-                double quantitaConfezioni = CfgFn.GetNoNullDouble(Curr["npackage"]);
-                //double aliquota  = CfgFn.GetNoNullDouble(aliquota);
-                double sconto = CfgFn.GetNoNullDouble(Curr["discount"]);
-                double imponibiletot = CfgFn.RoundValuta((imponibile*quantitaConfezioni*(1 - sconto)));
-                double imponibiletotEUR = CfgFn.RoundValuta(imponibiletot*tassocambio);
-                //double imponibiletotEUR = CfgFn.RoundValuta(imponibiletot*tassocambio);			
-                double ivaEUR = CfgFn.RoundValuta(imponibiletotEUR*aliquota);
+	            decimal imponibile = CfgFn.GetNoNullDecimal(Curr["taxable"]);
+	            decimal quantitaConfezioni = CfgFn.GetNoNullDecimal(Curr["npackage"]);
+	            decimal imposta = CfgFn.GetNoNullDecimal(Curr["tax"]);
+	            decimal sconto = CfgFn.Round(CfgFn.GetNoNullDecimal(Curr["discount"]), 6);
+	            decimal imponibiletotEUR = CfgFn.RoundValuta((imponibile * quantitaConfezioni * (1 - sconto)) * tassocambio);
+
+                decimal ivaEUR = CfgFn.RoundValuta(imponibiletotEUR*Convert.ToDecimal(aliquota));
                 //double ivaEUR     = CfgFn.RoundValuta(iva*tassocambio);
-                double impindeducEUR = CfgFn.RoundValuta(ivaEUR*percindeduc);
+                decimal impindeducEUR = CfgFn.RoundValuta(ivaEUR*percindeduc);
                 //double impindeducEUR=	CfgFn.RoundValuta(impindeduc*tassocambio);
 
-                txtImponibileValuta.Text = imponibiletot.ToString("n");
+                txtImponibileValuta.Text = imponibiletotEUR.ToString("n");
                 txtImpostaEUR.Text = HelpForm.StringValue(ivaEUR, "x.y.fixed.2...1");
                 ;
                 txtImpDeducEUR.Text = HelpForm.StringValue(impindeducEUR, "x.y.fixed.2...1");
@@ -3826,11 +3830,19 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             DataRow Curr = DS.invoicedetail.Rows[0];
 
             try {
-                double imponibile = CfgFn.GetNoNullDouble(Curr["taxable"]);
-                double quantitaConfezioni = CfgFn.GetNoNullDouble(Curr["npackage"]);
-                double sconto = CfgFn.GetNoNullDouble(Curr["discount"]);
-                double imponibiletot = CfgFn.RoundValuta((imponibile*quantitaConfezioni*(1 - sconto)));
-                double imponibiletotEUR = CfgFn.RoundValuta(imponibiletot*tassocambio);
+                //double imponibile = CfgFn.GetNoNullDouble(Curr["taxable"]);
+                //double quantitaConfezioni = CfgFn.GetNoNullDouble(Curr["npackage"]);
+                //double sconto = CfgFn.GetNoNullDouble(Curr["discount"]);
+                //double imponibiletot = CfgFn.RoundValuta((imponibile*quantitaConfezioni*(1 - sconto)));
+                //double imponibiletotEUR = CfgFn.RoundValuta(imponibiletot*tassocambio);
+
+                decimal imponibile = CfgFn.GetNoNullDecimal(Curr["taxable"]);
+                decimal quantitaConfezioni = CfgFn.GetNoNullDecimal(Curr["npackage"]);
+                decimal imposta = CfgFn.GetNoNullDecimal(Curr["tax"]);
+                decimal sconto = CfgFn.Round(CfgFn.GetNoNullDecimal(Curr["discount"]), 6);
+                decimal imponibiletotEUR = CfgFn.RoundValuta((imponibile * quantitaConfezioni * (1 - sconto)) * tassocambio);
+                //imposta    +=  CfgFn.RoundValuta((R_imponibile*R_quantita *(1-R_sconto))*R_imposta*tassocambio);
+                
 
                 txtImponibileEUR.Text = imponibiletotEUR.ToString("n");
 
@@ -4438,7 +4450,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             }
             else {
                 grpValoreUnitInValuta.Text += " (" + h["nomevaluta"].ToString() + ")";
-                tassocambio = Convert.ToDouble(h["cambio"]);
+                tassocambio = Convert.ToDecimal(h["cambio"]);
             }
 
             rPadre = Meta.SourceRow;

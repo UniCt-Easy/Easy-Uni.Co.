@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -30,97 +27,98 @@ using System.Globalization;
 using movimentofunctions;
 using AskInfo;
 using q = metadatalibrary.MetaExpression;
-namespace expense_wizardmandatedetail
-{
-	/// <summary>
-	/// Summary description for FrmWizardMandateDetail.
-	/// </summary>
-	public class FrmWizardMandateDetail : System.Windows.Forms.Form
-	{
-		private Crownwood.Magic.Controls.TabControl tabController;
-		private Crownwood.Magic.Controls.TabPage tabIntro;
-		private System.Windows.Forms.Label label1;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
-		private System.Windows.Forms.Button btnCancel;
-		private System.Windows.Forms.Button btnNext;
-		private System.Windows.Forms.Button btnBack;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label3;
-		private Crownwood.Magic.Controls.TabPage tabSelMov;
-		private System.Windows.Forms.GroupBox groupBox20;
-		private System.Windows.Forms.Label label15;
-		private System.Windows.Forms.TextBox txtDataCont;
-		private System.Windows.Forms.TextBox txtScadenza;
-		private System.Windows.Forms.Label label13;
-		private System.Windows.Forms.GroupBox groupBox18;
-		private System.Windows.Forms.TextBox SubEntity_txtImportoMovimento;
-		private System.Windows.Forms.Label label11;
-		private System.Windows.Forms.GroupBox groupBox17;
-		private System.Windows.Forms.TextBox txtDescrizione;
-		private System.Windows.Forms.GroupBox gboxBilAnnuale;
-		private System.Windows.Forms.Label label9;
-		private System.Windows.Forms.TextBox txtCodiceBilancio;
-		private System.Windows.Forms.TextBox txtDenominazioneBilancio;
-		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.Label lblImportoDisponibile;
-		private System.Windows.Forms.Label label12;
-		private System.Windows.Forms.TextBox txtImportoDisponibile;
-		private System.Windows.Forms.TextBox txtImportoCorrente;
-		private System.Windows.Forms.GroupBox gboxMovimento;
-		private System.Windows.Forms.Button btnSelectMov;
-		private System.Windows.Forms.TextBox txtNumeroMovimento;
-		private System.Windows.Forms.Label labNum;
-		private System.Windows.Forms.TextBox txtEsercizioMovimento;
-		private System.Windows.Forms.Label labEserc;
-		private Crownwood.Magic.Controls.TabPage tabSelDetail;
-		private System.Windows.Forms.Button btnDocumento;
-		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.TextBox txtNumDoc;
-		private System.Windows.Forms.Label label10;
-		private System.Windows.Forms.TextBox txtEsercDoc;
-		private System.Windows.Forms.ComboBox cmbCausale;
-		private System.Windows.Forms.Label labelCausale;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.Label label8;
-		private System.Windows.Forms.TextBox txtTotImponibile;
-		private System.Windows.Forms.GroupBox groupBox2;
-		private System.Windows.Forms.TextBox txtTotIva;
-		private System.Windows.Forms.TextBox txtTotGenerale;
-		private System.Windows.Forms.Label label18;
-		private System.Windows.Forms.Button btnSelectAllDetail;
-		private System.Windows.Forms.RadioButton radioAddCont;
-		private System.Windows.Forms.RadioButton radioNewCont;
-		private System.Windows.Forms.RadioButton radioNewLinkedMov;
-		private System.Windows.Forms.Label labMsgTODO1;
-		private System.Windows.Forms.Label labMsgTODO2;
-		private Crownwood.Magic.Controls.TabPage tabConfirm;
-		MetaData Meta;
-		public expense_wizardmandatedetail.vistaFrm DS;
 
-		string CustomTitle;
-		private System.Windows.Forms.DataGrid gridDetails;
-		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.TextBox txtFornitore;
-		private System.Windows.Forms.Label labDescrOrdine;
+namespace expense_wizardmandatedetail {
+    /// <summary>
+    /// Summary description for FrmWizardMandateDetail.
+    /// </summary>
+    public class FrmWizardMandateDetail : System.Windows.Forms.Form {
+        private Crownwood.Magic.Controls.TabControl tabController;
+        private Crownwood.Magic.Controls.TabPage tabIntro;
+        private System.Windows.Forms.Label label1;
+
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.Container components = null;
+
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private Crownwood.Magic.Controls.TabPage tabSelMov;
+        private System.Windows.Forms.GroupBox groupBox20;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtDataCont;
+        private System.Windows.Forms.TextBox txtScadenza;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.GroupBox groupBox18;
+        private System.Windows.Forms.TextBox SubEntity_txtImportoMovimento;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.GroupBox groupBox17;
+        private System.Windows.Forms.TextBox txtDescrizione;
+        private System.Windows.Forms.GroupBox gboxBilAnnuale;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtCodiceBilancio;
+        private System.Windows.Forms.TextBox txtDenominazioneBilancio;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label lblImportoDisponibile;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtImportoDisponibile;
+        private System.Windows.Forms.TextBox txtImportoCorrente;
+        private System.Windows.Forms.GroupBox gboxMovimento;
+        private System.Windows.Forms.Button btnSelectMov;
+        private System.Windows.Forms.TextBox txtNumeroMovimento;
+        private System.Windows.Forms.Label labNum;
+        private System.Windows.Forms.TextBox txtEsercizioMovimento;
+        private System.Windows.Forms.Label labEserc;
+        private Crownwood.Magic.Controls.TabPage tabSelDetail;
+        private System.Windows.Forms.Button btnDocumento;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtNumDoc;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtEsercDoc;
+        private System.Windows.Forms.ComboBox cmbCausale;
+        private System.Windows.Forms.Label labelCausale;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtTotImponibile;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox txtTotIva;
+        private System.Windows.Forms.TextBox txtTotGenerale;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button btnSelectAllDetail;
+        private System.Windows.Forms.RadioButton radioAddCont;
+        private System.Windows.Forms.RadioButton radioNewCont;
+        private System.Windows.Forms.RadioButton radioNewLinkedMov;
+        private System.Windows.Forms.Label labMsgTODO1;
+        private System.Windows.Forms.Label labMsgTODO2;
+        private Crownwood.Magic.Controls.TabPage tabConfirm;
+        MetaData Meta;
+        public expense_wizardmandatedetail.vistaFrm DS;
+
+        string CustomTitle;
+        private System.Windows.Forms.DataGrid gridDetails;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtFornitore;
+        private System.Windows.Forms.Label labDescrOrdine;
         private System.Windows.Forms.TextBox txtDescrOrdine;
-		private System.Windows.Forms.GroupBox gboxSelMov;
-		DataAccess Conn;
+        private System.Windows.Forms.GroupBox gboxSelMov;
+        DataAccess Conn;
         DataSet DSCopy;
         private System.Windows.Forms.GroupBox gboxUPB;
-		private System.Windows.Forms.TextBox txtDescrUPB;
-		private System.Windows.Forms.Button btnUPBCode;
-		private System.Windows.Forms.Label labelAddCont;
-		private System.Windows.Forms.Label labelNewLinkedCont;
-		private System.Windows.Forms.GroupBox gboxBilToCreate;
-		private System.Windows.Forms.Label label14;
-		private System.Windows.Forms.TextBox txtCodeBilSelected;
-		private System.Windows.Forms.TextBox txtDenomBilSelected;
-		private System.Windows.Forms.ComboBox cmbTipoOrdine;
-		decimal TotaleDaContabilizzare=0;
+        private System.Windows.Forms.TextBox txtDescrUPB;
+        private System.Windows.Forms.Button btnUPBCode;
+        private System.Windows.Forms.Label labelAddCont;
+        private System.Windows.Forms.Label labelNewLinkedCont;
+        private System.Windows.Forms.GroupBox gboxBilToCreate;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtCodeBilSelected;
+        private System.Windows.Forms.TextBox txtDenomBilSelected;
+        private System.Windows.Forms.ComboBox cmbTipoOrdine;
+        decimal TotaleDaContabilizzare = 0;
         private System.Windows.Forms.CheckBox chkAddContab;
         private Crownwood.Magic.Controls.TabPage tabSplit;
         private Label label23;
@@ -143,41 +141,38 @@ namespace expense_wizardmandatedetail
         private TextBox txtResponsabileContratto;
         private TextBox txtUPB;
         ArrayList DetailsToUpdate;
-		
-		public FrmWizardMandateDetail()
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+
+        public FrmWizardMandateDetail() {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
 
-			tabController.HideTabsMode = 
-			Crownwood.Magic.Controls.TabControl.HideTabsModes.HideAlways;
-		}
+            tabController.HideTabsMode =
+                Crownwood.Magic.Controls.TabControl.HideTabsModes.HideAlways;
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing) {
+            if (disposing) {
+                if (components != null) {
+                    components.Dispose();
+                }
+            }
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             this.tabController = new Crownwood.Magic.Controls.TabControl();
             this.tabSelMov = new Crownwood.Magic.Controls.TabPage();
             this.labelNewLinkedCont = new System.Windows.Forms.Label();
@@ -285,9 +280,9 @@ namespace expense_wizardmandatedetail
             this.tabIntro.SuspendLayout();
             this.tabSelDetail.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.DS)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridDetails)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.gridDetails)).BeginInit();
             this.tabSplit.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabConfirm.SuspendLayout();
@@ -306,18 +301,21 @@ namespace expense_wizardmandatedetail
             this.tabController.Size = new System.Drawing.Size(700, 468);
             this.tabController.TabIndex = 0;
             this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
-            this.tabIntro,
-            this.tabSelDetail,
-            this.tabSplit,
-            this.tabSelMov,
-            this.tabConfirm});
+                this.tabIntro,
+                this.tabSelDetail,
+                this.tabSplit,
+                this.tabSelMov,
+                this.tabConfirm
+            });
             this.tabController.SelectionChanged += new System.EventHandler(this.tabController_SelectionChanged);
             // 
             // tabSelMov
             // 
-            this.tabSelMov.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabSelMov.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
+                                                         System.Windows.Forms.AnchorStyles.Bottom)
+                                                        | System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.tabSelMov.Controls.Add(this.labelNewLinkedCont);
             this.tabSelMov.Controls.Add(this.labelAddCont);
             this.tabSelMov.Controls.Add(this.gboxSelMov);
@@ -347,8 +345,10 @@ namespace expense_wizardmandatedetail
             // 
             // gboxSelMov
             // 
-            this.gboxSelMov.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gboxSelMov.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.gboxSelMov.Controls.Add(this.groupBox4);
             this.gboxSelMov.Controls.Add(this.gboxUPB);
             this.gboxSelMov.Controls.Add(this.gboxMovimento);
@@ -366,8 +366,10 @@ namespace expense_wizardmandatedetail
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.txtResponsabile);
             this.groupBox4.Location = new System.Drawing.Point(354, 86);
             this.groupBox4.Name = "groupBox4";
@@ -378,8 +380,10 @@ namespace expense_wizardmandatedetail
             // 
             // txtResponsabile
             // 
-            this.txtResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtResponsabile.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.txtResponsabile.Location = new System.Drawing.Point(8, 16);
             this.txtResponsabile.Multiline = true;
             this.txtResponsabile.Name = "txtResponsabile";
@@ -390,7 +394,9 @@ namespace expense_wizardmandatedetail
             // 
             // gboxUPB
             // 
-            this.gboxUPB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.gboxUPB.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
+                                                       System.Windows.Forms.AnchorStyles.Left)));
             this.gboxUPB.Controls.Add(this.txtUPB);
             this.gboxUPB.Controls.Add(this.txtDescrUPB);
             this.gboxUPB.Controls.Add(this.btnUPBCode);
@@ -425,7 +431,8 @@ namespace expense_wizardmandatedetail
             // 
             this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
             this.btnUPBCode.Enabled = false;
-            this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F,
+                System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnUPBCode.Location = new System.Drawing.Point(18, 23);
             this.btnUPBCode.Name = "btnUPBCode";
@@ -438,7 +445,9 @@ namespace expense_wizardmandatedetail
             // 
             // gboxMovimento
             // 
-            this.gboxMovimento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.gboxMovimento.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
+                                                       System.Windows.Forms.AnchorStyles.Left)));
             this.gboxMovimento.Controls.Add(this.btnSelectMov);
             this.gboxMovimento.Controls.Add(this.txtNumeroMovimento);
             this.gboxMovimento.Controls.Add(this.labNum);
@@ -500,8 +509,10 @@ namespace expense_wizardmandatedetail
             // 
             // groupBox17
             // 
-            this.groupBox17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox17.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox17.Controls.Add(this.txtDescrizione);
             this.groupBox17.Location = new System.Drawing.Point(354, 8);
             this.groupBox17.Name = "groupBox17";
@@ -512,8 +523,10 @@ namespace expense_wizardmandatedetail
             // 
             // txtDescrizione
             // 
-            this.txtDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDescrizione.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescrizione.Location = new System.Drawing.Point(8, 16);
             this.txtDescrizione.Multiline = true;
             this.txtDescrizione.Name = "txtDescrizione";
@@ -525,7 +538,9 @@ namespace expense_wizardmandatedetail
             // 
             // gboxBilAnnuale
             // 
-            this.gboxBilAnnuale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.gboxBilAnnuale.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
+                                                       System.Windows.Forms.AnchorStyles.Left)));
             this.gboxBilAnnuale.Controls.Add(this.label9);
             this.gboxBilAnnuale.Controls.Add(this.txtCodiceBilancio);
             this.gboxBilAnnuale.Controls.Add(this.txtDenominazioneBilancio);
@@ -569,7 +584,9 @@ namespace expense_wizardmandatedetail
             // 
             // groupBox20
             // 
-            this.groupBox20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox20.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
+                                                       System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox20.Controls.Add(this.label15);
             this.groupBox20.Controls.Add(this.txtDataCont);
             this.groupBox20.Controls.Add(this.txtScadenza);
@@ -621,7 +638,9 @@ namespace expense_wizardmandatedetail
             // 
             // groupBox18
             // 
-            this.groupBox18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox18.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
+                                                       System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox18.Controls.Add(this.SubEntity_txtImportoMovimento);
             this.groupBox18.Controls.Add(this.label11);
             this.groupBox18.Location = new System.Drawing.Point(8, 74);
@@ -652,8 +671,10 @@ namespace expense_wizardmandatedetail
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Bottom |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.lblImportoDisponibile);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.txtImportoDisponibile);
@@ -685,8 +706,10 @@ namespace expense_wizardmandatedetail
             // 
             // txtImportoDisponibile
             // 
-            this.txtImportoDisponibile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtImportoDisponibile.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.txtImportoDisponibile.Location = new System.Drawing.Point(227, 40);
             this.txtImportoDisponibile.Name = "txtImportoDisponibile";
             this.txtImportoDisponibile.ReadOnly = true;
@@ -698,8 +721,10 @@ namespace expense_wizardmandatedetail
             // 
             // txtImportoCorrente
             // 
-            this.txtImportoCorrente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtImportoCorrente.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.txtImportoCorrente.Location = new System.Drawing.Point(227, 16);
             this.txtImportoCorrente.Name = "txtImportoCorrente";
             this.txtImportoCorrente.ReadOnly = true;
@@ -715,8 +740,9 @@ namespace expense_wizardmandatedetail
             this.radioNewLinkedMov.Name = "radioNewLinkedMov";
             this.radioNewLinkedMov.Size = new System.Drawing.Size(696, 26);
             this.radioNewLinkedMov.TabIndex = 102;
-            this.radioNewLinkedMov.Text = "Si desidera creare un NUOVO movimento di spesa, collegandolo però ad un movimento" +
-    " esistente";
+            this.radioNewLinkedMov.Text =
+                "Si desidera creare un NUOVO movimento di spesa, collegandolo però ad un movimento" +
+                " esistente";
             this.radioNewLinkedMov.CheckedChanged += new System.EventHandler(this.radioNewLinkedMov_CheckedChanged);
             // 
             // radioNewCont
@@ -725,8 +751,9 @@ namespace expense_wizardmandatedetail
             this.radioNewCont.Name = "radioNewCont";
             this.radioNewCont.Size = new System.Drawing.Size(688, 16);
             this.radioNewCont.TabIndex = 101;
-            this.radioNewCont.Text = "Si desidera creare un NUOVO movimento di spesa (uno per ogni diverso UPB e Fornit" +
-    "ore presente nei dettagli selezionati)";
+            this.radioNewCont.Text =
+                "Si desidera creare un NUOVO movimento di spesa (uno per ogni diverso UPB e Fornit" +
+                "ore presente nei dettagli selezionati)";
             this.radioNewCont.CheckedChanged += new System.EventHandler(this.radioNewCont_CheckedChanged);
             // 
             // radioAddCont
@@ -740,9 +767,11 @@ namespace expense_wizardmandatedetail
             // 
             // tabIntro
             // 
-            this.tabIntro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabIntro.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
+                                                         System.Windows.Forms.AnchorStyles.Bottom)
+                                                        | System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.tabIntro.Controls.Add(this.label3);
             this.tabIntro.Controls.Add(this.label2);
             this.tabIntro.Controls.Add(this.label1);
@@ -755,15 +784,17 @@ namespace expense_wizardmandatedetail
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.Location = new System.Drawing.Point(8, 56);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(668, 48);
             this.label3.TabIndex = 2;
             this.label3.Text = "Saranno considerati solo i dettagli non ancora associati a movimenti finanziari, " +
-    "inoltre il movimento dovrà avere il  percipiente uguale al fornitore del contrat" +
-    "to passivo o dei dettagli.";
+                               "inoltre il movimento dovrà avere il  percipiente uguale al fornitore del contrat" +
+                               "to passivo o dei dettagli.";
             // 
             // label2
             // 
@@ -772,7 +803,7 @@ namespace expense_wizardmandatedetail
             this.label2.Size = new System.Drawing.Size(689, 23);
             this.label2.TabIndex = 1;
             this.label2.Text = "Sarà possibile creare nuovi movimenti oppure associare i dettagli a movimenti già" +
-    " creati.";
+                               " creati.";
             // 
             // label1
             // 
@@ -781,13 +812,15 @@ namespace expense_wizardmandatedetail
             this.label1.Size = new System.Drawing.Size(689, 23);
             this.label1.TabIndex = 0;
             this.label1.Text = "Questo wizard serve a contabilizzare in finanziario uno o più dettagli di un cont" +
-    "ratto passivo.";
+                               "ratto passivo.";
             // 
             // tabSelDetail
             // 
-            this.tabSelDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabSelDetail.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
+                                                         System.Windows.Forms.AnchorStyles.Bottom)
+                                                        | System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.tabSelDetail.Controls.Add(this.groupBox5);
             this.tabSelDetail.Controls.Add(this.cmbTipoOrdine);
             this.tabSelDetail.Controls.Add(this.txtDescrOrdine);
@@ -814,8 +847,10 @@ namespace expense_wizardmandatedetail
             // 
             // groupBox5
             // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.txtResponsabileContratto);
             this.groupBox5.Location = new System.Drawing.Point(431, 78);
             this.groupBox5.Name = "groupBox5";
@@ -826,8 +861,10 @@ namespace expense_wizardmandatedetail
             // 
             // txtResponsabileContratto
             // 
-            this.txtResponsabileContratto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtResponsabileContratto.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.txtResponsabileContratto.Location = new System.Drawing.Point(8, 16);
             this.txtResponsabileContratto.Multiline = true;
             this.txtResponsabileContratto.Name = "txtResponsabileContratto";
@@ -854,8 +891,10 @@ namespace expense_wizardmandatedetail
             // 
             // txtDescrOrdine
             // 
-            this.txtDescrOrdine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDescrOrdine.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescrOrdine.Location = new System.Drawing.Point(88, 85);
             this.txtDescrOrdine.Multiline = true;
             this.txtDescrOrdine.Name = "txtDescrOrdine";
@@ -874,8 +913,10 @@ namespace expense_wizardmandatedetail
             // 
             // txtFornitore
             // 
-            this.txtFornitore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFornitore.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFornitore.Location = new System.Drawing.Point(88, 56);
             this.txtFornitore.Name = "txtFornitore";
             this.txtFornitore.ReadOnly = true;
@@ -893,8 +934,10 @@ namespace expense_wizardmandatedetail
             // 
             // chkAddContab
             // 
-            this.chkAddContab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkAddContab.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAddContab.Location = new System.Drawing.Point(408, 8);
             this.chkAddContab.Name = "chkAddContab";
             this.chkAddContab.Size = new System.Drawing.Size(284, 40);
@@ -904,7 +947,9 @@ namespace expense_wizardmandatedetail
             // 
             // btnSelectAllDetail
             // 
-            this.btnSelectAllDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSelectAllDetail.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
+                                                       System.Windows.Forms.AnchorStyles.Right)));
             this.btnSelectAllDetail.Location = new System.Drawing.Point(596, 144);
             this.btnSelectAllDetail.Name = "btnSelectAllDetail";
             this.btnSelectAllDetail.Size = new System.Drawing.Size(96, 23);
@@ -914,19 +959,23 @@ namespace expense_wizardmandatedetail
             // 
             // label18
             // 
-            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label18.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.label18.Location = new System.Drawing.Point(8, 176);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(684, 16);
             this.label18.TabIndex = 109;
             this.label18.Text = "Selezionare i dettagli da contabilizzare (sono visualizzati solo i dettagli a cui" +
-    " non è associata una data di annullamento)";
+                                " non è associata una data di annullamento)";
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Bottom |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.txtTotGenerale);
             this.groupBox2.Controls.Add(this.txtTotIva);
             this.groupBox2.Controls.Add(this.label4);
@@ -995,9 +1044,11 @@ namespace expense_wizardmandatedetail
             // 
             // gridDetails
             // 
-            this.gridDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridDetails.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
+                                                         System.Windows.Forms.AnchorStyles.Bottom)
+                                                        | System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.gridDetails.DataMember = "";
             this.gridDetails.HeaderForeColor = System.Drawing.SystemColors.ControlText;
             this.gridDetails.Location = new System.Drawing.Point(8, 200);
@@ -1010,7 +1061,8 @@ namespace expense_wizardmandatedetail
             // 
             this.cmbCausale.DataSource = this.DS.tipomovimento;
             this.cmbCausale.DisplayMember = "descrizione";
-            this.cmbCausale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
+            this.cmbCausale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F,
+                System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte) (0)));
             this.cmbCausale.ItemHeight = 13;
             this.cmbCausale.Location = new System.Drawing.Point(88, 136);
             this.cmbCausale.Name = "cmbCausale";
@@ -1021,7 +1073,8 @@ namespace expense_wizardmandatedetail
             // 
             // labelCausale
             // 
-            this.labelCausale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
+            this.labelCausale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F,
+                System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte) (0)));
             this.labelCausale.Location = new System.Drawing.Point(32, 136);
             this.labelCausale.Name = "labelCausale";
             this.labelCausale.Size = new System.Drawing.Size(48, 23);
@@ -1031,7 +1084,8 @@ namespace expense_wizardmandatedetail
             // 
             // btnDocumento
             // 
-            this.btnDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F,
+                System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.btnDocumento.Location = new System.Drawing.Point(8, 8);
             this.btnDocumento.Name = "btnDocumento";
             this.btnDocumento.Size = new System.Drawing.Size(104, 20);
@@ -1041,7 +1095,8 @@ namespace expense_wizardmandatedetail
             // 
             // label7
             // 
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular,
+                System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.label7.Location = new System.Drawing.Point(176, 32);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(48, 16);
@@ -1051,7 +1106,8 @@ namespace expense_wizardmandatedetail
             // 
             // txtNumDoc
             // 
-            this.txtNumDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNumDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F,
+                System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.txtNumDoc.Location = new System.Drawing.Point(312, 32);
             this.txtNumDoc.Name = "txtNumDoc";
             this.txtNumDoc.Size = new System.Drawing.Size(64, 20);
@@ -1061,7 +1117,8 @@ namespace expense_wizardmandatedetail
             // 
             // label10
             // 
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular,
+                System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.label10.Location = new System.Drawing.Point(280, 32);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(32, 16);
@@ -1071,7 +1128,8 @@ namespace expense_wizardmandatedetail
             // 
             // txtEsercDoc
             // 
-            this.txtEsercDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEsercDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F,
+                System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.txtEsercDoc.Location = new System.Drawing.Point(224, 32);
             this.txtEsercDoc.Name = "txtEsercDoc";
             this.txtEsercDoc.Size = new System.Drawing.Size(56, 20);
@@ -1081,9 +1139,11 @@ namespace expense_wizardmandatedetail
             // 
             // tabSplit
             // 
-            this.tabSplit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabSplit.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
+                                                         System.Windows.Forms.AnchorStyles.Bottom)
+                                                        | System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.tabSplit.Controls.Add(this.groupBox3);
             this.tabSplit.Controls.Add(this.label23);
             this.tabSplit.Controls.Add(this.label22);
@@ -1099,8 +1159,10 @@ namespace expense_wizardmandatedetail
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Anchor =
+                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
+                                                        System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.lblCausale);
             this.groupBox3.Controls.Add(this.txtTotSelezionato);
             this.groupBox3.Controls.Add(this.label19);
@@ -1123,7 +1185,9 @@ namespace expense_wizardmandatedetail
             // 
             // txtTotSelezionato
             // 
-            this.txtTotSelezionato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTotSelezionato.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
+                                                       System.Windows.Forms.AnchorStyles.Right)));
             this.txtTotSelezionato.Location = new System.Drawing.Point(536, 26);
             this.txtTotSelezionato.Name = "txtTotSelezionato";
             this.txtTotSelezionato.ReadOnly = true;
@@ -1133,7 +1197,9 @@ namespace expense_wizardmandatedetail
             // 
             // label19
             // 
-            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label19.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top |
+                                                       System.Windows.Forms.AnchorStyles.Right)));
             this.label19.Location = new System.Drawing.Point(336, 33);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(193, 13);
@@ -1150,8 +1216,9 @@ namespace expense_wizardmandatedetail
             this.rdbSplittaUno.Size = new System.Drawing.Size(565, 19);
             this.rdbSplittaUno.TabIndex = 1;
             this.rdbSplittaUno.TabStop = true;
-            this.rdbSplittaUno.Text = "Contabilizza interamente i dettagli fino a coprire l\'importo da pagare. Sarà sudd" +
-    "iviso al più un dettaglio";
+            this.rdbSplittaUno.Text =
+                "Contabilizza interamente i dettagli fino a coprire l\'importo da pagare. Sarà sudd" +
+                "iviso al più un dettaglio";
             this.rdbSplittaUno.UseVisualStyleBackColor = true;
             // 
             // rdbSplittaTutti
@@ -1161,8 +1228,9 @@ namespace expense_wizardmandatedetail
             this.rdbSplittaTutti.Name = "rdbSplittaTutti";
             this.rdbSplittaTutti.Size = new System.Drawing.Size(511, 19);
             this.rdbSplittaTutti.TabIndex = 2;
-            this.rdbSplittaTutti.Text = "Distribuisci l\'importo da pagare su tutti i dettagli selezionati. Tutti i dettagl" +
-    "i saranno suddivisi";
+            this.rdbSplittaTutti.Text =
+                "Distribuisci l\'importo da pagare su tutti i dettagli selezionati. Tutti i dettagl" +
+                "i saranno suddivisi";
             this.rdbSplittaTutti.UseVisualStyleBackColor = true;
             // 
             // label23
@@ -1281,7 +1349,9 @@ namespace expense_wizardmandatedetail
             // 
             // btnCancel
             // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
+                                                       System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(631, 489);
             this.btnCancel.Name = "btnCancel";
@@ -1292,7 +1362,9 @@ namespace expense_wizardmandatedetail
             // 
             // btnNext
             // 
-            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
+                                                       System.Windows.Forms.AnchorStyles.Right)));
             this.btnNext.Location = new System.Drawing.Point(511, 489);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(88, 23);
@@ -1302,7 +1374,9 @@ namespace expense_wizardmandatedetail
             // 
             // btnBack
             // 
-            this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBack.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
+                                                       System.Windows.Forms.AnchorStyles.Right)));
             this.btnBack.Location = new System.Drawing.Point(423, 489);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(80, 23);
@@ -1312,9 +1386,11 @@ namespace expense_wizardmandatedetail
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor =
+                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
+                                                         System.Windows.Forms.AnchorStyles.Bottom)
+                                                        | System.Windows.Forms.AnchorStyles.Left)
+                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.tabController);
             this.panel1.Location = new System.Drawing.Point(8, 8);
             this.panel1.Name = "panel1";
@@ -1355,10 +1431,10 @@ namespace expense_wizardmandatedetail
             this.tabSelDetail.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.DS)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridDetails)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.gridDetails)).EndInit();
             this.tabSplit.ResumeLayout(false);
             this.tabSplit.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -1369,70 +1445,76 @@ namespace expense_wizardmandatedetail
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+
+        #endregion
 
 
-		#region Gestione Tabs
+        #region Gestione Tabs
 
-		/// <summary>
-		/// Displays tab n. NewTab and updates buttons
-		/// </summary>
-		/// <param name="newTab"></param>
-		void DisplayTabs(int newTab) {
-			tabController.SelectedIndex= newTab;
-			//Evaluates Buttons Appearance
-			btnBack.Visible=(newTab>0);
-			if (newTab== tabController.TabPages.Count-1)
-				btnNext.Text="Esegui.";
-			else
-				btnNext.Text="Next >";
-			Text = CustomTitle+ " (Pagina "+(newTab+1)+" di "+tabController.TabPages.Count+")";
-		}
-		void StandardChangeTab(int step){
-			int oldTab= tabController.SelectedIndex;
-			int newTab= oldTab+step;
-			if ((newTab<0)||(newTab>tabController.TabPages.Count))return;
-			if (!CustomChangeTab(oldTab,newTab))return;	
-			if (newTab==tabController.TabPages.Count){
-				if (MessageBox.Show(this,"Si desidera eseguire ancora la procedura",
-					"Conferma",MessageBoxButtons.YesNo)==DialogResult.Yes){
-					newTab=1;
-					ResetWizard();
-				}
-				else {
-					DialogResult= DialogResult.OK;
-					Close();
-					return;
-				}
-			}
-            if ((oldTab == 4) && (newTab == 3))
-            {
+        /// <summary>
+        /// Displays tab n. NewTab and updates buttons
+        /// </summary>
+        /// <param name="newTab"></param>
+        void DisplayTabs(int newTab) {
+            tabController.SelectedIndex = newTab;
+            //Evaluates Buttons Appearance
+            btnBack.Visible = (newTab > 0);
+            if (newTab == tabController.TabPages.Count - 1)
+                btnNext.Text = "Esegui.";
+            else
+                btnNext.Text = "Next >";
+            Text = CustomTitle + " (Pagina " + (newTab + 1) + " di " + tabController.TabPages.Count + ")";
+        }
+
+        void StandardChangeTab(int step) {
+            int oldTab = tabController.SelectedIndex;
+            int newTab = oldTab + step;
+            if ((newTab < 0) || (newTab > tabController.TabPages.Count)) return;
+            if (!CustomChangeTab(oldTab, newTab)) return;
+            if (newTab == tabController.TabPages.Count) {
+                if (MessageBox.Show(this, "Si desidera eseguire ancora la procedura",
+                        "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                    newTab = 1;
+                    ResetWizard();
+                }
+                else {
+                    DialogResult = DialogResult.OK;
+                    Close();
+                    return;
+                }
+            }
+
+            if ((oldTab == 4) && (newTab == 3)) {
                 newTab = 1;
                 ResetWizard();
             }
-			DisplayTabs(newTab);
-		}
-		private void btnBack_Click(object sender, System.EventArgs e) {
-			StandardChangeTab(-1);
-		}
+
+            DisplayTabs(newTab);
+        }
+
+        private void btnBack_Click(object sender, System.EventArgs e) {
+            StandardChangeTab(-1);
+        }
 
 
-		private void btnNext_Click(object sender, System.EventArgs e) {
-			StandardChangeTab(+1);
-		}
+        private void btnNext_Click(object sender, System.EventArgs e) {
+            StandardChangeTab(+1);
+        }
 
-		bool CustomChangeTab(int oldTab, int newTab){
-			if (oldTab==0) 	{
-				return true ; // 0->1: nothing to do
-			}
-			if ((oldTab==1)&&(newTab==0))return true; //1->0:nothing to do!
-			if ((oldTab==1)&&(newTab==2)){
-				DataRow []Selected= GetGridSelectedRows(gridDetails);
-				if ((Selected==null) || (GetGridSelectedRows(gridDetails).Length==0)){
-					MessageBox.Show("Non è stato selezionato alcun dettaglio.");
-					return false;
-				}
+        bool CustomChangeTab(int oldTab, int newTab) {
+            if (oldTab == 0) {
+                return true; // 0->1: nothing to do
+            }
+
+            if ((oldTab == 1) && (newTab == 0)) return true; //1->0:nothing to do!
+            if ((oldTab == 1) && (newTab == 2)) {
+                DataRow[] Selected = GetGridSelectedRows(gridDetails);
+                if ((Selected == null) || (GetGridSelectedRows(gridDetails).Length == 0)) {
+                    MessageBox.Show("Non è stato selezionato alcun dettaglio.");
+                    return false;
+                }
+
                 // Verifico se devo abilitare o meno la digitazione dell'importo
                 // anche in base al tipo di contabilizzazione
                 // Se devo aggiungere la contabilizzazione a un movimento esistente, 
@@ -1442,111 +1524,115 @@ namespace expense_wizardmandatedetail
                 string filterupb = "";
                 string filteridreg = "";
                 string filterupb_forexpense = "";
-                bool stop=false;
-                genMultipla = SetGenMultipla(Selected, out upb, out registry, out filterupb, out filterupb_forexpense, out filteridreg,out stop);
-                
+                bool stop = false;
+                genMultipla = SetGenMultipla(Selected, out upb, out registry, out filterupb, out filterupb_forexpense,
+                    out filteridreg, out stop);
+
                 if (stop) return false;
-                if (genMultipla)
-                {
+                if (genMultipla) {
                     rdbSplittaTutti.Enabled = false;
                     rdbSplittaUno.Enabled = false;
-                    
+
                     txtDaPagare.ReadOnly = true;
                     txtPerc.ReadOnly = true;
                 }
-                else
-                {
+                else {
                     rdbSplittaTutti.Enabled = true;
                     rdbSplittaUno.Enabled = true;
-                   
+
                     txtDaPagare.ReadOnly = false;
                     txtPerc.ReadOnly = false;
                 }
+
                 txtDaPagare.Text = txtTotSelezionato.Text;
                 txtPerc.Text = "100";
-				return true;
-			}
-			if ((oldTab==2)&&(newTab==1)){
-				VisualizzaUPB();
-				VisualizzaRegistry();
+                return true;
+            }
+
+            if ((oldTab == 2) && (newTab == 1)) {
+                VisualizzaUPB();
+                VisualizzaRegistry();
                 AggiornaGridDettagliOrdine();
                 rdbSplittaTutti.Checked = false;
                 txtDaPagare.Text = "";
                 txtPerc.Text = "";
-				return true;
-			}; 
-			if ((oldTab==2)&&(newTab==3)){
+                return true;
+            }
+
+            ;
+            if ((oldTab == 2) && (newTab == 3)) {
                 if (!RecalcSelezioneMovimenti()) return false;
                 RadioCheck_Changed();
-			}
-            if ((oldTab ==3 ) && (newTab == 4))
-            {
+            }
+
+            if ((oldTab == 3) && (newTab == 4)) {
                 if ((radioNewCont.Checked == false) && (radioNewLinkedMov.Checked == false)
-                && (radioAddCont.Checked == false))
-                {
+                                                    && (radioAddCont.Checked == false)) {
                     MessageBox.Show("Non sarà possibile contabilizzare i dettagli selezionati.");
                     return false;
                 }
+
                 if (!CheckInfoFin()) return false;
                 return true;
             }
-            if ((oldTab == 4) && (newTab == 5))
-            {
-                if (!SelezioneMovimentiEffettuata)
-                {
+
+            if ((oldTab == 4) && (newTab == 5)) {
+                if (!SelezioneMovimentiEffettuata) {
                     MessageBox.Show("Non è stato selezionato il movimento.");
                     return false;
                 }
+
                 RecalcDettagliSelezionati();
 
                 DisplayMessages();
                 return doAssocia();
             }
-			return true;
-		}
 
-		#endregion
-        
+            return true;
+        }
+
+        #endregion
+
         CQueryHelper QHC;
         QueryHelper QHS;
 
-		public void MetaData_AfterActivation(){
-			CustomTitle= "Wizard Contabilizzazione Dettagli Contratto Passivo";
-			//Selects first tab
-			DisplayTabs(0);
-		}
+        public void MetaData_AfterActivation() {
+            CustomTitle = "Wizard Contabilizzazione Dettagli Contratto Passivo";
+            //Selects first tab
+            DisplayTabs(0);
+        }
 
         bool SetGenMultipla(DataRow[] SelectedRows, out object[] upb, out object[] registry,
-            out string filterupb, out string filterupb_forexpense, out string filteridreg, out bool stop){
+            out string filterupb, out string filterupb_forexpense, out string filteridreg, out bool stop) {
             string field = "idupb";
             int causale = CfgFn.GetNoNullInt32(cmbCausale.SelectedValue);
             if (causale == 2) {
                 field = "idupb_iva";
             }
+
             stop = false;
             // Legge i dettagli con l'importo originale nel dataset
-            foreach (DataRow Det in SelectedRows)
-            {
+            foreach (DataRow Det in SelectedRows) {
                 string filtermandatedetail = QueryCreator.WHERE_COLNAME_CLAUSE(
-                       Det, new string[] { "idmankind", "yman", "nman", "rownum" }, DataRowVersion.Default, true);
-                DataAccess.RUN_SELECT_INTO_TABLE(Conn, DS.Tables["mandatedetail"], null, filtermandatedetail, null, false);
+                    Det, new string[] {"idmankind", "yman", "nman", "rownum"}, DataRowVersion.Default, true);
+                DataAccess.RUN_SELECT_INTO_TABLE(Conn, DS.Tables["mandatedetail"], null, filtermandatedetail, null,
+                    false);
             }
-            object[] upb1      = ValoriDiversi2(SelectedRows, field,"idupb"); 
-            object[] registry1 = ValoriDiversi(SelectedRows, "idreg"); 
+
+            object[] upb1 = ValoriDiversi2(SelectedRows, field, "idupb");
+            object[] registry1 = ValoriDiversi(SelectedRows, "idreg");
             string filteridreg1 = "";
             string filterupb1 = "";
             string filterupbForexpense1 = "";
             DataRow M = DS.mandate.Rows[0];
             DataTable mandateKind = Conn.RUN_SELECT("mandatekind", "*", null,
-            QHS.CmpEq("idmankind", M["idmankind"]), null, null, true);
+                QHS.CmpEq("idmankind", M["idmankind"]), null, null, true);
             // in base alla configurazione del tipo ordine, prendo il fornitore dell'ordine
             // oppure i fornitori dei vari dettagli
 
-            if (mandateKind.Rows.Count > 0)
-            {
+            if (mandateKind.Rows.Count > 0) {
                 string multiReg = mandateKind.Rows[0]["multireg"].ToString();
-                if (multiReg == "N")
-                { // Anagrafe nell'ordine
+                if (multiReg == "N") { // Anagrafe nell'ordine
                     registry1[0] = M["idreg"];
                 }
             }
@@ -1558,8 +1644,7 @@ namespace expense_wizardmandatedetail
             // lo stesso UPB
 
             string filter = QHC.IsNull(field);
-            if ((FiltraRows(SelectedRows, filter).Count > 0) && (upb1.Length == 2))
-            {
+            if ((FiltraRows(SelectedRows, filter).Count > 0) && (upb1.Length == 2)) {
                 string idupbtoassign = "";
                 var Details = FiltraRows(SelectedRows, QHC.IsNotNull(field));
                 if (Details.Count > 0) idupbtoassign = Details[0][field].ToString();
@@ -1568,12 +1653,13 @@ namespace expense_wizardmandatedetail
                 upb1 = result;
             }
 
-            if ((FiltraRows(SelectedRows, filter).Count > 0) && (upb1.Length > 2))
-            {
-                MessageBox.Show(" Ad alcuni dettagli tra quelli selezionati non è stato attribuito l'UPB, ad altri si." +
-                " Selezionare dettagli coerenti");
+            if ((FiltraRows(SelectedRows, filter).Count > 0) && (upb1.Length > 2)) {
+                MessageBox.Show(
+                    " Ad alcuni dettagli tra quelli selezionati non è stato attribuito l'UPB, ad altri si." +
+                    " Selezionare dettagli coerenti");
                 stop = true;
             }
+
             object idupb = upb1[0];
 
             if (idupb != DBNull.Value) {
@@ -1596,20 +1682,19 @@ namespace expense_wizardmandatedetail
 
             if (objidreg != DBNull.Value)
                 filteridreg1 = QHC.CmpEq("idreg", objidreg);
-            else
-            {
+            else {
                 MessageBox.Show(" Il fornitore non è correttamente impostato." +
-                    " Pertanto non sarà possibile contabilizzare il contratto.");
+                                " Pertanto non sarà possibile contabilizzare il contratto.");
                 stop = true;
             }
 
             // Trovo un movimento  
 
             bool genMultipla = true;
-            if ((upb1.Length == 1) && (registry1.Length == 1))
-            {
+            if ((upb1.Length == 1) && (registry1.Length == 1)) {
                 genMultipla = false;
             }
+
             registry = registry1;
             upb = upb1;
             filterupb = filterupb1;
@@ -1617,6 +1702,7 @@ namespace expense_wizardmandatedetail
             filteridreg = filteridreg1;
             return genMultipla;
         }
+
         private bool isNumeric(string str, out int valore) {
             valore = 0;
             try {
@@ -1627,108 +1713,112 @@ namespace expense_wizardmandatedetail
                 return false;
             }
         }
-        DataRow GetGridRow(DataGrid G, int index){
-			string TableName = G.DataMember.ToString();
-			DataSet MyDS =(DataSet)G.DataSource;
-			DataTable MyTable = MyDS.Tables[TableName];
-			string filter;
+
+        DataRow GetGridRow(DataGrid G, int index) {
+            string TableName = G.DataMember.ToString();
+            DataSet MyDS = (DataSet) G.DataSource;
+            DataTable MyTable = MyDS.Tables[TableName];
+            string filter;
             filter = QHC.AppAnd(QHC.CmpEq("idmankind", G[index, 0]), QHC.CmpEq("yman", G[index, 1]),
-            QHC.CmpEq("nman", G[index, 2]), QHC.CmpEq("rownum", G[index, 3]));
-			DataRow[] selectresult = MyTable.Select(filter);
-			return selectresult[0];
-		}
+                QHC.CmpEq("nman", G[index, 2]), QHC.CmpEq("rownum", G[index, 3]));
+            DataRow[] selectresult = MyTable.Select(filter);
+            return selectresult[0];
+        }
 
-		private DataRow[] GetGridSelectedRows(DataGrid G){
-			if (G.DataMember==null) return null;
-			if (G.DataSource==null) return null;
-			string TableName = G.DataMember.ToString();
-			DataSet MyDS =(DataSet)G.DataSource;
-			DataTable MyTable = MyDS.Tables[TableName];
-			int numrighetemp=MyTable.Rows.Count;
-			int numrighe=0;
-			int i;
-			for (i=0; i<numrighetemp; i++){
-				if(G.IsSelected(i)){
-					numrighe++;
-				}
-			}
+        private DataRow[] GetGridSelectedRows(DataGrid G) {
+            if (G.DataMember == null) return null;
+            if (G.DataSource == null) return null;
+            string TableName = G.DataMember.ToString();
+            DataSet MyDS = (DataSet) G.DataSource;
+            DataTable MyTable = MyDS.Tables[TableName];
+            int numrighetemp = MyTable.Rows.Count;
+            int numrighe = 0;
+            int i;
+            for (i = 0; i < numrighetemp; i++) {
+                if (G.IsSelected(i)) {
+                    numrighe++;
+                }
+            }
 
-			DataRow[] Res=new DataRow[numrighe]; 			
-			int count=0;
-			for (i=0; i<numrighetemp; i++){
-				if(G.IsSelected(i)){
-					Res[count++]= GetGridRow(G,i);
-				}
-			}
-			return Res;
-		}
+            DataRow[] Res = new DataRow[numrighe];
+            int count = 0;
+            for (i = 0; i < numrighetemp; i++) {
+                if (G.IsSelected(i)) {
+                    Res[count++] = GetGridRow(G, i);
+                }
+            }
+
+            return Res;
+        }
 
 
-		public void MetaData_AfterLink(){
-			Meta= MetaData.GetMetaData(this);
-			Conn = Meta.Conn;
+        public void MetaData_AfterLink() {
+            Meta = MetaData.GetMetaData(this);
+            Conn = Meta.Conn;
             QHC = new CQueryHelper();
             QHS = Conn.GetQueryHelper();
-			GetData.CacheTable(DS.expensephase);
+            GetData.CacheTable(DS.expensephase);
             string filteresercizio = QHS.CmpEq("ayear", Meta.GetSys("esercizio"));
-			GetData.CacheTable(DS.config,filteresercizio, null, false);
-			GetData.CacheTable(DS.mandatekind,null,"description",true);
+            GetData.CacheTable(DS.config, filteresercizio, null, false);
+            GetData.CacheTable(DS.mandatekind, null, "description", true);
             GetData.SetStaticFilter(DS.mandatekind, QHS.NullOrEq("isrequest", "N"));
 
-			faseordine = CfgFn.GetNoNullInt32(Meta.GetSys("mandatephase"));
+            faseordine = CfgFn.GetNoNullInt32(Meta.GetSys("mandatephase"));
             if (faseordine == 0) {
                 MessageBox.Show("E' necessario configurare la fase di contabilizzazione dell'ordine", "Avviso");
             }
-			DataAccess.SetTableForReading(DS.registry1,"registry");
-			DataAccess.SetTableForReading(DS.registry2,"registry");
+
+            DataAccess.SetTableForReading(DS.registry1, "registry");
+            DataAccess.SetTableForReading(DS.registry2, "registry");
             DetailsToUpdate = new ArrayList();
-		}
+        }
 
-		public void MetaData_AfterClear(){
-			DisplayTabs(tabController.SelectedIndex);
-		}
+        public void MetaData_AfterClear() {
+            DisplayTabs(tabController.SelectedIndex);
+        }
 
 
-		private void btnDocumento_Click(object sender, System.EventArgs e) {
-			//bool allMandate= chkAddContab.Checked;
-			string filter="";
-			int esercizio= (int) Meta.GetSys("esercizio");
-			int esercText= CfgFn.GetNoNullInt32(txtEsercDoc.Text);
-			//if (esercText==0) esercText=esercizio;
-			if (esercText!=0)
-			filter= GetData.MergeFilters(filter, QHS.CmpEq("yman", esercText));
+        private void btnDocumento_Click(object sender, System.EventArgs e) {
+            //bool allMandate= chkAddContab.Checked;
+            string filter = "";
+            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercText = CfgFn.GetNoNullInt32(txtEsercDoc.Text);
+            //if (esercText==0) esercText=esercizio;
+            if (esercText != 0)
+                filter = GetData.MergeFilters(filter, QHS.CmpEq("yman", esercText));
 
-			if ((!sender.Equals(btnDocumento))&&txtNumDoc.Text.Trim()!=""){
-				int ndoc= CfgFn.GetNoNullInt32(txtNumDoc.Text);
-				if (ndoc>0)	filter= GetData.MergeFilters(filter, QHS.CmpEq("nman", ndoc));
-			}
-			if (cmbTipoOrdine.SelectedIndex>0){
-				filter= GetData.MergeFilters(filter, QHS.CmpEq("idmankind",cmbTipoOrdine.SelectedValue));
-			}
+            if ((!sender.Equals(btnDocumento)) && txtNumDoc.Text.Trim() != "") {
+                int ndoc = CfgFn.GetNoNullInt32(txtNumDoc.Text);
+                if (ndoc > 0) filter = GetData.MergeFilters(filter, QHS.CmpEq("nman", ndoc));
+            }
+
+            if (cmbTipoOrdine.SelectedIndex > 0) {
+                filter = GetData.MergeFilters(filter, QHS.CmpEq("idmankind", cmbTipoOrdine.SelectedValue));
+            }
 
             filter = GetData.MergeFilters(filter, QHS.CmpGt("residual", 0));
             filter = QHS.AppAnd(filter, QHS.CmpEq("idmandatestatus", 5)); // stato approvato
             filter = QHS.AppAnd(filter, QHS.NullOrEq("isrequest", "N")); // vero ordine
             filter = QHS.AppAnd(filter, QHS.NullOrEq("active", "S"));
             MetaData Mandate = MetaData.GetMetaData(this, "mandateexpavailable");
-			Mandate.FilterLocked=true;
-			Mandate.DS= new DataSet();
-			DataRow M= Mandate.SelectOne("default",filter,null,null);
-			if (M==null) return;
-			HelpForm.SetComboBoxValue(cmbTipoOrdine,M["idmankind"]);
-			txtEsercDoc.Text= M["yman"].ToString();
-			txtNumDoc.Text=M["nman"].ToString();
-			txtFornitore.Text= M["registry"].ToString();
-			txtDescrOrdine.Text=M["description"].ToString();
-           
-			DS.mandatedetail.Clear();
+            Mandate.FilterLocked = true;
+            Mandate.DS = new DataSet();
+            DataRow M = Mandate.SelectOne("default", filter, null, null);
+            if (M == null) return;
+            HelpForm.SetComboBoxValue(cmbTipoOrdine, M["idmankind"]);
+            txtEsercDoc.Text = M["yman"].ToString();
+            txtNumDoc.Text = M["nman"].ToString();
+            txtFornitore.Text = M["registry"].ToString();
+            txtDescrOrdine.Text = M["description"].ToString();
+
+            DS.mandatedetail.Clear();
             DetailsToUpdate.Clear();
-			DS.mandate.Clear();
+            DS.mandate.Clear();
 
             string filtermandate = QHS.AppAnd(QHS.CmpEq("idmankind", M["idmankind"]),
                 QHS.CmpEq("yman", M["yman"]), QHS.CmpEq("nman", M["nman"]));
-			
-			DataAccess.RUN_SELECT_INTO_TABLE(Conn,DS.mandate,null,filtermandate,null,false);
+
+            DataAccess.RUN_SELECT_INTO_TABLE(Conn, DS.mandate, null, filtermandate, null, false);
             if (DS.mandate.Rows.Count > 0) {
                 object idman = DS.mandate.Rows[0]["idman"];
                 if (idman != DBNull.Value) {
@@ -1738,40 +1828,41 @@ namespace expense_wizardmandatedetail
                 else txtResponsabileContratto.Text = "";
             }
 
-			SetComboCausaleOrdine(M);
-			AggiornaGridDettagliOrdine();
-		}
-		void ResetWizard(){
-			if (DS.mandate.Rows.Count>0) 
-			SetComboCausaleOrdine(DS.mandate.Rows[0]);
+            SetComboCausaleOrdine(M);
+            AggiornaGridDettagliOrdine();
+        }
+
+        void ResetWizard() {
+            if (DS.mandate.Rows.Count > 0)
+                SetComboCausaleOrdine(DS.mandate.Rows[0]);
             gridDetails.DataSource = null;
-			AggiornaGridDettagliOrdine();
-		}
+            AggiornaGridDettagliOrdine();
+        }
 
-		void ClearComboCausale(){
-			DataTable TCombo= DS.tipomovimento;
-			TCombo.Clear();
+        void ClearComboCausale() {
+            DataTable TCombo = DS.tipomovimento;
+            TCombo.Clear();
             lblCausale.Text = "";
-		}
+        }
 
-		void EnableTipoMovimento(int IDtipo, string descrtipo){
-			DataRow R = DS.tipomovimento.NewRow();
-			R["idtipo"]= IDtipo;
-			R["descrizione"]= descrtipo;
-			DS.tipomovimento.Rows.Add(R);
-			DS.tipomovimento.AcceptChanges();
-		}
+        void EnableTipoMovimento(int IDtipo, string descrtipo) {
+            DataRow R = DS.tipomovimento.NewRow();
+            R["idtipo"] = IDtipo;
+            R["descrizione"] = descrtipo;
+            DS.tipomovimento.Rows.Add(R);
+            DS.tipomovimento.AcceptChanges();
+        }
 
-		/// <summary>
-		/// Riempie il combobox causale con i valori ammessi, senza impostarvi alcun valore
-		/// </summary>
-		/// <param name="Ordine"></param>
-		void SetComboCausaleOrdine(DataRow Ordine){
-			decimal totimponibile = 0;
-			decimal totiva = 0;
-			decimal assigned_imponibile = 0;
-			decimal assigned_iva = 0;
-			decimal assigned_gen = 0;
+        /// <summary>
+        /// Riempie il combobox causale con i valori ammessi, senza impostarvi alcun valore
+        /// </summary>
+        /// <param name="Ordine"></param>
+        void SetComboCausaleOrdine(DataRow Ordine) {
+            decimal totimponibile = 0;
+            decimal totiva = 0;
+            decimal assigned_imponibile = 0;
+            decimal assigned_iva = 0;
+            decimal assigned_gen = 0;
             bool EnableImpon = true;
             bool EnableImpos = true;
             bool EnableDocum = true;
@@ -1780,86 +1871,96 @@ namespace expense_wizardmandatedetail
             string filterordine = QHS.AppAnd(QHS.CmpEq("idmankind", Ordine["idmankind"]),
                 QHS.CmpEq("yman", Ordine["yman"]), QHS.CmpEq("nman", Ordine["nman"]));
 
-			DataTable T= Conn.RUN_SELECT("mandateresidual","*",null,filterordine,null,true);
-			if ((T!=null)&&(T.Rows.Count>0)){
-				//DataRow R=T.Rows[0];
-				//totimponibile=CfgFn.GetNoNullDecimal(R["taxabletotal"]);
-				//totiva=CfgFn.GetNoNullDecimal(R["ivatotal"]);
-				foreach(DataRow Dett in T.Rows){
-					totimponibile+=CfgFn.GetNoNullDecimal(Dett["taxabletotal"]);
-					totiva+=CfgFn.GetNoNullDecimal(Dett["ivatotal"]);
-					assigned_imponibile += CfgFn.GetNoNullDecimal(Dett["linkedimpon"]);
-					assigned_iva += CfgFn.GetNoNullDecimal(Dett["linkedimpos"]);
-					assigned_gen +=CfgFn.GetNoNullDecimal(Dett["linkedordin"]);
+            DataTable T = Conn.RUN_SELECT("mandateresidual", "*", null, filterordine, null, true);
+            bool recuperoIvaEstera = false;
+            if ((T != null) && (T.Rows.Count > 0)) {
+                //DataRow R=T.Rows[0];
+                //totimponibile=CfgFn.GetNoNullDecimal(R["taxabletotal"]);
+                //totiva=CfgFn.GetNoNullDecimal(R["ivatotal"]);
+                foreach (DataRow Dett in T.Rows) {
+                    totimponibile += CfgFn.GetNoNullDecimal(Dett["taxabletotal"]);
+                    totiva += CfgFn.GetNoNullDecimal(Dett["ivatotal"]);
+                    assigned_imponibile += CfgFn.GetNoNullDecimal(Dett["linkedimpon"]);
+                    assigned_iva += CfgFn.GetNoNullDecimal(Dett["linkedimpos"]);
+                    assigned_gen += CfgFn.GetNoNullDecimal(Dett["linkedordin"]);
                     if (Dett["flagintracom"].ToString().ToUpper() != "N") intracom = true;
-				}
-			}
-			ClearComboCausale();
+                    int flag = CfgFn.GetNoNullInt32(Dett["flagbit"]);
+                    if ((flag & 1) != 0) {
+                        recuperoIvaEstera = true;
+                    }
+                }
+            }
 
-            if (intracom) {
+            ClearComboCausale();
+
+            if ((intracom) && (!recuperoIvaEstera)) {
                 EnableDocum = false;
                 EnableImpos = false;
             }
 
             if (EnableDocum &&
-                ((assigned_imponibile+assigned_iva)==0) && 
-				(assigned_gen< (totimponibile+totiva))
-				){
-				EnableTipoMovimento(1,"Contabilizzazione Totale Contratto Passivo");
-			}
+                ((assigned_imponibile + assigned_iva) == 0) &&
+                (assigned_gen < (totimponibile + totiva))
+            ) {
+                EnableTipoMovimento(1, "Contabilizzazione Totale Contratto Passivo");
+            }
 
             if (EnableImpon &&
-                ( (assigned_gen==0) &&(assigned_imponibile < totimponibile))
-				){
-				EnableTipoMovimento(3,"Contabilizzazione Imponibile Contratto Passivo");
-			}
+                ((assigned_gen == 0) && (assigned_imponibile < totimponibile))
+            ) {
+                EnableTipoMovimento(3, "Contabilizzazione Imponibile Contratto Passivo");
+            }
 
             if (EnableImpos &&
-                ( (assigned_gen==0) &&(assigned_iva< totiva))
-				){
-				EnableTipoMovimento(2,"Contabilizzazione Iva Contratto Passivo");
-			}
-		}
+                ((assigned_gen == 0) && (assigned_iva < totiva))
+            ) {
+                EnableTipoMovimento(2, "Contabilizzazione Iva Contratto Passivo");
+            }
+        }
 
-		void AggiornaGridDettagliOrdine(){
-			DS.mandatedetail.Clear();
+        void AggiornaGridDettagliOrdine() {
+            DS.mandatedetail.Clear();
             DetailsToUpdate.Clear();
-			if (cmbCausale.SelectedIndex<0) return;
-			int causale = CfgFn.GetNoNullInt32( cmbCausale.SelectedValue);
+            if (cmbCausale.SelectedIndex < 0) return;
+            int causale = CfgFn.GetNoNullInt32(cmbCausale.SelectedValue);
             if (causale == 0) return;
-            string filtercausale =  QHC.CmpEq("idtipo", causale);
-            lblCausale.Text = "Sulla Causale: " + DS.tipomovimento.Select(filtercausale,null)[0]["descrizione"].ToString();
-			if (DS.mandate.Rows.Count==0) return;
+            string filtercausale = QHC.CmpEq("idtipo", causale);
+            lblCausale.Text = "Sulla Causale: " +
+                              DS.tipomovimento.Select(filtercausale, null)[0]["descrizione"].ToString();
+            if (DS.mandate.Rows.Count == 0) return;
 
-			DataRow M= DS.mandate.Rows[0];
+            DataRow M = DS.mandate.Rows[0];
             string filtermandate = QHS.AppAnd(QHS.CmpEq("idmankind", M["idmankind"]),
                 QHS.CmpEq("yman", M["yman"]), QHS.CmpEq("nman", M["nman"]));
-			string filtermandatedetail=filtermandate;
-			//filtermandatedetail=GetData.MergeFilters(filtermandatedetail, "(idupb is not null)");
-			filtermandatedetail=GetData.MergeFilters(filtermandatedetail, QHS.IsNull("stop"));
-			if (causale==1){
-				// Se è abilitato ORDIN significa che non ci sono contabilizzazioni diverse da ORDIN attivate,
-				// ossia tutti i dettagli sono o contabilizzati del tutto o per niente
-				// --> basta un filtro su idexp_iva is null
-				filtermandatedetail=GetData.MergeFilters(filtermandatedetail,
+            string filtermandatedetail = filtermandate;
+            //filtermandatedetail=GetData.MergeFilters(filtermandatedetail, "(idupb is not null)");
+            filtermandatedetail = GetData.MergeFilters(filtermandatedetail, QHS.IsNull("stop"));
+            if (causale == 1) {
+                // Se è abilitato ORDIN significa che non ci sono contabilizzazioni diverse da ORDIN attivate,
+                // ossia tutti i dettagli sono o contabilizzati del tutto o per niente
+                // --> basta un filtro su idexp_iva is null
+                filtermandatedetail = GetData.MergeFilters(filtermandatedetail,
                     QHS.AppAnd(QHS.IsNull("idexp_iva"), QHS.IsNull("idexp_taxable")));
-			}
-			if (causale==3){
-				// Se è abilitato IMPON significa che non ci sono contabilizzazioni ORDIN attivate,
-				// ossia tutti i dettagli sono contabilizzati con imponibile + iva
-				// --> basta un filtro su idexp_taxable is null
-				filtermandatedetail=GetData.MergeFilters(filtermandatedetail,QHS.IsNull("idexp_taxable"));
-			}
-			if (causale==2){
-				// Se è abilitato IMPOS significa che non ci sono contabilizzazioni diverse da ORDIN attivate,
-				// ossia tutti i dettagli sono o contabilizzati con imponibile + iva
-				// --> basta un filtro su idexp_iva is null
-				filtermandatedetail=GetData.MergeFilters(filtermandatedetail,QHS.IsNull("idexp_iva"));
-			}
+            }
+
+            if (causale == 3) {
+                // Se è abilitato IMPON significa che non ci sono contabilizzazioni ORDIN attivate,
+                // ossia tutti i dettagli sono contabilizzati con imponibile + iva
+                // --> basta un filtro su idexp_taxable is null
+                filtermandatedetail = GetData.MergeFilters(filtermandatedetail, QHS.IsNull("idexp_taxable"));
+            }
+
+            if (causale == 2) {
+                // Se è abilitato IMPOS significa che non ci sono contabilizzazioni diverse da ORDIN attivate,
+                // ossia tutti i dettagli sono o contabilizzati con imponibile + iva
+                // --> basta un filtro su idexp_iva is null
+                filtermandatedetail = GetData.MergeFilters(filtermandatedetail, QHS.IsNull("idexp_iva"));
+            }
 
             DSCopy = DS.Copy();
-            DataAccess.RUN_SELECT_INTO_TABLE(Conn, DSCopy.Tables["mandatedetail"], null, filtermandatedetail, null, false);
-			MetaData MD= MetaData.GetMetaData(this,"mandatedetail");
+            DataAccess.RUN_SELECT_INTO_TABLE(Conn, DSCopy.Tables["mandatedetail"], null, filtermandatedetail, null,
+                false);
+            MetaData MD = MetaData.GetMetaData(this, "mandatedetail");
             MD.DS = DSCopy;
             MD.DescribeColumns(DSCopy.Tables["mandatedetail"], "default");
             GetData GD = new GetData();
@@ -1872,149 +1973,160 @@ namespace expense_wizardmandatedetail
             GD.GetTemporaryValues(DSCopy.Tables["mandatedetail"]);
             gridDetails.DataSource = null;
             HelpForm.SetDataGrid(gridDetails, DSCopy.Tables["mandatedetail"]);
-			btnSelectAllDetail_Click(null,null);
-			VisualizzaUPB();
-			VisualizzaRegistry();
-			RecalcTotalDetails();
-		}
+            btnSelectAllDetail_Click(null, null);
+            VisualizzaUPB();
+            VisualizzaRegistry();
+            RecalcTotalDetails();
+        }
 
-		private void cmbCausale_SelectedIndexChanged(object sender, System.EventArgs e) {
-			AggiornaGridDettagliOrdine();
-		}
+        private void cmbCausale_SelectedIndexChanged(object sender, System.EventArgs e) {
+            AggiornaGridDettagliOrdine();
+        }
 
-		void ClearOrdine(){
-			//txtEsercDoc.Text="";
-			txtNumDoc.Text="";
-			txtDescrOrdine.Text="";
-			txtFornitore.Text="";
+        void ClearOrdine() {
+            //txtEsercDoc.Text="";
+            txtNumDoc.Text = "";
+            txtDescrOrdine.Text = "";
+            txtFornitore.Text = "";
             txtResponsabileContratto.Text = "";
-			DS.mandate.Clear();
-            if (DSCopy != null)
-            {
+            DS.mandate.Clear();
+            if (DSCopy != null) {
                 DSCopy.Tables["mandatedetail"].Clear();
             }
-			DS.mandatedetail.Clear();
+
+            DS.mandatedetail.Clear();
             DetailsToUpdate.Clear();
-			RecalcTotalDetails();
-		}
-		private void txtEsercDoc_Leave(object sender, System.EventArgs e) {
-			int YMan= CfgFn.GetNoNullInt32(txtEsercDoc.Text);
-			if (YMan<=0){
-				ClearOrdine();
-				return;
-			}
-			if (YMan<1000){
-				YMan+=2000;
-				txtEsercDoc.Text=YMan.ToString();
-			}
-			if (txtNumDoc.Text.Trim()!=""){
-				btnDocumento_Click(sender,e);
-				return;
-			}
-		}
+            RecalcTotalDetails();
+        }
 
-		private void txtNumDoc_Leave(object sender, System.EventArgs e) {
-			int NMan= CfgFn.GetNoNullInt32(txtNumDoc.Text);
-			if (NMan<=0){
-				ClearOrdine();
-				return;
-			}
-			//if (txtEsercDoc.Text.Trim()!=""){
-				btnDocumento_Click(sender,e);
-				return;
-			//}
-		
-		}
+        private void txtEsercDoc_Leave(object sender, System.EventArgs e) {
+            int YMan = CfgFn.GetNoNullInt32(txtEsercDoc.Text);
+            if (YMan <= 0) {
+                ClearOrdine();
+                return;
+            }
 
-		private void btnSelectAllDetail_Click(object sender, System.EventArgs e) {
+            if (YMan < 1000) {
+                YMan += 2000;
+                txtEsercDoc.Text = YMan.ToString();
+            }
+
+            if (txtNumDoc.Text.Trim() != "") {
+                btnDocumento_Click(sender, e);
+                return;
+            }
+        }
+
+        private void txtNumDoc_Leave(object sender, System.EventArgs e) {
+            int NMan = CfgFn.GetNoNullInt32(txtNumDoc.Text);
+            if (NMan <= 0) {
+                ClearOrdine();
+                return;
+            }
+
+            //if (txtEsercDoc.Text.Trim()!=""){
+            btnDocumento_Click(sender, e);
+            return;
+            //}
+
+        }
+
+        private void btnSelectAllDetail_Click(object sender, System.EventArgs e) {
             if (gridDetails.DataSource == null) return;
-            if (DSCopy != null)
-            {
+            if (DSCopy != null) {
                 for (int i = 0; i < DSCopy.Tables["mandatedetail"].Rows.Count; i++) gridDetails.Select(i);
             }
-		}
+        }
 
-		void RecalcTotalDetails(){
+        void RecalcTotalDetails() {
             txtDaPagare.Text = "";
             txtPerc.Text = "";
-			DataRow []Selected= GetGridSelectedRows(gridDetails);
-			if ((Selected==null)||(Selected.Length==0)){
-				txtTotGenerale.Text="";
-				txtTotImponibile.Text="";
-				txtTotIva.Text="";
+            DataRow[] Selected = GetGridSelectedRows(gridDetails);
+            if ((Selected == null) || (Selected.Length == 0)) {
+                txtTotGenerale.Text = "";
+                txtTotImponibile.Text = "";
+                txtTotIva.Text = "";
                 TotaleDaContabilizzare = 0;
-				return;
-			}
-            if (DS.mandate.Rows.Count == 0) return;
-			DataRow Mandate= DS.mandate.Rows[0];
-			double tassocambio= CfgFn.GetNoNullDouble(Mandate["exchangerate"]);
-			if (tassocambio==0) tassocambio=1;
-			double totiva=0;
-			double totimpo=0;
-			double total=0;
-			int causale= CfgFn.GetNoNullInt32( cmbCausale.SelectedValue);
-			foreach (DataRow Curr in Selected){
-				double imponibile= CfgFn.GetNoNullDouble(Curr["taxable"]);
-				double QuantitaConfezioni  = CfgFn.GetNoNullDouble(Curr["npackage"]);
-				double aliquota  = CfgFn.GetNoNullDouble(Curr["taxrate"]);
-				double sconto    = CfgFn.GetNoNullDouble(Curr["discount"]);
-                double imponibileEUR = (imponibile * QuantitaConfezioni * (1 - sconto)) * tassocambio;
-                double ivaEUR = CfgFn.GetNoNullDouble(Curr["tax"]);// *tassocambio;
-				//imponibileEUR*aliquota;
-				
-				imponibileEUR= CfgFn.RoundValuta(imponibileEUR);
-				ivaEUR = CfgFn.RoundValuta(ivaEUR);
-				if (causale==3){
-					totimpo+= imponibileEUR;
-				}
-				if (causale==2){
-					totiva+= ivaEUR;
-				}
-				if (causale==1){
-					totimpo+= imponibileEUR;
-					totiva+= ivaEUR;
-				}
-				total= totimpo+totiva;
-				
-			}
-			if (causale==3){
-				txtTotGenerale.Text=total.ToString("C");
-				txtTotImponibile.Text=totimpo.ToString("C");
-				txtTotIva.Text="";		
-				TotaleDaContabilizzare=CfgFn.GetNoNullDecimal(totimpo);
-                txtTotSelezionato.Text = totimpo.ToString("C");
-			}
-			if (causale==2){
-				txtTotGenerale.Text=total.ToString("C");
-				txtTotImponibile.Text="";
-				txtTotIva.Text=totiva.ToString("C");				
-				TotaleDaContabilizzare=CfgFn.GetNoNullDecimal(totiva);
-                txtTotSelezionato.Text = totiva.ToString("C");
-			}
-			if (causale==1){
-				txtTotGenerale.Enabled = true;
-				txtTotGenerale.Text=total.ToString("C");
-				txtTotImponibile.Text=totimpo.ToString("C");
-				txtTotIva.Text=totiva.ToString("C");				
-				TotaleDaContabilizzare=CfgFn.GetNoNullDecimal(total);
-                txtTotSelezionato.Text = total.ToString("C");
-			}
-		
-		}
+                return;
+            }
 
-		void VisualizzaUPB(){
-			DataTable Details= DSCopy.Tables["mandatedetail"];
-			object idupb;
+            if (DS.mandate.Rows.Count == 0) return;
+            DataRow Mandate = DS.mandate.Rows[0];
+            double tassocambio = CfgFn.GetNoNullDouble(Mandate["exchangerate"]);
+            if (tassocambio == 0) tassocambio = 1;
+            double totiva = 0;
+            double totimpo = 0;
+            double total = 0;
+            int causale = CfgFn.GetNoNullInt32(cmbCausale.SelectedValue);
+            foreach (DataRow Curr in Selected) {
+                double imponibile = CfgFn.GetNoNullDouble(Curr["taxable"]);
+                double QuantitaConfezioni = CfgFn.GetNoNullDouble(Curr["npackage"]);
+                double aliquota = CfgFn.GetNoNullDouble(Curr["taxrate"]);
+                double sconto = CfgFn.GetNoNullDouble(Curr["discount"]);
+                double imponibileEUR = (imponibile * QuantitaConfezioni * (1 - sconto)) * tassocambio;
+                double ivaEUR = CfgFn.GetNoNullDouble(Curr["tax"]); // *tassocambio;
+                //imponibileEUR*aliquota;
+
+                imponibileEUR = CfgFn.RoundValuta(imponibileEUR);
+                ivaEUR = CfgFn.RoundValuta(ivaEUR);
+                if (causale == 3) {
+                    totimpo += imponibileEUR;
+                }
+
+                if (causale == 2) {
+                    totiva += ivaEUR;
+                }
+
+                if (causale == 1) {
+                    totimpo += imponibileEUR;
+                    totiva += ivaEUR;
+                }
+
+                total = totimpo + totiva;
+
+            }
+
+            if (causale == 3) {
+                txtTotGenerale.Text = total.ToString("C");
+                txtTotImponibile.Text = totimpo.ToString("C");
+                txtTotIva.Text = "";
+                TotaleDaContabilizzare = CfgFn.GetNoNullDecimal(totimpo);
+                txtTotSelezionato.Text = totimpo.ToString("C");
+            }
+
+            if (causale == 2) {
+                txtTotGenerale.Text = total.ToString("C");
+                txtTotImponibile.Text = "";
+                txtTotIva.Text = totiva.ToString("C");
+                TotaleDaContabilizzare = CfgFn.GetNoNullDecimal(totiva);
+                txtTotSelezionato.Text = totiva.ToString("C");
+            }
+
+            if (causale == 1) {
+                txtTotGenerale.Enabled = true;
+                txtTotGenerale.Text = total.ToString("C");
+                txtTotImponibile.Text = totimpo.ToString("C");
+                txtTotIva.Text = totiva.ToString("C");
+                TotaleDaContabilizzare = CfgFn.GetNoNullDecimal(total);
+                txtTotSelezionato.Text = total.ToString("C");
+            }
+
+        }
+
+        void VisualizzaUPB() {
+            DataTable Details = DSCopy.Tables["mandatedetail"];
+            object idupb;
             string filterupb;
             object codeupb;
-			if (Details.Rows.Count==0) return ;
-			foreach (DataRow Curr in Details.Rows){
-				idupb = Curr["idupb"];
-                if (idupb != DBNull.Value){
+            if (Details.Rows.Count == 0) return;
+            foreach (DataRow Curr in Details.Rows) {
+                idupb = Curr["idupb"];
+                if (idupb != DBNull.Value) {
                     filterupb = QHS.CmpEq("idupb", idupb);
                     codeupb = Conn.DO_READ_VALUE("upb", filterupb, "codeupb");
                     Curr["!codeupb"] = codeupb;
                 }
+
                 idupb = Curr["idupb_iva"];
                 if (idupb != DBNull.Value) {
                     filterupb = QHS.CmpEq("idupb", idupb);
@@ -2022,176 +2134,183 @@ namespace expense_wizardmandatedetail
                     Curr["!codeupb_iva"] = codeupb;
                 }
             }
-		}
-		
-		void VisualizzaRegistry(){
+        }
+
+        void VisualizzaRegistry() {
             DataTable Details = DSCopy.Tables["mandatedetail"];
-			object idreg;
-			object title;
-			if (Details.Rows.Count==0) return ;
-			foreach (DataRow Curr in Details.Rows){
-				idreg = Curr["idreg"];
-				if (idreg!=DBNull.Value){
-					string filterregistry = QHS.CmpEq("idreg", idreg);
-					title= Conn.DO_READ_VALUE("registry",filterregistry,"title");
-					Curr["!registry"]=title;
-				}
-			}
-		}
+            object idreg;
+            object title;
+            if (Details.Rows.Count == 0) return;
+            foreach (DataRow Curr in Details.Rows) {
+                idreg = Curr["idreg"];
+                if (idreg != DBNull.Value) {
+                    string filterregistry = QHS.CmpEq("idreg", idreg);
+                    title = Conn.DO_READ_VALUE("registry", filterregistry, "title");
+                    Curr["!registry"] = title;
+                }
+            }
+        }
 
-		private void gridDetails_Paint(object sender, System.Windows.Forms.PaintEventArgs e) {
-			RecalcTotalDetails();
-		}
+        private void gridDetails_Paint(object sender, System.Windows.Forms.PaintEventArgs e) {
+            RecalcTotalDetails();
+        }
 
-		private void chkAddContab_CheckedChanged(object sender, System.EventArgs e) {
-			if (chkAddContab.Checked){
-				radioAddCont.Checked=true;
-				radioNewCont.Checked=false;
-				radioNewLinkedMov.Checked=false;
-				radioAddCont.Enabled=false;
-				radioNewCont.Enabled=false;
-				radioNewLinkedMov.Enabled=false;
-			}
-			else {
-				radioAddCont.Enabled=false;
-				radioAddCont.Checked=false;
-				radioNewCont.Enabled=true;
-				radioNewCont.Checked=true;
-				radioNewLinkedMov.Enabled=true;
-			}
-			//ClearOrdine();
-		}
+        private void chkAddContab_CheckedChanged(object sender, System.EventArgs e) {
+            if (chkAddContab.Checked) {
+                radioAddCont.Checked = true;
+                radioNewCont.Checked = false;
+                radioNewLinkedMov.Checked = false;
+                radioAddCont.Enabled = false;
+                radioNewCont.Enabled = false;
+                radioNewLinkedMov.Enabled = false;
+            }
+            else {
+                radioAddCont.Enabled = false;
+                radioAddCont.Checked = false;
+                radioNewCont.Enabled = true;
+                radioNewCont.Checked = true;
+                radioNewLinkedMov.Enabled = true;
+            }
+
+            //ClearOrdine();
+        }
 
 
-		private decimal CalcolaTotCausale(DataRow MandateDetail, int causale){						
-			double tassocambio = CfgFn.GetNoNullDouble(DS.mandate.Rows[0]["exchangerate"]);
-			if (tassocambio==0) tassocambio=1;
-			DataRow Curr = MandateDetail;
+        private decimal CalcolaTotCausale(DataRow MandateDetail, int causale) {
+            double tassocambio = CfgFn.GetNoNullDouble(DS.mandate.Rows[0]["exchangerate"]);
+            if (tassocambio == 0) tassocambio = 1;
+            DataRow Curr = MandateDetail;
 
-			double imponibile= CfgFn.GetNoNullDouble(Curr["taxable"]);
-			double QuantitaConfezioni  = CfgFn.GetNoNullDouble(Curr["npackage"]);
-			double aliquota  = CfgFn.GetNoNullDouble(Curr["taxrate"]);
-			double sconto    = CfgFn.GetNoNullDouble(Curr["discount"]);
+            double imponibile = CfgFn.GetNoNullDouble(Curr["taxable"]);
+            double QuantitaConfezioni = CfgFn.GetNoNullDouble(Curr["npackage"]);
+            double aliquota = CfgFn.GetNoNullDouble(Curr["taxrate"]);
+            double sconto = CfgFn.GetNoNullDouble(Curr["discount"]);
             double imponibileEUR = (imponibile * QuantitaConfezioni * (1 - sconto)) * tassocambio;
-            double ivaEUR = CfgFn.GetNoNullDouble(Curr["tax"]);// *tassocambio;
-			//double ivaEUR      = imponibileEUR*aliquota;
-			imponibileEUR= CfgFn.RoundValuta(imponibileEUR);
-			ivaEUR = CfgFn.RoundValuta(ivaEUR);
-			if (causale==1)return CfgFn.GetNoNullDecimal( ivaEUR+imponibileEUR);			
-			if (causale==3)return CfgFn.GetNoNullDecimal(imponibileEUR);
-			return CfgFn.GetNoNullDecimal(ivaEUR);
-		}
+            double ivaEUR = CfgFn.GetNoNullDouble(Curr["tax"]); // *tassocambio;
+            //double ivaEUR      = imponibileEUR*aliquota;
+            imponibileEUR = CfgFn.RoundValuta(imponibileEUR);
+            ivaEUR = CfgFn.RoundValuta(ivaEUR);
+            if (causale == 1) return CfgFn.GetNoNullDecimal(ivaEUR + imponibileEUR);
+            if (causale == 3) return CfgFn.GetNoNullDecimal(imponibileEUR);
+            return CfgFn.GetNoNullDecimal(ivaEUR);
+        }
 
-		decimal CalcTotCausale(DataRow  []MandateDetail, int causale, bool genMultipla){
-			decimal sum=0;
+        decimal CalcTotCausale(DataRow[] MandateDetail, int causale, bool genMultipla) {
+            decimal sum = 0;
 
-			foreach (DataRow R in MandateDetail) sum+=CalcolaTotCausale(R,causale);
-			if (genMultipla) return sum;
-			// verifica se l'importo da contabilizzare è diverso da quello digitato dall'utente
-			
+            foreach (DataRow R in MandateDetail) sum += CalcolaTotCausale(R, causale);
+            if (genMultipla) return sum;
+            // verifica se l'importo da contabilizzare è diverso da quello digitato dall'utente
+
             decimal importototale = CfgFn.GetNoNullDecimal(
-            HelpForm.GetObjectFromString(typeof(decimal),
-            txtDaPagare.Text, "x.y.c")); 
-            if (importototale!= 0 && importototale!=sum) sum = importototale;
-			return sum;
-		}
-
-	
-		bool SelezioneMovimentiEffettuata=false;
+                HelpForm.GetObjectFromString(typeof(decimal),
+                    txtDaPagare.Text, "x.y.c"));
+            if (importototale != 0 && importototale != sum) sum = importototale;
+            return sum;
+        }
 
 
-		string FilterAddCont=null;
+        bool SelezioneMovimentiEffettuata = false;
 
-	    object [] ValoriDiversi2(DataRow []Rows, string field,string field2){
-	        object[] DIV= new object[Rows.Length];
-	        int N=0;
-	        foreach (DataRow R in Rows){
-	            object currval=R[field];
-	            if (currval == DBNull.Value) currval = R[field2];
-	            int j=0;
-	            for (j=0; j<N; j++){
-	                if (DIV[j].ToString()==currval.ToString()){
-	                    break;
-	                }
-	            }
-	            if (j==N){
-	                DIV[N++]=currval;
-	            }
-	        }
-	        object []result= new object[N];
-	        for (int i=0;i<N; i++) result[i]= DIV[i];
-	        return result;
-	    }
 
-		object [] ValoriDiversi(DataRow []Rows, string field){
-			object[] DIV= new object[Rows.Length];
-			int N=0;
-			foreach (DataRow R in Rows){
-				object currval=R[field];
-				int j=0;
-				for (j=0; j<N; j++){
-					if (DIV[j].ToString()==currval.ToString()){
-						break;
-					}
-				}
-				if (j==N){
-					DIV[N++]=currval;
-				}
-			}
-			object []result= new object[N];
-			for (int i=0;i<N; i++) result[i]= DIV[i];
-			return result;
-		}
+        string FilterAddCont = null;
 
-	    List<DataRow> FiltraRows(DataRow[] Rows, string filter) {
-	        List<DataRow> RR = new List<DataRow>();
-	        if (Rows.Length == 0) {
-	            return RR;
-	        }            
-	        //DataTable T = DS.invoicedetail;
-	        DataTable T = DS.mandatedetail;
-	        DataRow[] found = T.Select(filter);
-	        var rowFound = new Dictionary<string, bool>();
-	        foreach (DataRow r in found) {
-	            string sk = $"{r["idmankind"]}#{r["yman"]}#{r["nman"]}#{r["rownum"]}";
-	            rowFound.Add(sk,true);
-	        }
-	        foreach (DataRow r in Rows) {
-	            if (r.RowState == DataRowState.Deleted) continue;
-	            string sk = $"{r["idmankind"]}#{r["yman"]}#{r["nman"]}#{r["rownum"]}";
-	            if (rowFound.ContainsKey(sk))RR.Add(r);
-	        }
-            
-	        return RR;
-	    }
+        object[] ValoriDiversi2(DataRow[] Rows, string field, string field2) {
+            object[] DIV = new object[Rows.Length];
+            int N = 0;
+            foreach (DataRow R in Rows) {
+                object currval = R[field];
+                if (currval == DBNull.Value) currval = R[field2];
+                int j = 0;
+                for (j = 0; j < N; j++) {
+                    if (DIV[j].ToString() == currval.ToString()) {
+                        break;
+                    }
+                }
 
-		
+                if (j == N) {
+                    DIV[N++] = currval;
+                }
+            }
 
-		DataRow AutoSelectedMov=null;
-		
-		bool RecalcSelezioneMovimenti(){
+            object[] result = new object[N];
+            for (int i = 0; i < N; i++) result[i] = DIV[i];
+            return result;
+        }
+
+        object[] ValoriDiversi(DataRow[] Rows, string field) {
+            object[] DIV = new object[Rows.Length];
+            int N = 0;
+            foreach (DataRow R in Rows) {
+                object currval = R[field];
+                int j = 0;
+                for (j = 0; j < N; j++) {
+                    if (DIV[j].ToString() == currval.ToString()) {
+                        break;
+                    }
+                }
+
+                if (j == N) {
+                    DIV[N++] = currval;
+                }
+            }
+
+            object[] result = new object[N];
+            for (int i = 0; i < N; i++) result[i] = DIV[i];
+            return result;
+        }
+
+        List<DataRow> FiltraRows(DataRow[] Rows, string filter) {
+            List<DataRow> RR = new List<DataRow>();
+            if (Rows.Length == 0) {
+                return RR;
+            }
+
+            //DataTable T = DS.invoicedetail;
+            DataTable T = DS.mandatedetail;
+            DataRow[] found = T.Select(filter);
+            var rowFound = new Dictionary<string, bool>();
+            foreach (DataRow r in found) {
+                string sk = $"{r["idmankind"]}#{r["yman"]}#{r["nman"]}#{r["rownum"]}";
+                rowFound.Add(sk, true);
+            }
+
+            foreach (DataRow r in Rows) {
+                if (r.RowState == DataRowState.Deleted) continue;
+                string sk = $"{r["idmankind"]}#{r["yman"]}#{r["nman"]}#{r["rownum"]}";
+                if (rowFound.ContainsKey(sk)) RR.Add(r);
+            }
+
+            return RR;
+        }
+
+
+
+        DataRow AutoSelectedMov = null;
+
+        bool RecalcSelezioneMovimenti() {
             DataRow[] SelectedRows = GetGridSelectedRows(gridDetails);
-            if ((SelectedRows == null) || (GetGridSelectedRows(gridDetails).Length == 0))
-            {
+            if ((SelectedRows == null) || (GetGridSelectedRows(gridDetails).Length == 0)) {
                 return false;
             }
-			labelAddCont.Text="";
-			labelNewLinkedCont.Text= "";
-			int esercizio= (int) Meta.GetSys("esercizio");
-			filterMovimento = null;
-			AutoSelectedMov=null;
-			ClearMovimento();
-			DS.expensemandate.Clear();
-			string filtermandate;
-			FilterAddCont=null;
+
+            labelAddCont.Text = "";
+            labelNewLinkedCont.Text = "";
+            int esercizio = (int) Meta.GetSys("esercizio");
+            filterMovimento = null;
+            AutoSelectedMov = null;
+            ClearMovimento();
+            DS.expensemandate.Clear();
+            string filtermandate;
+            FilterAddCont = null;
             //string sumexpr = null;
-			DataRow M= DS.mandate.Rows[0];
+            DataRow M = DS.mandate.Rows[0];
             filtermandate = QHS.AppAnd(QHS.CmpEq("idmankind", M["idmankind"]),
                 QHS.CmpEq("yman", M["yman"]), QHS.CmpEq("nman", M["nman"]));
-			int currcausale= CfgFn.GetNoNullInt32( cmbCausale.SelectedValue);
+            int currcausale = CfgFn.GetNoNullInt32(cmbCausale.SelectedValue);
             if (currcausale == 1) {
                 foreach (DataRow r in SelectedRows) {
-                    if (r["idupb_iva"]!=DBNull.Value && r["idupb_iva"].ToString() != r["idupb"].ToString()) {
+                    if (r["idupb_iva"] != DBNull.Value && r["idupb_iva"].ToString() != r["idupb"].ToString()) {
                         MessageBox.Show("La contabilizzazione totale non può essere usata su dettagli con upb diverse",
                             "Avviso");
                         return false;
@@ -2199,390 +2318,418 @@ namespace expense_wizardmandatedetail
 
                 }
             }
-            string fieldtolink="";
-			switch(currcausale){
-				case 1:
+
+            string fieldtolink = "";
+            switch (currcausale) {
+                case 1:
                     //sumexpr ="(isnull(SUM(taxable_euro),0)+isnull(SUM(iva_euro),0))";	
-					fieldtolink="idexp_taxable";
-					break;
-				case 3:
+                    fieldtolink = "idexp_taxable";
+                    break;
+                case 3:
                     //sumexpr ="SUM(taxable_euro)";
-					fieldtolink="idexp_taxable";
-					break;
-				case 2:
+                    fieldtolink = "idexp_taxable";
+                    break;
+                case 2:
                     //sumexpr ="SUM(iva_euro)";
-					fieldtolink="idexp_iva";
-					break;
-				default:
-					return false;
-			}
+                    fieldtolink = "idexp_iva";
+                    break;
+                default:
+                    return false;
+            }
+
             string field = "idupb";
             int causale = CfgFn.GetNoNullInt32(cmbCausale.SelectedValue);
             if (causale == 2) {
                 field = "idupb_iva";
             }
-            object [] upb = ValoriDiversi(SelectedRows, field);
-            object [] registry = ValoriDiversi(SelectedRows, "idreg");
+
+            object[] upb = ValoriDiversi(SelectedRows, field);
+            object[] registry = ValoriDiversi(SelectedRows, "idreg");
             string filterupb = "";
             string filterupb_forexpense = "";
             string filteridreg = "";
             bool stop = false;
-            genMultipla = SetGenMultipla(SelectedRows, out upb, out registry, out filterupb, out filterupb_forexpense, 
+            genMultipla = SetGenMultipla(SelectedRows, out upb, out registry, out filterupb, out filterupb_forexpense,
                 out filteridreg, out stop);
             object objidupb = upb[0];
-            string idupb    = objidupb.ToString();
-            decimal importoupb = CalcTotCausale(FiltraRows(SelectedRows,filterupb).ToArray(),currcausale,genMultipla);
-	
-			string filtercont="";
-			
-			//filtercont= GetData.MergeFilters(filtermandate,filterupb);
+            string idupb = objidupb.ToString();
+            decimal importoupb =
+                CalcTotCausale(FiltraRows(SelectedRows, filterupb).ToArray(), currcausale, genMultipla);
 
-			// J.T.R. 06.03.2007 - Il wizard non deve filtrare sull'importo!
+            string filtercont = "";
+
+            //filtercont= GetData.MergeFilters(filtermandate,filterupb);
+
+            // J.T.R. 06.03.2007 - Il wizard non deve filtrare sull'importo!
             //filtercont= GetData.MergeFilters(filtercont,
             //    "(curramount = "+QueryCreator.quotedstrvalue(importoupb,true) + ")");
 
-			filtercont= GetData.MergeFilters(filtercont,
-				"(NOT idexp in (SELECT idexp from expensemandate))");
-			filtercont= GetData.MergeFilters(filtercont,
-				"(NOT idexp in (SELECT idexp from expenseitineration))");
-			filtercont= GetData.MergeFilters(filtercont,
-				"(NOT idexp in (SELECT idexp from expensecasualcontract))");
-			filtercont= GetData.MergeFilters(filtercont,
-				"(NOT idexp in (SELECT idexp from expenseprofservice))");
-			filtercont= GetData.MergeFilters(filtercont,
-				"(NOT idexp in (SELECT idexp from expenseinvoice))");
-			filtercont= GetData.MergeFilters(filtercont,
-				"(NOT idexp in (SELECT idexp from expensepayroll))");
-			filtercont= GetData.MergeFilters(filtercont,
-				"(NOT idexp in (SELECT idexp from expensewageaddition))");
-			
-            if (idupb != ""){
-			    filtercont= GetData.MergeFilters(filtercont, filterupb_forexpense);
+            filtercont = GetData.MergeFilters(filtercont,
+                "(NOT idexp in (SELECT idexp from expensemandate))");
+            filtercont = GetData.MergeFilters(filtercont,
+                "(NOT idexp in (SELECT idexp from expenseitineration))");
+            filtercont = GetData.MergeFilters(filtercont,
+                "(NOT idexp in (SELECT idexp from expensecasualcontract))");
+            filtercont = GetData.MergeFilters(filtercont,
+                "(NOT idexp in (SELECT idexp from expenseprofservice))");
+            filtercont = GetData.MergeFilters(filtercont,
+                "(NOT idexp in (SELECT idexp from expenseinvoice))");
+            filtercont = GetData.MergeFilters(filtercont,
+                "(NOT idexp in (SELECT idexp from expensepayroll))");
+            filtercont = GetData.MergeFilters(filtercont,
+                "(NOT idexp in (SELECT idexp from expensewageaddition))");
+
+            if (idupb != "") {
+                filtercont = GetData.MergeFilters(filtercont, filterupb_forexpense);
             }
+
             filtercont = GetData.MergeFilters(filtercont, filteridreg);
             filtercont = GetData.MergeFilters(filtercont, QHS.CmpEq("ayear", esercizio));
             filtercont = GetData.MergeFilters(filtercont, QHS.CmpEq("nphase", faseordine));
             filtercont = GetData.MergeFilters(filtercont, QHS.CmpEq("curramount", importoupb));
-            
-			DataTable ContabilizzazioniDisponibili = Conn.RUN_SELECT("expenseview",
-                "idexp,idupb,ymov,nmov,description,manager,amount,adate,codefin,finance,codeupb,upb,curramount,available",null,
-			filtercont,null,null,true);
 
-			if (chkAddContab.Checked) {
-				// Si desidera aggiungere la contabilizzazione a un movimento esistente
-				// Disabilito le altre opzioni 
-				// radioNewLinkedMov.Visible=false;
-				// radioNewCont.Visible=false;
-				// Abilito la terza opzione per aggiungere la contabilizzazione
-				radioAddCont.Visible=true;
-				radioAddCont.Enabled=true;
-				radioAddCont.Checked=true;
-				// Deve essere un solo FORNITORE e un solo UPB per tutti i dettagli
-				if (registry.Length>1){
-					MessageBox.Show("Per aggiungere la contabilizzazione i dettagli selezionati devono avere lo stesso creditore");
-					return false;
-				}
+            DataTable ContabilizzazioniDisponibili = Conn.RUN_SELECT("expenseview",
+                "idexp,idupb,ymov,nmov,description,manager,amount,adate,codefin,finance,codeupb,upb,curramount,available",
+                null,
+                filtercont, null, null, true);
 
-				if (upb.Length>1){
-					MessageBox.Show("Per aggiungere la contabilizzazione i dettagli selezionati devono avere lo stesso UPB");
-					return false;
-				}
-				
-				// 1. Non esiste un movimento con capienza sufficiente per i dettagli selezionati
-				if (ContabilizzazioniDisponibili.Rows.Count==0){
-					//string DescrUpb= Conn.DO_READ_VALUE("upb",filterupb,"title").ToString();
-					MessageBox.Show("Non esiste un movimento con capienza sufficiente per i dettagli selezionati"); 
-						//" (UPB "+DescrUpb+")"); 
-					AbilitaDisabilitaSelezioneMovimento(false);
-					//DS.mandatedetail.RejectChanges();
-					//ClearMovimento();
-					//radioAddCont.Enabled=false;
-					return false ;
-					}
-				
-				// 2. Sono stati individuati più movimenti per contabilizzare i dettagli selezionati
-				// abilito il tasto di selezione 
-				if (ContabilizzazioniDisponibili.Rows.Count>1) {
-                    MessageBox.Show("Esistono più movimenti con capienza sufficiente per i dettagli selezionati. Selezionare il movimento");
-					//DS.mandatedetail.RejectChanges();
-					//ClearMovimento();
-					//radioAddCont.Enabled=false;
-					AbilitaDisabilitaSelezioneMovimento(true);
-					FilterAddCont = filtercont;
-					return true;
-					// Abilitare la selezione
-				}
-				
-				// 3. E' stato individuato un solo movimento per aggiungere la contabilizzazione,
-				// esso viene collegato automaticamente
-				if (ContabilizzazioniDisponibili.Rows.Count==1) {
-					MessageBox.Show("Il movimento è stato determinato automaticamente");
-					AbilitaDisabilitaSelezioneMovimento(false);
-					//DS.mandatedetail.RejectChanges();
-					//ClearMovimento();
-					//radioAddCont.Enabled=false;
-					//Aggiorna già i dettagli dell'ordine per collegarli ognuno al proprio movimento
-					foreach (DataRow DetailToLink in FiltraRows(SelectedRows,filterupb)){
-						DetailToLink[fieldtolink]= ContabilizzazioniDisponibili.Rows[0]["idexp"];
-						if (currcausale==1){
-							DetailToLink["idexp_iva"]=ContabilizzazioniDisponibili.Rows[0]["idexp"];
-						}
+            if (chkAddContab.Checked) {
+                // Si desidera aggiungere la contabilizzazione a un movimento esistente
+                // Disabilito le altre opzioni 
+                // radioNewLinkedMov.Visible=false;
+                // radioNewCont.Visible=false;
+                // Abilito la terza opzione per aggiungere la contabilizzazione
+                radioAddCont.Visible = true;
+                radioAddCont.Enabled = true;
+                radioAddCont.Checked = true;
+                // Deve essere un solo FORNITORE e un solo UPB per tutti i dettagli
+                if (registry.Length > 1) {
+                    MessageBox.Show(
+                        "Per aggiungere la contabilizzazione i dettagli selezionati devono avere lo stesso creditore");
+                    return false;
+                }
+
+                if (upb.Length > 1) {
+                    MessageBox.Show(
+                        "Per aggiungere la contabilizzazione i dettagli selezionati devono avere lo stesso UPB");
+                    return false;
+                }
+
+                // 1. Non esiste un movimento con capienza sufficiente per i dettagli selezionati
+                if (ContabilizzazioniDisponibili.Rows.Count == 0) {
+                    //string DescrUpb= Conn.DO_READ_VALUE("upb",filterupb,"title").ToString();
+                    MessageBox.Show("Non esiste un movimento con capienza sufficiente per i dettagli selezionati");
+                    //" (UPB "+DescrUpb+")"); 
+                    AbilitaDisabilitaSelezioneMovimento(false);
+                    //DS.mandatedetail.RejectChanges();
+                    //ClearMovimento();
+                    //radioAddCont.Enabled=false;
+                    return false;
+                }
+
+                // 2. Sono stati individuati più movimenti per contabilizzare i dettagli selezionati
+                // abilito il tasto di selezione 
+                if (ContabilizzazioniDisponibili.Rows.Count > 1) {
+                    MessageBox.Show(
+                        "Esistono più movimenti con capienza sufficiente per i dettagli selezionati. Selezionare il movimento");
+                    //DS.mandatedetail.RejectChanges();
+                    //ClearMovimento();
+                    //radioAddCont.Enabled=false;
+                    AbilitaDisabilitaSelezioneMovimento(true);
+                    FilterAddCont = filtercont;
+                    return true;
+                    // Abilitare la selezione
+                }
+
+                // 3. E' stato individuato un solo movimento per aggiungere la contabilizzazione,
+                // esso viene collegato automaticamente
+                if (ContabilizzazioniDisponibili.Rows.Count == 1) {
+                    MessageBox.Show("Il movimento è stato determinato automaticamente");
+                    AbilitaDisabilitaSelezioneMovimento(false);
+                    //DS.mandatedetail.RejectChanges();
+                    //ClearMovimento();
+                    //radioAddCont.Enabled=false;
+                    //Aggiorna già i dettagli dell'ordine per collegarli ognuno al proprio movimento
+                    foreach (DataRow DetailToLink in FiltraRows(SelectedRows, filterupb)) {
+                        DetailToLink[fieldtolink] = ContabilizzazioniDisponibili.Rows[0]["idexp"];
+                        if (currcausale == 1) {
+                            DetailToLink["idexp_iva"] = ContabilizzazioniDisponibili.Rows[0]["idexp"];
+                        }
+
                         DetailToLink["idupb"] = ContabilizzazioniDisponibili.Rows[0]["idupb"];
-						AutoSelectedMov = ContabilizzazioniDisponibili.Rows[0];
+                        AutoSelectedMov = ContabilizzazioniDisponibili.Rows[0];
                         if (DS.expensemandate.Rows.Count == 0) {
                             MetaData MetaExpMan = MetaData.GetMetaData(this, "expensemandate");
                             MetaExpMan.SetDefaults(DS.expensemandate);
-                            DS.expensemandate.Columns["idexp"].DefaultValue = ContabilizzazioniDisponibili.Rows[0]["idexp"];
+                            DS.expensemandate.Columns["idexp"].DefaultValue =
+                                ContabilizzazioniDisponibili.Rows[0]["idexp"];
                             DS.expensemandate.Columns["movkind"].DefaultValue = currcausale;
                             DataRow ExpMandate = MetaExpMan.Get_New_Row(DS.mandate.Rows[0], DS.expensemandate);
                         }
-						//somethingdone=true;
-					}
-					return true;
-				}
-				return true;
-			}
 
-			if (!chkAddContab.Checked) {
-				radioAddCont.Visible=false; 
-				radioNewCont.Visible=true;  
-				radioNewCont.Checked=true;
-				radioNewLinkedMov.Visible=true;  
-				// Si desidera creare una nuova contabilizzazione associandola a un movimento esistente 
-				// oppure ex novo
-				// Per abilitare Collega a un movimento esistente deve 
-				// essere un solo FORNITORE e un solo UPB per tutti i dettagli
-				if (registry.Length>1){
-					labelNewLinkedCont.Text="Per creare la contabilizzazione su movimento esistente i dettagli selezionati devono avere lo stesso Fornitore";
-					radioNewLinkedMov.Visible=false;
-					AbilitaDisabilitaSelezioneMovimento(false);
-				}
-				if (upb.Length>1){
-					labelNewLinkedCont.Text="Per creare la contabilizzazione su movimento esistente i dettagli selezionati devono avere lo stesso UPB";
-					radioNewLinkedMov.Visible=false;
-					AbilitaDisabilitaSelezioneMovimento(false);
-				}
-				if (faseordine == 1){
-					radioNewLinkedMov.Visible=false;
-					AbilitaDisabilitaSelezioneMovimento(false);
-				}
+                        //somethingdone=true;
+                    }
+
+                    return true;
+                }
+
+                return true;
+            }
+
+            if (!chkAddContab.Checked) {
+                radioAddCont.Visible = false;
+                radioNewCont.Visible = true;
+                radioNewCont.Checked = true;
+                radioNewLinkedMov.Visible = true;
+                // Si desidera creare una nuova contabilizzazione associandola a un movimento esistente 
+                // oppure ex novo
+                // Per abilitare Collega a un movimento esistente deve 
+                // essere un solo FORNITORE e un solo UPB per tutti i dettagli
+                if (registry.Length > 1) {
+                    labelNewLinkedCont.Text =
+                        "Per creare la contabilizzazione su movimento esistente i dettagli selezionati devono avere lo stesso Fornitore";
+                    radioNewLinkedMov.Visible = false;
+                    AbilitaDisabilitaSelezioneMovimento(false);
+                }
+
+                if (upb.Length > 1) {
+                    labelNewLinkedCont.Text =
+                        "Per creare la contabilizzazione su movimento esistente i dettagli selezionati devono avere lo stesso UPB";
+                    radioNewLinkedMov.Visible = false;
+                    AbilitaDisabilitaSelezioneMovimento(false);
+                }
+
+                if (faseordine == 1) {
+                    radioNewLinkedMov.Visible = false;
+                    AbilitaDisabilitaSelezioneMovimento(false);
+                }
+
                 // L'importo del movimento da collegare deve essere determinato sulla base di 
                 // quello digitato dall'utente
-				if ((registry.Length==1)&&(upb.Length==1)) {
-					// Verifico che sia possibile collegare ad un movimento esistente
-					filtercont = "";
-                    filtercont = GetData.MergeFilters(filtercont,QHS.CmpGe("available", importoupb));
-                  
-					filtercont= GetData.MergeFilters(filtercont,QHS.CmpEq("ayear",esercizio));
-                    if (idupb != "") 
-                    {
+                if ((registry.Length == 1) && (upb.Length == 1)) {
+                    // Verifico che sia possibile collegare ad un movimento esistente
+                    filtercont = "";
+                    filtercont = GetData.MergeFilters(filtercont, QHS.CmpGe("available", importoupb));
+
+                    filtercont = GetData.MergeFilters(filtercont, QHS.CmpEq("ayear", esercizio));
+                    if (idupb != "") {
                         filtercont = GetData.MergeFilters(filtercont, filterupb_forexpense);
                     }
-					int phase=faseordine-1;
-					int fasecred = CfgFn.GetNoNullInt32(Meta.GetSys("expenseregphase"));
-					if  (fasecred<=phase) {
-						filtercont= GetData.MergeFilters(filtercont,filteridreg);
-					}
-					filtercont = GetData.MergeFilters(filtercont, QHS.CmpEq("nphase", phase));
-					DataTable MovimentiDisponibili = Conn.RUN_SELECT("expenseview",
-                             "idexp,idupb,ymov,nmov,description,manager,amount,adate,codefin,finance,codeupb,upb,curramount,available", 
-                             null, filtercont,null,null,true);
-					if (MovimentiDisponibili.Rows.Count ==0) {
-						radioNewLinkedMov.Visible = false;
-						AbilitaDisabilitaSelezioneMovimento(false);
-					}
-					if (MovimentiDisponibili.Rows.Count >=1) {
-						radioNewLinkedMov.Visible = true;
-						AbilitaDisabilitaSelezioneMovimento(true);
-					}	
-				}
-			}
-			return true;			
-		}
-			
-		object idexp_selected;
-		void FillMovimento(DataRow Expense){
-			idexp_selected= Expense["idexp"];
-			txtNumeroMovimento.Text= Expense["nmov"].ToString();
-			txtEsercizioMovimento.Text= Expense["ymov"].ToString();
-			txtDescrizione.Text= Expense["description"].ToString();
+
+                    int phase = faseordine - 1;
+                    int fasecred = CfgFn.GetNoNullInt32(Meta.GetSys("expenseregphase"));
+                    if (fasecred <= phase) {
+                        filtercont = GetData.MergeFilters(filtercont, filteridreg);
+                    }
+
+                    filtercont = GetData.MergeFilters(filtercont, QHS.CmpEq("nphase", phase));
+                    DataTable MovimentiDisponibili = Conn.RUN_SELECT("expenseview",
+                        "idexp,idupb,ymov,nmov,description,manager,amount,adate,codefin,finance,codeupb,upb,curramount,available",
+                        null, filtercont, null, null, true);
+                    if (MovimentiDisponibili.Rows.Count == 0) {
+                        radioNewLinkedMov.Visible = false;
+                        AbilitaDisabilitaSelezioneMovimento(false);
+                    }
+
+                    if (MovimentiDisponibili.Rows.Count >= 1) {
+                        radioNewLinkedMov.Visible = true;
+                        AbilitaDisabilitaSelezioneMovimento(true);
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        object idexp_selected;
+
+        void FillMovimento(DataRow Expense) {
+            idexp_selected = Expense["idexp"];
+            txtNumeroMovimento.Text = Expense["nmov"].ToString();
+            txtEsercizioMovimento.Text = Expense["ymov"].ToString();
+            txtDescrizione.Text = Expense["description"].ToString();
             txtResponsabile.Text = Expense["manager"].ToString();
-			SubEntity_txtImportoMovimento.Text= CfgFn.GetNoNullDecimal(Expense["amount"]).ToString("c");
-			txtDataCont.Text= ((DateTime)Expense["adate"]).ToShortDateString();
-			txtCodiceBilancio.Text=Expense["codefin"].ToString();
-			txtDenominazioneBilancio.Text=Expense["finance"].ToString();
+            SubEntity_txtImportoMovimento.Text = CfgFn.GetNoNullDecimal(Expense["amount"]).ToString("c");
+            txtDataCont.Text = ((DateTime) Expense["adate"]).ToShortDateString();
+            txtCodiceBilancio.Text = Expense["codefin"].ToString();
+            txtDenominazioneBilancio.Text = Expense["finance"].ToString();
             txtUPB.Text = Expense["codeupb"].ToString();
-			txtDescrUPB.Text= Expense["upb"].ToString();
-			txtImportoCorrente.Text= CfgFn.GetNoNullDecimal(Expense["curramount"]).ToString("c");
-			txtImportoDisponibile.Text= CfgFn.GetNoNullDecimal(Expense["available"]).ToString("c");
-		}
-		void ClearMovimento(){
-			idexp_selected= DBNull.Value;
-			txtNumeroMovimento.Text= "";
-			txtEsercizioMovimento.Text= "";
-			txtDescrizione.Text= "";
+            txtDescrUPB.Text = Expense["upb"].ToString();
+            txtImportoCorrente.Text = CfgFn.GetNoNullDecimal(Expense["curramount"]).ToString("c");
+            txtImportoDisponibile.Text = CfgFn.GetNoNullDecimal(Expense["available"]).ToString("c");
+        }
+
+        void ClearMovimento() {
+            idexp_selected = DBNull.Value;
+            txtNumeroMovimento.Text = "";
+            txtEsercizioMovimento.Text = "";
+            txtDescrizione.Text = "";
             txtResponsabile.Text = "";
-			SubEntity_txtImportoMovimento.Text= "";
-			txtDataCont.Text= "";
-			txtCodiceBilancio.Text="";
-			txtDenominazioneBilancio.Text="";
+            SubEntity_txtImportoMovimento.Text = "";
+            txtDataCont.Text = "";
+            txtCodiceBilancio.Text = "";
+            txtDenominazioneBilancio.Text = "";
             txtUPB.Text = "";
-			txtDescrUPB.Text="";
-			txtImportoCorrente.Text= "";
-			txtImportoDisponibile.Text= "";
-		}
+            txtDescrUPB.Text = "";
+            txtImportoCorrente.Text = "";
+            txtImportoDisponibile.Text = "";
+        }
 
 
-		string filterMovimento;
-		void AbilitaDisabilitaSelezioneMovimento(bool enable){
-			gboxMovimento.Enabled=enable;
-		}
+        string filterMovimento;
 
-		private void btnSelectMov_Click(object sender, System.EventArgs e) {
-			//se true, deve visualizzare le contabilizzazioni disponibili
-			bool allMandate= chkAddContab.Checked;
-			int esercizio= (int) Meta.GetSys("esercizio");
+        void AbilitaDisabilitaSelezioneMovimento(bool enable) {
+            gboxMovimento.Enabled = enable;
+        }
+
+        private void btnSelectMov_Click(object sender, System.EventArgs e) {
+            //se true, deve visualizzare le contabilizzazioni disponibili
+            bool allMandate = chkAddContab.Checked;
+            int esercizio = (int) Meta.GetSys("esercizio");
             string filter = QHS.CmpEq("ayear", esercizio);
-			filter = GetData.MergeFilters(filter,filterMovimento);
+            filter = GetData.MergeFilters(filter, filterMovimento);
 
-			int esercText= CfgFn.GetNoNullInt32(txtEsercizioMovimento.Text);
+            int esercText = CfgFn.GetNoNullInt32(txtEsercizioMovimento.Text);
             if (esercText > 0) //esercText=esercizio; 
                 filter = GetData.MergeFilters(filter, QHS.CmpEq("ymov", esercText));
-            
-			if ((!sender.Equals(btnSelectMov))&&txtNumeroMovimento.Text.Trim()!=""){
-				int nmov= CfgFn.GetNoNullInt32(txtNumeroMovimento.Text);
+
+            if ((!sender.Equals(btnSelectMov)) && txtNumeroMovimento.Text.Trim() != "") {
+                int nmov = CfgFn.GetNoNullInt32(txtNumeroMovimento.Text);
                 if (nmov > 0) filter = GetData.MergeFilters(filter, QHS.CmpEq("nmov", nmov));
-			}
-			int phase;
-			//int faseordine = CfgFn.GetNoNullInt32(Meta.GetSys("mandatephase"));
-			if (radioAddCont.Checked) 
-				phase=faseordine;
-			else
-				phase=faseordine-1;
+            }
+
+            int phase;
+            //int faseordine = CfgFn.GetNoNullInt32(Meta.GetSys("mandatephase"));
+            if (radioAddCont.Checked)
+                phase = faseordine;
+            else
+                phase = faseordine - 1;
 
             filter = GetData.MergeFilters(filter, QHS.CmpEq("nphase", phase));
-			MetaData ExpenseToConsider;
-			ExpenseToConsider  = MetaData.GetMetaData(this,"expense");
-			ExpenseToConsider.FilterLocked=true;
-			ExpenseToConsider.DS= new DataSet();
-			DataRow M= ExpenseToConsider.SelectOne("default",filter,null,null);
-			if (M==null) return;
-			FillMovimento(M);
-			idexp_selected= M["idexp"];
-			SelezioneMovimentiEffettuata=true;
-		}
+            MetaData ExpenseToConsider;
+            ExpenseToConsider = MetaData.GetMetaData(this, "expense");
+            ExpenseToConsider.FilterLocked = true;
+            ExpenseToConsider.DS = new DataSet();
+            DataRow M = ExpenseToConsider.SelectOne("default", filter, null, null);
+            if (M == null) return;
+            FillMovimento(M);
+            idexp_selected = M["idexp"];
+            SelezioneMovimentiEffettuata = true;
+        }
 
-		private void radioAddCont_CheckedChanged(object sender, System.EventArgs e) {
-			if (radioAddCont.Checked) SetAddCont();
-			labelAddCont.Visible=radioAddCont.Checked;
-		}
+        private void radioAddCont_CheckedChanged(object sender, System.EventArgs e) {
+            if (radioAddCont.Checked) SetAddCont();
+            labelAddCont.Visible = radioAddCont.Checked;
+        }
 
-		private void radioNewCont_CheckedChanged(object sender, System.EventArgs e) {
-			if (radioNewCont.Checked)SetNewMov();
-		}
+        private void radioNewCont_CheckedChanged(object sender, System.EventArgs e) {
+            if (radioNewCont.Checked) SetNewMov();
+        }
 
-		void SetAddCont(){
-			//labelMessage.Visible= radioAddCont.Checked;
-			if (FilterAddCont!=null) {
-				AbilitaDisabilitaSelezioneMovimento(true);
-				filterMovimento= FilterAddCont;
-				SelezioneMovimentiEffettuata=false;
-				labMsgTODO1.Text="I dettagli selezionati saranno aggiunti al movimento selezionato";
-				labMsgTODO2.Text="";
-			}
-			else {
-				AbilitaDisabilitaSelezioneMovimento(false);
-				filterMovimento=null;
-				SelezioneMovimentiEffettuata=true;
-				labMsgTODO1.Text="I dettagli selezionati saranno aggiunti al movimento selezionato automaticamente";
-				labMsgTODO2.Text="";
-			}
-			if (AutoSelectedMov!=null) FillMovimento(AutoSelectedMov);
-			// int faseprecedente = faseordine -1;
-			string filterfase = QHS.CmpEq("nphase", faseordine);
-			string descfaseordine = "";
-			descfaseordine = Conn.DO_READ_VALUE("expensephase",filterfase,"description").ToString();
-			if (descfaseordine!="" && descfaseordine!=null) {
-				gboxMovimento.Text = descfaseordine;
-			}
-			
-		}
+        void SetAddCont() {
+            //labelMessage.Visible= radioAddCont.Checked;
+            if (FilterAddCont != null) {
+                AbilitaDisabilitaSelezioneMovimento(true);
+                filterMovimento = FilterAddCont;
+                SelezioneMovimentiEffettuata = false;
+                labMsgTODO1.Text = "I dettagli selezionati saranno aggiunti al movimento selezionato";
+                labMsgTODO2.Text = "";
+            }
+            else {
+                AbilitaDisabilitaSelezioneMovimento(false);
+                filterMovimento = null;
+                SelezioneMovimentiEffettuata = true;
+                labMsgTODO1.Text = "I dettagli selezionati saranno aggiunti al movimento selezionato automaticamente";
+                labMsgTODO2.Text = "";
+            }
 
-		void SetNewMov(){
-			ClearMovimento();
-			AbilitaDisabilitaSelezioneMovimento(false);
-			SelezioneMovimentiEffettuata=true; //!!
-			int primafasespesa = 1;
-			string filterfase = QHS.CmpEq("nphase", primafasespesa);
-			string descfase = "";
-			descfase = Conn.DO_READ_VALUE("expensephase",filterfase,"description").ToString();
-			if (descfase!="") {
-				gboxMovimento.Text = descfase;
-			}
-			
-		}
+            if (AutoSelectedMov != null) FillMovimento(AutoSelectedMov);
+            // int faseprecedente = faseordine -1;
+            string filterfase = QHS.CmpEq("nphase", faseordine);
+            string descfaseordine = "";
+            descfaseordine = Conn.DO_READ_VALUE("expensephase", filterfase, "description").ToString();
+            if (descfaseordine != "" && descfaseordine != null) {
+                gboxMovimento.Text = descfaseordine;
+            }
 
-		void SetNewLinkedMov(){
-			DataRow Mand= DS.mandate.Rows[0];
-			DataRow []Selected= GetGridSelectedRows(gridDetails);
-			string filterregistry = ""; 
-			
-			object  []registry   = ValoriDiversi(Selected,"idreg");
-			DataTable MandateKind = Conn.RUN_SELECT("mandatekind","*",null,
-				QHS.CmpEq("idmankind", Mand["idmankind"]),null,null,true);
-			// In base alla configurazione del tipo ordine, prendo il fornitore dell'ordine
-			// oppure i fornitori dei vari dettagli
-			if (MandateKind.Rows.Count >0) {
-				string multiReg = MandateKind.Rows[0]["multireg"].ToString();
-				if (multiReg == "N") { // Anagrafe nell'ordine
-					filterregistry = QHS.CmpEq("idreg", Mand["idreg"]);
-				}
-				else {
-					if ((Selected!=null) || (GetGridSelectedRows(gridDetails).Length!=0)){
-						filterregistry = QHS.CmpEq("idreg", registry[0]); //primo dettaglio
-					}
-				}
-			}
+        }
 
-			int fasecred = CfgFn.GetNoNullInt32(Meta.GetSys("expenseregphase"));
-			int fasebilancio = CfgFn.GetNoNullInt32(Meta.GetSys("expensefinphase"));
-			
-			int currcausale= CfgFn.GetNoNullInt32( cmbCausale.SelectedValue);
-			if (currcausale==1) {
-				decimal importototale= CfgFn.GetNoNullDecimal( HelpForm.GetObjectFromString(typeof(Decimal),
-					txtTotGenerale.Text,"x.y.c"));
-				//if (importototale!=TotaleDaContabilizzare) TotaleDaContabilizzare = importototale;
-			}
-			if (currcausale==3) {
-				decimal importoimponibile= CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),
-					txtTotImponibile.Text,"x.y.c"));
-				//if (importoimponibile!=TotaleDaContabilizzare) TotaleDaContabilizzare = importoimponibile;
-			}
-			if (currcausale==2) {
-				decimal importoiva= CfgFn.GetNoNullDecimal( HelpForm.GetObjectFromString(typeof(Decimal),
-					txtTotIva.Text,"x.y.c"));
-				//if (importoiva!=TotaleDaContabilizzare) TotaleDaContabilizzare = importoiva;
-			}
+        void SetNewMov() {
+            ClearMovimento();
+            AbilitaDisabilitaSelezioneMovimento(false);
+            SelezioneMovimentiEffettuata = true; //!!
+            int primafasespesa = 1;
+            string filterfase = QHS.CmpEq("nphase", primafasespesa);
+            string descfase = "";
+            descfase = Conn.DO_READ_VALUE("expensephase", filterfase, "description").ToString();
+            if (descfase != "") {
+                gboxMovimento.Text = descfase;
+            }
+
+        }
+
+        void SetNewLinkedMov() {
+            DataRow Mand = DS.mandate.Rows[0];
+            DataRow[] Selected = GetGridSelectedRows(gridDetails);
+            string filterregistry = "";
+
+            object[] registry = ValoriDiversi(Selected, "idreg");
+            DataTable MandateKind = Conn.RUN_SELECT("mandatekind", "*", null,
+                QHS.CmpEq("idmankind", Mand["idmankind"]), null, null, true);
+            // In base alla configurazione del tipo ordine, prendo il fornitore dell'ordine
+            // oppure i fornitori dei vari dettagli
+            if (MandateKind.Rows.Count > 0) {
+                string multiReg = MandateKind.Rows[0]["multireg"].ToString();
+                if (multiReg == "N") { // Anagrafe nell'ordine
+                    filterregistry = QHS.CmpEq("idreg", Mand["idreg"]);
+                }
+                else {
+                    if ((Selected != null) || (GetGridSelectedRows(gridDetails).Length != 0)) {
+                        filterregistry = QHS.CmpEq("idreg", registry[0]); //primo dettaglio
+                    }
+                }
+            }
+
+            int fasecred = CfgFn.GetNoNullInt32(Meta.GetSys("expenseregphase"));
+            int fasebilancio = CfgFn.GetNoNullInt32(Meta.GetSys("expensefinphase"));
+
+            int currcausale = CfgFn.GetNoNullInt32(cmbCausale.SelectedValue);
+            if (currcausale == 1) {
+                decimal importototale = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),
+                    txtTotGenerale.Text, "x.y.c"));
+                //if (importototale!=TotaleDaContabilizzare) TotaleDaContabilizzare = importototale;
+            }
+
+            if (currcausale == 3) {
+                decimal importoimponibile = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),
+                    txtTotImponibile.Text, "x.y.c"));
+                //if (importoimponibile!=TotaleDaContabilizzare) TotaleDaContabilizzare = importoimponibile;
+            }
+
+            if (currcausale == 2) {
+                decimal importoiva = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),
+                    txtTotIva.Text, "x.y.c"));
+                //if (importoiva!=TotaleDaContabilizzare) TotaleDaContabilizzare = importoiva;
+            }
 
             decimal ImportoDaPagare = CfgFn.GetNoNullDecimal(
-               HelpForm.GetObjectFromString(typeof(decimal),
-               txtDaPagare.Text, "x.y.c"));
-            if ((ImportoDaPagare != 0) && (ImportoDaPagare < TotaleDaContabilizzare))
-            {
+                HelpForm.GetObjectFromString(typeof(decimal),
+                    txtDaPagare.Text, "x.y.c"));
+            if ((ImportoDaPagare != 0) && (ImportoDaPagare < TotaleDaContabilizzare)) {
                 filterMovimento = QHS.CmpGe("available", ImportoDaPagare);
             }
-            else
-            {
+            else {
                 filterMovimento = QHS.CmpGe("available", TotaleDaContabilizzare);
             }
 
-			filterMovimento = GetData.MergeFilters(filterMovimento,QHS.CmpEq("nphase", faseordine-1));
-			if (fasecred<=faseordine-1){
-				filterMovimento = GetData.MergeFilters(filterregistry,filterMovimento);
-			}
-			if (fasebilancio<=faseordine-1){
-				if ((Selected!=null) || (GetGridSelectedRows(gridDetails).Length!=0)){
-					DataRow ManDett = Selected[0];
+            filterMovimento = GetData.MergeFilters(filterMovimento, QHS.CmpEq("nphase", faseordine - 1));
+            if (fasecred <= faseordine - 1) {
+                filterMovimento = GetData.MergeFilters(filterregistry, filterMovimento);
+            }
+
+            if (fasebilancio <= faseordine - 1) {
+                if ((Selected != null) || (GetGridSelectedRows(gridDetails).Length != 0)) {
+                    DataRow ManDett = Selected[0];
                     object[] upb = ValoriDiversi(Selected, "idupb");
                     object[] upb_iva = ValoriDiversi(Selected, "idupb_iva");
                     string field = "idupb";
@@ -2593,108 +2740,117 @@ namespace expense_wizardmandatedetail
                             field = "idupb_iva";
                         }
                     }
+
                     if (ManDett[field] != DBNull.Value) {
                         filterMovimento = QHS.AppAnd(filterMovimento, QHS.CmpEq("idupb", ManDett[field]));
                     }
 
                 }
-			}
-			ClearMovimento();
-			AbilitaDisabilitaSelezioneMovimento(true);
-			SelezioneMovimentiEffettuata=false;
-			labMsgTODO1.Text="Sarà creato un nuovo movimento di spesa";
-		
+            }
 
-			if (faseordine > 1) {
-				int faseprecedente = faseordine -1;
-				string filterfase = QHS.CmpEq("nphase", faseprecedente);
-				string descfaseprecedente = "";
-				descfaseprecedente = Conn.DO_READ_VALUE("expensephase",filterfase,"description").ToString();
-				if (descfaseprecedente!="") {
-					gboxMovimento.Text = descfaseprecedente;
-				}
-			}
-		}
-
-		void RadioCheck_Changed(){
-			if (radioAddCont.Checked) SetAddCont();
-			if (radioNewCont.Checked) SetNewMov();
-			if (radioNewLinkedMov.Checked) SetNewLinkedMov();
-		}
-
-		private void txtEsercizioMovimento_Leave(object sender, System.EventArgs e) {
-			if (txtEsercizioMovimento.ReadOnly==true) return;
-			int Ymov= CfgFn.GetNoNullInt32(txtEsercizioMovimento.Text);
-			if (Ymov<=0){
-				ClearMovimento();
-				SelezioneMovimentiEffettuata=false;
-				return;
-			}
-			if (Ymov<1000){
-				Ymov+=2000;
-				txtEsercizioMovimento.Text=Ymov.ToString();
-			}
-			if (txtNumeroMovimento.Text.Trim()!=""){
-				btnSelectMov_Click(sender,e);
-				return;
-			}
-
-		}
-
-		private void txtNumeroMovimento_Leave(object sender, System.EventArgs e) {
-			int NMov= CfgFn.GetNoNullInt32(txtNumeroMovimento.Text);
-			if (NMov<=0){
-				ClearMovimento();
-				return;
-			}
-			if (txtEsercizioMovimento.Text.Trim()!=""){
-				btnSelectMov_Click(sender,e);
-				return;
-			}		
-		}
-
-		private void radioNewLinkedMov_CheckedChanged(object sender, System.EventArgs e) {
-			if (radioNewLinkedMov.Checked) SetNewLinkedMov();
-		}
+            ClearMovimento();
+            AbilitaDisabilitaSelezioneMovimento(true);
+            SelezioneMovimentiEffettuata = false;
+            labMsgTODO1.Text = "Sarà creato un nuovo movimento di spesa";
 
 
-		object idmanagerSelected;
+            if (faseordine > 1) {
+                int faseprecedente = faseordine - 1;
+                string filterfase = QHS.CmpEq("nphase", faseprecedente);
+                string descfaseprecedente = "";
+                descfaseprecedente = Conn.DO_READ_VALUE("expensephase", filterfase, "description").ToString();
+                if (descfaseprecedente != "") {
+                    gboxMovimento.Text = descfaseprecedente;
+                }
+            }
+        }
+
+        void RadioCheck_Changed() {
+            if (radioAddCont.Checked) SetAddCont();
+            if (radioNewCont.Checked) SetNewMov();
+            if (radioNewLinkedMov.Checked) SetNewLinkedMov();
+        }
+
+        private void txtEsercizioMovimento_Leave(object sender, System.EventArgs e) {
+            if (txtEsercizioMovimento.ReadOnly == true) return;
+            int Ymov = CfgFn.GetNoNullInt32(txtEsercizioMovimento.Text);
+            if (Ymov <= 0) {
+                ClearMovimento();
+                SelezioneMovimentiEffettuata = false;
+                return;
+            }
+
+            if (Ymov < 1000) {
+                Ymov += 2000;
+                txtEsercizioMovimento.Text = Ymov.ToString();
+            }
+
+            if (txtNumeroMovimento.Text.Trim() != "") {
+                btnSelectMov_Click(sender, e);
+                return;
+            }
+
+        }
+
+        private void txtNumeroMovimento_Leave(object sender, System.EventArgs e) {
+            int NMov = CfgFn.GetNoNullInt32(txtNumeroMovimento.Text);
+            if (NMov <= 0) {
+                ClearMovimento();
+                return;
+            }
+
+            if (txtEsercizioMovimento.Text.Trim() != "") {
+                btnSelectMov_Click(sender, e);
+                return;
+            }
+        }
+
+        private void radioNewLinkedMov_CheckedChanged(object sender, System.EventArgs e) {
+            if (radioNewLinkedMov.Checked) SetNewLinkedMov();
+        }
+
+
+        object idmanagerSelected;
         object idUPBSelected;
-		object idfinSelected;
-		bool CheckInfoFin(){
+        object idfinSelected;
+
+        bool CheckInfoFin() {
             idUPBSelected = null;
-			if (radioAddCont.Checked) {
-				gboxBilToCreate.Visible=false;
-				return true; //movimento esistente!
-			}
-			if (radioNewLinkedMov.Checked){
-				//Prende il creditore ed il responsabile dall'ordine, quindi non ha bisogno di nulla!!
-				int fasebilancio = CfgFn.GetNoNullInt32(Meta.GetSys("expensefinphase"));
+            if (radioAddCont.Checked) {
+                gboxBilToCreate.Visible = false;
+                return true; //movimento esistente!
+            }
+
+            if (radioNewLinkedMov.Checked) {
+                //Prende il creditore ed il responsabile dall'ordine, quindi non ha bisogno di nulla!!
+                int fasebilancio = CfgFn.GetNoNullInt32(Meta.GetSys("expensefinphase"));
 //				int faseordine= CfgFn.GetNoNullInt32( Meta.GetSys("mandatephase"));
-				if (faseordine-1 >= fasebilancio) {
-					gboxBilToCreate.Visible=false;
-					return true;
-				}
-				//Se passa di qui deve creare un nuovo mov. di spesa, agganciandolo ad una fase s
-				// in cui non è prevista l'informazione del bilancio
-			}
+                if (faseordine - 1 >= fasebilancio) {
+                    gboxBilToCreate.Visible = false;
+                    return true;
+                }
+
+                //Se passa di qui deve creare un nuovo mov. di spesa, agganciandolo ad una fase s
+                // in cui non è prevista l'informazione del bilancio
+            }
+
             // Amount può essere il totale da contabilizzare oppure l'importo digitato dall'utente
             decimal amount = 0;
             decimal ImportoDaPagare = CfgFn.GetNoNullDecimal(
                 HelpForm.GetObjectFromString(typeof(decimal),
-                txtDaPagare.Text, "x.y.c"));
-            if ((ImportoDaPagare != 0) && (ImportoDaPagare < TotaleDaContabilizzare))
-            {
+                    txtDaPagare.Text, "x.y.c"));
+            if ((ImportoDaPagare != 0) && (ImportoDaPagare < TotaleDaContabilizzare)) {
                 amount = ImportoDaPagare;
             }
             else {
                 amount = TotaleDaContabilizzare;
             }
-			DataRow CurrMandate=DS.mandate.Rows[0];
 
-			DataRow []Selected= GetGridSelectedRows(gridDetails);
+            DataRow CurrMandate = DS.mandate.Rows[0];
+
+            DataRow[] Selected = GetGridSelectedRows(gridDetails);
             object idupb = DBNull.Value;
-			object []upb= ValoriDiversi(Selected,"idupb");
+            object[] upb = ValoriDiversi(Selected, "idupb");
             object[] upb_iva = ValoriDiversi(Selected, "idupb_iva");
             string field = "idupb";
             int causale = CfgFn.GetNoNullInt32(cmbCausale.SelectedValue);
@@ -2704,57 +2860,60 @@ namespace expense_wizardmandatedetail
                     field = "idupb_iva";
                 }
             }
+
             string filter = QHC.IsNull(field);
-            if ((FiltraRows(Selected, filter).Count > 0) && (upb.Length == 2))
-            {
+            if ((FiltraRows(Selected, filter).Count > 0) && (upb.Length == 2)) {
                 object idupbtoassign = "";
-                var Details  = FiltraRows(Selected, QHC.IsNotNull(field));
+                var Details = FiltraRows(Selected, QHC.IsNotNull(field));
                 if (Details.Count > 0) idupbtoassign = Details[0][field];
-                upb = new object[] { idupbtoassign }; ;
+                upb = new object[] {idupbtoassign};
+                ;
             }
 
-			object idman_start=CurrMandate["idman"];
+            object idman_start = CurrMandate["idman"];
             bool manager_in_details = false;
             if (upb.Length == 1) {
-				if (upb[0].ToString()!="")idupb=upb[0];
-			}
-			else {
-				foreach (string myidupb in upb){
+                if (upb[0].ToString() != "") idupb = upb[0];
+            }
+            else {
+                foreach (string myidupb in upb) {
                     string filtermyupb = QHS.CmpEq("idupb", myidupb);
-					//object idman_mydetail= DS.upb.Select(filtermyupb)[0]["idman"];
+                    //object idman_mydetail= DS.upb.Select(filtermyupb)[0]["idman"];
                     object idman_mydetail = Conn.DO_READ_VALUE("upb", filtermyupb, "idman");
-					if (idman_mydetail!=DBNull.Value) manager_in_details=true;
-				}
-				if (manager_in_details) idman_start=DBNull.Value; //idman_start=null significa idman BLOCCATO 
-			}
-			string filterupb=null;
+                    if (idman_mydetail != DBNull.Value) manager_in_details = true;
+                }
+
+                if (manager_in_details) idman_start = DBNull.Value; //idman_start=null significa idman BLOCCATO 
+            }
+
+            string filterupb = null;
             if (idupb.ToString() == "") idupb = DBNull.Value;
-            if (idupb != DBNull.Value)
-            {
+            if (idupb != DBNull.Value) {
                 filterupb = QHS.CmpEq("idupb", idupb);
                 //object idman_detail = DS.upb.Select(filterupb)[0]["idman"];
                 object idman_detail = Conn.DO_READ_VALUE("upb", filterupb, "idman");
                 if (idman_detail != DBNull.Value) idman_start = idman_detail;
             }
+
             bool upbToSelect = true;
-            if (FiltraRows(Selected,QHC.IsNull(field)).Count==0 || idupb!=DBNull.Value){
+            if (FiltraRows(Selected, QHC.IsNull(field)).Count == 0 || idupb != DBNull.Value) {
                 // Se contabilizzo separatamente l'IVA oppure l'imponibile si deve dare la possibilità  
                 // di selezionare   UPB diversi
                 upbToSelect = false;
             }
-          
-           
+
+
             FrmAskInfo F = new FrmAskInfo(Meta, "S", upbToSelect)
-                                       .SetManager(idman_start)
-                                       .SetUPB(idupb)
-                                       .EnableFilterAvailable(amount)
-                                       .EnableUPBSelection(upbToSelect);
+                .SetManager(idman_start)
+                .SetUPB(idupb)
+                .EnableFilterAvailable(amount)
+                .EnableUPBSelection(upbToSelect);
             if (manager_in_details)
                 F.EnableManagerSelection(false);
             else
                 F.AllowNoManagerSelection(true);
-                  
-			if (F.ShowDialog(this)!=DialogResult.OK) return false;
+
+            if (F.ShowDialog(this) != DialogResult.OK) return false;
             if (idman_start == null)
                 idmanagerSelected = null;
             else
@@ -2768,148 +2927,154 @@ namespace expense_wizardmandatedetail
             txtCodeBilSelected.Text = RB["codefin"].ToString();
             txtDenomBilSelected.Text = RB["title"].ToString();
 
-			gboxBilToCreate.Visible=true;
-			return true;			
-		}
+            gboxBilToCreate.Visible = true;
+            return true;
+        }
 
-		private void tabController_SelectionChanged(object sender, System.EventArgs e) {
+        private void tabController_SelectionChanged(object sender, System.EventArgs e) {
 //			int faseordine = CfgFn.GetNoNullInt32(Meta.GetSys("mandatephase"));
-			// seleziona una delle tre opzioni in base alla fase di contabilizzazione
-			if (tabController.SelectedIndex == 2 && (!chkAddContab.Checked) && SelezioneMovimentiEffettuata){
-				if (faseordine ==1 && radioNewCont.Visible) {
-					radioNewCont.Checked=true;
-				}
-				else {
-					if (faseordine >1 && radioNewLinkedMov.Visible) {
-						radioNewLinkedMov.Checked=true;
-					}
-					else {
-						if (radioNewCont.Visible)
-							radioNewCont.Checked=true;
-						else
-							if (radioAddCont.Enabled)
-							radioAddCont.Checked=true;
-					}
-				}
-			}
-		}
+            // seleziona una delle tre opzioni in base alla fase di contabilizzazione
+            if (tabController.SelectedIndex == 2 && (!chkAddContab.Checked) && SelezioneMovimentiEffettuata) {
+                if (faseordine == 1 && radioNewCont.Visible) {
+                    radioNewCont.Checked = true;
+                }
+                else {
+                    if (faseordine > 1 && radioNewLinkedMov.Visible) {
+                        radioNewLinkedMov.Checked = true;
+                    }
+                    else {
+                        if (radioNewCont.Visible)
+                            radioNewCont.Checked = true;
+                        else if (radioAddCont.Enabled)
+                            radioAddCont.Checked = true;
+                    }
+                }
+            }
+        }
 
-		bool doAssocia(){
-			if (radioNewCont.Checked) {
-				//DS.mandatedetail.RejectChanges();
-				DS.expense.Clear();
-				DS.expenseyear.Clear();
-				DS.expensemandate.Clear();
-				return doSaveNewExpense(null);
-			}
-			if (radioNewLinkedMov.Checked) {
-				//DS.mandatedetail.RejectChanges();
-				DS.expense.Clear();
-				DS.expenseyear.Clear();
-				DS.expensemandate.Clear();
-				return doSaveNewExpense(idexp_selected);
-			}
-			if (radioAddCont.Checked) {
-				DS.expensemandate.Clear();
-				DS.expenseyear.Clear();
-				DS.expense.Clear();
-				return doAddConta();
-			}
-			return false;
-		}
+        bool doAssocia() {
+            if (radioNewCont.Checked) {
+                //DS.mandatedetail.RejectChanges();
+                DS.expense.Clear();
+                DS.expenseyear.Clear();
+                DS.expensemandate.Clear();
+                return doSaveNewExpense(null);
+            }
 
-		bool doAssociaSoloDettagli(){
-            if (idexp_selected == null || idexp_selected==DBNull.Value) {
-		        MessageBox.Show(this,"Selezionare prima il movimento di spesa","Avviso");
-		        return false;
-		    }
-            int idexp_selected_int;
+            if (radioNewLinkedMov.Checked) {
+                //DS.mandatedetail.RejectChanges();
+                DS.expense.Clear();
+                DS.expenseyear.Clear();
+                DS.expensemandate.Clear();
+                return doSaveNewExpense(idexp_selected);
+            }
 
-            bool isnum = isNumeric(idexp_selected.ToString(), out idexp_selected_int);
+            if (radioAddCont.Checked) {
+                DS.expensemandate.Clear();
+                DS.expenseyear.Clear();
+                DS.expense.Clear();
+                return doAddConta();
+            }
 
-            if ((isnum == false)|| (idexp_selected_int == 0)) {
+            return false;
+        }
+
+        bool doAssociaSoloDettagli() {
+            if (idexp_selected == null || idexp_selected == DBNull.Value) {
                 MessageBox.Show(this, "Selezionare prima il movimento di spesa", "Avviso");
                 return false;
             }
 
-            int esercizio= Convert.ToInt32(Meta.GetSys("esercizio"));
-				Conn.RUN_SELECT_INTO_TABLE(DS.expense,null,
-					QHS.CmpEq("idexp", idexp_selected_int),null,false);
-				Conn.RUN_SELECT_INTO_TABLE(DS.expenseyear,null,
-					QHS.AppAnd(QHS.CmpEq("idexp", idexp_selected_int), 
-					QHS.CmpEq("ayear", esercizio)),null,false);
-                Conn.RUN_SELECT_INTO_TABLE(DS.expensesorted, null,
-                    QHS.AppAnd(QHS.CmpEq("idexp", idexp_selected_int),
+            int idexp_selected_int;
+
+            bool isnum = isNumeric(idexp_selected.ToString(), out idexp_selected_int);
+
+            if ((isnum == false) || (idexp_selected_int == 0)) {
+                MessageBox.Show(this, "Selezionare prima il movimento di spesa", "Avviso");
+                return false;
+            }
+
+            int esercizio = Convert.ToInt32(Meta.GetSys("esercizio"));
+            Conn.RUN_SELECT_INTO_TABLE(DS.expense, null,
+                QHS.CmpEq("idexp", idexp_selected_int), null, false);
+            Conn.RUN_SELECT_INTO_TABLE(DS.expenseyear, null,
+                QHS.AppAnd(QHS.CmpEq("idexp", idexp_selected_int),
+                    QHS.CmpEq("ayear", esercizio)), null, false);
+            Conn.RUN_SELECT_INTO_TABLE(DS.expensesorted, null,
+                QHS.AppAnd(QHS.CmpEq("idexp", idexp_selected_int),
                     QHS.CmpEq("ayear", esercizio)), null, false);
 
-				int currcausale= CfgFn.GetNoNullInt32( cmbCausale.SelectedValue);
-				DataRow []Selected= GetGridSelectedRows(gridDetails);
-	            //DataRow []Details = FiltraRows(Selected,null);
-                string listRownum = "(";
-                foreach(int rownum in DetailsToUpdate) {
-                    listRownum += rownum.ToString() + ",";
+            int currcausale = CfgFn.GetNoNullInt32(cmbCausale.SelectedValue);
+            DataRow[] Selected = GetGridSelectedRows(gridDetails);
+            //DataRow []Details = FiltraRows(Selected,null);
+            string listRownum = "(";
+            foreach (int rownum in DetailsToUpdate) {
+                listRownum += rownum.ToString() + ",";
+            }
+
+            listRownum = listRownum.Substring(0, listRownum.Length - 1) + ")";
+            string filterDetails = null;
+            if (listRownum != "") filterDetails = "(rownum in " + listRownum + ")";
+            DataRow[] Details = DS.mandatedetail.Select(filterDetails);
+            foreach (DataRow R in Details) {
+                switch (currcausale) {
+                    case 1:
+                        R["idexp_taxable"] = idexp_selected_int;
+                        R["idexp_iva"] = idexp_selected_int;
+                        break;
+                    case 3:
+                        R["idexp_taxable"] = idexp_selected_int;
+                        break;
+                    case 2:
+                        R["idexp_iva"] = idexp_selected_int;
+                        break;
                 }
-                listRownum = listRownum.Substring(0, listRownum.Length - 1) + ")"; 
-                    string filterDetails = null;
-				    if (listRownum != "") filterDetails = "(rownum in " + listRownum + ")";
-                    DataRow[] Details = DS.mandatedetail.Select(filterDetails);
-				    foreach(DataRow R in Details){
-					switch(currcausale){
-						case 1:
-							R["idexp_taxable"]= idexp_selected_int;
-							R["idexp_iva"]= idexp_selected_int;
-							break;
-						case 3:
-							R["idexp_taxable"]= idexp_selected_int;
-							break;
-						case 2:
-							R["idexp_iva"]= idexp_selected_int;
-							break;
-					}
-				}
-                AggiornaUPBDettagli(Details);
-                
-                if (DS.expenseyear.Rows[0]["idupb"] != DBNull.Value) idUPBSelected = DS.expenseyear.Rows[0]["idupb"];
+            }
 
-                return doSave();
-		}
+            AggiornaUPBDettagli(Details);
 
-		bool doSave(){
+            if (DS.expenseyear.Rows[0]["idupb"] != DBNull.Value) idUPBSelected = DS.expenseyear.Rows[0]["idupb"];
+
+            return doSave();
+        }
+
+        bool doSave() {
             DataSet DSP = DS.Copy();
-			int fasespesamax = CfgFn.GetNoNullInt32(Meta.GetSys("maxexpensephase"));
-			GestioneAutomatismi ga = new GestioneAutomatismi(this, Meta.Conn, Meta.Dispatcher,
+            int fasespesamax = CfgFn.GetNoNullInt32(Meta.GetSys("maxexpensephase"));
+            GestioneAutomatismi ga = new GestioneAutomatismi(this, Meta.Conn, Meta.Dispatcher,
                 DSP, fasespesamax, fasespesamax, "expense", true);
             ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
             //ga.GeneraClassificazioniIndirette(ga.DSP, true); lo fa già GeneraClassificazioniAutomatiche
             bool res = ga.GeneraAutomatismiAfterPost(true);
-			if (!res) {
-				MessageBox.Show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
-                return false;
-			}
-			res = ga.doPost(Meta.Dispatcher);
-            if (res) ViewAutomatismi(ga.DSP);
-           
-//			PostData Post = Meta.Get_PostData();
-//			Post.InitClass(DS,Conn);
-            if (!res)
-            {
+            if (!res) {
+                MessageBox.Show(this,
+                    "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
                 return false;
             }
-			DS.AcceptChanges();
-			DS.expensemandate.Clear();
-			DS.mandatedetail.Clear();
-			DS.expense.Clear();
-			DS.expenseyear.Clear();
+
+            res = ga.doPost(Meta.Dispatcher);
+            if (res) ViewAutomatismi(ga.DSP);
+
+//			PostData Post = Meta.Get_PostData();
+//			Post.InitClass(DS,Conn);
+            if (!res) {
+                return false;
+            }
+
+            DS.AcceptChanges();
+            DS.expensemandate.Clear();
+            DS.mandatedetail.Clear();
+            DS.expense.Clear();
+            DS.expenseyear.Clear();
             DS.expenselast.Clear();
-			DS.registry.Clear();
+            DS.registry.Clear();
             DetailsToUpdate.Clear();
-			return true;
-		}
-        void ViewAutomatismi(DataSet DS)
-        {
+            return true;
+        }
+
+        void ViewAutomatismi(DataSet DS) {
             string spesa = null;
-            if (DS.Tables["expense"] != null)
-            {
+            if (DS.Tables["expense"] != null) {
                 DataTable Var = DS.Tables["expense"];
                 if (DS.Tables["expense"].Select().Length == 0) return;
                 spesa = QHS.FieldIn("idexp", Var.Select(), "idexp");
@@ -2920,55 +3085,55 @@ namespace expense_wizardmandatedetail
             F?.ShowDialog(this);
         }
 
-		bool doAddConta(){
-			//Crea la riga in expensemandate
-			//Non solo deve associare i dettagli, ma deve anche creare la righe in expensemandate
-			MetaData ExpMand= MetaData.GetMetaData(this,"expensemandate");
-			DataRow  Mand= DS.mandate.Rows[0];
-			MetaData.SetDefault(DS.expensemandate,"idexp",idexp_selected);
-			ExpMand.SetDefaults(DS.expensemandate);
-			DataRow M= ExpMand.Get_New_Row(Mand,DS.expensemandate);
-			M["movkind"]= cmbCausale.SelectedValue;
-			return doAssociaSoloDettagli();
-		}
+        bool doAddConta() {
+            //Crea la riga in expensemandate
+            //Non solo deve associare i dettagli, ma deve anche creare la righe in expensemandate
+            MetaData ExpMand = MetaData.GetMetaData(this, "expensemandate");
+            DataRow Mand = DS.mandate.Rows[0];
+            MetaData.SetDefault(DS.expensemandate, "idexp", idexp_selected);
+            ExpMand.SetDefaults(DS.expensemandate);
+            DataRow M = ExpMand.Get_New_Row(Mand, DS.expensemandate);
+            M["movkind"] = cmbCausale.SelectedValue;
+            return doAssociaSoloDettagli();
+        }
 
-		/// <summary>
-		/// Riempie i dati di una riga di entata o spesa prendendoli dall'automatismo e dall'
-		///  IDmovimento in ingresso
-		/// </summary>
-		/// <param name="E_S"></param>
-		/// <param name="Auto"></param>
-		/// <param name="CurrSpesa"></param>
-		void FillMovimento(DataRow E_S, decimal amount, object idman, int idreg, 
-					string description){ 
-			int esercizio= Convert.ToInt32(Meta.GetSys("esercizio"));
-			DateTime DataCont= Convert.ToDateTime(Meta.GetSys("datacontabile"));
-			E_S.BeginEdit();
-			E_S["ymov"]= esercizio;
-			E_S["adate"]= DataCont;
-			E_S["idman"]=idman;
-			E_S["idreg"]=idreg;
-			E_S["description"]=description;
+        /// <summary>
+        /// Riempie i dati di una riga di entata o spesa prendendoli dall'automatismo e dall'
+        ///  IDmovimento in ingresso
+        /// </summary>
+        /// <param name="E_S"></param>
+        /// <param name="Auto"></param>
+        /// <param name="CurrSpesa"></param>
+        void FillMovimento(DataRow E_S, decimal amount, object idman, int idreg,
+            string description) {
+            int esercizio = Convert.ToInt32(Meta.GetSys("esercizio"));
+            DateTime DataCont = Convert.ToDateTime(Meta.GetSys("datacontabile"));
+            E_S.BeginEdit();
+            E_S["ymov"] = esercizio;
+            E_S["adate"] = DataCont;
+            E_S["idman"] = idman;
+            E_S["idreg"] = idreg;
+            E_S["description"] = description;
             //E_S["amount"]=CfgFn.RoundValuta(amount);
-			E_S.EndEdit();
-		}
+            E_S.EndEdit();
+        }
 
 
-		void FillImputazioneMovimento(DataRow ImpMov, decimal amount, object idfin, object idupb){
+        void FillImputazioneMovimento(DataRow ImpMov, decimal amount, object idfin, object idupb) {
 
-			ImpMov["amount"]= amount;
-			ImpMov["idfin"]= idfin;
-			ImpMov["idupb"]=idupb;
-		}
+            ImpMov["amount"] = amount;
+            ImpMov["idfin"] = idfin;
+            ImpMov["idupb"] = idupb;
+        }
 
-        bool doSaveNewExpense(object  idparent) {
+        bool doSaveNewExpense(object idparent) {
             //			int faseordine= CfgFn.GetNoNullInt32( Meta.GetSys("mandatephase"));
             int fasecred = CfgFn.GetNoNullInt32(Meta.GetSys("expenseregphase"));
             int fasebilancio = CfgFn.GetNoNullInt32(Meta.GetSys("expensefinphase"));
             int fasespesamax = CfgFn.GetNoNullInt32(Meta.GetSys("maxexpensephase"));
             int faseinizio;
             int fasefine;
-            if (idparent == null || idparent ==DBNull.Value) {
+            if (idparent == null || idparent == DBNull.Value) {
                 faseinizio = 1;
                 fasefine = faseordine;
                 idparent = DBNull.Value;
@@ -3005,6 +3170,7 @@ namespace expense_wizardmandatedetail
                     field_upb = "idupb_iva";
                 }
             }
+
             if (upb.Length == 2) {
                 object idupb1 = upb[0];
                 object idupb2 = upb[1];
@@ -3013,12 +3179,11 @@ namespace expense_wizardmandatedetail
                     result[0] = idupb1;
                     upb = result;
                 }
-                else
-                    if (idupb1 == DBNull.Value && idupb2 != DBNull.Value) {
-                        object[] result = new object[1];
-                        result[0] = idupb2;
-                        upb = result;
-                    }
+                else if (idupb1 == DBNull.Value && idupb2 != DBNull.Value) {
+                    object[] result = new object[1];
+                    result[0] = idupb2;
+                    upb = result;
+                }
             }
 
             object[] registry = ValoriDiversi(SelectedRows, "idreg");
@@ -3029,6 +3194,7 @@ namespace expense_wizardmandatedetail
             if (DS.mandate.Rows.Count == 0) {
                 return false;
             }
+
             DataRow Mandate = DS.mandate.Rows[0];
 
             DataTable MandateKind = Conn.RUN_SELECT("mandatekind", "*", null,
@@ -3054,6 +3220,7 @@ namespace expense_wizardmandatedetail
                 if (ExpenseYear.Rows.Count == 0) {
                     return false;
                 }
+
                 DataRow ParExpY = ExpenseYear.Rows[0];
                 if (ParExpY["idfin"] != DBNull.Value) idfinSelected = ParExpY["idfin"];
                 if (ParExpY["idupb"] != DBNull.Value) idUPBSelected = ParExpY["idupb"];
@@ -3063,7 +3230,8 @@ namespace expense_wizardmandatedetail
                 object idman_parent = Conn.DO_READ_VALUE("expense", QHS.CmpEq("idexp", idparent), "idman");
 
                 if ((idmanagerSelected == null) || (idmanagerSelected == DBNull.Value)) idmanagerSelected = idman_start;
-                if ((idmanagerSelected == null) || (idmanagerSelected == DBNull.Value)) idmanagerSelected = idman_parent;
+                if ((idmanagerSelected == null) || (idmanagerSelected == DBNull.Value))
+                    idmanagerSelected = idman_parent;
                 if ((idmanagerSelected == null) || (idmanagerSelected == DBNull.Value)) {
                     ExistMan_parent = false;
                 }
@@ -3092,7 +3260,7 @@ namespace expense_wizardmandatedetail
                     else {
                         filtermandetoriginal = QHS.CmpEq(field_upb, idupb);
                     }
-                    
+
                     idupbManager = idupb;
                 }
 
@@ -3101,9 +3269,10 @@ namespace expense_wizardmandatedetail
                 //DataRow UPB = DS.upb.Select(filterupb)[0];
                 //idmanagerupb= UPB["idman"].ToString();
                 idmanagerupb = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", idupbManager), "idman");
-                
 
-                if ((idmanagerSelected == null) || (idmanagerSelected == DBNull.Value)) idmanagerSelected = idmanagerupb;
+
+                if ((idmanagerSelected == null) || (idmanagerSelected == DBNull.Value))
+                    idmanagerSelected = idmanagerupb;
                 if (idmanagerSelected == null) idmanagerSelected = DBNull.Value;
 
                 bool avvisoDelegatoMostrato = false;
@@ -3115,7 +3284,7 @@ namespace expense_wizardmandatedetail
 
                     DS.registry.Clear();
                     Conn.RUN_SELECT_INTO_TABLE(DS.registry, null, filterregistry, null, true);
-                    if (DS.registry.Rows.Count==0)continue;
+                    if (DS.registry.Rows.Count == 0) continue;
                     string title = DS.registry.Rows[0]["title"].ToString();
 
                     string filterdetail = "";
@@ -3131,7 +3300,8 @@ namespace expense_wizardmandatedetail
                         }
                     }
 
-                    decimal amount = CalcTotCausale(FiltraRows(SelectedRows, filterdetail).ToArray(), currcausale, genMultipla);
+                    decimal amount = CalcTotCausale(FiltraRows(SelectedRows, filterdetail).ToArray(), currcausale,
+                        genMultipla);
                     if (amount == 0) continue;
                     DataRow ParentR = null;
                     DataRow ExpenseToLink = null;
@@ -3143,12 +3313,13 @@ namespace expense_wizardmandatedetail
                         if (faseCorrente == faseordine) ExpenseToLink = NewSpesaRow;
                         ParentR = NewSpesaRow;
 
-                        FillMovimento(NewSpesaRow, amount, idmanagerSelected, codicereg, Mandate["description"].ToString());
+                        FillMovimento(NewSpesaRow, amount, idmanagerSelected, codicereg,
+                            Mandate["description"].ToString());
 
                         NewSpesaRow["doc"] = "Ord." +
-                            Mandate["idmankind"].ToString() + "/" +
-                            Mandate["yman"].ToString().Substring(2, 2) + "/" +
-                            Mandate["nman"].ToString().PadLeft(6, '0');
+                                             Mandate["idmankind"].ToString() + "/" +
+                                             Mandate["yman"].ToString().Substring(2, 2) + "/" +
+                                             Mandate["nman"].ToString().PadLeft(6, '0');
                         //"Ord."+ValoriOrdine["documento"];
                         NewSpesaRow["docdate"] = Mandate["adate"];
 
@@ -3171,6 +3342,7 @@ namespace expense_wizardmandatedetail
                                     "Dati non salvati", "Errore", MessageBoxButtons.OK);
                                 return false;
                             }
+
                             DataRow NewLastMov = ExpL.Get_New_Row(NewSpesaRow, LastMov);
                             //aggiungere le informazioni della modalità di pagamento
                             NewLastMov["idregistrypaymethod"] = ModPagam["idregistrypaymethod"];
@@ -3190,8 +3362,7 @@ namespace expense_wizardmandatedetail
 
                             DataTable TPaymethod = Conn.RUN_SELECT("paymethod", "*", null, filterpaymethod, null, true);
 
-                            if ((TPaymethod != null) && (TPaymethod.Rows.Count > 0))
-                            {
+                            if ((TPaymethod != null) && (TPaymethod.Rows.Count > 0)) {
                                 object paymethod_allowdeputy = TPaymethod.Rows[0]["allowdeputy"];
                                 object paymethod_flag = TPaymethod.Rows[0]["flag"];
                                 NewLastMov["paymethod_allowdeputy"] = paymethod_allowdeputy;
@@ -3200,10 +3371,12 @@ namespace expense_wizardmandatedetail
 
                             if (NewLastMov["iddeputy"] != DBNull.Value && !avvisoDelegatoMostrato) {
                                 avvisoDelegatoMostrato = true;
-                                string titleDelegato = Conn.readValue("registry", q.eq("idreg", NewLastMov["iddeputy"]), "title")?.ToString()??"";
+                                string titleDelegato =
+                                    Conn.readValue("registry", q.eq("idreg", NewLastMov["iddeputy"]), "title")
+                                        ?.ToString() ?? "";
                                 MessageBox.Show(
                                     "Attenzione, l'anagrafica considerata è associata ad un delegato come modalità di pagamento. Il pagamento sarà pertanto effettuato al delegato "
-                                    +titleDelegato+" sull'iban "+NewLastMov["iban"].ToString(),
+                                    + titleDelegato + " sull'iban " + NewLastMov["iban"].ToString(),
                                     "Avviso");
                             }
 
@@ -3213,12 +3386,13 @@ namespace expense_wizardmandatedetail
                         DataRow NewImpMov = ImpMov.NewRow();
 
 
-                        if (idupb != DBNull.Value){
+                        if (idupb != DBNull.Value) {
                             FillImputazioneMovimento(NewImpMov, amount, idfinSelected, idupb);
                         }
                         else {
                             FillImputazioneMovimento(NewImpMov, amount, idfinSelected, idUPBSelected);
                         }
+
                         NewImpMov["idexp"] = NewSpesaRow["idexp"];
                         NewImpMov["ayear"] = esercizio;
 
@@ -3226,6 +3400,7 @@ namespace expense_wizardmandatedetail
                             NewImpMov["idfin"] = DBNull.Value;
                             NewImpMov["idupb"] = DBNull.Value;
                         }
+
                         ImpMov.Rows.Add(NewImpMov);
                     }
 
@@ -3243,6 +3418,7 @@ namespace expense_wizardmandatedetail
                     foreach (int rownum in DetailsToUpdate) {
                         listRownum += rownum.ToString() + ",";
                     }
+
                     listRownum = listRownum.Substring(0, listRownum.Length - 1) + ")";
                     string filterToUpdate = null;
                     if (listRownum != "") filterToUpdate = "(rownum in " + listRownum + ")";
@@ -3263,12 +3439,12 @@ namespace expense_wizardmandatedetail
                                 break;
                         }
                     }
+
                     // Associa l'UPB ai dettagli sui quali non era stato impostato
                     if (currcausale == 1) // solo in caso di contabilizzazione totale
                     {
                         var DetailsUPBNull = FiltraRows(Details.ToArray(), "(idupb is null)");
-                        foreach (DataRow RD1 in DetailsUPBNull)
-                        {
+                        foreach (DataRow RD1 in DetailsUPBNull) {
                             RD1["idupb"] = idUPBSelected;
                         }
                     }
@@ -3282,18 +3458,18 @@ namespace expense_wizardmandatedetail
         }
 
 
-		void DisplayMessages(){
-		}
+        void DisplayMessages() {
+        }
 
-		private void cmbTipoOrdine_SelectedIndexChanged(object sender, System.EventArgs e) {
-			if (Meta==null) return;
-			if (!Meta.DrawStateIsDone) return;
-			ClearOrdine();
-			return;
+        private void cmbTipoOrdine_SelectedIndexChanged(object sender, System.EventArgs e) {
+            if (Meta == null) return;
+            if (!Meta.DrawStateIsDone) return;
+            ClearOrdine();
+            return;
 
-		}
+        }
 
-        void AggiornaUPBDettagli(DataRow[] SelectedRows){
+        void AggiornaUPBDettagli(DataRow[] SelectedRows) {
             object[] upb = ValoriDiversi(SelectedRows, "idupb");
             object[] upb_iva = ValoriDiversi(SelectedRows, "idupb_iva");
             string field = "idupb";
@@ -3304,79 +3480,78 @@ namespace expense_wizardmandatedetail
                     field = "idupb_iva";
                 }
             }
+
             string filterupbnull = QHC.IsNull(field);
-            if ((FiltraRows(SelectedRows, filterupbnull).Count > 0) && (upb.Length == 2))
-            {
+            if ((FiltraRows(SelectedRows, filterupbnull).Count > 0) && (upb.Length == 2)) {
                 object idupbtoassign = DBNull.Value;
-                var Details  = FiltraRows(SelectedRows, QHC.IsNotNull(field));
+                var Details = FiltraRows(SelectedRows, QHC.IsNotNull(field));
                 if (Details.Count > 0) idupbtoassign = Details[0][field];
-                foreach (DataRow Curr in FiltraRows(SelectedRows, filterupbnull))
-                {
+                foreach (DataRow Curr in FiltraRows(SelectedRows, filterupbnull)) {
                     Curr[field] = idupbtoassign;
                 }
 
             }
         }
 
-		private void txtTotImponibile_Leave(object sender, System.EventArgs e) {
-				//AggiornaTotSelezione(sender);
-		}
+        private void txtTotImponibile_Leave(object sender, System.EventArgs e) {
+            //AggiornaTotSelezione(sender);
+        }
 
-		private void txtTotIva_Leave(object sender, System.EventArgs e) {
-				//AggiornaTotSelezione(sender);
-		}
+        private void txtTotIva_Leave(object sender, System.EventArgs e) {
+            //AggiornaTotSelezione(sender);
+        }
 
-		void AggiornaTotSelezione(object sender) {
-			TextBox T = (TextBox)sender;
-			if (!T.Modified) return;
-			decimal  valore = CfgFn.GetNoNullDecimal( HelpForm.GetObjectFromString(typeof(Decimal),
-				T.Text,"x.y.c"));
-			if (valore<0) {
-				MessageBox.Show("Valore non valido");
-				T.Focus();
-				return;
-			}
-			decimal importoimponibile= CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),
-				txtTotImponibile.Text,"x.y.c"));
-			decimal importoiva= CfgFn.GetNoNullDecimal( HelpForm.GetObjectFromString(typeof(Decimal),
-				txtTotIva.Text,"x.y.c"));
-			T.Text = valore.ToString("c");
-			//txtTotGenerale.Text = (importoimponibile + importoiva).ToString("c");
-		}
+        void AggiornaTotSelezione(object sender) {
+            TextBox T = (TextBox) sender;
+            if (!T.Modified) return;
+            decimal valore = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),
+                T.Text, "x.y.c"));
+            if (valore < 0) {
+                MessageBox.Show("Valore non valido");
+                T.Focus();
+                return;
+            }
 
-     
+            decimal importoimponibile = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),
+                txtTotImponibile.Text, "x.y.c"));
+            decimal importoiva = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),
+                txtTotIva.Text, "x.y.c"));
+            T.Text = valore.ToString("c");
+            //txtTotGenerale.Text = (importoimponibile + importoiva).ToString("c");
+        }
 
-       void RecalcOperationsToDo()
-        {
-            
 
-            int causale = CfgFn.GetNoNullInt32( cmbCausale.SelectedValue);
+
+        void RecalcOperationsToDo() {
+
+
+            int causale = CfgFn.GetNoNullInt32(cmbCausale.SelectedValue);
 
             DataRow[] Selected = GetGridSelectedRows(gridDetails);
 
             decimal ImportoMax = CfgFn.GetNoNullDecimal(
                 HelpForm.GetObjectFromString(typeof(decimal),
-                txtTotSelezionato.Text, "x.y.c"));
+                    txtTotSelezionato.Text, "x.y.c"));
 
             decimal ImportoDaPagare = CfgFn.GetNoNullDecimal(
                 HelpForm.GetObjectFromString(typeof(decimal),
-                txtDaPagare.Text, "x.y.c"));
-            if (ImportoDaPagare == 0)
-            {
-                ImportoDaPagare = ImportoMax; 
+                    txtDaPagare.Text, "x.y.c"));
+            if (ImportoDaPagare == 0) {
+                ImportoDaPagare = ImportoMax;
             }
+
             txtDaPagare.Text = ImportoDaPagare.ToString("c");
             decimal PercentualeDigitata = CfgFn.GetNoNullDecimal(
                 HelpForm.GetObjectFromString(typeof(decimal),
-                txtPerc.Text, "x.y.c"));
+                    txtPerc.Text, "x.y.c"));
 
-            if (ImportoDaPagare > ImportoMax)
-            {
+            if (ImportoDaPagare > ImportoMax) {
                 MessageBox.Show("L'importo da pagare è superiore al totale dei dettagli selezionati");
                 txtDaPagare.Text = "";
                 ImportoDaPagare = 0;
                 return;
             }
+
             decimal percentuale = 100;
             if (ImportoMax != 0) percentuale = ImportoDaPagare / ImportoMax * 100;
             decimal rounded = Math.Round(percentuale, 4);
@@ -3384,50 +3559,47 @@ namespace expense_wizardmandatedetail
             txtPerc.Text = HelpForm.StringValue(rounded, "x.y.fixed.4...1");
             string operazioni = "";
             operazioni = QueryCreator.GetPrintable(operazioni);
-           
+
         }
 
-        decimal CalcolaCoefficiente(decimal importoDaPagare, decimal importoMax,DataRow rowToSplit)
-        {
+        decimal CalcolaCoefficiente(decimal importoDaPagare, decimal importoMax, DataRow rowToSplit) {
             decimal epsilon = 0;
             if ((importoDaPagare != 0) && (importoMax != 0)) epsilon = importoDaPagare / importoMax;
             if (epsilon >= 1) return epsilon;
 
-           int maxIter = 100;
-                int niter = 1;
-                decimal epsilon_min = epsilon - 0.01M;
-                decimal epsilon_max = epsilon + 0.01M;
-                decimal epsilon_med = (epsilon_min + epsilon_max) / 2;
-                decimal importoRicalcolato = RicalcolaTotaleDaContabilizzare(epsilon_med, rowToSplit);
-                while (niter < maxIter &&  importoRicalcolato!=importoDaPagare)
-                {
-                    if (importoDaPagare - importoRicalcolato > 0)
-                    {
-                        epsilon_min = epsilon_med;
-                    }
-                    else
-                    {
-                        epsilon_max = epsilon_med;
-                    }
-                    epsilon_med = (epsilon_min + epsilon_max) / 2;
-                    importoRicalcolato = RicalcolaTotaleDaContabilizzare(epsilon_med, rowToSplit);
-                    if (importoRicalcolato != importoDaPagare)
-                    {
-                    decimal totale_min = RicalcolaTotaleDaContabilizzare(epsilon_min,rowToSplit);
+            int maxIter = 100;
+            int niter = 1;
+            decimal epsilon_min = epsilon - 0.01M;
+            decimal epsilon_max = epsilon + 0.01M;
+            decimal epsilon_med = (epsilon_min + epsilon_max) / 2;
+            decimal importoRicalcolato = RicalcolaTotaleDaContabilizzare(epsilon_med, rowToSplit);
+            while (niter < maxIter && importoRicalcolato != importoDaPagare) {
+                if (importoDaPagare - importoRicalcolato > 0) {
+                    epsilon_min = epsilon_med;
+                }
+                else {
+                    epsilon_max = epsilon_med;
+                }
+
+                epsilon_med = (epsilon_min + epsilon_max) / 2;
+                importoRicalcolato = RicalcolaTotaleDaContabilizzare(epsilon_med, rowToSplit);
+                if (importoRicalcolato != importoDaPagare) {
+                    decimal totale_min = RicalcolaTotaleDaContabilizzare(epsilon_min, rowToSplit);
                     decimal totale_max = RicalcolaTotaleDaContabilizzare(epsilon_max, rowToSplit);
-                    if (totale_min == totale_max)
-                    {
+                    if (totale_min == totale_max) {
                         epsilon = epsilon_med;
                         niter = 100;
                     }
-                    }
-                    niter += 1;
                 }
-                return epsilon_med;
+
+                niter += 1;
+            }
+
+            return epsilon_med;
         }
 
-        decimal GetImponibileNear(decimal imponibiletest, decimal taxable, decimal number, decimal discount, decimal exchangerate)
-        {
+        decimal GetImponibileNear(decimal imponibiletest, decimal taxable, decimal number, decimal discount,
+            decimal exchangerate) {
             decimal TotaleImponibile = CfgFn.RoundValuta(taxable * number * (1 - discount) * exchangerate);
             decimal imponibilecomplementare = taxable - imponibiletest;
             decimal totale1 = CfgFn.RoundValuta(imponibiletest * number * (1 - discount) * exchangerate);
@@ -3440,31 +3612,30 @@ namespace expense_wizardmandatedetail
             if ((x > 100) && (x <= 1000)) passo = 0.00001M;
             if (x > 1000) passo = 0.00001M;
             decimal cent = passo;
-            while (cent < 0.2M)
-            {
+            while (cent < 0.2M) {
                 decimal imponibile_try = imponibiletest + cent;
                 decimal imponibilecomplementare_try = taxable - imponibile_try;
                 totale1 = CfgFn.RoundValuta(imponibile_try * number * (1 - discount) * exchangerate);
                 totale2 = CfgFn.RoundValuta(imponibilecomplementare_try * number * (1 - discount) * exchangerate);
-                if (totale1 + totale2 == TotaleImponibile)
-                {
+                if (totale1 + totale2 == TotaleImponibile) {
                     return imponibile_try;
                 }
+
                 imponibile_try = imponibiletest - cent;
                 imponibilecomplementare_try = taxable - imponibile_try;
                 totale1 = CfgFn.RoundValuta(imponibile_try * number * (1 - discount) * exchangerate);
                 totale2 = CfgFn.RoundValuta(imponibilecomplementare_try * number * (1 - discount) * exchangerate);
-                if (totale1 + totale2 == TotaleImponibile)
-                {
+                if (totale1 + totale2 == TotaleImponibile) {
                     return imponibile_try;
                 }
+
                 cent += passo;
             }
+
             return imponibiletest;
         }
 
-        DataTable AggiungiOSottraiCentADettagli(decimal proporzione, decimal importoDaPagare, decimal cents)
-        {
+        DataTable AggiungiOSottraiCentADettagli(decimal proporzione, decimal importoDaPagare, decimal cents) {
             DataRow[] Selected = GetGridSelectedRows(gridDetails);
             DataTable Info = new DataTable();
 
@@ -3472,8 +3643,7 @@ namespace expense_wizardmandatedetail
             Info.Columns.Add("difference", typeof(decimal));
             Info.Columns.Add("cents", typeof(decimal)); // Centesimi da sommare/sottrarre all'iva totale
             bool success = false;
-            foreach (DataRow Row1 in Selected)
-            {
+            foreach (DataRow Row1 in Selected) {
                 decimal imponibile1 = CfgFn.GetNoNullDecimal(Row1["taxable"]);
                 decimal QuantitaConfezioni1 = CfgFn.GetNoNullDecimal(Row1["npackage"]);
                 //string  filter1 = "(idivakind=" + QueryCreator.quotedstrvalue(Row1["idivakind"], true) + ")";
@@ -3482,33 +3652,35 @@ namespace expense_wizardmandatedetail
                 DataRow Mandate1 = DS.mandate.Rows[0]; //Row1.GetParentRow("invoiceinvoicedetail");
                 decimal tassocambio1 = CfgFn.GetNoNullDecimal(Mandate1["exchangerate"]);
                 decimal taxable = CfgFn.Round(CfgFn.GetNoNullDecimal(Row1["taxable"]), 5);
-                decimal taxabletotal = CfgFn.RoundValuta((taxable * QuantitaConfezioni1 * (1 - sconto1) * tassocambio1));
+                decimal taxabletotal =
+                    CfgFn.RoundValuta((taxable * QuantitaConfezioni1 * (1 - sconto1) * tassocambio1));
                 // Ricalcolo l'imponibile unitario
                 decimal taxable1 = CfgFn.Round(CfgFn.GetNoNullDecimal(Row1["taxable"]) * proporzione, 5);
-                decimal taxable_recalc = GetImponibileNear(taxable1, imponibile1, QuantitaConfezioni1, sconto1, tassocambio1);
+                decimal taxable_recalc =
+                    GetImponibileNear(taxable1, imponibile1, QuantitaConfezioni1, sconto1, tassocambio1);
                 // Ricalcolo l'iva
                 decimal taxtotal = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Row1["tax"]));
                 decimal tax_recalctotal = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Row1["tax"]) * proporzione);
-                decimal taxable_recalctotal = CfgFn.RoundValuta((taxable_recalc * QuantitaConfezioni1 * (1 - sconto1) * tassocambio1));
+                decimal taxable_recalctotal =
+                    CfgFn.RoundValuta((taxable_recalc * QuantitaConfezioni1 * (1 - sconto1) * tassocambio1));
                 DataRow rInfo = Info.NewRow();
                 decimal difference;
-                if ((taxable_recalctotal != 0) && (taxabletotal != 0))
-                {
+                if ((taxable_recalctotal != 0) && (taxabletotal != 0)) {
                     difference = tax_recalctotal / taxable_recalctotal - taxtotal / taxabletotal;
                 }
-                else
-                {
+                else {
                     difference = -1000;
                 }
+
                 rInfo["rownum"] = Row1["rownum"];
                 rInfo["difference"] = difference;
                 rInfo["cents"] = 0;
                 Info.Rows.Add(rInfo);
             }
+
             DataRow[] Details;
             bool aggiungi;
-            if (cents < 0)
-            {
+            if (cents < 0) {
                 aggiungi = true;
                 cents = -cents;
             }
@@ -3516,26 +3688,23 @@ namespace expense_wizardmandatedetail
 
             decimal cent = 0.01M;
             if (cmbCausale.SelectedValue == null) return null;
-            int  causale = CfgFn.GetNoNullInt32( cmbCausale.SelectedValue);
+            int causale = CfgFn.GetNoNullInt32(cmbCausale.SelectedValue);
             if (causale == 3) return null;
-            while (cent <= cents)
-            {
+            while (cent <= cents) {
                 decimal totiva = 0;
                 decimal totimpo = 0;
                 decimal total = 0;
                 DataRow Det;
                 // Ordino in base a difference in ordine decrescente o crescente
-                if (aggiungi)
-                {
+                if (aggiungi) {
                     Details = Info.Select(null, "difference ASC");
                 }
-                else
-                {
+                else {
                     Details = Info.Select(null, "difference DESC");
                 }
+
                 Det = Details[0];
-                foreach (DataRow Row in Selected)
-                {
+                foreach (DataRow Row in Selected) {
                     string filterrow = QHC.CmpEq("rownum", Row["rownum"]);
                     DataRow RowAdjust = Info.Select(filterrow, null)[0];
                     decimal imponibile = CfgFn.GetNoNullDecimal(Row["taxable"]);
@@ -3550,78 +3719,78 @@ namespace expense_wizardmandatedetail
                     decimal taxable = CfgFn.Round(CfgFn.GetNoNullDecimal(Row["taxable"]), 5);
                     // Ricalcolo l'imponibile unitario
                     decimal taxable_recalc = CfgFn.Round(CfgFn.GetNoNullDecimal(Row["taxable"]) * proporzione, 5);
-                    taxable_recalc = GetImponibileNear(taxable_recalc, imponibile, QuantitaConfezioni, sconto, tassocambio);
+                    taxable_recalc = GetImponibileNear(taxable_recalc, imponibile, QuantitaConfezioni, sconto,
+                        tassocambio);
                     // Uso l'imponibile unitario per  calcolare l'iva totale e l'iva indetraibile
-                    decimal taxabletotal = CfgFn.RoundValuta((taxable * QuantitaConfezioni * (1 - sconto) * tassocambio));
+                    decimal taxabletotal =
+                        CfgFn.RoundValuta((taxable * QuantitaConfezioni * (1 - sconto) * tassocambio));
                     decimal taxtotal = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Row["tax"]));
                     decimal tax_recalc = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Row["tax"]) * proporzione);
-                    decimal taxabletot_recalc = CfgFn.RoundValuta((taxable_recalc * QuantitaConfezioni * (1 - sconto) * tassocambio));
+                    decimal taxabletot_recalc =
+                        CfgFn.RoundValuta((taxable_recalc * QuantitaConfezioni * (1 - sconto) * tassocambio));
                     // aggiungi o sottrai centesimi all'iva del dettaglio
-                    if (Det["rownum"].Equals(Row["rownum"]))
-                    {
-                        if (aggiungi)
-                        {
+                    if (Det["rownum"].Equals(Row["rownum"])) {
+                        if (aggiungi) {
                             tax_recalc = tax_recalc + CfgFn.GetNoNullDecimal(Det["cents"]) + 0.01M;
                             Det["cents"] = CfgFn.GetNoNullDecimal(Det["cents"]) + 0.01M;
                         }
-                        if (!aggiungi)
-                        {
+
+                        if (!aggiungi) {
                             tax_recalc = tax_recalc + (CfgFn.GetNoNullDecimal(Det["cents"])) - 0.01M;
                             Det["cents"] = CfgFn.GetNoNullDecimal(Det["cents"]) - 0.01M;
                         }
+
                         decimal difference;
-                        if ((taxable_recalc != 0) && (taxable != 0))
-                        {
+                        if ((taxable_recalc != 0) && (taxable != 0)) {
                             difference = tax_recalc / taxabletot_recalc - taxtotal / taxabletotal;
                         }
-                        else
-                        {
+                        else {
                             difference = -1000;
                         }
+
                         Det["difference"] = difference;
                     }
-                    else
-                    {
+                    else {
                         decimal aggiustamento = CfgFn.GetNoNullDecimal(RowAdjust["cents"]);
                         tax_recalc += aggiustamento;
                     }
                     //decimal unabatable = CfgFn.RoundValuta(tax * percindeduc);
 
-                    if (causale == 3)
-                    {
+                    if (causale == 3) {
                         totimpo += taxabletot_recalc;
                     }
-                    if (causale == 2)
-                    {
+
+                    if (causale == 2) {
                         totiva += tax_recalc;
                     }
-                    if (causale == 1)
-                    {
+
+                    if (causale == 1) {
                         totimpo += taxabletot_recalc;
                         totiva += tax_recalc;
                     }
+
                     total = totimpo + totiva;
                 }
+
                 decimal TotaleDaContabilizzare = 0;
-                if (causale == 3)
-                {
+                if (causale == 3) {
                     TotaleDaContabilizzare = CfgFn.GetNoNullDecimal(totimpo);
                 }
-                if (causale == 2)
-                {
+
+                if (causale == 2) {
                     TotaleDaContabilizzare = CfgFn.GetNoNullDecimal(totiva);
                 }
-                if (causale == 1)
-                {
+
+                if (causale == 1) {
                     TotaleDaContabilizzare = CfgFn.GetNoNullDecimal(total);
                 }
 
-                if (TotaleDaContabilizzare == importoDaPagare)
-                {
+                if (TotaleDaContabilizzare == importoDaPagare) {
                     cent = cents;
                     success = true;
                     break;
                 }
+
                 if (TotaleDaContabilizzare < importoDaPagare) aggiungi = true;
                 if (TotaleDaContabilizzare > importoDaPagare) aggiungi = false;
                 cent += 0.01M;
@@ -3631,64 +3800,62 @@ namespace expense_wizardmandatedetail
             else return null;
         }
 
-        decimal RicalcolaTotaleDaContabilizzare(decimal proporzione, DataRow rowToSplit)
-        {
+        decimal RicalcolaTotaleDaContabilizzare(decimal proporzione, DataRow rowToSplit) {
             if (cmbCausale.SelectedValue == null) return 0;
-            int causale = CfgFn.GetNoNullInt32( cmbCausale.SelectedValue);
+            int causale = CfgFn.GetNoNullInt32(cmbCausale.SelectedValue);
             decimal totiva = 0;
             decimal totimpo = 0;
             decimal total = 0;
             DataRow Mandate = DS.mandate.Rows[0]; //Row.GetParentRow("invoiceinvoicedetail");
             decimal tassocambio = CfgFn.GetNoNullDecimal(Mandate["exchangerate"]);
-            if (rowToSplit == null)
-            {
-            DataRow[] Selected = GetGridSelectedRows(gridDetails);
-           
-            
-            foreach (DataRow Row in Selected)
-            {
-                decimal imponibile = CfgFn.GetNoNullDecimal(Row["taxable"]);
-                decimal iva = CfgFn.GetNoNullDecimal(Row["tax"]);
-                decimal QuantitaConfezioni = CfgFn.GetNoNullDecimal(Row["npackage"]);
-                //string  filter = "(idivakind=" + QueryCreator.quotedstrvalue(Row["idivakind"], true) + ")";
-                decimal aliquota = CfgFn.GetNoNullDecimal(Row["taxrate"]);
-                decimal sconto = CfgFn.GetNoNullDecimal(Row["discount"]);
-                //decimal percindeduc = CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("ivakind", filter, "unabatabilitypercentage"));
-                // Ricalcolo l'imponibile unitario
-                decimal taxable = CfgFn.Round(CfgFn.GetNoNullDecimal(Row["taxable"]) * proporzione, 5);
-                taxable = GetImponibileNear(taxable, imponibile, QuantitaConfezioni, sconto, tassocambio);
-                // Uso l'imponibile unitario per  calcolare l'iva totale e l'iva indetraibile
-                decimal taxabletot = CfgFn.RoundValuta((taxable * QuantitaConfezioni * (1 - sconto) * tassocambio));
-                decimal tax = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Row["tax"]) * proporzione);
+            if (rowToSplit == null) {
+                DataRow[] Selected = GetGridSelectedRows(gridDetails);
 
-                if (causale == 3)
-                {
-                    totimpo += taxabletot;
+
+                foreach (DataRow Row in Selected) {
+                    decimal imponibile = CfgFn.GetNoNullDecimal(Row["taxable"]);
+                    decimal iva = CfgFn.GetNoNullDecimal(Row["tax"]);
+                    decimal QuantitaConfezioni = CfgFn.GetNoNullDecimal(Row["npackage"]);
+                    //string  filter = "(idivakind=" + QueryCreator.quotedstrvalue(Row["idivakind"], true) + ")";
+                    decimal aliquota = CfgFn.GetNoNullDecimal(Row["taxrate"]);
+                    decimal sconto = CfgFn.GetNoNullDecimal(Row["discount"]);
+                    //decimal percindeduc = CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("ivakind", filter, "unabatabilitypercentage"));
+                    // Ricalcolo l'imponibile unitario
+                    decimal taxable = CfgFn.Round(CfgFn.GetNoNullDecimal(Row["taxable"]) * proporzione, 5);
+                    taxable = GetImponibileNear(taxable, imponibile, QuantitaConfezioni, sconto, tassocambio);
+                    // Uso l'imponibile unitario per  calcolare l'iva totale e l'iva indetraibile
+                    decimal taxabletot = CfgFn.RoundValuta((taxable * QuantitaConfezioni * (1 - sconto) * tassocambio));
+                    decimal tax = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Row["tax"]) * proporzione);
+
+                    if (causale == 3) {
+                        totimpo += taxabletot;
+                    }
+
+                    if (causale == 2) {
+                        totiva += tax;
+                    }
+
+                    if (causale == 1) {
+                        totimpo += taxabletot;
+                        totiva += tax;
+                    }
+
+                    total = totimpo + totiva;
                 }
-                if (causale == 2)
-                {
-                    totiva += tax;
+
+                if (causale == 3) {
+                    TotaleDaContabilizzare = CfgFn.GetNoNullDecimal(totimpo);
                 }
-                if (causale == 1)
-                {
-                    totimpo += taxabletot;
-                    totiva += tax;
+
+                if (causale == 2) {
+                    TotaleDaContabilizzare = CfgFn.GetNoNullDecimal(totiva);
                 }
-                total = totimpo + totiva;
-            }
-            if (causale == 3)
-            {
-                TotaleDaContabilizzare = CfgFn.GetNoNullDecimal(totimpo);
-            }
-            if (causale == 2)
-            {
-                TotaleDaContabilizzare = CfgFn.GetNoNullDecimal(totiva);
-            }
-            if (causale == 1)
-            {
-                TotaleDaContabilizzare = CfgFn.GetNoNullDecimal(total);
-            }
-            return TotaleDaContabilizzare;
+
+                if (causale == 1) {
+                    TotaleDaContabilizzare = CfgFn.GetNoNullDecimal(total);
+                }
+
+                return TotaleDaContabilizzare;
             }
             else {
                 decimal imponibile = CfgFn.GetNoNullDecimal(rowToSplit["taxable"]);
@@ -3698,7 +3865,7 @@ namespace expense_wizardmandatedetail
                 decimal aliquota = CfgFn.GetNoNullDecimal(rowToSplit["taxrate"]);
                 decimal sconto = CfgFn.GetNoNullDecimal(rowToSplit["discount"]);
                 //decimal percindeduc = CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("ivakind", filter, "unabatabilitypercentage"));
-              
+
                 // Ricalcolo l'imponibile unitario
                 decimal taxable = CfgFn.Round(CfgFn.GetNoNullDecimal(rowToSplit["taxable"]) * proporzione, 5);
                 taxable = GetImponibileNear(taxable, imponibile, QuantitaConfezioni, sconto, tassocambio);
@@ -3706,82 +3873,81 @@ namespace expense_wizardmandatedetail
                 decimal taxabletot = CfgFn.RoundValuta((taxable * QuantitaConfezioni * (1 - sconto) * tassocambio));
                 decimal tax = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(rowToSplit["tax"]) * proporzione);
                 decimal importoRicalcolato = 0;
-                if (causale == 3)
-                {
+                if (causale == 3) {
                     importoRicalcolato = CfgFn.GetNoNullDecimal(taxabletot);
                 }
-                if (causale == 2)
-                {
+
+                if (causale == 2) {
                     importoRicalcolato = CfgFn.GetNoNullDecimal(tax);
                 }
-                if (causale == 1)
-                {
+
+                if (causale == 1) {
                     importoRicalcolato = CfgFn.GetNoNullDecimal(taxabletot + tax);
                 }
+
                 return importoRicalcolato;
-                
+
             }
 
         }
 
-        private bool checkPercentuale(object sender)
-        {
-            TextBox T = (TextBox)sender;
+        private bool checkPercentuale(object sender) {
+            TextBox T = (TextBox) sender;
             bool OK = false;
             if (T.Text == "") return false;
             decimal percentmax = 100;
             string errmsg = "Il valore percentuale dovrebbe essere un numero compreso \r" +
-                "tra 0 e " + percentmax.ToString("n");
-            try
-            {
+                            "tra 0 e " + percentmax.ToString("n");
+            try {
                 decimal percent = Decimal.Parse(T.Text,
                     NumberStyles.Number,
                     NumberFormatInfo.CurrentInfo);
-                if ((percent < 0) || (percent > percentmax))
-                {
+                if ((percent < 0) || (percent > percentmax)) {
                     MessageBox.Show(errmsg, "Avviso");
                     T.Focus();
                     OK = false;
                 }
-                else
-                {
+                else {
                     OK = true;
                 }
             }
-            catch
-            {
-                MessageBox.Show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+            catch {
+                MessageBox.Show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Exclamation);
                 return false;
             }
+
             return OK;
         }
-            private void txtPerc_Leave(object sender, System.EventArgs e) {
-			if(checkPercentuale(sender)) {
+
+        private void txtPerc_Leave(object sender, System.EventArgs e) {
+            if (checkPercentuale(sender)) {
                 decimal ImportoMax = CfgFn.GetNoNullDecimal(
-                HelpForm.GetObjectFromString(typeof(decimal),
-                txtTotSelezionato.Text, "x.y.c"));
-				// calcola l'importo in base alla percentuale
-				decimal perc = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),txtPerc.Text,"x.y.c"));
-                decimal importoDaPagare = CfgFn.Round(ImportoMax * perc/100,2);
+                    HelpForm.GetObjectFromString(typeof(decimal),
+                        txtTotSelezionato.Text, "x.y.c"));
+                // calcola l'importo in base alla percentuale
+                decimal perc =
+                    CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal), txtPerc.Text, "x.y.c"));
+                decimal importoDaPagare = CfgFn.Round(ImportoMax * perc / 100, 2);
                 //RicalcolaTotaleDaContabilizzare(perc/100);
-				txtDaPagare.Text = importoDaPagare.ToString("c");                
-				txtPerc.Text = HelpForm.StringValue(perc,"x.y.fixed.4...1"); 
-				
-				txtDaPagare_Leave(txtDaPagare,null);
-			}
+                txtDaPagare.Text = importoDaPagare.ToString("c");
+                txtPerc.Text = HelpForm.StringValue(perc, "x.y.fixed.4...1");
+
+                txtDaPagare_Leave(txtDaPagare, null);
+            }
         }
 
-         void InsertNewDetail(DataRow Row,decimal taxable, decimal tax,decimal percindeduc){
+        void InsertNewDetail(DataRow Row, decimal taxable, decimal tax, decimal percindeduc) {
             // Creo una nuova riga con gli importi residui (vedere gli arrotondamenti)
             MetaData metaDT = MetaData.GetMetaData(this, "mandatedetail");
-            metaDT.SetDefaults(DS.mandatedetail); 
+            metaDT.SetDefaults(DS.mandatedetail);
             decimal taxableResiduo = CfgFn.GetNoNullDecimal(Row["taxable"]) - taxable;
             decimal taxResiduo = CfgFn.GetNoNullDecimal(Row["tax"]) - tax;
             decimal unabatableResiduo = CfgFn.RoundValuta(taxResiduo * percindeduc);
             // Creazione di un nuovo dettaglio
             DataRow rDT = metaDT.Get_New_Row(DS.mandate.Rows[0], DS.mandatedetail);
             rDT["idgroup"] = Row["idgroup"];
-            rDT["idreg"]   = Row["idreg"];
+            rDT["idreg"] = Row["idreg"];
             rDT["taxrate"] = Row["taxrate"];
             rDT["taxable"] = taxableResiduo;
             rDT["tax"] = taxResiduo;
@@ -3803,7 +3969,7 @@ namespace expense_wizardmandatedetail
             rDT["annotations"] = Row["annotations"];
             rDT["discount"] = Row["discount"];
             rDT["flagto_unload"] = Row["flagto_unload"];
-            
+
 
             rDT["start"] = Row["start"];
             rDT["stop"] = Row["stop"];
@@ -3830,51 +3996,48 @@ namespace expense_wizardmandatedetail
         }
 
 
-        void RecalcDettagliSelezionati(){
+        void RecalcDettagliSelezionati() {
             DataRow[] Selected = GetGridSelectedRows(gridDetails);
-            int causale = CfgFn.GetNoNullInt32( cmbCausale.SelectedValue);
+            int causale = CfgFn.GetNoNullInt32(cmbCausale.SelectedValue);
             decimal ImportoMax = CfgFn.GetNoNullDecimal(
                 HelpForm.GetObjectFromString(typeof(decimal),
-                txtTotSelezionato.Text, "x.y.c"));
+                    txtTotSelezionato.Text, "x.y.c"));
             decimal ImportoDaPagare = CfgFn.GetNoNullDecimal(
                 HelpForm.GetObjectFromString(typeof(decimal),
-                txtDaPagare.Text, "x.y.c"));
-            if (ImportoDaPagare == 0)
-            {
+                    txtDaPagare.Text, "x.y.c"));
+            if (ImportoDaPagare == 0) {
                 ImportoDaPagare = ImportoMax;
             }
+
             DataRow Mandate = DS.mandate.Rows[0];
             decimal tassocambio = CfgFn.GetNoNullDecimal(Mandate["exchangerate"]);
 
             ClearOperazionsToDo();
             // Rilegge i dettagli con l'importo originale nel dataset
-            foreach (DataRow Det in Selected)
-            {
+            foreach (DataRow Det in Selected) {
                 string filtermandatedetail = QueryCreator.WHERE_COLNAME_CLAUSE(
-                       Det, new string[] { "idmankind", "yman", "nman", "rownum" }, DataRowVersion.Default, true);
-                DataAccess.RUN_SELECT_INTO_TABLE(Conn, DS.Tables["mandatedetail"], null, filtermandatedetail, null, false);
+                    Det, new string[] {"idmankind", "yman", "nman", "rownum"}, DataRowVersion.Default, true);
+                DataAccess.RUN_SELECT_INTO_TABLE(Conn, DS.Tables["mandatedetail"], null, filtermandatedetail, null,
+                    false);
             }
 
             if (ImportoMax == 0) return;
 
 
-            if (ImportoDaPagare < ImportoMax)
-            {
-                if (rdbSplittaTutti.Checked)
-                { // Distribuisce la quota parziale da contabilizzare su tutti i dettagli
+            if (ImportoDaPagare < ImportoMax) {
+                if (rdbSplittaTutti.Checked) { // Distribuisce la quota parziale da contabilizzare su tutti i dettagli
                     DataTable T = null;
-                    decimal epsilon = CalcolaCoefficiente(ImportoDaPagare, ImportoMax,null);
-                    if (RicalcolaTotaleDaContabilizzare(epsilon,null) != ImportoDaPagare)
-                    {
-                        decimal cents = (RicalcolaTotaleDaContabilizzare(epsilon,null) - ImportoDaPagare);
+                    decimal epsilon = CalcolaCoefficiente(ImportoDaPagare, ImportoMax, null);
+                    if (RicalcolaTotaleDaContabilizzare(epsilon, null) != ImportoDaPagare) {
+                        decimal cents = (RicalcolaTotaleDaContabilizzare(epsilon, null) - ImportoDaPagare);
                         T = AggiungiOSottraiCentADettagli(epsilon, ImportoDaPagare, cents);
                     }
-                    foreach (DataRow Row in DS.mandatedetail.Select())
-                    { // Solo le righe selezionate
-                        if (!DetailsToUpdate.Contains(Row["rownum"]))
-                        {
+
+                    foreach (DataRow Row in DS.mandatedetail.Select()) { // Solo le righe selezionate
+                        if (!DetailsToUpdate.Contains(Row["rownum"])) {
                             DetailsToUpdate.Add(Row["rownum"]);
                         }
+
                         decimal imponibile = CfgFn.GetNoNullDecimal(Row["taxable"]);
                         decimal iva = CfgFn.GetNoNullDecimal(Row["tax"]);
                         decimal QuantitaConfezioni = CfgFn.GetNoNullDecimal(Row["npackage"]);
@@ -3886,18 +4049,17 @@ namespace expense_wizardmandatedetail
                         // Uso l'imponibile unitario per  calcolare l'iva totale
                         decimal tax = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Row["tax"]) * epsilon);
                         decimal unabatabilitypercentage = CfgFn.GetNoNullDecimal(Meta.Conn.DO_READ_VALUE("ivakind",
-                        QHS.CmpEq("idivakind", Row["idivakind"]), "unabatabilitypercentage"));
+                            QHS.CmpEq("idivakind", Row["idivakind"]), "unabatabilitypercentage"));
                         decimal unabatable = CfgFn.RoundValuta(tax * unabatabilitypercentage);
-                        string filterdetail = QHS.CmpEq("rownum",Row["rownum"]);
-                        if (T != null)
-                        {
+                        string filterdetail = QHS.CmpEq("rownum", Row["rownum"]);
+                        if (T != null) {
                             DataRow[] Det = T.Select(filterdetail);
-                            if (Det.Length != 0)
-                            {
+                            if (Det.Length != 0) {
                                 decimal cents = CfgFn.GetNoNullDecimal(Det[0]["cents"]);
                                 tax += cents;
                             }
                         }
+
                         InsertNewDetail(Row, taxable, tax, unabatabilitypercentage);
                         //Aggiorno la riga originale con i valori ricalcolati
                         Row["taxable"] = taxable;
@@ -3905,47 +4067,44 @@ namespace expense_wizardmandatedetail
                         Row["unabatable"] = unabatable;
                     }
                 }
-                else
-                {   //La quota parziale da contabilizzare viene raggiunta sommando i dettagli, e splittando l'ultimo
+                else { //La quota parziale da contabilizzare viene raggiunta sommando i dettagli, e splittando l'ultimo
                     DataTable Info = new DataTable();
                     Info.Columns.Add("rownum", typeof(int));
                     Info.Columns.Add("total", typeof(decimal));
                     // Ciclo per riempire il datatable Info con il totale da contabilizzare su ogni dettaglio
-                    foreach (DataRow Row in DS.mandatedetail.Select(null,"rownum"))
-                    // Solo le righe selezionate ordinate per importo crescente
+                    foreach (DataRow Row in DS.mandatedetail.Select(null, "rownum"))
+                        // Solo le righe selezionate ordinate per importo crescente
                     {
                         // Calcolo il totale sulla causale per quel dettaglio
                         DataRow rInfo = Info.NewRow();
                         rInfo["rownum"] = Row["rownum"];
                         rInfo["total"] = CalcolaTotCausale(Row, causale);
                         Info.Rows.Add(rInfo);
-                        
+
                     }
+
                     decimal sum = ImportoDaPagare;
                     decimal oldsum = 0;
                     string filterrow = null;
                     // Ciclo per calcolare la somma da contabilizzare
                     foreach (DataRow Row in Info.Select(null, "total asc"))
-                    // Solo le righe selezionate ordinate per importo crescente 
+                        // Solo le righe selezionate ordinate per importo crescente 
                     {
-                        if (!DetailsToUpdate.Contains(Row["rownum"]))
-                        {
+                        if (!DetailsToUpdate.Contains(Row["rownum"])) {
                             DetailsToUpdate.Add(Row["rownum"]);
                         }
+
                         oldsum = sum;
                         sum -= CfgFn.GetNoNullDecimal(Row["total"]);
-                       
-                        if (sum == 0)
-                        {
+
+                        if (sum == 0) {
                             break;
                         }
-                        
-                        if (sum > 0)
-                        {
+
+                        if (sum > 0) {
                             continue;
                         }
-                        else
-                        {
+                        else {
                             filterrow = QHC.CmpEq("rownum", Row["rownum"]);
                             DataRow R = DS.mandatedetail.Select(filterrow, null)[0];
                             decimal imponibile = CfgFn.GetNoNullDecimal(R["taxable"]);
@@ -3955,14 +4114,14 @@ namespace expense_wizardmandatedetail
                             decimal sconto = CfgFn.GetNoNullDecimal(R["discount"]);
                             // Splitto il dettaglio corrente in due, uno risulterà contabilizzato,l'altro no
 
-                            decimal epsilon1 = CalcolaCoefficiente(oldsum, CfgFn.GetNoNullDecimal(Row["total"]),R);
+                            decimal epsilon1 = CalcolaCoefficiente(oldsum, CfgFn.GetNoNullDecimal(Row["total"]), R);
                             // Ricalcolo l'imponibile unitario
                             decimal taxable = CfgFn.Round(CfgFn.GetNoNullDecimal(R["taxable"]) * epsilon1, 5);
                             taxable = GetImponibileNear(taxable, imponibile, QuantitaConfezioni, sconto, tassocambio);
                             // Uso l'imponibile unitario per  calcolare l'iva totale
                             decimal tax = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(R["tax"]) * epsilon1);
                             decimal unabatabilitypercentage = CfgFn.GetNoNullDecimal(Meta.Conn.DO_READ_VALUE("ivakind",
-                            QHS.CmpEq("idivakind", R["idivakind"]), "unabatabilitypercentage"));
+                                QHS.CmpEq("idivakind", R["idivakind"]), "unabatabilitypercentage"));
                             decimal unabatable = CfgFn.RoundValuta(tax * unabatabilitypercentage);
                             // Creo una nuova riga con gli importi residui (vedere gli arrotondamenti)
                             InsertNewDetail(R, taxable, tax, unabatabilitypercentage);
@@ -3977,21 +4136,17 @@ namespace expense_wizardmandatedetail
                 }
 
             }
-            else
-            {
-                foreach (DataRow Row in DS.mandatedetail.Select())
-                { // Solo le righe selezionate
-                    if (!DetailsToUpdate.Contains(Row["rownum"]))
-                    {
+            else {
+                foreach (DataRow Row in DS.mandatedetail.Select()) { // Solo le righe selezionate
+                    if (!DetailsToUpdate.Contains(Row["rownum"])) {
                         DetailsToUpdate.Add(Row["rownum"]);
                     }
                 }
             }
         }
-        
-       
-        void ClearOperazionsToDo()
-        {
+
+
+        void ClearOperazionsToDo() {
             DS.expensemandate.Clear();
             DS.expenseyear.Clear();
             DS.expense.Clear();
@@ -4000,11 +4155,9 @@ namespace expense_wizardmandatedetail
             DetailsToUpdate.Clear();
         }
 
-        private void txtDaPagare_Leave(object sender, EventArgs e)
-        {
-           RecalcOperationsToDo();
+        private void txtDaPagare_Leave(object sender, EventArgs e) {
+            RecalcOperationsToDo();
         }
 
-	}
+    }
 }
-

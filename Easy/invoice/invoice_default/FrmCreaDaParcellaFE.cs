@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -495,6 +492,7 @@ namespace invoice_default {
             //Scrive le associazioni in Tassociazioni
             DataRow R = null;
             foreach (DataRow rFE in FE_SelectedRows) {
+	            if (rFE.RowState == DataRowState.Detached || rFE.RowState == DataRowState.Deleted) continue;
                 R = Tassociazioni.NewRow();
 
                 R["NumeroLinea"] = rFE["NumeroLinea"];
@@ -527,6 +525,7 @@ namespace invoice_default {
 
             // Cancella le righe già selezionate dai datagrid
             foreach (DataRow RR in FE_SelectedRows) {
+	            if (RR.RowState == DataRowState.Detached || R.RowState == DataRowState.Deleted) continue;
                 string filterDettFE = QHC.CmpEq("NumeroLinea", RR["NumeroLinea"]);
                 foreach (DataRow rFE in dettagli_fe.Select(filterDettFE)) {
                     rFE.Delete();
@@ -596,4 +595,3 @@ namespace invoice_default {
 
     }
 }
-

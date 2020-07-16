@@ -8,7 +8,7 @@
             <xs:sequence>
               <xs:element name="code" type="xs:string" minOccurs="0" />
               <xs:element name="icon" type="xs:string" minOccurs="0" />
-              <xs:element name="idapppages" type="xs:int" minOccurs="0" />
+              <xs:element name="idapppages" type="xs:int" />
               <xs:element name="idapppagesbutton" type="xs:int" />
               <xs:element name="idapptab" type="xs:int" minOccurs="0" />
               <xs:element name="javascript" type="xs:string" minOccurs="0" />
@@ -23,6 +23,7 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:apppagesbutton" />
+      <xs:field xpath="mstns:idapppages" />
       <xs:field xpath="mstns:idapppagesbutton" />
     </xs:unique>
   </xs:element>

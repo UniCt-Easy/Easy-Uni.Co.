@@ -1,21 +1,17 @@
 /*
     Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -34,6 +30,9 @@ using metaeasylibrary;
 using AllDataSet;
 using EasyWebReport;
 using security_function;
+using System.Net;
+using System.Collections.Specialized;
+using System.Text;
 
 public partial class ReportParameter_default : MetaPage
 {
@@ -1088,10 +1087,74 @@ public partial class ReportParameter_default : MetaPage
 
     public override void DoCommand(string command) {
         if (command == "stampa") {
-            HwButton0_Click(null, null);
+            HwButton0_Click(null, null); 
         }
     }
-    
+
+    bool Called = false;
+    private void BuildWebReportView() {
+        if (Called) return;
+        Called = true;
+        // ---------------------------------------------------------------------------------------
+        Easy_DataAccess Conn = GetVars.GetUserConn(this);
+        // carico l'url del server di Reporting Services -----------------------------------------
+        DataTable config_reportingservices = Conn.RUN_SELECT("config_reportingservices", "*", null, null, null, false);
+        if (config_reportingservices.Rows.Count == 0) return;
+        string MyReportServerUrl = config_reportingservices.Rows[0]["reportserverurl"].ToString();
+        if (MyReportServerUrl.EndsWith("/")) MyReportServerUrl = MyReportServerUrl.Substring(0, MyReportServerUrl.Length - 1);
+        string MyReportPath = config_reportingservices.Rows[0]["reportpath"].ToString();
+        // ---------------------------------------------------------------------------------------
+
+        string myReport = "";
+        string myQuerystring = "";
+        DataTable UserPar = (DataTable)Session["UserPar"];
+        if (UserPar == null) return;
+        DataRow Params = UserPar.Rows[0];
+        foreach (DataColumn c in Params.Table.Columns) {
+            if (c.ColumnName == "reportname") {
+                myReport = Params[c.ColumnName].ToString();
+                continue;
+            }
+            if (myQuerystring != "") myQuerystring += "&";
+            myQuerystring += c.ColumnName + "=" + Params[c.ColumnName].ToString();
+        }
+
+        string CodeDepartment = Conn.GetSys("database").ToString();
+
+        var b = DataAccess.CryptString(myQuerystring);
+        var logparamCript = QueryCreator.ByteArrayToString(b);
+
+        string url = config_reportingservices.Rows[0]["urlwebreportviewer"].ToString();
+        if (!url.EndsWith("/")) url += "/";
+
+        var wb = new WebClient();
+        var data = new NameValueCollection {
+            ["id"] = Guid.NewGuid().ToString(),
+            ["codeDepartment"] = CodeDepartment,
+            ["reportName"] = Params["reportname"].ToString(),
+            ["parameters"] = logparamCript
+        };
+
+        //url = "https://localhost:44317/";
+
+        var response = wb.UploadValues(url + "GetReportInfo.aspx", "POST", data);
+        string responseInString = Encoding.UTF8.GetString(response);
+        if (responseInString.ToUpperInvariant().StartsWith("OK")) {
+	        Response.Redirect(url + "ShowReport.aspx?id=" + data["id"]);
+	        return;
+        }
+        else {
+            string mym = "Errore nell'accesso al server dei report {url}.\r";
+            mym += "Qualora avesse bisogno di assistenza può contattare il servizio assistenza ";
+            Session["CloseWindow"] = true;
+            Session["Messaggio"] = mym;
+            Response.Redirect("Messaggio.aspx");
+            return;
+        }
+
+    }
+
+
     protected void HwButton0_Click(object sender, EventArgs e)
     {
         if (!CommFun.GetFormData(true)) return;
@@ -1144,6 +1207,13 @@ public partial class ReportParameter_default : MetaPage
         Session["ModuleReportRow"] = reportVista1.Tables["report"].Rows[0];
 
         ApplicationState APS = ApplicationState.GetApplicationState(this);
+
+        object print_rs = Conn.DO_READ_VALUE("report", QHS.CmpEq("reportname", ReportName), "print_rs");
+        if (print_rs.ToString().ToUpper() == "S") {
+            // Stampa con ReportingServices
+            BuildWebReportView();
+            return;
+        }
 
         APS.ReturnToCaller(this, false);
 

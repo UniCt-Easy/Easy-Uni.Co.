@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -34,6 +31,9 @@ using System.Text;
 using System.Drawing.Printing;
 using System.Linq;
 using security_function;
+using funzioni_configurazione;
+using System.Net;
+using System.Collections.Specialized;
 
 namespace resultparameter_default{//Report//
 	/// <summary>
@@ -300,7 +300,7 @@ namespace resultparameter_default{//Report//
 			grp.Name="gb"+Param["paramname"].ToString();
 			descr=myDA.Compile(descr,true);
 			grp.Text=descr;
-			if (descr=="") grp.Enabled=false;
+			if (descr ==null || descr=="" || descr=="null") grp.Enabled=false;
 			this.Controls.Add(grp);
 			//la riduzione di VPosition serve per l'allineamento con l'help
 			grp.Location=new Point(HPosition, VPosition-4);
@@ -523,6 +523,7 @@ namespace resultparameter_default{//Report//
 					string selectiontype=selRow["selectiontype"].ToString();
 					string fieldname=selRow["fieldname"].ToString();
 					string filter= myDA.Compile(selRow["filter"].ToString(),true);
+                    if (filter == "(idsorkind='null')") return false; //filter = "(idsorkind is null)";
 					string filterapp=filter;
 					AddCustomTableToDS(selRow, paramname, IsAlias);
                		if (IsAlias) parenttable+=AliasCount;
@@ -685,6 +686,9 @@ namespace resultparameter_default{//Report//
 
             if (Filter!=""){
 				Filter= myDA.Compile(Filter,true);
+                if (Filter == "(idsorkind='null')") {
+                    Filter = "(idsorkind is null)";
+                }
 				GetData.SetStaticFilter(ParentTable, Filter);
 			}
 
@@ -1142,13 +1146,13 @@ namespace resultparameter_default{//Report//
             foreach (DataColumn c in Params.Table.Columns) {
                 elencoparametri += c.ColumnName + "=" + Params[c.ColumnName].ToString() + ";";
             }
-            FrmReportingServices fRptServ = new FrmReportingServices((Easy_DataAccess)myDA, Params, ModuleReport, Meta, Preview);
-            if (Preview) {
-                fRptServ.Show(this);
-            }
-            fRptServ.FrmReportingServices_Load(sender, e);
-            //return;
 
+            //FrmReportingServices fRptServ = new FrmReportingServices((Easy_DataAccess)myDA, Params, ModuleReport, Meta, Preview);
+            //if (Preview) {
+            //    fRptServ.Show(this);
+            //}
+            //fRptServ.FrmReportingServices_Load(sender, e);
+            BuildWebReportView(Params);
             if (chkClose.Checked) {
                 Close();
             }
@@ -1160,6 +1164,59 @@ namespace resultparameter_default{//Report//
             }
             Cursor.Current = Cursors.Default;
         }
+
+        bool Called = false;
+        private void BuildWebReportView(DataRow Params) {
+            if (Called) return;
+            Called = true;
+
+            // carico l'url del server di Reporting Services -----------------------------------------
+            DataTable config_reportingservices = Conn.RUN_SELECT("config_reportingservices", "*", null, null, null, false);
+
+            string myQuerystring = "";
+
+            foreach (DataColumn c in Params.Table.Columns) {
+                if (c.ColumnName == "reportname") {
+                    continue;
+                }
+                if (myQuerystring != "") myQuerystring += "&";
+                myQuerystring += c.ColumnName + "=" + Params[c.ColumnName].ToString();
+            }
+
+
+            string CodeDepartment = Meta.security.GetSys("database").ToString();
+
+            var b = DataAccess.CryptString(myQuerystring);
+            var logparamCript = QueryCreator.ByteArrayToString(b);
+            //------------------------------------------------
+            string url = config_reportingservices.Rows[0]["urlwebreportviewer"].ToString();
+            if (!url.EndsWith("/")) url += "/";
+
+            var wb = new WebClient();
+            var data = new NameValueCollection {
+                ["id"] = Guid.NewGuid().ToString(),
+                ["codeDepartment"] = CodeDepartment,
+                ["reportName"] = Params["reportname"].ToString(),
+                ["parameters"] = logparamCript
+            };
+
+            //url = "https://localhost:44317/";
+
+            var response = wb.UploadValues(url + "GetReportInfo.aspx", "POST", data);
+            string responseInString = Encoding.UTF8.GetString(response);
+            if (responseInString.ToUpperInvariant().StartsWith("OK")) {
+                var sInfo = new System.Diagnostics.ProcessStartInfo(url + "ShowReport.aspx?id=" + data["id"]);
+                System.Diagnostics.Process.Start(sInfo);
+            }
+            else {
+                MessageBox.Show($"Errore nell'accesso al server dei report {url} ", "Errore");
+            }
+
+            this.Close();
+            this.Dispose();
+        }
+
+
         private void Stampa(bool Preview, formatostampa FMT) {
 		    if (Meta.IsEmpty) return;
             if (DS.Tables["resultparameter"].Rows.Count==0)return;
@@ -1317,13 +1374,13 @@ namespace resultparameter_default{//Report//
                         fRep.toolBar.Buttons.RemoveAt(5);
                     }
                     if (Meta.destroyed) return;
-                    if (Meta.inchiusura) return;
+                    if (Meta.formController.isClosing) return;
 
                     //Imposto tutte le propriet‡ del report
                     if (fRep.ShowReport()) {
 					    if (fRep.errore) return;
 					    if (Meta.destroyed) return;
-					    if (Meta.inchiusura) return;
+					    if (Meta.formController.isClosing) return;
 					    if (MyParent == null || MyParent.IsDisposed) return;
 						//se sono in Anteprima visualizzo il form
 						if (Preview) {
@@ -1636,6 +1693,10 @@ namespace resultparameter_default{//Report//
 			Hashtable ReportParams= new Hashtable();			
 			foreach (DataColumn C in myPrymaryTable.Columns){
 				if (C.ColumnName == DummyPrimaryKey) continue;
+				if (!C.ExtendedProperties.Contains("ConvertNullToPerc")) {
+					ReportParams[C.ColumnName]= Params[C];
+					continue;
+				}
 				bool Convert = (bool) C.ExtendedProperties["ConvertNullToPerc"];
 				if (Convert && (Params[C].ToString()=="")) 
 					ReportParams[C.ColumnName] ="%";
@@ -1656,6 +1717,10 @@ namespace resultparameter_default{//Report//
 				return false;
 			}
 
+			if (rpt == null) {
+				ShowMsg("Report non trovato " + fullname, "Errore");
+				return false;
+			}
             //bool update=(MessageBox.Show("Aggiorno le stored procedure del report?","Info",
             //    MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes);
 		    bool update = false;
@@ -1912,13 +1977,14 @@ namespace resultparameter_default{//Report//
             string field_getsys_sortkind = "idsortingkind" + NtoS;
             object idsorkind = Conn.GetSys(field_getsys_sortkind);
 
-            if (idsorkind == null || idsorkind == DBNull.Value) {
+            if (idsorkind == null || idsorkind.ToString().ToLower()=="null" || idsorkind == DBNull.Value) {
                 allowSelection = false;
                 allowNull = true;
                 defaultValue = DBNull.Value;
                 return;
             }
 
+            idsorkind = CfgFn.GetNoNullInt32(idsorkind);
             filterkind = QHS.CmpEq("idsorkind", idsorkind);
 
             
@@ -2005,4 +2071,3 @@ namespace resultparameter_default{//Report//
     }
 
 }//Fine Namespace
-

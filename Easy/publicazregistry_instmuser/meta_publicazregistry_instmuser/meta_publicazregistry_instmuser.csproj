@@ -71,4 +71,4 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>
   </PropertyGroup>
-</Project>
+ </Project>

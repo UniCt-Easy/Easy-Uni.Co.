@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -29,6 +26,23 @@ public class apppagesRow: MetaRow  {
 	public apppagesRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
+	///<summary>
+	///Tabelle aggiuntive nel dataset
+	///</summary>
+	public String additionaltables{ 
+		get {if (this["additionaltables"]==DBNull.Value)return null; return  (String)this["additionaltables"];}
+		set {if (value==null) this["additionaltables"]= DBNull.Value; else this["additionaltables"]= value;}
+	}
+	public object additionaltablesValue { 
+		get{ return this["additionaltables"];}
+		set {if (value==null|| value==DBNull.Value) this["additionaltables"]= DBNull.Value; else this["additionaltables"]= value;}
+	}
+	public String additionaltablesOriginal { 
+		get {if (this["additionaltables",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["additionaltables",DataRowVersion.Original];}
+	}
+	///<summary>
+	///Pagina ad accesso anonimo
+	///</summary>
 	public String anonimous{ 
 		get {if (this["anonimous"]==DBNull.Value)return null; return  (String)this["anonimous"];}
 		set {if (value==null) this["anonimous"]= DBNull.Value; else this["anonimous"]= value;}
@@ -55,6 +69,48 @@ public class apppagesRow: MetaRow  {
 		get {if (this["autosearch",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["autosearch",DataRowVersion.Original];}
 	}
 	///<summary>
+	///Campo start del calendario
+	///</summary>
+	public String calendarstart{ 
+		get {if (this["calendarstart"]==DBNull.Value)return null; return  (String)this["calendarstart"];}
+		set {if (value==null) this["calendarstart"]= DBNull.Value; else this["calendarstart"]= value;}
+	}
+	public object calendarstartValue { 
+		get{ return this["calendarstart"];}
+		set {if (value==null|| value==DBNull.Value) this["calendarstart"]= DBNull.Value; else this["calendarstart"]= value;}
+	}
+	public String calendarstartOriginal { 
+		get {if (this["calendarstart",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["calendarstart",DataRowVersion.Original];}
+	}
+	///<summary>
+	///Campo stop del calendario
+	///</summary>
+	public String calendarstop{ 
+		get {if (this["calendarstop"]==DBNull.Value)return null; return  (String)this["calendarstop"];}
+		set {if (value==null) this["calendarstop"]= DBNull.Value; else this["calendarstop"]= value;}
+	}
+	public object calendarstopValue { 
+		get{ return this["calendarstop"];}
+		set {if (value==null|| value==DBNull.Value) this["calendarstop"]= DBNull.Value; else this["calendarstop"]= value;}
+	}
+	public String calendarstopOriginal { 
+		get {if (this["calendarstop",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["calendarstop",DataRowVersion.Original];}
+	}
+	///<summary>
+	///Campo titolo del calendario
+	///</summary>
+	public String calendartitle{ 
+		get {if (this["calendartitle"]==DBNull.Value)return null; return  (String)this["calendartitle"];}
+		set {if (value==null) this["calendartitle"]= DBNull.Value; else this["calendartitle"]= value;}
+	}
+	public object calendartitleValue { 
+		get{ return this["calendartitle"];}
+		set {if (value==null|| value==DBNull.Value) this["calendartitle"]= DBNull.Value; else this["calendartitle"]= value;}
+	}
+	public String calendartitleOriginal { 
+		get {if (this["calendartitle",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["calendartitle",DataRowVersion.Original];}
+	}
+	///<summary>
 	///Abilita il tasto Elimina
 	///</summary>
 	public String cancancel{ 
@@ -68,6 +124,9 @@ public class apppagesRow: MetaRow  {
 	public String cancancelOriginal { 
 		get {if (this["cancancel",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cancancel",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Abilita il tasto di chiusura
+	///</summary>
 	public String cancmdclose{ 
 		get {if (this["cancmdclose"]==DBNull.Value)return null; return  (String)this["cancmdclose"];}
 		set {if (value==null) this["cancmdclose"]= DBNull.Value; else this["cancmdclose"]= value;}
@@ -107,6 +166,9 @@ public class apppagesRow: MetaRow  {
 	public String caninsertcopyOriginal { 
 		get {if (this["caninsertcopy",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["caninsertcopy",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Abilita il tasto di salvataggio
+	///</summary>
 	public String cansave{ 
 		get {if (this["cansave"]==DBNull.Value)return null; return  (String)this["cansave"];}
 		set {if (value==null) this["cansave"]= DBNull.Value; else this["cansave"]= value;}
@@ -132,6 +194,9 @@ public class apppagesRow: MetaRow  {
 	public String cansearchOriginal { 
 		get {if (this["cansearch",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cansearch",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Abilita il tasto per visualizzare l'elemento successivo
+	///</summary>
 	public String canshowlast{ 
 		get {if (this["canshowlast"]==DBNull.Value)return null; return  (String)this["canshowlast"];}
 		set {if (value==null) this["canshowlast"]= DBNull.Value; else this["canshowlast"]= value;}
@@ -297,6 +362,9 @@ public class apppagesRow: MetaRow  {
 	public Int32? idmenuwebOriginal { 
 		get {if (this["idmenuweb",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idmenuweb",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Codice aggiuntivo per la validazione di pagina (javascript)
+	///</summary>
 	public String isvalid{ 
 		get {if (this["isvalid"]==DBNull.Value)return null; return  (String)this["isvalid"];}
 		set {if (value==null) this["isvalid"]= DBNull.Value; else this["isvalid"]= value;}
@@ -308,6 +376,9 @@ public class apppagesRow: MetaRow  {
 	public String isvalidOriginal { 
 		get {if (this["isvalid",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["isvalid",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Metadato condiviso con altre app
+	///</summary>
 	public String othersapp{ 
 		get {if (this["othersapp"]==DBNull.Value)return null; return  (String)this["othersapp"];}
 		set {if (value==null) this["othersapp"]= DBNull.Value; else this["othersapp"]= value;}
@@ -359,6 +430,20 @@ public class apppagesRow: MetaRow  {
 		get {if (this["tablename",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["tablename",DataRowVersion.Original];}
 	}
 	///<summary>
+	///Test custom
+	///</summary>
+	public String testcustom{ 
+		get {if (this["testcustom"]==DBNull.Value)return null; return  (String)this["testcustom"];}
+		set {if (value==null) this["testcustom"]= DBNull.Value; else this["testcustom"]= value;}
+	}
+	public object testcustomValue { 
+		get{ return this["testcustom"];}
+		set {if (value==null|| value==DBNull.Value) this["testcustom"]= DBNull.Value; else this["testcustom"]= value;}
+	}
+	public String testcustomOriginal { 
+		get {if (this["testcustom",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["testcustom",DataRowVersion.Original];}
+	}
+	///<summary>
 	///Titolo
 	///</summary>
 	public String title{ 
@@ -389,10 +474,14 @@ public class apppagesRow: MetaRow  {
 public class apppagesTable : MetaTableBase<apppagesRow> {
 	public apppagesTable() : base("apppages"){
 		baseColumns = new Dictionary<string, DataColumn>(){
+			{"additionaltables",createColumn("additionaltables",typeof(string),true,false)},
 			{"anonimous",createColumn("anonimous",typeof(string),true,false)},
 			{"autosearch",createColumn("autosearch",typeof(string),false,false)},
+			{"calendarstart",createColumn("calendarstart",typeof(string),true,false)},
+			{"calendarstop",createColumn("calendarstop",typeof(string),true,false)},
+			{"calendartitle",createColumn("calendartitle",typeof(string),true,false)},
 			{"cancancel",createColumn("cancancel",typeof(string),false,false)},
-			{"cancmdclose",createColumn("cancmdclose",typeof(string),true,false)},
+			{"cancmdclose",createColumn("cancmdclose",typeof(string),false,false)},
 			{"caninsert",createColumn("caninsert",typeof(string),false,false)},
 			{"caninsertcopy",createColumn("caninsertcopy",typeof(string),false,false)},
 			{"cansave",createColumn("cansave",typeof(string),false,false)},
@@ -406,7 +495,7 @@ public class apppagesTable : MetaTableBase<apppagesRow> {
 			{"footer",createColumn("footer",typeof(string),true,false)},
 			{"header",createColumn("header",typeof(string),true,false)},
 			{"icon",createColumn("icon",typeof(string),true,false)},
-			{"idapplicazione",createColumn("idapplicazione",typeof(int),true,false)},
+			{"idapplicazione",createColumn("idapplicazione",typeof(int),false,false)},
 			{"idapppages",createColumn("idapppages",typeof(int),false,false)},
 			{"idmenuweb",createColumn("idmenuweb",typeof(int),true,false)},
 			{"isvalid",createColumn("isvalid",typeof(string),true,false)},
@@ -414,10 +503,10 @@ public class apppagesTable : MetaTableBase<apppagesRow> {
 			{"principale",createColumn("principale",typeof(string),true,false)},
 			{"staticfilter",createColumn("staticfilter",typeof(string),true,false)},
 			{"tablename",createColumn("tablename",typeof(string),true,false)},
+			{"testcustom",createColumn("testcustom",typeof(string),true,false)},
 			{"title",createColumn("title",typeof(string),true,false)},
 			{"vocabolario",createColumn("vocabolario",typeof(string),true,false)},
 		};
 	}
 }
 }
-

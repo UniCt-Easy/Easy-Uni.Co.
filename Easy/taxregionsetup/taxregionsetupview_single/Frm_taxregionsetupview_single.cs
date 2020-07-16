@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -285,9 +282,9 @@ namespace taxregionsetupview_single//automatismiregionegeosingle//
 			DataRelation rel1=DS.Relations["geo_regiontaxregionsetupview"];
 			DataRelation rel2=DS.Relations["geo_countrytaxregionsetupview"];
 			DataRelation rel3=DS.Relations["geo_nationtaxregionsetupview"];
-			QueryCreator.SetParentRelationActivationFilter(rel1,"(kind='R')");
-			QueryCreator.SetParentRelationActivationFilter(rel2,"(kind='P')");
-			QueryCreator.SetParentRelationActivationFilter(rel3,"(kind='E')");
+			QueryCreator.SetRelationActivationFilter(rel1,"(kind='R')");
+			QueryCreator.SetRelationActivationFilter(rel2,"(kind='P')");
+			QueryCreator.SetRelationActivationFilter(rel3,"(kind='E')");
 		}
 
 		public void MetaData_AfterGetFormData() {
@@ -340,4 +337,3 @@ namespace taxregionsetupview_single//automatismiregionegeosingle//
 		}
 	}
 }
-

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -79,6 +76,9 @@
             this.button7 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.cmbTipoContratto = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox10.SuspendLayout();
@@ -87,6 +87,7 @@
             this.gboxCausale.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // DS
@@ -96,25 +97,25 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(364, 28);
+            this.label1.Location = new System.Drawing.Point(13, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 16);
+            this.label1.Size = new System.Drawing.Size(106, 16);
             this.label1.TabIndex = 110;
             this.label1.Text = "Anno Accademico:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(12, 25);
+            this.label7.Location = new System.Drawing.Point(9, 9);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(107, 20);
+            this.label7.Size = new System.Drawing.Size(107, 14);
             this.label7.TabIndex = 111;
             this.label7.Text = "Codice Causale:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtAnnoregolamento
             // 
-            this.txtAnnoregolamento.Location = new System.Drawing.Point(497, 25);
+            this.txtAnnoregolamento.Location = new System.Drawing.Point(127, 30);
             this.txtAnnoregolamento.Name = "txtAnnoregolamento";
             this.txtAnnoregolamento.Size = new System.Drawing.Size(98, 20);
             this.txtAnnoregolamento.TabIndex = 114;
@@ -122,10 +123,10 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(126, 26);
+            this.textBox3.Location = new System.Drawing.Point(127, 7);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(238, 65);
+            this.textBox3.Size = new System.Drawing.Size(381, 20);
             this.textBox3.TabIndex = 115;
             this.textBox3.Tag = "stip_gomp.codicecausale";
             // 
@@ -138,7 +139,7 @@
             this.groupBox3.Controls.Add(this.button3);
             this.groupBox3.Location = new System.Drawing.Point(372, 112);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(356, 131);
+            this.groupBox3.Size = new System.Drawing.Size(358, 131);
             this.groupBox3.TabIndex = 117;
             this.groupBox3.TabStop = false;
             this.groupBox3.Tag = "AutoManage.txtCausaleRicavo.tree.(in_use = \'S\')";
@@ -154,7 +155,7 @@
             this.textBox12.Multiline = true;
             this.textBox12.Name = "textBox12";
             this.textBox12.ReadOnly = true;
-            this.textBox12.Size = new System.Drawing.Size(220, 92);
+            this.textBox12.Size = new System.Drawing.Size(222, 92);
             this.textBox12.TabIndex = 2;
             this.textBox12.TabStop = false;
             this.textBox12.Tag = "accmotiveapplied_revenue.motive";
@@ -165,7 +166,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCausaleRicavo.Location = new System.Drawing.Point(8, 105);
             this.txtCausaleRicavo.Name = "txtCausaleRicavo";
-            this.txtCausaleRicavo.Size = new System.Drawing.Size(338, 20);
+            this.txtCausaleRicavo.Size = new System.Drawing.Size(340, 20);
             this.txtCausaleRicavo.TabIndex = 1;
             this.txtCausaleRicavo.Tag = "accmotiveapplied_revenue.codemotive?x";
             // 
@@ -234,7 +235,7 @@
             this.groupBox4.Controls.Add(this.button4);
             this.groupBox4.Location = new System.Drawing.Point(369, 250);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(362, 120);
+            this.groupBox4.Size = new System.Drawing.Size(364, 120);
             this.groupBox4.TabIndex = 119;
             this.groupBox4.TabStop = false;
             this.groupBox4.Tag = "AutoManage.txtCausaleOltre.tree.(in_use = \'S\')";
@@ -250,7 +251,7 @@
             this.textBox14.Multiline = true;
             this.textBox14.Name = "textBox14";
             this.textBox14.ReadOnly = true;
-            this.textBox14.Size = new System.Drawing.Size(234, 67);
+            this.textBox14.Size = new System.Drawing.Size(236, 67);
             this.textBox14.TabIndex = 2;
             this.textBox14.TabStop = false;
             this.textBox14.Tag = "accmotiveapplied_undotaxpost.motive";
@@ -261,7 +262,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCausaleOltre.Location = new System.Drawing.Point(6, 94);
             this.txtCausaleOltre.Name = "txtCausaleOltre";
-            this.txtCausaleOltre.Size = new System.Drawing.Size(346, 20);
+            this.txtCausaleOltre.Size = new System.Drawing.Size(348, 20);
             this.txtCausaleOltre.TabIndex = 1;
             this.txtCausaleOltre.Tag = "accmotiveapplied_undotaxpost.codemotive?x";
             // 
@@ -407,7 +408,7 @@
             this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Location = new System.Drawing.Point(369, 515);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(356, 131);
+            this.groupBox1.Size = new System.Drawing.Size(358, 131);
             this.groupBox1.TabIndex = 119;
             this.groupBox1.TabStop = false;
             this.groupBox1.Tag = "AutoManage.txtCausaleCosto.tree.(in_use = \'S\')";
@@ -423,7 +424,7 @@
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(220, 92);
+            this.textBox2.Size = new System.Drawing.Size(222, 92);
             this.textBox2.TabIndex = 2;
             this.textBox2.TabStop = false;
             this.textBox2.Tag = "accmotiveapplied_cost.motive";
@@ -434,7 +435,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCausaleCosto.Location = new System.Drawing.Point(8, 105);
             this.txtCausaleCosto.Name = "txtCausaleCosto";
-            this.txtCausaleCosto.Size = new System.Drawing.Size(338, 20);
+            this.txtCausaleCosto.Size = new System.Drawing.Size(340, 20);
             this.txtCausaleCosto.TabIndex = 1;
             this.txtCausaleCosto.Tag = "accmotiveapplied_cost.codemotive?x";
             // 
@@ -497,7 +498,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(429, 54);
+            this.label3.Location = new System.Drawing.Point(429, 33);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 13);
             this.label3.TabIndex = 124;
@@ -505,18 +506,50 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(497, 51);
+            this.textBox4.Location = new System.Drawing.Point(432, 51);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(231, 61);
+            this.textBox4.Size = new System.Drawing.Size(296, 61);
             this.textBox4.TabIndex = 125;
             this.textBox4.Tag = "stip_gomp.descrizione";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.button8);
+            this.groupBox6.Controls.Add(this.cmbTipoContratto);
+            this.groupBox6.Location = new System.Drawing.Point(4, 59);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(408, 47);
+            this.groupBox6.TabIndex = 126;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Tipo Contratto Attivo";
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(8, 16);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(64, 24);
+            this.button8.TabIndex = 0;
+            this.button8.TabStop = false;
+            this.button8.Tag = "Choose.estimatekind.default";
+            this.button8.Text = "Tipo";
+            // 
+            // cmbTipoContratto
+            // 
+            this.cmbTipoContratto.DisplayMember = "description";
+            this.cmbTipoContratto.Location = new System.Drawing.Point(80, 16);
+            this.cmbTipoContratto.Name = "cmbTipoContratto";
+            this.cmbTipoContratto.Size = new System.Drawing.Size(320, 21);
+            this.cmbTipoContratto.TabIndex = 1;
+            this.cmbTipoContratto.Tag = "stip_gomp.idestimkind";
+            this.cmbTipoContratto.ValueMember = "idestimkind";
             // 
             // Frm_stip_gomp_default
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(743, 655);
+            this.ClientSize = new System.Drawing.Size(745, 655);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox1);
@@ -550,6 +583,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -595,5 +629,8 @@
 		private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.ComboBox cmbTipoContratto;
     }
-}
+}

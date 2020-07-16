@@ -48,28 +48,9 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="meta_attach.cs" />
-    <Compile Include="vista.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>vista.xsd</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="vista.xsd">
-      <SubType>Designer</SubType>
-      <Generator>HDSGene</Generator>
-      <LastGenOutput>vista.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="vista.xss">
-      <DependentUpon>vista.xsd</DependentUpon>
-    </None>
-    <None Include="vista.xsc">
-      <DependentUpon>vista.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*" "$(SolutionDir)output" /Y 
-xcopy "$(TargetDir)$(TargetName).*" "$(SolutionDir)..\Progetti\portale\libraries" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*" "$(SolutionDir)output" /Y</PostBuildEvent>
   </PropertyGroup>
-</Project>
+ </Project>

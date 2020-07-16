@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -32,7 +29,9 @@ namespace meta_expenselast {
             :
             base(Conn, Dispatcher, "expenselast") {
             Name = "Movimento di spesa - Dettaglio";
+            ListingTypes.Add("elenco");
             EditTypes.Add("modpaga");
+            EditTypes.Add("elenco");
             EditTypes.Add("ct_reset");
         }
         protected override void InsertCopyColumn(DataColumn C, DataRow Source, DataRow Dest) {
@@ -241,8 +240,22 @@ namespace meta_expenselast {
                         Name = "Azzeramento Fine anno";
                         return MetaData.GetFormByDllName("ct_expenselast_reset");
                     }
+                case "elenco":
+                    {
+                        CanInsert = false;
+                        CanSave = false;
+                        DefaultListType = "elenco";
+                        Name = "Elenco";
+                        return MetaData.GetFormByDllName("expenselast_elenco");
+                    }
             }
             return null;
         }
+
+       public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable ToMerge) 
+		{
+			if (ListingType == "elenco") return base.SelectOne("elenco", filter, "expenselastview", ToMerge);
+		    return base.SelectOne(ListingType, filter, searchtable, ToMerge);
+		}
     }
-}
+}

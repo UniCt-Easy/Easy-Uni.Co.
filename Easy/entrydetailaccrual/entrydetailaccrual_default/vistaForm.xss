@@ -14,31 +14,27 @@
     <Shape ID="DesignTable:entrydetailaccrualview" ZOrder="5" X="761" Y="90" Height="274" Width="197" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="270" />
   </Shapes>
   <Connectors>
-    <Connector ID="DesignRelation:entrydetailaccrualview_entrydetailaccrual" ZOrder="4" LineWidth="11">
+    <Connector ID="DesignRelation:entrykind_linkedentrydetailview_linked" ZOrder="7" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>761</X>
-          <Y>127</Y>
+          <X>585</X>
+          <Y>722</Y>
         </Point>
         <Point>
-          <X>473</X>
-          <Y>127</Y>
+          <X>585</X>
+          <Y>595</Y>
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:entrydetailview_linkedentrydetailaccrual" ZOrder="1" LineWidth="11">
+    <Connector ID="DesignRelation:entrykindentrydetailview" ZOrder="8" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>533</X>
-          <Y>346</Y>
+          <X>125</X>
+          <Y>720</Y>
         </Point>
         <Point>
-          <X>341</X>
-          <Y>346</Y>
-        </Point>
-        <Point>
-          <X>341</X>
-          <Y>201</Y>
+          <X>125</X>
+          <Y>642</Y>
         </Point>
       </RoutePoints>
     </Connector>
@@ -58,27 +54,31 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:entrykindentrydetailview" ZOrder="8" LineWidth="11">
+    <Connector ID="DesignRelation:entrydetailview_linkedentrydetailaccrual" ZOrder="1" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>125</X>
-          <Y>720</Y>
+          <X>533</X>
+          <Y>346</Y>
         </Point>
         <Point>
-          <X>125</X>
-          <Y>642</Y>
+          <X>341</X>
+          <Y>346</Y>
+        </Point>
+        <Point>
+          <X>341</X>
+          <Y>201</Y>
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:entrykind_linkedentrydetailview_linked" ZOrder="7" LineWidth="11">
+    <Connector ID="DesignRelation:entrydetailaccrualview_entrydetailaccrual" ZOrder="4" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>585</X>
-          <Y>722</Y>
+          <X>761</X>
+          <Y>127</Y>
         </Point>
         <Point>
-          <X>585</X>
-          <Y>595</Y>
+          <X>473</X>
+          <Y>127</Y>
         </Point>
       </RoutePoints>
     </Connector>

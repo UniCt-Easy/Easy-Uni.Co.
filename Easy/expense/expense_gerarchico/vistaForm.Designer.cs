@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -55,7 +52,7 @@ using metadatalibrary;
 namespace expense_gerarchico {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -418,6 +415,15 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable bill1 		=> (MetaTable)Tables["bill1"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable invoicedetail_taxable_nc 		=> (MetaTable)Tables["invoicedetail_taxable_nc"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable invoicedetail_iva_nc 		=> (MetaTable)Tables["invoicedetail_iva_nc"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable income_linked 		=> (MetaTable)Tables["income_linked"];
+
 	#endregion
 
 
@@ -445,7 +451,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// EXPENSE /////////////////////////////////
 	var texpense= new expenseTable();
-	texpense.addBaseColumns("adate","ct","cu","description","doc","docdate","expiration","idreg","lt","lu","nmov","rtf","txt","ymov","idclawback","idman","nphase","idexp","parentidexp","idpayment","idformerexpense","autokind","autocode","cupcode","cigcode","external_reference");
+	texpense.addBaseColumns("adate","ct","cu","description","doc","docdate","expiration","idreg","lt","lu","nmov","rtf","txt","ymov","idclawback","idman","nphase","idexp","parentidexp","idpayment","idformerexpense","autokind","autocode","cupcode","cigcode","external_reference","idinc_linked");
 	Tables.Add(texpense);
 	texpense.defineKey("idexp");
 
@@ -625,7 +631,7 @@ private void initClass() {
 
 	//////////////////// SORTINGKIND /////////////////////////////////
 	var tsortingkind= new sortingkindTable();
-	tsortingkind.addBaseColumns("active","ct","cu","description","flagdate","forcedN1","forcedN2","forcedN3","forcedN4","forcedN5","forcedS1","forcedS2","forcedS3","forcedS4","forcedS5","forcedv1","forcedv2","forcedv3","forcedv4","forcedv5","labelfordate","labeln1","labeln2","labeln3","labeln4","labeln5","labels1","labels2","labels3","labels4","labels5","labelv1","labelv2","labelv3","labelv4","labelv5","lockedN1","lockedN2","lockedN3","lockedN4","lockedN5","lockedS1","lockedS2","lockedS3","lockedS4","lockedS5","lockedv1","lockedv2","lockedv3","lockedv4","lockedv5","lt","lu","nodatelabel","totalexpression","nphaseexpense","nphaseincome","codesorkind","idsorkind","flag");
+	tsortingkind.addBaseColumns("active","ct","cu","description","flagdate","forcedN1","forcedN2","forcedN3","forcedN4","forcedN5","forcedS1","forcedS2","forcedS3","forcedS4","forcedS5","forcedv1","forcedv2","forcedv3","forcedv4","forcedv5","labelfordate","labeln1","labeln2","labeln3","labeln4","labeln5","labels1","labels2","labels3","labels4","labels5","labelv1","labelv2","labelv3","labelv4","labelv5","lockedN1","lockedN2","lockedN3","lockedN4","lockedN5","lockedS1","lockedS2","lockedS3","lockedS4","lockedS5","lockedv1","lockedv2","lockedv3","lockedv4","lockedv5","lt","lu","nodatelabel","totalexpression","nphaseexpense","nphaseincome","codesorkind","idsorkind","flag","allowedS1","allowedS2","allowedS3","allowedS4","allowedS5");
 	tsortingkind.defineColumn("!importo", typeof(decimal));
 	Tables.Add(tsortingkind);
 	tsortingkind.defineKey("idsorkind");
@@ -686,7 +692,7 @@ private void initClass() {
 
 	//////////////////// MANDATE /////////////////////////////////
 	var tmandate= new mandateTable();
-	tmandate.addBaseColumns("idmankind","yman","nman","idreg","registryreference","description","idman","deliveryexpiration","deliveryaddress","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","officiallyprinted","cu","ct","lu","lt","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","applierannotations","idmandatestatus","cigcode","idsor01","idsor02","idsor03","idsor04","idsor05","requested_doc");
+	tmandate.addBaseColumns("idmankind","yman","nman","idreg","registryreference","description","idman","deliveryexpiration","deliveryaddress","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","officiallyprinted","cu","ct","lu","lt","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","applierannotations","idmandatestatus","cigcode","idsor01","idsor02","idsor03","idsor04","idsor05","requested_doc","flagbit");
 	Tables.Add(tmandate);
 	tmandate.defineKey("idmankind", "yman", "nman");
 
@@ -763,7 +769,7 @@ private void initClass() {
 
 	//////////////////// PAYROLL /////////////////////////////////
 	var tpayroll= new payrollTable();
-	tpayroll.addBaseColumns("idpayroll","fiscalyear","flagbalance","disbursementdate","idresidence","workingdays","feegross","flagcomputed","idcon","currentrounding","lu","lt","cu","ct","enabletaxrelief","start","stop","netfee","npayroll");
+	tpayroll.addBaseColumns("idpayroll","fiscalyear","flagbalance","disbursementdate","idresidence","workingdays","feegross","flagcomputed","idcon","currentrounding","lu","lt","cu","ct","enabletaxrelief","start","stop","netfee","npayroll","idupb");
 	Tables.Add(tpayroll);
 	tpayroll.defineKey("idpayroll");
 
@@ -1248,7 +1254,7 @@ private void initClass() {
 
 	//////////////////// EXPENSELAST /////////////////////////////////
 	var texpenselast= new expenselastTable();
-	texpenselast.addBaseColumns("idexp","cc","cin","flag","iban","idbank","idcab","iddeputy","idpaymethod","idser","ivaamount","paymentdescr","servicestart","servicestop","nbill","idpay","idregistrypaymethod","refexternaldoc","cu","ct","lu","lt","kpay","idaccdebit","biccode","paymethod_flag","paymethod_allowdeputy","extracode","idchargehandling");
+	texpenselast.addBaseColumns("idexp","cc","cin","flag","iban","idbank","idcab","iddeputy","idpaymethod","idser","ivaamount","paymentdescr","servicestart","servicestop","nbill","idpay","idregistrypaymethod","refexternaldoc","cu","ct","lu","lt","kpay","idaccdebit","biccode","paymethod_flag","paymethod_allowdeputy","extracode","idchargehandling","pagopanoticenum");
 	Tables.Add(texpenselast);
 	texpenselast.defineKey("idexp");
 
@@ -1532,6 +1538,205 @@ private void initClass() {
 	Tables.Add(tbill1);
 	tbill1.defineKey("ybill", "nbill", "billkind");
 
+	//////////////////// INVOICEDETAIL_TAXABLE_NC /////////////////////////////////
+	var tinvoicedetail_taxable_nc= new MetaTable("invoicedetail_taxable_nc");
+	tinvoicedetail_taxable_nc.defineColumn("ninv", typeof(int),false);
+	tinvoicedetail_taxable_nc.defineColumn("rownum", typeof(int),false);
+	tinvoicedetail_taxable_nc.defineColumn("yinv", typeof(short),false);
+	tinvoicedetail_taxable_nc.defineColumn("annotations", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("competencystart", typeof(DateTime));
+	tinvoicedetail_taxable_nc.defineColumn("paymentcompetency", typeof(DateTime));
+	tinvoicedetail_taxable_nc.defineColumn("competencystop", typeof(DateTime));
+	tinvoicedetail_taxable_nc.defineColumn("ct", typeof(DateTime),false);
+	tinvoicedetail_taxable_nc.defineColumn("cu", typeof(string),false);
+	tinvoicedetail_taxable_nc.defineColumn("detaildescription", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("discount", typeof(double));
+	tinvoicedetail_taxable_nc.defineColumn("idaccmotive", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("idmankind", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("idupb", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("lt", typeof(DateTime),false);
+	tinvoicedetail_taxable_nc.defineColumn("lu", typeof(string),false);
+	tinvoicedetail_taxable_nc.defineColumn("manrownum", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("nman", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("number", typeof(decimal));
+	tinvoicedetail_taxable_nc.defineColumn("tax", typeof(decimal));
+	tinvoicedetail_taxable_nc.defineColumn("taxable", typeof(decimal));
+	tinvoicedetail_taxable_nc.defineColumn("unabatable", typeof(decimal));
+	tinvoicedetail_taxable_nc.defineColumn("yman", typeof(short));
+	tinvoicedetail_taxable_nc.defineColumn("idestimkind", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("estimrownum", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("nestim", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("yestim", typeof(short));
+	tinvoicedetail_taxable_nc.defineColumn("idgroup", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("idexp_taxable", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("idexp_iva", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("idinc_taxable", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("idinc_iva", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("ninv_main", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("yinv_main", typeof(short));
+	tinvoicedetail_taxable_nc.defineColumn("idivakind", typeof(int),false);
+	tinvoicedetail_taxable_nc.defineColumn("idinvkind", typeof(int),false);
+	tinvoicedetail_taxable_nc.defineColumn("idsor1", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("idsor2", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("idsor3", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("idintrastatcode", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("idintrastatmeasure", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("weight", typeof(decimal));
+	tinvoicedetail_taxable_nc.defineColumn("va3type", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("intrastatoperationkind", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("idintrastatservice", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("idintrastatsupplymethod", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("idlist", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("idunit", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("idpackage", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("unitsforpackage", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("npackage", typeof(decimal));
+	tinvoicedetail_taxable_nc.defineColumn("flag", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("exception12", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("intra12operationkind", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("move12", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("idupb_iva", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("idinvkind_main", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("leasing", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("usedmodesospesometro", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("resetresidualmandate", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("idfetransfer", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("fereferencerule", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("cupcode", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("cigcode", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("idpccdebitstatus", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("idpccdebitmotive", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("idcostpartition", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("expensekind", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("rounding", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("idepexp", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("idepacc", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("flagbit", typeof(byte));
+	tinvoicedetail_taxable_nc.defineColumn("idfinmotive", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("iduniqueformcode", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("ycon", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("ncon", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("codicevalore", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("codicetipo", typeof(string));
+	tinvoicedetail_taxable_nc.defineColumn("idsor_siope", typeof(int));
+	tinvoicedetail_taxable_nc.defineColumn("idepexp_pre", typeof(int));
+	Tables.Add(tinvoicedetail_taxable_nc);
+	tinvoicedetail_taxable_nc.defineKey("ninv", "rownum", "yinv", "idinvkind");
+
+	//////////////////// INVOICEDETAIL_IVA_NC /////////////////////////////////
+	var tinvoicedetail_iva_nc= new MetaTable("invoicedetail_iva_nc");
+	tinvoicedetail_iva_nc.defineColumn("ninv", typeof(int),false);
+	tinvoicedetail_iva_nc.defineColumn("rownum", typeof(int),false);
+	tinvoicedetail_iva_nc.defineColumn("yinv", typeof(short),false);
+	tinvoicedetail_iva_nc.defineColumn("annotations", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("competencystart", typeof(DateTime));
+	tinvoicedetail_iva_nc.defineColumn("paymentcompetency", typeof(DateTime));
+	tinvoicedetail_iva_nc.defineColumn("competencystop", typeof(DateTime));
+	tinvoicedetail_iva_nc.defineColumn("ct", typeof(DateTime),false);
+	tinvoicedetail_iva_nc.defineColumn("cu", typeof(string),false);
+	tinvoicedetail_iva_nc.defineColumn("detaildescription", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("discount", typeof(double));
+	tinvoicedetail_iva_nc.defineColumn("idaccmotive", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("idmankind", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("idupb", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("lt", typeof(DateTime),false);
+	tinvoicedetail_iva_nc.defineColumn("lu", typeof(string),false);
+	tinvoicedetail_iva_nc.defineColumn("manrownum", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("nman", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("number", typeof(decimal));
+	tinvoicedetail_iva_nc.defineColumn("tax", typeof(decimal));
+	tinvoicedetail_iva_nc.defineColumn("taxable", typeof(decimal));
+	tinvoicedetail_iva_nc.defineColumn("unabatable", typeof(decimal));
+	tinvoicedetail_iva_nc.defineColumn("yman", typeof(short));
+	tinvoicedetail_iva_nc.defineColumn("idestimkind", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("estimrownum", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("nestim", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("yestim", typeof(short));
+	tinvoicedetail_iva_nc.defineColumn("idgroup", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("idexp_taxable", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("idexp_iva", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("idinc_taxable", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("idinc_iva", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("ninv_main", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("yinv_main", typeof(short));
+	tinvoicedetail_iva_nc.defineColumn("idivakind", typeof(int),false);
+	tinvoicedetail_iva_nc.defineColumn("idinvkind", typeof(int),false);
+	tinvoicedetail_iva_nc.defineColumn("idsor1", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("idsor2", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("idsor3", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("idintrastatcode", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("idintrastatmeasure", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("weight", typeof(decimal));
+	tinvoicedetail_iva_nc.defineColumn("va3type", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("intrastatoperationkind", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("idintrastatservice", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("idintrastatsupplymethod", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("idlist", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("idunit", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("idpackage", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("unitsforpackage", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("npackage", typeof(decimal));
+	tinvoicedetail_iva_nc.defineColumn("flag", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("exception12", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("intra12operationkind", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("move12", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("idupb_iva", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("idinvkind_main", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("leasing", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("usedmodesospesometro", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("resetresidualmandate", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("idfetransfer", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("fereferencerule", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("cupcode", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("cigcode", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("idpccdebitstatus", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("idpccdebitmotive", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("idcostpartition", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("expensekind", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("rounding", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("idepexp", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("idepacc", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("flagbit", typeof(byte));
+	tinvoicedetail_iva_nc.defineColumn("idfinmotive", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("iduniqueformcode", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("ycon", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("ncon", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("codicevalore", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("codicetipo", typeof(string));
+	tinvoicedetail_iva_nc.defineColumn("idsor_siope", typeof(int));
+	tinvoicedetail_iva_nc.defineColumn("idepexp_pre", typeof(int));
+	Tables.Add(tinvoicedetail_iva_nc);
+	tinvoicedetail_iva_nc.defineKey("ninv", "rownum", "yinv", "idinvkind");
+
+	//////////////////// INCOME_LINKED /////////////////////////////////
+	var tincome_linked= new MetaTable("income_linked");
+	tincome_linked.defineColumn("adate", typeof(DateTime),false);
+	tincome_linked.defineColumn("ct", typeof(DateTime),false);
+	tincome_linked.defineColumn("cu", typeof(string),false);
+	tincome_linked.defineColumn("description", typeof(string),false);
+	tincome_linked.defineColumn("doc", typeof(string));
+	tincome_linked.defineColumn("docdate", typeof(DateTime));
+	tincome_linked.defineColumn("expiration", typeof(DateTime));
+	tincome_linked.defineColumn("idreg", typeof(int));
+	tincome_linked.defineColumn("lt", typeof(DateTime),false);
+	tincome_linked.defineColumn("lu", typeof(string),false);
+	tincome_linked.defineColumn("nmov", typeof(int),false);
+	tincome_linked.defineColumn("rtf", typeof(Byte[]));
+	tincome_linked.defineColumn("txt", typeof(string));
+	tincome_linked.defineColumn("ymov", typeof(short),false);
+	tincome_linked.defineColumn("idpayment", typeof(int));
+	tincome_linked.defineColumn("idinc", typeof(int),false);
+	tincome_linked.defineColumn("parentidinc", typeof(int));
+	tincome_linked.defineColumn("nphase", typeof(byte),false);
+	tincome_linked.defineColumn("idman", typeof(int));
+	tincome_linked.defineColumn("autokind", typeof(byte));
+	tincome_linked.defineColumn("autocode", typeof(int));
+	tincome_linked.defineColumn("cupcode", typeof(string));
+	tincome_linked.defineColumn("idunderwriting", typeof(int));
+	tincome_linked.defineColumn("external_reference", typeof(string));
+	Tables.Add(tincome_linked);
+	tincome_linked.defineKey("idinc");
+
 	#endregion
 
 
@@ -1639,9 +1844,28 @@ private void initClass() {
 	cChild = new []{expense.Columns["idformerexpense"]};
 	Relations.Add(new DataRelation("formerexpense_expense",cPar,cChild,false));
 
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{invoicedetail_iva_nc.Columns["idexp_iva"]};
+	Relations.Add(new DataRelation("expense_invoicedetail_iva_nc",cPar,cChild,false));
+
+	cPar = new []{expensevar.Columns["ninv"], expensevar.Columns["yinv"], expensevar.Columns["idinvkind"], expensevar.Columns["idexp"]};
+	cChild = new []{invoicedetail_iva_nc.Columns["ninv"], invoicedetail_iva_nc.Columns["yinv"], invoicedetail_iva_nc.Columns["idinvkind"], invoicedetail_iva_nc.Columns["idexp_iva"]};
+	Relations.Add(new DataRelation("expensevar_invoicedetail_iva_nc",cPar,cChild,false));
+
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{invoicedetail_taxable_nc.Columns["idexp_taxable"]};
+	Relations.Add(new DataRelation("expense_invoicedetail_taxable_nc",cPar,cChild,false));
+
+	cPar = new []{expensevar.Columns["ninv"], expensevar.Columns["idexp"], expensevar.Columns["yinv"], expensevar.Columns["idinvkind"]};
+	cChild = new []{invoicedetail_taxable_nc.Columns["ninv"], invoicedetail_taxable_nc.Columns["idexp_taxable"], invoicedetail_taxable_nc.Columns["yinv"], invoicedetail_taxable_nc.Columns["idinvkind"]};
+	Relations.Add(new DataRelation("expensevar_invoicedetail_taxable_nc",cPar,cChild,false));
+
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{invoicedetail_taxable_nc.Columns["idexp_iva"]};
+	Relations.Add(new DataRelation("expense_invoicedetail_taxable_nc1",cPar,cChild,false));
+
 	#endregion
 
 }
 }
 }
-

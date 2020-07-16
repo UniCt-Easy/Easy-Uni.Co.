@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -68,6 +65,7 @@ namespace sdi_acquisto_default {
             Conn = Meta.Conn;
             int esercizio = Conn.GetEsercizio();
             Meta.additional_search_condition = QHS.CmpLe("year(protocoldate)", esercizio);
+			GetData.CacheTable(DS.uniconfig,null,null,false);
 
             Meta.CanInsert = false;
             bool noRestriction = false;
@@ -577,7 +575,7 @@ namespace sdi_acquisto_default {
             if (Meta.IsEmpty)
                 return;
             if (!Meta.GetFormData(false)) return;
-
+			if (DS.sdi_acquisto.Rows.Count == 0) return;
             DataRow Curr = DS.sdi_acquisto.Rows[0];
             if (Curr["xml"] == DBNull.Value) {
                 string messaggio;
@@ -611,8 +609,7 @@ namespace sdi_acquisto_default {
             idreg = IndividuaAnagrafica(idFiscaleIva, Denominazione);
             if (CfgFn.GetNoNullInt32(idreg) == 0) {
                 string messaggio;
-                messaggio = "Non è stata trovata alcuna anagrafica con Partita IVA: " + idFiscaleIva +
-                            " o denominazione : " + Denominazione + ".";
+                messaggio = $"Non è stata trovata alcuna anagrafica con Partita IVA: {idFiscaleIva} o denominazione : {Denominazione}.";
                 MessageBox.Show(this, messaggio, "Avviso");
                 //Apre un form per consentire all'utente la scelta dell'Anagrafica
                 FrmAskAnagrafica F = new FrmAskAnagrafica(Meta, Meta.Dispatcher);
@@ -643,8 +640,7 @@ namespace sdi_acquisto_default {
             idinvkind = IndividuaTipoDocumento(codiceIPA, riferimentoAmministrazione, variation);
             if (CfgFn.GetNoNullInt32(idinvkind) == 0) {
                 string messaggio;
-                messaggio = "Non è stato individuato univocamente un Tipo documento. L'IPA della F.E. è: " + codiceIPA +
-                            ".";
+                messaggio = $"Non è stato individuato univocamente un Tipo documento. L'IPA della F.E. è: {codiceIPA}.";
                 MessageBox.Show(this, messaggio, "Avviso");
                 //Fa scegliere all'utente un Tipo documento tra quelli senza ipa
                 string filterIdinvkind = QHS.IsNull("ipa_fe");
@@ -687,10 +683,10 @@ namespace sdi_acquisto_default {
             MetaData MetaInvoice = MetaData.GetMetaData(this, "invoice");
             MetaInvoice.SetUsr("sdi_acquisto", "S");
             MetaInvoice.SetUsr("broadcastEnabledInvoice", true);
-            MetaInvoice.Edit(Meta.LinkedForm.ParentForm, "default", false);
-            if (MetaInvoice.destroyed) return;
+            MetaInvoice.Edit(Meta?.linkedForm?.ParentForm, "default", false);
+            if (MetaInvoice==null || MetaInvoice.destroyed) return;
             MetaInvoice.dontClose = true;
-            D = MetaInvoice.DS;
+            D = MetaInvoice?.ds;
             if (D == null) {
                 MessageBox.Show(@"Non sono riuscito a caricare il form delle fatture", @"Errore");
                 return;
@@ -704,7 +700,7 @@ namespace sdi_acquisto_default {
             MetaData MetaInvoiceDetail = MetaData.GetMetaData(this, "invoicedetail");
             MetaInvoiceDetail.SetDefaults(InvoiceDetail);
 
-            if (MetaInvoice.destroyed) return;
+            if (MetaInvoice==null || MetaInvoice.destroyed) return;
             //ToMeta.PrimaryDataTable. è la tabella principale del form creato
             Hashtable saveddefaults = new Hashtable();
             foreach (DataColumn C in MetaInvoice.PrimaryDataTable.Columns) {
@@ -786,7 +782,7 @@ namespace sdi_acquisto_default {
                 Conn.RUN_SELECT("currency", "*", null, QHS.CmpEq("codecurrency", Valuta), null, false);
             if (tCurrency == null) {
                 string messaggio;
-                messaggio = "Non è stato trovata la Valuta :" + Valuta + ". La valuta verrà impostata come Euro.";
+                messaggio = $"Non è stato trovata la Valuta :{Valuta}. La valuta verrà impostata come Euro.";
                 MessageBox.Show(this, messaggio, @"Avviso");
                 MetaData.SetDefault(Invoice, "idcurrency",
                     Conn.DO_READ_VALUE("currency", QHS.CmpEq("codecurrency", "EUR"), "idcurrency"));
@@ -1003,7 +999,7 @@ namespace sdi_acquisto_default {
 
                     Curr["idsdi_status"] = 3; // Rifiutata
                     Curr["data_rifiutata"] = DateTime.Now;
-                    Curr["utente_rifiutata"] = Conn.external_user;
+                    Curr["utente_rifiutata"] = Conn.externalUser;
                     txtRifiuto.ReadOnly = true;
                     Meta.FreshForm();
                     Meta.SaveFormData();
@@ -1072,31 +1068,82 @@ namespace sdi_acquisto_default {
 
             Curr["idsdi_status"] = 2; // Accettata
             Curr["data_accettata"] = DateTime.Now;
-            Curr["utente_accettata"] = Conn.external_user;
+            Curr["utente_accettata"] = Conn.externalUser;
             Meta.FreshForm();
             Meta.SaveFormData();
 
         }
 
+
+        public  object getProtocolloFatturaAcquisto(DataRow r) {
+
+	        if (DS.uniconfig.Rows[0]["webprotaddress"] == DBNull.Value) return DBNull.Value;
+	        if (r["signedxml"] == DBNull.Value) {
+		        QueryCreator.ShowError(this,"Riga non compatibile con la ricezione automatica del protocollo","Errore");
+		        return DBNull.Value;
+	        }
+	        XmlDocument document = new XmlDocument();
+	        document.LoadXml(r["xml"].ToString());
+
+	        try {
+		        var ws = new webReference.webProt();
+		        ws.Url = DS.uniconfig.Rows[0]["webprotaddress"].ToString();
+		        string xmlDocument = Convert.ToBase64String(Encoding.UTF8.GetBytes(document.OuterXml));
+		        var res = ws.ottieniProtocolloFatturaAcquisto(r["filename"].ToString(),
+			        DateTime.Now.Date, xmlDocument,
+			        r["signedxml"].ToString(),
+			        CfgFn.GetNoNullInt64(r["identificativo_sdi"]),
+			        CfgFn.GetNoNullInt32(r["position"]),
+			        CfgFn.GetNoNullInt32(r["idsdi_acquisto"]));
+								
+		        if (res.Error == null) {
+			        return res.nProt;
+		        }
+		        QueryCreator.ShowError(this,"Errore nella ricezione del protocollo",res.Error);
+
+	        } catch (Exception e) {
+		        QueryCreator.ShowException(this,"Errore nelll'ottenimento del protocollo",e);
+	        }
+			
+	        return DBNull.Value;
+        }
+
+
         private void btnToProtocol_Click(object sender, EventArgs e) {
-            if (Meta.IsEmpty)
-                return;
+            if (Meta.IsEmpty) return;
             if (!Meta.GetFormData(false)) return;
             DataRow curr = DS.sdi_acquisto.Rows[0];
             object arrivalProtocol = DBNull.Value;
             object oldprotocol = curr["arrivalprotocolnum", DataRowVersion.Original];
             if (oldprotocol != DBNull.Value) return;
-            FrmAskProtocollo FP = new FrmAskProtocollo(0);
-            if (FP.ShowDialog(this) == DialogResult.OK) {
-                arrivalProtocol = FP.Protocollo;
+            if (DS.uniconfig.Rows[0]["webprotaddress"] != DBNull.Value) {
+	            arrivalProtocol = getProtocolloFatturaAcquisto(curr);
             }
 
-            if (arrivalProtocol == DBNull.Value || arrivalProtocol.ToString() == "") {
+            if (arrivalProtocol==DBNull.Value) {
+				FrmAskProtocollo FP = new FrmAskProtocollo(0);
+				if (FP.ShowDialog(this) == DialogResult.OK) {
+					arrivalProtocol = FP.Protocollo;
+				}
+			}
+			
+
+			if (arrivalProtocol==null || arrivalProtocol == DBNull.Value || arrivalProtocol.ToString() == "") {
                 return;
             }
 
             if (arrivalProtocol != DBNull.Value && arrivalProtocol.ToString() != "") {
                 curr["arrivalprotocolnum"] = arrivalProtocol;
+                if (curr["protocoldate"] == DBNull.Value) {
+	                curr["protocoldate"] = DateTime.Now.Date;
+                }
+                else {
+	                if (MessageBox.Show("Aggiorno la data di ricezione ?", "Conferma", MessageBoxButtons.OKCancel) ==
+	                    DialogResult.OK) {
+		                curr["protocoldate"] = DateTime.Now.Date;
+	                }
+                }
+                
                 if (curr["idsdi_status", DataRowVersion.Original].ToString() == "6") {
                     curr["idsdi_status"] = 2;
                 }
@@ -1114,7 +1161,8 @@ namespace sdi_acquisto_default {
             //    curr["idsdi_status"] = curr["idsdi_status", DataRowVersion.Original];
             //    curr["arrivalprotocolnum"] = DBNull.Value;
             //}
-            Meta.FreshForm();
+            
+			Meta.SaveFormData();
 
         }
 
@@ -1327,4 +1375,3 @@ namespace sdi_acquisto_default {
 
     }
 }
-

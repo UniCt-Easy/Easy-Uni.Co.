@@ -15,6 +15,7 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="active" type="xs:string" />
               <xs:element name="isresource" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -331,6 +332,8 @@
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="adjustmentkind" type="xs:string" minOccurs="0" />
               <xs:element name="adjustment" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="considerapreimpegni" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

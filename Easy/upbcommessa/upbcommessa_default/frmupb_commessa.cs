@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -220,7 +217,7 @@ namespace upbcommessa_default {
             string query =
                 "select " +
                 "sum(case when A.flagaccountusage & 8 <> 0 then ED.amount else 0 end) as risconti, "  +
-                "-sum(case when A.flagaccountusage & 64 <> 0 then ED.amount else 0 end) as cost," +
+                "-sum(case when A.flagaccountusage & (64+131072) <> 0 then ED.amount else 0 end) as cost," +
                 "-sum(case when A.idacc = EU.idacc_accruals then ED.amount else 0 end) as accruals " +
                 "from entrydetail ed (nolock) " +
                 " join entry e (nolock) on e.yentry=ed.yentry and e.nentry=ed.nentry "+
@@ -244,7 +241,7 @@ namespace upbcommessa_default {
 
             string query =
                 "select U.idupb,  " +
-                "-sum(case when A.flagaccountusage & 64 <> 0 then ED.amount else 0 end) as cost," +
+                "-sum(case when A.flagaccountusage & (64+131072) <> 0 then ED.amount else 0 end) as cost," +
                 "sum(case when A.flagaccountusage & 128 <> 0 then ED.amount else 0 end) as revenue," +
                 "sum(case when A.flagaccountusage & 2048 <> 0 then ED.amount else 0 end) as reserve," +
                 "-sum(case when A.idacc = EU.idacc_accruals then ED.amount else 0 end) as accruals," +
@@ -304,4 +301,3 @@ namespace upbcommessa_default {
 
     }
 }
-

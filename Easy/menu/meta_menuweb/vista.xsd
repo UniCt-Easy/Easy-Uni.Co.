@@ -6,13 +6,14 @@
         <xs:element name="menuweb">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="idmenuweb" msdata:ReadOnly="true" type="xs:int" />
+              <xs:element name="idmenuweb" type="xs:int" />
               <xs:element name="idmenuwebparent" type="xs:int" minOccurs="0" />
               <xs:element name="app" type="xs:string" minOccurs="0" />
               <xs:element name="tableName" type="xs:string" minOccurs="0" />
               <xs:element name="editType" type="xs:string" minOccurs="0" />
               <xs:element name="label" type="xs:string" />
               <xs:element name="sort" type="xs:int" minOccurs="0" />
+              <xs:element name="link" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

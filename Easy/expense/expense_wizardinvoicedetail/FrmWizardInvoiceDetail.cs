@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -147,828 +144,827 @@ namespace expense_wizardinvoicedetail {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.tabController = new Crownwood.Magic.Controls.TabControl();
-            this.tabPage2 = new Crownwood.Magic.Controls.TabPage();
-            this.chk_Enable_Split_Payment = new System.Windows.Forms.CheckBox();
-            this.txtTotalePagatoGenerale = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.txtTotPagatoCausale = new System.Windows.Forms.TextBox();
-            this.txtTotaleFattura = new System.Windows.Forms.TextBox();
-            this.txtIvaFattura = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtImponibileFattura = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.labTotPagato = new System.Windows.Forms.Label();
-            this.cmbTipoDocumento = new System.Windows.Forms.ComboBox();
-            this.DS = new expense_wizardinvoicedetail.vistaForm();
-            this.txtDescrDoc = new System.Windows.Forms.TextBox();
-            this.labDescrOrdine = new System.Windows.Forms.Label();
-            this.txtFornitore = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnSelectAllDetail = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtTotGenerale = new System.Windows.Forms.TextBox();
-            this.txtTotIva = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtTotImponibile = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.gridDetails = new System.Windows.Forms.DataGrid();
-            this.cmbCausale = new System.Windows.Forms.ComboBox();
-            this.labelCausale = new System.Windows.Forms.Label();
-            this.btnDocumento = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtNumDoc = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtEsercDoc = new System.Windows.Forms.TextBox();
-            this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabPage3 = new Crownwood.Magic.Controls.TabPage();
-            this.SubEntity_chkAutomRecuperi = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.gboxBolletta = new System.Windows.Forms.GroupBox();
-            this.txtBolletta = new System.Windows.Forms.TextBox();
-            this.btnBolletta = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.lblCausale = new System.Windows.Forms.Label();
-            this.txtTotSelezionato = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.rdbSplittaUno = new System.Windows.Forms.RadioButton();
-            this.rdbSplittaTutti = new System.Windows.Forms.RadioButton();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.txtPerc = new System.Windows.Forms.TextBox();
-            this.labelAttenzione = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtMessage = new System.Windows.Forms.TextBox();
-            this.txtDaPagare = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
-            this.btnBack = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tabController.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridDetails)).BeginInit();
-            this.tabPage1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.gboxBolletta.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // tabController
-            // 
-            this.tabController.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabController.IDEPixelArea = true;
-            this.tabController.Location = new System.Drawing.Point(0, 0);
-            this.tabController.Name = "tabController";
-            this.tabController.SelectedIndex = 0;
-            this.tabController.SelectedTab = this.tabPage1;
-            this.tabController.Size = new System.Drawing.Size(719, 430);
-            this.tabController.TabIndex = 0;
-            this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
+			this.tabController = new Crownwood.Magic.Controls.TabControl();
+			this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
+			this.label20 = new System.Windows.Forms.Label();
+			this.label19 = new System.Windows.Forms.Label();
+			this.label17 = new System.Windows.Forms.Label();
+			this.label16 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.tabPage2 = new Crownwood.Magic.Controls.TabPage();
+			this.chk_Enable_Split_Payment = new System.Windows.Forms.CheckBox();
+			this.txtTotalePagatoGenerale = new System.Windows.Forms.TextBox();
+			this.label21 = new System.Windows.Forms.Label();
+			this.txtTotPagatoCausale = new System.Windows.Forms.TextBox();
+			this.txtTotaleFattura = new System.Windows.Forms.TextBox();
+			this.txtIvaFattura = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.txtImponibileFattura = new System.Windows.Forms.TextBox();
+			this.label14 = new System.Windows.Forms.Label();
+			this.label15 = new System.Windows.Forms.Label();
+			this.labTotPagato = new System.Windows.Forms.Label();
+			this.cmbTipoDocumento = new System.Windows.Forms.ComboBox();
+			this.DS = new expense_wizardinvoicedetail.vistaForm();
+			this.txtDescrDoc = new System.Windows.Forms.TextBox();
+			this.labDescrOrdine = new System.Windows.Forms.Label();
+			this.txtFornitore = new System.Windows.Forms.TextBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.btnSelectAllDetail = new System.Windows.Forms.Button();
+			this.label18 = new System.Windows.Forms.Label();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.txtTotGenerale = new System.Windows.Forms.TextBox();
+			this.txtTotIva = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.txtTotImponibile = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.label8 = new System.Windows.Forms.Label();
+			this.gridDetails = new System.Windows.Forms.DataGrid();
+			this.cmbCausale = new System.Windows.Forms.ComboBox();
+			this.labelCausale = new System.Windows.Forms.Label();
+			this.btnDocumento = new System.Windows.Forms.Button();
+			this.label9 = new System.Windows.Forms.Label();
+			this.txtNumDoc = new System.Windows.Forms.TextBox();
+			this.label10 = new System.Windows.Forms.Label();
+			this.txtEsercDoc = new System.Windows.Forms.TextBox();
+			this.tabPage3 = new Crownwood.Magic.Controls.TabPage();
+			this.SubEntity_chkAutomRecuperi = new System.Windows.Forms.CheckBox();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.gboxBolletta = new System.Windows.Forms.GroupBox();
+			this.txtBolletta = new System.Windows.Forms.TextBox();
+			this.btnBolletta = new System.Windows.Forms.Button();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.lblCausale = new System.Windows.Forms.Label();
+			this.txtTotSelezionato = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.rdbSplittaUno = new System.Windows.Forms.RadioButton();
+			this.rdbSplittaTutti = new System.Windows.Forms.RadioButton();
+			this.label23 = new System.Windows.Forms.Label();
+			this.label22 = new System.Windows.Forms.Label();
+			this.txtPerc = new System.Windows.Forms.TextBox();
+			this.labelAttenzione = new System.Windows.Forms.Label();
+			this.label13 = new System.Windows.Forms.Label();
+			this.txtMessage = new System.Windows.Forms.TextBox();
+			this.txtDaPagare = new System.Windows.Forms.TextBox();
+			this.label12 = new System.Windows.Forms.Label();
+			this.btnCancel = new System.Windows.Forms.Button();
+			this.btnNext = new System.Windows.Forms.Button();
+			this.btnBack = new System.Windows.Forms.Button();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.tabController.SuspendLayout();
+			this.tabPage1.SuspendLayout();
+			this.tabPage2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.groupBox2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridDetails)).BeginInit();
+			this.tabPage3.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			this.gboxBolletta.SuspendLayout();
+			this.groupBox3.SuspendLayout();
+			this.panel1.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// tabController
+			// 
+			this.tabController.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabController.IDEPixelArea = true;
+			this.tabController.Location = new System.Drawing.Point(0, 0);
+			this.tabController.Name = "tabController";
+			this.tabController.SelectedIndex = 2;
+			this.tabController.SelectedTab = this.tabPage3;
+			this.tabController.Size = new System.Drawing.Size(704, 430);
+			this.tabController.TabIndex = 0;
+			this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
             this.tabPage1,
             this.tabPage2,
             this.tabPage3});
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			// 
+			// tabPage1
+			// 
+			this.tabPage1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabPage2.Controls.Add(this.chk_Enable_Split_Payment);
-            this.tabPage2.Controls.Add(this.txtTotalePagatoGenerale);
-            this.tabPage2.Controls.Add(this.label21);
-            this.tabPage2.Controls.Add(this.txtTotPagatoCausale);
-            this.tabPage2.Controls.Add(this.txtTotaleFattura);
-            this.tabPage2.Controls.Add(this.txtIvaFattura);
-            this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.txtImponibileFattura);
-            this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.label15);
-            this.tabPage2.Controls.Add(this.labTotPagato);
-            this.tabPage2.Controls.Add(this.cmbTipoDocumento);
-            this.tabPage2.Controls.Add(this.txtDescrDoc);
-            this.tabPage2.Controls.Add(this.labDescrOrdine);
-            this.tabPage2.Controls.Add(this.txtFornitore);
-            this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.btnSelectAllDetail);
-            this.tabPage2.Controls.Add(this.label18);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.gridDetails);
-            this.tabPage2.Controls.Add(this.cmbCausale);
-            this.tabPage2.Controls.Add(this.labelCausale);
-            this.tabPage2.Controls.Add(this.btnDocumento);
-            this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.txtNumDoc);
-            this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Controls.Add(this.txtEsercDoc);
-            this.tabPage2.Location = new System.Drawing.Point(0, 0);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Selected = false;
-            this.tabPage2.Size = new System.Drawing.Size(719, 405);
-            this.tabPage2.TabIndex = 4;
-            this.tabPage2.Title = "Pagina 2 di 3";
-            // 
-            // chk_Enable_Split_Payment
-            // 
-            this.chk_Enable_Split_Payment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chk_Enable_Split_Payment.Enabled = false;
-            this.chk_Enable_Split_Payment.Location = new System.Drawing.Point(517, 105);
-            this.chk_Enable_Split_Payment.Name = "chk_Enable_Split_Payment";
-            this.chk_Enable_Split_Payment.Size = new System.Drawing.Size(181, 22);
-            this.chk_Enable_Split_Payment.TabIndex = 144;
-            this.chk_Enable_Split_Payment.Tag = " ";
-            this.chk_Enable_Split_Payment.Text = "Crea Recupero Split Payment";
-            // 
-            // txtTotalePagatoGenerale
-            // 
-            this.txtTotalePagatoGenerale.Location = new System.Drawing.Point(544, 56);
-            this.txtTotalePagatoGenerale.Name = "txtTotalePagatoGenerale";
-            this.txtTotalePagatoGenerale.ReadOnly = true;
-            this.txtTotalePagatoGenerale.Size = new System.Drawing.Size(127, 23);
-            this.txtTotalePagatoGenerale.TabIndex = 143;
-            this.txtTotalePagatoGenerale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label21
-            // 
-            this.label21.Location = new System.Drawing.Point(541, 40);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(84, 16);
-            this.label21.TabIndex = 142;
-            this.label21.Text = "Totale pagato";
-            // 
-            // txtTotPagatoCausale
-            // 
-            this.txtTotPagatoCausale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTotPagatoCausale.Location = new System.Drawing.Point(573, 168);
-            this.txtTotPagatoCausale.Name = "txtTotPagatoCausale";
-            this.txtTotPagatoCausale.ReadOnly = true;
-            this.txtTotPagatoCausale.Size = new System.Drawing.Size(113, 23);
-            this.txtTotPagatoCausale.TabIndex = 141;
-            this.txtTotPagatoCausale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtTotaleFattura
-            // 
-            this.txtTotaleFattura.Location = new System.Drawing.Point(368, 56);
-            this.txtTotaleFattura.Name = "txtTotaleFattura";
-            this.txtTotaleFattura.ReadOnly = true;
-            this.txtTotaleFattura.Size = new System.Drawing.Size(128, 23);
-            this.txtTotaleFattura.TabIndex = 140;
-            this.txtTotaleFattura.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtIvaFattura
-            // 
-            this.txtIvaFattura.Location = new System.Drawing.Point(232, 56);
-            this.txtIvaFattura.Name = "txtIvaFattura";
-            this.txtIvaFattura.ReadOnly = true;
-            this.txtIvaFattura.Size = new System.Drawing.Size(112, 23);
-            this.txtIvaFattura.TabIndex = 139;
-            this.txtIvaFattura.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(88, 40);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 16);
-            this.label4.TabIndex = 135;
-            this.label4.Text = "Tot. Imponibile";
-            // 
-            // txtImponibileFattura
-            // 
-            this.txtImponibileFattura.Location = new System.Drawing.Point(88, 56);
-            this.txtImponibileFattura.Name = "txtImponibileFattura";
-            this.txtImponibileFattura.ReadOnly = true;
-            this.txtImponibileFattura.Size = new System.Drawing.Size(120, 23);
-            this.txtImponibileFattura.TabIndex = 138;
-            this.txtImponibileFattura.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(232, 40);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(100, 16);
-            this.label14.TabIndex = 136;
-            this.label14.Text = "Tot. Iva";
-            // 
-            // label15
-            // 
-            this.label15.Location = new System.Drawing.Point(368, 40);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(100, 16);
-            this.label15.TabIndex = 137;
-            this.label15.Text = "Totale";
-            // 
-            // labTotPagato
-            // 
-            this.labTotPagato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labTotPagato.Location = new System.Drawing.Point(399, 170);
-            this.labTotPagato.Name = "labTotPagato";
-            this.labTotPagato.Size = new System.Drawing.Size(169, 19);
-            this.labTotPagato.TabIndex = 134;
-            this.labTotPagato.Text = "Totale pagato sulla causale:";
-            this.labTotPagato.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cmbTipoDocumento
-            // 
-            this.cmbTipoDocumento.DataSource = this.DS.invoicekind;
-            this.cmbTipoDocumento.DisplayMember = "description";
-            this.cmbTipoDocumento.Location = new System.Drawing.Point(128, 8);
-            this.cmbTipoDocumento.Name = "cmbTipoDocumento";
-            this.cmbTipoDocumento.Size = new System.Drawing.Size(256, 23);
-            this.cmbTipoDocumento.TabIndex = 133;
-            this.cmbTipoDocumento.ValueMember = "idinvkind";
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            // 
-            // txtDescrDoc
-            // 
-            this.txtDescrDoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.tabPage1.Controls.Add(this.label20);
+			this.tabPage1.Controls.Add(this.label19);
+			this.tabPage1.Controls.Add(this.label17);
+			this.tabPage1.Controls.Add(this.label16);
+			this.tabPage1.Controls.Add(this.label2);
+			this.tabPage1.Controls.Add(this.label1);
+			this.tabPage1.Location = new System.Drawing.Point(0, 0);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Selected = false;
+			this.tabPage1.Size = new System.Drawing.Size(704, 405);
+			this.tabPage1.TabIndex = 3;
+			this.tabPage1.Title = "Pagina 1 di 3";
+			// 
+			// label20
+			// 
+			this.label20.Location = new System.Drawing.Point(8, 112);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(648, 23);
+			this.label20.TabIndex = 10;
+			this.label20.Text = "3) Aver creato la fattura richiamando i dettagli degli ordini relativi";
+			// 
+			// label19
+			// 
+			this.label19.Location = new System.Drawing.Point(8, 88);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(656, 16);
+			this.label19.TabIndex = 9;
+			this.label19.Text = "2) Aver contabilizzato i dettagli dell\'ordine mediante l\'apposita procedura guida" +
+    "ta ";
+			// 
+			// label17
+			// 
+			this.label17.Location = new System.Drawing.Point(8, 64);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(656, 16);
+			this.label17.TabIndex = 8;
+			this.label17.Text = "1) Aver creato l\'ordine (o gli ordini) a cui la fattura si riferisce";
+			// 
+			// label16
+			// 
+			this.label16.Location = new System.Drawing.Point(8, 40);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(656, 23);
+			this.label16.TabIndex = 7;
+			this.label16.Text = "E\' necessario, prima di usare questa procedura:";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(8, 144);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(656, 16);
+			this.label2.TabIndex = 2;
+			this.label2.Text = "Sar‡ effettuato il pagamento della fattura a partire dalle contabilizzazioni degl" +
+    "i ordini esistenti. (creati nel punto 2)";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(8, 16);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(656, 16);
+			this.label1.TabIndex = 1;
+			this.label1.Text = "Questa procedura serve a contabilizzare in finanziario una fattura (tutta o in pa" +
+    "rte).";
+			// 
+			// tabPage2
+			// 
+			this.tabPage2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescrDoc.Location = new System.Drawing.Point(88, 120);
-            this.txtDescrDoc.Multiline = true;
-            this.txtDescrDoc.Name = "txtDescrDoc";
-            this.txtDescrDoc.ReadOnly = true;
-            this.txtDescrDoc.Size = new System.Drawing.Size(407, 40);
-            this.txtDescrDoc.TabIndex = 132;
-            // 
-            // labDescrOrdine
-            // 
-            this.labDescrOrdine.Location = new System.Drawing.Point(16, 120);
-            this.labDescrOrdine.Name = "labDescrOrdine";
-            this.labDescrOrdine.Size = new System.Drawing.Size(64, 16);
-            this.labDescrOrdine.TabIndex = 131;
-            this.labDescrOrdine.Text = "Descrizione";
-            this.labDescrOrdine.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtFornitore
-            // 
-            this.txtFornitore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.tabPage2.Controls.Add(this.chk_Enable_Split_Payment);
+			this.tabPage2.Controls.Add(this.txtTotalePagatoGenerale);
+			this.tabPage2.Controls.Add(this.label21);
+			this.tabPage2.Controls.Add(this.txtTotPagatoCausale);
+			this.tabPage2.Controls.Add(this.txtTotaleFattura);
+			this.tabPage2.Controls.Add(this.txtIvaFattura);
+			this.tabPage2.Controls.Add(this.label4);
+			this.tabPage2.Controls.Add(this.txtImponibileFattura);
+			this.tabPage2.Controls.Add(this.label14);
+			this.tabPage2.Controls.Add(this.label15);
+			this.tabPage2.Controls.Add(this.labTotPagato);
+			this.tabPage2.Controls.Add(this.cmbTipoDocumento);
+			this.tabPage2.Controls.Add(this.txtDescrDoc);
+			this.tabPage2.Controls.Add(this.labDescrOrdine);
+			this.tabPage2.Controls.Add(this.txtFornitore);
+			this.tabPage2.Controls.Add(this.label6);
+			this.tabPage2.Controls.Add(this.btnSelectAllDetail);
+			this.tabPage2.Controls.Add(this.label18);
+			this.tabPage2.Controls.Add(this.groupBox2);
+			this.tabPage2.Controls.Add(this.gridDetails);
+			this.tabPage2.Controls.Add(this.cmbCausale);
+			this.tabPage2.Controls.Add(this.labelCausale);
+			this.tabPage2.Controls.Add(this.btnDocumento);
+			this.tabPage2.Controls.Add(this.label9);
+			this.tabPage2.Controls.Add(this.txtNumDoc);
+			this.tabPage2.Controls.Add(this.label10);
+			this.tabPage2.Controls.Add(this.txtEsercDoc);
+			this.tabPage2.Location = new System.Drawing.Point(0, 0);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Selected = false;
+			this.tabPage2.Size = new System.Drawing.Size(704, 405);
+			this.tabPage2.TabIndex = 4;
+			this.tabPage2.Title = "Pagina 2 di 3";
+			// 
+			// chk_Enable_Split_Payment
+			// 
+			this.chk_Enable_Split_Payment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.chk_Enable_Split_Payment.Enabled = false;
+			this.chk_Enable_Split_Payment.Location = new System.Drawing.Point(502, 105);
+			this.chk_Enable_Split_Payment.Name = "chk_Enable_Split_Payment";
+			this.chk_Enable_Split_Payment.Size = new System.Drawing.Size(181, 22);
+			this.chk_Enable_Split_Payment.TabIndex = 144;
+			this.chk_Enable_Split_Payment.Tag = " ";
+			this.chk_Enable_Split_Payment.Text = "Crea Recupero Split Payment";
+			// 
+			// txtTotalePagatoGenerale
+			// 
+			this.txtTotalePagatoGenerale.Location = new System.Drawing.Point(544, 56);
+			this.txtTotalePagatoGenerale.Name = "txtTotalePagatoGenerale";
+			this.txtTotalePagatoGenerale.ReadOnly = true;
+			this.txtTotalePagatoGenerale.Size = new System.Drawing.Size(127, 23);
+			this.txtTotalePagatoGenerale.TabIndex = 143;
+			this.txtTotalePagatoGenerale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label21
+			// 
+			this.label21.Location = new System.Drawing.Point(541, 40);
+			this.label21.Name = "label21";
+			this.label21.Size = new System.Drawing.Size(84, 16);
+			this.label21.TabIndex = 142;
+			this.label21.Text = "Totale pagato";
+			// 
+			// txtTotPagatoCausale
+			// 
+			this.txtTotPagatoCausale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtTotPagatoCausale.Location = new System.Drawing.Point(558, 168);
+			this.txtTotPagatoCausale.Name = "txtTotPagatoCausale";
+			this.txtTotPagatoCausale.ReadOnly = true;
+			this.txtTotPagatoCausale.Size = new System.Drawing.Size(113, 23);
+			this.txtTotPagatoCausale.TabIndex = 141;
+			this.txtTotPagatoCausale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// txtTotaleFattura
+			// 
+			this.txtTotaleFattura.Location = new System.Drawing.Point(368, 56);
+			this.txtTotaleFattura.Name = "txtTotaleFattura";
+			this.txtTotaleFattura.ReadOnly = true;
+			this.txtTotaleFattura.Size = new System.Drawing.Size(128, 23);
+			this.txtTotaleFattura.TabIndex = 140;
+			this.txtTotaleFattura.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// txtIvaFattura
+			// 
+			this.txtIvaFattura.Location = new System.Drawing.Point(232, 56);
+			this.txtIvaFattura.Name = "txtIvaFattura";
+			this.txtIvaFattura.ReadOnly = true;
+			this.txtIvaFattura.Size = new System.Drawing.Size(112, 23);
+			this.txtIvaFattura.TabIndex = 139;
+			this.txtIvaFattura.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label4
+			// 
+			this.label4.Location = new System.Drawing.Point(88, 40);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(100, 16);
+			this.label4.TabIndex = 135;
+			this.label4.Text = "Tot. Imponibile";
+			// 
+			// txtImponibileFattura
+			// 
+			this.txtImponibileFattura.Location = new System.Drawing.Point(88, 56);
+			this.txtImponibileFattura.Name = "txtImponibileFattura";
+			this.txtImponibileFattura.ReadOnly = true;
+			this.txtImponibileFattura.Size = new System.Drawing.Size(120, 23);
+			this.txtImponibileFattura.TabIndex = 138;
+			this.txtImponibileFattura.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label14
+			// 
+			this.label14.Location = new System.Drawing.Point(232, 40);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(100, 16);
+			this.label14.TabIndex = 136;
+			this.label14.Text = "Tot. Iva";
+			// 
+			// label15
+			// 
+			this.label15.Location = new System.Drawing.Point(368, 40);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(100, 16);
+			this.label15.TabIndex = 137;
+			this.label15.Text = "Totale";
+			// 
+			// labTotPagato
+			// 
+			this.labTotPagato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.labTotPagato.Location = new System.Drawing.Point(384, 170);
+			this.labTotPagato.Name = "labTotPagato";
+			this.labTotPagato.Size = new System.Drawing.Size(169, 19);
+			this.labTotPagato.TabIndex = 134;
+			this.labTotPagato.Text = "Totale pagato sulla causale:";
+			this.labTotPagato.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cmbTipoDocumento
+			// 
+			this.cmbTipoDocumento.DataSource = this.DS.invoicekind;
+			this.cmbTipoDocumento.DisplayMember = "description";
+			this.cmbTipoDocumento.Location = new System.Drawing.Point(128, 8);
+			this.cmbTipoDocumento.Name = "cmbTipoDocumento";
+			this.cmbTipoDocumento.Size = new System.Drawing.Size(256, 23);
+			this.cmbTipoDocumento.TabIndex = 133;
+			this.cmbTipoDocumento.ValueMember = "idinvkind";
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			// 
+			// txtDescrDoc
+			// 
+			this.txtDescrDoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFornitore.Location = new System.Drawing.Point(88, 88);
-            this.txtFornitore.Name = "txtFornitore";
-            this.txtFornitore.ReadOnly = true;
-            this.txtFornitore.Size = new System.Drawing.Size(407, 23);
-            this.txtFornitore.TabIndex = 130;
-            // 
-            // label6
-            // 
-            this.label6.Location = new System.Drawing.Point(16, 88);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(56, 16);
-            this.label6.TabIndex = 129;
-            this.label6.Text = "Fornitore";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // btnSelectAllDetail
-            // 
-            this.btnSelectAllDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectAllDetail.Location = new System.Drawing.Point(591, 200);
-            this.btnSelectAllDetail.Name = "btnSelectAllDetail";
-            this.btnSelectAllDetail.Size = new System.Drawing.Size(96, 23);
-            this.btnSelectAllDetail.TabIndex = 127;
-            this.btnSelectAllDetail.Text = "Seleziona tutto";
-            this.btnSelectAllDetail.Click += new System.EventHandler(this.btnSelectAllDetail_Click);
-            // 
-            // label18
-            // 
-            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDescrDoc.Location = new System.Drawing.Point(88, 120);
+			this.txtDescrDoc.Multiline = true;
+			this.txtDescrDoc.Name = "txtDescrDoc";
+			this.txtDescrDoc.ReadOnly = true;
+			this.txtDescrDoc.Size = new System.Drawing.Size(392, 40);
+			this.txtDescrDoc.TabIndex = 132;
+			// 
+			// labDescrOrdine
+			// 
+			this.labDescrOrdine.Location = new System.Drawing.Point(16, 120);
+			this.labDescrOrdine.Name = "labDescrOrdine";
+			this.labDescrOrdine.Size = new System.Drawing.Size(64, 16);
+			this.labDescrOrdine.TabIndex = 131;
+			this.labDescrOrdine.Text = "Descrizione";
+			this.labDescrOrdine.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtFornitore
+			// 
+			this.txtFornitore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label18.Location = new System.Drawing.Point(8, 200);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(557, 32);
-            this.label18.TabIndex = 126;
-            this.label18.Text = "Selezionare i dettagli da contabilizzare (sono visualizzati solo i dettagli a cui" +
+			this.txtFornitore.Location = new System.Drawing.Point(88, 88);
+			this.txtFornitore.Name = "txtFornitore";
+			this.txtFornitore.ReadOnly = true;
+			this.txtFornitore.Size = new System.Drawing.Size(392, 23);
+			this.txtFornitore.TabIndex = 130;
+			// 
+			// label6
+			// 
+			this.label6.Location = new System.Drawing.Point(16, 88);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(56, 16);
+			this.label6.TabIndex = 129;
+			this.label6.Text = "Fornitore";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// btnSelectAllDetail
+			// 
+			this.btnSelectAllDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnSelectAllDetail.Location = new System.Drawing.Point(576, 200);
+			this.btnSelectAllDetail.Name = "btnSelectAllDetail";
+			this.btnSelectAllDetail.Size = new System.Drawing.Size(96, 23);
+			this.btnSelectAllDetail.TabIndex = 127;
+			this.btnSelectAllDetail.Text = "Seleziona tutto";
+			this.btnSelectAllDetail.Click += new System.EventHandler(this.btnSelectAllDetail_Click);
+			// 
+			// label18
+			// 
+			this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label18.Location = new System.Drawing.Point(8, 200);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(542, 32);
+			this.label18.TabIndex = 126;
+			this.label18.Text = "Selezionare i dettagli da contabilizzare (sono visualizzati solo i dettagli a cui" +
     " Ë stato associato un UPB e il cui dettaglio ordine collegato non sia gi‡ stato " +
     "pagato)";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.txtTotGenerale);
-            this.groupBox2.Controls.Add(this.txtTotIva);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.txtTotImponibile);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Location = new System.Drawing.Point(16, 338);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(679, 64);
-            this.groupBox2.TabIndex = 125;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Dettagli selezionati";
-            // 
-            // txtTotGenerale
-            // 
-            this.txtTotGenerale.Location = new System.Drawing.Point(296, 32);
-            this.txtTotGenerale.Name = "txtTotGenerale";
-            this.txtTotGenerale.ReadOnly = true;
-            this.txtTotGenerale.Size = new System.Drawing.Size(128, 23);
-            this.txtTotGenerale.TabIndex = 109;
-            this.txtTotGenerale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtTotIva
-            // 
-            this.txtTotIva.Location = new System.Drawing.Point(160, 32);
-            this.txtTotIva.Name = "txtTotIva";
-            this.txtTotIva.ReadOnly = true;
-            this.txtTotIva.Size = new System.Drawing.Size(112, 23);
-            this.txtTotIva.TabIndex = 108;
-            this.txtTotIva.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label5
-            // 
-            this.label5.Location = new System.Drawing.Point(8, 16);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(100, 16);
-            this.label5.TabIndex = 104;
-            this.label5.Text = "Tot. Imponibile";
-            // 
-            // txtTotImponibile
-            // 
-            this.txtTotImponibile.Location = new System.Drawing.Point(8, 32);
-            this.txtTotImponibile.Name = "txtTotImponibile";
-            this.txtTotImponibile.ReadOnly = true;
-            this.txtTotImponibile.Size = new System.Drawing.Size(136, 23);
-            this.txtTotImponibile.TabIndex = 107;
-            this.txtTotImponibile.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(160, 16);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(100, 16);
-            this.label7.TabIndex = 105;
-            this.label7.Text = "Tot. Iva";
-            // 
-            // label8
-            // 
-            this.label8.Location = new System.Drawing.Point(296, 16);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(100, 16);
-            this.label8.TabIndex = 106;
-            this.label8.Text = "Totale";
-            // 
-            // gridDetails
-            // 
-            this.gridDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox2.Controls.Add(this.txtTotGenerale);
+			this.groupBox2.Controls.Add(this.txtTotIva);
+			this.groupBox2.Controls.Add(this.label5);
+			this.groupBox2.Controls.Add(this.txtTotImponibile);
+			this.groupBox2.Controls.Add(this.label7);
+			this.groupBox2.Controls.Add(this.label8);
+			this.groupBox2.Location = new System.Drawing.Point(16, 338);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(664, 64);
+			this.groupBox2.TabIndex = 125;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Dettagli selezionati";
+			// 
+			// txtTotGenerale
+			// 
+			this.txtTotGenerale.Location = new System.Drawing.Point(296, 32);
+			this.txtTotGenerale.Name = "txtTotGenerale";
+			this.txtTotGenerale.ReadOnly = true;
+			this.txtTotGenerale.Size = new System.Drawing.Size(128, 23);
+			this.txtTotGenerale.TabIndex = 109;
+			this.txtTotGenerale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// txtTotIva
+			// 
+			this.txtTotIva.Location = new System.Drawing.Point(160, 32);
+			this.txtTotIva.Name = "txtTotIva";
+			this.txtTotIva.ReadOnly = true;
+			this.txtTotIva.Size = new System.Drawing.Size(112, 23);
+			this.txtTotIva.TabIndex = 108;
+			this.txtTotIva.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label5
+			// 
+			this.label5.Location = new System.Drawing.Point(8, 16);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(100, 16);
+			this.label5.TabIndex = 104;
+			this.label5.Text = "Tot. Imponibile";
+			// 
+			// txtTotImponibile
+			// 
+			this.txtTotImponibile.Location = new System.Drawing.Point(8, 32);
+			this.txtTotImponibile.Name = "txtTotImponibile";
+			this.txtTotImponibile.ReadOnly = true;
+			this.txtTotImponibile.Size = new System.Drawing.Size(136, 23);
+			this.txtTotImponibile.TabIndex = 107;
+			this.txtTotImponibile.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label7
+			// 
+			this.label7.Location = new System.Drawing.Point(160, 16);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(100, 16);
+			this.label7.TabIndex = 105;
+			this.label7.Text = "Tot. Iva";
+			// 
+			// label8
+			// 
+			this.label8.Location = new System.Drawing.Point(296, 16);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(100, 16);
+			this.label8.TabIndex = 106;
+			this.label8.Text = "Totale";
+			// 
+			// gridDetails
+			// 
+			this.gridDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridDetails.DataMember = "";
-            this.gridDetails.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.gridDetails.Location = new System.Drawing.Point(16, 232);
-            this.gridDetails.Name = "gridDetails";
-            this.gridDetails.Size = new System.Drawing.Size(679, 100);
-            this.gridDetails.TabIndex = 124;
-            this.gridDetails.Paint += new System.Windows.Forms.PaintEventHandler(this.gridDetails_Paint);
-            // 
-            // cmbCausale
-            // 
-            this.cmbCausale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.gridDetails.DataMember = "";
+			this.gridDetails.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.gridDetails.Location = new System.Drawing.Point(16, 232);
+			this.gridDetails.Name = "gridDetails";
+			this.gridDetails.Size = new System.Drawing.Size(664, 100);
+			this.gridDetails.TabIndex = 124;
+			this.gridDetails.Paint += new System.Windows.Forms.PaintEventHandler(this.gridDetails_Paint);
+			// 
+			// cmbCausale
+			// 
+			this.cmbCausale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbCausale.DataSource = this.DS.tipomovimento;
-            this.cmbCausale.DisplayMember = "descrizione";
-            this.cmbCausale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
-            this.cmbCausale.ItemHeight = 13;
-            this.cmbCausale.Location = new System.Drawing.Point(88, 168);
-            this.cmbCausale.Name = "cmbCausale";
-            this.cmbCausale.Size = new System.Drawing.Size(304, 21);
-            this.cmbCausale.TabIndex = 123;
-            this.cmbCausale.ValueMember = "idtipo";
-            this.cmbCausale.SelectedIndexChanged += new System.EventHandler(this.cmbCausale_SelectedIndexChanged);
-            // 
-            // labelCausale
-            // 
-            this.labelCausale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
-            this.labelCausale.Location = new System.Drawing.Point(16, 168);
-            this.labelCausale.Name = "labelCausale";
-            this.labelCausale.Size = new System.Drawing.Size(48, 23);
-            this.labelCausale.TabIndex = 122;
-            this.labelCausale.Text = "Causale";
-            this.labelCausale.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // btnDocumento
-            // 
-            this.btnDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDocumento.Location = new System.Drawing.Point(16, 8);
-            this.btnDocumento.Name = "btnDocumento";
-            this.btnDocumento.Size = new System.Drawing.Size(104, 20);
-            this.btnDocumento.TabIndex = 121;
-            this.btnDocumento.Text = "Documento Iva";
-            this.btnDocumento.Click += new System.EventHandler(this.btnDocumento_Click);
-            // 
-            // label9
-            // 
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(392, 8);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(48, 16);
-            this.label9.TabIndex = 117;
-            this.label9.Text = "Eserc.";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtNumDoc
-            // 
-            this.txtNumDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNumDoc.Location = new System.Drawing.Point(528, 8);
-            this.txtNumDoc.Name = "txtNumDoc";
-            this.txtNumDoc.Size = new System.Drawing.Size(64, 20);
-            this.txtNumDoc.TabIndex = 120;
-            this.txtNumDoc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtNumDoc.Leave += new System.EventHandler(this.txtNumDoc_Leave);
-            // 
-            // label10
-            // 
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(496, 8);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(32, 16);
-            this.label10.TabIndex = 119;
-            this.label10.Text = "Num.";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtEsercDoc
-            // 
-            this.txtEsercDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEsercDoc.Location = new System.Drawing.Point(440, 8);
-            this.txtEsercDoc.Name = "txtEsercDoc";
-            this.txtEsercDoc.Size = new System.Drawing.Size(56, 20);
-            this.txtEsercDoc.TabIndex = 118;
-            this.txtEsercDoc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtEsercDoc.Leave += new System.EventHandler(this.txtEsercDoc_Leave);
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.cmbCausale.DataSource = this.DS.tipomovimento;
+			this.cmbCausale.DisplayMember = "descrizione";
+			this.cmbCausale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
+			this.cmbCausale.ItemHeight = 13;
+			this.cmbCausale.Location = new System.Drawing.Point(88, 168);
+			this.cmbCausale.Name = "cmbCausale";
+			this.cmbCausale.Size = new System.Drawing.Size(289, 21);
+			this.cmbCausale.TabIndex = 123;
+			this.cmbCausale.ValueMember = "idtipo";
+			this.cmbCausale.SelectedIndexChanged += new System.EventHandler(this.cmbCausale_SelectedIndexChanged);
+			// 
+			// labelCausale
+			// 
+			this.labelCausale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
+			this.labelCausale.Location = new System.Drawing.Point(16, 168);
+			this.labelCausale.Name = "labelCausale";
+			this.labelCausale.Size = new System.Drawing.Size(48, 23);
+			this.labelCausale.TabIndex = 122;
+			this.labelCausale.Text = "Causale";
+			this.labelCausale.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// btnDocumento
+			// 
+			this.btnDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnDocumento.Location = new System.Drawing.Point(16, 8);
+			this.btnDocumento.Name = "btnDocumento";
+			this.btnDocumento.Size = new System.Drawing.Size(104, 20);
+			this.btnDocumento.TabIndex = 121;
+			this.btnDocumento.Text = "Documento Iva";
+			this.btnDocumento.Click += new System.EventHandler(this.btnDocumento_Click);
+			// 
+			// label9
+			// 
+			this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label9.Location = new System.Drawing.Point(392, 8);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(48, 16);
+			this.label9.TabIndex = 117;
+			this.label9.Text = "Eserc.";
+			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtNumDoc
+			// 
+			this.txtNumDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtNumDoc.Location = new System.Drawing.Point(528, 8);
+			this.txtNumDoc.Name = "txtNumDoc";
+			this.txtNumDoc.Size = new System.Drawing.Size(64, 20);
+			this.txtNumDoc.TabIndex = 120;
+			this.txtNumDoc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.txtNumDoc.Leave += new System.EventHandler(this.txtNumDoc_Leave);
+			// 
+			// label10
+			// 
+			this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label10.Location = new System.Drawing.Point(496, 8);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(32, 16);
+			this.label10.TabIndex = 119;
+			this.label10.Text = "Num.";
+			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtEsercDoc
+			// 
+			this.txtEsercDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtEsercDoc.Location = new System.Drawing.Point(440, 8);
+			this.txtEsercDoc.Name = "txtEsercDoc";
+			this.txtEsercDoc.Size = new System.Drawing.Size(56, 20);
+			this.txtEsercDoc.TabIndex = 118;
+			this.txtEsercDoc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.txtEsercDoc.Leave += new System.EventHandler(this.txtEsercDoc_Leave);
+			// 
+			// tabPage3
+			// 
+			this.tabPage3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabPage1.Controls.Add(this.label20);
-            this.tabPage1.Controls.Add(this.label19);
-            this.tabPage1.Controls.Add(this.label17);
-            this.tabPage1.Controls.Add(this.label16);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Location = new System.Drawing.Point(0, 0);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(719, 405);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Title = "Pagina 1 di 3";
-            // 
-            // label20
-            // 
-            this.label20.Location = new System.Drawing.Point(8, 112);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(648, 23);
-            this.label20.TabIndex = 10;
-            this.label20.Text = "3) Aver creato la fattura richiamando i dettagli degli ordini relativi";
-            // 
-            // label19
-            // 
-            this.label19.Location = new System.Drawing.Point(8, 88);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(656, 16);
-            this.label19.TabIndex = 9;
-            this.label19.Text = "2) Aver contabilizzato i dettagli dell\'ordine mediante l\'apposita procedura guida" +
-    "ta ";
-            // 
-            // label17
-            // 
-            this.label17.Location = new System.Drawing.Point(8, 64);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(656, 16);
-            this.label17.TabIndex = 8;
-            this.label17.Text = "1) Aver creato l\'ordine (o gli ordini) a cui la fattura si riferisce";
-            // 
-            // label16
-            // 
-            this.label16.Location = new System.Drawing.Point(8, 40);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(656, 23);
-            this.label16.TabIndex = 7;
-            this.label16.Text = "E\' necessario, prima di usare questa procedura:";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(8, 144);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(656, 16);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Sar‡ effettuato il pagamento della fattura a partire dalle contabilizzazioni degl" +
-    "i ordini esistenti. (creati nel punto 2)";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(8, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(656, 16);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Questa procedura serve a contabilizzare in finanziario una fattura (tutta o in pa" +
-    "rte).";
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabPage3.Controls.Add(this.SubEntity_chkAutomRecuperi);
-            this.tabPage3.Controls.Add(this.groupBox1);
-            this.tabPage3.Controls.Add(this.groupBox3);
-            this.tabPage3.Controls.Add(this.label23);
-            this.tabPage3.Controls.Add(this.label22);
-            this.tabPage3.Controls.Add(this.txtPerc);
-            this.tabPage3.Controls.Add(this.labelAttenzione);
-            this.tabPage3.Controls.Add(this.label13);
-            this.tabPage3.Controls.Add(this.txtMessage);
-            this.tabPage3.Controls.Add(this.txtDaPagare);
-            this.tabPage3.Controls.Add(this.label12);
-            this.tabPage3.Location = new System.Drawing.Point(0, 0);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Selected = false;
-            this.tabPage3.Size = new System.Drawing.Size(719, 405);
-            this.tabPage3.TabIndex = 5;
-            this.tabPage3.Title = "Pagina 3 di 3";
-            // 
-            // SubEntity_chkAutomRecuperi
-            // 
-            this.SubEntity_chkAutomRecuperi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.SubEntity_chkAutomRecuperi.Location = new System.Drawing.Point(360, 358);
-            this.SubEntity_chkAutomRecuperi.Name = "SubEntity_chkAutomRecuperi";
-            this.SubEntity_chkAutomRecuperi.Size = new System.Drawing.Size(328, 24);
-            this.SubEntity_chkAutomRecuperi.TabIndex = 15;
-            this.SubEntity_chkAutomRecuperi.Tag = " ";
-            this.SubEntity_chkAutomRecuperi.Text = "Non generare automatismi per i Recuperi";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.gboxBolletta);
-            this.groupBox1.Location = new System.Drawing.Point(16, 336);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(332, 59);
-            this.groupBox1.TabIndex = 14;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Informazioni da associare al pagamento (opzionali)";
-            // 
-            // gboxBolletta
-            // 
-            this.gboxBolletta.Controls.Add(this.txtBolletta);
-            this.gboxBolletta.Controls.Add(this.btnBolletta);
-            this.gboxBolletta.Location = new System.Drawing.Point(6, 13);
-            this.gboxBolletta.Name = "gboxBolletta";
-            this.gboxBolletta.Size = new System.Drawing.Size(312, 40);
-            this.gboxBolletta.TabIndex = 73;
-            this.gboxBolletta.TabStop = false;
-            this.gboxBolletta.Tag = "AutoChoose.txtBolletta.spesa.(active=\'S\')";
-            // 
-            // txtBolletta
-            // 
-            this.txtBolletta.Location = new System.Drawing.Point(104, 12);
-            this.txtBolletta.Name = "txtBolletta";
-            this.txtBolletta.Size = new System.Drawing.Size(100, 23);
-            this.txtBolletta.TabIndex = 1;
-            this.txtBolletta.Tag = "bill.nbill";
-            // 
-            // btnBolletta
-            // 
-            this.btnBolletta.Location = new System.Drawing.Point(8, 12);
-            this.btnBolletta.Name = "btnBolletta";
-            this.btnBolletta.Size = new System.Drawing.Size(88, 23);
-            this.btnBolletta.TabIndex = 0;
-            this.btnBolletta.TabStop = false;
-            this.btnBolletta.Tag = "choose.bill.spesa.((active=\'S\') AND (isnull(total,0)-isnull(reduction,0)>covered)" +
+			this.tabPage3.Controls.Add(this.SubEntity_chkAutomRecuperi);
+			this.tabPage3.Controls.Add(this.groupBox1);
+			this.tabPage3.Controls.Add(this.groupBox3);
+			this.tabPage3.Controls.Add(this.label23);
+			this.tabPage3.Controls.Add(this.label22);
+			this.tabPage3.Controls.Add(this.txtPerc);
+			this.tabPage3.Controls.Add(this.labelAttenzione);
+			this.tabPage3.Controls.Add(this.label13);
+			this.tabPage3.Controls.Add(this.txtMessage);
+			this.tabPage3.Controls.Add(this.txtDaPagare);
+			this.tabPage3.Controls.Add(this.label12);
+			this.tabPage3.Location = new System.Drawing.Point(0, 0);
+			this.tabPage3.Name = "tabPage3";
+			this.tabPage3.Size = new System.Drawing.Size(704, 405);
+			this.tabPage3.TabIndex = 5;
+			this.tabPage3.Title = "Pagina 3 di 3";
+			// 
+			// SubEntity_chkAutomRecuperi
+			// 
+			this.SubEntity_chkAutomRecuperi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.SubEntity_chkAutomRecuperi.Location = new System.Drawing.Point(360, 358);
+			this.SubEntity_chkAutomRecuperi.Name = "SubEntity_chkAutomRecuperi";
+			this.SubEntity_chkAutomRecuperi.Size = new System.Drawing.Size(328, 24);
+			this.SubEntity_chkAutomRecuperi.TabIndex = 15;
+			this.SubEntity_chkAutomRecuperi.Tag = " ";
+			this.SubEntity_chkAutomRecuperi.Text = "Non generare automatismi per i Recuperi";
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.gboxBolletta);
+			this.groupBox1.Location = new System.Drawing.Point(16, 336);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(332, 59);
+			this.groupBox1.TabIndex = 14;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Informazioni da associare al pagamento (opzionali)";
+			// 
+			// gboxBolletta
+			// 
+			this.gboxBolletta.Controls.Add(this.txtBolletta);
+			this.gboxBolletta.Controls.Add(this.btnBolletta);
+			this.gboxBolletta.Location = new System.Drawing.Point(6, 13);
+			this.gboxBolletta.Name = "gboxBolletta";
+			this.gboxBolletta.Size = new System.Drawing.Size(312, 40);
+			this.gboxBolletta.TabIndex = 73;
+			this.gboxBolletta.TabStop = false;
+			this.gboxBolletta.Tag = "AutoChoose.txtBolletta.spesa.(active=\'S\')";
+			// 
+			// txtBolletta
+			// 
+			this.txtBolletta.Location = new System.Drawing.Point(104, 12);
+			this.txtBolletta.Name = "txtBolletta";
+			this.txtBolletta.Size = new System.Drawing.Size(100, 23);
+			this.txtBolletta.TabIndex = 1;
+			this.txtBolletta.Tag = "bill.nbill";
+			// 
+			// btnBolletta
+			// 
+			this.btnBolletta.Location = new System.Drawing.Point(8, 12);
+			this.btnBolletta.Name = "btnBolletta";
+			this.btnBolletta.Size = new System.Drawing.Size(88, 23);
+			this.btnBolletta.TabIndex = 0;
+			this.btnBolletta.TabStop = false;
+			this.btnBolletta.Tag = "choose.bill.spesa.((active=\'S\') AND (isnull(total,0)-isnull(reduction,0)>covered)" +
     " AND (ISNULL(toregularize,0)>0))";
-            this.btnBolletta.Text = "N. bolletta";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.btnBolletta.Text = "N. bolletta";
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.lblCausale);
-            this.groupBox3.Controls.Add(this.txtTotSelezionato);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.rdbSplittaUno);
-            this.groupBox3.Controls.Add(this.rdbSplittaTutti);
-            this.groupBox3.Location = new System.Drawing.Point(16, 19);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(687, 104);
-            this.groupBox3.TabIndex = 13;
-            this.groupBox3.TabStop = false;
-            // 
-            // lblCausale
-            // 
-            this.lblCausale.AutoSize = true;
-            this.lblCausale.Location = new System.Drawing.Point(14, 33);
-            this.lblCausale.Name = "lblCausale";
-            this.lblCausale.Size = new System.Drawing.Size(48, 15);
-            this.lblCausale.TabIndex = 0;
-            this.lblCausale.Text = "Causale";
-            // 
-            // txtTotSelezionato
-            // 
-            this.txtTotSelezionato.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTotSelezionato.Location = new System.Drawing.Point(519, 26);
-            this.txtTotSelezionato.Name = "txtTotSelezionato";
-            this.txtTotSelezionato.ReadOnly = true;
-            this.txtTotSelezionato.Size = new System.Drawing.Size(145, 23);
-            this.txtTotSelezionato.TabIndex = 0;
-            this.txtTotSelezionato.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.Location = new System.Drawing.Point(352, 33);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(171, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "il totale dei dettagli selezionati Ë";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // rdbSplittaUno
-            // 
-            this.rdbSplittaUno.AutoSize = true;
-            this.rdbSplittaUno.Checked = true;
-            this.rdbSplittaUno.Location = new System.Drawing.Point(17, 52);
-            this.rdbSplittaUno.Name = "rdbSplittaUno";
-            this.rdbSplittaUno.Size = new System.Drawing.Size(565, 19);
-            this.rdbSplittaUno.TabIndex = 1;
-            this.rdbSplittaUno.TabStop = true;
-            this.rdbSplittaUno.Text = "Contabilizza interamente i dettagli fino a coprire l\'importo da pagare. Sar‡ sudd" +
+			this.groupBox3.Controls.Add(this.lblCausale);
+			this.groupBox3.Controls.Add(this.txtTotSelezionato);
+			this.groupBox3.Controls.Add(this.label3);
+			this.groupBox3.Controls.Add(this.rdbSplittaUno);
+			this.groupBox3.Controls.Add(this.rdbSplittaTutti);
+			this.groupBox3.Location = new System.Drawing.Point(16, 19);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(672, 104);
+			this.groupBox3.TabIndex = 13;
+			this.groupBox3.TabStop = false;
+			// 
+			// lblCausale
+			// 
+			this.lblCausale.AutoSize = true;
+			this.lblCausale.Location = new System.Drawing.Point(14, 33);
+			this.lblCausale.Name = "lblCausale";
+			this.lblCausale.Size = new System.Drawing.Size(48, 15);
+			this.lblCausale.TabIndex = 0;
+			this.lblCausale.Text = "Causale";
+			// 
+			// txtTotSelezionato
+			// 
+			this.txtTotSelezionato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtTotSelezionato.Location = new System.Drawing.Point(498, 26);
+			this.txtTotSelezionato.Name = "txtTotSelezionato";
+			this.txtTotSelezionato.ReadOnly = true;
+			this.txtTotSelezionato.Size = new System.Drawing.Size(151, 23);
+			this.txtTotSelezionato.TabIndex = 0;
+			this.txtTotSelezionato.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label3
+			// 
+			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label3.Location = new System.Drawing.Point(283, 30);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(205, 13);
+			this.label3.TabIndex = 0;
+			this.label3.Text = "il totale dei dettagli selezionati Ë";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// rdbSplittaUno
+			// 
+			this.rdbSplittaUno.AutoSize = true;
+			this.rdbSplittaUno.Checked = true;
+			this.rdbSplittaUno.Location = new System.Drawing.Point(17, 52);
+			this.rdbSplittaUno.Name = "rdbSplittaUno";
+			this.rdbSplittaUno.Size = new System.Drawing.Size(565, 19);
+			this.rdbSplittaUno.TabIndex = 1;
+			this.rdbSplittaUno.TabStop = true;
+			this.rdbSplittaUno.Text = "Contabilizza interamente i dettagli fino a coprire l\'importo da pagare. Sar‡ sudd" +
     "iviso al pi˘ un dettaglio";
-            this.rdbSplittaUno.UseVisualStyleBackColor = true;
-            this.rdbSplittaUno.CheckedChanged += new System.EventHandler(this.rdbSplittaUno_CheckedChanged);
-            // 
-            // rdbSplittaTutti
-            // 
-            this.rdbSplittaTutti.AutoSize = true;
-            this.rdbSplittaTutti.Location = new System.Drawing.Point(18, 76);
-            this.rdbSplittaTutti.Name = "rdbSplittaTutti";
-            this.rdbSplittaTutti.Size = new System.Drawing.Size(511, 19);
-            this.rdbSplittaTutti.TabIndex = 2;
-            this.rdbSplittaTutti.Text = "Distribuisci l\'importo da pagare su tutti i dettagli selezionati. Tutti i dettagl" +
+			this.rdbSplittaUno.UseVisualStyleBackColor = true;
+			this.rdbSplittaUno.CheckedChanged += new System.EventHandler(this.rdbSplittaUno_CheckedChanged);
+			// 
+			// rdbSplittaTutti
+			// 
+			this.rdbSplittaTutti.AutoSize = true;
+			this.rdbSplittaTutti.Location = new System.Drawing.Point(18, 76);
+			this.rdbSplittaTutti.Name = "rdbSplittaTutti";
+			this.rdbSplittaTutti.Size = new System.Drawing.Size(511, 19);
+			this.rdbSplittaTutti.TabIndex = 2;
+			this.rdbSplittaTutti.Text = "Distribuisci l\'importo da pagare su tutti i dettagli selezionati. Tutti i dettagl" +
     "i saranno suddivisi";
-            this.rdbSplittaTutti.UseVisualStyleBackColor = true;
-            this.rdbSplittaTutti.CheckedChanged += new System.EventHandler(this.rdbSplittaTutti_CheckedChanged);
-            // 
-            // label23
-            // 
-            this.label23.Location = new System.Drawing.Point(324, 126);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(128, 16);
-            this.label23.TabIndex = 12;
-            this.label23.Text = "Importo";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label22
-            // 
-            this.label22.Location = new System.Drawing.Point(260, 126);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(56, 16);
-            this.label22.TabIndex = 11;
-            this.label22.Text = "%";
-            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtPerc
-            // 
-            this.txtPerc.Location = new System.Drawing.Point(256, 144);
-            this.txtPerc.Name = "txtPerc";
-            this.txtPerc.Size = new System.Drawing.Size(64, 23);
-            this.txtPerc.TabIndex = 10;
-            this.txtPerc.Leave += new System.EventHandler(this.txtPerc_Leave);
-            // 
-            // labelAttenzione
-            // 
-            this.labelAttenzione.Location = new System.Drawing.Point(16, 1);
-            this.labelAttenzione.Name = "labelAttenzione";
-            this.labelAttenzione.Size = new System.Drawing.Size(352, 16);
-            this.labelAttenzione.TabIndex = 8;
-            this.labelAttenzione.Text = "Attenzione! Ci sono impegni che non hanno disponibilit‡ sufficiente";
-            this.labelAttenzione.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelAttenzione.Visible = false;
-            // 
-            // label13
-            // 
-            this.label13.Location = new System.Drawing.Point(16, 177);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(656, 16);
-            this.label13.TabIndex = 7;
-            this.label13.Text = "In base alle impostazioni attuali saranno effettuate le seguenti operazioni:";
-            // 
-            // txtMessage
-            // 
-            this.txtMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.rdbSplittaTutti.UseVisualStyleBackColor = true;
+			this.rdbSplittaTutti.CheckedChanged += new System.EventHandler(this.rdbSplittaTutti_CheckedChanged);
+			// 
+			// label23
+			// 
+			this.label23.Location = new System.Drawing.Point(324, 126);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(128, 16);
+			this.label23.TabIndex = 12;
+			this.label23.Text = "Importo";
+			this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label22
+			// 
+			this.label22.Location = new System.Drawing.Point(260, 126);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(56, 16);
+			this.label22.TabIndex = 11;
+			this.label22.Text = "%";
+			this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtPerc
+			// 
+			this.txtPerc.Location = new System.Drawing.Point(256, 144);
+			this.txtPerc.Name = "txtPerc";
+			this.txtPerc.Size = new System.Drawing.Size(64, 23);
+			this.txtPerc.TabIndex = 10;
+			this.txtPerc.Leave += new System.EventHandler(this.txtPerc_Leave);
+			// 
+			// labelAttenzione
+			// 
+			this.labelAttenzione.Location = new System.Drawing.Point(16, 1);
+			this.labelAttenzione.Name = "labelAttenzione";
+			this.labelAttenzione.Size = new System.Drawing.Size(352, 16);
+			this.labelAttenzione.TabIndex = 8;
+			this.labelAttenzione.Text = "Attenzione! Ci sono impegni che non hanno disponibilit‡ sufficiente";
+			this.labelAttenzione.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.labelAttenzione.Visible = false;
+			// 
+			// label13
+			// 
+			this.label13.Location = new System.Drawing.Point(16, 177);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(656, 16);
+			this.label13.TabIndex = 7;
+			this.label13.Text = "In base alle impostazioni attuali saranno effettuate le seguenti operazioni:";
+			// 
+			// txtMessage
+			// 
+			this.txtMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMessage.Location = new System.Drawing.Point(16, 198);
-            this.txtMessage.Multiline = true;
-            this.txtMessage.Name = "txtMessage";
-            this.txtMessage.ReadOnly = true;
-            this.txtMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtMessage.Size = new System.Drawing.Size(687, 105);
-            this.txtMessage.TabIndex = 6;
-            // 
-            // txtDaPagare
-            // 
-            this.txtDaPagare.Location = new System.Drawing.Point(328, 144);
-            this.txtDaPagare.Name = "txtDaPagare";
-            this.txtDaPagare.Size = new System.Drawing.Size(112, 23);
-            this.txtDaPagare.TabIndex = 3;
-            this.txtDaPagare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtDaPagare.Leave += new System.EventHandler(this.txtDaPagare_Leave);
-            // 
-            // label12
-            // 
-            this.label12.Location = new System.Drawing.Point(16, 144);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(224, 23);
-            this.label12.TabIndex = 2;
-            this.label12.Text = "Inserire il valore che si desidera pagare:";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(655, 446);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 19;
-            this.btnCancel.Tag = "maincancel";
-            this.btnCancel.Text = "Cancel";
-            // 
-            // btnNext
-            // 
-            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNext.Location = new System.Drawing.Point(535, 446);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(88, 23);
-            this.btnNext.TabIndex = 18;
-            this.btnNext.Text = "Avanti >";
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // btnBack
-            // 
-            this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBack.Location = new System.Drawing.Point(447, 446);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(80, 23);
-            this.btnBack.TabIndex = 17;
-            this.btnBack.Text = "< Indietro";
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtMessage.Location = new System.Drawing.Point(16, 198);
+			this.txtMessage.Multiline = true;
+			this.txtMessage.Name = "txtMessage";
+			this.txtMessage.ReadOnly = true;
+			this.txtMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtMessage.Size = new System.Drawing.Size(672, 105);
+			this.txtMessage.TabIndex = 6;
+			// 
+			// txtDaPagare
+			// 
+			this.txtDaPagare.Location = new System.Drawing.Point(328, 144);
+			this.txtDaPagare.Name = "txtDaPagare";
+			this.txtDaPagare.Size = new System.Drawing.Size(112, 23);
+			this.txtDaPagare.TabIndex = 3;
+			this.txtDaPagare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.txtDaPagare.Leave += new System.EventHandler(this.txtDaPagare_Leave);
+			// 
+			// label12
+			// 
+			this.label12.Location = new System.Drawing.Point(16, 144);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(224, 23);
+			this.label12.TabIndex = 2;
+			this.label12.Text = "Inserire il valore che si desidera pagare:";
+			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// btnCancel
+			// 
+			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnCancel.Location = new System.Drawing.Point(640, 446);
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.Size = new System.Drawing.Size(75, 23);
+			this.btnCancel.TabIndex = 19;
+			this.btnCancel.Tag = "maincancel";
+			this.btnCancel.Text = "Cancel";
+			// 
+			// btnNext
+			// 
+			this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnNext.Location = new System.Drawing.Point(520, 446);
+			this.btnNext.Name = "btnNext";
+			this.btnNext.Size = new System.Drawing.Size(88, 23);
+			this.btnNext.TabIndex = 18;
+			this.btnNext.Text = "Avanti >";
+			this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+			// 
+			// btnBack
+			// 
+			this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnBack.Location = new System.Drawing.Point(432, 446);
+			this.btnBack.Name = "btnBack";
+			this.btnBack.Size = new System.Drawing.Size(80, 23);
+			this.btnBack.TabIndex = 17;
+			this.btnBack.Text = "< Indietro";
+			this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+			// 
+			// panel1
+			// 
+			this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.tabController);
-            this.panel1.Location = new System.Drawing.Point(8, 8);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(719, 430);
-            this.panel1.TabIndex = 20;
-            // 
-            // FrmWizardInvoiceDetail
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(735, 491);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnNext);
-            this.Controls.Add(this.btnBack);
-            this.Controls.Add(this.panel1);
-            this.Name = "FrmWizardInvoiceDetail";
-            this.Text = "FrmWizardInvoiceDetail";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmWizardInvoiceDetail_FormClosing);
-            this.tabController.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridDetails)).EndInit();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.gboxBolletta.ResumeLayout(false);
-            this.gboxBolletta.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.ResumeLayout(false);
+			this.panel1.Controls.Add(this.tabController);
+			this.panel1.Location = new System.Drawing.Point(8, 8);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(704, 430);
+			this.panel1.TabIndex = 20;
+			// 
+			// FrmWizardInvoiceDetail
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(720, 491);
+			this.Controls.Add(this.btnCancel);
+			this.Controls.Add(this.btnNext);
+			this.Controls.Add(this.btnBack);
+			this.Controls.Add(this.panel1);
+			this.Name = "FrmWizardInvoiceDetail";
+			this.Text = "FrmWizardInvoiceDetail";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmWizardInvoiceDetail_FormClosing);
+			this.tabController.ResumeLayout(false);
+			this.tabPage1.ResumeLayout(false);
+			this.tabPage2.ResumeLayout(false);
+			this.tabPage2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridDetails)).EndInit();
+			this.tabPage3.ResumeLayout(false);
+			this.tabPage3.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.gboxBolletta.ResumeLayout(false);
+			this.gboxBolletta.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
+			this.panel1.ResumeLayout(false);
+			this.ResumeLayout(false);
 
         }
 
@@ -1286,7 +1282,7 @@ namespace expense_wizardinvoicedetail {
         private void txtNumDoc_Leave(object sender, System.EventArgs e) {
             if (insideNumDocLeave) return;
             if (Meta.destroyed) return;
-            if (Meta.inchiusura) return;
+            if (Meta.formController.isClosing) return;
             int NMan = CfgFn.GetNoNullInt32(txtNumDoc.Text);
             if (NMan <= 0) {
                 ClearDocum();
@@ -1957,14 +1953,16 @@ namespace expense_wizardinvoicedetail {
             //VisualizzaUPB();
         }
 
-        decimal GetImponibileNear(decimal imponibiletest, decimal taxable, decimal number, decimal discount,
-            decimal exchangerate) {
-            decimal TotaleImponibile = CfgFn.RoundValuta(taxable*number*(1 - discount)*exchangerate);
-            decimal imponibilecomplementare = taxable - imponibiletest;
-            decimal totale1 = CfgFn.RoundValuta(imponibiletest*number*(1 - discount)*exchangerate);
-            decimal totale2 = CfgFn.RoundValuta(imponibilecomplementare*number*(1 - discount)*exchangerate);
+        decimal GetImponibileNear(decimal imponibiletest, decimal taxable, decimal number, double discount, double exchangerate) {
+	        //var imponibileD = CfgFn.RoundValuta(rImponibile * quantita * tassocambio * (1 - scontoPerc));
+
+            var  TotaleImponibileR = CfgFn.RoundValuta(Convert.ToDouble( taxable)*Convert.ToDouble(number)*(1 - discount)*exchangerate);
+            var TotaleImponibile = Convert.ToDecimal(TotaleImponibileR);
+            var imponibilecomplementare = Convert.ToDouble(taxable) - Convert.ToDouble(imponibiletest);
+            var totale1 = Convert.ToDecimal(CfgFn.RoundValuta(Convert.ToDouble(imponibiletest)*Convert.ToDouble(number)*(1 - discount)*exchangerate));
+            var totale2 = Convert.ToDecimal(CfgFn.RoundValuta(Convert.ToDouble(imponibilecomplementare)*Convert.ToDouble(number)*(1 - discount)*exchangerate));
             if (totale1 + totale2 == TotaleImponibile) return imponibiletest;
-            decimal x = number*(1 - discount)*exchangerate;
+            var x = Convert.ToDouble(number)*(1 - discount)*exchangerate;
             decimal passo = 0;
             if (x <= 10) passo = 0.001M;
             if ((x > 10) && (x <= 100)) passo = 0.0001M;
@@ -1974,15 +1972,15 @@ namespace expense_wizardinvoicedetail {
             while (cent <= 0.1M) {
                 decimal imponibile_try = imponibiletest + cent;
                 decimal imponibilecomplementare_try = taxable - imponibile_try;
-                totale1 = CfgFn.RoundValuta(imponibile_try*number*(1 - discount)*exchangerate);
-                totale2 = CfgFn.RoundValuta(imponibilecomplementare_try*number*(1 - discount)*exchangerate);
+                totale1 = Convert.ToDecimal(CfgFn.RoundValuta(Convert.ToDouble(imponibile_try)*Convert.ToDouble(number)*(1 - discount)*exchangerate));
+                totale2 = Convert.ToDecimal(CfgFn.RoundValuta(Convert.ToDouble(imponibilecomplementare_try)*Convert.ToDouble(number)*(1 - discount)*exchangerate));
                 if (totale1 + totale2 == TotaleImponibile) {
                     return imponibile_try;
                 }
                 imponibile_try = imponibiletest - cent;
                 imponibilecomplementare_try = taxable - imponibile_try;
-                totale1 = CfgFn.RoundValuta(imponibile_try*number*(1 - discount)*exchangerate);
-                totale2 = CfgFn.RoundValuta(imponibilecomplementare_try*number*(1 - discount)*exchangerate);
+                totale1 = Convert.ToDecimal(CfgFn.RoundValuta(Convert.ToDouble(imponibile_try)*Convert.ToDouble(number)*(1 - discount)*exchangerate));
+                totale2 = Convert.ToDecimal(CfgFn.RoundValuta(Convert.ToDouble(imponibilecomplementare_try)*Convert.ToDouble(number)*(1 - discount)*exchangerate));
                 if (totale1 + totale2 == TotaleImponibile) {
                     return imponibile_try;
                 }
@@ -2029,17 +2027,13 @@ namespace expense_wizardinvoicedetail {
         void RecalcDettagliSelezionati() {
             DataRow[] Selected = GetGridSelectedRows(gridDetails);
             int causale = CfgFn.GetNoNullInt32(cmbCausale.SelectedValue);
-            decimal ImportoMax = CfgFn.GetNoNullDecimal(
-                HelpForm.GetObjectFromString(typeof(decimal),
-                    txtTotSelezionato.Text, "x.y.c"));
-            decimal ImportoDaPagare = CfgFn.GetNoNullDecimal(
-                HelpForm.GetObjectFromString(typeof(decimal),
-                    txtDaPagare.Text, "x.y.c"));
+            decimal ImportoMax = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(decimal),txtTotSelezionato.Text, "x.y.c"));
+            decimal ImportoDaPagare = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(decimal),txtDaPagare.Text, "x.y.c"));
             if (ImportoDaPagare == 0) {
                 ImportoDaPagare = ImportoMax;
             }
             DataRow Mandate = DS.invoice.Rows[0];
-            decimal tassocambio = CfgFn.GetNoNullDecimal(Mandate["exchangerate"]);
+            var tassocambio = CfgFn.GetNoNullDouble(Mandate["exchangerate"]);
             ClearOperationsToDo();
             // Rilegge i dettagli con l'importo originale nel dataset
             foreach (DataRow Det in Selected) {
@@ -2074,10 +2068,12 @@ namespace expense_wizardinvoicedetail {
                         decimal iva = CfgFn.GetNoNullDecimal(Row["tax"]);
                         decimal quantitaConfezioni = CfgFn.GetNoNullDecimal(Row["npackage"]);
                         decimal aliquota = CfgFn.GetNoNullDecimal(IvaKind[0]["rate"]);
-                        decimal sconto = CfgFn.GetNoNullDecimal(Row["discount"]);
+                        var sconto = CfgFn.GetNoNullDouble(Row["discount"]);
                         // Ricalcolo l'imponibile unitario
                         decimal taxable = CfgFn.Round(CfgFn.GetNoNullDecimal(Row["taxable"])*epsilon, 5);
                         taxable = GetImponibileNear(taxable, imponibile, quantitaConfezioni, sconto, tassocambio);
+                        
+
                         // Uso l'imponibile unitario per  calcolare l'iva totale
                         decimal tax = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Row["tax"])*epsilon);
                         decimal unabatabilitypercentage = CfgFn.GetNoNullDecimal(IvaKind[0]["unabatabilitypercentage"]);
@@ -2146,7 +2142,7 @@ namespace expense_wizardinvoicedetail {
                             decimal iva = CfgFn.GetNoNullDecimal(R["tax"]);
                             decimal quantitaConfezioni = CfgFn.GetNoNullDecimal(R["npackage"]);
                             decimal aliquota = CfgFn.GetNoNullDecimal(IvaKind1[0]["rate"]);
-                            decimal sconto = CfgFn.GetNoNullDecimal(R["discount"]);
+                            var sconto = CfgFn.GetNoNullDouble(R["discount"]);
                             // Splitto il dettaglio corrente in due, uno risulter‡ contabilizzato,l'altro no
 
                             decimal epsilon1 = CalcolaCoefficiente(oldsum, CfgFn.GetNoNullDecimal(Row["total"]), R);
@@ -2386,10 +2382,9 @@ namespace expense_wizardinvoicedetail {
         decimal GetIVADettagliFattura(DataRow[] SelectedRows) {
             if (DS.invoice.Rows.Count == 0)
                 return 0;
-            decimal tassocambio;
+            
             DataRow Fattura = DS.invoice.Rows[0];
-            tassocambio = CfgFn.GetNoNullDecimal(Fattura["exchangerate"]);
-            if (tassocambio == 0) tassocambio = 1;
+            
 
             decimal imposta = 0;
             DataRow[] ToConsider = new DataRow[0];
@@ -2400,7 +2395,7 @@ namespace expense_wizardinvoicedetail {
             foreach (DataRow R in SelectedRows) {
                 if (R.RowState == DataRowState.Deleted) continue;
                 decimal R_imposta = CfgFn.GetNoNullDecimal(R["tax"]);
-                imposta += CfgFn.RoundValuta(R_imposta*tassocambio);
+                imposta += CfgFn.RoundValuta(R_imposta);
             }
 
             return imposta;
@@ -2648,6 +2643,7 @@ namespace expense_wizardinvoicedetail {
 
                         decimal ImportoDaRecuperare = GetIVADettagliFattura(Details);
                         GeneraOAzzeraRecuperoSplitPayment(NewSpesaRow, ImportoDaRecuperare);
+                        GeneraOAzzeraRecuperoIvaEstera(NewSpesaRow, ImportoDaRecuperare);
                     }
 
 
@@ -2663,7 +2659,9 @@ namespace expense_wizardinvoicedetail {
             if (newcomputesorting == "S") {
                 ManageClassificazioni = new GestioneClassificazioni(Meta, null, null, null, null, null, null, null, null);
                 ManageClassificazioni.ClassificaTramiteClassDocumento(ga.DSP, DS);
-            }
+				ManageClassificazioni.completaClassificazioniSiope(DS.expensesorted, ga.DSP);
+				//Meta.FreshForm();
+			}
 
             ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
             //ga.GeneraClassificazioniIndirette(ga.DSP, true);
@@ -2743,7 +2741,7 @@ namespace expense_wizardinvoicedetail {
             decimal totimpo = 0;
             decimal total = 0;
             DataRow Invoice = DS.invoice.Rows[0];
-            decimal tassocambio = CfgFn.GetNoNullDecimal(Invoice["exchangerate"]);
+            var tassocambio = CfgFn.GetNoNullDouble(Invoice["exchangerate"]);
             if (rowToSplit == null) {
                 DataRow[] Selected = GetGridSelectedRows(gridDetails);
 
@@ -2759,12 +2757,12 @@ namespace expense_wizardinvoicedetail {
                     decimal iva = CfgFn.GetNoNullDecimal(Row["tax"]);
                     decimal quantitaConfezioni = CfgFn.GetNoNullDecimal(Row["npackage"]);
                     decimal aliquota = CfgFn.GetNoNullDecimal(IvaKind[0]["rate"]);
-                    decimal sconto = CfgFn.GetNoNullDecimal(Row["discount"]);
+                    var sconto = CfgFn.GetNoNullDouble(Row["discount"]);
                     // Ricalcolo l'imponibile unitario
                     decimal taxable = CfgFn.Round(CfgFn.GetNoNullDecimal(Row["taxable"])*proporzione, 5);
                     taxable = GetImponibileNear(taxable, imponibile, quantitaConfezioni, sconto, tassocambio);
                     // Uso l'imponibile unitario per  calcolare l'iva totale e l'iva indetraibile
-                    decimal taxabletot = CfgFn.RoundValuta((taxable*quantitaConfezioni*(1 - sconto)*tassocambio));
+                    decimal taxabletot = Convert.ToDecimal(CfgFn.RoundValuta(Convert.ToDouble(taxable)*Convert.ToDouble(quantitaConfezioni)*(1 - sconto)*tassocambio));
                     decimal tax = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Row["tax"])*proporzione);
 
                     if (causale == 3) {
@@ -2802,13 +2800,13 @@ namespace expense_wizardinvoicedetail {
                 decimal iva = CfgFn.GetNoNullDecimal(rowToSplit["tax"]);
                 decimal quantitaConfezioni = CfgFn.GetNoNullDecimal(rowToSplit["npackage"]);
                 decimal aliquota = CfgFn.GetNoNullDecimal(IvaKindSplit[0]["rate"]);
-                decimal sconto = CfgFn.GetNoNullDecimal(rowToSplit["discount"]);
+                var sconto = CfgFn.GetNoNullDouble(rowToSplit["discount"]);
 
                 // Ricalcolo l'imponibile unitario
                 decimal taxable = CfgFn.Round(CfgFn.GetNoNullDecimal(rowToSplit["taxable"])*proporzione, 5);
                 taxable = GetImponibileNear(taxable, imponibile, quantitaConfezioni, sconto, tassocambio);
                 // Uso l'imponibile unitario per  calcolare l'iva totale e l'iva indetraibile
-                decimal taxabletot = CfgFn.RoundValuta((taxable*quantitaConfezioni*(1 - sconto)*tassocambio));
+                decimal taxabletot = CfgFn.GetNoNullDecimal(CfgFn.RoundValuta(Convert.ToDouble(taxable)*Convert.ToDouble(quantitaConfezioni)*(1 - sconto)*tassocambio));
                 decimal tax = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(rowToSplit["tax"])*proporzione);
                 decimal importoRicalcolato = 0;
                 if (causale == 3) {
@@ -2857,20 +2855,18 @@ namespace expense_wizardinvoicedetail {
                 decimal quantitaConfezioni1 = CfgFn.GetNoNullDecimal(Row1["npackage"]);
                 string filter1 = QHS.CmpEq("idivakind", Row1["idivakind"]);
                 decimal aliquota1 = CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("ivakind", filter1, "rate"));
-                decimal sconto1 = CfgFn.GetNoNullDecimal(Row1["discount"]);
+                var sconto1 = CfgFn.GetNoNullDouble(Row1["discount"]);
                 DataRow Invoice1 = DS.invoice.Rows[0]; //Row1.GetParentRow("invoiceinvoicedetail");
-                decimal tassocambio1 = CfgFn.GetNoNullDecimal(Invoice1["exchangerate"]);
+                var tassocambio1 = CfgFn.GetNoNullDouble(Invoice1["exchangerate"]);
                 decimal taxable = CfgFn.Round(CfgFn.GetNoNullDecimal(Row1["taxable"]), 5);
-                decimal taxabletotal = CfgFn.RoundValuta((taxable*quantitaConfezioni1*(1 - sconto1)*tassocambio1));
+                decimal taxabletotal = Convert.ToDecimal(CfgFn.RoundValuta(Convert.ToDouble(taxable)*CfgFn.GetNoNullDouble(quantitaConfezioni1)*(1 - sconto1)*tassocambio1));
                 // Ricalcolo l'imponibile unitario
                 decimal taxable1 = CfgFn.Round(CfgFn.GetNoNullDecimal(Row1["taxable"])*proporzione, 5);
-                decimal taxable_recalc = GetImponibileNear(taxable1, imponibile1, quantitaConfezioni1, sconto1,
-                    tassocambio1);
+                decimal taxable_recalc = GetImponibileNear(taxable1, imponibile1, quantitaConfezioni1, sconto1, tassocambio1);
                 // Ricalcolo l'iva
                 decimal taxtotal = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Row1["tax"]));
                 decimal tax_recalctotal = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Row1["tax"])*proporzione);
-                decimal taxable_recalctotal =
-                    CfgFn.RoundValuta((taxable_recalc*quantitaConfezioni1*(1 - sconto1)*tassocambio1));
+                decimal taxable_recalctotal =Convert.ToDecimal( CfgFn.RoundValuta(Convert.ToDouble(taxable_recalc)*Convert.ToDouble(quantitaConfezioni1)*(1 - sconto1)*tassocambio1));
                 DataRow rInfo = Info.NewRow();
                 decimal difference;
                 if ((taxable_recalctotal != 0) && (taxabletotal != 0)) {
@@ -2917,22 +2913,20 @@ namespace expense_wizardinvoicedetail {
                     decimal quantitaConfezioni = CfgFn.GetNoNullDecimal(Row["npackage"]);
                     string filter = QHS.CmpEq("idivakind", Row["idivakind"]);
                     decimal aliquota = CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("ivakind", filter, "rate"));
-                    decimal sconto = CfgFn.GetNoNullDecimal(Row["discount"]);
+                    var sconto = CfgFn.GetNoNullDouble(Row["discount"]);
                     decimal percindeduc =
                         CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("ivakind", filter, "unabatabilitypercentage"));
                     DataRow Invoice = DS.invoice.Rows[0]; //Row.GetParentRow("invoiceinvoicedetail");
-                    decimal tassocambio = CfgFn.GetNoNullDecimal(Invoice["exchangerate"]);
+                    var tassocambio = CfgFn.GetNoNullDouble(Invoice["exchangerate"]);
                     decimal taxable = CfgFn.Round(CfgFn.GetNoNullDecimal(Row["taxable"]), 5);
                     // Ricalcolo l'imponibile unitario
                     decimal taxable_recalc = CfgFn.Round(CfgFn.GetNoNullDecimal(Row["taxable"])*proporzione, 5);
-                    taxable_recalc = GetImponibileNear(taxable_recalc, imponibile, quantitaConfezioni, sconto,
-                        tassocambio);
+                    taxable_recalc = GetImponibileNear(taxable_recalc, imponibile, quantitaConfezioni, sconto,tassocambio);
                     // Uso l'imponibile unitario per  calcolare l'iva totale e l'iva indetraibile
-                    decimal taxabletotal = CfgFn.RoundValuta((taxable*quantitaConfezioni*(1 - sconto)*tassocambio));
+                    decimal taxabletotal = Convert.ToDecimal(CfgFn.RoundValuta(Convert.ToDouble(taxable)*Convert.ToDouble(quantitaConfezioni)*(1 - sconto)*tassocambio));
                     decimal taxtotal = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Row["tax"]));
                     decimal tax_recalc = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Row["tax"])*proporzione);
-                    decimal taxabletot_recalc =
-                        CfgFn.RoundValuta((taxable_recalc*quantitaConfezioni*(1 - sconto)*tassocambio));
+                    decimal taxabletot_recalc = Convert.ToDecimal( CfgFn.RoundValuta(Convert.ToDouble(taxable_recalc)*Convert.ToDouble(quantitaConfezioni)*(1 - sconto)*tassocambio));
                     // aggiungi o sottrai centesimi all'iva del dettaglio
                     if (Det["rownum"].Equals(Row["rownum"])) {
                         if (aggiungi) {
@@ -3100,4 +3094,3 @@ namespace expense_wizardinvoicedetail {
         }
     }
 }
-

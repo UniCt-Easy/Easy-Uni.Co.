@@ -113,9 +113,6 @@
     <Compile Include="CalcoliPerLaGenerazione.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="vistaForm.cs">
-      <DependentUpon>vistaForm.xsd</DependentUpon>
-    </Compile>
     <Compile Include="vistaForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

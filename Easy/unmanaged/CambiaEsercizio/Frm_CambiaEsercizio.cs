@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -161,8 +158,13 @@ namespace CambiaEsercizio//CambiaEsercizio//
             try {
                 esercizio = (int) HelpForm.GetObjectFromString(typeof(int),
                     txtEsercizio.Text.ToString(), "x.y.year");
-                if ((esercizio < 0)) {
-                    MessageBox.Show("L'esercizio non puÚ essere negativo");
+                if (esercizio < 1000) {
+                    MessageBox.Show("L'esercizio non puÚ essere minore di 1000","Errore");
+                    txtEsercizio.Focus();
+                    return false;
+                }
+                if (esercizio > 3000) {
+                    MessageBox.Show("L'esercizio Ë troppo grande","Errore");
                     txtEsercizio.Focus();
                     return false;
                 }
@@ -231,4 +233,3 @@ namespace CambiaEsercizio//CambiaEsercizio//
         }
     }
 }
-

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -916,6 +913,10 @@ namespace manage_automatismi {
             dsMov.Tables[tName].Columns["!sortcode"].Caption = "Classificazione";
             dsMov.Tables[tName].Columns["idsubclass"].Caption = "Sub Movim.";
             dsMov.Tables[tName].Columns["amount"].Caption = "Importo";
+            dsMov.Tables[tName].Columns["values1"].Caption = "Cod.UE";
+            if (IoE == "E") {
+                dsMov.Tables[tName].Columns["values2"].Caption = "Cod.COFOG";
+            }
         }
 
         private DataRow cambiaDescrizione(DataGrid dg, bool askFinanziamento, bool askBolletta) {
@@ -1063,7 +1064,6 @@ namespace manage_automatismi {
                 rClassDest["!idupb"] = rMov["idupb"];
                 rClassDest["!codeupb"] = rMov["codeupb"];
                 rClassDest["!adate"] = rMov["adate"];
-
                 object idsor = rClass["idsor"];
                 //string f_sorting = QHS.CmpEq("idsor", rClass["idsor"]);
                 object descr_sor = Cache.sorting.ReadValuesFor(idsor)["sortcode"];
@@ -1191,10 +1191,10 @@ namespace manage_automatismi {
             M.SetSource(R);
 
             M.Edit(this, edit_type, true);
-            if (M.EntityChanged) {
+            if (M.entityChanged) {
                 newRow = M.NewSourceRow;
             }
-            return M.EntityChanged;
+            return M.entityChanged;
         }
 
         public DataRow InsertDataRow(string IoE, string edit_type, DataTable SourceTable, DataRow Parent, DataGrid dg) {
@@ -1213,7 +1213,7 @@ namespace manage_automatismi {
 
             M.Edit(this, edit_type, true);
 
-            if (!M.EntityChanged) {
+            if (!M.entityChanged) {
                 R.Delete();
                 R = null;
             }
@@ -1858,4 +1858,4 @@ namespace manage_automatismi {
         }
     }
 
-}
+}

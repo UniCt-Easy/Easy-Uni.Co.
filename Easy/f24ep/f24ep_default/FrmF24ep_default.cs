@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -84,6 +81,9 @@ namespace f24ep_default {
             DateTime maxDate = DateTime.MinValue;
             decimal amount = 0;
             decimal sanctionAmount = 0;
+            decimal ivaAmount = 0;
+            decimal ivaAmountCred = 0;
+            decimal ivaAmountDeb = 0;
             decimal detailsAmount = 0;
             decimal totalAmount = 0;
 
@@ -100,7 +100,23 @@ namespace f24ep_default {
             DataTable MyDetailsTable = MyDetailsDS.Tables[GridDetails.DataMember.ToString()];
             detailsAmount = MetaData.SumColumn(MyDetailsTable, "amount");
             totalAmount = amount + detailsAmount;
-            
+
+            // Considero la liquidazione iva
+            DataSet MyivaDS = (DataSet)gridIVA.DataSource;
+            DataTable MyivaTable = MyivaDS.Tables[gridIVA.DataMember.ToString()];
+            ivaAmountCred = MetaData.SumColumn(MyivaTable, "totalcredit");
+            ivaAmountDeb = MetaData.SumColumn(MyivaTable, "totaldebit");
+            ivaAmount = ivaAmountDeb - ivaAmountCred;
+
+            ivaAmountCred = MetaData.SumColumn(MyivaTable, "totalcredit12");
+            ivaAmountDeb = MetaData.SumColumn(MyivaTable, "totaldebit12");
+            ivaAmount = ivaAmount + (ivaAmountDeb - ivaAmountCred);
+
+            ivaAmountDeb = MetaData.SumColumn(MyivaTable, "totaldebitsplit");
+            ivaAmount = ivaAmount + ivaAmountDeb;
+
+            totalAmount = amount + ivaAmount;
+
             // valorizza le date in base alle Liquidazioni presenti nel grid
             foreach (DataRow r in MyTable.Rows) {
                // amount += CfgFn.GetNoNullDecimal(r["amount"]);
@@ -167,6 +183,11 @@ namespace f24ep_default {
                 QH.Between("ytaxpay", esercizio - 1, esercizio));
         }
 
+        string GetFilterForLinkingIVA(QueryHelper QH) {
+            int esercizio = (int)Meta.GetSys("esercizio");
+            return QH.AppAnd(QH.IsNull("idf24ep"),
+                QH.Between("yivapay", esercizio - 1, esercizio));
+        }
 
         string GetFilterForF24EPLinking(QueryHelper QH)
         {
@@ -254,7 +275,7 @@ namespace f24ep_default {
                 return;
             }
 
-            if ((DS.taxpayview.Rows.Count == 0) && (DS.expenseclawbackview.Rows.Count==0))
+            if ((DS.taxpayview.Rows.Count == 0) && (DS.expenseclawbackview.Rows.Count==0) && (DS.ivapay.Rows.Count==0))
             {
                 MessageBox.Show(this, "Non ci sono liquidazioni!");
                 return;
@@ -538,6 +559,32 @@ namespace f24ep_default {
             exportclass.DataTableToExcel(t1, true);
         }
 
-       
+        private void button4_Click(object sender, EventArgs e) {
+            if (MetaData.Empty(this)) return;
+            MetaData.GetFormData(this, true);
+            string MyFilter = GetFilterForLinkingIVA(QHS);
+            string command = "choose.ivapay.default." + MyFilter;
+            MetaData.Choose(this, command);
+            riempiCampiCalcolati();
+        }
+
+        private void button2_Click(object sender, EventArgs e) {
+            if (Meta.IsEmpty) return;
+            Meta.GetFormData(true);
+            MetaData.Unlink_Grid(gridIVA);
+            riempiCampiCalcolati();
+        }
+
+        private void button3_Click(object sender, EventArgs e) {
+            if (Meta.IsEmpty) return;
+            Meta.GetFormData(true);
+            string MyFilter = GetFilterForLinkingIVA(QHC);
+            string MyFilterSQL = GetFilterForLinkingIVA(QHS);
+            Meta.MultipleLinkUnlinkRows("Composizione F24 EP",
+                "Liquidazioni IVA incluse nel modello F24 selezionato",
+                "Liquidazioni IVA non incluse in alcun modello F24",
+                DS.ivapay, MyFilter, MyFilterSQL, "default");
+            riempiCampiCalcolati();
+        }
     }
-}
+}

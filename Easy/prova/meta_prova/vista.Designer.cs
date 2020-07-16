@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -51,19 +48,16 @@ public class provaRow: MetaRow  {
 	public String cuOriginal { 
 		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Data e ora
-	///</summary>
-	public DateTime? dataora{ 
-		get {if (this["dataora"]==DBNull.Value)return null; return  (DateTime?)this["dataora"];}
-		set {if (value==null) this["dataora"]= DBNull.Value; else this["dataora"]= value;}
+	public Int32? idappello{ 
+		get {if (this["idappello"]==DBNull.Value)return null; return  (Int32?)this["idappello"];}
+		set {if (value==null) this["idappello"]= DBNull.Value; else this["idappello"]= value;}
 	}
-	public object dataoraValue { 
-		get{ return this["dataora"];}
-		set {if (value==null|| value==DBNull.Value) this["dataora"]= DBNull.Value; else this["dataora"]= value;}
+	public object idappelloValue { 
+		get{ return this["idappello"];}
+		set {if (value==null|| value==DBNull.Value) this["idappello"]= DBNull.Value; else this["idappello"]= value;}
 	}
-	public DateTime? dataoraOriginal { 
-		get {if (this["dataora",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["dataora",DataRowVersion.Original];}
+	public Int32? idappelloOriginal { 
+		get {if (this["idappello",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idappello",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Commissione
@@ -78,6 +72,20 @@ public class provaRow: MetaRow  {
 	}
 	public Int32? idcommissOriginal { 
 		get {if (this["idcommiss",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idcommiss",DataRowVersion.Original];}
+	}
+	///<summary>
+	///Corso di studi
+	///</summary>
+	public Int32? idcorsostudio{ 
+		get {if (this["idcorsostudio"]==DBNull.Value)return null; return  (Int32?)this["idcorsostudio"];}
+		set {if (value==null) this["idcorsostudio"]= DBNull.Value; else this["idcorsostudio"]= value;}
+	}
+	public object idcorsostudioValue { 
+		get{ return this["idcorsostudio"];}
+		set {if (value==null|| value==DBNull.Value) this["idcorsostudio"]= DBNull.Value; else this["idcorsostudio"]= value;}
+	}
+	public Int32? idcorsostudioOriginal { 
+		get {if (this["idcorsostudio",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idcorsostudio",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Didattica programmata
@@ -169,6 +177,34 @@ public class provaRow: MetaRow  {
 		get {if (this["programma",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["programma",DataRowVersion.Original];}
 	}
 	///<summary>
+	///Data e ora inizio
+	///</summary>
+	public DateTime? start{ 
+		get {if (this["start"]==DBNull.Value)return null; return  (DateTime?)this["start"];}
+		set {if (value==null) this["start"]= DBNull.Value; else this["start"]= value;}
+	}
+	public object startValue { 
+		get{ return this["start"];}
+		set {if (value==null|| value==DBNull.Value) this["start"]= DBNull.Value; else this["start"]= value;}
+	}
+	public DateTime? startOriginal { 
+		get {if (this["start",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["start",DataRowVersion.Original];}
+	}
+	///<summary>
+	///Data e ora fine
+	///</summary>
+	public DateTime? stop{ 
+		get {if (this["stop"]==DBNull.Value)return null; return  (DateTime?)this["stop"];}
+		set {if (value==null) this["stop"]= DBNull.Value; else this["stop"]= value;}
+	}
+	public object stopValue { 
+		get{ return this["stop"];}
+		set {if (value==null|| value==DBNull.Value) this["stop"]= DBNull.Value; else this["stop"]= value;}
+	}
+	public DateTime? stopOriginal { 
+		get {if (this["stop",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["stop",DataRowVersion.Original];}
+	}
+	///<summary>
 	///Denominazione
 	///</summary>
 	public String title{ 
@@ -193,8 +229,9 @@ public class provaTable : MetaTableBase<provaRow> {
 		baseColumns = new Dictionary<string, DataColumn>(){
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
 			{"cu",createColumn("cu",typeof(string),false,false)},
-			{"dataora",createColumn("dataora",typeof(DateTime),true,false)},
+			{"idappello",createColumn("idappello",typeof(int),true,false)},
 			{"idcommiss",createColumn("idcommiss",typeof(int),true,false)},
+			{"idcorsostudio",createColumn("idcorsostudio",typeof(int),true,false)},
 			{"iddidprog",createColumn("iddidprog",typeof(int),true,false)},
 			{"idprova",createColumn("idprova",typeof(int),false,false)},
 			{"idquestionario",createColumn("idquestionario",typeof(int),true,false)},
@@ -202,9 +239,10 @@ public class provaTable : MetaTableBase<provaRow> {
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
 			{"lu",createColumn("lu",typeof(string),false,false)},
 			{"programma",createColumn("programma",typeof(string),true,false)},
-			{"title",createColumn("title",typeof(string),true,false)},
+			{"start",createColumn("start",typeof(DateTime),false,false)},
+			{"stop",createColumn("stop",typeof(DateTime),false,false)},
+			{"title",createColumn("title",typeof(string),false,false)},
 		};
 	}
 }
 }
-

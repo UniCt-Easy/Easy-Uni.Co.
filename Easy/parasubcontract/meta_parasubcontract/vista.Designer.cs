@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -564,6 +561,20 @@ public class parasubcontractRow: MetaRow  {
 		get {if (this["iddaliaposition",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["iddaliaposition",DataRowVersion.Original];}
 	}
 	///<summary>
+	///id della class. siope (idsor di sorting) per il costo 
+	///</summary>
+	public Int32? idsor_siope{ 
+		get {if (this["idsor_siope"]==DBNull.Value)return null; return  (Int32?)this["idsor_siope"];}
+		set {if (value==null) this["idsor_siope"]= DBNull.Value; else this["idsor_siope"]= value;}
+	}
+	public object idsor_siopeValue { 
+		get{ return this["idsor_siope"];}
+		set {if (value==null|| value==DBNull.Value) this["idsor_siope"]= DBNull.Value; else this["idsor_siope"]= value;}
+	}
+	public Int32? idsor_siopeOriginal { 
+		get {if (this["idsor_siope",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsor_siope",DataRowVersion.Original];}
+	}
+	///<summary>
 	///Documenti richiesti
 	///</summary>
 	public Int32? requested_doc{ 
@@ -635,10 +646,10 @@ public class parasubcontractTable : MetaTableBase<parasubcontractRow> {
 			{"idsor04",createColumn("idsor04",typeof(int),true,false)},
 			{"idsor05",createColumn("idsor05",typeof(int),true,false)},
 			{"iddaliaposition",createColumn("iddaliaposition",typeof(int),true,false)},
+			{"idsor_siope",createColumn("idsor_siope",typeof(int),true,false)},
 			{"requested_doc",createColumn("requested_doc",typeof(int),true,false)},
 			{"iddaliarecruitmentmotive",createColumn("iddaliarecruitmentmotive",typeof(int),true,false)},
 		};
 	}
 }
 }
-

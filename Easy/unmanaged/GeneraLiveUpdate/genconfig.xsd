@@ -1,29 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/genconfig.xsd" xmlns:mstns="http://tempuri.org/genconfig.xsd" xmlns="http://tempuri.org/genconfig.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
-  <xs:annotation>
-    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-        <Connections>
-        </Connections>
-        <Tables>
-        </Tables>
-        <Sources>
-        </Sources>
-      </DataSource>
-    </xs:appinfo>
-  </xs:annotation>
-  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msprop:Generator_UserDSName="vistaForm" msprop:Generator_DataSetName="vistaForm">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/genconfig.xsd" xmlns:mstns="http://tempuri.org/genconfig.xsd" xmlns="http://tempuri.org/genconfig.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="config" msprop:Generator_UserTableName="config" msprop:Generator_RowDeletedName="configRowDeleted" msprop:Generator_TableClassName="configDataTable" msprop:Generator_RowChangedName="configRowChanged" msprop:Generator_RowClassName="configRow" msprop:Generator_RowChangingName="configRowChanging" msprop:Generator_RowEvArgName="configRowChangeEvent" msprop:Generator_RowEvHandlerName="configRowChangeEventHandler" msprop:Generator_TablePropName="config" msprop:Generator_TableVarName="tableconfig" msprop:Generator_RowDeletingName="configRowDeleting">
+        <xs:element name="config">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="dirdiff" msprop:Generator_UserColumnName="dirdiff" msprop:Generator_ColumnPropNameInRow="dirdiff" msprop:Generator_ColumnVarNameInTable="columndirdiff" msprop:Generator_ColumnPropNameInTable="dirdiffColumn" type="xs:string" minOccurs="0" />
-              <xs:element name="diruff" msprop:Generator_UserColumnName="diruff" msprop:Generator_ColumnPropNameInRow="diruff" msprop:Generator_ColumnVarNameInTable="columndiruff" msprop:Generator_ColumnPropNameInTable="diruffColumn" type="xs:string" minOccurs="0" />
-              <xs:element name="dirdll" msprop:Generator_UserColumnName="dirdll" msprop:Generator_ColumnPropNameInRow="dirdll" msprop:Generator_ColumnVarNameInTable="columndirdll" msprop:Generator_ColumnPropNameInTable="dirdllColumn" type="xs:string" minOccurs="0" />
-              <xs:element name="dirreport" msprop:Generator_UserColumnName="dirreport" msprop:Generator_ColumnPropNameInRow="dirreport" msprop:Generator_ColumnVarNameInTable="columndirreport" msprop:Generator_ColumnPropNameInTable="dirreportColumn" type="xs:string" minOccurs="0" />
-              <xs:element name="dirsp" msprop:Generator_UserColumnName="dirsp" msprop:Generator_ColumnPropNameInRow="dirsp" msprop:Generator_ColumnVarNameInTable="columndirsp" msprop:Generator_ColumnPropNameInTable="dirspColumn" type="xs:string" minOccurs="0" />
-              <xs:element name="dirweb" msprop:Generator_UserColumnName="dirweb" msprop:Generator_ColumnPropNameInRow="dirweb" msprop:Generator_ColumnVarNameInTable="columndirweb" msprop:Generator_ColumnPropNameInTable="dirwebColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="dirdiff" type="xs:string" minOccurs="0" />
+              <xs:element name="diruff" type="xs:string" minOccurs="0" />
+              <xs:element name="dirdll" type="xs:string" minOccurs="0" />
+              <xs:element name="dirreport" type="xs:string" minOccurs="0" />
+              <xs:element name="dirsp" type="xs:string" minOccurs="0" />
+              <xs:element name="dirweb" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

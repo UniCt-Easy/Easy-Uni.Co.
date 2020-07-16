@@ -84,6 +84,11 @@
               <xs:element name="adate" type="xs:dateTime" />
               <xs:element name="nbill" type="xs:int" minOccurs="0" />
               <xs:element name="idpro" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
@@ -193,6 +198,11 @@
               <xs:element name="labelv5" type="xs:string" minOccurs="0" />
               <xs:element name="lockedv5" type="xs:string" minOccurs="0" />
               <xs:element name="forcedv5" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS1" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS2" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS3" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS4" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedS5" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

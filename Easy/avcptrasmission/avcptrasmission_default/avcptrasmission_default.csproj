@@ -55,9 +55,6 @@
     <Compile Include="FrmNoTable_AvcpTrasmission.Designer.cs">
       <DependentUpon>FrmNoTable_AvcpTrasmission.cs</DependentUpon>
     </Compile>
-    <Compile Include="vistaForm.cs">
-      <DependentUpon>vistaForm.xsd</DependentUpon>
-    </Compile>
     <Compile Include="vistaForm.Designer.cs">
       <DependentUpon>vistaForm.xsd</DependentUpon>
       <AutoGen>True</AutoGen>

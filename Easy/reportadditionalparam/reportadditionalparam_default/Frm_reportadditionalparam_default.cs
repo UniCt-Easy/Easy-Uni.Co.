@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -444,6 +441,7 @@ namespace reportadditionalparam_default//customreportparameter//
                 isAdmin = (Meta.GetSys("FlagMenuAdmin").ToString() == "S");
             //txtOfficialName.Enabled = isAdmin;
             //txtParamName.Enabled = isAdmin; 
+            DS.Tables["reportadditionalparam"].Columns["paramvalue"].ExtendedProperties["sqltype"] = "text";
 		}
 		public void MetaData_AfterFill(){
             txtOfficialName.ReadOnly = (!isAdmin) & Meta.EditMode;
@@ -459,4 +457,3 @@ namespace reportadditionalparam_default//customreportparameter//
 		}
 	}
 }
-

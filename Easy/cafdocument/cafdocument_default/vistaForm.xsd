@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaComunicazioneDaCaf.xsd" xmlns:mstns="http://tempuri.org/VistaComunicazioneDaCaf.xsd" xmlns="http://tempuri.org/VistaComunicazioneDaCaf.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaComunicazioneDaCaf.xsd" xmlns:mstns="http://tempuri.org/VistaComunicazioneDaCaf.xsd" xmlns="http://tempuri.org/VistaComunicazioneDaCaf.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -169,10 +169,6 @@
       <xs:field xpath="mstns:idcode" />
       <xs:field xpath="mstns:version" />
     </xs:unique>
-    <xs:unique name="Constraint2">
-      <xs:selector xpath=".//mstns:geo_city_agencyview" />
-      <xs:field xpath="mstns:idcity" />
-    </xs:unique>
     <xs:unique name="cafdocumentview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:cafdocumentview" />
       <xs:field xpath="mstns:idcafdocument" />
@@ -186,25 +182,14 @@
       <xs:selector xpath=".//mstns:monthname2" />
       <xs:field xpath="mstns:code" />
     </xs:unique>
-    <xs:keyref name="monthname2_cafdocument" refer="monthname2_Constraint1">
-      <xs:selector xpath=".//mstns:cafdocument" />
-      <xs:field xpath="mstns:monthsecondinstalment" />
-    </xs:keyref>
-    <xs:keyref name="monthname1_cafdocument" refer="monthname1_Constraint1">
-      <xs:selector xpath=".//mstns:cafdocument" />
-      <xs:field xpath="mstns:monthfirstinstalment" />
-    </xs:keyref>
-    <xs:keyref name="monthname_cafdocument" refer="monthname_Constraint1">
-      <xs:selector xpath=".//mstns:cafdocument" />
-      <xs:field xpath="mstns:startmonth" />
-    </xs:keyref>
-    <xs:keyref name="geo_city_agencyviewcafdocument" refer="Constraint2">
-      <xs:selector xpath=".//mstns:cafdocument" />
-      <xs:field xpath="mstns:idcity" />
-    </xs:keyref>
-    <xs:keyref name="fiscaltaxregioncafdocument" refer="fiscaltaxregion_Constraint1">
-      <xs:selector xpath=".//mstns:cafdocument" />
-      <xs:field xpath="mstns:idfiscaltaxregion" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="monthname2_cafdocument" msdata:parent="monthname2" msdata:child="cafdocument" msdata:parentkey="code" msdata:childkey="monthsecondinstalment" />
+      <msdata:Relationship name="monthname1_cafdocument" msdata:parent="monthname1" msdata:child="cafdocument" msdata:parentkey="code" msdata:childkey="monthfirstinstalment" />
+      <msdata:Relationship name="monthname_cafdocument" msdata:parent="monthname" msdata:child="cafdocument" msdata:parentkey="code" msdata:childkey="startmonth" />
+      <msdata:Relationship name="geo_city_agencyviewcafdocument" msdata:parent="geo_city_agencyview" msdata:child="cafdocument" msdata:parentkey="idcity" msdata:childkey="idcity" />
+      <msdata:Relationship name="fiscaltaxregioncafdocument" msdata:parent="fiscaltaxregion" msdata:child="cafdocument" msdata:parentkey="idfiscaltaxregion" msdata:childkey="idfiscaltaxregion" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

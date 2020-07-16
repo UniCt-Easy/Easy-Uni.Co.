@@ -610,6 +610,7 @@
               <xs:element name="idlistclass" type="xs:string" />
               <xs:element name="codelistclass" type="xs:string" />
               <xs:element name="listclass" type="xs:string" />
+              <xs:element name="price" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

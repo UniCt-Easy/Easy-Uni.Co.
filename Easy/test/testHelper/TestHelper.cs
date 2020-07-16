@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -320,7 +317,7 @@ namespace TestHelper {
 			"profserviceavcp", "profserviceavcpdetail", "profservicecig", "profservicerefund","profservicesorting","profservicetax"
 		};
 		static  string[] setCasualContractTable = new[] {
-			"casualcontract", "casualcontractdeduction","casualcontractexemption",
+			"casualcontract", "casualcontractdeduction",//"casualcontractexemption",
 			"casualcontractrefund","casualcontractsorting","casualcontracttax","casualcontracttaxbracket",
 			"casualcontractyear","expensecasualcontract","pettycashoperationcasualcontract"
 		};
@@ -486,7 +483,7 @@ namespace TestHelper {
 
         public void generaClassAutomatica(DataSet ds, DataRow r) {
             string metaTableName = r.Table.TableName;
-            Meta_EasyDispatcher md = new Meta_EasyDispatcher(testConn);
+            var md = new Meta_EasyDispatcher(testConn);
             var meta = md.Get(metaTableName);
             var getd = new GetData();
             getd.InitClass(ds, testConn, metaTableName);
@@ -494,7 +491,7 @@ namespace TestHelper {
             //riempie il dataset
             ds.Tables[metaTableName]._getFromDb(testConn, q.keyCmp(r));
             getd.DO_GET(false, null);
-            meta.DS = ds;
+            meta.ds = ds;
             
             GestioneClassificazioni ManageClassificazioni;
             ManageClassificazioni = new GestioneClassificazioni(meta, null, null, null, null, null, null, null, null);
@@ -527,7 +524,7 @@ namespace TestHelper {
             string editType,string listType=null) {            
             var mSource = editDataRow(source,  keyFilter, tableName, editType, listType);
             if (mSource == null) return null;
-            var ds = mSource.DS;
+            var ds = mSource.ds;
 
             //if (tableName == "mandate") {
             //    MetaData.SetDefault(ds.Tables["mandate"],"idmankind",ds.Tables["mandate"].Rows[0]["idmankind"]);
@@ -553,7 +550,7 @@ namespace TestHelper {
         /// <param name="dest"></param>
         /// <returns></returns>
         public static DataSet saveFormDataNoBL(MetaData metaForm,IDataAccess dest) {
-            DataSet ds = metaForm.DS;
+            var ds = metaForm.ds;
             //A questo punto salva il DS nel db di destinazione
             var post = new Easy_PostData_NoBL();
             post.initClass(ds, dest);
@@ -610,10 +607,12 @@ namespace TestHelper {
             mDest.DoMainCommand("maindelete");
             if (mDest.formController.IsEmpty) {
                 mDest.formController.linkedForm.Close();   
+                Application.DoEvents();
                 return null;
             }
             mDest.formController.linkedForm.Close();   
-            return mDest.DS;
+            Application.DoEvents();
+            return mDest.ds;
         }
 
 
@@ -676,7 +675,7 @@ namespace TestHelper {
                 }
             }
             meta.Edit(null, editType, false);
-            var ds = meta.DS.Copy();
+            var ds = meta.ds.Copy();
 
             meta.ds.AcceptChanges();
             meta.linkedForm.Close();
@@ -864,8 +863,8 @@ namespace TestHelper {
             string idForEntry = EP_functions.GetIdForDocument(document);
             string idForMov = BudgetFunction.GetIdForDocument(document);
             var ds = BudgetFunction.CreateDataset(conn);
-            getEpMovForDocument(ds, conn, idForMov);
-            GetEntryForDocument(ds,conn,idForEntry);
+            if (idForMov!=null) getEpMovForDocument(ds, conn, idForMov);
+            if (idForEntry!=null)  GetEntryForDocument(ds,conn,idForEntry);
             return ds;
         }
 
@@ -952,7 +951,7 @@ namespace TestHelper {
               return true;
         }
 
-        public bool binaryDeleteEp(DataRow r) {
+        public bool binaryDeleteEp(DataRow r,bool rebuildep=true) {
             var ds = getEpData(testConn, r);
             var dsExtended = new DataSet();
             if (r.Table.TableName == "mandate" || r.Table.TableName == "mandatedetail") {
@@ -985,19 +984,19 @@ namespace TestHelper {
             }
 
             bool res= binaryDeleteSet(ds);
-            testConn.SQLRunner("exec rebuild_epexptotal " + testConn.Security.GetEsercizio());
-            testConn.SQLRunner("exec rebuild_epacctotal " + testConn.Security.GetEsercizio());
+            if (rebuildep) testConn.SQLRunner("exec rebuild_epexptotal " + testConn.Security.GetEsercizio());
+            if (rebuildep) testConn.SQLRunner("exec rebuild_epacctotal " + testConn.Security.GetEsercizio());
             return res;
         }
 
-        public bool binaryCopyEp(DataRow r) {
+        public bool binaryCopyEp(DataRow r,bool rebuildEP=true) {
             var ds = getEpData(sampleConn, r);
             var qhs = testConn.GetQueryHelper();
-            if (!binaryDeleteEp(r))return  false;
+            if (!binaryDeleteEp(r,false))return  false;
             if (! binaryCopySet(ds))return  false;
 
-            testConn.SQLRunner("exec rebuild_epexptotal " + testConn.Security.GetEsercizio());
-            testConn.SQLRunner("exec rebuild_epacctotal " + testConn.Security.GetEsercizio());
+            if (rebuildEP) testConn.SQLRunner("exec rebuild_epexptotal " + testConn.Security.GetEsercizio());
+            if (rebuildEP) testConn.SQLRunner("exec rebuild_epacctotal " + testConn.Security.GetEsercizio());
 
             var res = true;
             if (r.Table.TableName == "mandate" || r.Table.TableName == "mandatedetail") {
@@ -1049,9 +1048,9 @@ namespace TestHelper {
         }
 
 
-        public bool binaryReplaceEp(DataRow r) {
-            binaryDeleteEp(r);
-            return binaryCopyEp(r);
+        public bool binaryReplaceEp(DataRow r,bool rebuildEP=true) {
+            binaryDeleteEp(r,false);
+            return binaryCopyEp(r,rebuildEP);
         }
 
         void generaCancellaImpegniScritture(DataRow r,bool cancella) {
@@ -1076,8 +1075,10 @@ namespace TestHelper {
             //riempie il dataset
             ds.Tables[metaTableName]._getFromDb(testConn, q.keyCmp(r));
             getd.DO_GET(false, null);
-            meta.DS = ds;
-            r = ds.Tables[metaTableName]._Filter(q.keyCmp(r))._First();
+			meta.ds = ds;
+
+			r = ds.Tables[metaTableName]._Filter(q.keyCmp(r))._First();
+            //MetaFactory.factory.registerType(typeof(Easy_PostDataTest), typeof(Easy_PostData));
 
             EP_Manager ep= new EP_Manager(meta,null,null,null,null,null,null,null,null,metaTableName);
             ep.metaTableForPosting = cancella?"nobusinessrule":"epexp";
@@ -1242,4 +1243,3 @@ namespace TestHelper {
         }
     }
 }
-

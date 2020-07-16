@@ -422,6 +422,8 @@
         InEur.TypeName = "Decimal";
 
         document.getElementById("<%=txtImportoDocEUR.ClientID%>").value = StringValue(InEur, "c.2...1");
+        document.getElementById("<%=txtImportoRichiestoEUR.ClientID%>").value = StringValue(InEur, "c.2...1");
+        document.getElementById("<%=txtImportoRichiestoValuta.ClientID%>").value = StringValue(ImpDocValuta, "c.2...1");
         // Se l'importo documento in euro supera il limite max, imposta il richiesto uguale al limite
 <%--        var LimiteMax;
         var LMax = document.getElementById("<%=txtLimiteMax.ClientID%>");

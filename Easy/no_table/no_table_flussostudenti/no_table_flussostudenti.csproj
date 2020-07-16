@@ -51,7 +51,7 @@
     </Reference>
     <Reference Include="meta_ivaregister">
       <HintPath>..\..\ivaregister\meta_ivaregister\bin\Debug\meta_ivaregister.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -68,7 +68,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_config</Name>
       <HintPath>..\..\config\meta_config\bin\Debug\meta_config.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_estimatedetail">
       <SpecificVersion>False</SpecificVersion>
@@ -80,13 +80,13 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_registry</Name>
       <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_estimatekind">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_estimatekind</Name>
       <HintPath>..\..\estimatekind\meta_estimatekind\bin\Debug\meta_estimatekind.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_estimate">
       <SpecificVersion>False</SpecificVersion>
@@ -98,13 +98,13 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_incomelast</Name>
       <HintPath>..\..\incomelast\meta_incomelast\bin\Debug\meta_incomelast.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_incomesorted">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_incomesorted</Name>
       <HintPath>..\..\incomesorted\meta_incomesorted\bin\Debug\meta_incomesorted.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_income">
       <SpecificVersion>False</SpecificVersion>
@@ -116,37 +116,37 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_incomeyear</Name>
       <HintPath>..\..\incomeyear\meta_incomeyear\bin\Debug\meta_incomeyear.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_upb">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_upb</Name>
       <HintPath>..\..\upb\meta_upb\bin\Debug\meta_upb.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_fin">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_fin</Name>
       <HintPath>..\..\fin\meta_fin\bin\Debug\meta_fin.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_incomevar">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_incomevar</Name>
       <HintPath>..\..\incomevar\meta_incomevar\bin\Debug\meta_incomevar.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_invoice">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_invoice</Name>
       <HintPath>..\..\invoice\meta_invoice\bin\Debug\meta_invoice.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_invoicedetail">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_invoicedetail</Name>
       <HintPath>..\..\invoicedetail\meta_invoicedetail\bin\Debug\meta_invoicedetail.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_flussocrediti">
       <HintPath>..\..\flussocrediti\meta_flussocrediti\bin\Debug\meta_flussocrediti.dll</HintPath>
@@ -170,19 +170,19 @@
       <HintPath>..\..\flussoincassidetail\meta_flussoincassidetail\bin\Debug\meta_flussoincassidetail.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_flussoincassidetail</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_registryreference">
       <HintPath>..\..\registryreference\meta_registryreference\bin\Debug\meta_registryreference.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_registryreference</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_invoicekind">
       <HintPath>..\..\invoicekind\meta_invoicekind\bin\Debug\meta_invoicekind.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_invoicekind</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions">
       <SpecificVersion>False</SpecificVersion>
@@ -192,25 +192,25 @@
       <HintPath>..\..\list\meta_list\bin\Debug\meta_list.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_list</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_ivaregisterkind">
       <HintPath>..\..\ivaregisterkind\meta_ivaregisterkind\bin\Debug\meta_ivaregisterkind.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_ivaregisterkind</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_webpayment">
       <HintPath>..\..\webpayment\meta_webpayment\bin\Debug\meta_webpayment.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_webpayment</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_ivakind">
       <HintPath>..\..\ivakind\meta_ivakind\bin\Debug\meta_ivakind.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_ivakind</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +231,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>vistaForm.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="wndDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="wndDisplay.Designer.cs">
+      <DependentUpon>wndDisplay.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -254,6 +260,9 @@
     <EmbeddedResource Include="FrmShowTracciato.resx">
       <DependentUpon>FrmShowTracciato.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="wndDisplay.resx">
+      <DependentUpon>wndDisplay.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

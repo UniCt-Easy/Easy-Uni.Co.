@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -3955,6 +3952,14 @@ namespace ivapay_wizard_calcolo {
 
         bool ErroriPresenti() {
             object esercizio = Meta.GetSys("esercizio");
+
+            object scadenza = DBNull.Value;
+            scadenza  = HelpForm.GetObjectFromString(typeof(DateTime), txtDataRegolamento.Text, "x.y");
+            if (scadenza == null) {
+	            MessageBox.Show(this, "E' necessario selezionare la data regolamento.","Errore");
+	            return true;
+            }
+
             object date_from = HelpForm.GetObjectFromString(typeof(DateTime), txtDal.Text, null);
             object date_to = HelpForm.GetObjectFromString(typeof(DateTime), txtAl.Text, null);
             object kind = DBNull.Value;
@@ -4928,8 +4933,7 @@ namespace ivapay_wizard_calcolo {
             foreach (DataRow rFattura in fattureDaInserire) {
                 int sign = +1;
                 if (rFattura["flagvariation"].ToString().ToUpper() == "S") sign = -sign;
-                if (rFattura["registerclass"].ToString().ToUpper() != rFattura["kind"].ToString().ToUpper())
-                    sign = -sign;
+                if (rFattura["registerclass"].ToString().ToUpper() != rFattura["kind"].ToString().ToUpper())sign = -sign;
                 if (CfgFn.GetNoNullDecimal(rFattura["currivagrosspayed"]) == 0) continue;
                 DataRow rInvDef;
                 string filter = QHC.AppAnd(QHC.CmpEq("idinvkind", rFattura["idinvkind"]),
@@ -6568,10 +6572,9 @@ namespace ivapay_wizard_calcolo {
 
             if (liquidazionecorrente > 0) {
                 foreach (DataRow R in AltriPagamenti.Rows) {
-                    DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expense"], null,
-                        QHS.CmpEq("idexp", R["idexp"]), null, true);
+                    DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expense"], null,QHS.CmpEq("idexp", R["idexp"]), null, true);
                     DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expenseyear"], null,
-                 QHS.AppAnd(QHS.CmpEq("idexp", R["idexp"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio"))), null, true);
+							QHS.AppAnd(QHS.CmpEq("idexp", R["idexp"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio"))), null, true);
                     DataRow[] RowsExpense = DS.Tables["expense"].Select(QHC.CmpEq("idexp", R["idexp"]));
                     if (RowsExpense.Length > 0) {
                         DataRow RowExp = RowsExpense[0];
@@ -6583,10 +6586,9 @@ namespace ivapay_wizard_calcolo {
 
             if (liquidazionecorrente12 > 0) {
                 foreach (DataRow R in AltriPagamentiIntraExtraUe.Rows) {
-                    DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expense"], null,
-                        QHS.CmpEq("idexp", R["idexp"]), null, true);
+                    DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expense"], null,QHS.CmpEq("idexp", R["idexp"]), null, true);
                     DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expenseyear"], null,
-                 QHS.AppAnd(QHS.CmpEq("idexp", R["idexp"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio"))), null, true);
+							QHS.AppAnd(QHS.CmpEq("idexp", R["idexp"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio"))), null, true);
                     DataRow[] RowsExpense = DS.Tables["expense"].Select(QHC.CmpEq("idexp", R["idexp"]));
                     if (RowsExpense.Length > 0) {
                         DataRow RowExp = RowsExpense[0];
@@ -6598,10 +6600,9 @@ namespace ivapay_wizard_calcolo {
 
             if (liquidazionecorrentesplit > 0) {
                 foreach (DataRow R in AltriPagamentiIstituzionaleSplitPayment.Rows) {
-                    DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expense"], null,
-                        QHS.CmpEq("idexp", R["idexp"]), null, true);
+                    DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expense"], null,QHS.CmpEq("idexp", R["idexp"]), null, true);
                     DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.Tables["expenseyear"], null,
-                      QHS.AppAnd(QHS.CmpEq("idexp", R["idexp"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio"))), null, true);
+							QHS.AppAnd(QHS.CmpEq("idexp", R["idexp"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio"))), null, true);
 
                     DataRow[] RowsExpense = DS.Tables["expense"].Select(QHC.CmpEq("idexp", R["idexp"]));
                     if (RowsExpense.Length > 0) {
@@ -6886,4 +6887,4 @@ namespace ivapay_wizard_calcolo {
             ScollegaPagamentidaLiquidazione("altriistituzionalesplitpayment");
         }
     }
-}
+}

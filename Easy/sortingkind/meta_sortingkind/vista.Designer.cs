@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -19,7 +16,11 @@
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using metadatalibrary;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_sortingkind {
 public class sortingkindRow: MetaRow  {
 	public sortingkindRow(DataRowBuilder rb) : base(rb) {} 
@@ -909,6 +910,61 @@ public class sortingkindRow: MetaRow  {
 	public Int32? idparentkindOriginal { 
 		get {if (this["idparentkind",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idparentkind",DataRowVersion.Original];}
 	}
+	public String allowedS1{ 
+		get {if (this["allowedS1"]==DBNull.Value)return null; return  (String)this["allowedS1"];}
+		set {if (value==null) this["allowedS1"]= DBNull.Value; else this["allowedS1"]= value;}
+	}
+	public object allowedS1Value { 
+		get{ return this["allowedS1"];}
+		set {if (value==null|| value==DBNull.Value) this["allowedS1"]= DBNull.Value; else this["allowedS1"]= value;}
+	}
+	public String allowedS1Original { 
+		get {if (this["allowedS1",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["allowedS1",DataRowVersion.Original];}
+	}
+	public String allowedS2{ 
+		get {if (this["allowedS2"]==DBNull.Value)return null; return  (String)this["allowedS2"];}
+		set {if (value==null) this["allowedS2"]= DBNull.Value; else this["allowedS2"]= value;}
+	}
+	public object allowedS2Value { 
+		get{ return this["allowedS2"];}
+		set {if (value==null|| value==DBNull.Value) this["allowedS2"]= DBNull.Value; else this["allowedS2"]= value;}
+	}
+	public String allowedS2Original { 
+		get {if (this["allowedS2",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["allowedS2",DataRowVersion.Original];}
+	}
+	public String allowedS3{ 
+		get {if (this["allowedS3"]==DBNull.Value)return null; return  (String)this["allowedS3"];}
+		set {if (value==null) this["allowedS3"]= DBNull.Value; else this["allowedS3"]= value;}
+	}
+	public object allowedS3Value { 
+		get{ return this["allowedS3"];}
+		set {if (value==null|| value==DBNull.Value) this["allowedS3"]= DBNull.Value; else this["allowedS3"]= value;}
+	}
+	public String allowedS3Original { 
+		get {if (this["allowedS3",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["allowedS3",DataRowVersion.Original];}
+	}
+	public String allowedS4{ 
+		get {if (this["allowedS4"]==DBNull.Value)return null; return  (String)this["allowedS4"];}
+		set {if (value==null) this["allowedS4"]= DBNull.Value; else this["allowedS4"]= value;}
+	}
+	public object allowedS4Value { 
+		get{ return this["allowedS4"];}
+		set {if (value==null|| value==DBNull.Value) this["allowedS4"]= DBNull.Value; else this["allowedS4"]= value;}
+	}
+	public String allowedS4Original { 
+		get {if (this["allowedS4",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["allowedS4",DataRowVersion.Original];}
+	}
+	public String allowedS5{ 
+		get {if (this["allowedS5"]==DBNull.Value)return null; return  (String)this["allowedS5"];}
+		set {if (value==null) this["allowedS5"]= DBNull.Value; else this["allowedS5"]= value;}
+	}
+	public object allowedS5Value { 
+		get{ return this["allowedS5"];}
+		set {if (value==null|| value==DBNull.Value) this["allowedS5"]= DBNull.Value; else this["allowedS5"]= value;}
+	}
+	public String allowedS5Original { 
+		get {if (this["allowedS5",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["allowedS5",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -916,204 +972,77 @@ public class sortingkindRow: MetaRow  {
 ///Tipo di Rilevanza analitica
 ///</summary>
 public class sortingkindTable : MetaTableBase<sortingkindRow> {
-	public sortingkindTable() : base("sortingkind"){}
-	public override void addBaseColumns(params string [] cols){
-		Dictionary<string,bool> definedColums=new Dictionary<string, bool>();
-		foreach(string col in cols) definedColums[col] = true;
-
-		#region add DataColumns
-		if (definedColums.ContainsKey("active")){ 
-			defineColumn("active", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("ct")){ 
-			defineColumn("ct", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("cu")){ 
-			defineColumn("cu", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("description")){ 
-			defineColumn("description", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("flagdate")){ 
-			defineColumn("flagdate", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("forcedN1")){ 
-			defineColumn("forcedN1", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("forcedN2")){ 
-			defineColumn("forcedN2", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("forcedN3")){ 
-			defineColumn("forcedN3", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("forcedN4")){ 
-			defineColumn("forcedN4", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("forcedN5")){ 
-			defineColumn("forcedN5", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("forcedS1")){ 
-			defineColumn("forcedS1", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("forcedS2")){ 
-			defineColumn("forcedS2", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("forcedS3")){ 
-			defineColumn("forcedS3", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("forcedS4")){ 
-			defineColumn("forcedS4", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("forcedS5")){ 
-			defineColumn("forcedS5", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("forcedv1")){ 
-			defineColumn("forcedv1", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("forcedv2")){ 
-			defineColumn("forcedv2", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("forcedv3")){ 
-			defineColumn("forcedv3", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("forcedv4")){ 
-			defineColumn("forcedv4", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("forcedv5")){ 
-			defineColumn("forcedv5", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labelfordate")){ 
-			defineColumn("labelfordate", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labeln1")){ 
-			defineColumn("labeln1", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labeln2")){ 
-			defineColumn("labeln2", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labeln3")){ 
-			defineColumn("labeln3", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labeln4")){ 
-			defineColumn("labeln4", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labeln5")){ 
-			defineColumn("labeln5", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labels1")){ 
-			defineColumn("labels1", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labels2")){ 
-			defineColumn("labels2", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labels3")){ 
-			defineColumn("labels3", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labels4")){ 
-			defineColumn("labels4", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labels5")){ 
-			defineColumn("labels5", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labelv1")){ 
-			defineColumn("labelv1", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labelv2")){ 
-			defineColumn("labelv2", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labelv3")){ 
-			defineColumn("labelv3", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labelv4")){ 
-			defineColumn("labelv4", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("labelv5")){ 
-			defineColumn("labelv5", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lockedN1")){ 
-			defineColumn("lockedN1", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lockedN2")){ 
-			defineColumn("lockedN2", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lockedN3")){ 
-			defineColumn("lockedN3", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lockedN4")){ 
-			defineColumn("lockedN4", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lockedN5")){ 
-			defineColumn("lockedN5", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lockedS1")){ 
-			defineColumn("lockedS1", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lockedS2")){ 
-			defineColumn("lockedS2", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lockedS3")){ 
-			defineColumn("lockedS3", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lockedS4")){ 
-			defineColumn("lockedS4", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lockedS5")){ 
-			defineColumn("lockedS5", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lockedv1")){ 
-			defineColumn("lockedv1", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lockedv2")){ 
-			defineColumn("lockedv2", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lockedv3")){ 
-			defineColumn("lockedv3", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lockedv4")){ 
-			defineColumn("lockedv4", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lockedv5")){ 
-			defineColumn("lockedv5", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lt")){ 
-			defineColumn("lt", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("lu")){ 
-			defineColumn("lu", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("nodatelabel")){ 
-			defineColumn("nodatelabel", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("totalexpression")){ 
-			defineColumn("totalexpression", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("nphaseexpense")){ 
-			defineColumn("nphaseexpense", typeof(System.Byte));
-		}
-		if (definedColums.ContainsKey("nphaseincome")){ 
-			defineColumn("nphaseincome", typeof(System.Byte));
-		}
-		if (definedColums.ContainsKey("codesorkind")){ 
-			defineColumn("codesorkind", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("idsorkind")){ 
-			defineColumn("idsorkind", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("flag")){ 
-			defineColumn("flag", typeof(System.Byte),false);
-		}
-		if (definedColums.ContainsKey("start")){ 
-			defineColumn("start", typeof(System.Int16));
-		}
-		if (definedColums.ContainsKey("stop")){ 
-			defineColumn("stop", typeof(System.Int16));
-		}
-		if (definedColums.ContainsKey("idparentkind")){ 
-			defineColumn("idparentkind", typeof(System.Int32));
-		}
-		#endregion
-
+	public sortingkindTable() : base("sortingkind"){
+		baseColumns = new Dictionary<string, DataColumn>(){
+			{"active",createColumn("active",typeof(string),true,false)},
+			{"ct",createColumn("ct",typeof(DateTime),false,false)},
+			{"cu",createColumn("cu",typeof(string),false,false)},
+			{"description",createColumn("description",typeof(string),false,false)},
+			{"flagdate",createColumn("flagdate",typeof(string),true,false)},
+			{"forcedN1",createColumn("forcedN1",typeof(string),true,false)},
+			{"forcedN2",createColumn("forcedN2",typeof(string),true,false)},
+			{"forcedN3",createColumn("forcedN3",typeof(string),true,false)},
+			{"forcedN4",createColumn("forcedN4",typeof(string),true,false)},
+			{"forcedN5",createColumn("forcedN5",typeof(string),true,false)},
+			{"forcedS1",createColumn("forcedS1",typeof(string),true,false)},
+			{"forcedS2",createColumn("forcedS2",typeof(string),true,false)},
+			{"forcedS3",createColumn("forcedS3",typeof(string),true,false)},
+			{"forcedS4",createColumn("forcedS4",typeof(string),true,false)},
+			{"forcedS5",createColumn("forcedS5",typeof(string),true,false)},
+			{"forcedv1",createColumn("forcedv1",typeof(string),true,false)},
+			{"forcedv2",createColumn("forcedv2",typeof(string),true,false)},
+			{"forcedv3",createColumn("forcedv3",typeof(string),true,false)},
+			{"forcedv4",createColumn("forcedv4",typeof(string),true,false)},
+			{"forcedv5",createColumn("forcedv5",typeof(string),true,false)},
+			{"labelfordate",createColumn("labelfordate",typeof(string),true,false)},
+			{"labeln1",createColumn("labeln1",typeof(string),true,false)},
+			{"labeln2",createColumn("labeln2",typeof(string),true,false)},
+			{"labeln3",createColumn("labeln3",typeof(string),true,false)},
+			{"labeln4",createColumn("labeln4",typeof(string),true,false)},
+			{"labeln5",createColumn("labeln5",typeof(string),true,false)},
+			{"labels1",createColumn("labels1",typeof(string),true,false)},
+			{"labels2",createColumn("labels2",typeof(string),true,false)},
+			{"labels3",createColumn("labels3",typeof(string),true,false)},
+			{"labels4",createColumn("labels4",typeof(string),true,false)},
+			{"labels5",createColumn("labels5",typeof(string),true,false)},
+			{"labelv1",createColumn("labelv1",typeof(string),true,false)},
+			{"labelv2",createColumn("labelv2",typeof(string),true,false)},
+			{"labelv3",createColumn("labelv3",typeof(string),true,false)},
+			{"labelv4",createColumn("labelv4",typeof(string),true,false)},
+			{"labelv5",createColumn("labelv5",typeof(string),true,false)},
+			{"lockedN1",createColumn("lockedN1",typeof(string),true,false)},
+			{"lockedN2",createColumn("lockedN2",typeof(string),true,false)},
+			{"lockedN3",createColumn("lockedN3",typeof(string),true,false)},
+			{"lockedN4",createColumn("lockedN4",typeof(string),true,false)},
+			{"lockedN5",createColumn("lockedN5",typeof(string),true,false)},
+			{"lockedS1",createColumn("lockedS1",typeof(string),true,false)},
+			{"lockedS2",createColumn("lockedS2",typeof(string),true,false)},
+			{"lockedS3",createColumn("lockedS3",typeof(string),true,false)},
+			{"lockedS4",createColumn("lockedS4",typeof(string),true,false)},
+			{"lockedS5",createColumn("lockedS5",typeof(string),true,false)},
+			{"lockedv1",createColumn("lockedv1",typeof(string),true,false)},
+			{"lockedv2",createColumn("lockedv2",typeof(string),true,false)},
+			{"lockedv3",createColumn("lockedv3",typeof(string),true,false)},
+			{"lockedv4",createColumn("lockedv4",typeof(string),true,false)},
+			{"lockedv5",createColumn("lockedv5",typeof(string),true,false)},
+			{"lt",createColumn("lt",typeof(DateTime),false,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
+			{"nodatelabel",createColumn("nodatelabel",typeof(string),true,false)},
+			{"totalexpression",createColumn("totalexpression",typeof(string),true,false)},
+			{"nphaseexpense",createColumn("nphaseexpense",typeof(byte),true,false)},
+			{"nphaseincome",createColumn("nphaseincome",typeof(byte),true,false)},
+			{"codesorkind",createColumn("codesorkind",typeof(string),false,false)},
+			{"idsorkind",createColumn("idsorkind",typeof(int),false,false)},
+			{"flag",createColumn("flag",typeof(byte),false,false)},
+			{"start",createColumn("start",typeof(short),true,false)},
+			{"stop",createColumn("stop",typeof(short),true,false)},
+			{"idparentkind",createColumn("idparentkind",typeof(int),true,false)},
+			{"allowedS1",createColumn("allowedS1",typeof(string),true,false)},
+			{"allowedS2",createColumn("allowedS2",typeof(string),true,false)},
+			{"allowedS3",createColumn("allowedS3",typeof(string),true,false)},
+			{"allowedS4",createColumn("allowedS4",typeof(string),true,false)},
+			{"allowedS5",createColumn("allowedS5",typeof(string),true,false)},
+		};
 	}
 }
 }
-

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -161,22 +158,15 @@ namespace no_table_entry_apertura {
             + " ED.idupb, UPB.codeupb , UPB.title as upb, " 
             + " ED.idreg, REGISTRY.title as registry, "
             + " ED.competencystart, ED.competencystop, " 
-            + " ED.idaccmotive, ACCMOTIVE.codemotive, ACCMOTIVE.title as accmotive,ED.idepexp,ED.idepacc "
+            + " ED.idaccmotive, ACCMOTIVE.codemotive, ACCMOTIVE.title as accmotive,ED.idepexp,ED.idepacc,ED.idrelated "
             + " FROM entrydetail ED "
-            + " JOIN entry E "
-            + " ON E.yentry = ED.yentry AND E.nentry = ED.nentry "
-            + " LEFT OUTER JOIN accountlookup LKP "
-            + " ON " + QHS.CmpEq("ED.idacc", QHS.Field("LKP.oldidacc"))
-            + " LEFT OUTER JOIN account LKACC "
-            + " ON " + QHS.CmpEq("LKP.newidacc", QHS.Field("LKACC.idacc"))
-            + " JOIN account ACC "
-            + " ON " + QHS.CmpEq("ED.idacc", QHS.Field("ACC.idacc"))
-            + " LEFT OUTER JOIN UPB "
-            + " ON " + QHS.CmpEq("ED.idupb", QHS.Field("UPB.idupb"))
-            + " LEFT OUTER JOIN REGISTRY "
-            + " ON " + QHS.CmpEq("ED.idreg", QHS.Field("REGISTRY.idreg"))
-            + " LEFT OUTER JOIN ACCMOTIVE "
-            + " ON " + QHS.CmpEq("ED.idaccmotive", QHS.Field("ACCMOTIVE.idaccmotive"))
+            + " JOIN entry E  ON E.yentry = ED.yentry AND E.nentry = ED.nentry "
+            + " LEFT OUTER JOIN accountlookup LKP  ON " + QHS.CmpEq("ED.idacc", QHS.Field("LKP.oldidacc"))
+            + " LEFT OUTER JOIN account LKACC  ON " + QHS.CmpEq("LKP.newidacc", QHS.Field("LKACC.idacc"))
+            + " JOIN account ACC  ON " + QHS.CmpEq("ED.idacc", QHS.Field("ACC.idacc"))
+            + " LEFT OUTER JOIN UPB  ON " + QHS.CmpEq("ED.idupb", QHS.Field("UPB.idupb"))
+            + " LEFT OUTER JOIN REGISTRY ON " + QHS.CmpEq("ED.idreg", QHS.Field("REGISTRY.idreg"))
+            + " LEFT OUTER JOIN ACCMOTIVE ON " + QHS.CmpEq("ED.idaccmotive", QHS.Field("ACCMOTIVE.idaccmotive"))
             + " WHERE " + QHS.AppAnd(QHS.CmpEq("ED.yentry", lastEsercizio),
             QHS.CmpEq("ACC.ayear", lastEsercizio), QHS.CmpEq("E.identrykind", 12)
                 ,QHS.IsNotNull("ACC.idpatrimony")   // non saltiamo nulla e ribaltiamo semplicemente tutti i conti attualizzandoli nell'anno successivo
@@ -264,7 +254,7 @@ namespace no_table_entry_apertura {
             string checkfilter = QHS.AppAnd(QHS.CmpEq("yentry", yentry), QHS.CmpEq("nentry", nentry));
             ToMeta.ContextFilter = checkfilter;
             Form F = null;
-            if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+            if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
             bool result = ToMeta.Edit(F, "default", false);
             string listtype = ToMeta.DefaultListType;
             DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
@@ -342,13 +332,13 @@ namespace no_table_entry_apertura {
             if (rSaldo.Table.Columns.Contains("idepexp"))
                 idepacc = rSaldo["idepacc"];
 
-            DataRow rEntry1 = fillEntryDetail(tEntryDetail, rEntry, newidAcc, idaccmotive, idepexp, idepacc, reverseAmount);
+            DataRow rEntry1 = fillEntryDetail(tEntryDetail, rEntry, newidAcc, idaccmotive, idepexp, idepacc, reverseAmount,rSaldo["idrelated"]);
             rEntry1["competencystart"] = rSaldo["competencystart"];
             rEntry1["competencystop"] = rSaldo["competencystop"];
             rEntry1["idreg"] = rSaldo["idreg"];
             rEntry1["idupb"] = rSaldo["idupb"];
 
-            DataRow rEntry2 = fillEntryDetail(tEntryDetail, rEntry, idaccPat,idaccmotive, idepexp, idepacc, amount);
+            DataRow rEntry2 = fillEntryDetail(tEntryDetail, rEntry, idaccPat,idaccmotive, idepexp, idepacc, amount,DBNull.Value);
             rEntry2["competencystart"] = rSaldo["competencystart"];
             rEntry2["competencystop"] = rSaldo["competencystop"];
             rEntry2["idreg"] = rSaldo["idreg"];
@@ -371,7 +361,7 @@ namespace no_table_entry_apertura {
             return rEntry;
         }
        
-        protected DataRow fillEntryDetail(DataTable tEntryDetail, DataRow rEntry, object idacc, object idaccmotive, object idepexp, object idepacc, decimal amount) {
+        protected DataRow fillEntryDetail(DataTable tEntryDetail, DataRow rEntry, object idacc, object idaccmotive, object idepexp, object idepacc, decimal amount,object idrelated) {
             metaEntryDetail.SetDefaults(tEntryDetail);
 
             DataRow rEntryDetail = metaEntryDetail.Get_New_Row(rEntry, tEntryDetail);
@@ -389,6 +379,7 @@ namespace no_table_entry_apertura {
             rEntryDetail["cu"] = "APERTURA";
             rEntryDetail["lt"] = DateTime.Now;
             rEntryDetail["lu"] = "'APERTURA'";
+            rEntryDetail["idrelated"] = idrelated;
 
             //tEntryDetail.Rows.Add(rEntryDetail);
             return rEntryDetail;
@@ -689,4 +680,4 @@ namespace no_table_entry_apertura {
                 , false);
         }
     }
-}
+}

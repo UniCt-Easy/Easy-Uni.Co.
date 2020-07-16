@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -22,6 +19,8 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using metadatalibrary;
 #pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_ivapay {
 public class ivapayRow: MetaRow  {
 	public ivapayRow(DataRowBuilder rb) : base(rb) {} 
@@ -648,6 +647,13 @@ public class ivapayRow: MetaRow  {
 	public Decimal? startcredit_appliedOriginal { 
 		get {if (this["startcredit_applied",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["startcredit_applied",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Indica il metodo di calcolo usato per determinare l'acconto
+	///1 - Metodo storico
+	///2 - Metodo previsionale
+	///3 - Metodo analitico effettivo
+	///4 - Soggetti operanti nei settori delle telecomunicazioni, somministrazione di acqua, energia elettrica, raccolta e smaltimento rifiuti, eccetera
+	///</summary>
 	public String advancecomputemethod{ 
 		get {if (this["advancecomputemethod"]==DBNull.Value)return null; return  (String)this["advancecomputemethod"];}
 		set {if (value==null) this["advancecomputemethod"]= DBNull.Value; else this["advancecomputemethod"]= value;}
@@ -659,6 +665,17 @@ public class ivapayRow: MetaRow  {
 	public String advancecomputemethodOriginal { 
 		get {if (this["advancecomputemethod",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["advancecomputemethod",DataRowVersion.Original];}
 	}
+	public Int32? idf24ep{ 
+		get {if (this["idf24ep"]==DBNull.Value)return null; return  (Int32?)this["idf24ep"];}
+		set {if (value==null) this["idf24ep"]= DBNull.Value; else this["idf24ep"]= value;}
+	}
+	public object idf24epValue { 
+		get{ return this["idf24ep"];}
+		set {if (value==null|| value==DBNull.Value) this["idf24ep"]= DBNull.Value; else this["idf24ep"]= value;}
+	}
+	public Int32? idf24epOriginal { 
+		get {if (this["idf24ep",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idf24ep",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -668,52 +685,52 @@ public class ivapayRow: MetaRow  {
 public class ivapayTable : MetaTableBase<ivapayRow> {
 	public ivapayTable() : base("ivapay"){
 		baseColumns = new Dictionary<string, DataColumn>(){
-			{"nivapay",createColumn("nivapay",typeof(Int32),false,false)},
-			{"yivapay",createColumn("yivapay",typeof(Int32),false,false)},
+			{"nivapay",createColumn("nivapay",typeof(int),false,false)},
+			{"yivapay",createColumn("yivapay",typeof(int),false,false)},
 			{"assesmentdate",createColumn("assesmentdate",typeof(DateTime),true,false)},
-			{"creditamount",createColumn("creditamount",typeof(Decimal),true,false)},
-			{"creditamountdeferred",createColumn("creditamountdeferred",typeof(Decimal),true,false)},
+			{"creditamount",createColumn("creditamount",typeof(decimal),true,false)},
+			{"creditamountdeferred",createColumn("creditamountdeferred",typeof(decimal),true,false)},
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
-			{"cu",createColumn("cu",typeof(String),false,false)},
+			{"cu",createColumn("cu",typeof(string),false,false)},
 			{"dateivapay",createColumn("dateivapay",typeof(DateTime),false,false)},
-			{"debitamount",createColumn("debitamount",typeof(Decimal),true,false)},
-			{"debitamountdeferred",createColumn("debitamountdeferred",typeof(Decimal),true,false)},
+			{"debitamount",createColumn("debitamount",typeof(decimal),true,false)},
+			{"debitamountdeferred",createColumn("debitamountdeferred",typeof(decimal),true,false)},
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
-			{"lu",createColumn("lu",typeof(String),false,false)},
-			{"mixed",createColumn("mixed",typeof(Decimal),true,false)},
-			{"paymentamount",createColumn("paymentamount",typeof(Decimal),true,false)},
-			{"paymentdetails",createColumn("paymentdetails",typeof(String),true,false)},
-			{"paymentkind",createColumn("paymentkind",typeof(String),false,false)},
-			{"prorata",createColumn("prorata",typeof(Decimal),true,false)},
-			{"refundamount",createColumn("refundamount",typeof(Decimal),true,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
+			{"mixed",createColumn("mixed",typeof(decimal),true,false)},
+			{"paymentamount",createColumn("paymentamount",typeof(decimal),true,false)},
+			{"paymentdetails",createColumn("paymentdetails",typeof(string),true,false)},
+			{"paymentkind",createColumn("paymentkind",typeof(string),false,false)},
+			{"prorata",createColumn("prorata",typeof(decimal),true,false)},
+			{"refundamount",createColumn("refundamount",typeof(decimal),true,false)},
 			{"start",createColumn("start",typeof(DateTime),false,false)},
 			{"stop",createColumn("stop",typeof(DateTime),false,false)},
-			{"totalcredit",createColumn("totalcredit",typeof(Decimal),true,false)},
-			{"totaldebit",createColumn("totaldebit",typeof(Decimal),true,false)},
-			{"ivaintrastat12",createColumn("ivaintrastat12",typeof(Decimal),true,false)},
-			{"taxableintrastat12",createColumn("taxableintrastat12",typeof(Decimal),true,false)},
-			{"creditamount12",createColumn("creditamount12",typeof(Decimal),true,false)},
-			{"creditamountdeferred12",createColumn("creditamountdeferred12",typeof(Decimal),true,false)},
-			{"debitamount12",createColumn("debitamount12",typeof(Decimal),true,false)},
-			{"debitamountdeferred12",createColumn("debitamountdeferred12",typeof(Decimal),true,false)},
-			{"paymentamount12",createColumn("paymentamount12",typeof(Decimal),true,false)},
-			{"refundamount12",createColumn("refundamount12",typeof(Decimal),true,false)},
-			{"totalcredit12",createColumn("totalcredit12",typeof(Decimal),true,false)},
-			{"totaldebit12",createColumn("totaldebit12",typeof(Decimal),true,false)},
-			{"flag",createColumn("flag",typeof(Byte),true,false)},
-			{"prev_debit",createColumn("prev_debit",typeof(Decimal),true,false)},
-			{"prev_debit12",createColumn("prev_debit12",typeof(Decimal),true,false)},
-			{"totaldebitsplit",createColumn("totaldebitsplit",typeof(Decimal),true,false)},
-			{"paymentamountsplit",createColumn("paymentamountsplit",typeof(Decimal),true,false)},
-			{"debitamountsplit",createColumn("debitamountsplit",typeof(Decimal),true,false)},
-			{"debitamountdeferredsplit",createColumn("debitamountdeferredsplit",typeof(Decimal),true,false)},
-			{"taxablesplit",createColumn("taxablesplit",typeof(Decimal),true,false)},
-			{"ivasplit",createColumn("ivasplit",typeof(Decimal),true,false)},
-			{"prev_debitsplit",createColumn("prev_debitsplit",typeof(Decimal),true,false)},
-			{"startcredit_applied",createColumn("startcredit_applied",typeof(Decimal),true,false)},
-			{"advancecomputemethod",createColumn("advancecomputemethod",typeof(String),true,false)},
+			{"totalcredit",createColumn("totalcredit",typeof(decimal),true,false)},
+			{"totaldebit",createColumn("totaldebit",typeof(decimal),true,false)},
+			{"ivaintrastat12",createColumn("ivaintrastat12",typeof(decimal),true,false)},
+			{"taxableintrastat12",createColumn("taxableintrastat12",typeof(decimal),true,false)},
+			{"creditamount12",createColumn("creditamount12",typeof(decimal),true,false)},
+			{"creditamountdeferred12",createColumn("creditamountdeferred12",typeof(decimal),true,false)},
+			{"debitamount12",createColumn("debitamount12",typeof(decimal),true,false)},
+			{"debitamountdeferred12",createColumn("debitamountdeferred12",typeof(decimal),true,false)},
+			{"paymentamount12",createColumn("paymentamount12",typeof(decimal),true,false)},
+			{"refundamount12",createColumn("refundamount12",typeof(decimal),true,false)},
+			{"totalcredit12",createColumn("totalcredit12",typeof(decimal),true,false)},
+			{"totaldebit12",createColumn("totaldebit12",typeof(decimal),true,false)},
+			{"flag",createColumn("flag",typeof(byte),true,false)},
+			{"prev_debit",createColumn("prev_debit",typeof(decimal),true,false)},
+			{"prev_debit12",createColumn("prev_debit12",typeof(decimal),true,false)},
+			{"totaldebitsplit",createColumn("totaldebitsplit",typeof(decimal),true,false)},
+			{"paymentamountsplit",createColumn("paymentamountsplit",typeof(decimal),true,false)},
+			{"debitamountsplit",createColumn("debitamountsplit",typeof(decimal),true,false)},
+			{"debitamountdeferredsplit",createColumn("debitamountdeferredsplit",typeof(decimal),true,false)},
+			{"taxablesplit",createColumn("taxablesplit",typeof(decimal),true,false)},
+			{"ivasplit",createColumn("ivasplit",typeof(decimal),true,false)},
+			{"prev_debitsplit",createColumn("prev_debitsplit",typeof(decimal),true,false)},
+			{"startcredit_applied",createColumn("startcredit_applied",typeof(decimal),true,false)},
+			{"advancecomputemethod",createColumn("advancecomputemethod",typeof(string),true,false)},
+			{"idf24ep",createColumn("idf24ep",typeof(int),true,false)},
 		};
 	}
 }
 }
-

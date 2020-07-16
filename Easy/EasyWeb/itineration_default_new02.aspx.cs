@@ -1,21 +1,17 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 ﻿using System;
 using System.Data;
@@ -1509,9 +1505,8 @@ public partial class itineration_default_new02 : MetaPage {
     void CalcolaTotAnticipo() {
         DataRow Curr = DS.itineration.Rows[0];
         if (DS.HasChanges()) {
-            decimal nuovototanticipo = CfgFn.GetNoNullDecimal(Curr["totadvance"]);
             if (!AnticipoIsReadOnly) {
-                nuovototanticipo = CfgFn.RoundValuta(MissFun.GetTotAnticipoMissione(DS.itinerationlap,
+                decimal nuovototanticipo = CfgFn.RoundValuta(MissFun.GetTotAnticipoMissione(DS.itinerationlap,
                         DS.itinerationrefund_advance));
                 Curr["totadvance"] = nuovototanticipo;
             }
@@ -1570,8 +1565,7 @@ public partial class itineration_default_new02 : MetaPage {
 
     bool DataValida(string date) {
         try {
-            DateTime TT = (DateTime)HelpForm.GetObjectFromString(typeof(DateTime),
-                date, "x.y");
+            DateTime TT = (DateTime)HelpForm.GetObjectFromString(typeof(DateTime),date, "x.y");
             return true;
         }
         catch {
@@ -1579,17 +1573,14 @@ public partial class itineration_default_new02 : MetaPage {
         }
     }
     bool DataMissioneValida() {
-        if (PState.IsEmpty)
-            return false;
-        if (txtDataInizio.ToString().Trim() == "")
-            return false;
+        if (PState.IsEmpty) return false;
+        if (txtDataInizio.ToString().Trim() == "") return false;
         return DataValida(txtDataInizio.Text.ToString());
 
     }
 
     bool getFaseAnticipoMissione() {
-        if (PState.IsEmpty)
-            return false;
+        if (PState.IsEmpty) return false;
         bool phase = false;
 
         // non più data contabile ma data di sistema
@@ -1599,11 +1590,11 @@ public partial class itineration_default_new02 : MetaPage {
         if (DataValida(txtDataInizio.Text.ToString())) {
             datainizio = HelpForm.GetObjectFromString(typeof(DateTime), txtDataInizio.Text, txtDataInizio.Tag.ToString());
         }
-        else
+        else {
             return false;
+        }
 
-        if (dataoggi < (DateTime)datainizio)
-            phase = true;
+        if (dataoggi < (DateTime)datainizio) phase = true;
         return phase;
     }
 
@@ -1619,11 +1610,9 @@ public partial class itineration_default_new02 : MetaPage {
             int N = Conn.RUN_SELECT_COUNT("expenseitineration", filter, false);
             filter = QHS.CmpMulti(Curr, "iditineration");
             N += Conn.RUN_SELECT_COUNT("pettycashoperationitineration", filter, false);
-            if (N > 0)
-                AnticipoIsReadOnly = true;
+            if (N > 0) AnticipoIsReadOnly = true;
         }
-        if (!getFaseAnticipoMissione())
-            AnticipoIsReadOnly = true;
+        if (!getFaseAnticipoMissione()) AnticipoIsReadOnly = true;
     }
 
     void AggiornaTotaliErogati() {

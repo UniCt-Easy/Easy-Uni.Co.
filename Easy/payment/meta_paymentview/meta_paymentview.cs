@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -105,7 +102,9 @@ namespace meta_paymentview{//meta_documentopagamentoview//
 					DescribeAColumn(T, "npay", "Numero",pos++);
 					DescribeAColumn(T, "adate", "Data emiss.",pos++);
 					DescribeAColumn(T, "printdate", "Data stampa",pos++);
+					DescribeAColumn(T, "registry", "Percipiente",pos++);
 					DescribeAColumn(T, "performed", "Esitato",pos++);
+					DescribeAColumn(T, "net", "Importo netto",pos++);
 					DescribeAColumn(T, "total", "Totale documento",pos++);
                     DescribeAColumn(T, "npay_treasurer", "Numero Doc. Cassiere", pos++);
 					FilterRows(T);
@@ -159,4 +158,3 @@ namespace meta_paymentview{//meta_documentopagamentoview//
 		}
 	}
 }
-

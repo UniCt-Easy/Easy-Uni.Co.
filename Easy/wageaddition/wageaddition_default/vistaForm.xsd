@@ -265,6 +265,11 @@
               <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -327,6 +332,11 @@
               <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -363,6 +373,11 @@
               <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -399,6 +414,11 @@
               <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
               <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -664,6 +684,11 @@
               <xs:element name="idsor" type="xs:int" />
               <xs:element name="paridsor" type="xs:int" minOccurs="0" />
               <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="start" type="xs:short" minOccurs="0" />
               <xs:element name="stop" type="xs:short" minOccurs="0" />
             </xs:sequence>
@@ -703,6 +728,11 @@
               <xs:element name="paridsor" type="xs:int" minOccurs="0" />
               <xs:element name="nlevel" type="xs:unsignedByte" />
               <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="stop" type="xs:short" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -741,6 +771,11 @@
               <xs:element name="paridsor" type="xs:int" minOccurs="0" />
               <xs:element name="nlevel" type="xs:unsignedByte" />
               <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="stop" type="xs:short" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -779,6 +814,11 @@
               <xs:element name="paridsor" type="xs:int" minOccurs="0" />
               <xs:element name="nlevel" type="xs:unsignedByte" />
               <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="stop" type="xs:short" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -817,6 +857,11 @@
               <xs:element name="paridsor" type="xs:int" minOccurs="0" />
               <xs:element name="nlevel" type="xs:unsignedByte" />
               <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="stop" type="xs:short" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -862,6 +907,11 @@
               <xs:element name="defaults4" type="xs:string" minOccurs="0" />
               <xs:element name="defaults5" type="xs:string" minOccurs="0" />
               <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="movkind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -901,6 +951,11 @@
               <xs:element name="nlevel" type="xs:unsignedByte" />
               <xs:element name="start" type="xs:short" minOccurs="0" />
               <xs:element name="stop" type="xs:short" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="email" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>

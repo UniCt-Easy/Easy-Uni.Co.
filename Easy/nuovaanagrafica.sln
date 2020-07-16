@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mainform", "mainform\mainform.csproj", "{E04C2CEF-078B-4B25-904C-6374C88E0EE7}"
 EndProject
@@ -73,6 +73,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_registrypaymethod", "registrypaymethod\meta_registrypaymethod\meta_registrypaymethod.csproj", "{5CC87B79-5503-4AA4-AE9B-5FFBCE90AE80}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registry_anagrafica", "registry\registry_anagrafica\registry_anagrafica.csproj", "{D17365BA-346C-49AD-AB78-BB986DF86906}"
+	ProjectSection(ProjectDependencies) = postProject
+		{62A09609-96F3-4437-A214-C2D1CB3614BF} = {62A09609-96F3-4437-A214-C2D1CB3614BF}
+		{9E9C1139-4C36-448D-BF60-919773B05421} = {9E9C1139-4C36-448D-BF60-919773B05421}
+		{68C63580-F2DF-4BC4-ACAB-483E30638F74} = {68C63580-F2DF-4BC4-ACAB-483E30638F74}
+		{06E985D5-AD63-44B5-99CA-F513E7C41F30} = {06E985D5-AD63-44B5-99CA-F513E7C41F30}
+		{5014E1DA-562A-4636-957D-4BF3A96BD67C} = {5014E1DA-562A-4636-957D-4BF3A96BD67C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_address", "address\meta_address\meta_address.csproj", "{92FA9A8D-D34E-4F6A-9932-6ADB605DD71C}"
 EndProject
@@ -124,9 +131,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "taxsetup_default", "taxsetu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "checkflags", "unmanaged\checkflags\checkflags.csproj", "{F6751329-5DFE-4EFC-90E0-40D156BD2B7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_geo_nation", "geo_nation\meta_geo_nation\meta_geo_nation.csproj", "{213CF37B-255A-466C-93C5-71F06117FE80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_geo_nation", "geo_nation\meta_geo_nation\meta_geo_nation.csproj", "{68C63580-F2DF-4BC4-ACAB-483E30638F74}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_geo_region_view", "geo_region\meta_geo_region_view\meta_geo_region_view.csproj", "{F61D590A-B825-41F7-9FDB-3479DCBA0371}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_geo_country", "geo_country\meta_geo_country\meta_geo_country.csproj", "{06E9F1D7-328D-49F0-98A4-CF3A95093A18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -378,16 +387,23 @@ Global
 		{F6751329-5DFE-4EFC-90E0-40D156BD2B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6751329-5DFE-4EFC-90E0-40D156BD2B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6751329-5DFE-4EFC-90E0-40D156BD2B7A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{213CF37B-255A-466C-93C5-71F06117FE80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{213CF37B-255A-466C-93C5-71F06117FE80}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{213CF37B-255A-466C-93C5-71F06117FE80}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{213CF37B-255A-466C-93C5-71F06117FE80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68C63580-F2DF-4BC4-ACAB-483E30638F74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68C63580-F2DF-4BC4-ACAB-483E30638F74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68C63580-F2DF-4BC4-ACAB-483E30638F74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68C63580-F2DF-4BC4-ACAB-483E30638F74}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F61D590A-B825-41F7-9FDB-3479DCBA0371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F61D590A-B825-41F7-9FDB-3479DCBA0371}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F61D590A-B825-41F7-9FDB-3479DCBA0371}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F61D590A-B825-41F7-9FDB-3479DCBA0371}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06E9F1D7-328D-49F0-98A4-CF3A95093A18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06E9F1D7-328D-49F0-98A4-CF3A95093A18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06E9F1D7-328D-49F0-98A4-CF3A95093A18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06E9F1D7-328D-49F0-98A4-CF3A95093A18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A31BFC1B-00A8-4269-9B36-2C319EA17377}
 	EndGlobalSection
 EndGlobal

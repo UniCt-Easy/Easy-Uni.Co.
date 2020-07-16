@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -339,7 +336,7 @@ private void initClass() {
 
 	//////////////////// SORTINGKIND /////////////////////////////////
 	var tsortingkind= new sortingkindTable();
-	tsortingkind.addBaseColumns("idsorkind","description","nphaseincome","nphaseexpense","cu","ct","lu","lt","labeln1","lockedn1","forcedn1","labeln2","lockedn2","forcedn2","labeln3","lockedn3","forcedn3","labeln4","lockedn4","forcedn4","labeln5","lockedn5","forcedn5","labels1","lockeds1","forceds1","labels2","lockeds2","forceds2","labels3","lockeds3","forceds3","labels4","lockeds4","forceds4","labels5","lockeds5","forceds5","labelv1","lockedv1","forcedv1","labelv2","lockedv2","forcedv2","labelv3","lockedv3","forcedv3","labelv4","lockedv4","forcedv4","labelv5","lockedv5","forcedv5","flagdate","labelfordate","nodatelabel","totalexpression");
+	tsortingkind.addBaseColumns("active","ct","cu","description","flagdate","forcedN1","forcedN2","forcedN3","forcedN4","forcedN5","forcedS1","forcedS2","forcedS3","forcedS4","forcedS5","forcedv1","forcedv2","forcedv3","forcedv4","forcedv5","labelfordate","labeln1","labeln2","labeln3","labeln4","labeln5","labels1","labels2","labels3","labels4","labels5","labelv1","labelv2","labelv3","labelv4","labelv5","lockedN1","lockedN2","lockedN3","lockedN4","lockedN5","lockedS1","lockedS2","lockedS3","lockedS4","lockedS5","lockedv1","lockedv2","lockedv3","lockedv4","lockedv5","lt","lu","nodatelabel","totalexpression","nphaseexpense","nphaseincome","codesorkind","idsorkind","flag","start","stop","idparentkind","allowedS1","allowedS2","allowedS3","allowedS4","allowedS5");
 	tsortingkind.defineColumn("!importo", typeof(decimal));
 	Tables.Add(tsortingkind);
 	tsortingkind.defineKey("idsorkind");
@@ -938,4 +935,3 @@ private void initClass() {
 }
 }
 }
-

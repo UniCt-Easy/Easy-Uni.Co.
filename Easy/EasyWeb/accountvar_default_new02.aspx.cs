@@ -1,21 +1,17 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 ﻿using System;
 using System.Data;
@@ -276,8 +272,8 @@ public partial class accountvar_default_new02 : MetaPage {
 
     public override void AfterFill() {
         Saldo.ReadOnly = true;
-
-        if (PState.InsertMode) {
+		esercizio.ReadOnly = true;
+		if (PState.InsertMode) {
             LockUnLockControls(false);
             btnStatus.Visible = false;
         }
@@ -295,7 +291,7 @@ public partial class accountvar_default_new02 : MetaPage {
     }
 
     public override void AfterClear() {
-        Saldo.ReadOnly = false;
+        Saldo.ReadOnly = true;
         esercizio.Text = Meta.Conn.GetEsercizio().ToString();
         Saldo.Text = "";
         groupTipoPrevisione.Enabled = true;

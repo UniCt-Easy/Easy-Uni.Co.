@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -85,8 +82,11 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             DataAccess.SetTableForReading(dsCedolino.cedolinonontrasferibile, "payroll");
             DataAccess.SetTableForReading(dsCedolino.cedolinoerogato, "payroll");
             DataAccess.SetTableForReading(dsCedolino.cedolinoannosuccessivo, "payroll");
-      
-            ContextMenu ExcelMenu;
+			DataAccess.SetTableForReading(dsCedolino.upb_cedolinonontrasferibile, "upb");
+			DataAccess.SetTableForReading(dsCedolino.upb_cedolinoerogato, "upb");
+			DataAccess.SetTableForReading(dsCedolino.upb_cedolinoannosuccessivo, "upb");
+			DataAccess.SetTableForReading(dsCedolino.upb_payroll, "upb");
+			ContextMenu ExcelMenu;
             ExcelMenu = new ContextMenu();
             ExcelMenu.MenuItems.Add("Excel", new EventHandler(Excel_Click));
             dgCedoliniNonTrasferibili.ContextMenu = ExcelMenu;
@@ -132,7 +132,11 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             string fService = QHS.CmpEq("module", "COCOCO");
             Meta.Conn.RUN_SELECT_INTO_TABLE(dsCedolino.service, null, fService, null, true);
 
-            riempiTabCedolini();
+			Meta.Conn.RUN_SELECT_INTO_TABLE(dsCedolino.upb_cedolinoannosuccessivo, null, null, null, true);
+			Meta.Conn.RUN_SELECT_INTO_TABLE(dsCedolino.upb_payroll, null, null, null, true);
+			Meta.Conn.RUN_SELECT_INTO_TABLE(dsCedolino.upb_cedolinoerogato, null, null, null, true);
+			Meta.Conn.RUN_SELECT_INTO_TABLE(dsCedolino.upb_cedolinonontrasferibile, null, null, null, true);
+			riempiTabCedolini();
             visualizzaEtichetta();
             DisplayTabs(0);
 
@@ -784,7 +788,11 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             if (dt.Columns.Contains("!primocedolinononerogato")) {
                 dt.Columns["!primocedolinononerogato"].Caption = "Primo Non Erog.";
             }
-        }
+
+			if (dt.Columns.Contains("!codeupb")) {
+				dt.Columns["!codeupb"].Caption = "Cod. UPB";
+			}
+		}
 
         /// <summary>
         /// Metodo che imposta i campi calcolati della tabella CEDOLINONONTRASFERIBILE
@@ -796,7 +804,13 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 cedolinoRow["!eserccontratto"] = rContratto["ycon"];
                 cedolinoRow["!numcontratto"] = rContratto["ncon"];
                 cedolinoRow["!denominazione"] = rContratto["registry"];
-            }
+
+				DataRow rUPB= cedolinoRow.GetParentRow("upb_cedolinonontrasferibile_cedolinonontrasferibile");
+				if (rUPB == null) {
+					continue;
+				}
+				cedolinoRow["!codeupb"] = rUPB["codeupb"];
+			}
         }
 
         /// <summary>
@@ -829,9 +843,16 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 r["!eserccontratto"] = rContrattoView["ycon"];
                 r["!numcontratto"] = rContrattoView["ncon"];
                 r["!denominazione"] = rContrattoView["registry"];
-            }
 
-            ArrayList contrattiConCedolinoDiConguaglio = new ArrayList();
+				DataRow rUPB= r.GetParentRow("upb_payroll_payroll");
+				if (rUPB == null) {
+					 	continue;
+				}
+				r["!codeupb"] = rUPB["codeupb"];
+
+			}
+
+			ArrayList contrattiConCedolinoDiConguaglio = new ArrayList();
             foreach (DataRow r in dsCedolino.cedolinonontrasferibile.Rows) {
 
                 int pos = contrattiConCedolinoDiConguaglio.BinarySearch(r["idcon"]);                
@@ -1355,8 +1376,8 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
         /// Se il cedolino Ë stato solamente decalcolato la scrittura viene azzerata
         /// </summary>
         private void AzzeraCancellaImpegni() {
-            BudgetFunction BF = new BudgetFunction(Meta.Dispatcher);
-            if (!BF.attivo) return;
+          
+            
 
             // Dei cedolini presenti in memoria azzero le classificazioni degli impegni di budget, in modo da avere
             // impegni vuoti che possono essere riutilizzati al prossimo ricalcolo del cedolino
@@ -1364,6 +1385,8 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                     QHC.CmpEq("fiscalyear", esercizio));
             // Ciclo sui cedolini trasferibili
             foreach (DataRow rCedolino in dsCedolino.payroll.Select(filtroCedolini)) {
+	            BudgetFunction BF = new BudgetFunction(Meta.Dispatcher);
+	            if (!BF.attivo) continue;
                 string idrelated = BudgetFunction.GetIdForDocument(rCedolino);
                 if (idrelated == "") continue;
 
@@ -1373,9 +1396,9 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                         elencoRelatedBudgetCedolini.Remove(idrelated);
                         continue;
                     }
-                    BF.ClearDetails();
-                    BF.RemoveEmptyDetails();
-                    BF.ClearEpExp();
+                    BF.ClearDetails();              //non fa nulla
+                    BF.RemoveEmptyDetails();        //Cancella le righe di epexpvar e epexpsorting a importo 0
+                    BF.ClearEpExp();                //azzera epexpyear
                     MetaData MetaEpExp = MetaData.GetMetaData(this, "epexp");
                     PostData Post = MetaEpExp.Get_PostData();
 
@@ -1390,6 +1413,9 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 
             // Ciclo sui cedolini non trasferibili
             foreach (DataRow rCedolino in dsCedolino.cedolinonontrasferibile.Select(filtroCedolini)) {
+	            BudgetFunction BF = new BudgetFunction(Meta.Dispatcher);
+	            if (!BF.attivo) continue;
+
                 string idrelated = BudgetFunction.GetIdForDocument(rCedolino);
                 if (idrelated == "") continue;
 
@@ -1400,9 +1426,9 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                         continue;
                     }
 
-                    BF.ClearDetails();
-                    BF.RemoveEmptyDetails();
-                    BF.ClearEpExp();
+                    BF.ClearDetails();          //non fa nulla
+                    BF.RemoveEmptyDetails();    //Cancella le righe di epexpvar e epexpsorting a importo 0
+                    BF.ClearEpExp();            //azzera epexpyear
                     MetaData MetaEpExp = MetaData.GetMetaData(this, "epexp");
                     PostData Post = MetaEpExp.Get_PostData();
 
@@ -1420,11 +1446,15 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             if (elencoRelatedBudgetCedolini.Count == 0) return;
             //string filtroRelated = "";
             foreach (string idRelated in elencoRelatedBudgetCedolini) {
+	            BudgetFunction BF = new BudgetFunction(Meta.Dispatcher);
+	            if (!BF.attivo) continue;
+
+
                 BF.GetEpExpForDocument(idRelated);
-                BF.ClearDetails();
-                BF.RemoveEmptyDetails();
-                BF.ClearEpExp();
-                BF.RemoveEmptyEpexp();
+                BF.ClearDetails();              //non fa nulla
+                BF.RemoveEmptyDetails();        //Cancella le righe di epexpvar e epexpsorting a importo 0
+                BF.ClearEpExp();                //azzera epexpyear
+                BF.RemoveEmptyEpexp();          //Cancella le righe che hanno importo zero
 
                 MetaData MetaEpExp2 = MetaData.GetMetaData(this, "epexp");
                 PostData Post2 = MetaEpExp2.Get_PostData();
@@ -2066,4 +2096,4 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
         #endregion Gestione selezione CEDOLINI DA TRASFERIRE
 
     }
-}
+}

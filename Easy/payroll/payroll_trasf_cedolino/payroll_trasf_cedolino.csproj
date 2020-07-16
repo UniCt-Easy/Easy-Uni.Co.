@@ -123,9 +123,6 @@
     <Compile Include="Frm_payroll_trasf_cedolino.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="vistaForm.cs">
-      <DependentUpon>vistaForm.xsd</DependentUpon>
-    </Compile>
     <Compile Include="vistaForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

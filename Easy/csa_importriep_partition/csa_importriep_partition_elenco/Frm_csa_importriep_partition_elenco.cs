@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -66,6 +63,9 @@ namespace csa_importriep_partition_elenco {
 
             GetData.SetStaticFilter(DS.fin, QHS.AppAnd(filter, QHS.BitSet("flag", 0)));
             GetData.SetStaticFilter(DS.account, QHS.AppAnd(filter));
+
+            GetData.SetStaticFilter(DS.csa_import, QHS.CmpEq("yimport", Conn.GetEsercizio()));
+
         }
         void SetGBoxClass(object sortingkind) {
             if (sortingkind != DBNull.Value) {
@@ -300,6 +300,7 @@ namespace csa_importriep_partition_elenco {
             txtEsercizioImpegno.Text = "";
             txtNumImpegno.Text = "";
             cmbFaseImpBudget.SelectedIndex = 0;
+            txtEsercImport.Text = Conn.GetEsercizio().ToString();
         }
 
         private void enableControls(bool abilita) {
@@ -330,4 +331,4 @@ namespace csa_importriep_partition_elenco {
 
 
 
-       
+       

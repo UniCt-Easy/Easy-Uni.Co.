@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -4488,6 +4485,8 @@ namespace invoice_default { //documentoiva//
         private string filterayear;
 
         private EP_Manager EPM;
+        private int faseSpesaMax = 0;
+        private int faseEntrataMax;
 
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
@@ -4570,7 +4569,8 @@ namespace invoice_default { //documentoiva//
             HelpForm.SetDenyNull(DS.invoice.Columns["toincludeinpaymentindicator"], true);
             HelpForm.SetDenyNull(DS.invoice.Columns["resendingpcc"], true);
 
-
+            faseSpesaMax = CfgFn.GetNoNullInt32( Conn.GetSys("maxexpensephase"));
+            faseEntrataMax = CfgFn.GetNoNullInt32( Conn.GetSys("maxincomephase"));
 
             gridStock.DataSource = DS.stockview;
             string filterflag = QHS.CmpEq("flag_invoicedefault", 'S');
@@ -4613,6 +4613,7 @@ namespace invoice_default { //documentoiva//
             }
 
             btnRipartizione.ContextMenu = CMenu;
+			
         }
 
         bool abilitaBroadcast = true;
@@ -4659,7 +4660,8 @@ namespace invoice_default { //documentoiva//
 
         public void MetaData_AfterClear() {
 
-            btnAggiungiDaOrdini.Enabled = true;
+            btnAggiungiDaOrdini.Enabled = false;
+            btnAggiungiDaContratti.Enabled = false;
 
             chkRecuperoIvaIntraExtra.Visible = recuperoIntraUEAttivo;
             chkRecuperoIvaIntraExtra.Enabled = true;
@@ -4860,8 +4862,8 @@ namespace invoice_default { //documentoiva//
             double imponibile = CfgFn.GetNoNullDouble(rInvoicedetail["taxable"]);
             double quantitaConfezioni = newnpackage;
             double sconto = CfgFn.GetNoNullDouble(rInvoicedetail["discount"]);
-            double imponibiletot = CfgFn.RoundValuta((imponibile*quantitaConfezioni*(1 - sconto)));
-            double imponibiletotEUR = CfgFn.RoundValuta(imponibiletot*tassocambio);
+            double imponibiletotEUR = CfgFn.RoundValuta((imponibile*quantitaConfezioni*(1 - sconto)*tassocambio));
+            //double imponibiletotEUR = CfgFn.RoundValuta(imponibiletot*tassocambio);
             double ivaEUR = CfgFn.RoundValuta(imponibiletotEUR*aliquota);
             double impindeducEUR = CfgFn.RoundValuta(ivaEUR*percindeduc);
 
@@ -4940,7 +4942,7 @@ namespace invoice_default { //documentoiva//
             byte flag = CfgFn.GetNoNullByte(R["flag"]);
             bool vendita = tipoRegistroAV().ToUpper() == "V"; // (flag & 1) != 0;
             if (!vendita) {
-                btnAggiungiDaOrdini.Visible = chkflag_ddt.Checked;
+                btnAggiungiDaOrdini.Visible = chkflag_ddt.Checked ; //&& (faseSpesaMax>1);
                 btnCreaDaContratto.Visible = true;
                 gboxProfessionale.Visible = true;
                 VerificaCollegamentoAContratto(vendita); //Ri-Disabilita eventualmente i bottoni
@@ -4951,7 +4953,7 @@ namespace invoice_default { //documentoiva//
                 btnCreaDaContratto.Visible = false;
             }
             if (vendita) {
-                btnAggiungiDaContratti.Visible = true;
+	            btnAggiungiDaContratti.Visible = true; //(faseEntrataMax>1);
                 VerificaCollegamentoAContratto(vendita); //Ri-Disabilita eventualmente i bottoni
             }
             else {
@@ -5189,10 +5191,6 @@ namespace invoice_default { //documentoiva//
                 : "N";
             if ((Meta.EditMode) && (Meta.FirstFillForThisRow)) {
                 if (rInvKind != null) {
-                    DS.invoicedetail.ExtendedProperties["flag"] = rInvKind["flag"];
-                    DS.invoicedetail.ExtendedProperties["flagactivity"] = TipoAttivita();
-                    DS.invoicedetail.ExtendedProperties["flagintracom"] = GetFlagIntracom();
-                    DS.invoicedetail.ExtendedProperties["registerclass"] = tipoRegistroAV();
                     byte flagIK = CfgFn.GetNoNullByte(rInvKind["flag"]);
                     if ((flagIK & 1) != 0) {
                         DS.invoicedetail.Columns["!percindetraibilita"].Caption = "";
@@ -5208,6 +5206,15 @@ namespace invoice_default { //documentoiva//
                 formatgrids format = new formatgrids(gridDettagli);
                 format.AutosizeColumnWidth();
             }
+            if (Meta.FirstFillForThisRow) {
+                if (rInvKind != null) {
+                    DS.invoicedetail.ExtendedProperties["flag"] = rInvKind["flag"];
+                    DS.invoicedetail.ExtendedProperties["flagactivity"] = TipoAttivita();
+                    DS.invoicedetail.ExtendedProperties["flagintracom"] = GetFlagIntracom();
+                    DS.invoicedetail.ExtendedProperties["registerclass"] = tipoRegistroAV();
+                }
+            }
+                
             gboxtipofattura.Enabled = !(Meta.EditMode);
             // Controllo che la fattura sia collegata al contratto, in tal caso bisogna modificare il filtro dell'epoperation
             if (DS.profservice.Rows.Count > 0) {
@@ -7501,21 +7508,24 @@ namespace invoice_default { //documentoiva//
             DataRow Curr = DS.invoice.Rows[0];
             //Curr["active"] = "N";
 
-            if ((Curr["description"]!=DBNull.Value)||
-                (Curr["idaccmotivedebit"] != DBNull.Value)||
-                (Curr["idaccmotivedebit_crg"] != DBNull.Value)||
+            if ((Curr["description"] != DBNull.Value) ||
+                (Curr["idaccmotivedebit"] != DBNull.Value) ||
+                (Curr["idaccmotivedebit_crg"] != DBNull.Value) ||
                 (Curr["idaccmotivedebit_datacrg"] != DBNull.Value)
-            )
-                if (MessageBox.Show( "Si desidera aggiornare descrizione fattura e causali EP prendendole dalla parcella? ",
-                        "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) {
+            ) {
+	            if (MessageBox.Show(
+		                "Si desidera aggiornare descrizione fattura e causali EP prendendole dalla parcella? ",
+		                "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) {
 
-                    Curr["description"] = ProfService["description"];
-                    object idaccmotivedebit = ProfService["idaccmotivedebit"];
-                    Curr["idaccmotivedebit"] = idaccmotivedebit;
-                    object idaccmotivedebit_crg = ProfService["idaccmotivedebit_crg"];
-                    Curr["idaccmotivedebit_crg"] = idaccmotivedebit_crg;
-                        Curr["idaccmotivedebit_datacrg"] = ProfService["idaccmotivedebit_datacrg"];
-                }
+		            Curr["description"] = ProfService["description"];
+		            object idaccmotivedebit = ProfService["idaccmotivedebit"];
+		            Curr["idaccmotivedebit"] = idaccmotivedebit;
+		            object idaccmotivedebit_crg = ProfService["idaccmotivedebit_crg"];
+		            Curr["idaccmotivedebit_crg"] = idaccmotivedebit_crg;
+		            Curr["idaccmotivedebit_datacrg"] = ProfService["idaccmotivedebit_datacrg"];
+	            }
+            }
+
             string keyfilter = QHS.CmpKey(ProfService);
             DataTable Refund = Conn.RUN_SELECT("profservicerefund", "*", null,
                 keyfilter, null, null, true);
@@ -8790,8 +8800,8 @@ namespace invoice_default { //documentoiva//
                 QHS.CmpEq("yinv_real", Curr["yinv"]), QHS.CmpEq("ninv_real", Curr["ninv"]));
             ToMeta.ContextFilter = checkfilter;
             Form F = null;
-            if (Meta.LinkedForm != null)
-                F = Meta.LinkedForm.ParentForm;
+            if (Meta.linkedForm != null)
+                F = Meta.linkedForm.ParentForm;
             bool result = ToMeta.Edit(F, "default", false);
             string listtype = ToMeta.DefaultListType;
             DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
@@ -8813,7 +8823,7 @@ namespace invoice_default { //documentoiva//
 
 
             MetaData ToMeta = Meta.Dispatcher.Get("invoice");
-            ToMeta.Edit(Meta.LinkedForm.ParentForm, "default", false);
+            ToMeta.Edit(Meta.linkedForm.ParentForm, "default", false);
 
             //ToMeta.PrimaryDataTable. Ë la tabella principale del form creato
             Hashtable saveddefaults = new Hashtable();
@@ -8924,8 +8934,8 @@ namespace invoice_default { //documentoiva//
         }
 
         private void EnableTabDettagli(bool abilita) {
-            btnAggiungiDaContratti.Enabled = abilita;
-            btnAggiungiDaOrdini.Enabled = abilita;
+            btnAggiungiDaContratti.Enabled = abilita ; //&& (faseEntrataMax>1);
+            btnAggiungiDaOrdini.Enabled = abilita;  // && (faseSpesaMax>1);
             btnBolletta.Enabled = abilita;
             btnCreaDaContratto.Enabled = abilita;
             btnContabilizzazioni.Enabled = abilita;
@@ -9017,8 +9027,8 @@ namespace invoice_default { //documentoiva//
                 QHS.CmpEq("yinv", Curr["yinv_real"]), QHS.CmpEq("ninv", Curr["ninv_real"]));
             ToMeta.ContextFilter = checkfilter;
             Form F = null;
-            if (Meta.LinkedForm != null)
-                F = Meta.LinkedForm.ParentForm;
+            if (Meta.linkedForm != null)
+                F = Meta.linkedForm.ParentForm;
             bool result = ToMeta.Edit(F, "default", false);
             string listtype = ToMeta.DefaultListType;
             DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
@@ -9163,8 +9173,8 @@ namespace invoice_default { //documentoiva//
                 string checkfilter = QHS.CmpEq("idcostpartition", idcostpartition);
                 ToMeta.ContextFilter = checkfilter;
                 Form F = null;
-                if (Meta.LinkedForm != null)
-                    F = Meta.LinkedForm.ParentForm;
+                if (Meta.linkedForm != null)
+                    F = Meta.linkedForm.ParentForm;
                 bool result = ToMeta.Edit(F, "default", false);
 
                 string listtype = ToMeta.DefaultListType;
@@ -9782,32 +9792,7 @@ namespace invoice_default { //documentoiva//
             MetaData.Choose(this, command);
         }
 
-        double CalcolaImponibileTotaleSenzaIVA(DataRow R) {
-            double imponibile = CfgFn.GetNoNullDouble(R["taxable"]);
-            double quantitaConfezioni = CfgFn.GetNoNullDouble(R["npackage"]);
-            double sconto = CfgFn.GetNoNullDouble(R["discount"]);
-            double imponibiletot = CfgFn.RoundValuta((imponibile*quantitaConfezioni*(1 - sconto)));
-
-            //Calcola l'iva Indetraibile
-            double iva_indetraibile = 0;
-            object ayear = Meta.GetSys("esercizio");
-            object idinvkind = R["idinvkind"];
-            object yinv = R["yinv"];
-            object ninv = R["ninv"];
-            object rownum = R["rownum"];
-            object[] param = new object[] {ayear, idinvkind, yinv, ninv, rownum};
-            DataSet DS_proratadetail = Conn.CallSP("compute_proratainvoicedetail", param, true);
-            if (DS_proratadetail == null || DS_proratadetail.Tables.Count == 0) {
-                iva_indetraibile = 0;
-            }
-            else {
-                DataTable T_proratadetail = DS_proratadetail.Tables[0];
-                iva_indetraibile = CfgFn.GetNoNullDouble(T_proratadetail.Rows[0]["ivaunabatable"]);
-            }
-
-            imponibiletot = imponibiletot + iva_indetraibile;
-            return imponibiletot;
-        }
+        
 
         Dictionary<string,string>veroTipo= new Dictionary<string, string>();
         private string veroTipoFatturaAv(object idInvKind) {
@@ -10301,4 +10286,3 @@ namespace invoice_default { //documentoiva//
     }
 
 }
-

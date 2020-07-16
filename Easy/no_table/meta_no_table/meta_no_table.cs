@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -28,6 +25,7 @@ namespace meta_no_table {
         public Meta_no_table(DataAccess Conn, MetaDataDispatcher Dispatcher)
             :
             base(Conn, Dispatcher, "no_table") {
+	        
             EditTypes.Add("default");
             EditTypes.Add("alert");
             EditTypes.Add("advice");
@@ -94,7 +92,8 @@ namespace meta_no_table {
             EditTypes.Add("travasa_budgetvariationinitial");
             EditTypes.Add("invoice_ssn");
 			EditTypes.Add("no_table_esterometro");
-
+			EditTypes.Add("calcola_integrazione_previsione");
+			EditTypes.Add("scriptcomuni");
 		}
         public override void DescribeColumns(System.Data.DataTable T, string ListingType) {
             base.DescribeColumns(T, ListingType);
@@ -110,7 +109,17 @@ namespace meta_no_table {
         }
 
         protected override Form GetForm(string formName) {
+	        canInsert = false;
+	        canSave = false;
+	        searchEnabled = false;
+	        CanCancel = false;
+	        canInsertCopy = false;
             switch (formName) {
+	            case "scriptcomuni": {
+		            Name = "Tool aggiorna comuni";
+		            return GetFormByDllName("notable_scriptcomuni");
+	            }
+
                 case "unifydip": {
                         Name = "Unifica dipartimenti";
                         return GetFormByDllName("no_table_unifydip");
@@ -368,11 +377,16 @@ namespace meta_no_table {
                 }
 				//Trasmissione telematica dei dati delle operazioni transfrontaliere (Esterometro)
 				case "esterometro": {
-						Name = "Invio Dati Operazioni Transfrontaliere (Esterometro)";
-						return GetFormByDllName("no_table_esterometro");
+					Name = "Invio Dati Operazioni Transfrontaliere (Esterometro)";
+					return GetFormByDllName("no_table_esterometro");
+				}
+				//no_table_calcola_integrazione_previsione
+				case "calcola_integrazione_previsione": {
+					Name = "Calcola Budget Iniziale non operativo";
+					return GetFormByDllName("no_table_calcola_integrazione_previsione");
 				}
 			}
-            return null;
+			return null;
         }
     }
-}
+}

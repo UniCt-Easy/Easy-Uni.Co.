@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -34,7 +31,7 @@ namespace sorting_traduzione//ClassMovimenti_traduzione//
 	{
 		MetaData Meta;
 		public System.Windows.Forms.GroupBox gbox;
-		public vistaForm DS;
+		public dsmeta DS;
 		public System.Windows.Forms.TreeView tree;
 		private System.Windows.Forms.TextBox txtDescrizione;
 		private System.Windows.Forms.Label label4;
@@ -95,7 +92,7 @@ namespace sorting_traduzione//ClassMovimenti_traduzione//
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_sorting_traduzione));
             this.gbox = new System.Windows.Forms.GroupBox();
             this.cmbLivello = new System.Windows.Forms.ComboBox();
-            this.DS = new sorting_traduzione.vistaForm();
+            this.DS = new sorting_traduzione.dsmeta();
             this.txtDescrizione = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCodice = new System.Windows.Forms.TextBox();
@@ -153,7 +150,7 @@ namespace sorting_traduzione//ClassMovimenti_traduzione//
             // 
             // DS
             // 
-            this.DS.DataSetName = "vistaForm";
+            this.DS.DataSetName = "dsmeta";
             this.DS.EnforceConstraints = false;
             this.DS.Locale = new System.Globalization.CultureInfo("en-US");
             // 
@@ -452,14 +449,14 @@ namespace sorting_traduzione//ClassMovimenti_traduzione//
 					MetaData.SetDefault(DS.sortingtranslation,"flagnodate",DBNull.Value);
 				}
 
-				foreach(string kind in new string[]{"n","s","v"}){
+				foreach(string kind in new string[]{"N","S","v"}){
 					for (int i=1; i<=5; i++) {
 						string forcedname= "forced"+kind+i.ToString();
-						string fieldname= "value"+kind+i.ToString();
+						string fieldname= "default"+kind+i.ToString();
 						if (R[forcedname].ToString().ToUpper()=="S"){
-							if (kind=="n") 
+							if (kind=="N") 
 								MetaData.SetDefault(DS.sortingtranslation, fieldname, 0);
-							if (kind=="s") 
+							if (kind=="S") 
 								MetaData.SetDefault(DS.sortingtranslation, fieldname, "");
 							if (kind=="v") 
 								MetaData.SetDefault(DS.sortingtranslation, fieldname, 0);
@@ -572,4 +569,3 @@ namespace sorting_traduzione//ClassMovimenti_traduzione//
 		}
 	}
 }
-

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -96,6 +93,9 @@ public class apppagesbuttonRow: MetaRow  {
 	public Int32? idapptabOriginal { 
 		get {if (this["idapptab",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idapptab",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Codice Javascript (in alternativa a parametri e codice c#)
+	///</summary>
 	public String javascript{ 
 		get {if (this["javascript"]==DBNull.Value)return null; return  (String)this["javascript"];}
 		set {if (value==null) this["javascript"]= DBNull.Value; else this["javascript"]= value;}
@@ -171,7 +171,7 @@ public class apppagesbuttonTable : MetaTableBase<apppagesbuttonRow> {
 		baseColumns = new Dictionary<string, DataColumn>(){
 			{"code",createColumn("code",typeof(string),true,false)},
 			{"icon",createColumn("icon",typeof(string),true,false)},
-			{"idapppages",createColumn("idapppages",typeof(int),true,false)},
+			{"idapppages",createColumn("idapppages",typeof(int),false,false)},
 			{"idapppagesbutton",createColumn("idapppagesbutton",typeof(int),false,false)},
 			{"idapptab",createColumn("idapptab",typeof(int),true,false)},
 			{"javascript",createColumn("javascript",typeof(string),true,false)},
@@ -183,4 +183,3 @@ public class apppagesbuttonTable : MetaTableBase<apppagesbuttonRow> {
 	}
 }
 }
-

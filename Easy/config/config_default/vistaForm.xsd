@@ -201,6 +201,7 @@
               <xs:element name="idsor_siopeiva12inc" type="xs:int" minOccurs="0" />
               <xs:element name="idsor_siopeivainc" type="xs:int" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="assignedrequirement" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

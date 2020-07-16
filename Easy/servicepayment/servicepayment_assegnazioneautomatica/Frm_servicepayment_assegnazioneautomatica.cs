@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -27,6 +24,7 @@ using System.Windows.Forms;
 using metadatalibrary;
 using metaeasylibrary;
 using funzioni_configurazione;
+using q = metadatalibrary.MetaExpression;
 using System.Collections;
 using ap_functions;
 
@@ -246,6 +244,11 @@ namespace servicepayment_assegnazioneautomatica
             }
         }
 
+        bool importoVariato(object yservreg, object nservreg) {
+	        string k = yservreg + "#" + nservreg;
+	        return totalePagato.ContainsKey(k);
+        }
+
         decimal aggiungiPagamento(object yservreg, object nservreg,decimal amount) {
             string k = yservreg + "#" + nservreg;
             if (totalePagato.ContainsKey(k)) {
@@ -442,8 +445,6 @@ namespace servicepayment_assegnazioneautomatica
             }
             prestazioni1.AcceptChanges();
             prestazioni2.AcceptChanges();
-
-
         }
 
         /// <summary>
@@ -932,32 +933,32 @@ namespace servicepayment_assegnazioneautomatica
             abilitaDisabilitaBottoni();
         }
 
-        /// <summary>
-        /// Nel caso di dipendenti verifica che nessun semestre sia bloccato, non solo quello in corso. 
-        /// La verifica è fatta in base ai dati in memoria
-        /// </summary>
-        /// <param name="pagamentoPrestazione"></param>
-        /// <returns></returns>
-        bool verificaAggiornabilita(DataRow pagamentoPrestazione) { 
-            if (pagamentoPrestazione["amount_servicepayment"] != DBNull.Value) return true;
-            string filter;
-            if (pagamentoPrestazione["employkind"].ToString().ToUpper() == "C") {
-                //Consulente: il semestre non deve essere bloccato
-                filter = QHC.MCmp(pagamentoPrestazione, "yservreg", "nservreg", "ypay","semesterpay");
-            }
-            else {
-                //Dipendente: nulla deve essere bloccato
-                filter = QHC.MCmp(pagamentoPrestazione, "yservreg", "nservreg", "ypay");
-            }
-            filter = QHC.AppAnd(filter, QHS.CmpEq("is_blocked", "S"));            
-            if (DS.servicepayment.Select(filter).Length > 0) {
-                string contratto = contratto = "n." + QueryCreator.quotedstrvalue(pagamentoPrestazione["nservreg"], true) + " / " 
-                        + QueryCreator.quotedstrvalue(pagamentoPrestazione["yservreg"], true) + " semestre "+pagamentoPrestazione["semesterpay"];
-                MessageBox.Show("Il pagamento del contratto " + contratto + " NON sarà aggiornato perchè il pagamento è bloccato ");
-                return false;
-            }
-            return true;
-        }
+        ///// <summary>
+        ///// Nel caso di dipendenti verifica che nessun semestre sia bloccato, non solo quello in corso. 
+        ///// La verifica è fatta in base ai dati in memoria
+        ///// </summary>
+        ///// <param name="pagamentoPrestazione"></param>
+        ///// <returns></returns>
+        //bool verificaAggiornabilita(DataRow pagamentoPrestazione) { 
+        //    if (pagamentoPrestazione["amount_servicepayment"] != DBNull.Value) return true;
+        //    string filter;
+        //    if (pagamentoPrestazione["employkind"].ToString().ToUpper() == "C") {
+        //        //Consulente: il semestre non deve essere bloccato
+        //        filter = QHC.MCmp(pagamentoPrestazione, "yservreg", "nservreg", "ypay","semesterpay");
+        //    }
+        //    else {
+        //        //Dipendente: nulla deve essere bloccato
+        //        filter = QHC.MCmp(pagamentoPrestazione, "yservreg", "nservreg", "ypay");
+        //    }
+        //    filter = QHC.AppAnd(filter, QHS.CmpEq("is_blocked", "S"));            
+        //    if (DS.servicepayment.Select(filter).Length > 0) {
+        //        string contratto = contratto = "n." + QueryCreator.quotedstrvalue(pagamentoPrestazione["nservreg"], true) + " / " 
+        //                + QueryCreator.quotedstrvalue(pagamentoPrestazione["yservreg"], true) + " semestre "+pagamentoPrestazione["semesterpay"];
+        //        MessageBox.Show("Il pagamento del contratto " + contratto + " NON sarà aggiornato perchè il pagamento è bloccato ");
+        //        return false;
+        //    }
+        //    return true;
+        //}
 
         /// <summary>
         /// Crea o aggiorna le righe di servicepayment relative al semestre considerato
@@ -968,14 +969,14 @@ namespace servicepayment_assegnazioneautomatica
             DataRow CurrPag;
             MetaData MetaDet = Meta.Dispatcher.Get("servicepayment");
             MetaDet.SetDefaults(DS.servicepayment);
-            decimal payedamount = CfgFn.GetNoNullDecimal(pagamentiSemestre["amount"]);
+            decimal payedamount = CfgFn.GetNoNullDecimal(pagamentiSemestre["amount"]);	//effettivo pagato
             if (pagamentiSemestre["amount_servicepayment"] == DBNull.Value) {
                 foreach (string field in new string []{ "yservreg", "nservreg", "ypay","semesterpay" }) {
                     MetaData.SetDefault(DS.servicepayment, field, pagamentiSemestre[field]);
                 }                                
                 CurrPag = MetaDet.Get_New_Row(null, DS.servicepayment);
                 CurrPag["payedamount"] = payedamount;
-                CurrPag["is_changed"] = "S";
+                //CurrPag["is_changed"] = "S";
                 aggiungiPagamento(pagamentiSemestre["yservreg"], pagamentiSemestre["nservreg"], payedamount);
                 pagamentiSemestre["amount_servicepayment"] = payedamount;
                 pagamentiSemestre.AcceptChanges();
@@ -983,15 +984,16 @@ namespace servicepayment_assegnazioneautomatica
             else {
                 string filter = QHC.MCmp(pagamentiSemestre, "yservreg", "nservreg", "ypay", "semesterpay");
                 CurrPag = DS.servicepayment.First(filter);
-                decimal oldPagamento = 0;
                 if (CurrPag != null) {
-                    oldPagamento = CfgFn.GetNoNullDecimal(CurrPag["payedamount"]);
-                    CurrPag["payedamount"] = payedamount;
-                    CurrPag["is_changed"] = "S";
+	                decimal oldPagamento = CfgFn.GetNoNullDecimal(CurrPag["payedamount"]);
                     if (payedamount != oldPagamento) {
-                        aggiungiPagamento(pagamentiSemestre["yservreg"], pagamentiSemestre["nservreg"], payedamount - oldPagamento);
-                        pagamentiSemestre["amount_servicepayment"] = payedamount;
-                        pagamentiSemestre.AcceptChanges();
+	                    CurrPag["payedamount"] = payedamount;
+	                    //CurrPag["is_changed"] = "S";
+	                    //if (payedamount != oldPagamento) {
+		                    aggiungiPagamento(pagamentiSemestre["yservreg"], pagamentiSemestre["nservreg"], payedamount - oldPagamento);
+		                    pagamentiSemestre["amount_servicepayment"] = payedamount;
+		                    pagamentiSemestre.AcceptChanges();
+	                    //}
                     }
                 }                
             }
@@ -1005,11 +1007,11 @@ namespace servicepayment_assegnazioneautomatica
             foreach (DataRow R in pagamenti.Rows)   {
                 decimal curr_amount = CfgFn.GetNoNullDecimal(R["amount"]);
                 decimal anagrafato = CfgFn.GetNoNullDecimal(R["amount_servicepayment"]);
-                if (!verificaAggiornabilita(R)) continue;
+                //if (!verificaAggiornabilita(R)) continue;  il filtro sugli aggiornabili è effettuato a priori
                 aggiornaPagamento(R);                            
             }            
 
-            ValorizzaIncaricoSaldato(pagamenti);
+            valorizzaCampiPrestazione(pagamenti);
                         
             PostData Post = MetaDet.Get_PostData();
             Post.InitClass(DS, Conn);
@@ -1027,17 +1029,16 @@ namespace servicepayment_assegnazioneautomatica
         /// <summary>
         /// Imposta il flag payment='S' ove la somma dei pagamenti sia pari al pagamento atteso
         /// </summary>
-        void ValorizzaIncaricoSaldato(DataTable pagamenti) {          
+        void valorizzaCampiPrestazione(DataTable pagamenti) {          
             foreach (DataRow R in pagamenti.Select()) {
-                decimal nuovo_totale_anagrafato = totalePagatoPrestazione(R["yservreg"], R["nservreg"]);//aggiornato anche con i pagamenti in atto
+	            if (!importoVariato(R["yservreg"], R["nservreg"])) continue;
+	            var sr = DS.serviceregistry.get(Conn, q.mCmp(R, "yservreg", "nservreg")).FirstOrDefault();
+	            sr["is_changed"] = "S";
+
+	            decimal nuovo_totale_anagrafato = totalePagatoPrestazione(R["yservreg"], R["nservreg"]);//aggiornato anche con i pagamenti in atto
                 decimal importoatteso = CfgFn.GetNoNullDecimal(R["expectedamount"]);
                 if (nuovo_totale_anagrafato != importoatteso) continue;
-                Conn.RUN_SELECT_INTO_TABLE(DS.serviceregistry, null, QHS.MCmp(R, "yservreg", "nservreg"), null, false);
-                DS.serviceregistry.Select(QHC.MCmp(R, "yservreg", "nservreg"))._forEach(
-                    r=> {
-                        r["payment"] = "S";
-                        r["is_changed"] = "S";
-                        });                
+                sr["payment"] = "S";
                                                    
             }
         }
@@ -1083,4 +1084,3 @@ namespace servicepayment_assegnazioneautomatica
  
     }
 }
-

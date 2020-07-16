@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -2642,10 +2639,10 @@ namespace wageaddition_default //contrattodipendente//
                         calcolaRitenute(ImportoDiPartenza.compensoLordo, importo, false);
 
                         if (Meta.DrawStateIsDone) {
-                            Curr["idaccmotive"] = R["idaccmotivedebit"];
+                            Curr["idaccmotivedebit"] = R["idaccmotivedebit"];
                             DS.accmotiveapplied_debit.Clear();
-                            Conn.RUN_SELECT_INTO_TABLE(DS.accmotiveapplied_debit, 
-                                q.eq("idaccmotive", Curr["idaccmotive"]) & q.eq("idepoperation", "dipen_deb"));
+                            Conn.RUN_SELECT_INTO_TABLE(DS.accmotiveapplied_debit, null,
+                                (q.eq("idaccmotive", Curr["idaccmotivedebit"]) & q.eq("idepoperation", "dipen_deb")).toSql(QHS),null,false);
                             Meta.helpForm.FillControls(gBoxCausaleDebito.Controls);
 
                         }
@@ -2786,7 +2783,7 @@ namespace wageaddition_default //contrattodipendente//
         /// Viene fatta questa assegnazione per far capire alla libreria che stiamo trattando delle subentity
         /// </summary>
         public void MetaData_AfterGetFormData() {
-            Meta.myHelpForm.ExtraEntities["wageadditionyear"] = "wageadditionyear";
+            Meta.myHelpForm.addExtraEntity("wageadditionyear");
             if (Meta.InsertMode) {
                 DataRow Curr = DS.wageaddition.Rows[0];
                 foreach (DataRow R1 in DS.wageadditionsorting.Select()) {
@@ -3477,7 +3474,7 @@ namespace wageaddition_default //contrattodipendente//
             }
 
             MetaData ToMeta = Meta.Dispatcher.Get("serviceregistry");
-            ToMeta.Edit(Meta.LinkedForm.ParentForm, "default", false);
+            ToMeta.Edit(Meta.linkedForm.ParentForm, "default", false);
 
             Hashtable saveddefaults = new Hashtable();
             foreach (DataColumn C in ToMeta.PrimaryDataTable.Columns) {
@@ -3966,4 +3963,4 @@ namespace wageaddition_default //contrattodipendente//
             MessageBox.Show(this, "Trasferimento effettuato");
         }
     }
-}
+}

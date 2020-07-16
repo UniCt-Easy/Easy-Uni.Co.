@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -22,166 +19,193 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
+using meta_paydisposition;
+using meta_paydispositiondetail;
+using meta_payment;
+using meta_expenseyear;
+using meta_fin;
+using meta_upb;
+using meta_registry;
+using meta_expensesorted;
+using meta_sortingkind;
+using meta_incomeyear;
+using meta_incomesorted;
+using meta_expense;
+using meta_income;
+using meta_config;
+using meta_expenselast;
+using meta_incomelast;
+using meta_sorting;
+using meta_incomevar;
+using meta_manager;
+using meta_treasurer;
+using metadatalibrary;
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedMember.Global
 namespace paydisposition_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
-[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+[System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
 	///<summary>
 	///Disposizione di Pagamento
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable paydisposition 		=> Tables["paydisposition"];
+	public paydispositionTable paydisposition 		=> (paydispositionTable)Tables["paydisposition"];
 
 	///<summary>
 	///Disposizione di Pagamento - Dettaglio
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable paydispositiondetail 		=> Tables["paydispositiondetail"];
+	public paydispositiondetailTable paydispositiondetail 		=> (paydispositiondetailTable)Tables["paydispositiondetail"];
 
 	///<summary>
 	///Documento di pagamento
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable payment 		=> Tables["payment"];
+	public paymentTable payment 		=> (paymentTable)Tables["payment"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable paydispositionview 		=> Tables["paydispositionview"];
+	public MetaTable paydispositionview 		=> (MetaTable)Tables["paydispositionview"];
 
 	///<summary>
 	///Causale CBI
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable cbimotive 		=> Tables["cbimotive"];
+	public MetaTable cbimotive 		=> (MetaTable)Tables["cbimotive"];
 
 	///<summary>
 	///Informazioni annuali su movimento di spesa
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable expenseyear 		=> Tables["expenseyear"];
+	public expenseyearTable expenseyear 		=> (expenseyearTable)Tables["expenseyear"];
 
 	///<summary>
 	///Bilancio
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable fin 		=> Tables["fin"];
+	public finTable fin 		=> (finTable)Tables["fin"];
 
 	///<summary>
 	///U.P.B.
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable upb 		=> Tables["upb"];
+	public upbTable upb 		=> (upbTable)Tables["upb"];
 
 	///<summary>
 	///Anagrafica
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable registry 		=> Tables["registry"];
+	public registryTable registry 		=> (registryTable)Tables["registry"];
 
 	///<summary>
 	///Fasi di spesa
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable expensephase 		=> Tables["expensephase"];
+	public MetaTable expensephase 		=> (MetaTable)Tables["expensephase"];
 
 	///<summary>
 	///Classificazione Movimenti di spesa
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable expensesorted 		=> Tables["expensesorted"];
+	public expensesortedTable expensesorted 		=> (expensesortedTable)Tables["expensesorted"];
 
 	///<summary>
 	///Tipo di Rilevanza analitica
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable sortingkind 		=> Tables["sortingkind"];
+	public sortingkindTable sortingkind 		=> (sortingkindTable)Tables["sortingkind"];
 
 	///<summary>
 	///Fasi di entrata
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable incomephase 		=> Tables["incomephase"];
+	public MetaTable incomephase 		=> (MetaTable)Tables["incomephase"];
 
 	///<summary>
 	///Informazioni annuali su mov. di entrata
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable incomeyear 		=> Tables["incomeyear"];
+	public incomeyearTable incomeyear 		=> (incomeyearTable)Tables["incomeyear"];
 
 	///<summary>
 	///Classificazione Movimenti di entrata
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable incomesorted 		=> Tables["incomesorted"];
+	public incomesortedTable incomesorted 		=> (incomesortedTable)Tables["incomesorted"];
 
 	///<summary>
 	///Movimento di spesa
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable expense 		=> Tables["expense"];
+	public expenseTable expense 		=> (expenseTable)Tables["expense"];
 
 	///<summary>
 	///Movimento di entrata
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable income 		=> Tables["income"];
+	public incomeTable income 		=> (incomeTable)Tables["income"];
 
 	///<summary>
 	///Configurazione Annuale
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable config 		=> Tables["config"];
+	public configTable config 		=> (configTable)Tables["config"];
 
 	///<summary>
 	///Movimento di spesa - Dettaglio
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable expenselast 		=> Tables["expenselast"];
+	public expenselastTable expenselast 		=> (expenselastTable)Tables["expenselast"];
 
 	///<summary>
 	///Movimento di entrata - Dettaglio
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable incomelast 		=> Tables["incomelast"];
+	public incomelastTable incomelast 		=> (incomelastTable)Tables["incomelast"];
 
 	///<summary>
 	///Classificazione Movimenti
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable sorting 		=> Tables["sorting"];
+	public sortingTable sorting 		=> (sortingTable)Tables["sorting"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable expenseview 		=> Tables["expenseview"];
+	public MetaTable expenseview 		=> (MetaTable)Tables["expenseview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable incomeview 		=> Tables["incomeview"];
+	public MetaTable incomeview 		=> (MetaTable)Tables["incomeview"];
 
 	///<summary>
 	///Sospeso attivo
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable incomebill 		=> Tables["incomebill"];
+	public MetaTable incomebill 		=> (MetaTable)Tables["incomebill"];
 
 	///<summary>
 	///Variazione movimento di entrata
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable incomevar 		=> Tables["incomevar"];
+	public incomevarTable incomevar 		=> (incomevarTable)Tables["incomevar"];
 
 	///<summary>
 	///Responsabile
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable manager 		=> Tables["manager"];
+	public managerTable manager 		=> (managerTable)Tables["manager"];
 
 	///<summary>
 	///Trattamento delle spese
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable chargehandling 		=> Tables["chargehandling"];
+	public MetaTable chargehandling 		=> (MetaTable)Tables["chargehandling"];
+
+	///<summary>
+	///Tesoriere
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public treasurerTable treasurer 		=> (treasurerTable)Tables["treasurer"];
 
 	#endregion
 
@@ -194,1228 +218,380 @@ public class vistaForm: DataSet {
 	public new DataRelationCollection Relations => base.Relations;
 
 [DebuggerNonUserCode]
-public vistaForm(){
+public dsmeta(){
 	BeginInit();
 	initClass();
 	EndInit();
 }
 [DebuggerNonUserCode]
-protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+protected dsmeta (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
 [DebuggerNonUserCode]
 private void initClass() {
-	DataSetName = "vistaForm";
+	DataSetName = "dsmeta";
 	Prefix = "";
-	Namespace = "http://tempuri.org/vistaForm.xsd";
+	Namespace = "http://tempuri.org/dsmeta.xsd";
 
 	#region create DataTables
-	DataColumn C;
 	//////////////////// PAYDISPOSITION /////////////////////////////////
-	var tpaydisposition= new DataTable("paydisposition");
-	C= new DataColumn("idpaydisposition", typeof(int));
-	C.AllowDBNull=false;
-	tpaydisposition.Columns.Add(C);
-	C= new DataColumn("ayear", typeof(short));
-	C.AllowDBNull=false;
-	tpaydisposition.Columns.Add(C);
-	tpaydisposition.Columns.Add( new DataColumn("description", typeof(string)));
-	tpaydisposition.Columns.Add( new DataColumn("motive", typeof(string)));
-	tpaydisposition.Columns.Add( new DataColumn("kpay", typeof(int)));
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tpaydisposition.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tpaydisposition.Columns.Add(C);
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tpaydisposition.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tpaydisposition.Columns.Add(C);
-	tpaydisposition.Columns.Add( new DataColumn("idcbimotive", typeof(int)));
+	var tpaydisposition= new paydispositionTable();
+	tpaydisposition.addBaseColumns("idpaydisposition","ayear","description","motive","kpay","ct","cu","lt","lu","idcbimotive");
 	Tables.Add(tpaydisposition);
-	tpaydisposition.PrimaryKey =  new DataColumn[]{tpaydisposition.Columns["idpaydisposition"]};
-
+	tpaydisposition.defineKey("idpaydisposition");
 
 	//////////////////// PAYDISPOSITIONDETAIL /////////////////////////////////
-	var tpaydispositiondetail= new DataTable("paydispositiondetail");
-	C= new DataColumn("idpaydisposition", typeof(int));
-	C.AllowDBNull=false;
-	tpaydispositiondetail.Columns.Add(C);
-	C= new DataColumn("iddetail", typeof(int));
-	C.AllowDBNull=false;
-	tpaydispositiondetail.Columns.Add(C);
-	tpaydispositiondetail.Columns.Add( new DataColumn("surname", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("forename", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("birthdate", typeof(DateTime)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("cf", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("location", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("province", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("cap", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("abi", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("cab", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("motive", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("amount", typeof(decimal)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("idcity", typeof(int)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("idnation", typeof(int)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("gender", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("address", typeof(string)));
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tpaydispositiondetail.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tpaydispositiondetail.Columns.Add(C);
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tpaydispositiondetail.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tpaydispositiondetail.Columns.Add(C);
-	tpaydispositiondetail.Columns.Add( new DataColumn("email", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("idcbimotive", typeof(int)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("iban", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("cc", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("cin", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("flaghuman", typeof(Char)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("title", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("p_iva", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("paymentcode", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("paymethodcode", typeof(int)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("academicyear", typeof(int)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("calendaryear", typeof(int)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("degreekind", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("degreecode", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("flagtaxrefund", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("idexp", typeof(int)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("!ymov", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("!nmov", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("!phase", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("!nphase", typeof(byte)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("flag", typeof(int)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("idchargehandling", typeof(int)));
+	var tpaydispositiondetail= new paydispositiondetailTable();
+	tpaydispositiondetail.addBaseColumns("idpaydisposition","iddetail","surname","forename","birthdate","cf","location","province","cap","abi","cab","motive","amount","idcity","idnation","gender","address","ct","cu","lt","lu","email","idcbimotive","iban","cc","cin","flaghuman","title","p_iva","paymentcode","paymethodcode","academicyear","calendaryear","degreekind","degreecode","flagtaxrefund","idexp","flag","idchargehandling");
+	tpaydispositiondetail.defineColumn("!ymov", typeof(string));
+	tpaydispositiondetail.defineColumn("!nmov", typeof(string));
+	tpaydispositiondetail.defineColumn("!phase", typeof(string));
+	tpaydispositiondetail.defineColumn("!nphase", typeof(byte));
 	Tables.Add(tpaydispositiondetail);
-	tpaydispositiondetail.PrimaryKey =  new DataColumn[]{tpaydispositiondetail.Columns["idpaydisposition"], tpaydispositiondetail.Columns["iddetail"]};
-
+	tpaydispositiondetail.defineKey("idpaydisposition", "iddetail");
 
 	//////////////////// PAYMENT /////////////////////////////////
-	var tpayment= new DataTable("payment");
-	C= new DataColumn("npay", typeof(int));
-	C.AllowDBNull=false;
-	tpayment.Columns.Add(C);
-	C= new DataColumn("ypay", typeof(short));
-	C.AllowDBNull=false;
-	tpayment.Columns.Add(C);
-	tpayment.Columns.Add( new DataColumn("npay_treasurer", typeof(int)));
-	tpayment.Columns.Add( new DataColumn("adate", typeof(DateTime)));
-	tpayment.Columns.Add( new DataColumn("annulmentdate", typeof(DateTime)));
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tpayment.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tpayment.Columns.Add(C);
-	tpayment.Columns.Add( new DataColumn("idreg", typeof(int)));
-	tpayment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tpayment.Columns.Add(C);
-	tpayment.Columns.Add( new DataColumn("printdate", typeof(DateTime)));
-	tpayment.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
-	tpayment.Columns.Add( new DataColumn("txt", typeof(string)));
-	tpayment.Columns.Add( new DataColumn("idfin", typeof(int)));
-	tpayment.Columns.Add( new DataColumn("idman", typeof(int)));
-	tpayment.Columns.Add( new DataColumn("idstamphandling", typeof(int)));
-	tpayment.Columns.Add( new DataColumn("idtreasurer", typeof(int)));
-	C= new DataColumn("flag", typeof(byte));
-	C.AllowDBNull=false;
-	tpayment.Columns.Add(C);
-	C= new DataColumn("kpay", typeof(int));
-	C.AllowDBNull=false;
-	tpayment.Columns.Add(C);
-	tpayment.Columns.Add( new DataColumn("kpaymenttransmission", typeof(int)));
-	tpayment.Columns.Add( new DataColumn("idsor01", typeof(int)));
-	tpayment.Columns.Add( new DataColumn("idsor02", typeof(int)));
-	tpayment.Columns.Add( new DataColumn("idsor03", typeof(int)));
-	tpayment.Columns.Add( new DataColumn("idsor04", typeof(int)));
-	tpayment.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	var tpayment= new paymentTable();
+	tpayment.addBaseColumns("npay","ypay","npay_treasurer","adate","annulmentdate","ct","cu","idreg","lt","lu","printdate","rtf","txt","idfin","idman","idstamphandling","idtreasurer","flag","kpay","kpaymenttransmission","idsor01","idsor02","idsor03","idsor04","idsor05");
 	Tables.Add(tpayment);
-	tpayment.PrimaryKey =  new DataColumn[]{tpayment.Columns["kpay"]};
-
+	tpayment.defineKey("kpay");
 
 	//////////////////// PAYDISPOSITIONVIEW /////////////////////////////////
-	var tpaydispositionview= new DataTable("paydispositionview");
-	C= new DataColumn("idpaydisposition", typeof(int));
-	C.AllowDBNull=false;
-	tpaydispositionview.Columns.Add(C);
-	C= new DataColumn("ayear", typeof(short));
-	C.AllowDBNull=false;
-	tpaydispositionview.Columns.Add(C);
-	tpaydispositionview.Columns.Add( new DataColumn("description", typeof(string)));
-	tpaydispositionview.Columns.Add( new DataColumn("motive", typeof(string)));
-	tpaydispositionview.Columns.Add( new DataColumn("kpay", typeof(int)));
-	tpaydispositionview.Columns.Add( new DataColumn("ypay", typeof(short)));
-	tpaydispositionview.Columns.Add( new DataColumn("npay", typeof(int)));
-	C= new DataColumn("total", typeof(decimal));
-	C.AllowDBNull=false;
-	tpaydispositionview.Columns.Add(C);
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tpaydispositionview.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tpaydispositionview.Columns.Add(C);
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tpaydispositionview.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tpaydispositionview.Columns.Add(C);
+	var tpaydispositionview= new MetaTable("paydispositionview");
+	tpaydispositionview.defineColumn("idpaydisposition", typeof(int),false);
+	tpaydispositionview.defineColumn("ayear", typeof(short),false);
+	tpaydispositionview.defineColumn("description", typeof(string));
+	tpaydispositionview.defineColumn("motive", typeof(string));
+	tpaydispositionview.defineColumn("kpay", typeof(int));
+	tpaydispositionview.defineColumn("ypay", typeof(short));
+	tpaydispositionview.defineColumn("npay", typeof(int));
+	tpaydispositionview.defineColumn("total", typeof(decimal),false);
+	tpaydispositionview.defineColumn("ct", typeof(DateTime),false);
+	tpaydispositionview.defineColumn("cu", typeof(string),false);
+	tpaydispositionview.defineColumn("lt", typeof(DateTime),false);
+	tpaydispositionview.defineColumn("lu", typeof(string),false);
 	Tables.Add(tpaydispositionview);
 
 	//////////////////// CBIMOTIVE /////////////////////////////////
-	var tcbimotive= new DataTable("cbimotive");
-	C= new DataColumn("idcbimotive", typeof(int));
-	C.AllowDBNull=false;
-	tcbimotive.Columns.Add(C);
-	C= new DataColumn("codemotive", typeof(string));
-	C.AllowDBNull=false;
-	tcbimotive.Columns.Add(C);
-	tcbimotive.Columns.Add( new DataColumn("description", typeof(string)));
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tcbimotive.Columns.Add(C);
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tcbimotive.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tcbimotive.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tcbimotive.Columns.Add(C);
+	var tcbimotive= new MetaTable("cbimotive");
+	tcbimotive.defineColumn("idcbimotive", typeof(int),false);
+	tcbimotive.defineColumn("codemotive", typeof(string),false);
+	tcbimotive.defineColumn("description", typeof(string));
+	tcbimotive.defineColumn("ct", typeof(DateTime),false);
+	tcbimotive.defineColumn("lt", typeof(DateTime),false);
+	tcbimotive.defineColumn("cu", typeof(string),false);
+	tcbimotive.defineColumn("lu", typeof(string),false);
 	Tables.Add(tcbimotive);
-	tcbimotive.PrimaryKey =  new DataColumn[]{tcbimotive.Columns["idcbimotive"]};
-
+	tcbimotive.defineKey("idcbimotive");
 
 	//////////////////// EXPENSEYEAR /////////////////////////////////
-	var texpenseyear= new DataTable("expenseyear");
-	C= new DataColumn("ayear", typeof(short));
-	C.AllowDBNull=false;
-	texpenseyear.Columns.Add(C);
-	C= new DataColumn("idexp", typeof(int));
-	C.AllowDBNull=false;
-	texpenseyear.Columns.Add(C);
-	texpenseyear.Columns.Add( new DataColumn("amount", typeof(decimal)));
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	texpenseyear.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	texpenseyear.Columns.Add(C);
-	texpenseyear.Columns.Add( new DataColumn("idfin", typeof(int)));
-	texpenseyear.Columns.Add( new DataColumn("idupb", typeof(string)));
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	texpenseyear.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	texpenseyear.Columns.Add(C);
+	var texpenseyear= new expenseyearTable();
+	texpenseyear.addBaseColumns("ayear","idexp","amount","ct","cu","idfin","idupb","lt","lu");
 	Tables.Add(texpenseyear);
-	texpenseyear.PrimaryKey =  new DataColumn[]{texpenseyear.Columns["ayear"], texpenseyear.Columns["idexp"]};
-
+	texpenseyear.defineKey("ayear", "idexp");
 
 	//////////////////// FIN /////////////////////////////////
-	var tfin= new DataTable("fin");
-	C= new DataColumn("idfin", typeof(int));
-	C.AllowDBNull=false;
-	tfin.Columns.Add(C);
-	C= new DataColumn("codefin", typeof(string));
-	C.AllowDBNull=false;
-	tfin.Columns.Add(C);
+	var tfin= new finTable();
+	tfin.addBaseColumns("idfin","codefin");
 	Tables.Add(tfin);
-	tfin.PrimaryKey =  new DataColumn[]{tfin.Columns["idfin"]};
-
+	tfin.defineKey("idfin");
 
 	//////////////////// UPB /////////////////////////////////
-	var tupb= new DataTable("upb");
-	C= new DataColumn("idupb", typeof(string));
-	C.AllowDBNull=false;
-	tupb.Columns.Add(C);
-	C= new DataColumn("codeupb", typeof(string));
-	C.AllowDBNull=false;
-	tupb.Columns.Add(C);
+	var tupb= new upbTable();
+	tupb.addBaseColumns("idupb","codeupb");
 	Tables.Add(tupb);
-	tupb.PrimaryKey =  new DataColumn[]{tupb.Columns["idupb"]};
-
+	tupb.defineKey("idupb");
 
 	//////////////////// REGISTRY /////////////////////////////////
-	var tregistry= new DataTable("registry");
-	C= new DataColumn("idreg", typeof(int));
-	C.AllowDBNull=false;
-	tregistry.Columns.Add(C);
-	C= new DataColumn("title", typeof(string));
-	C.AllowDBNull=false;
-	tregistry.Columns.Add(C);
+	var tregistry= new registryTable();
+	tregistry.addBaseColumns("idreg","title");
 	Tables.Add(tregistry);
-	tregistry.PrimaryKey =  new DataColumn[]{tregistry.Columns["idreg"]};
-
+	tregistry.defineKey("idreg");
 
 	//////////////////// EXPENSEPHASE /////////////////////////////////
-	var texpensephase= new DataTable("expensephase");
-	C= new DataColumn("nphase", typeof(byte));
-	C.AllowDBNull=false;
-	texpensephase.Columns.Add(C);
-	C= new DataColumn("description", typeof(string));
-	C.AllowDBNull=false;
-	texpensephase.Columns.Add(C);
+	var texpensephase= new MetaTable("expensephase");
+	texpensephase.defineColumn("nphase", typeof(byte),false);
+	texpensephase.defineColumn("description", typeof(string),false);
 	Tables.Add(texpensephase);
-	texpensephase.PrimaryKey =  new DataColumn[]{texpensephase.Columns["nphase"]};
-
+	texpensephase.defineKey("nphase");
 
 	//////////////////// EXPENSESORTED /////////////////////////////////
-	var texpensesorted= new DataTable("expensesorted");
-	C= new DataColumn("idexp", typeof(int));
-	C.AllowDBNull=false;
-	texpensesorted.Columns.Add(C);
-	C= new DataColumn("idsor", typeof(int));
-	C.AllowDBNull=false;
-	texpensesorted.Columns.Add(C);
-	C= new DataColumn("idsubclass", typeof(short));
-	C.AllowDBNull=false;
-	texpensesorted.Columns.Add(C);
-	texpensesorted.Columns.Add( new DataColumn("amount", typeof(decimal)));
-	texpensesorted.Columns.Add( new DataColumn("ayear", typeof(short)));
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	texpensesorted.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	texpensesorted.Columns.Add(C);
-	texpensesorted.Columns.Add( new DataColumn("description", typeof(string)));
-	texpensesorted.Columns.Add( new DataColumn("flagnodate", typeof(string)));
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	texpensesorted.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	texpensesorted.Columns.Add(C);
-	texpensesorted.Columns.Add( new DataColumn("paridsor", typeof(int)));
-	texpensesorted.Columns.Add( new DataColumn("paridsubclass", typeof(short)));
-	texpensesorted.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
-	texpensesorted.Columns.Add( new DataColumn("start", typeof(DateTime)));
-	texpensesorted.Columns.Add( new DataColumn("stop", typeof(DateTime)));
-	texpensesorted.Columns.Add( new DataColumn("tobecontinued", typeof(string)));
-	texpensesorted.Columns.Add( new DataColumn("txt", typeof(string)));
-	texpensesorted.Columns.Add( new DataColumn("valuen1", typeof(decimal)));
-	texpensesorted.Columns.Add( new DataColumn("valuen2", typeof(decimal)));
-	texpensesorted.Columns.Add( new DataColumn("valuen3", typeof(decimal)));
-	texpensesorted.Columns.Add( new DataColumn("valuen4", typeof(decimal)));
-	texpensesorted.Columns.Add( new DataColumn("valuen5", typeof(decimal)));
-	texpensesorted.Columns.Add( new DataColumn("values1", typeof(string)));
-	texpensesorted.Columns.Add( new DataColumn("values2", typeof(string)));
-	texpensesorted.Columns.Add( new DataColumn("values3", typeof(string)));
-	texpensesorted.Columns.Add( new DataColumn("values4", typeof(string)));
-	texpensesorted.Columns.Add( new DataColumn("values5", typeof(string)));
-	texpensesorted.Columns.Add( new DataColumn("valuev1", typeof(decimal)));
-	texpensesorted.Columns.Add( new DataColumn("valuev2", typeof(decimal)));
-	texpensesorted.Columns.Add( new DataColumn("valuev3", typeof(decimal)));
-	texpensesorted.Columns.Add( new DataColumn("valuev4", typeof(decimal)));
-	texpensesorted.Columns.Add( new DataColumn("valuev5", typeof(decimal)));
-	texpensesorted.Columns.Add( new DataColumn("originalamount", typeof(decimal)));
+	var texpensesorted= new expensesortedTable();
+	texpensesorted.addBaseColumns("idexp","idsor","idsubclass","amount","ayear","ct","cu","description","flagnodate","lt","lu","paridsor","paridsubclass","rtf","start","stop","tobecontinued","txt","valuen1","valuen2","valuen3","valuen4","valuen5","values1","values2","values3","values4","values5","valuev1","valuev2","valuev3","valuev4","valuev5","originalamount");
 	Tables.Add(texpensesorted);
-	texpensesorted.PrimaryKey =  new DataColumn[]{texpensesorted.Columns["idexp"], texpensesorted.Columns["idsor"], texpensesorted.Columns["idsubclass"]};
-
+	texpensesorted.defineKey("idexp", "idsor", "idsubclass");
 
 	//////////////////// SORTINGKIND /////////////////////////////////
-	var tsortingkind= new DataTable("sortingkind");
-	C= new DataColumn("idsorkind", typeof(int));
-	C.AllowDBNull=false;
-	tsortingkind.Columns.Add(C);
-	tsortingkind.Columns.Add( new DataColumn("active", typeof(string)));
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tsortingkind.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tsortingkind.Columns.Add(C);
-	C= new DataColumn("description", typeof(string));
-	C.AllowDBNull=false;
-	tsortingkind.Columns.Add(C);
-	tsortingkind.Columns.Add( new DataColumn("flagdate", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("forcedN1", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("forcedN2", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("forcedN3", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("forcedN4", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("forcedN5", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("forcedS1", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("forcedS2", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("forcedS3", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("forcedS4", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("forcedS5", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("forcedv1", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("forcedv2", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("forcedv3", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("forcedv4", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("forcedv5", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labelfordate", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labeln1", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labeln2", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labeln3", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labeln4", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labeln5", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labels1", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labels2", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labels3", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labels4", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labels5", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labelv1", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labelv2", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labelv3", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labelv4", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("labelv5", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("lockedN1", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("lockedN2", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("lockedN3", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("lockedN4", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("lockedN5", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("lockedS1", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("lockedS2", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("lockedS3", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("lockedS4", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("lockedS5", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("lockedv1", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("lockedv2", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("lockedv3", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("lockedv4", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("lockedv5", typeof(string)));
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tsortingkind.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tsortingkind.Columns.Add(C);
-	tsortingkind.Columns.Add( new DataColumn("nodatelabel", typeof(string)));
-	tsortingkind.Columns.Add( new DataColumn("nphaseexpense", typeof(byte)));
-	tsortingkind.Columns.Add( new DataColumn("nphaseincome", typeof(byte)));
-	tsortingkind.Columns.Add( new DataColumn("totalexpression", typeof(string)));
+	var tsortingkind= new sortingkindTable();
+	tsortingkind.addBaseColumns("idsorkind","active","ct","cu","description","flagdate","forcedN1","forcedN2","forcedN3","forcedN4","forcedN5","forcedS1","forcedS2","forcedS3","forcedS4","forcedS5","forcedv1","forcedv2","forcedv3","forcedv4","forcedv5","labelfordate","labeln1","labeln2","labeln3","labeln4","labeln5","labels1","labels2","labels3","labels4","labels5","labelv1","labelv2","labelv3","labelv4","labelv5","lockedN1","lockedN2","lockedN3","lockedN4","lockedN5","lockedS1","lockedS2","lockedS3","lockedS4","lockedS5","lockedv1","lockedv2","lockedv3","lockedv4","lockedv5","lt","lu","nodatelabel","nphaseexpense","nphaseincome","totalexpression");
 	Tables.Add(tsortingkind);
-	tsortingkind.PrimaryKey =  new DataColumn[]{tsortingkind.Columns["idsorkind"]};
-
+	tsortingkind.defineKey("idsorkind");
 
 	//////////////////// INCOMEPHASE /////////////////////////////////
-	var tincomephase= new DataTable("incomephase");
-	C= new DataColumn("nphase", typeof(byte));
-	C.AllowDBNull=false;
-	tincomephase.Columns.Add(C);
-	C= new DataColumn("description", typeof(string));
-	C.AllowDBNull=false;
-	tincomephase.Columns.Add(C);
+	var tincomephase= new MetaTable("incomephase");
+	tincomephase.defineColumn("nphase", typeof(byte),false);
+	tincomephase.defineColumn("description", typeof(string),false);
 	Tables.Add(tincomephase);
-	tincomephase.PrimaryKey =  new DataColumn[]{tincomephase.Columns["nphase"]};
-
+	tincomephase.defineKey("nphase");
 
 	//////////////////// INCOMEYEAR /////////////////////////////////
-	var tincomeyear= new DataTable("incomeyear");
-	C= new DataColumn("ayear", typeof(short));
-	C.AllowDBNull=false;
-	tincomeyear.Columns.Add(C);
-	C= new DataColumn("idinc", typeof(int));
-	C.AllowDBNull=false;
-	tincomeyear.Columns.Add(C);
-	tincomeyear.Columns.Add( new DataColumn("amount", typeof(decimal)));
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincomeyear.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tincomeyear.Columns.Add(C);
-	tincomeyear.Columns.Add( new DataColumn("idfin", typeof(int)));
-	tincomeyear.Columns.Add( new DataColumn("idupb", typeof(string)));
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincomeyear.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tincomeyear.Columns.Add(C);
+	var tincomeyear= new incomeyearTable();
+	tincomeyear.addBaseColumns("ayear","idinc","amount","ct","cu","idfin","idupb","lt","lu");
 	Tables.Add(tincomeyear);
-	tincomeyear.PrimaryKey =  new DataColumn[]{tincomeyear.Columns["idinc"], tincomeyear.Columns["ayear"]};
-
+	tincomeyear.defineKey("idinc", "ayear");
 
 	//////////////////// INCOMESORTED /////////////////////////////////
-	var tincomesorted= new DataTable("incomesorted");
-	C= new DataColumn("idinc", typeof(int));
-	C.AllowDBNull=false;
-	tincomesorted.Columns.Add(C);
-	C= new DataColumn("idsor", typeof(int));
-	C.AllowDBNull=false;
-	tincomesorted.Columns.Add(C);
-	C= new DataColumn("idsubclass", typeof(short));
-	C.AllowDBNull=false;
-	tincomesorted.Columns.Add(C);
-	tincomesorted.Columns.Add( new DataColumn("amount", typeof(decimal)));
-	tincomesorted.Columns.Add( new DataColumn("ayear", typeof(short)));
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincomesorted.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tincomesorted.Columns.Add(C);
-	tincomesorted.Columns.Add( new DataColumn("description", typeof(string)));
-	tincomesorted.Columns.Add( new DataColumn("flagnodate", typeof(string)));
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincomesorted.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tincomesorted.Columns.Add(C);
-	tincomesorted.Columns.Add( new DataColumn("paridsor", typeof(int)));
-	tincomesorted.Columns.Add( new DataColumn("paridsubclass", typeof(short)));
-	tincomesorted.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
-	tincomesorted.Columns.Add( new DataColumn("start", typeof(DateTime)));
-	tincomesorted.Columns.Add( new DataColumn("stop", typeof(DateTime)));
-	tincomesorted.Columns.Add( new DataColumn("tobecontinued", typeof(string)));
-	tincomesorted.Columns.Add( new DataColumn("txt", typeof(string)));
-	tincomesorted.Columns.Add( new DataColumn("valuen1", typeof(decimal)));
-	tincomesorted.Columns.Add( new DataColumn("valuen2", typeof(decimal)));
-	tincomesorted.Columns.Add( new DataColumn("valuen3", typeof(decimal)));
-	tincomesorted.Columns.Add( new DataColumn("valuen4", typeof(decimal)));
-	tincomesorted.Columns.Add( new DataColumn("valuen5", typeof(decimal)));
-	tincomesorted.Columns.Add( new DataColumn("values1", typeof(string)));
-	tincomesorted.Columns.Add( new DataColumn("values2", typeof(string)));
-	tincomesorted.Columns.Add( new DataColumn("values3", typeof(string)));
-	tincomesorted.Columns.Add( new DataColumn("values4", typeof(string)));
-	tincomesorted.Columns.Add( new DataColumn("values5", typeof(string)));
-	tincomesorted.Columns.Add( new DataColumn("valuev1", typeof(decimal)));
-	tincomesorted.Columns.Add( new DataColumn("valuev2", typeof(decimal)));
-	tincomesorted.Columns.Add( new DataColumn("valuev3", typeof(decimal)));
-	tincomesorted.Columns.Add( new DataColumn("valuev4", typeof(decimal)));
-	tincomesorted.Columns.Add( new DataColumn("valuev5", typeof(decimal)));
-	tincomesorted.Columns.Add( new DataColumn("originalamount", typeof(decimal)));
+	var tincomesorted= new incomesortedTable();
+	tincomesorted.addBaseColumns("idinc","idsor","idsubclass","amount","ayear","ct","cu","description","flagnodate","lt","lu","paridsor","paridsubclass","rtf","start","stop","tobecontinued","txt","valuen1","valuen2","valuen3","valuen4","valuen5","values1","values2","values3","values4","values5","valuev1","valuev2","valuev3","valuev4","valuev5","originalamount");
 	Tables.Add(tincomesorted);
-	tincomesorted.PrimaryKey =  new DataColumn[]{tincomesorted.Columns["idinc"], tincomesorted.Columns["idsor"], tincomesorted.Columns["idsubclass"]};
-
+	tincomesorted.defineKey("idinc", "idsor", "idsubclass");
 
 	//////////////////// EXPENSE /////////////////////////////////
-	var texpense= new DataTable("expense");
-	C= new DataColumn("adate", typeof(DateTime));
-	C.AllowDBNull=false;
-	texpense.Columns.Add(C);
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	texpense.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	texpense.Columns.Add(C);
-	C= new DataColumn("description", typeof(string));
-	C.AllowDBNull=false;
-	texpense.Columns.Add(C);
-	texpense.Columns.Add( new DataColumn("doc", typeof(string)));
-	texpense.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
-	texpense.Columns.Add( new DataColumn("expiration", typeof(DateTime)));
-	texpense.Columns.Add( new DataColumn("idreg", typeof(int)));
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	texpense.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	texpense.Columns.Add(C);
-	C= new DataColumn("nmov", typeof(int));
-	C.AllowDBNull=false;
-	texpense.Columns.Add(C);
-	texpense.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
-	texpense.Columns.Add( new DataColumn("txt", typeof(string)));
-	C= new DataColumn("ymov", typeof(short));
-	C.AllowDBNull=false;
-	texpense.Columns.Add(C);
-	texpense.Columns.Add( new DataColumn("idclawback", typeof(int)));
-	texpense.Columns.Add( new DataColumn("idman", typeof(int)));
-	C= new DataColumn("nphase", typeof(byte));
-	C.AllowDBNull=false;
-	texpense.Columns.Add(C);
-	C= new DataColumn("idexp", typeof(int));
-	C.AllowDBNull=false;
-	texpense.Columns.Add(C);
-	texpense.Columns.Add( new DataColumn("parentidexp", typeof(int)));
-	texpense.Columns.Add( new DataColumn("idpayment", typeof(int)));
-	texpense.Columns.Add( new DataColumn("idformerexpense", typeof(int)));
-	texpense.Columns.Add( new DataColumn("autokind", typeof(byte)));
-	texpense.Columns.Add( new DataColumn("autocode", typeof(int)));
+	var texpense= new expenseTable();
+	texpense.addBaseColumns("adate","ct","cu","description","doc","docdate","expiration","idreg","lt","lu","nmov","rtf","txt","ymov","idclawback","idman","nphase","idexp","parentidexp","idpayment","idformerexpense","autokind","autocode");
 	Tables.Add(texpense);
-	texpense.PrimaryKey =  new DataColumn[]{texpense.Columns["idexp"]};
-
+	texpense.defineKey("idexp");
 
 	//////////////////// INCOME /////////////////////////////////
-	var tincome= new DataTable("income");
-	C= new DataColumn("adate", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincome.Columns.Add(C);
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincome.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tincome.Columns.Add(C);
-	C= new DataColumn("description", typeof(string));
-	C.AllowDBNull=false;
-	tincome.Columns.Add(C);
-	tincome.Columns.Add( new DataColumn("doc", typeof(string)));
-	tincome.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
-	tincome.Columns.Add( new DataColumn("expiration", typeof(DateTime)));
-	tincome.Columns.Add( new DataColumn("idreg", typeof(int)));
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincome.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tincome.Columns.Add(C);
-	C= new DataColumn("nmov", typeof(int));
-	C.AllowDBNull=false;
-	tincome.Columns.Add(C);
-	tincome.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
-	tincome.Columns.Add( new DataColumn("txt", typeof(string)));
-	C= new DataColumn("ymov", typeof(short));
-	C.AllowDBNull=false;
-	tincome.Columns.Add(C);
-	tincome.Columns.Add( new DataColumn("idman", typeof(int)));
-	C= new DataColumn("nphase", typeof(byte));
-	C.AllowDBNull=false;
-	tincome.Columns.Add(C);
-	tincome.Columns.Add( new DataColumn("idpayment", typeof(int)));
-	C= new DataColumn("idinc", typeof(int));
-	C.AllowDBNull=false;
-	tincome.Columns.Add(C);
-	tincome.Columns.Add( new DataColumn("parentidinc", typeof(int)));
-	tincome.Columns.Add( new DataColumn("autokind", typeof(byte)));
-	tincome.Columns.Add( new DataColumn("autocode", typeof(int)));
+	var tincome= new incomeTable();
+	tincome.addBaseColumns("adate","ct","cu","description","doc","docdate","expiration","idreg","lt","lu","nmov","rtf","txt","ymov","idman","nphase","idpayment","idinc","parentidinc","autokind","autocode");
 	Tables.Add(tincome);
-	tincome.PrimaryKey =  new DataColumn[]{tincome.Columns["idinc"]};
-
+	tincome.defineKey("idinc");
 
 	//////////////////// CONFIG /////////////////////////////////
-	var tconfig= new DataTable("config");
-	C= new DataColumn("ayear", typeof(short));
-	C.AllowDBNull=false;
-	tconfig.Columns.Add(C);
-	tconfig.Columns.Add( new DataColumn("agencycode", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("appname", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("appropriationphasecode", typeof(byte)));
-	tconfig.Columns.Add( new DataColumn("assessmentphasecode", typeof(byte)));
-	tconfig.Columns.Add( new DataColumn("asset_flagnumbering", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("asset_flagrestart", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("assetload_flag", typeof(byte)));
-	tconfig.Columns.Add( new DataColumn("boxpartitiontitle", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("cashvaliditykind", typeof(byte)));
-	tconfig.Columns.Add( new DataColumn("casualcontract_flagrestart", typeof(string)));
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tconfig.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tconfig.Columns.Add(C);
-	tconfig.Columns.Add( new DataColumn("currpartitiontitle", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("deferredexpensephase", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("deferredincomephase", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("electronicimport", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("electronictrasmission", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("expense_expiringdays", typeof(short)));
-	tconfig.Columns.Add( new DataColumn("expensephase", typeof(byte)));
-	tconfig.Columns.Add( new DataColumn("flagautopayment", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("flagautoproceeds", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("flagcredit", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("flagepexp", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("flagfruitful", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("flagpayment", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("flagproceeds", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("flagrefund", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("foreignhours", typeof(int)));
-	tconfig.Columns.Add( new DataColumn("idacc_accruedcost", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("idacc_accruedrevenue", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("idacc_customer", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("idacc_deferredcost", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("idacc_deferredcredit", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("idacc_deferreddebit", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("idacc_deferredrevenue", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("idacc_ivapayment", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("idacc_ivarefund", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("idacc_patrimony", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("idacc_pl", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("idacc_supplier", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("idaccmotive_admincar", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("idaccmotive_foot", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("idaccmotive_owncar", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("idclawback", typeof(int)));
-	tconfig.Columns.Add( new DataColumn("idfinexpense", typeof(int)));
-	tconfig.Columns.Add( new DataColumn("idfinexpensesurplus", typeof(int)));
-	tconfig.Columns.Add( new DataColumn("idfinincomesurplus", typeof(int)));
-	tconfig.Columns.Add( new DataColumn("idfinivapayment", typeof(int)));
-	tconfig.Columns.Add( new DataColumn("idfinivarefund", typeof(int)));
-	tconfig.Columns.Add( new DataColumn("idivapayperiodicity", typeof(int)));
-	tconfig.Columns.Add( new DataColumn("idregauto", typeof(int)));
-	tconfig.Columns.Add( new DataColumn("idsortingkind1", typeof(int)));
-	tconfig.Columns.Add( new DataColumn("idsortingkind2", typeof(int)));
-	tconfig.Columns.Add( new DataColumn("idsortingkind3", typeof(int)));
-	tconfig.Columns.Add( new DataColumn("importappname", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("income_expiringdays", typeof(short)));
-	tconfig.Columns.Add( new DataColumn("incomephase", typeof(byte)));
-	tconfig.Columns.Add( new DataColumn("linktoinvoice", typeof(string)));
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tconfig.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tconfig.Columns.Add(C);
-	tconfig.Columns.Add( new DataColumn("minpayment", typeof(decimal)));
-	tconfig.Columns.Add( new DataColumn("minrefund", typeof(decimal)));
-	tconfig.Columns.Add( new DataColumn("motivelen", typeof(short)));
-	tconfig.Columns.Add( new DataColumn("motiveprefix", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("motiveseparator", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("payment_finlevel", typeof(byte)));
-	tconfig.Columns.Add( new DataColumn("payment_flag", typeof(byte)));
-	tconfig.Columns.Add( new DataColumn("payment_flagautoprintdate", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("paymentagency", typeof(int)));
-	tconfig.Columns.Add( new DataColumn("prevpartitiontitle", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("proceeds_finlevel", typeof(byte)));
-	tconfig.Columns.Add( new DataColumn("proceeds_flag", typeof(byte)));
-	tconfig.Columns.Add( new DataColumn("proceeds_flagautoprintdate", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("profservice_flagrestart", typeof(string)));
-	tconfig.Columns.Add( new DataColumn("refundagency", typeof(int)));
-	tconfig.Columns.Add( new DataColumn("wageaddition_flagrestart", typeof(string)));
+	var tconfig= new configTable();
+	tconfig.addBaseColumns("ayear","agencycode","appname","appropriationphasecode","assessmentphasecode","asset_flagnumbering","asset_flagrestart","assetload_flag","boxpartitiontitle","cashvaliditykind","casualcontract_flagrestart","ct","cu","currpartitiontitle","deferredexpensephase","deferredincomephase","electronicimport","electronictrasmission","expense_expiringdays","expensephase","flagautopayment","flagautoproceeds","flagcredit","flagepexp","flagfruitful","flagpayment","flagproceeds","flagrefund","foreignhours","idacc_accruedcost","idacc_accruedrevenue","idacc_customer","idacc_deferredcost","idacc_deferredcredit","idacc_deferreddebit","idacc_deferredrevenue","idacc_ivapayment","idacc_ivarefund","idacc_patrimony","idacc_pl","idacc_supplier","idaccmotive_admincar","idaccmotive_foot","idaccmotive_owncar","idclawback","idfinexpense","idfinexpensesurplus","idfinincomesurplus","idfinivapayment","idfinivarefund","idivapayperiodicity","idregauto","idsortingkind1","idsortingkind2","idsortingkind3","importappname","income_expiringdays","incomephase","linktoinvoice","lt","lu","minpayment","minrefund","motivelen","motiveprefix","motiveseparator","payment_finlevel","payment_flag","payment_flagautoprintdate","paymentagency","prevpartitiontitle","proceeds_finlevel","proceeds_flag","proceeds_flagautoprintdate","profservice_flagrestart","refundagency","wageaddition_flagrestart");
 	Tables.Add(tconfig);
-	tconfig.PrimaryKey =  new DataColumn[]{tconfig.Columns["ayear"]};
-
+	tconfig.defineKey("ayear");
 
 	//////////////////// EXPENSELAST /////////////////////////////////
-	var texpenselast= new DataTable("expenselast");
-	C= new DataColumn("idexp", typeof(int));
-	C.AllowDBNull=false;
-	texpenselast.Columns.Add(C);
-	texpenselast.Columns.Add( new DataColumn("cc", typeof(string)));
-	texpenselast.Columns.Add( new DataColumn("cin", typeof(string)));
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	texpenselast.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	texpenselast.Columns.Add(C);
-	C= new DataColumn("flag", typeof(byte));
-	C.AllowDBNull=false;
-	texpenselast.Columns.Add(C);
-	texpenselast.Columns.Add( new DataColumn("iban", typeof(string)));
-	texpenselast.Columns.Add( new DataColumn("idbank", typeof(string)));
-	texpenselast.Columns.Add( new DataColumn("idcab", typeof(string)));
-	texpenselast.Columns.Add( new DataColumn("iddeputy", typeof(int)));
-	texpenselast.Columns.Add( new DataColumn("idpay", typeof(int)));
-	texpenselast.Columns.Add( new DataColumn("idpaymethod", typeof(int)));
-	texpenselast.Columns.Add( new DataColumn("idregistrypaymethod", typeof(int)));
-	texpenselast.Columns.Add( new DataColumn("idser", typeof(int)));
-	texpenselast.Columns.Add( new DataColumn("ivaamount", typeof(decimal)));
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	texpenselast.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	texpenselast.Columns.Add(C);
-	texpenselast.Columns.Add( new DataColumn("nbill", typeof(int)));
-	texpenselast.Columns.Add( new DataColumn("paymentdescr", typeof(string)));
-	texpenselast.Columns.Add( new DataColumn("servicestart", typeof(DateTime)));
-	texpenselast.Columns.Add( new DataColumn("servicestop", typeof(DateTime)));
-	texpenselast.Columns.Add( new DataColumn("refexternaldoc", typeof(string)));
-	texpenselast.Columns.Add( new DataColumn("idaccdebit", typeof(string)));
-	texpenselast.Columns.Add( new DataColumn("biccode", typeof(string)));
-	texpenselast.Columns.Add( new DataColumn("paymethod_flag", typeof(int)));
-	texpenselast.Columns.Add( new DataColumn("paymethod_allowdeputy", typeof(string)));
-	texpenselast.Columns.Add( new DataColumn("extracode", typeof(string)));
-	texpenselast.Columns.Add( new DataColumn("idchargehandling", typeof(int)));
+	var texpenselast= new expenselastTable();
+	texpenselast.addBaseColumns("idexp","cc","cin","ct","cu","flag","iban","idbank","idcab","iddeputy","idpay","idpaymethod","idregistrypaymethod","idser","ivaamount","lt","lu","nbill","paymentdescr","servicestart","servicestop","refexternaldoc","idaccdebit","biccode","paymethod_flag","paymethod_allowdeputy","extracode","idchargehandling");
 	Tables.Add(texpenselast);
-	texpenselast.PrimaryKey =  new DataColumn[]{texpenselast.Columns["idexp"]};
-
+	texpenselast.defineKey("idexp");
 
 	//////////////////// INCOMELAST /////////////////////////////////
-	var tincomelast= new DataTable("incomelast");
-	C= new DataColumn("idinc", typeof(int));
-	C.AllowDBNull=false;
-	tincomelast.Columns.Add(C);
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincomelast.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tincomelast.Columns.Add(C);
-	C= new DataColumn("flag", typeof(byte));
-	C.AllowDBNull=false;
-	tincomelast.Columns.Add(C);
-	tincomelast.Columns.Add( new DataColumn("idpro", typeof(int)));
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincomelast.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tincomelast.Columns.Add(C);
-	tincomelast.Columns.Add( new DataColumn("nbill", typeof(int)));
-	tincomelast.Columns.Add( new DataColumn("idacccredit", typeof(string)));
+	var tincomelast= new incomelastTable();
+	tincomelast.addBaseColumns("idinc","ct","cu","flag","idpro","lt","lu","nbill","idacccredit");
 	Tables.Add(tincomelast);
-	tincomelast.PrimaryKey =  new DataColumn[]{tincomelast.Columns["idinc"]};
-
+	tincomelast.defineKey("idinc");
 
 	//////////////////// SORTING /////////////////////////////////
-	var tsorting= new DataTable("sorting");
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tsorting.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tsorting.Columns.Add(C);
-	tsorting.Columns.Add( new DataColumn("defaultN1", typeof(decimal)));
-	tsorting.Columns.Add( new DataColumn("defaultN2", typeof(decimal)));
-	tsorting.Columns.Add( new DataColumn("defaultN3", typeof(decimal)));
-	tsorting.Columns.Add( new DataColumn("defaultN4", typeof(decimal)));
-	tsorting.Columns.Add( new DataColumn("defaultN5", typeof(decimal)));
-	tsorting.Columns.Add( new DataColumn("defaultS1", typeof(string)));
-	tsorting.Columns.Add( new DataColumn("defaultS2", typeof(string)));
-	tsorting.Columns.Add( new DataColumn("defaultS3", typeof(string)));
-	tsorting.Columns.Add( new DataColumn("defaultS4", typeof(string)));
-	tsorting.Columns.Add( new DataColumn("defaultS5", typeof(string)));
-	tsorting.Columns.Add( new DataColumn("defaultv1", typeof(decimal)));
-	tsorting.Columns.Add( new DataColumn("defaultv2", typeof(decimal)));
-	tsorting.Columns.Add( new DataColumn("defaultv3", typeof(decimal)));
-	tsorting.Columns.Add( new DataColumn("defaultv4", typeof(decimal)));
-	tsorting.Columns.Add( new DataColumn("defaultv5", typeof(decimal)));
-	C= new DataColumn("description", typeof(string));
-	C.AllowDBNull=false;
-	tsorting.Columns.Add(C);
-	tsorting.Columns.Add( new DataColumn("flagnodate", typeof(string)));
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tsorting.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tsorting.Columns.Add(C);
-	tsorting.Columns.Add( new DataColumn("movkind", typeof(string)));
-	tsorting.Columns.Add( new DataColumn("printingorder", typeof(string)));
-	tsorting.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
-	C= new DataColumn("sortcode", typeof(string));
-	C.AllowDBNull=false;
-	tsorting.Columns.Add(C);
-	tsorting.Columns.Add( new DataColumn("txt", typeof(string)));
-	C= new DataColumn("idsorkind", typeof(int));
-	C.AllowDBNull=false;
-	tsorting.Columns.Add(C);
-	C= new DataColumn("idsor", typeof(int));
-	C.AllowDBNull=false;
-	tsorting.Columns.Add(C);
-	tsorting.Columns.Add( new DataColumn("paridsor", typeof(int)));
-	C= new DataColumn("nlevel", typeof(byte));
-	C.AllowDBNull=false;
-	tsorting.Columns.Add(C);
+	var tsorting= new sortingTable();
+	tsorting.addBaseColumns("ct","cu","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5","description","flagnodate","lt","lu","movkind","printingorder","rtf","sortcode","txt","idsorkind","idsor","paridsor","nlevel");
 	Tables.Add(tsorting);
-	tsorting.PrimaryKey =  new DataColumn[]{tsorting.Columns["idsor"]};
-
+	tsorting.defineKey("idsor");
 
 	//////////////////// EXPENSEVIEW /////////////////////////////////
-	var texpenseview= new DataTable("expenseview");
-	C= new DataColumn("idexp", typeof(int));
-	C.AllowDBNull=false;
-	texpenseview.Columns.Add(C);
-	texpenseview.Columns.Add( new DataColumn("!livprecedente", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("nphase", typeof(byte)));
-	C= new DataColumn("phase", typeof(string));
-	C.AllowDBNull=false;
-	texpenseview.Columns.Add(C);
-	C= new DataColumn("ymov", typeof(short));
-	C.AllowDBNull=false;
-	texpenseview.Columns.Add(C);
-	C= new DataColumn("nmov", typeof(int));
-	C.AllowDBNull=false;
-	texpenseview.Columns.Add(C);
-	texpenseview.Columns.Add( new DataColumn("parentidexp", typeof(int)));
-	texpenseview.Columns.Add( new DataColumn("parentymov", typeof(short)));
-	texpenseview.Columns.Add( new DataColumn("parentnmov", typeof(int)));
-	texpenseview.Columns.Add( new DataColumn("idformerexpense", typeof(int)));
-	C= new DataColumn("ayear", typeof(short));
-	C.AllowDBNull=false;
-	texpenseview.Columns.Add(C);
-	texpenseview.Columns.Add( new DataColumn("idfin", typeof(int)));
-	texpenseview.Columns.Add( new DataColumn("codefin", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("finance", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("idupb", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("codeupb", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("upb", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("idreg", typeof(int)));
-	texpenseview.Columns.Add( new DataColumn("registry", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("idman", typeof(int)));
-	texpenseview.Columns.Add( new DataColumn("manager", typeof(string)));
-	C= new DataColumn("ypay", typeof(short));
-	C.ReadOnly=true;
-	texpenseview.Columns.Add(C);
-	texpenseview.Columns.Add( new DataColumn("npay", typeof(int)));
-	texpenseview.Columns.Add( new DataColumn("paymentadate", typeof(DateTime)));
-	texpenseview.Columns.Add( new DataColumn("doc", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
-	C= new DataColumn("description", typeof(string));
-	C.AllowDBNull=false;
-	texpenseview.Columns.Add(C);
-	texpenseview.Columns.Add( new DataColumn("amount", typeof(decimal)));
-	texpenseview.Columns.Add( new DataColumn("ayearstartamount", typeof(decimal)));
-	texpenseview.Columns.Add( new DataColumn("curramount", typeof(decimal)));
-	texpenseview.Columns.Add( new DataColumn("available", typeof(decimal)));
-	texpenseview.Columns.Add( new DataColumn("idregistrypaymethod", typeof(int)));
-	texpenseview.Columns.Add( new DataColumn("idpaymethod", typeof(int)));
-	texpenseview.Columns.Add( new DataColumn("iban", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("cin", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("idbank", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("idcab", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("cc", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("iddeputy", typeof(int)));
-	texpenseview.Columns.Add( new DataColumn("deputy", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("refexternaldoc", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("paymentdescr", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("idser", typeof(int)));
-	texpenseview.Columns.Add( new DataColumn("service", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("servicestart", typeof(DateTime)));
-	texpenseview.Columns.Add( new DataColumn("servicestop", typeof(DateTime)));
-	texpenseview.Columns.Add( new DataColumn("ivaamount", typeof(decimal)));
-	texpenseview.Columns.Add( new DataColumn("flag", typeof(byte)));
-	texpenseview.Columns.Add( new DataColumn("totflag", typeof(byte)));
-	C= new DataColumn("flagarrear", typeof(string));
-	C.ReadOnly=true;
-	texpenseview.Columns.Add(C);
-	texpenseview.Columns.Add( new DataColumn("autokind", typeof(byte)));
-	texpenseview.Columns.Add( new DataColumn("idpayment", typeof(int)));
-	texpenseview.Columns.Add( new DataColumn("expiration", typeof(DateTime)));
-	C= new DataColumn("adate", typeof(DateTime));
-	C.AllowDBNull=false;
-	texpenseview.Columns.Add(C);
-	texpenseview.Columns.Add( new DataColumn("autocode", typeof(int)));
-	texpenseview.Columns.Add( new DataColumn("idclawback", typeof(int)));
-	texpenseview.Columns.Add( new DataColumn("clawback", typeof(string)));
-	texpenseview.Columns.Add( new DataColumn("nbill", typeof(int)));
-	texpenseview.Columns.Add( new DataColumn("idpay", typeof(int)));
-	texpenseview.Columns.Add( new DataColumn("txt", typeof(string)));
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	texpenseview.Columns.Add(C);
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	texpenseview.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	texpenseview.Columns.Add(C);
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	texpenseview.Columns.Add(C);
+	var texpenseview= new MetaTable("expenseview");
+	texpenseview.defineColumn("idexp", typeof(int),false);
+	texpenseview.defineColumn("!livprecedente", typeof(string));
+	texpenseview.defineColumn("nphase", typeof(byte));
+	texpenseview.defineColumn("phase", typeof(string),false);
+	texpenseview.defineColumn("ymov", typeof(short),false);
+	texpenseview.defineColumn("nmov", typeof(int),false);
+	texpenseview.defineColumn("parentidexp", typeof(int));
+	texpenseview.defineColumn("parentymov", typeof(short));
+	texpenseview.defineColumn("parentnmov", typeof(int));
+	texpenseview.defineColumn("idformerexpense", typeof(int));
+	texpenseview.defineColumn("ayear", typeof(short),false);
+	texpenseview.defineColumn("idfin", typeof(int));
+	texpenseview.defineColumn("codefin", typeof(string));
+	texpenseview.defineColumn("finance", typeof(string));
+	texpenseview.defineColumn("idupb", typeof(string));
+	texpenseview.defineColumn("codeupb", typeof(string));
+	texpenseview.defineColumn("upb", typeof(string));
+	texpenseview.defineColumn("idreg", typeof(int));
+	texpenseview.defineColumn("registry", typeof(string));
+	texpenseview.defineColumn("idman", typeof(int));
+	texpenseview.defineColumn("manager", typeof(string));
+	texpenseview.defineColumn("ypay", typeof(short),true,true);
+	texpenseview.defineColumn("npay", typeof(int));
+	texpenseview.defineColumn("paymentadate", typeof(DateTime));
+	texpenseview.defineColumn("doc", typeof(string));
+	texpenseview.defineColumn("docdate", typeof(DateTime));
+	texpenseview.defineColumn("description", typeof(string),false);
+	texpenseview.defineColumn("amount", typeof(decimal));
+	texpenseview.defineColumn("ayearstartamount", typeof(decimal));
+	texpenseview.defineColumn("curramount", typeof(decimal));
+	texpenseview.defineColumn("available", typeof(decimal));
+	texpenseview.defineColumn("idregistrypaymethod", typeof(int));
+	texpenseview.defineColumn("idpaymethod", typeof(int));
+	texpenseview.defineColumn("iban", typeof(string));
+	texpenseview.defineColumn("cin", typeof(string));
+	texpenseview.defineColumn("idbank", typeof(string));
+	texpenseview.defineColumn("idcab", typeof(string));
+	texpenseview.defineColumn("cc", typeof(string));
+	texpenseview.defineColumn("iddeputy", typeof(int));
+	texpenseview.defineColumn("deputy", typeof(string));
+	texpenseview.defineColumn("refexternaldoc", typeof(string));
+	texpenseview.defineColumn("paymentdescr", typeof(string));
+	texpenseview.defineColumn("idser", typeof(int));
+	texpenseview.defineColumn("service", typeof(string));
+	texpenseview.defineColumn("servicestart", typeof(DateTime));
+	texpenseview.defineColumn("servicestop", typeof(DateTime));
+	texpenseview.defineColumn("ivaamount", typeof(decimal));
+	texpenseview.defineColumn("flag", typeof(byte));
+	texpenseview.defineColumn("totflag", typeof(byte));
+	texpenseview.defineColumn("flagarrear", typeof(string),true,true);
+	texpenseview.defineColumn("autokind", typeof(byte));
+	texpenseview.defineColumn("idpayment", typeof(int));
+	texpenseview.defineColumn("expiration", typeof(DateTime));
+	texpenseview.defineColumn("adate", typeof(DateTime),false);
+	texpenseview.defineColumn("autocode", typeof(int));
+	texpenseview.defineColumn("idclawback", typeof(int));
+	texpenseview.defineColumn("clawback", typeof(string));
+	texpenseview.defineColumn("nbill", typeof(int));
+	texpenseview.defineColumn("idpay", typeof(int));
+	texpenseview.defineColumn("txt", typeof(string));
+	texpenseview.defineColumn("cu", typeof(string),false);
+	texpenseview.defineColumn("ct", typeof(DateTime),false);
+	texpenseview.defineColumn("lu", typeof(string),false);
+	texpenseview.defineColumn("idsor01", typeof(int));
+	texpenseview.defineColumn("idsor02", typeof(int));
+	texpenseview.defineColumn("idsor03", typeof(int));
+	texpenseview.defineColumn("idsor04", typeof(int));
+	texpenseview.defineColumn("idsor05", typeof(int));
+	texpenseview.defineColumn("lt", typeof(DateTime),false);
 	Tables.Add(texpenseview);
-	texpenseview.PrimaryKey =  new DataColumn[]{texpenseview.Columns["idexp"], texpenseview.Columns["ayear"]};
-
+	texpenseview.defineKey("idexp", "ayear");
 
 	//////////////////// INCOMEVIEW /////////////////////////////////
-	var tincomeview= new DataTable("incomeview");
-	C= new DataColumn("idinc", typeof(int));
-	C.AllowDBNull=false;
-	tincomeview.Columns.Add(C);
-	tincomeview.Columns.Add( new DataColumn("!livprecedente", typeof(string)));
-	tincomeview.Columns.Add( new DataColumn("nphase", typeof(byte)));
-	C= new DataColumn("phase", typeof(string));
-	C.AllowDBNull=false;
-	tincomeview.Columns.Add(C);
-	C= new DataColumn("ymov", typeof(short));
-	C.AllowDBNull=false;
-	tincomeview.Columns.Add(C);
-	C= new DataColumn("nmov", typeof(int));
-	C.AllowDBNull=false;
-	tincomeview.Columns.Add(C);
-	tincomeview.Columns.Add( new DataColumn("parentymov", typeof(short)));
-	tincomeview.Columns.Add( new DataColumn("parentnmov", typeof(int)));
-	tincomeview.Columns.Add( new DataColumn("parentidinc", typeof(int)));
-	C= new DataColumn("ayear", typeof(short));
-	C.AllowDBNull=false;
-	tincomeview.Columns.Add(C);
-	tincomeview.Columns.Add( new DataColumn("idfin", typeof(int)));
-	tincomeview.Columns.Add( new DataColumn("codefin", typeof(string)));
-	tincomeview.Columns.Add( new DataColumn("finance", typeof(string)));
-	tincomeview.Columns.Add( new DataColumn("idupb", typeof(string)));
-	tincomeview.Columns.Add( new DataColumn("codeupb", typeof(string)));
-	tincomeview.Columns.Add( new DataColumn("upb", typeof(string)));
-	tincomeview.Columns.Add( new DataColumn("idreg", typeof(int)));
-	tincomeview.Columns.Add( new DataColumn("registry", typeof(string)));
-	tincomeview.Columns.Add( new DataColumn("idman", typeof(int)));
-	tincomeview.Columns.Add( new DataColumn("manager", typeof(string)));
-	tincomeview.Columns.Add( new DataColumn("ypro", typeof(short)));
-	tincomeview.Columns.Add( new DataColumn("npro", typeof(int)));
-	tincomeview.Columns.Add( new DataColumn("doc", typeof(string)));
-	tincomeview.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
-	C= new DataColumn("description", typeof(string));
-	C.AllowDBNull=false;
-	tincomeview.Columns.Add(C);
-	tincomeview.Columns.Add( new DataColumn("amount", typeof(decimal)));
-	tincomeview.Columns.Add( new DataColumn("ayearstartamount", typeof(decimal)));
-	tincomeview.Columns.Add( new DataColumn("curramount", typeof(decimal)));
-	tincomeview.Columns.Add( new DataColumn("available", typeof(decimal)));
-	tincomeview.Columns.Add( new DataColumn("unpartitioned", typeof(decimal)));
-	tincomeview.Columns.Add( new DataColumn("flag", typeof(byte)));
-	C= new DataColumn("totflag", typeof(byte));
-	C.AllowDBNull=false;
-	tincomeview.Columns.Add(C);
-	tincomeview.Columns.Add( new DataColumn("flagarrear", typeof(string)));
-	tincomeview.Columns.Add( new DataColumn("autokind", typeof(byte)));
-	tincomeview.Columns.Add( new DataColumn("autocode", typeof(int)));
-	tincomeview.Columns.Add( new DataColumn("idpayment", typeof(int)));
-	tincomeview.Columns.Add( new DataColumn("expiration", typeof(DateTime)));
-	C= new DataColumn("adate", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincomeview.Columns.Add(C);
-	tincomeview.Columns.Add( new DataColumn("nbill", typeof(int)));
-	tincomeview.Columns.Add( new DataColumn("idpro", typeof(int)));
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tincomeview.Columns.Add(C);
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincomeview.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tincomeview.Columns.Add(C);
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincomeview.Columns.Add(C);
+	var tincomeview= new MetaTable("incomeview");
+	tincomeview.defineColumn("idinc", typeof(int),false);
+	tincomeview.defineColumn("!livprecedente", typeof(string));
+	tincomeview.defineColumn("nphase", typeof(byte));
+	tincomeview.defineColumn("phase", typeof(string),false);
+	tincomeview.defineColumn("ymov", typeof(short),false);
+	tincomeview.defineColumn("nmov", typeof(int),false);
+	tincomeview.defineColumn("parentymov", typeof(short));
+	tincomeview.defineColumn("parentnmov", typeof(int));
+	tincomeview.defineColumn("parentidinc", typeof(int));
+	tincomeview.defineColumn("ayear", typeof(short),false);
+	tincomeview.defineColumn("idfin", typeof(int));
+	tincomeview.defineColumn("codefin", typeof(string));
+	tincomeview.defineColumn("finance", typeof(string));
+	tincomeview.defineColumn("idupb", typeof(string));
+	tincomeview.defineColumn("codeupb", typeof(string));
+	tincomeview.defineColumn("upb", typeof(string));
+	tincomeview.defineColumn("idreg", typeof(int));
+	tincomeview.defineColumn("registry", typeof(string));
+	tincomeview.defineColumn("idman", typeof(int));
+	tincomeview.defineColumn("manager", typeof(string));
+	tincomeview.defineColumn("ypro", typeof(short));
+	tincomeview.defineColumn("npro", typeof(int));
+	tincomeview.defineColumn("doc", typeof(string));
+	tincomeview.defineColumn("docdate", typeof(DateTime));
+	tincomeview.defineColumn("description", typeof(string),false);
+	tincomeview.defineColumn("amount", typeof(decimal));
+	tincomeview.defineColumn("ayearstartamount", typeof(decimal));
+	tincomeview.defineColumn("curramount", typeof(decimal));
+	tincomeview.defineColumn("available", typeof(decimal));
+	tincomeview.defineColumn("unpartitioned", typeof(decimal));
+	tincomeview.defineColumn("flag", typeof(byte));
+	tincomeview.defineColumn("totflag", typeof(byte),false);
+	tincomeview.defineColumn("flagarrear", typeof(string));
+	tincomeview.defineColumn("autokind", typeof(byte));
+	tincomeview.defineColumn("autocode", typeof(int));
+	tincomeview.defineColumn("idpayment", typeof(int));
+	tincomeview.defineColumn("expiration", typeof(DateTime));
+	tincomeview.defineColumn("adate", typeof(DateTime),false);
+	tincomeview.defineColumn("nbill", typeof(int));
+	tincomeview.defineColumn("idpro", typeof(int));
+	tincomeview.defineColumn("cu", typeof(string),false);
+	tincomeview.defineColumn("ct", typeof(DateTime),false);
+	tincomeview.defineColumn("lu", typeof(string),false);
+	tincomeview.defineColumn("idsor01", typeof(int));
+	tincomeview.defineColumn("idsor02", typeof(int));
+	tincomeview.defineColumn("idsor03", typeof(int));
+	tincomeview.defineColumn("idsor04", typeof(int));
+	tincomeview.defineColumn("idsor05", typeof(int));
+	tincomeview.defineColumn("lt", typeof(DateTime),false);
 	Tables.Add(tincomeview);
-	tincomeview.PrimaryKey =  new DataColumn[]{tincomeview.Columns["idinc"], tincomeview.Columns["ayear"]};
-
+	tincomeview.defineKey("idinc", "ayear");
 
 	//////////////////// INCOMEBILL /////////////////////////////////
-	var tincomebill= new DataTable("incomebill");
-	C= new DataColumn("idinc", typeof(int));
-	C.AllowDBNull=false;
-	tincomebill.Columns.Add(C);
-	C= new DataColumn("ybill", typeof(short));
-	C.AllowDBNull=false;
-	tincomebill.Columns.Add(C);
-	C= new DataColumn("nbill", typeof(int));
-	C.AllowDBNull=false;
-	tincomebill.Columns.Add(C);
-	C= new DataColumn("amount", typeof(decimal));
-	C.AllowDBNull=false;
-	tincomebill.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tincomebill.Columns.Add(C);
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincomebill.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tincomebill.Columns.Add(C);
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincomebill.Columns.Add(C);
+	var tincomebill= new MetaTable("incomebill");
+	tincomebill.defineColumn("idinc", typeof(int),false);
+	tincomebill.defineColumn("ybill", typeof(short),false);
+	tincomebill.defineColumn("nbill", typeof(int),false);
+	tincomebill.defineColumn("amount", typeof(decimal),false);
+	tincomebill.defineColumn("lu", typeof(string),false);
+	tincomebill.defineColumn("lt", typeof(DateTime),false);
+	tincomebill.defineColumn("cu", typeof(string),false);
+	tincomebill.defineColumn("ct", typeof(DateTime),false);
 	Tables.Add(tincomebill);
-	tincomebill.PrimaryKey =  new DataColumn[]{tincomebill.Columns["idinc"], tincomebill.Columns["ybill"], tincomebill.Columns["nbill"]};
-
+	tincomebill.defineKey("idinc", "ybill", "nbill");
 
 	//////////////////// INCOMEVAR /////////////////////////////////
-	var tincomevar= new DataTable("incomevar");
-	C= new DataColumn("idinc", typeof(int));
-	C.AllowDBNull=false;
-	tincomevar.Columns.Add(C);
-	C= new DataColumn("nvar", typeof(int));
-	C.AllowDBNull=false;
-	tincomevar.Columns.Add(C);
-	C= new DataColumn("yvar", typeof(short));
-	C.AllowDBNull=false;
-	tincomevar.Columns.Add(C);
-	C= new DataColumn("description", typeof(string));
-	C.AllowDBNull=false;
-	tincomevar.Columns.Add(C);
-	tincomevar.Columns.Add( new DataColumn("amount", typeof(decimal)));
-	tincomevar.Columns.Add( new DataColumn("doc", typeof(string)));
-	tincomevar.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
-	C= new DataColumn("adate", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincomevar.Columns.Add(C);
-	tincomevar.Columns.Add( new DataColumn("txt", typeof(string)));
-	tincomevar.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tincomevar.Columns.Add(C);
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincomevar.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tincomevar.Columns.Add(C);
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tincomevar.Columns.Add(C);
-	tincomevar.Columns.Add( new DataColumn("autokind", typeof(byte)));
-	tincomevar.Columns.Add( new DataColumn("idinvkind", typeof(int)));
-	tincomevar.Columns.Add( new DataColumn("ninv", typeof(int)));
-	tincomevar.Columns.Add( new DataColumn("yinv", typeof(short)));
+	var tincomevar= new incomevarTable();
+	tincomevar.addBaseColumns("idinc","nvar","yvar","description","amount","doc","docdate","adate","txt","rtf","cu","ct","lu","lt","autokind","idinvkind","ninv","yinv");
 	Tables.Add(tincomevar);
-	tincomevar.PrimaryKey =  new DataColumn[]{tincomevar.Columns["idinc"], tincomevar.Columns["nvar"]};
-
+	tincomevar.defineKey("idinc", "nvar");
 
 	//////////////////// MANAGER /////////////////////////////////
-	var tmanager= new DataTable("manager");
-	C= new DataColumn("idman", typeof(int));
-	C.AllowDBNull=false;
-	tmanager.Columns.Add(C);
-	C= new DataColumn("title", typeof(string));
-	C.AllowDBNull=false;
-	tmanager.Columns.Add(C);
-	C= new DataColumn("iddivision", typeof(int));
-	C.AllowDBNull=false;
-	tmanager.Columns.Add(C);
-	tmanager.Columns.Add( new DataColumn("email", typeof(string)));
-	tmanager.Columns.Add( new DataColumn("phonenumber", typeof(string)));
-	tmanager.Columns.Add( new DataColumn("userweb", typeof(string)));
-	tmanager.Columns.Add( new DataColumn("passwordweb", typeof(string)));
-	tmanager.Columns.Add( new DataColumn("txt", typeof(string)));
-	tmanager.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tmanager.Columns.Add(C);
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tmanager.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tmanager.Columns.Add(C);
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tmanager.Columns.Add(C);
-	tmanager.Columns.Add( new DataColumn("idsor01", typeof(int)));
-	tmanager.Columns.Add( new DataColumn("idsor02", typeof(int)));
-	tmanager.Columns.Add( new DataColumn("idsor03", typeof(int)));
-	tmanager.Columns.Add( new DataColumn("idsor04", typeof(int)));
-	tmanager.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	var tmanager= new managerTable();
+	tmanager.addBaseColumns("idman","title","iddivision","email","phonenumber","userweb","passwordweb","txt","rtf","cu","ct","lu","lt","idsor01","idsor02","idsor03","idsor04","idsor05");
 	Tables.Add(tmanager);
-	tmanager.PrimaryKey =  new DataColumn[]{tmanager.Columns["idman"]};
-
+	tmanager.defineKey("idman");
 
 	//////////////////// CHARGEHANDLING /////////////////////////////////
-	var tchargehandling= new DataTable("chargehandling");
-	tchargehandling.Columns.Add( new DataColumn("active", typeof(string)));
-	C= new DataColumn("ct", typeof(DateTime));
-	C.AllowDBNull=false;
-	tchargehandling.Columns.Add(C);
-	C= new DataColumn("cu", typeof(string));
-	C.AllowDBNull=false;
-	tchargehandling.Columns.Add(C);
-	C= new DataColumn("description", typeof(string));
-	C.AllowDBNull=false;
-	tchargehandling.Columns.Add(C);
-	C= new DataColumn("lt", typeof(DateTime));
-	C.AllowDBNull=false;
-	tchargehandling.Columns.Add(C);
-	C= new DataColumn("lu", typeof(string));
-	C.AllowDBNull=false;
-	tchargehandling.Columns.Add(C);
-	tchargehandling.Columns.Add( new DataColumn("handlingbankcode", typeof(string)));
-	tchargehandling.Columns.Add( new DataColumn("flag", typeof(int)));
-	C= new DataColumn("idchargehandling", typeof(int));
-	C.AllowDBNull=false;
-	tchargehandling.Columns.Add(C);
-	tchargehandling.Columns.Add( new DataColumn("motive", typeof(string)));
-	tchargehandling.Columns.Add( new DataColumn("payment_kind", typeof(string)));
+	var tchargehandling= new MetaTable("chargehandling");
+	tchargehandling.defineColumn("active", typeof(string));
+	tchargehandling.defineColumn("ct", typeof(DateTime),false);
+	tchargehandling.defineColumn("cu", typeof(string),false);
+	tchargehandling.defineColumn("description", typeof(string),false);
+	tchargehandling.defineColumn("lt", typeof(DateTime),false);
+	tchargehandling.defineColumn("lu", typeof(string),false);
+	tchargehandling.defineColumn("handlingbankcode", typeof(string));
+	tchargehandling.defineColumn("flag", typeof(int));
+	tchargehandling.defineColumn("idchargehandling", typeof(int),false);
+	tchargehandling.defineColumn("motive", typeof(string));
+	tchargehandling.defineColumn("payment_kind", typeof(string));
 	Tables.Add(tchargehandling);
-	tchargehandling.PrimaryKey =  new DataColumn[]{tchargehandling.Columns["idchargehandling"]};
+	tchargehandling.defineKey("idchargehandling");
 
+	//////////////////// TREASURER /////////////////////////////////
+	var ttreasurer= new treasurerTable();
+	ttreasurer.addBaseColumns("address","agencycodefortransmission","cabcodefortransmission","cap","cc","cin","city","country","ct","cu","depcodefortransmission","description","faxnumber","faxprefix","flagdefault","idaccmotive_payment","idaccmotive_proceeds","idbank","idcab","lt","lu","phonenumber","phoneprefix","codetreasurer","idtreasurer","spexportexp","flagmultiexp","fileextension","spexportinc","iban","bic","flagfruitful","cccbi","cincbi","idbankcbi","idcabcbi","ibancbi","siacodecbi","reccbikind","trasmcode","flagbank_grouping","motivelen","motiveprefix","motiveseparator","annotations","flagedisp","idsor01","idsor02","idsor03","idsor04","idsor05","billcode","active","flag","header","savepath","departmentname_fe","idstruttura","enable_ndoc_treasurer","flussocrediticode","ftpuser","ftppassword","ftpaddress","pasvmode","ftpport","ftpdir","tramite_bt_code","tramite_agency_code","agency_istat_code");
+	Tables.Add(ttreasurer);
+	ttreasurer.defineKey("idtreasurer");
 
 	#endregion
 
 
 	#region DataRelation creation
-	var cPar = new []{paydisposition.Columns["idpaydisposition"]};
-	var cChild = new []{paydispositiondetail.Columns["idpaydisposition"]};
-	Relations.Add(new DataRelation("paydisposition_paydispositiondetail",cPar,cChild,false));
-
-	cPar = new []{cbimotive.Columns["idcbimotive"]};
-	cChild = new []{paydisposition.Columns["idcbimotive"]};
-	Relations.Add(new DataRelation("FK_cbimotive_paydisposition",cPar,cChild,false));
-
-	cPar = new []{payment.Columns["kpay"]};
-	cChild = new []{paydisposition.Columns["kpay"]};
-	Relations.Add(new DataRelation("payment_paydisposition",cPar,cChild,false));
-
-	cPar = new []{expense.Columns["idexp"]};
-	cChild = new []{expense.Columns["parentidexp"]};
+	this.defineRelation("paydisposition_paydispositiondetail","paydisposition","paydispositiondetail","idpaydisposition");
+	this.defineRelation("FK_cbimotive_paydisposition","cbimotive","paydisposition","idcbimotive");
+	this.defineRelation("payment_paydisposition","payment","paydisposition","kpay");
+	var cPar = new []{expense.Columns["idexp"]};
+	var cChild = new []{expense.Columns["parentidexp"]};
 	Relations.Add(new DataRelation("expenseexpense",cPar,cChild,false));
 
 	cPar = new []{income.Columns["idinc"]};
 	cChild = new []{income.Columns["parentidinc"]};
 	Relations.Add(new DataRelation("income_income",cPar,cChild,false));
 
-	cPar = new []{income.Columns["idinc"]};
-	cChild = new []{incomelast.Columns["idinc"]};
-	Relations.Add(new DataRelation("income_incomelast",cPar,cChild,false));
-
-	cPar = new []{expense.Columns["idexp"]};
-	cChild = new []{expenselast.Columns["idexp"]};
-	Relations.Add(new DataRelation("expense_expenselast",cPar,cChild,false));
-
-	cPar = new []{registry.Columns["idreg"]};
-	cChild = new []{income.Columns["idreg"]};
-	Relations.Add(new DataRelation("registry_income",cPar,cChild,false));
-
+	this.defineRelation("income_incomelast","income","incomelast","idinc");
+	this.defineRelation("expense_expenselast","expense","expenselast","idexp");
+	this.defineRelation("registry_income","registry","income","idreg");
 	cPar = new []{expense.Columns["idexp"]};
 	cChild = new []{income.Columns["idpayment"]};
 	Relations.Add(new DataRelation("expense_income",cPar,cChild,false));
 
-	cPar = new []{registry.Columns["idreg"]};
-	cChild = new []{expense.Columns["idreg"]};
-	Relations.Add(new DataRelation("registryexpense",cPar,cChild,false));
-
-	cPar = new []{income.Columns["idinc"]};
-	cChild = new []{incomesorted.Columns["idinc"]};
-	Relations.Add(new DataRelation("income_incomesorted",cPar,cChild,false));
-
-	cPar = new []{income.Columns["idinc"]};
-	cChild = new []{incomeyear.Columns["idinc"]};
-	Relations.Add(new DataRelation("income_incomeyear",cPar,cChild,false));
-
-	cPar = new []{expense.Columns["idexp"]};
-	cChild = new []{expensesorted.Columns["idexp"]};
-	Relations.Add(new DataRelation("expenseexpensesorted",cPar,cChild,false));
-
-	cPar = new []{fin.Columns["idfin"]};
-	cChild = new []{expenseyear.Columns["idfin"]};
-	Relations.Add(new DataRelation("finexpenseyear",cPar,cChild,false));
-
-	cPar = new []{upb.Columns["idupb"]};
-	cChild = new []{expenseyear.Columns["idupb"]};
-	Relations.Add(new DataRelation("upbexpenseyear",cPar,cChild,false));
-
-	cPar = new []{expense.Columns["idexp"]};
-	cChild = new []{expenseyear.Columns["idexp"]};
-	Relations.Add(new DataRelation("expenseexpenseyear",cPar,cChild,false));
-
-	cPar = new []{income.Columns["idinc"]};
-	cChild = new []{incomebill.Columns["idinc"]};
-	Relations.Add(new DataRelation("income_incomebill",cPar,cChild,false));
-
-	cPar = new []{income.Columns["idinc"]};
-	cChild = new []{incomevar.Columns["idinc"]};
-	Relations.Add(new DataRelation("income_incomevar",cPar,cChild,false));
-
-	cPar = new []{expense.Columns["idman"]};
-	cChild = new []{manager.Columns["idman"]};
-	Relations.Add(new DataRelation("expense_manager",cPar,cChild,false));
-
-	cPar = new []{expense.Columns["idexp"]};
-	cChild = new []{paydispositiondetail.Columns["idexp"]};
-	Relations.Add(new DataRelation("expense_paydispositiondetail",cPar,cChild,false));
-
-	cPar = new []{expensephase.Columns["nphase"]};
-	cChild = new []{expense.Columns["nphase"]};
-	Relations.Add(new DataRelation("expensephase_expense",cPar,cChild,false));
-
-	cPar = new []{chargehandling.Columns["idchargehandling"]};
-	cChild = new []{paydispositiondetail.Columns["idchargehandling"]};
-	Relations.Add(new DataRelation("chargehandling_paydispositiondetail",cPar,cChild,false));
-
+	this.defineRelation("registryexpense","registry","expense","idreg");
+	this.defineRelation("income_incomesorted","income","incomesorted","idinc");
+	this.defineRelation("income_incomeyear","income","incomeyear","idinc");
+	this.defineRelation("expenseexpensesorted","expense","expensesorted","idexp");
+	this.defineRelation("finexpenseyear","fin","expenseyear","idfin");
+	this.defineRelation("upbexpenseyear","upb","expenseyear","idupb");
+	this.defineRelation("expenseexpenseyear","expense","expenseyear","idexp");
+	this.defineRelation("income_incomebill","income","incomebill","idinc");
+	this.defineRelation("income_incomevar","income","incomevar","idinc");
+	this.defineRelation("expense_manager","expense","manager","idman");
+	this.defineRelation("expense_paydispositiondetail","expense","paydispositiondetail","idexp");
+	this.defineRelation("expensephase_expense","expensephase","expense","nphase");
+	this.defineRelation("chargehandling_paydispositiondetail","chargehandling","paydispositiondetail","idchargehandling");
 	#endregion
 
 }
 }
 }
-

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -19,7 +16,11 @@
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using metadatalibrary;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_sdi_vendita {
 public class sdi_venditaRow: MetaRow  {
 	public sdi_venditaRow(DataRowBuilder rb) : base(rb) {} 
@@ -28,30 +29,30 @@ public class sdi_venditaRow: MetaRow  {
 	///<summary>
 	///Num.File
 	///</summary>
-	public Int32? idsdi_vendita{ 
-		get {if (this["idsdi_vendita"]==DBNull.Value)return null; return  (Int32?)this["idsdi_vendita"];}
-		set {if (value==null) this["idsdi_vendita"]= DBNull.Value; else this["idsdi_vendita"]= value;}
+	public Int32 idsdi_vendita{ 
+		get {return  (Int32)this["idsdi_vendita"];}
+		set {this["idsdi_vendita"]= value;}
 	}
 	public object idsdi_venditaValue { 
 		get{ return this["idsdi_vendita"];}
-		set {if (value==null|| value==DBNull.Value) this["idsdi_vendita"]= DBNull.Value; else this["idsdi_vendita"]= value;}
+		set {this["idsdi_vendita"]= value;}
 	}
-	public Int32? idsdi_venditaOriginal { 
-		get {if (this["idsdi_vendita",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsdi_vendita",DataRowVersion.Original];}
+	public Int32 idsdi_venditaOriginal { 
+		get {return  (Int32)this["idsdi_vendita",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Nome file
 	///</summary>
 	public String filename{ 
-		get {if (this["filename"]==DBNull.Value)return null; return  (String)this["filename"];}
-		set {if (value==null) this["filename"]= DBNull.Value; else this["filename"]= value;}
+		get {return  (String)this["filename"];}
+		set {this["filename"]= value;}
 	}
 	public object filenameValue { 
 		get{ return this["filename"];}
-		set {if (value==null|| value==DBNull.Value) this["filename"]= DBNull.Value; else this["filename"]= value;}
+		set {this["filename"]= value;}
 	}
 	public String filenameOriginal { 
-		get {if (this["filename",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["filename",DataRowVersion.Original];}
+		get {return  (String)this["filename",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data contabile
@@ -71,57 +72,57 @@ public class sdi_venditaRow: MetaRow  {
 	///xml
 	///</summary>
 	public String xml{ 
-		get {if (this["xml"]==DBNull.Value)return null; return  (String)this["xml"];}
-		set {if (value==null) this["xml"]= DBNull.Value; else this["xml"]= value;}
+		get {return  (String)this["xml"];}
+		set {this["xml"]= value;}
 	}
 	public object xmlValue { 
 		get{ return this["xml"];}
-		set {if (value==null|| value==DBNull.Value) this["xml"]= DBNull.Value; else this["xml"]= value;}
+		set {this["xml"]= value;}
 	}
 	public String xmlOriginal { 
-		get {if (this["xml",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["xml",DataRowVersion.Original];}
+		get {return  (String)this["xml",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data ultima modifica
 	///</summary>
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome ultimo utente modifica
 	///</summary>
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Identificativo SdI
 	///</summary>
-	public Int32? identificativo_sdi{ 
-		get {if (this["identificativo_sdi"]==DBNull.Value)return null; return  (Int32?)this["identificativo_sdi"];}
+	public Int64? identificativo_sdi{ 
+		get {if (this["identificativo_sdi"]==DBNull.Value)return null; return  (Int64?)this["identificativo_sdi"];}
 		set {if (value==null) this["identificativo_sdi"]= DBNull.Value; else this["identificativo_sdi"]= value;}
 	}
 	public object identificativo_sdiValue { 
 		get{ return this["identificativo_sdi"];}
 		set {if (value==null|| value==DBNull.Value) this["identificativo_sdi"]= DBNull.Value; else this["identificativo_sdi"]= value;}
 	}
-	public Int32? identificativo_sdiOriginal { 
-		get {if (this["identificativo_sdi",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["identificativo_sdi",DataRowVersion.Original];}
+	public Int64? identificativo_sdiOriginal { 
+		get {if (this["identificativo_sdi",DataRowVersion.Original]==DBNull.Value)return null; return  (Int64?)this["identificativo_sdi",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Notifica di scarto (file xml)
@@ -269,15 +270,15 @@ public class sdi_venditaRow: MetaRow  {
 	///	 S: Inviata all'SDI
 	///</summary>
 	public String exported{ 
-		get {if (this["exported"]==DBNull.Value)return null; return  (String)this["exported"];}
-		set {if (value==null) this["exported"]= DBNull.Value; else this["exported"]= value;}
+		get {return  (String)this["exported"];}
+		set {this["exported"]= value;}
 	}
 	public object exportedValue { 
 		get{ return this["exported"];}
-		set {if (value==null|| value==DBNull.Value) this["exported"]= DBNull.Value; else this["exported"]= value;}
+		set {this["exported"]= value;}
 	}
 	public String exportedOriginal { 
-		get {if (this["exported",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["exported",DataRowVersion.Original];}
+		get {return  (String)this["exported",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Nome File Compresso
@@ -484,111 +485,41 @@ public class sdi_venditaRow: MetaRow  {
 ///Fatture di vendita selezionate per la trasmissione
 ///</summary>
 public class sdi_venditaTable : MetaTableBase<sdi_venditaRow> {
-	public sdi_venditaTable() : base("sdi_vendita"){}
-	public override void addBaseColumns(params string [] cols){
-		Dictionary<string,bool> definedColums=new Dictionary<string, bool>();
-		foreach(string col in cols) definedColums[col] = true;
-
-		#region add DataColumns
-		if (definedColums.ContainsKey("idsdi_vendita")){ 
-			defineColumn("idsdi_vendita", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("filename")){ 
-			defineColumn("filename", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("adate")){ 
-			defineColumn("adate", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("xml")){ 
-			defineColumn("xml", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("lt")){ 
-			defineColumn("lt", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("lu")){ 
-			defineColumn("lu", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("identificativo_sdi")){ 
-			defineColumn("identificativo_sdi", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("ns")){ 
-			defineColumn("ns", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("mc")){ 
-			defineColumn("mc", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("rc")){ 
-			defineColumn("rc", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("ne")){ 
-			defineColumn("ne", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("dt")){ 
-			defineColumn("dt", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("at")){ 
-			defineColumn("at", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("flag_unseen")){ 
-			defineColumn("flag_unseen", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idsdi_status")){ 
-			defineColumn("idsdi_status", typeof(System.Int16));
-		}
-		if (definedColums.ContainsKey("idsdi_deliverystatus")){ 
-			defineColumn("idsdi_deliverystatus", typeof(System.Int16));
-		}
-		if (definedColums.ContainsKey("position")){ 
-			defineColumn("position", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("exported")){ 
-			defineColumn("exported", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("zipfilename")){ 
-			defineColumn("zipfilename", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("arrivalprotocolnum")){ 
-			defineColumn("arrivalprotocolnum", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("ns_prot")){ 
-			defineColumn("ns_prot", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("mc_prot")){ 
-			defineColumn("mc_prot", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("rc_prot")){ 
-			defineColumn("rc_prot", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("ne_prot")){ 
-			defineColumn("ne_prot", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("dt_prot")){ 
-			defineColumn("dt_prot", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("at_prot")){ 
-			defineColumn("at_prot", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("ipa_fe")){ 
-			defineColumn("ipa_fe", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("idsdi_rifamm")){ 
-			defineColumn("idsdi_rifamm", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("protocol_error")){ 
-			defineColumn("protocol_error", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("signedxml")){ 
-			defineColumn("signedxml", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("signedxmlfilename")){ 
-			defineColumn("signedxmlfilename", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("issigned")){ 
-			defineColumn("issigned", typeof(System.String));
-		}
-		#endregion
-
+	public sdi_venditaTable() : base("sdi_vendita"){
+		baseColumns = new Dictionary<string, DataColumn>(){
+			{"idsdi_vendita",createColumn("idsdi_vendita",typeof(int),false,false)},
+			{"filename",createColumn("filename",typeof(string),false,false)},
+			{"adate",createColumn("adate",typeof(DateTime),true,false)},
+			{"xml",createColumn("xml",typeof(string),false,false)},
+			{"lt",createColumn("lt",typeof(DateTime),false,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
+			{"identificativo_sdi",createColumn("identificativo_sdi",typeof(long),true,false)},
+			{"ns",createColumn("ns",typeof(string),true,false)},
+			{"mc",createColumn("mc",typeof(string),true,false)},
+			{"rc",createColumn("rc",typeof(string),true,false)},
+			{"ne",createColumn("ne",typeof(string),true,false)},
+			{"dt",createColumn("dt",typeof(string),true,false)},
+			{"at",createColumn("at",typeof(string),true,false)},
+			{"flag_unseen",createColumn("flag_unseen",typeof(int),true,false)},
+			{"idsdi_status",createColumn("idsdi_status",typeof(short),true,false)},
+			{"idsdi_deliverystatus",createColumn("idsdi_deliverystatus",typeof(short),true,false)},
+			{"position",createColumn("position",typeof(int),true,false)},
+			{"exported",createColumn("exported",typeof(string),false,false)},
+			{"zipfilename",createColumn("zipfilename",typeof(string),true,false)},
+			{"arrivalprotocolnum",createColumn("arrivalprotocolnum",typeof(string),true,false)},
+			{"ns_prot",createColumn("ns_prot",typeof(string),true,false)},
+			{"mc_prot",createColumn("mc_prot",typeof(string),true,false)},
+			{"rc_prot",createColumn("rc_prot",typeof(string),true,false)},
+			{"ne_prot",createColumn("ne_prot",typeof(string),true,false)},
+			{"dt_prot",createColumn("dt_prot",typeof(string),true,false)},
+			{"at_prot",createColumn("at_prot",typeof(string),true,false)},
+			{"ipa_fe",createColumn("ipa_fe",typeof(string),true,false)},
+			{"idsdi_rifamm",createColumn("idsdi_rifamm",typeof(string),true,false)},
+			{"protocol_error",createColumn("protocol_error",typeof(string),true,false)},
+			{"signedxml",createColumn("signedxml",typeof(string),true,false)},
+			{"signedxmlfilename",createColumn("signedxmlfilename",typeof(string),true,false)},
+			{"issigned",createColumn("issigned",typeof(string),true,false)},
+		};
 	}
 }
 }
-

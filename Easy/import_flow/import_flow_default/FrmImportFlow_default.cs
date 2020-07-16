@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -643,7 +640,14 @@ namespace import_flow_default {
                     MetaData.SetDefault(DS.expensesorted, "idexp", rMov["idexp"]);
                     DataRow s = MetaExpenseSorted.Get_New_Row(rMov, DS.expensesorted);
                     s["amount"] = amount;
-
+                    //Se i vale 1 llora sta valorizzando il siope ( idsor1 nella nphase 3)
+                    string idupb = rImportView["sel_idupb"].ToString();
+                    if ((i == 1)&& UpbUsed.ContainsKey(idupb)) {
+                        DataRow rUpb = UpbUsed[idupb];
+                        if (rUpb == null) continue;
+                        s["values1"] = rUpb["uesiopecode"];
+                        s["values2"] = rUpb["cofogmpcode"];
+                    }
                 }
                 else {
                     MetaData.SetDefault(DS.incomesorted, "idsor", idsor);
@@ -823,6 +827,30 @@ namespace import_flow_default {
             if (a.ToString() == "") return b;
             return a;
         }
+        static DataTable callSp(DataAccess Conn, List<string> idUpbList) {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("DECLARE @lista AS string_list;");
+            int currblockLen = 0;
+            foreach (string id in idUpbList) {
+                if (currblockLen == 0) {
+                    sb.Append($"insert into @lista values ('{id}')");
+                }
+                else {
+                    sb.Append($",('{id}')");
+                }
+
+                currblockLen++;
+                if (currblockLen == 20) {
+                    sb.AppendLine(";");
+                    currblockLen = 0;
+                }
+            }
+            if (currblockLen > 0) sb.AppendLine(";");
+            sb.AppendLine($"exec  get_upb_info @lista");
+            return Conn.SQLRunner(sb.ToString());
+        }
+        Dictionary<string, DataRow> UpbUsed = new Dictionary<string, DataRow>();
+
         bool GeneraMovimenti(string IoE) {
 
             string tMain = (IoE == "I") ? "income" : "expense";
@@ -894,6 +922,26 @@ namespace import_flow_default {
             Dictionary<int, DataRow> manrev = new Dictionary<int, DataRow>();
             Dictionary<int, DataRow> eletrasm = new Dictionary<int, DataRow>();
             
+            var listaUpbMancanti = new List<string>();
+
+            for (int i = 0; i < importflow.Rows.Count; i++) {
+                DataRow R = importflow.Rows[i];
+                object idUpbObj = R["sel_idupb"];
+                string idupb = idUpbObj.ToString();
+                if (!UpbUsed.ContainsKey(idupb)) {
+                    UpbUsed[idupb] = null;
+                    listaUpbMancanti.Add(idupb);
+                }
+            }
+            if (listaUpbMancanti.Count > 0) {
+                DataTable T = callSp(Meta.Conn, new List<string>(listaUpbMancanti));
+                if (T != null && T.Columns.Contains("codeupb")) {
+                    foreach (DataRow row in T.Rows) {
+                        string idupb = row["idupb"].ToString();
+                        UpbUsed[idupb] = row;
+                    }
+                }
+            }
 
             for (int i = 0; i < importflow.Rows.Count; i++) {
                 DataRow rv = importflow.Rows[i];
@@ -1621,4 +1669,3 @@ namespace import_flow_default {
 
     }
 }
-

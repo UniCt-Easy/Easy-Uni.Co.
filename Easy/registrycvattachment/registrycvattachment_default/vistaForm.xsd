@@ -1,52 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
-  <xs:annotation>
-    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-        <Connections>
-          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="DATABASEConnectionString" ConnectionStringObject="" IsAppSettingsProperty="True" Modifier="Assembly" Name="DATABASEConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.registrycvattachment_default.Properties.Settings.GlobalReference.Default.DATABASEConnectionString" Provider="System.Data.SqlClient">
-          </Connection>
-        </Connections>
-        <Tables>
-        </Tables>
-        <Sources>
-        </Sources>
-      </DataSource>
-    </xs:appinfo>
-  </xs:annotation>
-  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="vistaForm" msprop:Generator_DataSetName="vistaForm">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="registrycvattachment" msprop:Generator_UserTableName="registrycvattachment" msprop:Generator_RowDeletedName="registrycvattachmentRowDeleted" msprop:Generator_TableClassName="registrycvattachmentDataTable" msprop:Generator_RowChangedName="registrycvattachmentRowChanged" msprop:Generator_RowClassName="registrycvattachmentRow" msprop:Generator_RowChangingName="registrycvattachmentRowChanging" msprop:Generator_RowEvArgName="registrycvattachmentRowChangeEvent" msprop:Generator_RowEvHandlerName="registrycvattachmentRowChangeEventHandler" msprop:Generator_TablePropName="registrycvattachment" msprop:Generator_TableVarName="tableregistrycvattachment" msprop:Generator_RowDeletingName="registrycvattachmentRowDeleting">
+        <xs:element name="registrycvattachment">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="idreg" msprop:Generator_UserColumnName="idreg" msprop:Generator_ColumnPropNameInRow="idreg" msprop:Generator_ColumnVarNameInTable="columnidreg" msprop:Generator_ColumnPropNameInTable="idregColumn" type="xs:int" />
-              <xs:element name="idregistrycvattachment" msprop:Generator_UserColumnName="idregistrycvattachment" msprop:Generator_ColumnPropNameInRow="idregistrycvattachment" msprop:Generator_ColumnVarNameInTable="columnidregistrycvattachment" msprop:Generator_ColumnPropNameInTable="idregistrycvattachmentColumn" type="xs:int" />
-              <xs:element name="attachment" msprop:Generator_UserColumnName="attachment" msprop:Generator_ColumnPropNameInRow="attachment" msprop:Generator_ColumnVarNameInTable="columnattachment" msprop:Generator_ColumnPropNameInTable="attachmentColumn" type="xs:base64Binary" minOccurs="0" />
-              <xs:element name="ct" msprop:Generator_UserColumnName="ct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInTable="ctColumn" type="xs:dateTime" />
-              <xs:element name="cu" msprop:Generator_UserColumnName="cu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInTable="cuColumn">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="64" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="filename" msprop:Generator_UserColumnName="filename" msprop:Generator_ColumnPropNameInRow="filename" msprop:Generator_ColumnVarNameInTable="columnfilename" msprop:Generator_ColumnPropNameInTable="filenameColumn" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="200" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="lt" msprop:Generator_UserColumnName="lt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInTable="ltColumn" type="xs:dateTime" />
-              <xs:element name="lu" msprop:Generator_UserColumnName="lu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInTable="luColumn">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="64" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="referencedate" msprop:Generator_UserColumnName="referencedate" msprop:Generator_ColumnPropNameInRow="referencedate" msprop:Generator_ColumnVarNameInTable="columnreferencedate" msprop:Generator_ColumnPropNameInTable="referencedateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrycvattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="referencedate" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

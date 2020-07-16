@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -50,7 +47,9 @@ namespace meta_sortingyearview
                 DescribeAColumn(T, "manager", "Responsabile", nPos++);
                 DescribeAColumn(T, "sortcode", "Codice", nPos++);
                 DescribeAColumn(T, "description", "Denominazione", nPos++);
-                DescribeAColumn(T, "incomeprevision", "Prev. Entrata", nPos++);
+				DescribeAColumn(T, "start", "Anno inizio", nPos++);
+				DescribeAColumn(T, "stop", "Anno fine", nPos++);
+				DescribeAColumn(T, "incomeprevision", "Prev. Entrata", nPos++);
                 DescribeAColumn(T, "totincomevariation", "Variazioni Prev. Entrata", nPos++);
                 DescribeAColumn(T, "totincome", "Tot. Entrate", nPos++);
                 DescribeAColumn(T, "currentincomeprevision", "Prev. Attuale Entrata", nPos++);
@@ -64,4 +63,3 @@ namespace meta_sortingyearview
         }
     }
 }
-

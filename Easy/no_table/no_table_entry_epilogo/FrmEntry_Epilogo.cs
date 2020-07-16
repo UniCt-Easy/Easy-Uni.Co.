@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -342,7 +339,7 @@ namespace no_table_entry_epilogo {
             }
             DataSet ds = Conn.CallSP("compute_epilogo",
                 new object[] { Meta.GetSys("esercizio"), kind, Conn.GetSys("idsor01"), Conn.GetSys("idsor02"), Conn.GetSys("idsor03"), Conn.GetSys("idsor04"), Conn.GetSys("idsor05") },
-                600, out errMess);
+                3600, out errMess);
             if (errMess != null) {
                 Conn.RollBack();
                 MessageBox.Show(this, "Errore nella query che estrae i conti da epilogare, la transazione Ë stata interrotta\r\rContattare il servizio assistenza"
@@ -356,10 +353,10 @@ namespace no_table_entry_epilogo {
            
             if (!economico) {
                 object ayear = Conn.GetEsercizio(); 
-                Conn.CallSP("rebuild_epexptotal", new[] { ayear });
-                Conn.CallSP("rebuild_epacctotal", new[] { ayear });
-                Conn.CallSP("rebuild_epexpyear", new[] { ayear });
-                Conn.CallSP("rebuild_epaccyear", new[] { ayear });
+                Conn.CallSP("rebuild_epexptotal", new[] { ayear },false,0);
+                Conn.CallSP("rebuild_epacctotal", new[] { ayear },false,0);
+                Conn.CallSP("rebuild_epexpyear", new[] { ayear },false,0);
+                Conn.CallSP("rebuild_epaccyear", new[] { ayear },false,0);
             }
             MessageBox.Show(this, "Epilogo completato con successo!", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return true;
@@ -504,7 +501,7 @@ namespace no_table_entry_epilogo {
             string checkfilter = QHS.MCmp(rEntry, new string[] { "yentry", "nentry" });
             ToMeta.ContextFilter = checkfilter;
             Form F = null;
-            if (Meta.LinkedForm != null) F = Meta.LinkedForm.ParentForm;
+            if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
             bool result = ToMeta.Edit(F, "default", false);
             string listtype = ToMeta.DefaultListType;
             DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
@@ -633,4 +630,4 @@ namespace no_table_entry_epilogo {
             }
         }
     }
-}
+}

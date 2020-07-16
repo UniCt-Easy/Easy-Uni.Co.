@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -130,7 +127,9 @@ namespace exporthelper
                 H1[R["fieldcode"]] = R["fieldname"];
 
             }
-            string filtroCespite = QHS.CmpEq("assetacquire.idinventory", H["idinventory"]) ;
+
+            string filtroCespite = null;
+            if (H["idinventory"]!=DBNull.Value) filtroCespite= QHS.CmpEq("assetacquire.idinventory", H["idinventory"]) ;
 
             if (H["fromninv"] != DBNull.Value) filtroCespite = QHS.AppAnd(filtroCespite, QHS.CmpGe("asset.ninventory", H["fromninv"]));
             if (H["toninv"] != DBNull.Value) filtroCespite = QHS.AppAnd(filtroCespite, QHS.CmpLe("asset.ninventory", H["toninv"]));
@@ -159,7 +158,7 @@ namespace exporthelper
             }
 
 
-
+            string parteWhere = (filtroCespite == null) ? "" : (" WHERE " + filtroCespite);
             DataTable T;
             // Elenco Cespiti
             string queryT = " SELECT CASE asset.idpiece WHEN 1 THEN 'Cespite Principale' ELSE 'Accessorio' END AS kind, " + 
@@ -200,9 +199,8 @@ namespace exporthelper
                             " left outer join assetunloadkind on assetunloadkind.idassetunloadkind = assetunload.idassetunloadkind " +
                             " left join assetview_current AC on AC.idasset = asset.idasset and AC.idpiece = asset.idpiece " +
                             " left join assetview AV on AV.idasset = asset.idasset and AV.idpiece = asset.idpiece " +
-                            " WHERE " + filtroCespite;
-            T = DA.SQLRunner(queryT, true);
-
+                            parteWhere;
+            T = DA.SQLRunner(queryT);
             foreach (DataRow R in T.Rows)
             {
                 DataRow NewAsset = Asset.NewRow();
@@ -303,4 +301,3 @@ namespace exporthelper
 
     }
 }
-

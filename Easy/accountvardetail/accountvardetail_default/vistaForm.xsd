@@ -52,6 +52,7 @@
               <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
               <xs:element name="underwritingkind" type="xs:string" minOccurs="0" />
               <xs:element name="prevcassa" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idinv" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -352,6 +353,22 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="inventorytreeview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinv" type="xs:int" />
+              <xs:element name="codeinv" type="xs:string" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="leveldescr" type="xs:string" />
+              <xs:element name="paridinv" type="xs:int" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -409,6 +426,10 @@
       <xs:selector xpath=".//mstns:accountenactment" />
       <xs:field xpath="mstns:idenactment" />
     </xs:unique>
+    <xs:unique name="inventorytreeview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventorytreeview" />
+      <xs:field xpath="mstns:idinv" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -424,6 +445,7 @@
       <msdata:Relationship name="upb_accountvardetail" msdata:parent="upb" msdata:child="accountvardetail" msdata:parentkey="idupb" msdata:childkey="idupb" />
       <msdata:Relationship name="tipomovimento_accountvardetail" msdata:parent="tipomovimento" msdata:child="accountvardetail" msdata:parentkey="idtipo" msdata:childkey="underwritingkind" />
       <msdata:Relationship name="account_accountvardetail" msdata:parent="account" msdata:child="accountvardetail" msdata:parentkey="idacc" msdata:childkey="idacc" />
+      <msdata:Relationship name="inventorytreeview_accountvardetail" msdata:parent="inventorytreeview" msdata:child="accountvardetail" msdata:parentkey="idinv" msdata:childkey="idinv" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

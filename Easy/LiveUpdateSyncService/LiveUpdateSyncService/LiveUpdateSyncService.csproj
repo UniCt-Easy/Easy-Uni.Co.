@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="download">
-      <HintPath>..\..\unmanaged\download\bin\debug\download.dll</HintPath>
-    </Reference>
     <Reference Include="edtFTPnet">
       <HintPath>..\..\dll\edtFTPnet.dll</HintPath>
     </Reference>
@@ -56,25 +53,17 @@
     <Reference Include="utility">
       <HintPath>..\..\unmanaged\utility\bin\debug\utility.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Editors.v2.6, Version=2.6.14265.12340, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\helpdesk\DLL\Xceed.Editors.v2.6.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Xceed.Editors.v2.6">
+      <HintPath>..\..\dll\Xceed.Editors.v2.6.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Ftp.v5.6, Version=5.6.14475.14160, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\helpdesk\DLL\Xceed.Ftp.v5.6.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Xceed.Ftp.v5.6">
+      <HintPath>..\..\dll\Xceed.Ftp.v5.6.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Grid.v3.9, Version=3.9.14265.12340, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\helpdesk\DLL\Xceed.Grid.v3.9.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Xceed.Grid.v3.9">
+      <HintPath>..\..\dll\Xceed.Grid.v3.9.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Zip.v5.6, Version=5.6.14475.14160, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\helpdesk\DLL\Xceed.Zip.v5.6.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Xceed.Zip.v5.6">
+      <HintPath>..\..\dll\Xceed.Zip.v5.6.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -102,35 +91,23 @@
     <EmbeddedResource Include="frmMainService.resx">
       <DependentUpon>frmMainService.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <None Include="vistaform.xsc">
       <DependentUpon>vistaform.xsd</DependentUpon>
     </None>
     <None Include="vistaform.xsd">
       <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
+      <Generator>HDSGene</Generator>
       <LastGenOutput>vistaform.Designer.cs</LastGenOutput>
     </None>
     <None Include="vistaform.xss">
       <DependentUpon>vistaform.xsd</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\unmanaged\download\download.csproj">
+      <Project>{972dc45a-a441-45f5-ba48-1e4b499a02b7}</Project>
+      <Name>download</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

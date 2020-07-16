@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -67,6 +64,7 @@ namespace meta_expense//meta_spesa//
 			ListingTypes.Add("default");
 			ListingTypes.Add("ordinegenerico");
 			ListingTypes.Add("posting");
+			ListingTypes.Add("ep");
         }
 
         protected override Form GetForm(string FormName){
@@ -241,6 +239,11 @@ namespace meta_expense//meta_spesa//
 			return base.CanSelect (R);
 		}
 
+		protected override void InsertCopyColumn(DataColumn C, DataRow Source, DataRow Dest) {
+			if (C.ColumnName == "idinc_linked") return;
+			base.InsertCopyColumn (C, Source, Dest);
+		}
+
         //private static object CalcIDExp(DataRow R, DataColumn C, DataAccess Conn) {
         //    object oidexp = Conn.DO_READ_VALUE("expense", null, "max(idexp)");
         //    int idexp = CfgFn.GetNoNullInt32(oidexp);
@@ -269,6 +272,17 @@ namespace meta_expense//meta_spesa//
 
 		public override bool IsValid(DataRow R, 
 				out string errmess, out string errfield){
+			if (R.Table.Columns.Contains("idinc_linked") &&
+			    R.Table.Columns["idinc_linked"].AllowDBNull == false) {
+				if (R["idinc_linked"] == DBNull.Value) {
+					errmess =
+						"E' necessario accedere alla scheda Altro e collegare il movimento finanziario di entrata di partita di giro." +
+						" Il movimento di entrata deve avere UPB e Importo uguali a quelle del movimento di spesa che si vuole salvare";
+					errfield = "idinc_linked";
+					return false;
+				}
+			}
+
 			if (!base.IsValid(R, out errmess, out errfield)) return false;                 
 
 			if ((edit_type=="default")||
@@ -337,20 +351,14 @@ namespace meta_expense//meta_spesa//
 
 		public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable Exclude) 
 		{
-			if (ListingType=="ordinegenerico")
-					return base.SelectOne("default",filter, "expensemandateview", Exclude);
-			if (ListingType=="iva")
-				return base.SelectOne("default",filter, "expenseinvoiceview", Exclude);
-			if (ListingType=="missione")
-                return base.SelectOne("default", filter, "expenseitinerationview", Exclude);
-			if (ListingType=="cedolino")
-				return base.SelectOne("default",filter, "expensepayrollview", Exclude);
-			if (ListingType=="occasionale")
-				return base.SelectOne("default",filter, "expensecasualcontractview", Exclude);
-			if (ListingType=="professionale")
-				return base.SelectOne("default",filter, "expenseprofserviceview", Exclude);
-			if (ListingType=="dipendente")
-				return base.SelectOne("default",filter, "expensewageadditionview", Exclude);
+			if (ListingType=="ordinegenerico")return base.SelectOne("default",filter, "expensemandateview", Exclude);
+			if (ListingType=="iva")return base.SelectOne("default",filter, "expenseinvoiceview", Exclude);
+			if (ListingType=="missione")return base.SelectOne("default", filter, "expenseitinerationview", Exclude);
+			if (ListingType=="cedolino")return base.SelectOne("default",filter, "expensepayrollview", Exclude);
+			if (ListingType=="occasionale")return base.SelectOne("default",filter, "expensecasualcontractview", Exclude);
+			if (ListingType=="professionale")return base.SelectOne("default",filter, "expenseprofserviceview", Exclude);
+			if (ListingType=="dipendente")return base.SelectOne("default",filter, "expensewageadditionview", Exclude);
+			if (ListingType=="ep") return base.SelectOne("ep",filter, "expense_epview", Exclude);
 			return base.SelectOne(ListingType, filter, "expenseview", Exclude);
 		}
 
@@ -552,6 +560,9 @@ namespace meta_expense//meta_spesa//
 		}
 
 
+		
+
+
 		public SpesaPostData(MetaDataDispatcher Disp){		
 			this.Disp = Disp;
 		}
@@ -637,11 +648,14 @@ namespace meta_expense//meta_spesa//
 					
 					//Assegna l'ID fase precedente
 					if (fase>1){
-						if (fase==faseinizio)
-							NewRow["parentidexp"]= ExSpesa["parentidexp"];
-						else
-							NewRow["parentidexp"]= previd;
-                        //NewRow["idexp"]= 
+						if (fase == faseinizio) {
+							NewRow["parentidexp"] = ExSpesa["parentidexp"];
+						}
+						else {
+							NewRow["parentidexp"] = previd;
+						}
+
+						//NewRow["idexp"]= 
                         //        NewRow["parentidexp"].ToString()+
                         //        esercizio.ToString().Substring(2)+
                         //        "980000";
@@ -664,6 +678,7 @@ namespace meta_expense//meta_spesa//
 					//Copia tutti gli altri dati del movimento (rispettando l'ordine delle fasi)
 					foreach (DataColumn C in DSP.Tables["expense"].Columns){
 						if (C.ColumnName == "idexp") continue;
+						if (C.ColumnName == "idinc_linked" && fase!=1) continue;
 						if (C.ColumnName == "nphase") continue;
 						if (C.ColumnName == "parentidexp") continue;
 						if (C.ColumnName == "ymov")continue;
@@ -688,6 +703,7 @@ namespace meta_expense//meta_spesa//
 
                         //    && (fase != fasespesamax))continue;
 
+						
 						NewRow[C.ColumnName] = ExSpesa[C.ColumnName];
 					}
 					DSP.Tables["expense"].Rows.Add(NewRow);
@@ -909,4 +925,3 @@ namespace meta_expense//meta_spesa//
 	}
 	
 }
-

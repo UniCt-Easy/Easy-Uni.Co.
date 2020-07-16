@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="funzioni_configurazione">
-      <HintPath>..\..\unmanaged\funzioni_configurazione\bin\Debug\funzioni_configurazione.dll</HintPath>
-    </Reference>
     <Reference Include="metadatalibrary">
       <HintPath>../../dll/metadatalibrary.dll</HintPath>
       <Private>False</Private>
@@ -71,9 +68,14 @@
       <DependentUpon>vista.xsd</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
+      <Project>{c0dacf4d-2f3e-44d6-a718-7c9821a1bdcd}</Project>
+      <Name>funzioni_configurazione</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*" "$(SolutionDir)output" /Y 
-xcopy "$(TargetDir)$(TargetName).*" "$(SolutionDir)..\Progetti\portale\libraries" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*" "$(SolutionDir)output" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

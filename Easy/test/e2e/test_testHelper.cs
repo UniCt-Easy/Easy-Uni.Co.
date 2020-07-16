@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -27,6 +24,7 @@ using TestHelper;
 using ep_functions;
 using funzioni_configurazione;
 using generaSQL;
+using ImportazioneSiopePlus;
 using metadatalibrary;
 using q = metadatalibrary.MetaExpression;
 
@@ -83,7 +81,7 @@ namespace e2e {
 
         [TestMethod]
         public void testMetaDataRegistryCopy() {
-            var t= new TestHelp(DateTime.Now);    
+	        var t = new TestHelp(new DateTime(2019, 12, 31));
             var ds = t.insertCopyData(q.eq("idreg", 147972), "registry", "anagrafica");
             Assert.IsNotNull(ds,"Copia anagrafica completata");
 
@@ -205,7 +203,7 @@ namespace e2e {
 		}
 		[TestMethod]
 		public void testMetaDataEstimateCopy() {
-			var t = new TestHelp(DateTime.Now);
+			var t = new TestHelp(new DateTime(2019, 12, 31));
 			q filterDoc = q.eq("idestimkind", "CartaDocente") & q.eq("yestim", 2018) & q.eq("nestim", 1);
 
             //effettua la copia
@@ -234,7 +232,7 @@ namespace e2e {
 		}
 		[TestMethod]
 		public void testMetaDataEstimateKindCopy() {
-			var t = new TestHelp(DateTime.Now);
+			var t = new TestHelp(new DateTime(2019, 12, 31));
 			q filterDoc = q.eq("idestimkind", "CartaDocente");
 
 		    //Esegue la copia
@@ -295,7 +293,7 @@ namespace e2e {
 		}
 		[TestMethod]
 		public void testMetaDataMandateKindCopy() {
-			var t = new TestHelp(DateTime.Now);
+			var t = new TestHelp(new DateTime(2019, 12, 31));
 			q filterDoc = q.eq("idmankind", "B_ORDINE_comm_AMM");
 
 			//Esegue la copia
@@ -727,11 +725,19 @@ namespace e2e {
 
 		[TestMethod]
         public void testGenerazioneRecuperoIvaEstera() {
+            var t = new TestHelp(new DateTime(2018, 12, 31));
+            var qhs = t.testConn.GetQueryHelper();
+            t.copiaFattura(205, 2018, 58, false);//205, 2018, 58 : Fattura Acquisti Ist.Intraue - disit
+            t.copiaMovimentoSpesa(1380311, false);
 
+            q FilterExp = q.eq("idexp", 1380311);
+            var mExpense = t.editDataRow(FilterExp, "expense", "gerarchico");
+            var ds = t.saveFormDataNoBL(mExpense);
+            
         }
         [TestMethod]
         public void testBinaryDeleteRegistry() {
-            var t= new TestHelp(DateTime.Now);    
+	        var t = new TestHelp(new DateTime(2019, 12, 31));
             var ds = t.insertCopyData(q.eq("idreg", 147972), "registry", "anagrafica");
             Assert.IsNotNull(ds,"Copia anagrafica completata");
 
@@ -744,7 +750,7 @@ namespace e2e {
 
         [TestMethod]
         public void testBinaryGetDeleteCopyRegistry() {
-            var t= new TestHelp(DateTime.Now);    
+	        var t = new TestHelp(new DateTime(2019, 12, 31));
             var ds = t.insertCopyData(q.eq("idreg", 147972), "registry", "anagrafica");
             Assert.IsNotNull(ds,"Copia anagrafica completata");
             DataTable tReg = ds.Tables["registry"];
@@ -797,7 +803,7 @@ namespace e2e {
 		    Assert.AreEqual(1, tInvoice.Rows.Count, "La fattura esiste");
 
 		    DataRow rInv = tInvoice.Rows[0];
-			t.binaryReplaceEp(rInv);
+			t.binaryReplaceEp(rInv,false);
 		    t.generateEP(rInv);
 			var idrelated= BudgetFunction.GetIdForDocument(rInv);
 			string table;
@@ -848,12 +854,12 @@ namespace e2e {
 			Assert.AreEqual(1, tMandate.Rows.Count, "Il contratto passivo esiste");
 
 			DataRow rMan = tMandate.Rows[0];
-			t.binaryReplaceEp(rMan);
+			t.binaryReplaceEp(rMan,false);
 			t.generateEP(rMan);
 			var idrelated= BudgetFunction.GetIdForDocument(rMan);
 			string table;
 			string filterRelated = BudgetFunction.getDocChildCondition(t.testConn.GetQueryHelper(), idrelated);
-			int nBeforeEpexp = t.testConn.RUN_SELECT_COUNT("epexp", filterRelated, false);
+			int nBeforeEpexp = t.sampleConn.RUN_SELECT_COUNT("epexp", filterRelated, false);
 			//int nBeforeEpAcc = t.testConn.RUN_SELECT_COUNT("epacc", filterRelated, false);
 			Assert.AreNotEqual(0, nBeforeEpexp /*+ nBeforeEpAcc*/);
 			t.deleteEp(rMan);
@@ -864,11 +870,14 @@ namespace e2e {
 			Assert.AreEqual(0, countEPlinked);
 			//int countEPlinkedEpAcc = t.testConn.count("mandatedetail", filterMan & q.isNotNull("idepacc"));
 			//Assert.AreEqual(0, countEPlinkedEpAcc);
+		    metaeasylibrary.Easy_PostData.rulesToIgnore.Add("ECOPA047");
 			t.generateEP(rMan);
+		    metaeasylibrary.Easy_PostData.rulesToIgnore.Clear();
 			int nAfterGenerateEpExp  = t.testConn.RUN_SELECT_COUNT("epexp", filterRelated, false);
 			//int nAfterGenerateEpAcc  = t.testConn.RUN_SELECT_COUNT("epacc", filterRelated, false);
 			t.deleteEp(rMan);
-			Assert.AreEqual(nBeforeEpexp, nAfterGenerateEpExp);
+		    metaeasylibrary.Easy_PostData.ignoredRules.Clear();
+			Assert.AreEqual(nBeforeEpexp, nAfterGenerateEpExp, "Scritture su contratto passivo");
 			//Assert.AreEqual(nBeforeEpAcc, nAfterGenerateEpAcc);
 		}
 
@@ -882,7 +891,7 @@ namespace e2e {
 			Assert.AreEqual(1, tEstimate.Rows.Count, "Il contratto attivo esiste");
 
 			DataRow rEstim= tEstimate.Rows[0];
-			t.binaryReplaceEp(rEstim);
+			t.binaryReplaceEp(rEstim,false);
 			t.generateEP(rEstim);
 			var idrelated= BudgetFunction.GetIdForDocument(rEstim);
 			string table;
@@ -917,7 +926,7 @@ namespace e2e {
 			Assert.AreEqual(1, tProceedsTransmission.Rows.Count, "La distinta di trasmissione reversali esiste");
 
 			DataRow rProceedsTransmission= tProceedsTransmission.Rows[0];
-			t.binaryReplaceEp(rProceedsTransmission);
+			t.binaryReplaceEp(rProceedsTransmission,false);
 			t.generateEP(rProceedsTransmission);
 			var idrelated= EP_functions.GetIdForDocument(rProceedsTransmission);
 			string table;
@@ -968,7 +977,7 @@ namespace e2e {
 			Assert.AreEqual(1, tPaymentransmission.Rows.Count, "La distinta di trasmissione mandati esiste");
 
 			DataRow rPaymentransmission= tPaymentransmission.Rows[0];
-			t.binaryReplaceEp(rPaymentransmission);
+			t.binaryReplaceEp(rPaymentransmission,false);
 			t.generateEP(rPaymentransmission);
 			var idrelated= EP_functions.GetIdForDocument(rPaymentransmission);
 			string table;
@@ -1001,7 +1010,7 @@ namespace e2e {
 			Assert.AreEqual(1, tItineration.Rows.Count, "La missione esiste");
 			DataRow rItineration = tItineration.Rows[0];
 		    t.binaryCopySet(filterItineration, t.getTableSet(TestHelp.mainObject.itineration));
-		    t.binaryReplaceEp(rItineration);
+		    t.binaryReplaceEp(rItineration,false);
 
 
 			t.generateEP(rItineration);
@@ -1030,7 +1039,7 @@ namespace e2e {
 			Assert.AreEqual(1, tProfService.Rows.Count, "Il contratto professionale esiste");
 			DataRow rProfService = tProfService.Rows[0];
 			t.binaryCopySet(filterProfService, t.getTableSet(TestHelp.mainObject.profservice));
-			t.binaryReplaceEp(rProfService);
+			t.binaryReplaceEp(rProfService,false);
 			var idrelated= BudgetFunction.GetIdForDocument(rProfService);
 			string filterRelated = BudgetFunction.getDocChildCondition(t.testConn.GetQueryHelper(), idrelated);
 			int nSample = t.sampleConn.RUN_SELECT_COUNT("epexp", filterRelated, false);
@@ -1056,7 +1065,7 @@ namespace e2e {
 			Assert.AreEqual(1, tPettyCashOperation.Rows.Count, "L'operazione fondo economale esiste");
 			DataRow rPettyCashOperation = tPettyCashOperation.Rows[0];
 			t.binaryCopySet(filterPettyCashOperation, t.getTableSet(TestHelp.mainObject.pettycashoperation));
-			t.binaryReplaceEp(rPettyCashOperation);
+			t.binaryReplaceEp(rPettyCashOperation,false);
 			var idrelated= BudgetFunction.GetIdForDocument(rPettyCashOperation);
 			string filterRelated = BudgetFunction.getDocChildCondition(t.testConn.GetQueryHelper(), idrelated);
 			int nBefore1 = t.sampleConn.RUN_SELECT_COUNT("epexp", filterRelated, false);
@@ -1082,7 +1091,7 @@ namespace e2e {
 			Assert.AreEqual(1, tCasualContract.Rows.Count, "L'operazione fondo economale esiste");
 			DataRow rCasualContract = tCasualContract.Rows[0];
 			t.binaryCopySet(filterCasualContract, t.getTableSet(TestHelp.mainObject.casualcontract));
-			t.binaryReplaceEp(rCasualContract);
+			t.binaryReplaceEp(rCasualContract,false);
 			var idrelated= BudgetFunction.GetIdForDocument(rCasualContract);
 			string filterRelated = BudgetFunction.getDocChildCondition(t.testConn.GetQueryHelper(), idrelated);
 			int nBefore1 = t.testConn.RUN_SELECT_COUNT("epexp", filterRelated, false);
@@ -1110,7 +1119,7 @@ namespace e2e {
 			Assert.AreEqual(1, tWageAddition.Rows.Count, "L'operazione fondo economale esiste");
 			DataRow rWageAddition = tWageAddition.Rows[0];
 			t.binaryCopySet(filterWageAddition, t.getTableSet(TestHelp.mainObject.wageaddition));
-			t.binaryReplaceEp(rWageAddition);
+			t.binaryReplaceEp(rWageAddition,false);
 			var idrelated= BudgetFunction.GetIdForDocument(rWageAddition);
 			string filterRelated = BudgetFunction.getDocChildCondition(t.testConn.GetQueryHelper(), idrelated);
 			int nBefore1 = t.sampleConn.RUN_SELECT_COUNT("epexp", filterRelated, false);
@@ -1267,7 +1276,23 @@ namespace e2e {
                 filterDetail:q.eq("description","IVA Extraue - American Journal Experts - Invoice# S68Y4FL6Q of 23 jan 2018. Commissioni_bancarie. Imponibile al 22%  € 20,39")));
         }
 
-        
+        //[TestMethod]
+        //public void testDownloadGiornaleCassa() {
+        //    var t = new TestHelp(new DateTime(2018, 12, 31));
+        //    var qhs = t.testConn.GetQueryHelper();
+        //    DateTime inizio = DateTime.Now;
+        //    DateTime fine = DateTime.Now;
+        //    var errore = string.Empty;
+        //    ImportaEsiti IE = new ImportaEsiti();
+        //    try {
+        //        errore = IE.ImportaDaWS(inizio, fine);
+        //    }
+        //    catch (Exception e) {
+        //        errore = e.Message + " " + e.ToString();
+        //    }
+        //    Assert.AreEqual(errore, string.Empty, "DownloadGiornaleCassa eseguito senza errori.");
+
+        //}
+
     }
 }
-

@@ -1,6 +1,6 @@
 (function() {
 
-    var MetaData = window.appMeta.MetaData;
+    var MetaData = window.appMeta.Meta_APP_Data;
 
     function meta_tabella() {
         MetaData.apply(this, ["tabella"]);
@@ -15,19 +15,15 @@
 
 			//$describeColumns$
 
+			//$setCaptions$
+
 			//$getNewRow$
 
-			isValid: function (r) {
-				var loc = appMeta.localResource;
-				var def = appMeta.Deferred("isValid-meta_tabella");
-				var objrow = r.current;
-				var errmess, errfield, objres;
-//$isValid$
-				return this.superClass.isValid(r)
-					.then(function (res) {
-						return def.resolve(res);
-					});
-			},
+			//$isValidFunction$
+
+			//$getStaticFilter$
+
+			//$getSorting$
 
         });
 

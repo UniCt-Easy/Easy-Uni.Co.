@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -17,6 +17,9 @@
               <xs:element name="idsor02" type="xs:int" minOccurs="0" />
               <xs:element name="idsor03" type="xs:int" minOccurs="0" />
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="codicepaipa" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceaooipa" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceuoipa" type="xs:string" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -237,25 +240,14 @@
       <xs:selector xpath=".//mstns:sorting05" />
       <xs:field xpath="mstns:idsor" />
     </xs:unique>
-    <xs:keyref name="sorting05_serviceagency" refer="sorting05_Constraint1">
-      <xs:selector xpath=".//mstns:serviceagency" />
-      <xs:field xpath="mstns:idsor05" />
-    </xs:keyref>
-    <xs:keyref name="sorting04_serviceagency" refer="sorting04_Constraint1">
-      <xs:selector xpath=".//mstns:serviceagency" />
-      <xs:field xpath="mstns:idsor04" />
-    </xs:keyref>
-    <xs:keyref name="sorting03_serviceagency" refer="sorting03_Constraint1">
-      <xs:selector xpath=".//mstns:serviceagency" />
-      <xs:field xpath="mstns:idsor03" />
-    </xs:keyref>
-    <xs:keyref name="sorting02_serviceagency" refer="sorting02_Constraint1">
-      <xs:selector xpath=".//mstns:serviceagency" />
-      <xs:field xpath="mstns:idsor02" />
-    </xs:keyref>
-    <xs:keyref name="sorting01_serviceagency" refer="sorting01_Constraint1">
-      <xs:selector xpath=".//mstns:serviceagency" />
-      <xs:field xpath="mstns:idsor01" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="sorting05_serviceagency" msdata:parent="sorting05" msdata:child="serviceagency" msdata:parentkey="idsor" msdata:childkey="idsor05" />
+      <msdata:Relationship name="sorting04_serviceagency" msdata:parent="sorting04" msdata:child="serviceagency" msdata:parentkey="idsor" msdata:childkey="idsor04" />
+      <msdata:Relationship name="sorting03_serviceagency" msdata:parent="sorting03" msdata:child="serviceagency" msdata:parentkey="idsor" msdata:childkey="idsor03" />
+      <msdata:Relationship name="sorting02_serviceagency" msdata:parent="sorting02" msdata:child="serviceagency" msdata:parentkey="idsor" msdata:childkey="idsor02" />
+      <msdata:Relationship name="sorting01_serviceagency" msdata:parent="sorting01" msdata:child="serviceagency" msdata:parentkey="idsor" msdata:childkey="idsor01" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

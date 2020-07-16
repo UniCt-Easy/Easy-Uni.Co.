@@ -66,7 +66,7 @@
       <DependentUpon>vista.xsd</DependentUpon>
     </None>
     <None Include="vista.xsd">
-      <Generator>HDSGen</Generator>
+      <Generator>HDSGene</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>vista.cs</LastGenOutput>
     </None>
@@ -79,7 +79,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)..\..\..\..\Progetti\portale\libraries" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*" "$(SolutionDir)output" /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

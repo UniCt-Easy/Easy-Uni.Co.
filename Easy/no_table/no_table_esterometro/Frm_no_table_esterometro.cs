@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -124,19 +121,20 @@ namespace no_table_esterometro {
                 return false;
             }
 
-			//         if ((CfgFn.GetNoNullInt32(cmbTrimestre.SelectedValue) == -1)&& (CfgFn.GetNoNullInt32(cmbMese.SelectedValue )== -1)) {
-			//             MessageBox.Show("E' necessario selezionare un Trimestre oppure un Mese.");
-			//             return false;
-			//         }
-			//if ((CfgFn.GetNoNullInt32(cmbTrimestre.SelectedValue) != -1)&&(CfgFn.GetNoNullInt32(cmbMese.SelectedValue)!= -1)) {
-			//	MessageBox.Show("E' necessario selezionare un Trimestre oppure un Mese, non entrambi.");
-			//	return false;
-			//}
-			if (CfgFn.GetNoNullInt32(cmbMese.SelectedValue) == -1) {
-				MessageBox.Show("E' necessario selezionare un Mese.");
-				return false;
-			}
-			txtEsercizio.Focus();
+            if ((CfgFn.GetNoNullInt32(cmbTrimestre.SelectedValue) == -1) && (CfgFn.GetNoNullInt32(cmbMese.SelectedValue) == -1)) {
+                MessageBox.Show("E' necessario selezionare un Trimestre oppure un Mese, non entrambi.");
+                return false;
+            }
+
+            //if (CfgFn.GetNoNullInt32(cmbTrimestre.SelectedValue) == -1) {
+            //    MessageBox.Show("E' necessario selezionare un Trimestre.");
+            //    return false;
+            //}
+            //if (CfgFn.GetNoNullInt32(cmbMese.SelectedValue) == -1) {
+            //    MessageBox.Show("E' necessario selezionare un Mese.");
+            //    return false;
+            //}
+            txtEsercizio.Focus();
             
             return true;
         }
@@ -164,11 +162,12 @@ namespace no_table_esterometro {
             int esercizio = (int)HelpForm.GetObjectFromString(typeof(int),
                txtEsercizio.Text.ToString(), "x.y.year");
             string esercizioStr = esercizio.ToString().Substring(2, 2);
-			//object trimestre = cmbTrimestre.SelectedValue;
+			object trimestre = cmbTrimestre.SelectedValue;
 			object mese = cmbMese.SelectedValue;
 			object periodo = DBNull.Value;
 			//if(trimestre != DBNull.Value) periodo = trimestre; else
-			periodo = mese;
+			string strperiodo = "0123456789ABCDE";
+			int numperiodo = CfgFn.GetNoNullInt32(cmbTrimestre.SelectedIndex != -1 ? trimestre : mese);
 
 			object kind_registry;
             if (rdbA.Checked) {
@@ -178,9 +177,9 @@ namespace no_table_esterometro {
                 kind_registry = 'C';//per le Vendite mettiamo la V a indicare che si tratta di Cliente
             }
             string NomeFile = "";
-            if (codiceFiscale != "") NomeFile = "IT" + codiceFiscale + "_" + "DF_" + kind_registry +esercizioStr.ToString() + progressivo + periodo.ToString();
-            else NomeFile = "IT" + partitaIVA + "_" + "DF_" + kind_registry + esercizioStr.ToString() + progressivo + periodo.ToString();
-            return NomeFile;
+            if (codiceFiscale != "") NomeFile = "IT" + codiceFiscale + "_" + "DF_" + kind_registry +esercizioStr.ToString() + progressivo + strperiodo[numperiodo];
+            else NomeFile = "IT" + partitaIVA + "_" + "DF_" + kind_registry + esercizioStr.ToString() + progressivo + strperiodo[numperiodo];
+			return NomeFile;
         }
         private string aggiustaStringa(string stringa, bool toglichiocciola) {
 
@@ -300,6 +299,15 @@ namespace no_table_esterometro {
 			if (CfgFn.GetNoNullInt32(mese) == -1)
 			mese = null;
 			var kind = rdbA.Checked ? "A" : "V";
+            //Esegue prima la sp di check
+            DataTable tcheck = Meta.Conn.CallSP("exp_esterometrocheck", new object[] { esercizio, trimestre, mese, kind }, false).Tables[0];
+            if ((tcheck != null) && (tcheck.Rows.Count > 0)) {
+                MessageBox.Show(this, "Vi sono errori.");
+                exportclass.DataTableToExcel(tcheck, true);
+                return;
+            }
+
+
             var Out = Conn.CallSP("exp_esterometro", new [] { esercizio, trimestre, mese, kind }, false, 6000);
             if (Out == null) return;
             var outRiepilogo = Conn.CallSP("exp_esterometroriepilogo", new [] { esercizio, trimestre,mese, kind }, false, 6000);
@@ -308,6 +316,8 @@ namespace no_table_esterometro {
             var tRiepilogo = outRiepilogo.Tables[0];
             var r = tComunicazione.First();
             if (r==null) return;
+
+
             txtPercorso.Text = "";
             faiScegliereCartella();
             if (txtPercorso.Text == "") {
@@ -526,6 +536,11 @@ namespace no_table_esterometro {
             else {
                 kind = "V";
             }
+            DataTable tcheck = Meta.Conn.CallSP("exp_esterometrocheck", new object[] { esercizio, trimestre, mese, kind }, false).Tables[0];
+            if ((tcheck != null) && (tcheck.Rows.Count > 0)) {
+                MessageBox.Show(this, "Vi sono errori. I dati verranno comunque esportati.");
+                exportclass.DataTableToExcel(tcheck, true);
+            }
             DataSet Out = Conn.CallSP("exp_esterometro_dati", new object[] { esercizio, trimestre, mese,kind }, false, 6000);
             if (Out == null) return;
             DataTable tFatture= Out.Tables[0];
@@ -583,6 +598,27 @@ namespace no_table_esterometro {
             }
         }
 
+		//private void button1_Click(object sender, EventArgs e) {
+		//	// Simulazione generazione nome file
+		//	string progressivi = "00123456789abcdefghijklmnopqrstuvwxyz";
+		//	object mese = cmbMese.SelectedValue;
+		//	int Npacchetto = CfgFn.GetNoNullInt32(mese);
+		//	var nomeFile = BuildNomeFile(progressivi[Npacchetto]) + ".xml";
+		//	var nomeCompletoFileXml = Path.Combine(txtPercorso.Text, nomeFile);
+
+		//	txtNomeFile.Text = nomeCompletoFileXml;
+		//}
+
+        private void cmbTrimestre_SelectionChangeCommitted(object sender, EventArgs e) {
+            if (cmbTrimestre.SelectedIndex != -1) {
+                cmbMese.SelectedIndex = -1;
+            }
+        }
+
+        private void cmbMese_SelectionChangeCommitted(object sender, EventArgs e) {
+            if (cmbMese.SelectedIndex != -1) {
+                cmbTrimestre.SelectedIndex = -1;
+            }
+        }
     }
 }
-

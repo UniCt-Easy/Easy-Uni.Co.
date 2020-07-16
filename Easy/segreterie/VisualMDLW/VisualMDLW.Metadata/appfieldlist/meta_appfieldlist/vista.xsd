@@ -10,7 +10,7 @@
               <xs:element name="filter" type="xs:string" minOccurs="0" />
               <xs:element name="getsorting" type="xs:string" minOccurs="0" />
               <xs:element name="idappfieldlist" type="xs:int" />
-              <xs:element name="idapppages" type="xs:int" minOccurs="0" />
+              <xs:element name="idapppages" type="xs:int" />
               <xs:element name="position" type="xs:int" minOccurs="0" />
               <xs:element name="textfield" type="xs:int" minOccurs="0" />
               <xs:element name="visible" type="xs:string" minOccurs="0" />
@@ -22,6 +22,7 @@
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:appfieldlist" />
       <xs:field xpath="mstns:idappfieldlist" />
+      <xs:field xpath="mstns:idapppages" />
     </xs:unique>
   </xs:element>
 </xs:schema>

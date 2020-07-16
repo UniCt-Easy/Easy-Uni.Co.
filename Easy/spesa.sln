@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mainform", "mainform\mainform.csproj", "{E04C2CEF-078B-4B25-904C-6374C88E0EE7}"
 EndProject
@@ -13,16 +13,34 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "expense_automatismi", "expense\expense_automatismi\expense_automatismi.csproj", "{572173E2-AF45-495D-B455-13ADF8C4113C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "expense_gerarchico", "expense\expense_gerarchico\expense_gerarchico.csproj", "{68975066-868F-4B39-AC9F-362558C09652}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A9011B7C-260E-45DB-8FE7-2AA38BE1FF3A} = {A9011B7C-260E-45DB-8FE7-2AA38BE1FF3A}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "movimentofunctions", "unmanaged\movimentofunctions\movimentofunctions.csproj", "{A2BFADB0-5BCF-44DE-AFBF-8B7D485B29AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "expense_levels", "expense\expense_levels\expense_levels.csproj", "{D17EAC85-0483-4450-9330-0F1C8E059787}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3846F73A-7E56-410E-833D-AA05734E8471} = {3846F73A-7E56-410E-833D-AA05734E8471}
+		{39338342-E128-4AAF-BE17-27E3325A4B33} = {39338342-E128-4AAF-BE17-27E3325A4B33}
+		{CEE62F5F-5802-4719-B6D4-FA53C7FCE5B5} = {CEE62F5F-5802-4719-B6D4-FA53C7FCE5B5}
+		{A9011B7C-260E-45DB-8FE7-2AA38BE1FF3A} = {A9011B7C-260E-45DB-8FE7-2AA38BE1FF3A}
+		{9040A884-632D-4635-AC12-23482A00BBCD} = {9040A884-632D-4635-AC12-23482A00BBCD}
+		{C506128D-FF9A-4A4D-9CA6-5577EC26F548} = {C506128D-FF9A-4A4D-9CA6-5577EC26F548}
+		{106937A2-D17F-4C1B-930E-8FA6A6E437FC} = {106937A2-D17F-4C1B-930E-8FA6A6E437FC}
+		{DD5878D5-AB66-4C16-BD3B-A37866C756C7} = {DD5878D5-AB66-4C16-BD3B-A37866C756C7}
+		{BA0F97DA-9A31-4C36-B062-FD1FAC7ECB5C} = {BA0F97DA-9A31-4C36-B062-FD1FAC7ECB5C}
+		{1195EEFE-A59C-4F1F-B94A-939DBE135118} = {1195EEFE-A59C-4F1F-B94A-939DBE135118}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SituazioneViewer", "unmanaged\SituazioneViewer\SituazioneViewer.csproj", "{42D2BFEA-1727-4039-A978-5D366E5479D3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveUpdate", "unmanaged\LiveUpdate\LiveUpdate.csproj", "{3401638F-C463-4187-A1F6-2081DA19D58D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "expense_procmissione", "expense\expense_procmissione\expense_procmissione.csproj", "{FFD1EBBF-6E48-46C3-8B32-63D2E8E8AF44}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BA0F97DA-9A31-4C36-B062-FD1FAC7ECB5C} = {BA0F97DA-9A31-4C36-B062-FD1FAC7ECB5C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_itinerationresidual", "itineration\meta_itinerationresidual\meta_itinerationresidual.csproj", "{0C3BEB16-17C0-4460-9B11-BD12E7C51D9F}"
 EndProject
@@ -35,8 +53,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_mandate", "mandate\meta_mandate\meta_mandate.csproj", "{CEE62F5F-5802-4719-B6D4-FA53C7FCE5B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mandate_default", "mandate\mandate_default\mandate_default.csproj", "{657CFEE6-FA3E-4729-ABC5-F2B8FF8CC0D2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CEE62F5F-5802-4719-B6D4-FA53C7FCE5B5} = {CEE62F5F-5802-4719-B6D4-FA53C7FCE5B5}
+		{9040A884-632D-4635-AC12-23482A00BBCD} = {9040A884-632D-4635-AC12-23482A00BBCD}
+		{E779D797-3DA5-46AC-B096-20193D734DB4} = {E779D797-3DA5-46AC-B096-20193D734DB4}
+		{106937A2-D17F-4C1B-930E-8FA6A6E437FC} = {106937A2-D17F-4C1B-930E-8FA6A6E437FC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mandatedetail_single", "mandatedetail\mandatedetail_single\mandatedetail_single.csproj", "{98423894-EA0D-49D5-B646-723E395D9049}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0027E37F-AFA2-4973-AAE5-98F9BC1A242E} = {0027E37F-AFA2-4973-AAE5-98F9BC1A242E}
+		{106937A2-D17F-4C1B-930E-8FA6A6E437FC} = {106937A2-D17F-4C1B-930E-8FA6A6E437FC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_mandatedetail", "mandatedetail\meta_mandatedetail\meta_mandatedetail.csproj", "{E779D797-3DA5-46AC-B096-20193D734DB4}"
 EndProject
@@ -47,6 +75,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "expense_wizarddelete", "expense\expense_wizarddelete\expense_wizarddelete.csproj", "{32C510AA-BA9B-4026-8D70-3D1412BE40DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "expensevar_default", "expensevar\expensevar_default\expensevar_default.csproj", "{5D130094-0B9F-40DB-90CE-CBDE16AD5C6D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BA0F97DA-9A31-4C36-B062-FD1FAC7ECB5C} = {BA0F97DA-9A31-4C36-B062-FD1FAC7ECB5C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_expensevarview", "expensevar\meta_expensevarview\meta_expensevarview.csproj", "{8479743C-28AF-40C5-BD51-FF8C5935C7FB}"
 EndProject
@@ -155,6 +186,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_upbyearview", "upb\meta_upbyearview\meta_upbyearview.csproj", "{D3CE9161-6C3C-425B-A96E-88CDE50836BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "expense_wizardinvoicedetailnomandate", "expense\expense_wizardinvoicedetailnomandate\expense_wizardinvoicedetailnomandate.csproj", "{6803A415-635A-4BFC-A91E-87E89B63827B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C7F92C58-E58A-4695-AF23-A7B698DEC777} = {C7F92C58-E58A-4695-AF23-A7B698DEC777}
+		{106937A2-D17F-4C1B-930E-8FA6A6E437FC} = {106937A2-D17F-4C1B-930E-8FA6A6E437FC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mandatedetail_default", "mandatedetail\mandatedetail_default\mandatedetail_default.csproj", "{63BA33BD-807E-45E2-AB0C-A9F22D35EC66}"
 EndProject
@@ -223,6 +258,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "underwritingpayment_default", "underwritingpayment\underwritingpayment_default\underwritingpayment_default.csproj", "{9276D412-79F7-48A0-BE9A-285B2F35DAB6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "expense_wizardexpensefinvardetail", "expense\expense_wizardexpensefinvardetail\expense_wizardexpensefinvardetail.csproj", "{6584DF15-6920-4621-95C4-D30D7E07830C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B21EB6E8-381C-467E-B5D4-A96A044702F7} = {B21EB6E8-381C-467E-B5D4-A96A044702F7}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskInfo", "unmanaged\AskInfo\AskInfo.csproj", "{DA6B77B7-5F8A-4DD1-B15A-262E8062AF8B}"
 EndProject
@@ -267,6 +305,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mandatekindattachmentkind_default", "mandatekindattachmentkind\mandatekindattachmentkind_default\mandatekindattachmentkind_default.csproj", "{A6223BC1-3076-4F49-828C-05B683A1AF13}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_mandatekindattachmentkind", "mandatekindattachmentkind\meta_mandatekindattachmentkind\meta_mandatekindattachmentkind.csproj", "{D7673E57-23C0-48B2-8B62-EE2FBA689386}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_sorting", "sorting\meta_sorting\meta_sorting.csproj", "{BA0F97DA-9A31-4C36-B062-FD1FAC7ECB5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_profserviceavailablemono", "profservice\meta_profserviceavailablemono\meta_profserviceavailablemono.csproj", "{A3FB41FF-4195-4857-9DE9-E7AA80575490}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_expense_epview", "expense\meta_expense_epview\meta_expense_epview.csproj", "{339E472F-EC90-4906-866B-1FD6D3538FE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "expenselast_elenco", "expenselast\expenselast_elenco\expenselast_elenco.csproj", "{8FEBBDD4-BC3F-4C68-B915-F84E635E3B28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -806,8 +852,27 @@ Global
 		{D7673E57-23C0-48B2-8B62-EE2FBA689386}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7673E57-23C0-48B2-8B62-EE2FBA689386}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7673E57-23C0-48B2-8B62-EE2FBA689386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA0F97DA-9A31-4C36-B062-FD1FAC7ECB5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA0F97DA-9A31-4C36-B062-FD1FAC7ECB5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA0F97DA-9A31-4C36-B062-FD1FAC7ECB5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA0F97DA-9A31-4C36-B062-FD1FAC7ECB5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3FB41FF-4195-4857-9DE9-E7AA80575490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3FB41FF-4195-4857-9DE9-E7AA80575490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3FB41FF-4195-4857-9DE9-E7AA80575490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3FB41FF-4195-4857-9DE9-E7AA80575490}.Release|Any CPU.Build.0 = Release|Any CPU
+		{339E472F-EC90-4906-866B-1FD6D3538FE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{339E472F-EC90-4906-866B-1FD6D3538FE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{339E472F-EC90-4906-866B-1FD6D3538FE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{339E472F-EC90-4906-866B-1FD6D3538FE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FEBBDD4-BC3F-4C68-B915-F84E635E3B28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FEBBDD4-BC3F-4C68-B915-F84E635E3B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FEBBDD4-BC3F-4C68-B915-F84E635E3B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FEBBDD4-BC3F-4C68-B915-F84E635E3B28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48C02F80-7FB0-4494-9096-3EE8A98C641B}
 	EndGlobalSection
 EndGlobal

@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -79,20 +76,6 @@ public class rendicontRow: MetaRow  {
 	public Int32? idreg_docentiOriginal { 
 		get {if (this["idreg_docenti",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idreg_docenti",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Codice
-	///</summary>
-	public Int32? idrendicont{ 
-		get {if (this["idrendicont"]==DBNull.Value)return null; return  (Int32?)this["idrendicont"];}
-		set {if (value==null) this["idrendicont"]= DBNull.Value; else this["idrendicont"]= value;}
-	}
-	public object idrendicontValue { 
-		get{ return this["idrendicont"];}
-		set {if (value==null|| value==DBNull.Value) this["idrendicont"]= DBNull.Value; else this["idrendicont"]= value;}
-	}
-	public Int32? idrendicontOriginal { 
-		get {if (this["idrendicont",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idrendicont",DataRowVersion.Original];}
-	}
 	public DateTime? lt{ 
 		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
 		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
@@ -115,6 +98,20 @@ public class rendicontRow: MetaRow  {
 	public String luOriginal { 
 		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
 	}
+	///<summary>
+	///Denominazione
+	///</summary>
+	public String title{ 
+		get {if (this["title"]==DBNull.Value)return null; return  (String)this["title"];}
+		set {if (value==null) this["title"]= DBNull.Value; else this["title"]= value;}
+	}
+	public object titleValue { 
+		get{ return this["title"];}
+		set {if (value==null|| value==DBNull.Value) this["title"]= DBNull.Value; else this["title"]= value;}
+	}
+	public String titleOriginal { 
+		get {if (this["title",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["title",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -128,11 +125,10 @@ public class rendicontTable : MetaTableBase<rendicontRow> {
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
 			{"cu",createColumn("cu",typeof(string),false,false)},
 			{"idreg_docenti",createColumn("idreg_docenti",typeof(int),false,false)},
-			{"idrendicont",createColumn("idrendicont",typeof(int),false,false)},
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
 			{"lu",createColumn("lu",typeof(string),false,false)},
+			{"title",createColumn("title",typeof(string),true,false)},
 		};
 	}
 }
 }
-

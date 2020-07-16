@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Università degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -104,17 +101,19 @@ namespace no_table_alert {
                     btnQuery.Click += new System.EventHandler(btnQuery_Click);
                     btnQuery.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
 
-                    CheckBox check = new CheckBox();
-                    group.Controls.Add(check);
-                    check.AutoSize = true;
-                    check.Location = new Point(textAvviso.Location.X + textAvviso.Width + 10, 60);
-                    check.ThreeState = false;
-                    check.Text = "Non visualizzare più quest'avviso";
-                    check.CheckedChanged += new System.EventHandler(this.check_CheckedChanged);
-                    string ff = QHC.CmpEq("idalert", r["idalert"]);
-                    tags[check] = ff;
-                    check.Checked = DS.dbuseralert.Select(ff).Length == 0;
-                    check.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
+                    if (r["lu"].ToString() != "sysadmin" && r["cu"].ToString() != "sysadmin") {
+	                    CheckBox check = new CheckBox();
+	                    group.Controls.Add(check);
+	                    check.AutoSize = true;
+	                    check.Location = new Point(textAvviso.Location.X + textAvviso.Width + 10, 60);
+	                    check.ThreeState = false;
+	                    check.Text = "Non visualizzare più quest'avviso";
+	                    check.CheckedChanged += new System.EventHandler(this.check_CheckedChanged);
+	                    string ff = QHC.CmpEq("idalert", r["idalert"]);
+	                    tags[check] = ff;
+	                    check.Checked = DS.dbuseralert.Select(ff).Length == 0;
+	                    check.Anchor = ((AnchorStyles) ((AnchorStyles.Top | AnchorStyles.Right)));
+                    }
 
                     y += altezza + 50;
                 }
@@ -177,4 +176,3 @@ namespace no_table_alert {
         }
     }
 }
-

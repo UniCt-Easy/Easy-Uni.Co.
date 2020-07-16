@@ -1,418 +1,396 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace sortingkind_lista {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable sortingkind{get { return this.Tables["sortingkind"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable incomephase{get { return this.Tables["incomephase"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable expensephase{get { return this.Tables["expensephase"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable menu{get { return this.Tables["menu"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable sortabletable{get { return this.Tables["sortabletable"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable sortingapplicability{get { return this.Tables["sortingapplicability"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable sortingkind1{get { return this.Tables["sortingkind1"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace sortingkind_lista {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	///<summary>
+	///Tipo di Rilevanza analitica
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable sortingkind 		=> Tables["sortingkind"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	///<summary>
+	///Fasi di entrata
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable incomephase 		=> Tables["incomephase"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	///<summary>
+	///Fasi di spesa
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expensephase 		=> Tables["expensephase"];
+
+	///<summary>
+	///Gestione del Menu
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable menu 		=> Tables["menu"];
+
+	///<summary>
+	///Tabella classificabile
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable sortabletable 		=> Tables["sortabletable"];
+
+	///<summary>
+	///Applicabilità dei tipi classificazione
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable sortingapplicability 		=> Tables["sortingapplicability"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable sortingkind1 		=> Tables["sortingkind1"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-this.BeginInit();
-this.InitClass();
-this.EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-this.DataSetName = "vistaForm";
-this.Prefix = "";
-this.Namespace = "http://tempuri.org/vistaForm.xsd";
-this.EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("sortingkind");
-	C= new DataColumn("idsorkind", typeof(System.Int32), "");
+	//////////////////// SORTINGKIND /////////////////////////////////
+	var tsortingkind= new DataTable("sortingkind");
+	C= new DataColumn("idsorkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("codesorkind", typeof(System.String), "");
+	tsortingkind.Columns.Add(C);
+	C= new DataColumn("codesorkind", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tsortingkind.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("nphaseincome", typeof(System.Byte), ""));
-	T.Columns.Add(new DataColumn("nphaseexpense", typeof(System.Byte), ""));
-	T.Columns.Add(new DataColumn("flag", typeof(System.Byte), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tsortingkind.Columns.Add(C);
+	tsortingkind.Columns.Add( new DataColumn("nphaseincome", typeof(byte)));
+	tsortingkind.Columns.Add( new DataColumn("nphaseexpense", typeof(byte)));
+	tsortingkind.Columns.Add( new DataColumn("flag", typeof(byte)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tsortingkind.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tsortingkind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tsortingkind.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tsortingkind.Columns.Add(C);
+	tsortingkind.Columns.Add( new DataColumn("labeln1", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("lockedn1", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("forcedn1", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("labeln2", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("lockedn2", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("forcedn2", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("labeln3", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("lockedn3", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("forcedn3", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("labeln4", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("lockedn4", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("forcedn4", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("labeln5", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("lockedn5", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("forcedn5", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("labels1", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("lockeds1", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("forceds1", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("labels2", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("lockeds2", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("forceds2", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("labels3", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("lockeds3", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("forceds3", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("labels4", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("lockeds4", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("forceds4", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("labels5", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("lockeds5", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("forceds5", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("flagdate", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("labelfordate", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("nodatelabel", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("totalexpression", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("labelv1", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("lockedv1", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("forcedv1", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("labelv2", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("lockedv2", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("forcedv2", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("labelv3", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("lockedv3", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("forcedv3", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("labelv4", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("lockedv4", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("forcedv4", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("labelv5", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("lockedv5", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("forcedv5", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("active", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("start", typeof(short)));
+	tsortingkind.Columns.Add( new DataColumn("stop", typeof(short)));
+	tsortingkind.Columns.Add( new DataColumn("idparentkind", typeof(int)));
+	tsortingkind.Columns.Add( new DataColumn("allowedS1", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("allowedS2", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("allowedS3", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("allowedS4", typeof(string)));
+	tsortingkind.Columns.Add( new DataColumn("allowedS5", typeof(string)));
+	Tables.Add(tsortingkind);
+	tsortingkind.PrimaryKey =  new DataColumn[]{tsortingkind.Columns["idsorkind"]};
 
-	T.Columns.Add(new DataColumn("labeln1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedn1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedn1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labeln2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedn2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedn2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labeln3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedn3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedn3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labeln4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedn4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedn4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labeln5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedn5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedn5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labels1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockeds1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forceds1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labels2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockeds2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forceds2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labels3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockeds3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forceds3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labels4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockeds4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forceds4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labels5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockeds5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forceds5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagdate", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labelfordate", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("nodatelabel", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("totalexpression", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labelv1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedv1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedv1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labelv2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedv2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedv2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labelv3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedv3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedv3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labelv4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedv4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedv4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labelv5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedv5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedv5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("start", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("stop", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("idparentkind", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idsorkind"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("incomephase");
-	C= new DataColumn("nphase", typeof(System.Byte), "");
+	//////////////////// INCOMEPHASE /////////////////////////////////
+	var tincomephase= new DataTable("incomephase");
+	C= new DataColumn("nphase", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tincomephase.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tincomephase.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tincomephase.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tincomephase.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tincomephase.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tincomephase.Columns.Add(C);
+	Tables.Add(tincomephase);
+	tincomephase.PrimaryKey =  new DataColumn[]{tincomephase.Columns["nphase"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["nphase"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("expensephase");
-	C= new DataColumn("nphase", typeof(System.Byte), "");
+	//////////////////// EXPENSEPHASE /////////////////////////////////
+	var texpensephase= new DataTable("expensephase");
+	C= new DataColumn("nphase", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	texpensephase.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	texpensephase.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	texpensephase.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	texpensephase.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	texpensephase.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	texpensephase.Columns.Add(C);
+	Tables.Add(texpensephase);
+	texpensephase.PrimaryKey =  new DataColumn[]{texpensephase.Columns["nphase"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["nphase"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("menu");
-	C= new DataColumn("idmenu", typeof(System.Int32), "");
+	//////////////////// MENU /////////////////////////////////
+	var tmenu= new DataTable("menu");
+	C= new DataColumn("idmenu", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("edittype", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("menucode", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("metadata", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("modal", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("ordernumber", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("parameter", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("paridmenu", typeof(System.Int32), ""));
-	C= new DataColumn("title", typeof(System.String), "");
+	tmenu.Columns.Add(C);
+	tmenu.Columns.Add( new DataColumn("edittype", typeof(string)));
+	tmenu.Columns.Add( new DataColumn("menucode", typeof(string)));
+	tmenu.Columns.Add( new DataColumn("metadata", typeof(string)));
+	tmenu.Columns.Add( new DataColumn("modal", typeof(string)));
+	tmenu.Columns.Add( new DataColumn("ordernumber", typeof(int)));
+	tmenu.Columns.Add( new DataColumn("parameter", typeof(string)));
+	tmenu.Columns.Add( new DataColumn("paridmenu", typeof(int)));
+	C= new DataColumn("title", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tmenu.Columns.Add(C);
+	tmenu.Columns.Add( new DataColumn("userid", typeof(string)));
+	tmenu.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tmenu.Columns.Add( new DataColumn("lu", typeof(string)));
+	Tables.Add(tmenu);
+	tmenu.PrimaryKey =  new DataColumn[]{tmenu.Columns["idmenu"]};
 
-	T.Columns.Add(new DataColumn("userid", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lt", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idmenu"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("sortabletable");
-	C= new DataColumn("tablename", typeof(System.String), "");
+	//////////////////// SORTABLETABLE /////////////////////////////////
+	var tsortabletable= new DataTable("sortabletable");
+	C= new DataColumn("tablename", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tsortabletable.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tsortabletable.Columns.Add(C);
+	tsortabletable.Columns.Add( new DataColumn("lu", typeof(string)));
+	tsortabletable.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	Tables.Add(tsortabletable);
+	tsortabletable.PrimaryKey =  new DataColumn[]{tsortabletable.Columns["tablename"]};
 
-	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lt", typeof(System.DateTime), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["tablename"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("sortingapplicability");
-	C= new DataColumn("idsorkind", typeof(System.Int32), "");
+	//////////////////// SORTINGAPPLICABILITY /////////////////////////////////
+	var tsortingapplicability= new DataTable("sortingapplicability");
+	C= new DataColumn("idsorkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("tablename", typeof(System.String), "");
+	tsortingapplicability.Columns.Add(C);
+	C= new DataColumn("tablename", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tsortingapplicability.Columns.Add(C);
+	tsortingapplicability.Columns.Add( new DataColumn("cu", typeof(string)));
+	tsortingapplicability.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tsortingapplicability.Columns.Add( new DataColumn("lu", typeof(string)));
+	tsortingapplicability.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	Tables.Add(tsortingapplicability);
+	tsortingapplicability.PrimaryKey =  new DataColumn[]{tsortingapplicability.Columns["idsorkind"], tsortingapplicability.Columns["tablename"]};
 
-	T.Columns.Add(new DataColumn("cu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("ct", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lt", typeof(System.DateTime), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idsorkind"], 	T.Columns["tablename"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("sortingkind1");
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	//////////////////// SORTINGKIND1 /////////////////////////////////
+	var tsortingkind1= new DataTable("sortingkind1");
+	tsortingkind1.Columns.Add( new DataColumn("active", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tsortingkind1.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tsortingkind1.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("flagdate", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedN1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedN2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedN3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedN4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedN5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedS1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedS2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedS3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedS4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedS5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedv1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedv2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedv3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedv4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forcedv5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labelfordate", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labeln1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labeln2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labeln3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labeln4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labeln5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labels1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labels2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labels3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labels4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labels5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labelv1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labelv2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labelv3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labelv4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("labelv5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedN1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedN2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedN3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedN4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedN5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedS1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedS2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedS3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedS4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedS5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedv1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedv2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedv3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedv4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lockedv5", typeof(System.String), ""));
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tsortingkind1.Columns.Add(C);
+	tsortingkind1.Columns.Add( new DataColumn("flagdate", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("forcedN1", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("forcedN2", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("forcedN3", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("forcedN4", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("forcedN5", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("forcedS1", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("forcedS2", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("forcedS3", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("forcedS4", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("forcedS5", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("forcedv1", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("forcedv2", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("forcedv3", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("forcedv4", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("forcedv5", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labelfordate", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labeln1", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labeln2", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labeln3", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labeln4", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labeln5", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labels1", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labels2", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labels3", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labels4", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labels5", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labelv1", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labelv2", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labelv3", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labelv4", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("labelv5", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("lockedN1", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("lockedN2", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("lockedN3", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("lockedN4", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("lockedN5", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("lockedS1", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("lockedS2", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("lockedS3", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("lockedS4", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("lockedS5", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("lockedv1", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("lockedv2", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("lockedv3", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("lockedv4", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("lockedv5", typeof(string)));
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tsortingkind1.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("nodatelabel", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("totalexpression", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("nphaseexpense", typeof(System.Byte), ""));
-	T.Columns.Add(new DataColumn("nphaseincome", typeof(System.Byte), ""));
-	C= new DataColumn("codesorkind", typeof(System.String), "");
+	tsortingkind1.Columns.Add(C);
+	tsortingkind1.Columns.Add( new DataColumn("nodatelabel", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("totalexpression", typeof(string)));
+	tsortingkind1.Columns.Add( new DataColumn("nphaseexpense", typeof(byte)));
+	tsortingkind1.Columns.Add( new DataColumn("nphaseincome", typeof(byte)));
+	C= new DataColumn("codesorkind", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idsorkind", typeof(System.Int32), "");
+	tsortingkind1.Columns.Add(C);
+	C= new DataColumn("idsorkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("flag", typeof(System.Byte), "");
+	tsortingkind1.Columns.Add(C);
+	C= new DataColumn("flag", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("start", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("stop", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("idparentkind", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idsorkind"]};
-	T.PrimaryKey = key;
+	tsortingkind1.Columns.Add(C);
+	tsortingkind1.Columns.Add( new DataColumn("start", typeof(short)));
+	tsortingkind1.Columns.Add( new DataColumn("stop", typeof(short)));
+	tsortingkind1.Columns.Add( new DataColumn("idparentkind", typeof(int)));
+	Tables.Add(tsortingkind1);
+	tsortingkind1.PrimaryKey =  new DataColumn[]{tsortingkind1.Columns["idsorkind"]};
 
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["sortingkind"];
-TChild= Tables["sortingapplicability"];
-CPar = new DataColumn[1]{TPar.Columns["idsorkind"]};
-CChild = new DataColumn[1]{TChild.Columns["idsorkind"]};
-Relations.Add(new DataRelation("sortingkindsortingapplicability",CPar,CChild));
+	#endregion
 
-TPar= Tables["sortabletable"];
-TChild= Tables["sortingapplicability"];
-CPar = new DataColumn[1]{TPar.Columns["tablename"]};
-CChild = new DataColumn[1]{TChild.Columns["tablename"]};
-Relations.Add(new DataRelation("sortabletablesortingapplicability",CPar,CChild));
 
-TPar= Tables["sortingkind1"];
-TChild= Tables["sortingkind"];
-CPar = new DataColumn[1]{TPar.Columns["idsorkind"]};
-CChild = new DataColumn[1]{TChild.Columns["idparentkind"]};
-Relations.Add(new DataRelation("sortingkind_sortingkind1",CPar,CChild));
+	#region DataRelation creation
+	var cPar = new []{sortingkind.Columns["idsorkind"]};
+	var cChild = new []{sortingapplicability.Columns["idsorkind"]};
+	Relations.Add(new DataRelation("sortingkindsortingapplicability",cPar,cChild,false));
 
-TPar= Tables["incomephase"];
-TChild= Tables["sortingkind"];
-CPar = new DataColumn[1]{TPar.Columns["nphase"]};
-CChild = new DataColumn[1]{TChild.Columns["nphaseincome"]};
-Relations.Add(new DataRelation("incomephasesortingkind",CPar,CChild));
+	cPar = new []{sortabletable.Columns["tablename"]};
+	cChild = new []{sortingapplicability.Columns["tablename"]};
+	Relations.Add(new DataRelation("sortabletablesortingapplicability",cPar,cChild,false));
 
-TPar= Tables["expensephase"];
-TChild= Tables["sortingkind"];
-CPar = new DataColumn[1]{TPar.Columns["nphase"]};
-CChild = new DataColumn[1]{TChild.Columns["nphaseexpense"]};
-Relations.Add(new DataRelation("expensephasesortingkind",CPar,CChild));
+	cPar = new []{sortingkind1.Columns["idsorkind"]};
+	cChild = new []{sortingkind.Columns["idparentkind"]};
+	Relations.Add(new DataRelation("sortingkind_sortingkind1",cPar,cChild,false));
+
+	cPar = new []{incomephase.Columns["nphase"]};
+	cChild = new []{sortingkind.Columns["nphaseincome"]};
+	Relations.Add(new DataRelation("incomephasesortingkind",cPar,cChild,false));
+
+	cPar = new []{expensephase.Columns["nphase"]};
+	cChild = new []{sortingkind.Columns["nphaseexpense"]};
+	Relations.Add(new DataRelation("expensephasesortingkind",cPar,cChild,false));
+
+	#endregion
 
 }
 }
 }
-

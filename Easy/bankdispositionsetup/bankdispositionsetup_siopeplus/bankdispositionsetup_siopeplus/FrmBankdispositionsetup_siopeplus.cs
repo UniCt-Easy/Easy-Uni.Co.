@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit� degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -95,6 +92,10 @@ namespace bankdispositionsetup_siopeplus {
                     "(yban = '" + (CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) - 1) + "' )"
                     , "max(transactiondate)");
             }
+            if(Use_webservice(Conn)) {
+                btnGeneraFilePagamenti.Text = "Genera e Invia OPI";
+                btnGeneraFileIncassi.Text = "Genera e Invia OPI";
+            }
         }
 
         private void btnGeneraFilePagamenti_Click(object sender, EventArgs e) {
@@ -142,7 +143,7 @@ namespace bankdispositionsetup_siopeplus {
             // Cerca di Validare il file
             try {
                 bool res = XML_XSD_Validator.Validate(fname,
-                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "OPI_FLUSSO_ORDINATIVI_V_1_3_1.XSD"));
+                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "OPI_FLUSSO_ORDINATIVI_V_1_4_1.XSD"));
                 if (!res) {
                     QueryCreator.ShowError(this, "Errore nella validazione dell'xml", XML_XSD_Validator.GetError());
                     return false;
@@ -270,6 +271,34 @@ namespace bankdispositionsetup_siopeplus {
                 return null;
             }
 
+			if (T.Columns.Count== 1) {
+				MessageBox.Show("L'esportazione è stata eseguita ma  ha restituito errori bloccanti", "Errore");
+				FrmViewError View = new FrmViewError(D);
+				View.Show();
+				return null;
+			}
+
+			// Chiama la sp di check, che mostra l'eventuale errore di quadratura, ma non evita la generazione del file.
+			object sp_check = null;
+            if (kind == "p") {
+                sp_check = "check_trasmele_expense_opisiopeplus";
+            }
+            else {
+                sp_check = "check_trasmele_income_opisiopeplus";
+            }
+            DataSet DScheck = Conn.CallSP(sp_check.ToString(), new object[] { ytransmission, ntransmission }, false, 300);
+            if ((DScheck != null) && (DScheck.Tables.Count > 0)) {
+                DataTable Tcheck = DScheck.Tables[0];
+                if (Tcheck.Rows.Count > 0) {
+                    MessageBox.Show("Vi sono problemi sulla quadratura di aluni importi. \r\nIl file verrà generato ma se trasmesso, verrà RIFIUTATO DALLA BANCA", "Errore");
+                    FrmViewError View = new FrmViewError(DScheck);
+                    View.Show();
+                    // se c'è una squadratura non invia il file al ws
+                    if (Use_webservice(Conn)) {
+                        return null;
+                    }
+                }
+            }
 
             if (T.Columns.Count == 1) {
                 FrmViewError View = new FrmViewError(D);
@@ -359,4 +388,3 @@ namespace bankdispositionsetup_siopeplus {
     }
 }
 
-

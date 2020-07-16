@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -86,6 +83,7 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 		private System.Windows.Forms.TextBox txtCompensoAnnuale;
 		private System.Windows.Forms.TextBox txtTotaleCedolini;
 		private System.Windows.Forms.Button btnCedoliniStandard;
+		private object idupb;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -108,11 +106,13 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 			DataSet ds, bool partiConAttualiCompensi,
 			decimal compensoLordo,
 			DateTime dataInizioContratto, DateTime dataFineContratto, 
+			object idupb,
 			DataRow [] rCedoliniErogati
 			) {
 			Meta = meta;
 			DS = ds;
 			this.rCedoliniErogati = rCedoliniErogati;
+			this.idupb = idupb;
 			esercizio = (int)Meta.GetSys("esercizio");
 			metaCedolino = MetaCedolino;
             QHC = new CQueryHelper();
@@ -625,6 +625,7 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 			DateTime dataInizioContratto = (DateTime)DS.Tables["parasubcontract"].Rows[0]["start"];
 			DateTime dataFineContratto = (DateTime)DS.Tables["parasubcontract"].Rows[0]["stop"];
 			decimal compensoContratto = (decimal)DS.Tables["parasubcontract"].Rows[0]["grossamount"];
+			object idupb = this.idupb;
 			decimal sommaRateDiQuestAnno;
 			decimal sommaRateRimanentiContratto;
 			
@@ -743,6 +744,7 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 					rCedolino["stop"] = cedolino.dataFine;
 					rCedolino["enabletaxrelief"] = "S";
 					rCedolino["netfee"] = DBNull.Value;
+					rCedolino["idupb"] = idupb;
 				}
 			}
 			decimal compensoAnnuale = 0;
@@ -768,8 +770,9 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 		        rCedCong["stop"] = cedolini[numeroCedolini - 1].dataFine;
 		        rCedCong["enabletaxrelief"] = "S";
 		        rCedCong["netfee"] = DBNull.Value;
-		    
-			
+				rCedCong["idupb"] = idupb;
+
+
 
 			for (int i=0; i<rCedolini.Length; i++) {
 				if (rCedolini[i]["disbursementdate"] == DBNull.Value) {
@@ -1574,4 +1577,4 @@ namespace parasubcontract_generazionecedolini {//contratto_generazionecedolini//
 			}
 		}
 	}
-}
+}

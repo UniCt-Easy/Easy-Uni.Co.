@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -71,8 +68,7 @@ namespace bankdispositionsetup_importnew {
                 int numRecord = 0;
                 numFile++;
                 DataRow rTC = DS.EF06_TestaCoda.NewRow();
-                if (!leggiEF06RecordDiTesta(sr, rTC))
-                    return false;
+                if (!leggiEF06RecordDiTesta(sr, rTC)) return false;
                 DS.EF06_TestaCoda.Rows.Add(rTC);
                 string tiprec = leggiEF06IntestazioneRecord(sr, rTC);
                 while (tiprec == "02") {
@@ -83,8 +79,7 @@ namespace bankdispositionsetup_importnew {
                     rDett["FILTESE"] = rTC["FILTESE"];
                     rDett["CODENT1"] = rTC["CODENT1"];
                     rDett["ESERC1"] = rTC["ESERC1"];
-                    if (!leggiEF06DettaglioMovimenti(sr, rDett))
-                        return false;
+                    if (!leggiEF06DettaglioMovimenti(sr, rDett)) return false;
                     if (CfgFn.GetNoNullInt32(rDett["ESERC1"]) == esercizio) {
                         DS.EF06.Rows.Add(rDett);
                     }
@@ -556,4 +551,3 @@ namespace bankdispositionsetup_importnew {
         
     }
 }
-

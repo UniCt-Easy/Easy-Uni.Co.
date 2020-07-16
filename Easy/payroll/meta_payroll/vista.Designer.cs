@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -19,7 +16,11 @@
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using metadatalibrary;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_payroll {
 public class payrollRow: MetaRow  {
 	public payrollRow(DataRowBuilder rb) : base(rb) {} 
@@ -309,6 +310,17 @@ public class payrollRow: MetaRow  {
 	public String flagsummarybalanceOriginal { 
 		get {if (this["flagsummarybalance",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flagsummarybalance",DataRowVersion.Original];}
 	}
+	public String idupb{ 
+		get {if (this["idupb"]==DBNull.Value)return null; return  (String)this["idupb"];}
+		set {if (value==null) this["idupb"]= DBNull.Value; else this["idupb"]= value;}
+	}
+	public object idupbValue { 
+		get{ return this["idupb"];}
+		set {if (value==null|| value==DBNull.Value) this["idupb"]= DBNull.Value; else this["idupb"]= value;}
+	}
+	public String idupbOriginal { 
+		get {if (this["idupb",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idupb",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -316,75 +328,30 @@ public class payrollRow: MetaRow  {
 ///Cedolino
 ///</summary>
 public class payrollTable : MetaTableBase<payrollRow> {
-	public payrollTable() : base("payroll"){}
-	public override void addBaseColumns(params string [] cols){
-		Dictionary<string,bool> definedColums=new Dictionary<string, bool>();
-		foreach(string col in cols) definedColums[col] = true;
-
-		#region add DataColumns
-		if (definedColums.ContainsKey("idpayroll")){ 
-			defineColumn("idpayroll", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("ct")){ 
-			defineColumn("ct", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("cu")){ 
-			defineColumn("cu", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("currentrounding")){ 
-			defineColumn("currentrounding", typeof(System.Decimal),false);
-		}
-		if (definedColums.ContainsKey("disbursementdate")){ 
-			defineColumn("disbursementdate", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("enabletaxrelief")){ 
-			defineColumn("enabletaxrelief", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("feegross")){ 
-			defineColumn("feegross", typeof(System.Decimal),false);
-		}
-		if (definedColums.ContainsKey("fiscalyear")){ 
-			defineColumn("fiscalyear", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("flagbalance")){ 
-			defineColumn("flagbalance", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("flagcomputed")){ 
-			defineColumn("flagcomputed", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("idcon")){ 
-			defineColumn("idcon", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("idresidence")){ 
-			defineColumn("idresidence", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("lt")){ 
-			defineColumn("lt", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("lu")){ 
-			defineColumn("lu", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("netfee")){ 
-			defineColumn("netfee", typeof(System.Decimal));
-		}
-		if (definedColums.ContainsKey("npayroll")){ 
-			defineColumn("npayroll", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("start")){ 
-			defineColumn("start", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("stop")){ 
-			defineColumn("stop", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("workingdays")){ 
-			defineColumn("workingdays", typeof(System.Int16),false);
-		}
-		if (definedColums.ContainsKey("flagsummarybalance")){ 
-			defineColumn("flagsummarybalance", typeof(System.String));
-		}
-		#endregion
-
+	public payrollTable() : base("payroll"){
+		baseColumns = new Dictionary<string, DataColumn>(){
+			{"idpayroll",createColumn("idpayroll",typeof(int),false,false)},
+			{"ct",createColumn("ct",typeof(DateTime),true,false)},
+			{"cu",createColumn("cu",typeof(string),true,false)},
+			{"currentrounding",createColumn("currentrounding",typeof(decimal),false,false)},
+			{"disbursementdate",createColumn("disbursementdate",typeof(DateTime),true,false)},
+			{"enabletaxrelief",createColumn("enabletaxrelief",typeof(string),false,false)},
+			{"feegross",createColumn("feegross",typeof(decimal),false,false)},
+			{"fiscalyear",createColumn("fiscalyear",typeof(int),false,false)},
+			{"flagbalance",createColumn("flagbalance",typeof(string),true,false)},
+			{"flagcomputed",createColumn("flagcomputed",typeof(string),false,false)},
+			{"idcon",createColumn("idcon",typeof(string),false,false)},
+			{"idresidence",createColumn("idresidence",typeof(int),true,false)},
+			{"lt",createColumn("lt",typeof(DateTime),true,false)},
+			{"lu",createColumn("lu",typeof(string),true,false)},
+			{"netfee",createColumn("netfee",typeof(decimal),true,false)},
+			{"npayroll",createColumn("npayroll",typeof(int),false,false)},
+			{"start",createColumn("start",typeof(DateTime),false,false)},
+			{"stop",createColumn("stop",typeof(DateTime),false,false)},
+			{"workingdays",createColumn("workingdays",typeof(short),false,false)},
+			{"flagsummarybalance",createColumn("flagsummarybalance",typeof(string),true,false)},
+			{"idupb",createColumn("idupb",typeof(string),true,false)},
+		};
 	}
 }
 }
-

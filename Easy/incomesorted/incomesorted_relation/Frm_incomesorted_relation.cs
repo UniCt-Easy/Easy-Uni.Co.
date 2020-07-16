@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -29,126 +26,123 @@ using gestioneclassificazioni;
 //using movimentofunctions;//movimentofunctions
 using funzioni_configurazione;//funzioni_configurazione
 
-namespace incomesorted_relation//impclassentrata_main//
+namespace incomesorted_relation //impclassentrata_main//
 {
-	/// <summary>
-	/// Summary description for frmimpclassentrata_main.
-	/// </summary>
-	public class Frm_incomesorted_relation : System.Windows.Forms.Form
-	{
-		private System.Windows.Forms.TextBox txtImporto;
-		private System.Windows.Forms.TextBox txtDescrizione;
-		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.GroupBox grpClassificazione;
-		private System.Windows.Forms.TextBox txtDescrClass;
-		private System.Windows.Forms.TextBox txtCodiceClass;
-		private System.Windows.Forms.Button btnClassificazione;
-		private System.Windows.Forms.TextBox txtNumero;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.TextBox txtEsercizio;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.GroupBox grpMovimento;
-		public System.Windows.Forms.TextBox valoreS5;
-		public System.Windows.Forms.TextBox valoreN5;
-		public System.Windows.Forms.TextBox valoreS4;
-		public System.Windows.Forms.TextBox valoreN4;
-		public System.Windows.Forms.TextBox valoreN2;
-		public System.Windows.Forms.TextBox valoreS3;
-		public System.Windows.Forms.TextBox valoreS2;
-		public System.Windows.Forms.TextBox valoreN1;
-		public System.Windows.Forms.TextBox valoreN3;
-		public System.Windows.Forms.TextBox valoreS1;
-		public System.Windows.Forms.Label labelS5;
-		public System.Windows.Forms.Label labelS4;
-		public System.Windows.Forms.Label labelS3;
-		public System.Windows.Forms.Label labelS2;
-		public System.Windows.Forms.Label labelS1;
-		public System.Windows.Forms.Label labelN5;
-		public System.Windows.Forms.Label labelN4;
-		public System.Windows.Forms.Label labelN3;
-		public System.Windows.Forms.Label labelN2;
-		public System.Windows.Forms.Label labelN1;
-		private System.Windows.Forms.CheckBox chkIncompleto;
-		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.Label labelignoradate;
-		private System.Windows.Forms.CheckBox chkIgnoraDate;
-		private System.Windows.Forms.Label labelslash;
-		private System.Windows.Forms.Label datalabel;
-		public System.Windows.Forms.TextBox DataFine;
-		public System.Windows.Forms.TextBox DataInizio;
-		private System.Windows.Forms.TextBox txtSubMov;
-		MetaData Meta;
-		public string param;
+    /// <summary>
+    /// Summary description for frmimpclassentrata_main.
+    /// </summary>
+    public class Frm_incomesorted_relation : System.Windows.Forms.Form {
+        private System.Windows.Forms.TextBox txtImporto;
+        private System.Windows.Forms.TextBox txtDescrizione;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.GroupBox grpClassificazione;
+        private System.Windows.Forms.TextBox txtDescrClass;
+        private System.Windows.Forms.TextBox txtCodiceClass;
+        private System.Windows.Forms.Button btnClassificazione;
+        private System.Windows.Forms.TextBox txtNumero;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtEsercizio;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox grpMovimento;
+        public System.Windows.Forms.TextBox valoreS5;
+        public System.Windows.Forms.TextBox valoreN5;
+        public System.Windows.Forms.TextBox valoreS4;
+        public System.Windows.Forms.TextBox valoreN4;
+        public System.Windows.Forms.TextBox valoreN2;
+        public System.Windows.Forms.TextBox valoreS3;
+        public System.Windows.Forms.TextBox valoreS2;
+        public System.Windows.Forms.TextBox valoreN1;
+        public System.Windows.Forms.TextBox valoreN3;
+        public System.Windows.Forms.TextBox valoreS1;
+        public System.Windows.Forms.Label labelS5;
+        public System.Windows.Forms.Label labelS4;
+        public System.Windows.Forms.Label labelS3;
+        public System.Windows.Forms.Label labelS2;
+        public System.Windows.Forms.Label labelS1;
+        public System.Windows.Forms.Label labelN5;
+        public System.Windows.Forms.Label labelN4;
+        public System.Windows.Forms.Label labelN3;
+        public System.Windows.Forms.Label labelN2;
+        public System.Windows.Forms.Label labelN1;
+        private System.Windows.Forms.CheckBox chkIncompleto;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label labelignoradate;
+        private System.Windows.Forms.CheckBox chkIgnoraDate;
+        private System.Windows.Forms.Label labelslash;
+        private System.Windows.Forms.Label datalabel;
+        public System.Windows.Forms.TextBox DataFine;
+        public System.Windows.Forms.TextBox DataInizio;
+        private System.Windows.Forms.TextBox txtSubMov;
+        MetaData Meta;
+        public object param;
         bool HasBeenActivated;
-		public /*Rana:impclassentrata_main.*/vistaForm DS;
-		private System.Windows.Forms.Button btnMovimento;
-		private System.Windows.Forms.Label labelPerc;
-		private System.Windows.Forms.TextBox txtPercentuale;
-		private System.Windows.Forms.Label lblPercentuale;
-		public System.Windows.Forms.TextBox valoreV5;
-		public System.Windows.Forms.TextBox valoreV4;
-		public System.Windows.Forms.TextBox valoreV3;
-		public System.Windows.Forms.TextBox valoreV2;
-		public System.Windows.Forms.TextBox valoreV1;
-		public System.Windows.Forms.Label labelV5;
-		public System.Windows.Forms.Label labelV4;
-		public System.Windows.Forms.Label labelV3;
-		public System.Windows.Forms.Label labelV2;
-		public System.Windows.Forms.Label labelV1;
-		string lastidentrata="";
-		bool InChiusura=false;
-		bool primolivello=false;
-		bool secondolivello=false;
-		bool terzolivello=false;
-		bool formcorto=false;
-		decimal importototale;
-		decimal importoresiduo;
-		private System.Windows.Forms.GroupBox groupBox1;
+        public /*Rana:impclassentrata_main.*/ vistaForm DS;
+        private System.Windows.Forms.Button btnMovimento;
+        private System.Windows.Forms.Label labelPerc;
+        private System.Windows.Forms.TextBox txtPercentuale;
+        private System.Windows.Forms.Label lblPercentuale;
+        public System.Windows.Forms.TextBox valoreV5;
+        public System.Windows.Forms.TextBox valoreV4;
+        public System.Windows.Forms.TextBox valoreV3;
+        public System.Windows.Forms.TextBox valoreV2;
+        public System.Windows.Forms.TextBox valoreV1;
+        public System.Windows.Forms.Label labelV5;
+        public System.Windows.Forms.Label labelV4;
+        public System.Windows.Forms.Label labelV3;
+        public System.Windows.Forms.Label labelV2;
+        public System.Windows.Forms.Label labelV1;
+        string lastidentrata = "";
+        bool InChiusura = false;
+        bool primolivello = false;
+        bool secondolivello = false;
+        bool terzolivello = false;
+        bool formcorto = false;
+        decimal importototale;
+        decimal importoresiduo;
+        private System.Windows.Forms.GroupBox groupBox1;
 
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.Container components = null;
 
-		public Frm_incomesorted_relation()
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
-			HasBeenActivated=false;
+        public Frm_incomesorted_relation() {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
+            HasBeenActivated = false;
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
-		}
+            //
+            // TODO: Add any constructor code after InitializeComponent call
+            //
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			InChiusura=true;
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing) {
+            InChiusura = true;
+            if (disposing) {
+                if (components != null) {
+                    components.Dispose();
+                }
+            }
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_incomesorted_relation));
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources =
+                new System.ComponentModel.ComponentResourceManager(typeof(Frm_incomesorted_relation));
             this.txtSubMov = new System.Windows.Forms.TextBox();
             this.txtImporto = new System.Windows.Forms.TextBox();
             this.txtDescrizione = new System.Windows.Forms.TextBox();
@@ -211,7 +205,7 @@ namespace incomesorted_relation//impclassentrata_main//
             this.grpClassificazione.SuspendLayout();
             this.grpMovimento.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.DS)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -303,7 +297,7 @@ namespace incomesorted_relation//impclassentrata_main//
             // 
             // btnClassificazione
             // 
-            this.btnClassificazione.Image = ((System.Drawing.Image)(resources.GetObject("btnClassificazione.Image")));
+            this.btnClassificazione.Image = ((System.Drawing.Image) (resources.GetObject("btnClassificazione.Image")));
             this.btnClassificazione.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnClassificazione.Location = new System.Drawing.Point(16, 16);
             this.btnClassificazione.Name = "btnClassificazione";
@@ -607,7 +601,8 @@ namespace incomesorted_relation//impclassentrata_main//
             // 
             // labelslash
             // 
-            this.labelslash.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelslash.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F,
+                System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.labelslash.Location = new System.Drawing.Point(152, 32);
             this.labelslash.Name = "labelslash";
             this.labelslash.Size = new System.Drawing.Size(12, 16);
@@ -648,7 +643,8 @@ namespace incomesorted_relation//impclassentrata_main//
             // 
             // labelPerc
             // 
-            this.labelPerc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPerc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold,
+                System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.labelPerc.Location = new System.Drawing.Point(240, 128);
             this.labelPerc.Name = "labelPerc";
             this.labelPerc.Size = new System.Drawing.Size(16, 16);
@@ -837,134 +833,128 @@ namespace incomesorted_relation//impclassentrata_main//
             this.grpMovimento.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.DS)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
+        }
+
+        #endregion
+
         CQueryHelper QHC;
         QueryHelper QHS;
 
-		public void MetaData_AfterLink()
-		{
-			Meta = MetaData.GetMetaData(this);
+        public void MetaData_AfterLink() {
+            Meta = MetaData.GetMetaData(this);
             QHC = new CQueryHelper();
             QHS = Meta.Conn.GetQueryHelper();
             object idsorkind = null;
-			if (Meta.edit_type!="relation")
-			{
-				param = Meta.ExtraParameter.ToString();
-				DataTable DescrClass=Meta.Conn.RUN_SELECT("sortingkind","description",null,
-					QHS.CmpEq("idsorkind", param), null, null, true);
-				if (DescrClass.Rows.Count==0)
-					Meta.Name = "Movimento di entrata a \""+param+"\"";
-				else
-					Meta.Name = "Movimento di entrata a \""+
-						DescrClass.Rows[0]["description"].ToString()+"\"";
-				
-				Meta.DefaultListType="lista."+param;
+            if (Meta.edit_type != "relation") {
+                param = CfgFn.GetNoNullInt32( Meta.ExtraParameter.ToString());
+                Meta.metaModel.setExtraParams(DS.sorting, QHS.CmpEq("idsorkind", param));
+                DataTable DescrClass = Meta.Conn.RUN_SELECT("sortingkind", "description", null,
+                    QHS.CmpEq("idsorkind", param), null, null, true);
+                if (DescrClass.Rows.Count == 0)
+                    Meta.Name = "Movimento di entrata a \"" + param + "\"";
+                else
+                    Meta.Name = "Movimento di entrata a \"" +
+                                DescrClass.Rows[0]["description"].ToString() + "\"";
+
+                Meta.DefaultListType = "lista." + param;
                 idsorkind = param;
-			}
-            
+            }
+
             object classname = "";
-			if(Meta.edit_type=="relation")
-			{	//Extract parameter from context filter 
-				string fieldname="idsor";
-				int posizione = Meta.ContextFilter.IndexOf(fieldname);
-				
-              
-				if (posizione!=-1)
-				{
-				    int start= posizione+fieldname.Length+2;//skips fieldname='
-				    int stop=Meta.ContextFilter.IndexOf("'",start);
-				    if (stop > start) {
-				        param=Meta.ContextFilter.Substring(start,stop-start);
-				        Meta.DefaultListType="lista."+param;
+            if (Meta.edit_type == "relation") { //Extract parameter from context filter 
+                string fieldname = "idsor";
+                int posizione = Meta.ContextFilter.IndexOf(fieldname);
+                if (posizione != -1) {
+                    int start = posizione + fieldname.Length + 1; //skips fieldname='
+                    int stop = Meta.ContextFilter.IndexOf(")", start);
+                    if (stop > start) {
+                        param = Meta.ContextFilter.Substring(start, stop - start);
+                        Meta.DefaultListType = "lista." + param;
+                    }
+                }
 
-				    }
-				}
-				idsorkind = Meta.Conn.DO_READ_VALUE("sorting", 
-						QHS.CmpEq("idsor", param), "idsorkind");
+                idsorkind = CfgFn.GetNoNullInt32(Meta.Conn.DO_READ_VALUE("sorting", QHS.CmpEq("idsor", CfgFn.GetNoNullInt32(param)), "idsorkind"));
+                classname = Meta.Conn.DO_READ_VALUE("sortingkind", QHS.CmpEq("idsorkind", idsorkind), "description");
 
-                classname = Meta.Conn.DO_READ_VALUE("sortingkind",
-                        QHS.CmpEq("idsorkind", idsorkind), "description");
+                if (classname != null) {
+                    Meta.Name = "Imputazione entrata a \"" + classname.ToString() + "\"";
+                }
 
-				if (classname!=null){
-					Meta.Name = "Imputazione entrata a \""+classname.ToString()+"\"";
-				}
-									
-			}
+            }
 
             string filter = QHS.CmpEq("idsorkind", idsorkind);
             string filteresercizio = QHS.CmpEq("ayear", Meta.GetSys("esercizio"));
-            GetData.SetStaticFilter(DS.incomesorted,filteresercizio);
-			GetData.SetStaticFilter(DS.incomesortedview, QHS.AppAnd(filter, filteresercizio));
-			GetData.SetStaticFilter(DS.incomeview, filteresercizio);
-			GetData.SetSorting(DS.incomesortedview,"ymov desc, nmov desc");
+            GetData.SetStaticFilter(DS.incomesorted, filteresercizio);
+            GetData.SetStaticFilter(DS.incomesortedview, QHS.AppAnd(filter, filteresercizio));
+            GetData.SetStaticFilter(DS.incomeview, filteresercizio);
+            GetData.SetSorting(DS.incomesortedview, "ymov desc, nmov desc");
 
-			GetData.CacheTable(DS.sortingkind, filter, null, false);
-			grpClassificazione.Tag+="."+filter;
-			btnClassificazione.Tag+="."+filter;
+            GetData.CacheTable(DS.sortingkind, filter, null, false);
+            grpClassificazione.Tag += "." + filter;
+            btnClassificazione.Tag += "." + filter;
 
-			DataTable ConfClassMovimento = Meta.Conn.RUN_SELECT("sortingkindview","*",null,
-                        QHS.CmpEq("idsorkind", idsorkind), null, true);
-			
-			if (ConfClassMovimento.Rows.Count==0){
+            DataTable ConfClassMovimento = Meta.Conn.RUN_SELECT("sortingkindview", "*", null,
+                QHS.CmpEq("idsorkind", idsorkind), null, true);
+
+            if (ConfClassMovimento.Rows.Count == 0) {
                 MessageBox.Show("Non ho trovato il tipo classificazione " + classname.ToString() +
-					". Provare ad aggiornare il menu da File/Menu/Aggiorna Menu ");
-				Meta.CanSave=false;
-				return;
+                                ". Provare ad aggiornare il menu da File/Menu/Aggiorna Menu ");
+                Meta.CanSave = false;
+                return;
 
-			}
-			/*
-			if (ConfClassMovimento.Rows[0]["flagsubmovimento"].ToString()=="N")
-			{
-				MetaData.SetDefault(DS.incomesorted, "submovimento", 1);
-				txtSubMov.ReadOnly=true;
-			}
-			*/
+            }
+            /*
+            if (ConfClassMovimento.Rows[0]["flagsubmovimento"].ToString()=="N")
+            {
+                MetaData.SetDefault(DS.incomesorted, "submovimento", 1);
+                txtSubMov.ReadOnly=true;
+            }
+            */
 
-			string fase = ConfClassMovimento.Rows[0]["incomephase"].ToString();
-			object codicefase = ConfClassMovimento.Rows[0]["nphaseincome"];
-			
-			if (codicefase==DBNull.Value){
-				MessageBox.Show("Non Ë stata configurata la Fase di Entrata per il tipo classificazione "+ (param)+
-					". Completare la configurazione dal menu Configurazione/Classificazione/Tipo di Classificazione ");
-			}
-			grpMovimento.Text = fase;
-			btnMovimento.Text = fase;
-			string filtermovimento = //"(esercmovimento='"+Meta.Conn.sys["esercizio"].ToString()+"') AND"+
-			QHS.CmpEq("nphase", codicefase);
-			grpMovimento.Tag+="."+filtermovimento;
-			btnMovimento.Tag+="."+filtermovimento;
-			
-			HelpForm.SetDenyNull(DS.incomesorted.Columns["tobecontinued"],true);
-		}
+            string fase = ConfClassMovimento.Rows[0]["incomephase"].ToString();
+            object codicefase = ConfClassMovimento.Rows[0]["nphaseincome"];
+
+            if (codicefase == DBNull.Value) {
+                MessageBox.Show("Non Ë stata configurata la Fase di Entrata per il tipo classificazione " + (param) +
+                                ". Completare la configurazione dal menu Configurazione/Classificazione/Tipo di Classificazione ");
+            }
+
+            grpMovimento.Text = fase;
+            btnMovimento.Text = fase;
+            string filtermovimento = //"(esercmovimento='"+Meta.Conn.sys["esercizio"].ToString()+"') AND"+
+                QHS.CmpEq("nphase", CfgFn.GetNoNullInt32( codicefase));
+            grpMovimento.Tag += "." + filtermovimento;
+            btnMovimento.Tag += "." + filtermovimento;
+
+            HelpForm.SetDenyNull(DS.incomesorted.Columns["tobecontinued"], true);
+        }
 
 
-		public void MetaData_AfterFill()
-		{
-			txtPercentuale.Visible=true;
-			labelPerc.Visible=true;
-			lblPercentuale.Visible=true;
+        public void MetaData_AfterFill() {
+            txtPercentuale.Visible = true;
+            labelPerc.Visible = true;
+            lblPercentuale.Visible = true;
 
-			AnalizzaCheckIgnoraDate();
-			if (Meta.FirstFillForThisRow &&(DS.sortingkind.Rows.Count>0)){
-				DataRow R= DS.incomesorted.Rows[0];
-				if (R!=null){
-					lastidentrata=R["idinc"].ToString();
-					DataRow CurrTipo=DS.sortingkind.Rows[0];
+            AnalizzaCheckIgnoraDate();
+            if (Meta.FirstFillForThisRow && (DS.sortingkind.Rows.Count > 0)) {
+                DataRow R = DS.incomesorted.Rows[0];
+                if (R != null) {
+                    lastidentrata = R["idinc"].ToString();
+                    DataRow CurrTipo = DS.sortingkind.Rows[0];
                     object codicetipoclass = CurrTipo["idsorkind"];
-					DataTable TCurrEntrata= Meta.Conn.RUN_SELECT("incomeview","*",null,
+                    DataTable TCurrEntrata = Meta.Conn.RUN_SELECT("incomeview", "*", null,
                         QHS.AppAnd(QHS.CmpEq("idinc", R["idinc"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio")))
-						,null,true);
-					DataRow CurrEntrata=null;
-					if ((TCurrEntrata!=null) && (TCurrEntrata.Rows.Count>0))
-						CurrEntrata=TCurrEntrata.Rows[0];
-					if (CurrEntrata!=null){
+                        , null, true);
+                    DataRow CurrEntrata = null;
+                    if ((TCurrEntrata != null) && (TCurrEntrata.Rows.Count > 0))
+                        CurrEntrata = TCurrEntrata.Rows[0];
+                    if (CurrEntrata != null) {
                         if (Meta.InsertMode) {
                             grpClassificazione.Enabled = true;
                             txtCodiceClass.ReadOnly = false;
@@ -973,533 +963,539 @@ namespace incomesorted_relation//impclassentrata_main//
                             grpClassificazione.Enabled = false;
                             txtCodiceClass.ReadOnly = true;
                         }
+
                         importototale = GetNoNullDecimal(CurrEntrata["curramount"]);
-						decimal importoclassificato= GetNoNullDecimal( Meta.Conn.DO_READ_VALUE("incomesortedview",
-                          QHS.AppAnd(QHS.CmpEq("idinc", R["idinc"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio")),
-                          QHS.CmpEq("idsorkind", codicetipoclass)), "ISNULL(SUM(amount),0)"));
-                            
-						if (CurrTipo["totalexpression"].ToString()==""){
-							importoresiduo=importototale-importoclassificato;
-						}
-						else 
-							importoresiduo=importototale;
+                        decimal importoclassificato = GetNoNullDecimal(Meta.Conn.DO_READ_VALUE("incomesortedview",
+                            QHS.AppAnd(QHS.CmpEq("idinc", R["idinc"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio")),
+                                QHS.CmpEq("idsorkind", codicetipoclass)), "ISNULL(SUM(amount),0)"));
 
-						decimal percentuale = 100;
-						decimal importomovimento= GetNoNullDecimal(R["amount"]);
-						if (importototale!=0) percentuale= importomovimento/importototale*100;
-						decimal rounded = Math.Round(percentuale, 4);
-						txtPercentuale.Text = HelpForm.StringValue(rounded,"x.y.fixed.4...1");  
-						//rounded.ToString("n");
+                        if (CurrTipo["totalexpression"].ToString() == "") {
+                            importoresiduo = importototale - importoclassificato;
+                        }
+                        else
+                            importoresiduo = importototale;
 
-						GestioneClassificazioni.CalcAvailableIDClassesFor(DS.sorting,
-							Meta,codicetipoclass,CurrEntrata,"income");
-						
-					}
-					else {
-						txtPercentuale.Text="";
-						grpClassificazione.Enabled=false;
-						txtCodiceClass.ReadOnly=true;
-					}
-				}
-			}
-		}
+                        decimal percentuale = 100;
+                        decimal importomovimento = GetNoNullDecimal(R["amount"]);
+                        if (importototale != 0) percentuale = importomovimento / importototale * 100;
+                        decimal rounded = Math.Round(percentuale, 4);
+                        txtPercentuale.Text = HelpForm.StringValue(rounded, "x.y.fixed.4...1");
+                        //rounded.ToString("n");
 
-		public void MetaData_AfterRowSelect(DataTable T, DataRow R)
-		{
-			if (T.TableName == "incomeview" && R!=null) {
-				if ( Meta.InsertMode) {
-					grpClassificazione.Enabled=true;
-					txtCodiceClass.ReadOnly=false;
-				}
-				if (Meta.InsertMode && (DS.sortingkind.Rows.Count>0) ) {
-					DataRow CurrTipo=DS.sortingkind.Rows[0];
-					importototale=GetNoNullDecimal(R["curramount"]);
-					object codicetipoclass=CurrTipo["idsorkind"];
-            		decimal importoclassificato = GetNoNullDecimal(Meta.Conn.DO_READ_VALUE("incomesortedview",
-                        QHS.AppAnd(QHS.CmpEq("idinc", R["idinc"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio")) ,
-						QHS.CmpEq("idsorkind", codicetipoclass)), "ISNULL(SUM(amount),0)"));
-					if (CurrTipo["totalexpression"].ToString()==""){
-						importoresiduo=importototale-importoclassificato;
-						txtImporto.Text=GetNoNullDecimal(importoresiduo).ToString("C");						
-						ImpostaPercentuale(importoresiduo);
-					}
-					else {
-						importoresiduo=importototale;
-						decimal importo = GetNoNullDecimal( HelpForm.GetObjectFromString(typeof(Decimal),
-							txtImporto.Text,HelpForm.GetStandardTag(txtImporto.Tag)));
-						ImpostaPercentuale(importo);
-					}
+                        GestioneClassificazioni.CalcAvailableIDClassesFor(DS.sorting,
+                            Meta, codicetipoclass, CurrEntrata, "income");
 
-					GestioneClassificazioni.CalcAvailableIDClassesFor(DS.sorting, Meta,codicetipoclass,R,"income");
-					if (R["idinc"].ToString()!=lastidentrata){
-						lastidentrata=R["idinc"].ToString();
+                    }
+                    else {
+                        txtPercentuale.Text = "";
+                        grpClassificazione.Enabled = false;
+                        txtCodiceClass.ReadOnly = true;
+                    }
+                }
+            }
+        }
+
+        public void MetaData_AfterRowSelect(DataTable T, DataRow R) {
+            if (T.TableName == "incomeview" && R != null) {
+                if (Meta.InsertMode) {
+                    grpClassificazione.Enabled = true;
+                    txtCodiceClass.ReadOnly = false;
+                }
+
+                if (Meta.InsertMode && (DS.sortingkind.Rows.Count > 0)) {
+                    DataRow CurrTipo = DS.sortingkind.Rows[0];
+                    importototale = GetNoNullDecimal(R["curramount"]);
+                    object codicetipoclass = CurrTipo["idsorkind"];
+                    decimal importoclassificato = GetNoNullDecimal(Meta.Conn.DO_READ_VALUE("incomesortedview",
+                        QHS.AppAnd(QHS.CmpEq("idinc", R["idinc"]), QHS.CmpEq("ayear", Meta.GetSys("esercizio")),
+                            QHS.CmpEq("idsorkind", codicetipoclass)), "ISNULL(SUM(amount),0)"));
+                    if (CurrTipo["totalexpression"].ToString() == "") {
+                        importoresiduo = importototale - importoclassificato;
+                        txtImporto.Text = GetNoNullDecimal(importoresiduo).ToString("C");
+                        ImpostaPercentuale(importoresiduo);
+                    }
+                    else {
+                        importoresiduo = importototale;
+                        decimal importo = GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),
+                            txtImporto.Text, HelpForm.GetStandardTag(txtImporto.Tag)));
+                        ImpostaPercentuale(importo);
+                    }
+
+                    GestioneClassificazioni.CalcAvailableIDClassesFor(DS.sorting, Meta, codicetipoclass, R, "income");
+                    if (R["idinc"].ToString() != lastidentrata) {
+                        lastidentrata = R["idinc"].ToString();
                         DS.incomesorted.Rows[0]["idsor"] = 0;
-						txtCodiceClass.Text="";
-						txtDescrClass.Text="";
-						DS.sorting.Clear();
-					}
-				
-					//DS.impclassspesa.Rows[0]["importo"]=R["importocorrente"];
-					//Meta.FreshForm();
-				}
-			}
-			if ((Meta.EditMode ||Meta.InsertMode) &&(T.TableName == "incomeview") && (R==null)){
+                        txtCodiceClass.Text = "";
+                        txtDescrClass.Text = "";
+                        DS.sorting.Clear();
+                    }
+
+                    //DS.impclassspesa.Rows[0]["importo"]=R["importocorrente"];
+                    //Meta.FreshForm();
+                }
+            }
+
+            if ((Meta.EditMode || Meta.InsertMode) && (T.TableName == "incomeview") && (R == null)) {
                 DS.incomesorted.Rows[0]["idsor"] = 0;
-				lastidentrata="";
-				txtCodiceClass.Text="";
-				txtDescrClass.Text="";
-				DS.sorting.Clear();
-				grpClassificazione.Enabled=false;
-				txtCodiceClass.ReadOnly=true;
-			}
-		}
+                lastidentrata = "";
+                txtCodiceClass.Text = "";
+                txtDescrClass.Text = "";
+                DS.sorting.Clear();
+                grpClassificazione.Enabled = false;
+                txtCodiceClass.ReadOnly = true;
+            }
+        }
 
-		public void MetaData_AfterClear()
-		{
-			txtPercentuale.Visible=false;
-			labelPerc.Visible=false;
-			lblPercentuale.Visible=false;
-			txtPercentuale.Text="";
-			grpClassificazione.Enabled=true;
-			txtCodiceClass.ReadOnly=false;
-		}
+        public void MetaData_AfterClear() {
+            txtPercentuale.Visible = false;
+            labelPerc.Visible = false;
+            lblPercentuale.Visible = false;
+            txtPercentuale.Text = "";
+            grpClassificazione.Enabled = true;
+            txtCodiceClass.ReadOnly = false;
+        }
 
-		TextBox GetTxtByName(string Name)
-		{
-			System.Reflection.FieldInfo Ctrl = this.GetType().GetField(Name);
-			if (Ctrl==null) return null;
-			if (!typeof(TextBox).IsAssignableFrom(Ctrl.FieldType)) return null;                         
-			TextBox T =  (TextBox) Ctrl.GetValue(this);                        
-			return T;
-		}
+        TextBox GetTxtByName(string Name) {
+            System.Reflection.FieldInfo Ctrl = this.GetType().GetField(Name);
+            if (Ctrl == null) return null;
+            if (!typeof(TextBox).IsAssignableFrom(Ctrl.FieldType)) return null;
+            TextBox T = (TextBox) Ctrl.GetValue(this);
+            return T;
+        }
 
-		Label GetLabByName(string Name){
-			System.Reflection.FieldInfo Ctrl = this.GetType().GetField(Name);
-			if (Ctrl==null) return null;
-			if (!typeof(Label).IsAssignableFrom(Ctrl.FieldType)) return null;                         
-			Label L =  (Label) Ctrl.GetValue(this);                        
-			return L;
-		}
+        Label GetLabByName(string Name) {
+            System.Reflection.FieldInfo Ctrl = this.GetType().GetField(Name);
+            if (Ctrl == null) return null;
+            if (!typeof(Label).IsAssignableFrom(Ctrl.FieldType)) return null;
+            Label L = (Label) Ctrl.GetValue(this);
+            return L;
+        }
 
-		/// <summary>
-		/// Restituisce un textbox ed imposta in automatico le variabili primo,secondo e terzolivello
-		/// </summary>
-		/// <param name="i"></param>
-		/// <returns></returns>
-		TextBox GetTextBoxNum(int i){
-			int col = (i-1)/5;
-			int row = ((i-1) % 5)+1;
-			string suffix="";
-			switch (col){
-				case 0:suffix="N";
-					primolivello=true;
-					break;
-				case 1:suffix="S";
-					secondolivello=true;
-					break;
-				case 2:suffix="V";
-					terzolivello=true;
-					break;
-			}
-			suffix+=row.ToString();
-			TextBox T = GetTxtByName("valore"+suffix);
-			return T;
+        /// <summary>
+        /// Restituisce un textbox ed imposta in automatico le variabili primo,secondo e terzolivello
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        TextBox GetTextBoxNum(int i) {
+            int col = (i - 1) / 5;
+            int row = ((i - 1) % 5) + 1;
+            string suffix = "";
+            switch (col) {
+                case 0:
+                    suffix = "N";
+                    primolivello = true;
+                    break;
+                case 1:
+                    suffix = "S";
+                    secondolivello = true;
+                    break;
+                case 2:
+                    suffix = "V";
+                    terzolivello = true;
+                    break;
+            }
 
-		}
+            suffix += row.ToString();
+            TextBox T = GetTxtByName("valore" + suffix);
+            return T;
 
-		/// <summary>
-		/// Restituisce un textbox ed imposta in automatico le variabili fromcorto,
-		///			primo,secondo e terzolivello
-		/// </summary>
-		/// <param name="i"></param>
-		/// <returns></returns>
-		Label GetLabelNum(int i){
-			int col = (i-1)/5;
-			int row = ((i-1) % 5)+1;
-			if (row>3) formcorto=false;
-			string suffix="";
-			switch (col){
-				case 0:suffix="N";
-					break;
-				case 1:suffix="S";
-					break;
-				case 2:suffix="V";
-					break;
-			}
-			suffix+=row.ToString();
-			Label L = GetLabByName("label"+suffix);
-			return L;
+        }
 
-		}
+        /// <summary>
+        /// Restituisce un textbox ed imposta in automatico le variabili fromcorto,
+        ///			primo,secondo e terzolivello
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        Label GetLabelNum(int i) {
+            int col = (i - 1) / 5;
+            int row = ((i - 1) % 5) + 1;
+            if (row > 3) formcorto = false;
+            string suffix = "";
+            switch (col) {
+                case 0:
+                    suffix = "N";
+                    break;
+                case 1:
+                    suffix = "S";
+                    break;
+                case 2:
+                    suffix = "V";
+                    break;
+            }
 
+            suffix += row.ToString();
+            Label L = GetLabByName("label" + suffix);
+            return L;
 
-
-		public void MetaData_AfterActivation() {
-			if (DS.sortingkind.Rows.Count==0) return;
-			DataRow Rtipo = DS.sortingkind.Rows[0];
-			//txtPercentuale.Leave+=new EventHandler();
-			int NControls=0;
-			bool read_only=false;
+        }
 
 
-			if (Rtipo["flagdate"].ToString().ToLower()!="s") {
-				chkIgnoraDate.Visible = false;
-				labelignoradate.Visible=false;
-				datalabel.Visible = false;
-				labelslash.Visible=false;
-				DataInizio.Visible = false;
-				DataFine.Visible= false;     
-				chkIncompleto.Visible=false;
-				formcorto=true;
-			}
-			else {
-				HelpForm.SetDenyNull(DS.incomesorted.Columns["flagnodate"],true);
-				formcorto=false;
-			}
-			labelignoradate.Text= Rtipo["nodatelabel"].ToString();
-			datalabel.Text= Rtipo["labelfordate"].ToString();
-			HasBeenActivated=true;
 
-			foreach(string kind in new string[]{"n","s","v"}){ 
-				for (int i=1; i<=5; i++) {
+        public void MetaData_AfterActivation() {
+            if (DS.sortingkind.Rows.Count == 0) return;
+            DataRow Rtipo = DS.sortingkind.Rows[0];
+            //txtPercentuale.Leave+=new EventHandler();
+            int NControls = 0;
+            bool read_only = false;
 
 
-					string suffix= kind+i.ToString();
-					if (Rtipo["label"+suffix].ToString()=="")continue;
-					NControls++;
-					TextBox T = GetTextBoxNum(NControls);
-					T.Visible=true;
-					Label L= GetLabelNum(NControls);
-					L.Visible=true;
-					T.Tag="incomesorted.valore"+kind+i.ToString();
+            if (Rtipo["flagdate"].ToString().ToLower() != "s") {
+                chkIgnoraDate.Visible = false;
+                labelignoradate.Visible = false;
+                datalabel.Visible = false;
+                labelslash.Visible = false;
+                DataInizio.Visible = false;
+                DataFine.Visible = false;
+                chkIncompleto.Visible = false;
+                formcorto = true;
+            }
+            else {
+                HelpForm.SetDenyNull(DS.incomesorted.Columns["flagnodate"], true);
+                formcorto = false;
+            }
+
+            labelignoradate.Text = Rtipo["nodatelabel"].ToString();
+            datalabel.Text = Rtipo["labelfordate"].ToString();
+            HasBeenActivated = true;
+
+            foreach (string kind in new string[] {"n", "s", "v"}) {
+                for (int i = 1; i <= 5; i++) {
+
+
+                    string suffix = kind + i.ToString();
+                    if (Rtipo["label" + suffix].ToString() == "") continue;
+                    NControls++;
+                    TextBox T = GetTextBoxNum(NControls);
+                    T.Visible = true;
+                    Label L = GetLabelNum(NControls);
+                    L.Visible = true;
+                    T.Tag = "incomesorted.value" + kind + i.ToString();
+
 					Meta.myHelpForm.AddEvents(T);
+					if (kind == "v")
+						T.Tag = T.Tag.ToString() + ".N";
 
-					if (kind=="v") T.Tag=T.Tag.ToString()+".N";
-					L.Text=Rtipo["label"+kind+i.ToString()].ToString();
-					//L.Tag="tipoclassmovimenti.etichetta"+kind+i.ToString();
+					L.Text = Rtipo["label" + kind + i.ToString()].ToString();
+                    //L.Tag="tipoclassmovimenti.etichetta"+kind+i.ToString();
 
-					switch (Rtipo["locked"+suffix].ToString().ToLower()) 
-					{
-						case "s": 
-						{
-							T.Visible = false;
-							break;
-						}
-						case "n": 
-						{
-							T.Visible = true;
-							T.ReadOnly = read_only && !MustAsk(suffix);
-							break;
-						}
-						default: 
-						{
-							T.Visible = true;
-							T.ReadOnly = !MustAsk(suffix);
-							break;
-						}
-					}
+                    switch (Rtipo["locked" + suffix].ToString().ToLower()) {
+                        case "s": {
+                            T.Visible = false;
+                            break;
+                        }
+                        case "n": {
+                            T.Visible = true;
+                            T.ReadOnly = read_only && !MustAsk(suffix);
+                            break;
+                        }
+                        default: {
+                            T.Visible = true;
+                            T.ReadOnly = !MustAsk(suffix);
+                            break;
+                        }
+                    }
 
-					if (Rtipo["forced"+suffix].ToString().ToLower()=="s")
-					{
-                        if (DS.incomesorted.Columns["value" + suffix].DefaultValue == DBNull.Value) 
-						{
-							if (kind=="n") MetaData.SetDefault(DS.incomesorted, "value"+suffix, 0);
-							if (kind=="v") MetaData.SetDefault(DS.incomesorted, "value"+suffix, 0);
-							if (kind=="s") MetaData.SetDefault(DS.incomesorted, "value"+suffix, "");
-						}
-						T.Visible = true;
-						T.ReadOnly = false;
-						HelpForm.SetDenyNull(DS.Tables["incomesorted"].Columns["value"+suffix],true);
-					}
-				}
+                    if (Rtipo["forced" + suffix].ToString().ToLower() == "s") {
+                        if (DS.incomesorted.Columns["value" + suffix].DefaultValue == DBNull.Value) {
+                            if (kind == "n") MetaData.SetDefault(DS.incomesorted, "value" + suffix, 0);
+                            if (kind == "v") MetaData.SetDefault(DS.incomesorted, "value" + suffix, 0);
+                            if (kind == "s") MetaData.SetDefault(DS.incomesorted, "value" + suffix, "");
+                        }
 
-				
-			}
-		
+                        T.Visible = true;
+                        T.ReadOnly = false;
+                        HelpForm.SetDenyNull(DS.Tables["incomesorted"].Columns["value" + suffix], true);
+                    }
+                }
 
-		
-			if (terzolivello){
-				Width=864;
-			}
-			else {
-				if (secondolivello) {
-					Width=704;
-				}
-				else {
-					if (primolivello)
-						Width=536;
-					else
-						Width=376;			
-				}
-			}
-			if (formcorto) Height=440;
-			// Rusciano G. 20.07.2005
-			// La riga che chiama il metodo CenterToScreen Ë stata ricommentata in quanto il posizionamento
-			// al centro dello schermo non funziona nel caso in cui la finestra di MetaData non Ë impostata
-			// a tutto schermo
-			AutoScrollMinSize = new System.Drawing.Size(Size.Width-8,Size.Height-30);//-8,-30
-			FormBorderStyle= FormBorderStyle.FixedDialog;
-			AutoScroll=false;			
-			FrmCenter();
+
+            }
+
+
+
+            if (terzolivello) {
+                Width = 864;
+            }
+            else {
+                if (secondolivello) {
+                    Width = 704;
+                }
+                else {
+                    if (primolivello)
+                        Width = 536;
+                    else
+                        Width = 376;
+                }
+            }
+
+            if (formcorto) Height = 440;
+            // Rusciano G. 20.07.2005
+            // La riga che chiama il metodo CenterToScreen Ë stata ricommentata in quanto il posizionamento
+            // al centro dello schermo non funziona nel caso in cui la finestra di MetaData non Ë impostata
+            // a tutto schermo
+            AutoScrollMinSize = new System.Drawing.Size(Size.Width - 8, Size.Height - 30); //-8,-30
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            AutoScroll = false;
+            FrmCenter();
 
 //			CenterToScreen();
-		}
+        }
 
-		bool MustAsk(string suffix){
-			if (DS.sortingtranslation.Rows.Count==0) return true;
-			DataRow CurrTrad = DS.sortingtranslation.Rows[0];
-			string field="default"+suffix.ToLower();
-			if (CurrTrad[field].ToString().Trim()=="?") return true;
-			return false;
-		}
-
-
-		void FrmCenter()
-		{
-			Form Par = MdiParent;
-			int posx = (Par.Size.Width- Size.Width - 8)/2;
-			int posy = (Par.Size.Height- Size.Height - 130)/2;
-			if (posy<0) posy=0;
-			if (posx<0) posx=0;
-			StartPosition= FormStartPosition.Manual;
-			Location = new System.Drawing.Point(posx,posy);
-		}
-
-		void AnalizzaCheckIgnoraDate()
-		{
-			if (chkIgnoraDate.Visible==false) return;
-			if (chkIgnoraDate.CheckState== CheckState.Indeterminate) chkIgnoraDate.CheckState= CheckState.Unchecked;
-			bool MostraDataInizioFine = !(chkIgnoraDate.CheckState== CheckState.Checked);			
-			datalabel.Visible=MostraDataInizioFine;
-			DataInizio.Visible=MostraDataInizioFine;
-			DataFine.Visible=MostraDataInizioFine;
-			labelslash.Visible= MostraDataInizioFine;			
-		}
-
-		private void chkIgnoraDate_CheckStateChanged(object sender, System.EventArgs e)
-		{
-			if (!Meta.DrawStateIsDone) return;
-			if (!HasBeenActivated) return;
-			AnalizzaCheckIgnoraDate();
-		}
-
-		void ImpostaPercentuale(decimal importomovimento){
-			decimal percentuale = 100;
-			if (importototale!=0) percentuale= importomovimento/importototale*100;
-			decimal rounded = Math.Round(percentuale, 4);                
-			// calcola la percentuale in base all'importo
-			txtPercentuale.Text = HelpForm.StringValue(rounded,"x.y.fixed.4...1");  
-		}
-
-		private void txtImporto_Leave(object sender, System.EventArgs e) {
-			if (!txtImporto.Modified) return;              
-			if (Meta.IsEmpty)return;
-			//			importomovimento= Decimal.Parse(txtImporto.Text,
-			//				NumberStyles.Currency,
-			//				NumberFormatInfo.CurrentInfo);
-
-			decimal importo=0;
-			if(!checkimporto()) {
-				// ripristina l'importo originale
-				decimal importomovimento;
-				if (Meta.EditMode)
-					importomovimento= GetNoNullDecimal( DS.incomesorted.Rows[0]["amount",DataRowVersion.Original]);
-				else 
-					importomovimento= GetNoNullDecimal( DS.incomesorted.Rows[0]["amount",DataRowVersion.Default]);
-
-				if(Meta.EditMode){
-					txtImporto.Text = importomovimento.ToString("c");
-					importo=importomovimento;
-				}
-			}
-			else {
-				decimal importomovimento= GetNoNullDecimal( HelpForm.GetObjectFromString(typeof(Decimal),
-					txtImporto.Text,HelpForm.GetStandardTag(txtImporto.Tag)));
-				ImpostaPercentuale(importomovimento);
-			}
+        bool MustAsk(string suffix) {
+            if (DS.sortingtranslation.Rows.Count == 0) return true;
+            DataRow CurrTrad = DS.sortingtranslation.Rows[0];
+            string field = "default" + suffix.ToLower();
+            if (CurrTrad[field].ToString().Trim() == "?") return true;
+            return false;
+        }
 
 
-			UpdateCampiChiocciola(importo);
+        void FrmCenter() {
+            Form Par = MdiParent;
+            int posx = (Par.Size.Width - Size.Width - 8) / 2;
+            int posy = (Par.Size.Height - Size.Height - 130) / 2;
+            if (posy < 0) posy = 0;
+            if (posx < 0) posx = 0;
+            StartPosition = FormStartPosition.Manual;
+            Location = new System.Drawing.Point(posx, posy);
+        }
 
-		}
+        void AnalizzaCheckIgnoraDate() {
+            if (chkIgnoraDate.Visible == false) return;
+            if (chkIgnoraDate.CheckState == CheckState.Indeterminate) chkIgnoraDate.CheckState = CheckState.Unchecked;
+            bool MostraDataInizioFine = !(chkIgnoraDate.CheckState == CheckState.Checked);
+            datalabel.Visible = MostraDataInizioFine;
+            DataInizio.Visible = MostraDataInizioFine;
+            DataFine.Visible = MostraDataInizioFine;
+            labelslash.Visible = MostraDataInizioFine;
+        }
 
-		void UpdateCampiChiocciola(decimal importo){
-			foreach (string kind in new string[]{"N","S","V"}){
-				for (int i=1;i<=5;i++){
-					string suffix=kind+i.ToString();
-					if (IsChiocciola(suffix)){
-						TextBox T = GetTxtByName("valore"+suffix);
-						T.Text= importo.ToString("c");
-					}
-				}
-			}
-		}
-		bool IsChiocciola(string suffix){
-			if (DS.sortingtranslation.Rows.Count==0) return false;
-			string field="default"+suffix.ToLower();
-			DataRow CurrTrad = DS.sortingtranslation.Rows[0];
-			if (CurrTrad[field].ToString().Trim()=="@") return true;
-			return false;
-		}
-		private void txtEsercEntrata_Leave(object sender, System.EventArgs e) {
-			if (InChiusura) return;
-			if (Meta.EditMode) return;
+        private void chkIgnoraDate_CheckStateChanged(object sender, System.EventArgs e) {
+            if (!Meta.DrawStateIsDone) return;
+            if (!HasBeenActivated) return;
+            AnalizzaCheckIgnoraDate();
+        }
 
-			string esercentrata=txtEsercizio.Text.Trim();
-			if (esercentrata=="") {
-				MetaData.Choose(this, "choose.incomeview.unknown.clear");
-				return;
-			}
-			
-			//if txtEsercEntrata is not Empty:
-			if (Meta.IsEmpty) return;
-				
-			if(DS.incomeview.Rows.Count>0 ) {
-				if (esercentrata== DS.incomeview.Rows[0]["ymov"].ToString())
-					return;
-				else {
-					ClearEntrata(false);
-					return;
-				}	
-			}		
-		}
-		private void ClearEntrata(bool ClearEsercizio) {
-			//causa errore dopo un getformdata
-			//			txtNumVariazione.Text="";
-			txtNumero.Text="";
-			if (ClearEsercizio) txtEsercizio.Text="";
-			if (Meta.IsEmpty) return;
-			if (!Meta.InsertMode) return; //idpsesa can be changed only on insert!
-			DS.incomesorted.Rows[0]["idinc"]=0;
-		}
+        void ImpostaPercentuale(decimal importomovimento) {
+            decimal percentuale = 100;
+            if (importototale != 0) percentuale = importomovimento / importototale * 100;
+            decimal rounded = Math.Round(percentuale, 4);
+            // calcola la percentuale in base all'importo
+            txtPercentuale.Text = HelpForm.StringValue(rounded, "x.y.fixed.4...1");
+        }
 
+        private void txtImporto_Leave(object sender, System.EventArgs e) {
+            if (!txtImporto.Modified) return;
+            if (Meta.IsEmpty) return;
+            //			importomovimento= Decimal.Parse(txtImporto.Text,
+            //				NumberStyles.Currency,
+            //				NumberFormatInfo.CurrentInfo);
 
-		private void txtPercentuale_Leave(object sender, System.EventArgs e) {
-			// ripristina l'importo originale
-			if (!txtPercentuale.Modified) return;
+            decimal importo = 0;
+            if (!checkimporto()) {
+                // ripristina l'importo originale
+                decimal importomovimento;
+                if (Meta.EditMode)
+                    importomovimento = GetNoNullDecimal(DS.incomesorted.Rows[0]["amount", DataRowVersion.Original]);
+                else
+                    importomovimento = GetNoNullDecimal(DS.incomesorted.Rows[0]["amount", DataRowVersion.Default]);
 
-			if(!checkpercentuale()) {
-				decimal percentuale = 100;
-				decimal importomovimento=0;
-				try {
-					importomovimento= GetNoNullDecimal( HelpForm.GetObjectFromString(typeof(Decimal),
-						txtImporto.Text,HelpForm.GetStandardTag(txtImporto.Tag)));
-
-				}
-				catch{}
-				if (importototale!=0) percentuale= importomovimento/importototale*100;
-				decimal rounded = Math.Round(percentuale, 4);                
-				// calcola la percentuale in base all'importo
-				txtPercentuale.Text = HelpForm.StringValue(rounded,"x.y.fixed.4...1");  
-			}
-			else {
-				// calcola l'importo in base alla percentuale
-				decimal perc = Decimal.Parse(txtPercentuale.Text,
-					NumberStyles.Number,
-					NumberFormatInfo.CurrentInfo);
-				decimal importo = perc* importototale /100;
-				txtImporto.Text = importo.ToString("c");                
-				UpdateCampiChiocciola(importo);
-				txtPercentuale.Text = HelpForm.StringValue(perc,"x.y.fixed.4...1");  
-			}
-		}
-
-		private bool checkpercentuale() {           
-			bool OK = false;
-			if (txtPercentuale.Text == "") return false;           
-			decimal percentmax=0;
-			decimal importooriginale=0;
-			if (Meta.EditMode) importooriginale=GetNoNullDecimal(DS.incomesorted.Rows[0]["amount",DataRowVersion.Original]);
-			if (importototale!=0) percentmax = (importoresiduo + importooriginale)/importototale*100; 
-			string errmsg = "Il valore percentuale dovrebbe essere un numero compreso \r" +
-				"tra 0 e " + percentmax.ToString("n") + ". Proseguo comunque?";
-			try {
-				decimal percent = Decimal.Parse(txtPercentuale.Text,
-					NumberStyles.Number,
-					NumberFormatInfo.CurrentInfo);
-				if ((percent < 0) || (percent > percentmax)) {
-					OK = (MessageBox.Show(errmsg,"Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
-				}
-				else {
-					OK=true;
-				}
-  
-			}
-			catch {                
-				MessageBox.Show("E' necessario digitare un numero" ,"Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
-				return false;
-			}            
-			return OK;
-		}
-
-		private bool checkimporto() {
-			bool OK = false;
-			decimal importooriginale=0;
-			if (Meta.EditMode) importooriginale= GetNoNullDecimal( DS.incomesorted.Rows[0]["amount",
-								   DataRowVersion.Original]);
-
-			if (txtImporto.Text == "") return false;
-			string errmsg = "L'importo dovrebbe essere un numero compreso \r" +
-				"tra 0 e " + (importoresiduo + importooriginale).ToString("c") + ". Proseguo comunque?";
-			try {
-				decimal importo = GetNoNullDecimal( HelpForm.GetObjectFromString(typeof(Decimal),
-					txtImporto.Text,HelpForm.GetStandardTag(txtImporto.Tag)));
-					
-				if ((importo >= 0) && (importo <= (importoresiduo + importooriginale))) {
-					OK = true;
-				}
-				else{
-					OK = (MessageBox.Show(errmsg,"Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
-				}
-  
-			}
-			catch {                
-				MessageBox.Show("E' necessario inserire un numero","Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
-				return false;
-			}
-			return OK;
-		}
+                if (Meta.EditMode) {
+                    txtImporto.Text = importomovimento.ToString("c");
+                    importo = importomovimento;
+                }
+            }
+            else {
+                decimal importomovimento = GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),
+                    txtImporto.Text, HelpForm.GetStandardTag(txtImporto.Tag)));
+                ImpostaPercentuale(importomovimento);
+            }
 
 
-		static int GetNoNullInt32(object O){
-			if (O==null) return 0;
-			if (O == DBNull.Value) return 0;
-			try {
-				return Convert.ToInt32(O);
-			}
-			catch {
-				return 0;
-			}
-		}
-		static decimal GetNoNullDecimal(object O){
-			if (O==null) return 0;
-			if (O == DBNull.Value) return 0;
-			try {
-				return Convert.ToDecimal(O);
-			}
-			catch {
-				return 0;
-			}
-		}
+            UpdateCampiChiocciola(importo);
 
-		private void btnMovimento_Click(object sender, System.EventArgs e) {
-			string MyFilter; 
-			int esercizio= (int) Meta.GetSys("esercizio");
-			int esercText= CfgFn.GetNoNullInt32(txtEsercizio.Text);
-			//if (esercText==0) esercText=esercizio;
-			MyFilter= "(ayear = '" + esercizio.ToString() + "')";
-			if (esercText !=0)	MyFilter = GetData.MergeFilters(MyFilter, QHS.CmpEq("ymov", esercText));
-            Meta.DoMainCommand("choose.incomeview.movimentiaperti." + MyFilter);
-            //MetaData Exp = MetaData.GetMetaData(this, "incomeview");
-            //Exp.FilterLocked=true;
-            //Exp.DS= new DataSet();
-            //DataRow M= Exp.SelectOne("movimentiaperti",MyFilter,null,null);
-            //if (M==null) return;
-            //txtEsercizio.Text= M["ymov"].ToString();
-            //txtNumero.Text=M["nmov"].ToString();
-		}
+        }
+
+        void UpdateCampiChiocciola(decimal importo) {
+            foreach (string kind in new string[] {"N", "S", "V"}) {
+                for (int i = 1; i <= 5; i++) {
+                    string suffix = kind + i.ToString();
+                    if (IsChiocciola(suffix)) {
+                        TextBox T = GetTxtByName("valore" + suffix);
+                        T.Text = importo.ToString("c");
+                    }
+                }
+            }
+        }
+
+        bool IsChiocciola(string suffix) {
+            if (DS.sortingtranslation.Rows.Count == 0) return false;
+            string field = "default" + suffix.ToLower();
+            DataRow CurrTrad = DS.sortingtranslation.Rows[0];
+            if (CurrTrad[field].ToString().Trim() == "@") return true;
+            return false;
+        }
+
+        private void txtEsercEntrata_Leave(object sender, System.EventArgs e) {
+            if (InChiusura) return;
+            if (Meta.EditMode) return;
+
+            string esercentrata = txtEsercizio.Text.Trim();
+            if (esercentrata == "") {
+                MetaData.Choose(this, "choose.incomeview.unknown.clear");
+                return;
+            }
+
+            //if txtEsercEntrata is not Empty:
+            if (Meta.IsEmpty) return;
+
+            if (DS.incomeview.Rows.Count > 0) {
+                if (esercentrata == DS.incomeview.Rows[0]["ymov"].ToString())
+                    return;
+                else {
+                    ClearEntrata(false);
+                    return;
+                }
+            }
+        }
+
+        private void ClearEntrata(bool ClearEsercizio) {
+            //causa errore dopo un getformdata
+            //			txtNumVariazione.Text="";
+            txtNumero.Text = "";
+            if (ClearEsercizio) txtEsercizio.Text = "";
+            if (Meta.IsEmpty) return;
+            if (!Meta.InsertMode) return; //idpsesa can be changed only on insert!
+            DS.incomesorted.Rows[0]["idinc"] = 0;
+        }
 
 
-	}
+        private void txtPercentuale_Leave(object sender, System.EventArgs e) {
+            // ripristina l'importo originale
+            if (!txtPercentuale.Modified) return;
+
+            if (!checkpercentuale()) {
+                decimal percentuale = 100;
+                decimal importomovimento = 0;
+                try {
+                    importomovimento = GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),
+                        txtImporto.Text, HelpForm.GetStandardTag(txtImporto.Tag)));
+
+                }
+                catch {
+                }
+
+                if (importototale != 0) percentuale = importomovimento / importototale * 100;
+                decimal rounded = Math.Round(percentuale, 4);
+                // calcola la percentuale in base all'importo
+                txtPercentuale.Text = HelpForm.StringValue(rounded, "x.y.fixed.4...1");
+            }
+            else {
+                // calcola l'importo in base alla percentuale
+                decimal perc = Decimal.Parse(txtPercentuale.Text,
+                    NumberStyles.Number,
+                    NumberFormatInfo.CurrentInfo);
+                decimal importo = perc * importototale / 100;
+                txtImporto.Text = importo.ToString("c");
+                UpdateCampiChiocciola(importo);
+                txtPercentuale.Text = HelpForm.StringValue(perc, "x.y.fixed.4...1");
+            }
+        }
+
+        private bool checkpercentuale() {
+            bool OK = false;
+            if (txtPercentuale.Text == "") return false;
+            decimal percentmax = 0;
+            decimal importooriginale = 0;
+            if (Meta.EditMode)
+                importooriginale = GetNoNullDecimal(DS.incomesorted.Rows[0]["amount", DataRowVersion.Original]);
+            if (importototale != 0) percentmax = (importoresiduo + importooriginale) / importototale * 100;
+            string errmsg = "Il valore percentuale dovrebbe essere un numero compreso \r" +
+                            "tra 0 e " + percentmax.ToString("n") + ". Proseguo comunque?";
+            try {
+                decimal percent = Decimal.Parse(txtPercentuale.Text,
+                    NumberStyles.Number,
+                    NumberFormatInfo.CurrentInfo);
+                if ((percent < 0) || (percent > percentmax)) {
+                    OK = (MessageBox.Show(errmsg, "Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
+                }
+                else {
+                    OK = true;
+                }
+
+            }
+            catch {
+                MessageBox.Show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Exclamation);
+                return false;
+            }
+
+            return OK;
+        }
+
+        private bool checkimporto() {
+            bool OK = false;
+            decimal importooriginale = 0;
+            if (Meta.EditMode)
+                importooriginale = GetNoNullDecimal(DS.incomesorted.Rows[0]["amount",
+                    DataRowVersion.Original]);
+
+            if (txtImporto.Text == "") return false;
+            string errmsg = "L'importo dovrebbe essere un numero compreso \r" +
+                            "tra 0 e " + (importoresiduo + importooriginale).ToString("c") + ". Proseguo comunque?";
+            try {
+                decimal importo = GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),
+                    txtImporto.Text, HelpForm.GetStandardTag(txtImporto.Tag)));
+
+                if ((importo >= 0) && (importo <= (importoresiduo + importooriginale))) {
+                    OK = true;
+                }
+                else {
+                    OK = (MessageBox.Show(errmsg, "Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
+                }
+
+            }
+            catch {
+                MessageBox.Show("E' necessario inserire un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Exclamation);
+                return false;
+            }
+
+            return OK;
+        }
+
+
+        static int GetNoNullInt32(object O) {
+            if (O == null) return 0;
+            if (O == DBNull.Value) return 0;
+            try {
+                return Convert.ToInt32(O);
+            }
+            catch {
+                return 0;
+            }
+        }
+
+        static decimal GetNoNullDecimal(object O) {
+            if (O == null) return 0;
+            if (O == DBNull.Value) return 0;
+            try {
+                return Convert.ToDecimal(O);
+            }
+            catch {
+                return 0;
+            }
+        }
+
+        private void btnMovimento_Click(object sender, System.EventArgs e) {
+            int esercizio = (int) Meta.GetSys("esercizio");
+            int esercText = CfgFn.GetNoNullInt32(txtEsercizio.Text);
+            string MyFilter = QHS.CmpEq("ayear", esercizio);
+            if (esercText != 0) MyFilter = GetData.MergeFilters(MyFilter, QHS.CmpEq("ymov", esercText));
+            Meta.DoMainCommand("choose.incomeview.movimentiaperti." + MyFilter);          
+        }
+
+
+    }
 }
-

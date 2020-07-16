@@ -48,9 +48,6 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="meta_registry_instmuser.cs" />
-    <Compile Include="vista.cs">
-      <DependentUpon>vista.xsd</DependentUpon>
-    </Compile>
     <Compile Include="vista.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -74,4 +71,4 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>
   </PropertyGroup>
-</Project>
+ </Project>

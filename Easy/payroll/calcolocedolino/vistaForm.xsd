@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaCalcoloCedolino.xsd" xmlns:mstns="http://tempuri.org/VistaCalcoloCedolino.xsd" xmlns="http://tempuri.org/VistaCalcoloCedolino.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaCalcoloCedolino.xsd" xmlns:mstns="http://tempuri.org/VistaCalcoloCedolino.xsd" xmlns="http://tempuri.org/VistaCalcoloCedolino.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -60,6 +60,7 @@
               <xs:element name="start" type="xs:dateTime" />
               <xs:element name="stop" type="xs:dateTime" />
               <xs:element name="flagsummarybalance" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -611,65 +612,23 @@
       <xs:field xpath="mstns:idpayroll" />
       <xs:field xpath="mstns:idpayrolltaxcorrige" />
     </xs:unique>
-    <xs:keyref name="payrollpayrolltaxcorrige" refer="payroll_Constraint1">
-      <xs:selector xpath=".//mstns:payrolltaxcorrige" />
-      <xs:field xpath="mstns:idpayroll" />
-    </xs:keyref>
-    <xs:keyref name="parasubcontractcafdocument" refer="Constraint1">
-      <xs:selector xpath=".//mstns:cafdocument" />
-      <xs:field xpath="mstns:idcon" />
-    </xs:keyref>
-    <xs:keyref name="exhibitedcudexhibitedcudabatement" refer="exhibitedcud_Constraint1">
-      <xs:selector xpath=".//mstns:exhibitedcudabatement" />
-      <xs:field xpath="mstns:idexhibitedcud" />
-      <xs:field xpath="mstns:idcon" />
-    </xs:keyref>
-    <xs:keyref name="exhibitedcudexhibitedcuddeduction" refer="exhibitedcud_Constraint1">
-      <xs:selector xpath=".//mstns:exhibitedcuddeduction" />
-      <xs:field xpath="mstns:idexhibitedcud" />
-      <xs:field xpath="mstns:idcon" />
-    </xs:keyref>
-    <xs:keyref name="parasubcontractotherinail" refer="Constraint1">
-      <xs:selector xpath=".//mstns:otherinail" />
-      <xs:field xpath="mstns:idcon" />
-    </xs:keyref>
-    <xs:keyref name="parasubcontractexhibitedcud" refer="Constraint1">
-      <xs:selector xpath=".//mstns:exhibitedcud" />
-      <xs:field xpath="mstns:idcon" />
-    </xs:keyref>
-    <xs:keyref name="parasubcontractparasubcontractyear" refer="Constraint1">
-      <xs:selector xpath=".//mstns:parasubcontractyear" />
-      <xs:field xpath="mstns:idcon" />
-    </xs:keyref>
-    <xs:keyref name="payrolltaxpayrolltaxbracket" refer="payrolltax_Constraint1">
-      <xs:selector xpath=".//mstns:payrolltaxbracket" />
-      <xs:field xpath="mstns:idpayroll" />
-      <xs:field xpath="mstns:idpayrolltax" />
-    </xs:keyref>
-    <xs:keyref name="payrollpayrolltax" refer="payroll_Constraint1">
-      <xs:selector xpath=".//mstns:payrolltax" />
-      <xs:field xpath="mstns:idpayroll" />
-    </xs:keyref>
-    <xs:keyref name="payrollpayrollabatement" refer="payroll_Constraint1">
-      <xs:selector xpath=".//mstns:payrollabatement" />
-      <xs:field xpath="mstns:idpayroll" />
-    </xs:keyref>
-    <xs:keyref name="payrollpayrolldeduction" refer="payroll_Constraint1">
-      <xs:selector xpath=".//mstns:payrolldeduction" />
-      <xs:field xpath="mstns:idpayroll" />
-    </xs:keyref>
-    <xs:keyref name="parasubcontractpayroll" refer="Constraint1">
-      <xs:selector xpath=".//mstns:payroll" />
-      <xs:field xpath="mstns:idcon" />
-    </xs:keyref>
-    <xs:keyref name="parasubcontractyearpayroll" refer="parasubcontractyear_Constraint1">
-      <xs:selector xpath=".//mstns:payroll" />
-      <xs:field xpath="mstns:fiscalyear" />
-      <xs:field xpath="mstns:idcon" />
-    </xs:keyref>
-    <xs:keyref name="patparasubcontract" refer="pat_Constraint1">
-      <xs:selector xpath=".//mstns:parasubcontract" />
-      <xs:field xpath="mstns:idpat" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="payrollpayrolltaxcorrige" msdata:parent="payroll" msdata:child="payrolltaxcorrige" msdata:parentkey="idpayroll" msdata:childkey="idpayroll" />
+      <msdata:Relationship name="parasubcontractcafdocument" msdata:parent="parasubcontract" msdata:child="cafdocument" msdata:parentkey="idcon" msdata:childkey="idcon" />
+      <msdata:Relationship name="exhibitedcudexhibitedcudabatement" msdata:parent="exhibitedcud" msdata:child="exhibitedcudabatement" msdata:parentkey="idexhibitedcud idcon" msdata:childkey="idexhibitedcud idcon" />
+      <msdata:Relationship name="exhibitedcudexhibitedcuddeduction" msdata:parent="exhibitedcud" msdata:child="exhibitedcuddeduction" msdata:parentkey="idexhibitedcud idcon" msdata:childkey="idexhibitedcud idcon" />
+      <msdata:Relationship name="parasubcontractotherinail" msdata:parent="parasubcontract" msdata:child="otherinail" msdata:parentkey="idcon" msdata:childkey="idcon" />
+      <msdata:Relationship name="parasubcontractexhibitedcud" msdata:parent="parasubcontract" msdata:child="exhibitedcud" msdata:parentkey="idcon" msdata:childkey="idcon" />
+      <msdata:Relationship name="parasubcontractparasubcontractyear" msdata:parent="parasubcontract" msdata:child="parasubcontractyear" msdata:parentkey="idcon" msdata:childkey="idcon" />
+      <msdata:Relationship name="payrolltaxpayrolltaxbracket" msdata:parent="payrolltax" msdata:child="payrolltaxbracket" msdata:parentkey="idpayroll idpayrolltax" msdata:childkey="idpayroll idpayrolltax" />
+      <msdata:Relationship name="payrollpayrolltax" msdata:parent="payroll" msdata:child="payrolltax" msdata:parentkey="idpayroll" msdata:childkey="idpayroll" />
+      <msdata:Relationship name="payrollpayrollabatement" msdata:parent="payroll" msdata:child="payrollabatement" msdata:parentkey="idpayroll" msdata:childkey="idpayroll" />
+      <msdata:Relationship name="payrollpayrolldeduction" msdata:parent="payroll" msdata:child="payrolldeduction" msdata:parentkey="idpayroll" msdata:childkey="idpayroll" />
+      <msdata:Relationship name="parasubcontractyearpayroll" msdata:parent="parasubcontractyear" msdata:child="payroll" msdata:parentkey="ayear idcon" msdata:childkey="fiscalyear idcon" />
+      <msdata:Relationship name="parasubcontractpayroll" msdata:parent="parasubcontract" msdata:child="payroll" msdata:parentkey="idcon" msdata:childkey="idcon" />
+      <msdata:Relationship name="patparasubcontract" msdata:parent="pat" msdata:child="parasubcontract" msdata:parentkey="idpat" msdata:childkey="idpat" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

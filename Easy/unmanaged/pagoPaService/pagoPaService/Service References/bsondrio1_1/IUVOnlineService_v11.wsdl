@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd1="http://schema.iuvonline.nodospcit.ws.popso.it/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://scrittura.iuvonline.nodospcit.ws.popso.it/v1" xmlns:bons1="http://schema.fault.testata.common.ws.popso.it/v8" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="IUVOnlineService_v1" targetNamespace="http://scrittura.iuvonline.nodospcit.ws.popso.it/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import schemaLocation="../schema/IUVOnlineSchema_v1.1.xsd" namespace="http://schema.iuvonline.nodospcit.ws.popso.it/v1" />
+    </xsd:schema>
+    <xsd:schema targetNamespace="http://scrittura.iuvonline.nodospcit.ws.popso.it/v1">
+      <xsd:import schemaLocation="../schema/IUVOnlineSchema_v1.1.xsd" namespace="http://schema.iuvonline.nodospcit.ws.popso.it/v1" />
+      <xsd:import schemaLocation="../schema/TipiTestata_v8.0/fault/FaultSchema_v8.0.xsd" namespace="http://schema.fault.testata.common.ws.popso.it/v8" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IUVOnlineCreateRequest">
+    <wsdl:part name="IUVOnlineCreateRequest" element="xsd1:IUVOnlineCreateRequest" />
+  </wsdl:message>
+  <wsdl:message name="IUVOnlineCreateResponse">
+    <wsdl:part name="IUVOnlineCreateResponse" element="xsd1:IUVOnlineCreateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUVOnlineUpdateRequest">
+    <wsdl:part name="IUVOnlineUpdateRequest" element="xsd1:IUVOnlineUpdateRequest" />
+  </wsdl:message>
+  <wsdl:message name="IUVOnlineUpdateResponse">
+    <wsdl:part name="IUVOnlineUpdateResponse" element="xsd1:IUVOnlineUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUVOnlineDeleteRequest">
+    <wsdl:part name="IUVOnlineDeleteRequest" element="xsd1:IUVOnlineDeleteRequest" />
+  </wsdl:message>
+  <wsdl:message name="IUVOnlineDeleteResponse">
+    <wsdl:part name="IUVOnlineDeleteResponse" element="xsd1:IUVOnlineDeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="systemFaultMsg">
+    <wsdl:part name="systemFault" element="bons1:systemFault" />
+  </wsdl:message>
+  <wsdl:message name="inputFaultMsg">
+    <wsdl:part name="inputFault" element="bons1:inputFault" />
+  </wsdl:message>
+  <wsdl:message name="applicationFaultMsg">
+    <wsdl:part name="applicationFault" element="bons1:applicationFault" />
+  </wsdl:message>
+  <wsdl:message name="servizioNonDisponibileFaultMsg">
+    <wsdl:part name="servizioNonDisponibileFault" element="bons1:servizioNonDisponibileFault" />
+  </wsdl:message>
+  <wsdl:message name="datiTestataFaultMsg">
+    <wsdl:part name="datiTestataFault" element="bons1:datiTestataFault" />
+  </wsdl:message>
+  <wsdl:portType name="IUVOnlineServiceScritturaPortType_v1">
+    <wsdl:operation name="IUVOnlineCreate">
+      <wsdl:input message="tns:IUVOnlineCreateRequest" />
+      <wsdl:output message="tns:IUVOnlineCreateResponse" />
+      <wsdl:fault name="IUVOnlineCreateApplicationFault" message="tns:applicationFaultMsg" />
+      <wsdl:fault name="IUVOnlineCreateSystemFault" message="tns:systemFaultMsg" />
+      <wsdl:fault name="IUVOnlineCreateDatiTestataFault" message="tns:datiTestataFaultMsg" />
+      <wsdl:fault name="IUVOnlineCreateInputFault" message="tns:inputFaultMsg" />
+      <wsdl:fault name="IUVOnlineCreateServizioNonDisponibileFault" message="tns:servizioNonDisponibileFaultMsg" />
+    </wsdl:operation>
+    <wsdl:operation name="IUVOnlineUpdate">
+      <wsdl:input message="tns:IUVOnlineUpdateRequest" />
+      <wsdl:output message="tns:IUVOnlineUpdateResponse" />
+      <wsdl:fault name="IUVOnlineUpdateApplicationFault" message="tns:applicationFaultMsg" />
+      <wsdl:fault name="IUVOnlineUpdateSystemFault" message="tns:systemFaultMsg" />
+      <wsdl:fault name="IUVOnlineUpdateDatiTestataFault" message="tns:datiTestataFaultMsg" />
+      <wsdl:fault name="IUVOnlineUpdateInputFault" message="tns:inputFaultMsg" />
+      <wsdl:fault name="IUVOnlineUpdateServizioNonDisponibileFault" message="tns:servizioNonDisponibileFaultMsg" />
+    </wsdl:operation>
+    <wsdl:operation name="IUVOnlineDelete">
+      <wsdl:input message="tns:IUVOnlineDeleteRequest" />
+      <wsdl:output message="tns:IUVOnlineDeleteResponse" />
+      <wsdl:fault name="IUVOnlineDeleteApplicationFault" message="tns:applicationFaultMsg" />
+      <wsdl:fault name="IUVOnlineDeleteSystemFault" message="tns:systemFaultMsg" />
+      <wsdl:fault name="IUVOnlineDeleteDatiTestataFault" message="tns:datiTestataFaultMsg" />
+      <wsdl:fault name="IUVOnlineDeleteInputFault" message="tns:inputFaultMsg" />
+      <wsdl:fault name="IUVOnlineDeleteServizioNonDisponibileFault" message="tns:servizioNonDisponibileFaultMsg" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IUVOnlineServiceScritturaBinding_v1" type="tns:IUVOnlineServiceScritturaPortType_v1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IUVOnlineCreate">
+      <soap:operation soapAction="http://scrittura.iuvonline.nodospcit.ws.popso.it/v1/IUVOnlineCreate" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="IUVOnlineCreateApplicationFault">
+        <soap:fault use="literal" name="IUVOnlineCreateApplicationFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="IUVOnlineCreateSystemFault">
+        <soap:fault use="literal" name="IUVOnlineCreateSystemFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="IUVOnlineCreateDatiTestataFault">
+        <soap:fault use="literal" name="IUVOnlineCreateDatiTestataFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="IUVOnlineCreateInputFault">
+        <soap:fault use="literal" name="IUVOnlineCreateInputFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="IUVOnlineCreateServizioNonDisponibileFault">
+        <soap:fault use="literal" name="IUVOnlineCreateServizioNonDisponibileFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="IUVOnlineUpdate">
+      <soap:operation soapAction="http://scrittura.iuvonline.nodospcit.ws.popso.it/v1/IUVOnlineUpdate" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="IUVOnlineUpdateApplicationFault">
+        <soap:fault use="literal" name="IUVOnlineUpdateApplicationFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="IUVOnlineUpdateSystemFault">
+        <soap:fault use="literal" name="IUVOnlineUpdateSystemFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="IUVOnlineUpdateDatiTestataFault">
+        <soap:fault use="literal" name="IUVOnlineUpdateDatiTestataFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="IUVOnlineUpdateInputFault">
+        <soap:fault use="literal" name="IUVOnlineUpdateInputFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="IUVOnlineUpdateServizioNonDisponibileFault">
+        <soap:fault use="literal" name="IUVOnlineUpdateServizioNonDisponibileFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="IUVOnlineDelete">
+      <soap:operation soapAction="http://scrittura.iuvonline.nodospcit.ws.popso.it/v1/IUVOnlineDelete" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="IUVOnlineDeleteApplicationFault">
+        <soap:fault use="literal" name="IUVOnlineDeleteApplicationFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="IUVOnlineDeleteSystemFault">
+        <soap:fault use="literal" name="IUVOnlineDeleteSystemFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="IUVOnlineDeleteDatiTestataFault">
+        <soap:fault use="literal" name="IUVOnlineDeleteDatiTestataFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="IUVOnlineDeleteInputFault">
+        <soap:fault use="literal" name="IUVOnlineDeleteInputFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="IUVOnlineDeleteServizioNonDisponibileFault">
+        <soap:fault use="literal" name="IUVOnlineDeleteServizioNonDisponibileFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IUVOnlineService_v1">
+    <wsdl:port name="IUVOnlineServiceScritturaPort_v1" binding="tns:IUVOnlineServiceScritturaBinding_v1">
+      <soap:address location="http://localhost/IUVOnlineService_v1/scrittura/IUVOnlineService.ws" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

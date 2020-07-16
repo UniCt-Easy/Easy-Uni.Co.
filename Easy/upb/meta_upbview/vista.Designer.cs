@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -19,7 +16,11 @@
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using metadatalibrary;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_upbview {
 public class upbviewRow: MetaRow  {
 	public upbviewRow(DataRowBuilder rb) : base(rb) {} 
@@ -425,123 +426,45 @@ public class upbviewRow: MetaRow  {
 
 }
 public class upbviewTable : MetaTableBase<upbviewRow> {
-	public upbviewTable() : base("upbview"){}
-	public override void addBaseColumns(params string [] cols){
-		Dictionary<string,bool> definedColums=new Dictionary<string, bool>();
-		foreach(string col in cols) definedColums[col] = true;
-
-		#region add DataColumns
-		if (definedColums.ContainsKey("idupb")){ 
-			defineColumn("idupb", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("codeupb")){ 
-			defineColumn("codeupb", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("title")){ 
-			defineColumn("title", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("paridupb")){ 
-			defineColumn("paridupb", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("idunderwriter")){ 
-			defineColumn("idunderwriter", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idman")){ 
-			defineColumn("idman", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("manager")){ 
-			defineColumn("manager", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("underwriter")){ 
-			defineColumn("underwriter", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("printingorder")){ 
-			defineColumn("printingorder", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("requested")){ 
-			defineColumn("requested", typeof(System.Decimal));
-		}
-		if (definedColums.ContainsKey("granted")){ 
-			defineColumn("granted", typeof(System.Decimal));
-		}
-		if (definedColums.ContainsKey("previousappropriation")){ 
-			defineColumn("previousappropriation", typeof(System.Decimal));
-		}
-		if (definedColums.ContainsKey("previousassessment")){ 
-			defineColumn("previousassessment", typeof(System.Decimal));
-		}
-		if (definedColums.ContainsKey("expiration")){ 
-			defineColumn("expiration", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("assured")){ 
-			defineColumn("assured", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("active")){ 
-			defineColumn("active", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("cupcode")){ 
-			defineColumn("cupcode", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("idsor01")){ 
-			defineColumn("idsor01", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idsor02")){ 
-			defineColumn("idsor02", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idsor03")){ 
-			defineColumn("idsor03", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idsor04")){ 
-			defineColumn("idsor04", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("idsor05")){ 
-			defineColumn("idsor05", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("flagactivity")){ 
-			defineColumn("flagactivity", typeof(System.Int16));
-		}
-		if (definedColums.ContainsKey("flagkind")){ 
-			defineColumn("flagkind", typeof(System.Byte));
-		}
-		if (definedColums.ContainsKey("newcodeupb")){ 
-			defineColumn("newcodeupb", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("start")){ 
-			defineColumn("start", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("stop")){ 
-			defineColumn("stop", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("cigcode")){ 
-			defineColumn("cigcode", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("idtreasurer")){ 
-			defineColumn("idtreasurer", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("codetreasurer")){ 
-			defineColumn("codetreasurer", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("idepupbkind")){ 
-			defineColumn("idepupbkind", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("flag")){ 
-			defineColumn("flag", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("cu")){ 
-			defineColumn("cu", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("ct")){ 
-			defineColumn("ct", typeof(System.DateTime),false);
-		}
-		if (definedColums.ContainsKey("lu")){ 
-			defineColumn("lu", typeof(System.String),false);
-		}
-		if (definedColums.ContainsKey("lt")){ 
-			defineColumn("lt", typeof(System.DateTime),false);
-		}
-		#endregion
-
+	public upbviewTable() : base("upbview"){
+		baseColumns = new Dictionary<string, DataColumn>(){
+			{"idupb",createColumn("idupb",typeof(string),false,false)},
+			{"codeupb",createColumn("codeupb",typeof(string),false,false)},
+			{"title",createColumn("title",typeof(string),false,false)},
+			{"paridupb",createColumn("paridupb",typeof(string),true,false)},
+			{"idunderwriter",createColumn("idunderwriter",typeof(int),true,false)},
+			{"idman",createColumn("idman",typeof(int),true,false)},
+			{"manager",createColumn("manager",typeof(string),true,false)},
+			{"underwriter",createColumn("underwriter",typeof(string),true,false)},
+			{"printingorder",createColumn("printingorder",typeof(string),false,false)},
+			{"requested",createColumn("requested",typeof(decimal),true,false)},
+			{"granted",createColumn("granted",typeof(decimal),true,false)},
+			{"previousappropriation",createColumn("previousappropriation",typeof(decimal),true,false)},
+			{"previousassessment",createColumn("previousassessment",typeof(decimal),true,false)},
+			{"expiration",createColumn("expiration",typeof(DateTime),true,false)},
+			{"assured",createColumn("assured",typeof(string),true,false)},
+			{"active",createColumn("active",typeof(string),true,false)},
+			{"cupcode",createColumn("cupcode",typeof(string),true,false)},
+			{"idsor01",createColumn("idsor01",typeof(int),true,false)},
+			{"idsor02",createColumn("idsor02",typeof(int),true,false)},
+			{"idsor03",createColumn("idsor03",typeof(int),true,false)},
+			{"idsor04",createColumn("idsor04",typeof(int),true,false)},
+			{"idsor05",createColumn("idsor05",typeof(int),true,false)},
+			{"flagactivity",createColumn("flagactivity",typeof(short),true,false)},
+			{"flagkind",createColumn("flagkind",typeof(byte),true,false)},
+			{"newcodeupb",createColumn("newcodeupb",typeof(string),true,false)},
+			{"start",createColumn("start",typeof(DateTime),true,false)},
+			{"stop",createColumn("stop",typeof(DateTime),true,false)},
+			{"cigcode",createColumn("cigcode",typeof(string),true,false)},
+			{"idtreasurer",createColumn("idtreasurer",typeof(int),true,false)},
+			{"codetreasurer",createColumn("codetreasurer",typeof(string),true,false)},
+			{"idepupbkind",createColumn("idepupbkind",typeof(int),true,false)},
+			{"flag",createColumn("flag",typeof(int),true,false)},
+			{"cu",createColumn("cu",typeof(string),false,false)},
+			{"ct",createColumn("ct",typeof(DateTime),false,false)},
+			{"lu",createColumn("lu",typeof(string),false,false)},
+			{"lt",createColumn("lt",typeof(DateTime),false,false)},
+		};
 	}
 }
 }
-

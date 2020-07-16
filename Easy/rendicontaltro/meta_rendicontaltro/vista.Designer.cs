@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -29,6 +26,20 @@ public class rendicontaltroRow: MetaRow  {
 	public rendicontaltroRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
+	///<summary>
+	///Anno accademico
+	///</summary>
+	public String aa{ 
+		get {if (this["aa"]==DBNull.Value)return null; return  (String)this["aa"];}
+		set {if (value==null) this["aa"]= DBNull.Value; else this["aa"]= value;}
+	}
+	public object aaValue { 
+		get{ return this["aa"];}
+		set {if (value==null|| value==DBNull.Value) this["aa"]= DBNull.Value; else this["aa"]= value;}
+	}
+	public String aaOriginal { 
+		get {if (this["aa",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["aa",DataRowVersion.Original];}
+	}
 	public DateTime? ct{ 
 		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
 		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
@@ -63,18 +74,18 @@ public class rendicontaltroRow: MetaRow  {
 		get {if (this["data",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["data",DataRowVersion.Original];}
 	}
 	///<summary>
-	///Rendicontazione
+	///Docente
 	///</summary>
-	public Int32? idrendicont{ 
-		get {if (this["idrendicont"]==DBNull.Value)return null; return  (Int32?)this["idrendicont"];}
-		set {if (value==null) this["idrendicont"]= DBNull.Value; else this["idrendicont"]= value;}
+	public Int32? idreg_docenti{ 
+		get {if (this["idreg_docenti"]==DBNull.Value)return null; return  (Int32?)this["idreg_docenti"];}
+		set {if (value==null) this["idreg_docenti"]= DBNull.Value; else this["idreg_docenti"]= value;}
 	}
-	public object idrendicontValue { 
-		get{ return this["idrendicont"];}
-		set {if (value==null|| value==DBNull.Value) this["idrendicont"]= DBNull.Value; else this["idrendicont"]= value;}
+	public object idreg_docentiValue { 
+		get{ return this["idreg_docenti"];}
+		set {if (value==null|| value==DBNull.Value) this["idreg_docenti"]= DBNull.Value; else this["idreg_docenti"]= value;}
 	}
-	public Int32? idrendicontOriginal { 
-		get {if (this["idrendicont",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idrendicont",DataRowVersion.Original];}
+	public Int32? idreg_docentiOriginal { 
+		get {if (this["idreg_docenti",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idreg_docenti",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Codice
@@ -146,10 +157,11 @@ public class rendicontaltroRow: MetaRow  {
 public class rendicontaltroTable : MetaTableBase<rendicontaltroRow> {
 	public rendicontaltroTable() : base("rendicontaltro"){
 		baseColumns = new Dictionary<string, DataColumn>(){
+			{"aa",createColumn("aa",typeof(string),false,false)},
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
 			{"cu",createColumn("cu",typeof(string),false,false)},
 			{"data",createColumn("data",typeof(DateTime),false,false)},
-			{"idrendicont",createColumn("idrendicont",typeof(int),false,false)},
+			{"idreg_docenti",createColumn("idreg_docenti",typeof(int),false,false)},
 			{"idrendicontaltro",createColumn("idrendicontaltro",typeof(int),false,false)},
 			{"idrendicontaltrokind",createColumn("idrendicontaltrokind",typeof(int),false,false)},
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
@@ -159,4 +171,3 @@ public class rendicontaltroTable : MetaTableBase<rendicontaltroRow> {
 	}
 }
 }
-

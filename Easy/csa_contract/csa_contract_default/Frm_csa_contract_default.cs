@@ -1,17 +1,14 @@
 /*
     Easy
-    Copyright (C) 2019 Universit‡ degli Studi di Catania (www.unict.it)
-
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -1780,7 +1777,7 @@ namespace csa_contract_default
         }
 
         private void txtNum_Leave (object sender, EventArgs e) {
-            if (Meta.destroyed || Meta.inchiusura) return;
+            if (Meta.destroyed || Meta.formController.isClosing) return;
             if (Meta.IsEmpty) return;
             if (txtNum.ReadOnly) return;
             DataRow Curr = DS.csa_contract.Rows[0];
@@ -1793,7 +1790,7 @@ namespace csa_contract_default
 
         private void txtEserc_Leave (object sender, EventArgs e) {
             HelpForm.FormatLikeYear(txtEserc);
-            if (Meta.destroyed || Meta.inchiusura) return;
+            if (Meta.destroyed || Meta.formController.isClosing) return;
             if (Meta.IsEmpty) return;
             DataRow Curr = DS.csa_contract.Rows[0];
             if (Curr["idexp_main"] != DBNull.Value) {
@@ -1956,7 +1953,7 @@ namespace csa_contract_default
 
         private void txtEsercizioImpegno_Leave(object sender, EventArgs e) {
             HelpForm.FormatLikeYear(txtEsercizioImpegno);
-            if (Meta.destroyed || Meta.inchiusura) return;            
+            if (Meta.destroyed || Meta.formController.isClosing) return;            
             if (Meta.IsEmpty || DS.csa_contract.Rows.Count==0) return;
             DataRow Curr = DS.csa_contract.Rows[0];
             if (Curr["idepexp_main"] != DBNull.Value) {
@@ -1985,7 +1982,7 @@ namespace csa_contract_default
         }
 
         private void txtNumImpegno_Leave(object sender, EventArgs e) {
-            if (Meta.destroyed || Meta.inchiusura) return;
+            if (Meta.destroyed || Meta.formController.isClosing) return;
             if (Meta.IsEmpty || DS.csa_contract.Rows.Count == 0) return;
             if (txtNumImpegno.ReadOnly) return;
             DataRow Curr = DS.csa_contract.Rows[0];
@@ -2001,4 +1998,3 @@ namespace csa_contract_default
         }
     }
 }
-
