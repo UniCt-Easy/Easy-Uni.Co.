@@ -1,4 +1,19 @@
-if exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_undo_finsetupcopy]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+/*
+    Easy
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_undo_finsetupcopy]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [closeyear_undo_finsetupcopy]
 GO
 --setuser 'amm'
@@ -77,7 +92,7 @@ UPDATE 	config SET idinpscenter = NULL
 	AND config.ayear =  @nextayear
 
 INSERT INTO #log
-	VALUES('La configurazione dell''avanzo cassa e amministrazione ' + @nextayearstr+' Ë stata annullata.')
+	VALUES('La configurazione dell''avanzo cassa e amministrazione ' + @nextayearstr+' √® stata annullata.')
 
 UPDATE config
 SET
@@ -96,7 +111,7 @@ WHERE config.ayear = @nextayear
 AND oldconfig.ayear = @ayear
 
 INSERT INTO #log
-	VALUES('La configurazione per la trasm.elettronica dell''esercizio ' + @nextayearstr+' Ë stata annullata.')
+	VALUES('La configurazione per la trasm.elettronica dell''esercizio ' + @nextayearstr+' √® stata annullata.')
 
  --CUD activitycode
 UPDATE config
@@ -108,7 +123,7 @@ FROM config, config oldconfig
 WHERE config.ayear = @nextayear
 AND oldconfig.ayear = @ayear
 
-INSERT INTO #log VALUES('Annullato il Trasferimento il Codice Attivit‡  per il CUD, Flag Fruttifero, Flag variazioni per esercizio ' + @nextayearstr)
+INSERT INTO #log VALUES('Annullato il Trasferimento il Codice Attivit√†  per il CUD, Flag Fruttifero, Flag variazioni per esercizio ' + @nextayearstr)
 
 
 UPDATE  config
@@ -321,3 +336,4 @@ GO
 SET ANSI_NULLS ON 
 GO
 
+	

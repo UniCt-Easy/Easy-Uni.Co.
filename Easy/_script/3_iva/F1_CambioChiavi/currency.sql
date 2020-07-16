@@ -1,8 +1,23 @@
--- Aggiornamento tabella CURRENCY e tabelle dipendenti
+/*
+    Easy
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+﻿-- Aggiornamento tabella CURRENCY e tabelle dipendenti
 -- Le tabelle dipendenti sono:
 -- estimate, invoice, itinerationrefund, mandate, registrypaymethod
 
--- Passo 0: Cancellazione o Inserimento delle righe che violano l'integrit� referenziale
+-- Passo 0: Cancellazione o Inserimento delle righe che violano l'integrità referenziale
 INSERT INTO currency (idcurrency, description, ct, cu, lt, lu)
 SELECT DISTINCT idcurrency, idcurrency, GETDATE(), 'SA', GETDATE(), 'SA'
 FROM estimate e
@@ -241,7 +256,7 @@ BEGIN
 END
 GO
 
--- Passo 5. Creazione del nuovo campo (che avr� nome come il vecchio ma con tipo diverso)
+-- Passo 5. Creazione del nuovo campo (che avrà nome come il vecchio ma con tipo diverso)
 -- Tabelle interessate currency e tabelle collegate
 
 IF NOT exists(select * from [sysobjects] as T inner join syscolumns C on T.ID = C.ID where t.name = 'currency' and C.name = 'idcurrency' AND (T.uid = USER_ID( ) OR T.uid = USER_ID('dbo')))
@@ -505,3 +520,4 @@ BEGIN
 	ALTER TABLE [registrypaymethod] DROP COLUMN idcurrencyint
 END
 GO
+	

@@ -1,4 +1,19 @@
-if exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_copysortings_bari]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+/*
+    Easy
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+﻿if exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_copysortings_bari]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [closeyear_copysortings_bari]
 GO
 
@@ -12,13 +27,13 @@ GO
 
 
 CREATE      PROCEDURE [closeyear_copysortings_bari]
--- Questa stored procedure � un adattamento della closeyear_copysortings ufficiale
+-- Questa stored procedure è un adattamento della closeyear_copysortings ufficiale
 -- Per quanto riguarda la classificazione MIUR spese
 -- ne esistono due, una impostata sulla prima fase di spesa, e l'altra, quella ufficiale
 -- impostata invece sulla terza fase di spesa. Pur essendo SIOPE dipendentente dalla MIUR nuova,
 -- il trasferimento al nuovo esercizio delle classificazioni MIUR vecchie, di prima fase
 -- su impegni residui, deve essere eseguito con lo stesso criterio, sottraendo 
--- cio� ad ogni impegno il pagato classificato con SIOPE
+-- cioè ad ogni impegno il pagato classificato con SIOPE
 
 (
 	@ysource int,
@@ -489,3 +504,4 @@ GO
 SET ANSI_NULLS ON 
 GO
 
+	
