@@ -1,4 +1,19 @@
-if exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_fincopy]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+/*
+    Easy
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+﻿if exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_fincopy]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [closeyear_fincopy]
 GO
 
@@ -9,6 +24,8 @@ SET ANSI_NULLS ON
 GO
  
 -- setuser'amministrazione'
+-- setuser'amm'
+-- closeyear_fincopy 2020
 CREATE     PROCEDURE [closeyear_fincopy]
 (
 	@ayear int
@@ -158,13 +175,24 @@ BEGIN
 		expiration,cupcode,accountlookup.newidacc,
 		fin.cu, GETDATE(), fin.lu, GETDATE() 
 	FROM finlast
-	JOIN fin
-		ON finlast.idfin = fin.idfin
-	JOIN #finlookup FL1
-		ON   finlast.idfin = FL1.oldidfin 	
+	JOIN fin				ON finlast.idfin = fin.idfin
+	JOIN #finlookup FL1 	ON   finlast.idfin = FL1.oldidfin 	
 	LEFT OUTER JOIN accountlookup ON finlast.idacc = accountlookup.oldidacc
 	WHERE ayear = @ayear
-	AND nlevel > @minlevop
+		--and not exists(select * from finlast where idfin=FL1.newidfin)
+		AND nlevel > @minlevop
+
+	update finlast set
+		idman= fl_old.idman,
+		idacc = accountlookup.newidacc,
+		expiration = fl_old.expiration
+	from finlast 
+		JOIN fin on fin.idfin=finlast.idfin
+		JOIN #finlookup FL1 	ON   finlast.idfin = FL1.newidfin 	
+		join finlast fl_old on fl_old.idfin=FL1.oldidfin
+		left outer JOIN accountlookup ON fl_old.idacc = accountlookup.oldidacc
+		WHERE fin.ayear = @ayear
+		AND nlevel = @minlevop
 	
 	INSERT INTO finlookup
 	(
@@ -181,7 +209,7 @@ BEGIN
 			    WHERE F.oldidfin = #finlookup.oldidfin
                             AND   F.newidfin = #finlookup.newidfin)
 
-	-- Non devo inserire finlink, lo fa gi� il trigger
+	-- Non devo inserire finlink, lo fa già il trigger
 
 	INSERT INTO #info
 	VALUES('Le voci di bilancio per l''esercizio ' + @nextayearstr+' sono state copiate')
@@ -252,7 +280,7 @@ BEGIN
 	
 		
 	INSERT INTO #info
-	VALUES('Il Saldo iniziale di Cassa per l''esercizio ' + @nextayearstr+' � stato copiato.')
+	VALUES('Il Saldo iniziale di Cassa per l''esercizio ' + @nextayearstr+' è stato copiato.')
 			
 END
 
@@ -317,3 +345,4 @@ GO
 SET ANSI_NULLS ON 
 GO
 
+	

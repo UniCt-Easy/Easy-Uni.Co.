@@ -1,4 +1,19 @@
--- Script che aggiorna le chiavi primarie delle tabelle di configurazione e le chiavi esterne delle tabelle
+/*
+    Easy
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+﻿-- Script che aggiorna le chiavi primarie delle tabelle di configurazione e le chiavi esterne delle tabelle
 IF NOT EXISTS(SELECT * FROM position WHERE codeposition IN ('07_SW_AORD', '07_SW_ND02', '07_SW_ND03', '07_SW_ND04', '07_SW_ND05', '07_SW_ND06', '07_SW_ND07',
 '07_SW_ND08', '07_SW_ND09', '07_SW_ND10', '07_SW_DAM2', '07_SW_DAM1', '07_SW_DGEN', '07_SW_DSUP', '07_SW_BORS', '07_SW_EDIP', '07_SW_ELAU', '07_SW_IGE2',
 '07_SW_IGE1', '07_SW_PDI1', '07_SW_PDI2', '07_SW_PASC', '07_SW_PASN', '07_SW_PINC', '07_SW_PORD', '07_SW_PSTR', '07_SW_RICC', '07_SW_RICN'))
@@ -46,3 +61,4 @@ BEGIN
 	DROP TABLE #temp
 END
 GO
+	

@@ -1,4 +1,19 @@
-if exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_epaccarrearscopy]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+/*
+    Easy
+    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_epaccarrearscopy]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [closeyear_epaccarrearscopy]
 GO
 
@@ -37,11 +52,11 @@ DECLARE @nextayearstr varchar(4)
 SET @nextayearstr = CONVERT(varchar(4),@nextayear)
 	
 
---fase 1 dove c'Ë residuo
+--fase 1 dove c'√® residuo
 INSERT INTO epaccyear	(idepacc, ayear, idacc, idupb, amount, amount2, amount3, amount4,amount5,  cu, ct, lu, lt)
 SELECT EY.idepacc,@nextayear, AL.newidacc, EY.idupb,
-											/* mettiamo il - perchË i conti di ricavo vengono movimentati in avere +, e qui dobbiamo sottrarre l'incasso. 
-											Se perÚ l'accertamento Ë una Nota di var.,il conto di ricavo viene movimentato in Dare*/
+											/* mettiamo il - perch√® i conti di ricavo vengono movimentati in avere +, e qui dobbiamo sottrarre l'incasso. 
+											Se per√≤ l'accertamento √® una Nota di var.,il conto di ricavo viene movimentato in Dare*/
 			isnull((SELECT SUM(case when isnull(E3.flagvariation,'N')='N' then -ED.amount else ED.amount end )
 				FROM entrydetail ED
 					join account A2		on ED.idacc = A2.idacc
@@ -67,11 +82,11 @@ from epaccyear EY
 						isnull(ET.curramount3,0) <>0 or  isnull(ET.curramount4,0)<>0 or  isnull(ET.curramount5,0) <>0
  )
 print 'fase 1 ' 	
---fase 2 dove c'Ë residuo
+--fase 2 dove c'√® residuo
 INSERT INTO epaccyear	(idepacc, ayear, idacc, idupb, amount, amount2, amount3, amount4,amount5,  cu, ct, lu, lt)
 SELECT EY.idepacc,@nextayear, AL.newidacc, EY.idupb,
-											/* mettiamo il - perchË i conti di ricavo vengono movimentati in avere +, e qui dobbiamo sottrarre l'incasso. 
-											Se perÚ l'accertamento Ë una Nota di var.,il conto di ricavo viene movimentato in Dare*/
+											/* mettiamo il - perch√® i conti di ricavo vengono movimentati in avere +, e qui dobbiamo sottrarre l'incasso. 
+											Se per√≤ l'accertamento √® una Nota di var.,il conto di ricavo viene movimentato in Dare*/
 			isnull(( SELECT  SUM(case when isnull(E2.flagvariation,'N')='N' then -ED.amount else ED.amount end )  
 					FROM entrydetail ED
 					join account A2	on ED.idacc = A2.idacc
@@ -167,3 +182,4 @@ GO
 SET ANSI_NULLS ON 
 GO
  
+	

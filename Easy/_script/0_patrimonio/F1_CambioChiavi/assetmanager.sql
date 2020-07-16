@@ -1,7 +1,22 @@
--- Aggiornamento tabella ASSETMANAGER e tabelle dipendenti
+/*
+    Easy
+    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+﻿-- Aggiornamento tabella ASSETMANAGER e tabelle dipendenti
 -- Le tabelle dipendenti sono: -
 
--- Passo 0: Cancellazione o Inserimento delle righe che violano l'integrit� referenziale
+-- Passo 0: Cancellazione o Inserimento delle righe che violano l'integrità referenziale
 
 -- Passo 0.bis: Rimozione dei Trigger NON CI SONO TRIGGER
 
@@ -58,7 +73,7 @@ GO
 
 -- Passo 4.4: Cancellazione dei campi dalle tabelle referenziate - NON CI SONO CAMPI DA CANCELLARE
 
--- Passo 5. Creazione del nuovo campo (che avr� nome come il vecchio ma con tipo diverso) - NON SERVE
+-- Passo 5. Creazione del nuovo campo (che avrà nome come il vecchio ma con tipo diverso) - NON SERVE
 
 -- Tabelle interessate -
 
@@ -125,3 +140,4 @@ GO
 -- Passo 10. Cancellazione dei campi d'appoggio da tutte le tabelle
 
 
+	
