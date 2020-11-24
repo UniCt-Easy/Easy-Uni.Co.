@@ -23,6 +23,16 @@ categories:
 softwareVersion: 32.03.200
 usedBy:
   - Università degli Studi di Catania
+  - Università degli Studi del Piemonte Orientale
+  - Università degli Studi della Basilicata
+  - Università degli Studi della Campania Luigi Vanvitelli
+  - Università degli Studi della Tuscia
+  - Università degli Studi di Cassino e del Lazio Meridionale
+  - Università degli Studi di Roma Foro Italico
+  - Università del Salento
+  - Università di Roma Tor Vergata
+  - Università Mediterranea di Reggio Calabria
+  - Università degli Studi di Bari Aldo Moro
 maintenance:
   type: contract
   contacts:
