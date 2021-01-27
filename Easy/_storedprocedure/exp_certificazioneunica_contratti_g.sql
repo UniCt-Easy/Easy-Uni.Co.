@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_contratti_g]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_contratti_g]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure exp_certificazioneunica_contratti_g
 GO
 -- setuser 'amministrazione'
@@ -90,7 +92,7 @@ SELECT '3 Contratti che non hanno ritenute fiscali, inseriti a loro volta come C
         JOIN parasubcontractyear im ON co.idcon = im.idcon AND im.ayear = @annoredditi
 		JOIN service ON service.idser = co.idser
 		join registry R ON R.idreg = co.idreg 
-		--- il contratto √® collegato come cud ad altro contratto 
+		--- il contratto Ë collegato come cud ad altro contratto 
 		join exhibitedcud cud on cud.idlinkedcon = co.idcon
 		JOIN parasubcontract co1 ON cud.idcon = co1.idcon
 		JOIN parasubcontractyear im1 ON cud.idcon = im1.idcon AND im1.ayear = @annoredditi 
@@ -151,7 +153,7 @@ SELECT '4 - Contratti con ritenute fiscali inseriti come CUD in altri contratti 
 		join  exhibitedcud cud on cud.idlinkedcon = co.idcon
 		JOIN parasubcontract co1 ON cud.idcon = co1.idcon
 		JOIN parasubcontractyear im1 ON cud.idcon = im1.idcon AND im1.ayear = @annoredditi 
-	WHERE  --l'ultimo cedolino non √® stato trasmesso 
+	WHERE  --l'ultimo cedolino non Ë stato trasmesso 
 		NOT EXISTS (SELECT * FROM expensepayroll join payroll on payroll.idpayroll=expensepayroll.idpayroll
 							 join expenselink ON expenselink.idparent = expensepayroll.idexp
 							 join expenselast on expenselast.idexp = expenselink.idchild 
@@ -189,7 +191,7 @@ SELECT '4 - Contratti con ritenute fiscali inseriti come CUD in altri contratti 
 		join  exhibitedcud cud on cud.idlinkedcon = co.idcon
 		JOIN parasubcontract co1 ON cud.idcon = co1.idcon
 		JOIN parasubcontractyear im1 ON cud.idcon = im1.idcon AND im1.ayear = @annoredditi 
-	WHERE  --due o pi√π conguagli 
+	WHERE  --due o pi˘ conguagli 
 		 (select COUNT(*) FROM payroll cedconguaglio where cedconguaglio.idcon=co.idcon AND cedconguaglio.fiscalyear = @annoredditi and
 													 cedconguaglio.flagbalance = 'S' )>1					
 	    OR
@@ -203,4 +205,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

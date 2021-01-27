@@ -1,46 +1,56 @@
-<?xml version="1.0"?>
-<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
-  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False" msprop:Generator_DataSetName="vista" msprop:Generator_UserDSName="vista">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="upb">
+        <xs:element name="upb" msprop:Generator_TableClassName="upbDataTable" msprop:Generator_TableVarName="tableupb" msprop:Generator_TablePropName="upb" msprop:Generator_RowDeletingName="upbRowDeleting" msprop:Generator_RowChangingName="upbRowChanging" msprop:Generator_RowEvHandlerName="upbRowChangeEventHandler" msprop:Generator_RowDeletedName="upbRowDeleted" msprop:Generator_UserTableName="upb" msprop:Generator_RowChangedName="upbRowChanged" msprop:Generator_RowEvArgName="upbRowChangeEvent" msprop:Generator_RowClassName="upbRow">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="idupb" type="xs:string" />
-              <xs:element name="active" type="xs:string" minOccurs="0" />
-              <xs:element name="assured" type="xs:string" minOccurs="0" />
-              <xs:element name="codeupb" type="xs:string" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
-              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
-              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
-              <xs:element name="printingorder" type="xs:string" />
-              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
-              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
-              <xs:element name="title" type="xs:string" />
-              <xs:element name="txt" type="xs:string" minOccurs="0" />
-              <xs:element name="idman" type="xs:int" minOccurs="0" />
-              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
-              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
-              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
-              <xs:element name="flagactivity" type="xs:short" minOccurs="0" />
-              <xs:element name="flagkind" type="xs:unsignedByte" minOccurs="0" />
-              <xs:element name="newcodeupb" type="xs:string" minOccurs="0" />
-              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
-              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
-              <xs:element name="idepupbkind" type="xs:int" minOccurs="0" />
-              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" msprop:Generator_ColumnVarNameInTable="columnidupb" msprop:Generator_ColumnPropNameInRow="idupb" msprop:Generator_ColumnPropNameInTable="idupbColumn" msprop:Generator_UserColumnName="idupb" type="xs:string" />
+              <xs:element name="active" msprop:Generator_ColumnVarNameInTable="columnactive" msprop:Generator_ColumnPropNameInRow="active" msprop:Generator_ColumnPropNameInTable="activeColumn" msprop:Generator_UserColumnName="active" type="xs:string" minOccurs="0" />
+              <xs:element name="assured" msprop:Generator_ColumnVarNameInTable="columnassured" msprop:Generator_ColumnPropNameInRow="assured" msprop:Generator_ColumnPropNameInTable="assuredColumn" msprop:Generator_UserColumnName="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb" msprop:Generator_ColumnVarNameInTable="columncodeupb" msprop:Generator_ColumnPropNameInRow="codeupb" msprop:Generator_ColumnPropNameInTable="codeupbColumn" msprop:Generator_UserColumnName="codeupb" type="xs:string" />
+              <xs:element name="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnPropNameInTable="ctColumn" msprop:Generator_UserColumnName="ct" type="xs:dateTime" />
+              <xs:element name="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnPropNameInTable="cuColumn" msprop:Generator_UserColumnName="cu" type="xs:string" />
+              <xs:element name="expiration" msprop:Generator_ColumnVarNameInTable="columnexpiration" msprop:Generator_ColumnPropNameInRow="expiration" msprop:Generator_ColumnPropNameInTable="expirationColumn" msprop:Generator_UserColumnName="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="granted" msprop:Generator_ColumnVarNameInTable="columngranted" msprop:Generator_ColumnPropNameInRow="granted" msprop:Generator_ColumnPropNameInTable="grantedColumn" msprop:Generator_UserColumnName="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnPropNameInTable="ltColumn" msprop:Generator_UserColumnName="lt" type="xs:dateTime" />
+              <xs:element name="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnPropNameInTable="luColumn" msprop:Generator_UserColumnName="lu" type="xs:string" />
+              <xs:element name="paridupb" msprop:Generator_ColumnVarNameInTable="columnparidupb" msprop:Generator_ColumnPropNameInRow="paridupb" msprop:Generator_ColumnPropNameInTable="paridupbColumn" msprop:Generator_UserColumnName="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="previousappropriation" msprop:Generator_ColumnVarNameInTable="columnpreviousappropriation" msprop:Generator_ColumnPropNameInRow="previousappropriation" msprop:Generator_ColumnPropNameInTable="previousappropriationColumn" msprop:Generator_UserColumnName="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" msprop:Generator_ColumnVarNameInTable="columnpreviousassessment" msprop:Generator_ColumnPropNameInRow="previousassessment" msprop:Generator_ColumnPropNameInTable="previousassessmentColumn" msprop:Generator_UserColumnName="previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="printingorder" msprop:Generator_ColumnVarNameInTable="columnprintingorder" msprop:Generator_ColumnPropNameInRow="printingorder" msprop:Generator_ColumnPropNameInTable="printingorderColumn" msprop:Generator_UserColumnName="printingorder" type="xs:string" />
+              <xs:element name="requested" msprop:Generator_ColumnVarNameInTable="columnrequested" msprop:Generator_ColumnPropNameInRow="requested" msprop:Generator_ColumnPropNameInTable="requestedColumn" msprop:Generator_UserColumnName="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rtf" msprop:Generator_ColumnVarNameInTable="columnrtf" msprop:Generator_ColumnPropNameInRow="rtf" msprop:Generator_ColumnPropNameInTable="rtfColumn" msprop:Generator_UserColumnName="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" msprop:Generator_ColumnVarNameInTable="columntitle" msprop:Generator_ColumnPropNameInRow="title" msprop:Generator_ColumnPropNameInTable="titleColumn" msprop:Generator_UserColumnName="title" type="xs:string" />
+              <xs:element name="txt" msprop:Generator_ColumnVarNameInTable="columntxt" msprop:Generator_ColumnPropNameInRow="txt" msprop:Generator_ColumnPropNameInTable="txtColumn" msprop:Generator_UserColumnName="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" msprop:Generator_ColumnVarNameInTable="columnidman" msprop:Generator_ColumnPropNameInRow="idman" msprop:Generator_ColumnPropNameInTable="idmanColumn" msprop:Generator_UserColumnName="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriter" msprop:Generator_ColumnVarNameInTable="columnidunderwriter" msprop:Generator_ColumnPropNameInRow="idunderwriter" msprop:Generator_ColumnPropNameInTable="idunderwriterColumn" msprop:Generator_UserColumnName="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="cupcode" msprop:Generator_ColumnVarNameInTable="columncupcode" msprop:Generator_ColumnPropNameInRow="cupcode" msprop:Generator_ColumnPropNameInTable="cupcodeColumn" msprop:Generator_UserColumnName="cupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" msprop:Generator_ColumnVarNameInTable="columnidsor01" msprop:Generator_ColumnPropNameInRow="idsor01" msprop:Generator_ColumnPropNameInTable="idsor01Column" msprop:Generator_UserColumnName="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" msprop:Generator_ColumnVarNameInTable="columnidsor02" msprop:Generator_ColumnPropNameInRow="idsor02" msprop:Generator_ColumnPropNameInTable="idsor02Column" msprop:Generator_UserColumnName="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" msprop:Generator_ColumnVarNameInTable="columnidsor03" msprop:Generator_ColumnPropNameInRow="idsor03" msprop:Generator_ColumnPropNameInTable="idsor03Column" msprop:Generator_UserColumnName="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" msprop:Generator_ColumnVarNameInTable="columnidsor04" msprop:Generator_ColumnPropNameInRow="idsor04" msprop:Generator_ColumnPropNameInTable="idsor04Column" msprop:Generator_UserColumnName="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" msprop:Generator_ColumnVarNameInTable="columnidsor05" msprop:Generator_ColumnPropNameInRow="idsor05" msprop:Generator_ColumnPropNameInTable="idsor05Column" msprop:Generator_UserColumnName="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="flagactivity" msprop:Generator_ColumnVarNameInTable="columnflagactivity" msprop:Generator_ColumnPropNameInRow="flagactivity" msprop:Generator_ColumnPropNameInTable="flagactivityColumn" msprop:Generator_UserColumnName="flagactivity" type="xs:short" minOccurs="0" />
+              <xs:element name="flagkind" msprop:Generator_ColumnVarNameInTable="columnflagkind" msprop:Generator_ColumnPropNameInRow="flagkind" msprop:Generator_ColumnPropNameInTable="flagkindColumn" msprop:Generator_UserColumnName="flagkind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="newcodeupb" msprop:Generator_ColumnVarNameInTable="columnnewcodeupb" msprop:Generator_ColumnPropNameInRow="newcodeupb" msprop:Generator_ColumnPropNameInTable="newcodeupbColumn" msprop:Generator_UserColumnName="newcodeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idtreasurer" msprop:Generator_ColumnVarNameInTable="columnidtreasurer" msprop:Generator_ColumnPropNameInRow="idtreasurer" msprop:Generator_ColumnPropNameInTable="idtreasurerColumn" msprop:Generator_UserColumnName="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="start" msprop:Generator_ColumnVarNameInTable="columnstart" msprop:Generator_ColumnPropNameInRow="start" msprop:Generator_ColumnPropNameInTable="startColumn" msprop:Generator_UserColumnName="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" msprop:Generator_ColumnVarNameInTable="columnstop" msprop:Generator_ColumnPropNameInRow="stop" msprop:Generator_ColumnPropNameInTable="stopColumn" msprop:Generator_UserColumnName="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cigcode" msprop:Generator_ColumnVarNameInTable="columncigcode" msprop:Generator_ColumnPropNameInRow="cigcode" msprop:Generator_ColumnPropNameInTable="cigcodeColumn" msprop:Generator_UserColumnName="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idepupbkind" msprop:Generator_ColumnVarNameInTable="columnidepupbkind" msprop:Generator_ColumnPropNameInRow="idepupbkind" msprop:Generator_ColumnPropNameInTable="idepupbkindColumn" msprop:Generator_UserColumnName="idepupbkind" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" msprop:Generator_ColumnVarNameInTable="columnflag" msprop:Generator_ColumnPropNameInRow="flag" msprop:Generator_ColumnPropNameInTable="flagColumn" msprop:Generator_UserColumnName="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb_capofila" msprop:Generator_ColumnVarNameInTable="columnidupb_capofila" msprop:Generator_ColumnPropNameInRow="idupb_capofila" msprop:Generator_ColumnPropNameInTable="idupb_capofilaColumn" msprop:Generator_UserColumnName="idupb_capofila" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

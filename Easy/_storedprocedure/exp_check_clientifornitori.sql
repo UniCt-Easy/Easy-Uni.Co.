@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_check_clientifornitori]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_check_clientifornitori]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_check_clientifornitori]
 GO
 
@@ -30,7 +32,7 @@ declare @ayear int
 set @ayear = @declarationyear-1
 
 select invoicekind.description, invoice.yinv, invoice.ninv, invoice.docdate, 
-	'AVVISO: Un dettaglio sar√† ignorato perch√® non √® specificato il tipo di imposizione dell''aliquota '+ivakind.description
+	'AVVISO: Un dettaglio sar‡ ignorato perchË non Ë specificato il tipo di imposizione dell''aliquota '+ivakind.description
 	from invoice 
 	join invoicekind on invoice.idinvkind=invoicekind.idinvkind
 	join invoicedetail
@@ -68,7 +70,7 @@ select invoicekind.description, invoice.yinv, invoice.ninv, invoice.docdate,
 		and invoicekindregisterkind.idinvkind=invoicekind.idinvkind)
 union
 select invoicekind.description, invoice.yinv, invoice.ninv, invoice.docdate, 
-	'Manca il Tipo di attivit√† del registro "'+isnull(ivaregisterkind.description,'')+'"'
+	'Manca il Tipo di attivit‡ del registro "'+isnull(ivaregisterkind.description,'')+'"'
 	from invoice 
 	join invoicekind on invoicekind.idinvkind=invoice.idinvkind
 	join invoicekindregisterkind on invoicekindregisterkind.idinvkind=invoicekind.idinvkind
@@ -89,7 +91,7 @@ select invoicekind.description, invoice.yinv, invoice.ninv, invoice.docdate,
 		and invoicekindregisterkind.idinvkind=invoicekind.idinvkind)
 union
 select invoicekind.description, invoice.yinv, invoice.ninv, invoice.docdate, 
-	'Nella fattura non √® specificata la data del documento'
+	'Nella fattura non Ë specificata la data del documento'
 	from invoice 
 	join invoicekind on invoice.idinvkind=invoicekind.idinvkind
 	where ((invoicekind.flag&4)=0) and invoice.docdate is null
@@ -101,7 +103,7 @@ select invoicekind.description, invoice.yinv, invoice.ninv, invoice.docdate,
 		and invoicekindregisterkind.idinvkind=invoicekind.idinvkind)
 union
 select invoicekind.description, invoice.yinv, invoice.ninv, invoice.docdate, 
-	'AVVISO: La fattura sar√† ignorata perch√® manca la partita iva di "'+registry.title+'"'
+	'AVVISO: La fattura sar‡ ignorata perchË manca la partita iva di "'+registry.title+'"'
 	from invoice 
 	join invoicekind on invoice.idinvkind=invoicekind.idinvkind
 	join registry on invoice.idreg=registry.idreg
@@ -121,7 +123,7 @@ select invoicekind.description, invoice.yinv, invoice.ninv, invoice.docdate,
 		and invoicekindregisterkind.idinvkind=invoicekind.idinvkind)
 union
 select invoicekind.description, invoice.yinv, invoice.ninv, invoice.docdate, 
-	'AVVISO: La fattura sar√† ignorata perch√® manca il codice fiscale di "'+registry.title+'"'
+	'AVVISO: La fattura sar‡ ignorata perchË manca il codice fiscale di "'+registry.title+'"'
 	from invoice 
 	join invoicekind on invoice.idinvkind=invoicekind.idinvkind
 	join registry on invoice.idreg=registry.idreg
@@ -158,7 +160,7 @@ select invoicekind.description, invoice.yinv, invoice.ninv, invoice.docdate,
 			and invoicedetail.yinv_main=@ayear))
 union
 select invoicekind.description, invoice.yinv, invoice.ninv, invoice.docdate, 
-	'Esiste pi√π di un collegamento tra tipo di documento e registro iva con protocollo vendita'
+	'Esiste pi˘ di un collegamento tra tipo di documento e registro iva con protocollo vendita'
 	from invoice 
 	join invoicekind on invoicekind.idinvkind=invoice.idinvkind
 	where (select count(*)
@@ -175,7 +177,7 @@ select invoicekind.description, invoice.yinv, invoice.ninv, invoice.docdate,
 			and invoicedetail.yinv_main=@ayear))
 union
 select invoicekind.description, invoice.yinv, invoice.ninv, invoice.docdate, 
-	'Esiste pi√π di un collegamento tra tipo di documento e registro iva con protocollo acquisto'
+	'Esiste pi˘ di un collegamento tra tipo di documento e registro iva con protocollo acquisto'
 	from invoice 
 	join invoicekind on invoicekind.idinvkind=invoice.idinvkind
 	where (select count(*)
@@ -203,4 +205,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

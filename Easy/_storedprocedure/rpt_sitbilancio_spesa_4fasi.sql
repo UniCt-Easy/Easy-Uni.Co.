@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_sitbilancio_spesa_4fasi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_sitbilancio_spesa_4fasi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_sitbilancio_spesa_4fasi]
 GO
 
@@ -109,7 +111,7 @@ SELECT  @levelusable = MIN(nlevel)
 FROM 	finlevel
 WHERE 	ayear =@ayear and (flag&2)<>0
 
--- L'ipotesi di questa stampa a 4 fasi √® che 
+-- L'ipotesi di questa stampa a 4 fasi Ë che 
 -- ( @residualphase < @secondphase) AND (@secondphase<@thirdphase)AND (@thirdphase<@maxphase)
 -- 
 -- dove fase 1 = @nfinphase, fase 4 = maxphase, fase 2 = @nfinphase+1,  fase 3 = @maxexpensephase-1
@@ -1088,7 +1090,7 @@ ELSE
 			UPDATE #situation_fin
 			SET    flag_assign_cash='N'
 		END
-IF (@suppressifblank = 'S') AND @nlevel>=2	--> se la stampa √® x categoria o x un livello sottostante la categoria cancella le righe
+IF (@suppressifblank = 'S') AND @nlevel>=2	--> se la stampa Ë x categoria o x un livello sottostante la categoria cancella le righe
 BEGIN
 	DELETE FROM #situation_fin WHERE 
 			(isnull(main_initial_prevision,0.0) =0 AND 
@@ -1255,4 +1257,3 @@ GO
 
 
 
-	

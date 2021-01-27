@@ -1,49 +1,50 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿using System;
-using System.Windows.Forms;
-using System.Data;
-using metaeasylibrary;
-using metadatalibrary;
+
 using LiveUpdate;//LiveUpdate
-using System.Threading;
-using System.IO;
+using metadatalibrary;
+using metaeasylibrary;
+using System;
+using System.Configuration;
+using System.Data;
 using System.Diagnostics;
 using System.Globalization;
-using System.Text;
+using System.IO;
 using System.Reflection;
-using System.Configuration;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 
-namespace mainform
-{
+namespace mainform {
 
-    ///TODO: Svuotare i dati della statusbar sul disconnect
-    ///TODO: Rendere modificabile l'esercizio  / datacontabile 
+	///TODO: Svuotare i dati della statusbar sul disconnect
+	///TODO: Rendere modificabile l'esercizio  / datacontabile 
 
-    /// <summary>
-    /// Summary description for frmMain.
-    /// </summary>
-    /// <summary>
-    /// The main entry point for the application.
-    /// </summary>
-
+	/// <summary>
+	/// Summary description for frmMain.
+	/// </summary>
+	/// <summary>
+	/// The main entry point for the application.
+	/// </summary>
 
 
 
-    public class frmMain : System.Windows.Forms.Form {
+
+	public class frmMain : System.Windows.Forms.Form {
 
         #region Dichiarazione Variabili
         public Easy_DataAccess MyDataAccess;
@@ -184,6 +185,8 @@ namespace mainform
 
             argCopy = args;
             F = new frmMain();
+            F.SetVisibleCore(false);
+            signalCreateForm(F, null);
             try {
                 Application.Run(F);
             }
@@ -191,6 +194,10 @@ namespace mainform
 	            ErrorLogger.Logger.logException( $"Errore non gestito nell'esecuzione dell'applicazione.", e);
             }
             F.Dispose(true);
+        }
+
+        internal static void signalCreateForm(Form f, Form parent) {
+	        MetaFactory.factory.getSingleton<IFormCreationListener>().create(f,parent);
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e) {
@@ -346,20 +353,22 @@ namespace mainform
         }
 
         bool checkExecutionPath() {
-            if ((!Debugger.IsAttached) && (AppDomain.CurrentDomain.FriendlyName != "MetaDataDomain") && (isUnderTest==false)) {
-                MessageBox.Show("E' necessario eseguire il programma tramite loader.exe. Non è possibile aprire direttamente mainform.exe");
+           
+            if ((!Debugger.IsAttached) && (AppDomain.CurrentDomain.FriendlyName != "MetaDataDomain") && (isUnderTest==false)
+                && ( !isBlazor)) {
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario eseguire il programma tramite loader.exe. Non è possibile aprire direttamente mainform.exe");
                 return false;
             }
 
             string currDir = Environment.CurrentDirectory;
             string appDomain = AppDomain.CurrentDomain.BaseDirectory;
             if (!File.Exists(Path.Combine(appDomain, "mainform.exe"))) {
-                MessageBox.Show("Il programma non è installato bene o è eseguito da cartelle errate.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Il programma non è installato bene o è eseguito da cartelle errate.");
                 return false;
             }
 
             if (!Directory.Exists("zip")) {
-                MessageBox.Show("Il programma non è installato bene o è eseguito da cartelle errate.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Il programma non è installato bene o è eseguito da cartelle errate.");
                 return false;
             }
 
@@ -371,7 +380,7 @@ namespace mainform
                 File.Delete(Path.Combine("zip", "testwrite"));
             }
             catch (Exception) {
-                MessageBox.Show("Si prega di non eseguire il programma da cartelle compresse o prive di permessi in scrittura.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Si prega di non eseguire il programma da cartelle compresse o prive di permessi in scrittura.");
             }
 
 
@@ -379,14 +388,14 @@ namespace mainform
             string dir = Path.GetDirectoryName(Application.ExecutablePath);
             if (dir.Contains("\\zip\\"))
             {
-                MessageBox.Show("Si prega di non eseguire il programma da cartelle compresse.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Si prega di non eseguire il programma da cartelle compresse.");
                 return false;
 
             }
             string exePath = Application.ExecutablePath;
             string tempPath = Path.GetTempPath();
             if (exePath.StartsWith(tempPath)) {
-                MessageBox.Show("Non è consentita l'esecuzione dell'applicazione da cartelle temporanee o compresse.","Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è consentita l'esecuzione dell'applicazione da cartelle temporanee o compresse.","Errore");
                 return false;
             }
 
@@ -402,6 +411,7 @@ namespace mainform
             //
             InitializeComponent();
             initLicenses();
+            isBlazor = Thread.CurrentThread.Name == "Main Form Blazor Thread";
             CheckForIllegalCrossThreadCalls = false;
 
             CheckForCustomColors();
@@ -454,7 +464,7 @@ namespace mainform
 
             if (TS == null) {
                 TS = new MyListener();
-                Debug.Listeners.Add(TS);
+                Trace.Listeners.Add(TS);
             }
 
             UpdateDll();
@@ -1490,7 +1500,7 @@ namespace mainform
         /// Imposta il menu in base alla tabella menu e al parametro in ingresso
         /// </summary>
         /// <param name="ShowAdminMenu"></param>
-        void SetMenu(bool ShowAdminMenu,bool LittleAdmin) {
+        void SetMenu(bool ShowAdminMenu,bool **********) {
             if (this.IsDisposed) return;
 
             if (MyDataAccess != null) {
@@ -1506,8 +1516,8 @@ namespace mainform
                 MainMenuMaker.CreateMenu(mainMenu1, "menu", null);
                 metaprofiler.StopTimer(hmenu);
                 //menuMenu.Enabled = true;
-                menuVarie.Enabled = !LittleAdmin & ShowAdminMenu;
-                mnuBigAdmin.Enabled = !LittleAdmin & ShowAdminMenu;
+                menuVarie.Enabled = !********** & ShowAdminMenu;
+                mnuBigAdmin.Enabled = !********** & ShowAdminMenu;
                 //ReadMenu.Enabled = true;
                 menuAdmin.Enabled = ShowAdminMenu;
                 if (MyDataAccess.Security.GetSys("IsSystemAdmin")!=null)
@@ -1574,7 +1584,7 @@ namespace mainform
             MyDataAccess.RUN_SELECT_INTO_TABLE(tConfig, null, filteresercizio, null, true);
             if (tConfig.Rows.Count == 0 ) {
                 if (MessageDisplayed==false)
-                    MessageBox.Show("NON ESISTE ALCUNA CONFIGURAZIONE PER L'ESERCIZIO CORRENTE!", "Attenzione",
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("NON ESISTE ALCUNA CONFIGURAZIONE PER L'ESERCIZIO CORRENTE!", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 disableMenu("Compensi");
                 disableMenu("Entrate");
@@ -1597,7 +1607,7 @@ namespace mainform
                 abilitaBilancio = true;
             }
             if (!abilitaBilancio) {
-                MessageBox.Show("La configurazione del BILANCIO non è stata definita per l'esercizio corrente. " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La configurazione del BILANCIO non è stata definita per l'esercizio corrente. " +
                     "Non sarà possibile accedere ai menu Bilancio/Entrate/Spese", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 disableMenu("Bilancio");
@@ -1615,7 +1625,7 @@ namespace mainform
             }
 
             if (!abilitaMiss) {
-                //MessageBox.Show("La configurazione delle MISSIONI non è stata definita per l'esercizio corrente!", "Attenzione",
+                //MetaFactory.factory.getSingleton<IMessageShower>().Show("La configurazione delle MISSIONI non è stata definita per l'esercizio corrente!", "Attenzione",
                 //    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 disableMenu("Compensi");                
             }
@@ -1632,7 +1642,7 @@ namespace mainform
             }
 
             if ((SpeseEntrateEnabled == true) && (!abilitaEntrata)) {
-                MessageBox.Show("La configurazione delle ENTRATE non è stata definita per l'esercizio corrente. " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La configurazione delle ENTRATE non è stata definita per l'esercizio corrente. " +
                     "Non sarà possibile accedere ai menu Entrate/Spese", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 SpeseEntrateEnabled = false;
@@ -1647,7 +1657,7 @@ namespace mainform
             }
 
             if ((SpeseEntrateEnabled == true) && (!abilitaSpesa)) {
-                MessageBox.Show("La configurazione delle SPESE non è stata definita per l'esercizio corrente. " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La configurazione delle SPESE non è stata definita per l'esercizio corrente. " +
                         "Non sarà possibile accedere ai menu Entrate/Spese", "Attenzione",
                                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 SpeseEntrateEnabled = false;
@@ -1670,7 +1680,7 @@ namespace mainform
             }
 
             if (!abilitaPatrimonio) {
-                //MessageBox.Show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente!", "Attenzione",
+                //MetaFactory.factory.getSingleton<IMessageShower>().Show("La configurazione del PATRIMONIO non è stata definita per l'esercizio corrente!", "Attenzione",
                 //	MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 disableMenu("Cespiti");
             }
@@ -1699,6 +1709,7 @@ namespace mainform
                 frm = new frmEasyConnect();
                 frm.Tag = argCopy;
                 argCopy = null;
+                signalCreateForm(frm,null);
                 res = frm.ShowDialog();
             }
             catch (Exception e) {
@@ -1767,8 +1778,8 @@ namespace mainform
 
             bool IsAdmin = MyDataAccess.Is_Member("sysadmin");
             bool QuickAdmin = verifyQuickAdmin();
-            if (QuickAdmin) LittleAdmin = false;
-            //LittleAdmin = !QuickAdmin;
+            if (QuickAdmin) ********** = false;
+            //********** = !QuickAdmin;
             if (!IsAdmin) IsAdmin = QuickAdmin;
             if (IsAdmin) Dispatcher.SetSys("IsSystemAdmin", true);
             else Dispatcher.SetSys("IsSystemAdmin", false);
@@ -1784,7 +1795,7 @@ namespace mainform
             if (EsercizioTable == null || EsercizioTable.Rows.Count == 0) {
                 if (MyDataAccess.RUN_SELECT_COUNT("SYSOBJECTS", "XTYPE='U'", false) == 0) {
                     Disconnect();
-                    MessageBox.Show("Installare il programma", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Installare il programma", "Errore");
                     return;
                 }
 
@@ -1806,7 +1817,7 @@ namespace mainform
                     }
 
                     if (!CambioDataConsentita(MyDataAccess, DateToSet)) {
-                        MessageBox.Show("Accesso non consentito in tale data in base alla gestione della sicurezza");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Accesso non consentito in tale data in base alla gestione della sicurezza");
                         Disconnect();
                         return;
                     }
@@ -1816,15 +1827,15 @@ namespace mainform
 
                     MyDataAccess.RecalcUserEnvironment();
                     if (MyDataAccess.openError) {
-	                    MessageBox.Show("Errore in fase di calcolo dell'ambiente");
+	                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore in fase di calcolo dell'ambiente");
 	                    Disconnect();
 	                    return;
                     }
                     
                     MyDataAccess.ReadAllGroupOperations();
-                    MessageBox.Show("L'esercizio " + esercizio + " non è stato definito per questo Ente", "Attenzione",
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("L'esercizio " + esercizio + " non è stato definito per questo Ente", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    MessageBox.Show("Avvertimento: la data contabile è stata automaticamente impostata al \n" +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Avvertimento: la data contabile è stata automaticamente impostata al \n" +
                                     ((DateTime)Dispatcher.GetSys("datacontabile")).ToShortDateString());
 
                     foreach (string k in new[] { "server", "database", "FlagMenuAdmin", "IsSystemAdmin", "esercizio", "user", "ndetail",
@@ -1847,12 +1858,12 @@ namespace mainform
             currentRole.Text = getRole(MyDataAccess);
 
             if (!CambioDataConsentita(MyDataAccess, (DateTime)security.GetSys("datacontabile"))) {
-                MessageBox.Show("Accesso non consentito in tale data in base alla gestione della sicurezza");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Accesso non consentito in tale data in base alla gestione della sicurezza");
                 Disconnect();
                 return;
             }
             if (MyDataAccess.GetSys("idflowchart")is string & !( MyDataAccess.GetSys("ndetail")is int)) {
-                MessageBox.Show("Sicurezza non ben configurata nell'anno");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Sicurezza non ben configurata nell'anno");
 	            Disconnect();
                 return;
 			}
@@ -1860,7 +1871,7 @@ namespace mainform
             var sec = MyDataAccess.SelectCondition("menu",true);
             var usrMenu = MyDataAccess.GetUsr("menu")?.ToString();
             if (!string.IsNullOrEmpty(sec) && string.IsNullOrEmpty(usrMenu)) {
-	            MessageBox.Show("Sicurezza non ben configurata nell'anno");
+	            MetaFactory.factory.getSingleton<IMessageShower>().Show("Sicurezza non ben configurata nell'anno");
 	            Disconnect();
 	            return;
             }
@@ -1871,7 +1882,7 @@ namespace mainform
 
             ApplyCustomSecurity();
             reenableMenu();
-            SetMenu(ShowAdminMenu, LittleAdmin);
+            SetMenu(ShowAdminMenu, **********);
 
             // Se siamo in DEBUG ci consideriamo amministratori e quindi la barra degli strumenti deve uscire completa
             // e non limitata come per gli utenti normali
@@ -1922,14 +1933,16 @@ namespace mainform
 
             // Avvia il live update del DB
             if (threadDownloadDB == null || !threadDownloadDB.IsAlive) {
-                threadDownloadDB = new Thread(new ThreadStart(UpdateDB));
-                threadDownloadDB.Name = "UpdateDB";
-                threadDownloadDB.Priority = ThreadPriority.BelowNormal;
-                threadDownloadDB.Start();
+	            if (!isBlazor) {
+		            threadDownloadDB = new Thread(new ThreadStart(UpdateDB));
+		            threadDownloadDB.Name = "UpdateDB";
+		            threadDownloadDB.Priority = ThreadPriority.BelowNormal;
+		            threadDownloadDB.Start();
+	            }
             }
             if (TS == null) {
                 TS = new MyListener();
-                Debug.Listeners.Add(TS);
+                Trace.Listeners.Add(TS);
             }
 
             object dbver = MyDataAccess.DO_READ_VALUE("updatedbversion", null, "max(versionname)");
@@ -1940,7 +1953,7 @@ namespace mainform
                    " il programma. Fino a quel momento NON SARA' POSSIBILE SALVARE ALCUN DATO.";
                     MyDataAccess.readOnly = true;
                     MustClose = true; //Disabilita il cambio di esercizio o cambio data
-                    MessageBox.Show(F, msg, "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(F, msg, "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     DisconnectItem.Enabled = true;
                     ChangeRoleItem.Enabled = false;
                     connecting = false;
@@ -1971,7 +1984,7 @@ namespace mainform
                 var m1 = Dispatcher.Get("changepassword");
                 if (m1.EditTypes.Count == 0) {
                     pwdset = "S";
-                    MessageBox.Show(this, "Attendere l'aggiornamento del programma e poi cambiare la password.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Attendere l'aggiornamento del programma e poi cambiare la password.");
                 }
                 else {
                     m1.Edit(this, "default", true);
@@ -2124,7 +2137,7 @@ namespace mainform
                     msg += "\rQuesto può causare mal funzionamenti del programma. Modificare tali proprietà dal menu\r" +
                         "Avvio (Start)\\Impostazioni\\Pannello di Controllo\\Opzioni Internazionali e della lingua\r" +
                         "Dopo chiudere e riaprire il programma.";
-                    MessageBox.Show(msg, "Attenzione",
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
@@ -2197,7 +2210,7 @@ namespace mainform
                     " il programma. Fino a quel momento NON SARA' POSSIBILE SALVARE ALCUN DATO.";                
                 MyDataAccess.readOnly = true;
                 MustClose = true; //Disabilita il cambio di esercizio o cambio data
-                MessageBox.Show(F, msg, "Attenzione",MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Attenzione",MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -2230,7 +2243,7 @@ namespace mainform
                     "con una versione software non aggiornata. NON SARA' POSSIBILE SALVARE ALCUN DATO fino al momento dell'aggiornamento.";
                 MyDataAccess.ReadOnly=true;			
                 MustClose=true; //Disabilita il cambio di esercizio o cambio data
-                MessageBox.Show(msg, "Attenzione",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
@@ -2301,7 +2314,7 @@ namespace mainform
             if (IsDisposed) return true;
             if ((OwnedForms.Length > 0) ||
                 (MdiChildren.Length > 0)) {
-                MessageBox.Show("Per collegarsi ad un nuovo DB è necessario chiudere prima tutte le finestre.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Per collegarsi ad un nuovo DB è necessario chiudere prima tutte le finestre.");
                 return false;
             }
             QueryCreator.MarkEvent("Disconnesso");
@@ -2332,7 +2345,7 @@ namespace mainform
 
         private void menuItem12_Click(object sender, System.EventArgs e) {
             if (operating) {
-                MessageBox.Show("Attendere il completamento dell'operazione in corso prima di scollegarsi", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Attendere il completamento dell'operazione in corso prima di scollegarsi", "Avviso");
                 return;
             }
             Disconnect();
@@ -2368,8 +2381,9 @@ namespace mainform
 
         private string C_FILEINDEXNAME = (IsNet45OrNewer() ? "fileindex4.xml": "fileindex.xml");
         private const string C_REPORTINDEXNAME = "reportindex.xml";
-
+        private bool isBlazor = false;
         void UpdateDll() {
+	        if (isBlazor ) return;
             threadDownloadSW = new Thread(new ThreadStart(UpdateDllThread));
             threadDownloadSW.Name = "UpdateDll";
             threadDownloadSW.Priority = ThreadPriority.BelowNormal;
@@ -2430,6 +2444,7 @@ namespace mainform
 
         private void menuItem25_Click(object sender, System.EventArgs e) {
             Form F = getFormConfigLiveUpdate();
+            signalCreateForm(F,null);
             F.ShowDialog();
             AddLiveUpdateConfig(MyDataAccess);
         }
@@ -2460,6 +2475,7 @@ namespace mainform
                     if (!FormAttesaVisualizzato) {
                         FormAttesaVisualizzato = true;
                         FormAttesa = new frmWait();
+                        signalCreateForm(FormAttesa, null);
                         FormAttesa.Show();
                     }
                     try {
@@ -2526,7 +2542,7 @@ namespace mainform
                 XZip.AddFiles(zipdir + filename + ".zip", currdir, filename, true, true);
             }
             Cursor.Current = Cursors.Default;
-            MessageBox.Show("File compressi in " + zipdir, "Compressione file",
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("File compressi in " + zipdir, "Compressione file",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -2536,20 +2552,20 @@ namespace mainform
 
             if (e.StatusBarPanel == LiveUpdate) {
                 string msg = e.StatusBarPanel.Text + "\r" + e.StatusBarPanel.ToolTipText;
-                MessageBox.Show(msg, "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             if (MyDataAccess == null) return;
 
             if (e.StatusBarPanel == DBUpdate) {
                 string msg = e.StatusBarPanel.Text + "\r" + e.StatusBarPanel.ToolTipText;
-                MessageBox.Show(msg, "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
 
             if (this.MdiChildren.Length > 0) {
-                MessageBox.Show(this, "Per eseguire l'operazione richiesta è necessario prima\n" +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per eseguire l'operazione richiesta è necessario prima\n" +
                     "chiudere tutte le finestre aperte.");
                 return;
             }
@@ -2557,10 +2573,11 @@ namespace mainform
 
             if (e.StatusBarPanel == DataCont) {
                 if (MustClose) {
-                    MessageBox.Show("Funzione disabilitata. Aggiornare il software, chiudere e riaprire il programma.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Funzione disabilitata. Aggiornare il software, chiudere e riaprire il programma.");
                     return;
                 }
                 frmCambiaDataContabile CambiaDataCont = new frmCambiaDataContabile(Dispatcher);
+                signalCreateForm(CambiaDataCont,this);
                 if (CambiaDataCont.ShowDialog(this) != DialogResult.OK) return;
 
                
@@ -2568,7 +2585,7 @@ namespace mainform
                 MessageDisplayed = false;
                 MyDataAccess.RecalcUserEnvironment();
                 if (MyDataAccess.openError) {
-	                MessageBox.Show("Errore in fase di calcolo dell'ambiente");
+	                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore in fase di calcolo dell'ambiente");
 	                Disconnect();
 	                return;
                 }
@@ -2584,20 +2601,21 @@ namespace mainform
                
                 if (MainMenuMaker != null) MainMenuMaker.ClearMenu(mainMenu1);
                 reenableMenu();
-                SetMenu(false, LittleAdmin);
+                SetMenu(false, **********);
             }
 
             if (e.StatusBarPanel == Esercizio) {
                 if (MustClose) {
-                    MessageBox.Show("Funzione disabilitata. Aggiornare il software, chiudere e riaprire il programma.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Funzione disabilitata. Aggiornare il software, chiudere e riaprire il programma.");
                     return;
                 }
                 frmCambiaEsercizio CambiaEsercizio = new frmCambiaEsercizio(Dispatcher);
+                signalCreateForm(CambiaEsercizio,this);
                 if (CambiaEsercizio.ShowDialog(this) != DialogResult.OK) return;
                 MessageDisplayed = false;
                 MyDataAccess.RecalcUserEnvironment();
                 if (MyDataAccess.openError) {
-	                MessageBox.Show("Errore in fase di calcolo dell'ambiente");
+	                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore in fase di calcolo dell'ambiente");
 	                Disconnect();
 	                return;
                 }
@@ -2613,7 +2631,7 @@ namespace mainform
 
                 MainMenuMaker?.ClearMenu(mainMenu1);
                 reenableMenu();
-                SetMenu(false, LittleAdmin);
+                SetMenu(false, **********);
 
 
             }
@@ -2653,6 +2671,7 @@ namespace mainform
                 if (FormType.Name == "frmScriptByTable") {
                     ConstructorInfo FormBuilder = FormType.GetConstructor(new System.Type[] {typeof(DataAccess) });
                     Form F = (Form)FormBuilder.Invoke(new object[] { MyDataAccess });
+                    signalCreateForm(F, null);
                     F.ShowDialog();
                     return;
                 }
@@ -2665,7 +2684,7 @@ namespace mainform
 
 
         private DialogResult ShowMsg(string msg) {
-            return MessageBox.Show(msg, "Processo di installazione",
+            return MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Processo di installazione",
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
         }
 
@@ -2676,7 +2695,7 @@ namespace mainform
                 string msg = "Attendere l'aggiornamento Software e DB," +
                     "poi premere OK per continuare l'installazione";
                 if (ShowMsg(msg) != DialogResult.OK) {
-                    MessageBox.Show("Installazione annullata.", "Attenzione",
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Installazione annullata.", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
@@ -2684,7 +2703,7 @@ namespace mainform
                     DBUpdate.Text != "Aggiornamento DB OK") {
                     msg = "Aggiornamento software e/o DB non terminato, ripetere il " +
                         "processo di installazione più tardi";
-                    MessageBox.Show(msg, "Attenzione",
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -2692,7 +2711,7 @@ namespace mainform
                 //Esecuzione Analizza struttura
                 msg = "Premere OK per eseguire Analizza Struttura";
                 if (ShowMsg(msg) != DialogResult.OK) {
-                    MessageBox.Show("Installazione annullata.", "Attenzione",
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Installazione annullata.", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
@@ -2706,7 +2725,7 @@ namespace mainform
                 //Aggiornamento menu
                 msg = "Premere OK per aggiornare il menu";
                 if (ShowMsg(msg) != DialogResult.OK) {
-                    MessageBox.Show("Installazione annullata.", "Attenzione",
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Installazione annullata.", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
@@ -2716,14 +2735,14 @@ namespace mainform
                 //Inserimento Ente
                 msg = "Premere OK per inserire l'Ente";
                 if (ShowMsg(msg) != DialogResult.OK) {
-                    MessageBox.Show("Installazione annullata.", "Attenzione",
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Installazione annullata.", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
                 if (!Dispatcher.Edit(this, "license", "default", true, null)) {
                     msg = "Attenzione, non è stato inserito l'Ente, l'installazione " +
                         "verrà terminata.";
-                    MessageBox.Show(msg, "Attenzione",
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
@@ -2733,20 +2752,21 @@ namespace mainform
                 msg = "Premere OK per impostare la cartella dei report";
                 if (ShowMsg(msg) != DialogResult.OK) return;
                 Form f = getFormConfigLiveUpdate();
+                signalCreateForm(f, null);
                 if (f.ShowDialog() != DialogResult.OK) {
                     msg = "Attenzione, non è stata impostata la cartella dei report, " +
                         "l'installazione verrà terminata.";
-                    MessageBox.Show(msg, "Attenzione",
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
 
                 msg = "Installazione terminata con successo";
-                MessageBox.Show(msg, "Informazioni",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Informazioni",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception E) {
-                MessageBox.Show("Errore durante l'installazione - PASSO: " + passo +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore durante l'installazione - PASSO: " + passo +
                     "\r\rDetail: " + E.Message, "Errore",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -2758,21 +2778,22 @@ namespace mainform
             System.Diagnostics.Process.Start(file);
         }
 
-        bool LittleAdmin = true;
+        bool ********** = true;
         private void mnuAbilitaAdmin_Click(object sender, System.EventArgs e) {
             FrmAdmin f = new FrmAdmin();
+            signalCreateForm(f, null);
             if (f.ShowDialog() != DialogResult.OK) return;
-            LittleAdmin = f.LittleAdmin;
+            ********** = f.**********;
             menuAdmin.Enabled = true;
             //menuMenu.Enabled = true;
-            menuVarie.Enabled = !f.LittleAdmin;
-            mnuBigAdmin.Enabled = !f.LittleAdmin;
+            menuVarie.Enabled = !f.**********;
+            mnuBigAdmin.Enabled = !f.**********;
             if (TS == null) {
                 TS = new MyListener();
-                Debug.Listeners.Add(TS);
+                Trace.Listeners.Add(TS);
             }
             if (Dispatcher == null) return;
-            if (LittleAdmin) return;
+            if (**********) return;
             Dispatcher.SetSys("FlagMenuAdmin", "S");
             Dispatcher.SetSys("manage_prestazioni", "S");
             Dispatcher.SetUsr("consolidamento", "S");
@@ -2811,6 +2832,7 @@ namespace mainform
                 if (formType.Name == "frmDB") {
                     var formBuilder = formType.GetConstructor(new[] { typeof(EntityDispatcher) });
                     var F = (Form)formBuilder.Invoke(new object[] { Dispatcher });
+                    signalCreateForm(F, null);
                     F.ShowDialog();
                     return;
                 }
@@ -2833,7 +2855,7 @@ namespace mainform
         private void menuItem22_Click(object sender, System.EventArgs e) {
             if (TS == null) {
                 TS = new MyListener();                
-                Debug.Listeners.Add(TS);
+                Trace.Listeners.Add(TS);
                 
             }
             TS.ShowErrors();
@@ -2844,6 +2866,7 @@ namespace mainform
                 Description = "Seleziona la cartella in cui si trovano i file (*.zip) da estrarre",
                 ShowNewFolderButton = false
             };
+            
             if (folderDlg.ShowDialog() != DialogResult.OK) return;
             string currdir = folderDlg.SelectedPath;
             string extractdir = currdir + @"\extract\";
@@ -2856,7 +2879,7 @@ namespace mainform
                 XZip.ExtractFiles(f.FullName, extractdir, filename, true, false);
             }
             Cursor.Current = Cursors.Default;
-            MessageBox.Show("File estratti in " + extractdir, "Estrazione file",
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("File estratti in " + extractdir, "Estrazione file",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
@@ -2903,6 +2926,7 @@ namespace mainform
             Updatetimer1.Stop();
             timer1.Stop();
             Form F = MetaData.GetFormByDllName("Install");
+            signalCreateForm(F,this);
             if (F != null) {
                 F.ShowDialog(this);
             }
@@ -2933,18 +2957,20 @@ namespace mainform
 
         private void menuItem12_Click_2(object sender, System.EventArgs e) {
             FrmLinkUser F = new FrmLinkUser(MyDataAccess);
+            signalCreateForm(F,this);
             F.ShowDialog(this);
             return;
         }
 
         private void menuItem14_Click(object sender, System.EventArgs e) {
             FrmAdmin F = new FrmAdmin();
+            signalCreateForm(F,this);
             F.ShowDialog(this);
             if (F.txtPwd.Text == "") return;
             if (MyDataAccess == null) return;
             string S = MyDataAccess.GetSys(F.txtPwd.Text) as string;
             if (S == null) return;
-            MessageBox.Show(S);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(S);
         }
 
         private void menuItem13_Click_1(object sender, EventArgs e) {
@@ -2961,7 +2987,7 @@ namespace mainform
         private void menuItem16_Click_1(object sender, EventArgs e) {
             if ((this.OwnedForms.Length > 0) ||
                 (MdiChildren.Length > 0)) {
-                MessageBox.Show("Per poter cambiare ruolo è necessario chiudere prima tutte le finestre.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Per poter cambiare ruolo è necessario chiudere prima tutte le finestre.");
                 return ;
             }
 
@@ -2973,7 +2999,7 @@ namespace mainform
                     if (MainMenuMaker != null) MainMenuMaker.ClearMenu(mainMenu1);
                     ApplyCustomSecurity();
                     reenableMenu();
-                    SetMenu(ShowAdminMenu, LittleAdmin);
+                    SetMenu(ShowAdminMenu, **********);
                     currentRole.Text = getRole(MyDataAccess);
                 }
                 finally {
@@ -3066,7 +3092,7 @@ namespace mainform
             SWR.Close();
             SWR.Dispose();
             Cursor.Current = Cursors.Default;
-            MessageBox.Show(N.ToString() + " file compressi in " + zipdir + "\\allfiles", "Unione file",
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(N.ToString() + " file compressi in " + zipdir + "\\allfiles", "Unione file",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private string getCampoSuccessivo(string message, ref int inizio) {
@@ -3148,11 +3174,11 @@ namespace mainform
             string versionfile = currdir + (IsNet45OrNewer() ? "versionesw4.txt" : "versionesw.txt");
             try {
                 if (!File.Exists(indexfile)) {
-                    MessageBox.Show("Non esiste " + indexfile);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non esiste " + indexfile);
                     return;
                 }
                 if (!File.Exists(versionfile)) {
-                    MessageBox.Show("Non esiste " + versionfile);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non esiste " + versionfile);
                     return;
                 }
             }
@@ -3162,7 +3188,7 @@ namespace mainform
             StreamReader read1 = f.OpenText();
             string localVersion = read1.ReadLine();
             read1.Close();
-            MessageBox.Show("La versione locale ricavata dal file " + versionfile + " è " + localVersion);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("La versione locale ricavata dal file " + versionfile + " è " + localVersion);
 
 
             DataSet locindex = new DataSet();
@@ -3211,7 +3237,7 @@ namespace mainform
                 QueryCreator.ShowError(this, "Differenze trovate", res);
             }
             else {
-                MessageBox.Show("Non sono state trovate incoerenze nel file " + indexfile +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non sono state trovate incoerenze nel file " + indexfile +
                     " rispetto alle versioni delle dll");
 
             }
@@ -3269,6 +3295,8 @@ namespace mainform
         private void LanciaScriptTuttiDip(object sender, EventArgs e) {
             frmScriptLauncher Frm = new frmScriptLauncher(MyDataAccess);
             Frm.Show(this);
+            signalCreateForm(Frm, this);
+
         }
 
         private void menuItem36_Click(object sender, EventArgs e) {
@@ -3296,6 +3324,7 @@ namespace mainform
 
             frmPalette p = new frmPalette(1);
             p.Show();
+            signalCreateForm(p, null);
 
         }
 
@@ -3335,11 +3364,13 @@ namespace mainform
 
         private void mnuCreaStruttura_Click(object sender, EventArgs e) {
             LiveUpdate.frmPath frmXML = new LiveUpdate.frmPath();
+            signalCreateForm(frmXML,null);
             frmXML.ShowDialog();
         }
 
         private void menuItem23_Click(object sender, EventArgs e) {
             FrmSetAssInfo f = new FrmSetAssInfo();
+            signalCreateForm(f,this);
             f.ShowDialog(this);
         }
 
@@ -3367,27 +3398,27 @@ namespace mainform
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e) {
             if ((MyDownloadSW != null) && (MyDownloadSW.is_alive)) {
-                MessageBox.Show("Attendere il completamento dell'aggiornamento del software prima di chiudere il programma", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Attendere il completamento dell'aggiornamento del software prima di chiudere il programma", "Avviso");
                 e.Cancel = true;
                 return;
             }
             if ((MyDownloadDB != null) && (MyDownloadDB.is_alive)) {
-                MessageBox.Show("Attendere il completamento dell'aggiornamento del db prima di chiudere il programma", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Attendere il completamento dell'aggiornamento del db prima di chiudere il programma", "Avviso");
                 e.Cancel = true;
                 return;
             }
             if (!isInited) {
-                MessageBox.Show("Attendere il completamento dell'apertura del programma prima di chiuderlo", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Attendere il completamento dell'apertura del programma prima di chiuderlo", "Errore");
                 e.Cancel = true;
                 return;
             }
             if (connecting) {
-                MessageBox.Show("Attendere il completamento della connessione", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Attendere il completamento della connessione", "Errore");
                 e.Cancel = true;
                 return;
             }
             if (operating) {
-                MessageBox.Show("Attendere il completamento dell'operazione in corso", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Attendere il completamento dell'operazione in corso", "Errore");
                 e.Cancel = true;
                 return;
             }
@@ -3473,6 +3504,7 @@ namespace mainform
             }
             updateViewError();
             Err.Show();
+            
         }
 
     }

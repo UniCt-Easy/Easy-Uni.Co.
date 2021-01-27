@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_mandatedetail_epexp]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mandatedetail_epexp]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mandatedetail_epexp]
 GO
 
@@ -130,7 +132,7 @@ SELECT
  --   var imponibile = CfgFn.RoundValuta(rImponibile * quantitaConfezioni * tassocambio*(1- scontoPerc));
 
  --   var ivaindetraibile = CfgFn.GetNoNullDouble(rDettaglio["unabatable"]);
- --   var ivadetraibilelorda = CfgFn.RoundValuta((iva - ivaindetraibile)); //iva gi√† in EURO
+ --   var ivadetraibilelorda = CfgFn.RoundValuta((iva - ivaindetraibile)); //iva gi‡ in EURO
  --   var ivadetraibile = CfgFn.RoundValuta(ivadetraibilelorda*abatablerate);
  --   var valoreIvaTotale = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(rDettaglio["tax"]));
  --   var valoreIvaDetraibile = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(ivadetraibile));
@@ -175,7 +177,7 @@ select
 	idgroup as '#Gruppo',
 	registry as 'Anagrafica',
 	detaildescription as 'Descr. Dettaglio',
-	number as 'Quantit√†',
+	number as 'Quantit‡',
 	taxable as 'Imponibile',
 	taxrate as 'Aliquota',
 	tax as 'Iva',
@@ -207,4 +209,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
@@ -269,7 +271,7 @@ namespace TesseraSanitaria {
         /// Identificativo univoco dell'operazione effettuata.
         /// </summary>
         /// <remarks>
-        /// Valorizzato solo se l'operazione √® stata effettuata con successo.
+        /// Valorizzato solo se l'operazione Ë stata effettuata con successo.
         /// </remarks>
         [XmlElement("protocollo", Order = 1)]
         public string Protocollo { get; set; }
@@ -278,7 +280,7 @@ namespace TesseraSanitaria {
         /// Messaggi d'errore.
         /// </summary>
         /// <remarks>
-        /// Valorizzato solo se l'operazione √® fallita.
+        /// Valorizzato solo se l'operazione Ë fallita.
         /// </remarks>
         [XmlArray(Order = 2)]
         [XmlArrayItem("messaggio", IsNullable = false)]
@@ -526,7 +528,7 @@ namespace TesseraSanitaria {
         /// </summary>
         /// <remarks>
         /// Il codice dev'essere univoco nell'ambito della data.
-        /// Solitamente √® univoco per giornata (scontrini) oppure per anno (fattura).
+        /// Solitamente Ë univoco per giornata (scontrini) oppure per anno (fattura).
         /// </remarks>
         [XmlElement("numDocumento", Order = 1)]
         public string NumeroDocumento { get; set; }
@@ -697,7 +699,7 @@ namespace TesseraSanitaria {
         public DateTime DataPagamento { get; set; }
 
         /// <summary>
-        /// Indica che la spesa √® stat sostenuta dal cittadino in data antecedente
+        /// Indica che la spesa Ë stat sostenuta dal cittadino in data antecedente
         /// alla data di emissione del documento fiscale.
         /// </summary>
         [XmlElement("flagPagamentoAnticipato", Order = 2)]

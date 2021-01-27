@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿SET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -68,14 +70,14 @@ AS BEGIN
 
 	set @flagprevision_inserted= @flagprevision
 
-	if (@idfinvarstatus<>5) BEGIN  --non Ã¨ previsione approvata
+	if (@idfinvarstatus<>5) BEGIN  --non è previsione approvata
 		SET @flagprevision='N'
 		SET @flagsecondaryprev='N'
 		SET @flagcredit='N'
 		SET @flagproceeds='N'
 	END
 
-	if (@idfinvarstatus<>4 and @idfinvarstatus<>5) BEGIN --non Ã¨ previsione inserita e nemmeno approvata
+	if (@idfinvarstatus<>4 and @idfinvarstatus<>5) BEGIN --non è previsione inserita e nemmeno approvata
 		SET @flagprevision_inserted='N'
 	END
 	
@@ -115,7 +117,7 @@ AS BEGIN
 				EXECUTE trg_upd_upbunderwritingtotal 	@idfin,	@idupb,	@idunderwriting,'previsionvariation',	@amount			
 			END
 			ELSE
-			BEGIN  --la previsione approvata Ã¨ totalizzata in upbunderwritingtotal.currentprev per le variazioni iniziali 
+			BEGIN  --la previsione approvata è totalizzata in upbunderwritingtotal.currentprev per le variazioni iniziali 
 				EXECUTE trg_upd_upbunderwritingtotal 	@idfin,	@idupb,	@idunderwriting,'currentprev',	@amount			
 			END
 
@@ -206,7 +208,7 @@ AS BEGIN
 	
 	-- Se non esiste la previsione della coppia (UPB,BILANCIO) in fase di creazione della var.
 	-- si aggiunge la riga in FINYEAR
---	Questa parte di codice Ã¨ stata rimossa perchÃ¨ provoca eccezioni in fase di creazione della previsione
+--	Questa parte di codice è stata rimossa perchè provoca eccezioni in fase di creazione della previsione
 --	tramite il button CreaPrevisione. Per ulteriori dettagli vedere il task n. 3886.
 	DECLARE @finlevel int
 	SELECT @finlevel = nlevel FROM fin WHERE idfin = @idfin

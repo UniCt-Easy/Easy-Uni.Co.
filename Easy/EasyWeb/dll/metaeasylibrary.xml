@@ -82,8 +82,8 @@
             Abilita un utente ad accedere ad un dipartimento. Restituisce la connessione a tale dipartimento.
             DETTAGLI:
             Prova a connettersi al dipartimento con user=iddbdepartment e password=depPasswordToTry
-            Se ci riesce allora aggiorna le tabelle dbdepartment, dbaccess e duser affinchè
-            da ora in poi l'utente potrà accedere a tale dipartimento con la sua user e password.
+            Se ci riesce allora aggiorna le tabelle dbdepartment, dbaccess e duser affinchÃ¨
+            da ora in poi l'utente potrÃ  accedere a tale dipartimento con la sua user e password.
             </summary>
             <param name="Conn"></param>
             <param name="userPwd"></param>
@@ -119,12 +119,12 @@
         </member>
         <member name="M:metaeasylibrary.Easy_DataAccess.CalculateGroupList">
             <summary>
-            Calcola l'elenco dei gruppi di sicurezza di cui l'utente fa parte. Il risultato è messo in usr["usergrouplist"]
+            Calcola l'elenco dei gruppi di sicurezza di cui l'utente fa parte. Il risultato Ã¨ messo in usr["usergrouplist"]
             </summary>
         </member>
         <member name="T:metaeasylibrary.Meta_easydata">
             <summary>
-            Base class for all easy MetaData http://ticket.temposrl.it/LiveLog/DoLog.aspx  
+            Base class for all easy MetaData http://SERVER/LiveLog/DoLog.aspx  
             </summary>
         </member>
         <member name="M:metaeasylibrary.easy_node_dispatcher.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
@@ -234,7 +234,7 @@
         <member name="M:metaeasylibrary.EasyAudits.CreateDataSet(metadatalibrary.DataAccess,metadatalibrary.RowChangeCollection)">
             <summary>
             Calcola l'insieme di tutte le audit e auditcheck relative ad un insieme di RowChanges
-            Non considera l'applicabilità degli auditcheck relativa alla configurazione annuale 
+            Non considera l'applicabilitÃ  degli auditcheck relativa alla configurazione annuale 
             </summary>
             <param name="Conn">Open connection</param>
         </member>
@@ -281,7 +281,7 @@
         <member name="M:metaeasylibrary.EasyAudits.Expression.CalculateDefaultWeight">
             <summary>
             Calcola euristicamente il peso iniziale di ogni variabile, considerando nullo
-             il peso delle variabili annidate. Questo andrà poi rifinito sommando il reale peso delle
+             il peso delle variabili annidate. Questo andrÃ  poi rifinito sommando il reale peso delle
              variabili annidate.
             </summary>
         </member>
@@ -475,7 +475,7 @@
         </member>
         <member name="M:metaeasylibrary.frmEasyConnect.AddDummytoList(System.Data.DataSet)">
             <summary>
-            Aggiunge una o più righe a dblist prendendole dall'ODBC list
+            Aggiunge una o piÃ¹ righe a dblist prendendole dall'ODBC list
             </summary>
             <param name="dbl"></param>
         </member>

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universitร  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universitเ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-๏ปฟif exists (select * from dbo.sysobjects where id = object_id(N'[exp_document_no_entry]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_document_no_entry]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_document_no_entry]
 GO
 
@@ -35,6 +37,7 @@ CREATE PROCEDURE [exp_document_no_entry]
 AS 
 BEGIN
 -- setuser'amministrazione'
+-- setuser'amm'
 -- exec [exp_document_no_entry] 2019, 'C'
  
 /*
@@ -50,16 +53,22 @@ Ultima modifica 23/10/2014 Gianni
 aumentata la dimensione dei campi di #document a 250 per risolvere un errore di troncamento
 
 
--- Essendo cambiata la logica di generazione delle scritture sui Compensi occasionali e cioรจ 
--- poichรจ le scritture EP adesso vengono generate solo se c'รจ la Data acquisizione documentazione definitiva, 
+
+-- Essendo cambiata la logica di generazione delle scritture sui Compensi occasionali e cio่ 
+-- poich่ le scritture EP adesso vengono generate solo se c'่ la Data acquisizione documentazione definitiva, 
 -- si chiede di escludere dall'esportazione tutti i compensi occasionali che non hanno scrittura,  
 -- ma non hanno neanche la Data acquisizione documentazione definitiva valorizzata
 
  
 -- Sempre per gli occasionali, se non esiste una scrittura e se la Data acquisizione documentazione 
 -- definitiva ha esercizio diverso da quello in cui si lancia l'esportazione, deve essere visualizzata 
--- la Nota "Scrittura non generata perchรจ costo non di competenza dell'esercizio"
+-- la Nota "Scrittura non generata perch่ costo non di competenza dell'esercizio"
 */
+
+declare @usapresentazionedocumenti char(1)
+set @usapresentazionedocumenti='N'
+if (select idacc_bankpaydoc from config where ayear=@ayear) is not null set @usapresentazionedocumenti='S'
+
 CREATE TABLE #document
 	(
 		desckind varchar(250),
@@ -93,16 +102,16 @@ SELECT
 		adate,registry,service,null, casualcontractview.start, casualcontractview.stop,total, datecompleted, 
 		case 
 			when year(datecompleted)<>@ayear 
-				then 'Scrittura non generata perchรจ costo non di competenza dell''esercizio'
+				then 'Scrittura non generata perch่ costo non di competenza dell''esercizio'
 			when ( year(casualcontractview.stop) = @ayear and ISNULL(completed,'N') = 'N')
-				THEN 'Scrittura non generata perchรจ prestazione non eseguita (flag "Considera eseguito e quindi pagabile" non valorizzato)'
+				THEN 'Scrittura non generata perch่ prestazione non eseguita (flag "Considera eseguito e quindi pagabile" non valorizzato)'
 			else null
 		end, sorting.sortcode, sorting.description
 from casualcontractview 
 left join sorting on casualcontractview.idsor01 = sorting.idsor
 where not exists
 (select * from entry 
-		 where idrelated = 'cascon' + 'ยง' + convert(varchar(4),ycon) + 'ยง'  + convert(varchar(14),ncon)
+		 where idrelated = 'cascon' + 'ง' + convert(varchar(4),ycon) + 'ง'  + convert(varchar(14),ncon)
 )
 AND ycon = @ayear and casualcontractview.datecompleted is not null
 AND @kind in ('C','A') --AND ISNULL(completed,'N') = 'S'
@@ -126,7 +135,7 @@ SELECT
 from wageadditionview
 left join sorting on wageadditionview.idsor01 = sorting.idsor where not  exists
 (select * from entry 
-		 where idrelated = 'wageadd' + 'ยง' + convert(varchar(4),ycon) + 'ยง'  + 
+		 where idrelated = 'wageadd' + 'ง' + convert(varchar(4),ycon) + 'ง'  + 
 		 convert(varchar(14),ncon)
 )
 AND ycon = @ayear
@@ -138,11 +147,11 @@ AND @kind in ('C','A')
 	AND (@idsor05 IS NULL OR wageadditionview.idsor05 = @idsor05)
 ORDER BY ycon, ncon
 -- Per le Missioni, essendo cambiata la logica di generazione delle scritture su
--- Missioni e cioรจ poichรจ le scritture EP adesso vengono generate solo se c'รจ la Data acquisizione documentazione definitiva, 
+-- Missioni e cio่ poich่ le scritture EP adesso vengono generate solo se c'่ la Data acquisizione documentazione definitiva, 
 -- si chiede di escludere dall'esportazione tutte le Missioni che non hanno scrittura, ma non hanno neanche la Data acquisizione documentazione definitiva valorizzata
 -- Anche per le Missioni, se non esiste una scrittura e se la Data acquisizione documentazione definitiva 
 -- ha esercizio diverso da quello in cui si lancia l'esportazione, deve essere visualizzata la Nota 
--- "Scrittura non generata perchรจ costo non di competenza dell'esercizio"
+-- "Scrittura non generata perch่ costo non di competenza dell'esercizio"
 INSERT INTO #document
 	(
 		desckind, dockind,y,n,fiscalyear,ndetail,description,
@@ -153,15 +162,15 @@ SELECT
 		adate, registry, service,null, itinerationview.start, itinerationview.stop,totalgross,datecompleted, 
 		case 
 			when year(datecompleted)<>@ayear 
-				then 'Scrittura non generata perchรจ costo non di competenza dell''esercizio'
+				then 'Scrittura non generata perch่ costo non di competenza dell''esercizio'
 			when ( year(itinerationview.stop) = @ayear and ISNULL(completed,'N') = 'N')
-				then 'Scrittura non generata perchรจ prestazione non eseguita (flag "Considera eseguito e quindi pagabile" non valorizzato)'
+				then 'Scrittura non generata perch่ prestazione non eseguita (flag "Considera eseguito e quindi pagabile" non valorizzato)'
 		else null
 		end,sorting.sortcode, sorting.description
 from itinerationview 
 left join sorting on itinerationview.idsor01 = sorting.idsor
 where  not exists
-(select * from entry where idrelated = 'itineration' + 'ยง' + convert(varchar(4),yitineration) + 'ยง'  + 
+(select * from entry where idrelated = 'itineration' + 'ง' + convert(varchar(4),yitineration) + 'ง'  + 
 	convert(varchar(14),nitineration)
 )
 AND yitineration = @ayear and itinerationview.datecompleted is not null
@@ -184,12 +193,15 @@ SELECT
 		dateivapay,null, null, null,paymentamount
 FROM ivapay  WHERE not  exists
 (SELECT * FROM entry 
-		 WHERE idrelated = 'ivapay' + 'ยง' + convert(varchar(4),yivapay) + 'ยง'  + convert(varchar(14),nivapay)
+		 WHERE idrelated = 'ivapay' + 'ง' + convert(varchar(4),yivapay) + 'ง'  + convert(varchar(14),nivapay)
 )
 AND yivapay = @ayear
 AND @kind in ('I','A')
 
 ORDER BY yivapay, nivapay
+
+if (@usapresentazionedocumenti='S')
+begin
 
 INSERT INTO #document
 	(
@@ -202,11 +214,12 @@ SELECT
 		adate,null, null, null,amount
 FROM taxpay  WHERE not  exists
 (SELECT * FROM entry 
-		 WHERE idrelated like 'taxpay' + 'ยง' + convert(varchar(4),ytaxpay) + 'ยง'  + convert(varchar(14),ntaxpay)+ 'ยง%'
+		 WHERE idrelated like 'taxpay' + 'ง' + convert(varchar(4),ytaxpay) + 'ง'  + convert(varchar(14),ntaxpay)+ 'ง%'
 )
 AND ytaxpay = @ayear
 AND @kind in ('C','A')
 ORDER BY ytaxpay, ntaxpay
+END
 
 
 INSERT INTO #document
@@ -218,7 +231,7 @@ SELECT
 		'Liquidazione Iva consolidata', null, ymainivapay, nmainivapay,null, null, null,
 		datemainivapay, null, null, null,paymentamount
 FROM mainivapay  WHERE  not exists
-(SELECT * FROM entry WHERE idrelated = 'mainivapay' + 'ยง' + convert(varchar(4),ymainivapay) + 'ยง'  + 
+(SELECT * FROM entry WHERE idrelated = 'mainivapay' + 'ง' + convert(varchar(4),ymainivapay) + 'ง'  + 
 	convert(varchar(14),nmainivapay)
 )
 AND ymainivapay = @ayear
@@ -235,7 +248,7 @@ SELECT
 		transmissiondate, null, null,manager,total,sorting.sortcode, sorting.description
 FROM paymenttransmissionview
 left join sorting on paymenttransmissionview.idsor01 = sorting.idsor WHERE not exists
-(SELECT * FROM entry WHERE idrelated = 'paytrans' + 'ยง' + convert(varchar(4),ypaymenttransmission) + 'ยง'  + 
+(SELECT * FROM entry WHERE idrelated = 'paytrans' + 'ง' + convert(varchar(4),ypaymenttransmission) + 'ง'  + 
 	convert(varchar(14),npaymenttransmission)
 )
 AND transmissionkind<>'V'
@@ -260,7 +273,7 @@ SELECT 'Elenco di trasmissione Reversali',null, yproceedstransmission, nproceeds
 		transmissiondate, null, null,manager,total,sorting.sortcode, sorting.description
 from proceedstransmissionview 
 left join sorting on proceedstransmissionview.idsor01 = sorting.idsor where not exists
-(select * from entry where idrelated = 'protrans' + 'ยง' + convert(varchar(4),yproceedstransmission) + 'ยง'  + 
+(select * from entry where idrelated = 'protrans' + 'ง' + convert(varchar(4),yproceedstransmission) + 'ง'  + 
 	convert(varchar(14),nproceedstransmission)
 )
 AND transmissionkind<>'V'
@@ -285,7 +298,7 @@ INSERT INTO #document
 SELECT 'Importazione Esiti Bancari','ABI: ' + idbank, ayear, idbankimport, null, null, 'Tot Mandati:' + Convert(varchar(20), totalpayment) +  ' Tot Reversali:' + Convert(varchar(20), totalproceeds) ,
 		adate, null, null,null,null,null, null
 from bankimport where not exists
-(select * from entry where idrelated = 'bankimport' + 'ยง' + convert(varchar(4),idbankimport)  
+(select * from entry where idrelated = 'bankimport' + 'ง' + convert(varchar(4),idbankimport)  
 )
 and exists (select * from banktransaction where idbankimport = bankimport.idbankimport)
 and @kind in ('T','A') AND ayear = @ayear
@@ -304,8 +317,8 @@ SELECT
 from invoiceview 
  
 left join sorting on invoiceview.idsor01 = sorting.idsor where not exists
-(select * from entry where idrelated = 'inv' + 'ยง' + convert(varchar(4),idinvkind) + 'ยง'  + 
-		convert(varchar(4),yinv) + 'ยง'  + convert(varchar(14),ninv))
+(select * from entry where idrelated = 'inv' + 'ง' + convert(varchar(4),idinvkind) + 'ง'  + 
+		convert(varchar(4),yinv) + 'ง'  + convert(varchar(14),ninv))
 AND yinv = @ayear
 AND @kind in ('I','A')
 	AND (@idsor01 IS NULL OR invoiceview.idsor01 = @idsor01)
@@ -315,7 +328,7 @@ AND @kind in ('I','A')
 	AND (@idsor05 IS NULL OR invoiceview.idsor05 = @idsor05)
 ORDER BY invoicekind ,yinv, ninv
 
--- Escludere i contratti attivi e passivi non collegabili a fattura per i quali non vi รจ la spunta su โ€Utilizzabile per la contabilizzazioneโ€.
+-- Escludere i contratti attivi e passivi non collegabili a fattura per i quali non vi ่ la spunta su “Utilizzabile per la contabilizzazione”.
 INSERT INTO #document
 	(
 		desckind, dockind,y,n,fiscalyear,ndetail,description,
@@ -328,8 +341,8 @@ from mandateview
 join mandatekind ON mandateview.idmankind = mandatekind.idmankind
 left join sorting on mandateview.idsor01 = sorting.idsor
 where not exists
-(select * from entry where idrelated = 'man' + 'ยง' + mandateview.idmankind + 'ยง'  + 
-		convert(varchar(4),yman) + 'ยง'  + convert(varchar(14),nman))
+(select * from entry where idrelated = 'man' + 'ง' + mandateview.idmankind + 'ง'  + 
+		convert(varchar(4),yman) + 'ง'  + convert(varchar(14),nman))
 --and not exists (select * from invoicedetail 
 --				where invoicedetail.idmankind = mandateview.idmankind and 
 --				      invoicedetail.yman = mandateview.yman and 
@@ -355,8 +368,8 @@ from estimateview
 join estimatekind ON estimateview.idestimkind = estimatekind.idestimkind
 left join sorting on estimateview.idsor01 = sorting.idsor
 where  not exists
-(select * from entry where idrelated = 'estim' + 'ยง' + estimateview.idestimkind + 'ยง'  + 
-		convert(varchar(4),yestim) + 'ยง'  + convert(varchar(14),nestim))
+(select * from entry where idrelated = 'estim' + 'ง' + estimateview.idestimkind + 'ง'  + 
+		convert(varchar(4),yestim) + 'ง'  + convert(varchar(14),nestim))
 --and not exists (select * from invoicedetail 
 --				where invoicedetail.idestimkind = estimateview.idestimkind and 
 --				      invoicedetail.yestim = estimateview.yestim and 
@@ -383,16 +396,16 @@ SELECT
 		C.disbursementdate, C.registry, C.service,null,C.start, C.stop, feegross,
 		case 
 			when  (ISNULL(flagcomputed,'N') = 'N'  and year(C.stop)=@ayear )
-				then 'Scrittura non generata perchรจ cedolino non calcolato' 
+				then 'Scrittura non generata perch่ cedolino non calcolato' 
 			when year(C.stop)<>@ayear 
-				then 'Scrittura non generata perchรจ costo non di competenza dell''esercizio'
+				then 'Scrittura non generata perch่ costo non di competenza dell''esercizio'
 		else null
 		end,sorting.sortcode, sorting.description
 from payrollview C
 left join sorting on C.idsor01 = sorting.idsor
 where not  exists
-(select * from entry where idrelated = 'payroll' + 'ยง' + convert(varchar(10),C.idpayroll) + 'ยง'  + 
-		convert(varchar(4),C.fiscalyear) + 'ยง'  + convert(varchar(14),C.npayroll))
+(select * from entry where idrelated = 'payroll' + 'ง' + convert(varchar(10),C.idpayroll) + 'ง'  + 
+		convert(varchar(4),C.fiscalyear) + 'ง'  + convert(varchar(14),C.npayroll))
 AND fiscalyear = @ayear
 	AND (@idsor01 IS NULL OR C.idsor01 = @idsor01)
 	AND (@idsor02 IS NULL OR C.idsor02 = @idsor02)
@@ -413,7 +426,7 @@ SELECT
 	adate, registry,null, null,sorting.sortcode, sorting.description
 	from assetunloadview 
 	left join sorting on assetunloadview.idsor01 = sorting.idsor where not exists
-(select * from entry where idrelated = 'assetunload' + 'ยง' + convert(varchar(10),idassetunload))
+(select * from entry where idrelated = 'assetunload' + 'ง' + convert(varchar(10),idassetunload))
 and not exists(select * from assetunloadmotive where assetunloadmotive.idmot = assetunloadview.idmot and (assetunloadmotive.flag&1) <> 0)
 	AND yassetunload = @ayear
 	--and totalassetunload <> 0
@@ -435,7 +448,7 @@ SELECT
 		adate,registry,null,null,sorting.sortcode, sorting.description
 from assetloadview 
 left join sorting on assetloadview.idsor01 = sorting.idsor where  not exists
-(select * from entry where idrelated = 'assetload' + 'ยง' + convert(varchar(10),idassetload))
+(select * from entry where idrelated = 'assetload' + 'ง' + convert(varchar(10),idassetload))
 AND yassetload = @ayear AND assetloadmotive = 'DONAZIONE'
 AND @kind in ('P','A')
 and totalassetload <> 0
@@ -456,7 +469,7 @@ SELECT
 		adate, null, null, null,sorting.sortcode, sorting.description
 from storeunloaddetailview 
 left join sorting on storeunloaddetailview.idsor01 = sorting.idsor where not  exists
-(select * from entry where idrelated = 'storeunloaddetail' + 'ยง' + convert(varchar(14),idstoreunload) + 'ยง'  + 
+(select * from entry where idrelated = 'storeunloaddetail' + 'ง' + convert(varchar(14),idstoreunload) + 'ง'  + 
 		convert(varchar(4),idstoreunloaddetail))
 AND ystoreunload = @ayear
 AND @kind in ('M','A')
@@ -476,7 +489,7 @@ INSERT INTO #document
 SELECT 'Import Stipendi da CSA', null, yimport, nimport,null, null,description,
 		null,null,null,null
 from csa_import  where not exists
-(select * from entry where idrelated = 'csa_import' + 'ยง' + convert(varchar(4),yimport) + 'ยง'  + 
+(select * from entry where idrelated = 'csa_import' + 'ง' + convert(varchar(4),yimport) + 'ง'  + 
 	convert(varchar(14),nimport)
 )
 AND yimport = @ayear
@@ -493,8 +506,8 @@ SELECT
 adate, null, null, manager,amount,sorting.sortcode, sorting.description
 from pettycashoperationview 
 left join sorting on pettycashoperationview.idsor01 = sorting.idsor where  not exists
-(select * from entry where idrelated = 'pettycashoperation' + 'ยง' + convert(varchar(4),idpettycash) + 'ยง'  + 
-		convert(varchar(4),yoperation) + 'ยง'  + convert(varchar(14),noperation))
+(select * from entry where idrelated = 'pettycashoperation' + 'ง' + convert(varchar(4),idpettycash) + 'ง'  + 
+		convert(varchar(4),yoperation) + 'ง'  + convert(varchar(14),noperation))
 AND yoperation = @ayear
 	AND (@idsor01 IS NULL OR pettycashoperationview.idsor01 = @idsor01)
 	AND (@idsor02 IS NULL OR pettycashoperationview.idsor02 = @idsor02)
@@ -506,107 +519,107 @@ ORDER BY pettycash,yoperation, noperation
 
 /*
 select 'Contratto occasionale',ycon, ncon,adate,description, registry,service,
-'cascon' + 'ยง' + convert(varchar(4),ycon) + 'ยง'  + convert(varchar(4),ncon)
+'cascon' + 'ง' + convert(varchar(4),ycon) + 'ง'  + convert(varchar(4),ncon)
 from casualcontractview where not exists
-(select * from entry where idrelated = 'cascon' + 'ยง' + convert(varchar(4),ycon) + 'ยง'  + convert(varchar(4),ncon)
+(select * from entry where idrelated = 'cascon' + 'ง' + convert(varchar(4),ycon) + 'ง'  + convert(varchar(4),ncon)
 )
 
 select 'Compenso a dipendente',ycon, ncon,adate,description,registry,service,
-'wageadd' + 'ยง' + convert(varchar(4),ycon) + 'ยง'  + convert(varchar(4),ncon)
+'wageadd' + 'ง' + convert(varchar(4),ycon) + 'ง'  + convert(varchar(4),ncon)
 from wageadditionview where not  exists
-(select * from entry where idrelated = 'wageadd' + 'ยง' + convert(varchar(4),ycon) + 'ยง'  + convert(varchar(4),ncon)
+(select * from entry where idrelated = 'wageadd' + 'ง' + convert(varchar(4),ycon) + 'ง'  + convert(varchar(4),ncon)
 )
 
 select 'Missione',yitineration, nitineration,adate,description,registry,service,
-'itineration' + 'ยง' + convert(varchar(4),yitineration) + 'ยง'  + convert(varchar(4),nitineration)
+'itineration' + 'ง' + convert(varchar(4),yitineration) + 'ง'  + convert(varchar(4),nitineration)
 from itinerationview where  not exists
-(select * from entry where idrelated = 'itineration' + 'ยง' + convert(varchar(4),yitineration) + 'ยง'  + 
+(select * from entry where idrelated = 'itineration' + 'ง' + convert(varchar(4),yitineration) + 'ง'  + 
 	convert(varchar(4),nitineration)
 )
 
 select 'Liquidazione IVA', yivapay, nivapay, dateivapay,
-'ivapay' + 'ยง' + convert(varchar(4),yivapay) + 'ยง'  + convert(varchar(4),nivapay)
+'ivapay' + 'ง' + convert(varchar(4),yivapay) + 'ง'  + convert(varchar(4),nivapay)
 from ivapay where not  exists
-(select * from entry where idrelated = 'ivapay' + 'ยง' + convert(varchar(4),yivapay) + 'ยง'  + 
+(select * from entry where idrelated = 'ivapay' + 'ง' + convert(varchar(4),yivapay) + 'ง'  + 
 	convert(varchar(4),nivapay)
 )
 
 select 'Liquidazione Iva consolidata', ymainivapay, nmainivapay,datemainivapay,
-'mainivapay' + 'ยง' + convert(varchar(4),ymainivapay) + 'ยง'  + convert(varchar(4),nmainivapay)
+'mainivapay' + 'ง' + convert(varchar(4),ymainivapay) + 'ง'  + convert(varchar(4),nmainivapay)
 from mainivapay where  not exists
-(select * from entry where idrelated = 'mainivapay' + 'ยง' + convert(varchar(4),ymainivapay) + 'ยง'  + 
+(select * from entry where idrelated = 'mainivapay' + 'ง' + convert(varchar(4),ymainivapay) + 'ง'  + 
 	convert(varchar(4),nmainivapay)
 )
 
 select 'Elenco di trasmissione Mandati',ypaymenttransmission, npaymenttransmission, transmissiondate, manager,
-'paytrans' + 'ยง' + convert(varchar(4),ypaymenttransmission) + 'ยง'  + convert(varchar(4),npaymenttransmission)
+'paytrans' + 'ง' + convert(varchar(4),ypaymenttransmission) + 'ง'  + convert(varchar(4),npaymenttransmission)
 from paymenttransmissionview where not exists
-(select * from entry where idrelated = 'paytrans' + 'ยง' + convert(varchar(4),ypaymenttransmission) + 'ยง'  + 
+(select * from entry where idrelated = 'paytrans' + 'ง' + convert(varchar(4),ypaymenttransmission) + 'ง'  + 
 	convert(varchar(4),npaymenttransmission)
 )
 
 select 'Elenco di trasmissione Reversali',yproceedstransmission, nproceedstransmission, transmissiondate, manager,
-'protrans' + 'ยง' + convert(varchar(4),yproceedstransmission) + 'ยง'  + convert(varchar(4),nproceedstransmission)
+'protrans' + 'ง' + convert(varchar(4),yproceedstransmission) + 'ง'  + convert(varchar(4),nproceedstransmission)
 from proceedstransmissionview where not exists
-(select * from entry where idrelated = 'protrans' + 'ยง' + convert(varchar(4),yproceedstransmission) + 'ยง'  + 
+(select * from entry where idrelated = 'protrans' + 'ง' + convert(varchar(4),yproceedstransmission) + 'ง'  + 
 	convert(varchar(4),nproceedstransmission)
 )
 
 select 'Fattura', invoicekind ,yinv, ninv,adate, registry, description,
-'inv' + 'ยง' + convert(varchar(4),idinvkind) + 'ยง'  + 
-		convert(varchar(4),yinv) + 'ยง'  + convert(varchar(4),ninv)
+'inv' + 'ง' + convert(varchar(4),idinvkind) + 'ง'  + 
+		convert(varchar(4),yinv) + 'ง'  + convert(varchar(4),ninv)
 from invoiceview where not exists
-(select * from entry where idrelated = 'inv' + 'ยง' + convert(varchar(4),idinvkind) + 'ยง'  + 
-		convert(varchar(4),yinv) + 'ยง'  + convert(varchar(4),ninv))
+(select * from entry where idrelated = 'inv' + 'ง' + convert(varchar(4),idinvkind) + 'ง'  + 
+		convert(varchar(4),yinv) + 'ง'  + convert(varchar(4),ninv))
 
 select 'Contratto Passivo', mankind, yman, nman, registry, description,
-'man' + 'ยง' + idmankind + 'ยง'  + 
-		convert(varchar(4),yman) + 'ยง'  + convert(varchar(4),nman)
+'man' + 'ง' + idmankind + 'ง'  + 
+		convert(varchar(4),yman) + 'ง'  + convert(varchar(4),nman)
 from mandateview where not exists
-(select * from entry where idrelated = 'man' + 'ยง' + idmankind + 'ยง'  + 
-		convert(varchar(4),yman) + 'ยง'  + convert(varchar(4),nman))
+(select * from entry where idrelated = 'man' + 'ง' + idmankind + 'ง'  + 
+		convert(varchar(4),yman) + 'ง'  + convert(varchar(4),nman))
 
 select 'Contratto Attivo', estimkind, yestim, nestim, registry, description,
-'estim' + 'ยง' + idestimkind + 'ยง'  + 
-		convert(varchar(4),yestim) + 'ยง'  + convert(varchar(4),nestim)
+'estim' + 'ง' + idestimkind + 'ง'  + 
+		convert(varchar(4),yestim) + 'ง'  + convert(varchar(4),nestim)
 from estimateview where  not exists
-(select * from entry where idrelated = 'estim' + 'ยง' + idestimkind + 'ยง'  + 
-		convert(varchar(4),yestim) + 'ยง'  + convert(varchar(4),nestim))
+(select * from entry where idrelated = 'estim' + 'ง' + idestimkind + 'ง'  + 
+		convert(varchar(4),yestim) + 'ง'  + convert(varchar(4),nestim))
 
 select 'Cedolino',fiscalyear, npayroll,registry, service,
-'payroll' + 'ยง' + convert(varchar(4),idpayroll) + 'ยง'  + 
-		convert(varchar(4),fiscalyear) + 'ยง'  + convert(varchar(4),npayroll)
+'payroll' + 'ง' + convert(varchar(4),idpayroll) + 'ง'  + 
+		convert(varchar(4),fiscalyear) + 'ง'  + convert(varchar(4),npayroll)
 from payrollview where not  exists
-(select * from entry where idrelated = 'payroll' + 'ยง' + convert(varchar(4),idpayroll) + 'ยง'  + 
-		convert(varchar(4),fiscalyear) + 'ยง'  + convert(varchar(4),npayroll))
+(select * from entry where idrelated = 'payroll' + 'ง' + convert(varchar(4),idpayroll) + 'ง'  + 
+		convert(varchar(4),fiscalyear) + 'ง'  + convert(varchar(4),npayroll))
 
 select 'Buono di scarico', assetunloadkind,yassetunload, nassetunload,adate,description,
-'assetunload' + 'ยง' + convert(varchar(4),idassetunloadkind) + 'ยง'  + 
-		convert(varchar(4),yassetunload) + 'ยง'  + convert(varchar(4),nassetunload)
+'assetunload' + 'ง' + convert(varchar(4),idassetunloadkind) + 'ง'  + 
+		convert(varchar(4),yassetunload) + 'ง'  + convert(varchar(4),nassetunload)
 from assetunloadview where not exists
-(select * from entry where idrelated = 'assetunload' + 'ยง' + convert(varchar(4),idassetunloadkind) + 'ยง'  + 
-		convert(varchar(4),yassetunload) + 'ยง'  + convert(varchar(4),nassetunload))
+(select * from entry where idrelated = 'assetunload' + 'ง' + convert(varchar(4),idassetunloadkind) + 'ง'  + 
+		convert(varchar(4),yassetunload) + 'ง'  + convert(varchar(4),nassetunload))
 
 select 'Buono di carico', assetloadkind,yassetload, nassetload,adate,description,
-'assetload' + 'ยง' + convert(varchar(4),idassetloadkind) + 'ยง'  + 
-		convert(varchar(4),yassetload) + 'ยง'  + convert(varchar(4),nassetload)
+'assetload' + 'ง' + convert(varchar(4),idassetloadkind) + 'ง'  + 
+		convert(varchar(4),yassetload) + 'ง'  + convert(varchar(4),nassetload)
 from assetloadview where  not exists
-(select * from entry where idrelated = 'assetload' + 'ยง' + convert(varchar(4),idassetloadkind) + 'ยง'  + 
-		convert(varchar(4),yassetload) + 'ยง'  + convert(varchar(4),nassetload))
+(select * from entry where idrelated = 'assetload' + 'ง' + convert(varchar(4),idassetloadkind) + 'ง'  + 
+		convert(varchar(4),yassetload) + 'ง'  + convert(varchar(4),nassetload))
 
 select 'Scarico magazzino', store,ystoreunload, nstoreunload,idstoreunloaddetail,
-'storeunloaddetail' + 'ยง' + convert(varchar(4),idstoreunload) + 'ยง'  + 
+'storeunloaddetail' + 'ง' + convert(varchar(4),idstoreunload) + 'ง'  + 
 		convert(varchar(4),idstoreunloaddetail) 
 from storeunloaddetailview where not  exists
-(select * from entry where idrelated = 'storeunloaddetail' + 'ยง' + convert(varchar(4),idstoreunload) + 'ยง'  + 
+(select * from entry where idrelated = 'storeunloaddetail' + 'ง' + convert(varchar(4),idstoreunload) + 'ง'  + 
 		convert(varchar(4),idstoreunloaddetail))
 
 select 'Operazione Fondo Economale', pettycash,yoperation, noperation,adate,description,manager,
-'pettycashoperation' + 'ยง' + convert(varchar(4),idpettycash) + 'ยง'  + 
-		convert(varchar(4),yoperation) + 'ยง'  + convert(varchar(4),noperation)
+'pettycashoperation' + 'ง' + convert(varchar(4),idpettycash) + 'ง'  + 
+		convert(varchar(4),yoperation) + 'ง'  + convert(varchar(4),noperation)
 from pettycashoperationview where  not exists
-(select * from entry where idrelated = 'pettycashoperation' + 'ยง' + convert(varchar(4),idpettycash) + 'ยง'  + 
-		convert(varchar(4),yoperation) + 'ยง'  + convert(varchar(4),noperation))
+(select * from entry where idrelated = 'pettycashoperation' + 'ง' + convert(varchar(4),idpettycash) + 'ง'  + 
+		convert(varchar(4),yoperation) + 'ง'  + convert(varchar(4),noperation))
 
 select * from pettycashoperationview 
 
@@ -620,9 +633,9 @@ case "pettycashoperation":
 									 });
            
 select 'Import Stipendi da CSA', yimport, nimport,adate,description,
-'csa_import' + 'ยง' + convert(varchar(4),yimport) + 'ยง'  + convert(varchar(4),nimport)
+'csa_import' + 'ง' + convert(varchar(4),yimport) + 'ง'  + convert(varchar(4),nimport)
 from csa_import where not exists
-(select * from entry where idrelated = 'csa_import' + 'ยง' + convert(varchar(4),yimport) + 'ยง'  + 
+(select * from entry where idrelated = 'csa_import' + 'ง' + convert(varchar(4),yimport) + 'ง'  + 
 	convert(varchar(4),nimport)
 )
 */
@@ -657,4 +670,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

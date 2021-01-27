@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[compute_csa_versamenti]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[compute_csa_versamenti]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_csa_versamenti]
 GO
 SET ANSI_NULLS ON
@@ -309,13 +311,13 @@ BEGIN
 			vocecsa
 		)
 		SELECT
-			idreg_agency,  -- prenderÃ² la modalitÃ  di pagamento configurata per l'ente CSA di versamento
+			idreg_agency,  -- prenderò la modalità di pagamento configurata per l'ente CSA di versamento
 			idfin_expense, idsor_siope_expense,
 			'0001', --SEMPRE PER PARTITE DI GIRO
 			importo, 4,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_expense, -- debito verso erario
 			idcsa_agency,idcsa_agencypaymethod,
@@ -345,13 +347,13 @@ BEGIN
 			idcsa_contractkind,	idcsa_contract,	vocecsa
 		)
 		SELECT
-			idreg_agency,  -- prenderÃ² la modalitÃ  di pagamento configurata per l'ente CSA di versamento
+			idreg_agency,  -- prenderò la modalità di pagamento configurata per l'ente CSA di versamento
 			idfin_expense,			idsor_siope_expense,		'0001', --SEMPRE PER PARTITE DI GIRO
 			importo,
 			4,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_internalcredit,
 			idcsa_agency,		idcsa_agencypaymethod,
@@ -382,15 +384,15 @@ BEGIN
 			idcsa_agency,	idcsa_contractkind,	idcsa_contract,		vocecsa
 		)
 		SELECT
-			idreg_agency,  -- prenderÃ² la modalitÃ  di pagamento configurata per l'ente CSA di versamento
+			idreg_agency,  -- prenderò la modalità di pagamento configurata per l'ente CSA di versamento
 			idfin_income,
 			idsor_siope_income,
 			'0001', --SEMPRE PER PARTITE DI GIRO
 			-importo,
 			17,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Incasso Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Incasso Imposte/Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Incasso Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Incasso Imposte/Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_cost, 
 			idcsa_agency,
@@ -421,13 +423,13 @@ BEGIN
 		)
 		SELECT
 			NULL,
-			idreg_agency,  -- modalitÃ  pagamento configurata per l'ente CSA di versamento
+			idreg_agency,  -- modalità pagamento configurata per l'ente CSA di versamento
 			idfin_cost,	idsor_siope_cost,	idupb, -- CONFIGURATO NELLA SCHEDA CONTRIBUTI DEL CONTRATTO O NEL TIPO CONTRATTO
 			importo,
 			4,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_expense, -- debito verso erario
 			idcsa_agency,	idcsa_agencypaymethod,
@@ -464,8 +466,8 @@ BEGIN
 			-importo,
 			10,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_agency_credit, --credito verso erario
  			idcsa_agency,
@@ -501,7 +503,7 @@ BEGIN
 		SELECT
 			E.idexp,
 			E.idman,
-			ISNULL(E.idreg, idreg_agency), -- modalitÃ  pagamento configurata per l'ente CSA di versamento
+			ISNULL(E.idreg, idreg_agency), -- modalità pagamento configurata per l'ente CSA di versamento
 			ISNULL(EY.idfin, #csa_importver_balanced.idfin_cost), 
 			#csa_importver_balanced.idsor_siope_cost,
 			ISNULL(EY.idupb, #csa_importver_balanced.idupb), -- CONFIGURATO NELLA SCHEDA CONTRIBUTI DEL CONTRATTO O NEL TIPO CONTRATTO
@@ -509,8 +511,8 @@ BEGIN
 			case when UA.appropriation is null then importo else isnull(UA.appropriation/UA.curramount,0)* importo end,	
 			4,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_expense,  -- debito verso erario
 			idcsa_agency,	idcsa_agencypaymethod,	idcsa_contractkind,	idcsa_contract,
@@ -552,8 +554,8 @@ BEGIN
 			-importo,
 			10,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_agency_credit, --credito verso erario
  			idcsa_agency,
@@ -586,7 +588,7 @@ BEGIN
 		)
 		SELECT
 			E.idexp, E.idman,
-			ISNULL(E.idreg, idreg_agency), -- modalitÃ  pagamento configurata per l'ente CSA di versamento
+			ISNULL(E.idreg, idreg_agency), -- modalità pagamento configurata per l'ente CSA di versamento
 			ISNULL(EY.idfin, #csa_importver_balanced.idfin_cost), 
 			#csa_importver_balanced.idsor_siope_cost,
 			ISNULL(EY.idupb, #csa_importver_balanced.idupb), -- CONFIGURATO NELLA SCHEDA CONTRIBUTI DEL CONTRATTO O NEL TIPO CONTRATTO
@@ -594,8 +596,8 @@ BEGIN
 			case when UA.appropriation is null then csa_importver_expense.amount else isnull(UA.appropriation/UA.curramount,0)* csa_importver_expense.amount end,	
 			4,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			#csa_importver_balanced.idacc_expense,  -- debito verso erario
 			#csa_importver_balanced.idcsa_agency,
@@ -639,8 +641,8 @@ BEGIN
 			-importo,
 			10,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_agency_credit, --credito verso erario
  			idcsa_agency,
@@ -672,13 +674,13 @@ BEGIN
 			idcsa_contractkind,	idcsa_contract,	vocecsa
 		)
 		SELECT
-			idreg_agency,  -- prenderÃ² la modalitÃ  di pagamento configurata per l'ente CSA di versamento
+			idreg_agency,  -- prenderò la modalità di pagamento configurata per l'ente CSA di versamento
 			idfin_expense, idsor_siope_expense,
 			'0001', --SEMPRE PER PARTITE DI GIRO
 			importo, 4,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_expense, -- debito verso erario
 			idcsa_agency,idcsa_agencypaymethod,
@@ -706,15 +708,15 @@ BEGIN
 			idcsa_contractkind,	idcsa_contract,	vocecsa
 		)
 		SELECT
-			idreg_agency,  -- prenderÃ² la modalitÃ  di pagamento configurata per l'ente CSA di versamento
+			idreg_agency,  -- prenderò la modalità di pagamento configurata per l'ente CSA di versamento
 			idfin_expense,
 			idsor_siope_expense,
 			'0001', --SEMPRE PER PARTITE DI GIRO
 			importo,
 			4,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_internalcredit,
 			idcsa_agency,
@@ -749,15 +751,15 @@ BEGIN
 			idcsa_contractkind,	idcsa_contract,		vocecsa
 		)
 		SELECT
-			idreg_agency,  -- prenderÃ² la modalitÃ  di pagamento configurata per l'ente CSA di versamento
+			idreg_agency,  -- prenderò la modalità di pagamento configurata per l'ente CSA di versamento
 			idfin_income,
 			idsor_siope_income,
 			'0001', --SEMPRE PER PARTITE DI GIRO
 			-importo,
 			17,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Incasso Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Incasso Imposte/Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Incasso Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Incasso Imposte/Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_cost, 
 			idcsa_agency,
@@ -791,15 +793,15 @@ BEGIN
 		)
 		SELECT
 			NULL,
-			idreg_agency,  -- modalitÃ  pagamento configurata per l'ente CSA di versamento
+			idreg_agency,  -- modalità pagamento configurata per l'ente CSA di versamento
 			idfin_cost,
 			idsor_siope_cost,
 			idupb, -- CONFIGURATO NELLA SCHEDA CONTRIBUTI DEL CONTRATTO O NEL TIPO CONTRATTO
 			importo,
 			4,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_expense, -- debito verso erario
 			idcsa_agency,
@@ -839,8 +841,8 @@ BEGIN
 			-importo,
 			10,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_agency_credit, --credito verso erario
  			idcsa_agency,
@@ -874,7 +876,7 @@ BEGIN
 		SELECT
 			E.idexp,
 			E.idman,
-			ISNULL(E.idreg, idreg_agency), -- modalitÃ  pagamento configurata per l'ente CSA di versamento
+			ISNULL(E.idreg, idreg_agency), -- modalità pagamento configurata per l'ente CSA di versamento
 			ISNULL(EY.idfin, csa_importver.idfin_cost), 
 			csa_importver.idsor_siope_cost,
 			ISNULL(EY.idupb, csa_importver.idupb), -- CONFIGURATO NELLA SCHEDA CONTRIBUTI DEL CONTRATTO O NEL TIPO CONTRATTO
@@ -882,8 +884,8 @@ BEGIN
 			case when UA.appropriation is null then importo else isnull(UA.appropriation/UA.curramount,0)* importo end,	
 			4,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_expense,  -- debito verso erario
 			idcsa_agency,
@@ -931,8 +933,8 @@ BEGIN
 			-importo,
 			10,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_agency_credit, --credito verso erario
  			idcsa_agency,
@@ -969,7 +971,7 @@ BEGIN
 		SELECT
 			E.idexp,
 			E.idman,
-			ISNULL(E.idreg, idreg_agency), -- modalitÃ  pagamento configurata per l'ente CSA di versamento
+			ISNULL(E.idreg, idreg_agency), -- modalità pagamento configurata per l'ente CSA di versamento
 			ISNULL(EY.idfin, csa_importver.idfin_cost), 
 			csa_importver.idsor_siope_cost,
 			ISNULL(EY.idupb, csa_importver.idupb), -- CONFIGURATO NELLA SCHEDA CONTRIBUTI DEL CONTRATTO O NEL TIPO CONTRATTO
@@ -978,8 +980,8 @@ BEGIN
 
 			4,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			csa_importver.idacc_expense,  -- debito verso erario
 			csa_importver.idcsa_agency,
@@ -1028,8 +1030,8 @@ BEGIN
 			-importo,
 			10,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_agency_credit, --credito verso erario
  			idcsa_agency,
@@ -1069,15 +1071,15 @@ END
 			vocecsa
 		)
 		SELECT
-			idreg_agency,  -- prenderÃ² la modalitÃ  di pagamento configurata per l'ente CSA di versamento
+			idreg_agency,  -- prenderò la modalità di pagamento configurata per l'ente CSA di versamento
 			idfin_expense,
 			idsor_siope_expense,
 			'0001', --SEMPRE PER PARTITE DI GIRO
 			importo,
 			4,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Versamento Imposte/Recuperi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Versamento Imposte/Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_expense, -- debito verso erario
 			idcsa_agency,
@@ -1124,8 +1126,8 @@ SELECT
 	-importo,
 	9,
 	CASE ISNULL(@csa_flaggroupby_income,'N')
-		WHEN 'S' THEN SUBSTRING('Incasso Ritenute da Erario ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-		ELSE SUBSTRING('Incasso Ritenute da Erario' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+		WHEN 'S' THEN SUBSTRING('Incasso Ritenute da Erario ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+		ELSE SUBSTRING('Incasso Ritenute da Erario' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 	END,
 	idacc_agency_credit, --credito verso erario
  	idcsa_agency,
@@ -1172,8 +1174,8 @@ BEGIN
 			-importo,
 			11,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_agency_credit, --credito verso erario
  			idcsa_agency,
@@ -1219,8 +1221,8 @@ BEGIN
 			importo,
 			6,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Incasso Recuperi ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Incasso Recuperi '  +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Incasso Recuperi ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Incasso Recuperi '  +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_internalcredit,
 			idcsa_agency,
@@ -1264,8 +1266,8 @@ BEGIN
 			importo,
 			13,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Rimborso Ritenute/Recuperi ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Rimborso Ritenute/Recuperi '  +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Rimborso Ritenute/Recuperi ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Rimborso Ritenute/Recuperi '  +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_cost, ---conto di costo letto da csa_incomesetup, ad uso esclusivo dei recuperi
 			idcsa_agency,
@@ -1312,8 +1314,8 @@ BEGIN
 			-importo,
 			11,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Incasso Contributi da Erario ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Incasso Contributi da Erario' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_agency_credit, --credito verso erario
  			idcsa_agency,
@@ -1359,8 +1361,8 @@ BEGIN
 			importo,
 			6,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Incasso Recuperi ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Incasso Recuperi '  +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Incasso Recuperi ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Incasso Recuperi '  +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_internalcredit,
 			idcsa_agency,
@@ -1404,8 +1406,8 @@ BEGIN
 			-importo,
 			13,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Rimborso Ritenute/Recuperi ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
-				ELSE SUBSTRING('Rimborso Ritenute/Recuperi '  +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				WHEN 'S' THEN SUBSTRING('Rimborso Ritenute/Recuperi ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
+				ELSE SUBSTRING('Rimborso Ritenute/Recuperi '  +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+ '.'+@description,1,150)
 			END,
 			idacc_cost, ---conto di costo letto da csa_incomesetup, ad uso esclusivo dei recuperi
 			idcsa_agency,
@@ -1550,4 +1552,3 @@ SET ANSI_NULLS ON
 GO
  
  
-	

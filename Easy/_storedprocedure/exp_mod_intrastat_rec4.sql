@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- setuser'amministrazione'
+
+-- setuser'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_intrastat_rec4]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_intrastat_rec4]
 GO
@@ -47,16 +49,16 @@ CREATE TABLE #Dettaglio3_SERVIZI
 	is_variation char(1),
 	flagpaired char(1),
 
-	codiceIVA varchar(14),				--  Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo d‚Äôimposta con il quale √® stata effettuata 
-										--	l‚Äôoperazione intracomunitaria
+	codiceIVA varchar(14),				--  Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo díimposta con il quale Ë stata effettuata 
+										--	líoperazione intracomunitaria
 	ammontareinEuro int,				-- numerico Len.13 -- Ammontare delle operazioni in euro
 	ammontareinValuta int,				-- numerico Len.13 -- Ammontare delle operazioni in valuta > > >  SOLO per i Servizi ricevuti
 	numerofattura varchar(15),			-- Numero Fattura
 	datafattura varchar(6),				-- Data fattura formato (ggmmaa)
 	codServizio varchar(6),				-- numerico -- Codice del Servizio
-	modErogazione char(1),				-- Modalit√† di erogazione
+	modErogazione char(1),				-- Modalit‡ di erogazione
 	modErogazioneDescr varchar(50),
-	modpagamento char(1),				-- Modalit√† pagamento/incasso 
+	modpagamento char(1),				-- Modalit‡ pagamento/incasso 
 	modpagamentoDescr varchar(50),
 	codPaesePagamento char(2)			-- Codice del paese di Pagamento
 )
@@ -87,9 +89,9 @@ INSERT INTO #Dettaglio3_SERVIZI(
 	numerofattura ,				-- Numero Fattura
 	datafattura ,				-- Data fattura formato (ggmmaa)
 	codServizio ,				-- numerico -- Codice del Servizio
-	modErogazione ,				-- Modalit√† di erogazione
+	modErogazione ,				-- Modalit‡ di erogazione
 	modErogazioneDescr,
-	modpagamento ,				-- Modalit√† pagamento/incasso 
+	modpagamento ,				-- Modalit‡ pagamento/incasso 
 	modpagamentoDescr,
 	codPaesePagamento 			-- Codice del paese di Pagamento
 )
@@ -124,9 +126,9 @@ SELECT
 	I.docdate,
 	--  Codice del Servizio
 	S.code,
-	E.code,					-- Modalit√† di erogazione
+	E.code,					-- Modalit‡ di erogazione
 	E.description,
-	P.code ,				-- Modalit√† pagamento/incasso 
+	P.code ,				-- Modalit‡ pagamento/incasso 
 	P.description,
 	Pag.idintrastatnation 	-- Codice del paese di Pagamento
 FROM  invoice as I 
@@ -196,7 +198,7 @@ update #Dettaglio3_SERVIZI set ammontareinEuro=-ammontareinEuro,ammontareinValut
 --azzera annorif e meserif per tutte le righe tranne che per le variazioni non compensate
 update #Dettaglio3_SERVIZI set annorif=null where flagvariation='N' or flagpaired='S'
 
---questo perch√© nella group by vanno raggruppate
+--questo perchÈ nella group by vanno raggruppate
 
 IF(@tiporecord = 'S')
 Begin
@@ -213,9 +215,9 @@ Begin
 	numerofattura ,				-- Numero Fattura
 	datafattura ,				-- Data fattura formato (ggmmaa)
 	codServizio ,				-- numerico -- Codice del Servizio
-	modErogazione ,				-- Modalit√† di erogazione
+	modErogazione ,				-- Modalit‡ di erogazione
 	modErogazioneDescr,
-	modpagamento ,				-- Modalit√† pagamento/incasso 
+	modpagamento ,				-- Modalit‡ pagamento/incasso 
 	modpagamentoDescr,
 	codPaesePagamento 			-- Codice del paese di Pagamento
  FROM #Dettaglio3_SERVIZI
@@ -238,4 +240,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

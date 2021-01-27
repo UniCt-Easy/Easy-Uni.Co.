@@ -5,8 +5,7 @@
 
             <ul id="mainTabControl" class="nav nav-tabs nav-justified">
      
-				<li><a data-toggle="tab" href="#tabgenerale"></a></li>
-				
+		
                 
                 
 				
@@ -24,7 +23,7 @@
 
             </div>
             <!-- chiude row -->
-            <div class="row">
+
                 <div class="col-md-8">
                     <!-- prima colonna formata da 8 span-->
 
@@ -142,38 +141,59 @@
                         <div class="col-md-12">
                             <fieldset class="scheduler-border smart-tab">
                                 <legend class="scheduler-border smart-tab">Date della Missione</legend>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <label for="txtDataInizioOrario">Data/Ora inizio:</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div  class = "it-datepicker-wrapper theme-dark">
-                                            <cc1:hwTextBox runat="server" ID="txtDataInizioOrario" CssClass="form-control it-date-datepicker" data-date-format="dd/mm/yy" Tag="itineration.starttime.g" TabIndex="80"></cc1:hwTextBox>
-                                        </div>
-                                        </div>
-                                    <div class="col-md-3">
-                                        <label for="txtDataFineOrario">Data/Ora fine:</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="it-datepicker-wrapper theme-dark">
-                                            <cc1:hwTextBox runat="server" ID="txtDataFineOrario" CssClass="form-control it-date-datepicker" Tag="itineration.stoptime.g" TabIndex="90"></cc1:hwTextBox>
-                                        </div>
-                                    </div>
-                                </div>
+								<div class="row">
+									<div class="col-md-3">
+										<label for="txtDataInizioOrario">Data inizio:</label>
+									</div>
+									<div class="col-md-3">
+										<div class="it-datepicker-wrapper theme-dark">
+											<cc1:hwTextBox runat="server" ID="txtDataInizioOrario" CssClass="form-control it-date-datepicker" Tag="itineration.starttime.d" TabIndex="80"></cc1:hwTextBox>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<label for="txtDataFineOrario">Data fine:</label>
+									</div>
+									<div class="col-md-3">
+										<div class="it-datepicker-wrapper theme-dark">
+											<cc1:hwTextBox runat="server" ID="txtDataFineOrario" CssClass="form-control it-date-datepicker" Tag="itineration.stoptime.d" TabIndex="90"></cc1:hwTextBox>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-1">
+										<asp:Label ID="Label1" runat="server">Ora</asp:Label>
+									</div>
+									<div class="col-md-2">
+										<cc1:hwTextBox id="txtOraInizio" CssClass="input-md form-control " runat="server" ></cc1:hwTextBox>
+									</div>
+									<div class="col-md-1">
+										<cc1:hwLabel CssClass="control-label" runat="server" for="txtMinutiInizio">Minuti</cc1:hwLabel>
+									</div>
+									<div class="col-md-2">
+										<cc1:hwTextBox runat="server" CssClass="input-md form-control" ID="txtMinutiInizio" Tag="" TabIndex="-1" ReadOnly="true"></cc1:hwTextBox>
+									</div>
+									<div class="col-md-1">
+										<asp:Label ID="Label2" runat="server">Ora</asp:Label>
+									</div>
+									<div class="col-md-2">
+										<cc1:hwTextBox id="txtOraFine" CssClass="input-md form-control " runat="server" ></cc1:hwTextBox>
+									</div>
+									<div class="col-md-1">
+										<cc1:hwLabel CssClass="control-label" runat="server" for="txtMinutiFine">Minuti</cc1:hwLabel>
+									</div>
+									<div class="col-md-2">
+										<cc1:hwTextBox runat="server" CssClass="input-md form-control" ID="txtMinutiFine" Tag="" TabIndex="-1" ReadOnly="true"></cc1:hwTextBox>
+									</div>
+
+								</div>
+
+
                             </fieldset>
                         </div>
                     </div>
-						<div class="row">
-							<div class='col-sm-6'>
 
-								<div class='input-group date'  data-change_customfun="myfun"  id='datetimepicker1'>
-									<cc1:hwTextBox runat="server" type='text' class="form-control" ></cc1:hwTextBox>
-								</div>
-
-							</div>
-
-
-						</div>
                     </fieldset>
     
                     <asp:Panel ID="divAutorizzazioneAutovettura" runat="server">
@@ -515,26 +535,26 @@
                         </fieldset>
                     </asp:Panel>
 
-                    <asp:Panel ID="divCoperturaMissione" runat="server">
-                        <fieldset class="scheduler-border smart-tab">
-                            <legend class="scheduler-border smart-tab">Copertura della missione</legend>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <cc1:hwLabel CssClass="control-label" runat="server">Missione su fondi Propri</cc1:hwLabel>
-                                </div>
-                                <div class="col-md-3">
-                                    <cc1:hwRadioButton runat="server" TabIndex="-1" ToEnable="true" EnableViewState="true" AutoPostBack="true" Text="No" ID="RdbMissioneFondiPropriNo" Tag="itineration.flagownfunds:N" OnCheckedChanged="rdb_CheckedChangedFondiPropriNo" />
-                                </div>
-                                <div class="col-md-2">
-                                    <cc1:hwRadioButton runat="server" TabIndex="-1" ToEnable="true" EnableViewState="true" AutoPostBack="true" Text="Si" ID="RdbMissioneFondiPropriSi" Tag="itineration.flagownfunds:S" OnCheckedChanged="rdb_CheckedChangedFondiPropriSi" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <fieldset>
-                                   
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <cc1:hwPanel GroupingText="" CssClass="gbox scheduler-border form-group" ID="grpResponsabile" runat="server" Tag="AutoChoose.txtResponsabile.lista.(financeactive='S')">
+					<asp:Panel ID="divCoperturaMissione" runat="server">
+						<fieldset class="scheduler-border smart-tab">
+							<legend class="scheduler-border smart-tab">Copertura della missione</legend>
+							<div class="row">
+								<div class="col-md-6">
+									<cc1:hwLabel CssClass="control-label" runat="server">Missione su fondi Propri</cc1:hwLabel>
+								</div>
+								<div class="col-md-3">
+									<cc1:hwRadioButton runat="server" TabIndex="-1" ToEnable="true" EnableViewState="true" AutoPostBack="true" Text="No" ID="RdbMissioneFondiPropriNo" Tag="itineration.flagownfunds:N" OnCheckedChanged="rdb_CheckedChangedFondiPropriNo" />
+								</div>
+								<div class="col-md-2">
+									<cc1:hwRadioButton runat="server" TabIndex="-1" ToEnable="true" EnableViewState="true" AutoPostBack="true" Text="Si" ID="RdbMissioneFondiPropriSi" Tag="itineration.flagownfunds:S" OnCheckedChanged="rdb_CheckedChangedFondiPropriSi" />
+								</div>
+							</div>
+							<div class="row">
+								<fieldset>
+
+									<div class="row">
+										<div class="col-md-12">
+											<cc1:hwPanel GroupingText="" CssClass="gbox scheduler-border form-group" ID="grpResponsabile" runat="server" Tag="AutoChoose.txtResponsabile.lista.(financeactive='S')">
 												<div class="col-md-6 col-xs-12">
 													<cc1:hwButton ID="btnResponsabile" runat="server" Text="Responsabile" class="btn btn-block" Tag="choose.manager.lista.(financeactive='S')" />
 												</div>
@@ -542,50 +562,50 @@
 													<cc1:hwTextBox TabIndex="300" ID="txtResponsabile" CssClass="form-control input-md" Tag="manager.title?x" runat="server"></cc1:hwTextBox>
 												</div>
 
-                                            </cc1:hwPanel>
-                                        </div>
-                                         
-                                    </div>
-                                </fieldset>
-                            </div>
+											</cc1:hwPanel>
+										</div>
 
-                            <div class="row">
-                                <div class="col-md-6 col-xs-12">
-                                    <cc1:hwLabel CssClass="control-label" runat="server" ID="lblMotivo">Motivo</cc1:hwLabel>
-                                </div>
-                                <div class="col-md-6 col-xs-12">
-                                    <cc1:hwTextBox runat="server" ID="txtMotivo" CssClass="form-control" TabIndex="320" Tag="itineration.applierannotations" TextMode="MultiLine"></cc1:hwTextBox>
-                                   
-                                </div>
-                            </div>
-                            
-                                
-       <div class="col-md-12">
-            <div class="row">
-                <cc1:hwPanel GroupingText="U.P.B." CssClass="gbox scheduler-border form-group" ID="PanelUpb" runat="server" Tag="AutoChoose.txtCodiceUPB.missioni">
-                    <div class="col-md-7">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <cc1:hwButton ID="btnUpbDisponibile" runat="server" Text="UPB" class="btn btn-block" Tag="choose.upbitinerationavailable.default" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <cc1:hwTextBox TabIndex="20" ID="txtCodiceUPB" CssClass="form-control input-md" Tag="upbitinerationavailable.codeupb?x" runat="server"></cc1:hwTextBox>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <cc1:hwTextBox runat="server" ID="txtUpbDisponibile" Tag="upbitinerationavailable.title" CssClass="input-md form-control" TextMode="MultiLine" Rows="3" ReadOnly="True"></cc1:hwTextBox>
-                    </div>
-                </cc1:hwPanel>
-            </div>
-        </div>
-                            
-                            
-                          
-                        </fieldset>
-                    </asp:Panel>
+									</div>
+								</fieldset>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6 col-xs-12">
+									<cc1:hwLabel CssClass="control-label" runat="server" ID="lblMotivo">Motivo</cc1:hwLabel>
+								</div>
+								<div class="col-md-6 col-xs-12">
+									<cc1:hwTextBox runat="server" ID="txtMotivo" CssClass="form-control" TabIndex="320" Tag="itineration.applierannotations" TextMode="MultiLine"></cc1:hwTextBox>
+
+								</div>
+							</div>
+
+
+							<div class="col-md-12">
+								<div class="row">
+									<cc1:hwPanel GroupingText="U.P.B." CssClass="gbox scheduler-border form-group" ID="PanelUpb" runat="server" Tag="AutoChoose.txtCodiceUPB.missioni">
+										<div class="col-md-7">
+											<div class="row">
+												<div class="col-md-12">
+													<cc1:hwButton ID="btnUpbDisponibile" runat="server" Text="UPB" class="btn btn-block" Tag="choose.upbitinerationavailable.default" />
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<cc1:hwTextBox TabIndex="20" ID="txtCodiceUPB" CssClass="form-control input-md" Tag="upbitinerationavailable.codeupb?x" runat="server"></cc1:hwTextBox>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-5">
+											<cc1:hwTextBox runat="server" ID="txtUpbDisponibile" Tag="upbitinerationavailable.title" CssClass="input-md form-control" TextMode="MultiLine" Rows="3" ReadOnly="True"></cc1:hwTextBox>
+										</div>
+									</cc1:hwPanel>
+								</div>
+							</div>
+
+
+
+						</fieldset>
+					</asp:Panel>
 
                     <asp:Panel ID="PanelPosGiuridica" runat="server">
                     <div class="row">
@@ -656,125 +676,116 @@
                     </div>
                 </div>
                 <!-- chiude la seconda colonna, quella di destra-->
-            </div>
+           
 
         </asp:Panel>
 
         <!-- chiude title-->
     <div class="row">
         <div class="col-md-8">
-            <asp:Panel ID="PanelTappeespese" runat="server">
-            <fieldset class="scheduler-border smart-tab">
+			<asp:Panel ID="PanelTappeespese" runat="server">
+				<asp:Panel ID="PanelTappe" runat="server">
+						<div class="row hid1">
+							<div class="col-md-12">
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <cc1:hwTextBox runat="server" ID="HwTextBoxTappespese" CssClass="input-md form-control" Text="" TextMode="MultiLine" Rows="4" ReadOnly="true" TabIndex="-1"></cc1:hwTextBox>
-                    </div>
-                </div>
+								<legend class="scheduler-border smart-tab">Tappe</legend>
 
-
-                <legend class="scheduler-border smart-tab">Rendicontazione Spese</legend>
-
-                <asp:Panel ID="PanelTappe" runat="server">
-                    <div class="row hid1">
-                        <div class="col-md-12">
-                            <fieldset class="scheduler-border smart-tab">
-                                <legend class="scheduler-border smart-tab">Tappe</legend>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <cc1:hwButton runat="server" ID="btnInsertTappa" Tag="insert.defaultnew02" TabIndex="-1" Text="Inserisci"></cc1:hwButton>
-                                        <cc1:hwButton runat="server" ID="btnEditTappa" Tag="edit.defaultnew02" TabIndex="-1" Text="Modifica"></cc1:hwButton>
-                                        <cc1:hwButton runat="server" ID="btnDelTappa" Tag="delete" TabIndex="-1" Text="Cancella"></cc1:hwButton>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <cc1:hwDataGridWeb runat="server" ID="dgrTappe" Tag="itinerationlap.default.defaultnew02" />
-                                    </div>
-                                </div>
-
-                            </fieldset>
-                        </div>
-                    </div>
-                </asp:Panel>
-                <div class="row">
+								<div class="row">
+									<div class="col-md-12">
+										<cc1:hwButton runat="server" ID="btnInsertTappa" Tag="insert.defaultnew02" TabIndex="-1" Text="Inserisci"></cc1:hwButton>
+										<cc1:hwButton runat="server" ID="btnEditTappa" Tag="edit.defaultnew02" TabIndex="-1" Text="Modifica"></cc1:hwButton>
+										<cc1:hwButton runat="server" ID="btnDelTappa" Tag="delete" TabIndex="-1" Text="Cancella"></cc1:hwButton>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<cc1:hwDataGridWeb runat="server" ID="dgrTappe" Tag="itinerationlap.default.defaultnew02" />
+									</div>
+								</div>
 
 
-                    <div class="col-md-12">
-                        <asp:Panel ID="grpRendicontoSpese" runat="server">
-                            <fieldset class="scheduler-border smart-tab GroupBoxLabel sup1 hid2">
-                                <legend class="scheduler-border smart-tab">Rendiconto Spese</legend>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <cc1:hwButton runat="server" ID="btnInsertSpesaSaldo" Tag="insert.balancenew02" TabIndex="-1" Text="Inserisci"></cc1:hwButton>
-                                        <cc1:hwButton runat="server" ID="btnEditSpesaSaldo" Tag="edit.balancenew02" TabIndex="-1" Text="Modifica"></cc1:hwButton>
-                                        <cc1:hwButton runat="server" ID="btnDeleteSpesaSaldo" Tag="delete" TabIndex="-1" Text="Elimina"></cc1:hwButton>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <cc1:hwDataGridWeb runat="server" CssClass="he1" ID="dgrSpeseSaldo" Tag="itinerationrefund_balance.balance.balance" TabIndex="-1" />
-                                    </div>
-                                </div>
+							</div>
+						</div>
+					</asp:Panel>
+					<div class="row">
+						<div class="col-md-12">
+							<asp:Panel ID="grpRendicontoSpese" runat="server">
+								<fieldset class="scheduler-border smart-tab GroupBoxLabel sup1 hid2">
+									<legend class="scheduler-border smart-tab">Rendiconto Spese</legend>
+									<cc1:hwTextBox runat="server" ID="HwTextBoxTappespese" CssClass="input-md form-control" Text="" TextMode="MultiLine" Rows="4" ReadOnly="true" TabIndex="-1"></cc1:hwTextBox>
+									<div class="row">
+										<div class="col-md-12">
+											<cc1:hwButton runat="server" ID="btnInsertSpesaSaldo" Tag="insert.balancenew02" TabIndex="-1" Text="Inserisci"></cc1:hwButton>
+											<cc1:hwButton runat="server" ID="btnEditSpesaSaldo" Tag="edit.balancenew02" TabIndex="-1" Text="Modifica"></cc1:hwButton>
+											<cc1:hwButton runat="server" ID="btnDeleteSpesaSaldo" Tag="delete" TabIndex="-1" Text="Elimina"></cc1:hwButton>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<cc1:hwDataGridWeb runat="server" CssClass="he1" ID="dgrSpeseSaldo" Tag="itinerationrefund_balance.balance.balance" TabIndex="-1" />
+										</div>
+									</div>
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <cc1:hwLabel CssClass="control-label" runat="server" for="txtsaldorichiesto">Totale Saldo Richiesto</cc1:hwLabel>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <cc1:hwTextBox runat="server" CssClass="hid2 sup2 input-md form-control" ID="txtsaldorichiesto" Tag="" TabIndex="-1" ReadOnly="true"></cc1:hwTextBox>
-                                    </div>
-                                </div>
+									<div class="row">
+										<div class="col-md-12">
+											<cc1:hwLabel CssClass="control-label" runat="server" for="txtsaldorichiesto">Totale Saldo Richiesto</cc1:hwLabel>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-7">
+											<cc1:hwTextBox runat="server" CssClass="hid2 sup2 input-md form-control" ID="txtsaldorichiesto" Tag="" TabIndex="-1" ReadOnly="true"></cc1:hwTextBox>
+										</div>
+									</div>
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <cc1:hwLabel CssClass="control-label" runat="server" for="txtsaldoaccordato">Totale Saldo Accordato</cc1:hwLabel>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <cc1:hwTextBox runat="server" CssClass="hid2 sup2  input-md form-control" ID="txtsaldoaccordato" Tag="" TabIndex="-1" ReadOnly="true"></cc1:hwTextBox>
-                                    </div>
-                                </div>
+									<div class="row">
+										<div class="col-md-12">
+											<cc1:hwLabel CssClass="control-label" runat="server" for="txtsaldoaccordato">Totale Saldo Accordato</cc1:hwLabel>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-7">
+											<cc1:hwTextBox runat="server" CssClass="hid2 sup2  input-md form-control" ID="txtsaldoaccordato" Tag="" TabIndex="-1" ReadOnly="true"></cc1:hwTextBox>
+										</div>
+									</div>
 
-                            </fieldset>
-                        </asp:Panel>
-                    </div>
-                </div>
-
-
-            </fieldset>
-                </asp:Panel>
+								</fieldset>
+							</asp:Panel>
+						</div>
+					</div>
+			</asp:Panel>
         </div>
         <div class="col-md-4">
         </div>
     </div>
 
 
-    <div class="row">
-        <div class="col-md-8">
-            <fieldset class="scheduler-border smart-tab">
-                <legend class="scheduler-border smart-tab">Allegati</legend>
-                <asp:Panel ID="Panel2" runat="server">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <cc1:hwButton ID="btnInsAtt" runat="server" Tag="insert.defaultnew02" Text="Inserisci" TabIndex="-1"></cc1:hwButton>
-                            <cc1:hwButton ID="btnEditAtt" runat="server" Tag="edit.defaultnew02" Text="Modifica" TabIndex="-1"></cc1:hwButton>
-                            <cc1:hwButton ID="btnDelAtt" runat="server" Tag="delete" Text="Elimina" TabIndex="-1"></cc1:hwButton>
-                        </div>
-                        <div class="col-md-10">
-                            <cc1:hwDataGridWeb ID="gridAtt" runat="server" Tag="itinerationattachment.default.default" TabIndex="-1" />
-                        </div>
-                    </div>
-                </asp:Panel>
-            </fieldset>
-        </div>
-        <div class="col-md-4">
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-md-8">
+					<fieldset class="scheduler-border smart-tab">
+						<legend class="scheduler-border smart-tab">Allegati</legend>
+						<div class="row">
+							<div class="col-md-12">
+
+								<asp:Panel ID="Panel_allegati" runat="server">
+									<div class="row">
+										<div class="col-md-2">
+											<cc1:hwButton ID="btnInsAtt" runat="server" Tag="insert.defaultnew02" Text="Inserisci" TabIndex="-1"></cc1:hwButton>
+											<cc1:hwButton ID="btnEditAtt" runat="server" Tag="edit.defaultnew02" Text="Modifica" TabIndex="-1"></cc1:hwButton>
+											<cc1:hwButton ID="btnDelAtt" runat="server" Tag="delete" Text="Elimina" TabIndex="-1"></cc1:hwButton>
+										</div>
+										<div class="col-md-10">
+											<cc1:hwDataGridWeb ID="gridAtt" runat="server" Tag="itinerationattachment.default.default" TabIndex="-1" />
+										</div>
+									</div>
+								</asp:Panel>
+							</div>
+
+						</div>
+					</fieldset>
+    		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
 
     <div class="row">
         <div class="col-md-8">
@@ -798,6 +809,7 @@
                                 </cc1:hwPanel>
                             </fieldset>
                         </div>
+
                     </div>
                 </asp:Panel>
                 <div class="col-md-6">
@@ -812,11 +824,10 @@
 
 <script type="text/javascript">
 
-	function myfun() {
-		$('#datetimepicker1').datetimepicker();
-	}
 		
-	
+	//$(function () {
+	//	$('#datetimepicker1').datetimepicker();
+	//});
 
     function CalcTotAPiedi() {
         var Km;
@@ -837,7 +848,6 @@
 
         $(".c_EurTotAPiedi").val(StringValue(Total, "c.2...1"));
     }
-
 
 
     function CalcTotMezzoProprio() {
@@ -861,8 +871,13 @@
 }
 
 
+
+
 </script>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/cookiemgr.js"></script>
+    <script type="text/javascript" src="js/scrollpositionmgr.js?v=5"></script>
 				
 <!-- chiude tab-content	-->
 

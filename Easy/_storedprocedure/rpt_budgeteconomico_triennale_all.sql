@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_budgeteconomico_triennale_all]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_budgeteconomico_triennale_all]
 GO
@@ -465,8 +467,8 @@ WHERE budgetprevision.ayear = @ayear
 
 
 /*
-3) Costi per la ricerca e l'attivit√† editoriale
-E223	Costi per la ricerca e l'attivit√† editoriale
+3) Costi per la ricerca e l'attivit‡ editoriale
+E223	Costi per la ricerca e l'attivit‡ editoriale
 */
 
 declare @3_Costi_ricerca_e_attivita_editoriale	 decimal (19,2)
@@ -795,7 +797,7 @@ declare @Gestione_Operativa	 decimal (19,2)
 set @Gestione_Operativa = @PROVENTIOPERATIVI - @COSTI_OPERATIVI
 
 
-/* C) Proventi e Oneri finanziari E31	Proventi e Oneri finanziari - Non pu√≤ essere una somma  */
+/* C) Proventi e Oneri finanziari E31	Proventi e Oneri finanziari - Non puÚ essere una somma  */
 
 /*
 1) Proventi Finanziari e utili su cambi
@@ -832,11 +834,11 @@ WHERE budgetprevision.ayear = @ayear
 	AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 	AND S.sortcode LIKE 'E312%'),0)
 
-/* D) Rettifiche di valore di attivit√† finanziarie E41	Rettifiche di valore di attivit√† finanziarie - Non pu√≤ essere una somma */
+/* D) Rettifiche di valore di attivit‡ finanziarie E41	Rettifiche di valore di attivit‡ finanziarie - Non puÚ essere una somma */
 
 /*
-1) Rivalutazioni attivit√† finanziarie
-E411	Rivalutazioni attivit√† finanziarie
+1) Rivalutazioni attivit‡ finanziarie
+E411	Rivalutazioni attivit‡ finanziarie
 */
 declare @1_Rivalutazioni_attivita_finanziarie	 decimal (19,2)
 set @1_Rivalutazioni_attivita_finanziarie = ISNULL(( SELECT SUM(budgetprevision.prevision)
@@ -852,8 +854,8 @@ WHERE budgetprevision.ayear = @ayear
 	AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 	AND S.sortcode LIKE 'E411%'),0)
 /*
-2) Svalutazioni attivit√† finanziarie
-E412	Svalutazioni attivit√† finanziarie
+2) Svalutazioni attivit‡ finanziarie
+E412	Svalutazioni attivit‡ finanziarie
 */
 declare @2_Svalutazioni_attivita_finanziarie	 decimal (19,2)
 set @2_Svalutazioni_attivita_finanziarie = ISNULL(( SELECT SUM(budgetprevision.prevision)
@@ -872,9 +874,9 @@ WHERE budgetprevision.ayear = @ayear
 ------------------------------------------------------------------------------------------------------------------------------------------
 /*Gestione finanziaria (C1 + D1 - C2 -D2) 
 C1 = codice @1_Proventi_Finanziari_utili_su_cambi	E311 "C 1) Proventi Finanziari e utili su cambi"
-D1 = codice @1_Rivalutazioni_attivita_finanziarie	E411 "D 1) Rivalutazioni attivit√† finanziarie"
+D1 = codice @1_Rivalutazioni_attivita_finanziarie	E411 "D 1) Rivalutazioni attivit‡ finanziarie"
 C2 = codice @2_Oneri_Finanziari_perdite_cambi		E312 "C 2) Oneri Finanziari e perdite su cambi"
-D2 = codice @2_Svalutazioni_attivita_finanziarie	E412 "D 2) Svalutazioni attivit√† finanziarie"
+D2 = codice @2_Svalutazioni_attivita_finanziarie	E412 "D 2) Svalutazioni attivit‡ finanziarie"
 */
 
 declare @Gestione_Finanziaria	 decimal (19,2)
@@ -884,7 +886,7 @@ set @Gestione_Finanziaria = @1_Proventi_Finanziari_utili_su_cambi +
 							@2_Svalutazioni_attivita_finanziarie
 
 
-/* E) Proventi e oneri straordinari E51	Proventi e oneri straordinari -Non pu√≤ essere una somma */
+/* E) Proventi e oneri straordinari E51	Proventi e oneri straordinari -Non puÚ essere una somma */
 
 /*
 1) Proventi straordinari
@@ -1358,8 +1360,8 @@ WHERE budgetprevision.ayear = @ayear
 
 
 /*
-3) Costi per la ricerca e l'attivit√† editoriale
-E223	Costi per la ricerca e l'attivit√† editoriale
+3) Costi per la ricerca e l'attivit‡ editoriale
+E223	Costi per la ricerca e l'attivit‡ editoriale
 */
 
 declare @3_Costi_ricerca_e_attivita_editoriale_ANNO2	 decimal (19,2)
@@ -1688,7 +1690,7 @@ declare @Gestione_Operativa_ANNO2	 decimal (19,2)
 set @Gestione_Operativa_ANNO2 = @PROVENTIOPERATIVI_ANNO2 - @COSTI_OPERATIVI_ANNO2
 
 
-/* C) Proventi e Oneri finanziari E31	Proventi e Oneri finanziari - Non pu√≤ essere una somma  */
+/* C) Proventi e Oneri finanziari E31	Proventi e Oneri finanziari - Non puÚ essere una somma  */
 
 /*
 1) Proventi Finanziari e utili su cambi
@@ -1725,11 +1727,11 @@ WHERE budgetprevision.ayear = @ayear
 	AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 	AND S.sortcode LIKE 'E312%'),0)
 
-/* D) Rettifiche di valore di attivit√† finanziarie E41	Rettifiche di valore di attivit√† finanziarie - Non pu√≤ essere una somma */
+/* D) Rettifiche di valore di attivit‡ finanziarie E41	Rettifiche di valore di attivit‡ finanziarie - Non puÚ essere una somma */
 
 /*
-1) Rivalutazioni attivit√† finanziarie
-E411	Rivalutazioni attivit√† finanziarie
+1) Rivalutazioni attivit‡ finanziarie
+E411	Rivalutazioni attivit‡ finanziarie
 */
 declare @1_Rivalutazioni_attivita_finanziarie_ANNO2	 decimal (19,2)
 set @1_Rivalutazioni_attivita_finanziarie_ANNO2 = ISNULL(( SELECT SUM(budgetprevision.prevision2)
@@ -1745,8 +1747,8 @@ WHERE budgetprevision.ayear = @ayear
 	AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 	AND S.sortcode LIKE 'E411%'),0)
 /*
-2) Svalutazioni attivit√† finanziarie
-E412	Svalutazioni attivit√† finanziarie
+2) Svalutazioni attivit‡ finanziarie
+E412	Svalutazioni attivit‡ finanziarie
 */
 declare @2_Svalutazioni_attivita_finanziarie_ANNO2	 decimal (19,2)
 set @2_Svalutazioni_attivita_finanziarie_ANNO2 = ISNULL(( SELECT SUM(budgetprevision.prevision2)
@@ -1765,9 +1767,9 @@ WHERE budgetprevision.ayear = @ayear
 ------------------------------------------------------------------------------------------------------------------------------------------
 /*Gestione finanziaria (C1 + D1 - C2 -D2) 
 C1 = codice @1_Proventi_Finanziari_utili_su_cambi	E311 "C 1) Proventi Finanziari e utili su cambi"
-D1 = codice @1_Rivalutazioni_attivita_finanziarie	E411 "D 1) Rivalutazioni attivit√† finanziarie"
+D1 = codice @1_Rivalutazioni_attivita_finanziarie	E411 "D 1) Rivalutazioni attivit‡ finanziarie"
 C2 = codice @2_Oneri_Finanziari_perdite_cambi		E312 "C 2) Oneri Finanziari e perdite su cambi"
-D2 = codice @2_Svalutazioni_attivita_finanziarie	E412 "D 2) Svalutazioni attivit√† finanziarie"
+D2 = codice @2_Svalutazioni_attivita_finanziarie	E412 "D 2) Svalutazioni attivit‡ finanziarie"
 */
 
 declare @Gestione_Finanziaria_ANNO2	 decimal (19,2)
@@ -1777,7 +1779,7 @@ set @Gestione_Finanziaria_ANNO2 = @1_Proventi_Finanziari_utili_su_cambi_ANNO2 +
 							@2_Svalutazioni_attivita_finanziarie_ANNO2
 
 
-/* E) Proventi e oneri straordinari E51	Proventi e oneri straordinari -Non pu√≤ essere una somma */
+/* E) Proventi e oneri straordinari E51	Proventi e oneri straordinari -Non puÚ essere una somma */
 
 /*
 1) Proventi straordinari
@@ -2250,8 +2252,8 @@ WHERE budgetprevision.ayear = @ayear
 
 
 /*
-3) Costi per la ricerca e l'attivit√† editoriale
-E223	Costi per la ricerca e l'attivit√† editoriale
+3) Costi per la ricerca e l'attivit‡ editoriale
+E223	Costi per la ricerca e l'attivit‡ editoriale
 */
 
 declare @3_Costi_ricerca_e_attivita_editoriale_ANNO3	 decimal (19,2)
@@ -2580,7 +2582,7 @@ declare @Gestione_Operativa_ANNO3	 decimal (19,2)
 set @Gestione_Operativa_ANNO3 = @PROVENTIOPERATIVI_ANNO3 - @COSTI_OPERATIVI_ANNO3
 
 
-/* C) Proventi e Oneri finanziari E31	Proventi e Oneri finanziari - Non pu√≤ essere una somma  */
+/* C) Proventi e Oneri finanziari E31	Proventi e Oneri finanziari - Non puÚ essere una somma  */
 
 /*
 1) Proventi Finanziari e utili su cambi
@@ -2617,11 +2619,11 @@ WHERE budgetprevision.ayear = @ayear
 	AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 	AND S.sortcode LIKE 'E312%'),0)
 
-/* D) Rettifiche di valore di attivit√† finanziarie E41	Rettifiche di valore di attivit√† finanziarie - Non pu√≤ essere una somma */
+/* D) Rettifiche di valore di attivit‡ finanziarie E41	Rettifiche di valore di attivit‡ finanziarie - Non puÚ essere una somma */
 
 /*
-1) Rivalutazioni attivit√† finanziarie
-E411	Rivalutazioni attivit√† finanziarie
+1) Rivalutazioni attivit‡ finanziarie
+E411	Rivalutazioni attivit‡ finanziarie
 */
 declare @1_Rivalutazioni_attivita_finanziarie_ANNO3	 decimal (19,2)
 set @1_Rivalutazioni_attivita_finanziarie_ANNO3 = ISNULL(( SELECT SUM(budgetprevision.prevision3)
@@ -2637,8 +2639,8 @@ WHERE budgetprevision.ayear = @ayear
 	AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 	AND S.sortcode LIKE 'E411%'),0)
 /*
-2) Svalutazioni attivit√† finanziarie
-E412	Svalutazioni attivit√† finanziarie
+2) Svalutazioni attivit‡ finanziarie
+E412	Svalutazioni attivit‡ finanziarie
 */
 declare @2_Svalutazioni_attivita_finanziarie_ANNO3	 decimal (19,2)
 set @2_Svalutazioni_attivita_finanziarie_ANNO3 = ISNULL(( SELECT SUM(budgetprevision.prevision3)
@@ -2657,9 +2659,9 @@ WHERE budgetprevision.ayear = @ayear
 ------------------------------------------------------------------------------------------------------------------------------------------
 /*Gestione finanziaria (C1 + D1 - C2 -D2) 
 C1 = codice @1_Proventi_Finanziari_utili_su_cambi	E311 "C 1) Proventi Finanziari e utili su cambi"
-D1 = codice @1_Rivalutazioni_attivita_finanziarie	E411 "D 1) Rivalutazioni attivit√† finanziarie"
+D1 = codice @1_Rivalutazioni_attivita_finanziarie	E411 "D 1) Rivalutazioni attivit‡ finanziarie"
 C2 = codice @2_Oneri_Finanziari_perdite_cambi		E312 "C 2) Oneri Finanziari e perdite su cambi"
-D2 = codice @2_Svalutazioni_attivita_finanziarie	E412 "D 2) Svalutazioni attivit√† finanziarie"
+D2 = codice @2_Svalutazioni_attivita_finanziarie	E412 "D 2) Svalutazioni attivit‡ finanziarie"
 */
 
 declare @Gestione_Finanziaria_ANNO3	 decimal (19,2)
@@ -2669,7 +2671,7 @@ set @Gestione_Finanziaria_ANNO3 = @1_Proventi_Finanziari_utili_su_cambi_ANNO3 +
 							@2_Svalutazioni_attivita_finanziarie_ANNO3
 
 
-/* E) Proventi e oneri straordinari E51	Proventi e oneri straordinari -Non pu√≤ essere una somma */
+/* E) Proventi e oneri straordinari E51	Proventi e oneri straordinari -Non puÚ essere una somma */
 
 /*
 1) Proventi straordinari
@@ -2789,7 +2791,7 @@ select
  @1_Costi_sostegno_studenti	  AS '1_Costi_sostegno_studenti',
  /* 2) Costi per il diritto allo studio E222	Costi per il diritto allo studio */
  @2_Costi_diritto_allo_studio	  AS '2_Costi_diritto_allo_studio',
- /* 3) Costi per la ricerca e l'attivit√† editoriale E223	Costi per la ricerca e l'attivit√† editoriale */
+ /* 3) Costi per la ricerca e l'attivit‡ editoriale E223	Costi per la ricerca e l'attivit‡ editoriale */
  @3_Costi_ricerca_e_attivita_editoriale	  AS '3_Costi_ricerca_e_attivita_editoriale',
  /* 4) Aquisto materiale di consumo per laboratori E224	Aquisto materiale di consumo per laboratori */
  @4_Acquisto_materiale_consumo_per_laboratori	  AS '4_Acquisto_materiale_consumo_per_laboratori',
@@ -2844,10 +2846,10 @@ B = @COSTI_OPERATIVI	E2
 /* 2) Oneri Finanziari e perdite su cambi E312	Oneri Finanziari e perdite su cambi */
  @2_Oneri_Finanziari_perdite_cambi	  AS '2_Oneri_Finanziari_perdite_cambi',
 
-/* 1) Rivalutazioni attivit√† finanziarie  E411	Rivalutazioni attivit√† finanziarie*/
+/* 1) Rivalutazioni attivit‡ finanziarie  E411	Rivalutazioni attivit‡ finanziarie*/
  @1_Rivalutazioni_attivita_finanziarie	  AS '1_Rivalutazioni_attivita_finanziarie',
 
-/* 2) Svalutazioni attivit√† finanziarie E412	Svalutazioni attivit√† finanziarie */
+/* 2) Svalutazioni attivit‡ finanziarie E412	Svalutazioni attivit‡ finanziarie */
  @2_Svalutazioni_attivita_finanziarie	  AS '2_Svalutazioni_attivita_finanziarie',
 
 
@@ -2920,7 +2922,7 @@ B = @COSTI_OPERATIVI	E2
  @1_Costi_sostegno_studenti_ANNO2	  								AS '1_Costi_sostegno_studenti_ANNO2',
  /* 2) Costi per il diritto allo studio E222	Costi per il diritto allo studio */
  @2_Costi_diritto_allo_studio_ANNO2	  								AS '2_Costi_diritto_allo_studio_ANNO2',
- /* 3) Costi per la ricerca e l'attivit√† editoriale E223	Costi per la ricerca e l'attivit√† editoriale */
+ /* 3) Costi per la ricerca e l'attivit‡ editoriale E223	Costi per la ricerca e l'attivit‡ editoriale */
  @3_Costi_ricerca_e_attivita_editoriale_ANNO2	  					AS '3_Costi_ricerca_e_attivita_editoriale_ANNO2',
  /* 4) Aquisto materiale di consumo per laboratori E224	Aquisto materiale di consumo per laboratori */
  @4_Acquisto_materiale_consumo_per_laboratori_ANNO2	  				AS '4_Acquisto_materiale_consumo_per_laboratori_ANNO2',
@@ -2975,10 +2977,10 @@ B = @COSTI_OPERATIVI	E2
 /* 2) Oneri Finanziari e perdite su cambi E312	Oneri Finanziari e perdite su cambi */
  @2_Oneri_Finanziari_perdite_cambi_ANNO2	  AS '2_Oneri_Finanziari_perdite_cambi_ANNO2',
 
-/* 1) Rivalutazioni attivit√† finanziarie  E411	Rivalutazioni attivit√† finanziarie*/
+/* 1) Rivalutazioni attivit‡ finanziarie  E411	Rivalutazioni attivit‡ finanziarie*/
  @1_Rivalutazioni_attivita_finanziarie_ANNO2	  AS '1_Rivalutazioni_attivita_finanziarie_ANNO2',
 
-/* 2) Svalutazioni attivit√† finanziarie E412	Svalutazioni attivit√† finanziarie */
+/* 2) Svalutazioni attivit‡ finanziarie E412	Svalutazioni attivit‡ finanziarie */
  @2_Svalutazioni_attivita_finanziarie_ANNO2	  AS '2_Svalutazioni_attivita_finanziarie_ANNO2',
 
 
@@ -3053,7 +3055,7 @@ B = @COSTI_OPERATIVI	E2
  @1_Costi_sostegno_studenti_ANNO3	  								AS '1_Costi_sostegno_studenti_ANNO3',
  /* 2) Costi per il diritto allo studio E222	Costi per il diritto allo studio */
  @2_Costi_diritto_allo_studio_ANNO3	  								AS '2_Costi_diritto_allo_studio_ANNO3',
- /* 3) Costi per la ricerca e l'attivit√† editoriale E223	Costi per la ricerca e l'attivit√† editoriale */
+ /* 3) Costi per la ricerca e l'attivit‡ editoriale E223	Costi per la ricerca e l'attivit‡ editoriale */
  @3_Costi_ricerca_e_attivita_editoriale_ANNO3	  					AS '3_Costi_ricerca_e_attivita_editoriale_ANNO3',
  /* 4) Aquisto materiale di consumo per laboratori E224	Aquisto materiale di consumo per laboratori */
  @4_Acquisto_materiale_consumo_per_laboratori_ANNO3	  				AS '4_Acquisto_materiale_consumo_per_laboratori_ANNO3',
@@ -3108,10 +3110,10 @@ B = @COSTI_OPERATIVI	E2
 /* 2) Oneri Finanziari e perdite su cambi E312	Oneri Finanziari e perdite su cambi */
  @2_Oneri_Finanziari_perdite_cambi_ANNO3	  AS '2_Oneri_Finanziari_perdite_cambi_ANNO3',
 
-/* 1) Rivalutazioni attivit√† finanziarie  E411	Rivalutazioni attivit√† finanziarie*/
+/* 1) Rivalutazioni attivit‡ finanziarie  E411	Rivalutazioni attivit‡ finanziarie*/
  @1_Rivalutazioni_attivita_finanziarie_ANNO3	  AS '1_Rivalutazioni_attivita_finanziarie_ANNO3',
 
-/* 2) Svalutazioni attivit√† finanziarie E412	Svalutazioni attivit√† finanziarie */
+/* 2) Svalutazioni attivit‡ finanziarie E412	Svalutazioni attivit‡ finanziarie */
  @2_Svalutazioni_attivita_finanziarie_ANNO3	  AS '2_Svalutazioni_attivita_finanziarie_ANNO3',
 
 
@@ -3141,4 +3143,3 @@ B = @COSTI_OPERATIVI	E2
 				
 END
 
-	

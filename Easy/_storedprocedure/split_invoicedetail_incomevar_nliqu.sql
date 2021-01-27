@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[split_invoicedetail_incomevar_nliqu]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[split_invoicedetail_incomevar_nliqu]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [split_invoicedetail_incomevar_nliqu]
 GO
 
@@ -26,7 +28,7 @@ GO
 
 CREATE         PROCEDURE [split_invoicedetail_incomevar_nliqu]
 (
-	@ayear int -- nel codice della sp c'√® @ayear 
+	@ayear int -- nel codice della sp c'Ë @ayear 
 )
 AS
 BEGIN
@@ -137,7 +139,7 @@ WHERE invoicedetail.yinv = @ayear AND incomevar.movkind = 1
 		WHERE idinvkind = invoicedetail.idinvkind
 			AND yinv = invoicedetail.yinv 
 			AND ninv = invoicedetail.ninv) > 1
-		OR -- la fattura non √® stata liquidata totalmentema parzialmente
+		OR -- la fattura non Ë stata liquidata totalmentema parzialmente
 		ISNULL(
 			(SELECT SUM(ISNULL(taxabletotal,0) + ISNULL(ivatotal,0))
 			FROM invoiceresidual 
@@ -242,7 +244,7 @@ BEGIN
 		SET @erroreprecedente = 0
 	END
 
-	-- Servir√† dopo nello split
+	-- Servir‡ dopo nello split
 	DECLARE @nrow int 
 
 	SELECT @nrow = MAX(rownum)
@@ -336,7 +338,7 @@ BEGIN
 
 		PRINT '@fmax: 'PRINT @fmax
 
-		WHILE (@elabora < 30)-- questo cicla finch√® non quadra 
+		WHILE (@elabora < 30)-- questo cicla finchË non quadra 
 		BEGIN
 			SELECT @totimponibileeffettivo =
 				CONVERT(decimal(19,2),
@@ -452,7 +454,7 @@ BEGIN
 
 		SET @elabora = 0
 
-		WHILE (@elabora <30 AND @epsilon_c <> 1)-- questo cicla finch√® non quadra 
+		WHILE (@elabora <30 AND @epsilon_c <> 1)-- questo cicla finchË non quadra 
 		BEGIN
 			SELECT @totivaeffettivo =
 				CONVERT(decimal(19,2),
@@ -534,10 +536,10 @@ BEGIN
 			BEGIN
 				WHILE (@row_i <= @nrow)
 				BEGIN
-					-- La riga n+1 avr√† taxable[n+1] = taxable[1]*epsilon
-					-- La riga n+2 avr√† taxable[n+2] = taxable[2]*epsilon
+					-- La riga n+1 avr‡ taxable[n+1] = taxable[1]*epsilon
+					-- La riga n+2 avr‡ taxable[n+2] = taxable[2]*epsilon
 					-- ...
-					-- la riga n+i avr√† taxable[n+i] = taxable[i]*epsilon
+					-- la riga n+i avr‡ taxable[n+i] = taxable[i]*epsilon
 					IF EXISTS(SELECT * FROM #invoicedetail WHERE rownum = @row_i)
 					BEGIN
 						INSERT INTO #invoicedetail
@@ -589,8 +591,8 @@ BEGIN
 
 		--imposta il residuo della fattura nei dettagli originali
 		UPDATE #invoicedetail SET 
--- la k-esima riga avr√† taxable uguale al suo taxable - la parte che ha ceduto al suo split
--- la 1 riga avr√† taxable[1]' = taxable[1]-taxable[1]*epsilon
+-- la k-esima riga avr‡ taxable uguale al suo taxable - la parte che ha ceduto al suo split
+-- la 1 riga avr‡ taxable[1]' = taxable[1]-taxable[1]*epsilon
 			taxable = 
 				ISNULL(( ISNULL(taxable,0) - 
 					ROUND(dbo.GetImponibileNear(taxable*@epsilon_c, taxable, number,discount,@exchangerate),2)	
@@ -704,4 +706,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

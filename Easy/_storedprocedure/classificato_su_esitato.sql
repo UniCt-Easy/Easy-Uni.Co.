@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[classificato_su_esitato]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[classificato_su_esitato]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [classificato_su_esitato]
 GO
 
@@ -167,7 +169,7 @@ BEGIN
 	GROUP BY U.codeupb, F.codefin, S.sortcode, SUBSTRING(#class.idupb,1,LEN(@originalidupb)), F.printingorder
 	ORDER BY F.printingorder, S.sortcode
 END
--- Se non voglio visualizzare l'UPB oppure l'upb di input non √® specificato e non voglio mostrare i figli
+-- Se non voglio visualizzare l'UPB oppure l'upb di input non Ë specificato e non voglio mostrare i figli
 -- allora consolido
 IF (@showupb = 'N') OR ((@originalidupb = '%') AND (@showchildupb = 'N'))
 BEGIN
@@ -194,4 +196,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

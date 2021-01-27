@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -1128,7 +1130,8 @@ namespace servicetrasmission_default {
 				" SELECT yservreg, nservreg FROM serviceregistry " +
 				" left outer JOIN serviceregistrykind " +
 				" ON serviceregistry.idserviceregistrykind=serviceregistrykind.idserviceregistrykind " +
-				" WHERE serviceregistry.employkind = 'D' and ( substring(conferring_piva,1,1) between '0' and '9')  and idapregistrykind = 5  "+	//era 6
+				" WHERE serviceregistry.employkind = 'D' and ( substring(conferring_piva,1,1) between '0' and '9')  and " +
+				" ((idapregistrykind = 6 and yservreg<2019 ) or (idapregistrykind = 5 and yservreg>=2019 ))  "+	//era 6
 					"and ( serviceregistrykind.totransmit = 'S' or serviceregistry.idserviceregistrykind is null)" + filterAnno + filterNumero;
 			if (kind == "d") {
 				DataTable PivaConferente = meta.Conn.SQLRunner(MyQuery);
@@ -1165,7 +1168,7 @@ namespace servicetrasmission_default {
 			}
 
 			if (error) {
-				MessageBox.Show(this,
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
 					"Sono stati riscontrati i seguenti impedimenti che causeranno lo scarto del file XML.\n\r" + mess1 +
 					mess2 + mess3
 					+ mess4 + mess5 + mess6 + mess7 + mess8);
@@ -1484,7 +1487,7 @@ namespace servicetrasmission_default {
 			//catch(Exception ex){
 			//    string messaggio = "Non riesco ad aprire il file: " + txtNomeFile.Text +
 			//        "\nErrore: " + ex.Message;
-			//    MessageBox.Show(this,messaggio);
+			//    MetaFactory.factory.getSingleton<IMessageShower>().Show(this,messaggio);
 			//    return;
 			//}
 		}
@@ -1550,7 +1553,7 @@ namespace servicetrasmission_default {
 
 
 			if (DS.serviceregistry.Rows.Count == 0) {
-				MessageBox.Show(this, "Non ci sono Incarichi Trasmessi da annullare");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono Incarichi Trasmessi da annullare");
 				return false;
 			}
 
@@ -1562,7 +1565,7 @@ namespace servicetrasmission_default {
 
 
 			string mess = (tipo == "d" ? "DIPENDENTI" : "CONSULENTI");
-			if (MessageBox.Show(this, "Sarà annullata la Trasmissione di TUTTI gli Incarichi e i Pagamenti dei " +
+			if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Sarà annullata la Trasmissione di TUTTI gli Incarichi e i Pagamenti dei " +
 			                          mess + " precedentemente effettuata. Proseguo?",
 				    "Avviso", MessageBoxButtons.YesNo) != DialogResult.Yes) return false;
 
@@ -1829,7 +1832,7 @@ namespace servicetrasmission_default {
 				msgs.Add(title + ": " + message);
 			}
 			else {
-				MessageBox.Show(this, message, title, MessageBoxButtons.OK);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, message, title, MessageBoxButtons.OK);
 			}
 		}
 
@@ -1862,7 +1865,7 @@ namespace servicetrasmission_default {
 						}
 
 						if (esito.Value.ToString().ToUpper() == "OK") {
-							// MessageBox.Show(this, "Il file Trasmesso è stato APPROVATO. Procedere col salvataggio... ");
+							// MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il file Trasmesso è stato APPROVATO. Procedere col salvataggio... ");
 							TrasmissioneApprovata(esitoNuoviIncarichi, "I");
 						}
 						else {
@@ -1917,7 +1920,7 @@ namespace servicetrasmission_default {
 						}
 
 						if (esito.Value.ToString().ToUpper() == "OK") {
-							// MessageBox.Show(this, "Il file Trasmesso è stato APPROVATO. Procedere col salvataggio... ");
+							// MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il file Trasmesso è stato APPROVATO. Procedere col salvataggio... ");
 							TrasmissioneApprovata(esitoModificaIncarichi, "M");
 						}
 						else {
@@ -1971,7 +1974,7 @@ namespace servicetrasmission_default {
 						}
 
 						if (esito.Value.ToString().ToUpper() == "OK") {
-							// MessageBox.Show(this, "Il file Trasmesso è stato APPROVATO. Procedere col salvataggio... ");
+							// MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il file Trasmesso è stato APPROVATO. Procedere col salvataggio... ");
 							TrasmissioneApprovata(esitoIncarichi, "C");
 						}
 						else {
@@ -2019,6 +2022,16 @@ namespace servicetrasmission_default {
 			System.Diagnostics.Process.Start(e.LinkText);
 		}
 
+		bool personaFisica(DataRow r) {
+			int anno = CfgFn.GetNoNullInt32(r["yservreg"]);
+			if (anno < 2019) {
+				return r["idapregistrykind"].ToString() == "3" || r["idapregistrykind"].ToString() == "4";
+			}
+			return r["idapregistrykind"].ToString() == "2" || r["idapregistrykind"].ToString() == "3";
+		}
+		bool personaGiuridica(DataRow r) {
+			return !personaFisica(r);
+		}
 
 		private void UpdateDipendenti(bool modpagamenti, comunicazione_type wsCom) {
 
@@ -2109,9 +2122,10 @@ namespace servicetrasmission_default {
 						new string[] {"tipologia", "codiceFiscale", "denominazione"},
 						new string[] {"idApregistrykind", "pa_cf", "pa_title"}
 					);
+					
+					
 
-					if ((rDipendente["idapregistrykind"].ToString() == "4") ||	//era 5 6
-					    (rDipendente["idapregistrykind"].ToString() == "5")) {
+					if (personaGiuridica(rDipendente)) {
 						//<personaGiuridica codiceFiscale="" denominazione="" estero="Y/N" tipologiaAzienda="" codiceComuneSede="" />
 						writer.WriteStartElement("modificaPersona");
 						writer.WriteStartElement("personaGiuridica"); // Apre - personaGiuridica
@@ -2141,8 +2155,7 @@ namespace servicetrasmission_default {
 						writer.WriteEndElement(); // Chiude - modificaPersona
 					}
 
-					if ((rDipendente["idapregistrykind"].ToString() == "2") ||		//era 3 4 
-					    (rDipendente["idapregistrykind"].ToString() == "3")) {
+					if (personaFisica(rDipendente)) {
 						//<personaFisica dataNascita="AAAA-MM-GG" sesso="M/F" estero="Y/N" nome="" cognome="" codiceFiscale=""/>
 						writer.WriteStartElement("modificaPersona");
 						writer.WriteStartElement("personaFisica"); // Apre - personaFisica
@@ -2545,14 +2558,14 @@ namespace servicetrasmission_default {
 
 			string mess = (tipo == "d" ? "Dipendenti" : "Consulenti");
 			if (DS.serviceregistry.Select(QHC.CmpEq("is_blocked", 'S')).Length != 0) {
-				MessageBox.Show(this, @"Ci sono Incarichi di " + mess + @" in sospeso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, @"Ci sono Incarichi di " + mess + @" in sospeso");
 				return false;
 			}
 
 			if (modpagamenti) {
 				if (tipo == "d") {
 					if (!EsistonoPagamentiNuoviOModificati(tipo, semestre)) {
-						MessageBox.Show(this, "Non ci sono Pagamenti da trasmettere");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono Pagamenti da trasmettere");
 						return false;
 					}
 
@@ -2560,7 +2573,7 @@ namespace servicetrasmission_default {
 				}
 				else {
 					if (!EsistonoPagamentiNuoviOModificati(tipo, semestre)) {
-						MessageBox.Show(this, "Non ci sono Pagamenti da trasmettere");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono Pagamenti da trasmettere");
 						return false;
 					}
 
@@ -2569,7 +2582,7 @@ namespace servicetrasmission_default {
 			}
 			else {
 				if (!EsistonoIncarichiModificati(tipo)) {
-					MessageBox.Show(this, "Non ci sono Modifiche a Incarichi da trasmettere");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono Modifiche a Incarichi da trasmettere");
 					return false;
 				}
 
@@ -2594,7 +2607,7 @@ namespace servicetrasmission_default {
 			if (PERLA) {
 				var ser = EServizio.Create(user, password);
 				ser.InserimentoIncarichi(wsReq);
-				MessageBox.Show(this, @"Dati inviati", @"Informazione");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, @"Dati inviati", @"Informazione");
 
 			}
 			else {
@@ -2675,7 +2688,7 @@ namespace servicetrasmission_default {
 			DataAccess.RUN_SELECT_INTO_TABLE(meta.Conn, DS.serviceregistry, null, filtereser_service, null, true);
 
 			if (DS.serviceregistry.Rows.Count == 0) {
-				MessageBox.Show(this, "Non ci sono Modifiche a Incarichi da trasmettere");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono Modifiche a Incarichi da trasmettere");
 				return false;
 			}
 
@@ -2754,17 +2767,17 @@ namespace servicetrasmission_default {
 			}
 			if (skipped > 0) {
 				//Mostra i messaggi messages ove ve ne siano
-				MessageBox.Show(
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(
 					$"{skipped} prestazioni non sono state inviate per presenza di errori. Elencare le prestazioni bloccate e correggerle.",
 					"Errore");
 
 			}
 
 			if (DS.serviceregistry.Rows.Count > skipped) {
-				MessageBox.Show(this, @"Dati inviati", @"Informazione");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, @"Dati inviati", @"Informazione");
 			}
 			else {
-				MessageBox.Show(this, @"Nessun dato inviato", @"Informazione");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, @"Nessun dato inviato", @"Informazione");
 			}
 
 
@@ -2952,7 +2965,7 @@ namespace servicetrasmission_default {
 				if (DS.serviceregistry.Rows.Count == 1000) {
 					int n = Conn.RUN_SELECT_COUNT("serviceregistry", filterDip, false);
 					if (n > 1000) {
-						MessageBox.Show(this,
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
 							"Ci sono più di 1000  incarichi da trasmettere, ma in base alle specifiche tecniche di trasmissione, " +
 							"il file ne può contenere massimo 1000. Si dovrà, quindi, procedere con una seconda trasmissione.");
 					}
@@ -2969,7 +2982,7 @@ namespace servicetrasmission_default {
 				if (DS.serviceregistry.Rows.Count == 1000) {
 					int n = Conn.RUN_SELECT_COUNT("serviceregistry", filterCon, false);
 					if (n > 1000) {
-						MessageBox.Show(this,
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
 							"Ci sono più di 1000 incarichi da trasmettere, ma in base alle specifiche tecniche di trasmissione, " +
 							"il file ne può contenere massimo 1000. Si dovrà, quindi, procedere con una seconda trasmissione.");
 					}
@@ -3023,9 +3036,9 @@ namespace servicetrasmission_default {
 
 
 			if (DS.serviceregistry.Rows.Count == 0) {
-				MessageBox.Show(this, "Non ci sono Incarichi da trasmettere");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono Incarichi da trasmettere");
 				if (DS.servicepayment.Rows.Count == 0) {
-					MessageBox.Show(this, "Non ci sono Pagamenti da trasmettere");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono Pagamenti da trasmettere");
 					return false;
 				}
 			}
@@ -3035,7 +3048,7 @@ namespace servicetrasmission_default {
 				filter_IncarichiEsclusiDip, false);
 			if ((tipo.ToUpper() == "D") && (TincarichiEsclusiDip.Rows.Count > 0)) {
 				//kind = D
-				if (MessageBox.Show(
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
 					    "Ci sono incarichi a Dipendenti con data Conferimento NON valorizzata che saranno esclusi dal file. " +
 					    "Si desidera procede ugualmente?",
 					    "Conferma", MessageBoxButtons.OKCancel) == DialogResult.Cancel) {
@@ -3048,7 +3061,7 @@ namespace servicetrasmission_default {
 				filter_IncarichiEsclusiCons, false);
 			if ((tipo.ToUpper() != "D") && (TincarichiEsclusiCons.Rows.Count > 0)) {
 				//kind= C or A
-				if (MessageBox.Show("Ci sono incarichi a Consulenti o Dipendenti di Altri enti pubblici,  " +
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono incarichi a Consulenti o Dipendenti di Altri enti pubblici,  " +
 				                    "con data Affidamento NON valorizzata che saranno esclusi dal file. " +
 				                    "Si desidera procede ugualmente?",
 					    "Conferma", MessageBoxButtons.OKCancel) == DialogResult.Cancel) {
@@ -3058,7 +3071,7 @@ namespace servicetrasmission_default {
 
 			string mess = (tipo.ToUpper() == "D" ? "Dipendenti" : "Consulenti");
 			if (DS.serviceregistry.Select(QHC.CmpEq("is_blocked", 'S')).Length != 0) {
-				MessageBox.Show(this, "Ci sono Incarichi di " + mess + " in sospeso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Ci sono Incarichi di " + mess + " in sospeso");
 				return false;
 			}
 
@@ -3083,7 +3096,7 @@ namespace servicetrasmission_default {
 			if (perla) {
 				var ser = EServizio.Create(user, password);
 				ser.InserimentoIncarichi(wsReq);
-				MessageBox.Show(this, @"Dati inviati", @"Informazione");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, @"Dati inviati", @"Informazione");
 
 			}
 			else {
@@ -3458,8 +3471,7 @@ namespace servicetrasmission_default {
 					tipologia = rDipendente["idapregistrykind"].ToString()
 				};
 
-				if ((rDipendente["idapregistrykind"].ToString() == "4") ||		//era 5 6
-				    (rDipendente["idapregistrykind"].ToString() == "5")) {	
+				if (personaGiuridica(rDipendente)) {	
 					var wsNuovaPersona = new dipendente_typeConferenteNuovaPersona();
 					writer.WriteStartElement("nuovaPersona");
 
@@ -3511,8 +3523,7 @@ namespace servicetrasmission_default {
 
 				} //nuova Persona
 
-				if ((rDipendente["idapregistrykind"].ToString() == "2") ||		//era  3 4
-				    (rDipendente["idapregistrykind"].ToString() == "3")) {
+				if (personaFisica(rDipendente)) {
 					var wsNuovaPersona = new dipendente_typeConferenteNuovaPersona();
 					writer.WriteStartElement("nuovaPersona");
 					//<personaFisica dataNascita="AAAA-MM-GG" sesso="M/F" estero="Y/N" nome="" cognome="" codiceFiscale=""/>
@@ -3754,7 +3765,7 @@ namespace servicetrasmission_default {
 
 			bool eseguiGenerazione = (messaggio == "");
 			if (!eseguiGenerazione) {
-				MessageBox.Show(this, "Inserire " + messaggio.Substring(1));
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire " + messaggio.Substring(1));
 				return false;
 			}
 
@@ -3785,13 +3796,13 @@ namespace servicetrasmission_default {
 			}
 
 			if (DS.serviceregistry.Select(QHC.AppAnd(filterTipoIncarico, filtroCancellaIncarico)).Length == 0) {
-				MessageBox.Show(this, "Non ci sono Incarichi Annullati da trasmettere");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono Incarichi Annullati da trasmettere");
 				return false;
 			}
 
 			string mess = (tipo == "d" ? "Dipendenti" : "Consulenti");
 			if (DS.serviceregistry.Select(QHC.CmpEq("is_blocked", 'S')).Length != 0) {
-				MessageBox.Show(this, "Ci sono Incarichi di " + mess + " in sospeso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Ci sono Incarichi di " + mess + " in sospeso");
 				return false;
 			}
 
@@ -4136,7 +4147,7 @@ namespace servicetrasmission_default {
 			var Curr = DS.servicetrasmission.Rows[0];
 
 			if (DS.serviceregistry.Rows.Count == 0) {
-				MessageBox.Show(this, "Non ci sono Incarichi da trasmettere");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono Incarichi da trasmettere");
 			}
 
 
@@ -4161,7 +4172,7 @@ namespace servicetrasmission_default {
 			DataTable TincarichiEsclusiDip = DataAccess.RUN_SELECT(meta.Conn, "serviceregistry", "*", null, filter_IncarichiEsclusiDip, false);
 			if ((tipo.ToUpper() == "D") && (TincarichiEsclusiDip.Rows.Count > 0)) {
 				//kind = D
-				if (MessageBox.Show(
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
 					    "Ci sono incarichi a Dipendenti con data Conferimento NON valorizzata che saranno esclusi dal file. " +
 					    "Si desidera procede ugualmente?",
 					    "Conferma", MessageBoxButtons.OKCancel) == DialogResult.Cancel) {
@@ -4173,7 +4184,7 @@ namespace servicetrasmission_default {
 			DataTable TincarichiEsclusiCons = DataAccess.RUN_SELECT(meta.Conn, "serviceregistry", "*", null, filter_IncarichiEsclusiCons, false);
 			if ((tipo.ToUpper() != "D") && (TincarichiEsclusiCons.Rows.Count > 0)) {
 				//kind= C or A
-				if (MessageBox.Show("Ci sono incarichi a Consulenti o Dipendenti di Altri enti pubblici,  " +
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono incarichi a Consulenti o Dipendenti di Altri enti pubblici,  " +
 				                    "con data Affidamento NON valorizzata che saranno esclusi dalla trasmissione " +
 				                    "Si desidera procede ugualmente?",
 					    "Conferma", MessageBoxButtons.OKCancel) == DialogResult.Cancel) {
@@ -4183,7 +4194,7 @@ namespace servicetrasmission_default {
 
 			string mess = (tipo.ToUpper() == "D" ? "Dipendenti" : "Consulenti");
 			if (DS.serviceregistry.Select(QHC.CmpEq("is_blocked", 'S')).Length != 0) {
-				MessageBox.Show(this, "Ci sono Incarichi di " + mess + " in sospeso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Ci sono Incarichi di " + mess + " in sospeso");
 				return false;
 			}
 
@@ -4307,7 +4318,7 @@ namespace servicetrasmission_default {
 
 			if (skipped > 0) {
 				//Mostra i messaggi messages ove ve ne siano
-				MessageBox.Show(
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(
 					$"{skipped} prestazioni non sono state inviate per presenza di errori. Elencare le prestazioni bloccate e correggerle.",
 					"Errore");
 
@@ -4315,10 +4326,10 @@ namespace servicetrasmission_default {
 
 			//txtNomeFile.Text = saveFileDialog1.FileName;
 			if (DS.serviceregistry.Rows.Count > skipped) {
-				MessageBox.Show(this, @"Dati inviati", @"Informazione");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, @"Dati inviati", @"Informazione");
 			}
 			else {
-				MessageBox.Show(this, @"Nessun dato inviato", @"Informazione");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, @"Nessun dato inviato", @"Informazione");
 			}
 
 			txtErrori.Text = "";
@@ -4508,10 +4519,24 @@ namespace servicetrasmission_default {
 						q.eq("idcity", idcity) & q.eq("idagency", 1) & q.eq("idcode", 1),
 						"value")); //codice catastale nascita
 			}
+		 
+			else {
+					object idnation = Conn.readValue("registry", q.eq("idreg", rDipendente["idnation"]), "idnation");
+					w.percettore.comuneNascita = stringFromObject( //codice catastale
+						Conn.readValue("geo_nation_agency",
+							q.eq("idnation", idnation) & q.eq("idagency", 1) & q.eq("idcode", 1),
+							"value")); //codice nazione nascita
 
+				}
+				
+			if (w.percettore.comuneNascita == "")
+				{
+					rDipendente["perla_error"] = "Comune o nazione nascita Percettore assente";
+					return null;
+				}
 			w.conferente = getConferente(rDipendente);
 			if (w.conferente == null) return null;
-
+			
 			if (rDipendente["idapactivitykind"] != DBNull.Value) {
 				w.datiincarico.oggettoIncarico = rDipendente["idapactivitykind"].ToString();
 				//if (apActivitykind.ContainsKey(rDipendente["idapactivitykind"].ToString())) {
@@ -4594,7 +4619,8 @@ namespace servicetrasmission_default {
 			var conf = new conferente();
 			conf.tipologia = rService["idapregistrykind"].ToString();
 
-			if (conf.tipologia == "3" || conf.tipologia == "4") { //Persona giuridica  era 4 o 5
+			// SELECT idapregistrykind, description FROM apregistrykind WHERE ayear = 2020
+			if (personaGiuridica(rService)) { //Persona giuridica  era 4 o 5 --> era 3 o 4
 				conf.Item = new conferentepg() {
 					codiceFiscale = stringFromObject(rService["pa_cf"]),
 					denominazione = stringFromObject(rService["pa_title"])
@@ -4604,7 +4630,7 @@ namespace servicetrasmission_default {
 			if (conf.tipologia == "1") { //Conferente pubblico
 				var conferente = new conferentepubblico() {
 					codiceFiscalePa = stringFromObject(rService["pa_cf"]),
-					codicePaIpa = stringFromObject(Conn.readValue("registry", q.eq("idreg", rService["idconferring"]), "ipa_fe"))
+					codicePaIpa = stringFromObject(Conn.readValue("registry", q.eq("idreg", rService["idconferring"]), "ipa_perlapa"))
 				};
 				if (conferente.codicePaIpa == null) {
 					rService["perla_error"] = "Manca il Codice IPA nell'anagrafica del conferente";
@@ -4613,7 +4639,7 @@ namespace servicetrasmission_default {
 				conf.Item = conferente;
 			}
 
-			if (conf.tipologia == "2" || conf.tipologia == "3") { //Persona fisica
+			if (personaFisica(rService)) { //Persona fisica
 				var cc = new conferentepf() {
 					codiceFiscale = stringFromObject(rService["pa_cf"]),
 					cognome = stringFromObject(rService["conferring_surname"]),
@@ -4857,6 +4883,21 @@ namespace servicetrasmission_default {
 							q.eq("idcity", idcity) & q.eq("idagency", 1) & q.eq("idcode", 1),
 							"value")); //codice catastale nascita
 				}
+				else {
+					object idnation = Conn.readValue("registry", q.eq("idreg", rConsulente["idnation"]), "idnation");
+					percPF.comuneNascita = stringFromObject( //codice catastale
+						Conn.readValue("geo_nation_agency",
+							q.eq("idnation", idnation) & q.eq("idagency", 1) & q.eq("idcode", 1),
+							"value")); //codice nazione nascita
+
+				}
+				
+				if (percPF.comuneNascita == "")
+
+					{
+						rConsulente["perla_error"] = "Comune o nazione nascita del Consulente assente";
+						return null;
+					}
 
 				w.percettore.Item = percPF;
 			}
@@ -5064,7 +5105,7 @@ namespace servicetrasmission_default {
 
 
 			if (DS.serviceregistry.Rows.Count == 0) {
-				MessageBox.Show(this, "Non ci sono Annullamenti di incarichi da trasmettere");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono Annullamenti di incarichi da trasmettere");
 				return false;
 			}
 
@@ -5105,7 +5146,7 @@ namespace servicetrasmission_default {
 				}
 			}
 
-			MessageBox.Show(this, @"Dati inviati", @"Informazione");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show(this, @"Dati inviati", @"Informazione");
 
 			//btnVisualizzaFile.Enabled = true;
 			//btnSalvaXml.Enabled = true;

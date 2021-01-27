@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿SET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -93,7 +95,7 @@ AS BEGIN
 			update epexptotal set cost= isnull(cost,0)+isnull(@costo,0) where idepexp=@idepexp and ayear=@yentry					
 		end
 		else begin
-			set @ricavo=0		-- non c'Ã¨ costo
+			set @ricavo=0		-- non c'è costo
 		end 
 
 		
@@ -104,7 +106,7 @@ AS BEGIN
 		
 		IF ( @yentry = @ybalance and @idepexp is not null) 
 		BEGIN
-			--non Ã¨ incarico di questo trigger fornire i dati per le previsioni pluriennali			
+			--non è incarico di questo trigger fornire i dati per le previsioni pluriennali			
 
 			--le scritture sui conti di costo passano l'importo giusto, ossia negativo se in dare e positivo se in avere
 			if (@parentidepexp is not null) begin
@@ -138,7 +140,7 @@ BEGIN
 			update epacctotal set revenue= isnull(revenue,0)+isnull(@ricavo,0) where idepacc=@idepacc and ayear=@yentry		
 		end
 		else	 begin
-			set @costo=0		-- non c'Ã¨ ricavo
+			set @costo=0		-- non c'è ricavo
 		end 
 
 
@@ -149,7 +151,7 @@ BEGIN
 		BEGIN
 		
 		--le scritture sui conti di ricavo passano l'importo cambiato di segno, ossia negativo se in avere e positivo se in dare
-				--non Ã¨ incarico di questo trigger fornire i dati per le previsioni pluriennali
+				--non è incarico di questo trigger fornire i dati per le previsioni pluriennali
 				if (@parentidepacc is not null) begin
 					execute trg_updatearrearsepacc @idepacc,		@yentry, 2, @idacc, @idupb,@costo,null,null,null,null
 					execute trg_updatearrearsepacc @parentidepacc,	@yentry, 1, @idacc, @idupb,@costo,null,null,null,null

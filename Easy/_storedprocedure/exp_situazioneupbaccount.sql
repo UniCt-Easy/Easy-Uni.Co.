@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_situazioneupbaccount]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_situazioneupbaccount]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_situazioneupbaccount]
 GO
 
@@ -38,7 +40,7 @@ CREATE  PROCEDURE  [exp_situazioneupbaccount]
 	@showchildupb char(1),
 	@codeacc varchar(50),   --- codeacc
 	@multiannual char(1),
-	@showonlyavailable char(1), -- Mostra solo disponibilit√†
+	@showonlyavailable char(1), -- Mostra solo disponibilit‡
 	@idsor01 int=null,
 	@idsor02 int=null,
 	@idsor03 int=null,
@@ -831,7 +833,7 @@ Begin
 								'	when upb.flagactivity =''1'' then ''Istituzionale''	'+
 								'	when upb.flagactivity =''2'' then ''Commerciale''	'+
 								'	when upb.flagactivity =''4'' then ''Qualsiasi/Non specificata''	'+
-								'	end as ''Attivit√† UPB'','
+								'	end as ''Attivit‡ UPB'','
 							END
 
 						SET @StringSelect = @StringSelect +
@@ -916,7 +918,7 @@ Begin
 								'	when upb.flagactivity =''1'' then ''Istituzionale''	'+
 								'	when upb.flagactivity =''2'' then ''Commerciale''	'+
 								'	when upb.flagactivity =''4'' then ''Qualsiasi/Non specificata''	'+
-								'	end as ''Attivit√† UPB'','
+								'	end as ''Attivit‡ UPB'','
 							END
 
 						SET @StringSelect = @StringSelect +
@@ -948,7 +950,7 @@ Begin
 				END
  
 End
-IF (isnull(@showonlyavailable,'N')='S') -- Mostra solo disponibilit√† ha poche colonne
+IF (isnull(@showonlyavailable,'N')='S') -- Mostra solo disponibilit‡ ha poche colonne
 Begin
 				IF (ISNULL(@multiannual,'N') = 'S') 
 				BEGIN
@@ -1060,4 +1062,3 @@ GO
 
 
 
-	

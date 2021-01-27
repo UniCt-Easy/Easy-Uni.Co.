@@ -83,7 +83,7 @@
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -103,6 +103,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="FrmAskDataInizioFine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAskDataInizioFine.Designer.cs">
+      <DependentUpon>FrmAskDataInizioFine.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmAskDescr.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +120,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="FrmAskDataInizioFine.resx">
+      <DependentUpon>FrmAskDataInizioFine.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmAskDescr.resx">
       <DependentUpon>FrmAskDescr.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -138,10 +147,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\unmanaged\ep_functions\ep_functions.csproj">
+      <Project>{13e495ef-b62d-494e-aec7-e06e7826dce6}</Project>
+      <Name>ep_functions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
       <Project>{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}</Project>
       <Name>funzioni_configurazione</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

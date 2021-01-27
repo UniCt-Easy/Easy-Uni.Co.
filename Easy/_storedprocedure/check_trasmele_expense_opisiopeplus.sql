@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[check_trasmele_expense_opisiopeplus]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[check_trasmele_expense_opisiopeplus]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [check_trasmele_expense_opisiopeplus]
 GO
 
@@ -42,7 +44,7 @@ DECLARE @k int
 
 if	((SELECT COUNT(*) FROM paymenttransmission  WHERE  npaymenttransmission = @n AND    ypaymenttransmission = @y) = 0)
 		BEGIN
-			--  La distinta di trasmissione √® vuota'
+			--  La distinta di trasmissione Ë vuota'
 			return
 		END
 
@@ -110,7 +112,7 @@ if	((SELECT COUNT(*) FROM paymenttransmission  WHERE  npaymenttransmission = @n 
 							and T2.tipo_operazione IN( 'INSERIMENTO' ,'VARIAZIONE') )
 
 
---	Se ci sono pi√π classificazioni sul movimento e : pi√π dati distinti in fattura o fattura senza siope => diventa obbligatorio il Siope in fatura
+--	Se ci sono pi˘ classificazioni sul movimento e : pi˘ dati distinti in fattura o fattura senza siope => diventa obbligatorio il Siope in fatura
 
 	insert into #errors(error)
 	select 'Sezione CLASSIFICAZIONI assente. Inserire il siope nei dettagli fattura. Numero mandato : '+ convert(varchar(10),numero_mandato) + '. Pagamento n.' + convert(varchar(10), E.nmov)
@@ -140,7 +142,7 @@ if	((SELECT COUNT(*) FROM paymenttransmission  WHERE  npaymenttransmission = @n 
 
 	                      
 	insert into #errors(error)
-	select 'Documento elettronico privo dell''Identificativo del Lotto SDI con cui √® stata trasmessa la FE. Numero mandato : '+ convert(varchar(10),numero_mandato) + '. Pagamento n.' + convert(varchar(10), E.nmov)
+	select 'Documento elettronico privo dell''Identificativo del Lotto SDI con cui Ë stata trasmessa la FE. Numero mandato : '+ convert(varchar(10),numero_mandato) + '. Pagamento n.' + convert(varchar(10), E.nmov)
 	from 	#checktrace T1
 		join expense E on T1.idexp = E.idexp
 	where kind='CLASSIFICAZIONI_FATTURASIOPE'
@@ -196,7 +198,7 @@ if	((SELECT COUNT(*) FROM paymenttransmission  WHERE  npaymenttransmission = @n 
 								from #checktrace T2
 								where T1.numero_mandato = T2.numero_mandato
 									and T1.idexp = T2.idexp),0)
-	--il controllo deve agire solo se c'√® la sezione ARCONET
+	--il controllo deve agire solo se c'Ë la sezione ARCONET
 	and (select count(*) from #checktrace T3
 		where T1.numero_mandato = T3.numero_mandato and T1.idexp = T3.idexp and kind='ARCONET')>0
 
@@ -217,4 +219,3 @@ GO
 SET ANSI_NULLS ON 
 
 GO
-	

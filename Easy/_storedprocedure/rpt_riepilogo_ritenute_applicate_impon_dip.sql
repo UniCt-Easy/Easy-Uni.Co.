@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_riepilogo_ritenute_applicate_impon_dip]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_riepilogo_ritenute_applicate_impon_dip]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_riepilogo_ritenute_applicate_impon_dip]
 GO
 
@@ -45,7 +47,7 @@ AS
 /*
 exec rpt_unified_riepilogo_ritenute_applicate_impon_dip 2013, NULL, NULL, {ts '2013-07-01 00:00:00'}, {ts '2013-07-31 00:00:00'}, 'R', 'N', 'N','S'
 
-@mode √® un radio button di selezione modalit√†, in cui si sceglie se:
+@mode Ë un radio button di selezione modalit‡, in cui si sceglie se:
 1) visualizza tutti i dettagli - T
 2) visualizza i dettagli raggruppati per applicato/annullato - R
 3) visualizza solo saldo ( applicato-annullato ) - S
@@ -54,7 +56,7 @@ I raggruppamenti ovviamente si intendono anche  per creditore
 */
 
         CREATE TABLE #spesa  (idexp int, idreg int, datetaxpay datetime)
--- La data di applicazione √® quella decisa in Config, di solito √® la data di Tx del mandato
+-- La data di applicazione Ë quella decisa in Config, di solito Ë la data di Tx del mandato
         INSERT INTO #spesa   (idexp, idreg, datetaxpay)
      	SELECT 
                 E.idexp,        --> idexp dei movimenti interessati
@@ -96,7 +98,7 @@ CREATE TABLE #tax
         rowkind char
 )
 
---        1) Prendere le righe che hanno Data Inizio Validit√† NULL
+--        1) Prendere le righe che hanno Data Inizio Validit‡ NULL
 -- Applica nel periodo
  
 INSERT INTO #tax
@@ -134,7 +136,7 @@ GROUP BY E.idexp,S.idreg,E.taxcode, E.stop,S.datetaxpay
 -- Raggruppare anche per start e/o stop  mi serve per distinguere le correzioni, 
 -- se ho inserito 2 correzioni IRPEF nella stampa devo vedere 2 correzioni
 
-/*        2) Prendere le righe che hanno Data Inizio Validit√† compresa nel range di date di input        */
+/*        2) Prendere le righe che hanno Data Inizio Validit‡ compresa nel range di date di input        */
 -- Correzioni fatte nel periodo
 
 INSERT INTO #tax
@@ -184,7 +186,7 @@ WHERE  (E.taxcode = @tax OR @tax IS NULL)
 		AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
  GROUP BY E.idexp,S.idreg,E.taxcode, E.start, E.stop
 
---        3) Prendere le righe che hanno Data Fine Validit√† compresa nel range di date di input;
+--        3) Prendere le righe che hanno Data Fine Validit‡ compresa nel range di date di input;
 -- Annullamenti fatti nel periodo
 
 INSERT INTO #tax
@@ -234,7 +236,7 @@ GROUP BY E.idexp,S.idreg,E.taxcode, E.start, E.stop
 -- select * from #tax where taxcode  =7
 IF (@suppressrow = 'S')
 Begin
--- Se si √® deciso di nascondere le ritenute la cui applicabilit√† √® stata annullata nel periodo 
+-- Se si Ë deciso di nascondere le ritenute la cui applicabilit‡ Ë stata annullata nel periodo 
         DELETE FROM #tax 
         WHERE  (
                 isnull(datetaxpay,@start) between @start AND @stop 
@@ -259,7 +261,7 @@ Begin
                 #tax.abatements as 'detrazioni applicate',
                 #tax.rowkind,
 -- per le ritenute applicate inquanto correzioni, visualizziamo nel report la data inizio della correzione
--- per le ritenute annullate visualizziamo nel report la data di fine Validit√† della ritenuta
+-- per le ritenute annullate visualizziamo nel report la data di fine Validit‡ della ritenuta
                 CASE 
                         when ( #tax.rowkind = 1 ) then null        
                         when ( #tax.rowkind = 2 ) then #tax.datetaxpay      
@@ -278,7 +280,7 @@ Begin
         ORDER BY registry.title,#tax.rowkind,#tax.taxcode
 End 
 ELSE
--- (@mode='R') OR(@mode = 'S')--nel report ci sar√† la riga dei dettagli e la riga dle saldo se @mode =S la rig adei dettagli sar√† nascosta
+-- (@mode='R') OR(@mode = 'S')--nel report ci sar‡ la riga dei dettagli e la riga dle saldo se @mode =S la rig adei dettagli sar‡ nascosta
 Begin
         SELECT
                 registry.title,
@@ -292,7 +294,7 @@ Begin
                 SUM(#tax.admintax) as ritamministrazione,
                 SUM(#tax.abatements) 'detrazioni applicate',
                 #tax.rowkind,
--- In caso di scelta della modalit√≤ Raggruppa o saldo le date non saranno visualizzate, perch√® i dettagli saranno raggruppati.
+-- In caso di scelta della modalitÚ Raggruppa o saldo le date non saranno visualizzate, perchË i dettagli saranno raggruppati.
                 NULL as datetaxpay, 
                 NULL as stop
         FROM #tax
@@ -318,4 +320,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

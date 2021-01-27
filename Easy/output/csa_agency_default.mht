@@ -1,11 +1,11 @@
 MIME-Version: 1.0
-Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occ.)
+Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--1PUJ2CUHRJFZBZQP4A12ZI0PN"
+  boundary="---------blocknote.net--181ZBFCLBN8M61C8AGFJ1IECSI2"
 
 
------------blocknote.net--1PUJ2CUHRJFZBZQP4A12ZI0PN
+-----------blocknote.net--181ZBFCLBN8M61C8AGFJ1IECSI2
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -31,12 +31,27 @@ TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
 </STYLE>
   </HEAD>
 <BODY>
-<DIV><FONT size=3D"4">ENTE</FONT></DIV>
-<DIV><FONT size=3D"4">Menu: Opzioni &gt; Compensi &gt; Da CSA&gt; Ente</F=
-ONT></DIV><HR>
+<DIV align=3D"left"><STRONG><FONT size=3D"6">ENTE</FONT></STRONG></DIV><D=
+IV align=3D"right">
+<TABLE border=3D"1" cellspacing=3D"1" width=3D"20%">
+  <TR>
+    <TD valign=3D"middle">v. 1.0</TD>
+    <TD valign=3D"middle">Creazione</TD>
+    <TD>16/11/2018</TD>
+  </TR>
+  <TR>
+    <TD>v. 1.1</TD>
+    <TD valign=3D"middle">Revisione</TD>
+    <TD>10/09/2020</TD>
+  </TR>
+</TABLE>
+</DIV>
+<DIV align=3D"center">&nbsp;</DIV>
+<DIV><FONT size=3D"4">Menu: <STRONG>Opzioni &gt; Compensi &gt; Da CSA&gt;=
+ Ente</FONT></STRONG></DIV><HR>
 <DIV><FONT size=3D"4">Link guide correlate:</FONT></DIV>
 <DIV><A href=3D"csa_import_inail.mht"><FONT size=3D"4">Versamenti postici=
-pati rispetto all'importazione</A></FONT></DIV>
+pati rispetto all'importazione</FONT></A></FONT></DIV>
 <DIV><A href=3D"csa_import_default.mht"><FONT size=3D"4">Importazione</FO=
 NT></A></FONT></DIV><HR>
 <P><FONT size=3D"4">Il form Ente consente di configurare ciascun ENTE di =
@@ -48,101 +63,106 @@ nella colonna A denominata &quot;ENTE&quot; del tracciato di importazione=
 zione dei versamenti delle ritenute e dei contributi relativi ai flussi s=
 tipendiali.</FONT></P>
 <P>&nbsp;</P>
-<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:1NVYQVPM253KB1VSZO9A=
-15P1GDY"></FONT></P>
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:YB8YEPJ4HGKOZXDZLX1J=
+07TKK"></FONT></P>
 <P align=3D"center">&nbsp;</P>
 <H5></STRONG><FONT size=3D"4">Per poter inserire un nuovo Ente nella tabe=
 lla, clicchiamo sul pulsante <EM>Inserisci </EM>presente nella barra dei =
 comandi in alto a sinistra e su <EM>Salva</EM>, dopo aver inserito tutti =
 i dati utili.</FONT></H5>
-<H5></STRONG>&nbsp;</H5>
-<H5 align=3D"center"></STRONG><FONT size=3D"3"><IMG src=3D"cid:AY65AOJV14=
-71G03JB41L40KLM"></FONT></H5>
+<H5>&nbsp;</H5>
+<H5 align=3D"center"><FONT size=3D"3"><IMG src=3D"cid:1AM8JTZHXFCE211NNKP=
+66YAPR1"></FONT></H5>
 <H5></STRONG><FONT size=3D"4">Il <EM>form</EM> si compone dei seguenti ca=
 mpi:</FONT></H5>
-<H5></STRONG><FONT size=3D"4">Codice: non =C3=A8 editabile ed =C3=A8 un n=
+<H5><FONT size=3D"4">Codice: </STRONG>non =C3=A8 editabile ed =C3=A8 un n=
 umero progressivo assegnato automaticamente dal programma per identificar=
 e univocamente l'Ente.</FONT></H5>
-<H5></STRONG><FONT size=3D"4">Descrizione: =C3=A8 un campo di testo edita=
-bile a piacere e pu=C3=B2 servire ad esempio ai fini delle quadrature. Si=
- potrebbe indicare &quot;Ritenute previdenziali&quot; o &quot;Ritenute er=
-ariali&quot;, o qualsiasi altra indicazione che possa agevolare le quadra=
-ture dell'F24EP.</FONT></H5>
-<H5></STRONG><FONT size=3D"4">Ente CSA: =C3=A8 un campo di testo e va com=
-pilando inserendo esattamente quanto contenuto nella colonna A denominata=
- &quot;ENTE&quot; del tracciato di importazione VERSAMENTI (vedi sopra). =
-Solo se il campo Ente CSA contiene esattamente la stessa identica stringa=
- di caratteri presenti nella colonna A, <EM>Easy</EM> riuscir=C3=A0 a leg=
-gere il file. Occorre pertanto prestare attenzione ad eventuali spazi vuo=
-ti o altre differenze.</FONT></H5>
-<H5></STRONG><FONT size=3D"4">Anagrafica: =C3=A8 un campo che richiama l'=
-Anagrafica gi=C3=A0 esistente in <EM>Easy</EM> al menu <EM>Anagrafiche-An=
-agrafica-Anagrafica, </EM>pertanto <EM>s</EM>e l'anagrafica dell'Ente =C3=
-=A8 gi=C3=A0 presente in <EM>Easy</EM>, potr=C3=A0 essere ricercata con i=
-l carattere jolly &quot;%&quot;, altrimenti dovr=C3=A0 essere prima di tu=
-tto inserita accedendo al menu <EM>Anagrafica.</FONT></EM></H5>
-<H5></STRONG><FONT size=3D"4">Ente Interno per Recuperi: il<EM> flag </EM=
->deve essere valorizzato sugli Enti che identificano l'Universit=C3=A0 st=
-essa e che quindi sono solitamente correlati a Voci di versamento di tipo=
- Recupero e cio=C3=A8 che comportano un recupero di somme al bilancio. Qu=
-esto <EM>flag</EM> =C3=A8 fondamentale perch=C3=A8 discrimina la contabil=
-izzazione delle righe di versamento e consente ad <EM>Easy</EM> di contra=
-ssegnare quelle righe come Recuperi e non come Ritenute o Contributi.</FO=
-NT></H5>
-<H5></STRONG><FONT size=3D"4">Versamenti posticipati rispetto all'importa=
-zione: il<EM> flag </EM>deve essere valorizzato sugli Enti per i quali i =
-versamenti vengono effettuati in un momento diverso da quello in cui vien=
-e elaborata l'importazione mensile. Un esempio =C3=A8 l'INAIL, che viene =
-versata annualmente. Se =C3=A8 presente questo <EM>flag</EM> sull'Ente, <=
-EM>Easy</EM> non generer=C3=A0 alcun movimento di spesa in sede di <A hre=
-f=3D"csa_import_default.mht">Importazione</A> dei flussi stipendi. Succes=
-sivamente, accedendo al menu Compensi-Contabilizzazione stipendi-Elaboraz=
-ioni-Versamenti annuali, sar=C3=A0 possibile raccogliere tutte le righe d=
-i versamento gi=C3=A0 elaborate e generare i relativi movimenti finanziar=
-i in modo automatizzato. (vai alla guida <A href=3D"csa_import_inail.mht"=
->Versamenti posticipati rispetto all'importazione</A>)</FONT></H5>
-<H5></STRONG><FONT size=3D"4">Non associare a sospeso in Elaborazione Ver=
-samenti: il<EM> flag </EM>deve essere valorizzato sugli Enti verso i qual=
-i si effettuano pagamenti che non siano a regolarizzazione di sospesi. So=
-litamente si tratta di Banche, Sindacati, ecc...Solo per questi Enti Easy=
- imposter=C3=A0 la modalit=C3=A0 di pagamento leggendola dal campo succes=
-sivo presente sul form dell'Ente o, in assenza di questo, leggendolo dall=
-a Modalit=C3=A0 di Pagamento predefinita dell'Anagrafica dell'Ente. Per q=
-uesto motivo si raccomanda di verificare che queste anagrafiche abbiano d=
-elle modalit=C3=A0 di pagamento aggiornate. NB! Sui pagamenti verso Enti =
-che non hanno il flag valorizzato, Easy non imposter=C3=A0 alcuna modalit=
-=C3=A0 di pagamento, perch=C3=A8 in presenza di Sospeso Passivo, valorizz=
-er=C3=A0 direttamente nel flusso bancario il Tipo Pagamento &quot;A regol=
-arizzazione&quot;.</FONT></H5>
-<H5></STRONG><FONT size=3D"4">Modalit=C3=A0 di Pagamento Anagrafica (faco=
-ltativo): &nbsp;ha senso compilarlo solo per gli Enti che abbiano il <EM>=
-flag </EM>&quot;Non associare a sospeso in Elaborazione Versamenti&quot; =
-valorizzato. Se il campo Modalit=C3=A0 di Pagamento viene lasciato vuoto,=
- <EM>Easy</EM> legger=C3=A0 la modalit=C3=A0 di pagamento Predefinita del=
-l'Anagrafica. Al contrario, se si vuole utilizzare una Modalit=C3=A0 di P=
-agamento differente da quella Predefinita dell'Anagrafica su Voci CSA par=
-ticolari, occorrer=C3=A0 cliccare su <EM>Aggiungi</EM> e inserire la Voce=
- di versamento e la Modalit=C3=A0 di pagamento cliccando sul pulsante Sel=
-eziona modalit=C3=A0. NB! La Voce CSA dovr=C3=A0 corrispondere esattament=
-e a quanto presente nella colonna denominata &quot;VOCE&quot; del traccia=
-to di importazione VERSAMENTI che si intende importare in <EM>Easy</EM> p=
-er la contabilizzazione dei versamenti delle ritenute e dei contributi re=
-lativi ai flussi stipendiali.</FONT></H5>
-<H5></STRONG>&nbsp;</H5>
-<H5 align=3D"center"></STRONG><FONT size=3D"3"><IMG src=3D"cid:11RL6YNIIC=
-DA1Z8WFWS782HO8"></FONT></H5>
-<H5 align=3D"center"></STRONG>&nbsp;</H5>
-<H5 align=3D"center"></STRONG><FONT size=3D"3"><IMG src=3D"cid:10WPFANK7S=
-T8XNPCYI9T6BAUX"></FONT></H5>
-<H5></STRONG>&nbsp;</H5>
-<H5></STRONG>&nbsp;</H5>
+<H5 align=3D"justify"><FONT size=3D"4">Descrizione: </STRONG>=C3=A8 un ca=
+mpo di testo editabile a piacere e pu=C3=B2 servire ad esempio ai fini de=
+lle quadrature. Si potrebbe indicare &quot;Ritenute previdenziali&quot; o=
+ &quot;Ritenute erariali&quot;, o qualsiasi altra indicazione che possa a=
+gevolare le quadrature dell'F24EP.</FONT></H5>
+<H5 align=3D"justify"><FONT size=3D"4">Ente CSA: </STRONG>=C3=A8 un campo=
+ di testo e va compilando inserendo esattamente quanto contenuto nella co=
+lonna A denominata &quot;ENTE&quot; del tracciato di importazione VERSAME=
+NTI (vedi sopra). Solo se il campo Ente CSA contiene esattamente la stess=
+a identica stringa di caratteri presenti nella colonna A, <EM>Easy</EM> r=
+iuscir=C3=A0 a leggere il file. Occorre pertanto prestare attenzione ad e=
+ventuali spazi vuoti o altre differenze.</FONT></H5>
+<H5 align=3D"justify"><FONT size=3D"4">Anagrafica: </STRONG>=C3=A8 un cam=
+po che richiama l'Anagrafica gi=C3=A0 esistente in <EM>Easy</EM> al menu =
+<EM>Anagrafiche-Anagrafica-Anagrafica, </EM>pertanto <EM>s</EM>e l'anagra=
+fica dell'Ente =C3=A8 gi=C3=A0 presente in <EM>Easy</EM>, potr=C3=A0 esse=
+re ricercata con il carattere jolly &quot;%&quot;, altrimenti dovr=C3=A0 =
+essere prima di tutto inserita accedendo al menu <EM>Anagrafica.</FONT></=
+EM></H5>
+<H5 align=3D"justify"><FONT size=3D"4">Ente Interno per Recuperi: </STRON=
+G>il<EM> flag </EM>deve essere valorizzato sugli Enti che identificano l'=
+Universit=C3=A0 stessa e che quindi sono solitamente correlati a Voci di =
+versamento di tipo Recupero e cio=C3=A8 che comportano un recupero di som=
+me al bilancio. Questo <EM>flag</EM> =C3=A8 fondamentale perch=C3=A8 disc=
+rimina la contabilizzazione delle righe di versamento e consente ad <EM>E=
+asy</EM> di contrassegnare quelle righe come Recuperi e non come Ritenute=
+ o Contributi.</FONT></H5>
+<H5 align=3D"justify"><FONT size=3D"4">Versamenti posticipati rispetto al=
+l'importazione: i</STRONG>l<EM> flag </EM>deve essere valorizzato sugli E=
+nti per i quali i versamenti vengono effettuati in un momento diverso da =
+quello in cui viene elaborata l'importazione mensile. Un esempio =C3=A8 l=
+'INAIL, che viene versata annualmente. Se =C3=A8 presente questo <EM>flag=
+</EM> sull'Ente, <EM>Easy</EM> non generer=C3=A0 alcun movimento di spesa=
+ in sede di <A href=3D"csa_import_default.mht">Importazione</A> dei fluss=
+i stipendi. Successivamente, accedendo al menu Compensi-Contabilizzazione=
+ stipendi-Elaborazioni-Versamenti annuali, sar=C3=A0 possibile raccoglier=
+e tutte le righe di versamento gi=C3=A0 elaborate e generare i relativi m=
+ovimenti finanziari in modo automatizzato. (vai alla guida <A href=3D"csa=
+_import_inail.mht">Versamenti posticipati rispetto all'importazione</A>).=
+ <STRONG>NB</STRONG>: il programma vede sempre la valorizzazione 'attuale=
+' del flag sull'anagrafica e quindi potr=C3=A0 essere inserito dopo anche=
+ l'elaborazione delle righe e comunque prima della genrazione dei movimen=
+ti finanziari dei versamenti.</FONT></H5>
+<H5 align=3D"justify"><FONT size=3D"4">Non associare a sospeso in Elabora=
+zione Versamenti: </STRONG>il<EM> flag </EM>deve essere valorizzato sugli=
+ Enti verso i quali si effettuano pagamenti che non siano a regolarizzazi=
+one di sospesi. Solitamente si tratta di Banche, Sindacati, ecc...Solo pe=
+r questi Enti Easy imposter=C3=A0 la modalit=C3=A0 di pagamento leggendol=
+a dal campo successivo presente sul form dell'Ente o, in assenza di quest=
+o, leggendolo dalla Modalit=C3=A0 di Pagamento predefinita dell'Anagrafic=
+a dell'Ente. Per questo motivo si raccomanda di verificare che queste ana=
+grafiche abbiano delle modalit=C3=A0 di pagamento aggiornate. NB! Sui pag=
+amenti verso Enti che non hanno il flag valorizzato, Easy non imposter=C3=
+=A0 alcuna modalit=C3=A0 di pagamento, perch=C3=A8 in presenza di Sospeso=
+ Passivo, valorizzer=C3=A0 direttamente nel flusso bancario il Tipo Pagam=
+ento &quot;A regolarizzazione&quot;.</FONT></H5>
+<H5 align=3D"justify"><FONT size=3D"4">Modalit=C3=A0 di Pagamento Anagraf=
+ica (facoltativo): &nbsp;</STRONG>ha senso compilarlo solo per gli Enti c=
+he abbiano il <EM>flag </EM>&quot;Non associare a sospeso in Elaborazione=
+ Versamenti&quot; valorizzato. Se il campo Modalit=C3=A0 di Pagamento vie=
+ne lasciato vuoto, <EM>Easy</EM> legger=C3=A0 la modalit=C3=A0 di pagamen=
+to Predefinita dell'Anagrafica. Al contrario, se si vuole utilizzare una =
+Modalit=C3=A0 di Pagamento differente da quella Predefinita dell'Anagrafi=
+ca su Voci CSA particolari, occorrer=C3=A0 cliccare su <EM>Aggiungi</EM> =
+e inserire la Voce di versamento e la Modalit=C3=A0 di pagamento cliccand=
+o sul pulsante Seleziona modalit=C3=A0. NB! La Voce CSA dovr=C3=A0 corris=
+pondere esattamente a quanto presente nella colonna denominata &quot;VOCE=
+&quot; del tracciato di importazione VERSAMENTI che si intende importare =
+in <EM>Easy</EM> per la contabilizzazione dei versamenti delle ritenute e=
+ dei contributi relativi ai flussi stipendiali.</FONT></H5>
+<H5 align=3D"justify">&nbsp;</H5>
+<H5 align=3D"center"><FONT size=3D"3"><IMG src=3D"cid:1DO5YPDKVCDDFZAQUMJ=
+H6PINB"></FONT></H5>
+<H5 align=3D"center">&nbsp;</H5>
+<H5 align=3D"center"><FONT size=3D"3"><IMG src=3D"cid:1R6FR6EKO9O6QZ37CLJ=
+T6OKM8"></FONT></H5>
+<H5>&nbsp;</H5>
+<H5>&nbsp;</H5>
 <P>&nbsp;</P>
 </BODY>
 </HTML>
 
------------blocknote.net--1PUJ2CUHRJFZBZQP4A12ZI0PN
+-----------blocknote.net--181ZBFCLBN8M61C8AGFJ1IECSI2
 Content-Type: image/x-png
-Content-Id: <1NVYQVPM253KB1VSZO9A15P1GDY>
+Content-Id: <YB8YEPJ4HGKOZXDZLX1J07TKK>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/2.png
 
@@ -605,9 +625,195 @@ ogwlkjG1iG4h5ZVrt4cwSiIyT+Im2blIWRHr6+ZrMXOGUsgYModhtbL8XcpqFehT
 kpHNw8dPrvKlLKc8uSOzRKu/lgwAcF7BOfkAAAB6Uv2dMQAAADAR+BUAAAA9gV8B
 AADQE+jbAwAA6Ane2wMAAOjHYvH/AeSqn+ZXurdbAAAAAElFTkSuQmCC=
 
------------blocknote.net--1PUJ2CUHRJFZBZQP4A12ZI0PN
+-----------blocknote.net--181ZBFCLBN8M61C8AGFJ1IECSI2
 Content-Type: image/x-png
-Content-Id: <11RL6YNIICDA1Z8WFWS782HO8>
+Content-Id: <1AM8JTZHXFCE211NNKP66YAPR1>
+Content-Transfer-Encoding: base64
+Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Ente3.png
+
+iVBORw0KGgoAAAANSUhEUgAAAd4AAAIHCAYAAAAxRz25AAAAAXNSR0IArs4c6QAA
+AARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAACEDSURBVHhe7d0/
+zBznnR/wZeDiFeCCBnwACUQFjQQIDaewgSskXApTuEauxFR2cFckQIr4UkmpeGos
+qQmoRlCaS5zCBytAgMhFYLs48FVhww6QQCwkiMUFZhEDdBFAKg4QgRzA7PNqH/F5
+Hz4zO7M789t/nw/0aGd+zzPPzC7J+b6zu+/ulU8++vDJAgAIcRG833nlx6tVAGBO
+/2B12+nx37+4bC9X7caqFwAYo/OK9/FnLy7u/uiFxWv//sGq8qyzxfli8ZXHqzUA
+mN7nf/vuamm8l269tLh3fm+1Nl7a/jf/5+bF8rbHkedpBu/js9sXt5/+6tbi+gvn
+iw//+4uLm//o7KJ25Y9+sVh89WJxsfjjR4vFRw8WZ38vfAGYRwq8Bx/fX60N9/7P
+frE4/+D8Ini32b4M3inmeeap5sdnLy7Ozp67aMnnD259GbqP/375v1Xo3vzT5f/S
++r/+FxfrpyI98Nv81LNO3/y5b4r9TzUPwCH55j/9zto2t2eC9+zqMpHPzhYPf/nC
+4urVVXHluXS1u3Tt62eLT/7q5cXiuy9ejH3855fDtwyIoSf4oeO6lPuq5+rrS7rq
+tdz/3D/+i4vbvm2GzLdOOUe+TftObdv5y/sAwHhdQb0uwC8H71eXobu80E1Xtte+
+vqpl6eo2BfHy9tH/vHVRevJvl+O/srwa/iftN1vlkMgn+bnUoVTus69vKnV4TRVm
+fcc6x/0AOAWffPRhZxsjjy9DNi/3zXU5eJ9/cXH21bPFT3/0bJBevLa79OTh8kp3
+6f3fr17XvfrFU9JDpECqW62ul2PL+lTynDnEuvZRj6vl/r7ty1ZaVy/l9bovrw+t
+J+vuMwD9yvAdErrJpeBNobtY/nf7n11+jvlxythl6doff23x0q8+u6jd/odfvO6b
+3EzbfbV6Xnqp74TfddJv9fWNHyofx6bbd8nHlZTHWyrr9f1o9fVpjannKMfUtTwW
+gGmUQbsudJPLV7xnKXjPFo++yNYvpfLVry/r//WFxb3vXg7YW9evLm7+0XLA31Ub
+LdUn/U2lsNg0MFr7njp8yn1se1+nlh+7qe8zAF9oPdXc53LwfvZwGbLPLd7+5bMh
++unqdd3aJ+99tvjNf352/JRyeOc2Vte2ZRh1LQ+16bHNKd+PfTw2gGNQPr1cPu3c
+51LwPv7o/Yunmv/bR8N+L/f9/7Uctxx/0Q5YDibhBLD/UrC1WrS8z9ZTzX3Hc/mK
+N1k93fzNN9Zfxf7w/RS8Z4vPftX+rOd0xZXbOjn0yvF1rewr9Y1r1TYJ2HIfY/Xd
+t1bfWPUc9T665q7HAZyCMqzrNkZ5lVvqqmfNT666+udvrpbOFo9ef/Zy9v7vF4t/
+/tefLT5Pv2L0/x4vPvsvefxxO7agErzAIUjnqmP65Kr2ZzV/5Wxx/V8+DdNPlxe2
+N68tFn9oXAQ/+qvXVkun4VjCSugChyKdr956463V2jg5eLfZvgzeKebp/VrA6//m
+7hdPPTd8+ssfLx4/GJ/8ADDGi893f1lPhByY2x7HoOD90tWri7Pnv7lYPP588fhv
+hS0AbOrZN1e1fPbZ4vFHvxG6ALCliyve1TIAMLOL4L3xrW+vVgGAOQ17qhkAmITg
+BYBAghcAAgleAAgkeAEgkOAFgECCFwACCV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgB
+IJDgBYBAghcAAvk+XgBOwttvvLVaGubO63cWj1fLUxK8B2TsXxrmM9c/SGA+6Rx6
+/sH5aq3ff3rn7iJlo+A9cWP+0jCfd5f/IG/O9A+Sed24/tpq6amHj+6ulqaR9jH1
+nPsg4rHb1rrHPp9D753fW1W6Pfj4/mz/zgXvAcl/aX763vq/NMzn0/873z9I5rVJ
+KI7dZsj4TY5j11rHfGj3Y0zwPlwG71xXvN5cBQCVOX+wFrwAS+nqLd/m5axcz/31
+mJY8pjW+XM/9rVpezrflmCTX6npW9tdjWvXWuKFa8yWtemtMvi1bqVUv18v6ts5W
+t3MQvJyU69evfNlKrXpZq/s4XPlE3TpJp1p66jS1sj8/nVr212O6bDNnHpO05unb
+ttQa07dtWm9JY8pWjsvr9Xxd9T6t8X3zpPWpueKFCaTgfPToyZctB2lXvaylxnEo
+T961ISfwdMLPbYip5hwyz1hD9lvKj1tu9XZD5tvmfgyZfyqueGEC24RnDmeow2cK
+c8w5xNT7nXq+2tzzl1zxDlT+NLTJT0R5m022BU7PHOeKXZ1/pt5v13yt+ib7nvtx
+csU7QPpDqH8a2vQPZu6fpNi9MVewrnaPSzovlG2d8lySl3Pb9Fwx1ZxDt22N2Wa/
+LV3zDannWrZufFmfy5xXvEfze7xT/EFE/GFuw+/xTqMO0rHrfo+XQ7Lv57XanMeb
+zqE/eOXli3+76Yp23a3f491S+sPMrdSq18t1f9Kq12PYP2OvXseOB/ZX+qjXFKbp
+B+cht3M5ieBNgZh+gsotB2Rdrw3dLtfTMvtLiHKKDu28NOfxpqvXsW0O3tU8QvkX
+IoVtbhyOFL5lS1IYlzXhDMxJ8G4ohXDZ2H8pUOuWtWpJvQ6wraMO3qmvRrvmc9UL
+wFBH9e1EdQDWTw1nXfUk9aVaHjNku3JsOWZq3tW8H7yrGdiGrwU8IIJ3PwheYBuC
+94Ck4L39ysurNXZJ8AKbErwHJP1CN/tD8AKbELwAEMivEwFAIMELAIEELwAE8hov
+AEcv/VbIGOkLFeZ6A6XgBeDo5c9BGOLdd+7O+iuDnmqGHak/NS3rqu+ziGNet48p
+jiFiH3PKx9d1u4+ij+3e+b21be5f3RS8wEbKE+ZcH5U6Zh+bHkPEPlrK/c4dPnP9
++ZQ2vQ8RxzbUlStffGPZ3L+jL3hhR9IJpz5ZpfV9OhHBqcihm7jihROWgji3bN16
+kmutcblW9yf1mCQv1/Wk7Kvl8bmV1tVLeb2s53F1Ld+2+pO+enlbKseX/WU9yet1
+PemrZ/Vya3xpyJj8Q1weU29TLidlf1lPWvXWepb7umq53tWflePKepJrdX2dMmST
+en32T6VLb676/MkTTdN20K5de7Vzvauva0w9vq6v267evqyvG18ud9Va23XVh9Za
+9a7+urXGt8a2+tfVxta7llvrrVbP2TVHWW8tD9muq16PKVurr56jHlPWy75147va
+mz9688mt795aLj1JX7J90crlvJ78bpmLSWueKZorXtih8unmdFs/zbzuJ/py+3Lb
+ddt16dquPq45dN2XdcaM7bp/Y4091qn2W5pjzin1HV+qTfFn3LePIcor3WUerpa8
+xgsnLZ1wytaS6uWJJ5/U+rbpUm43dtsppH1uehJdZ5vHpWXMsZb7nWLfU9+XqfUd
+X+6bQrmPMXOWIZvU617jhSOXThhDTkatk3yu5TmmNPV862x6X6KPM9n0WJNdHO++
+SPd93d/zTY19XHPY1qGbuOKFE5VP6rm1TljlmNxfbzfUkP2V8vg+rfm69lPW61qp
+a/tSq7/eLmvtY51yrnL/uVbW6/3W9a7lenypHjOlct687zHHVC7nVuqqD9lHaez4
+llboJnNf8frkKmAWm54Mt3Vq+53SMdyHLumTq26/8vJFqKYr2nW3c35yleAFZiF4
+D88xB28K1LEELwAcAa/xAkAgwQsAgQQvAAQSvAAQSPACQCDBCwCBBC8ABBK8ABBI
+8AJAIMELAIEELwAEErwAEEjwAkAgwQsAgXwtIABHL30R/hh3Xr/j+3gBYFMpeM8/
+OF+t9Xv3nbuLm8tcnCt4PdXMSblx/bXV0lOt2iE41OOOMOaxSWPrlpXLLev6pzLX
+frrmjbpfUxp6zPfO761tZ6uxcxG8nJxDPKm0PHx0d7VEbexjk8aXbd/s4zHtg/Lf
+8pSP0VxXupngBThRKazqH0TT+qkHvStemFjrZFNKfbllebmu13J/PWZsbUi9Xm71
+rxtTGzOm1LVdXSvHlfVkXb3UNTbL9fK2a+xQeY56njH1rvWuWq539WfluLKe5Fpd
+H6q1/br1JNda43Kt7k/qMUlerutJ2TeVua94F+nNVZ8/eaJpJ9GuXXv10m3fcrme
+bvvGtVq57djaJvXcWv1dc/S11pjWnF1zbzq2q75ubKuWbsv+rrFlq/vK9breNX5o
+vWytvnq7ekxZL/vWje+rteap17vG1OPr+rrt6u3L+rrx5XKrvfmjN5/c+u6t5dJ6
+v1vmYtKaZ4rmipeTtO6qt2XI02/5J/Jy7nJfeY5WbajW+NZ+a1OMGXPcY+9ja99j
+52gZsl0ak1uX1vFtq2/OVBtzn7vG9u0jSdvlvtY+x2xfbrtuuy5d23Xdvzl4jRdm
+Up4wppDmSnPmVmrta6r99+23VI5pjRszz9DjHju2bNmYOeYy9LEZo2/O3DeFch+b
+zDlk+1Qv/4y2ebzK7cZuOxWv8cKByyekdBLJy63aUGPHt2w6x5jjHjO2lsdvM8eh
+Svcz3d85dD2G+fFdt9/W9rk2x5/R1PMNNfcVrw/Q4KS0Ti51rfzHnuutMfU8Sblt
+Um6ftPbTqiXr6qlWz5+letmfdM1das1Ty2OGzF2P7Zt/6BxJ19gs9ad6vs3q9aSc
+K8tjyvH1uDx/qd5X1povGTpnud3QefvGt9RzZEP3l7RqWeort+tbzlr9SWvbekwt
+f4BG+j3ddR5+fH+RcnGuABa8QJh1J0eYSwre26+8fPE0cgrUdbdzfnKV4AXCCF52
+JQXqWIIXAI6AN1cBQCDBCwCBBC8ABBK8ABBI8AJAIMELAIEELwAEErwAEEjwAkAg
+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
+168//Q7dcjnbpNbqB4Bd2tsrXqEJwDE62KeaUzA/enRXQANwUPY2eIUqAMfoIK94
+89VuIqABOCR7HbxCFYBjs/dXvF3hm2q5AcChOLinmlPQpjCumwAG4BAcRPCmYN1U
+eWUsnAHYtb0J3jJcW0Gba10h3OpPy3UDgF06uKeaAeCQCV4ACCR4ASDQTr+P9/Yr
+L6/WACDeSX0R/uLatdUCAOzQyQQvAOy5OYLXa7wAEEjwAkAgwQsAgQQvAAQSvAAQ
+SPACQCDBCwCBBC8ABBK8ABBI8AJAoNk+MvL9Xz9cLQHA4TqYz2oGAJ7lqWYACCR4
+ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAOwveG9dfWy1d1lXvs26b3D/VPvvmS7W6
+Hat9uG/5GI75cQaOy0ld8T58dPfitj5Jp/omJ+48Xy3Vy7bvoXCooZWOO/8Z5FuA
+fbfT4K1P+LsMACfucXLoHWpoA+zK3l/xphN7bqWx9aSs1ctd22StMX3ju7TmScp6
+2TekVvcn9ZgkL9f1pB7XGjNE3qa1fa711XNfuZzU/VleHzq2VQcIlT6r+fMnTyZt
+y2mbrRxz7dqrvbf1crneVa9bPb5r+7K1+upa3zypVrd6TG65rx7TtU1rfGu53r6s
+rxtfLrfWW7V6+3o9L5ct1+v+rnrZWmO6tuuap6s+RWv93dc07TDbT3/1u+a/823a
+LF+S8NyVK4tXf/Lhau2pN//s6X7SVUd+qrJ1W47JWmOSeptSOb5v+1LZl7TGt+ZJ
+WrVSa19d8+flUj2+tVxvk9TbJeX4eo6sXk/6xqzrK6V61/hWvVSP6dqu1JpjDn/5
+1/dXS8Ch+86Nq5N/O9FsV7zL4G325da6WulbLtc3rbfGdW3TV2vNU/e12tB5xtRb
+y/V2udX11viuMXWtbmVfPXbb+pgx9djcuubQNE3ra3Nc8fo93hNQX+ltI19R1m3K
+fUxpX48LOF17EbzpxN2ST+i55XF1Peuq1/K4crlvm6HzrjP2uDfdb71dWu+Tx5fL
+Q7cdqp4366qXhozJuo5/zBwAc5r1Nd7yNV2GKwPj1JzyfQf2z/u/fjj5a7yeat4D
+5ZXYqQXPKd934DS54gWADq54AeDACV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDg
+BYBAO/0AjUe//2y1xDee/9ri84svdnrW22+8tVoCYCp3Xr+zeLxa7jLHB2jsPHgf
+/P7T1drp+ot/95eLh79+rzd4zz84X60BsK1337m7uLnMPsF7ooYG773ze6vKbr21
+PJ70kyKwn9K/0Vf9G+318OP7gveUjQneX/yPh6vq7tz/m/cugvfB8i8usH/e/9kv
+BO8agvfEHXLwPvy7q6vqZvJc+3C/ouzbfY48nl3f913sP3qfN776meAdYJfB613N
+ABDooIP3ey+8t1ra3BRzlKae71j8q1f+w2rp8nJLV/+67baV5i9bqaueddXHKOco
+99c1d6s+tDZG15xlK7XGD9E3Z9JV69tmjCFzlfUh49fpmqNrOWvVOBwnf8X789/+
+YLU0jannI0Y6kf34Zz+81PLJre6LOultus99P76W+jEeM+cm29TG7n+b483GzDF2
+bvbbwQZvurJMIecKc//lk0a6LZe7tE5AaT3VI3Xtr67nY+u7T1OL2ucu7ltWPs67
+OI5y/0OMHd8yxRzsv6O84k1hXLasVa9vs1Z/a0zZco3L8skk3ZbL20gn4NxKY+vH
+KD22p3A/o6XHdNu/t5vyZ3pcDjJ4U7jlp3Trq97cl1vWVR+i3Dbva5v52E4+AeaW
+T0hj60PlbXIr5bmTTebuU+4z7yOZc5+ldftJ67mVxze1fTkOmMrJv8Y7hGCNV55g
+Nz2hltuUJ+dNpLly23SOsbbZZ8RxbnN8U4o4jjRvmn+Xdv04M52Dfo03N/ZbPlmk
+23I5UnlynvoEmu9X5H0ass8pTtRD9hNhX45j16b4M2X3Di5466d4c5sygIX5tHLQ
+laGXb/vkk8yQsS1dJ6ihJ648rm+efJ/KNnT+TUTtcxf3rZb2tcvjyPvIx7DOFMcU
+cb/YvaN7qjmHcG5ZVz0r+9PyOuvmYz75xJtbPimOrZfqMeW4IdvPYYp9znmsUxxf
+Vj/GY+bcZJva2P1vc7zZpnOM3Q/75+g/MrIrSIcG7FDbzOcjI/fn4xMj7Nt9jjye
+Xd/3Xew/ep8+MnIYHxk5oXwFmlsOw676pqaeD4DTcJRPNZct66pvaur5ADgNRxe8
+ALDPfC3gHvB9vMCUvMa73kl/H+9L3/cOvWRI8N767q1VBaCf4O13ssGbxvHUuuD9
++fKKF4Dtney7mlPQaE8bAMfPm6sAIJDgBYBAghcAAgleAAgkeAEg0E5+nSj9/i5P
+feP5r/W+q9mvEwFM6+R+j9cnVj217lOrEsELMC3fTgQAJ0LwAkAgwQsAgQQvAAQ6
+yOD93gvvXWq7tg/HAMBhOLjgTSH389/+4FLbdfClYwCAIY7iqWbBB8ChOLrXePPT
+z+VVcLne1VfWkrJe9rXqZT8A9Dmq4E0B2PUUdHlVnJe7xtf1rKsOAEMd3RXvWClM
+cwOAuZ188JZXsK5iAZjbUQTvVFerrnoBmNvBBW+6Ki2fHk4tX6nWfeuuYLvG1/Ws
+qw4AQ/l2ogFSyLZCvKs+hm8nAojn24n2THlVW4ZrVx0AhhK8DSlQy5Z11QFgKMEL
+AIEELwAE2tmbq176/g9Xa3hzFUCsXb65aifBm/q5TPACxDm5dzWnkNEuNwBOg9d4
+ASCQ4AWAQIIXAAIJXgAIJHgBINDOfo+XL3zj+a+tfVezXycCmNbJ/R7voX070VyG
+fDNRIngBpuXbiQDgRAheAAgkeAEgkOAFgEAHF7zfe+G9Sy1K3lfkPgE4PgcVvCn0
+fv7bH1xqghCAQ3LwTzWn8AWAQ3FUr/Gmq9/csrxc15NcG1qvDR0HANlRBW/XU9Bp
+ua6XtSH1lqHjACA7+iveJAXjOuWYrnlqQ8cBQHY0wZvCr7wC3UY5T9dcU+4PgNNx
+8ME71dVm1zyuZgGY0kEFb7qyTEFYtny1WfetU4/vmifXa2P3BwCJbyfaId9OBLAb
+vp0IAE6E4AWAQIIXAAIJXgAItLM3V730/R+u1k6bN1cBxNvlm6t2Erypn6cEL0Cs
+k3tXcwoa7WkD4HR4jRcAAgleAAgkeAEgkOAFgECCFwACCV4ACCR4ASCQ4AWAQIIX
+AAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEgkOAFgECCFwACCV4ACCR4ASCQ4AWA
+QIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEgkOAFgECCFwACCV4ACCR4ASCQ
+4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEgkOAFgECCFwACCV4ACCR4
+ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEgkOAFgECCFwACCV4A
+CCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEgkOAFgECCFwAC
+CV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEgkOAFgECC
+FwACCV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEgkOAF
+gECCFwACCV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEg
+kOAFgECCFwACCV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgk
+eAEgkOAFgECCFwACCV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgle
+AAgkeAEgkOAFgECCFwACCV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcA
+AgleAAh05ZOPPnxy41vfXq1O47krVxav/uTDxZt/Nu28p+rtN95a3H7l5dUaAFO4
+ucy+x6vlLu//+uHi9p/cWK1NQ/AegLPVLQDTErwAsEfmCF6v8QJAIMELAIEELwAE
+ErwAEGiWN1elF6MB4BgcxLuaAYA2TzUDQCDBCwCBBC8ABBK8ABBmsfj/ceJPkw3E
+kPAAAAAASUVORK5CYII==
+
+-----------blocknote.net--181ZBFCLBN8M61C8AGFJ1IECSI2
+Content-Type: image/x-png
+Content-Id: <1DO5YPDKVCDDFZAQUMJH6PINB>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/voce2.png
 
@@ -1298,9 +1504,9 @@ qq8EzsowGxEg+jAzRr4BIe3QpOTjLIfCMG1nOjwjYmI2mixbAi0loTM7IryL15at
 dcDlfrRWqdnptFhMCpafeJ6ZgsXJxBULAoDP16//PzALAtRTf5muAAAAAElFTkSu
 QmCC=
 
------------blocknote.net--1PUJ2CUHRJFZBZQP4A12ZI0PN
+-----------blocknote.net--181ZBFCLBN8M61C8AGFJ1IECSI2
 Content-Type: image/x-png
-Content-Id: <10WPFANK7ST8XNPCYI9T6BAUX>
+Content-Id: <1R6FR6EKO9O6QZ37CLJT6OKM8>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Ente-Modalità pagamento.png
 
@@ -2041,190 +2247,4 @@ dGf5BAAAAL6pB4pdM0JcDzZaTFOWZStb5j9oiVwGAACAUPFOa1zcMzUNp9hNxqe+
 Z/cZf0N9+83Xf3inP+4xBgAACM3w5QcXD2zu1av3/wdcjpjr3K7i0wAAAABJRU5E
 rkJggg===
 
------------blocknote.net--1PUJ2CUHRJFZBZQP4A12ZI0PN
-Content-Type: image/x-png
-Content-Id: <AY65AOJV1471G03JB41L40KLM>
-Content-Transfer-Encoding: base64
-Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Ente3.png
-
-iVBORw0KGgoAAAANSUhEUgAAAd4AAAIHCAYAAAAxRz25AAAAAXNSR0IArs4c6QAA
-AARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAACEDSURBVHhe7d0/
-zBznnR/wZeDiFeCCBnwACUQFjQQIDaewgSskXApTuEauxFR2cFckQIr4UkmpeGos
-qQmoRlCaS5zCBytAgMhFYLs48FVhww6QQCwkiMUFZhEDdBFAKg4QgRzA7PNqH/F5
-Hz4zO7M789t/nw/0aGd+zzPPzC7J+b6zu+/ulU8++vDJAgAIcRG833nlx6tVAGBO
-/2B12+nx37+4bC9X7caqFwAYo/OK9/FnLy7u/uiFxWv//sGq8qyzxfli8ZXHqzUA
-mN7nf/vuamm8l269tLh3fm+1Nl7a/jf/5+bF8rbHkedpBu/js9sXt5/+6tbi+gvn
-iw//+4uLm//o7KJ25Y9+sVh89WJxsfjjR4vFRw8WZ38vfAGYRwq8Bx/fX60N9/7P
-frE4/+D8Ini32b4M3inmeeap5sdnLy7Ozp67aMnnD259GbqP/375v1Xo3vzT5f/S
-+r/+FxfrpyI98Nv81LNO3/y5b4r9TzUPwCH55j/9zto2t2eC9+zqMpHPzhYPf/nC
-4urVVXHluXS1u3Tt62eLT/7q5cXiuy9ejH3855fDtwyIoSf4oeO6lPuq5+rrS7rq
-tdz/3D/+i4vbvm2GzLdOOUe+TftObdv5y/sAwHhdQb0uwC8H71eXobu80E1Xtte+
-vqpl6eo2BfHy9tH/vHVRevJvl+O/srwa/iftN1vlkMgn+bnUoVTus69vKnV4TRVm
-fcc6x/0AOAWffPRhZxsjjy9DNi/3zXU5eJ9/cXH21bPFT3/0bJBevLa79OTh8kp3
-6f3fr17XvfrFU9JDpECqW62ul2PL+lTynDnEuvZRj6vl/r7ty1ZaVy/l9bovrw+t
-J+vuMwD9yvAdErrJpeBNobtY/nf7n11+jvlxythl6doff23x0q8+u6jd/odfvO6b
-3EzbfbV6Xnqp74TfddJv9fWNHyofx6bbd8nHlZTHWyrr9f1o9fVpjannKMfUtTwW
-gGmUQbsudJPLV7xnKXjPFo++yNYvpfLVry/r//WFxb3vXg7YW9evLm7+0XLA31Ub
-LdUn/U2lsNg0MFr7njp8yn1se1+nlh+7qe8zAF9oPdXc53LwfvZwGbLPLd7+5bMh
-+unqdd3aJ+99tvjNf352/JRyeOc2Vte2ZRh1LQ+16bHNKd+PfTw2gGNQPr1cPu3c
-51LwPv7o/Yunmv/bR8N+L/f9/7Uctxx/0Q5YDibhBLD/UrC1WrS8z9ZTzX3Hc/mK
-N1k93fzNN9Zfxf7w/RS8Z4vPftX+rOd0xZXbOjn0yvF1rewr9Y1r1TYJ2HIfY/Xd
-t1bfWPUc9T665q7HAZyCMqzrNkZ5lVvqqmfNT666+udvrpbOFo9ef/Zy9v7vF4t/
-/tefLT5Pv2L0/x4vPvsvefxxO7agErzAIUjnqmP65Kr2ZzV/5Wxx/V8+DdNPlxe2
-N68tFn9oXAQ/+qvXVkun4VjCSugChyKdr956463V2jg5eLfZvgzeKebp/VrA6//m
-7hdPPTd8+ssfLx4/GJ/8ADDGi893f1lPhByY2x7HoOD90tWri7Pnv7lYPP588fhv
-hS0AbOrZN1e1fPbZ4vFHvxG6ALCliyve1TIAMLOL4L3xrW+vVgGAOQ17qhkAmITg
-BYBAghcAAgleAAgkeAEgkOAFgECCFwACCV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgB
-IJDgBYBAghcAAvk+XgBOwttvvLVaGubO63cWj1fLUxK8B2TsXxrmM9c/SGA+6Rx6
-/sH5aq3ff3rn7iJlo+A9cWP+0jCfd5f/IG/O9A+Sed24/tpq6amHj+6ulqaR9jH1
-nPsg4rHb1rrHPp9D753fW1W6Pfj4/mz/zgXvAcl/aX763vq/NMzn0/873z9I5rVJ
-KI7dZsj4TY5j11rHfGj3Y0zwPlwG71xXvN5cBQCVOX+wFrwAS+nqLd/m5axcz/31
-mJY8pjW+XM/9rVpezrflmCTX6npW9tdjWvXWuKFa8yWtemtMvi1bqVUv18v6ts5W
-t3MQvJyU69evfNlKrXpZq/s4XPlE3TpJp1p66jS1sj8/nVr212O6bDNnHpO05unb
-ttQa07dtWm9JY8pWjsvr9Xxd9T6t8X3zpPWpueKFCaTgfPToyZctB2lXvaylxnEo
-T961ISfwdMLPbYip5hwyz1hD9lvKj1tu9XZD5tvmfgyZfyqueGEC24RnDmeow2cK
-c8w5xNT7nXq+2tzzl1zxDlT+NLTJT0R5m022BU7PHOeKXZ1/pt5v13yt+ib7nvtx
-csU7QPpDqH8a2vQPZu6fpNi9MVewrnaPSzovlG2d8lySl3Pb9Fwx1ZxDt22N2Wa/
-LV3zDannWrZufFmfy5xXvEfze7xT/EFE/GFuw+/xTqMO0rHrfo+XQ7Lv57XanMeb
-zqE/eOXli3+76Yp23a3f491S+sPMrdSq18t1f9Kq12PYP2OvXseOB/ZX+qjXFKbp
-B+cht3M5ieBNgZh+gsotB2Rdrw3dLtfTMvtLiHKKDu28NOfxpqvXsW0O3tU8QvkX
-IoVtbhyOFL5lS1IYlzXhDMxJ8G4ohXDZ2H8pUOuWtWpJvQ6wraMO3qmvRrvmc9UL
-wFBH9e1EdQDWTw1nXfUk9aVaHjNku3JsOWZq3tW8H7yrGdiGrwU8IIJ3PwheYBuC
-94Ck4L39ysurNXZJ8AKbErwHJP1CN/tD8AKbELwAEMivEwFAIMELAIEELwAE8hov
-AEcv/VbIGOkLFeZ6A6XgBeDo5c9BGOLdd+7O+iuDnmqGHak/NS3rqu+ziGNet48p
-jiFiH3PKx9d1u4+ij+3e+b21be5f3RS8wEbKE+ZcH5U6Zh+bHkPEPlrK/c4dPnP9
-+ZQ2vQ8RxzbUlStffGPZ3L+jL3hhR9IJpz5ZpfV9OhHBqcihm7jihROWgji3bN16
-kmutcblW9yf1mCQv1/Wk7Kvl8bmV1tVLeb2s53F1Ld+2+pO+enlbKseX/WU9yet1
-PemrZ/Vya3xpyJj8Q1weU29TLidlf1lPWvXWepb7umq53tWflePKepJrdX2dMmST
-en32T6VLb676/MkTTdN20K5de7Vzvauva0w9vq6v267evqyvG18ud9Va23XVh9Za
-9a7+urXGt8a2+tfVxta7llvrrVbP2TVHWW8tD9muq16PKVurr56jHlPWy75147va
-mz9688mt795aLj1JX7J90crlvJ78bpmLSWueKZorXtih8unmdFs/zbzuJ/py+3Lb
-ddt16dquPq45dN2XdcaM7bp/Y4091qn2W5pjzin1HV+qTfFn3LePIcor3WUerpa8
-xgsnLZ1wytaS6uWJJ5/U+rbpUm43dtsppH1uehJdZ5vHpWXMsZb7nWLfU9+XqfUd
-X+6bQrmPMXOWIZvU617jhSOXThhDTkatk3yu5TmmNPV862x6X6KPM9n0WJNdHO++
-SPd93d/zTY19XHPY1qGbuOKFE5VP6rm1TljlmNxfbzfUkP2V8vg+rfm69lPW61qp
-a/tSq7/eLmvtY51yrnL/uVbW6/3W9a7lenypHjOlct687zHHVC7nVuqqD9lHaez4
-llboJnNf8frkKmAWm54Mt3Vq+53SMdyHLumTq26/8vJFqKYr2nW3c35yleAFZiF4
-D88xB28K1LEELwAcAa/xAkAgwQsAgQQvAAQSvAAQSPACQCDBCwCBBC8ABBK8ABBI
-8AJAIMELAIEELwAEErwAEEjwAkAgwQsAgXwtIABHL30R/hh3Xr/j+3gBYFMpeM8/
-OF+t9Xv3nbuLm8tcnCt4PdXMSblx/bXV0lOt2iE41OOOMOaxSWPrlpXLLev6pzLX
-frrmjbpfUxp6zPfO761tZ6uxcxG8nJxDPKm0PHx0d7VEbexjk8aXbd/s4zHtg/Lf
-8pSP0VxXupngBThRKazqH0TT+qkHvStemFjrZFNKfbllebmu13J/PWZsbUi9Xm71
-rxtTGzOm1LVdXSvHlfVkXb3UNTbL9fK2a+xQeY56njH1rvWuWq539WfluLKe5Fpd
-H6q1/br1JNda43Kt7k/qMUlerutJ2TeVua94F+nNVZ8/eaJpJ9GuXXv10m3fcrme
-bvvGtVq57djaJvXcWv1dc/S11pjWnF1zbzq2q75ubKuWbsv+rrFlq/vK9breNX5o
-vWytvnq7ekxZL/vWje+rteap17vG1OPr+rrt6u3L+rrx5XKrvfmjN5/c+u6t5dJ6
-v1vmYtKaZ4rmipeTtO6qt2XI02/5J/Jy7nJfeY5WbajW+NZ+a1OMGXPcY+9ja99j
-52gZsl0ak1uX1vFtq2/OVBtzn7vG9u0jSdvlvtY+x2xfbrtuuy5d23Xdvzl4jRdm
-Up4wppDmSnPmVmrta6r99+23VI5pjRszz9DjHju2bNmYOeYy9LEZo2/O3DeFch+b
-zDlk+1Qv/4y2ebzK7cZuOxWv8cKByyekdBLJy63aUGPHt2w6x5jjHjO2lsdvM8eh
-Svcz3d85dD2G+fFdt9/W9rk2x5/R1PMNNfcVrw/Q4KS0Ti51rfzHnuutMfU8Sblt
-Um6ftPbTqiXr6qlWz5+letmfdM1das1Ty2OGzF2P7Zt/6BxJ19gs9ad6vs3q9aSc
-K8tjyvH1uDx/qd5X1povGTpnud3QefvGt9RzZEP3l7RqWeort+tbzlr9SWvbekwt
-f4BG+j3ddR5+fH+RcnGuABa8QJh1J0eYSwre26+8fPE0cgrUdbdzfnKV4AXCCF52
-JQXqWIIXAI6AN1cBQCDBCwCBBC8ABBK8ABBI8AJAIMELAIEELwAEErwAEEjwAkAg
-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
-168//Q7dcjnbpNbqB4Bd2tsrXqEJwDE62KeaUzA/enRXQANwUPY2eIUqAMfoIK94
-89VuIqABOCR7HbxCFYBjs/dXvF3hm2q5AcChOLinmlPQpjCumwAG4BAcRPCmYN1U
-eWUsnAHYtb0J3jJcW0Gba10h3OpPy3UDgF06uKeaAeCQCV4ACCR4ASDQTr+P9/Yr
-L6/WACDeSX0R/uLatdUCAOzQyQQvAOy5OYLXa7wAEEjwAkAgwQsAgQQvAAQSvAAQ
-SPACQCDBCwCBBC8ABBK8ABBI8AJAoNk+MvL9Xz9cLQHA4TqYz2oGAJ7lqWYACCR4
-ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAOwveG9dfWy1d1lXvs26b3D/VPvvmS7W6
-Hat9uG/5GI75cQaOy0ld8T58dPfitj5Jp/omJ+48Xy3Vy7bvoXCooZWOO/8Z5FuA
-fbfT4K1P+LsMACfucXLoHWpoA+zK3l/xphN7bqWx9aSs1ctd22StMX3ju7TmScp6
-2TekVvcn9ZgkL9f1pB7XGjNE3qa1fa711XNfuZzU/VleHzq2VQcIlT6r+fMnTyZt
-y2mbrRxz7dqrvbf1crneVa9bPb5r+7K1+upa3zypVrd6TG65rx7TtU1rfGu53r6s
-rxtfLrfWW7V6+3o9L5ct1+v+rnrZWmO6tuuap6s+RWv93dc07TDbT3/1u+a/823a
-LF+S8NyVK4tXf/Lhau2pN//s6X7SVUd+qrJ1W47JWmOSeptSOb5v+1LZl7TGt+ZJ
-WrVSa19d8+flUj2+tVxvk9TbJeX4eo6sXk/6xqzrK6V61/hWvVSP6dqu1JpjDn/5
-1/dXS8Ch+86Nq5N/O9FsV7zL4G325da6WulbLtc3rbfGdW3TV2vNU/e12tB5xtRb
-y/V2udX11viuMXWtbmVfPXbb+pgx9djcuubQNE3ra3Nc8fo93hNQX+ltI19R1m3K
-fUxpX48LOF17EbzpxN2ST+i55XF1Peuq1/K4crlvm6HzrjP2uDfdb71dWu+Tx5fL
-Q7cdqp4366qXhozJuo5/zBwAc5r1Nd7yNV2GKwPj1JzyfQf2z/u/fjj5a7yeat4D
-5ZXYqQXPKd934DS54gWADq54AeDACV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDg
-BYBAO/0AjUe//2y1xDee/9ri84svdnrW22+8tVoCYCp3Xr+zeLxa7jLHB2jsPHgf
-/P7T1drp+ot/95eLh79+rzd4zz84X60BsK1337m7uLnMPsF7ooYG773ze6vKbr21
-PJ70kyKwn9K/0Vf9G+318OP7gveUjQneX/yPh6vq7tz/m/cugvfB8i8usH/e/9kv
-BO8agvfEHXLwPvy7q6vqZvJc+3C/ouzbfY48nl3f913sP3qfN776meAdYJfB613N
-ABDooIP3ey+8t1ra3BRzlKae71j8q1f+w2rp8nJLV/+67baV5i9bqaueddXHKOco
-99c1d6s+tDZG15xlK7XGD9E3Z9JV69tmjCFzlfUh49fpmqNrOWvVOBwnf8X789/+
-YLU0jannI0Y6kf34Zz+81PLJre6LOultus99P76W+jEeM+cm29TG7n+b483GzDF2
-bvbbwQZvurJMIecKc//lk0a6LZe7tE5AaT3VI3Xtr67nY+u7T1OL2ucu7ltWPs67
-OI5y/0OMHd8yxRzsv6O84k1hXLasVa9vs1Z/a0zZco3L8skk3ZbL20gn4NxKY+vH
-KD22p3A/o6XHdNu/t5vyZ3pcDjJ4U7jlp3Trq97cl1vWVR+i3Dbva5v52E4+AeaW
-T0hj60PlbXIr5bmTTebuU+4z7yOZc5+ldftJ67mVxze1fTkOmMrJv8Y7hGCNV55g
-Nz2hltuUJ+dNpLly23SOsbbZZ8RxbnN8U4o4jjRvmn+Xdv04M52Dfo03N/ZbPlmk
-23I5UnlynvoEmu9X5H0ass8pTtRD9hNhX45j16b4M2X3Di5466d4c5sygIX5tHLQ
-laGXb/vkk8yQsS1dJ6ihJ648rm+efJ/KNnT+TUTtcxf3rZb2tcvjyPvIx7DOFMcU
-cb/YvaN7qjmHcG5ZVz0r+9PyOuvmYz75xJtbPimOrZfqMeW4IdvPYYp9znmsUxxf
-Vj/GY+bcZJva2P1vc7zZpnOM3Q/75+g/MrIrSIcG7FDbzOcjI/fn4xMj7Nt9jjye
-Xd/3Xew/ep8+MnIYHxk5oXwFmlsOw676pqaeD4DTcJRPNZct66pvaur5ADgNRxe8
-ALDPfC3gHvB9vMCUvMa73kl/H+9L3/cOvWRI8N767q1VBaCf4O13ssGbxvHUuuD9
-+fKKF4Dtney7mlPQaE8bAMfPm6sAIJDgBYBAghcAAgleAAgkeAEg0E5+nSj9/i5P
-feP5r/W+q9mvEwFM6+R+j9cnVj217lOrEsELMC3fTgQAJ0LwAkAgwQsAgQQvAAQ6
-yOD93gvvXWq7tg/HAMBhOLjgTSH389/+4FLbdfClYwCAIY7iqWbBB8ChOLrXePPT
-z+VVcLne1VfWkrJe9rXqZT8A9Dmq4E0B2PUUdHlVnJe7xtf1rKsOAEMd3RXvWClM
-cwOAuZ188JZXsK5iAZjbUQTvVFerrnoBmNvBBW+6Ki2fHk4tX6nWfeuuYLvG1/Ws
-qw4AQ/l2ogFSyLZCvKs+hm8nAojn24n2THlVW4ZrVx0AhhK8DSlQy5Z11QFgKMEL
-AIEELwAE2tmbq176/g9Xa3hzFUCsXb65aifBm/q5TPACxDm5dzWnkNEuNwBOg9d4
-ASCQ4AWAQIIXAAIJXgAIJHgBINDOfo+XL3zj+a+tfVezXycCmNbJ/R7voX070VyG
-fDNRIngBpuXbiQDgRAheAAgkeAEgkOAFgEAHF7zfe+G9Sy1K3lfkPgE4PgcVvCn0
-fv7bH1xqghCAQ3LwTzWn8AWAQ3FUr/Gmq9/csrxc15NcG1qvDR0HANlRBW/XU9Bp
-ua6XtSH1lqHjACA7+iveJAXjOuWYrnlqQ8cBQHY0wZvCr7wC3UY5T9dcU+4PgNNx
-8ME71dVm1zyuZgGY0kEFb7qyTEFYtny1WfetU4/vmifXa2P3BwCJbyfaId9OBLAb
-vp0IAE6E4AWAQIIXAAIJXgAItLM3V730/R+u1k6bN1cBxNvlm6t2Erypn6cEL0Cs
-k3tXcwoa7WkD4HR4jRcAAgleAAgkeAEgkOAFgECCFwACCV4ACCR4ASCQ4AWAQIIX
-AAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEgkOAFgECCFwACCV4ACCR4ASCQ4AWA
-QIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEgkOAFgECCFwACCV4ACCR4ASCQ
-4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEgkOAFgECCFwACCV4ACCR4
-ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEgkOAFgECCFwACCV4A
-CCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEgkOAFgECCFwAC
-CV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEgkOAFgECC
-FwACCV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEgkOAF
-gECCFwACCV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgkeAEg
-kOAFgECCFwACCV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgleAAgk
-eAEgkOAFgECCFwACCV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcAAgle
-AAgkeAEgkOAFgECCFwACCV4ACCR4ASCQ4AWAQIIXAAIJXgAIJHgBIJDgBYBAghcA
-AgleAAh05ZOPPnxy41vfXq1O47krVxav/uTDxZt/Nu28p+rtN95a3H7l5dUaAFO4
-ucy+x6vlLu//+uHi9p/cWK1NQ/AegLPVLQDTErwAsEfmCF6v8QJAIMELAIEELwAE
-ErwAEGiWN1elF6MB4BgcxLuaAYA2TzUDQCDBCwCBBC8ABBK8ABBmsfj/ceJPkw3E
-kPAAAAAASUVORK5CYII==
-
------------blocknote.net--1PUJ2CUHRJFZBZQP4A12ZI0PN--
+-----------blocknote.net--181ZBFCLBN8M61C8AGFJ1IECSI2--

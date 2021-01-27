@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -1524,7 +1526,7 @@ namespace finvar_default//VariazioneBilancio//
                         SM.MessageBody = MsgBody;
 
                         if (!SM.Send()) {
-                            if (SM.ErrorMessage != "") MessageBox.Show(SM.ErrorMessage, "Errore");
+                            if (SM.ErrorMessage != "") MetaFactory.factory.getSingleton<IMessageShower>().Show(SM.ErrorMessage, "Errore");
                         }
                     }
                 }
@@ -1574,7 +1576,7 @@ namespace finvar_default//VariazioneBilancio//
                 SM.MessageBody = MsgBody;
 
                 if (!SM.Send()) {
-                    if (SM.ErrorMessage != "") MessageBox.Show(SM.ErrorMessage, @"Errore");
+                    if (SM.ErrorMessage != "") MetaFactory.factory.getSingleton<IMessageShower>().Show(SM.ErrorMessage, @"Errore");
                 }
 
 
@@ -1641,7 +1643,7 @@ namespace finvar_default//VariazioneBilancio//
             object default_idfinvarstatus = Conn.DO_READ_VALUE("config",
                 QHS.CmpEq("ayear", Meta.GetSys("esercizio")), "default_idfinvarstatus");
             if (default_idfinvarstatus == null) {
-                MessageBox.Show(
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "In configurazione annuale non è stata impostato il valore iniziale per le variazioni di bilancio.",
                     "Avviso");
                 default_idfinvarstatus = 5;
@@ -1942,7 +1944,7 @@ namespace finvar_default//VariazioneBilancio//
                 if ((Meta.EditMode) && DettaglioModificato()) {
                     int CurrentStatus = CfgFn.GetNoNullInt32(R["idfinvarstatus"]); // 5 = Approvata
                     if (CurrentStatus == 5) {
-                        MessageBox.Show("La variazione non può essere Approvata se sono stati modificati dettagli. Salvare le modifiche e poi approvare la variazione.", "Attenzione",
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("La variazione non può essere Approvata se sono stati modificati dettagli. Salvare le modifiche e poi approvare la variazione.", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         
                         HelpForm.SetComboBoxValue(cmbStatus, Curr["idfinvarstatus", DataRowVersion.Original]);
@@ -2050,7 +2052,7 @@ namespace finvar_default//VariazioneBilancio//
             DataRow RConf = DS.Tables["config"].Rows[0];
             // Ciclo per la creazione di due nuovi dettagli
             if (RConf["idfin_store"] == DBNull.Value) {
-                MessageBox.Show(
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     @"Non è stato configurato il conto 'Storni per ricariche card' nella configurazione annuale, sezione Cespiti/Magazzino",
                     @"Errore");
                 return;

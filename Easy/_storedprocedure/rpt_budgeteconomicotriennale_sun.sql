@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_budgeteconomicotriennale_sun]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_budgeteconomicotriennale_sun]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_budgeteconomicotriennale_sun]
 GO
 
@@ -36,7 +38,7 @@ CREATE      PROCEDURE [rpt_budgeteconomicotriennale_sun](
 )
 AS BEGIN
 /*
-Gianni 27/10/2014 versione triennale dipartimentale della SP rpt_budgeteconomico_sun gi√† esistente
+Gianni 27/10/2014 versione triennale dipartimentale della SP rpt_budgeteconomico_sun gi‡ esistente
 
 */
 
@@ -414,7 +416,7 @@ WHERE budgetprevision.ayear = @ayear
 
 set @COSTI_SPECIFICI =	@I_SOSTEGNO_AGLI_STUDENTI+
 						@II_Interventi_diritto_allo_studio+
-						--@III_Sostegno_alla_ricerca + : √® compreso in @I_SOSTEGNO_AGLI_STUDENTI. Va seguito il file Excel, non la gerarchia della classificazione.
+						--@III_Sostegno_alla_ricerca + : Ë compreso in @I_SOSTEGNO_AGLI_STUDENTI. Va seguito il file Excel, non la gerarchia della classificazione.
 						@IV_Personale_dedicato_alla_ricerca+
 						@V_Acquisto_materiale+
 						@VI_Trasferimenti+
@@ -1090,7 +1092,7 @@ WHERE budgetprevision.ayear = @ayear
 
 set @COSTI_SPECIFICI_ANNO_2 =	@I_SOSTEGNO_AGLI_STUDENTI_ANNO_2+
 						@II_Interventi_diritto_allo_studio_ANNO_2+
-						--@III_Sostegno_alla_ricerca + : √® compreso in @I_SOSTEGNO_AGLI_STUDENTI. Va seguito il file Excel, non la gerarchia della classificazione.
+						--@III_Sostegno_alla_ricerca + : Ë compreso in @I_SOSTEGNO_AGLI_STUDENTI. Va seguito il file Excel, non la gerarchia della classificazione.
 						@IV_Personale_dedicato_alla_ricerca_ANNO_2+
 						@V_Acquisto_materiale_ANNO_2+
 						@VI_Trasferimenti_ANNO_2+
@@ -1771,7 +1773,7 @@ WHERE budgetprevision.ayear = @ayear
 
 set @COSTI_SPECIFICI_ANNO_3 =	@I_SOSTEGNO_AGLI_STUDENTI_ANNO_3+
 						@II_Interventi_diritto_allo_studio_ANNO_3+
-						--@III_Sostegno_alla_ricerca + : √® compreso in @I_SOSTEGNO_AGLI_STUDENTI. Va seguito il file Excel, non la gerarchia della classificazione.
+						--@III_Sostegno_alla_ricerca + : Ë compreso in @I_SOSTEGNO_AGLI_STUDENTI. Va seguito il file Excel, non la gerarchia della classificazione.
 						@IV_Personale_dedicato_alla_ricerca_ANNO_3+
 						@V_Acquisto_materiale_ANNO_3+
 						@VI_Trasferimenti_ANNO_3+
@@ -2282,4 +2284,3 @@ select
 				
 END
 
-	

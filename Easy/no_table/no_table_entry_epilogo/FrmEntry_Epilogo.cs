@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -51,13 +53,13 @@ namespace no_table_entry_epilogo {
 
 
             if ((idaccPAT == null) || (idaccPAT == DBNull.Value)) {
-                MessageBox.Show(this, "Non Ë stato selezionato il conto che pareggia l'epilogo dei conti patrimoniali", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stato selezionato il conto che pareggia l'epilogo dei conti patrimoniali", "Errore");
             }
 
             idaccPL = Meta.Conn.DO_READ_VALUE("config", f, "idacc_pl");
 
             if ((idaccPL == null) || (idaccPL == DBNull.Value)) {
-                MessageBox.Show(this, "Non Ë stato selezionato il conto che pareggia l'epilogo dei conti economici", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stato selezionato il conto che pareggia l'epilogo dei conti economici", "Errore");
             }
 
 
@@ -86,11 +88,12 @@ namespace no_table_entry_epilogo {
                             " case when flag&1 = 0 and flagregistry='S'  then ED.idreg else null end as idreg, " +
                             " SUM(ED.amount) from entrydetail ED " +
                             " join account A on ED.idacc=A.idacc " +
+                          
                             " WHERE " + QHS.AppAnd(QHS.CmpEq("ED.yentry", esercizio), QHS.IsNotNull("A.idplaccount")) +
                             " group by ED.idacc,(case when flag&2 =0 and flagupb = 'S' then ED.idupb else null end), " +
                             "( case when flag&1 =0 and flagregistry='S' then ED.idreg else null end) " +
                             " having SUM(ED.amount)<>0 ";
-
+            QueryCreator.MarkEvent(query);
             DataTable t = Conn.SQLRunner(query, false, 0);
             if (t.Rows.Count > 0) EsisteContoEconomicoAperto = true;
             if (EsisteContoEconomicoAperto) {
@@ -102,15 +105,42 @@ namespace no_table_entry_epilogo {
             btnEpilogoEconomico.Visible = false;
 
             bool epilogoEconomicoAperto = false;
+
+            /*
+               *
+               *RILEVAZIONE RISULTATO ECONOMICO R SECONDO BOTTONE
+		  set @idaccToUse= @idacc_risultatoesercizio
+		  insert into @MyTable(amount, idacc,  idupb, idreg)
+		  SELECT -SUM(ED.amount) AS amount, ED.idacc, 
+               case when ACC.flag&2 =0 then U.idupb else null end as idupb , 
+               case when ACC.flag&1 =0 then ED.idreg else null end as idreg 			 
+               FROM entrydetail ED 
+               JOIN account ACC               ON ED.idacc = ACC.idacc
+			   join UPB UPB_associati on ED.idupb = UPB_associati.idupb 
+               join UPB U on U.idupb  = ISNULL(UPB_associati.idupb_capofila,UPB_associati.idupb) 
+               WHERE ED.yentry = @ayear		and ACC.ayear = @ayear		and ED.idacc = @idaccPL
+               GROUP BY ED.idacc, 
+							  (case when ACC.flag&2 =0  then U.idupb else null end), 
+							   ( case when ACC.flag&1 =0 then ED.idreg else null end)
+               having SUM(ED.amount)<>0 
+  
+  
+  
+               */
+
+
             query = " Select ED.idacc,  " +
-                            " case when flag&2 = 0 and flagupb = 'S' then ED.idupb else null end as idupb , " +
-                            " case when flag&1 =0 and flagregistry='S'  then ED.idreg else null end as idreg,  " +
+							" case when A.flag&2 = 0 then U.idupb else null end as idupb , " +
+                            " case when A.flag&1 =0  then ED.idreg else null end as idreg,  " +
                             " SUM(ED.amount) from entrydetail ED " +
                             " join account A on ED.idacc=A.idacc " +
+                            " left outer join UPB linked on linked.idupb = ED.idupb "+
+                            " left outer join UPB U  on U.idupb = isnull(linked.idupb_capofila,linked.idupb) "+
                             " WHERE " + QHS.AppAnd(QHS.CmpEq("ED.yentry", esercizio), QHS.CmpEq("ED.idacc", idaccPL)) +
-                            " group by ED.idacc,(case when flag&2 = 0 and flagupb = 'S' then ED.idupb else null end)," +
-                            " ( case when flag&1 =0 and flagregistry='S' then ED.idreg else null end) " +
+                            " group by ED.idacc,(case when A.flag&2 = 0  then U.idupb else null end)," +
+                            " ( case when A.flag&1 =0  then ED.idreg else null end) " +
                             " having SUM(ED.amount)<>0 ";
+            QueryCreator.MarkEvent(query);
             t = Conn.SQLRunner(query, false, 0);
             if (t.Rows.Count > 0) epilogoEconomicoAperto = true;
 
@@ -121,13 +151,14 @@ namespace no_table_entry_epilogo {
             }
             btnRisultatoEconomico.Visible = false;
 
+            
             bool EsisteStatoPatrimonialeAperto = false;
             query = " Select ED.idacc, SUM(ED.amount) from entrydetail ED " +
                             " join account A on ED.idacc=A.idacc " +
                             " WHERE " + QHS.AppAnd(QHS.CmpEq("ED.yentry", esercizio), QHS.IsNotNull("A.idpatrimony")) +
                             " group by ED.idacc " +
                             " having SUM(ED.amount)<>0 ";
-
+            QueryCreator.MarkEvent(query);
             t = Conn.SQLRunner(query, false, 0);
             if (t.Rows.Count > 0) EsisteStatoPatrimonialeAperto = true;
 
@@ -146,7 +177,7 @@ namespace no_table_entry_epilogo {
         private void btnEpilogo_Click(object sender, EventArgs e) {
 
             if (!doEpilogo(true)) {
-                MessageBox.Show(this, "Errore nel processo di epilogo", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel processo di epilogo", "Errore");
             }
         }
 
@@ -157,7 +188,7 @@ namespace no_table_entry_epilogo {
 
 
             if ((idaccPL == null) || (idaccPL == DBNull.Value)) {
-                MessageBox.Show(this, "Non Ë stato selezionato il conto che pareggia l'epilogo dei conti economici", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stato selezionato il conto che pareggia l'epilogo dei conti economici", "Errore");
                 return false;
             }
 
@@ -167,12 +198,12 @@ namespace no_table_entry_epilogo {
             filter = QHS.AppAnd(filter, QHS.CmpEq("ED.idacc", idaccPL));
 
             if ((idaccPL == null) || (idaccPL == DBNull.Value)) {
-                MessageBox.Show(this, "Non Ë stato selezionato il conto che pareggia l'epilogo dei conti economici", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stato selezionato il conto che pareggia l'epilogo dei conti economici", "Errore");
                 return false;
             }
 
             if ((idacc_risultatoesercizio == null) || (idacc_risultatoesercizio == "")) {
-                MessageBox.Show(this, "Non Ë stato selezionato il conto di risultato esercizio", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stato selezionato il conto di risultato esercizio", "Errore");
                 return false;
             }
             Conn.BeginTransaction(IsolationLevel.ReadCommitted);
@@ -182,14 +213,14 @@ namespace no_table_entry_epilogo {
                 600, out errMess);
             if (errMess != null) {
                 Conn.RollBack();
-                MessageBox.Show(this, "Errore nella query che estrae i conti da epilogare, la transazione Ë stata interrotta\r\rContattare il servizio assistenza"
-                    + "\r\rDettaglio dell'errore :\r\r" + errMess, "Errore");
                 doVerify();
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella query che estrae i conti da epilogare, la transazione Ë stata interrotta\r\rContattare il servizio assistenza"
+                    + "\r\rDettaglio dell'errore :\r\r" + errMess, "Errore");
                 return false;
             }
             Conn.Commit();
-            MessageBox.Show(this, "Risultato economico completato con successo!", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
             doVerify();
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Risultato economico completato con successo!", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Meta.FreshForm();
             return true;
 
@@ -207,12 +238,12 @@ namespace no_table_entry_epilogo {
             //DataTable tSaldo = Meta.Conn.SQLRunner(query);
 
             //if (tSaldo == null) {
-            //    MessageBox.Show(this, "Errore nella query che estrae i conti da epilogare", "Errore");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella query che estrae i conti da epilogare", "Errore");
             //    return false;
             //}
 
             //if (tSaldo.Rows.Count == 0) {
-            //    MessageBox.Show(this, "Non ci sono conti del tipo selezionato da epilogare", "Avvertimento");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono conti del tipo selezionato da epilogare", "Avvertimento");
             //    return true;
             //}
 
@@ -222,7 +253,7 @@ namespace no_table_entry_epilogo {
             
 
             //if (rEntry == null) {
-            //    MessageBox.Show(this, "Errore nella creazione della scrittura", "Errore");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella creazione della scrittura", "Errore");
             //    return false;
             //}
             //var useIdReg =
@@ -265,7 +296,7 @@ namespace no_table_entry_epilogo {
             //FrmEntryPreSave frm = new FrmEntryPreSave(ds.Tables["entrydetail"], Meta.Conn);
             //DialogResult dr = frm.ShowDialog();
             //if (dr != DialogResult.OK) {
-            //    MessageBox.Show(this, "Operazione Annullata!");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Operazione Annullata!");
             //    return true;
             //}
 
@@ -276,12 +307,12 @@ namespace no_table_entry_epilogo {
             //if (Post.DO_POST()) {
             //    DataRow rEntryPosted = tEntry.Rows[0];
             //    EditEntry(rEntryPosted);
-            //    MessageBox.Show(this, "Epilogo completato con successo!");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Epilogo completato con successo!");
             //    doVerify();
             //    return true;
             //}
             //else {
-            //    MessageBox.Show(this, "Errore nel salvataggio dell'epilogo", "Errore");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio dell'epilogo", "Errore");
             //    doVerify();
             //    return false;
             //}
@@ -315,14 +346,14 @@ namespace no_table_entry_epilogo {
                 filter = QHS.AppAnd(filter, QHS.IsNotNull("ACC.idplaccount"));
 
                 if ((idaccPL == null) || (idaccPL == DBNull.Value)) {
-                    MessageBox.Show(this, "Non Ë stato selezionato il conto che pareggia l'epilogo dei conti economici", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stato selezionato il conto che pareggia l'epilogo dei conti economici", "Errore");
                     return false; 
                 }
             }
             else {
                 filter = QHS.AppAnd(filter, QHS.IsNotNull("ACC.idpatrimony"));
                 if ((idaccPAT == null) || (idaccPAT == DBNull.Value)) {
-                    MessageBox.Show(this, "Non Ë stato selezionato il conto che pareggia l'epilogo dei conti patrimoniali", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stato selezionato il conto che pareggia l'epilogo dei conti patrimoniali", "Errore");
                     return false;
                 }
             }
@@ -342,9 +373,9 @@ namespace no_table_entry_epilogo {
                 3600, out errMess);
             if (errMess != null) {
                 Conn.RollBack();
-                MessageBox.Show(this, "Errore nella query che estrae i conti da epilogare, la transazione Ë stata interrotta\r\rContattare il servizio assistenza"
-                    + "\r\rDettaglio dell'errore :\r\r" + errMess, "Errore");
                 doVerify();
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella query che estrae i conti da epilogare, la transazione Ë stata interrotta\r\rContattare il servizio assistenza"
+                    + "\r\rDettaglio dell'errore :\r\r" + errMess, "Errore");
                 return false;
             }
             Conn.Commit();
@@ -358,7 +389,7 @@ namespace no_table_entry_epilogo {
                 Conn.CallSP("rebuild_epexpyear", new[] { ayear },false,0);
                 Conn.CallSP("rebuild_epaccyear", new[] { ayear },false,0);
             }
-            MessageBox.Show(this, "Epilogo completato con successo!", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Epilogo completato con successo!", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return true;
 
             //string query = null;
@@ -396,12 +427,12 @@ namespace no_table_entry_epilogo {
             //DataTable tSaldo = Meta.Conn.SQLRunner(query);
 
             //if (tSaldo == null) {
-            //    MessageBox.Show(this, "Errore nella query che estrae i conti da epilogare", "Errore");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella query che estrae i conti da epilogare", "Errore");
             //    return false;
             //}
 
             //if (tSaldo.Rows.Count == 0) {
-            //    MessageBox.Show(this, "Non ci sono conti del tipo selezionato da epilogare", "Avvertimento");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono conti del tipo selezionato da epilogare", "Avvertimento");
             //    return true;
             //}
 
@@ -416,7 +447,7 @@ namespace no_table_entry_epilogo {
            
 
             //if (rEntry == null) {
-            //    MessageBox.Show(this, "Errore nella creazione della scrittura", "Errore");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella creazione della scrittura", "Errore");
             //    return false;
             //}
             //object idaccToUse = economico ? idaccPL : idaccPAT;
@@ -464,7 +495,7 @@ namespace no_table_entry_epilogo {
             //FrmEntryPreSave frm = new FrmEntryPreSave(ds.Tables["entrydetail"], Meta.Conn);
             //DialogResult dr = frm.ShowDialog();
             //if (dr != DialogResult.OK) {
-            //    MessageBox.Show(this, "Operazione Annullata!");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Operazione Annullata!");
             //    return true;
             //}
 
@@ -475,12 +506,12 @@ namespace no_table_entry_epilogo {
             //if (Post.DO_POST()) {
             //    DataRow rEntryPosted = tEntry.Rows[0];
             //    EditEntry(rEntryPosted);
-            //    MessageBox.Show(this, "Epilogo completato con successo!");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Epilogo completato con successo!");
             //    doVerify();
             //    return true;
             //}
             //else {
-            //    MessageBox.Show(this, "Errore nel salvataggio dell'epilogo", "Errore");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio dell'epilogo", "Errore");
             //    doVerify();
             //    return false;
             //}
@@ -514,7 +545,7 @@ namespace no_table_entry_epilogo {
 
             object nEntry = Meta.Conn.DO_READ_VALUE("entry", filter, "MAX(nentry)");
             if (nEntry == null) {
-                MessageBox.Show(this, "Errore nel calcolo dell'ultima scrittura", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel calcolo dell'ultima scrittura", "Errore");
                 return null;
             }
             int freeN = 1 + CfgFn.GetNoNullInt32(nEntry);
@@ -619,14 +650,14 @@ namespace no_table_entry_epilogo {
 
         private void btnEpilogoStatoPatrimoniale_Click(object sender, EventArgs e) {
             if (!doEpilogo(false)) {
-                MessageBox.Show(this, "Errore nel processo di epilogo", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel processo di epilogo", "Errore");
             }
 
         }
 
         private void btnRisultatoEconomico_Click(object sender, EventArgs e) {
             if (!doRisultatoEconomico()) {
-                MessageBox.Show(this, "Errore nella rilevazione del risultato economico", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella rilevazione del risultato economico", "Errore");
             }
         }
     }

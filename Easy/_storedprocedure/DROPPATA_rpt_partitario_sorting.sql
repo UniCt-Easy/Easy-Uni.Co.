@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_sorting]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_sorting]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_partitario_sorting]
 GO
 
@@ -64,7 +66,7 @@ DECLARE @level varchar(50)
 SELECT @level = description 
 FROM finlevel
 WHERE nlevel = @nlevel AND ayear = @ayear
-DECLARE @levelusable varchar(20)             ----------forse da cambiare perch√® dovrebbe essere quello legato alla classificazione
+DECLARE @levelusable varchar(20)             ----------forse da cambiare perchË dovrebbe essere quello legato alla classificazione
 SELECT @levelusable = MIN(nlevel)
 FROM finlevel
 WHERE flag&2 <> 0 AND ayear = @ayear
@@ -253,7 +255,7 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-		UPDATE #previousexpense		--da vedere se bisogna filtrare gi√† qui x classificazione
+		UPDATE #previousexpense		--da vedere se bisogna filtrare gi‡ qui x classificazione
 		SET initialprevision =
 				(SELECT SUM(expenseyear.amount)
 				FROM expenseyear
@@ -430,7 +432,7 @@ FROM expensephase
 WHERE nphase = @finphase
 -- Movimenti di Spesa / fase bilancio
 
--- qui dobbiamo indubbiamente iniziare aragionare per codice classificazione, anche perch√® bisogner√† inserire soltanto una delle fasi.
+-- qui dobbiamo indubbiamente iniziare aragionare per codice classificazione, anche perchË bisogner‡ inserire soltanto una delle fasi.
 
 IF (@kind IN ('C','R')) 
 BEGIN
@@ -917,7 +919,7 @@ IF (@showupb <>'S') and (@idupboriginal = '%')
 -- se ho scelto di nascondere le voci di bilancio non utilizzate:
 -- cancello le righe che hanno valori pari a zero 
 -- per cui non esistono variazioni di previzioni (rowkind=2) o movimenti di entrata (rowkind >= 3 )  
-IF (@suppressifblank = 'S') AND @nlevel>2	--> se la stampa √® x un livello sottostante la categoria cancella le righe
+IF (@suppressifblank = 'S') AND @nlevel>2	--> se la stampa Ë x un livello sottostante la categoria cancella le righe
 BEGIN
 	DELETE FROM #expense WHERE 
 		ISNULL(initialprevision,0)=0 AND 
@@ -930,7 +932,7 @@ BEGIN
 					i.rowkind>1)
 END
 
---- questa √® uina parte che dovrebbe essere cancellata inquanto a me interessa soltanto la mia fase legata alla classificazione
+--- questa Ë uina parte che dovrebbe essere cancellata inquanto a me interessa soltanto la mia fase legata alla classificazione
 
 
 -- Seleziona la terza fase da inserire nella stampa 
@@ -1029,4 +1031,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

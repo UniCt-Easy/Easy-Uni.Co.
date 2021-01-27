@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -885,16 +887,16 @@ namespace enactment_default{
             if (!Meta.GetFormData(false)) return;
             DataRow Curr = DS.enactment.Rows[0];
             if (Curr["nofficial"] == DBNull.Value) {
-                MessageBox.Show("E' necessario, prima di approvare l'atto, inserirne il numero ufficiale");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario, prima di approvare l'atto, inserirne il numero ufficiale");
                 HelpForm.FocusControl(txtNOfficial);
                 return;
             }
             if (Curr["adate"] == DBNull.Value) {
-                MessageBox.Show("E' necessario, prima di approvare l'atto, inserirne la data di approvazione");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario, prima di approvare l'atto, inserirne la data di approvazione");
                 HelpForm.FocusControl(txtDataContabile);
                 return; 
             }
-            bool do_update = MessageBox.Show("Attenzione, approvando l'atto " +
+            bool do_update = MetaFactory.factory.getSingleton<IMessageShower>().Show("Attenzione, approvando l'atto " +
                     "e tutte le variazioni in esso contenute che attualmente " +
                     "sono nello stato di 'Inserita' passeranno allo stato di " +
                     " 'Approvata' ", "Conferma", MessageBoxButtons.OKCancel) ==
@@ -905,7 +907,7 @@ namespace enactment_default{
             bool do_update_all_finvar_adate = false;
             bool do_update_approved_finvar_adate = false;
 
-            //do_update = MessageBox.Show("Si desidera aggiornare anche i campi Data Contabile, Provvedimento,Data provvedimento e Numero " +
+            //do_update = MetaFactory.factory.getSingleton<IMessageShower>().Show("Si desidera aggiornare anche i campi Data Contabile, Provvedimento,Data provvedimento e Numero " +
             //    "delle variazioni contenute nell'atto?", "Conferma", MessageBoxButtons.OKCancel) ==
             //        DialogResult.OK;
 
@@ -945,7 +947,7 @@ namespace enactment_default{
 
         private void btnWait_Click(object sender, EventArgs e) {
             if (!Meta.GetFormData(false)) return;
-            bool do_update = MessageBox.Show("Attenzione, l'atto sar‡ rimesso nello stato di 'In attesa di approvazione' " +
+            bool do_update = MetaFactory.factory.getSingleton<IMessageShower>().Show("Attenzione, l'atto sar‡ rimesso nello stato di 'In attesa di approvazione' " +
                                 "e tutte le variazioni contenute che attualmente "+
                                 "sono nello stato di 'approvata' retrocederanno nuovamente allo stato "+
                                 " 'Inserita' ", "Conferma", MessageBoxButtons.OKCancel) ==
@@ -965,7 +967,7 @@ namespace enactment_default{
 
         private void btnAnnulla_Click(object sender, EventArgs e) {
             if (!Meta.GetFormData(false)) return;
-            bool do_update = MessageBox.Show("Attenzione l'atto sar‡ annullato " +
+            bool do_update = MetaFactory.factory.getSingleton<IMessageShower>().Show("Attenzione l'atto sar‡ annullato " +
                                 "e tutte le variazioni in esso contenute attualmente nello stato di 'Inserita'" +
                                 "passeranno allo stato " +
                                 " 'Annullata' ", "Conferma", MessageBoxButtons.OKCancel) ==
@@ -1061,7 +1063,7 @@ namespace enactment_default{
             SM.Conn = Meta.Conn;
             
             if (!SM.Send()) {
-                if (SM.ErrorMessage != "") MessageBox.Show(SM.ErrorMessage, "Errore");
+                if (SM.ErrorMessage != "") MetaFactory.factory.getSingleton<IMessageShower>().Show(SM.ErrorMessage, "Errore");
             }
 
         }

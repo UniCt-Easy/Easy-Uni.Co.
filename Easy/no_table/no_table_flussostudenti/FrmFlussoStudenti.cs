@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -203,6 +205,7 @@ namespace no_table_flussostudenti {
 					tExcel.Columns.Add("codice_causale_finanziaria", typeof(string));
 					tExcel.Columns.Add("codice_upb", typeof(string));
 					tExcel.Columns.Add("importo", typeof(decimal));
+					tExcel.Columns.Add("iva", typeof(decimal));
 					tExcel.Columns.Add("codice_tipo_contratto", typeof(string));
 					tExcel.Columns.Add("data_contabile", typeof(DateTime));
 					tExcel.Columns.Add("nome_studente", typeof(string));
@@ -288,7 +291,7 @@ namespace no_table_flussostudenti {
 			var reader = new LeggiFile();
 			var dr = openInputFileDlg.ShowDialog();
 			if (dr != DialogResult.OK) {
-				MessageBox.Show("Non è stato scelto alcun file");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stato scelto alcun file");
 				txtInputFile.Text = "";
 				return null;
 			}
@@ -296,7 +299,7 @@ namespace no_table_flussostudenti {
 			fileName = openInputFileDlg.FileName;
 
 			if (reader.Init(tracciato, fileName)) return reader;
-			MessageBox.Show("Non è stato importato alcun dato", "Avviso");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stato importato alcun dato", "Avviso");
 			return null;
 		}
 
@@ -333,7 +336,7 @@ namespace no_table_flussostudenti {
 		private DataTable leggiFile(bool faseCrediti) {
 			var dr = openInputFileDlg.ShowDialog();
 			if (dr != DialogResult.OK) {
-				MessageBox.Show("Non è stato scelto alcun file");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stato scelto alcun file");
 				txtInputFile.Text = "";
 				return null;
 			}
@@ -347,12 +350,12 @@ namespace no_table_flussostudenti {
 					txtInputFile.Text = fileName;
 				}
 				catch (Exception ex) {
-					MessageBox.Show(this, $"Errore nell\'apertura del file! Processo Terminato\n{ex.Message}");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, $"Errore nell\'apertura del file! Processo Terminato\n{ex.Message}");
 					return null;
 				}
 			}
 			else {
-				MessageBox.Show("Il file deve avere formato xls, xlsx o csv", "Errore");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Il file deve avere formato xls, xlsx o csv", "Errore");
 			}
 
 			_ctrl.FreshForm(true, false);
@@ -364,7 +367,7 @@ namespace no_table_flussostudenti {
 			if (c.DataType == typeof(string)) return "Text";
 			if (c.DataType == typeof(decimal)) return "Currency";
 			if (c.DataType == typeof(DateTime)) return "DateTime";
-			MessageBox.Show("Tipo " + c.DataType + " non trovato");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show("Tipo " + c.DataType + " non trovato");
 			return "Text";
 		}
 
@@ -432,7 +435,7 @@ namespace no_table_flussostudenti {
 					}
 				}
 				catch (Exception ex) {
-					MessageBox.Show(this, ex.Message);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, ex.Message);
 					return null;
 				}
 
@@ -469,7 +472,7 @@ namespace no_table_flussostudenti {
 			}
 
 			if (!ok) {
-				MessageBox.Show(this, $@"L'esame del file {fileName} ha fatto rilevare degli errori");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, $@"L'esame del file {fileName} ha fatto rilevare degli errori");
 				return null;
 			}
 
@@ -511,6 +514,7 @@ namespace no_table_flussostudenti {
 					dt.Columns["codice_causale_finanziaria"].Caption = "Causale finanziaria";
 					dt.Columns["codice_upb"].Caption = "Codice UPB";
 					dt.Columns["importo"].Caption = "Importo";
+					dt.Columns["iva"].Caption = "Iva";
 					dt.Columns["codice_tipo_contratto"].Caption = "Codice Tipo Contratto";
 					dt.Columns["data_contabile"].Caption = "Data Contabile";
 					dt.Columns["nome_studente"].Caption = "Nome studente";
@@ -557,6 +561,7 @@ namespace no_table_flussostudenti {
 			"codice_causale_finanziaria;Codice Causale Finanziaria;Stringa;50",
 			"codice_upb;Codice UPB;Stringa;50",
 			"importo;Importo;Numero;22",
+			"iva;Iva;Numero;22",
 			"codice_tipo_contratto;Codice Tipo Contratto (già esistente);Stringa;50",
 			"data_contabile; Data Contabile;Data;10",
 			"nome_studente;Nome Studente (ai fini di creare un'anagrafica specifica);Stringa;50",
@@ -871,7 +876,7 @@ namespace no_table_flussostudenti {
 			clearAllDict();
 			foreach (DataColumn c in dt.Columns) {
 				if (!dt.Columns.Contains(c.ColumnName)) {
-					MessageBox.Show(this, "File non compatibile con il Tracciato del Flusso Studenti");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "File non compatibile con il Tracciato del Flusso Studenti");
 					return false;
 				}
 			}
@@ -939,9 +944,11 @@ namespace no_table_flussostudenti {
 				if (errore != "") err = err + " " + errore;
 				var oImporto = getVal(11, "importo", r, "faseuno", out errore);
 				if (errore != "") err = err + " " + errore;
-				var oCodiceTipoContratto = getVal(12, "codice_tipo_contratto", r, "faseuno", out errore);
+				var oIva = getVal(12, "iva", r, "faseuno", out errore);
 				if (errore != "") err = err + " " + errore;
-				var oDataContabile = getVal(13, "data_contabile", r, "faseuno", out errore);
+				var oCodiceTipoContratto = getVal(13, "codice_tipo_contratto", r, "faseuno", out errore);
+				if (errore != "") err = err + " " + errore;
+				var oDataContabile = getVal(14, "data_contabile", r, "faseuno", out errore);
 				if (errore != "") err = err + " " + errore;
 				getVal(14, "nome_studente", r, "faseuno", out errore);
 				if (errore != "") err = err + " " + errore;
@@ -1045,12 +1052,12 @@ namespace no_table_flussostudenti {
 			}
 
 			if (errCf && ok) {
-				MessageBox.Show(this,
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
 					"Si sono verificati errori nella convalida di alcuni codici fiscali, potrebbero essere generate anagrafiche incomplete");
 			}
 
 			if (ok) {
-				MessageBox.Show(this, "Importate " + (nrigacorrente - 1) + " righe.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Saranno importate " + (nrigacorrente - 1) + " righe.");
 				//btnelaboraFlussoCrediti.Enabled = true;
 			}
 
@@ -1089,7 +1096,7 @@ namespace no_table_flussostudenti {
 			}
 
 			if (DS.estimate.Rows.Count > 0) {
-				MessageBox.Show("Le scritture sui contratti attivi sono state generate.", "Avviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Le scritture sui contratti attivi sono state generate.", "Avviso");
 			}
 
 			return true;
@@ -1133,7 +1140,7 @@ namespace no_table_flussostudenti {
 				return;
 			}
 
-			if (DS.invoice.Rows.Count > 0) MessageBox.Show("Le scritture sulle fatture sono state generate.", "Avviso");
+			if (DS.invoice.Rows.Count > 0) MetaFactory.factory.getSingleton<IMessageShower>().Show("Le scritture sulle fatture sono state generate.", "Avviso");
 		}
 
 
@@ -1293,7 +1300,7 @@ namespace no_table_flussostudenti {
 
 			var linktoinvoice = _conn.readValue("estimatekind", q.eq("idestimkind", idestimkind), "linktoinvoice");
 			if (linktoinvoice == null || linktoinvoice == DBNull.Value) {
-				MessageBox.Show($"Il tipo contratto attivo  {sIdEstimKind} non è stato trovato", "Errore");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show($"Il tipo contratto attivo  {sIdEstimKind} non è stato trovato", "Errore");
 				return false;
 			}
 
@@ -1498,7 +1505,7 @@ namespace no_table_flussostudenti {
 					if (causale == null) {
 						DS.flussoincassi.Clear();
 						DS.flussoincassidetail.Clear();
-						MessageBox.Show(
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(
 							"Ci sono righe senza numero di sospeso attivo, l'importazione non può essere effettuata.",
 							"Errore");
 						return;
@@ -1573,11 +1580,11 @@ namespace no_table_flussostudenti {
 			var res = myPostData.DO_POST();
 
 			if (!res) {
-				MessageBox.Show(this, "Errore nel salvataggio");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio");
 				return;
 			}
 
-			MessageBox.Show(this, "Elaborazione  completata");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Elaborazione  completata");
 		}
 
 		/// <summary>
@@ -1613,7 +1620,7 @@ namespace no_table_flussostudenti {
 
 					if ((oCodiceFiscaleStudente == null) || (oCodiceFiscaleStudente == DBNull.Value)) {
 						DS.registry.Clear();
-						MessageBox.Show(this, "Codice fiscale studente non valorizzato", "Errore");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Codice fiscale studente non valorizzato", "Errore");
 						return;
 					}
 
@@ -1624,7 +1631,7 @@ namespace no_table_flussostudenti {
 					var idcausaleEpCredito = getCausaleEp(rr["codice_causale_ep_credito"], out errore);
 					if ((idcausaleEpCredito == DBNull.Value) && (errore != "")) {
 						DS.registry.Clear();
-						MessageBox.Show(errore, "Errore");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(errore, "Errore");
 						return;
 					}
 
@@ -1633,7 +1640,7 @@ namespace no_table_flussostudenti {
 						out errore);
 					if (oIdreg == DBNull.Value) {
 						DS.registry.Clear();
-						MessageBox.Show(errore, "Errore in creazione nuova anagrafica");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(errore, "Errore in creazione nuova anagrafica");
 						return;
 					}
 				}
@@ -1656,7 +1663,7 @@ namespace no_table_flussostudenti {
 				var rFirst = dtToImport.Rows[0];
 				var idestimkind = checkTipoContrattoAttivo(rFirst["codice_tipo_contratto"], out errore);
 				if (idestimkind == null) {
-					MessageBox.Show(errore, "");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(errore, "");
 					return;
 				}
 
@@ -1666,7 +1673,7 @@ namespace no_table_flussostudenti {
 				// Nota: aggiungere la gestione degli errori
 				var attrs = getAttributiTipoContrattoAttivo(idestimkind, out errore);
 				if (attrs == null) {
-					MessageBox.Show(errore, "");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(errore, "");
 					return;
 				}
 
@@ -1703,27 +1710,27 @@ namespace no_table_flussostudenti {
 					var description = rigaTracciatoCrediti["causale"];
 
 					if ((idupb == DBNull.Value) && (errore != "")) {
-						MessageBox.Show(errore, "");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(errore, "");
 						return;
 					}
 
 					var idCodiceCausaleFinanziaria = getFinMotive(rigaTracciatoCrediti["codice_causale_finanziaria"],
 						out errore);
 					if ((idCodiceCausaleFinanziaria == DBNull.Value) && (errore != "")) {
-						MessageBox.Show(errore, "");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(errore, "");
 						return;
 					}
 
 					var idcausaleEpRicavo = getCausaleEp(rigaTracciatoCrediti["codice_causale_ep_ricavo"], out errore);
 					if ((idcausaleEpRicavo == DBNull.Value) && (errore != "")) {
-						MessageBox.Show(errore, "");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(errore, "");
 						return;
 					}
 
 					var idcausaleEpCredito =
 						getCausaleEp(rigaTracciatoCrediti["codice_causale_ep_credito"], out errore);
 					if ((idcausaleEpCredito == DBNull.Value) && (errore != "")) {
-						MessageBox.Show(errore, "");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(errore, "");
 						return;
 					}
 
@@ -1737,7 +1744,7 @@ namespace no_table_flussostudenti {
 						idcausaleEpCredito, null,
 						out errore);
 					if (oIdreg == DBNull.Value) {
-						MessageBox.Show(errore, "Errore in creazione nuova anagrafica");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(errore, "Errore in creazione nuova anagrafica");
 						continue;
 					}
 
@@ -1752,6 +1759,7 @@ namespace no_table_flussostudenti {
 						//rNewFlussocreditiDetail["iddetail"] =  ;
 						// ReSharper disable once PossibleNullReferenceException
 						rNewFlussocreditiDetail["importoversamento"] = oImporto;
+						rNewFlussocreditiDetail["tax"] = CfgFn.GetNoNullDecimal(rigaTracciatoCrediti["iva"]);
 						rNewFlussocreditiDetail["idestimkind"] = DBNull.Value;
 						rNewFlussocreditiDetail["yestim"] = DBNull.Value;
 						rNewFlussocreditiDetail["nestim"] = DBNull.Value;
@@ -1786,7 +1794,7 @@ namespace no_table_flussostudenti {
 						#region annullamento credito 
 
 						if (bollettiniAnnullati.Contains(oCodiceBollettinoUnivoco.ToString())) {
-							MessageBox.Show(
+							MetaFactory.factory.getSingleton<IMessageShower>().Show(
 								$"E' presente due o più volte l'annullamento del bollettino {oCodiceBollettinoUnivoco}. ","Avviso");
 							continue;
 						}
@@ -1798,7 +1806,7 @@ namespace no_table_flussostudenti {
 						if (existentRowsToAnnull.Length == 0) {
 							errore =
 								$"Bollettino numero {oCodiceBollettinoUnivoco} non trovato (o già annullato) nei crediti esistenti. L'annullo di tale bollettino non sarà considerato.";
-							MessageBox.Show(errore, "Avviso");
+							MetaFactory.factory.getSingleton<IMessageShower>().Show(errore, "Avviso");
 							continue;
 						}
 
@@ -1816,7 +1824,7 @@ namespace no_table_flussostudenti {
 							//copia alcuni campi dalla riga originale da annullare
 							foreach (var field in new[] {
 								"importoversamento", "idestimkind", "yestim", "nestim", "rownum", "idinvkind", "yinv",
-								"ninv", "invrownum"
+								"ninv", "invrownum","tax"
 							}) {
 								// ReSharper disable once PossibleNullReferenceException
 								rNewFlussocreditiDetail[field] = rToAnnull[field];
@@ -1861,10 +1869,10 @@ namespace no_table_flussostudenti {
 			var res = myPostData.DO_POST();
 
 			if (!res) {
-				MessageBox.Show(this, "Errore nel salvataggio del flusso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio del flusso");
 			}
 			else {
-				MessageBox.Show(this, "Elaborazione del file completata");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Elaborazione del file completata");
 			}
 		}
 
@@ -1905,7 +1913,7 @@ namespace no_table_flussostudenti {
 			dSupdated = null;
 
 			if (!DS.HasChanges()) {
-				MessageBox.Show("Nessun movimento da generare", "Avviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessun movimento da generare", "Avviso");
 				return false;
 			}
 
@@ -1945,7 +1953,7 @@ namespace no_table_flussostudenti {
 				ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
 				res = ga.GeneraAutomatismiAfterPost(true);
 				if (!res) {
-					MessageBox.Show(this,
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
 						"Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
 					return false;
 				}
@@ -1956,7 +1964,7 @@ namespace no_table_flussostudenti {
 
 
 			//if (!res) {
-			//    MessageBox.Show(this,
+			//    MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
 			//        "Operazione annullata dall'utente","Avviso");             
 			//}
 			DS.AcceptChanges();
@@ -1974,7 +1982,7 @@ namespace no_table_flussostudenti {
 			ricalcolaFlagElaborato();
 
 			if (res) {
-				MessageBox.Show("Salvataggio dati effettuato.", "Avviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Salvataggio dati effettuato.", "Avviso");
 				viewAutomatismi(ga.DSP);
 			}
 
@@ -2056,7 +2064,7 @@ namespace no_table_flussostudenti {
 			//}
 
 			//if (selectedRows.Length == 0) {
-			//    MessageBox.Show("Righe di Dettaglio Assenti", "Errore");
+			//    MetaFactory.factory.getSingleton<IMessageShower>().Show("Righe di Dettaglio Assenti", "Errore");
 			//    return false;
 			//}
 
@@ -2154,7 +2162,7 @@ namespace no_table_flussostudenti {
 						getUpbManager(idUpbSelected,
 							out errore); //_conn.readValue("upb", q.eq("idupb", idUpbSelected), "idman");
 					if (errore != "") {
-						MessageBox.Show(
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(
 							$"{errore} nel dettaglio {rDet.detaildescription} codice bollettino {rDet.iduniqueformcode}",
 							"Errore");
 						return false;
@@ -2163,7 +2171,7 @@ namespace no_table_flussostudenti {
 					// Determinazione del capitolo di bilancio in base alla causale finanziaria 
 					var idfinSelected = getBilancioFromCausaleFin(rDet["idfinmotive"], out errore);
 					if (errore != "") {
-						MessageBox.Show(
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(
 							$"{errore} nel dettaglio {rDet.detaildescription} codice bollettino {rDet.iduniqueformcode}",
 							"Errore");
 						return false;
@@ -2243,7 +2251,7 @@ namespace no_table_flussostudenti {
 			clearAllDict();
 			foreach (DataColumn c in dt.Columns) {
 				if (!dt.Columns.Contains(c.ColumnName)) {
-					MessageBox.Show(this, "File non compatibile con il Tracciato del Flusso Incassi");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "File non compatibile con il Tracciato del Flusso Incassi");
 					return false;
 				}
 			}
@@ -2341,11 +2349,11 @@ namespace no_table_flussostudenti {
 
 
 			if (errCf && ok) {
-				MessageBox.Show(this, "Si sono verificati errori nella convalida di alcuni codici fiscali.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si sono verificati errori nella convalida di alcuni codici fiscali.");
 			}
 
 			//if (ok) {
-			//    MessageBox.Show(this, "Importate " + (nrigacorrente - 1).ToString() + " righe.");
+			//    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Importate " + (nrigacorrente - 1).ToString() + " righe.");
 			//    btnElaboraIncassi.Enabled = true;
 
 			//}
@@ -2693,6 +2701,7 @@ namespace no_table_flussostudenti {
 			                   " JOIN UPB on UPB.idupb=flussocreditidetail.idupb " +
 			                   $" WHERE {overallCondition} )";
 			DS.flussocrediti._sqlGetFromDb(_conn, getFlussiSql);
+			QueryCreator.MarkEvent($"fillEstimate - 1 : in DS.flussocrediti {DS.flussocrediti.Rows.Count} righe");
 
 			incPBar();
 			var flussoCreditiDict = new Dictionary<int?, flussocreditiRow>();
@@ -2722,6 +2731,9 @@ namespace no_table_flussostudenti {
 				$" WHERE {overallCondition} ";
 
 			DS.estimate._sqlSafeMergeFromDb(_conn, sqlGetContratti, 0);
+			QueryCreator.MarkEvent(sqlGetContratti);
+			QueryCreator.MarkEvent($"fillEstimate - 2 : in DS.estimate {DS.estimate.Rows.Count} righe");
+
 			foreach (var r in DS.estimate) addEstimateRow(r);
 			incPBar();
 
@@ -2733,18 +2745,13 @@ namespace no_table_flussostudenti {
 
 			string sqlGetDetContratti =
 				$" SELECT distinct {colonneDettContratti}  " +
-				$" FROM flussocreditidetail " +
-				$" JOIN flussocrediti on flussocrediti.idflusso=flussocreditidetail.idflusso "+
-				$" JOIN estimate ON estimate.idestimkind=isnull(flussocreditidetail.idestimkind,flussocrediti.idestimkind) AND "+
-				$"    estimate.idaccmotivecredit = flussocreditidetail.idaccmotivecredit AND"+
-				$"    estimate.docdate = flussocrediti.docdate AND "+
-				$"    estimate.yestim = {esercizio} "+
-				" join estimatedetail on estimate.idestimkind=estimatedetail.idestimkind and "+
-				"				estimate.yestim=estimatedetail.yestim and "+
-				"				estimate.nestim=estimatedetail.nestim   "+
-				" JOIN UPB on UPB.idupb=flussocreditidetail.idupb " +
-				$" WHERE {overallCondition} ";
+				$" FROM estimatedetail " +
+				$" JOIN ( {sqlGetContratti} ) AS A "+
+				$" on A.idestimkind=estimatedetail.idestimkind and A.yestim=estimatedetail.yestim and A.nestim=estimatedetail.nestim ";
+			QueryCreator.MarkEvent(sqlGetDetContratti);
 			DS.estimatedetail._sqlSafeMergeFromDb(_conn, sqlGetDetContratti, 0);
+
+			QueryCreator.MarkEvent($"fillEstimate - 3 : in DS.estimatedetail {DS.estimatedetail.Rows.Count} righe");
 
 			QueryCreator.MarkEvent("Inizio foreach (var rCreditiDetail");
 			initPBar("Creazione contratti da flusso screditi",allRows.Length);
@@ -2784,12 +2791,12 @@ namespace no_table_flussostudenti {
 				if (docdate.Year != esercizio) continue;
 				idcodiceTipoContratto = checkTipoContrattoAttivo(idcodiceTipoContratto, out errore);
 				if (errore != "") {
-					MessageBox.Show("Tipo contratto assente nei crediti", "Errore");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Tipo contratto assente nei crediti", "Errore");
 					continue;
 				}
 
 				if (idcodiceTipoContratto == null || idcodiceTipoContratto == "") {
-					MessageBox.Show("Tipo contratto assente", "Errore");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Tipo contratto assente", "Errore");
 					continue;
 				}
 
@@ -2801,7 +2808,7 @@ namespace no_table_flussostudenti {
 				var idsor05 = rCrediti.idsor05;
 
 				if (idaccmotivecredit == null) {
-					MessageBox.Show("Causale di Credito assente", "Errore");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Causale di Credito assente", "Errore");
 					return false;
 				}
 
@@ -2824,7 +2831,7 @@ namespace no_table_flussostudenti {
 
 					idivakindDefault = impostaDefaultIvaKind(idcodiceTipoContratto, out errore);
 					if (errore != "") {
-						MessageBox.Show(errore, "Errore");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(errore, "Errore");
 						return false;
 					}
 
@@ -2883,7 +2890,7 @@ namespace no_table_flussostudenti {
 				if (idaccmotiverevenue == null) {
 					errore =
 						$"Manca la causale di ricavo nel dettaglio crediti del bollettino n.{nform ?? iduniqueformcode}";
-					MessageBox.Show(errore, "Errore");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(errore, "Errore");
 					return false;
 				}
 
@@ -2891,7 +2898,7 @@ namespace no_table_flussostudenti {
 				string erroreSiope;
 				var idSiope = getSiopeForAccMotive(idaccmotiverevenue, out erroreSiope);
 				if (erroreSiope != "") {
-					MessageBox.Show(erroreSiope, "Errore");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(erroreSiope, "Errore");
 					return false;
 				}
 
@@ -2901,7 +2908,7 @@ namespace no_table_flussostudenti {
 
 				if (idupb == null) {
 					errore = $"Manca l'UPB nel dettaglio crediti del bollettino n.{nform}";
-					MessageBox.Show(errore, "Errore");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(errore, "Errore");
 					return false;
 				}
 
@@ -2910,7 +2917,7 @@ namespace no_table_flussostudenti {
 				if (idfinmotive == null) {
 					errore =
 						$"Manca la causale finanziaria nel dettaglio crediti del bollettino n.{nform ?? iduniqueformcode}";
-					MessageBox.Show(errore, "Errore");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(errore, "Errore");
 					return false;
 				}
 
@@ -2969,6 +2976,7 @@ namespace no_table_flussostudenti {
 
 			DS.flussocreditidetail.safeReadTableJoined(_conn, "upb", filtroCreditiAnnullati,
 				_conn.Security.SelectCondition("upb", false)?.toMetaExpression(), "idupb");
+			QueryCreator.MarkEvent($"fillAnnulment - 1 : in DS.flussocreditidetail {DS.flussocreditidetail.Rows.Count} righe");
 
 			string secUpb = _conn.Security.SelectCondition("upb", true);
 			string joinUPB = ""; //join che sarà fatto tra flussocreditidetail e upb
@@ -2994,7 +3002,7 @@ namespace no_table_flussostudenti {
 			                    
 
 			DS.estimatedetail._sqlSafeMergeFromDb(_conn, sqlEstimDet);
-
+			QueryCreator.MarkEvent($"fillAnnulment - 2 : in DS.estimatedetail {DS.estimatedetail.Rows.Count} righe");
 
 
 
@@ -3011,6 +3019,7 @@ namespace no_table_flussostudenti {
 												 ) and stop is null
 
 			");
+			QueryCreator.MarkEvent($"fillAnnulment - 3 : in Incassi {Incassi.Rows.Count} righe");
 			Dictionary<int, decimal> availablePerIdinc = new Dictionary<int, decimal>();
 			foreach (DataRow r in Incassi.Rows) {
 				availablePerIdinc[CfgFn.GetNoNullInt32(r["idinc"])] = CfgFn.GetNoNullDecimal(r["available"]);
@@ -3045,7 +3054,7 @@ namespace no_table_flussostudenti {
 				var filter = q.eq("iduniqueformcode", iduniqueformcode) & q.isNull("stop");
 
 				//if (rCreditiDetail["idestimkind"] == DBNull.Value) {
-				//    //MessageBox.Show(this, "La riga di annullo numero " + rCreditiDetail["iddetail"] + " non è associata ad un contratto attivo", "Errore");
+				//    //MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La riga di annullo numero " + rCreditiDetail["iddetail"] + " non è associata ad un contratto attivo", "Errore");
 				//    continue;
 				//}
 
@@ -3091,7 +3100,7 @@ namespace no_table_flussostudenti {
 					//CfgFn.GetNoNullDecimal(_conn.readValue("incometotal", q.eq("idinc", idincTaxable) & q.eq("ayear", esercizio), "available"));
 
 					if (available < amount) {
-						MessageBox.Show(
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(
 							$"Il dettaglio {estimateDetailRow.idestimkind} {estimateDetailRow.yestim} {estimateDetailRow.nestim} riga {estimateDetailRow.rownum}" +
 							$" {estimateDetailRow.detaildescription} non può essere annullato perchè già incassato",
 							"Errore");
@@ -3234,7 +3243,12 @@ namespace no_table_flussostudenti {
 			filterNonElaborati.cascadeSetTable("flussoincassidetailview",
 				"flussoincassi"); //imposta la tabella per il filtro su flussoincassidetailview
 
-			string sqlCredDet = $"SELECT {QueryCreator.ColumnNameList(DS.flussocreditidetail)} " +
+			string colonneFlussoCreditiDetail = string.Join(",",
+				(from c in DS.flussocreditidetail.Columns._names()
+					where QueryCreator.IsReal(DS.flussocreditidetail.Columns[c])
+					select "flussocreditidetail." + c).ToArray());
+
+			string sqlCredDet = $"SELECT {colonneFlussoCreditiDetail} " +	//QueryCreator.ColumnNameList(DS.flussocreditidetail)
 			                    $"FROM flussocreditidetail {joinUPB} WHERE " +
 								"    idinvkind is not null and idestimkind is null  and ninv is null and yinv is null and "+
 			                    $"	 ((iuv in (select iuv from flussoincassidetailview where {filterNonElaborati.toSql(_qhs)}) ) " +
@@ -3415,7 +3429,7 @@ namespace no_table_flussostudenti {
 			//Calcola un elenco in cui ad ogni idreg è associato un elenco di idinvkind 
 			var groupedInvoice = fillGroupedInvoice();
 			if (groupedInvoice.Count == 0) {
-				//MessageBox.Show("Nessuna fattura da generare dagli incassi.", "Avviso");
+				//MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna fattura da generare dagli incassi.", "Avviso");
 				return 0; //nulla da generare
 			}
 
@@ -3452,7 +3466,7 @@ namespace no_table_flussostudenti {
 			object flagiva_immediate_or_deferred =
 				_conn.readValue("config", q.eq("ayear", esercizio), "flagiva_immediate_or_deferred");
 
-			#region testata invoice
+			
 
 
 			foreach (var invoicesByIdreg in groupedInvoice) { //tutti gli studenti/utenti web
@@ -3500,7 +3514,7 @@ namespace no_table_flussostudenti {
 					//Senza queste due istruzioni in caso di generazione multipla di fatture, ninv è sempre uguale e una riga si prende tutti i dettagli fattura
 					// è un fatto, non un'ipotesi. E' da correggere ma in debug, capendo il perchè succede. (*)
 					if (maxInvoice >= rInvoice.ninv) rInvoice.ninv = maxInvoice + 1;
-					if (rInvoice.ninv > maxInvoice) maxInvoice = rInvoice.ninv.Value;
+					if (rInvoice.ninv > maxInvoice) maxInvoice = rInvoice.ninv;
 					QueryCreator.MarkEvent($"Generato fattura n. {rInvoice.ninv} {rInvoice.yinv} {rInvoice.idinvkind}");
 					QueryCreator.MarkEvent($"In invoice ci sono {DS.invoice.Rows.Count} righe");
 					QueryCreator.MarkEvent($"Il massimo è {MetaData.MaxFromColumn(DS.invoice,"ninv")}");
@@ -3643,12 +3657,11 @@ namespace no_table_flussostudenti {
 							idtreasurer; //per prenderlo da upb mi serve idupb creditidetail e quindi lo si deve impostare qui !
 					}
 
-
-					rInvoiceDetail["number"] = CfgFn.GetNoNullDecimal(rCreditiDetail["number"]);
+					decimal number = CfgFn.GetNoNullDecimal(rCreditiDetail["number"]);
+					if (rCreditiDetail["number"] == DBNull.Value) number = 1;
+					rInvoiceDetail["number"] =number;
 					rInvoiceDetail["tax"] = CfgFn.GetNoNullDecimal(rCreditiDetail["tax"]);
-					rInvoiceDetail["taxable"] = CfgFn.GetNoNullDecimal(rCreditiDetail["importoversamento"]) /
-					                            CfgFn.GetNoNullDecimal(
-						                            rCreditiDetail["number"]); //TODO: Così è Prezzo unitario !!
+					rInvoiceDetail["taxable"] = CfgFn.GetNoNullDecimal(rCreditiDetail["importoversamento"]) /number; //TODO: Così è Prezzo unitario !!
 					rInvoiceDetail["unabatable"] = 0;
 					rInvoiceDetail["idestimkind"] = rCreditiDetail["idestimkind"];
 					rInvoiceDetail["nestim"] = rCreditiDetail["nestim"];
@@ -3667,7 +3680,7 @@ namespace no_table_flussostudenti {
 					rInvoiceDetail.unitsforpackage =
 						rInvoiceDetail.unitsforpackage == 0 ? 1 : rInvoiceDetail.unitsforpackage;
 
-					var npackage = (decimal) rInvoiceDetail["number"] / (int) rInvoiceDetail.unitsforpackage;
+					var npackage = number / (int) rInvoiceDetail.unitsforpackage;
 
 					rInvoiceDetail["npackage"] = npackage;
 					rInvoiceDetail.flag = rCreditiDetail.flag;
@@ -3676,7 +3689,7 @@ namespace no_table_flussostudenti {
 					rInvoiceDetail.iduniqueformcode = rCreditiDetail.iduniqueformcode;
 					var idSiope = getSiopeForAccMotive(rCreditiDetail.idaccmotiverevenue, out erroreSiope);
 					if (!string.IsNullOrEmpty(erroreSiope)) {
-						MessageBox.Show(erroreSiope, @"Errore"); //?? mostrare errore e interrompere ?
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(erroreSiope, @"Errore"); //?? mostrare errore e interrompere ?
 						return -1;
 					}
 
@@ -3693,7 +3706,7 @@ namespace no_table_flussostudenti {
 
 			} // 1° foreach su idreg (studenti)
 
-			#endregion
+			
 
 			//DataSet d = DS.Copy();
 			//foreach (DataTable t in d.Tables) {
@@ -3707,7 +3720,7 @@ namespace no_table_flussostudenti {
 			var myPostData = new Easy_PostData();
 			myPostData.initClass(DS, _conn);
 			bool res = myPostData.DO_POST();
-			if (res) MessageBox.Show("Le fatture sono state generate", "Avviso");
+			if (res) MetaFactory.factory.getSingleton<IMessageShower>().Show("Le fatture sono state generate", "Avviso");
 			if (!res) return -2;
 
 			return totFatGenerate;
@@ -3799,7 +3812,7 @@ namespace no_table_flussostudenti {
 					sm.UseSMTPLoginAsFromField = true;
 					if (!sm.Send()) {
 						if (sm.ErrorMessage.Trim() != "") {
-							MessageBox.Show(
+							MetaFactory.factory.getSingleton<IMessageShower>().Show(
 								$"{msgprefix}nell\'invio della fattura a mezzo e-mail: ({fattura.ninv}/{fattura.yinv} - {fattura.idinvkind}) - {sm.ErrorMessage.Trim()}");
 							return false;
 						}
@@ -3808,14 +3821,14 @@ namespace no_table_flussostudenti {
 					//System.Threading.Thread.Sleep(5000);
 				}
 				catch (Exception e) {
-					MessageBox.Show(
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(
 						$"{msgprefix}nell\'invio della fattura a mezzo e-mail: ({fattura.ninv}/{fattura.yinv} - {fattura.idinvkind}) - {e.Message}");
 					return false;
 				}
 
 			}
 			else {
-				MessageBox.Show(
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(
 					$"{msgprefix}nella stampa della fattura: ({fattura.ninv}/{fattura.yinv} - {fattura.idinvkind}) - {errmess}");
 				return false;
 			}
@@ -3902,7 +3915,7 @@ namespace no_table_flussostudenti {
 			}
 			catch (Exception e) {
 				if (!e.ToString().Contains("0x8000030E")) return false;
-				MessageBox.Show(this,
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
 					"E' necessario disinstallare l'aggiornamento di windows KB3102429 per poter effettuare la stampa.\nSeguono istruzioni su come procedere.",
 					"Avviso");
 				System.Diagnostics.Process.Start("disinstalla_kb3102429.pdf");
@@ -3970,13 +3983,13 @@ namespace no_table_flussostudenti {
 			var bollettiniDaConsiderare = getBollettiniFatturaDaConsiderare(soloConSospesi, out error);
 			List<int> fattureGenerateByIdFlusso;
 			if (bollettiniDaConsiderare.Count == 0) {
-				MessageBox.Show("Non sono state trovati bollettini da elaborare.", "Avviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non sono state trovati bollettini da elaborare.", "Avviso");
 				return true;
 			}
 			int fattureCreate = generaFatture(bollettiniDaConsiderare, out fattureGenerateByIdFlusso);
 
 			if (fattureCreate == 0) {
-				MessageBox.Show("Non sono state trovate fatture da generare.", "Avviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non sono state trovate fatture da generare.", "Avviso");
 				return true;
 			}
 
@@ -3984,14 +3997,14 @@ namespace no_table_flussostudenti {
 
 			if (fattureCreate < 0) {
 				if (fattureCreate == -1)
-					MessageBox.Show("Errore nella generazione fatture - probabile errore siope", "Errore");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella generazione fatture - probabile errore siope", "Errore");
 				if (fattureCreate == -2)
-					MessageBox.Show("Errore nella generazione fatture - errore salvando i dati", "Errore");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella generazione fatture - errore salvando i dati", "Errore");
 				return false; //-1 errore siope
 			}
 
 			if (!doStampaInviaMailFatture()) {
-				MessageBox.Show("Errore nell'invio delle mail per le fatture", "Errore");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nell'invio delle mail per le fatture", "Errore");
 			}
 
 			generoScrittureFatture();
@@ -4007,20 +4020,21 @@ namespace no_table_flussostudenti {
 
 			azzeraMovimentiFinanziariEntrata();
 
+			
 			bool res = creaIncassiFatture(soloConSospesi);
 			if (!res) {
 				error = " (Crea Incassi Fatture)";
 				return false;
 			}
+			PostData.RemoveFalseUpdates(DS);
 
 			if (res && !DS.HasChanges()) {
-				MessageBox.Show("Nessun incasso da generare");
-
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessun incasso da generare");
 			}
 
 			if (res && DS.HasChanges()) {
-				if (doSave(out dSupdated)) {
-					MessageBox.Show("Gli incassi per le fatture sono stati generati");
+				if (doSave(out dSupdated)) {//da qui esce fuori il messaggio  Dati Salvati
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Gli incassi per le fatture sono stati generati");
 				}
 			}
 
@@ -4053,7 +4067,7 @@ namespace no_table_flussostudenti {
 
 			}
 			catch (Exception ex) {
-				MessageBox.Show(this,
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
 					$"Errore nell\'aggiornamento delle chiavi del db! Processo Terminato\n{ex.Message}");
 				return false;
 			}
@@ -4626,7 +4640,7 @@ namespace no_table_flussostudenti {
 										msg =
 											$"Errore nell'elaborazione della generazione dell'accertamento per il bollettino di codice {rFileDet.iduniqueformcode} o iuv {iuv}"
 									});
-									MessageBox.Show(this,
+									MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
 										$"Errore nell'elaborazione della generazione dell'accertamento per il bollettino di codice {rFileDet.iduniqueformcode} o iuv {iuv}");
 									closePBar();
 									return false;
@@ -4648,7 +4662,7 @@ namespace no_table_flussostudenti {
 											$"Accertamento non trovato per il bollettino di codice {rFileDet.iduniqueformcode} o iuv {iuv}"
 									}
 								);
-								//MessageBox.Show(
+								//MetaFactory.factory.getSingleton<IMessageShower>().Show(
 								//    $"Accertamento non trovato per il bollettino di codice {rFileDet.iduniqueformcode} o iuv {iuv}",
 								//    "Errore");
 								continue;
@@ -4686,7 +4700,7 @@ namespace no_table_flussostudenti {
 												}
 											);
 
-											//MessageBox.Show($"Il bollettino {codiceBollettino} risulta collegato ad un accertamento già incassato. Disponibile: {available} incasso: {amountBase}", "Avviso");
+											//MetaFactory.factory.getSingleton<IMessageShower>().Show($"Il bollettino {codiceBollettino} risulta collegato ad un accertamento già incassato. Disponibile: {available} incasso: {amountBase}", "Avviso");
 											continue;
 										}
 									}
@@ -4743,7 +4757,7 @@ namespace no_table_flussostudenti {
 												msg = errore
 											}
 										);
-										MessageBox.Show(errore, "Errore");
+										MetaFactory.factory.getSingleton<IMessageShower>().Show(errore, "Errore");
 										return false;
 									}
 								}
@@ -4852,7 +4866,7 @@ namespace no_table_flussostudenti {
 			var joinUpbSql = "";
 			var condUpbSql = "";
 			if (condUpb != null) {
-				joinUpbSql = " join upb on flussocrediti.idupb = upb.idupb ";
+				joinUpbSql = " join upb on flussocreditidetail.idupb = upb.idupb ";
 				condUpbSql = " AND " + condUpb.toSql(_qhs);
 			}
 
@@ -4861,7 +4875,7 @@ namespace no_table_flussostudenti {
 					where QueryCreator.IsReal(DS.invoicedetail.Columns[c])
 					select "invoicedetail." + c).ToArray());
 
-
+			// 15259 Impossibile associare l'identificatore in più parti "flussocrediti.idupb".
 			string sqlGetFatture =
 				$" SELECT  {colonneDettFature} from invoicedetail where iduniqueformcode in (" +
 				$"SELECT flussocreditidetail.iduniqueformcode from flussocreditidetail " +
@@ -4885,15 +4899,18 @@ namespace no_table_flussostudenti {
 			closePBar();
 
 			if (DS.invoicedetail.Rows.Count == 0) {
-				MessageBox.Show(
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(
 					"Non sono stati trovati dettagli fattura da incassare di questo anno o anni precedenti.", "Avviso");
 				return true;
 			}
 
-
-			bool res = creaIncassiFatture(soloConSospesi, TipoElaborazioneIncassi.imponibile, info);
-			if (res) res = creaIncassiFatture(soloConSospesi, TipoElaborazioneIncassi.iva, info);
-			if (res) res = creaIncassiFatture(soloConSospesi, TipoElaborazioneIncassi.totali, info);
+			bool error;
+			bool res = creaIncassiFatture(soloConSospesi, TipoElaborazioneIncassi.imponibile, info, out error);
+			if (error) return false;
+			if (res) res = creaIncassiFatture(soloConSospesi, TipoElaborazioneIncassi.iva, info, out error);
+			if (error) return false;
+			if (res) res = creaIncassiFatture(soloConSospesi, TipoElaborazioneIncassi.totali, info, out error);
+			if (error) return false;
 
 			foreach (var rFlusso in DS.flussoincassi.all()) {
 				var infoFlusso = info.flussoIncassiAmounts[rFlusso.idflusso];
@@ -4902,7 +4919,7 @@ namespace no_table_flussostudenti {
 
 			VisualizzaFatture();
 			if (DS.invoice.Rows.Count == 0) {
-				MessageBox.Show("Non sono state trovate fatture collegati ai crediti incassati.", "Avviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non sono state trovate fatture collegate ai crediti incassati.", "Avviso");
 			}
 
 			return res;
@@ -4912,8 +4929,8 @@ namespace no_table_flussostudenti {
 		/// Elabora un flusso incassi 
 		/// </summary>
 		/// <returns></returns>
-		private bool creaIncassiFatture(bool soloConSospesi, TipoElaborazioneIncassi tipoElaborazione,
-			infoCreaIncassi info) {
+		private bool creaIncassiFatture(bool soloConSospesi, TipoElaborazioneIncassi tipoElaborazione,infoCreaIncassi info, out bool error) {
+			error = false;
 			var incInvoice = _dispatcher.Get("incomeinvoice");
 			incInvoice.SetDefaults(DS.incomeinvoice);
 
@@ -5045,59 +5062,6 @@ namespace no_table_flussostudenti {
 							continue;
 						}
 
-						var currUpb = rInvoiceDet.idupb;
-						var currUpbIva = rInvoiceDet.idupb_iva;
-
-						// Cerca la contabilizzazione del dettaglio contratto attivo collegato per agganciarsi ad essa                        
-						estimatedetailRow estimDet = null;
-						if (rInvoiceDet.idestimkind != null) {
-							var estimateDetails = DS.estimatedetail.get(_conn,
-								q.mCmp(rInvoiceDet, "idestimkind", "yestim", "nestim") &
-								q.eq("rownum", rInvoiceDet.estimrownum)
-							);
-							estimDet = estimateDetails[0];
-						}
-
-						if (estimDet == null || faseentratamax == 1) {
-							//Se non c'è un contratto collegato o siamo nel monofase controlliamo la coerenza degli upb impostati sul dettaglio fattura
-							switch (tipoElaborazione) {
-								case TipoElaborazioneIncassi.totali:
-									//Elaborazione pre modifica split fasi - esegue solo con upb_iva == null
-									if (currUpb == null || currUpbIva != null)
-										continue; //i totali devono avere un upb_iva NON impostato per essere elaborati
-									break;
-								case TipoElaborazioneIncassi.imponibile:
-									if (currUpb == null || currUpbIva == null)
-										continue; // imponibile  o iva è ammesso solo se c'è currUPB
-									break;
-								case TipoElaborazioneIncassi.iva:
-									if (currUpb == null || currUpbIva == null)
-										continue; // imponibile  o iva è ammesso solo se c'è currUPB
-									break;
-							}
-						}
-						else {
-							//conta la cont. del  dett.contratto non gli upb
-							switch (tipoElaborazione) {
-								case TipoElaborazioneIncassi.totali:
-									//Elaborazione pre modifica split fasi - esegue solo con upb_iva == null
-									if (estimDet.idinc_iva != estimDet.idinc_taxable) continue;
-									if (currUpb == null || currUpbIva != null)
-										continue; //i totali devono avere un upb_iva NON impostato per essere elaborati
-									break;
-								case TipoElaborazioneIncassi.imponibile:
-									if (estimDet.idinc_iva == estimDet.idinc_taxable) continue;
-									if (currUpb == null || currUpbIva == null)
-										continue; // imponibile  o iva è ammesso solo se c'è currUPB
-									break;
-								case TipoElaborazioneIncassi.iva:
-									if (estimDet.idinc_iva == estimDet.idinc_taxable) continue;
-									if (currUpb == null || currUpbIva == null)
-										continue; // imponibile  o iva è ammesso solo se c'è currUPB
-									break;
-							}
-						}
-
 						decimal imponibile = CfgFn.GetNoNullDecimal(rInvoiceDet.taxable);
 						decimal quantitaConfezioni = CfgFn.GetNoNullDecimal(rInvoiceDet.npackage);
 						decimal sconto = CfgFn.GetNoNullDecimal(rInvoiceDet.discount);
@@ -5108,6 +5072,119 @@ namespace no_table_flussostudenti {
 						decimal amountBase = 0;
 
 
+
+						var filterInvoice = q.mCmp(rInvoiceDet, "idinvkind", "yinv", "ninv");
+
+						var invoice = DS.invoice.get(_conn, filterInvoice);
+						if (invoice.Length == 0) continue;
+						var invoiceRow = invoice[0];
+
+						bool splitPayment=false;
+						if (invoiceRow.flag_enable_split_payment == "S") {
+							if (tipoElaborazione != TipoElaborazioneIncassi.imponibile) continue;
+							splitPayment = true; //in questo caso la contabilizzazione deve essere per forza "imponibile"
+							iva = 0;
+						}
+
+						var idincTaxable = rInvoiceDet.idinc_taxable;
+						var idinciva = rInvoiceDet.idinc_iva;
+
+						if (idincTaxable != null && tipoElaborazione == TipoElaborazioneIncassi.imponibile)continue; // già contabilizzato
+						if (idinciva != null && tipoElaborazione == TipoElaborazioneIncassi.iva)continue; // già contabilizzato
+						if ((idincTaxable != null || idinciva != null) && tipoElaborazione == TipoElaborazioneIncassi.totali) continue; // già contabilizzato
+					
+						var currUpb = rInvoiceDet.idupb;
+						var currUpbIva = rInvoiceDet.idupb_iva;
+
+						
+						// Cerca la contabilizzazione del dettaglio contratto attivo collegato per agganciarsi ad essa                        
+						estimatedetailRow estimDet = null;
+						if (rInvoiceDet.idestimkind != null) {
+							var estimateDetails = DS.estimatedetail.get(_conn,
+								q.mCmp(rInvoiceDet, "idestimkind", "yestim", "nestim") &
+								q.eq("rownum", rInvoiceDet.estimrownum)
+							);
+							estimDet = estimateDetails[0];
+						}
+						
+ 
+						if (estimDet == null || faseentratamax == 1) {
+							//Se non c'è un contratto collegato o siamo nel monofase controlliamo la coerenza degli upb impostati sul dettaglio fattura
+							switch (tipoElaborazione) {
+								case TipoElaborazioneIncassi.totali:
+									//Elaborazione pre modifica split fasi - esegue solo con upb_iva == null
+									if (currUpb == null || currUpbIva != null)
+										continue; //i totali devono avere un upb_iva NON impostato per essere elaborati
+									break;
+								case TipoElaborazioneIncassi.imponibile:
+										if (currUpb == null || (iva>0 && currUpbIva == null)){
+										continue; // imponibile  o iva è ammesso solo se c'è currUPB
+										}
+									break;
+								case TipoElaborazioneIncassi.iva:
+										if (currUpb == null || (iva>0 && currUpbIva == null)){
+		 								continue; // imponibile  o iva è ammesso solo se c'è currUPB
+
+										}
+									break;
+							}
+						}
+						else {
+							//conta la cont. del  dett.contratto non gli upb
+							switch (tipoElaborazione) {
+								case TipoElaborazioneIncassi.totali:
+									//Elaborazione per modifica split fasi - esegue solo con upb_iva == null
+									if (currUpb == null || currUpbIva != null) continue; //i totali devono avere un upb_iva NON impostato per essere elaborati
+									if (estimDet.idinc_iva != estimDet.idinc_taxable) {
+										MetaFactory.factory.getSingleton<IMessageShower>().Show(
+											$"{$" Nel dettaglio fattura{rInvoiceDet.detaildescription} codice bollettino "}{rInvoiceDet.iduniqueformcode} " +
+											$" bisogna specificare l'upb dell'iva per coerenza con il contratto attivo collegato",
+											"Errore"); // imponibile  o iva è ammesso solo se c'è currUPB
+										continue;
+									}
+									break;
+								case TipoElaborazioneIncassi.imponibile:
+									if (currUpb == null || (iva>0 && currUpbIva == null)) {
+										continue; // imponibile  o iva è ammesso solo se c'è currUPB e anche upbIva
+									}
+									if (estimDet.idinc_taxable != null && estimDet.idinc_taxable==estimDet.idinc_iva) {
+										MetaFactory.factory.getSingleton<IMessageShower>().Show(
+											$" Nel dettaglio fattura{rInvoiceDet.detaildescription} codice bollettino {rInvoiceDet.iduniqueformcode} " +
+											$" NON bisogna specificare l'upb dell'iva per coerenza con il contratto attivo collegato",
+											"Errore"); // imponibile  o iva è ammesso solo se c'è currUPB
+										continue;
+									}
+									
+									if (estimDet.idinc_taxable == null) {
+										MetaFactory.factory.getSingleton<IMessageShower>().Show(
+											$"L'imponibile del dettaglio contratto attivo collegato al dettaglio " + 
+											$"fattura{rInvoiceDet.detaildescription} codice bollettino {rInvoiceDet.iduniqueformcode} " +
+											$" va contabilizzato prima di elaborare l'incasso della fattura collegata",
+											"Errore"); // imponibile  o iva è ammesso solo se c'è currUPB
+										continue;
+									}
+
+									break;
+								case TipoElaborazioneIncassi.iva:
+									if (iva == 0) continue;
+									if (currUpb == null || currUpbIva == null){
+										continue; // imponibile  o iva è ammesso solo se c'è currUPB e anche upbIva
+									}
+									
+									if (estimDet.idinc_iva == null) {
+										MetaFactory.factory.getSingleton<IMessageShower>().Show(
+											$"L'iva del dettaglio contratto attivo collegato al dettaglio " + 
+											$"fattura{rInvoiceDet.detaildescription} codice bollettino {rInvoiceDet.iduniqueformcode} " +
+											$" va contabilizzata prima di elaborare l'incasso della fattura collegata",
+											"Errore"); // imponibile  o iva è ammesso solo se c'è currUPB
+										error = true;
+										return false;
+									}
+									break;
+							}
+						}
+
+						
 
 						switch (tipoElaborazione) {
 							case TipoElaborazioneIncassi.totali:
@@ -5124,7 +5201,7 @@ namespace no_table_flussostudenti {
 
 						if (amountBase == 0) continue;
 
-
+						
 						// Cerco eventuale accertamento che contabilizza il dettaglio contratto attivo associato
 
 						incomeRow parentR = null;
@@ -5169,11 +5246,7 @@ namespace no_table_flussostudenti {
 
 						//string filterInvoice = QHS.AppAnd(QHS.CmpEq("idinvkind", rInvoiceDet["idinvkind"]),
 						//            QHS.CmpEq("yinv", rInvoiceDet["yinv"]), QHS.CmpEq("ninv", rInvoiceDet["ninv"]));
-						var filterInvoice = q.mCmp(rInvoiceDet, "idinvkind", "yinv", "ninv");
-
-						var invoice = DS.invoice.get(_conn, filterInvoice);
-						if (invoice.Length == 0) continue;
-						var invoiceRow = invoice[0];
+					
 
 						object idacc = DBNull.Value;
 
@@ -5182,15 +5255,7 @@ namespace no_table_flussostudenti {
 						// Anagrafica dalla Fattura
 						var idreg = invoiceRow.idreg;
 						// Incasso che contabilizza il dettaglio di importo pari a -importo
-						var idincTaxable = rInvoiceDet.idinc_taxable;
-						var idinciva = rInvoiceDet.idinc_iva;
-
-						if (idincTaxable != null && tipoElaborazione == TipoElaborazioneIncassi.imponibile)
-							continue; // già contabilizzato
-						if (idinciva != null && tipoElaborazione == TipoElaborazioneIncassi.iva)
-							continue; // già contabilizzato
-						if ((idincTaxable != null || idinciva != null) &&
-						    tipoElaborazione == TipoElaborazioneIncassi.totali) continue; // già contabilizzato
+				
 
 						MetaData.SetDefault(DS.incomeyear, "ayear", esercizio);
 						//DataRow IncomeToLink = null; 
@@ -5224,7 +5289,7 @@ namespace no_table_flussostudenti {
 							// Determinazione del capitolo di bilancio in base alla causale finanziaria impostata sul dettaglio
 							var idfinSelected = getBilancioFromCausaleFin(rInvoiceDet.idfinmotiveValue, out errore);
 							if (errore != "") {
-								MessageBox.Show(
+								MetaFactory.factory.getSingleton<IMessageShower>().Show(
 									errore + " nel dettaglio " + rInvoiceDet.detaildescription + " codice bollettino " +
 									rInvoiceDet.iduniqueformcode,
 									"Errore");
@@ -5379,18 +5444,18 @@ namespace no_table_flussostudenti {
 			QueryCreator.MarkEvent("Inizio elaboraFlussoCrediti");
 			var res = fillEstimate(_from, _to); //non salva i dati
 			if (!res) {
-				MessageBox.Show(this, @"Errore nella creazione dei contratti attivi");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, @"Errore nella creazione dei contratti attivi");
 				return;
 			}
 
 			var resA = fillAnnulment(_from, _to);
 			if (!resA) {
-				MessageBox.Show(this, @"Errore nell'elaborazione degli annullamenti");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, @"Errore nell'elaborazione degli annullamenti");
 				return;
 			}
 
 			if (!DS.HasChanges()) {
-				MessageBox.Show("Nessun credito da elaborare");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessun credito da elaborare");
 				return;
 			}
 
@@ -5399,12 +5464,12 @@ namespace no_table_flussostudenti {
 			var resSave = myPostData.DO_POST();
 
 			if (!resSave) {
-				MessageBox.Show(this, "Errore nel salvataggio");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio");
 				return;
 			}
 
 			if (generaScrittureContrattiAttivi()) {
-				MessageBox.Show(this, "Elaborazione crediti completata");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Elaborazione crediti completata");
 			}
 		}
 
@@ -5423,11 +5488,13 @@ namespace no_table_flussostudenti {
 			string h = $"{G[index, 0]}§{G[index, 1]}§{G[index, 2]}§{G[index, 3]}";
 			DataRow r;
 			if (dictEstimDetail.TryGetValue(h, out r)) return r;
+			
+			//In posizione 1 c'è il tipo contratto
 
 			var filter = _qhc.AppAnd(_qhc.CmpEq("idestimkind", G[index, 0]),
-				_qhc.CmpEq("yestim", G[index, 1]),
-				_qhc.CmpEq("nestim", G[index, 2]),
-				_qhc.CmpEq("rownum", G[index, 3]));
+				_qhc.CmpEq("yestim", G[index, 2]),
+				_qhc.CmpEq("nestim", G[index, 3]),
+				_qhc.CmpEq("rownum", G[index, 4]));
 			DataRow[] selectresult = MyTable.Select(filter);
 			return (selectresult.Length > 0) ? selectresult[0] : null;
 		}
@@ -5532,7 +5599,7 @@ namespace no_table_flussostudenti {
 			if (txtStartFlusso.Text != "") {
 				object i = HelpForm.GetObjectFromString(typeof(int), txtStartFlusso.Text, "x.y.g");
 				if (i == null) {
-					MessageBox.Show("Numero non valido in n.flusso iniziale", "Errore");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Numero non valido in n.flusso iniziale", "Errore");
 					return;
 				}
 
@@ -5542,7 +5609,7 @@ namespace no_table_flussostudenti {
 			if (txtStopFlusso.Text != "") {
 				object i = HelpForm.GetObjectFromString(typeof(int), txtStopFlusso.Text, "x.y.g");
 				if (i == null) {
-					MessageBox.Show("Numero non valido in n.flusso finale", "Errore");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Numero non valido in n.flusso finale", "Errore");
 					return;
 				}
 
@@ -5619,7 +5686,7 @@ namespace no_table_flussostudenti {
 			//la doSave mostra già messaggi più specifici nel caso in cui fallisca. 
 			// Questo messaggio può essere fuorviante perchè potrebbe non esserci nessun movimento e quindi NON essere un errore
 			//if (!resFin) {
-			//    MessageBox.Show(this, @"Errore nell'elaborazione della generazione dei movimenti finanziari");
+			//    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, @"Errore nell'elaborazione della generazione dei movimenti finanziari");
 			//}
 		}
 
@@ -5656,7 +5723,7 @@ namespace no_table_flussostudenti {
 		private void btnAssociaEventualiBollette_Click(object sender, EventArgs e) {
 			DS.flussoincassi.Clear();
 			
-			var sqlBill = $"select bill.nbill, flussoincassi.causale from bill " +
+			var sqlBill = $"select bill.nbill, bill.adate, flussoincassi.causale from bill " +
 			              $" join flussoincassi on " +
 						  $" (bill.motive like '%'+flussoincassi.causale+'%' AND flussoincassi.causale like '%/PUR/LGPE-RIVERSAMENTO/URI/%' ) OR "+
 						  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/' + flussoincassi.causale+'%')"+
@@ -5667,11 +5734,15 @@ namespace no_table_flussostudenti {
 			if (billFromCausali.Rows.Count == 0) return;
 			var rows = DS.flussoincassi.getFromDb(_conn, q.eq("ayear", esercizio) & q.isNull("nbill"));
 			Dictionary<string,int> nBillPerCausale = new Dictionary<string, int>();
+			Dictionary<string,object> dataIncassoPerCausale = new Dictionary<string, object>();
 			foreach (DataRow r in billFromCausali.Rows) {
 				string causale = r["causale"].ToString();
 				int nbill = CfgFn.GetNoNullInt32(r["nbill"]);
 				if (!nBillPerCausale.ContainsKey(causale)) {
 					nBillPerCausale[causale] = nbill;
+				}
+				if (!dataIncassoPerCausale.ContainsKey(causale)) {
+					dataIncassoPerCausale[causale] = r["adate"];
 				}
 			}
 
@@ -5683,27 +5754,23 @@ namespace no_table_flussostudenti {
 				if (nBillPerCausale.TryGetValue(causale, out int nBill)) {
 					r1.nbill = nBill;
 				}
-				//var nbill = getSospesiAttiviFromCausali(causale);
-				//if (nbill == null) continue;
-				//r1.nbill = nbill;
+				if (dataIncassoPerCausale.TryGetValue(causale, out object adate)) {
+					if (adate!=DBNull.Value) r1.dataincassoValue = adate;
+				}
 			}
 
-			//if (noChange) {
-			//    MessageBox.Show("Nessuna bolletta da collegare trovata", "Avviso");
-			//    return;
-			//}
 
 			var myPostData = new Easy_PostData();
 			myPostData.initClass(DS, _conn);
 			var res = myPostData.DO_POST();
 			DS.flussoincassi.Clear();
 			if (!res) {
-				MessageBox.Show(this,
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
 					"Errore nel salvataggio dell'associazione degli incassi alle bollette mediante causale bolletta");
 				return;
 			}
 
-			// MessageBox.Show(this, "Le bollette presenti sono state collegate.");
+			// MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Le bollette presenti sono state collegate.");
 		}
 
 
@@ -5722,6 +5789,11 @@ namespace no_table_flussostudenti {
 		void AddVoceUPBIva(DataRow R) {
 			if (R["idupb_iva"] == DBNull.Value) return;
 			R["!codeupb_iva"] = GetTitleForIdUPB(R["idupb_iva"]);
+		}
+		//13720
+		void AddVoceEstimkind(DataRow R) {
+			if(R["idestimkind"]==DBNull.Value) return;
+			R["!estimkind"] = GetTitleForEstimateKind(R["idestimkind"]);
 		}
 
 		void preScanVociCollegateDettagliContrattoAttivo(q filter) {
@@ -5752,6 +5824,7 @@ namespace no_table_flussostudenti {
 		void AddVociCollegate(DataRow Row) {
 
 			if (Row.Table.TableName == "estimatedetail") {
+				AddVoceEstimkind(Row); //13720
 				AddVoceCreditore(Row);
 				AddVoceUPB(Row);
 				AddVoceUPBIva(Row);
@@ -5791,6 +5864,23 @@ namespace no_table_flussostudenti {
 			}
 
 			__UpbTitles[str_idupb] = title.ToString();
+			return title.ToString();
+		}
+
+		//13720
+		Dictionary<string, string> __EstimatekindTitles = new Dictionary<string, string>();
+		string GetTitleForEstimateKind(object estimatekind) {
+			if (estimatekind == DBNull.Value)
+				return "";
+			string str_estimatekind = estimatekind.ToString();
+			if (__EstimatekindTitles.ContainsKey(str_estimatekind))
+				return __EstimatekindTitles[str_estimatekind];
+			object title = _conn.DO_READ_VALUE("estimatekind", _qhs.CmpEq("idestimkind", estimatekind), "description");
+			if (title == null) {
+				title = "[estimkind di codice " + estimatekind + "]";
+			}
+
+			__EstimatekindTitles[str_estimatekind] = title.ToString();
 			return title.ToString();
 		}
 
@@ -5852,7 +5942,7 @@ namespace no_table_flussostudenti {
 			}
 
 			if (DS.estimatedetail.Rows.Count == 0) {
-				MessageBox.Show("Nessun dettaglio contratto trovato", "Avviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessun dettaglio contratto trovato", "Avviso");
 			}
 
 			btnElaboraContabilizzazioni.Enabled = DS.estimatedetail.Rows.Count > 0 && faseentratamax > 1;
@@ -5984,7 +6074,7 @@ namespace no_table_flussostudenti {
 			if (!DS.HasChanges()) {
 				ricalcolaFlagElaborato();
 				azzeraTutto();
-				MessageBox.Show("Nessun incasso da creare", "Avviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessun incasso da creare", "Avviso");
 				btnIncassiContrattiAttivi.Visible = true;
 				return;
 			}
@@ -5996,10 +6086,10 @@ namespace no_table_flussostudenti {
 
 				//Il salvataggio azzera anche i movimenti finanziari
 				if (doSave(out dSupdated)) {
-					MessageBox.Show("Gli incassi per i contratti attivi sono stati salvati.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Gli incassi per i contratti attivi sono stati salvati.");
 				}
 				else {
-					MessageBox.Show("Errore nel salvataggio degli incassi per i contratti attivi", "Errore");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nel salvataggio degli incassi per i contratti attivi", "Errore");
 					btnIncassiContrattiAttivi.Visible = true;
 					return;
 				}
@@ -6012,7 +6102,7 @@ namespace no_table_flussostudenti {
 		private void btnCreaIncassiFatture_Click(object sender, EventArgs e) {
 			string error;
 			if (!generaIncassiFatture(!chkAncheSenzaSospesi.Checked, out error)) {
-				MessageBox.Show("Errore nel salvataggio incassi per le fatture" + "\r\n" + error, "Errore");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nel salvataggio incassi per le fatture" + "\r\n" + error, "Errore");
 			}
 
 			;
@@ -6032,7 +6122,7 @@ namespace no_table_flussostudenti {
                  and not exists(select * from flussoincassi f2 where f2.nbill=bill.nbill and f2.ayear={esercizio})");
 			if (t == null) return;
 			if (t.Rows.Count == 0) {
-				MessageBox.Show("Nessun sospeso RFB o RFS trovato da collegare.", "Avviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessun sospeso RFB o RFS trovato da collegare.", "Avviso");
 				return;
 			}
 

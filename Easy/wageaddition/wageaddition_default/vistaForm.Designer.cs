@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -24,7 +26,7 @@ using System.Runtime.Serialization;
 namespace wageaddition_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -159,6 +161,12 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable dalia_recruitmentmotive 		=> Tables["dalia_recruitmentmotive"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable dalia_funzionale 		=> Tables["dalia_funzionale"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable dalia_dipartimento 		=> Tables["dalia_dipartimento"];
+
 	#endregion
 
 
@@ -254,6 +262,8 @@ private void initClass() {
 	twageaddition.Columns.Add( new DataColumn("iddaliaposition", typeof(int)));
 	twageaddition.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
 	twageaddition.Columns.Add( new DataColumn("iddaliarecruitmentmotive", typeof(int)));
+	twageaddition.Columns.Add( new DataColumn("iddalia_funzionale", typeof(int)));
+	twageaddition.Columns.Add( new DataColumn("iddalia_dipartimento", typeof(int)));
 	Tables.Add(twageaddition);
 	twageaddition.PrimaryKey =  new DataColumn[]{twageaddition.Columns["ycon"], twageaddition.Columns["ncon"]};
 
@@ -1635,6 +1645,44 @@ private void initClass() {
 	tdalia_recruitmentmotive.PrimaryKey =  new DataColumn[]{tdalia_recruitmentmotive.Columns["iddaliarecruitmentmotive"]};
 
 
+	//////////////////// DALIA_FUNZIONALE /////////////////////////////////
+	var tdalia_funzionale= new DataTable("dalia_funzionale");
+	C= new DataColumn("iddalia_funzionale", typeof(int));
+	C.AllowDBNull=false;
+	tdalia_funzionale.Columns.Add(C);
+	C= new DataColumn("codefunz", typeof(string));
+	C.AllowDBNull=false;
+	tdalia_funzionale.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	tdalia_funzionale.Columns.Add(C);
+	tdalia_funzionale.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tdalia_funzionale.Columns.Add( new DataColumn("cu", typeof(string)));
+	tdalia_funzionale.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tdalia_funzionale.Columns.Add( new DataColumn("lu", typeof(string)));
+	Tables.Add(tdalia_funzionale);
+	tdalia_funzionale.PrimaryKey =  new DataColumn[]{tdalia_funzionale.Columns["iddalia_funzionale"]};
+
+
+	//////////////////// DALIA_DIPARTIMENTO /////////////////////////////////
+	var tdalia_dipartimento= new DataTable("dalia_dipartimento");
+	C= new DataColumn("iddalia_dipartimento", typeof(int));
+	C.AllowDBNull=false;
+	tdalia_dipartimento.Columns.Add(C);
+	C= new DataColumn("codedip", typeof(string));
+	C.AllowDBNull=false;
+	tdalia_dipartimento.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	tdalia_dipartimento.Columns.Add(C);
+	tdalia_dipartimento.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tdalia_dipartimento.Columns.Add( new DataColumn("cu", typeof(string)));
+	tdalia_dipartimento.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tdalia_dipartimento.Columns.Add( new DataColumn("lu", typeof(string)));
+	Tables.Add(tdalia_dipartimento);
+	tdalia_dipartimento.PrimaryKey =  new DataColumn[]{tdalia_dipartimento.Columns["iddalia_dipartimento"]};
+
+
 	#endregion
 
 
@@ -1742,6 +1790,14 @@ private void initClass() {
 	cPar = new []{dalia_recruitmentmotive.Columns["iddaliarecruitmentmotive"]};
 	cChild = new []{wageaddition.Columns["iddaliarecruitmentmotive"]};
 	Relations.Add(new DataRelation("dalia_recruitmentmotive_wageaddition",cPar,cChild,false));
+
+	cPar = new []{dalia_funzionale.Columns["iddalia_funzionale"]};
+	cChild = new []{wageaddition.Columns["iddalia_funzionale"]};
+	Relations.Add(new DataRelation("dalia_funzionale_wageaddition",cPar,cChild,false));
+
+	cPar = new []{dalia_dipartimento.Columns["iddalia_dipartimento"]};
+	cChild = new []{wageaddition.Columns["iddalia_dipartimento"]};
+	Relations.Add(new DataRelation("dalia_dipartimento_wageaddition",cPar,cChild,false));
 
 	#endregion
 

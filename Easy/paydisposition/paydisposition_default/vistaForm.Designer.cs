@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -170,12 +172,6 @@ public partial class dsmeta: DataSet {
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting 		=> (sortingTable)Tables["sorting"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable expenseview 		=> (MetaTable)Tables["expenseview"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable incomeview 		=> (MetaTable)Tables["incomeview"];
 
 	///<summary>
 	///Sospeso attivo
@@ -379,134 +375,6 @@ private void initClass() {
 	tsorting.addBaseColumns("ct","cu","defaultN1","defaultN2","defaultN3","defaultN4","defaultN5","defaultS1","defaultS2","defaultS3","defaultS4","defaultS5","defaultv1","defaultv2","defaultv3","defaultv4","defaultv5","description","flagnodate","lt","lu","movkind","printingorder","rtf","sortcode","txt","idsorkind","idsor","paridsor","nlevel");
 	Tables.Add(tsorting);
 	tsorting.defineKey("idsor");
-
-	//////////////////// EXPENSEVIEW /////////////////////////////////
-	var texpenseview= new MetaTable("expenseview");
-	texpenseview.defineColumn("idexp", typeof(int),false);
-	texpenseview.defineColumn("!livprecedente", typeof(string));
-	texpenseview.defineColumn("nphase", typeof(byte));
-	texpenseview.defineColumn("phase", typeof(string),false);
-	texpenseview.defineColumn("ymov", typeof(short),false);
-	texpenseview.defineColumn("nmov", typeof(int),false);
-	texpenseview.defineColumn("parentidexp", typeof(int));
-	texpenseview.defineColumn("parentymov", typeof(short));
-	texpenseview.defineColumn("parentnmov", typeof(int));
-	texpenseview.defineColumn("idformerexpense", typeof(int));
-	texpenseview.defineColumn("ayear", typeof(short),false);
-	texpenseview.defineColumn("idfin", typeof(int));
-	texpenseview.defineColumn("codefin", typeof(string));
-	texpenseview.defineColumn("finance", typeof(string));
-	texpenseview.defineColumn("idupb", typeof(string));
-	texpenseview.defineColumn("codeupb", typeof(string));
-	texpenseview.defineColumn("upb", typeof(string));
-	texpenseview.defineColumn("idreg", typeof(int));
-	texpenseview.defineColumn("registry", typeof(string));
-	texpenseview.defineColumn("idman", typeof(int));
-	texpenseview.defineColumn("manager", typeof(string));
-	texpenseview.defineColumn("ypay", typeof(short),true,true);
-	texpenseview.defineColumn("npay", typeof(int));
-	texpenseview.defineColumn("paymentadate", typeof(DateTime));
-	texpenseview.defineColumn("doc", typeof(string));
-	texpenseview.defineColumn("docdate", typeof(DateTime));
-	texpenseview.defineColumn("description", typeof(string),false);
-	texpenseview.defineColumn("amount", typeof(decimal));
-	texpenseview.defineColumn("ayearstartamount", typeof(decimal));
-	texpenseview.defineColumn("curramount", typeof(decimal));
-	texpenseview.defineColumn("available", typeof(decimal));
-	texpenseview.defineColumn("idregistrypaymethod", typeof(int));
-	texpenseview.defineColumn("idpaymethod", typeof(int));
-	texpenseview.defineColumn("iban", typeof(string));
-	texpenseview.defineColumn("cin", typeof(string));
-	texpenseview.defineColumn("idbank", typeof(string));
-	texpenseview.defineColumn("idcab", typeof(string));
-	texpenseview.defineColumn("cc", typeof(string));
-	texpenseview.defineColumn("iddeputy", typeof(int));
-	texpenseview.defineColumn("deputy", typeof(string));
-	texpenseview.defineColumn("refexternaldoc", typeof(string));
-	texpenseview.defineColumn("paymentdescr", typeof(string));
-	texpenseview.defineColumn("idser", typeof(int));
-	texpenseview.defineColumn("service", typeof(string));
-	texpenseview.defineColumn("servicestart", typeof(DateTime));
-	texpenseview.defineColumn("servicestop", typeof(DateTime));
-	texpenseview.defineColumn("ivaamount", typeof(decimal));
-	texpenseview.defineColumn("flag", typeof(byte));
-	texpenseview.defineColumn("totflag", typeof(byte));
-	texpenseview.defineColumn("flagarrear", typeof(string),true,true);
-	texpenseview.defineColumn("autokind", typeof(byte));
-	texpenseview.defineColumn("idpayment", typeof(int));
-	texpenseview.defineColumn("expiration", typeof(DateTime));
-	texpenseview.defineColumn("adate", typeof(DateTime),false);
-	texpenseview.defineColumn("autocode", typeof(int));
-	texpenseview.defineColumn("idclawback", typeof(int));
-	texpenseview.defineColumn("clawback", typeof(string));
-	texpenseview.defineColumn("nbill", typeof(int));
-	texpenseview.defineColumn("idpay", typeof(int));
-	texpenseview.defineColumn("txt", typeof(string));
-	texpenseview.defineColumn("cu", typeof(string),false);
-	texpenseview.defineColumn("ct", typeof(DateTime),false);
-	texpenseview.defineColumn("lu", typeof(string),false);
-	texpenseview.defineColumn("idsor01", typeof(int));
-	texpenseview.defineColumn("idsor02", typeof(int));
-	texpenseview.defineColumn("idsor03", typeof(int));
-	texpenseview.defineColumn("idsor04", typeof(int));
-	texpenseview.defineColumn("idsor05", typeof(int));
-	texpenseview.defineColumn("lt", typeof(DateTime),false);
-	Tables.Add(texpenseview);
-	texpenseview.defineKey("idexp", "ayear");
-
-	//////////////////// INCOMEVIEW /////////////////////////////////
-	var tincomeview= new MetaTable("incomeview");
-	tincomeview.defineColumn("idinc", typeof(int),false);
-	tincomeview.defineColumn("!livprecedente", typeof(string));
-	tincomeview.defineColumn("nphase", typeof(byte));
-	tincomeview.defineColumn("phase", typeof(string),false);
-	tincomeview.defineColumn("ymov", typeof(short),false);
-	tincomeview.defineColumn("nmov", typeof(int),false);
-	tincomeview.defineColumn("parentymov", typeof(short));
-	tincomeview.defineColumn("parentnmov", typeof(int));
-	tincomeview.defineColumn("parentidinc", typeof(int));
-	tincomeview.defineColumn("ayear", typeof(short),false);
-	tincomeview.defineColumn("idfin", typeof(int));
-	tincomeview.defineColumn("codefin", typeof(string));
-	tincomeview.defineColumn("finance", typeof(string));
-	tincomeview.defineColumn("idupb", typeof(string));
-	tincomeview.defineColumn("codeupb", typeof(string));
-	tincomeview.defineColumn("upb", typeof(string));
-	tincomeview.defineColumn("idreg", typeof(int));
-	tincomeview.defineColumn("registry", typeof(string));
-	tincomeview.defineColumn("idman", typeof(int));
-	tincomeview.defineColumn("manager", typeof(string));
-	tincomeview.defineColumn("ypro", typeof(short));
-	tincomeview.defineColumn("npro", typeof(int));
-	tincomeview.defineColumn("doc", typeof(string));
-	tincomeview.defineColumn("docdate", typeof(DateTime));
-	tincomeview.defineColumn("description", typeof(string),false);
-	tincomeview.defineColumn("amount", typeof(decimal));
-	tincomeview.defineColumn("ayearstartamount", typeof(decimal));
-	tincomeview.defineColumn("curramount", typeof(decimal));
-	tincomeview.defineColumn("available", typeof(decimal));
-	tincomeview.defineColumn("unpartitioned", typeof(decimal));
-	tincomeview.defineColumn("flag", typeof(byte));
-	tincomeview.defineColumn("totflag", typeof(byte),false);
-	tincomeview.defineColumn("flagarrear", typeof(string));
-	tincomeview.defineColumn("autokind", typeof(byte));
-	tincomeview.defineColumn("autocode", typeof(int));
-	tincomeview.defineColumn("idpayment", typeof(int));
-	tincomeview.defineColumn("expiration", typeof(DateTime));
-	tincomeview.defineColumn("adate", typeof(DateTime),false);
-	tincomeview.defineColumn("nbill", typeof(int));
-	tincomeview.defineColumn("idpro", typeof(int));
-	tincomeview.defineColumn("cu", typeof(string),false);
-	tincomeview.defineColumn("ct", typeof(DateTime),false);
-	tincomeview.defineColumn("lu", typeof(string),false);
-	tincomeview.defineColumn("idsor01", typeof(int));
-	tincomeview.defineColumn("idsor02", typeof(int));
-	tincomeview.defineColumn("idsor03", typeof(int));
-	tincomeview.defineColumn("idsor04", typeof(int));
-	tincomeview.defineColumn("idsor05", typeof(int));
-	tincomeview.defineColumn("lt", typeof(DateTime),false);
-	Tables.Add(tincomeview);
-	tincomeview.defineKey("idinc", "ayear");
 
 	//////////////////// INCOMEBILL /////////////////////////////////
 	var tincomebill= new MetaTable("incomebill");

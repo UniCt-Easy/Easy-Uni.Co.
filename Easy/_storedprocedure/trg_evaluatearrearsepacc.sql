@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ÔªøSET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -88,25 +90,25 @@ DECLARE @nphase tinyint
 	
 	-- scrittura crediti a ricavi
 	-- non si deve cambiare il segno di @payed
-	-- se l'accertamento di budget √® marcato come variazione
+	-- se l'accertamento di budget Ë marcato come variazione
 	-- allora di nuovo si cambia il segno
 	-- questo relativamente alla modifica che sta operando Sara
 	-- stiamo aggiungendo un flag "nota di variazione" sull'impegno e acc. di budget
 
-	-- il costo di solito si movimenta in negativo, ma il totalizzatore ha gi√† ricevuto un cambio di segno per cui rappresenta l'effettivo costo
-	--   con valore gi√† normalizzato
-	-- NON lo stiamo cambiando di segno quindi ora il ricavo √® NORMALE, come se fosse stato preso dalle SCRITTURE
+	-- il costo di solito si movimenta in negativo, ma il totalizzatore ha gi‡ ricevuto un cambio di segno per cui rappresenta l'effettivo costo
+	--   con valore gi‡ normalizzato
+	-- NON lo stiamo cambiando di segno quindi ora il ricavo Ë NORMALE, come se fosse stato preso dalle SCRITTURE
 
 	if  (@is_variation = 'S')   begin	--era ='S'
-		-- se NON √® una variazione, il ricavo RIMANE  NORMALE
-		-- se E' una variazione, il ricavo diventa OPPOSTO perch√® deve essere trattato diversamente  
+		-- se NON Ë una variazione, il ricavo RIMANE  NORMALE
+		-- se E' una variazione, il ricavo diventa OPPOSTO perchË deve essere trattato diversamente  
 		 set @payed = -@payed
 	end
 	
 
-	-- SE NON √® una variazione, sottraiamo il ricavo (che √® NORMALE)
-	-- SE E' una variazione il ricavo √® negativo LO SOMMIAMO infatti le variazioni lavorano con logica inversa
-	-- d'altronde se tutto va bene le scritture associate alla variazione movimenteranno il costo in DARE anzich√® in AVERE 
+	-- SE NON Ë una variazione, sottraiamo il ricavo (che Ë NORMALE)
+	-- SE E' una variazione il ricavo Ë negativo LO SOMMIAMO infatti le variazioni lavorano con logica inversa
+	-- d'altronde se tutto va bene le scritture associate alla variazione movimenteranno il costo in DARE anzichË in AVERE 
 	--		e quindi alla fine saranno comunque SOTTRATTE
 	SELECT @newarrear = ISNULL(@currentamount, 0) - ISNULL(@payed, 0) + isnull(@amount2,0)
 
@@ -168,4 +170,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

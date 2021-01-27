@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[compute_finprevision]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[compute_finprevision]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_finprevision]
 GO
 
@@ -49,19 +51,19 @@ SELECT 	@infoavanzo = paramvalue
 FROM 	generalreportparameter
 WHERE 	idparam = 'MostraAvanzo'
 
--- Ricerca la fase equivalente all'impegno se √® stata inserita nella tabella di configurazione  del bilancio
+-- Ricerca la fase equivalente all'impegno se Ë stata inserita nella tabella di configurazione  del bilancio
 DECLARE @phasebilancio tinyint
 SELECT 	@phasebilancio = appropriationphasecode
 FROM config
 WHERE ayear = @ayear
--- Se non √® stata inserita nella tabella di configurazione  ipotizza che si tratti della fase dove viene identificata  la voce di bilancio
+-- Se non Ë stata inserita nella tabella di configurazione  ipotizza che si tratti della fase dove viene identificata  la voce di bilancio
 IF (@phasebilancio IS NULL)
 BEGIN
 	SELECT 	@phasebilancio = expensefinphase FROM uniconfig 
 END
 
--- Se @fin_kind = 1 ==> √® stata personalizzata una previsione principale di tipo "competenza", se @fin_kind = 2
--- ==> √® stata personalizzata una previsione principale di tipo "cassa", se  @fin_kind = 3 ==> √® stata personalizzata una
+-- Se @fin_kind = 1 ==> Ë stata personalizzata una previsione principale di tipo "competenza", se @fin_kind = 2
+-- ==> Ë stata personalizzata una previsione principale di tipo "cassa", se  @fin_kind = 3 ==> Ë stata personalizzata una
 -- previsione principale di tipo "altra previsione". 
 
 DECLARE @fin_kind tinyint
@@ -70,9 +72,9 @@ SELECT @fin_kind = ISNULL(fin_kind ,0) FROM config WHERE ayear = @ayear
 
 
 -- Alla stregua della compute_transf_prevision, quando:
--- 1)capitolo 2008 √® articolato 
--- 2)capitolo 2009 non √® articolato
--- si pu√≤ spezzare il legame capitolo 2008-2009 in #finlookup
+-- 1)capitolo 2008 Ë articolato 
+-- 2)capitolo 2009 non Ë articolato
+-- si puÚ spezzare il legame capitolo 2008-2009 in #finlookup
 
 CREATE TABLE #finlookup(
         oldidfin	int,-- ayear
@@ -85,8 +87,8 @@ JOIN fin
         ON finlookup.oldidfin = fin.idfin
 WHERE fin.ayear = @ayear
 -- Cancella il capitolo articolato nel 2008, e dearticolato nel 2009.
-DELETE FROM #finlookup WHERE EXISTS ( select * from fin where fin.paridfin = #finlookup.oldidfin )--√® parent nel  2008
-                                AND NOT EXISTS ( select * from fin where fin.paridfin = #finlookup.newidfin )-- non √® parent nel 2009
+DELETE FROM #finlookup WHERE EXISTS ( select * from fin where fin.paridfin = #finlookup.oldidfin )--Ë parent nel  2008
+                                AND NOT EXISTS ( select * from fin where fin.paridfin = #finlookup.newidfin )-- non Ë parent nel 2009
 
 
 CREATE TABLE #bilprevision
@@ -115,8 +117,8 @@ CREATE TABLE #bilprevision
 	floatfund decimal(19,2), -- Fondo Cassa alla data di redazione del bilancio di previsione
 	supposedproceeds decimal(19,2), -- Incassi Presunti al 31/12
 	supposedpayments decimal(19,2), -- Pagamenti Presunti al 31/12
-	supposedrevenue decimal(19,2), -- Residui Attivi Presunti al 31/12	SERVONO  X IL CALCOLO DELLA PREV DI CASSA, SE √® Spesa SAR√† ZERO
-	supposedexpenditure decimal(19,2) -- Residui Passivi Presunti al 31/12	SERVONO X IL CALCOLO DELLA PREV DI CASSA, SE √® Entrata SAR√† ZERO
+	supposedrevenue decimal(19,2), -- Residui Attivi Presunti al 31/12	SERVONO  X IL CALCOLO DELLA PREV DI CASSA, SE Ë Spesa SAR‡ ZERO
+	supposedexpenditure decimal(19,2) -- Residui Passivi Presunti al 31/12	SERVONO X IL CALCOLO DELLA PREV DI CASSA, SE Ë Entrata SAR‡ ZERO
 )
 
 INSERT INTO #bilprevision
@@ -145,8 +147,8 @@ SELECT
 	F_NEW.idfin,F_NEW.paridfin,
         F_NEW.nlevel,
 	u.idupb,
-	ISNULL(SUM(finyear.prevision),0), -- √® sempre la principale 
-	ISNULL(SUM(finyear.secondaryprev),0), -- √® sempre la secondaria
+	ISNULL(SUM(finyear.prevision),0), -- Ë sempre la principale 
+	ISNULL(SUM(finyear.secondaryprev),0), -- Ë sempre la secondaria
 	u.assured,	
 	ISNULL(SUM(finyear.prevision2),0),
 	ISNULL(SUM(finyear.prevision3),0), 
@@ -199,8 +201,8 @@ SELECT  distinct
 	F_NEW.idfin,F_NEW.paridfin, 
         F_NEW.nlevel,
 	u.idupb,
-	0, -- √® sempre la principale
-	0, -- √® sempre la secondaria
+	0, -- Ë sempre la principale
+	0, -- Ë sempre la secondaria
 	u.assured,	
 	0,
 	0,
@@ -252,8 +254,8 @@ SELECT DISTINCT
 	F_NEW.idfin, F_NEW.paridfin,
         F_NEW.nlevel,
 	u.idupb,
-	0, -- √® sempre la principale
-	0, -- √® sempre la secondaria
+	0, -- Ë sempre la principale
+	0, -- Ë sempre la secondaria
 	u.assured,	
 	0,
 	0,
@@ -1060,7 +1062,7 @@ BEGIN
 	WHERE (finpart ='E') and (assured <>'S')   -- x i fondi vale zero
 END
 
--- PAGAMENTI PRESUNTI (RIMANE COM'ERA PRIMA) vale 0 per le Entrate, x le spese rimane cos√¨
+-- PAGAMENTI PRESUNTI (RIMANE COM'ERA PRIMA) vale 0 per le Entrate, x le spese rimane cosÏ
 /*
 	 Totale Mandati Tx dopo la data
 	+ Liquidazioni o Righe di Mandato sensa mandato di pagamento
@@ -1089,7 +1091,7 @@ BEGIN
 					(SELECT #withexpiration_appropriation.total FROM #withexpiration_appropriation
 					WHERE #withexpiration_appropriation.idupb = #bilprevision.idupb 
 						and #withexpiration_appropriation.idfin = #bilprevision.idfin), 0)
-		WHERE (finpart='S') 	-- x le entrate √® chiaramente a zero
+		WHERE (finpart='S') 	-- x le entrate Ë chiaramente a zero
 END
 --- Residui Attivi Presunti al 31/12
 /*
@@ -1174,7 +1176,7 @@ END
 --	+ Variazioni di Previsione alla data
 --	- Pagamenti di cassa effettuati nell'anno alla data / - Incassi di cassa effettuati nell'anno alla data
 --
--- Previsione disponibile pricipale di cassa, √® la prev. disponibile per un bilancio di SOLA cassa (availableprevision_onlycash) :
+-- Previsione disponibile pricipale di cassa, Ë la prev. disponibile per un bilancio di SOLA cassa (availableprevision_onlycash) :
 --	Previsione attuale principale
 --	+ Variazioni di Previsione alla data
 --	- Pagamenti di cassa effettuati nell'anno alla data / - Incassi di cassa effettuati nell'anno alla data
@@ -1276,8 +1278,8 @@ SET
 		
 -- Procedura che imposta il valore dei capitoli articolati pari alla somma degli articoli
 -- in particolare sta prendendo i capitoli degli articoli, se non esistono nella tabella.
--- Per esempio se ho fatto solo un mov. di spesa sull'articolo, lo trover√≤ SOLO in expenseyear
--- quindi in #bilprevision trover√≤ SOLO l'articolo. Questo ciclo serve ad inserisce anche il relativo capitolo
+-- Per esempio se ho fatto solo un mov. di spesa sull'articolo, lo troverÚ SOLO in expenseyear
+-- quindi in #bilprevision troverÚ SOLO l'articolo. Questo ciclo serve ad inserisce anche il relativo capitolo
 -- per poterlo totalizzare.
 DECLARE @nextayear int
 SET 	@nextayear = @ayear + 1
@@ -1455,7 +1457,7 @@ BEGIN
 		newfin.title as fin, 		
 		#bilprevision.idupb,	
 		newfin.idfin as idfin,	
-		ISNULL(SUM(floatfund),0) as floatfund, 			-- Fondo di Cassa alla Data. (Per i FONDI √® zero)
+		ISNULL(SUM(floatfund),0) as floatfund, 			-- Fondo di Cassa alla Data. (Per i FONDI Ë zero)
 		ISNULL(SUM(supposedproceeds),0) as supposedproceeds,		-- INCASSI PRESUNTI alla data(RIMANE) servono x le Entrate
 		ISNULL(SUM(supposedpayments),0) as supposedpayments,		-- PAGAMENTI PRESUNTI alla data (RIMANE)
 		ISNULL(SUM(supposedrevenue),0) as supposedrevenue,		-- Residui Attivi Presunti al 31/12
@@ -1494,12 +1496,12 @@ BEGIN
 		newfin.title as fin, 		
 		#bilprevision.idupb,	
 		newfin.idfin as idfin,			
-		ISNULL(SUM(floatfund),0) as floatfund, 			-- Fondo di Cassa alla Data. (Per i FONDI √® zero)
+		ISNULL(SUM(floatfund),0) as floatfund, 			-- Fondo di Cassa alla Data. (Per i FONDI Ë zero)
 		ISNULL(SUM(supposedproceeds),0) as supposedproceeds,		-- INCASSI PRESUNTI alla data(RIMANE) servono x le Entrate
 		ISNULL(SUM(supposedpayments),0) as supposedpayments,		-- PAGAMENTI PRESUNTI alla data (RIMANE)
 		ISNULL(SUM(supposedrevenue),0) as supposedrevenue,		-- Residui Attivi Presunti al 31/12
 		ISNULL(SUM(supposedexpenditure),0) as supposedexpenditure,	-- Residui Passivi Presunti al 31/12
-		-- Previsione di cassa(in un bilancio di competenza √® la Pura Prev. Comp.)
+		-- Previsione di cassa(in un bilancio di competenza Ë la Pura Prev. Comp.)
 		0 	AS competency,
                 -- Prev. Cassa = finyear.prevision2 + prev.disponibile principale. 
 		CASE 
@@ -1534,5 +1536,4 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	
 	

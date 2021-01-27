@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -113,7 +115,7 @@ namespace registrydurc_default{
                 }
                 catch
                 {
-                    MessageBox.Show("La data inserita non era valida");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("La data inserita non era valida");
                     txtDataIniziovalidita.SelectAll();
                     txtDataIniziovalidita.Focus();
                     return;
@@ -148,7 +150,7 @@ namespace registrydurc_default{
                         if (curr_start != new_start)
                         {
                             R["start"] = new_start;
-                            //DialogResult RES = MessageBox.Show("Si desidera aggiornare anche la data di Scadenza?", "Informazione", MessageBoxButtons.OKCancel);
+                            //DialogResult RES = MetaFactory.factory.getSingleton<IMessageShower>().Show("Si desidera aggiornare anche la data di Scadenza?", "Informazione", MessageBoxButtons.OKCancel);
                             if (true){  //RES == DialogResult.OK
                                 DateTime stop = new DateTime();
                                 if (new_start >= dRiferimento) {

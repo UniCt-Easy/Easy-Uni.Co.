@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
@@ -44,7 +46,7 @@ namespace EasyWebReport {
             StopAnything = false;
 
             if (codice.Trim().Length == 0) {
-                labExtMessage.Text = "Non √® stato selezionato alcun dipartimento";
+                labExtMessage.Text = "Non Ë stato selezionato alcun dipartimento";
                 StopAnything = true;
                 return;
             }
@@ -56,12 +58,12 @@ namespace EasyWebReport {
             if ((CodDip == null) || (CodDip.Rows.Count == 0)) {
                 //Dati non corretti
                 WebLog.Log(this, codice + ": Codice non corretto");
-                labExtMessage.Text = "Il codice inserito non √® corretto.";
+                labExtMessage.Text = "Il codice inserito non Ë corretto.";
                 StopAnything = true;
                 return;
             }
             if (CodDip.Rows.Count > 1) {
-                //Attenzione nel DB non √® garantita l'unicit√† dei dati.
+                //Attenzione nel DB non Ë garantita l'unicit‡ dei dati.
                 labExtMessage.Text = "Chiedere al Responsabile del servizio " +
                     "l'assegnazione di un nuovo Codice";
                 WebLog.Log(this, "Attenzione !!! Duplicazione di codici per " + codice);
@@ -142,7 +144,7 @@ namespace EasyWebReport {
             MetaMaster master = Page.Master as MetaMaster;
             master?.setUniversita(Session["system_config_nome_universita"] as string);
 
-            lblMessaggio.Text = "Il servizio Web √® attivo";
+            lblMessaggio.Text = "Il servizio Web Ë attivo";
             GetVars.ClearUserConn(this);
             depcode_given = "";
 
@@ -166,7 +168,7 @@ namespace EasyWebReport {
 
             if (IsPostBack) {
                 if (txtNomeUtente.Text == "") {
-                    lblMessaggio.Text = "Il nome utente √® un campo obbligatorio.";
+                    lblMessaggio.Text = "Il nome utente Ë un campo obbligatorio.";
                     StopAnything = true;
                     return;
                 }
@@ -175,7 +177,7 @@ namespace EasyWebReport {
 
 
             if (depcode_given == null) {
-                lblMessaggio.Text = "Il nome codice dipartimento √® un campo obbligatorio.";
+                lblMessaggio.Text = "Il nome codice dipartimento Ë un campo obbligatorio.";
                 StopAnything = true;
                 return;
             }
@@ -195,7 +197,7 @@ namespace EasyWebReport {
 
                 if (UsrConn == null) {
                     sysConn.Close();
-                    return; //Messaggio gi√† viualizzato da ConnectToDepartment()
+                    return; //Messaggio gi‡ viualizzato da ConnectToDepartment()
                 }
                 QueryHelper QHS = UsrConn.GetQueryHelper();
 
@@ -211,8 +213,8 @@ namespace EasyWebReport {
 
 
                 if (UsrConn.Open() == false) {
-                    //Il Server del Dipartimento non √® in rete. 
-                    //Il servizio non √® disponibile in quanto il computer potrebbe essere spento.
+                    //Il Server del Dipartimento non Ë in rete. 
+                    //Il servizio non Ë disponibile in quanto il computer potrebbe essere spento.
                     labExtMessage.Text = "Il Server del Dipartimento non risponde.\r" +
                         "Potrebbe essere spento o momentaneamente fuori rete. \r" +
                         "Provi in seguito";
@@ -325,7 +327,7 @@ namespace EasyWebReport {
                 return;
 
             if (email == null || email == "") {
-                labExtMessage.Text = "Nel profilo non √® stata inserita l'email, non √® possibile reimpostare la password.";
+                labExtMessage.Text = "Nel profilo non Ë stata inserita l'email, non Ë possibile reimpostare la password.";
                 return;
             }
             Easy_DataAccess UsrConn = GetVars.GetUserConn(this);
@@ -341,8 +343,8 @@ namespace EasyWebReport {
             SM.To = email;
             string MsgBody = "";
             MsgBody = "Sulla pagina di easy Web sembra che lei abbia richiesto la reimpostazione della password.\r\n";
-            MsgBody += "Se non l'ha fatto, pu√≤ ignorare questa mail.\r\n";
-            MsgBody += "Se invece l'ha richiesta davvero, pu√≤ copiare questo codice per portare a termine l'operazione: .\r\n";
+            MsgBody += "Se non l'ha fatto, puÚ ignorare questa mail.\r\n";
+            MsgBody += "Se invece l'ha richiesta davvero, puÚ copiare questo codice per portare a termine l'operazione: .\r\n";
             MsgBody += calculateChecksum().Trim();
 
             SM.Subject = "Richiesta di reimpostazione password";
@@ -366,7 +368,7 @@ namespace EasyWebReport {
                 return;
             string error = null;
             if (txtPwd.Text == "") {
-                labExtMessage.Text = "La password √® un campo obbligatorio.";
+                labExtMessage.Text = "La password Ë un campo obbligatorio.";
                 return;
             }
             string Password = txtPwd.Text;
@@ -377,7 +379,7 @@ namespace EasyWebReport {
             }
             string code = txtToken.Text.Trim();
             if (code != calculateChecksum()) {
-                labExtMessage.Text = "Il codice inserito √® errato.";
+                labExtMessage.Text = "Il codice inserito Ë errato.";
                 return;
             }
             DataAccess sysConn = GetVars.GetSystemDataAccess(this, out error);
@@ -460,4 +462,3 @@ namespace EasyWebReport {
     }
 }
 
-

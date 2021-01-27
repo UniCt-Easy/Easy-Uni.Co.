@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_contoeconomico_coordanal_dm2012_new]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_contoeconomico_coordanal_dm2012_new]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_contoeconomico_coordanal_dm2012_new]
 GO
 	
@@ -138,7 +140,7 @@ INSERT INTO #dati  SELECT 1,'3) Proventi da Ricerche con finanziamenti competiti
 	2)Contributi Regioni e Province autonome
 	3)Contributi altre Amministrazioni locali
 	4)Contributi Unione Europea e altri Organismi Internazionali
-	5)Contributi da Universit√†
+	5)Contributi da Universit‡
 	6)Contributi da altri (pubblici)
 	7)Contributi da altri (privati)
 */
@@ -149,16 +151,16 @@ INSERT INTO #dati  SELECT 1,'3) Contributi altre Amministrazioni locali', 'A) II
 
 INSERT INTO #dati  SELECT 1, '4) Contributi Unione Europea e altri Organismi Internazionali', 'A) II 4)',  0,0,0,0, 'R','II. CONTRIBUTI',1 , _idsor1 from  #ANALITICA1
 
-INSERT INTO #dati  SELECT 1,'5) Contributi da Universit√†', 'A) II 5)', 0,0,0,0, 'R' ,'II. CONTRIBUTI',1, _idsor1 from  #ANALITICA1
+INSERT INTO #dati  SELECT 1,'5) Contributi da Universit‡', 'A) II 5)', 0,0,0,0, 'R' ,'II. CONTRIBUTI',1, _idsor1 from  #ANALITICA1
 INSERT INTO #dati  SELECT 1,'6) Contributi da altri enti (pubblici)', 'A) II 6)',  0,0,0,0, 'R' ,'II. CONTRIBUTI',1, _idsor1 from  #ANALITICA1
 INSERT INTO #dati  SELECT 1,'7) Contributi da altri enti (privati)', 'A) II 7)', 0,0,0,0, 'R' ,'II. CONTRIBUTI',1 , _idsor1 from  #ANALITICA1
 
 -------------- PROVENTI PER ATTIVITA' ASSISTENZIALE ---------------------------------- 
-INSERT INTO #dati  SELECT 2,'III. PROVENTI PER ATTIVITA‚Äô ASSISTENZIALE', 'A) III',  0,0,0,0, 'R',  null,1 , _idsor1 from  #ANALITICA1
+INSERT INTO #dati  SELECT 2,'III. PROVENTI PER ATTIVITAí ASSISTENZIALE', 'A) III',  0,0,0,0, 'R',  null,1 , _idsor1 from  #ANALITICA1
 -------------- PROVENTI PER GESTIONE DIRETTA ---------------------------------- 
 INSERT INTO #dati  SELECT 2,'IV. PROVENTI PER LA GESTIONE DIRETTA INTERVENTI PER IL DIRITTO ALLO STUDIO', 'A) IV',  0,0,0,0, 'R', null,1, _idsor1 from  #ANALITICA1
 -- V.ALTRI PROVENTI E RICAVI DIVERSI
--- 1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilit√† finanziaria
+-- 1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilit‡ finanziaria
 -- 2) Altri Proventi e Ricavi Diversi
 INSERT INTO #dati  SELECT 2,'V. ALTRI PROVENTI  E RICAVI DIVERSI','A) V',  0,0,0,0, 'R' ,  null,1, _idsor1 from  #ANALITICA1
 -------------- Variazioni Rimanenze  ---------------------------------- 
@@ -195,7 +197,7 @@ INSERT INTO #dati  SELECT 1,'2) Costi del personale dirigente e tecnico-amminist
 IX.COSTI DELLA GESTIONE CORRENTE
 1)Costi per sostegno agli studenti
 2)Costi per il diritto allo studio
-3)Costi per la ricerca e l'attivit√† editoriale
+3)Costi per la ricerca e l'attivit‡ editoriale
 4)Trasferimenti a partner di progetti coordinati
 5)Acquisto materiale consumo per laboratori
 6)Variazione rimanenze di materiale di consumo per laboratori
@@ -209,7 +211,7 @@ IX.COSTI DELLA GESTIONE CORRENTE
 INSERT INTO #dati  SELECT 2,'IX. COSTI DELLA GESTIONE CORRENTE', null, 0,0,0,0, 'C'  ,null,1   , _idsor1 from  #ANALITICA1
 INSERT INTO #dati  SELECT 1,'1) Costi per sostegno agli studenti', 'B) IX 1)', 0,0,0,0, 'C', 'IX. COSTI DELLA GESTIONE CORRENTE',1   , _idsor1 from  #ANALITICA1
 INSERT INTO #dati  SELECT 1,'2) Costi per il diritto allo studio', 'B) IX 2)', 0,0,0,0, 'C'  , 'IX. COSTI DELLA GESTIONE CORRENTE',1  , _idsor1 from  #ANALITICA1
-INSERT INTO #dati  SELECT 1,'3) Costi per l''attivit√† editoriale', 'B) IX 3)', 0,0,0,0, 'C', 'IX. COSTI DELLA GESTIONE CORRENTE',1  , _idsor1 from  #ANALITICA1
+INSERT INTO #dati  SELECT 1,'3) Costi per l''attivit‡ editoriale', 'B) IX 3)', 0,0,0,0, 'C', 'IX. COSTI DELLA GESTIONE CORRENTE',1  , _idsor1 from  #ANALITICA1
 INSERT INTO #dati  SELECT 1,'4) Trasferimenti a partner di progetti coordinati', 'B) IX 4)', 0,0,0,0, 'C' , 'IX. COSTI DELLA GESTIONE CORRENTE',1  , _idsor1 from  #ANALITICA1
 INSERT INTO #dati  SELECT 1,'5) Acquisto materiale consumo per laboratori', 'B) IX 5)', 0,0,0,0, 'C'  , 'IX. COSTI DELLA GESTIONE CORRENTE',1  , _idsor1 from  #ANALITICA1
 INSERT INTO #dati  SELECT 1,'6) Variazione rimanenze di materiale di consumo per laboratori', 'B) IX 6)', 0,0,0,0, 'C' , 'IX. COSTI DELLA GESTIONE CORRENTE',1  , _idsor1 from  #ANALITICA1
@@ -224,13 +226,13 @@ INSERT INTO #dati  SELECT 1,'12) Altri costi', 'B) IX 12)', 0,0,0,0, 'C', 'IX. C
 		1) Ammortamenti immobilizzazioni immateriali
 		2) Ammortamenti immobilizzazioni materiali
 		3) Svalutazioni immobilizzazioni
-		4) Svalutazioni dei crediti compresi nell'attivo circolante e nelle disponibilit√† liquide
+		4) Svalutazioni dei crediti compresi nell'attivo circolante e nelle disponibilit‡ liquide
 */
 INSERT INTO #dati  SELECT 2,'X. AMMORTAMENTI E SVALUTAZIONI', null, 0,0,0,0, 'C' ,null,1, _idsor1 from  #ANALITICA1
 INSERT INTO #dati  SELECT 1,'1) Ammortamenti immobilizzazioni immateriali', 'B) X 1)', 0,0,0,0, 'C','X. AMMORTAMENTI E SVALUTAZIONI',1, _idsor1 from  #ANALITICA1
 INSERT INTO #dati  SELECT 1,'2) Ammortamenti immobilizzazioni materiali', 'B) X 2)', 0,0,0,0, 'C','X. AMMORTAMENTI E SVALUTAZIONI',1 , _idsor1 from  #ANALITICA1
 INSERT INTO #dati  SELECT 1,'3) Svalutazioni immobilizzazioni', 'B) X 3)', 0,0,0,0, 'C','X. AMMORTAMENTI E SVALUTAZIONI',1 , _idsor1 from  #ANALITICA1
-INSERT INTO #dati  SELECT 1,'4) Svalutazioni dei crediti compresi nell‚Äôattivo circolante e nelle disponibilit√† liquide', 'B) X 4)', 0,0,0,0, 'C' ,'X. AMMORTAMENTI E SVALUTAZIONI',1, _idsor1 from  #ANALITICA1
+INSERT INTO #dati  SELECT 1,'4) Svalutazioni dei crediti compresi nellíattivo circolante e nelle disponibilit‡ liquide', 'B) X 4)', 0,0,0,0, 'C' ,'X. AMMORTAMENTI E SVALUTAZIONI',1, _idsor1 from  #ANALITICA1
 INSERT INTO #dati  SELECT 2,'XI. ACCANTONAMENTI PER RISCHI E ONERI', 'B) XI', 0,0,0,0, 'C', null, 1 , _idsor1 from  #ANALITICA1
 INSERT INTO #dati  SELECT 2,'XII. ONERI DIVERSI DI GESTIONE','B) XII', 0,0,0,0, 'C' , null, 1, _idsor1 from  #ANALITICA1
 INSERT INTO #dati  SELECT 0,'TOTALE COSTI  (B)', null, 0,0,0,0, 'C' ,'RISULTATO DI ESERCIZIO',-1 , _idsor1 from  #ANALITICA1
@@ -250,8 +252,8 @@ INSERT INTO #dati  SELECT 1,' Utili', 'C) 3)', 0,0,0,0, 'R' , '3) Utili e Perdit
 INSERT INTO #dati  SELECT 1,' Perdite', 'C) 3)', 0,0,0,0, 'C' ,'3) Utili e Perdite su cambi',-1, _idsor1 from  #ANALITICA1
 /*
 	D) RETTIFICHE DI VALORE DI ATTIVITA' FINANZIARIE
-		1) Rivalutazioni di attivit√† finanziarie
-		2) Svalutazioni di attivit√† finanziarie
+		1) Rivalutazioni di attivit‡ finanziarie
+		2) Svalutazioni di attivit‡ finanziarie
 */
 INSERT INTO #dati  SELECT 2,'D) RETTIFICHE DI VALORE DI ATTIVITA'' FINANZIARIE', null, 0,0,0,0, 'A', null,1 , _idsor1 from  #ANALITICA1  --,'S' 
 INSERT INTO #dati  SELECT 1,'1) Rivalutazioni', 'D) 1)', 0,0,0,0, 'R', 'D) RETTIFICHE DI VALORE DI ATTIVITA'' FINANZIARIE',1 , _idsor1 from  #ANALITICA1
@@ -269,7 +271,7 @@ INSERT INTO #dati  SELECT 1,'2) Oneri',  'E) 2)', 0,0,0,0, 'C','E) PROVENTI E ON
 */
 INSERT INTO #dati  SELECT 1,'F) IMPOSTE SUL REDDITO DELL''ESERCIZIO CORRENTI, DIFFERITE, ANTICIPATE', 'F)', 0,0,0,0, 'C', 'RISULTATO DI ESERCIZIO', -1, _idsor1 from  #ANALITICA1
 /*
-	G) Utilizzo di riservedi Patrimonio Netto derivanti dalla contabilit√† economico-patrimoniale
+	G) Utilizzo di riservedi Patrimonio Netto derivanti dalla contabilit‡ economico-patrimoniale
 */
 -------------RISULTATO DI ESERCIZIO Presunto ----------------------------------  
 INSERT INTO #dati  SELECT 4,'RISULTATO DI ESERCIZIO', null,  0,0,0,0, 'SUBT' , null, 1 , _idsor1 from  #ANALITICA1
@@ -553,4 +555,3 @@ End
 --	exec rpt_contoeconomico_coordanal_dm2012_new 2018, {ts '2018-01-01 00:00:00'}, {ts '2018-12-31 00:00:00'}, '%','S','N',null,'N'
 --	exec rpt_contoeconomico_coordanal_dm2012_new 2019, {ts '2019-01-01 00:00:00'}, {ts '2019-12-31 00:00:00'}, '0001','S', 'S',2033 ,'S'
 --	exec rpt_contoeconomico_coordanal_dm2012_new 2018, {ts '2018-01-01 00:00:00'}, {ts '2018-12-31 00:00:00'}, '%','S',	'S',2033 ,'S'
-	

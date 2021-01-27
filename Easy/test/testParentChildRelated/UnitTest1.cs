@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using metadatalibrary;
 using System.Data;
@@ -74,35 +76,35 @@ namespace testParentChildRelated {
             DataRow r = DS.account.First();
             
             var a = r.childs(DS.config).ToArray();
-            Assert.AreEqual(a.Count(), 3); //mi aspetto sia 3 perch√© ho 3 colonne in config con idacc_pl = ID1 
+            Assert.AreEqual(a.Count(), 3); //mi aspetto sia 3 perchÈ ho 3 colonne in config con idacc_pl = ID1 
             var x = r.GetChildRows("account_config").ToArray();
             Assert.AreEqual(a.Count(), x.Count()); //verifico che childs = GetChildRows
             var ar = r.related(DS.config).ToArray();
-            Assert.AreEqual(ar.Count(), 3); //mi aspetto sia 3 perch√© ho 3 colonne in config con idacc_pl = ID1  
+            Assert.AreEqual(ar.Count(), 3); //mi aspetto sia 3 perchÈ ho 3 colonne in config con idacc_pl = ID1  
             Assert.AreEqual(a.Count(), ar.Count()); //verifico che childs = related
             Assert.AreEqual(x.Count(), ar.Count()); //verifico che GetChildRows = related
 
             
             var aa = r.childs(DS.config).First(); //prendo la prima riga del figlio
             var aaa = aa.related(DS.account); //prendo la riga del padre
-            Assert.AreEqual(aaa.ToArray().Count(),1); //mi aspetto sia 1 perch√© in account solo 1 riga ha idacc = ID1
+            Assert.AreEqual(aaa.ToArray().Count(),1); //mi aspetto sia 1 perchÈ in account solo 1 riga ha idacc = ID1
 
             //var aaaa = aaa.related(DS.account); //aaaa = config
             //Assert.AreEqual(aaaa.ToArray().Count(), 3); 
 
             var c = r.childs(DS.account).ToArray(); //faccio il childs su se stesso
-            Assert.AreEqual(c.Count(), 0); //mi aspetto 0 perch√© non esiste la relazione su se stesso
+            Assert.AreEqual(c.Count(), 0); //mi aspetto 0 perchÈ non esiste la relazione su se stesso
 
             var d = r.related(DS.account).ToArray(); //faccio il related su se stesso
-            Assert.AreEqual(c.Count(), 0); //mi aspetto 0 perch√© non esiste la relazione su se stesso
+            Assert.AreEqual(c.Count(), 0); //mi aspetto 0 perchÈ non esiste la relazione su se stesso
 
             var p = r.parent(DS.account); //faccio il padre di se stesso
-            Assert.IsNull(p); //mi aspetto null perch√© non esiste la relazione su se stesso
+            Assert.IsNull(p); //mi aspetto null perchÈ non esiste la relazione su se stesso
 
             var p2 = r.parent(DS.config); //faccio il parent su confing
-            Assert.IsNull(p2); //mi aspetto null perch√© non esiste la relazione su se stesso
+            Assert.IsNull(p2); //mi aspetto null perchÈ non esiste la relazione su se stesso
 
-            var b1 = r.childs(DS.config).First(); //prendo la prima riga del figlio perch√® la usero per trovare il suo padre
+            var b1 = r.childs(DS.config).First(); //prendo la prima riga del figlio perchË la usero per trovare il suo padre
             var b2 = b1.parent(DS.account); //prendo la riga del padre
             var b3 = b2.childs(DS.config).First();//ritorno alla situazione b1
             var b4 = b3.parent(DS.account);
@@ -126,11 +128,11 @@ namespace testParentChildRelated {
 
             DataRow r2 = DS.config.First(); //situazione opposta, parto dal figlio avente riga "ayear", "2017", "idacc_pl", "ID1"
             var p3 = r2.parent(DS.account);
-            Assert.AreEqual(p3.ayearValue, (short)2017); // mi aspetto 2017 perch√© lo ho valorizzato a 2017 all'inizio
+            Assert.AreEqual(p3.ayearValue, (short)2017); // mi aspetto 2017 perchÈ lo ho valorizzato a 2017 all'inizio
             //Assert.IsNull(p3.ayearOriginal); //non ha un valore originale nel db quella riga essendo creata in modo virtuale
             Assert.AreEqual(p3.ayear, (short)2017); //funziona come ayearValue
-            Assert.AreEqual(p3.investmentbudget_signValue,DBNull.Value); //DBNull perch√© non valorizzato 
-            Assert.AreNotEqual(p3.investmentbudget_signValue, null); //perch√© √® DBNull e non null
+            Assert.AreEqual(p3.investmentbudget_signValue,DBNull.Value); //DBNull perchÈ non valorizzato 
+            Assert.AreNotEqual(p3.investmentbudget_signValue, null); //perchÈ Ë DBNull e non null
 
             var re = r2.related(DS.account);
             Assert.AreEqual(re.ToArray().Count(), 1);
@@ -161,7 +163,7 @@ namespace testParentChildRelated {
             Assert.AreEqual(fore.ToArray()[1].ayear, (short)1);
             Assert.AreEqual(fore.ToArray()[2].ayear, (short)2); //come atteso la i viene incrementata ad ogni riga
 
-            fore._forEach((fe, i) => fe.ayear = i.Equals(1) ? (short)2014 : (short)2015 ); //uso la i in modo pi√π "intelligente"
+            fore._forEach((fe, i) => fe.ayear = i.Equals(1) ? (short)2014 : (short)2015 ); //uso la i in modo pi˘ "intelligente"
             Assert.AreEqual(fore.ToArray().Length, 3);
             Assert.AreEqual(fore.ToArray()[0].ayear, (short)2015);
             Assert.AreEqual(fore.ToArray()[1].ayear, (short)2014);
@@ -178,7 +180,7 @@ namespace testParentChildRelated {
             var forelimits = r.childs(DS.config);
             Assert.AreEqual(forelimits._IsEmpty(),true);
             Assert.AreEqual(forelimits._HasRows(), false);
-            Assert.AreEqual(forelimits.ToArray().Length, 0); //siamo nel caso in cui la colleziona √® vuota
+            Assert.AreEqual(forelimits.ToArray().Length, 0); //siamo nel caso in cui la colleziona Ë vuota
             forelimits._forEach(fe => fe.ayear = (short)2016);
             Assert.AreEqual(forelimits._IsEmpty(), true);
             Assert.AreEqual(forelimits._HasRows(), false);
@@ -257,13 +259,13 @@ namespace testParentChildRelated {
 
             var found = r.childs(DS.config)._Find(fin => fin.ayear == (short)2016);
             Assert.AreNotEqual(found.ayear, (short)2017);
-            Assert.AreEqual(found.ayear, (short)2016); //come atteso found. ci fa vedere i campi, ed √® una sola riga
+            Assert.AreEqual(found.ayear, (short)2016); //come atteso found. ci fa vedere i campi, ed Ë una sola riga
             Assert.IsNotNull(found.ayear);
             Assert.IsNotNull(found.ayearValue);
 
             var childs = DS.account._Find(fin => fin.idacc == "ID2").childs(DS.config);
-            Assert.AreEqual(childs.ToArray().Length, 1); //come atteso √® 1
-            Assert.AreEqual(childs.ToArray()[0].ayear, (short)2016); //come atteso found. ci fa vedere i campi, ed √® una sola riga
+            Assert.AreEqual(childs.ToArray().Length, 1); //come atteso Ë 1
+            Assert.AreEqual(childs.ToArray()[0].ayear, (short)2016); //come atteso found. ci fa vedere i campi, ed Ë una sola riga
             Assert.IsNotNull(childs.ToArray()[0].ayear); // != null
             Assert.IsNotNull(childs.ToArray()[0].ayearValue); // != null
 
@@ -318,13 +320,13 @@ namespace testParentChildRelated {
             createRow(DS.account, new string[] { "idacc", "ID2", "ayear", "2017", "codeacc", "C1" });
             createRow(DS.account, new string[] { "idacc", "ID3", "ayear", "2017", "codeacc", "C1" });
 
-            //CI METTIAMO IN UN CASO ESTREMO DOVE CONFIG √© VUOTA (config √® la table 2 nelle espressioni)
+            //CI METTIAMO IN UN CASO ESTREMO DOVE CONFIG È VUOTA (config Ë la table 2 nelle espressioni)
 
             var join2 = DS.account.Join(DS.config, (table1, table2) => table1["idacc"].Equals(table2.idacc_plValue));
 
             var leftjoin2 = DS.account.LeftJoin(DS.config, (table1, table2) => table1["idacc"].Equals(table2.idacc_plValue));
 
-            Assert.IsNotNull(join2);  //L'assert riesce quindi join non √® null, ma attenzione non contiene righe
+            Assert.IsNotNull(join2);  //L'assert riesce quindi join non Ë null, ma attenzione non contiene righe
             if (join2._HasRows()) {
                 Assert.AreEqual(join2.ToArray()[0].Item1.ayear, (short)2017);
                 Assert.AreEqual(join2.ToArray()[0].Item1.idaccValue, join1.ToArray()[0].Item2.idacc_plValue);

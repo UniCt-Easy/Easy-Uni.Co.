@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -750,6 +752,12 @@ namespace itineration_default { //missione//
 			this.button3 = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
 			this.tabDALIA = new System.Windows.Forms.TabPage();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.cmbDaliaFunzionale = new System.Windows.Forms.ComboBox();
+			this.gboxDipartimento = new System.Windows.Forms.GroupBox();
+			this.btnDipartimento = new System.Windows.Forms.Button();
+			this.txtCodiceDipartimento = new System.Windows.Forms.TextBox();
+			this.txtDaliaDipartimento = new System.Windows.Forms.TextBox();
 			this.grpCausaliAssunzioneDalia = new System.Windows.Forms.GroupBox();
 			this.txtCausaleAssunzione = new System.Windows.Forms.TextBox();
 			this.btnEsclusioneCIG = new System.Windows.Forms.Button();
@@ -794,12 +802,6 @@ namespace itineration_default { //missione//
 			this.label52 = new System.Windows.Forms.Label();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.myTip = new System.Windows.Forms.ToolTip(this.components);
-			this.gboxDipartimento = new System.Windows.Forms.GroupBox();
-			this.txtDaliaDipartimento = new System.Windows.Forms.TextBox();
-			this.txtCodiceDipartimento = new System.Windows.Forms.TextBox();
-			this.btnDipartimento = new System.Windows.Forms.Button();
-			this.groupBox3 = new System.Windows.Forms.GroupBox();
-			this.cmbDaliaFunzionale = new System.Windows.Forms.ComboBox();
 			this.tabCtrlMissione.SuspendLayout();
 			this.tabGeneralita.SuspendLayout();
 			this.gboxRif.SuspendLayout();
@@ -867,6 +869,8 @@ namespace itineration_default { //missione//
 			this.tabAllegati.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).BeginInit();
 			this.tabDALIA.SuspendLayout();
+			this.groupBox3.SuspendLayout();
+			this.gboxDipartimento.SuspendLayout();
 			this.grpCausaliAssunzioneDalia.SuspendLayout();
 			this.groupBox9.SuspendLayout();
 			this.tabCTanticipo.SuspendLayout();
@@ -874,8 +878,6 @@ namespace itineration_default { //missione//
 			this.groupBox14.SuspendLayout();
 			this.grpTratte.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).BeginInit();
-			this.gboxDipartimento.SuspendLayout();
-			this.groupBox3.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabCtrlMissione
@@ -899,7 +901,7 @@ namespace itineration_default { //missione//
 			this.tabCtrlMissione.Location = new System.Drawing.Point(0, 0);
 			this.tabCtrlMissione.Name = "tabCtrlMissione";
 			this.tabCtrlMissione.SelectedIndex = 0;
-			this.tabCtrlMissione.Size = new System.Drawing.Size(964, 527);
+			this.tabCtrlMissione.Size = new System.Drawing.Size(971, 527);
 			this.tabCtrlMissione.TabIndex = 0;
 			this.tabCtrlMissione.Tag = "itinerationlap.default.default";
 			// 
@@ -4217,13 +4219,78 @@ namespace itineration_default { //missione//
 			this.tabDALIA.Location = new System.Drawing.Point(4, 23);
 			this.tabDALIA.Name = "tabDALIA";
 			this.tabDALIA.Padding = new System.Windows.Forms.Padding(3);
-			this.tabDALIA.Size = new System.Drawing.Size(956, 500);
+			this.tabDALIA.Size = new System.Drawing.Size(963, 500);
 			this.tabDALIA.TabIndex = 14;
 			this.tabDALIA.Text = "DALIA";
 			this.tabDALIA.UseVisualStyleBackColor = true;
 			// 
+			// groupBox3
+			// 
+			this.groupBox3.Controls.Add(this.cmbDaliaFunzionale);
+			this.groupBox3.Location = new System.Drawing.Point(8, 258);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(379, 54);
+			this.groupBox3.TabIndex = 115;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Area funzionale - richiesta per il personale Tecnico / Amministrativo";
+			// 
+			// cmbDaliaFunzionale
+			// 
+			this.cmbDaliaFunzionale.FormattingEnabled = true;
+			this.cmbDaliaFunzionale.Location = new System.Drawing.Point(6, 19);
+			this.cmbDaliaFunzionale.Name = "cmbDaliaFunzionale";
+			this.cmbDaliaFunzionale.Size = new System.Drawing.Size(367, 21);
+			this.cmbDaliaFunzionale.TabIndex = 0;
+			this.cmbDaliaFunzionale.Tag = "itineration.iddalia_funzionale";
+			// 
+			// gboxDipartimento
+			// 
+			this.gboxDipartimento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.gboxDipartimento.Controls.Add(this.btnDipartimento);
+			this.gboxDipartimento.Controls.Add(this.txtCodiceDipartimento);
+			this.gboxDipartimento.Controls.Add(this.txtDaliaDipartimento);
+			this.gboxDipartimento.Location = new System.Drawing.Point(8, 202);
+			this.gboxDipartimento.Name = "gboxDipartimento";
+			this.gboxDipartimento.Size = new System.Drawing.Size(940, 50);
+			this.gboxDipartimento.TabIndex = 114;
+			this.gboxDipartimento.TabStop = false;
+			this.gboxDipartimento.Tag = "AutoChoose.txtDaliaDipartimento.default";
+			this.gboxDipartimento.Text = "Dipartimento (colonna  DIP-IST)";
+			// 
+			// btnDipartimento
+			// 
+			this.btnDipartimento.Location = new System.Drawing.Point(9, 18);
+			this.btnDipartimento.Name = "btnDipartimento";
+			this.btnDipartimento.Size = new System.Drawing.Size(104, 23);
+			this.btnDipartimento.TabIndex = 2;
+			this.btnDipartimento.Tag = "choose.dalia_dipartimento.default";
+			this.btnDipartimento.Text = "Dipartimento";
+			this.btnDipartimento.UseVisualStyleBackColor = true;
+			// 
+			// txtCodiceDipartimento
+			// 
+			this.txtCodiceDipartimento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCodiceDipartimento.Location = new System.Drawing.Point(827, 19);
+			this.txtCodiceDipartimento.Name = "txtCodiceDipartimento";
+			this.txtCodiceDipartimento.Size = new System.Drawing.Size(107, 20);
+			this.txtCodiceDipartimento.TabIndex = 1;
+			this.txtCodiceDipartimento.Tag = "dalia_dipartimento.codedip";
+			// 
+			// txtDaliaDipartimento
+			// 
+			this.txtDaliaDipartimento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDaliaDipartimento.Location = new System.Drawing.Point(131, 19);
+			this.txtDaliaDipartimento.Name = "txtDaliaDipartimento";
+			this.txtDaliaDipartimento.Size = new System.Drawing.Size(692, 20);
+			this.txtDaliaDipartimento.TabIndex = 0;
+			this.txtDaliaDipartimento.Tag = "dalia_dipartimento.title";
+			// 
 			// grpCausaliAssunzioneDalia
 			// 
+			this.grpCausaliAssunzioneDalia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpCausaliAssunzioneDalia.Controls.Add(this.txtCausaleAssunzione);
 			this.grpCausaliAssunzioneDalia.Controls.Add(this.btnEsclusioneCIG);
 			this.grpCausaliAssunzioneDalia.Location = new System.Drawing.Point(8, 150);
@@ -4262,7 +4329,7 @@ namespace itineration_default { //missione//
 			this.txtVoceSpesaDalia.Location = new System.Drawing.Point(213, 103);
 			this.txtVoceSpesaDalia.Name = "txtVoceSpesaDalia";
 			this.txtVoceSpesaDalia.ReadOnly = true;
-			this.txtVoceSpesaDalia.Size = new System.Drawing.Size(727, 20);
+			this.txtVoceSpesaDalia.Size = new System.Drawing.Size(734, 20);
 			this.txtVoceSpesaDalia.TabIndex = 112;
 			// 
 			// btnVoceSpesaDalia
@@ -4285,7 +4352,7 @@ namespace itineration_default { //missione//
 			this.groupBox9.Controls.Add(this.cmb_dalia_position);
 			this.groupBox9.Location = new System.Drawing.Point(8, 15);
 			this.groupBox9.Name = "groupBox9";
-			this.groupBox9.Size = new System.Drawing.Size(940, 80);
+			this.groupBox9.Size = new System.Drawing.Size(947, 80);
 			this.groupBox9.TabIndex = 110;
 			this.groupBox9.TabStop = false;
 			this.groupBox9.Text = "Banca Dati DALIA";
@@ -4294,7 +4361,7 @@ namespace itineration_default { //missione//
 			// 
 			this.label91.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label91.AutoSize = true;
-			this.label91.Location = new System.Drawing.Point(816, 25);
+			this.label91.Location = new System.Drawing.Point(823, 25);
 			this.label91.Name = "label91";
 			this.label91.Size = new System.Drawing.Size(118, 13);
 			this.label91.TabIndex = 110;
@@ -4313,7 +4380,7 @@ namespace itineration_default { //missione//
 			// textBox19
 			// 
 			this.textBox19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox19.Location = new System.Drawing.Point(816, 41);
+			this.textBox19.Location = new System.Drawing.Point(823, 41);
 			this.textBox19.Name = "textBox19";
 			this.textBox19.ReadOnly = true;
 			this.textBox19.Size = new System.Drawing.Size(116, 20);
@@ -4329,7 +4396,7 @@ namespace itineration_default { //missione//
 			this.cmb_dalia_position.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmb_dalia_position.Location = new System.Drawing.Point(205, 40);
 			this.cmb_dalia_position.Name = "cmb_dalia_position";
-			this.cmb_dalia_position.Size = new System.Drawing.Size(594, 21);
+			this.cmb_dalia_position.Size = new System.Drawing.Size(601, 21);
 			this.cmb_dalia_position.TabIndex = 6;
 			this.cmb_dalia_position.Tag = "itineration.iddaliaposition";
 			this.cmb_dalia_position.ValueMember = "iddaliaposition";
@@ -4695,71 +4762,10 @@ namespace itineration_default { //missione//
 			this.myTip.InitialDelay = 30;
 			this.myTip.ReshowDelay = 6;
 			// 
-			// gboxDipartimento
-			// 
-			this.gboxDipartimento.Controls.Add(this.btnDipartimento);
-			this.gboxDipartimento.Controls.Add(this.txtCodiceDipartimento);
-			this.gboxDipartimento.Controls.Add(this.txtDaliaDipartimento);
-			this.gboxDipartimento.Location = new System.Drawing.Point(8, 202);
-			this.gboxDipartimento.Name = "gboxDipartimento";
-			this.gboxDipartimento.Size = new System.Drawing.Size(932, 50);
-			this.gboxDipartimento.TabIndex = 114;
-			this.gboxDipartimento.TabStop = false;
-			this.gboxDipartimento.Tag = "AutoChoose.txtDaliaDipartimento.default";
-			this.gboxDipartimento.Text = "Dipartimento (colonna  DIP-IST)";
-			// 
-			// txtDaliaDipartimento
-			// 
-			this.txtDaliaDipartimento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDaliaDipartimento.Location = new System.Drawing.Point(131, 19);
-			this.txtDaliaDipartimento.Name = "txtDaliaDipartimento";
-			this.txtDaliaDipartimento.Size = new System.Drawing.Size(684, 20);
-			this.txtDaliaDipartimento.TabIndex = 0;
-			this.txtDaliaDipartimento.Tag = "dalia_dipartimento.title";
-			// 
-			// txtCodiceDipartimento
-			// 
-			this.txtCodiceDipartimento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtCodiceDipartimento.Location = new System.Drawing.Point(819, 19);
-			this.txtCodiceDipartimento.Name = "txtCodiceDipartimento";
-			this.txtCodiceDipartimento.Size = new System.Drawing.Size(107, 20);
-			this.txtCodiceDipartimento.TabIndex = 1;
-			this.txtCodiceDipartimento.Tag = "dalia_dipartimento.codedip";
-			// 
-			// btnDipartimento
-			// 
-			this.btnDipartimento.Location = new System.Drawing.Point(9, 18);
-			this.btnDipartimento.Name = "btnDipartimento";
-			this.btnDipartimento.Size = new System.Drawing.Size(104, 23);
-			this.btnDipartimento.TabIndex = 2;
-			this.btnDipartimento.Tag = "choose.dalia_dipartimento.default";
-			this.btnDipartimento.Text = "Dipartimento";
-			this.btnDipartimento.UseVisualStyleBackColor = true;
-			// 
-			// groupBox3
-			// 
-			this.groupBox3.Controls.Add(this.cmbDaliaFunzionale);
-			this.groupBox3.Location = new System.Drawing.Point(8, 258);
-			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(379, 54);
-			this.groupBox3.TabIndex = 115;
-			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "Area funzionale - richiesta per il personale Tecnico / Amministrativo";
-			// 
-			// cmbDaliaFunzionale
-			// 
-			this.cmbDaliaFunzionale.FormattingEnabled = true;
-			this.cmbDaliaFunzionale.Location = new System.Drawing.Point(6, 19);
-			this.cmbDaliaFunzionale.Name = "cmbDaliaFunzionale";
-			this.cmbDaliaFunzionale.Size = new System.Drawing.Size(367, 21);
-			this.cmbDaliaFunzionale.TabIndex = 0;
-			this.cmbDaliaFunzionale.Tag = "itineration.iddalia_funzionale";
-			// 
 			// Frm_itineration_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(964, 527);
+			this.ClientSize = new System.Drawing.Size(971, 527);
 			this.Controls.Add(this.tabCtrlMissione);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
@@ -4874,6 +4880,9 @@ namespace itineration_default { //missione//
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).EndInit();
 			this.tabDALIA.ResumeLayout(false);
 			this.tabDALIA.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
+			this.gboxDipartimento.ResumeLayout(false);
+			this.gboxDipartimento.PerformLayout();
 			this.grpCausaliAssunzioneDalia.ResumeLayout(false);
 			this.grpCausaliAssunzioneDalia.PerformLayout();
 			this.groupBox9.ResumeLayout(false);
@@ -4887,9 +4896,6 @@ namespace itineration_default { //missione//
 			this.grpTratte.ResumeLayout(false);
 			this.grpTratte.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).EndInit();
-			this.gboxDipartimento.ResumeLayout(false);
-			this.gboxDipartimento.PerformLayout();
-			this.groupBox3.ResumeLayout(false);
 			this.ResumeLayout(false);
 
         }

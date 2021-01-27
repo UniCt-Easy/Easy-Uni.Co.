@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -172,7 +174,7 @@ private void initClass() {
 	//////////////////// FLUSSOCREDITIDETAIL_CA /////////////////////////////////
 	var tflussocreditidetail_ca= new flussocreditidetailTable();
 	tflussocreditidetail_ca.TableName = "flussocreditidetail_ca";
-	tflussocreditidetail_ca.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","cf","iuv","annulment","idunivoco","codiceavviso","idsor1","idsor2","idsor3","idivakind","tax","number","p_iva","annotations","flag");
+	tflussocreditidetail_ca.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","cf","iuv","annulment","idunivoco","codiceavviso","idsor1","idsor2","idsor3","idivakind","tax","number","p_iva","annotations","flag","idlist");
 	tflussocreditidetail_ca.defineColumn("!estimkind", typeof(string));
 	tflussocreditidetail_ca.defineColumn("!cliente", typeof(string));
 	tflussocreditidetail_ca.ExtendedProperties["TableForPosting"]="flussocreditidetail";
@@ -241,7 +243,7 @@ private void initClass() {
 	//////////////////// FLUSSOCREDITIDETAIL_FATT /////////////////////////////////
 	var tflussocreditidetail_fatt= new flussocreditidetailTable();
 	tflussocreditidetail_fatt.TableName = "flussocreditidetail_fatt";
-	tflussocreditidetail_fatt.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","cf","iuv","annulment","idunivoco","codiceavviso","idsor1","idsor2","idsor3","idivakind","tax","number","p_iva","annotations","flag");
+	tflussocreditidetail_fatt.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","cf","iuv","annulment","idunivoco","codiceavviso","idsor1","idsor2","idsor3","idivakind","tax","number","p_iva","annotations","flag","idlist");
 	tflussocreditidetail_fatt.defineColumn("!invkind", typeof(string));
 	tflussocreditidetail_fatt.defineColumn("!cliente", typeof(string));
 	tflussocreditidetail_fatt.ExtendedProperties["TableForPosting"]="flussocreditidetail";
@@ -272,7 +274,7 @@ private void initClass() {
 	//////////////////// FLUSSOCREDITIDETAIL_UNLINKED /////////////////////////////////
 	var tflussocreditidetail_unlinked= new flussocreditidetailTable();
 	tflussocreditidetail_unlinked.TableName = "flussocreditidetail_unlinked";
-	tflussocreditidetail_unlinked.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","cf","iuv","idunivoco","codiceavviso","annulment","idsor1","idsor2","idsor3","idivakind","tax","number","p_iva","annotations","flag");
+	tflussocreditidetail_unlinked.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idinvkind","yinv","ninv","invrownum","competencystart","competencystop","description","idaccmotivecredit","idaccmotiverevenue","idaccmotiveundotax","idaccmotiveundotaxpost","idfinmotive","idreg","iduniqueformcode","idupb","nform","stop","expirationdate","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","cf","iuv","idunivoco","codiceavviso","annulment","idsor1","idsor2","idsor3","idivakind","tax","number","p_iva","annotations","flag","idlist");
 	tflussocreditidetail_unlinked.defineColumn("!invkind", typeof(string));
 	tflussocreditidetail_unlinked.defineColumn("!cliente", typeof(string));
 	tflussocreditidetail_unlinked.ExtendedProperties["TableForPosting"]="flussocreditidetail";

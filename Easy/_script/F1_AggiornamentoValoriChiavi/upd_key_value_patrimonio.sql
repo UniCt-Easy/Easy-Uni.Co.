@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿IF NOT EXISTS(SELECT * FROM assetusagekind WHERE idassetusagekind IN ('07_AC','07_AI'))
+
+IF NOT EXISTS(SELECT * FROM assetusagekind WHERE idassetusagekind IN ('07_AC','07_AI'))
 BEGIN
 	CREATE TABLE #temp
 	(
@@ -250,15 +252,15 @@ BEGIN
 	FROM #temp WHERE idassetloadkind = #temp.oldvalue
 
 	UPDATE entry
-	SET idrelated = SUBSTRING(idrelated, 1, LEN('assetloadÂ§')) +
+	SET idrelated = SUBSTRING(idrelated, 1, LEN('assetload§')) +
 	#temp.newvalue +
-	SUBSTRING(idrelated, LEN('assetloadÂ§') +
-		CHARINDEX('Â§', SUBSTRING(idrelated, len('assetloadÂ§')+1, LEN(idrelated))) , LEN(idrelated)
+	SUBSTRING(idrelated, LEN('assetload§') +
+		CHARINDEX('§', SUBSTRING(idrelated, len('assetload§')+1, LEN(idrelated))) , LEN(idrelated)
 	)
 	FROM #temp
-	WHERE idrelated LIKE 'assetloadÂ§%'
-	AND SUBSTRING(idrelated, LEN('assetloadÂ§') + 1,
-	CHARINDEX('Â§', SUBSTRING(idrelated, LEN('assetloadÂ§') + 1, LEN(idrelated))) - 1)
+	WHERE idrelated LIKE 'assetload§%'
+	AND SUBSTRING(idrelated, LEN('assetload§') + 1,
+	CHARINDEX('§', SUBSTRING(idrelated, LEN('assetload§') + 1, LEN(idrelated))) - 1)
 	= #temp.oldvalue
 
 	DROP TABLE #temp
@@ -300,18 +302,17 @@ BEGIN
 	FROM #temp WHERE idassetunloadkind = #temp.oldvalue
 
 	UPDATE entry
-	SET idrelated = SUBSTRING(idrelated, 1, LEN('assetunloadÂ§')) +
+	SET idrelated = SUBSTRING(idrelated, 1, LEN('assetunload§')) +
 	#temp.newvalue +
-	SUBSTRING(idrelated, LEN('assetunloadÂ§') +
-		CHARINDEX('Â§', SUBSTRING(idrelated, len('assetunloadÂ§')+1, LEN(idrelated))) , LEN(idrelated)
+	SUBSTRING(idrelated, LEN('assetunload§') +
+		CHARINDEX('§', SUBSTRING(idrelated, len('assetunload§')+1, LEN(idrelated))) , LEN(idrelated)
 	)
 	FROM #temp
-	WHERE idrelated LIKE 'assetunloadÂ§%'
-	AND SUBSTRING(idrelated, LEN('assetunloadÂ§') + 1,
-	CHARINDEX('Â§', SUBSTRING(idrelated, LEN('assetunloadÂ§') + 1, LEN(idrelated))) - 1)
+	WHERE idrelated LIKE 'assetunload§%'
+	AND SUBSTRING(idrelated, LEN('assetunload§') + 1,
+	CHARINDEX('§', SUBSTRING(idrelated, LEN('assetunload§') + 1, LEN(idrelated))) - 1)
 	= #temp.oldvalue
 
 	DROP TABLE #temp
 END
 GO
-	

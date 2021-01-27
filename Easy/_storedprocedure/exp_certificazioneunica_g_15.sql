@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_g_15]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_g_15]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_certificazioneunica_g_15]
 GO
  
@@ -60,7 +62,7 @@ AS BEGIN
 	SELECT @agencynumber =  agencynumber FROM config
 	WHERE  ayear = @annodichiarazione
 	
-	-- Il quadro G Ã¨ per i Dati relativi alla comunicazione dati certificazioni lavoro dipendente, assimilati ed assistenza fiscale
+	-- Il quadro G è per i Dati relativi alla comunicazione dati certificazioni lavoro dipendente, assimilati ed assistenza fiscale
 	CREATE TABLE #recordG 
 	(
 		progr int,
@@ -198,7 +200,7 @@ AS BEGIN
 	-- Si inseriscono i contratti del percipiente corrente.
 	-- per la Certificazione Unica
 	-- Vengono presi tutti i contratti di un fissato percipiente per i quali esiste almeno un cedolino che sia stato trasmesso
-	-- nell'anno dei redditi. Inoltre la prestazione del contratto al quale il cedolino Ã¨ associato deve essere associata
+	-- nell'anno dei redditi. Inoltre la prestazione del contratto al quale il cedolino è associato deve essere associata
 	-- al quadro G del 770 (rec770kind = 'G'). Altri dati ricavati sono l'imponibile previdenziale, l'INPS e INAIL trattenuti
 	-- le deduzioni, l'imponibile fiscale lordo del contratto e l'id e la data di fine del cedolino di conguaglio.
  
@@ -264,7 +266,7 @@ AS BEGIN
 	-- Contratto 10
 	-- Contratto 11
 	-- CUD inserito nel contratto 11 riferito al contratto 10
-	-- Il contratto 10 avrÃ  come padre il contratto 11
+	-- Il contratto 10 avrà come padre il contratto 11
 	UPDATE #contratti
 	SET padre = exhibitedcud.idcon
 	FROM exhibitedcud
@@ -272,15 +274,15 @@ AS BEGIN
 		AND exhibitedcud.fiscalyear = @annoredditi
 
 	-- Si definisce un contratto capofila per il percipiente
-	-- Un contratto capofila Ã¨ da considerarsi come radice dell'albero dei contratti
-	-- Se esiste un solo contratto con il campo PADRE non valorizzato sarÃ  questo contratto
+	-- Un contratto capofila è da considerarsi come radice dell'albero dei contratti
+	-- Se esiste un solo contratto con il campo PADRE non valorizzato sarà questo contratto
 	-- ad essere individuato come capofila
 	-- altrimenti si sceglie come capofila un contratto tra tutti quelli senza padre.
-	-- N.B. Per le prestazioni Co.Co.Co. per cui la certificazione associata Ã¨ il CUD
-	-- ove ci siano piÃ¹ contratti c'Ã¨ sempre un capofila, mentre per prestazioni tipo
-	-- assegnisti di ricerca accade che ci siano piÃ¹ contratti non legati tra loro in quanto
+	-- N.B. Per le prestazioni Co.Co.Co. per cui la certificazione associata è il CUD
+	-- ove ci siano più contratti c'è sempre un capofila, mentre per prestazioni tipo
+	-- assegnisti di ricerca accade che ci siano più contratti non legati tra loro in quanto
 	-- non esiste il concetto di trasformare un contratto pregresso in CUD per uno nuovo
-	-- in quanto non vi Ã¨ l'esigenza di effettuare un conguaglio fiscale.
+	-- in quanto non vi è l'esigenza di effettuare un conguaglio fiscale.
 	IF (SELECT COUNT(*) FROM #contratti WHERE padre IS NULL) = 1
 	BEGIN
 		UPDATE #contratti
@@ -351,12 +353,12 @@ AS BEGIN
 	,0)
 		
 	-- Calcolo dei redditi ai quali si possono applicare le deduzioni art. 11 e imposta lorda
-	-- Esso Ã¨ pari alla somma degli imponibili lordi delle ritenute fiscali nazionali associate ai
+	-- Esso è pari alla somma degli imponibili lordi delle ritenute fiscali nazionali associate ai
 	-- contratti del percipiente. I contratti da considerare sono solo quelli associati alla certificazione
 	-- CUD che non sono diventati a loro volta CUD per altri contratti. Si scartano le ritenute con codice
 	-- 08_IRPEF_FOC e 07_IRPEF_FO in quanto sono ritenute applicate a stranieri che non rientrano in questo calcolo
-	-- L'imposta lorda Ã¨ pari alla somma delle ritenute (il filtro Ã¨ quello descritto precedentemente), tant'Ã¨ che la
-	-- query Ã¨ la medesima
+	-- L'imposta lorda è pari alla somma delle ritenute (il filtro è quello descritto precedentemente), tant'è che la
+	-- query è la medesima
 	DECLARE @taxablegross	DECIMAL(19,2)
 	DECLARE @employtaxgross DECIMAL(19,2)
 	SELECT  @employtaxgross = SUM(cr.employtaxgross),	
@@ -373,7 +375,7 @@ AS BEGIN
 	SET @taxablegross  = isnull(@taxablegross,0)
 	SET @employtaxgross  = isnull(@employtaxgross,0)
 
-	-- Lo commento perchÃ¨ Antonio dice che i dati fiscali non vanno inseriti per le 
+	-- Lo commento perchè Antonio dice che i dati fiscali non vanno inseriti per le 
 	-- le prestazioni degli assegnisti totalmente esenti
 	--SET @taxablegross = @taxablegross + ISNULL (
 	--	(SELECT SUM(p.feegross) 	FROM	#contratti	 			 
@@ -394,7 +396,7 @@ AS BEGIN
 	--SET @employtaxgross  = isnull(@employtaxgross,0)
 
 	-- Calcolo della detrazione per familiari a carico
-	-- Essa Ã¨ pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
+	-- Essa è pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
 	-- non divenuti CUD per altri e la cui prestazione ricade nella certificazione CUD
 	-- Si considera ovviamente la sola detrazione con codice 28 che si riferisce ai familiari
 	DECLARE @detrazioni_familiari_a_carico	DECIMAL(19,2)
@@ -414,7 +416,7 @@ AS BEGIN
 
 	
 	-- Calcolo della detrazione per reddito
-	-- Essa Ã¨ pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
+	-- Essa è pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
 	-- non divenuti CUD per altri e la cui prestazione ricade nella cetificazione CUD
 	-- Si considera ovviamente la sola detrazione con codice 29 che si riferisce al reddito
 	DECLARE @detrazioni_per_reddito DECIMAL(19,2)
@@ -432,7 +434,7 @@ AS BEGIN
 	 --SET @detrazioni_annue_per_reddito = ISNULL(@detrazioni_annue_per_reddito,0)
 	
 	-- Calcolo della detrazione per oneri
-	-- Essa Ã¨ pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
+	-- Essa è pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
 	-- non divenuti CUD per altri e la cui prestazione ricade nella cetificazione CUD
 	-- Si considerano tutte le detrazioni che sono marcate come oneri detraibili (flagabatableexpense = 'S')
 	DECLARE @detrazioni_per_oneri DECIMAL(19,2)
@@ -456,7 +458,7 @@ AS BEGIN
     DECLARE @totale_detrazioni DECIMAL(19,2)
 	SET @totale_detrazioni  = @detrazioni_familiari_a_carico  + @detrazioni_per_reddito  + @detrazioni_per_oneri 
 	-- Calcolo della deduzione art. 10
-	-- Essa Ã¨ pari alla somma tra gli oneri sostenuti in altri contratti  e la somma delle deduzioni
+	-- Essa è pari alla somma tra gli oneri sostenuti in altri contratti  e la somma delle deduzioni
 	-- applicate sui cedolini associati ai contratti non divenuti CUD per altri e la cui prestazione
 	-- ricade nella cetificazione CUD e che non abbiamo come ritenute fiscali nazionali quelle con codice
 	-- 08_IRPEF_FOC o 07_IRPEF_FO
@@ -488,7 +490,7 @@ AS BEGIN
 	-- Si considera la somma delle ritenute nette fiscali nazionali con codice differente
 	-- da 08_IRPEF_FOC e 07_IRPEF_FO
 	-- Non si filtra sulla certificazione in quanto le prestazioni che non rientrano nel CUD
-	-- non pagano IRPEF e quindi il loro contributo Ã¨ nullo
+	-- non pagano IRPEF e quindi il loro contributo è nullo
 	DECLARE @ritenuta_irpef DECIMAL(19,2)
 	SET @ritenuta_irpef =
 	ISNULL(
@@ -521,7 +523,7 @@ AS BEGIN
 		-- Si considera la somma delle ritenute nette fiscali regionali dei cedolini associati a contratti
 		-- che non hanno ritenute con codice uguale a 08_IRPEF_FOC e 07_IRPEF_FO
 		-- Non si filtra sulla certificazione in quanto le prestazioni che non rientrano nel CUD
-		-- non pagano le addizionali regionali e quindi il loro contributo Ã¨ nullo
+		-- non pagano le addizionali regionali e quindi il loro contributo è nullo
 	DECLARE @ritenuta_addreg_irpef DECIMAL(19,2)	
 	SET @ritenuta_addreg_irpef =
 		ISNULL(
@@ -581,7 +583,7 @@ AS BEGIN
 		-- Calcolo della addizionale comunale all'IRPEF
 		-- Si considera la somma delle ritenute nette fiscali comunali con codice pari a 05_ADDCOMU
 		-- Non si filtra sulla certificazione in quanto le prestazioni che non rientrano nel CUD
-		-- non pagano le addizionali regionali e quindi il loro contributo Ã¨ nullo
+		-- non pagano le addizionali regionali e quindi il loro contributo è nullo
 		DECLARE @ritenuta_addcom_irpef_saldo_2014 DECIMAL(19,2)
 		SET @ritenuta_addcom_irpef_saldo_2014 =
 		ISNULL(
@@ -608,10 +610,10 @@ AS BEGIN
 			AND exhibitedcud.idlinkedcon IS NULL)
 	,0)
 
-	-- Il saldo dell'addizionale comunale Ã¨ pari alla differenza tra addizionale comunale e acconto alla stessa
+	-- Il saldo dell'addizionale comunale è pari alla differenza tra addizionale comunale e acconto alla stessa
 	SELECT @ritenuta_addcom_irpef_saldo_2014  = @ritenuta_addcom_irpef_saldo_2014 - @ritenuta_addcom_irpef_acconto_2014   
 
-	-- Se il saldo Ã¨ negativo si valorizza il solo campo inerente all'acconto impostando a NULL il campo del saldo
+	-- Se il saldo è negativo si valorizza il solo campo inerente all'acconto impostando a NULL il campo del saldo
 	-- altrimenti si valorizza il campo del saldo impostando a NULL il campo dell'acconto
 	if @ritenuta_addcom_irpef_saldo_2014 < 0
 	begin
@@ -633,7 +635,7 @@ AS BEGIN
 	SELECT @workingdays = count(*) from #workdays where worked='S'
 
 	-- Se i giorni lavorati superano l'anno si pongono pari al numero di giorni dell'anno
-	-- non Ã¨ contemplato, a quanto pare, l'anno bisestile
+	-- non è contemplato, a quanto pare, l'anno bisestile
 	IF @workingdays>365 
 	BEGIN
 		SET @workingdays=365
@@ -706,7 +708,7 @@ AS BEGIN
 	DECLARE @taxablegross_irpef_stranieri decimal(19,2)
 	DECLARE @ritenuta_irpef_stranieri decimal(19,2)
 	-- Calcolo dei redditi ai quali si possono applicare le deduzioni art. 11
-	-- Esso Ã¨ pari alla somma degli imponibili lordi delle ritenute fiscali con codice 08_IRPEF_FOC o 07_IRPEF_FO
+	-- Esso è pari alla somma degli imponibili lordi delle ritenute fiscali con codice 08_IRPEF_FOC o 07_IRPEF_FO
 	-- associate ai contratti del percipiente. I contratti da considerare sono solo quelli associati alla certificazione
 	-- CUD che non sono diventati a loro volta CUD per altri contratti. 
 			
@@ -796,7 +798,7 @@ AS BEGIN
 	DECLARE @taxablegross_fondocredito_dipendentipubblici	decimal(19,2)
 	DECLARE @ritenuta_fondocredito_dipendentipubblici		decimal(19,2)
 	
-	-- Esso Ã¨ pari alla somma degli imponibili lordi delle ritenute previdenziali con codice 07_INPDAP_CAMM o 07_INPDAP_CDIP o 14_Rit. L.438/9
+	-- Esso è pari alla somma degli imponibili lordi delle ritenute previdenziali con codice 07_INPDAP_CAMM o 07_INPDAP_CDIP o 14_Rit. L.438/9
 	-- associate ai contratti del percipiente. I contratti da considerare sono solo quelli associati alla certificazione
 	-- CUD che non sono diventati a loro volta CUD per altri contratti. 
 									         
@@ -915,7 +917,7 @@ AS BEGIN
 	
 	declare @mesiSenzaEmensdipendentipubblici VARCHAR(12)
 	declare @emensTuttiIMesidipendentipubblici int
-	-- Calcolo dei mesi dove non Ã¨ stato prodotto l'E-Mense
+	-- Calcolo dei mesi dove non è stato prodotto l'E-Mense
 	set @mesiSenzaEmensdipendentipubblici = --todo: eliminare i mesi in cui inps=0
 		  case WHEN exists (SELECT * from #cedolini
 		  JOIN #contratti
@@ -1165,7 +1167,7 @@ AS BEGIN
 				
 		declare @mesiSenzaEmens VARCHAR(12)
 		declare @emensTuttiIMesi int
-		-- Calcolo dei mesi dove non Ã¨ stato prodotto l'E-Mense
+		-- Calcolo dei mesi dove non è stato prodotto l'E-Mense
 		set @mesiSenzaEmens = --todo: eliminare i mesi in cui inps=0
 			  case WHEN exists (SELECT * from #cedolini
 			  JOIN #contratti
@@ -1687,9 +1689,9 @@ AS BEGIN
 	-------- Dati relativi ai conguagli in caso di Redditi erogati da altri soggetti -----------
 	--------------------------------------------------------------------------------------------
 	
-	DECLARE @DB001301 DECIMAL(19,2)		-- Totale redditi conguagliati giÃ  compresi nel punto 1
+	DECLARE @DB001301 DECIMAL(19,2)		-- Totale redditi conguagliati già compresi nel punto 1
 	DECLARE @DB001305 VARCHAR(16)	    -- Codice fiscale
-	DECLARE @DB001308 DECIMAL(19,2)		-- Reddito conguagliato giÃ  compreso nel punto 1
+	DECLARE @DB001308 DECIMAL(19,2)		-- Reddito conguagliato già compreso nel punto 1
 	DECLARE @DB001313 DECIMAL(19,2)	    -- Ritenute
 	DECLARE @DB001315 DECIMAL(19,2)		-- Addizionale regionale
 	DECLARE @DB001316 DECIMAL(19,2)	    -- Addizionale comunale Acconto 2014
@@ -1861,7 +1863,7 @@ AS BEGIN
 		SELECT @progrCom,  1, 'DB80'+ CONVERT(VARCHAR(3),idaltrofiglio+2),1, '006', minoreDiTreAnni 
 		FROM #altrofiglio where minoreDiTreAnni <> ''
 
-	--DECLARE @DB803A07	DECIMAL(19,6)--Percentuale di detrazione spettante	PC si puÃ² omettee se c'Ã¨ la percentuale
+	--DECLARE @DB803A07	DECIMAL(19,6)--Percentuale di detrazione spettante	PC si può omettee se c'è la percentuale
 	INSERT INTO #recordg (progr,  modulo, quadro, riga, colonna, intero)
 		SELECT @progrCom, 1, 'DB80'+ CONVERT(VARCHAR(3),idaltrofiglio+2), 1,'A07',
 		100 * percentualeDiDetrazioneSpettante/numeroMesiACarico 
@@ -1894,8 +1896,8 @@ AS BEGIN
 		DECLARE @DC001010	DECIMAL (19,2)	-- Contributi dovuti VP
 		DECLARE @DC001011	DECIMAL (19,2)	-- Contributi a carico del collaboratore trattenuti VP
 		DECLARE @DC001012	DECIMAL (19,2)	-- Contributi versati VP
-		DECLARE @DC001013	INT				-- Mesi per i quali Ã¨ stata presentata la denuncia UniEmens - Tutti CB
-		DECLARE @DC001014	VARCHAR(12)		-- Mesi per i quali Ã¨ stata presentata la denuncia UniEmens
+		DECLARE @DC001013	INT				-- Mesi per i quali è stata presentata la denuncia UniEmens - Tutti CB
+		DECLARE @DC001014	VARCHAR(12)		-- Mesi per i quali è stata presentata la denuncia UniEmens
 		
 		SET @DC001001 = @agencynumber 
 		SET @DC001009= isnull(@compensoprev,0)
@@ -1934,8 +1936,8 @@ AS BEGIN
 		DECLARE @DC001024	DECIMAL (19,2)	-- Totale contributi pensionistici
 		DECLARE @DC001029	DECIMAL (19,2)	-- Totale imponibile Gestione Credito
 		DECLARE @DC001030	DECIMAL (19,2)	-- Totale contributo Gestione Credito
-		DECLARE @DC001033	INT				-- Mesi per i quali Ã¨ stata presentata la denuncia UniEmens - Tutti CB
-		DECLARE @DC001034	VARCHAR(12)		-- Mesi per i quali Ã¨ stata presentata la denuncia UniEmens
+		DECLARE @DC001033	INT				-- Mesi per i quali è stata presentata la denuncia UniEmens - Tutti CB
+		DECLARE @DC001034	VARCHAR(12)		-- Mesi per i quali è stata presentata la denuncia UniEmens
  
 		SET @DC001015 =	@codfiscEnte -- Codice fiscale Amministrazione	  
 		SET @DC001016 = '00000'   -- Progressivo azienda
@@ -1989,18 +1991,18 @@ AS BEGIN
 ------------------------------------------------------------------------------------------------------------------
 ------------------------------------ INSERIMENTO DELLE ANNOTAZIONI -----------------------------------------------
 ------------------------------------------------------------------------------------------------------------------
---AC â€“ La detrazione per carichi di famiglia Ã¨ stata calcolata in relazione alla durata del rapporto di lavoro.
---Nel caso di rapporto di lavoro inferiore allâ€™anno solare, il sostituto calcola la detrazione 
+--AC – La detrazione per carichi di famiglia è stata calcolata in relazione alla durata del rapporto di lavoro.
+--Nel caso di rapporto di lavoro inferiore all’anno solare, il sostituto calcola la detrazione 
 --per carichi di famiglia in relazione al periodo di lavoro, salvo che il sostituito non abbia richiesto 
---espressamente di poterne fruire per lâ€™intero periodo di imposta (qualora ne ricorrano i presupposti). 
+--espressamente di poterne fruire per l’intero periodo di imposta (qualora ne ricorrano i presupposti). 
 --Nel caso in cui le suddette detrazioni siano state determinate in relazione al periodo di lavoro, 
 --il sostituto ne deve dare comunicazione al percipiente nelle annotazioni (cod. AC).
 --------------- NOI LE APPLICHIAMO SEMPRE PER INTERO PERCIO' QUESTE ANNOTAZIONI NON VANNOI SCRITTE ---------------- 
 -------------------------------------------------------------------------------------------------------------------
 
-	--AI - Informazioni relative al reddito/i certificato/i: tipologia (â€¦), data inizio e data fine per ciascun periodo di lavoro o pensione (â€¦), importo (â€¦ ).
-	--Reddito assimilato al lavoro dipendente art. 50 D.P.R. 917/86, rapporto a tempo determinato, data inizio e data fine per ciascun periodo di lavoro dal â€¦. Al â€¦.  importo euro â€¦..
-	--(Da valorizzare ogni volta che Ã¨ valorizzato il campo 1 Redditi di lavoro dipendente e assimilati....)
+	--AI - Informazioni relative al reddito/i certificato/i: tipologia (…), data inizio e data fine per ciascun periodo di lavoro o pensione (…), importo (… ).
+	--Reddito assimilato al lavoro dipendente art. 50 D.P.R. 917/86, rapporto a tempo determinato, data inizio e data fine per ciascun periodo di lavoro dal …. Al ….  importo euro …..
+	--(Da valorizzare ogni volta che è valorizzato il campo 1 Redditi di lavoro dipendente e assimilati....)
 
 	--"AJ - Redditi totalmente esentati da imposizione in Italia: indicare Importo del reddito."
 	--(Quando si usa una prestazione che abbia il flag sul tipo di prestazione "Per residenti all'estero" e la prestazione non ha ritenute fiscali associate), 
@@ -2014,28 +2016,28 @@ AS BEGIN
 	--"Credito addizionale regionale rimborsaro: importo del sostituito e importo del coniuge"
 	--"Credito addizionale comunale rimborsaro: importo del sostituito e importo del coniuge"
 
-	--"AN - La detrazione minima Ã¨ stata ragguagliata al periodi di lavoro. Il percipiente puÃ² fruire della detrazione per l'intero anno in sede di dichiarazione dei redditi, semprechÃ¨ non sia stata giÃ  attribuita da un altro datore di lavoro e risulti effettivamente spettante."
-	--(Nel caso di rapporti di lavoro a tempo determinato o a tempo indeterminato di durata inferiore allâ€™anno (inizio o cessazione del rapporto di lavoro nel corso dellâ€™anno), limitatamente ai contratti in cui Ã¨ stato scelto di applicare la detrazione)
+	--"AN - La detrazione minima è stata ragguagliata al periodi di lavoro. Il percipiente può fruire della detrazione per l'intero anno in sede di dichiarazione dei redditi, semprechè non sia stata già attribuita da un altro datore di lavoro e risulti effettivamente spettante."
+	--(Nel caso di rapporti di lavoro a tempo determinato o a tempo indeterminato di durata inferiore all’anno (inizio o cessazione del rapporto di lavoro nel corso dell’anno), limitatamente ai contratti in cui è stato scelto di applicare la detrazione)
 
 	--"AR - Dettaglio oneri deducibili: descrizione onere, importo. Tali importi non vanno riportati nella dichiarazione dei redditi"
-	--(Nel contratto abbiamo la possibilitÃ  di inserire gli oneri deducibili)
+	--(Nel contratto abbiamo la possibilità di inserire gli oneri deducibili)
 
 	--"AX - Reddito assimilato assoggettato a ritenuta a titolo d'imposta, indicare importo, indicare ritenuta a titolo d'imposta operata."
-	--(Valorizzare quando il compenso Ã¨ un parasubordinato ed Ã¨ associata ad una ritenuta IRPEF del 30%. La stessa condizione che abbiamo quando valorizziamo il campi del modello 221 e 222)
+	--(Valorizzare quando il compenso è un parasubordinato ed è associata ad una ritenuta IRPEF del 30%. La stessa condizione che abbiamo quando valorizziamo il campi del modello 221 e 222)
 
 	--"BB - Saldo dell'addizionale comunale all'IRPEF non operata in quanto in possesso dei requisiti reddituali per usufruire interamente della fascia di esenzione deliberata"
-	--(Da indicare quando non si calcola l'addizionale comunale all'IRPEF perchÃ¨ il reddito rientra nei limiti di esenzione. Ad esempio se il comune prevede una fascia di esenzione dell'addizionale comunale all'IRPEF)
+	--(Da indicare quando non si calcola l'addizionale comunale all'IRPEF perchè il reddito rientra nei limiti di esenzione. Ad esempio se il comune prevede una fascia di esenzione dell'addizionale comunale all'IRPEF)
 
 	--"BQ - Redditi totalmente esentati da imposizione in Italia: indicare Importo del reddito."
 	--(Qundo si usa una prestazione che non abbia il falg in tipo prestazione sull'opzione "Per residenti all'estero" e la prestazione non ha ritenute fiscali associate)
 
 	--"GH - Le operazioni di conguaglio sono state effettuate con riferimento ad un domicilio fiscale individuata sulla base della precedente normativa, il contribuente deve procedere alla presentazione della dichiarazione dei redditi per la corretta liquidazione delle imposte dovute."
-	--(Tale dicitura deve esserci quando il percipiente ha cambiato indirizzo nel corso dell'anno 2014 e il contratto non Ã¨ arrivato al 31/12/2014, quindi il contratto si chiude a fine anno)
+	--(Tale dicitura deve esserci quando il percipiente ha cambiato indirizzo nel corso dell'anno 2014 e il contratto non è arrivato al 31/12/2014, quindi il contratto si chiude a fine anno)
 	-- Gestione delle note AI e AJ
 	-- Queste note per ogni contratto o CUD cartaceo presentato devono annotare il periodo di lavoro e la tipologia
 	-- di lavoro intrapresa tra il percipiente ed il datore di lavoro
 	-- La nota AI vale per i soli percipienti che non sono stranieri in convenzione
-	-- mentre la nota AJ deve essere specificata per gli stranieri, dove sis specifica che il reddito Ã¨ risultato 
+	-- mentre la nota AJ deve essere specificata per gli stranieri, dove sis specifica che il reddito è risultato 
 	-- esente in Italia
 	DECLARE @NN VARCHAR(400)
 	DECLARE @contacud int
@@ -2113,8 +2115,8 @@ AS BEGIN
 				END
 				 +
 				'Rapporto a tempo determinato,  da ' + CONVERT(varchar(16), @ec_start, 105) + ' a ' + CONVERT(varchar(16), @ec_stop, 105) + 
-			 +  ' Importo: â‚¬ ' + CONVERT(varchar(16), @ec_taxablegross)  
-			-- [Nota AI] (Questa nota Ã¨ sicuramente presente almeno per il contratto principale)
+			 +  ' Importo: € ' + CONVERT(varchar(16), @ec_taxablegross)  
+			-- [Nota AI] (Questa nota è sicuramente presente almeno per il contratto principale)
 			-- 
 			INSERT INTO #recordg (progr, quadro, modulo, riga, colonna, stringa)
 				VALUES(@progrCom, 'NN', 1, @contacud, '001', @NN)
@@ -2148,7 +2150,7 @@ AS BEGIN
 			 
 				SET @NN =
 					'AJ - Redditi totalmente esentati da imposizione in Italia: '   
-					+ 'Importo: â‚¬ ' + CONVERT(varchar(16), @previdenza)  
+					+ 'Importo: € ' + CONVERT(varchar(16), @previdenza)  
 				INSERT INTO #recordg (progr, quadro, modulo, riga, colonna, stringa)
 					VALUES(@progrCom, 'NN', 1, @contacud, '002', @NN)
 		END
@@ -2164,18 +2166,18 @@ AS BEGIN
 	-- Credito Irpef Rimborsato: importo del sostituito e importo del coniuge" -----------------
 	-- Credito addizionale regionale rimborsaro: importo del sostituito e importo del coniuge" -
 	-- Credito addizionale comunale rimborsaro: importo del sostituito e importo del coniuge" --
-	-- Non sono stati effettuati rimborsi dai sostituti ma bensÃ¬ solo ritenute -----------------
+	-- Non sono stati effettuati rimborsi dai sostituti ma bensì solo ritenute -----------------
     
     --------------------------------------------------------------------------------------------
     --------------------------------------------------------------------------------------------
-	-- "AN - La detrazione minima Ã¨ stata ragguagliata al periodi di lavoro. -------------------
-	-- Il percipiente puÃ² fruire della detrazione per l'intero anno in sede --------------------
-	-- di dichiarazione dei redditi, semprechÃ¨ non sia stata giÃ  attribuita --------------------
+	-- "AN - La detrazione minima è stata ragguagliata al periodi di lavoro. -------------------
+	-- Il percipiente può fruire della detrazione per l'intero anno in sede --------------------
+	-- di dichiarazione dei redditi, semprechè non sia stata già attribuita --------------------
 	-- da un altro datore di lavoro e risulti effettivamente spettante." -----------------------
 	-- (Nel caso di rapporti di lavoro a tempo determinato -------------------------------------
 	-- o a tempo indeterminato di durata inferiore ---------------------------------------------
-	-- allâ€™anno (inizio o cessazione del rapporto di lavoro nel corso dellâ€™anno), --------------
-	-- limitatamente ai contratti in cui Ã¨ stato scelto di applicare la detrazione) ------------
+	-- all’anno (inizio o cessazione del rapporto di lavoro nel corso dell’anno), --------------
+	-- limitatamente ai contratti in cui è stato scelto di applicare la detrazione) ------------
 	--------------------------------------------------------------------------------------------
     --------------------------------------------------------------------------------------------
     
@@ -2197,9 +2199,9 @@ AS BEGIN
 	IF (@workingdays < 365)  AND (@taxablegross<> 0) AND (@DB001107 <> 0) 
 	BEGIN
 		SET @NN =
-		'AN - La detrazione minima Ã¨ stata ragguagliata al periodo di lavoro.' + 
-		' Il percipiente puÃ² fruire della detrazione per l''intero anno in sede' +
-		' di dichiarazione dei redditi, semprechÃ¨ non sia stata giÃ  attribuita' +
+		'AN - La detrazione minima è stata ragguagliata al periodo di lavoro.' + 
+		' Il percipiente può fruire della detrazione per l''intero anno in sede' +
+		' di dichiarazione dei redditi, semprechè non sia stata già attribuita' +
 		' da un altro datore di lavoro e risulti effettivamente spettante.'
 		INSERT INTO #recordg (progr, quadro, modulo, riga, colonna, stringa)
 		VALUES(@progrCom, 'NN', 1, 1, '004', @NN)
@@ -2207,7 +2209,7 @@ AS BEGIN
 	
 	--	"AX - Reddito assimilato assoggettato a ritenuta a titolo d'imposta, 
 	--  indicare importo, indicare ritenuta a titolo d'imposta operata."
-	--  (Valorizzare quando il compenso Ã¨ un parasubordinato ed Ã¨ associata 
+	--  (Valorizzare quando il compenso è un parasubordinato ed è associata 
 	--  ad una ritenuta IRPEF del 30%. 
 	--  La stessa condizione che abbiamo quando valorizziamo il campi del modello 
 	--  221 e 222)
@@ -2217,8 +2219,8 @@ AS BEGIN
 	BEGIN
 		SET @NN =
 		'AX - Reddito assimilato assoggettato a ritenuta a titolo d''imposta,' +
-		+ ' Importo: â‚¬ ' + CONVERT(varchar(16), @taxablegross_irpef_stranieri) 
-		+ ' Importo ritenuta a titolo d''imposta operata: â‚¬ ' + CONVERT(varchar(16), @ritenuta_irpef_stranieri)   
+		+ ' Importo: € ' + CONVERT(varchar(16), @taxablegross_irpef_stranieri) 
+		+ ' Importo ritenuta a titolo d''imposta operata: € ' + CONVERT(varchar(16), @ritenuta_irpef_stranieri)   
 		INSERT INTO #recordg (progr, quadro, modulo, riga, colonna, stringa)
 		VALUES(@progrCom, 'NN', 1, 1, '005', @NN)
 	END
@@ -2229,7 +2231,7 @@ AS BEGIN
 	-- in possesso dei requisiti reddituali per usufruire interamente della fascia
 	-- di esenzione deliberata"
 	-- (Da indicare quando non si calcola l'addizionale comunale all'IRPEF 
-	-- perchÃ¨ il reddito rientra nei limiti di esenzione. 
+	-- perchè il reddito rientra nei limiti di esenzione. 
 	-- Ad esempio se il comune prevede una fascia di esenzione 
 	-- dell'addizionale comunale all'IRPEF)
 	-- NOTE AL
@@ -2256,7 +2258,7 @@ AS BEGIN
 	-- ad un domicilio fiscale individuata sulla base della precedente normativa, 
 	-- il contribuente deve procedere alla presentazione della dichiarazione dei redditi per la corretta liquidazione delle imposte dovute."
 	-- (Tale dicitura deve esserci quando il percipiente ha cambiato indirizzo 
-	-- nel corso dell'anno 2014 e il contratto non Ã¨ arrivato al 31/12/2014, 
+	-- nel corso dell'anno 2014 e il contratto non è arrivato al 31/12/2014, 
 	-- quindi il contratto si chiude a fine anno)
  	
 		CREATE TABLE #comuniaddcom
@@ -2305,8 +2307,8 @@ AS BEGIN
 		SET @NN =
 		'ZZ - Le ritenute INPS trattenute ai sensi della Legge 335/95 art.2/c.26 e Legge 449/97 art.59/c.16' +
 		' sono state regolarmente versate all''INPS: ' +
-		' ritenute a carico percipiente: â‚¬ ' + CONVERT(varchar(16), @ritprevtrattenuta)  +
-		' e ritenute a carico ente: â‚¬ ' + CONVERT(varchar(16), @ritprevamministrazione)
+		' ritenute a carico percipiente: € ' + CONVERT(varchar(16), @ritprevtrattenuta)  +
+		' e ritenute a carico ente: € ' + CONVERT(varchar(16), @ritprevamministrazione)
  
 		INSERT INTO #recordg (progr, quadro, modulo, riga, colonna, stringa)
 			 VALUES(@progrCom, 'NN', 1, 1, '008', @NN)
@@ -2315,7 +2317,7 @@ AS BEGIN
 	IF (@DB001001 = 0) AND (@prestazione_esente = 'S') -- imponibile IRPEF Italiani
 	BEGIN
 		 SET @NN =
-		 'BQ - Redditi totalmente esentati da imposizione: â‚¬ ' + CONVERT(varchar(16),@compensoprev) + ') ' 
+		 'BQ - Redditi totalmente esentati da imposizione: € ' + CONVERT(varchar(16),@compensoprev) + ') ' 
 		 INSERT INTO #recordg (progr, quadro, modulo, riga, colonna, stringa)
 			 VALUES(@progrCom, 'NN', 1, 1, '009', @NN)
 	END
@@ -2354,4 +2356,3 @@ GO
  --select * from tAX ORDER BY DESCRIPTION
  
  
-	

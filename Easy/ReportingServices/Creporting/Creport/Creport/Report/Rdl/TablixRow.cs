@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System.Xml.Linq;
+
+using System.Xml.Linq;
 
 namespace Creport.Report.Rdl {
     public class TablixRow :IElement {
@@ -88,7 +90,7 @@ namespace Creport.Report.Rdl {
 
 
         /// <summary>
-        /// Crea una riga Tablix con drilldown in una Tablix. Element = campi da visualizzare, operand = operando, subtotal = indica se √® subtotale, font = dimensione del font, fontFamily = tipo font,fontweight = spessore, color = colore, format = formato, textAlign = allieamento testo, inch = distanza tra le righe, visibility = espressione di visibilit√†, ToggleItem oggetto del drilldown
+        /// Crea una riga Tablix con drilldown in una Tablix. Element = campi da visualizzare, operand = operando, subtotal = indica se Ë subtotale, font = dimensione del font, fontFamily = tipo font,fontweight = spessore, color = colore, format = formato, textAlign = allieamento testo, inch = distanza tra le righe, visibility = espressione di visibilit‡, ToggleItem oggetto del drilldown
         /// </summary>
         /// <param name="Element">new string[]{ ElementProperty.Id1, ElementProperty.Id2 }</param>
         /// <param name="operand">"+"</param>
@@ -124,7 +126,7 @@ namespace Creport.Report.Rdl {
 
 
         /// <summary>
-        /// Crea una riga Tablix con drilldown in una Tablix. Element = campo da visualizzare, subtotal = indica se √® subtotale, font = dimensione del font, fontFamily = tipo font,fontweight = spessore, color = colore, format = formato, textAlign = allieamento testo, inch = distanza tra le righe, hidde = true nascondi, ToggleItem oggetto del drilldown
+        /// Crea una riga Tablix con drilldown in una Tablix. Element = campo da visualizzare, subtotal = indica se Ë subtotale, font = dimensione del font, fontFamily = tipo font,fontweight = spessore, color = colore, format = formato, textAlign = allieamento testo, inch = distanza tra le righe, hidde = true nascondi, ToggleItem oggetto del drilldown
         /// </summary>
         /// <param name="Element">ElementProperty.Name</param>
         /// <param name="subtotal">false</param>
@@ -158,7 +160,7 @@ namespace Creport.Report.Rdl {
 
 
         /// <summary>
-        /// Crea una riga Tablix in una Tablix. Element = campo da visualizzare, subtotal = indica se √® subtotale, font = dimensione del font, fontFamily = tipo font,fontweight = spessore, color = colore, format = formato, textAlign = allieamento testo, inch = distanza tra le righe
+        /// Crea una riga Tablix in una Tablix. Element = campo da visualizzare, subtotal = indica se Ë subtotale, font = dimensione del font, fontFamily = tipo font,fontweight = spessore, color = colore, format = formato, textAlign = allieamento testo, inch = distanza tra le righe
         /// </summary>
         /// <param name="Element">ElementProperty.Name</param>
         /// <param name="subtotal">false</param>
@@ -188,7 +190,7 @@ namespace Creport.Report.Rdl {
 
 
         /// <summary>
-        /// Crea una riga Tablix in una Tablix. Element = campo da visualizzare, subtotal = indica se √® subtotale, fontFamily = tipo font, font = dimensione del font, ,fontweight = spessore, color = colore, format = formato, textAlign allieamento testo
+        /// Crea una riga Tablix in una Tablix. Element = campo da visualizzare, subtotal = indica se Ë subtotale, fontFamily = tipo font, font = dimensione del font, ,fontweight = spessore, color = colore, format = formato, textAlign allieamento testo
         /// </summary>
         /// <param name="Element">ElementProperty.Name</param>
         /// <param name="subtotal">false</param>
@@ -234,7 +236,7 @@ namespace Creport.Report.Rdl {
 
 
         /// <summary>
-        /// Crea una riga Tablix in una Tablix. Element = campo da visualizzare, subtotal = indica se √® subtotale
+        /// Crea una riga Tablix in una Tablix. Element = campo da visualizzare, subtotal = indica se Ë subtotale
         /// </summary>
         /// <param name="Element">ElementProperty.Name</param>
         /// <param name="subtotal">false</param>
@@ -252,7 +254,7 @@ namespace Creport.Report.Rdl {
 
 
         /// <summary>
-        /// Crea una riga Tablix in una Tablix. Element = campo da visualizzare, subtotal = indica se √® subtotale, format = formato
+        /// Crea una riga Tablix in una Tablix. Element = campo da visualizzare, subtotal = indica se Ë subtotale, format = formato
         /// </summary>
         /// <param name="Element">ElementProperty.Name</param>
         /// <param name="subtotal">false</param>
@@ -272,7 +274,7 @@ namespace Creport.Report.Rdl {
 
 
         /// <summary>
-        /// Crea una riga Tablix in una Tablix. Element = campo da visualizzare, subtotal = indica se √® subtotale, font = dimensione del font, format = formato, textAlign allieamento testo
+        /// Crea una riga Tablix in una Tablix. Element = campo da visualizzare, subtotal = indica se Ë subtotale, font = dimensione del font, format = formato, textAlign allieamento testo
         /// </summary>
         /// <param name="Element">ElementProperty.Name</param>
         /// <param name="subtotal">false</param>

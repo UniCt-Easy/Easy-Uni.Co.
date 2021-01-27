@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_rendicontofinanziario]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_rendicontofinanziario]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_rendicontofinanziario]
 GO
 SET QUOTED_IDENTIFIER ON  
@@ -58,7 +60,7 @@ SET @lastday  = CONVERT(datetime,'31-12-' + CONVERT(varchar(4),@ayear),105)
 -----------------------------------------------------------------------
 
 DECLARE @RISULTATO_NETTO decimal(19,2)
--- Risultato d'esercizioâ€¦. Usare la formula del conto economico va preso 
+-- Risultato d'esercizio…. Usare la formula del conto economico va preso 
 -- il Risultato di esercizio come calcolato nella stampa del conto economico
 -- Utile o Perdita dell'esercizio corrente - 
 -- Plusvalenze da alienazione immobilizzazioni + Minusvalenze da alienazione immobilizzazioni
@@ -2434,14 +2436,14 @@ ISNULL(
 ,0)
 
 
--- task 11243 non valorizzare nessun importo perchÃ¨ quella Ã¨ un'intestazione nella colonna
--- l'importo che al momento viene valorizzato lÃ¬, va inglobato nella voce (Aumento)/Diminuzione dei debiti. 
+-- task 11243 non valorizzare nessun importo perchè quella è un'intestazione nella colonna
+-- l'importo che al momento viene valorizzato lì, va inglobato nella voce (Aumento)/Diminuzione dei debiti. 
 -- Questa voce al momento esclude tutta la voce D1) dello Stato Patrimoniale. Invece deve escludere solo D1) o (OLTRE l'esercizio)
 
 DECLARE @ATTIVITA_DI_FINANZIAMENTO decimal(19,2)
 SET @ATTIVITA_DI_FINANZIAMENTO = 0 --@SP_P_D_d1e_31_12 - @SP_P_D_d1e_01_01
 
---Se il risultato Ã¨ positivo Ã¨ una fonte e va con segno POSITIVO altrimenti in NEGATIVO
+--Se il risultato è positivo è una fonte e va con segno POSITIVO altrimenti in NEGATIVO
 DECLARE @VARIAZIONE_NETTA_DEI_FINANZIAMENTI_A_MEDIO_LUNGO_TERMINE decimal(19,2)
 SET @VARIAZIONE_NETTA_DEI_FINANZIAMENTI_A_MEDIO_LUNGO_TERMINE= @SP_P_D_d1o_31_12 -@SP_P_D_d1o_01_01
 
@@ -2467,8 +2469,8 @@ SET @AUMENTO_DIMINUZIONE_DEBITI = @SP_P_D
 --------- VARIAZIONE DI ALTRE VOCI DEL CAPITALE CIRCOLANTE ------------ 
 -----------------------------------------------------------------------
 -- Stato Patrimoniale VOCE SCHEMA  Stato Patrimoniale RIFERIMENTO
--- Totale AttivitÃ  finanziarie al 31/12 - Totale AttivitÃ  finanziarie al 01/01
--- B) III AttivitÃ  finanziarie (ATTIVO)
+-- Totale Attività finanziarie al 31/12 - Totale Attività finanziarie al 01/01
+-- B) III Attività finanziarie (ATTIVO)
 DECLARE @VARIAZIONE_ALTRE_VOCI_CAPITALE_CIRCOLANTE DECIMAL(19,2)
 DECLARE @SP_A_BIII_01_01 decimal(19,2)
 SET @SP_A_BIII_01_01 = 
@@ -2908,7 +2910,7 @@ SET @FLUSSO_DI_CASSA_CASH_FLOW_OPERATIVO  =
 -- Emilia propone sue soluzioni alternative
 -- [09:57:14] Maria Smaldino: bisogna scegliere
 -- [09:58:00] Maria Smaldino: 1) Escludere le scritture con tipo conto "Fondo Ammortamento" 
--- dalle formule perÃ² il tipo conto Ã¨ configurabile, dovremmo nel caso uniformarli a tutti i clienti
+-- dalle formule però il tipo conto è configurabile, dovremmo nel caso uniformarli a tutti i clienti
 -- [09:59:07] Maria Smaldino: 2) Siccome i conti di tipo "Fondo Ammortamento" hanno pure 
 -- la caratteristica di avere segno negativo sullo stato patrimoniale, usiamo questo segno 
 -- per filtrare le scritture di ammortamento escludendole dal totale
@@ -3602,7 +3604,7 @@ ELSE
 
 
 ----------------------------------------------------------------------------------
--- B) FLUSSO MONETARIO (CASH FLOW) DA ATTIVITAâ€™ DI INVESTIMENTO/DISINVESTIMENTO --
+-- B) FLUSSO MONETARIO (CASH FLOW) DA ATTIVITA’ DI INVESTIMENTO/DISINVESTIMENTO --
 ----------------------------------------------------------------------------------
 -- Stato Patrimoniale VOCE SCHEMA  Stato Patrimoniale RIFERIMENTO
 -- Somma algebrica colonna C
@@ -3971,7 +3973,7 @@ ISNULL(
 -- AUMENTO DI CAPITALE (Variazioni del Patrimonio Netto)
 -- Totale Patrimonio Netto tranne Risultato esercizio al 31/12 - Totale Patrimonio Netto al 01/01	
 -- Tutte le voci di Stato Patrimoniale che stanno sotto A) Patrimonio Netto TRANNE il codice A III 1 per il quale va considerato solo il valore all'01/01 con il segno meno.		
--- Se il risultato Ã¨ positivo Ã¨ una fonte e va con segno POSITIVO altrimenti in NEGATIVO
+-- Se il risultato è positivo è una fonte e va con segno POSITIVO altrimenti in NEGATIVO
 
 DECLARE @SP_P_AI decimal(19,2)
 DECLARE @SP_P_AII decimal(19,2)
@@ -3979,7 +3981,7 @@ DECLARE @SP_P_AIII decimal(19,2)
 
 SET @SP_P_AI   = @SP_P_AI_31_12 - @SP_P_AI_01_01  
 SET @SP_P_AII  = (@SP_P_AII_aII1_31_12 +@SP_P_AII_aII2_31_11 + @SP_P_AII_aII3_31_12 ) - (@SP_P_AII_aII1_01_01 +@SP_P_AII_aII2_01_01 + @SP_P_AII_aII3_01_01)
-SET @SP_P_AIII = (/*@SP_P_AIII_aIII1_31_12 + */@SP_P_AIII_aIII2_31_12 + @SP_P_AIII_aIII3_31_12) - (@SP_P_AIII_aIII1_01_01 + @SP_P_AIII_aIII2_01_01 + @SP_P_AIII_aIII3_01_01) -->  @SP_P_AIII_aIII1_01_01 Ã¨ stato letto col segno -
+SET @SP_P_AIII = (/*@SP_P_AIII_aIII1_31_12 + */@SP_P_AIII_aIII2_31_12 + @SP_P_AIII_aIII3_31_12) - (@SP_P_AIII_aIII1_01_01 + @SP_P_AIII_aIII2_01_01 + @SP_P_AIII_aIII3_01_01) -->  @SP_P_AIII_aIII1_01_01 è stato letto col segno -
 SET @AUMENTO_DI_CAPITALE = @SP_P_AI + @SP_P_AII + @SP_P_AIII  /*	- (@SP_P_AIII_aIII1_31_12 - @SP_P_AIII_aIII1_01_01)	*/
 
 ----------------------------------------------------------------------------------
@@ -4046,7 +4048,7 @@ SET @SP_P_D_d1 = @SP_P_D_d1_31_12 - @SP_P_D_d1_01_01
  
 
 ----------------------------------------------------------------------------------
--------- C) FLUSSO MONETARIO (CASH FLOW) DA ATTIVITAâ€™ DI FINANZIAMENTO------------ 
+-------- C) FLUSSO MONETARIO (CASH FLOW) DA ATTIVITA’ DI FINANZIAMENTO------------ 
 ----------------------------------------------------------------------------------
 -- Somma algebrica colonna C
 DECLARE @FLUSSO_MONETARI0_CASH_FLOW_ATTIVITA_FINANZIAMENTO DECIMAL(19,2)
@@ -4057,7 +4059,7 @@ SET @FLUSSO_MONETARI0_CASH_FLOW_ATTIVITA_FINANZIAMENTO =
 			+ @VARIAZIONE_NETTA_DEI_FINANZIAMENTI_A_MEDIO_LUNGO_TERMINE   
 			
 ----------------------------------------------------------------------------------
--------- D) FLUSSO MONETARIO (CASH FLOW) DELLâ€™ESERCIZIO (A+B+C)------------------- 
+-------- D) FLUSSO MONETARIO (CASH FLOW) DELL’ESERCIZIO (A+B+C)------------------- 
 ----------------------------------------------------------------------------------
 --Somma algebrica A+B+C
 DECLARE @FLUSSO_MONETARI0_CASH_FLOW_ESERCIZIO_A_B_C DECIMAL(19,2)
@@ -4067,11 +4069,11 @@ SET @FLUSSO_MONETARI0_CASH_FLOW_ESERCIZIO_A_B_C =
 		isnull(@FLUSSO_MONETARI0_CASH_FLOW_ATTIVITA_FINANZIAMENTO,0) -- (C)
 		
 ----------------------------------------------------------------------------------
--------- DISPONIBILITAâ€™ MONETARIA NETTA INIZIALE --------------------------------- 
+-------- DISPONIBILITA’ MONETARIA NETTA INIZIALE --------------------------------- 
 ----------------------------------------------------------------------------------
---DisponibilitÃ  liquide  al 01/01
+--Disponibilità liquide  al 01/01
 -- Stato Patrimoniale VOCE SCHEMA  Stato Patrimoniale RIFERIMENTO
---B) IV DisponibilitÃ  liquide  (ATTIVO)
+--B) IV Disponibilità liquide  (ATTIVO)
 DECLARE @DISPONIBILITA_MONETARIA_NETTA_INIZIALE DECIMAL(19,2)
 DECLARE @SP_A_BIV_bIV1_01_01 decimal(19,2)
 SET @SP_A_BIV_bIV1_01_01 = 
@@ -4120,11 +4122,11 @@ DECLARE @SP_A_BIV_01_01 decimal(19,2)
 SET @SP_A_BIV_01_01 = @SP_A_BIV_bIV1_01_01 + @SP_A_BIV_bIV2_01_01
 SET @DISPONIBILITA_MONETARIA_NETTA_INIZIALE = @SP_A_BIV_01_01
 ----------------------------------------------------------------------------------
--------- DISPONIBILITAâ€™ MONETARIA NETTA FINALE ----------------------------------- 
+-------- DISPONIBILITA’ MONETARIA NETTA FINALE ----------------------------------- 
 ----------------------------------------------------------------------------------
---DisponibilitÃ  liquide al 31/12
+--Disponibilità liquide al 31/12
 -- Stato Patrimoniale VOCE SCHEMA  Stato Patrimoniale RIFERIMENTO
---B) IV DisponibilitÃ  liquide  (ATTIVO)
+--B) IV Disponibilità liquide  (ATTIVO)
 DECLARE @DISPONIBILITA_MONETARIA_NETTA_FINALE DECIMAL(19,2)
 DECLARE @SP_A_BIV_bIV1_31_12 decimal(19,2)
 SET @SP_A_BIV_bIV1_31_12 = 
@@ -4174,7 +4176,7 @@ DECLARE @SP_A_BIV_31_12 decimal(19,2)
 SET @SP_A_BIV_31_12 = @SP_A_BIV_bIV1_31_12 + @SP_A_BIV_bIV2_31_12
 SET @DISPONIBILITA_MONETARIA_NETTA_FINALE = @SP_A_BIV_31_12
 ----------------------------------------------------------------------------------
--------- FLUSSO MONETARIO (CASH FLOW) DELLâ€™ESERCIZIO -----------------------------
+-------- FLUSSO MONETARIO (CASH FLOW) DELL’ESERCIZIO -----------------------------
 ----------------------------------------------------------------------------------
  DECLARE @FLUSSO_MONETARIO_CASH_FLOW_ESERCIZIO decimal(19,2)
 
@@ -4262,4 +4264,3 @@ GO
   
 
  	
-	

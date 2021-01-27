@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoicepaymentindicator]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoicepaymentindicator]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_invoicepaymentindicator]
 GO
  
@@ -33,17 +35,17 @@ CREATE  PROCEDURE [exp_invoicepaymentindicator](
 	@mode char(1)-- M: Considera la data Mandato	T: Considera la data Trasmissione
 ) 
 -- setuser 'amm'
--- EXEC exp_invoicepaymentindicator 2017, null, null, null,{ts '2017-01-01 00:00:00'}, {ts '2017-07-05 00:00:00'}, 'N', null, null, null, null, null,'M'
+-- EXEC exp_invoicepaymentindicator 2018, null, null, null,{ts '2018-01-01 00:00:00'}, {ts '2018-07-05 00:00:00'}, 'N', null, null, null, null, null,'M'
  
 /*
 
 Ultima modifica Gianni 31/01/2015
 
-ModalitÃƒÂ  di calcolo
-LÃ¢â‚¬â„¢indicatore di tempestivitÃƒÂ  dei pagamenti eÃ¢â‚¬â„¢ calcolato come la somma, 
+Modalità  di calcolo
+L'indicatore di tempestività  dei pagamenti e calcolato come la somma, 
 per ciascuna fattura emessa a titolo corrispettivo di una transazione commerciale, 
 dei giorni effettivi intercorrenti tra la data di scadenza della fattura o richiesta equivalente di pagamento e 
-la data di pagamento ai fornitori moltiplicata per lÃ¢â‚¬â„¢importo dovuto, 
+la data di pagamento ai fornitori moltiplicata per lâ€™importo dovuto, 
 rapportata alla somma degli importi pagati nel periodo di riferimento
 
 Gianni 04/02/2015 TASK 6429
@@ -55,8 +57,8 @@ stessa e la data di pagamento ai fornitori;
 
 - il denominatore contenga la somma degli importi PAGATI nell'anno solare. "
 L'esportazione attuale considera tutte le fatture del periodo per cui si effettua l'esportazione e non quelle pagate in tale periodo. 
-Ad esempio per il 2014 mancano le fatture registrate nel 2013 e pagate nel 2014 e ci sono in piÃ¹ le fatture registrate nel 2014 ma pagate nel 2015.
-Inoltre poichÃ¨ nei primi 6 mesi la data di scadenza non era prevista, 
+Ad esempio per il 2014 mancano le fatture registrate nel 2013 e pagate nel 2014 e ci sono in più le fatture registrate nel 2014 ma pagate nel 2015.
+Inoltre poichè nei primi 6 mesi la data di scadenza non era prevista, 
 fare in modo che se manca la data di scadenza sulla fattura prenda la data di protocollo e se manca il protocollo prenda la data di registrazione.
 
 
@@ -67,16 +69,16 @@ La norma prevede il seguente calolo:
 - il denominatore contenga la somma degli importi pagati nell'anno solare.
 
 Attualmente la procedura di esportazione prevede una colonna "Importo dovuto per GG. Pagamento = (A)*(B)/(C)" 
-	che Ã¨ sbagliato in quanto induce l'utente a sommare gli importi di questa colonna ottenendo un dato errato dell'indicatore. 
+	che è sbagliato in quanto induce l'utente a sommare gli importi di questa colonna ottenendo un dato errato dell'indicatore. 
 L'indicatore invece prevede un rapporto tra numeratore e denominatore, nello specifico:
 numeratore = Sommatoria dei prodotti tra le seguenti colonne (GG.  Pagamento (A) e Importo Pagato (B)) 
 denonimatore = costante data dal totale pagato nell'anno solare (C)
 
 Si propone pertanto di effettuare una procedura di esportazione che dia in base ad un parametro in imput da scegliere da parte dell'utente, l'elenco delle fatture o alternativamente un valore numerico complessivo dell'indicatore.
 
-1) Se si sceglie la modalitÃ  elenco, dall'attuale procedura di esportazione deve essere TOLTA la colonna "Importo dovuto per GG. Pagamento = (A)*(B)/(C)" e AGGIUNGERE una colonna che valorizzi il prodotto tra "GG.  Pagamento (A)" e "Importo Pagato (B)"
+1) Se si sceglie la modalità elenco, dall'attuale procedura di esportazione deve essere TOLTA la colonna "Importo dovuto per GG. Pagamento = (A)*(B)/(C)" e AGGIUNGERE una colonna che valorizzi il prodotto tra "GG.  Pagamento (A)" e "Importo Pagato (B)"
 
-2) Se si sceglie la modalitÃ  diretta dell'indicatore il programma darÃ  direttamente il risultato del rapporto tra sommatoria dei prodotti "GG.  Pagamento (A)" e "Importo Pagato (B)" per ogni singola fattura / Importo pagato nell'anno solare attualmente indicato nella procedura di esportazione dalla colonna "totale pagato nell'anno solare (C)"
+2) Se si sceglie la modalità diretta dell'indicatore il programma darà direttamente il risultato del rapporto tra sommatoria dei prodotti "GG.  Pagamento (A)" e "Importo Pagato (B)" per ogni singola fattura / Importo pagato nell'anno solare attualmente indicato nella procedura di esportazione dalla colonna "totale pagato nell'anno solare (C)"
 
 
 */
@@ -142,18 +144,13 @@ AS BEGIN
 	JOIN    payment P				ON	P.kpay = EIV.kpay
 	JOIN    paymenttransmission PT	  ON	P.kpaymenttransmission = PT.kpaymenttransmission
    WHERE 	NOT EXISTS (SELECT * FROM pettycashoperationinvoice PCOP 
-		WHERE PCOP.idinvkind = I.idinvkind 
-		AND	PCOP.yinv = I.yinv
-		AND	PCOP.ninv = I.ninv )
+		WHERE PCOP.idinvkind = I.idinvkind 	AND	PCOP.yinv = I.yinv	AND	PCOP.ninv = I.ninv )
 		AND (@mode = 'T' and  PT.transmissiondate between @start and @stop
 			or
 			@mode = 'M' and  P.adate between @start and @stop)
 		 AND (IK.codeinvkind = @codeinvkind OR @codeinvkind is null)
 		AND ((EXISTS (SELECT * FROM ivaregister IRG 
-			      WHERE IRG.idinvkind = I.idinvkind
-				AND IRG.yinv = I.yinv
-				AND IRG.ninv = I.ninv 
-				AND IRG.idivaregisterkind = @idivaregisterkind
+			      WHERE IRG.idinvkind = I.idinvkind AND IRG.yinv = I.yinv AND IRG.ninv = I.ninv AND IRG.idivaregisterkind = @idivaregisterkind
 				AND @idivaregisterkind IS NOT NULL))  
 		     OR (@idivaregisterkind is null))
 		AND ISNULL(I.toincludeinpaymentindicator,'S') <> 'N'		
@@ -193,19 +190,14 @@ INSERT INTO #invoicecontab
 	JOIN    payment P				ON	P.kpay = ELAST.kpay
 	JOIN    paymenttransmission PT	  ON	P.kpaymenttransmission = PT.kpaymenttransmission
    WHERE 	NOT EXISTS (SELECT * FROM pettycashoperationinvoice PCOP 
-		WHERE PCOP.idinvkind = I.idinvkind 
-		AND	PCOP.yinv = I.yinv
-		AND	PCOP.ninv = I.ninv )
+		WHERE PCOP.idinvkind = I.idinvkind 	AND	PCOP.yinv = I.yinv	AND	PCOP.ninv = I.ninv )
 		AND (@mode = 'T' and  PT.transmissiondate between @start and @stop
 			or
 			@mode = 'M' and  P.adate between @start and @stop)
 		AND (IK.codeinvkind = @codeinvkind OR @codeinvkind is null)
 		AND ((EXISTS (SELECT * FROM ivaregister IRG 
-			      WHERE IRG.idinvkind = I.idinvkind
-				AND IRG.yinv = I.yinv
-				AND IRG.ninv = I.ninv 
-				AND IRG.idivaregisterkind = @idivaregisterkind
-				AND @idivaregisterkind IS NOT NULL))  
+			      WHERE IRG.idinvkind = I.idinvkind AND IRG.yinv = I.yinv AND IRG.ninv = I.ninv  AND IRG.idivaregisterkind = @idivaregisterkind
+						AND @idivaregisterkind IS NOT NULL))  
 		     OR (@idivaregisterkind is null))
 		AND ISNULL(I.toincludeinpaymentindicator,'S') <> 'N'		
 		AND (ISNULL(I.idsor01,IK.idsor01) = @idsor01 OR @idsor01 IS NULL)
@@ -281,6 +273,7 @@ IF (
 	I.invoicekind AS 'Tipo', 
 	I.yinv AS 'Esercizio', 
 	I.ninv AS 'Numero', 	
+	SDI.identificativo_sdi 'identificativo SDI',  --identificativo_sdi
 	I.ycon AS 'Anno parcella',
 	I.ncon AS 'N.parcella',
 	I.doc AS  'Num. Doc. Coll.',
@@ -304,6 +297,7 @@ IF (
 	convert(decimal(19,10), (IC.curramount * IC.paymentfromexpiring) / @totalepagato )  as 'Importo dovuto per GG. Pagamento = (A)*(B)/(C)'
 	FROM invoiceview I 		
 		JOIN #invoicecontab IC ON IC.idinvkind = I.idinvkind	 AND	IC.yinv = I.yinv	 AND	IC.ninv = I.ninv  	
+		left outer join sdi_acquisto SDI on I.idsdi_acquisto=SDI.idsdi_acquisto
 	where IC.transmissiondate is not null
 	order by I.idinvkind, I.yinv, I.ninv
 ELSE
@@ -312,6 +306,7 @@ ELSE
 	I.invoicekind AS 'Tipo', 
 	I.yinv AS 'Esercizio', 
 	I.ninv AS 'Numero', 	
+	SDI.identificativo_sdi 'identificativo SDI',
 	I.ycon AS 'Anno parcella',
 	I.ncon AS 'N.parcella',
 	I.doc AS  'Num. Doc. Coll.',
@@ -336,6 +331,7 @@ ELSE
 	convert(decimal(19,10),  (IC.curramount * IC.paymentfromexpiring) / @totalepagato)  as 'Importo dovuto per GG. Pagamento = (A)*(B)/(C)'
 	FROM invoiceview I 		
 		JOIN #invoicecontab IC ON IC.idinvkind = I.idinvkind	 AND	IC.yinv = I.yinv	 AND	IC.ninv = I.ninv  
+		left outer join sdi_acquisto SDI on I.idsdi_acquisto=SDI.idsdi_acquisto
 	where IC.transmissiondate is not null
 	order by I.idinvkind, I.yinv, I.ninv	
 END
@@ -348,4 +344,3 @@ GO
 
 
 
-	

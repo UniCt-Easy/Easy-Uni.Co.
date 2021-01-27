@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_situazioneattualefinupbbilancio]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_situazioneattualefinupbbilancio]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_situazioneattualefinupbbilancio]
 GO
  
@@ -103,8 +105,8 @@ select @codesorkind05  = codesorkind  from sortingkind where idsorkind = @idsork
 
 --DECLARE
 -- @sql AS Nvarchar(4000), -- Stringa contenente la query da eseguire
--- --@supporto_sql AS varchar(8000), -- Stringa di supporto se la prima stringa √® corta
--- @NEWLINE AS char(1) -- Ritorno a capo (usato solo per leggibilit√†)
+-- --@supporto_sql AS varchar(8000), -- Stringa di supporto se la prima stringa Ë corta
+-- @NEWLINE AS char(1) -- Ritorno a capo (usato solo per leggibilit‡)
 --SET @NEWLINE = CHAR(10)
 --IF (@sortingkind01) IS NOT NULL
 --BEGIN 
@@ -225,7 +227,7 @@ CREATE TABLE #PICCOLE_SPESE(
 	amount decimal(19,2)
 	)  
 
---Il SUM lo mettiamo perch√® potrebbero esserci n righe in pettycashoperationunderwriting, ossia n op.imputate alla terna.
+--Il SUM lo mettiamo perchË potrebbero esserci n righe in pettycashoperationunderwriting, ossia n op.imputate alla terna.
 INSERT INTO #PICCOLE_SPESE(idunderwriting, idupb, idfin, amount)  
 	
 select U.idunderwriting, operation.idupb, operation.idfin, SUM(U.amount)
@@ -533,12 +535,12 @@ BEGIN
 			CASE U.flagkind 
 				WHEN 0 THEN 'Didattica' 
 				WHEN 1 THEN 'Ricerca' 
-			END as 'Funzione' , --- Funzione dell‚Äôupb (didattica/ricerca)	
+			END as 'Funzione' , --- Funzione dellíupb (didattica/ricerca)	
 			CASE U.flagactivity 
 				WHEN 4 THEN 'Qualsiasi/Non Spec.' 
 				WHEN 1 THEN 'Istituzionale' 
 				WHEN 2 THEN 'Commerciale' 
-			END as 'Attivit√†' ,		--- Attivit√† dell‚Äôupb (istituz/commerciale/qualsiasi)
+			END as 'Attivit‡' ,		--- Attivit‡ dellíupb (istituz/commerciale/qualsiasi)
 			F.codefin as 'Bilancio',
 			isnull(PPI.amount,0) as 'Prev.Competenza iniziale',
 			isnull(PPA.amount,0) as 'Prev.Competenza attuale',
@@ -703,12 +705,12 @@ BEGIN
 			CASE U.flagkind 
 				WHEN 0 THEN 'Didattica' 
 				WHEN 1 THEN 'Ricerca' 
-			END as 'Funzione' , --- Funzione dell‚Äôupb (didattica/ricerca)	
+			END as 'Funzione' , --- Funzione dellíupb (didattica/ricerca)	
 			CASE U.flagactivity 
 				WHEN 4 THEN 'Qualsiasi/Non Spec.' 
 				WHEN 1 THEN 'Istituzionale' 
 				WHEN 2 THEN 'Commerciale' 
-			END as 'Attivit√†' ,		--- Attivit√† dell‚Äôupb (istituz/commerciale/qualsiasi)
+			END as 'Attivit‡' ,		--- Attivit‡ dellíupb (istituz/commerciale/qualsiasi)
 			F.codefin as 'Bilancio',
 			isnull(PPI.amount,0) as 'Prev.Competenza iniziale',
 			isnull(PPA.amount,0) as 'Prev.Competenza attuale',
@@ -874,12 +876,12 @@ BEGIN
 			CASE U.flagkind 
 				WHEN 0 THEN 'Didattica' 
 				WHEN 1 THEN 'Ricerca' 
-			END as 'Funzione' , --- Funzione dell‚Äôupb (didattica/ricerca)	
+			END as 'Funzione' , --- Funzione dellíupb (didattica/ricerca)	
 			CASE U.flagactivity 
 				WHEN 4 THEN 'Qualsiasi/Non Spec.' 
 				WHEN 1 THEN 'Istituzionale' 
 				WHEN 2 THEN 'Commerciale' 
-			END as 'Attivit√†' ,		--- Attivit√† dell‚Äôupb (istituz/commerciale/qualsiasi)
+			END as 'Attivit‡' ,		--- Attivit‡ dellíupb (istituz/commerciale/qualsiasi)
 			F.codefin as 'Bilancio',
 			isnull(PPI.amount,0) as 'Prev.Cassa iniziale',			
 			isnull(PPA.amount,0) as 'Prev.Cassa attuale',
@@ -983,4 +985,3 @@ GO
 
 
  
-	

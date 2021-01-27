@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿/****** Object:  StoredProcedure [Amministrazione].[exp_elenco_cp_imp_budget]    Script Date: 18/03/2016 09:24:04 ******/
+
+/****** Object:  StoredProcedure [Amministrazione].[exp_elenco_cp_imp_budget]    Script Date: 18/03/2016 09:24:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22,7 +24,7 @@ GO
 -- exp_elenco_cp_imp_budget 2015
 ALTER  PROCEDURE [exp_elenco_cp_imp_budget](
 	@ayear 			int  --,
-	--@data_pagamento	datetime, -- Per le fatture pagate con fondo economale Ã¨ la data di registrazione dell'operazione
+	--@data_pagamento	datetime, -- Per le fatture pagate con fondo economale è la data di registrazione dell'operazione
 	--@data_scadenza	datetime,
 	--@data_emissione_start	datetime,
 	--@data_emissione_stop	datetime,
@@ -113,4 +115,3 @@ order by 1,2,3
 
 END
 
-	

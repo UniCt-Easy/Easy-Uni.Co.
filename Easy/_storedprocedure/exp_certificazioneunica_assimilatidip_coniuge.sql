@@ -1,24 +1,26 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿--setuser 'amm'inistrazione'
+
+--setuser 'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_assimilatidip_coniuge]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_certificazioneunica_assimilatidip_coniuge]
 GO
  
---exec [exp_certificazioneunica_assimilatidip_coniuge]   2016
+--exec [exp_certificazioneunica_assimilatidip_coniuge]   2017
 CREATE PROCEDURE [exp_certificazioneunica_assimilatidip_coniuge]
 (
 	@annodichiarazione int
@@ -107,7 +109,7 @@ AS BEGIN
 	SET capofila = 'S'
 	WHERE idcon = (SELECT TOP 1 idcon FROM #prestazioni_trasmesse A WHERE padre IS NULL AND A.idreg = #prestazioni_trasmesse.idreg)
 
-	CREATE TABLE #coniugi
+	CREATE TABLE #familiari
 		(
 			idcon varchar(8),
 			idfamily int,
@@ -116,10 +118,13 @@ AS BEGIN
 			startapplication datetime,
 			stopapplication datetime,
 			cf varchar(16),
-			flagdependent char(1)
+			flagdependent char(1),
+			amount decimal(19,2),
+			appliancepercentage decimal(19,6), 
+			starthandicap datetime
 		)
 		
-	INSERT INTO #coniugi
+	INSERT INTO #familiari
 	(
 			idcon,
 			idfamily,
@@ -128,7 +133,10 @@ AS BEGIN
 			startapplication,
 			stopapplication,
 			cf,
-			flagdependent
+			flagdependent,
+			amount,
+			appliancepercentage, 
+			starthandicap
 		)
 	SELECT
 		F.idcon,
@@ -136,7 +144,10 @@ AS BEGIN
 		ISNULL(F.startapplication, @1gen15),
 		ISNULL(F.stopapplication, @31dic15),
 		ISNULL(F.cf, ''),
-		F.flagdependent 
+		F.flagdependent,
+		F.amount,
+		F.appliancepercentage, 
+		F.starthandicap
 	FROM parasubcontractfamily F
 	JOIN #prestazioni_trasmesse
 		ON #prestazioni_trasmesse.idcon = F.idcon
@@ -144,14 +155,15 @@ AS BEGIN
 	AND (F.startapplication is null or year(F.startapplication)<=@annoredditi)
 	AND (F.stopapplication is null or year(F.stopapplication)>=@annoredditi)
 	--AND (F.flagdependent is null or F.flagdependent = 'S')  
-	AND (F.idaffinity = 'C')	
+	--AND (F.idaffinity = 'C')	
 	
 	update #prestazioni_trasmesse set motive770 = motive770service.exemptioncode
 		from motive770service 
 		where motive770service.idser = #prestazioni_trasmesse.idser
 		AND motive770service.ayear = @annoredditi-1
 		
-		--select * from #coniugi
+
+
 	SELECT 
 		registry.idreg		as '#Cod. Anagrafica',
 		ltrim(rtrim(registry.title))		as 'Percipiente',
@@ -165,12 +177,16 @@ AS BEGIN
 		--service.idser		as '#idser',
 		ltrim(rtrim(isnull(service.servicecode770,service.codeser)	+ '	' + service.description))  	as 'Codice Prestazione',
 		mod770_exemptioncode.exemptioncode		as 'Codice Causale Esenzione',
-		--substring(ltrim(rtrim(mod770_exemptioncode.description)),1,200) as ' Descr. Causale'
-		#coniugi.cf as 'CF Coniuge',
-		#coniugi.birthdate as 'Data Nascita Coniuge',
-		#coniugi.startapplication as 'Inizio Applicazione',
-		#coniugi.stopapplication as 'Fine Applicazione',
-		#coniugi.flagdependent as 'A Carico'
+		--substring(ltrim(rtrim(mod770_exemptioncode.description)),1,200) as ' Descr. Causale'		
+		#familiari.cf as 'CF Familiare',		
+		#familiari.birthdate as 'Data Nascita del familiare',
+		affinity.description as 'Parentela',
+		CONVERT(DECIMAL(19,2), #familiari.appliancepercentage) * 100 as '% di applicazione',
+		#familiari.starthandicap as 'Data inizio portatore di handicap',
+		#familiari.startapplication as 'Inizio Applicazione',
+		#familiari.stopapplication as 'Fine Applicazione',
+		#familiari.flagdependent as 'A Carico',
+		#familiari.amount as 'Importo detratto in sede di congualio contratto'
 	FROM #prestazioni_trasmesse
 	JOIN registry 
 		ON #prestazioni_trasmesse.idreg = registry.idreg
@@ -182,8 +198,9 @@ AS BEGIN
 	LEFT OUTER JOIN mod770_exemptioncode 
 		ON mod770_exemptioncode.exemptioncode = motive770service.exemptioncode
 		AND mod770_exemptioncode.ayear = @annoredditi
-	LEFT OUTER JOIN #coniugi 
-		ON #coniugi.idcon = #prestazioni_trasmesse.idcon
+	JOIN #familiari 
+		ON #familiari.idcon = #prestazioni_trasmesse.idcon
+	JOIN affinity ON #familiari.idaffinity = affinity.idaffinity
 	WHERE #prestazioni_trasmesse.capofila = 'S'
 	ORDER BY registry.idreg
 	
@@ -198,5 +215,3 @@ SET ANSI_NULLS ON
 GO
  
  
- 
-	

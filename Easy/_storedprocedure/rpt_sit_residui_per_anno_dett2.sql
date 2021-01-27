@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_sit_residui_per_anno_dett2]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_sit_residui_per_anno_dett2]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_sit_residui_per_anno_dett2]
 GO
 
@@ -34,7 +36,7 @@ CREATE    PROCEDURE[rpt_sit_residui_per_anno_dett2]
 	@showchildupb 	char(1)
 AS
 BEGIN
-/*Questa sp viene aggiunta a SVN copiandola dal DB Uniroma4, perch√® assente sia su SVN che nella nostra cartella di LU. Task 7164*/
+/*Questa sp viene aggiunta a SVN copiandola dal DB Uniroma4, perchË assente sia su SVN che nella nostra cartella di LU. Task 7164*/
 
 /* PRELEVATA DAL DB DI BARI IN DATA 16 11 2012*/
 -- [amm].[rpt_sit_residui_per_anno_dett2] 2012,{ts '2012-12-31 00:00:00'},'S','3','%','S','S'
@@ -124,7 +126,7 @@ ELSE
 IF @finpart = 'E'
 BEGIN
 	INSERT INTO #fornitore_disp (idaaa , title )
-	    SELECT E1.idinc,title+' [Disp. ‚Ç¨'+CONVERT(varchar(12),SUM(ET.available))+'] /'
+	    SELECT E1.idinc,title+' [Disp. Ä'+CONVERT(varchar(12),SUM(ET.available))+'] /'
 	    FROM incomelink EL
 	    JOIN income E1 on E1.idinc=EL.idparent
 		JOIN income E2 ON EL.idchild=E2.idinc
@@ -600,7 +602,7 @@ BEGIN
 	END
 	 INSERT INTO #fornitore_disp
     	(idaaa , title )
-	    SELECT E1.idexp, title+' [Disp. ‚Ç¨'+CONVERT(varchar(12),SUM(ET.available))+'] /'
+	    SELECT E1.idexp, title+' [Disp. Ä'+CONVERT(varchar(12),SUM(ET.available))+'] /'
 	    FROM expenselink EL
 	    JOIN expense E1 on E1.idexp=EL.idparent
 		JOIN expense E2 ON EL.idchild=E2.idexp
@@ -762,7 +764,7 @@ AS
 					SUM(ISNULL(var_residual,0.0)) 		as 'Variazioni Pre Acc.',
 					SUM(ISNULL(initial_fase2,0.0)) 	as 'Accertamento al 01/01',
 					SUM(ISNULL(var_fase2,0.0)) 		as 'Variazioni Accertamento',
-					SUM(ISNULL(initial_residual,0.0))+SUM(ISNULL(var_residual,0.0))-SUM(ISNULL(initial_fase2,0.0))-SUM(ISNULL(var_fase2,0.0)) as 'Disponibilit√† ad Accertare',
+					SUM(ISNULL(initial_residual,0.0))+SUM(ISNULL(var_residual,0.0))-SUM(ISNULL(initial_fase2,0.0))-SUM(ISNULL(var_fase2,0.0)) as 'Disponibilit‡ ad Accertare',
 					SUM(ISNULL(cash_residual,0.0)) 		as 'Incassato',
 					SUM(ISNULL(var_cash_residual,0.0)) 	as 'Var. su Incassato',
 					SUM(ISNULL(initial_residual,0.0))+SUM(ISNULL(var_residual,0.0))-SUM(ISNULL(cash_residual,0.0))-SUM(ISNULL(var_cash_residual,0.0)) as 'Residuo finale',
@@ -803,7 +805,7 @@ AS
 					var_residual as 'Variazioni Accertamento',
 					initial_fase2 as 'Accertamento al 01/01',
 					var_fase2 as 'Variazioni Accertamento',
-					initial_residual+var_residual-initial_fase2-var_fase2 as 'Disponibilit√† ad Accertare',
+					initial_residual+var_residual-initial_fase2-var_fase2 as 'Disponibilit‡ ad Accertare',
 					cash_residual as 'Incassato',
 					var_cash_residual 'Var. su Incassato',
 					initial_residual+var_residual-cash_residual-var_cash_residual as 'Residuo finale',
@@ -838,7 +840,7 @@ AS
 					SUM(ISNULL(var_residual,0.0)) 		as 'Variazioni su Pre Impegno',
 					SUM(ISNULL(initial_fase2,0.0)) 	as 'Importo Impegno al 01/01',
 					SUM(ISNULL(var_fase2,0.0)) 		as 'Variazioni Impegno',
-					SUM(ISNULL(initial_residual,0.0))+SUM(ISNULL(var_residual,0.0))-SUM(ISNULL(initial_fase2,0.0))-SUM(ISNULL(var_fase2,0.0)) as 'Disponibilit√† ad Impegnare',
+					SUM(ISNULL(initial_residual,0.0))+SUM(ISNULL(var_residual,0.0))-SUM(ISNULL(initial_fase2,0.0))-SUM(ISNULL(var_fase2,0.0)) as 'Disponibilit‡ ad Impegnare',
 					SUM(ISNULL(cash_residual,0.0)) 		as 'Pagato',
 					SUM(ISNULL(var_cash_residual,0.0)) 	as 'Var. su Pagato',
 					SUM(ISNULL(initial_residual,0.0))+SUM(ISNULL(var_residual,0.0))-SUM(ISNULL(cash_residual,0.0))-SUM(ISNULL(var_cash_residual,0.0)) as 'Residuo finale',
@@ -878,7 +880,7 @@ AS
 					var_residual as 'Variazioni su Pre-Impegno',
 					initial_fase2 as 'Impegno al 01/01',
 					var_fase2 as 'Variazioni Impegno',
-					initial_residual+var_residual-initial_fase2-var_fase2 as 'Disponibilit√† ad Impegnare',
+					initial_residual+var_residual-initial_fase2-var_fase2 as 'Disponibilit‡ ad Impegnare',
 					cash_residual as 'Pagato',
 					var_cash_residual 'Var. su Pagato',
 					initial_residual+var_residual-cash_residual-var_cash_residual as 'Residuo finale',
@@ -906,4 +908,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

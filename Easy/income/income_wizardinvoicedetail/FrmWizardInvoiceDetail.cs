@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -980,7 +982,7 @@ namespace income_wizardinvoicedetail {
             GetData.SetStaticFilter(DS.billview, billfilter);
 
             if (fasecontratto == faseentratamax) {
-                MessageBox.Show(
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "La fase di contabilizzazione del contratto attivo coincide con l'ultima fase di entrata." +
                     "Non sar‡ possibile utilizzare questa procedura ",
                     "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -1027,7 +1029,7 @@ namespace income_wizardinvoicedetail {
             if ((newTab < 0) || (newTab > tabController.TabPages.Count)) return;
             if (!CustomChangeTab(oldTab, newTab)) return;
             if (newTab == tabController.TabPages.Count) {
-                if (MessageBox.Show(this, "Si desidera eseguire ancora la procedura",
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si desidera eseguire ancora la procedura",
                     "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     newTab = 1;
                     ResetWizard();
@@ -1062,7 +1064,7 @@ namespace income_wizardinvoicedetail {
             if ((oldTab == 1) && (newTab == 2)) {
                 DataRow[] Selected = GetGridSelectedRows(gridDetails);
                 if ((Selected == null) || (GetGridSelectedRows(gridDetails).Length == 0)) {
-                    MessageBox.Show("Non Ë stato selezionato alcun dettaglio.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stato selezionato alcun dettaglio.");
                     return false;
                 }
                 txtPerc.Text = "100";
@@ -1087,11 +1089,11 @@ namespace income_wizardinvoicedetail {
 
                 //				if ((radioNewCont.Checked==false)&&(radioNewLinkedMov.Checked==false)
                 //					&&(radioAddCont.Checked==false)) {
-                //					MessageBox.Show("Non sar‡ possibile contabilizzare i dettagli selezionati.");
+                //					MetaFactory.factory.getSingleton<IMessageShower>().Show("Non sar‡ possibile contabilizzare i dettagli selezionati.");
                 //					return false;
                 //				}
                 //				if (!SelezioneMovimentiEffettuata){
-                //					MessageBox.Show("Non Ë stato selezionato il movimento.");
+                //					MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stato selezionato il movimento.");
                 //					return false;
                 //				}
                 //
@@ -1630,7 +1632,7 @@ namespace income_wizardinvoicedetail {
                     DataAccess.RUN_SELECT_INTO_TABLE(Conn, IncassiView, null, filteridinc, null, true);
                 }
                 if (IncassiView.Select(filteridinc).Length == 0) {
-                    MessageBox.Show("Del dettaglio contratto attivo " +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Del dettaglio contratto attivo " +
                                     ManDet["idestimkind"].ToString() + "/" + ManDet["yestim"].ToString() + "/" +
                                     ManDet["nestim"].ToString() + "/" + ManDet["rownum"].ToString() +
                                     " non Ë stata effettuata la contabilizzazione, quindi il dettaglio fattura " +
@@ -1766,7 +1768,7 @@ namespace income_wizardinvoicedetail {
                     txtPerc.Text, "x.y.c"));
 
             if (importoDaIncassare > ImportoMax) {
-                MessageBox.Show("L'importo da incassare Ë superiore al totale dei dettagli selezionati");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("L'importo da incassare Ë superiore al totale dei dettagli selezionati");
                 return;
             }
             foreach (DataRow InvDet in Selected) {
@@ -1786,7 +1788,7 @@ namespace income_wizardinvoicedetail {
             // Ora i dettagli sono splittati in base alla scelta dell'utente
 
             if (IncassiView == null) {
-                MessageBox.Show("Nessun incasso trovato", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessun incasso trovato", "Errore");
                 return;
             }
             // Calcolo delle liquidazioni
@@ -1808,7 +1810,7 @@ namespace income_wizardinvoicedetail {
                 filterDetails = "(rownum in " + listRownum + ")";
             }
             else {
-                MessageBox.Show(this, "Nessun dettaglio selezionato", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nessun dettaglio selezionato", "Avviso");
                 return;
             }
             DataRow[] Details = DS.invoicedetail.Select(filterDetails);
@@ -1860,7 +1862,7 @@ namespace income_wizardinvoicedetail {
 
             //txtResidui.Text= ImportoResiduoSelezionato.ToString("c");
             /*if (ImportoResiduoSelezionato<importoDaIncassare){
-				MessageBox.Show("L'importo da pagare Ë superiore al disponibile sugli impegni associati ai dettagli ordine");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("L'importo da pagare Ë superiore al disponibile sugli impegni associati ai dettagli ordine");
 				return;
 			}*/
 
@@ -1880,7 +1882,7 @@ namespace income_wizardinvoicedetail {
                 totassegnato += toPay;
             }
             if (totassegnato == 0) {
-                MessageBox.Show("Non Ë stato possibile generare nessun incasso.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stato possibile generare nessun incasso.");
                 return;
             }
 
@@ -2024,7 +2026,7 @@ namespace income_wizardinvoicedetail {
                         }
                         DataRow[] IvaKind = DS.ivakind.Select(QHC.CmpEq("idivakind", Row["idivakind"]));
                         if (IvaKind.Length == 0) {
-                            MessageBox.Show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
                             return;
                         }
                         decimal imponibile = CfgFn.GetNoNullDecimal(Row["taxable"]);
@@ -2096,7 +2098,7 @@ namespace income_wizardinvoicedetail {
                             DataRow R = DS.invoicedetail.Select(filterrow, null)[0];
                             DataRow[] IvaKind1 = DS.ivakind.Select(QHC.CmpEq("idivakind", R["idivakind"]));
                             if (IvaKind1.Length == 0) {
-                                MessageBox.Show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
                                 return;
                             }
                             decimal imponibile = CfgFn.GetNoNullDecimal(R["taxable"]);
@@ -2165,7 +2167,7 @@ namespace income_wizardinvoicedetail {
                     NumberStyles.Number,
                     NumberFormatInfo.CurrentInfo);
                 if ((percent < 0) || (percent > percentmax)) {
-                    MessageBox.Show(errmsg, "Avviso");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(errmsg, "Avviso");
                     T.Focus();
                     OK = false;
                 }
@@ -2174,7 +2176,7 @@ namespace income_wizardinvoicedetail {
                 }
             }
             catch {
-                MessageBox.Show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Exclamation);
                 return false;
             }
@@ -2395,7 +2397,7 @@ namespace income_wizardinvoicedetail {
             //ga.GeneraClassificazioniIndirette(ga.DSP, true);  lo gi‡ GeneraClassificazioniAutomatiche
             bool res = ga.GeneraAutomatismiAfterPost(true);
             if (!res) {
-                MessageBox.Show(this,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                     "Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
                 return false;
             }
@@ -2471,7 +2473,7 @@ namespace income_wizardinvoicedetail {
                 foreach (DataRow Row in Selected) {
                     DataRow[] IvaKind = DS.ivakind.Select(QHC.CmpEq("idivakind", Row["idivakind"]));
                     if (IvaKind.Length == 0) {
-                        MessageBox.Show(this,
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                             "Attenzione nell'anagrafica dei tipi IVA Ë assente il tipo IVA selezionato nel dettaglio",
                             "Errore");
                         return 0;
@@ -2514,7 +2516,7 @@ namespace income_wizardinvoicedetail {
             else {
                 DataRow[] IvaKindSplit = DS.ivakind.Select(QHC.CmpEq("idivakind", rowToSplit["idivakind"]));
                 if (IvaKindSplit.Length == 0) {
-                    MessageBox.Show(this,
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                         "Attenzione nell'anagrafica dei tipi IVA Ë assente il tipo IVA selezionato nel dettaglio",
                         "Errore");
                     return 0;

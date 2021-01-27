@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilconsuntivo]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilconsuntivo]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_bilconsuntivo]
 GO
 
@@ -260,7 +262,7 @@ group by  ISNULL(FLK.idparent,finyear.idfin),isnull(@fixedidupb,finyear.idupb)
 
 
 --select SUBSTRING('123456789', 12, 5)
---tutti gli inserimenti avvengono a livello di @levelusable o inferiore se per quel ramo non esiste un livello cos√¨ basso
+--tutti gli inserimenti avvengono a livello di @levelusable o inferiore se per quel ramo non esiste un livello cosÏ basso
 INSERT INTO #data
 (
 	idfin,
@@ -837,7 +839,7 @@ END
 
 /*
  Se N qualora per un capitolo non esistano sott-capitoli con legami con l'upb fondo
- NON verr√† visualizzata l'indicazione del Titolo/Categoria/Capitolo
+ NON verr‡ visualizzata l'indicazione del Titolo/Categoria/Capitolo
 */
 
 UPDATE #data SET tosuppress = 'N'
@@ -867,7 +869,7 @@ if (@levelusable_original<3)
 if (@levelusable_original<2) 
 	set @lev_desc2='liv2'
 
--- Se la stampa √® per capitolo, e solo l'articolo √® flaggato come avanzo. Il capitolo deve essere inteso come avanzo
+-- Se la stampa Ë per capitolo, e solo l'articolo Ë flaggato come avanzo. Il capitolo deve essere inteso come avanzo
 update #data set flagadvance = 'S'
 where exists (SELECT * FROM fin 
 					JOIN  finlast
@@ -877,7 +879,7 @@ where exists (SELECT * FROM fin
 							AND finlink.idchild = finlast.idfin  
 					WHERE (fin.flag&16 <>0)  )
 
--- i report del consuntivo non gestiscono l'omissione della voce di bilancio non utilizzata di livello 5, per cui gestiamo nella sp questa eventualit√†
+-- i report del consuntivo non gestiscono l'omissione della voce di bilancio non utilizzata di livello 5, per cui gestiamo nella sp questa eventualit‡
 if ( (@suppressifblank='S') and @levelusable_original>=5)
 Begin
 	delete D from #data D
@@ -1178,4 +1180,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- CREAZIONE VISTA proceedspartview
+
+-- CREAZIONE VISTA proceedspartview
 IF EXISTS(select * from sysobjects where id = object_id(N'[moneytotrasfer_available_view]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [moneytotrasfer_available_view]
 GO
@@ -62,9 +64,9 @@ CREATE                                 VIEW moneytotrasfer_available_view
 	description,
 	amount,
 
-	--	> Importo da Girofondare: importo che non √® stato ancora girofondato;
+	--	> Importo da Girofondare: importo che non Ë stato ancora girofondato;
 	moneytotransfer,
-	--	> Importo Girofondato: importo per cui √® stato fatto il girofondo ala cassiere di destinazione;
+	--	> Importo Girofondato: importo per cui Ë stato fatto il girofondo ala cassiere di destinazione;
 	moneytransfered,
 
 	idsor01,idsor02,idsor03,idsor04,idsor05
@@ -102,21 +104,21 @@ CREATE                                 VIEW moneytotrasfer_available_view
 	fin_origin.codefin,
 	fin_origin.title,
 
-	T_origin.idtreasurer,	--cassiere di origine (ossia quello della reversale con cui √® effettuato l'incasso)
+	T_origin.idtreasurer,	--cassiere di origine (ossia quello della reversale con cui Ë effettuato l'incasso)
 	T_origin.description,
 	
 	proceedspart.description+'-'+income.description,
 	proceedspart.amount,
 	
 	
-	-- > moneytotransfer = Importo da Girofondare: importo che non √® stato ancora girofondato;
+	-- > moneytotransfer = Importo da Girofondare: importo che non Ë stato ancora girofondato;
 		proceedspart.amount - 	ISNULL(	(SELECT SUM(moneytransfer.amount) FROM moneytransfer
 												WHERE moneytransfer.nproceedspart = proceedspart.nproceedspart
 												and moneytransfer.yproceedspart = proceedspart.yproceedspart)
 												,0)
 		
 	,
-	--	> moneytransfered = Importo Girofondato: importo per cui √® stato fatto il girofondo la cassiere di destinazione;
+	--	> moneytransfered = Importo Girofondato: importo per cui Ë stato fatto il girofondo la cassiere di destinazione;
 		( SELECT SUM(moneytransfer.amount) FROM moneytransfer
 						WHERE moneytransfer.nproceedspart = proceedspart.nproceedspart
 						and moneytransfer.yproceedspart = proceedspart.yproceedspart)
@@ -199,14 +201,14 @@ UNION ALL
 	FVD_dest.description+'-'+FV.description,
 	FVD_dest.amount,
 
-	--	> Importo da Girofondare: importo che non √® stato ancora girofondato;
+	--	> Importo da Girofondare: importo che non Ë stato ancora girofondato;
 		FVD_dest.amount - 	ISNULL(	(SELECT SUM(moneytransfer.amount) FROM moneytransfer
 												WHERE moneytransfer.yvar = FVD_dest.yvar
 												and moneytransfer.nvar = FVD_dest.nvar
 												and moneytransfer.rownum = FVD_dest.rownum
 								) ,0),
 
-	--	> Importo Girofondato: importo per cui √® stato fatto il girofondo al cassiere di destinazione;
+	--	> Importo Girofondato: importo per cui Ë stato fatto il girofondo al cassiere di destinazione;
 		ISNULL(	(SELECT SUM(moneytransfer.amount) FROM moneytransfer
 												WHERE moneytransfer.yvar = FVD_dest.yvar
 												and moneytransfer.nvar = FVD_dest.nvar
@@ -240,4 +242,3 @@ UNION ALL
 
 GO
 
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_class_mov]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_class_mov]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_partitario_class_mov]
 GO
 
@@ -220,7 +222,7 @@ BEGIN
 				AND (  (expenseyear.idupb is null and @idupb='%') or (expenseyear.idupb like @idupb))	
 		END
 	
-/* nelle altre stampe viene preso il top 1 dalla tabella temporanea non dalla tabella upb. Questo √® possibile perch√®
+/* nelle altre stampe viene preso il top 1 dalla tabella temporanea non dalla tabella upb. Questo Ë possibile perchË
 	le altre stampe fanno un cross join per riempire la tab temporanea, mentre qui esegue solo una SELECT dei movimenti classificati.
 */
  	IF (@showupb <>'S') AND (@idupboriginal <> '%' ) AND (@showchildupb = 'S')
@@ -233,8 +235,8 @@ BEGIN
 					FROM upb
 					WHERE idupb = @idupboriginal)
 
-/*	Questo segmento di codice √® stato commentato perch√® non serve porre a null
-	il valore dell'UPB per annullare il raggruppamento nel report inquanto nel report non c'√® un 
+/*	Questo segmento di codice Ë stato commentato perchË non serve porre a null
+	il valore dell'UPB per annullare il raggruppamento nel report inquanto nel report non c'Ë un 
 	raggruppamento ma solo una visualizzazione dell'UPB
 	IF (@showupb <>'S') and (@idupboriginal = '%') 
 				UPDATE #sortedmov SET  
@@ -259,4 +261,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

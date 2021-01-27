@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -234,7 +236,7 @@ namespace pettycashoperation_wizardinvoicedetail{
                 )
             {
                 if ((cmbResponsabile.SelectedIndex <= 0) ||
-                    MessageBox.Show("Cambio il responsabile in base alla voce di bilancio selezionata?",
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Cambio il responsabile in base alla voce di bilancio selezionata?",
                     "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     HelpForm.SetComboBoxValue(cmbResponsabile, currIdman);
@@ -321,18 +323,18 @@ namespace pettycashoperation_wizardinvoicedetail{
         private void btnOk_Click(object sender, System.EventArgs e) {
             if (chkSpesa.Checked) {
                 if ((txtEserc.Text.Trim() == "") || (txtNum.Text.Trim() == "")){
-                    MessageBox.Show("Selezionare un Movimento");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Selezionare un Movimento");
                     DialogResult = DialogResult.None;
                 }
             }
             else {
                 if (cmbResponsabile.SelectedIndex <= 0 && idmanager != null && idmanager != DBNull.Value){
-                    MessageBox.Show("Selezionare un responsabile");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Selezionare un responsabile");
                     DialogResult = DialogResult.None;
                     return;
                 }
                 if (cmbUPB.SelectedIndex <= 0 && filter_upb == null && upbToSelect){
-                    MessageBox.Show("Selezionare un UPB");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Selezionare un UPB");
                     DialogResult = DialogResult.None;
                     return;
                 }
@@ -347,24 +349,24 @@ namespace pettycashoperation_wizardinvoicedetail{
                     IDUPBSelected = DBNull.Value;
 
                 if ((Selected == null) && txtBilancio.Text.Trim() == ""){
-                    MessageBox.Show("Selezionare una voce di bilancio");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Selezionare una voce di bilancio");
                     DialogResult = DialogResult.None;
                 }
             }
 
             if (CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal), txtImporto.Text, "x.y.c")) == 0){
-                MessageBox.Show("L'importo non può essere pari a zero.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("L'importo non può essere pari a zero.");
                 DialogResult = DialogResult.None;
             }
 
             if (CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal), txtImporto.Text, "x.y.c")) < 0){
-                MessageBox.Show("L'importo non può essere negativo.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("L'importo non può essere negativo.");
                 DialogResult = DialogResult.None;
             }
 
             decimal delta = TotaleImportoAssegnato();
             if (delta <0){
-                MessageBox.Show("La somma dei dettagli supera l'importo della fattura! Correggere l'importo.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La somma dei dettagli supera l'importo della fattura! Correggere l'importo.");
                 DialogResult = DialogResult.None;
             }
 
@@ -442,7 +444,7 @@ namespace pettycashoperation_wizardinvoicedetail{
             txtImporto.Text = importoText.ToString("c");
             decimal delta = TotaleImportoAssegnato();
             if (delta <0){
-                MessageBox.Show("La somma dei dettagli supera l'importo della fattura!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La somma dei dettagli supera l'importo della fattura!");
             }
         }
 
@@ -482,7 +484,7 @@ namespace pettycashoperation_wizardinvoicedetail{
                     cmbUPB.SelectedIndex >0  ||
                     cmbResponsabile.SelectedIndex > 0)
                 {
-                    if (MessageBox.Show("Per abilitare la selezione del movimento di spesa è necessario annullare le altre " +
+                    if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Per abilitare la selezione del movimento di spesa è necessario annullare le altre " +
                         "attribuzioni su questa operazione. Proseguo?", "Conferma",
                         MessageBoxButtons.OKCancel) != DialogResult.OK)
                     {
@@ -510,7 +512,7 @@ namespace pettycashoperation_wizardinvoicedetail{
 
             // se si è deciso di rimuovere il movimento e selezionare le info manualmente
             if (idexp != DBNull.Value) {
-                if (MessageBox.Show("Per abilitare la selezione delle attribuzioni normali su questa operazione è necessario annullare il collegamento al movimento di spesa " +
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Per abilitare la selezione delle attribuzioni normali su questa operazione è necessario annullare il collegamento al movimento di spesa " +
                     ". Proseguo?", "Conferma",
                     MessageBoxButtons.OKCancel) != DialogResult.OK)
                 {

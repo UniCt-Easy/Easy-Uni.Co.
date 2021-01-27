@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -957,7 +959,7 @@ namespace paymenttransmission_default { //trasmdocpagamento//
                     //if (SM.NoConfig == false) continue;
                     if (!SM.Send()) {
                         if (SM.ErrorMessage.Trim() != "")
-                            MessageBox.Show(SM.ErrorMessage, "Errore");
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(SM.ErrorMessage, "Errore");
                     }
                     else sent = true;
                 }
@@ -1106,7 +1108,7 @@ namespace paymenttransmission_default { //trasmdocpagamento//
                     //if (SM.NoConfig == false) continue;
                     if (!SM.Send()) {
 	                    if (SM.ErrorMessage.Trim() != "") {
-		                    MessageBox.Show(SM.ErrorMessage, "Errore");
+		                    MetaFactory.factory.getSingleton<IMessageShower>().Show(SM.ErrorMessage, "Errore");
 	                    }
                     }
                     else sent = true;
@@ -1262,7 +1264,7 @@ namespace paymenttransmission_default { //trasmdocpagamento//
                 }
             }
             else {
-                MessageBox.Show(
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "Errore: Non Ë stata ancora effettuata la configurazione delle spese per l'esercizio corrente.");
                 Meta.CanSave = false;
                 Meta.SearchEnabled = false;
@@ -1607,15 +1609,15 @@ namespace paymenttransmission_default { //trasmdocpagamento//
         private void btnSendNotification_Click(object sender, EventArgs e) {
             if (!Meta.DrawStateIsDone) return;
             if (MetaData.Empty(this)) return;
-            var Curr = DS.paymenttransmission.Rows[0];
             if (chkFlagMailSent.Checked) return;
-            sent = false;
             Meta.closeDisabled = true;
+            var Curr = DS.paymenttransmission.Rows[0];
+            sent = false;
             SendNotification();
             SendNotificationDisp();
 
             if (sent) {
-                MessageBox.Show("Notifiche inviate");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Notifiche inviate");
                 sent = false;
                 Curr["flagmailsent"] = "S";
                 Meta.FreshForm();

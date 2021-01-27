@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -111,7 +113,7 @@ namespace funzioni_configurazione {
             //GetSchemaTable(ConnectionString,T);
 
             Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(fileName, 0, true /* impostare a false se non √® readonly */ ,
+            Microsoft.Office.Interop.Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(fileName, 0, true /* impostare a false se non Ë readonly */ ,
                     5,
                     "", "", true,
                     Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, //Microsoft.Office.Interop.XlPlatform.xlWindows,
@@ -295,7 +297,7 @@ namespace funzioni_configurazione {
             }
             catch (Exception ex) {
                 obj = null;
-                MessageBox.Show("Unable to release the Object " + ex.ToString());
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Unable to release the Object " + ex.ToString());
             }
             finally {
                 GC.Collect();
@@ -396,7 +398,7 @@ namespace funzioni_configurazione {
             SPTable = Conn.SQLRunner(sqltext, false, 0);
             datatable = true;
             if (SPTable == null) {
-                MessageBox.Show("Il comando SQL " + sqltext + " non ha restituito una tabella.", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Il comando SQL " + sqltext + " non ha restituito una tabella.", "Avviso");
                 return false;
             }
             return true;
@@ -425,7 +427,7 @@ namespace funzioni_configurazione {
             if (filename.EndsWith("xls") || filename.EndsWith("xlsx")) {
                 try {
                     xlApp = new Microsoft.Office.Interop.Excel.Application();
-                    xlWorkBook = xlApp.Workbooks.Open(filename, 0, true /* impostare a false se non √® readonly */,
+                    xlWorkBook = xlApp.Workbooks.Open(filename, 0, true /* impostare a false se non Ë readonly */,
                         5,
                         "", "", true,
                         Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, //Microsoft.Office.Interop.Excel.XlPlatform.xlWindows,
@@ -497,7 +499,7 @@ namespace funzioni_configurazione {
             }
             catch (Exception ex) {
                 obj = null;
-                MessageBox.Show("Unable to release the Object " + ex.ToString());
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Unable to release the Object " + ex.ToString());
             }
             finally {
                 GC.Collect();
@@ -751,7 +753,7 @@ namespace funzioni_configurazione {
                     throw new Exception("Errore alla riga:" + nrigacorrente.ToString() +
                                         " nell'interpretazione del campo " +
                                         fieldname + " il cui tipo dovrebbe essere " + ftype +
-                                        " ed il cui valore √® " + O.ToString() + "\r\nMessaggio:\r\n" + e.Message +
+                                        " ed il cui valore Ë " + O.ToString() + "\r\nMessaggio:\r\n" + e.Message +
                                         "\r\n" + e.StackTrace);
                 }
             }
@@ -828,7 +830,7 @@ namespace funzioni_configurazione {
             * (object[,])range.get_Value(XL.XlRangeValueDataType.xlRangeValueDefault)
             * produce questo errore  :Cannot convert type 'string' to 'object[*,*]'
             * quando range.Count == 1.
-            * perch√® restituir√† una stringa quando range.Count == 1, che significa che non pu√≤ essere convertito in object[,]
+            * perchË restituir‡ una stringa quando range.Count == 1, che significa che non puÚ essere convertito in object[,]
             * Questo si verifica quando l'intervallo si riferisce a una cella specifica e get_Value restituisce il valore di tale cella.
             */
             if (testCell.Count == 1) {
@@ -869,7 +871,7 @@ namespace funzioni_configurazione {
                 int hprof = metaprofiler.StartTimer("ExcelGetField");
                 O = ExcelGetField(celle[i], celle2[i], fmt, out fieldname, out error);
                 if (error != null) {
-                    MessageBox.Show(error, "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(error, "Errore");
                     continue;
                 }
                 metaprofiler.StopTimer(hprof);
@@ -935,7 +937,7 @@ namespace funzioni_configurazione {
                 string fmt = tracciato[i];
                 object O = CSVGetField(SS[iCol], fmt, out fieldname, out error);
                 if (error != null) {
-                    MessageBox.Show(error, "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(error, "Errore");
                     continue;
                 }
                 if (O == null) {
@@ -989,7 +991,7 @@ namespace funzioni_configurazione {
                 string fmt = tracciato[i];
                 object O = GetField(S, currpos, fmt, out fieldname, out toskip, out error);
                 if (error != null) {
-                    MessageBox.Show(error, "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(error, "Errore");
                     continue;
                 }
                 if (O == null) {

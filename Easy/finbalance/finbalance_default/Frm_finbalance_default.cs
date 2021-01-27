@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -2002,7 +2004,7 @@ namespace finbalance_default//bilancioassestamento//
                 if (app < 3)
                     eseguiForm = "N";
                 else {
-                    if (MessageBox.Show(this, "E' consigliabile, prima di eseguire l'assestamento del bilancio, " +
+                    if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "E' consigliabile, prima di eseguire l'assestamento del bilancio, " +
                             "finire l'inserimento degli accertamenti e degli impegni dell'anno precedente, " +
                             "ed eseguire il trasferimento dei residui attivi e passivi all'anno corrente.\n" +
                             "Tali operazioni NON sono state finora effettuate. Si desidera proseguire lo stesso?",
@@ -2067,7 +2069,7 @@ namespace finbalance_default//bilancioassestamento//
 			
 
 			if (eseguiForm != "S") {
-				MessageBox.Show("In questa fase non Ë possibile eseguire questo form.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("In questa fase non Ë possibile eseguire questo form.");
 				Meta.CanSave=false;
 				Meta.CanInsert=false;
 				Meta.CanInsertCopy=false;
@@ -2322,7 +2324,7 @@ namespace finbalance_default//bilancioassestamento//
 			bool FinAssured=false;
 		    if (DS.upb.Select(QHC.CmpEq("idupb", idupb)).Length == 0) {
 		        Meta.LogError("UPB di ID " + idupb + " non trovato.");
-		        MessageBox.Show("UPB di ID " + idupb + " non trovato.", "Errore");
+		        MetaFactory.factory.getSingleton<IMessageShower>().Show("UPB di ID " + idupb + " non trovato.", "Errore");
 		        return;
 		    }
             System.Data.DataRow UPBRow= DS.upb.Select(QHC.CmpEq("idupb",idupb))[0];
@@ -2341,7 +2343,7 @@ namespace finbalance_default//bilancioassestamento//
             string filteridfin = QHC.CmpEq("idfin", R["idfin"]);
 		    if (MyBilancio.Select(filteridfin).Length == 0) {
                 Meta.LogError("Voce Bilancio di ID " + R["idfin"] + " non trovata.");
-                MessageBox.Show("Voce Bilancio di ID " + R["idfin"] + " non trovata.", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Voce Bilancio di ID " + R["idfin"] + " non trovata.", "Errore");
                 return;
 		    }
 
@@ -3158,7 +3160,7 @@ namespace finbalance_default//bilancioassestamento//
             System.Data.DataRow Curr = DS.finbalance.Rows[0];
 			object DataAss= Curr["balancedate"];
 			if (DataAss == DBNull.Value) {
-				MessageBox.Show("E' necessario specificare la data di assestamento");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario specificare la data di assestamento");
 				return;
 			}
 
@@ -3255,7 +3257,7 @@ namespace finbalance_default//bilancioassestamento//
 			PostData.RemoveFalseUpdates(DS);
 			if (DS.HasChanges())
 			{
-				MessageBox.Show("E' necessario salvare i dati prima di utilizzare questa funzione. Operazione annullata.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario salvare i dati prima di utilizzare questa funzione. Operazione annullata.");
 				return;
 			}
 			salvaDati();
@@ -3267,7 +3269,7 @@ namespace finbalance_default//bilancioassestamento//
 			Meta.SaveFormData();
 			PostData.RemoveFalseUpdates(DS);
 			if (DS.HasChanges()) {
-				MessageBox.Show("E' necessario salvare i dati prima di utilizzare questa funzione. Operazione annullata.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario salvare i dati prima di utilizzare questa funzione. Operazione annullata.");
 				return;
 			}
 
@@ -3276,7 +3278,7 @@ namespace finbalance_default//bilancioassestamento//
 			if (Conn.RUN_SELECT_COUNT("finvar",QHS.AppAnd(
                 QHS.CmpEq("yvar",Meta.GetSys("esercizio")),QHS.CmpEq("variationkind",3),
                 QHS.CmpEq("flagproceeds","S")),false)>0) {
-				if (MessageBox.Show("Esiste gi‡ la variazione di assestamento dell'avanzo di cassa effettivo. Procedo comunque?",
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Esiste gi‡ la variazione di assestamento dell'avanzo di cassa effettivo. Procedo comunque?",
 					"Conferma",MessageBoxButtons.OKCancel)!=DialogResult.OK) procedi = false;
 			}
 			if (!procedi) return;
@@ -3285,7 +3287,7 @@ namespace finbalance_default//bilancioassestamento//
                 if (Conn.RUN_SELECT_COUNT("finvar", QHS.AppAnd(
                     QHS.CmpEq("yvar", Meta.GetSys("esercizio")), QHS.CmpEq("variationkind", 3),
                     QHS.CmpEq("flagcredit", "S")), false) > 0) {
-                    if (MessageBox.Show("Esiste gi‡ la variazione di assestamento dell'avanzo di amministrazione effettivo. Procedo comunque?",
+                    if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Esiste gi‡ la variazione di assestamento dell'avanzo di amministrazione effettivo. Procedo comunque?",
 						"Conferma",MessageBoxButtons.OKCancel)!=DialogResult.OK) {
 						procedi = false;
 					}
@@ -3484,10 +3486,10 @@ namespace finbalance_default//bilancioassestamento//
 				Meta.SaveFormData();
 				if (DS.HasChanges()) res=false;
 
-				if (res) MessageBox.Show("Dati salvati con Successo!");
+				if (res) MetaFactory.factory.getSingleton<IMessageShower>().Show("Dati salvati con Successo!");
 			}
 			if (DS.HasChanges()) {
-				MessageBox.Show("Attenzione - Sono presenti delle modifiche nel form!");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Attenzione - Sono presenti delle modifiche nel form!");
 			}
 		}
 
@@ -3623,7 +3625,7 @@ namespace finbalance_default//bilancioassestamento//
 					foreach (Xceed.Grid.Column CC in gridControl2.Columns){
 						order3+=" "+CC.Title+" "+CC.VisibleIndex;
 					}
-					//MessageBox.Show(order1+"\n"+order2+"\n"+order3);
+					//MetaFactory.factory.getSingleton<IMessageShower>().Show(order1+"\n"+order2+"\n"+order3);
 				}
 																					
 			}

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿-- CREAZIONE VISTA estimatedetailview
+
+-- CREAZIONE VISTA estimatedetailview
 IF EXISTS(select * from sysobjects where id = object_id(N'[estimatedetailview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [estimatedetailview]
 GO
@@ -102,7 +104,8 @@ CREATE  VIEW [estimatedetailview]
 	idepacc_pre,
 	yepacc_pre,
 	nepacc_pre,
-	adate
+	adate,
+	rownum_main
 	)
 	AS SELECT
 	estimatedetail.idestimkind,
@@ -188,7 +191,8 @@ CREATE  VIEW [estimatedetailview]
 	estimatedetail.idepacc_pre,
 	epacc_pre.yepacc,
 	epacc_pre.nepacc,
-	estimate.adate
+	estimate.adate,
+	estimatedetail.rownum_main
 FROM estimatedetail WITH (NOLOCK)
 JOIN estimatekind WITH (NOLOCK)				ON estimatekind.idestimkind = estimatedetail.idestimkind
 JOIN estimate WITH (NOLOCK)					ON estimate.yestim = estimatedetail.yestim
@@ -210,4 +214,3 @@ LEFT OUTER JOIN list with (nolock)					ON list.idlist = estimatedetail.idlist
 
 GO
  
-	

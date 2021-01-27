@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (SELECT * from dbo.sysobjects where id = object_id(N'[exp_modello770_16_g_test]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (SELECT * from dbo.sysobjects where id = object_id(N'[exp_modello770_16_g_test]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_modello770_16_g_test]
 GO
  
@@ -81,7 +83,7 @@ AS BEGIN
 	WHERE  ayear = @annodichiarazione
 	
 	-- Fine Sezione dichiarativa
-	-- La tabella #modulocococo ha dentro di se solamente il riferimento al percipiente, perchÃ© la certificazione deve essere prodotta a livello
+	-- La tabella #modulocococo ha dentro di se solamente il riferimento al percipiente, perché la certificazione deve essere prodotta a livello
 	-- di percipiente.
 	--------------------------------------------------------------------------------
 	-------------------------- Estrazione dei Percipienti --------------------------
@@ -90,20 +92,20 @@ AS BEGIN
 
 	/*
 		Inserisco per il momento solo i dati relativi alle rit. fiscali dei soli CEDOLINI di CONGUAGLIO
-		perchÃ¨ ho bisogno di prendere i dati conguagliati. C'Ã¨ un problema derivante dal conguaglio in presenza
-		di un cud presentato: Non c'Ã¨ modo di capire se il cud presentato Ã¨ un precedente contratto o altro
+		perchè ho bisogno di prendere i dati conguagliati. C'è un problema derivante dal conguaglio in presenza
+		di un cud presentato: Non c'è modo di capire se il cud presentato è un precedente contratto o altro
 		Questo implica che gli imponibili (LE RITENUTE SONO OK) non possono essere tenuti in considerazione
-		per la sommatoria che si farÃ  in seguito per calcolare i redditi
+		per la sommatoria che si farà in seguito per calcolare i redditi
 	*/
 
 	-- Riempimento della tabella dei percipienti coinvolti nella certificazione.
 	-- per Modello 770
 	-- Vengono presi tutti i percipienti associati a cedolini di conguaglio con anno di competenza quello della dichiarazione
-	-- e trasmessi, inoltre la prestazione del contratto al quale il cedolino Ã¨ associato deve essere associata
+	-- e trasmessi, inoltre la prestazione del contratto al quale il cedolino è associato deve essere associata
 	-- al quadro G del 770 (rec770kind = 'G') e di cui almeno un cedolino dell'anno corrente sia stato trasmesso
 	-- per CUD
 	-- Vengono presi tutti i percipienti associati a cedolini di conguaglio con anno di competenza quello della dichiarazione
-	-- e trasmessi, inoltre la prestazione del contratto al quale il cedolino Ã¨ associato deve essere associata
+	-- e trasmessi, inoltre la prestazione del contratto al quale il cedolino è associato deve essere associata
 	-- alla certificazione CUD (certificatekind = 'U') e di cui almeno un cedolino dell'anno corrente sia stato trasmesso
 	INSERT INTO #modulocococo (idreg,cf) 
 	SELECT DISTINCT co.idreg, registry.cf       
@@ -125,7 +127,7 @@ AS BEGIN
 		AND service.rec770kind='G'
 		AND ce.disbursementdate is not null
 		--------------------------------------------------------------------------------
-		----- da rimuovere non appena sarÃ  corretto l'errore dal software SOGEI --------
+		----- da rimuovere non appena sarà corretto l'errore dal software SOGEI --------
 		--------------------------------------------------------------------------------
 		AND (registry.cf IS NOT NULL) 
 		--AND (registry.cf = @cf OR @cf IS NULL) -- decidere se fare la dichiarazione ad personam su specifici percipienti
@@ -376,7 +378,7 @@ AS BEGIN
 		INSERT INTO #recordg (progr, quadro, riga, colonna, stringa) VALUES(@progrCom, 'HRG', 1, '08', @chiave)
 			
 		-- Si imposta la variabile il percipiente che nel caso di spesa viene estratta in base al movimento di spesa
-		-- nel caso di parasubordinato Ã¨ direttamente il valore della variabile @chiave
+		-- nel caso di parasubordinato è direttamente il valore della variabile @chiave
 	
 		SET @idreg = @chiave
 	
@@ -388,10 +390,10 @@ AS BEGIN
 
 		-- Si inseriscono i contratti del percipiente corrente.
 		-- La query eseguita ricalca quella adottata per la selezione dei percipienti (riempimento della tabella #modulocococo)
-		-- PiÃ¹ precisamente:
+		-- Più precisamente:
 		-- per Modello 770
 		-- Vengono presi tutti i contratti di un fissato percipiente per i quali esiste almeno un cedolino che sia stato trasmesso
-		-- nell'anno dei redditi. Inoltre la prestazione del contratto al quale il cedolino Ã¨ associato deve essere associata
+		-- nell'anno dei redditi. Inoltre la prestazione del contratto al quale il cedolino è associato deve essere associata
 		-- al quadro G del 770 (rec770kind = 'G'). Altri dati ricavati sono l'imponibile previdenziale, l'INPS e INAIL trattenuti
 		-- le deduzioni, l'imponibile fiscale lordo del contratto e l'id e la data di fine del cedolino di conguaglio.
 			
@@ -473,7 +475,7 @@ AS BEGIN
 		-- Contratto 10
 		-- Contratto 11
 		-- CUD inserito nel contratto 11 riferito al contratto 10
-		-- Il contratto 10 avrÃ  come padre il contratto 11
+		-- Il contratto 10 avrà come padre il contratto 11
 		UPDATE #contratti
 		SET padre = exhibitedcud.idcon
 		FROM exhibitedcud
@@ -481,15 +483,15 @@ AS BEGIN
 		AND exhibitedcud.fiscalyear = @annoredditi
 
 		-- Si definisce un contratto capofila per il percipiente
-		-- Un contratto capofila Ã¨ da considerarsi come radice dell'albero dei contratti
-		-- Se esiste un solo contratto con il campo PADRE non valorizzato sarÃ  questo contratto
+		-- Un contratto capofila è da considerarsi come radice dell'albero dei contratti
+		-- Se esiste un solo contratto con il campo PADRE non valorizzato sarà questo contratto
 		-- ad essere individuato come capofila
 		-- altrimenti si sceglie come capofila un contratto tra tutti quelli senza padre.
-		-- N.B. Per le prestazioni Co.Co.Co. per cui la certificazione associata Ã¨ il CUD
-		-- ove ci siano piÃ¹ contratti c'Ã¨ sempre un capofila, mentre per prestazioni tipo
-		-- assegnisti di ricerca accade che ci siano piÃ¹ contratti non legati tra loro in quanto
+		-- N.B. Per le prestazioni Co.Co.Co. per cui la certificazione associata è il CUD
+		-- ove ci siano più contratti c'è sempre un capofila, mentre per prestazioni tipo
+		-- assegnisti di ricerca accade che ci siano più contratti non legati tra loro in quanto
 		-- non esiste il concetto di trasformare un contratto pregresso in CUD per uno nuovo
-		-- in quanto non vi Ã¨ l'esigenza di effettuare un conguaglio fiscale.
+		-- in quanto non vi è l'esigenza di effettuare un conguaglio fiscale.
 		IF (SELECT COUNT(*) FROM #contratti WHERE padre IS NULL) = 1
 		BEGIN
 			UPDATE #contratti
@@ -919,7 +921,7 @@ AS BEGIN
 		,0)
 		
 		-- Calcolo dei redditi ai quali si possono applicare le deduzioni art. 11 e imposta lorda
-		-- Esso Ã¨ pari alla somma degli imponibili lordi delle ritenute fiscali nazionali associate ai
+		-- Esso è pari alla somma degli imponibili lordi delle ritenute fiscali nazionali associate ai
 		-- contratti del percipiente. I contratti da considerare sono solo quelli associati alla certificazione
 		-- CUD che non sono diventati a loro volta CUD per altri contratti. Si scartano le ritenute con codice
 		-- 08_IRPEF_FOC e 07_IRPEF_FO in quanto sono ritenute applicate a stranieri che non rientrano in questo calcolo
@@ -940,7 +942,7 @@ AS BEGIN
 		SET @employtaxgross  = isnull(@employtaxgross,0)
 
 		-- Calcolo della detrazione per familiari a carico
-		-- Essa Ã¨ pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
+		-- Essa è pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
 		-- non divenuti CUD per altri
 		-- Si considera ovviamente la sola detrazione con codice 28 che si riferisce ai familiari
 		DECLARE @detrazioni_familiari_a_carico	DECIMAL(19,2)
@@ -956,7 +958,7 @@ AS BEGIN
 		SET @detrazioni_familiari_a_carico = ISNULL(@detrazioni_familiari_a_carico,0)
 
 		-- Calcolo della detrazione per reddito
-		-- Essa Ã¨ pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
+		-- Essa è pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
 		-- non divenuti CUD per altri 
 		-- Si considera ovviamente la sola detrazione con codice 29 che si riferisce al reddito
 		DECLARE @detrazioni_per_reddito DECIMAL(19,2)
@@ -972,7 +974,7 @@ AS BEGIN
 
 		SET @detrazioni_per_reddito = ISNULL(@detrazioni_per_reddito,0)
 		-- Calcolo della detrazione per oneri
-		-- Essa Ã¨ pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
+		-- Essa è pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
 		-- non divenuti CUD per altri e la cui prestazione ricade nella cetificazione CUD
 		-- Si considerano tutte le detrazioni che sono marcate come oneri detraibili (flagabatableexpense = 'S')
 		
@@ -995,7 +997,7 @@ AS BEGIN
 		SET @totale_detrazioni  = @detrazioni_familiari_a_carico  + @detrazioni_per_reddito  + @detrazioni_per_oneri 
 		
 		-- Calcolo della deduzione art. 10
-		-- Essa Ã¨ pari alla somma tra gli oneri sostenuti in altri contratti  e la somma delle deduzioni
+		-- Essa è pari alla somma tra gli oneri sostenuti in altri contratti  e la somma delle deduzioni
 		-- applicate sui cedolini associati ai contratti non divenuti CUD per altri e la cui prestazione
 		-- ricade nella cetificazione CUD e che non abbiamo come ritenute fiscali nazionali quelle con codice
 		-- 08_IRPEF_FOC o 07_IRPEF_FO
@@ -1026,7 +1028,7 @@ AS BEGIN
 			-- Si considera la somma delle ritenute nette fiscali nazionali con codice differente
 			-- da 08_IRPEF_FOC e 07_IRPEF_FO
 			-- Non si filtra sulla certificazione in quanto le prestazioni che non rientrano nel CUD
-			-- non pagano IRPEF e quindi il loro contributo Ã¨ nullo
+			-- non pagano IRPEF e quindi il loro contributo è nullo
 		DECLARE @ritenuta_irpef DECIMAL(19,2)
 		SET @ritenuta_irpef =
 			ISNULL(
@@ -1059,7 +1061,7 @@ AS BEGIN
 		-- Si considera la somma delle ritenute nette fiscali regionali dei cedolini associati a contratti
 		-- che non hanno ritenute con codice uguale a 08_IRPEF_FOC e 07_IRPEF_FO
 		-- Non si filtra sulla certificazione in quanto le prestazioni che non rientrano nel CUD
-		-- non pagano le addizionali regionali e quindi il loro contributo Ã¨ nullo
+		-- non pagano le addizionali regionali e quindi il loro contributo è nullo
 		DECLARE @ritenuta_addreg_irpef DECIMAL(19,2)	
 		SET @ritenuta_addreg_irpef =
 			ISNULL(
@@ -1130,8 +1132,8 @@ DECLARE @ritenuta_addreg_irpef_rapporti_cessati DECIMAL(19,2)
 		,0)
 		
 		
-		-- Campo 16 â€“ Addizionale comunale acconto 2014. Va indicato lâ€™importo dellâ€™addizionale comunale allâ€™IRPEF 
-		-- effettivamente trattenuta dal sostituto a titolo dâ€™acconto per il periodo dâ€™imposta 2014. 
+		-- Campo 16 – Addizionale comunale acconto 2014. Va indicato l’importo dell’addizionale comunale all’IRPEF 
+		-- effettivamente trattenuta dal sostituto a titolo d’acconto per il periodo d’imposta 2014. 
 		-- Lo gestiamo con il codice ritenuta 07_ACC_ADDCOM.
 
 
@@ -1166,7 +1168,7 @@ DECLARE @ritenuta_addreg_irpef_rapporti_cessati DECIMAL(19,2)
 		-- Calcolo della addizionale comunale all'IRPEF
 		-- Si considera la somma delle ritenute nette fiscali comunali con codice pari a 05_ADDCOMU
 		-- Non si filtra sulla certificazione in quanto le prestazioni che non rientrano nel CUD
-		-- non pagano le addizionali regionali e quindi il loro contributo Ã¨ nullo
+		-- non pagano le addizionali regionali e quindi il loro contributo è nullo
 		DECLARE @ritenuta_addcom_irpef_saldo_2014 DECIMAL(19,2)
 		SET @ritenuta_addcom_irpef_saldo_2014 =
 		ISNULL(
@@ -1224,14 +1226,14 @@ DECLARE @ritenuta_addreg_irpef_rapporti_cessati DECIMAL(19,2)
 				AND exhibitedcud.idlinkedcon IS NULL)
 		,0)
 
-		-- Il saldo dell'addizionale comunale Ã¨ pari alla differenza tra addizionale comunale e acconto alla stessa
+		-- Il saldo dell'addizionale comunale è pari alla differenza tra addizionale comunale e acconto alla stessa
 		SELECT @ritenuta_addcom_irpef_saldo_2014  = @ritenuta_addcom_irpef_saldo_2014 - @ritenuta_addcom_irpef_acconto_2014   
 		
-		-- Il saldo dell'addizionale comunale rapporti cessati Ã¨ pari alla differenza tra addizionale comunale e acconto alla stessa
+		-- Il saldo dell'addizionale comunale rapporti cessati è pari alla differenza tra addizionale comunale e acconto alla stessa
 		SELECT @ritenuta_addcom_irpef_saldo_2014_rapporti_cessati  = 
 		@ritenuta_addcom_irpef_saldo_2014_rapporti_cessati - @ritenuta_addcom_irpef_acconto_2014   
 		
-		-- Se il saldo Ã¨ negativo si valorizza il solo campo inerente all'acconto impostando a NULL il campo del saldo
+		-- Se il saldo è negativo si valorizza il solo campo inerente all'acconto impostando a NULL il campo del saldo
 		-- altrimenti si valorizza il campo del saldo impostando a NULL il campo dell'acconto (chiedere a Nino)
 			--if @ritenuta_addcom_irpef_saldo_2014 < 0
 			--begin
@@ -1252,7 +1254,7 @@ DECLARE @ritenuta_addreg_irpef_rapporti_cessati DECIMAL(19,2)
 			--		DECLARE @tr_primaratacaf int
 			--		SELECT @tr_primaratacaf = taxcode FROM tax WHERE taxref = '07_IRPEF_R1'
 			
-			--		-- La prima rata Ã¨ data dalla somma della ritenute netta associata ai cedolini con codice 07_IRPEF_R1
+			--		-- La prima rata è data dalla somma della ritenute netta associata ai cedolini con codice 07_IRPEF_R1
 			--		SET @zb21primaratairpef_caf = 
 			--		ISNULL(
 			--			(SELECT SUM(expensetaxofficial.employtax)
@@ -1268,7 +1270,7 @@ DECLARE @ritenuta_addreg_irpef_rapporti_cessati DECIMAL(19,2)
 			--		DECLARE @tr_secondaratacaf int
 			--		SELECT @tr_secondaratacaf = taxcode FROM tax WHERE taxref = '07_IRPEF_R2'
 			
-			--		-- La seconda rata Ã¨ data dalla somma della ritenute netta associata ai cedolini con codice 07_IRPEF_R2
+			--		-- La seconda rata è data dalla somma della ritenute netta associata ai cedolini con codice 07_IRPEF_R2
 			--		SET @zb22secondaratairpef_caf = 
 			--		ISNULL(
 			--			(SELECT SUM(expensetaxofficial.employtax)
@@ -1290,7 +1292,7 @@ DECLARE @ritenuta_addreg_irpef_rapporti_cessati DECIMAL(19,2)
 			SELECT  @workingdays = count(*) from #workdays where worked='S'
 
 			-- Se i giorni lavorati superano l'anno si pongono pari al numero di giorni dell'anno
-			-- non Ã¨ contemplato, a quanto pare, l'anno bisestile
+			-- non è contemplato, a quanto pare, l'anno bisestile
 			IF @workingdays>365 
 			BEGIN
 				SET @workingdays=365
@@ -1411,7 +1413,7 @@ IF
 		DECLARE @taxablegross_irpef_stranieri decimal(19,2)
 		DECLARE @ritenuta_irpef_stranieri decimal(19,2)
 		-- Calcolo dei redditi ai quali si possono applicare le deduzioni art. 11
-		-- Esso Ã¨ pari alla somma degli imponibili lordi delle ritenute fiscali con codice 08_IRPEF_FOC o 07_IRPEF_FO
+		-- Esso è pari alla somma degli imponibili lordi delle ritenute fiscali con codice 08_IRPEF_FOC o 07_IRPEF_FO
 		-- associate ai contratti del percipiente. I contratti da considerare sono solo quelli associati alla certificazione
 		-- CUD che non sono diventati a loro volta CUD per altri contratti. 
 				
@@ -1501,7 +1503,7 @@ IF
 	DECLARE @taxablegross_fondocredito_dipendentipubblici	decimal(19,2)
 	DECLARE @ritenuta_fondocredito_dipendentipubblici		decimal(19,2)
 	
-	-- Esso Ã¨ pari alla somma degli imponibili lordi delle ritenute previdenziali con codice 07_INPDAP_CAMM o 07_INPDAP_CDIP o 14_Rit. L.438/9
+	-- Esso è pari alla somma degli imponibili lordi delle ritenute previdenziali con codice 07_INPDAP_CAMM o 07_INPDAP_CDIP o 14_Rit. L.438/9
 	-- associate ai contratti del percipiente. I contratti da considerare sono solo quelli associati alla certificazione
 	-- CUD che non sono diventati a loro volta CUD per altri contratti. 
 									         
@@ -1620,7 +1622,7 @@ IF
 	
 	declare @mesiSenzaEmensdipendentipubblici VARCHAR(12)
 	declare @emensTuttiIMesidipendentipubblici int
-	-- Calcolo dei mesi dove non Ã¨ stato prodotto l'E-Mense
+	-- Calcolo dei mesi dove non è stato prodotto l'E-Mense
 	set @mesiSenzaEmensdipendentipubblici = --todo: eliminare i mesi in cui inps=0
 		  case WHEN exists (SELECT * from #cedolini
 		  JOIN #contratti
@@ -1810,7 +1812,7 @@ IF
 					
 		declare @mesiSenzaEmens VARCHAR(12)
 		declare @emensTuttiIMesi int
-		-- Calcolo dei mesi dove non Ã¨ stato prodotto l'E-Mense
+		-- Calcolo dei mesi dove non è stato prodotto l'E-Mense
 		set @mesiSenzaEmens = --todo: eliminare i mesi in cui inps=0
 			  case WHEN exists (SELECT * from #cedolini
 			  JOIN #contratti
@@ -2190,10 +2192,10 @@ IF
 	DECLARE	@DB001017 DECIMAL(19,2)	-- Addizionale comunale all'Irpef - Saldo 2014
 	DECLARE	@DB001018 DECIMAL(19,2)	-- Addizionale comunale all'Irpef - Rapporti cessati 2014
 	
-	--Campo 14 â€“ Addizionale regionale 2014 rapporti cessati. Campo di nuova istituzione. 
-	--Va indicato lâ€™ammontare dellâ€™addizionale regionale allâ€™Irpef 2014 trattenuta nel 2014 
+	--Campo 14 – Addizionale regionale 2014 rapporti cessati. Campo di nuova istituzione. 
+	--Va indicato l’ammontare dell’addizionale regionale all’Irpef 2014 trattenuta nel 2014 
 	--dal sostituto in caso di cessazione del rapporto di lavoro nel corso del 2014 
-	--giÃ  indicato nel precedente campo 12 (Addizionale regionale all'Irpef). Quindi in caso in cui la fine rapporto nellâ€™esercizio 2014 
+	--già indicato nel precedente campo 12 (Addizionale regionale all'Irpef). Quindi in caso in cui la fine rapporto nell’esercizio 2014 
 	--il campo deve essere valorizzato.
 	
 	SET @DB001011= isnull(@ritenuta_irpef,0)
@@ -2263,13 +2265,13 @@ IF
 	DECLARE @DB001108 DECIMAL (19,2)	-- Totale Detrazioni per oneri
 	DECLARE @DB001113 DECIMAL (19,2)	-- Totale detrazioni
 	 
-	-- Campi 103, 104, 105, 106, â€“ Detrazioni per famiglie numerose â€“ Vedere se Ã¨ necessario gestire questi campi 
+	-- Campi 103, 104, 105, 106, – Detrazioni per famiglie numerose – Vedere se è necessario gestire questi campi 
 	-- per il per il 770/2015. A memoria non penso che ci siano stati nel 2014 compensi con questo tipo di detrazioni 
 	-- (almeno quattro figli a carico). Ho verificato che non ce ne sono stati
 	
-	--GiÃ  in fase di elaborazione della CU Ã¨ stato segnalato questo problema che comunque 
-	--al momento non poteva avere una soluzione. Per questo Questo Ã¨ un problema giÃ  segnalato nella CU, 
-	--penso che noi valorizziamo nei campi 102, 107 e 108 lâ€™importo della detrazione effettivamente operata 
+	--Già in fase di elaborazione della CU è stato segnalato questo problema che comunque 
+	--al momento non poteva avere una soluzione. Per questo Questo è un problema già segnalato nella CU, 
+	--penso che noi valorizziamo nei campi 102, 107 e 108 l’importo della detrazione effettivamente operata 
 	--e non effettivamente spettante.
 	
 	SET @DB001101= isnull(@employtaxgross,0)
@@ -2291,17 +2293,17 @@ IF
 	---  non per assegnisti e prestazioni esenti , dove mettiamo solo dati previdenziali -------
 	--------------------------------------------------------------------------------------------
 	
-	-- Ho verificato che per il 2014 il bonus non Ã¨ stato erogato
+	-- Ho verificato che per il 2014 il bonus non è stato erogato
 	DECLARE @DB001119 INT				-- CREDITO BONUS IRPEF - Codice Bonus Vale 1 o 2
 	DECLARE @DB001120 DECIMAL (19,2)	-- CREDITO BONUS IRPEF - Bonus erogato
 	DECLARE @DB001121 DECIMAL (19,2)	-- CREDITO BONUS IRPEF - Bonus non erogato
-	DECLARE @DB001122 DECIMAL (19,2)	-- CREDITO BONUS IRPEF - Bonus recuperato (Codice Bonus in questo caso varrÃ  1 in caso di 
+	DECLARE @DB001122 DECIMAL (19,2)	-- CREDITO BONUS IRPEF - Bonus recuperato (Codice Bonus in questo caso varrà 1 in caso di 
 										-- recupero parziale, 2 in caso di recupero totale)
-	-- Non essendo stato erogato nel 2014 non c'Ã¨ bisogno di compilare neanche il codice erogato da altri soggetti
+	-- Non essendo stato erogato nel 2014 non c'è bisogno di compilare neanche il codice erogato da altri soggetti
 	DECLARE @DBXXX123 INT				-- CREDITO BONUS IRPEF altri soggetti - Codice Bonus Vale 1 o 2
 	DECLARE @DBXXX124 DECIMAL (19,2)	-- CREDITO BONUS IRPEF altri soggetti - Bonus erogato
 	DECLARE @DBXXX125 DECIMAL (19,2)	-- CREDITO BONUS IRPEF altri soggetti - Bonus non erogato
-	DECLARE @DBXXX126 DECIMAL (19,2)	-- CREDITO BONUS IRPEF altri soggetti - Bonus recuperato (Codice Bonus in questo caso varrÃ  1 in caso di 
+	DECLARE @DBXXX126 DECIMAL (19,2)	-- CREDITO BONUS IRPEF altri soggetti - Bonus recuperato (Codice Bonus in questo caso varrà 1 in caso di 
 										-- recupero parziale, 2 in caso di recupero totale)
 	DECLARE @DBXXX127 VARCHAR(16)		-- CREDITO BONUS IRPEF EROGATO DA ALTRI SOGGETTI - Codice Fiscale
 										
@@ -2341,7 +2343,7 @@ IF
 	--------------------------------------------------------------------------------------------
 	-------------------------------------- ALTRI DATI ------------------------------------------ 
 	--------------------------------------------------------------------------------------------
-	-- Inseriamo qui alcuni tipi di prestazioni esenti da imposizione fiscale ma non perchÃ¨ si tratti
+	-- Inseriamo qui alcuni tipi di prestazioni esenti da imposizione fiscale ma non perchè si tratti
 	-- di stranieri in convenzione. qui troveremo le prestazioni riservate ad assegnisti
 	-- ed altre totalmente esenti. Come reddito di riferimento prendiamo feegross del cedolino
 	-- dal momento che non possiamo dare per scontata la presenza di ritenute.
@@ -2356,7 +2358,7 @@ IF
 	DECLARE @DB001180 int	-- Redditi Esenti - Codice  -- prevedere una tabella di configurazione delle prestazioni?
 	DECLARE @DB001181 decimal(19,2)	-- Redditi Esenti - Ammontare
 	-- Sebbene possiamo osservare che la maggiore ritenuta sia stata indicata nei compensi
-	-- tuttavia molto probabilmente si tratta di casi in cui non c'Ã¨ stata esplicita richiesta.
+	-- tuttavia molto probabilmente si tratta di casi in cui non c'è stata esplicita richiesta.
 	-- Pertanto non lo scriviamo
 	
 	DECLARE @DB001191 int	-- Applicazione maggiore ritenuta CB
@@ -2418,15 +2420,15 @@ IF
 	DECLARE @DB001222 DECIMAL (19,2)	-- Redditi assoggettati a ritenuta a titolo di imposta - Totale ritenute irpef
 	DECLARE @DB001223 DECIMAL (19,2)	-- Redditi assoggettati a ritenuta a titolo di imposta - Totale ritenute irpef sospese
 	DECLARE @DB001224 INT				-- Causale
-	-- Campo 225 â€“ Redditi. Campo di nuova introduzione. Nel campo 225 deve essere indicato lâ€™importo del reddito, 
-	-- giÃ  compreso a campo 221, relativo ad ogni singola codifica riportata al precedente campo 224.
+	-- Campo 225 – Redditi. Campo di nuova introduzione. Nel campo 225 deve essere indicato l’importo del reddito, 
+	-- già compreso a campo 221, relativo ad ogni singola codifica riportata al precedente campo 224.
 	DECLARE @DB001225 DECIMAL (19,2)
 	
 	SET @DB001221= isnull(@taxablegross_irpef_stranieri,0)
 	SET @DB001222= isnull(@ritenuta_irpef_stranieri,0)
 	IF (isnull(@taxablegross_irpef_stranieri,0) <>0)
 	BEGIN
-		SET @DB001224 = 2 -- Dato che noi gestiamo con Easy solo Co.co.co. il codice da mettere Ã¨ fisso ed Ã¨ pari a 2
+		SET @DB001224 = 2 -- Dato che noi gestiamo con Easy solo Co.co.co. il codice da mettere è fisso ed è pari a 2
 	END
 	-- SET @DB001223= 0
 	SET @DB001225= isnull(@taxablegross_irpef_stranieri,0)
@@ -2442,9 +2444,9 @@ IF
 	-------- Dati relativi ai conguagli in caso di Redditi erogati da altri soggetti -----------
 	--------------------------------------------------------------------------------------------
 	
-	DECLARE @DB001301 DECIMAL(19,2)		-- Totale redditi conguagliati giÃ  compresi nel punto 1
+	DECLARE @DB001301 DECIMAL(19,2)		-- Totale redditi conguagliati già compresi nel punto 1
 	DECLARE @DB001305 VARCHAR(16)	    -- Codice fiscale
-	DECLARE @DB001308 DECIMAL(19,2)		-- Reddito conguagliato giÃ  compreso nel punto 1
+	DECLARE @DB001308 DECIMAL(19,2)		-- Reddito conguagliato già compreso nel punto 1
 	DECLARE @DB001313 DECIMAL(19,2)	    -- Ritenute
 	DECLARE @DB001315 DECIMAL(19,2)		-- Addizionale regionale
 	DECLARE @DB001316 DECIMAL(19,2)	    -- Addizionale comunale Acconto 2014
@@ -2586,7 +2588,7 @@ IF
 		FROM #altrofiglio 	 
 		WHERE casellaAltroFamiliare = 1  AND casellaDisabile IS  NULL
 		
-	-- DECLARE @DBXXX713 INT CB casella figlio con disabilitÃ 
+	-- DECLARE @DBXXX713 INT CB casella figlio con disabilità
 	INSERT INTO #recordg (progr, quadro, riga, colonna, intero)
 		SELECT @progrCom, 'DB',1, CONVERT(VARCHAR(3), 
 		713 + 8*(idaltrofiglio -1)), 1
@@ -2610,7 +2612,7 @@ IF
 		SELECT @progrCom, 'DB', 1,CONVERT(VARCHAR(3), 716 + 8*(idaltrofiglio -1)) , minoreDiTreAnni 
 		FROM #altrofiglio where minoreDiTreAnni <> ''
 	
-	--DECLARE @DBXXXC17	DECIMAL(19,6)--Percentuale di detrazione spettante	PC si puÃ² omettee se c'Ã¨ la percentuale
+	--DECLARE @DBXXXC17	DECIMAL(19,6)--Percentuale di detrazione spettante	PC si può omettee se c'è la percentuale
 	INSERT INTO #recordg (progr, quadro, riga, colonna, intero)
 		SELECT @progrCom,'DB' , 1, 'C' + CONVERT(VARCHAR(3), 17 + 8*(idaltrofiglio -1)),
 		100 * percentualeDiDetrazioneSpettante/numeroMesiACarico 
@@ -2646,8 +2648,8 @@ IF
 		DECLARE @DCXXX010	DECIMAL (19,2)	-- Contributi dovuti VP
 		DECLARE @DCXXX011	DECIMAL (19,2)	-- Contributi a carico del collaboratore trattenuti VP
 		DECLARE @DCXXX012	DECIMAL (19,2)	-- Contributi versati VP
-		DECLARE @DCXXX013	INT				-- Mesi per i quali Ã¨ stata presentata la denuncia UniEmens - Tutti CB
-		DECLARE @DCXXX014	VARCHAR(12)		-- Mesi per i quali Ã¨ stata presentata la denuncia UniEmens
+		DECLARE @DCXXX013	INT				-- Mesi per i quali è stata presentata la denuncia UniEmens - Tutti CB
+		DECLARE @DCXXX014	VARCHAR(12)		-- Mesi per i quali è stata presentata la denuncia UniEmens
 		
 		SET @DCXXX001 = @agencynumber 
 		SET @DCXXX009= isnull(@compensoprev,0)
@@ -2687,8 +2689,8 @@ IF
 		DECLARE @DCXXX024	DECIMAL (19,2)	-- Totale contributi pensionistici
 		DECLARE @DCXXX029	DECIMAL (19,2)	-- Totale imponibile Gestione Credito
 		DECLARE @DCXXX030	DECIMAL (19,2)	-- Totale contributo Gestione Credito
-		DECLARE @DCXXX033	INT				-- Mesi per i quali Ã¨ stata presentata la denuncia UniEmens - Tutti CB
-		DECLARE @DCXXX034	VARCHAR(12)		-- Mesi per i quali Ã¨ stata presentata la denuncia UniEmens
+		DECLARE @DCXXX033	INT				-- Mesi per i quali è stata presentata la denuncia UniEmens - Tutti CB
+		DECLARE @DCXXX034	VARCHAR(12)		-- Mesi per i quali è stata presentata la denuncia UniEmens
 		
 		--if IsNumeric(@codfiscEnte) = 1
 		--	SET @DCXXX015 =	convert(int,@codfiscEnte) -- Codice fiscale Amministrazione	  
@@ -2796,10 +2798,10 @@ IF
 	
  
 	-- DA001010 Casi esclusione dalla precompilata
-	-- Campo 10 Casi di Esclusione dalla Precompilata:Il presente campo, di nuova istituzione, deve essere compilato per segnalare casi particolari di presentazione della certificazione unica esclusi dallâ€™obbligo della dichiarazione precompilata.
+	-- Campo 10 Casi di Esclusione dalla Precompilata:Il presente campo, di nuova istituzione, deve essere compilato per segnalare casi particolari di presentazione della certificazione unica esclusi dall’obbligo della dichiarazione precompilata.
 	-- In particolare, a campo 10, deve essere indicato:
-	-- il codice 1, nellâ€™ipotesi in cui nella CU siano stati certificati esclusivamente redditi di cui allâ€™art. 50, comma 1, lettere b), e), f), g) relativamente alle indennitÃ  percepite dai membri del Parlamento europeo, h) e h-bis);
-	-- il codice 2, nellâ€™ipotesi in cui siano stati certificati soltanto dati previdenziali ed assistenziali.
+	-- il codice 1, nell’ipotesi in cui nella CU siano stati certificati esclusivamente redditi di cui all’art. 50, comma 1, lettere b), e), f), g) relativamente alle indennità percepite dai membri del Parlamento europeo, h) e h-bis);
+	-- il codice 2, nell’ipotesi in cui siano stati certificati soltanto dati previdenziali ed assistenziali.
 	-- Riguardo al campo 10 per il codice 1 non si ha un modo diretto di valorizzarlo mentre per il codice 2 si. Quindi dobbiamo valorizzare il codice 2 quando si sono certificati soltanto i dati previdenziali e assistenziali.
 	--SELECT @DB001001, @DB001101, @DB001161, @DB001301, @DB001221
 	--SELECT @DCXXX023, @patcode, @compensoprev 
@@ -2823,9 +2825,9 @@ IF
 	------------------------------------ INSERIMENTO DELLE ANNOTAZIONI -----------------------------------------------
 	------------------------------------------------------------------------------------------------------------------
 
-	--AI - Informazioni relative al reddito/i certificato/i: tipologia (â€¦), data inizio e data fine per ciascun periodo di lavoro o pensione (â€¦), importo (â€¦ ).
-	--Reddito assimilato al lavoro dipendente art. 50 D.P.R. 917/86, rapporto a tempo determinato, data inizio e data fine per ciascun periodo di lavoro dal â€¦. Al â€¦.  importo euro â€¦..
-	--(Da valorizzare ogni volta che Ã¨ valorizzato il campo 1 Redditi di lavoro dipendente e assimilati....)
+	--AI - Informazioni relative al reddito/i certificato/i: tipologia (…), data inizio e data fine per ciascun periodo di lavoro o pensione (…), importo (… ).
+	--Reddito assimilato al lavoro dipendente art. 50 D.P.R. 917/86, rapporto a tempo determinato, data inizio e data fine per ciascun periodo di lavoro dal …. Al ….  importo euro …..
+	--(Da valorizzare ogni volta che è valorizzato il campo 1 Redditi di lavoro dipendente e assimilati....)
 	DECLARE @NN VARCHAR(400)
 	DECLARE @contacud int
 	SET @contacud = 1
@@ -2913,11 +2915,11 @@ IF
 				 @text_for_annotation
 				 +
 				'Rapporto a tempo determinato,  da ' + CONVERT(varchar(16), @ec_start, 105) + ' a ' + CONVERT(varchar(16), @ec_stop, 105) + 
-			 +  ' Importo: â‚¬ ' + CONVERT(varchar(16), @ec_taxablegross)  
+			 +  ' Importo: € ' + CONVERT(varchar(16), @ec_taxablegross)  
 		 
 			-- Note dipendenti dai CUD
 			
-			-- [Nota AI] (Questa nota Ã¨ sicuramente presente almeno per il contratto principale)
+			-- [Nota AI] (Questa nota è sicuramente presente almeno per il contratto principale)
 			-- 
 			IF (@ai_inserted = 'N')
 			BEGIN
@@ -2966,7 +2968,7 @@ IF
 			END
 			SET @NN =
 			@text_for_annotation  
-			+ ' Importo: â‚¬ ' + CONVERT(varchar(16), @previdenza)  
+			+ ' Importo: € ' + CONVERT(varchar(16), @previdenza)  
 			 
 			IF (@aj_inserted = 'N')
 			BEGIN
@@ -3002,7 +3004,7 @@ IF
 			SET @text_for_annotation = (SELECT annotation FROM #ser WHERE servicecode770 = @servicecode770) 
 			IF (@text_for_annotation IS NULL) 
 			SET @text_for_annotation = (SELECT 'BQ - Redditi totalmente esentati da imposizione')
-			SET @NN = @text_for_annotation +  ': â‚¬ ' + CONVERT(varchar(16),@compensoprev)  
+			SET @NN = @text_for_annotation +  ': € ' + CONVERT(varchar(16),@compensoprev)  
 			IF (@bq_inserted = 'N')
 			BEGIN
 			INSERT INTO #recordg (progr, quadro, riga, colonna, stringa)
@@ -3023,15 +3025,15 @@ IF
 		DEALLOCATE #cud_crs
 		-- Detrazione per Reddito da Lavoro Dipendente ragguagliata al periodo di lavoro
 		--CODICE AN
-		--Per rapporti di lavoro a tempo determinato ovvero a tempo indeterminato di durata inferiore allâ€™anno 
-		--(assunzione/ cessazione in corso dâ€™anno), in riferimento ai quali il sostituto dâ€™imposta ha ragguagliato la detrazione minima al periodo di lavoro.
+		--Per rapporti di lavoro a tempo determinato ovvero a tempo indeterminato di durata inferiore all’anno 
+		--(assunzione/ cessazione in corso d’anno), in riferimento ai quali il sostituto d’imposta ha ragguagliato la detrazione minima al periodo di lavoro.
 	 
 		IF (@workingdays < 365)  AND (@taxablegross<> 0) AND (@DB001107 <> 0) 
 		BEGIN
 			SET @NN =
-			'AN - La detrazione minima Ã¨ stata ragguagliata al periodo di lavoro.' + 
-			' Il percipiente puÃ² fruire della detrazione per l''intero anno in sede' +
-			' di dichiarazione dei redditi, semprechÃ¨ non sia stata giÃ  attribuita' +
+			'AN - La detrazione minima è stata ragguagliata al periodo di lavoro.' + 
+			' Il percipiente può fruire della detrazione per l''intero anno in sede' +
+			' di dichiarazione dei redditi, semprechè non sia stata già attribuita' +
 			' da un altro datore di lavoro e risulti effettivamente spettante.'
 			INSERT INTO #recordg (progr, quadro, riga, colonna, stringa)
 				VALUES(@progrCom, 'DB', 1, convert(varchar(3), 601 + @counter_annotations) , SUBSTRING(@NN,1,2))
@@ -3084,9 +3086,9 @@ IF
 	WHILE @@FETCH_STATUS = 0
 	BEGIN 
 		SET   @NN =
-			'AR -  ' + @deduction + ' : â‚¬ ' + CONVERT(varchar(16),@deduction_amount) + 
+			'AR -  ' + @deduction + ' : € ' + CONVERT(varchar(16),@deduction_amount) + 
 			' da non considerare al fine dell''eventuale dichiarazione dei redditi ' +
-			' in quanto giÃ  incluso nelle operazioni di conguaglio.'
+			' in quanto già incluso nelle operazioni di conguaglio.'
 		INSERT INTO #recordg (progr, quadro, riga, colonna, stringa)
 				VALUES(@progrCom, 'DB', 1, convert(varchar(3), 601 + @counter_annotations) , SUBSTRING(@NN,1,2))
 		--------------- il software di compilazione SOGEI non legge il testo delle note ma solo il codice ---------------
@@ -3101,7 +3103,7 @@ IF
 		--  CODICE AX
 		--	"AX - Reddito assimilato assoggettato a ritenuta a titolo d'imposta, 
 		--  indicare importo, indicare ritenuta a titolo d'imposta operata."
-		--  (Valorizzare quando il compenso Ã¨ un parasubordinato ed Ã¨ associata 
+		--  (Valorizzare quando il compenso è un parasubordinato ed è associata 
 		--  ad una ritenuta IRPEF del 30%. 
 		--  La stessa condizione che abbiamo quando valorizziamo il campi del modello 
 		--  221 e 222)
@@ -3111,8 +3113,8 @@ IF
 		BEGIN
 			SET @NN =
 			'AX - Reddito assimilato assoggettato a ritenuta a titolo d''imposta,' +
-			+ ' Importo: â‚¬ ' + CONVERT(varchar(16), @taxablegross_irpef_stranieri) 
-			+ ' Importo ritenuta a titolo d''imposta operata: â‚¬ ' + CONVERT(varchar(16), @ritenuta_irpef_stranieri)   
+			+ ' Importo: € ' + CONVERT(varchar(16), @taxablegross_irpef_stranieri) 
+			+ ' Importo ritenuta a titolo d''imposta operata: € ' + CONVERT(varchar(16), @ritenuta_irpef_stranieri)   
 			INSERT INTO #recordg (progr, quadro, riga, colonna, stringa)
 				VALUES(@progrCom, 'DB', 1, convert(varchar(3), 601 + @counter_annotations) , SUBSTRING(@NN,1,2))
 			--------------- il software di compilazione SOGEI non legge il testo delle note ma solo il codice ---------------
@@ -3125,7 +3127,7 @@ IF
 		-- in possesso dei requisiti reddituali per usufruire interamente della fascia
 		-- di esenzione deliberata"
 		-- (Da indicare quando non si calcola l'addizionale comunale all'IRPEF 
-		-- perchÃ¨ il reddito rientra nei limiti di esenzione. 
+		-- perchè il reddito rientra nei limiti di esenzione. 
 		-- Ad esempio se il comune prevede una fascia di esenzione 
 		-- dell'addizionale comunale all'IRPEF)
 		-- NOTE AL
@@ -3180,8 +3182,8 @@ IF
 		SET @NN =
 		'ZZ - Le ritenute INPS trattenute ai sensi della Legge 335/95 art.2/c.26 e Legge 449/97 art.59/c.16' +
 		' sono state regolarmente versate all''INPS: ' +
-		' ritenute a carico percipiente: â‚¬ ' + CONVERT(varchar(16), @ritprevtrattenuta)  +
-		' e ritenute a carico ente: â‚¬ ' + CONVERT(varchar(16), @ritprevamministrazione)
+		' ritenute a carico percipiente: € ' + CONVERT(varchar(16), @ritprevtrattenuta)  +
+		' e ritenute a carico ente: € ' + CONVERT(varchar(16), @ritprevamministrazione)
  
 		INSERT INTO #recordg (progr, quadro, riga, colonna, stringa)
 		VALUES(@progrCom, 'DB', 1, convert(varchar(3), 601 + @counter_annotations) , SUBSTRING(@NN,1,2))
@@ -3189,10 +3191,10 @@ IF
 	END
 	
 		-- CODICE GH
-		-- In caso di cessazione del rapporto di lavoro durante lâ€™anno, qualora le operazioni di conguaglio 
-		-- sono state operate con riferimento a un domicilio fiscale diverso dal 1Â° gennaio del periodo dâ€™imposta 
-		-- di riferimento, con il codice GH, di nuova istituzione, il sostituto informerÃ  il contribuente 
-		-- della necessitÃ  di presentare la dichiarazione dei redditi per la corretta liquidazione delle imposte 
+		-- In caso di cessazione del rapporto di lavoro durante l’anno, qualora le operazioni di conguaglio 
+		-- sono state operate con riferimento a un domicilio fiscale diverso dal 1° gennaio del periodo d’imposta 
+		-- di riferimento, con il codice GH, di nuova istituzione, il sostituto informerà il contribuente 
+		-- della necessità di presentare la dichiarazione dei redditi per la corretta liquidazione delle imposte 
 		-- dovute.
 		
 		DELETE FROM #comuniaddcom
@@ -3414,4 +3416,3 @@ GO
 SET ANSI_NULLS ON 
 GO
  
-	

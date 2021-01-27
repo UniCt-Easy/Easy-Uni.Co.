@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿IF NOT EXISTS(SELECT * FROM ivapayperiodicity WHERE idivapayperiodicity = 'SW_MESE')
+
+IF NOT EXISTS(SELECT * FROM ivapayperiodicity WHERE idivapayperiodicity = 'SW_MESE')
 BEGIN
 	CREATE TABLE #temp
 	(
@@ -193,18 +195,17 @@ BEGIN
 	FROM #temp WHERE idinvkind = #temp.oldvalue
 
 	UPDATE entry
-	SET idrelated = SUBSTRING(idrelated, 1, LEN('invÂ§')) +
+	SET idrelated = SUBSTRING(idrelated, 1, LEN('inv§')) +
 	#temp.newvalue +
-	SUBSTRING(idrelated, LEN('invÂ§') +
-		CHARINDEX('Â§', SUBSTRING(idrelated, len('invÂ§')+1, LEN(idrelated))) , LEN(idrelated)
+	SUBSTRING(idrelated, LEN('inv§') +
+		CHARINDEX('§', SUBSTRING(idrelated, len('inv§')+1, LEN(idrelated))) , LEN(idrelated)
 	)
 	FROM #temp
-	WHERE idrelated LIKE 'invÂ§%'
-	AND SUBSTRING(idrelated, LEN('invÂ§') + 1,
-	CHARINDEX('Â§', SUBSTRING(idrelated, LEN('invÂ§') + 1, LEN(idrelated))) - 1)
+	WHERE idrelated LIKE 'inv§%'
+	AND SUBSTRING(idrelated, LEN('inv§') + 1,
+	CHARINDEX('§', SUBSTRING(idrelated, LEN('inv§') + 1, LEN(idrelated))) - 1)
 	= #temp.oldvalue
 
 	DROP TABLE #temp
 END
 GO
-	

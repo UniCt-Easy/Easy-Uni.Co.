@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_accertamenti_impegni]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_accertamenti_impegni]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_accertamenti_impegni]
 GO
 
@@ -116,7 +118,7 @@ LEFT OUTER JOIN   lookup_bilancio
 		ON  lookup_bilancio.chiave_completa = CURR_DOCUMENTO_CONTABILE.CHIAVE_CONTO
 LEFT OUTER JOIN   lookup_upb
 		ON  lookup_upb.chiave_completa = CURR_DOCUMENTO_CONTABILE.UNITA_ORGANIZZATIVA
--- l'associazione non √® univoca
+-- l'associazione non Ë univoca
 --LEFT OUTER JOIN FATTURA_ATT F 
 --	on F.bilancio = CURR_DOCUMENTO_CONTABILE.bilancio 
 --	and F.esercizio = CURR_DOCUMENTO_CONTABILE.esercizio
@@ -224,4 +226,3 @@ END
  
 GO
 
-	

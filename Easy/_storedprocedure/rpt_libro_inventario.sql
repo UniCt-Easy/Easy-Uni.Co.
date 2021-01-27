@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_libro_inventario]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_libro_inventario]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_libro_inventario]
 GO
 
@@ -200,7 +202,7 @@ WHERE asset.idpiece = 1
 	AND codeinv LIKE @codeinv AND 
 	((assetacquire.flag & 1 <> 1) AND assetacquire.idassetload IS NOT NULL)    -- Bene Posseduto
 	--per i beni posseduti conta l'operazione di carico bene
-	--NINO: RI-aggiunto filtro su adate, altrimenti sono inclusi beni giÃ Â  presenti nella
+	--NINO: RI-aggiunto filtro su adate, altrimenti sono inclusi beni già  presenti nella
 	--situazione patrimoniale data dalla variazione iniziale dell'esercizio!
 	AND assetacquire.adate BETWEEN @start AND @stop
 UNION ALL
@@ -717,9 +719,9 @@ WHERE adate < @start
 GROUP BY #inventory_list.codeinv
 ORDER BY #inventory_list.codeinv
 
---- Dobbiamo individuare il primo record su cu sarÃ  valorizzata la consistenza iniziale ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- Dobbiamo individuare il primo record su cu sarà valorizzata la consistenza iniziale ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- Prende la data operazione piÃ¹ vecchia
+-- Prende la data operazione più vecchia
 DECLARE @opdateini datetime
 SELECT @opdateini = min(opdate)
 FROM #inventory_list
@@ -781,7 +783,7 @@ DECLARE @tot_amortization_loaded decimal(19,2)
 DECLARE @inventorykind varchar(45)
 DECLARE @inventoryagency varchar(150)
 -- se non ci sono righe in #inventory_list, vuol dire che non ci sono cespiti, aumenti, .... 
--- perÃ² puÃ² esserci la consistenza iniziale. Quindi se #inventory_list Ã¨ vuota allora inserisco 
+-- però può esserci la consistenza iniziale. Quindi se #inventory_list è vuota allora inserisco 
 -- una riga con valori a null, tranne quelli significativi e l'importo della consistenza.
 IF ((SELECT COUNT(*) FROM #inventory_list) = 0)
 BEGIN
@@ -867,4 +869,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ÔªøIF exists (select * from dbo.sysobjects where id = object_id(N'[exp_calcola_integrazione_previsione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+IF exists (select * from dbo.sysobjects where id = object_id(N'[exp_calcola_integrazione_previsione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure exp_calcola_integrazione_previsione
 GO
  
@@ -30,7 +32,7 @@ CREATE PROCEDURE exp_calcola_integrazione_previsione
 	@ayear int,  --- anno corrente
 	@adate datetime,
 	@exportazionekind int,
-	@prevcorrente char(1) = 'N' --- quando √® chiamata da form, ricalcola e mostra solo il budget iniziale, senza invludere variazioni e storni alla data
+	@prevcorrente char(1) = 'N' --- quando Ë chiamata da form, ricalcola e mostra solo il budget iniziale, senza invludere variazioni e storni alla data
 	/*		0 = Prev. iniziali, 
 			1 = Le previsioni triennali di costi di ammortamento,  
 			2 = Le previsioni di ricavo per utilizzo riserve ex COFI,  
@@ -207,7 +209,7 @@ End
 
 if (@exportazionekind = 10)
 Begin
---- aggiungere le variazioni normali gi√† contemplate nel calcolo
+--- aggiungere le variazioni normali gi‡ contemplate nel calcolo
 		select 
 			U.codeupb as 'Cod.UPB',
 			A.codeacc as 'Cod. Conto',
@@ -332,4 +334,3 @@ GO
 
 
 
-	

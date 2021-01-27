@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -436,7 +438,7 @@ namespace no_table_entry_rateo {
                 #endregion
             }
             else {
-                MessageBox.Show("Conto ratei passivi non valorizzato", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Conto ratei passivi non valorizzato", "Avviso");
             }
             H = new Hashtable();
             descr = "Fatture da ricevere";
@@ -448,7 +450,7 @@ namespace no_table_entry_rateo {
             CurrEntry = null;
             identrykind = 1; // scrittura NORMALE per le fatt.  a ricevere
             if (idacc_invoicetoreceive == DBNull.Value) {
-                MessageBox.Show("Conto fatture da ricevere non valorizzato", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Conto fatture da ricevere non valorizzato", "Avviso");
             }
             else {
                 tDettOrdineFattRicevere.Columns.Add("amount", typeof(decimal));
@@ -602,7 +604,7 @@ namespace no_table_entry_rateo {
                 identrykind = 2; // ratei
                 descr = "Rateo attivo";
                 if (idacc_accruedrevenue == DBNull.Value) {
-                    MessageBox.Show("Conto ratei attivi non valorizzato", "Avviso");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Conto ratei attivi non valorizzato", "Avviso");
                 }
                 else {
 
@@ -696,7 +698,7 @@ namespace no_table_entry_rateo {
             descr = "Fatture da emettere";
             identrykind = 1; // scrittura NORMALE per le fatt.   da emettere
             if (idacc_invoicetoemit == DBNull.Value) {
-                MessageBox.Show("Conto fatture da emettere non valorizzato", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Conto fatture da emettere non valorizzato", "Avviso");
             }
             else {
 
@@ -825,7 +827,6 @@ namespace no_table_entry_rateo {
         /// <returns></returns>
         private DataTable ottieniParcellaRateo() {
             int currAyear = (int) Meta.GetSys("esercizio");
-
             string queryED = "SELECT d.idser,d.ycon,d.ncon,d.totalcost,d.ivaamount,d.flagmixed,d.idivakind," +
                              " AC.idacc, D.idaccmotive, d.idreg, d.idupb, d.idsor1, d.idsor2, d.idsor3,"
                              +
@@ -840,7 +841,7 @@ namespace no_table_entry_rateo {
 
             DataTable tEntryDetail = DataAccess.SQLRunner(Meta.Conn, queryED);
             if (tEntryDetail == null) {
-                MessageBox.Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
                 return null;
             }
             tEntryDetail.Columns.Add(new DataColumn("amount", typeof(decimal)));
@@ -869,7 +870,7 @@ namespace no_table_entry_rateo {
 
             DataTable tEntryDetail = DataAccess.SQLRunner(Meta.Conn, queryED);
             if (tEntryDetail == null) {
-                MessageBox.Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
                 return null;
             }
             tEntryDetail.Columns.Add(new DataColumn("amount", typeof(decimal)));
@@ -919,7 +920,7 @@ namespace no_table_entry_rateo {
 
                     DataRow[] contiSpesa = ep.GetAccMotiveDetails(tipoSpesa["idaccmotive"]);
                     if (contiSpesa.Length == 0) {
-                        MessageBox.Show("Il tipo spesa " + tipoSpesa["description"] + 
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Il tipo spesa " + tipoSpesa["description"] + 
                             " della prestazione professionale "+ contract["ncon"]+" del "+ contract["ycon"] +
                             " non Ë ben configurato", "Errore");
                         break;
@@ -970,7 +971,7 @@ namespace no_table_entry_rateo {
 
                     var contiCostoContributo = ep.GetAccMotiveDetails(idaccmotiveCost);
                     if (contiCostoContributo.Length == 0) {
-                        MessageBox.Show("Contributo " + tipoRit["taxref"] + " mal configurato.", "Errore");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Contributo " + tipoRit["taxref"] + " mal configurato.", "Errore");
                         break;
                     }
                     object idAccCostoContributo = contiCostoContributo[0]["idacc"];
@@ -1013,7 +1014,7 @@ namespace no_table_entry_rateo {
 
                 DataRow[] account = ep.GetAccMotiveDetails(idaccmotive);
                 if (account.Length == 0) {
-                    MessageBox.Show("La causale  della prestazione professionale " + contract["ncon"] + " del " + contract["ycon"] +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("La causale  della prestazione professionale " + contract["ncon"] + " del " + contract["ycon"] +
                             " non Ë ben configurata", "Errore");
                     continue;
                 }
@@ -1085,7 +1086,7 @@ namespace no_table_entry_rateo {
 
             var tipoRits = _tax.Select(QHC.CmpEq("taxcode", taxcode));
             if (tipoRits.Length == 0) {
-                MessageBox.Show(
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "Non esiste nel db la ritenuta avente codice " + taxcode,
                     "Errore");
                 return null;
@@ -1107,7 +1108,7 @@ namespace no_table_entry_rateo {
             int esercizio = Conn.GetEsercizio();
             if ((idepexpPreimpegno == null || idepexpPreimpegno == DBNull.Value) && UsaImpegniDiBudget &&
                 esercizio > 2015) {
-                MessageBox.Show(
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "Non Ë stato trovato alcun preimpegno di budget per il contributo " + tipoRit["taxref"], "Errore");
                 return null;
             }
@@ -1120,7 +1121,7 @@ namespace no_table_entry_rateo {
                 idaccmotiveTouse = tipoRit["idaccmotive_debit"];
                 var contiContribFinanz = ep.GetAccMotiveDetails(idaccmotiveTouse);
                 if (contiContribFinanz.Length == 0) {
-                    MessageBox.Show(
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
                         "Non Ë stata ben configurata la causale del debito del contributo " + tipoRit["taxref"],
                         "Errore");
                     return null;
@@ -1131,7 +1132,7 @@ namespace no_table_entry_rateo {
                 idaccmotiveTouse = tipoRit["idaccmotive_pay"];
                 var contiContribFinanz = ep.GetAccMotiveDetails(idaccmotiveTouse);
                 if (contiContribFinanz.Length == 0) {
-                    MessageBox.Show(
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
                         "Non Ë stata ben configurata la causale del debito del contributo " + tipoRit["taxref"],
                         "Errore");
                     return null;
@@ -1139,7 +1140,7 @@ namespace no_table_entry_rateo {
 
                 var regs = _teh.GetIdRegFor(taxcode, DBNull.Value, DBNull.Value);
                 if (regs == null || regs.Rows.Count == 0) {
-                    MessageBox.Show("Anagrafica per il versamento non trovata per la ritenuta di tipo " +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Anagrafica per il versamento non trovata per la ritenuta di tipo " +
                                     tipoRit["taxref"], "Errore");
                     return null;
                 }
@@ -1163,7 +1164,23 @@ namespace no_table_entry_rateo {
         private DataTable ottieniDettagliOrdineRateo() {
             int currAyear = (int)Meta.GetSys("esercizio");
             DateTime dec31 = new DateTime(currAyear, 12, 31);
-
+            //--------------------- Verifica presenza di dettagli senza causale di Costo ----------------
+            string queryED_check = "SELECT d.idmankind as CodiceContrattoPassivo, d.yman as EsercContrattoPassivo, d.nman as NumContrattoPassivo, d.rownum as NumRiga, d.mandatekind as TipoContrattoPassivo"
+            + "  FROM mandatedetailtoinvoiceyear d "
+            + " WHERE " + QHS.AppAnd(QHS.CmpEq("d.ayear", currAyear),
+                                    QHS.CmpLe("d.yman", currAyear),
+                                    QHS.CmpEq("d.epkind", "R"),
+                                    QHS.IsNull("D.idaccmotive"),
+                                    QHS.CmpGt("d.residual", 0),
+                                    QHS.CmpLe("year(d.competencystart)", currAyear), QHS.CmpGe("year(competencystop)", currAyear));
+            DataTable t = Conn.SQLRunner(queryED_check, false, 0);
+            if (t.Rows.Count > 0) {
+                DataSet d = new DataSet();
+                d.Tables.Add(t);
+                frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Contratti Passivi Rateo senza Casuale di costo", t);
+                f.Show(this);
+                return null;
+            }
 
             string queryED = "SELECT d.idmankind,d.yman,d.nman," +
                              "d.exchangerate,d.residual,d.ordered,d.discount,d.tax,d.taxable,d.unabatable,d.flagactivity,d.flagmixed" +
@@ -1181,7 +1198,7 @@ namespace no_table_entry_rateo {
 
             DataTable tEntryDetail = DataAccess.SQLRunner(Meta.Conn, queryED);
             if (tEntryDetail == null) {
-                MessageBox.Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
                 return null;
             }
 
@@ -1198,6 +1215,25 @@ namespace no_table_entry_rateo {
         private DataTable ottieniDettagliOrdineFattureARicevere() {
             int currAyear = (int)Meta.GetSys("esercizio");
             DateTime dec31 = new DateTime(currAyear, 12, 31);
+            //--------------------- Verifica presenza di dettagli senza causale di Costo ---------------- 
+            string queryED_check = "SELECT d.idmankind as CodiceContrattoPassivo, d.yman as EsercContrattoPassivo, d.nman as NumContrattoPassivo, d.rownum as NumRiga, d.mandatekind as TipoContrattoPassivo"
+            + "  FROM mandatedetailtoinvoiceyear d "
+            + " WHERE " + QHS.AppAnd(QHS.CmpEq("d.ayear", currAyear),
+                                    QHS.CmpEq("d.epkind", "F"),
+                                    QHS.IsNull("d.idaccmotive"),
+                                    QHS.CmpGt("d.residual", 0),
+                                    QHS.CmpLe("isnull(year(d.start),d.yman)", currAyear), QHS.NullOrGe("year(d.stop)", currAyear),
+                                    QHS.CmpGt("isnull(year(d.start),d.yman)", 2015)) +
+                          "AND NOT EXISTS (SELECT * from entrydetail where idrelated = 'manß' + d.idmankind + " +
+                             $"'ß' + CONVERT(varchar(30), d.yman) + 'ß' + CONVERT(varchar(4), d.nman) + 'ß' + CONVERT(varchar(5), d.rownum) AND yentry < {currAyear} )";
+            DataTable t = Conn.SQLRunner(queryED_check, false, 0);
+            if (t.Rows.Count > 0) {
+                DataSet d = new DataSet();
+                d.Tables.Add(t);
+                frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Ordine Fatture a Ricevere senza Casuale di costo", t);
+                f.Show(this);
+                return null;
+            }
 
             string queryED = "SELECT d.idmankind,d.yman,d.nman," +
                         "d.exchangerate,d.residual,d.ordered,d.discount,d.tax,d.taxable,d.unabatable,d.flagactivity,d.flagmixed" +
@@ -1219,7 +1255,7 @@ namespace no_table_entry_rateo {
 
             DataTable tEntryDetail = DataAccess.SQLRunner(Meta.Conn, queryED);
             if (tEntryDetail == null) {
-                MessageBox.Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
                 return null;
             }
 
@@ -1238,6 +1274,26 @@ namespace no_table_entry_rateo {
             int currAyear = (int)Meta.GetSys("esercizio");
             DateTime dec31 = new DateTime(currAyear, 12, 31);
 
+            //--------------------- Verifica presenza di dettagli senza causale di Ricavo ---------------- 
+            string queryED_check = "SELECT d.idestimkind as CodiceContrattoAttivo, d.yestim as EsercContrattoAttivo, d.nestim as NumContrattoAttivo, d.rownum as NumRiga, d.estimatekind as TipoContrattoAttivo"
+            + "  FROM estimatedetailtoinvoiceyear d "
+            +" WHERE " + QHS.AppAnd(QHS.CmpEq("d.ayear", currAyear),
+                                    QHS.CmpLe("d.yestim", currAyear),
+                                    QHS.IsNull("d.idaccmotive"),
+                                    QHS.CmpEq("d.epkind", "R"),
+                                    QHS.CmpGt("d.residual", 0),
+                                    QHS.CmpLe("year(d.competencystart)", currAyear), QHS.CmpGe("year(competencystop)", currAyear)
+                                    ) +
+              "AND NOT EXISTS (SELECT * from entrydetail where idrelated like 'estimß' + d.idestimkind + " +
+                "'ß' + CONVERT(varchar(30), d.yestim) + 'ß' + CONVERT(varchar(4), d.nestim) + 'ß' + CONVERT(varchar(5), d.rownum) )";
+            DataTable t = Conn.SQLRunner(queryED_check, false, 0);
+            if (t.Rows.Count > 0) {
+                DataSet d = new DataSet();
+                d.Tables.Add(t);
+                frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Contratti Attivi Rateo senza Casuale di Ricavo", t);
+                f.Show(this);
+                return null;
+            }
 
             string queryED = "SELECT d.idestimkind,d.yestim,d.nestim, ROUND(d.residual*isnull(d.exchangerate,1)*d.taxable,2)-" +
                         " ROUND(d.residual*isnull(d.exchangerate,1)*d.taxable*isnull(d.discount,0),2) as amount " +
@@ -1255,7 +1311,7 @@ namespace no_table_entry_rateo {
 
             DataTable tEntryDetail = DataAccess.SQLRunner(Meta.Conn, queryED);
             if (tEntryDetail == null) {
-                MessageBox.Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
                 return null;
             }
 
@@ -1272,7 +1328,26 @@ namespace no_table_entry_rateo {
         private DataTable ottieniDettagliCattivoFattureDaEmettere() {
             int currAyear = (int)Meta.GetSys("esercizio");
             DateTime dec31 = new DateTime(currAyear, 12, 31);
+            //--------------------- Verifica presenza di dettagli senza causale di Ricavo ---------------- 
+            string queryED_check = "SELECT d.idestimkind as CodiceContrattoAttivo, d.yestim as EsercContrattoAttivo, d.nestim as NumContrattoAttivo, d.rownum as NumRiga, d.estimatekind as TipoContrattoAttivo"
+            + "  FROM estimatedetailtoinvoiceyear d "
+            +" WHERE " + QHS.AppAnd(QHS.CmpEq("d.ayear", currAyear),
+                                    QHS.IsNull("d.idaccmotive"),
+                                    QHS.CmpLe("isnull(year(d.start),d.yestim)", currAyear),
+                                    QHS.CmpEq("d.epkind", "F"),
+                                    QHS.CmpGt("d.residual", 0),
+                                    QHS.CmpGt("isnull(year(d.start),d.yestim)", 2015)) +
+                          "AND NOT EXISTS (SELECT * from entrydetail where idrelated = 'estimß' + d.idestimkind + " +
+                             $"'ß' + CONVERT(varchar(30), d.yestim) + 'ß' + CONVERT(varchar(4), d.nestim) + 'ß' + CONVERT(varchar(5), d.rownum) AND yentry < {currAyear} )";
 
+            DataTable t = Conn.SQLRunner(queryED_check, false, 0);
+            if (t.Rows.Count > 0) {
+                DataSet d = new DataSet();
+                d.Tables.Add(t);
+                frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Contratti Attivi Fatture da Emettere senza Casuale di Ricavo", t);
+                f.Show(this);
+                return null;
+            }
             string queryED = "SELECT d.idestimkind,d.yestim,d.nestim,ROUND(d.residual*isnull(d.exchangerate,1)*d.taxable,2)- " +
                         " ROUND(d.residual*isnull(d.exchangerate,1)*d.taxable*isnull(d.discount,0),2) as amount " +
                 ", AC.idacc, D.idaccmotive, d.idreg, d.idupb, d.idsor1, d.idsor2, d.idsor3,"
@@ -1290,7 +1365,7 @@ namespace no_table_entry_rateo {
 
             DataTable tEntryDetail = DataAccess.SQLRunner(Meta.Conn, queryED);
             if (tEntryDetail == null) {
-                MessageBox.Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
                 return null;
             }
 
@@ -1304,11 +1379,11 @@ namespace no_table_entry_rateo {
             DataTable RateiParcelle, DataTable ParcelleRicevere,
             DataSet ds) {
             if (ds.Tables["entry"].Rows.Count == 0) {
-                MessageBox.Show("Nessuna scrittura generata", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna scrittura generata", "Avviso");
                 return true;
             }
             if (ds.Tables["entrydetail"].Rows.Count == 0) {
-                MessageBox.Show("Nessuna scrittura da generare", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna scrittura da generare", "Avviso");
                 return true;
             }
 
@@ -1316,7 +1391,7 @@ namespace no_table_entry_rateo {
                 FattRicevere,FattEmettere, RateiParcelle, ParcelleRicevere, Meta.Conn, AnnoCommerciale);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "Operazione Annullata!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Operazione Annullata!");
                 return true;
             }
 
@@ -1325,10 +1400,10 @@ namespace no_table_entry_rateo {
             Post.InitClass(ds, Meta.Conn);
 
             if (Post.DO_POST()) {
-                MessageBox.Show(this, "Generazione delle scritture automatiche di ratei e fatture da ricevere/emettere completata con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Generazione delle scritture automatiche di ratei e fatture da ricevere/emettere completata con successo!");
             }
             else {
-                MessageBox.Show(this, "Errore nel salvataggio della scrittura di integrazione!", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio della scrittura di integrazione!", "Errore");
             }
 
             return true;
@@ -1431,7 +1506,7 @@ namespace no_table_entry_rateo {
 
             DataTable T = Meta.Conn.SQLRunner(sqlCmd);
             if ((T != null) && (T.Rows.Count > 0)) {
-                if (MessageBox.Show("Esistono gi‡ delle scritture di rateo relative all''esercizio corrente. Si desidera proseguire comunque?", "Avviso",
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Esistono gi‡ delle scritture di rateo relative all''esercizio corrente. Si desidera proseguire comunque?", "Avviso",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return false;
             }

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_situazione_residui_perannoBA]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_situazione_residui_perannoBA]
 GO
@@ -49,9 +51,9 @@ select @fin_kind = fin_kind
 FROM config 
 WHERE ayear = @ayear
 
--- L'ipotesi fondamentale di questo report √® che la fase del residuo di stanziamento √® la 1
--- Quella del residuo giuridico √® la 3
--- Quella dello stanziamento √® 1
+-- L'ipotesi fondamentale di questo report Ë che la fase del residuo di stanziamento Ë la 1
+-- Quella del residuo giuridico Ë la 3
+-- Quella dello stanziamento Ë 1
 SELECT @finphase1 = 1
 SELECT @finphase2 = 2
 SELECT @finphase = 3  ---<<== IPOTESI DEL REPORT
@@ -496,25 +498,25 @@ GROUP BY ayear1, idfin, idupb
 
 /*
 TABELLA DI OUT
-1. Anno: si riferisce all‚Äôanno del residuo proprio, considerando che dal 2007, incluso, anche la prima e seconda fase √® un residuo proprio, devono essere presi l‚Äôesercizio della fase 1 fino al 2007 incluso e l‚Äôesercizio della fase 3 dal 2008 in poi.
+1. Anno: si riferisce allíanno del residuo proprio, considerando che dal 2007, incluso, anche la prima e seconda fase Ë un residuo proprio, devono essere presi líesercizio della fase 1 fino al 2007 incluso e líesercizio della fase 3 dal 2008 in poi.
 
 2. Voce di Bilancio: codice di bilancio del residuo proprio.
 
 3. Denominazione: descrizione della voce di bilancio del residuo proprio.
 
-4. Situazione Iniziale: situazione iniziale dei residui propri. Quindi Fase 1 e 2 fino al 2007 incluso non pagata, pi√π fase 3 del 2008 non pagata. Naturalmente la fase 3 del 2008  non deve dipendere da una fase 1 e 2 fino al 2007 incluso. COLONNA 2
+4. Situazione Iniziale: situazione iniziale dei residui propri. Quindi Fase 1 e 2 fino al 2007 incluso non pagata, pi˘ fase 3 del 2008 non pagata. Naturalmente la fase 3 del 2008  non deve dipendere da una fase 1 e 2 fino al 2007 incluso. COLONNA 2
    * Impegni_Propri
 
-5. Residui Propri pagati nell‚Äôesercizio: pagamenti effettuati sui residui del punto 4. COLONNA 4
+5. Residui Propri pagati nellíesercizio: pagamenti effettuati sui residui del punto 4. COLONNA 4
 	* Pag_Residui_Propri
 	
 6. Variazione dei residui propri: variazione dei residui inclusi nel punto 4. COLONNA 5/6
 	* var_Impegni_Propri
 
-7. Residui di stanziamento impegnati nell‚Äôesercizio e rimasti da pagare: ammontare non pagato della fase 3 effettuata su fase 1 del 2008. COLANNA 3 ‚Äì COLONNA 4
+7. Residui di stanziamento impegnati nellíesercizio e rimasti da pagare: ammontare non pagato della fase 3 effettuata su fase 1 del 2008. COLANNA 3 ñ COLONNA 4
 	* Imp_Propri_da_stanziamenti - Pag_da_Stanziamenti
 
-8. Totale dei residui propri al termine dell‚Äôesercizio:  4 ‚Äì 5  + 6  + 7.   (n.b. 6 valore negativo).
+8. Totale dei residui propri al termine dellíesercizio:  4 ñ 5  + 6  + 7.   (n.b. 6 valore negativo).
 
 */
 
@@ -540,7 +542,7 @@ SET Impegni_Propri = ISNULL((SELECT SUM(#residual.Impegni_Propri) FROM #residual
 		AND #residual.ayear = #output.ayear), 0.0)
 
 
-UPDATE #output  --(5)Residui Propri pagati nell‚Äôesercizio
+UPDATE #output  --(5)Residui Propri pagati nellíesercizio
 SET Pag_Residui_Propri = ISNULL((SELECT SUM(#residual.Pag_Residui_Propri) FROM #residual
 		WHERE #residual.idfin = #output.idfin
 		AND #residual.ayear = #output.ayear), 0.0)
@@ -551,7 +553,7 @@ SET var_Impegni_Propri = ISNULL((SELECT SUM(#residual.var_Impegni_Propri) FROM #
 		AND #residual.ayear = #output.ayear), 0.0)
 
 
-UPDATE #output --(7)Residui di stanziamento impegnati nell‚Äôesercizio e rimasti da pagare
+UPDATE #output --(7)Residui di stanziamento impegnati nellíesercizio e rimasti da pagare
 SET ResiduiStanziamento_RimstiDaPagare = ISNULL((SELECT SUM(isnull(#residual.Imp_Propri_da_stanziamenti,0) - isnull(#residual.Pag_da_Stanziamenti,0)) FROM #residual
 		WHERE #residual.idfin = #output.idfin
 		AND #residual.ayear = #output.ayear), 0.0)
@@ -571,10 +573,10 @@ SELECT
 		fin.title as 'Denominazione',
 		-- idupb varchar(36),  MI SA CHE NON E' RICHIESTO
 		Impegni_Propri as '(4)Situazione Iniziale',
-		Pag_Residui_Propri as '(5)Residui Propri pagati nell‚Äôesercizio',
+		Pag_Residui_Propri as '(5)Residui Propri pagati nellíesercizio',
 		var_Impegni_Propri as '(6)Variazione dei residui propri',
-		ResiduiStanziamento_RimstiDaPagare as '(7)Residui di stanziamento impegnati nell‚Äôesercizio e rimasti da pagare',
-		TotResiduiPropri as 'Totale dei residui propri al termine dell‚Äôesercizio( 4 ‚Äì 5  + 6  + 7) '
+		ResiduiStanziamento_RimstiDaPagare as '(7)Residui di stanziamento impegnati nellíesercizio e rimasti da pagare',
+		TotResiduiPropri as 'Totale dei residui propri al termine dellíesercizio( 4 ñ 5  + 6  + 7) '
 FROM #output
 JOIN fin
 	ON #output.idfin = fin.idfin
@@ -584,7 +586,7 @@ order by fin.codefin,#output.ayear
 END
 /*
 
-se fase1 < 2008 √® tutto proprio
+se fase1 < 2008 Ë tutto proprio
 se fase 1 = 2008 allora stiamo almeno nel consuntivo 2009
 	- se fase 3 = 2008 allora impegno proprio 
 Quindi se fase 1 < 2008 allora porre = 2008
@@ -624,15 +626,14 @@ se fase 1 = 2010
 CONSUNTIVO 2010 --------------------
 
 Quindi:
-- se fase 3 = <esercizio consuntivo> allora √® un residuo divenuto proprio
-- se fase 3 < <esercizio consuntivo> √® un residuo proprio
+- se fase 3 = <esercizio consuntivo> allora Ë un residuo divenuto proprio
+- se fase 3 < <esercizio consuntivo> Ë un residuo proprio
 
 Inoltre 
-√® residuo di stanziamento:
+Ë residuo di stanziamento:
 Somma Fase1 - Somma di tutti gli impegni propri ovvero
  Somma Fase1 - Somma Fase3 < <esercizio consuntivo>
 */
 
 
 GO
-	

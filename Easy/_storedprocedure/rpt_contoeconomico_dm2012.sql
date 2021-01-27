@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_contoeconomico_dm2012]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_contoeconomico_dm2012]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_contoeconomico_dm2012]
 GO
 	
@@ -1031,6 +1033,9 @@ END
 	-- Sezione RICAVI
 	--> A) I - PROVENTI PROPRI
 	
+	-- Sono costi che si desidera visualizzare col segno negativo.15333
+	SET @PY_C_F = - @PY_C_F
+
 	DECLARE @PY_R_AI1 decimal(19,2)
 	SET @PY_R_AI1 =
 	ISNULL(
@@ -1345,7 +1350,7 @@ END
 	DECLARE @PY_R_AII decimal(19,2)
 	SET @PY_R_AII = @PY_R_AII1 + @PY_R_AII2 + @PY_R_AII3 + @PY_R_AII4 + @PY_R_AII5 + @PY_R_AII6 + @PY_R_AII7
 	
-	--> A) III - PROVENTI PER ATTIVITA‚Äô ASSISTENZIALE E SERVIZIO SANITARIO NAZIONALE
+	--> A) III - PROVENTI PER ATTIVITAí ASSISTENZIALE E SERVIZIO SANITARIO NAZIONALE
 	DECLARE @PY_R_AIII decimal(19,2)
 	SET @PY_R_AIII =
 	ISNULL(
@@ -2587,11 +2592,14 @@ END
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 	)
 	,0)
-	
+
 	DECLARE @TOTCOSTI decimal(19,2)
 	SET @TOTCOSTI = @C_BVIII + @C_BIX + @C_BX +  @C_BXI  + @C_BXII +
 	@C_C + @C_D + @C_E + @C_F
-	
+
+	-- Sono costi che si desidera visualizzare col segno negativo.15333
+	SET @C_F = - @C_F
+		
 	-- Sezione RICAVI
 	--> A) I - PROVENTI PROPRI
 	
@@ -2936,7 +2944,7 @@ END
 	DECLARE @R_AII decimal(19,2)
 	SET @R_AII = @R_AII1 + @R_AII2 + @R_AII3 + @R_AII4 + @R_AII5 + @R_AII6 + @R_AII7
 	
-	--> A) III - PROVENTI PER ATTIVITA‚Äô ASSISTENZIALE E SERVIZIO SANITARIO NAZIONALE
+	--> A) III - PROVENTI PER ATTIVITAí ASSISTENZIALE E SERVIZIO SANITARIO NAZIONALE
 	DECLARE @R_AIII decimal(19,2)
 	SET @R_AIII =
 	ISNULL(
@@ -3245,7 +3253,13 @@ END
 	@title = title
 	FROM	upb
 	WHERE	idupb = @idupboriginal
-	
+	-- Sono costi che si desidera visualizzare col segno negativo.15333
+	set @PY_C_C2 = - @PY_C_C2
+	set @C_C2 = - @C_C2
+	set @PY_C_D = - @PY_C_D
+	set @C_D = - @C_D
+	set @C_E = -@C_E
+	set @PY_C_E = -@PY_C_E
 	SELECT
 	@ayear				  AS ayear         ,
 	@idupboriginal		  as idupb         ,
@@ -3390,4 +3404,3 @@ END
 	END
 
 GO
-	

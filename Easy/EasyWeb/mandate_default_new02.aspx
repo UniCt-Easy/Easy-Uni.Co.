@@ -3,8 +3,6 @@
 <%@ Register Assembly="HelpWeb" Namespace="HelpWeb" TagPrefix="cc1" %>
 <asp:Content ID="Content4" ContentPlaceHolderID="CHP_PC" runat="Server">
 
-
-
     <div class="row">
         <div class="col-md-12">
             <cc1:hwButton ID="B1" runat="server" Text="Ordina per stato" Tag="maindosearch.webdefaultstatuses" />
@@ -13,82 +11,84 @@
         </div>
     </div>
 
-<!-- da rivedere la posizione    -->
-  <div  id="showAvanzaStatoShow" class ="modal fade">
-    <div class="modal-dialog" style="width: 50%">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div  class="modal-body">
-                <div id='showAvanzaStatoBody'></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Chiudi</button>     
+    <!-- da rivedere la posizione    -->
+    <div  id="showAvanzaStatoShow" class ="modal fade">
+        <div class="modal-dialog" style="width: 50%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div  class="modal-body">
+                    <div id='showAvanzaStatoBody'></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Chiudi</button>     
+                </div>
             </div>
         </div>
     </div>
-   </div>
-
-
-
 
     <ul id="mainTabControl" class="nav nav-tabs nav-justified">
         <li><a data-toggle="tab" href="#tabmain">Principale</a></li>
         <li><a data-toggle="tab" href="#tabdettagli">Dettagli</a></li>
         <li><a data-toggle="tab" href="#tabmagazzino">Magazzino</a></li>
         <li><a data-toggle="tab" href="#taballegati">Allegati</a></li>
-        <li><a data-toggle="tab" href="#tabconsip">CONSIP</a></li>
+        <li ID="liconsip" runat="server" ClientIDMode="static"><a data-toggle="tab" href="#tabconsip">CONSIP</a></li>
         <li><a data-toggle="tab" href="#tabpericolosita">Pericolosità</a></li>
     </ul>
+
     <div class="tab-content">
         <div id="tabmain" class="tab-pane fade in active">
             <div class="row">
-                <div class="col-md-5 col-sm-6">
+                <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-12">
                             <label for="idmankind">Tipo contratto</label>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-12">
                             <cc1:hwDropDownList ID="idmankind" Tag="mandate.idmankind" runat="server" CssClass="form-control" AutoPostBack="True" TabIndex="10"></cc1:hwDropDownList><br />
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-6">
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="yman">Esercizio</label>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-12">
                                     <cc1:hwTextBox ID="yman" runat="server" CssClass="form-control" Tag="mandate.yman.year" TabIndex="20"></cc1:hwTextBox>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-6">
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="nman">Numero</label>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-12">
                                     <cc1:hwTextBox ID="nman" runat="server" CssClass="input-md form-control" Tag="mandate.nman" TabIndex="30"></cc1:hwTextBox>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
                     <div class="row">
                         <div class="col-md-12">
-                            <cc1:hwPanel GroupingText="" CssClass="gbox scheduler-border form-group" ID="grpResponsabile" runat="server" Tag="AutoChoose.txtResponsabile.lista.(financeactive='S')">
-                                <cc1:hwButton ID="btnResponsabile" runat="server" Text="Responsabile" class="btn btn-block" Tag="choose.manager.lista" />
-                                <cc1:hwTextBox TabIndex="20" ID="txtResponsabile" CssClass="form-control input-md" Tag="manager.title?x" runat="server"></cc1:hwTextBox>
-                            </cc1:hwPanel>
+                            <fieldset>
+                                <legend>Responsabile del fondo</legend>
+                                <div class="row">
+                                    <div class="col-md-12 autochoose">
+                                        <cc1:hwPanel GroupingText="" CssClass="gbox scheduler-border form-group" ID="grpResponsabile" runat="server" Tag="AutoChoose.txtResponsabile.lista.(financeactive='S')">
+                                            <cc1:hwButton ID="btnResponsabile" runat="server" Text="Responsabile" class="btn btn-block" Tag="choose.manager.lista" />
+                                            <cc1:hwTextBox TabIndex="20" ID="txtResponsabile" CssClass="form-control input-md" Tag="manager.title?x" runat="server"></cc1:hwTextBox>
+                                        </cc1:hwPanel>
+                                    </div>
+                                </div>
+                            </fieldset>
                         </div>
                     </div>
+                    
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
@@ -97,49 +97,42 @@
                                     <cc1:hwTextBox CssClass="input-md form-control" TextMode="MultiLine" Rows="3" runat="server" ID="description" Tag="mandate.description" TabIndex="90"></cc1:hwTextBox>
                                 </div>
                             </div>
-                            <cc1:hwPanel GroupingText="Fornitore" CssClass="stdfieldset form-group" ID="HwPanel2" runat="server" Tag="AutoChoose.txtCredDeb.lista.(active='S')">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <cc1:hwTextBox ID="txtCredDeb" runat="server" CssClass="form-control input-md" TabIndex="80" Tag="registrymainview.title?mandateview.registry"></cc1:hwTextBox>
-                                    </div>
-                                </div>
-                            </cc1:hwPanel>
-                           
+                        </div>
+                    </div>
+
                     <div class="row">
-                        <div class="panel-group col-md-12" id="Div3" role="tablist" aria-multiselectable="true">
-                            <div class="btn btn-info btn-block" role="tab" id="tabUfficioCollegatoHead">
-                                <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#panelUfficioCollegato" href="#tabUfficioCollegatoBody"
-                                        aria-expanded="true" aria-controls="panelUfficioCollegato">Ufficio</a>
-                                </h4>
-                            </div>
-                            <div id="tabUfficioCollegatoBody" class="panel-collapse collapse" role="tabpanel" aria-labelledby="tabDocumentoCollegatoHead">
-                                <div class="panel-body row form-horizontal">
-                                    <div class="col-md-6">
-                                         <label for="officecode">Codice Ufficio</label>
-                                        <cc1:hwTextBox CssClass="form-control" ID="officecode" runat="server" Tag="office.code?mandateview.officecode" TabIndex="60"></cc1:hwTextBox><br />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="officedescription">Ufficio</label>
-                                        <cc1:hwTextBox CssClass="form-control" ID="officedescription" runat="server" Tag="office.description?mandateview.officedescription" TabIndex="70"></cc1:hwTextBox><br />
-                                    </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="cigcode">Codice Identificativo di Gara(CIG)</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <cc1:hwTextBox CssClass="form-control" ID="cigcode" runat="server" TabIndex="140" Tag="mandate.cigcode"></cc1:hwTextBox>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="adate" class="control-label">Data contabile</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <cc1:hwTextBox TabIndex="230" CssClass="form-control" ID="adate" runat="server" Tag="mandate.adate"></cc1:hwTextBox>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
-                <div class="col-md-7 col-sm-6">
+
+
+                <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-12">
                             <label for="DrpStatus">Stato Corrente</label>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6">
                             <cc1:hwDropDownList ID="DrpStatus" CssClass="form-control" Tag="mandate.idmandatestatus?mandateview.idmandatestatus" runat="server" AutoPostBack="True" TabIndex="40"></cc1:hwDropDownList>
                         </div>
@@ -148,14 +141,25 @@
                             <asp:Button runat="server" ID="btnAvanzaStato" Tag="" Text="" ToEnable="True" Visible="False" />
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
+                            <cc1:hwPanel GroupingText="Fornitore" CssClass="stdfieldset form-group" ID="HwPanel2" runat="server" Tag="AutoChoose.txtCredDeb.lista.(active='S')">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <cc1:hwTextBox ID="txtCredDeb" runat="server" CssClass="form-control input-md" TabIndex="80" Tag="registrymainview.title?mandateview.registry"></cc1:hwTextBox>
+                                    </div>
+                                </div>
+                            </cc1:hwPanel>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="applierannotations">Note del richiedente</label>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-12">
                                     <cc1:hwTextBox TabIndex="130" ID="applierannotations" runat="server" CssClass="form-control"
                                         Rows="3"
@@ -163,13 +167,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="txtregistryreference">Riferimento</label>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-12">
                                     <cc1:hwTextBox TabIndex="120" ID="txtregistryreference" runat="server" CssClass="form-control"
                                         Rows="3"
@@ -184,37 +189,31 @@
                             <fieldset>
                                 <legend></legend>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-6">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label for="txtimponibile" class="control-label">Imponibile</label>
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-md-12">
                                                 <cc1:hwTextBox TabIndex="200" class="form-control" ID="txtimponibile" runat="server" ReadOnly="True" Style="text-align: right"></cc1:hwTextBox>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-6">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label for="txtiva" class="control-label">Iva</label>
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-md-12">
                                                 <cc1:hwTextBox TabIndex="210" CssClass="form-control" ID="txtiva" runat="server" ReadOnly="True" Style="text-align: right"></cc1:hwTextBox>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-6 offset-6">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label for="txttotale" class="control-label">Totale</label>
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-md-12">
                                                 <cc1:hwTextBox TabIndex="220" CssClass="form-control" ID="txttotale" runat="server" ReadOnly="True" Style="text-align: right"></cc1:hwTextBox>
                                             </div>
@@ -222,54 +221,31 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="cigcode">Codice Identificativo di Gara(CIG)</label>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <cc1:hwTextBox CssClass="form-control" ID="cigcode" runat="server" TabIndex="140" Tag="mandate.cigcode"></cc1:hwTextBox>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="adate" class="control-label">Data contabile</label>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <cc1:hwTextBox TabIndex="230" CssClass="form-control" ID="adate" runat="server" Tag="mandate.adate"></cc1:hwTextBox>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
 
                             </fieldset>
                         </div>
                     </div>
-                    <!-- chiude riga importi   -->
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+
                     <div class="row">
-                        <div class="panel-group col-md-12" id="Div1" role="tablist" aria-multiselectable="true">
-                            <div class="btn btn-info btn-block" role="tab" id="tabScadenzaHead">
-                                <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#panelScadenza" href="#tabScadenzaBody"
-                                        aria-expanded="true" aria-controls="panelScadenza">Scadenza</a>
-                                </h4>
-                            </div>
-                            <div id="tabScadenzaBody" class="panel-collapse collapse" role="tabpanel" aria-labelledby="tabScadenzaHead">
-                                <div class="panel-body row form-horizontal">
-                                    <div class="col-md-8">
-                                        <label for="idexpirationkind">Tipo</label>
-                                        <cc1:hwDropDownList ID="idexpirationkind" CssClass="form-control" Tag="mandate.idexpirationkind" runat="server" AutoPostBack="True" TabIndex="150"></cc1:hwDropDownList>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="paymentexpiring">Scadenza</label>
-                                        <cc1:hwTextBox CssClass="form-control" ID="paymentexpiring" runat="server" Tag="mandate.paymentexpiring" TabIndex="160"></cc1:hwTextBox><br />
+                        <div class="panel-group col-12">
+                            <div class="accordion">
+                                <h3>Ufficio</h3>
+                                <div id="tabUfficioCollegatoBody" class="panel-collapse collapse" role="tabpanel" aria-labelledby="tabDocumentoCollegatoHead">
+                                    <div class="panel-body row form-horizontal">
+                                        <div class="col-md-6">
+                                                <label for="officecode">Codice Ufficio</label>
+                                            <cc1:hwTextBox CssClass="form-control" ID="officecode" runat="server" Tag="office.code?mandateview.officecode" TabIndex="60"></cc1:hwTextBox><br />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="officedescription">Ufficio</label>
+                                            <cc1:hwTextBox CssClass="form-control" ID="officedescription" runat="server" Tag="office.description?mandateview.officedescription" TabIndex="70"></cc1:hwTextBox><br />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -277,46 +253,19 @@
                     </div>
 
                     <div class="row">
-                        <div class="panel-group col-md-12" id="panelValuta" role="tablist" aria-multiselectable="true">
-                            <div class="btn btn-info btn-block" role="tab" id="tabValutaHead">
-                                <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#panelValuta" href="#tabValutaBody"
-                                        aria-expanded="true" aria-controls="panelValuta">Valuta</a>
-                                </h4>
-                            </div>
-                            <div id="tabValutaBody" class="panel-collapse collapse" role="tabpanel" aria-labelledby="tabValutaHead">
-                                <div class="panel-body row form-horizontal">
-                                    <div class="col-md-6">
-                                        <label for="idcurrency">Valuta</label>
-                                        <cc1:hwDropDownList ID="idcurrency" CssClass="form-control" Tag="mandate.idcurrency" runat="server" AutoPostBack="True" TabIndex="170"></cc1:hwDropDownList>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="exchangerate">Tasso di Cambio</label>
-                                        <cc1:hwTextBox CssClass="form-control" ID="exchangerate" runat="server" Tag="mandate.exchangerate.fixed.5...1" TabIndex="180"></cc1:hwTextBox><br />
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="panel-group col-md-12" id="Div2" role="tablist" aria-multiselectable="true">
-                            <div class="btn btn-info btn-block" role="tab" id="tabDocumentoCollegatoHead">
-                                <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#panelDocumentoCollegato" href="#tabDocumentoCollegatoBody"
-                                        aria-expanded="true" aria-controls="panelDocumentoCollegato">DocumentoCollegato</a>
-                                </h4>
-                            </div>
-                            <div id="tabDocumentoCollegatoBody" class="panel-collapse collapse" role="tabpanel" aria-labelledby="tabDocumentoCollegatoHead">
-                                <div class="panel-body row form-horizontal">
-                                    <div class="col-md-6">
-                                        <label for="doc">Documento</label>
-                                        <cc1:hwTextBox CssClass="form-control" ID="doc" runat="server" Tag="mandate.doc" TabIndex="60"></cc1:hwTextBox><br />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="docdate">Data</label>
-                                        <cc1:hwTextBox CssClass="form-control" ID="docdate" runat="server" Tag="mandate.docdate" TabIndex="70"></cc1:hwTextBox><br />
+                        <div class="panel-group col-12">
+                            <div class="accordion">
+                                <h3>Documento Collegato</h3>
+                                <div id="tabDocumentoCollegatoBody" class="panel-collapse collapse" role="tabpanel" aria-labelledby="tabDocumentoCollegatoHead">
+                                    <div class="panel-body row form-horizontal">
+                                        <div class="col-md-6">
+                                            <label for="doc">Documento</label>
+                                            <cc1:hwTextBox CssClass="form-control" ID="doc" runat="server" Tag="mandate.doc" TabIndex="60"></cc1:hwTextBox><br />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="docdate">Data</label>
+                                            <cc1:hwTextBox CssClass="form-control" ID="docdate" runat="server" Tag="mandate.docdate" TabIndex="70"></cc1:hwTextBox><br />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -324,22 +273,21 @@
                     </div>
 
                     <div class="row">
-                        <div class="panel-group col-md-12" id="panelConsegna" role="tablist" aria-multiselectable="true">
-                            <div class="btn btn-info btn-block" role="tab" id="tabConsegnaHead">
-                                <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#panelConsegna" href="#tabConsegnaBody"
-                                        aria-expanded="false" aria-controls="panelConsegna">Consegna</a>
-                                </h4>
-                            </div>
-                            <div id="tabConsegnaBody" class="panel-collapse collapse" role="tabpanel" aria-labelledby="tabConsegnaHead">
-                                <div class="panel-body row form-horizontal">
-                                    <div class="col-md-6">
-                                        <label for="hwdeliveryexpiration">Termine</label>
-                                        <cc1:hwTextBox CssClass="form-control" ID="hwdeliveryexpiration" runat="server" Tag="mandate.deliveryexpiration" TabIndex="100"></cc1:hwTextBox>
+                        <div class="panel-group col-12">
+                            <div class="accordion">
+                                <h3>Consegna</h3>
+                                <div id="tabConsegnaBody" class="panel-collapse collapse" role="tabpanel" aria-labelledby="tabConsegnaHead">
+                                    <div class="panel-body row form-horizontal">
+                                        <div class="col-md-12">
+                                            <label for="hwdeliveryexpiration">Termine</label>
+                                            <cc1:hwTextBox CssClass="form-control" ID="hwdeliveryexpiration" runat="server" Tag="mandate.deliveryexpiration" TabIndex="100"></cc1:hwTextBox>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="Hwdeliveryaddress">Indirizzo</label>
-                                        <cc1:hwTextBox TabIndex="110" class="form-control" ID="Hwdeliveryaddress" runat="server" Tag="mandate.deliveryaddress" TextMode="MultiLine"></cc1:hwTextBox>
+                                    <div class="panel-body row">
+                                        <div class="col-md-12">
+                                            <label for="Hwdeliveryaddress">Indirizzo</label>
+                                            <cc1:hwTextBox TabIndex="110" class="form-control" ID="Hwdeliveryaddress" runat="server" Tag="mandate.deliveryaddress" TextMode="MultiLine"></cc1:hwTextBox>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -347,95 +295,160 @@
                     </div>
                 </div>
 
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="panel-group col-12">
+                            <div class="accordion">
+                                <h3>Scadenza</h3>
+                                <div id="tabScadenzaBody" class="panel-collapse collapse" role="tabpanel" aria-labelledby="tabScadenzaHead">
+                                    <div class="panel-body row form-horizontal">
+                                        <div class="col-md-8">
+                                            <label for="idexpirationkind">Tipo</label>
+                                            <cc1:hwDropDownList ID="idexpirationkind" CssClass="form-control" Tag="mandate.idexpirationkind" runat="server" AutoPostBack="True" TabIndex="150"></cc1:hwDropDownList>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="paymentexpiring">Scadenza</label>
+                                            <cc1:hwTextBox CssClass="form-control" ID="paymentexpiring" runat="server" Tag="mandate.paymentexpiring" TabIndex="160"></cc1:hwTextBox><br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="panel-group col-12">
+                            <div class="accordion">
+                                <h3>Valuta</h3>
+                                <div id="tabValutaBody" class="panel-collapse collapse" role="tabpanel" aria-labelledby="tabValutaHead">
+                                    <div class="panel-body row form-horizontal">
+                                        <div class="col-md-6">
+                                            <label for="idcurrency">Valuta</label>
+                                            <cc1:hwDropDownList ID="idcurrency" CssClass="form-control" Tag="mandate.idcurrency" runat="server" AutoPostBack="True" TabIndex="170"></cc1:hwDropDownList>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="exchangerate">Tasso di Cambio</label>
+                                            <cc1:hwTextBox CssClass="form-control" ID="exchangerate" runat="server" Tag="mandate.exchangerate.fixed.5...1" TabIndex="180"></cc1:hwTextBox><br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
 
         <div id="tabdettagli" class="tab-pane fade">
             <div title="Dettagli">
-                <asp:Panel ID="Panel1" runat="server">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <cc1:hwButton ID="HwButton1" runat="server" Tag="insert.defaultnew02" Text="Inserisci" TabIndex="210" class="btn btn-block"></cc1:hwButton>
-                            <cc1:hwButton ID="HwBtnInsCopia" data-gridcmd="maininsertcopy" runat="server" Tag="copiadettaglio" Text="Inserisci Copia" TabIndex="215" class="btn btn-block"></cc1:hwButton>
-                            <cc1:hwButton ID="btnedit" runat="server" Tag="edit.defaultnew02" Text="Modifica" TabIndex="220" class="btn btn-block"></cc1:hwButton>
-                            <cc1:hwButton ID="HwButton2" runat="server" Tag="delete.defaultnew02" Text="Elimina" TabIndex="230" class="btn btn-block"></cc1:hwButton>
-                        </div>
-                        <div class="col-md-10">
-                            <cc1:hwDataGridWeb ID="datagridDettagli" runat="server" Tag="mandatedetail.lista.single" TabIndex="240" />
-                        </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <asp:Panel ID="Panel1" runat="server">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <cc1:hwButton ID="HwButton1" runat="server" Tag="insert.defaultnew02" Text="Inserisci" TabIndex="210"></cc1:hwButton>
+                                    <cc1:hwButton ID="HwBtnInsCopia" data-gridcmd="maininsertcopy" runat="server" Tag="copiadettaglio" Text="Inserisci Copia" TabIndex="215"></cc1:hwButton>
+                                    <cc1:hwButton ID="btnedit" runat="server" Tag="edit.defaultnew02" Text="Modifica" TabIndex="220"></cc1:hwButton>
+                                    <cc1:hwButton ID="HwButton2" runat="server" Tag="delete.defaultnew02" Text="Elimina" TabIndex="230"></cc1:hwButton>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <cc1:hwDataGridWeb ID="datagridDettagli" runat="server" Tag="mandatedetail.lista.single" TabIndex="240"></cc1:hwDataGridWeb>
+                                </div>
+                            </div>
+                        </asp:Panel>
                     </div>
-
-
-
-                </asp:Panel>
+                </div>
             </div>
-
         </div>
-        <div id="tabmagazzino" class="tab-pabe fade">
+
+        <div id="tabmagazzino" class="tab-pane fade">
             <div title="Magazzino">
-                <asp:Panel ID="Panel4" runat="server">
-                    <div class="row">
-
-                        <div class="col-md-4">
-                            <cc1:hwButton runat="server" ID="btnMagazzino" Tag="choose.store.default" CssClass="btn btn-default" Text="Magazzino" />
-                        </div>
-                        <div class="col-md-8">
-                            <cc1:hwDropDownList CssClass="form-control" runat="server" ID="cmbmagazzino" Tag="mandate.idstore" AutoPostBack="True" TabIndex="50"></cc1:hwDropDownList>
-                        </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <asp:Panel ID="Panel4" runat="server">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <cc1:hwButton runat="server" ID="btnMagazzino" Tag="choose.store.default" Text="Magazzino" TabIndex="209"></cc1:hwButton>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <cc1:hwDropDownList CssClass="form-control" runat="server" ID="cmbmagazzino" Tag="mandate.idstore" AutoPostBack="True" TabIndex="50"></cc1:hwDropDownList>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </asp:Panel>
                     </div>
-                </asp:Panel>
+                </div>
             </div>
         </div>
+
         <div id="taballegati" class="tab-pane fade">
             <div title="Allegati">
-                <asp:Panel ID="Panel2" runat="server">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <cc1:hwButton ID="btnInsAllegato" runat="server" Tag="insert.defaultnew02" Text="Inserisci" TabIndex="210"></cc1:hwButton>
-                            <cc1:hwButton ID="HwEditAllegato" runat="server" Tag="edit.defaultnew02" Text="Modifica" TabIndex="220"></cc1:hwButton>
-                            <cc1:hwButton ID="HwCancAllegato" runat="server" Tag="delete.defaultnew02" Text="Elimina" TabIndex="230"></cc1:hwButton>
-                        </div>
-                        <div class="col-md-10">
-                            <cc1:hwDataGridWeb ID="HwDataGridAllegati" runat="server" Tag="mandateattachment.lista.default" TabIndex="240" />
-                        </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <asp:Panel ID="Panel2" runat="server">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <cc1:hwButton ID="btnInsAllegato" runat="server" Tag="insert.defaultnew02" Text="Inserisci" TabIndex="210"></cc1:hwButton>
+                                    <cc1:hwButton ID="HwEditAllegato" runat="server" Tag="edit.defaultnew02" Text="Modifica" TabIndex="220"></cc1:hwButton>
+                                    <cc1:hwButton ID="HwCancAllegato" runat="server" Tag="delete.defaultnew02" Text="Elimina" TabIndex="230"></cc1:hwButton>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <cc1:hwDataGridWeb ID="HwDataGridAllegati" runat="server" Tag="mandateattachment.lista.default" TabIndex="240"></cc1:hwDataGridWeb>
+                                </div>
+                            </div>
+                        </asp:Panel>
                     </div>
-                </asp:Panel>
+                </div>
             </div>
         </div>
-        <div id="tabconsip" class="tab-pane fade">
-            <asp:Panel ID="Panel3" runat="server">
+
+        <div id="tabconsip" runat="server" ClientIDMode="static" class="tab-pane fade">
             <div title="Consip" id="Tab1Folder3">
                 <div class="row">
-                <p>Informazioni su <a href="#" onclick="window.open('http://www.acquistinretepa.it')">https://www.acquistinretepa.it/</a> </p>
-                </div>
-                <div class="row">
-                <asp:Label ID="LabelConsip" runat="server" for="cmbConsip" Text="Label"></asp:Label>
-                <br />
-                </div>
-                <div class="row">
                     <div class="col-md-12">
-                        <cc1:hwDropDownList ID="cmbConsip" data-id="cmbConsip"  Tag="mandate.idconsipkind" runat="server" OnSelectedIndexChanged="cmbConsip_SelectedIndexChanged" CssClass="form-control" AutoPostBack="True" TabIndex="250"></cc1:hwDropDownList><br />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-10">
-                        <cc1:hwTextBox CssClass="form-control" data-id="txtConsipMotive"  TextMode="MultiLine" Rows="6" ID="txtConsipMotive"  runat="server" Tag="mandate.consipmotive" TabIndex="100"></cc1:hwTextBox>
-                    </div>
-                    <div class="col-md-2">
-                        <asp:Button id="btnConsip" runat="server" UseSubmitBehavior="false" Text="Modifica" OnClientClick="javascript:doModifica();return false;" ></asp:Button>
-                    </div>
-                </div>
-                <div class="row">
-                <asp:Label ID="LabelConsipExt" runat="server" for="cmbConsipExt" Text="Label"></asp:Label>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <cc1:hwDropDownList ID="cmbConsipExt" Tag="mandate.idconsipkind_ext" OnSelectedIndexChanged="cmbConsipExt_SelectedIndexChanged" runat="server" CssClass="form-control" AutoPostBack="True" TabIndex="250"></cc1:hwDropDownList><br />
+                        <asp:Panel ID="Panel3" runat="server">
+                            <div class="row">
+                            <p>Informazioni su <a href="#" onclick="window.open('http://www.acquistinretepa.it')">https://www.acquistinretepa.it/</a> </p>
+                            </div>
+                            <div class="row">
+                            <asp:Label ID="LabelConsip" runat="server" for="cmbConsip" Text="Label"></asp:Label>
+                            <br />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <cc1:hwDropDownList ID="cmbConsip" data-id="cmbConsip"  Tag="mandate.idconsipkind" runat="server" OnSelectedIndexChanged="cmbConsip_SelectedIndexChanged" CssClass="form-control" AutoPostBack="True" TabIndex="250"></cc1:hwDropDownList><br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <cc1:hwTextBox CssClass="form-control" data-id="txtConsipMotive"  TextMode="MultiLine" Rows="6" ID="txtConsipMotive"  runat="server" Tag="mandate.consipmotive" TabIndex="100"></cc1:hwTextBox>
+                                </div>
+                                <div class="col-md-2">
+                                    <asp:Button id="btnConsip" runat="server" UseSubmitBehavior="false" Text="Modifica" OnClientClick="javascript:doModifica();return false;" ></asp:Button>
+                                </div>
+                            </div>
+                            <div class="row">
+                            <asp:Label ID="LabelConsipExt" runat="server" for="cmbConsipExt" Text="Label"></asp:Label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <cc1:hwDropDownList ID="cmbConsipExt" Tag="mandate.idconsipkind_ext" OnSelectedIndexChanged="cmbConsipExt_SelectedIndexChanged" runat="server" CssClass="form-control" AutoPostBack="True" TabIndex="250"></cc1:hwDropDownList><br />
+                                </div>
+                            </div>
+                        </asp:Panel>
                     </div>
                 </div>
             </div>
-            </asp:Panel>
         </div>
+
         <div id="tabpericolosita" class="tab-pane fade">
             <div title="Pericolosità">
                 <div class="row">
@@ -451,32 +464,29 @@
             </div>
         </div>
 
-
     </div>
+
     <div id="myModal" class="modal fade">
-    <div class="modal-dialog" style="width: 100%">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Dichiarazione consip</h4>
-            </div>
-            <div id='ConsipDynBody' class="modal-body">
-                <div class="form-group">
-                    <label for="consipMotiveArea">Descrizione</label>
-                           <textarea id="consipMotiveArea" readonly data-id="consipMotiveArea" class="form-control input-lg" rows="3"></textarea>                    
+        <div class="modal-dialog" style="width: 100%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Dichiarazione consip</h4>
                 </div>
-            
-
-            
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
-                <button type="button" class="btn btn-primary" onclick="saveConsip();">Ok</button>
+                <div id='ConsipDynBody' class="modal-body">
+                    <div class="form-group">
+                        <label for="consipMotiveArea">Descrizione</label>
+                        <textarea id="consipMotiveArea" readonly data-id="consipMotiveArea" class="form-control input-lg" rows="3"></textarea>                    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                    <button type="button" class="btn btn-primary" onclick="saveConsip();">Ok</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
 </asp:Content>
 
 

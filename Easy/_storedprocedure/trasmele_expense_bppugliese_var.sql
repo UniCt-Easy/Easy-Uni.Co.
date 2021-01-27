@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø --setuser 'amministrazione' 
+
+ --setuser 'amministrazione' 
  if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_expense_bppugliese_var]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_expense_bppugliese_var]
 GO
@@ -108,8 +110,8 @@ SELECT  @cf_dept = ISNULL(cf,p_iva),
 @location_dept = ISNULL(location,'') 
 FROM license
 
---Il Tipo operazione Pu√≤ assumere i valori 
---INSERIMENTO‚Äì Inserimento  Ordinativo 
+--Il Tipo operazione PuÚ assumere i valori 
+--INSERIMENTOñ Inserimento  Ordinativo 
 --VARIAZIONE- Variazione Ordinativo
 --ANNNULLO- Annullo Ordinativo
 --SOSTITUZIONE- Sostituzione Ordinativo
@@ -130,24 +132,24 @@ DECLARE @CodiceStruttura varchar(16)
 ------- MAPPATURA MODALITA' DI PAGAMENTO --------------
 -------------------------------------------------------
 
-1 ‚ÄúCASSA‚Äù
-2 ‚ÄúBONIFICO BANCARIO E POSTALE‚Äù
-3 ‚ÄúSEPA CREDIT TRANSFER‚Äù
-4 ‚ÄúASSEGNO BANCARIO E POSTALE‚Äù
-5 ‚ÄúASSEGNO CIRCOLARE‚Äù
-6 ‚ÄúACCREDITO CONTO CORRENTE POSTALE‚Äù
-7 ‚ÄúACCREDITO TESORERIA PROVINCIALE STATO PER TAB A‚Äù   GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE
-8 ‚ÄúACCREDITO TESORERIA PROVINCIALE STATO PER TAB B‚Äù   GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE
-9 ‚ÄúF24EP‚Äù (7)										  GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE 1777
-10 ‚ÄúVAGLIA POSTALE‚Äù
-11 ‚ÄúVAGLIA TESORO‚Äù
+1 ìCASSAî
+2 ìBONIFICO BANCARIO E POSTALEî
+3 ìSEPA CREDIT TRANSFERî
+4 ìASSEGNO BANCARIO E POSTALEî
+5 ìASSEGNO CIRCOLAREî
+6 ìACCREDITO CONTO CORRENTE POSTALEî
+7 ìACCREDITO TESORERIA PROVINCIALE STATO PER TAB Aî   GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE
+8 ìACCREDITO TESORERIA PROVINCIALE STATO PER TAB Bî   GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE
+9 ìF24EPî (7)										  GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE 1777
+10 ìVAGLIA POSTALEî
+11 ìVAGLIA TESOROî
 
-‚ÄúREGOLARIZZAZIONE‚Äù
-‚ÄúREGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A‚Äù
-‚ÄúREGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B‚Äù
+ìREGOLARIZZAZIONEî
+ìREGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB Aî
+ìREGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB Bî
 
-12 ‚ÄúADDEBITO PREAUTORIZZATO‚Äù
-13 ‚ÄúDISPOSIZIONE DOCUMENTO ESTERNO‚Äù
+12 ìADDEBITO PREAUTORIZZATOî
+13 ìDISPOSIZIONE DOCUMENTO ESTERNOî
 */
 
 /*
@@ -155,17 +157,17 @@ DECLARE @CodiceStruttura varchar(16)
 ----- MODALITA' DI TRATTAMENTO BOLLO --------
 -------------------------------------------------------
 
-pu√≤ assumere i valori
-1 ‚ÄúESENTE BOLLO‚Äù
-2 ‚ÄúASSOGGETTATO BOLLO A CARICO ENTE‚Äù
-3 ‚ÄúASSOGGETTATO BOLLO A CARICO BENEFICIARIO‚Äù
+puÚ assumere i valori
+1 ìESENTE BOLLOî
+2 ìASSOGGETTATO BOLLO A CARICO ENTEî
+3 ìASSOGGETTATO BOLLO A CARICO BENEFICIARIOî
 */
 /*
 -------------------------------------------------------
 ----- MODALITA' DI TRATTAMENTO SPESE --------
 -------------------------------------------------------
 
-pu√≤ assumere i valori
+puÚ assumere i valori
 1 "A CARICO ENTE"
 2 "A CARICO BENEFICIARIO"
 3 "ESENTE"
@@ -190,7 +192,7 @@ WHERE kpaymenttransmission = @kpaymenttransmission) = 0)
 BEGIN
 	INSERT INTO #error
 	VALUES('La distinta di trasmissione ' + CONVERT(varchar(4),@y) + '/'
-	+ CONVERT(varchar(6),@n) + ' √® vuota')
+	+ CONVERT(varchar(6),@n) + ' Ë vuota')
 END
 
 -- CONTROLLO N. 1. Presenza dei dati dell'ente
@@ -215,10 +217,10 @@ BEGIN
 END
 
 
--- CONTROLLO N. 2. Movimento di Spesa senza Modalit√† di Pagamento
+-- CONTROLLO N. 2. Movimento di Spesa senza Modalit‡ di Pagamento
 INSERT INTO #error (message)
 (SELECT 'Per il movimento n.' + CONVERT(varchar(6),nmov) 
-+ '/' + CONVERT(varchar(4),ymov) + ' non √® stata scelta una modalit√† di pagamento'
++ '/' + CONVERT(varchar(4),ymov) + ' non Ë stata scelta una modalit‡ di pagamento'
 FROM paymentcommunicated
 JOIN expensevar 
 	ON expensevar.idexp = paymentcommunicated.idexp
@@ -229,11 +231,11 @@ WHERE expensevar.kpaymenttransmission = @kpaymenttransmission
 	)
 
 
--- CONTROLLO N. 3. Movimento di Spesa con Modalit√† di Pagamento non configurata
+-- CONTROLLO N. 3. Movimento di Spesa con Modalit‡ di Pagamento non configurata
 
 INSERT INTO #error (message)
 (SELECT 'Nel movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit√† di pagamento scelta non √® configurata, Andare in Configurazione - Anagrafica - Modalit√† di Pagamento'
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit‡ di pagamento scelta non Ë configurata, Andare in Configurazione - Anagrafica - Modalit‡ di Pagamento'
 FROM paymentcommunicated
 JOIN expensevar
 	ON paymentcommunicated.idexp = expensevar.idexp
@@ -243,12 +245,12 @@ WHERE expensevar.kpaymenttransmission = @kpaymenttransmission
 	AND (paymethod.methodbankcode IS NULL OR REPLACE(paymethod.methodbankcode,' ','') = '')
 )
 
--- CONTROLLO N. 4. Codice IBAN o ABI o CAB devono essere valorizzati nel caso di modalit√† di pagamento '02'
+-- CONTROLLO N. 4. Codice IBAN o ABI o CAB devono essere valorizzati nel caso di modalit‡ di pagamento '02'
 --- ABI, CAB, CIN, NUMERO CONTO obbligatori in caso di BONIFICI
 --- NUMERO CONTO obbligatorio in caso di BOLLETTINO CCP
 INSERT INTO #error (message)
 (SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit√† di pagamento scelta non √® stato assegnato il codice ABI / CAB.'
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit‡ di pagamento scelta non Ë stato assegnato il codice ABI / CAB.'
 FROM paymentcommunicated
 	JOIN paymethod
 	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -261,10 +263,10 @@ WHERE expensevar.kpaymenttransmission = @kpaymenttransmission
 		OR (paymentcommunicated.idbank IS NULL OR REPLACE(paymentcommunicated.idbank,' ','') = '')
 		))
 
--- CONTROLLO N. 5. Il codice ABI, CAB e il CIN non devono eccedere la lunghezza massima nel caso di modalit√† di pagamento 53 e 63
+-- CONTROLLO N. 5. Il codice ABI, CAB e il CIN non devono eccedere la lunghezza massima nel caso di modalit‡ di pagamento 53 e 63
 INSERT INTO #error (message)
 (SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit√† di pagamento il codice ABI eccede la lunghezza di '
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit‡ di pagamento il codice ABI eccede la lunghezza di '
 + CONVERT(varchar(3),@len_ABI) + ' caratteri e/o il codice CAB eccede la lunghezza di '
 + CONVERT(varchar(3),@len_CAB) + ' caratteri e/o il CIN eccede la lunghezza di '
 + CONVERT(varchar(3),@len_cin) + ' caratteri'
@@ -282,7 +284,7 @@ WHERE expensevar.kpaymenttransmission = @kpaymenttransmission
 		)
 	)
 	
--- CONTROLLO N. 6. Conto Corrente valorizzato e di lunghezza massima 12 caratteri nel caso di modalit√† di pagamento 2
+-- CONTROLLO N. 6. Conto Corrente valorizzato e di lunghezza massima 12 caratteri nel caso di modalit‡ di pagamento 2
 -- BONIFICO BANCARIO E POSTALE
 IF EXISTS
 (SELECT * FROM paymentcommunicated
@@ -304,7 +306,7 @@ BEGIN
 	INSERT INTO #error (message)
 	(SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
 	+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov)
-	+ ' nella modalit√† di pagamento non √® stato il C/C o la lunghezza del C/C eccede i '
+	+ ' nella modalit‡ di pagamento non Ë stato il C/C o la lunghezza del C/C eccede i '
 	+ CONVERT(varchar(2),@len_cc) + ' caratteri'
 	FROM paymentcommunicated
 	JOIN paymethod
@@ -337,10 +339,10 @@ WHERE R.idregistryclass IS NULL
 	AND EV.kpaymenttransmission = @kpaymenttransmission
 
 
--- CONTROLLO N. 8. Uso di modalit√† di pagamento NON ammesse dalla banca-  vedi Specifiche tracciato
+-- CONTROLLO N. 8. Uso di modalit‡ di pagamento NON ammesse dalla banca-  vedi Specifiche tracciato
 INSERT INTO #error (message)
 (SELECT 'Nel movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' √® stata usata una modalit√† di pagamento non prevista dalla banca.'
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' Ë stata usata una modalit‡ di pagamento non prevista dalla banca.'
 FROM paymentcommunicated
 JOIN paymethod
 	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -351,10 +353,10 @@ WHERE expensevar.kpaymenttransmission = @kpaymenttransmission
 )
 
 
--- CONTROLLO N. 11. Modalit√† di Pagamento Esclusiva Cassiere
+-- CONTROLLO N. 11. Modalit‡ di Pagamento Esclusiva Cassiere
 INSERT INTO #error (message)
 (SELECT 'Nel movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit√† di pagamento scelta √® Esclusiva Cassiere. Sostituirla con una pi√π adeguata, al fine di attribuirne un significato pi√π consono nella trasmissione telematica. '
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit‡ di pagamento scelta Ë Esclusiva Cassiere. Sostituirla con una pi˘ adeguata, al fine di attribuirne un significato pi˘ consono nella trasmissione telematica. '
 FROM paymentcommunicated
 JOIN paymethod
 	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -366,7 +368,7 @@ WHERE paymentcommunicated.ypaymenttransmission = @y
 -- CONTROLLO N. 12. Bollettino postale (cod. pag. 02)i codici ABI e CAB non devono essere valorizzati, lo deve essere solo il numero del C/C-- 
 INSERT INTO #error (message)
 (SELECT 'Nel movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' √® stata usata la modalit√† di pagamento Bollettino Postale  ma il codice ABI  e CAB non devono essere valorizzati'
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' Ë stata usata la modalit‡ di pagamento Bollettino Postale  ma il codice ABI  e CAB non devono essere valorizzati'
 FROM paymentcommunicated
 JOIN paymethod
 	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -383,13 +385,13 @@ WHERE paymentcommunicated.ypaymenttransmission = @y
 
 -- CONTROLLO N. 13. Presenza trattamento bollo
 INSERT INTO #error (message)
-SELECT 'Il trattamento bollo deve essere obbligatoriamente impostato per il mandato n¬∞ ' + CONVERT(varchar(6),P.npay) 
+SELECT 'Il trattamento bollo deve essere obbligatoriamente impostato per il mandato n∞ ' + CONVERT(varchar(6),P.npay) 
 FROM payment P
 WHERE P.idstamphandling IS NULL
 	  AND P.kpaymenttransmission = @kpaymenttransmission
 
 
--- CONTROLLO N. 14. codice contabilita speciale errato o mancante, controllare regole su codice contabilit√† speciale girofondi
+-- CONTROLLO N. 14. codice contabilita speciale errato o mancante, controllare regole su codice contabilit‡ speciale girofondi
 IF EXISTS
 (SELECT * FROM paymentcommunicated
         join expenselast
@@ -413,7 +415,7 @@ WHERE expensevar.kpaymenttransmission = @kpaymenttransmission
 	   ((expenselast.paymethod_flag & 1024) <> 0) OR 
 	   ((expenselast.paymethod_flag & 2048) <> 0) 
 	   )  
-	AND paymethod.methodbankcode  <> '09' -- In caso di girofondo F24EP il codice contabilit√† speciale  √® fisso e non va segnalatato l'errore
+	AND paymethod.methodbankcode  <> '09' -- In caso di girofondo F24EP il codice contabilit‡ speciale  Ë fisso e non va segnalatato l'errore
 	AND (ISNULL(expenselast.extracode,registrypaymethod.extracode) IS NULL
 		OR REPLACE(ISNULL(expenselast.extracode,registrypaymethod.extracode),' ','') = ''
 		OR DATALENGTH(ISNULL(
@@ -426,7 +428,7 @@ BEGIN
 	INSERT INTO #error (message)
 		(SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
 		+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov)
-		+ ' nella modalit√† di pagamento non √® stato inserito il Codice contabilit√† speciale o la sua lunghezza supera i '
+		+ ' nella modalit‡ di pagamento non Ë stato inserito il Codice contabilit‡ speciale o la sua lunghezza supera i '
 		+ CONVERT(varchar(7),@lencodicecontabilitaspeciale) + ' caratteri'
 		FROM paymentcommunicated
         join expenselast
@@ -442,7 +444,7 @@ BEGIN
 		JOIN expensevar 
 			ON expensevar.idexp = expenselast.idexp
 		WHERE expensevar.kpaymenttransmission = @kpaymenttransmission
-		AND paymethod.methodbankcode  <> '09' -- In caso di girofondo F24EP il codice contabilit√† speciale √® fisso e non va segnalatato l'errore
+		AND paymethod.methodbankcode  <> '09' -- In caso di girofondo F24EP il codice contabilit‡ speciale Ë fisso e non va segnalatato l'errore
 				 AND (
 		   ((expenselast.paymethod_flag & 64) <> 0) OR
 		   ((expenselast.paymethod_flag & 256) <> 0) OR
@@ -476,7 +478,7 @@ AND V.kpaymenttransmission = @kpaymenttransmission
 
 -- CONTROLLO N. 16  per BPS non sono ammessi annullamenti parziali
 INSERT INTO #error (message)
-SELECT ' Il mandato di pagamento n¬∞' + CONVERT(varchar(6),EL.npay) + '/' + CONVERT(varchar(4),EL.ypay) +
+SELECT ' Il mandato di pagamento n∞' + CONVERT(varchar(6),EL.npay) + '/' + CONVERT(varchar(4),EL.ypay) +
 ' deve essere annullato totalmente '
 FROM expense E
 JOIN expenselastview EL
@@ -497,7 +499,7 @@ BEGIN
 	RETURN
 END
 -- Attenzione! Altri controlli sono presenti nel testo della SP in quanto non era possibile calcolarli a priori
--- I controlli vengono riconosciuti in quanto il prefisso adoperato come linea di commento sar√† CONTROLLO N. x.
+-- I controlli vengono riconosciuti in quanto il prefisso adoperato come linea di commento sar‡ CONTROLLO N. x.
 -- Fine Sezione Controlli
 
 DECLARE @expenseregphase	tinyint
@@ -788,7 +790,7 @@ SELECT t.ypaymenttransmission, t.npaymenttransmission,d.kpay, d.ypay, d.npay, s.
 		WHEN ((el.paymethod_flag & 1024) <> 0) THEN 'LIBERA' --(girofondi ordinari TABELLA B) 
 		WHEN ((el.paymethod_flag & 2048) <> 0) THEN 'VINCOLATA' --(girofondi vincolati TABELLA B) 
 		ELSE 'LIBERA'
-	END, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perch√® l'Ente √® in regime TU
+	END, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchË l'Ente Ë in regime TU
 	--CASE
 	--	WHEN (((el.paymethod_flag & 64) = 0) AND ((el.paymethod_flag & 256) = 0) AND ((el.paymethod_flag & 512) = 0)  AND ((el.paymethod_flag & 1024) = 0) AND ((el.paymethod_flag & 2048) = 0)) THEN NULL
 	--	WHEN (((el.paymethod_flag & 64) <> 0) OR ((el.paymethod_flag & 256) <> 0) OR ((el.paymethod_flag & 512) <> 0)  OR ((el.paymethod_flag & 1024) <> 0) OR ((el.paymethod_flag & 2048) <> 0)) 
@@ -1083,7 +1085,7 @@ SELECT @maxincomephase = MAX(nphase) FROM incomephase
 INSERT INTO #error (message)
 SELECT 'Il movimento di entrata ' + CONVERT(varchar(6),I.nmov) + '/' + CONVERT(varchar(4),I.ymov)
 + ' associato al movimento di spesa ' + CONVERT(varchar(6),E.nmov) + '/' + CONVERT(varchar(4),E.nmov)
-+ ' non √® stato inserito in una distinta di trasmissione'
++ ' non Ë stato inserito in una distinta di trasmissione'
 FROM #payment P
 JOIN income I
 	ON I.idpayment = P.idexp	
@@ -1156,8 +1158,8 @@ AND (p.idpaydisposition IS   NULL AND -- i mandati stipendi ad anagrafiche cumul
 UPDATE #tax SET curramount = curramount + ISNULL((select SUM(amount) FROM incomevar WHERE incomevar.idinc = #tax.idinc AND incomevar.autokind NOT IN (10,11) ),0)
 
 
--- L'incasso reale sar√† suddiviso in due tranches, uno di importo parti al sospeso e non collegato alla spesa
--- l'altro sar√† un incasso virtuale  collegato alla spesa (in modo da ottenere complessivamente saldo zero ) e con idpro
+-- L'incasso reale sar‡ suddiviso in due tranches, uno di importo parti al sospeso e non collegato alla spesa
+-- l'altro sar‡ un incasso virtuale  collegato alla spesa (in modo da ottenere complessivamente saldo zero ) e con idpro
 -- fittizio pari a 2 (obblighiamo a fare le reversali singole in tali casi)
 INSERT INTO #pendingincome
 (
@@ -1475,9 +1477,9 @@ END
 
 -- Aggiornamento dei dati inerenti l'indirizzo del beneficiario	
 -- Unificazione descrizioni di pagamento per movimenti di spesa che sono stati accorpati
--- L'unificazione della descrizione √® necessaria in quanto nella group by finale viene inserita anche la descrizione
+-- L'unificazione della descrizione Ë necessaria in quanto nella group by finale viene inserita anche la descrizione
 UPDATE #payment
-SET paymentdescr = 'ACCORPAMENTO PAGAMENTI' -- + SPACE(348) La formattazione l'ho postata alla fine, perch√® deve scrivere anche il CUP e CIG, ponendoli come prima info del campo 'casuale pagamento'
+SET paymentdescr = 'ACCORPAMENTO PAGAMENTI' -- + SPACE(348) La formattazione l'ho postata alla fine, perchË deve scrivere anche il CUP e CIG, ponendoli come prima info del campo 'casuale pagamento'
 WHERE
 	(SELECT COUNT(*)
 	FROM #payment p2
@@ -1674,7 +1676,7 @@ GROUP BY #payment.ypaymenttransmission, #payment.npaymenttransmission, #payment.
 
 	--select * from #siope
 -- Calcolo del progressivo SIOPE
--- Anche la classificazione ha un suo progressivo che √® pari al numero di codici classificazione distinti precedente al corrente,
+-- Anche la classificazione ha un suo progressivo che Ë pari al numero di codici classificazione distinti precedente al corrente,
 -- legati allo stesso progressivo percipiente.
 UPDATE #siope
 SET progressive = 1 +
@@ -1842,7 +1844,7 @@ CREATE TABLE #trace
 	
 	--------------------------------------------------------------------------------------------------------------------------------------
 	----------------------------------------------------INIZIO TIPO RIGA MANDATO----------------------------------------------------------
-    --- contiene le informazioni relative all'intero mandato. L'identificativo √® dato da ndoc (corrisponde a npay nella tabella payment)-- 
+    --- contiene le informazioni relative all'intero mandato. L'identificativo Ë dato da ndoc (corrisponde a npay nella tabella payment)-- 
 	--- KIND : MANDATO, TIPO RIGA PADRE: TESTATA, CHIAVE: ndoc----------------------------------------------------------------------------
 	--------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1993,8 +1995,8 @@ CREATE TABLE #trace
 	
 	----------------------------------------------------INIZIO TIPO RIGA RITENUTE -------------------------------------------------------- 
     -- contiene le informazioni relative alle ritenute associate alla riga di mandato (sub del mandato), che nella -----------------------
-    -- terminologia del tracciato BPS si chiama beneficiario. Infatti ogni riga di mandato pu√≤ essere associata a pi√π righe di reversale -
-    -- (versanti di reversali nella terminologia BPS). Il progressivo_versante  √® valorizzato con idpro della riga di reversale-----------
+    -- terminologia del tracciato BPS si chiama beneficiario. Infatti ogni riga di mandato puÚ essere associata a pi˘ righe di reversale -
+    -- (versanti di reversali nella terminologia BPS). Il progressivo_versante  Ë valorizzato con idpro della riga di reversale-----------
 	-- KIND : RITENUTE,   TIPO RIGA PADRE: INFO_BENEFICIARIO, SELETTORI: ndoc (sarebbe npay, riferimento al mandato) e idpay --------------
 	-- CHIAVE: numero_reversale, progressivo_reversale -------------------------------------------------------------------------------------
 	----------------------------------------------------------------------------------------------------------------------------------------
@@ -2226,7 +2228,7 @@ SELECT
 				   SUBSTRING(address_ben,1,30),
 				   -- C.A.P. Beneficiario
 				   cap_ben,
-				   -- Localit√† Beneficiario
+				   -- Localit‡ Beneficiario
 				   SUBSTRING(location_ben,1,30),
 				   -- Provincia Beneficiario
 				   province_ben,
@@ -2540,7 +2542,7 @@ SELECT
 	
 	--------------------------------------------------------------------------------------------------------------------------------------
 	----------------------------------------------------INIZIO TIPO RIGA MANDATO----------------------------------------------------------
-    --- contiene le informazioni relative all'intero mandato. L'identificativo √® dato da ndoc (corrisponde a npay nella tabella payment)-- 
+    --- contiene le informazioni relative all'intero mandato. L'identificativo Ë dato da ndoc (corrisponde a npay nella tabella payment)-- 
 	--- KIND : MANDATO, TIPO RIGA PADRE: TESTATA, CHIAVE: ndoc----------------------------------------------------------------------------
 	--------------------------------------------------------------------------------------------------------------------------------------
 	ndoc,
@@ -2690,8 +2692,8 @@ SELECT
 	
 	----------------------------------------------------INIZIO TIPO RIGA RITENUTE -------------------------------------------------------- 
     -- contiene le informazioni relative alle ritenute associate alla riga di mandato (sub del mandato), che nella -----------------------
-    -- terminologia del tracciato BPS si chiama beneficiario. Infatti ogni riga di mandato pu√≤ essere associata a pi√π righe di reversale -
-    -- (versanti di reversali nella terminologia BPS). Il progressivo_versante  √® valorizzato con idpro della riga di reversale-----------
+    -- terminologia del tracciato BPS si chiama beneficiario. Infatti ogni riga di mandato puÚ essere associata a pi˘ righe di reversale -
+    -- (versanti di reversali nella terminologia BPS). Il progressivo_versante  Ë valorizzato con idpro della riga di reversale-----------
 	-- KIND : RITENUTE,   TIPO RIGA PADRE: INFO_BENEFICIARIO, SELETTORI: ndoc (sarebbe npay, riferimento al mandato) e idpay --------------
 	-- CHIAVE: numero_reversale, progressivo_reversale -------------------------------------------------------------------------------------
 	----------------------------------------------------------------------------------------------------------------------------------------
@@ -2736,4 +2738,3 @@ SET ANSI_NULLS ON
 GO
 
  
-	

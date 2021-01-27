@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -217,7 +219,7 @@ namespace paydisposition_default {
 		bool GetMovimentoSelezionato() {
 			ClearTablesMovFin();
 			if (txtNumeroMovimento.Text.Trim() == "") {
-				MessageBox.Show("Selezionare un movimento per procedere");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Selezionare un movimento per procedere");
 				DisplayTabs(1);
 				return false;
 			}
@@ -350,7 +352,7 @@ namespace paydisposition_default {
 			string accountFieldName = "idaccdebit";
 
 			#region riempimento mod. pagamento
-			//aggiungere le informazioni della modalit√† di pagamento
+			//aggiungere le informazioni della modalit‡ di pagamento
 			object idpaymethod = check_tipomodpagamento(DS.paymethod, R);
 			NewLastMov["idpaymethod"] = idpaymethod;//ModPagam["idpaymethod"]; 
 			NewLastMov["iban"] = R["iban"];
@@ -461,22 +463,22 @@ namespace paydisposition_default {
 			GestioneAutomatismi ga = new GestioneAutomatismi(this, Meta.Conn, Meta.Dispatcher, DS,
 				faseMax, faseMax, "expense", true);
 			ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
-			ga.GeneraClassificazioniIndirette(ga.DSP, true);
+			//ga.GeneraClassificazioniIndirette(ga.DSP, true);
 
 
 			bool res = ga.GeneraAutomatismiAfterPost(true);
 			if (!res) {
-				MessageBox.Show(this,
-					"Si √® verificato un errore o si √® deciso di non salvare! L'operazione sar√† terminata");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
+					"Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
 				return false;
 			} else {
 				res = ga.doPost(Meta.Dispatcher);
 				if (res) {
-					MessageBox.Show(this, "Salvataggio dei movimenti finanziari avvenuto con successo");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Salvataggio dei movimenti finanziari avvenuto con successo");
 					return true;
 				} else {
-					MessageBox.Show(this,
-						"Si √® verificato un errore o si √® deciso di non salvare! L'operazione sar√† terminata");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
+						"Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
 					return false;
 				}
 			}

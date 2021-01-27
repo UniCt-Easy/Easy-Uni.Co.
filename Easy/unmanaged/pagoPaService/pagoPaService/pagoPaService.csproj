@@ -54,6 +54,8 @@
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -77,9 +79,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\serviceBancaIntesa\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\unicredit_b\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="serviceBancaIntesa\EServizio.cs" />
+    <Compile Include="serviceBancaIntesa\ws_2_0.designer.cs" />
     <Compile Include="SiopePlus\SiopePlusREST.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Unicredit\UnicreditREST.cs" />
     <Compile Include="Valtellinese\FlussoRiversamento_1_0_4.designer.cs" />
     <Compile Include="Valtellinese\allineamentopendenze.designer.cs" />
     <Compile Include="genericSerializer.cs" />
@@ -123,11 +138,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\unicredit_b\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="UbiBanca\UbiBancaService.cs" />
     <Compile Include="Unicredit\bollettino.cs" />
     <Compile Include="Unicredit\flusso_unicredit.cs" />
@@ -152,6 +162,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="FlussoRiversamento_1_0_4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="serviceBancaIntesa\ws_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="payPA.xsd">
@@ -247,6 +260,14 @@
     <None Include="Service References\PayPA\PayPA.wsdl">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\serviceBancaIntesa\dataprovider.wsdl" />
+    <None Include="Service References\serviceBancaIntesa\pagoPaService.serviceBancaIntesa.Output.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\serviceBancaIntesa\pagoPaService.serviceBancaIntesa.OutputVerificaPagamentoInAttesa.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\unicredit_b\CarrelloPosizioniImplService.wsdl" />
     <None Include="Service References\TicketWebSoap\pagoPaService.TicketWebSoap.GetTicketResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -262,14 +283,13 @@
     <None Include="Service References\UnicreditService\pagoPaService.UnicreditService.inserimentoPosizioneResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\unicredit_b\CarrelloPosizioniImplService.wsdl" />
     <None Include="Service References\unicredit_b\pagoPaService.unicredit_b.paInviaCarrelloPosizioniResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\unicredit_b\pagoPaService.unicredit_b.paInviaCarrelloPosizioniResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="SiopePlus\OPI_GIORNALE_DI_CASSA_V_1_3.XSD">
+    <None Include="SiopePlus\OPI_GIORNALE_DI_CASSA_V_1_5_1_1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="vistaForm.xsc">
@@ -292,10 +312,11 @@
     <WCFMetadataStorage Include="Service References\bsondrio1_1\" />
     <WCFMetadataStorage Include="Service References\govPayReference\" />
     <WCFMetadataStorage Include="Service References\PayPA\" />
+    <WCFMetadataStorage Include="Service References\serviceBancaIntesa\" />
+    <WCFMetadataStorage Include="Service References\unicredit_b\" />
     <WCFMetadataStorage Include="Service References\TicketWebSoap\" />
     <WCFMetadataStorage Include="Service References\UbiBancaService\" />
     <WCFMetadataStorage Include="Service References\UnicreditService\" />
-    <WCFMetadataStorage Include="Service References\unicredit_b\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\UnicreditService\configuration91.svcinfo" />
@@ -331,18 +352,6 @@
       <Project>{c0dacf4d-2f3e-44d6-a718-7c9821a1bdcd}</Project>
       <Name>funzioni_configurazione</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\unicredit_b\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\unicredit_b\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\unicredit_b\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\UbiBancaService\configuration91.svcinfo" />
@@ -416,6 +425,31 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\unicredit_b\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\unicredit_b\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\unicredit_b\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\serviceBancaIntesa\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\serviceBancaIntesa\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\serviceBancaIntesa\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>

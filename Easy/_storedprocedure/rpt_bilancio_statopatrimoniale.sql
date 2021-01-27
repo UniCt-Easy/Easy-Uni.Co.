@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif OBJECTPROPERTY(object_id('rpt_bilancio_statopatrimoniale'), 'IsProcedure') = 1
+
+if OBJECTPROPERTY(object_id('rpt_bilancio_statopatrimoniale'), 'IsProcedure') = 1
 	drop procedure rpt_bilancio_statopatrimoniale
 go
 
@@ -69,7 +71,7 @@ FROM  config WHERE ayear = @ayear
 	IF (@showchildsor2 = 'S') set @idsor2 = @idsor2+'%' 
 	IF (@showchildsor3 = 'S') set @idsor3 = @idsor3+'%' 
 -- Se ho scelto un livello sotostante del livello operativo utilizzo quello, 
--- altrimenti user√≤ il I liv.operativo
+-- altrimenti userÚ il I liv.operativo
 	DECLARE @levelusable	varchar(20)
 	SELECT @levelusable = MIN(nlevel)
 		FROM accountlevel
@@ -216,4 +218,3 @@ FROM  config WHERE ayear = @ayear
 ORDER BY account.printingorder,account.codeacc
 	
 
-	

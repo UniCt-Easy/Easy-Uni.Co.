@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[trovaIndirizzo770]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[trovaIndirizzo770]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trovaIndirizzo770]
 GO
 
@@ -66,11 +68,11 @@ as begin
 		return
 	end
 
-	-- Le righe successive, servono a considerare l'indirizzo pi√π recente del 
-	-- percipiente, in caso non siano stati inseriti n√® domicilio fiscale
-	-- n√® l'indirizzo di residenza. Tuttavia per il futuro, avendo inserito 
-	-- una regola sull'obbligatoriet√† di uno dei due indirizzi, questa parte potr√† 
-	-- essere considerata superflua. Al momento √® opportuno lasciarla perch√®
+	-- Le righe successive, servono a considerare l'indirizzo pi˘ recente del 
+	-- percipiente, in caso non siano stati inseriti nË domicilio fiscale
+	-- nË l'indirizzo di residenza. Tuttavia per il futuro, avendo inserito 
+	-- una regola sull'obbligatoriet‡ di uno dei due indirizzi, questa parte potr‡ 
+	-- essere considerata superflua. Al momento Ë opportuno lasciarla perchË
 	-- si devono considerare i contratti vecchi
 	select top 1 
 		@idaddresskind = registryaddress.idaddresskind,
@@ -88,4 +90,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_sitgirofondiiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_sitgirofondiiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_sitgirofondiiva]
 GO
 
@@ -43,7 +45,7 @@ select @idtreasurerdest = idtreasurer from treasurer where flagdefault = 'S'
 	INSERT INTO @Dettagli(idtreasurer, ivaamount, yivapay, nivapay, ivaadate)
 		SELECT 
 			IK.idtreasurer,
-			-- Se √® un registro acquisto √® iva a creadito, altrimenti √® iva a debito. L'iva a credito la scriviamo con segno - perch√® i girofondi
+			-- Se Ë un registro acquisto Ë iva a creadito, altrimenti Ë iva a debito. L'iva a credito la scriviamo con segno - perchË i girofondi
 			-- che l'amministrazione fa nei confronti del dipartimento ( per rimborsare l'iva a credito ) vengono visualizzati con segno meno.
 			case when (IK.registerclass = 'A'and IK.flagactivity!=1) then -(isnull(ID.ivanet,0) + isnull(ID.ivanetdeferred,0))
 				else (isnull(ID.ivanet,0) + isnull(ID.ivanetdeferred,0))
@@ -121,4 +123,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

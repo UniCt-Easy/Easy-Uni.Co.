@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -604,7 +606,7 @@ namespace emens_consolida//consolidaEmens//
         {
             if ((cmbSedeInps.SelectedValue == null) || (cmbSedeInps.SelectedValue.ToString() == ""))
             {
-                MessageBox.Show(this, "Scegliere la Sede INPS");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Scegliere la Sede INPS");
                 return;
             }
 
@@ -616,7 +618,7 @@ namespace emens_consolida//consolidaEmens//
                 di = getDirectoryInfo(out messaggio);
                 if (di == null)
                 {
-                    MessageBox.Show(this, "Errore: " + messaggio
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore: " + messaggio
                         + "\n\nE' necessario indicare la cartella dalla quale prelevare i file Emens dei vari dipartimenti!");
                     return;
                 }
@@ -628,7 +630,7 @@ namespace emens_consolida//consolidaEmens//
                 writer = getXmlTextWriter(out messaggio);
                 if (writer == null)
                 {
-                    MessageBox.Show(this, "Errore: " + messaggio
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore: " + messaggio
                         + "\n\nE' necessario indicare il nome del file dove andare a scrivere l'Emens consolidato!");
                     return;
                 }
@@ -768,7 +770,7 @@ namespace emens_consolida//consolidaEmens//
 			} 
 			catch (Exception ex) 
 			{
-				MessageBox.Show(this, "Impossibile aprire il file Xml specificato.\n"+ex.Message);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Impossibile aprire il file Xml specificato.\n"+ex.Message);
 				return;
 			}
 			dsEmens.Emens.Clear();

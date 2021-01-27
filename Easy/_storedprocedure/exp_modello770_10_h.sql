@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_modello770_10_h]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_modello770_10_h]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_modello770_10_h]
 GO
 --exec exp_modello770_10_h
@@ -51,7 +53,7 @@ CREATE TABLE #annualpayedrefundH
 	exemptionquota_applied decimal(19,2)
 )
 
--- Il quadro H √® per il lavoro autonomo
+-- Il quadro H Ë per il lavoro autonomo
 	CREATE TABLE #recHNonArrot
 	(
 		progr int,
@@ -122,7 +124,7 @@ CREATE TABLE #annualpayedrefundH
 			+ ISNULL(
 				(SELECT SUM(amount) FROM expensevar
 				WHERE expensevar.idexp = expense.idexp
-				-- AND expensevar.yvar <= @annoredditi  superfluo poich√© expense di ultima fase
+				-- AND expensevar.yvar <= @annoredditi  superfluo poichÈ expense di ultima fase
 				AND ISNULL(autokind,0) <> 4)
 			,0)) > 0
 			and (select count(*) from expensetaxofficial 
@@ -177,7 +179,7 @@ CREATE TABLE #annualpayedrefundH
 				select @idcitynascita=newcity from geo_city where idcity=@idcitynascita 
 			END
 
-			--sezione di impostazione vecchio comune poich√© quello del 770 non √® aggiornato, DA RIMUOVERE nel 2010!!
+			--sezione di impostazione vecchio comune poichÈ quello del 770 non Ë aggiornato, DA RIMUOVERE nel 2010!!
 			SELECT
 				@au6birthplace = geo_city.title,
 				@au7birthprovince = case 
@@ -229,7 +231,7 @@ CREATE TABLE #annualpayedrefundH
 			@au8location = coalesce( geo_nation.title, registryaddress.location),
 			@au17codiceNazione =
 			CASE
-				--sezione di impostazione vecchio stato poich√© quello del 770 non √® aggiornato, DA RIMUOVERE nel 2010!!
+				--sezione di impostazione vecchio stato poichÈ quello del 770 non Ë aggiornato, DA RIMUOVERE nel 2010!!
 				WHEN isnull(geo_nation_agency.value, case registryaddress.flagforeign when 'S' then '-1' end) = 289 THEN 288
 				WHEN isnull(geo_nation_agency.value, case registryaddress.flagforeign when 'S' then '-1' end) = 290 THEN 288
 				ELSE isnull(geo_nation_agency.value, case registryaddress.flagforeign when 'S' then '-1' end)
@@ -263,7 +265,7 @@ CREATE TABLE #annualpayedrefundH
 			SELECT
 			@au8location = geo_city.title, 
 			@au9provincia = case 
-				--sezione di impostazione vecchio comune poich√© quello del 770 non √® aggiornato, DA RIMUOVERE nel 2010!!
+				--sezione di impostazione vecchio comune poichÈ quello del 770 non Ë aggiornato, DA RIMUOVERE nel 2010!!
 				when geo_city.idcity in (13935, 13936, 13937, 13938, 13940, 13942, 13943) then 'BA'
 				when geo_city.idcity in (13939, 13941, 13944) then 'FG'
 				else geo_country.province end,
@@ -338,7 +340,7 @@ CREATE TABLE #annualpayedrefundH
 				SELECT 
 					@au8location =  geo_city.title,
 					@au9provincia = case 
-					--sezione di impostazione vecchio comune poich√© quello del 770 non √® aggiornato, DA RIMUOVERE nel 2010!!
+					--sezione di impostazione vecchio comune poichÈ quello del 770 non Ë aggiornato, DA RIMUOVERE nel 2010!!
 						when geo_city.idcity in (13935, 13936, 13937, 13938, 13940, 13942, 13943) then 'BA'
 						when geo_city.idcity in (13939, 13941, 13944) then 'FG'
 						else geo_country.province end,
@@ -373,11 +375,11 @@ CREATE TABLE #annualpayedrefundH
 		-- I campi da AU001012 ad AU001015 vengono valorizzati qualora si tratti di persone residenti all'estero
 	--AU001014 Codice di identificazione fiscale estero
 			INSERT INTO #recHNonArrot (progr, quadro, riga, colonna, stringa) VALUES(@progrCom, 'AU', 1, '014', @au14foreigncf)
-	--AU001015 Localit√† di residenza estera
+	--AU001015 Localit‡ di residenza estera
 			INSERT INTO #recHNonArrot (progr, quadro, riga, colonna, stringa) VALUES(@progrCom, 'AU', 1, '015', @au15locationestera)
 	--AU001016 Via e numero civico
 			INSERT INTO #recHNonArrot (progr, quadro, riga, colonna, stringa) VALUES(@progrCom, 'AU', 1, '016', @au16addressestero)
-			-- N.B. il codiceNazione deve essere memorizzato come intero (come da specifiche del 770), sul DB il dato √® memorizzato come varchar
+			-- N.B. il codiceNazione deve essere memorizzato come intero (come da specifiche del 770), sul DB il dato Ë memorizzato come varchar
 			-- ma trattandosi di codice ISIN non ci sono problemi in quanto sono effettivamente valori numerici
 	--AU001017 Codice stato estero
 			INSERT INTO #recHNonArrot (progr, quadro, riga, colonna, intero) VALUES(@progrCom, 'AU', 1, '017', CONVERT(int,@au17codiceNazione))
@@ -599,7 +601,7 @@ print '-------------------------------------------------------------------------
 	set @au23_AltreSommeNonSoggetteARitenuta=0
 	SET @au23_AltreSommeNonSoggetteARitenuta = 
 					@au21_ammontarelordocorrisposto
-					- ISNULL((SELECT SUM(taxablenet) --somma imponibili netti ove la rit fiscale non √® zero esclusi stranieri conv.
+					- ISNULL((SELECT SUM(taxablenet) --somma imponibili netti ove la rit fiscale non Ë zero esclusi stranieri conv.
 							FROM expensetaxofficial
 				              		join tax
 								ON tax.taxcode = expensetaxofficial.taxcode
@@ -610,7 +612,7 @@ print '-------------------------------------------------------------------------
 							AND taxref <>'07_IRPEF_FC'
 							AND expensetaxofficial.stop is null
 					),0)
-					-- RITENUTA IPREF STRANIERI IN CONVENZIONE, √® necessario prenderle a parte poich√© per esse la ritenuta √® zero
+					-- RITENUTA IPREF STRANIERI IN CONVENZIONE, Ë necessario prenderle a parte poichÈ per esse la ritenuta Ë zero
 					- @au22SommeNonSoggetteARitenutaPerRegimeConvenzionale
 					
 	
@@ -788,4 +790,3 @@ SET ANSI_NULLS ON
 GO
 
 --- exec exp_modello770_10_h
-	

@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -688,7 +690,7 @@ namespace parasubcontract_default { //contratto//
                 if (enableold) {
                     filterTipoRapporto = QHS.AppAnd(QHS.CmpEq("idemenscontractkind", oldcode),
                         QHS.CmpEq("ayear", esercizio));
-                    MessageBox.Show(this,
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                         "Attenzione: il tipo rapporto selezionato non è coerente con il modulo PARASUBORDINATI");
                 }
                 else {
@@ -704,7 +706,7 @@ namespace parasubcontract_default { //contratto//
                 bool rapportoSceltoIsOld = (emensTipoRapporto.Select(
                     QHC.AppAnd(QHC.CmpEq("idemenscontractkind", oldcode), QHC.CmpEq("ayear", esercizio))).Length == 0);
                 if (enableold && rapportoSceltoIsOld) {
-                    MessageBox.Show(this,
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                         "Attenzione: il tipo rapporto EMENS selezionato non è coerente con il modulo PARASUBORDINATI");
                 }
                 if (enableold)
@@ -750,7 +752,7 @@ namespace parasubcontract_default { //contratto//
                 // Altrimenti viene svuotato il combo box
                 if (enableold) {
                     filterAttPrevINPS = QHS.AppAnd(QHS.CmpEq("activitycode", oldcode), QHS.CmpEq("ayear", esercizio));
-                    MessageBox.Show(this,
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                         "Attenzione: l'attività previdenziale INPS scelta non è coerente con il rapporto scelto");
                 }
                 else {
@@ -924,7 +926,7 @@ namespace parasubcontract_default { //contratto//
                         DataTable T = CalcoliCococo.verificaAddizionaliPrestazione(Conn, codicePrestazione, "C");
                         if ((T != null) && (T.Rows.Count > 0) && (idreg != 0)) {
                             if ((idComuneAddizionale == DBNull.Value) || (idComuneAddizionale == null)) {
-                                MessageBox.Show(this,
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                     "In riferimento all'applicazione delle addizionali comunali non esiste per il percipiente "
                                     + "\nun domicilio fiscale o un indirizzo di residenza valido al " +
                                     primoDellAnno.ToShortDateString());
@@ -939,7 +941,7 @@ namespace parasubcontract_default { //contratto//
                         if ((TGeo != null) && (TGeo.Rows.Count > 0) && (idreg != 0)) {
                             //Messaggi per avvisare l'utente
                             if ((idComuneAddizionale == DBNull.Value) || (idComuneAddizionale == null)) {
-                                MessageBox.Show(this,
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                     "In riferimento all'applicazione delle addizionali regionali non esiste per il percipiente "
                                     + "\nun domicilio fiscale o un indirizzo di residenza valido al " +
                                     primoDellAnno.ToShortDateString()
@@ -1634,7 +1636,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabGenerale.Controls.Add(this.grpComune);
 			this.tabGenerale.Location = new System.Drawing.Point(4, 22);
 			this.tabGenerale.Name = "tabGenerale";
-			this.tabGenerale.Size = new System.Drawing.Size(862, 520);
+			this.tabGenerale.Size = new System.Drawing.Size(869, 530);
 			this.tabGenerale.TabIndex = 0;
 			this.tabGenerale.Text = "Generale";
 			this.tabGenerale.UseVisualStyleBackColor = true;
@@ -1679,7 +1681,7 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox24.Controls.Add(this.label22);
 			this.groupBox24.Controls.Add(this.lblRuoloCSA);
 			this.groupBox24.Controls.Add(this.txtRuoloCSA);
-			this.groupBox24.Location = new System.Drawing.Point(728, 8);
+			this.groupBox24.Location = new System.Drawing.Point(735, 8);
 			this.groupBox24.Name = "groupBox24";
 			this.groupBox24.Size = new System.Drawing.Size(126, 138);
 			this.groupBox24.TabIndex = 104;
@@ -1754,7 +1756,7 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox19.Controls.Add(this.txtComuneAddRegionali);
 			this.groupBox19.Location = new System.Drawing.Point(329, 98);
 			this.groupBox19.Name = "groupBox19";
-			this.groupBox19.Size = new System.Drawing.Size(393, 48);
+			this.groupBox19.Size = new System.Drawing.Size(400, 48);
 			this.groupBox19.TabIndex = 21;
 			this.groupBox19.TabStop = false;
 			this.groupBox19.Tag = "";
@@ -1766,7 +1768,7 @@ namespace parasubcontract_default { //contratto//
 			this.txtComuneAddRegionali.Location = new System.Drawing.Point(9, 19);
 			this.txtComuneAddRegionali.Name = "txtComuneAddRegionali";
 			this.txtComuneAddRegionali.ReadOnly = true;
-			this.txtComuneAddRegionali.Size = new System.Drawing.Size(378, 20);
+			this.txtComuneAddRegionali.Size = new System.Drawing.Size(385, 20);
 			this.txtComuneAddRegionali.TabIndex = 8;
 			this.txtComuneAddRegionali.Tag = "";
 			// 
@@ -1811,7 +1813,7 @@ namespace parasubcontract_default { //contratto//
 			this.textBox2.Location = new System.Drawing.Point(72, 403);
 			this.textBox2.Multiline = true;
 			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(782, 111);
+			this.textBox2.Size = new System.Drawing.Size(789, 121);
 			this.textBox2.TabIndex = 12;
 			this.textBox2.Tag = "parasubcontract.duty";
 			// 
@@ -1829,7 +1831,7 @@ namespace parasubcontract_default { //contratto//
 			this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.btnPAT);
 			this.grpDettagliPrevidenzialiAssistenziali.Location = new System.Drawing.Point(8, 243);
 			this.grpDettagliPrevidenzialiAssistenziali.Name = "grpDettagliPrevidenzialiAssistenziali";
-			this.grpDettagliPrevidenzialiAssistenziali.Size = new System.Drawing.Size(846, 152);
+			this.grpDettagliPrevidenzialiAssistenziali.Size = new System.Drawing.Size(853, 152);
 			this.grpDettagliPrevidenzialiAssistenziali.TabIndex = 10;
 			this.grpDettagliPrevidenzialiAssistenziali.TabStop = false;
 			this.grpDettagliPrevidenzialiAssistenziali.Text = "Dettagli Previdenziali/Assistenziali";
@@ -1842,7 +1844,7 @@ namespace parasubcontract_default { //contratto//
 			this.cmbTipoRapporto.DisplayMember = "description";
 			this.cmbTipoRapporto.Location = new System.Drawing.Point(112, 24);
 			this.cmbTipoRapporto.Name = "cmbTipoRapporto";
-			this.cmbTipoRapporto.Size = new System.Drawing.Size(726, 21);
+			this.cmbTipoRapporto.Size = new System.Drawing.Size(733, 21);
 			this.cmbTipoRapporto.TabIndex = 2;
 			this.cmbTipoRapporto.Tag = "parasubcontractyear.idemenscontractkind?parasubcontractview.idemenscontractkind";
 			this.cmbTipoRapporto.ValueMember = "idemenscontractkind";
@@ -1871,7 +1873,7 @@ namespace parasubcontract_default { //contratto//
 			this.cmbAttPrevidenzialeINPS.ItemHeight = 13;
 			this.cmbAttPrevidenzialeINPS.Location = new System.Drawing.Point(112, 56);
 			this.cmbAttPrevidenzialeINPS.Name = "cmbAttPrevidenzialeINPS";
-			this.cmbAttPrevidenzialeINPS.Size = new System.Drawing.Size(726, 21);
+			this.cmbAttPrevidenzialeINPS.Size = new System.Drawing.Size(733, 21);
 			this.cmbAttPrevidenzialeINPS.TabIndex = 4;
 			this.cmbAttPrevidenzialeINPS.Tag = "parasubcontractyear.activitycode?parasubcontractview.activitycode";
 			this.cmbAttPrevidenzialeINPS.ValueMember = "activitycode";
@@ -1894,7 +1896,7 @@ namespace parasubcontract_default { //contratto//
 			this.cmbAltreFormeAssicurative.ItemHeight = 13;
 			this.cmbAltreFormeAssicurative.Location = new System.Drawing.Point(112, 88);
 			this.cmbAltreFormeAssicurative.Name = "cmbAltreFormeAssicurative";
-			this.cmbAltreFormeAssicurative.Size = new System.Drawing.Size(726, 21);
+			this.cmbAltreFormeAssicurative.Size = new System.Drawing.Size(733, 21);
 			this.cmbAltreFormeAssicurative.TabIndex = 6;
 			this.cmbAltreFormeAssicurative.Tag = "parasubcontractyear.idotherinsurance?parasubcontractview.idotherinsurance";
 			this.cmbAltreFormeAssicurative.ValueMember = "idotherinsurance";
@@ -1917,7 +1919,7 @@ namespace parasubcontract_default { //contratto//
 			this.cmbPAT.ItemHeight = 13;
 			this.cmbPAT.Location = new System.Drawing.Point(112, 120);
 			this.cmbPAT.Name = "cmbPAT";
-			this.cmbPAT.Size = new System.Drawing.Size(726, 21);
+			this.cmbPAT.Size = new System.Drawing.Size(733, 21);
 			this.cmbPAT.TabIndex = 8;
 			this.cmbPAT.Tag = "parasubcontract.idpat?parasubcontractview.idpat";
 			this.cmbPAT.ValueMember = "idpat";
@@ -1976,7 +1978,7 @@ namespace parasubcontract_default { //contratto//
 			this.grpPrestazione.Controls.Add(this.cmbTipoPrestazione);
 			this.grpPrestazione.Location = new System.Drawing.Point(8, 148);
 			this.grpPrestazione.Name = "grpPrestazione";
-			this.grpPrestazione.Size = new System.Drawing.Size(846, 48);
+			this.grpPrestazione.Size = new System.Drawing.Size(853, 48);
 			this.grpPrestazione.TabIndex = 6;
 			this.grpPrestazione.TabStop = false;
 			this.grpPrestazione.Text = "Prestazione";
@@ -1998,7 +2000,7 @@ namespace parasubcontract_default { //contratto//
 			this.cmbTipoPrestazione.ItemHeight = 13;
 			this.cmbTipoPrestazione.Location = new System.Drawing.Point(96, 16);
 			this.cmbTipoPrestazione.Name = "cmbTipoPrestazione";
-			this.cmbTipoPrestazione.Size = new System.Drawing.Size(742, 21);
+			this.cmbTipoPrestazione.Size = new System.Drawing.Size(749, 21);
 			this.cmbTipoPrestazione.TabIndex = 7;
 			this.cmbTipoPrestazione.Tag = "parasubcontract.idser";
 			this.cmbTipoPrestazione.ValueMember = "idser";
@@ -2010,7 +2012,7 @@ namespace parasubcontract_default { //contratto//
 			this.grpPercipiente.Controls.Add(this.txtPercipiente);
 			this.grpPercipiente.Location = new System.Drawing.Point(330, 8);
 			this.grpPercipiente.Name = "grpPercipiente";
-			this.grpPercipiente.Size = new System.Drawing.Size(392, 40);
+			this.grpPercipiente.Size = new System.Drawing.Size(399, 40);
 			this.grpPercipiente.TabIndex = 4;
 			this.grpPercipiente.TabStop = false;
 			this.grpPercipiente.Tag = "AutoChoose.txtPercipiente.lista.((active=\'S\'))";
@@ -2021,7 +2023,7 @@ namespace parasubcontract_default { //contratto//
 			this.txtPercipiente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtPercipiente.Location = new System.Drawing.Point(8, 16);
 			this.txtPercipiente.Name = "txtPercipiente";
-			this.txtPercipiente.Size = new System.Drawing.Size(376, 20);
+			this.txtPercipiente.Size = new System.Drawing.Size(383, 20);
 			this.txtPercipiente.TabIndex = 0;
 			this.txtPercipiente.Tag = "registry.title?parasubcontractview.registry";
 			// 
@@ -2174,7 +2176,7 @@ namespace parasubcontract_default { //contratto//
 			this.grpComune.Controls.Add(this.txtComuneAddComunali);
 			this.grpComune.Location = new System.Drawing.Point(330, 49);
 			this.grpComune.Name = "grpComune";
-			this.grpComune.Size = new System.Drawing.Size(392, 48);
+			this.grpComune.Size = new System.Drawing.Size(399, 48);
 			this.grpComune.TabIndex = 5;
 			this.grpComune.TabStop = false;
 			this.grpComune.Tag = "";
@@ -2186,7 +2188,7 @@ namespace parasubcontract_default { //contratto//
 			this.txtComuneAddComunali.Location = new System.Drawing.Point(8, 19);
 			this.txtComuneAddComunali.Name = "txtComuneAddComunali";
 			this.txtComuneAddComunali.ReadOnly = true;
-			this.txtComuneAddComunali.Size = new System.Drawing.Size(378, 20);
+			this.txtComuneAddComunali.Size = new System.Drawing.Size(385, 20);
 			this.txtComuneAddComunali.TabIndex = 8;
 			this.txtComuneAddComunali.Tag = "";
 			// 
@@ -2215,7 +2217,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabControl1.Location = new System.Drawing.Point(8, 8);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(870, 546);
+			this.tabControl1.Size = new System.Drawing.Size(877, 556);
 			this.tabControl1.TabIndex = 14;
 			// 
 			// tabImponibili
@@ -2226,7 +2228,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabImponibili.Controls.Add(this.groupBox7);
 			this.tabImponibili.Location = new System.Drawing.Point(4, 22);
 			this.tabImponibili.Name = "tabImponibili";
-			this.tabImponibili.Size = new System.Drawing.Size(862, 520);
+			this.tabImponibili.Size = new System.Drawing.Size(869, 530);
 			this.tabImponibili.TabIndex = 9;
 			this.tabImponibili.Text = "Imponibili";
 			this.tabImponibili.UseVisualStyleBackColor = true;
@@ -2589,7 +2591,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabFamiliare.Controls.Add(this.button11);
 			this.tabFamiliare.Location = new System.Drawing.Point(4, 22);
 			this.tabFamiliare.Name = "tabFamiliare";
-			this.tabFamiliare.Size = new System.Drawing.Size(862, 520);
+			this.tabFamiliare.Size = new System.Drawing.Size(869, 530);
 			this.tabFamiliare.TabIndex = 7;
 			this.tabFamiliare.Text = "Familiari";
 			this.tabFamiliare.UseVisualStyleBackColor = true;
@@ -2615,7 +2617,7 @@ namespace parasubcontract_default { //contratto//
 			this.dataGrid8.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid8.Location = new System.Drawing.Point(8, 74);
 			this.dataGrid8.Name = "dataGrid8";
-			this.dataGrid8.Size = new System.Drawing.Size(846, 440);
+			this.dataGrid8.Size = new System.Drawing.Size(853, 450);
 			this.dataGrid8.TabIndex = 3;
 			this.dataGrid8.Tag = "parasubcontractfamily.contrattodetail.contrattodetail";
 			// 
@@ -2654,7 +2656,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabAltreCollINAIL.Controls.Add(this.button14);
 			this.tabAltreCollINAIL.Location = new System.Drawing.Point(4, 22);
 			this.tabAltreCollINAIL.Name = "tabAltreCollINAIL";
-			this.tabAltreCollINAIL.Size = new System.Drawing.Size(862, 520);
+			this.tabAltreCollINAIL.Size = new System.Drawing.Size(869, 530);
 			this.tabAltreCollINAIL.TabIndex = 11;
 			this.tabAltreCollINAIL.Text = "Altre Coll. INAIL";
 			this.tabAltreCollINAIL.UseVisualStyleBackColor = true;
@@ -2669,7 +2671,7 @@ namespace parasubcontract_default { //contratto//
 			this.dataGrid10.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid10.Location = new System.Drawing.Point(8, 48);
 			this.dataGrid10.Name = "dataGrid10";
-			this.dataGrid10.Size = new System.Drawing.Size(846, 466);
+			this.dataGrid10.Size = new System.Drawing.Size(853, 476);
 			this.dataGrid10.TabIndex = 3;
 			this.dataGrid10.Tag = "otherinail.default.default";
 			// 
@@ -2708,7 +2710,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabOneri.Controls.Add(this.groupBox16);
 			this.tabOneri.Location = new System.Drawing.Point(4, 22);
 			this.tabOneri.Name = "tabOneri";
-			this.tabOneri.Size = new System.Drawing.Size(862, 520);
+			this.tabOneri.Size = new System.Drawing.Size(869, 530);
 			this.tabOneri.TabIndex = 4;
 			this.tabOneri.Text = "Oneri";
 			this.tabOneri.UseVisualStyleBackColor = true;
@@ -2721,7 +2723,7 @@ namespace parasubcontract_default { //contratto//
 			this.textBox6.Multiline = true;
 			this.textBox6.Name = "textBox6";
 			this.textBox6.ReadOnly = true;
-			this.textBox6.Size = new System.Drawing.Size(846, 37);
+			this.textBox6.Size = new System.Drawing.Size(853, 37);
 			this.textBox6.TabIndex = 7;
 			this.textBox6.Text = resources.GetString("textBox6.Text");
 			// 
@@ -2741,9 +2743,9 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox15.Controls.Add(this.button7);
 			this.groupBox15.Controls.Add(this.button6);
 			this.groupBox15.Controls.Add(this.button5);
-			this.groupBox15.Location = new System.Drawing.Point(8, 323);
+			this.groupBox15.Location = new System.Drawing.Point(8, 333);
 			this.groupBox15.Name = "groupBox15";
-			this.groupBox15.Size = new System.Drawing.Size(854, 191);
+			this.groupBox15.Size = new System.Drawing.Size(861, 191);
 			this.groupBox15.TabIndex = 5;
 			this.groupBox15.TabStop = false;
 			this.groupBox15.Text = "Oneri detraibili";
@@ -2758,7 +2760,7 @@ namespace parasubcontract_default { //contratto//
 			this.dataGrid4.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid4.Location = new System.Drawing.Point(8, 40);
 			this.dataGrid4.Name = "dataGrid4";
-			this.dataGrid4.Size = new System.Drawing.Size(838, 143);
+			this.dataGrid4.Size = new System.Drawing.Size(845, 143);
 			this.dataGrid4.TabIndex = 3;
 			this.dataGrid4.Tag = "abatableexpense.contrattodetail.contrattodetail";
 			// 
@@ -2800,7 +2802,7 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox16.Controls.Add(this.button4);
 			this.groupBox16.Location = new System.Drawing.Point(8, 48);
 			this.groupBox16.Name = "groupBox16";
-			this.groupBox16.Size = new System.Drawing.Size(854, 269);
+			this.groupBox16.Size = new System.Drawing.Size(861, 279);
 			this.groupBox16.TabIndex = 4;
 			this.groupBox16.TabStop = false;
 			this.groupBox16.Text = "Oneri deducibili";
@@ -2833,7 +2835,7 @@ namespace parasubcontract_default { //contratto//
 			this.dataGrid2.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid2.Location = new System.Drawing.Point(8, 40);
 			this.dataGrid2.Name = "dataGrid2";
-			this.dataGrid2.Size = new System.Drawing.Size(838, 221);
+			this.dataGrid2.Size = new System.Drawing.Size(845, 231);
 			this.dataGrid2.TabIndex = 3;
 			this.dataGrid2.Tag = "deductibleexpense.contrattodetail.contrattodetail";
 			// 
@@ -2851,7 +2853,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabCUD.Controls.Add(this.groupBox4);
 			this.tabCUD.Location = new System.Drawing.Point(4, 22);
 			this.tabCUD.Name = "tabCUD";
-			this.tabCUD.Size = new System.Drawing.Size(862, 520);
+			this.tabCUD.Size = new System.Drawing.Size(869, 530);
 			this.tabCUD.TabIndex = 6;
 			this.tabCUD.Text = "CUD";
 			this.tabCUD.UseVisualStyleBackColor = true;
@@ -2871,7 +2873,7 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox4.Controls.Add(this.dgrid_CUD);
 			this.groupBox4.Location = new System.Drawing.Point(8, 3);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(846, 511);
+			this.groupBox4.Size = new System.Drawing.Size(853, 521);
 			this.groupBox4.TabIndex = 4;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Dati CUD Presentati";
@@ -2881,11 +2883,11 @@ namespace parasubcontract_default { //contratto//
 			this.textBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.textBox7.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textBox7.Location = new System.Drawing.Point(8, 212);
+			this.textBox7.Location = new System.Drawing.Point(8, 222);
 			this.textBox7.Multiline = true;
 			this.textBox7.Name = "textBox7";
 			this.textBox7.ReadOnly = true;
-			this.textBox7.Size = new System.Drawing.Size(830, 24);
+			this.textBox7.Size = new System.Drawing.Size(837, 24);
 			this.textBox7.TabIndex = 10;
 			this.textBox7.Text = "Gli oneri deducibili e detraibili presenti nei CUD sono considerati solo in fase " +
     "di conguaglio ";
@@ -2907,9 +2909,9 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox6.Controls.Add(this.btnDeleteDet);
 			this.groupBox6.Controls.Add(this.btnEditDet);
 			this.groupBox6.Controls.Add(this.btnInsertDet);
-			this.groupBox6.Location = new System.Drawing.Point(8, 378);
+			this.groupBox6.Location = new System.Drawing.Point(8, 388);
 			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(830, 125);
+			this.groupBox6.Size = new System.Drawing.Size(837, 125);
 			this.groupBox6.TabIndex = 5;
 			this.groupBox6.TabStop = false;
 			this.groupBox6.Text = "Dettagli Detrazioni CUD Presentato";
@@ -2924,7 +2926,7 @@ namespace parasubcontract_default { //contratto//
 			this.dgrid_DetCud.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrid_DetCud.Location = new System.Drawing.Point(8, 40);
 			this.dgrid_DetCud.Name = "dgrid_DetCud";
-			this.dgrid_DetCud.Size = new System.Drawing.Size(814, 77);
+			this.dgrid_DetCud.Size = new System.Drawing.Size(821, 77);
 			this.dgrid_DetCud.TabIndex = 3;
 			this.dgrid_DetCud.Tag = "exhibitedcudabatement.default.default";
 			// 
@@ -2963,9 +2965,9 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox5.Controls.Add(this.btnDeleteDed);
 			this.groupBox5.Controls.Add(this.btnEditDed);
 			this.groupBox5.Controls.Add(this.btnInsertDed);
-			this.groupBox5.Location = new System.Drawing.Point(8, 242);
+			this.groupBox5.Location = new System.Drawing.Point(8, 252);
 			this.groupBox5.Name = "groupBox5";
-			this.groupBox5.Size = new System.Drawing.Size(832, 130);
+			this.groupBox5.Size = new System.Drawing.Size(839, 130);
 			this.groupBox5.TabIndex = 4;
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Dettagli Deduzioni CUD Presentato";
@@ -2980,7 +2982,7 @@ namespace parasubcontract_default { //contratto//
 			this.dgrid_DedCud.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrid_DedCud.Location = new System.Drawing.Point(14, 39);
 			this.dgrid_DedCud.Name = "dgrid_DedCud";
-			this.dgrid_DedCud.Size = new System.Drawing.Size(816, 85);
+			this.dgrid_DedCud.Size = new System.Drawing.Size(823, 85);
 			this.dgrid_DedCud.TabIndex = 3;
 			this.dgrid_DedCud.Tag = "exhibitedcuddeduction.default.default";
 			// 
@@ -3050,7 +3052,7 @@ namespace parasubcontract_default { //contratto//
 			this.dgrid_CUD.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrid_CUD.Location = new System.Drawing.Point(8, 74);
 			this.dgrid_CUD.Name = "dgrid_CUD";
-			this.dgrid_CUD.Size = new System.Drawing.Size(830, 132);
+			this.dgrid_CUD.Size = new System.Drawing.Size(837, 142);
 			this.dgrid_CUD.TabIndex = 3;
 			this.dgrid_CUD.Tag = "exhibitedcud.default.default";
 			// 
@@ -3061,7 +3063,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabAddizionali.Controls.Add(this.grpAddizionaliPassate);
 			this.tabAddizionali.Location = new System.Drawing.Point(4, 22);
 			this.tabAddizionali.Name = "tabAddizionali";
-			this.tabAddizionali.Size = new System.Drawing.Size(862, 520);
+			this.tabAddizionali.Size = new System.Drawing.Size(869, 530);
 			this.tabAddizionali.TabIndex = 3;
 			this.tabAddizionali.Text = "Addizionali";
 			this.tabAddizionali.UseVisualStyleBackColor = true;
@@ -3080,7 +3082,7 @@ namespace parasubcontract_default { //contratto//
 			this.grpAccontoAddCom.Controls.Add(this.label14);
 			this.grpAccontoAddCom.Location = new System.Drawing.Point(429, 256);
 			this.grpAccontoAddCom.Name = "grpAccontoAddCom";
-			this.grpAccontoAddCom.Size = new System.Drawing.Size(430, 258);
+			this.grpAccontoAddCom.Size = new System.Drawing.Size(437, 268);
 			this.grpAccontoAddCom.TabIndex = 5;
 			this.grpAccontoAddCom.TabStop = false;
 			this.grpAccontoAddCom.Text = "Acconto dell\'addizionale comunale per l\'esercizio XXX";
@@ -3091,7 +3093,7 @@ namespace parasubcontract_default { //contratto//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCalcAcconto.Location = new System.Drawing.Point(160, 107);
 			this.btnCalcAcconto.Name = "btnCalcAcconto";
-			this.btnCalcAcconto.Size = new System.Drawing.Size(262, 23);
+			this.btnCalcAcconto.Size = new System.Drawing.Size(269, 23);
 			this.btnCalcAcconto.TabIndex = 6;
 			this.btnCalcAcconto.Text = "Calcola Acconto";
 			this.btnCalcAcconto.UseVisualStyleBackColor = true;
@@ -3106,7 +3108,7 @@ namespace parasubcontract_default { //contratto//
 			this.SubEntity_cmbMeseInizioAcconto.FormattingEnabled = true;
 			this.SubEntity_cmbMeseInizioAcconto.Location = new System.Drawing.Point(191, 75);
 			this.SubEntity_cmbMeseInizioAcconto.Name = "SubEntity_cmbMeseInizioAcconto";
-			this.SubEntity_cmbMeseInizioAcconto.Size = new System.Drawing.Size(231, 21);
+			this.SubEntity_cmbMeseInizioAcconto.Size = new System.Drawing.Size(238, 21);
 			this.SubEntity_cmbMeseInizioAcconto.TabIndex = 5;
 			this.SubEntity_cmbMeseInizioAcconto.Tag = "parasubcontractyear.startmonth_account?parasubcontractview.startmonth_account";
 			this.SubEntity_cmbMeseInizioAcconto.ValueMember = "code";
@@ -3117,7 +3119,7 @@ namespace parasubcontract_default { //contratto//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.SubEntity_txtNumRateAcconto.Location = new System.Drawing.Point(191, 49);
 			this.SubEntity_txtNumRateAcconto.Name = "SubEntity_txtNumRateAcconto";
-			this.SubEntity_txtNumRateAcconto.Size = new System.Drawing.Size(231, 20);
+			this.SubEntity_txtNumRateAcconto.Size = new System.Drawing.Size(238, 20);
 			this.SubEntity_txtNumRateAcconto.TabIndex = 4;
 			this.SubEntity_txtNumRateAcconto.Tag = "parasubcontractyear.ratequantity_account?parasubcontractview.ratequantity_account" +
     "";
@@ -3128,7 +3130,7 @@ namespace parasubcontract_default { //contratto//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.SubEntity_txtImportoAcconto.Location = new System.Drawing.Point(191, 23);
 			this.SubEntity_txtImportoAcconto.Name = "SubEntity_txtImportoAcconto";
-			this.SubEntity_txtImportoAcconto.Size = new System.Drawing.Size(231, 20);
+			this.SubEntity_txtImportoAcconto.Size = new System.Drawing.Size(238, 20);
 			this.SubEntity_txtImportoAcconto.TabIndex = 3;
 			this.SubEntity_txtImportoAcconto.Tag = "parasubcontractyear.citytax_account?parasubcontractview.citytax_account";
 			// 
@@ -3175,7 +3177,7 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox3.Controls.Add(this.dataGrid11);
 			this.groupBox3.Location = new System.Drawing.Point(8, 8);
 			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(846, 248);
+			this.groupBox3.Size = new System.Drawing.Size(853, 248);
 			this.groupBox3.TabIndex = 4;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Comunicazioni dal Centro di Assistenza Fiscale";
@@ -3218,7 +3220,7 @@ namespace parasubcontract_default { //contratto//
 			this.dataGrid11.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid11.Location = new System.Drawing.Point(8, 56);
 			this.dataGrid11.Name = "dataGrid11";
-			this.dataGrid11.Size = new System.Drawing.Size(830, 186);
+			this.dataGrid11.Size = new System.Drawing.Size(837, 186);
 			this.dataGrid11.TabIndex = 3;
 			this.dataGrid11.Tag = "cafdocument.contratto.contratto";
 			// 
@@ -3240,7 +3242,7 @@ namespace parasubcontract_default { //contratto//
 			this.grpAddizionaliPassate.Controls.Add(this.SubEntity_txtAddCom);
 			this.grpAddizionaliPassate.Location = new System.Drawing.Point(8, 256);
 			this.grpAddizionaliPassate.Name = "grpAddizionaliPassate";
-			this.grpAddizionaliPassate.Size = new System.Drawing.Size(415, 258);
+			this.grpAddizionaliPassate.Size = new System.Drawing.Size(415, 268);
 			this.grpAddizionaliPassate.TabIndex = 2;
 			this.grpAddizionaliPassate.TabStop = false;
 			this.grpAddizionaliPassate.Text = "Addizionali derivanti da contratti della stessa università per l\'esercizio XXXX";
@@ -3390,7 +3392,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabCedolini.Controls.Add(this.dgCedolini);
 			this.tabCedolini.Location = new System.Drawing.Point(4, 22);
 			this.tabCedolini.Name = "tabCedolini";
-			this.tabCedolini.Size = new System.Drawing.Size(862, 520);
+			this.tabCedolini.Size = new System.Drawing.Size(869, 530);
 			this.tabCedolini.TabIndex = 8;
 			this.tabCedolini.Text = "Cedolini";
 			this.tabCedolini.UseVisualStyleBackColor = true;
@@ -3407,9 +3409,11 @@ namespace parasubcontract_default { //contratto//
 			// 
 			// label23
 			// 
-			this.label23.Location = new System.Drawing.Point(16, 254);
+			this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label23.Location = new System.Drawing.Point(16, 264);
 			this.label23.Name = "label23";
-			this.label23.Size = new System.Drawing.Size(841, 20);
+			this.label23.Size = new System.Drawing.Size(848, 20);
 			this.label23.TabIndex = 8;
 			this.label23.Text = "Altri Esercizi";
 			this.label23.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -3417,15 +3421,14 @@ namespace parasubcontract_default { //contratto//
 			// dgCedoliniAltriEsercizi
 			// 
 			this.dgCedoliniAltriEsercizi.AllowNavigation = false;
-			this.dgCedoliniAltriEsercizi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.dgCedoliniAltriEsercizi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgCedoliniAltriEsercizi.CaptionVisible = false;
 			this.dgCedoliniAltriEsercizi.DataMember = "";
 			this.dgCedoliniAltriEsercizi.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dgCedoliniAltriEsercizi.Location = new System.Drawing.Point(8, 277);
+			this.dgCedoliniAltriEsercizi.Location = new System.Drawing.Point(8, 287);
 			this.dgCedoliniAltriEsercizi.Name = "dgCedoliniAltriEsercizi";
-			this.dgCedoliniAltriEsercizi.Size = new System.Drawing.Size(846, 238);
+			this.dgCedoliniAltriEsercizi.Size = new System.Drawing.Size(853, 238);
 			this.dgCedoliniAltriEsercizi.TabIndex = 7;
 			this.dgCedoliniAltriEsercizi.Tag = "payroll_altriesercizi.default";
 			this.dgCedoliniAltriEsercizi.DoubleClick += new System.EventHandler(this.dgCedoliniAltriEsercizi_DoubleClick);
@@ -3462,14 +3465,15 @@ namespace parasubcontract_default { //contratto//
 			// dgCedolini
 			// 
 			this.dgCedolini.AllowNavigation = false;
-			this.dgCedolini.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.dgCedolini.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgCedolini.CaptionVisible = false;
 			this.dgCedolini.DataMember = "";
 			this.dgCedolini.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgCedolini.Location = new System.Drawing.Point(8, 62);
 			this.dgCedolini.Name = "dgCedolini";
-			this.dgCedolini.Size = new System.Drawing.Size(846, 154);
+			this.dgCedolini.Size = new System.Drawing.Size(853, 188);
 			this.dgCedolini.TabIndex = 1;
 			this.dgCedolini.Tag = "payroll.default";
 			// 
@@ -3478,7 +3482,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabErogazioni.Controls.Add(this.groupBox1);
 			this.tabErogazioni.Location = new System.Drawing.Point(4, 22);
 			this.tabErogazioni.Name = "tabErogazioni";
-			this.tabErogazioni.Size = new System.Drawing.Size(862, 520);
+			this.tabErogazioni.Size = new System.Drawing.Size(869, 530);
 			this.tabErogazioni.TabIndex = 2;
 			this.tabErogazioni.Text = "Erogazioni";
 			this.tabErogazioni.UseVisualStyleBackColor = true;
@@ -3491,7 +3495,7 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox1.Controls.Add(this.dataGrid1);
 			this.groupBox1.Location = new System.Drawing.Point(8, 8);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(846, 506);
+			this.groupBox1.Size = new System.Drawing.Size(853, 516);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Erogazioni legate al contratto corrente";
@@ -3506,7 +3510,7 @@ namespace parasubcontract_default { //contratto//
 			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid1.Location = new System.Drawing.Point(8, 24);
 			this.dataGrid1.Name = "dataGrid1";
-			this.dataGrid1.Size = new System.Drawing.Size(830, 474);
+			this.dataGrid1.Size = new System.Drawing.Size(837, 484);
 			this.dataGrid1.TabIndex = 3;
 			this.dataGrid1.Tag = "expensepayrollview.contratto";
 			// 
@@ -3524,7 +3528,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabDatiRiepilogativi.Controls.Add(this.groupBox13);
 			this.tabDatiRiepilogativi.Location = new System.Drawing.Point(4, 22);
 			this.tabDatiRiepilogativi.Name = "tabDatiRiepilogativi";
-			this.tabDatiRiepilogativi.Size = new System.Drawing.Size(862, 520);
+			this.tabDatiRiepilogativi.Size = new System.Drawing.Size(869, 530);
 			this.tabDatiRiepilogativi.TabIndex = 12;
 			this.tabDatiRiepilogativi.Text = "Riepilogo";
 			this.tabDatiRiepilogativi.UseVisualStyleBackColor = true;
@@ -3549,7 +3553,7 @@ namespace parasubcontract_default { //contratto//
 			this.gridRitenute.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.gridRitenute.Location = new System.Drawing.Point(8, 208);
 			this.gridRitenute.Name = "gridRitenute";
-			this.gridRitenute.Size = new System.Drawing.Size(846, 306);
+			this.gridRitenute.Size = new System.Drawing.Size(853, 316);
 			this.gridRitenute.TabIndex = 8;
 			// 
 			// txtCompensoNetto
@@ -3833,7 +3837,7 @@ namespace parasubcontract_default { //contratto//
 			this.TabClassSuppl.ImageIndex = 0;
 			this.TabClassSuppl.Location = new System.Drawing.Point(4, 22);
 			this.TabClassSuppl.Name = "TabClassSuppl";
-			this.TabClassSuppl.Size = new System.Drawing.Size(862, 520);
+			this.TabClassSuppl.Size = new System.Drawing.Size(869, 530);
 			this.TabClassSuppl.TabIndex = 13;
 			this.TabClassSuppl.Text = "Classificazione";
 			this.TabClassSuppl.UseVisualStyleBackColor = true;
@@ -3876,7 +3880,7 @@ namespace parasubcontract_default { //contratto//
 			this.dgrClassSuppl.Location = new System.Drawing.Point(8, 48);
 			this.dgrClassSuppl.Name = "dgrClassSuppl";
 			this.dgrClassSuppl.ReadOnly = true;
-			this.dgrClassSuppl.Size = new System.Drawing.Size(846, 466);
+			this.dgrClassSuppl.Size = new System.Drawing.Size(853, 476);
 			this.dgrClassSuppl.TabIndex = 23;
 			this.dgrClassSuppl.Tag = "parasubcontractsorting.default.default";
 			// 
@@ -3885,7 +3889,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabEconoPatr.Controls.Add(this.tabControl2);
 			this.tabEconoPatr.Location = new System.Drawing.Point(4, 22);
 			this.tabEconoPatr.Name = "tabEconoPatr";
-			this.tabEconoPatr.Size = new System.Drawing.Size(862, 520);
+			this.tabEconoPatr.Size = new System.Drawing.Size(869, 530);
 			this.tabEconoPatr.TabIndex = 14;
 			this.tabEconoPatr.Text = "E/P";
 			this.tabEconoPatr.UseVisualStyleBackColor = true;
@@ -3899,7 +3903,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabControl2.Location = new System.Drawing.Point(0, 0);
 			this.tabControl2.Name = "tabControl2";
 			this.tabControl2.SelectedIndex = 0;
-			this.tabControl2.Size = new System.Drawing.Size(862, 520);
+			this.tabControl2.Size = new System.Drawing.Size(869, 530);
 			this.tabControl2.TabIndex = 0;
 			// 
 			// tabFinanziario
@@ -3907,7 +3911,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabFinanziario.Controls.Add(this.gboxUPB);
 			this.tabFinanziario.Location = new System.Drawing.Point(4, 22);
 			this.tabFinanziario.Name = "tabFinanziario";
-			this.tabFinanziario.Size = new System.Drawing.Size(854, 494);
+			this.tabFinanziario.Size = new System.Drawing.Size(861, 504);
 			this.tabFinanziario.TabIndex = 0;
 			this.tabFinanziario.Text = "Finanziario";
 			// 
@@ -4320,7 +4324,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabAttributi.Location = new System.Drawing.Point(4, 22);
 			this.tabAttributi.Name = "tabAttributi";
 			this.tabAttributi.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAttributi.Size = new System.Drawing.Size(862, 520);
+			this.tabAttributi.Size = new System.Drawing.Size(869, 530);
 			this.tabAttributi.TabIndex = 16;
 			this.tabAttributi.Text = "Attributi";
 			this.tabAttributi.UseVisualStyleBackColor = true;
@@ -4334,7 +4338,7 @@ namespace parasubcontract_default { //contratto//
 			this.gboxclass05.Controls.Add(this.txtDenom05);
 			this.gboxclass05.Location = new System.Drawing.Point(6, 286);
 			this.gboxclass05.Name = "gboxclass05";
-			this.gboxclass05.Size = new System.Drawing.Size(564, 64);
+			this.gboxclass05.Size = new System.Drawing.Size(571, 64);
 			this.gboxclass05.TabIndex = 38;
 			this.gboxclass05.TabStop = false;
 			this.gboxclass05.Tag = "";
@@ -4366,7 +4370,7 @@ namespace parasubcontract_default { //contratto//
 			this.txtDenom05.Multiline = true;
 			this.txtDenom05.Name = "txtDenom05";
 			this.txtDenom05.ReadOnly = true;
-			this.txtDenom05.Size = new System.Drawing.Size(322, 52);
+			this.txtDenom05.Size = new System.Drawing.Size(329, 52);
 			this.txtDenom05.TabIndex = 3;
 			this.txtDenom05.TabStop = false;
 			this.txtDenom05.Tag = "sorting05.description";
@@ -4380,7 +4384,7 @@ namespace parasubcontract_default { //contratto//
 			this.gboxclass04.Controls.Add(this.txtDenom04);
 			this.gboxclass04.Location = new System.Drawing.Point(6, 216);
 			this.gboxclass04.Name = "gboxclass04";
-			this.gboxclass04.Size = new System.Drawing.Size(564, 64);
+			this.gboxclass04.Size = new System.Drawing.Size(571, 64);
 			this.gboxclass04.TabIndex = 37;
 			this.gboxclass04.TabStop = false;
 			this.gboxclass04.Tag = "";
@@ -4412,7 +4416,7 @@ namespace parasubcontract_default { //contratto//
 			this.txtDenom04.Multiline = true;
 			this.txtDenom04.Name = "txtDenom04";
 			this.txtDenom04.ReadOnly = true;
-			this.txtDenom04.Size = new System.Drawing.Size(322, 46);
+			this.txtDenom04.Size = new System.Drawing.Size(329, 46);
 			this.txtDenom04.TabIndex = 3;
 			this.txtDenom04.TabStop = false;
 			this.txtDenom04.Tag = "sorting04.description";
@@ -4426,7 +4430,7 @@ namespace parasubcontract_default { //contratto//
 			this.gboxclass03.Controls.Add(this.txtDenom03);
 			this.gboxclass03.Location = new System.Drawing.Point(6, 146);
 			this.gboxclass03.Name = "gboxclass03";
-			this.gboxclass03.Size = new System.Drawing.Size(564, 64);
+			this.gboxclass03.Size = new System.Drawing.Size(571, 64);
 			this.gboxclass03.TabIndex = 35;
 			this.gboxclass03.TabStop = false;
 			this.gboxclass03.Tag = "";
@@ -4458,7 +4462,7 @@ namespace parasubcontract_default { //contratto//
 			this.txtDenom03.Multiline = true;
 			this.txtDenom03.Name = "txtDenom03";
 			this.txtDenom03.ReadOnly = true;
-			this.txtDenom03.Size = new System.Drawing.Size(323, 52);
+			this.txtDenom03.Size = new System.Drawing.Size(330, 52);
 			this.txtDenom03.TabIndex = 3;
 			this.txtDenom03.TabStop = false;
 			this.txtDenom03.Tag = "sorting03.description";
@@ -4472,7 +4476,7 @@ namespace parasubcontract_default { //contratto//
 			this.gboxclass02.Controls.Add(this.txtDenom02);
 			this.gboxclass02.Location = new System.Drawing.Point(6, 76);
 			this.gboxclass02.Name = "gboxclass02";
-			this.gboxclass02.Size = new System.Drawing.Size(564, 64);
+			this.gboxclass02.Size = new System.Drawing.Size(571, 64);
 			this.gboxclass02.TabIndex = 36;
 			this.gboxclass02.TabStop = false;
 			this.gboxclass02.Tag = "";
@@ -4504,7 +4508,7 @@ namespace parasubcontract_default { //contratto//
 			this.txtDenom02.Multiline = true;
 			this.txtDenom02.Name = "txtDenom02";
 			this.txtDenom02.ReadOnly = true;
-			this.txtDenom02.Size = new System.Drawing.Size(323, 52);
+			this.txtDenom02.Size = new System.Drawing.Size(330, 52);
 			this.txtDenom02.TabIndex = 3;
 			this.txtDenom02.TabStop = false;
 			this.txtDenom02.Tag = "sorting02.description";
@@ -4518,7 +4522,7 @@ namespace parasubcontract_default { //contratto//
 			this.gboxclass01.Controls.Add(this.txtDenom01);
 			this.gboxclass01.Location = new System.Drawing.Point(6, 6);
 			this.gboxclass01.Name = "gboxclass01";
-			this.gboxclass01.Size = new System.Drawing.Size(564, 64);
+			this.gboxclass01.Size = new System.Drawing.Size(571, 64);
 			this.gboxclass01.TabIndex = 34;
 			this.gboxclass01.TabStop = false;
 			this.gboxclass01.Tag = "";
@@ -4550,7 +4554,7 @@ namespace parasubcontract_default { //contratto//
 			this.txtDenom01.Multiline = true;
 			this.txtDenom01.Name = "txtDenom01";
 			this.txtDenom01.ReadOnly = true;
-			this.txtDenom01.Size = new System.Drawing.Size(323, 52);
+			this.txtDenom01.Size = new System.Drawing.Size(330, 52);
 			this.txtDenom01.TabIndex = 3;
 			this.txtDenom01.TabStop = false;
 			this.txtDenom01.Tag = "sorting01.description";
@@ -4564,7 +4568,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabAP.Controls.Add(this.labAPgenerato);
 			this.tabAP.Location = new System.Drawing.Point(4, 22);
 			this.tabAP.Name = "tabAP";
-			this.tabAP.Size = new System.Drawing.Size(862, 520);
+			this.tabAP.Size = new System.Drawing.Size(869, 530);
 			this.tabAP.TabIndex = 15;
 			this.tabAP.Text = "A/P";
 			this.tabAP.UseVisualStyleBackColor = true;
@@ -4624,7 +4628,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabDALIA.Location = new System.Drawing.Point(4, 22);
 			this.tabDALIA.Name = "tabDALIA";
 			this.tabDALIA.Padding = new System.Windows.Forms.Padding(3);
-			this.tabDALIA.Size = new System.Drawing.Size(862, 520);
+			this.tabDALIA.Size = new System.Drawing.Size(869, 530);
 			this.tabDALIA.TabIndex = 17;
 			this.tabDALIA.Text = "DALIA";
 			this.tabDALIA.UseVisualStyleBackColor = true;
@@ -4730,7 +4734,7 @@ namespace parasubcontract_default { //contratto//
 			this.txtVoceSpesaDalia.Location = new System.Drawing.Point(206, 129);
 			this.txtVoceSpesaDalia.Name = "txtVoceSpesaDalia";
 			this.txtVoceSpesaDalia.ReadOnly = true;
-			this.txtVoceSpesaDalia.Size = new System.Drawing.Size(609, 20);
+			this.txtVoceSpesaDalia.Size = new System.Drawing.Size(616, 20);
 			this.txtVoceSpesaDalia.TabIndex = 112;
 			// 
 			// btnVoceSpesaDalia
@@ -4753,7 +4757,7 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox18.Controls.Add(this.cmb_dalia_position);
 			this.groupBox18.Location = new System.Drawing.Point(21, 23);
 			this.groupBox18.Name = "groupBox18";
-			this.groupBox18.Size = new System.Drawing.Size(811, 80);
+			this.groupBox18.Size = new System.Drawing.Size(818, 80);
 			this.groupBox18.TabIndex = 110;
 			this.groupBox18.TabStop = false;
 			this.groupBox18.Text = "Banca Dati DALIA";
@@ -4762,7 +4766,7 @@ namespace parasubcontract_default { //contratto//
 			// 
 			this.label91.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label91.AutoSize = true;
-			this.label91.Location = new System.Drawing.Point(678, 26);
+			this.label91.Location = new System.Drawing.Point(685, 26);
 			this.label91.Name = "label91";
 			this.label91.Size = new System.Drawing.Size(118, 13);
 			this.label91.TabIndex = 110;
@@ -4781,7 +4785,7 @@ namespace parasubcontract_default { //contratto//
 			// textBox11
 			// 
 			this.textBox11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox11.Location = new System.Drawing.Point(678, 42);
+			this.textBox11.Location = new System.Drawing.Point(685, 42);
 			this.textBox11.Name = "textBox11";
 			this.textBox11.ReadOnly = true;
 			this.textBox11.Size = new System.Drawing.Size(116, 20);
@@ -4797,7 +4801,7 @@ namespace parasubcontract_default { //contratto//
 			this.cmb_dalia_position.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmb_dalia_position.Location = new System.Drawing.Point(185, 40);
 			this.cmb_dalia_position.Name = "cmb_dalia_position";
-			this.cmb_dalia_position.Size = new System.Drawing.Size(470, 21);
+			this.cmb_dalia_position.Size = new System.Drawing.Size(477, 21);
 			this.cmb_dalia_position.TabIndex = 6;
 			this.cmb_dalia_position.Tag = "parasubcontract.iddaliaposition";
 			this.cmb_dalia_position.ValueMember = "iddaliaposition";
@@ -4827,7 +4831,7 @@ namespace parasubcontract_default { //contratto//
 			// Frm_parasubcontract_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(883, 560);
+			this.ClientSize = new System.Drawing.Size(890, 570);
 			this.Controls.Add(this.tabControl1);
 			this.Name = "Frm_parasubcontract_default";
 			this.Text = "frmcontratto";
@@ -4999,7 +5003,7 @@ namespace parasubcontract_default { //contratto//
             //DataTable TGeo = CalcoliCococo.verificaAddizionaliPrestazione(Conn, idser, "R");
             //if ((TGeo != null) && (TGeo.Rows.Count > 0) && (idreg != 0)) {
             //    if ((idComuneAddRegionale == DBNull.Value) || (idComuneAddRegionale == null)) {
-            //        MessageBox.Show(this, "In riferimento all'applicazione delle addizionali regionali non esiste per il percipiente "
+            //        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "In riferimento all'applicazione delle addizionali regionali non esiste per il percipiente "
             //        + "\nun domicilio fiscale o un indirizzo di residenza valido al " + ultimoDellAnno.ToShortDateString()
             //        + "\no alla data di fine contratto. ");
             //    }
@@ -5092,7 +5096,7 @@ namespace parasubcontract_default { //contratto//
 								DataTable TCom = CalcoliCococo.verificaAddizionaliPrestazione(Conn, idser, "C");
 								if ((TCom != null) && (TCom.Rows.Count > 0)) {
 									if ((idComuneAddizionale == DBNull.Value) || (idComuneAddizionale == null)) {
-										MessageBox.Show(this,
+										MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
 											"In riferimento all'applicazione delle addizionali comunali non esiste per il percipiente "
 											+ "\nun domicilio fiscale o un indirizzo di residenza valido al " +
 											primoDellAnno.ToShortDateString());
@@ -5110,7 +5114,7 @@ namespace parasubcontract_default { //contratto//
 								DataTable TGeo = CalcoliCococo.verificaAddizionaliPrestazione(Conn, idser, "R");
 								if ((TGeo != null) && (TGeo.Rows.Count > 0)) {
 									if ((idComuneAddizionale == DBNull.Value) || (idComuneAddizionale == null)) {
-										MessageBox.Show(this,
+										MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
 											"In riferimento all'applicazione delle addizionali regionali non esiste per il percipiente "
 											+ "\nun domicilio fiscale o un indirizzo di residenza valido al " +
 											primoDellAnno.ToShortDateString()
@@ -5292,7 +5296,7 @@ namespace parasubcontract_default { //contratto//
 				case "pat": {
 						if (Meta.DrawStateIsDone) {
 							if (!verificaCambioNumODenDellImponibile(R)) {
-								MessageBox.Show(this, "Poichè si è cambiata la posizione assicurativa territoriale\n"
+								MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Poichè si è cambiata la posizione assicurativa territoriale\n"
 													  + "prima di salvare occorre reimpostare i compensi\n" +
 													  "e ricalcolare i cedolini non ancora erogati. ");
 							}
@@ -5776,7 +5780,7 @@ namespace parasubcontract_default { //contratto//
                 0) return;
             //VisualizzaEtichetteAP();
             if (btnGeneraAP.Visible) {
-                MessageBox.Show("Ricordarsi di compilare la scheda Anagrafe prestazioni");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Ricordarsi di compilare la scheda Anagrafe prestazioni");
             }
         }
 
@@ -5853,7 +5857,7 @@ namespace parasubcontract_default { //contratto//
         private void btnCalcolaCedolino_Click(object sender, System.EventArgs e) {
 
             if (!Meta.GetFormData(false)) {
-                MessageBox.Show(this, "E' necessario salvare per usare questa funzionalità");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "E' necessario salvare per usare questa funzionalità");
                 return;
             }
 
@@ -5866,7 +5870,7 @@ namespace parasubcontract_default { //contratto//
             if (inputDatiSalvati != null && !inputDatiSalvati.EqualsRicalcolaCedolini(inputPerCalcoloCostoTotale)) {
                 string messaggio = "Sono stati modificati dei dati presenti nel contratto che sono influenti al calcolo del cedolino"
                                    + "\nPer calcolare un cedolino occorre prima salvare il contratto!";
-                MessageBox.Show(this, messaggio);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio);
                 return;
             }
 
@@ -5875,7 +5879,7 @@ namespace parasubcontract_default { //contratto//
                 string messaggio = "Il cedolino non può essere calcolato in quanto non esiste il cedolino di conguaglio per l'anno in corso."
                                    +
                                    "\nPer creare il cedolino di conguaglio si prega di cliccare sul bottone Reimposta Compensi";
-                MessageBox.Show(this, messaggio, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -5885,7 +5889,7 @@ namespace parasubcontract_default { //contratto//
             string flagCalcolato = rCedolino["flagcomputed"].ToString();
             int rigaGridCedolino = dgCedolini.CurrentRowIndex;
             if (flagCalcolato == "S") {
-                DialogResult dr = MessageBox.Show(this,
+                DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                     "Si desidera calcolare nuovamente il cedolino cancellando tutti i dati esistenti?",
                     "Richiesta conferma", MessageBoxButtons.YesNoCancel);
 
@@ -5920,7 +5924,7 @@ namespace parasubcontract_default { //contratto//
                 //Genera impegni e scritture nell'anno di competenza del cedolino
                 newConn = ottieniConnessioneNuovoEsercizio(Conn, annostop);
                 if (newConn == null) {
-                    MessageBox.Show("Ci sono problemi nell'accedere all'anno " + annostop + 
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono problemi nell'accedere all'anno " + annostop + 
                         ", non saranno generati impegni di budget o scritture", "Errore");
                     erroriep = true;
                 }
@@ -5938,42 +5942,42 @@ namespace parasubcontract_default { //contratto//
                 CalcoliCococo coc = new CalcoliCococo(Meta.Dispatcher, Meta.Conn, DS);
                 errMess = coc.calcolaCedolino(idCedolino, true, "N");
                 if (errMess != null) {
-                    MessageBox.Show(this, "Errore nel calcolo del cedolino n° " + idCedolino + ".\n" + errMess);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel calcolo del cedolino n° " + idCedolino + ".\n" + errMess);
                     return;
                 }
                 // 2. Calcola Ritenute Fiscali del Cedolino di Conguaglio
                 errMess = coc.calcolaCedolino(idCedolinoConguaglio, true, "F");
                 if (errMess != null) {
-                    MessageBox.Show(this, "Errore nel calcolo del cedolino n° " + idCedolinoConguaglio + ".\n" + errMess);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel calcolo del cedolino n° " + idCedolinoConguaglio + ".\n" + errMess);
                     return;
                 }
                 // 3. Aggiungi Ritenute non Fiscali al Cedolino di Conguaglio
                 errMess = coc.aggiungiRitenuteNonFiscaliCedolinoConguaglio(idCedolinoConguaglio, true);
                 if (errMess != null) {
-                    MessageBox.Show(this, "Errore nel calcolo del cedolino n° " + idCedolinoConguaglio + ".\n" + errMess);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel calcolo del cedolino n° " + idCedolinoConguaglio + ".\n" + errMess);
                     return;
                 }
                 // 4. Aggiungi Ritenute Fiscali al Cedolino Rata
                 errMess = coc.aggiungiRitenuteFiscaliUltimoCedolinoRata(idCedolino, idCedolinoConguaglio, true);
                 if (errMess != null) {
-                    MessageBox.Show(this, "Errore nel calcolo del cedolino n° " + idCedolino + ".\n" + errMess);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel calcolo del cedolino n° " + idCedolino + ".\n" + errMess);
                     return;
                 }
                 // 5. Aggiorna Ritenute Fiscali al Cedolino di Conguaglio
                 errMess = coc.aggiornaDatiCedolinoConguaglio(idCedolinoConguaglio, true);
                 if (errMess != null) {
-                    MessageBox.Show(this, "Errore nel calcolo del cedolino n° " + idCedolinoConguaglio + ".\n" + errMess);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel calcolo del cedolino n° " + idCedolinoConguaglio + ".\n" + errMess);
                 }
                 // 6. Salva il Cedolino Rata e il Cedolino di Conguaglio
                 Meta.SaveFormData();
                 if (DS.HasChanges()) {
-                    MessageBox.Show(this, "Attenzione! Si sono verificati errori nel calcolo del cedolino");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Attenzione! Si sono verificati errori nel calcolo del cedolino");
                     return;
                 }
 
                 DataRow currCedolino = DS.payroll.Select(QHC.CmpEq("idpayroll", idCedolino)).FirstOrDefault();
                 if (currCedolino == null) {
-	                MessageBox.Show(this, "Attenzione! Si sono verificati errori nel calcolo del cedolino");
+	                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Attenzione! Si sono verificati errori nel calcolo del cedolino");
 	                return;
                 }
 
@@ -5994,7 +5998,7 @@ namespace parasubcontract_default { //contratto//
                 // 1. Calcola il Cedolino Rata
                 errMess = coc.calcolaCedolino(idCedolino, true, "T");
                 if (errMess != null) {
-                    MessageBox.Show(this, "Errore nel calcolo del cedolino n° " + idCedolino + ".\n" + errMess);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel calcolo del cedolino n° " + idCedolino + ".\n" + errMess);
                     return;
                 }
                 // 2. Salva il Cedolino Rata
@@ -6003,7 +6007,7 @@ namespace parasubcontract_default { //contratto//
                 insideCalcolaCedolini = false;
                 if (DS.HasChanges()) {
 					DS.RejectChanges();
-                    MessageBox.Show(this, "Attenzione! Si sono verificati errori nel calcolo del cedolino, le modifiche sono state annullate");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Attenzione! Si sono verificati errori nel calcolo del cedolino, le modifiche sono state annullate");
                     return;
                 }
                 DataRow currCedolino = DS.payroll.Select(QHC.CmpEq("idpayroll", idCedolino))[0];
@@ -6030,7 +6034,7 @@ namespace parasubcontract_default { //contratto//
                 Conn.RUN_SELECT("accountingyear", "*", null, QHS.CmpEq("ayear", esercizio), null, true);
 
             if (EsercizioTable.Rows.Count == 0) {
-                MessageBox.Show("L'esercizio " + esercizio + " non è stato creato.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("L'esercizio " + esercizio + " non è stato creato.");
                 return false;
             }
             return true;
@@ -6060,7 +6064,7 @@ namespace parasubcontract_default { //contratto//
 
             DateTime newDate = new DateTime(newEsercizio, 12, 31);
             if (!CambioDataConsentita(Conn, newDate)) {
-                MessageBox.Show("L'utente non ha diritto ad agire nell'esercizio " + newEsercizio, "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("L'utente non ha diritto ad agire nell'esercizio " + newEsercizio, "Errore");
                 return null;
             }
             Easy_DataAccess newConn = (Easy_DataAccess)Conn.Duplicate();
@@ -6169,34 +6173,50 @@ namespace parasubcontract_default { //contratto//
                            " GROUP BY tax.taxkind";
 
             DataTable t = Meta.Conn.SQLRunner(query);
-            DataRow[] rPrev = t.Select(QHC.CmpEq("taxkind", 3));
             decimal ritAmmin = 0, ritDip = 0;
-            if (rPrev.Length > 0) {
-                ritAmmin += CfgFn.GetNoNullDecimal(rPrev[0]["admintax"]);
-                ritDip += CfgFn.GetNoNullDecimal(rPrev[0]["employtax"]);
-                txtPrevAmm.Text = HelpForm.StringValue(rPrev[0]["admintax"], "x.x");
-                txtPrevDip.Text = HelpForm.StringValue(rPrev[0]["employtax"], "x.x");
+            if (t != null) {
+	            DataRow[] rPrev = t.Select(QHC.CmpEq("taxkind", 3));
+
+	            if (rPrev.Length > 0) {
+		            ritAmmin += CfgFn.GetNoNullDecimal(rPrev[0]["admintax"]);
+		            ritDip += CfgFn.GetNoNullDecimal(rPrev[0]["employtax"]);
+		            txtPrevAmm.Text = HelpForm.StringValue(rPrev[0]["admintax"], "x.x");
+		            txtPrevDip.Text = HelpForm.StringValue(rPrev[0]["employtax"], "x.x");
+	            }
+
+	            DataRow[] rFisc = t.Select(QHC.CmpEq("taxkind", 1));
+	            if (rFisc.Length > 0) {
+		            ritAmmin += CfgFn.GetNoNullDecimal(rFisc[0]["admintax"]);
+		            ritDip += CfgFn.GetNoNullDecimal(rFisc[0]["employtax"]);
+		            txtFiscAmm.Text = HelpForm.StringValue(rFisc[0]["admintax"], "x.x");
+		            txtFiscDip.Text = HelpForm.StringValue(rFisc[0]["employtax"], "x.x");
+	            }
+
+	            DataRow[] rAssic = t.Select(QHC.CmpEq("taxkind", 4));
+	            if (rAssic.Length > 0) {
+		            ritAmmin += CfgFn.GetNoNullDecimal(rAssic[0]["admintax"]);
+		            ritDip += CfgFn.GetNoNullDecimal(rAssic[0]["employtax"]);
+		            txtAssicAmm.Text = HelpForm.StringValue(rAssic[0]["admintax"], "x.x");
+		            txtAssicDip.Text = HelpForm.StringValue(rAssic[0]["employtax"], "x.x");
+	            }
+
+	            DataRow[] rAssis = t.Select(QHC.CmpEq("taxkind", 2));
+	            if (rAssis.Length > 0) {
+		            ritAmmin += CfgFn.GetNoNullDecimal(rAssis[0]["admintax"]);
+		            ritDip += CfgFn.GetNoNullDecimal(rAssis[0]["employtax"]);
+		            txtAssisAmm.Text = HelpForm.StringValue(rAssis[0]["admintax"], "x.x");
+		            txtAssisDip.Text = HelpForm.StringValue(rAssis[0]["employtax"], "x.x");
+	            }
             }
-            DataRow[] rFisc = t.Select(QHC.CmpEq("taxkind", 1));
-            if (rFisc.Length > 0) {
-                ritAmmin += CfgFn.GetNoNullDecimal(rFisc[0]["admintax"]);
-                ritDip += CfgFn.GetNoNullDecimal(rFisc[0]["employtax"]);
-                txtFiscAmm.Text = HelpForm.StringValue(rFisc[0]["admintax"], "x.x");
-                txtFiscDip.Text = HelpForm.StringValue(rFisc[0]["employtax"], "x.x");
-            }
-            DataRow[] rAssic = t.Select(QHC.CmpEq("taxkind", 4));
-            if (rAssic.Length > 0) {
-                ritAmmin += CfgFn.GetNoNullDecimal(rAssic[0]["admintax"]);
-                ritDip += CfgFn.GetNoNullDecimal(rAssic[0]["employtax"]);
-                txtAssicAmm.Text = HelpForm.StringValue(rAssic[0]["admintax"], "x.x");
-                txtAssicDip.Text = HelpForm.StringValue(rAssic[0]["employtax"], "x.x");
-            }
-            DataRow[] rAssis = t.Select(QHC.CmpEq("taxkind", 2));
-            if (rAssis.Length > 0) {
-                ritAmmin += CfgFn.GetNoNullDecimal(rAssis[0]["admintax"]);
-                ritDip += CfgFn.GetNoNullDecimal(rAssis[0]["employtax"]);
-                txtAssisAmm.Text = HelpForm.StringValue(rAssis[0]["admintax"], "x.x");
-                txtAssisDip.Text = HelpForm.StringValue(rAssis[0]["employtax"], "x.x");
+            else {
+	            txtPrevAmm.Text = "";
+	            txtPrevDip.Text = "";
+	            txtAssisAmm.Text = "";
+	            txtAssisDip.Text = "";
+	            txtFiscAmm.Text = "";
+	            txtFiscDip.Text = "";
+	            txtAssicAmm.Text = "";
+	            txtAssicDip.Text = "";
             }
 
             txtLordoAlBeneficiarioRiep.Text = lordoAlBeneficiario.ToString("c");
@@ -6219,7 +6239,7 @@ namespace parasubcontract_default { //contratto//
             if (numCedoliniTrasferiti > 0) {
                 string messaggio = "Per poter reimpostare i compensi verranno cancellati i cedolini che erano stati trasferiti nell'anno successivo"
                                    + "\nProseguire?";
-                DialogResult dr = MessageBox.Show(this, messaggio, "Avviso", MessageBoxButtons.YesNoCancel,
+                DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio, "Avviso", MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Warning);
                 if (dr != DialogResult.Yes) {
                     comingFromBtnGeneraCedolini = false;
@@ -6236,7 +6256,7 @@ namespace parasubcontract_default { //contratto//
                     QHS.CmpEq("idrelated", EP_functions.GetIdForDocument(rced)), QHS.CmpNe("yentry", esercizio)
                 ), false);
                 if (nEntry > 0) {
-                    MessageBox.Show(
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
                         $"Per il cedolino n.{rced["npayroll"]} anno fiscale {rced["fiscalyear"]} esistono scritture in altri anni, non è "
                         + "possibile reimpostare i compensi. Occorre prima pagare tali cedolini.", "Errore");
                     return;
@@ -6247,7 +6267,7 @@ namespace parasubcontract_default { //contratto//
                 EPM.beforePost();
                 Meta.SaveFormData();//Il ricalcolo avviene nel beforePost
                 if (DS.HasChanges()) {
-                    MessageBox.Show(this, "Errore nel salvataggio si consiglia di chiamare il settore assistenza");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio si consiglia di chiamare il settore assistenza");
                     Meta.CanSave = false;
                     return;
                 }
@@ -6345,7 +6365,7 @@ namespace parasubcontract_default { //contratto//
             string errMsg;
             DataTable t = Meta.Conn.SQLRunner(query, 0, out errMsg);
             if (errMsg != null) {
-                MessageBox.Show(this, errMsg);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errMsg);
                 return -1;
             }
             return CfgFn.GetNoNullDecimal(t.Rows[0][0]);
@@ -6369,7 +6389,7 @@ namespace parasubcontract_default { //contratto//
             if (!calcoloRiuscito) {
                 decimal newtotale = CfgFn.RoundValuta(calcolaCostoTotale(inputPerCalcoloCostoTotale));
                 txtStimaCostoTotale.Text = newtotale.ToString("c");
-                MessageBox.Show(this,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                     "Non è stato possibile trovare un lordo al beneficiario a cui corrisponda in modo esatto il costo digitato." +
                     "Il valore è stato pertanto approssimato.", "Avviso");
             }
@@ -6426,7 +6446,7 @@ namespace parasubcontract_default { //contratto//
                 input.lordoAlBeneficiario = (decimal) o;
             }
             else {
-                //				MessageBox.Show(this, "Inserire il lordo al beneficiario");
+                //				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire il lordo al beneficiario");
                 if (calcoloInverso) {
                     //input.lordoAlBeneficiario = 0;
                 }
@@ -6436,7 +6456,7 @@ namespace parasubcontract_default { //contratto//
             }
 
             if (input.codicePrestazione == DBNull.Value) {
-                //				MessageBox.Show(this, "Inserire il tipo di prestazione");
+                //				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire il tipo di prestazione");
                 return null;
             }
 
@@ -6445,7 +6465,7 @@ namespace parasubcontract_default { //contratto//
                 input.dataInizioContratto = (DateTime) o;
             }
             else {
-                //				MessageBox.Show(this, "Inserire la data di inizio del contratto");
+                //				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire la data di inizio del contratto");
                 return null;
             }
 
@@ -6454,12 +6474,12 @@ namespace parasubcontract_default { //contratto//
                 input.dataFineContratto = DateTime.Parse(txtDataFine.Text);
             }
             else {
-                //				MessageBox.Show(this, "Inserire la data di fine del contratto");
+                //				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire la data di fine del contratto");
                 return null;
             }
 
             //			if (input.idPat==0) {
-            //				//				MessageBox.Show(this, "Inserire la Posizione Assicurativa Territoriale");
+            //				//				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire la Posizione Assicurativa Territoriale");
             //				return null;
             //			}
 
@@ -6482,7 +6502,7 @@ namespace parasubcontract_default { //contratto//
                 return 0;
             }
             if (input.dataInizioContratto.Year > esercizio) {
-                MessageBox.Show(this,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                     "L'anno della data di inizio del contratto deve essere minore o uguale all'esercizio corrente");
                 return 0;
             }
@@ -6581,7 +6601,7 @@ namespace parasubcontract_default { //contratto//
             string filtroPat = QHC.CmpEq("idpat", idpat);
             DataRow[] pat = DS.pat.Select(filtroPat);
             if (pat.Length == 0) {
-                //MessageBox.Show(this, "Attenzione: deve essere inserita la PAT (Posizione Assicurativa Territoriale)");
+                //MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Attenzione: deve essere inserita la PAT (Posizione Assicurativa Territoriale)");
                 return 0;
             }
             else {
@@ -6700,7 +6720,7 @@ namespace parasubcontract_default { //contratto//
                                        ".\nVerranno aggiunti i CUD corrispondenti a tali contratti in questo contratto?"
                                        +
                                        "\nNota Bene: Verrà automaticamente impostata l'aliquota marginale per la ritenuta fiscale";
-            MessageBox.Show(this, messaggioAggiungi, "Avviso");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggioAggiungi, "Avviso");
             // Generazione dei CUD
             Meta.GetFormData(true);
             inserisciCud(tContratto);
@@ -6746,7 +6766,7 @@ namespace parasubcontract_default { //contratto//
                 //        "In un contratto esistente ne è stata trovata una di importo pari a " +
                 //            CfgFn.GetNoNullDecimal(OnDeb["totalamount"]).ToString("c") + ".\r\n" +
                 //            "Se si intende sommare le due deduzioni premere Ok altrimenti sarà ignorata la detrazione trovata";
-                //    if (MessageBox.Show(this, msg, "Conferma", MessageBoxButtons.OKCancel) != DialogResult.OK) continue;
+                //    if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this, msg, "Conferma", MessageBoxButtons.OKCancel) != DialogResult.OK) continue;
                 //    OnereFound = Existent[0];
                 //    OnereFound["totalamount"] = CfgFn.GetNoNullDecimal(OnereFound["totalamount"]) +
                 //                                    CfgFn.GetNoNullDecimal(OnDeb["totalamount"]);
@@ -6831,7 +6851,7 @@ namespace parasubcontract_default { //contratto//
         //                "In un contratto esistente ne è stata trovata una di importo pari a " +
         //                    CfgFn.GetNoNullDecimal(OnDeb["totalamount"]).ToString("c") + ".\r\n" +
         //                    "Se si intende sommare le due deduzioni premere Ok altrimenti sarà ignorata la detrazione trovata";
-        //            if (MessageBox.Show(this, msg, "Conferma", MessageBoxButtons.OKCancel) != DialogResult.OK) continue;
+        //            if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this, msg, "Conferma", MessageBoxButtons.OKCancel) != DialogResult.OK) continue;
         //            OnereFound = Existent[0];
         //            OnereFound["totalamount"] = CfgFn.GetNoNullDecimal(OnereFound["totalamount"]) +
         //                                            CfgFn.GetNoNullDecimal(OnDeb["totalamount"]);
@@ -6899,7 +6919,7 @@ namespace parasubcontract_default { //contratto//
                 //        "In un contratto esistente ne è stata trovata una di importo pari a " +
                 //            CfgFn.GetNoNullDecimal(OnDeb["totalamount"]).ToString("c") + ".\r\n" +
                 //            "Se si intende sommare le due deduzioni premere Ok altrimenti sarà ignorata la deduzione trovata";
-                //    if (MessageBox.Show(this, msg, "Conferma", MessageBoxButtons.OKCancel) != DialogResult.OK) continue;
+                //    if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this, msg, "Conferma", MessageBoxButtons.OKCancel) != DialogResult.OK) continue;
                 //    OnereFound = Existent[0];
                 //    OnereFound["totalamount"] = CfgFn.GetNoNullDecimal(OnereFound["totalamount"]) +
                 //                                    CfgFn.GetNoNullDecimal(OnDeb["totalamount"]);
@@ -6956,7 +6976,7 @@ namespace parasubcontract_default { //contratto//
             }
 
             if (showMessage) {
-                MessageBox.Show(this, "Verranno aggiunti i familiari presenti in altri contratti. " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Verranno aggiunti i familiari presenti in altri contratti. " +
                                       "Nel caso non si vogliano applicare le detrazioni rimuoverli manualmente",
                     "Informazione",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -7008,7 +7028,7 @@ namespace parasubcontract_default { //contratto//
                 //    return false;
                 //}
                 //messaggio = "Verrà ora impostata l'aliquota della ritenuta fiscale per scaglioni in quanto non ci sono più CUD associati al contratto";
-                //MessageBox.Show(this, messaggio, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //SubEntity_rbScaglioniIRPEF.Checked = true;
                 //setValoreInComboAliquota(DBNull.Value);
 
@@ -7036,7 +7056,7 @@ namespace parasubcontract_default { //contratto//
                         + " A conguaglio sarà comunque possibile togliere la spunta per evitare un'applicazione "
                         + " eccessiva di imposte. Avvisare il percipiente di questa situazione.";
 
-            MessageBox.Show(this, messaggio, "Avviso impotante", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio, "Avviso impotante", MessageBoxButtons.OK, MessageBoxIcon.Information);
             SubEntity_rbAliquotaMarginale.Checked = true;
             setValoreInComboAliquota(aliquotaFiscale);
             return true;
@@ -7124,7 +7144,7 @@ namespace parasubcontract_default { //contratto//
                     if (Meta.FirstFillForThisRow) {
                         if ((Meta.InsertMode) || (Meta.EditMode)) {
                             if (!verificaPrestazioneStranieri()) {
-                                MessageBox.Show(this, "Il comune di residenza del percipiente " +
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il comune di residenza del percipiente " +
                                 "non risulta essere "
                                 + txtComuneAddRegionali.Text
                                 + ". Pertanto sarà aggiornato ",
@@ -7239,7 +7259,7 @@ namespace parasubcontract_default { //contratto//
                                        " che rappresenta la data di fine dell'ultimo cedolino erogato" +
                                        "\n Verrà automaticamente impostata la seguente data " +
                                        ultimaDataErogazione.AddDays(1).ToString();
-                    MessageBox.Show(this, messaggio, "Errore", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio, "Errore", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     txtDataFine.Text = ultimaDataErogazione.AddDays(1).ToString();
                 }
             }
@@ -7333,7 +7353,7 @@ namespace parasubcontract_default { //contratto//
             AP.GetEntryForDocument(Curr);
 
             if (AP.MainSrvRegExists()) {
-                MessageBox.Show(this, "L'Anagrafe Prestazione è stata già generata.",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'Anagrafe Prestazione è stata già generata.",
                     "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -7349,7 +7369,7 @@ namespace parasubcontract_default { //contratto//
 
             bool isOk = AP.SetSrvRegDefault(ToMeta, Curr, Curr["idreg"], AP_fun.GetIdForDocument(Curr));
             if (!isOk) {
-                MessageBox.Show(this, "Errore nella assegnazione dei valori di default",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella assegnazione dei valori di default",
                     "Anagrafe Prestazioni non generata");
                 return;
             }
@@ -7405,7 +7425,7 @@ namespace parasubcontract_default { //contratto//
                 messaggio += "\nche non sono ancora stati conguagliati.";
             }
             messaggio += "\nSi consiglia di conguagliare un contratto prima di aprirne un altro.";
-            MessageBox.Show(this, messaggio);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio);
             return true;
         }
 
@@ -7440,7 +7460,7 @@ namespace parasubcontract_default { //contratto//
                         "\n\nEssendo già stato erogato il conguaglio non è possibile rimediare in questo contratto";
                 }
             }
-            MessageBox.Show(this, messaggio);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio);
             return true;
         }
 
@@ -7451,7 +7471,7 @@ namespace parasubcontract_default { //contratto//
             if (rCud.Length == 0) {
                 return false;
             }
-            MessageBox.Show(this, "In questo contratto esistono cud che non puntano a nessun altro contratto");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "In questo contratto esistono cud che non puntano a nessun altro contratto");
             return true;
         }
 
@@ -7481,7 +7501,7 @@ namespace parasubcontract_default { //contratto//
                 messaggio += ", " + "(" + t.Rows[i]["idcon"] + "," + t.Rows[i]["idexhibitedcud"] + ")";
             }
             messaggio += "\n\nOccorre pertanto prima sistemare tali cud e poi tornare a questo contratto!";
-            MessageBox.Show(this, messaggio);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio);
             return true;
         }
 
@@ -7497,7 +7517,7 @@ namespace parasubcontract_default { //contratto//
                 if (t.Rows.Count > 0) {
                     errori = true;
                     foreach (DataRow r in t.Rows) {
-                        MessageBox.Show("Il cud n° " + rCud["idexhibitedcud"] + " punta allo stesso contratto "
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Il cud n° " + rCud["idexhibitedcud"] + " punta allo stesso contratto "
                                         + QueryCreator.quotedstrvalue(rCud["idlinkedcon"], true)
                                         + " che è puntato"
                                         + "\n anche dal cud (" + r["idcon"] + "," + r["idexhibitedcud"] + ").");
@@ -7534,6 +7554,7 @@ namespace parasubcontract_default { //contratto//
                 rCud["irpefapplied"] = cud.irpefApplicata;
                 rCud["irpefgross"] = cud.irpefGross;
                 rCud["earnings_based_abatements"] = cud.earnings_based_abatements;
+                rCud["earnings_based_abatements2020"] = cud.earnings_based_abatements2020	;
                 rCud["totabatements"] = cud.totabatements;
                 rCud["fiscalbonusapplied"] = cud.fiscalBonusApplied;
                 rCud["inpsretained"] = cud.contributiTrattenuti;
@@ -7572,7 +7593,7 @@ namespace parasubcontract_default { //contratto//
 
             DataRow[] rCedCong = DS.payroll.Select(QHC.CmpEq("flagbalance", "S"));
             if (rCedCong.Length == 0) {
-                MessageBox.Show(this, "Questo contratto non ha il cedolino di conguaglio!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Questo contratto non ha il cedolino di conguaglio!");
             }
             bool contrattoChiuso = (rCedCong.Length > 0) && !(rCedCong[0]["disbursementdate"] is DBNull);
             DataTable t = DataAccess.SQLRunner(Meta.Conn, query);
@@ -7580,7 +7601,7 @@ namespace parasubcontract_default { //contratto//
                 return false;
             }
             if ((t.Rows.Count >= 1) && (DS.exhibitedcud.Rows.Count == 0) && !contrattoChiuso) {
-                DialogResult dr = MessageBox.Show(this, "Per lo stesso percipiente esiste il contratto "
+                DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per lo stesso percipiente esiste il contratto "
                                                         + t.Rows[0]["idcon"]
                                                         +
                                                         " già conguagliato. Procedere con l'inserimento del relativo cud in questo contratto?",
@@ -7608,7 +7629,7 @@ namespace parasubcontract_default { //contratto//
                     messaggio += "\nNon è possibile rimediare in questo contratto";
                 }
             }
-            MessageBox.Show(this, messaggio);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio);
             return true;
         }
 
@@ -7632,7 +7653,7 @@ namespace parasubcontract_default { //contratto//
                 }
             }
             if (!errori) {
-                MessageBox.Show(this, "Non sono stati riscontrati errori nei cud");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non sono stati riscontrati errori nei cud");
             }
         }
 
@@ -7675,19 +7696,19 @@ namespace parasubcontract_default { //contratto//
                     QHS.AppAnd(QHS.IsNotNull("disbursementdate"),
                         QHS.CmpEq("idcon", DS.parasubcontract.Rows[0]["idcon"])), true);
                 if (count > 0) {
-                    MessageBox.Show(this,
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                         "Non ci sono cedolini erogati in quest'anno, pertano questo contratto può essere ignorato");
                 }
-                MessageBox.Show(this, "Non ci sono cedolini erogati; si può cancellare direttamente il contratto");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono cedolini erogati; si può cancellare direttamente il contratto");
                 return;
             }
             DataRow[] rCedCong = DS.payroll.Select(QHC.CmpEq("flagbalance", "S"));
             if (rCedCong.Length == 0) {
-                MessageBox.Show(this, "Manca il cedolino di conguaglio!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Manca il cedolino di conguaglio!");
                 return;
             }
             if (rCedCong[0]["disbursementdate"] != DBNull.Value) {
-                MessageBox.Show(this, "Il contratto è già chiuso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il contratto è già chiuso");
                 return;
             }
             object dataErogazione = DS.payroll.Compute("max(disbursementdate)", "disbursementdate is not null");
@@ -8048,13 +8069,13 @@ namespace parasubcontract_default { //contratto//
             DataTable main = Meta.PrimaryDataTable;
             //object idsorkind = Conn.DO_READ_VALUE("sortingkind", QHS.CmpEq("codesorkind", "VOCISPESA"), "idsorkind");
             //if (idsorkind == null || idsorkind == DBNull.Value) {
-            //    MessageBox.Show("Non è installata la classificazione per DALIA avente codice VOCISPESA", "Errore");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è installata la classificazione per DALIA avente codice VOCISPESA", "Errore");
             //    return;
             //}
             DataRow r = main.Rows[0];
             object idser = r["idser"];
             if (idser == DBNull.Value) {
-                MessageBox.Show("Occorre selezionare prima la prestazione", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Occorre selezionare prima la prestazione", "Avviso");
                 return;
             }
             DataRow[] classR =
@@ -8068,7 +8089,7 @@ namespace parasubcontract_default { //contratto//
                 //Il resto lo fa nell'afterrowselect, che chiama selezionaVoceSpesaDalia
             }
             else {
-                MessageBox.Show("La prestazione selezionata non è associata ad alcuna classificazione DALIA", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La prestazione selezionata non è associata ad alcuna classificazione DALIA", "Avviso");
             }
         }
 
@@ -8195,7 +8216,7 @@ namespace parasubcontract_default { //contratto//
             DataRow Curr = main.Rows[0];
             object idreg = Curr["idreg"];
             if (idreg == DBNull.Value && !quiet) {
-                MessageBox.Show("Occorre selezionare prima il percipiente", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Occorre selezionare prima il percipiente", "Avviso");
                 return;
             }
 
@@ -8219,7 +8240,7 @@ namespace parasubcontract_default { //contratto//
             DataRow[] dalia =
                 Conn.RUN_SELECT("registrylegalstatus", "iddaliaposition", null, filter, null, false).Select();
             if (dalia.Length == 0 && !quiet) {
-                MessageBox.Show("Il percipiente selezionato non ha una qualifica Dalia negli inquadramenti", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Il percipiente selezionato non ha una qualifica Dalia negli inquadramenti", "Errore");
                 return;
             }
             if (dalia.Length > 0) {
@@ -8266,7 +8287,7 @@ namespace parasubcontract_default { //contratto//
             if (T.Rows[0]["applybrackets"].ToString().ToUpper() != "S")
                 messaggio = "Nel contratto inserito come CUD è stata applicata l'aliquota marginale, pertanto adesso non si potrà applicare l'aliquota per scaglione.\n ";
 
-            MessageBox.Show(this, messaggio, "Avviso importante", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio, "Avviso importante", MessageBoxButtons.OK, MessageBoxIcon.Information);
             // SubEntity_rbAliquotaMarginale.Checked = false;
         }
     }

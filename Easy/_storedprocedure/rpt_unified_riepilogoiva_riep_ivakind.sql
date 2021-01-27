@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_unified_riepilogoiva_riep_ivakind]') 
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_unified_riepilogoiva_riep_ivakind]') 
 and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_unified_riepilogoiva_riep_ivakind]
 GO
@@ -63,7 +65,7 @@ AS BEGIN
 	END
 	-- CREAZIONE DELLA TABELLA TEMPORANEA cCON L'INFO SUL NOME DEL DIPARTIMENTO
 	
-	-- se la stampa non √® consolidata 	
+	-- se la stampa non Ë consolidata 	
 	
 	CREATE TABLE #outtable
 	(
@@ -231,8 +233,8 @@ SELECT
 	-- IVA Detraibile (dei documenti immediati)
 	-- IVA Detraibile (dei documenti differiti divenuti immediati)
 	-- IVA Detraibile (dei documenti differiti)
-	-- IVA a esigilibit√† immediata + IVA a esigibilit√† differita e basta, non va aggiunta l'iva divenuta esigibile, 
-	-- perch√® √® l'iva a esigibilit√† differita divenuta esigibile
+	-- IVA a esigilibit‡ immediata + IVA a esigibilit‡ differita e basta, non va aggiunta l'iva divenuta esigibile, 
+	-- perchË Ë l'iva a esigibilit‡ differita divenuta esigibile
 	SUM(ivaabatable_imm) +SUM(ivaabatable_dif) /*+ SUM(ivaabatable_totdif)*/ AS ivaabatable,
 
 	-- Somma di Iva Detraibile + Iva indetraibile 
@@ -253,4 +255,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

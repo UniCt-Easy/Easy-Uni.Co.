@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilconsuntivo_residui_stanz_riep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilconsuntivo_residui_stanz_riep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_bilconsuntivo_residui_stanz_riep]
 GO
 
@@ -109,9 +111,9 @@ select @fin_kind = fin_kind
 FROM config 
 WHERE ayear = @ayear
 
--- L'ipotesi fondamentale di questo report √® che la fase del residuo di stanziamento √® la 1
--- Quella del residuo giuridico √® la 3
--- Quella dello stanziamento √® 1
+-- L'ipotesi fondamentale di questo report Ë che la fase del residuo di stanziamento Ë la 1
+-- Quella del residuo giuridico Ë la 3
+-- Quella dello stanziamento Ë 1
 SELECT @finallocation = 1
 SELECT @finphase2 = 2
 SELECT @finphase = 3  ---<<== IPOTESI DEL REPORT
@@ -1465,7 +1467,7 @@ END
 
 /*
  Se N qualora per un capitolo non esistano sott-capitoli con legami con l'upb fondo
- NON verr√† visualizzata l'indicazione del Titolo/Categoria/Capitolo
+ NON verr‡ visualizzata l'indicazione del Titolo/Categoria/Capitolo
 */
 
 IF (@showupb <>'S') AND (@idupboriginal <> '%' )
@@ -1533,10 +1535,10 @@ DROP TABLE #stanz3112
 
 
 /*
-Introduciamo questa tabella perch√® per il calcolo della Colonna 6 - Var. dei residui di Stanziamento, che mostra le riduzioni dei redui di stanziamento. 
-In pratica sono calcolate le var. in aumento e le var. in diminuzione, in modo tale che se la somma delle var. √® positiva allora valorizzeremo il campo Var.Aumento, 
-se invece √® negativa, valorizzeremo il campo Var. in diminuzione.
-Il problema √® che questa somma nella sp principale viene calcolata a livello di capitolo, mentre nella sp del sub-report viene calcolata a livello di titolo. 
+Introduciamo questa tabella perchË per il calcolo della Colonna 6 - Var. dei residui di Stanziamento, che mostra le riduzioni dei redui di stanziamento. 
+In pratica sono calcolate le var. in aumento e le var. in diminuzione, in modo tale che se la somma delle var. Ë positiva allora valorizzeremo il campo Var.Aumento, 
+se invece Ë negativa, valorizzeremo il campo Var. in diminuzione.
+Il problema Ë che questa somma nella sp principale viene calcolata a livello di capitolo, mentre nella sp del sub-report viene calcolata a livello di titolo. 
 Questo provoca una distibuzione diversa dei valori.
 Questa tabella serve per calcolare le var. in aumento e le var. in diminuzione a livello di capitolo, e poi nella SELECT finale si calcoleranno i totali per titolo.
 */
@@ -1625,4 +1627,3 @@ GO
 
 
 
-	

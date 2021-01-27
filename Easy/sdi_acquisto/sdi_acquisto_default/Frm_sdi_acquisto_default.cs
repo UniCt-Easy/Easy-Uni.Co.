@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -84,7 +86,7 @@ namespace sdi_acquisto_default {
             object fe_ipa_rifamm = Conn.GetUsr("fe_ipa_rifamm");
             object fe_ipa = Conn.GetUsr("fe_ipa");
             object fe_all = Conn.GetUsr("fe_all");
-            //Imposta l'elenco √® pi√π ampio.
+            //Imposta l'elenco Ë pi˘ ampio.
             if ((fe_all != null && fe_all.ToString().ToUpper() == "'S'") ||
                 (fe_ipa != null && fe_ipa.ToString().ToUpper() == "'S'")) {
                 Meta.DefaultListType = "ipa";
@@ -202,17 +204,17 @@ namespace sdi_acquisto_default {
                     chkEsisteFattura.CheckState = CheckState.Checked;
                 }
 
-                // La posso ACCETTARE se : in Attesa e la lunghezza dell'ipa non √® 6
+                // La posso ACCETTARE se : in Attesa e la lunghezza dell'ipa non Ë 6
                 btnAccetta.Enabled = false;
                 if (stato == 1 && (Curr["codice_ipa"].ToString().Length==6)) {
                     object idflowchart = Conn.GetSys("idflowchart");
                     if ((idflowchart == null ||
-                         idflowchart == DBNull.Value) //Nessuna restrizione oppure √® abilitato alla funzione accetta_fe 
+                         idflowchart == DBNull.Value) //Nessuna restrizione oppure Ë abilitato alla funzione accetta_fe 
                         || (accetta_fe != null && accetta_fe.ToString().ToUpper() == "'S'")) {
                         btnAccetta.Enabled = true;
                     }
                     else {
-                        //In base alla config. della sicurezza non √® abilitato ad eseguire l'operazione 
+                        //In base alla config. della sicurezza non Ë abilitato ad eseguire l'operazione 
                         btnAccetta.Enabled = false;
                     }
                 }
@@ -221,38 +223,38 @@ namespace sdi_acquisto_default {
                 } //fine if per Accettarla
 
                 btnImporta.Enabled = false;
-				// La posso IMPORTARE se : Accettata oppure Decorsi i termini oppuure  la lunghezza dell'ipa non √® 6 e non l'ho gi√† importata, e devo AVER SALVATO
+				// La posso IMPORTARE se : Accettata oppure Decorsi i termini oppuure  la lunghezza dell'ipa non Ë 6 e non l'ho gi‡ importata, e devo AVER SALVATO
 				if (((stato == 2) || (stato == 4)||(Curr["codice_ipa"].ToString().Length != 6)) && (countInvoice == 0) ) {
                     object idflowchart = Conn.GetSys("idflowchart");
                     if ((idflowchart == null ||
                          idflowchart == DBNull.Value
-                        ) //Nessuna restrizione oppure √® abilitato alla funzione creaincontabilita_fe
+                        ) //Nessuna restrizione oppure Ë abilitato alla funzione creaincontabilita_fe
                         || (creaincontabilita_fe != null && creaincontabilita_fe.ToString().ToUpper() == "'S'")) {
                         btnImporta.Enabled = (Curr["notcreacontabilita"].ToString() == "N"); //true;
                     }
                     else {
-                        //In base alla config. della sicurezza non √® abilitato ad eseguire l'importazione
+                        //In base alla config. della sicurezza non Ë abilitato ad eseguire l'importazione
                         btnImporta.Enabled = false;
                     }
                 }
                 else {
                     btnImporta.Enabled = false;
-                } //fine if per importar√≤a
+                } //fine if per importarÚa
 
                 btnRifiuta.Enabled = false;
                 txtRifiuto.ReadOnly = true;
-                // La posso RIFIUTARE se : in Attesa e non √® stato ricevuto il decorsi termini (a scanso di equivoci)
-                //  e la lunghezza dell'ipa  √® 6
+                // La posso RIFIUTARE se : in Attesa e non Ë stato ricevuto il decorsi termini (a scanso di equivoci)
+                //  e la lunghezza dell'ipa  Ë 6
                 if (stato == 1 && Curr["dt"] == DBNull.Value && (Curr["codice_ipa"].ToString().Length==6)) {
                     object idflowchart = Conn.GetSys("idflowchart");
                     if ((idflowchart == null ||
-                         idflowchart == DBNull.Value) //Nessuna restrizione oppure √® abilitato alla funzione Rifiuta_fe 
+                         idflowchart == DBNull.Value) //Nessuna restrizione oppure Ë abilitato alla funzione Rifiuta_fe 
                         || (rifiuta_fe != null && rifiuta_fe.ToString().ToUpper() == "'S'")) {
                         btnRifiuta.Enabled = true;
                         txtRifiuto.ReadOnly = false;
                     }
                     else {
-                        //In base alla config. della sicurezza non √® abilitato ad eseguire l'operazione 
+                        //In base alla config. della sicurezza non Ë abilitato ad eseguire l'operazione 
                         btnRifiuta.Enabled = false;
                         txtRifiuto.ReadOnly = true;
                     }
@@ -430,13 +432,13 @@ namespace sdi_acquisto_default {
                 return rInvoicekind;
             }
 
-            //Ne trova pi√π di una, quindi delega la scelta all'utente
+            //Ne trova pi˘ di una, quindi delega la scelta all'utente
             if (countInvKind > 1) {
                 string VistaScelta = "invoicekind";
                 MetaData MInvoicekind = MetaData.GetMetaData(this, VistaScelta);
                 MInvoicekind.FilterLocked = true;
                 MInvoicekind.DS = DS;
-                //MessageBox.Show("Sono stati trovati diversi tipi Documento IVA idonei. Selezionare quello pi√π appropriato.");
+                //MessageBox.Show("Sono stati trovati diversi tipi Documento IVA idonei. Selezionare quello pi˘ appropriato.");
                 DataRow MyDR = MInvoicekind.SelectOne("default", filterTipodoc, null, null);
                 if (MyDR != null) {
                     return MyDR;
@@ -459,7 +461,7 @@ namespace sdi_acquisto_default {
                 return idreg;
             }
 
-            //Ne ha trovate pi√π di una con quella p.iva
+            //Ne ha trovate pi˘ di una con quella p.iva
             if (countReg > 1) {
                 string VistaScelta = "registrymainview";
                 MetaData MRegistry = MetaData.GetMetaData(this, VistaScelta);
@@ -483,7 +485,7 @@ namespace sdi_acquisto_default {
                 return idreg;
             }
 
-            //Ne ha trovate pi√π di una con quella denominazione
+            //Ne ha trovate pi˘ di una con quella denominazione
             if (countReg > 1) {
                 string VistaScelta = "registrymainview";
                 MetaData MRegistry = MetaData.GetMetaData(this, VistaScelta);
@@ -522,7 +524,7 @@ namespace sdi_acquisto_default {
             filterTipodocSql = QHS.AppAnd(filterTipodocSql, QHS.CmpEq("enable_fe", "S"),
                 QHS.DoPar(QHC.AppOr(QHS.CmpEq("ipa_fe", codiceIPA), QHS.IsNull("ipa_fe"))));
 
-            // Filtra per Rif.Amm. se il ListingType √® IpaRifamm e il campo √® valorizzato nel tracciato
+            // Filtra per Rif.Amm. se il ListingType Ë IpaRifamm e il campo Ë valorizzato nel tracciato
             if ((CurrListType == "iparifamm") && (riferimentoAmministrazione != "")) {
                 filterTipodocSql = QHC.AppAnd(filterTipodocSql,
                     QHS.DoPar(QHS.AppOr(QHS.CmpEq("riferimento_Amministrazione", riferimentoAmministrazione),
@@ -538,14 +540,14 @@ namespace sdi_acquisto_default {
                 return idinvkind;
             }
 
-            //Ne trova pi√π di una, quindi delega la scelta all'utente
+            //Ne trova pi˘ di una, quindi delega la scelta all'utente
             if (countInvKind > 1) {
                 string VistaScelta = "invoicekind";
                 MetaData MInvoicekind = MetaData.GetMetaData(this, VistaScelta);
                 MInvoicekind.FilterLocked = true;
                 MInvoicekind.DS = DS;
                 MessageBox.Show(this,
-                    "Sono stati trovati diversi tipi Documento IVA idonei. Selezionare quello pi√π appropriato.",
+                    "Sono stati trovati diversi tipi Documento IVA idonei. Selezionare quello pi˘ appropriato.",
                     "Avviso");
                 DataRow MyDR = MInvoicekind.SelectOne("default", filterTipodocSql, null, null);
                 if (MyDR != null) {
@@ -579,7 +581,7 @@ namespace sdi_acquisto_default {
             DataRow Curr = DS.sdi_acquisto.Rows[0];
             if (Curr["xml"] == DBNull.Value) {
                 string messaggio;
-                messaggio = "Non vi √® alcun file da importare\nErrore";
+                messaggio = "Non vi Ë alcun file da importare\nErrore";
                 MessageBox.Show(this, messaggio);
                 return;
             }
@@ -596,7 +598,7 @@ namespace sdi_acquisto_default {
                 "//FatturaElettronicaHeader/CedentePrestatore/DatiAnagrafici/IdFiscaleIVA/IdCodice");
             string idFiscaleIva = "";
             if (idPaese == "IT") {
-                //La partita IVA italiana √® composta da 11 caratteri numerici. In registry abbiamo solo gli 11 numeri, per cui dobbiamo confrontare la p.iva solo con i numeri
+                //La partita IVA italiana Ë composta da 11 caratteri numerici. In registry abbiamo solo gli 11 numeri, per cui dobbiamo confrontare la p.iva solo con i numeri
                 //Se invece fosse estera, avremmo anche la sigla della nazione.  
                 idFiscaleIva = idCodice;
             }
@@ -609,7 +611,7 @@ namespace sdi_acquisto_default {
             idreg = IndividuaAnagrafica(idFiscaleIva, Denominazione);
             if (CfgFn.GetNoNullInt32(idreg) == 0) {
                 string messaggio;
-                messaggio = $"Non √® stata trovata alcuna anagrafica con Partita IVA: {idFiscaleIva} o denominazione : {Denominazione}.";
+                messaggio = $"Non Ë stata trovata alcuna anagrafica con Partita IVA: {idFiscaleIva} o denominazione : {Denominazione}.";
                 MessageBox.Show(this, messaggio, "Avviso");
                 //Apre un form per consentire all'utente la scelta dell'Anagrafica
                 FrmAskAnagrafica F = new FrmAskAnagrafica(Meta, Meta.Dispatcher);
@@ -624,10 +626,10 @@ namespace sdi_acquisto_default {
             bool variation = false;
             //Da richiesta di Cinzia del 19/06/2015, ore 9:32
             /*
-             * la nota di debito infatti no √® altro che l'integrazione di una fattura precedentemente emessa e non √® una nota di credito
+             * la nota di debito infatti no Ë altro che l'integrazione di una fattura precedentemente emessa e non Ë una nota di credito
                 [09:32:06] Cinzia Vino: Dal punto di vista materiale, la nota di debito presenta la struttura tipica della fattura, in particolare deve essere numerata seguendo 
-             * la progressivit√† delle fatture emesse, deve indicare la data di emissione, il numero di fattura a cui si riferisce e tutti i dati previsti
-             * in materia di emissione delle fatture dall‚Äôart.21 DPR633/72. Tale documento deve inoltre essere rilevato nel registro delle fatture emesse.
+             * la progressivit‡ delle fatture emesse, deve indicare la data di emissione, il numero di fattura a cui si riferisce e tutti i dati previsti
+             * in materia di emissione delle fatture dallíart.21 DPR633/72. Tale documento deve inoltre essere rilevato nel registro delle fatture emesse.
              *          */
             if ((TipoDocumentoTD == "TD04")) { //||(TipoDocumentoTD == "TD05")
                 variation = true;
@@ -640,7 +642,7 @@ namespace sdi_acquisto_default {
             idinvkind = IndividuaTipoDocumento(codiceIPA, riferimentoAmministrazione, variation);
             if (CfgFn.GetNoNullInt32(idinvkind) == 0) {
                 string messaggio;
-                messaggio = $"Non √® stato individuato univocamente un Tipo documento. L'IPA della F.E. √®: {codiceIPA}.";
+                messaggio = $"Non Ë stato individuato univocamente un Tipo documento. L'IPA della F.E. Ë: {codiceIPA}.";
                 MessageBox.Show(this, messaggio, "Avviso");
                 //Fa scegliere all'utente un Tipo documento tra quelli senza ipa
                 string filterIdinvkind = QHS.IsNull("ipa_fe");
@@ -701,7 +703,7 @@ namespace sdi_acquisto_default {
             MetaInvoiceDetail.SetDefaults(InvoiceDetail);
 
             if (MetaInvoice==null || MetaInvoice.destroyed) return;
-            //ToMeta.PrimaryDataTable. √® la tabella principale del form creato
+            //ToMeta.PrimaryDataTable. Ë la tabella principale del form creato
             Hashtable saveddefaults = new Hashtable();
             foreach (DataColumn C in MetaInvoice.PrimaryDataTable.Columns) {
                 saveddefaults[C.ColumnName] = C.DefaultValue;
@@ -765,7 +767,7 @@ namespace sdi_acquisto_default {
             decimal Cambio = 0;
             object idcurrency = null;
             if (Valuta != "EUR") {
-                //Se la valuta √® diversa da Euro/Lira Italiana, chiede il tasso di cambio
+                //Se la valuta Ë diversa da Euro/Lira Italiana, chiede il tasso di cambio
                 while (CfgFn.GetNoNullDecimal(Cambio) == 0) {
                     FrmAskCambio FC = new FrmAskCambio(1);
                     if (FC.ShowDialog(this) != DialogResult.OK) {
@@ -782,7 +784,7 @@ namespace sdi_acquisto_default {
                 Conn.RUN_SELECT("currency", "*", null, QHS.CmpEq("codecurrency", Valuta), null, false);
             if (tCurrency == null) {
                 string messaggio;
-                messaggio = $"Non √® stato trovata la Valuta :{Valuta}. La valuta verr√† impostata come Euro.";
+                messaggio = $"Non Ë stato trovata la Valuta :{Valuta}. La valuta verr‡ impostata come Euro.";
                 MessageBox.Show(this, messaggio, @"Avviso");
                 MetaData.SetDefault(Invoice, "idcurrency",
                     Conn.DO_READ_VALUE("currency", QHS.CmpEq("codecurrency", "EUR"), "idcurrency"));
@@ -817,7 +819,7 @@ namespace sdi_acquisto_default {
         private void btnImporta_ipa_rif_Click(object sender, EventArgs e) {
             string listtype = "iparifamm";
             //Fatture da accettare/Rifiutare = stato in attesa
-            //Fatture da importare = stato Accettata oppure Decorsi i termini e non l'ho gi√† importata
+            //Fatture da importare = stato Accettata oppure Decorsi i termini e non l'ho gi‡ importata
             string FirstSearchFilter = QHC.DoPar(QHS.AppOr(
                 QHC.CmpEq("idsdi_status", 1), // in attesa
                 QHC.CmpEq("idsdi_status", 2), //accettate
@@ -829,7 +831,7 @@ namespace sdi_acquisto_default {
             FirstSearchFilter =
                 QHC.AppAnd(FirstSearchFilter,
                     QHC.CmpEq("notcreacontabilita",
-                        "N")); //E' una fattura per cui √® consentita la Creazione in contabilit√†
+                        "N")); //E' una fattura per cui Ë consentita la Creazione in contabilit‡
             MetaData.DoMainCommand(this,
                 "maindosearch" + "." + listtype + "." + FirstSearchFilter); // sdi_acquistoiparifammview
         }
@@ -837,7 +839,7 @@ namespace sdi_acquisto_default {
         private void btnImporta_ipa_Click(object sender, EventArgs e) {
             string listtype = "ipa";
             //Fatture da accettare/Rifiutare = stato in attesa
-            //Fatture da importare = stato Accettata oppure Decorsi i termini e non l'ho gi√† importata
+            //Fatture da importare = stato Accettata oppure Decorsi i termini e non l'ho gi‡ importata
             string FirstSearchFilter = QHC.DoPar(QHS.AppOr(
                 QHC.CmpEq("idsdi_status", 1), // in attesa
                 QHC.CmpEq("idsdi_status", 2), //accettate
@@ -851,7 +853,7 @@ namespace sdi_acquisto_default {
             FirstSearchFilter =
                 QHC.AppAnd(FirstSearchFilter,
                     QHC.CmpEq("notcreacontabilita",
-                        "N")); //E' una fattura per cui √® consentita la Creazione in contabilit√†
+                        "N")); //E' una fattura per cui Ë consentita la Creazione in contabilit‡
             MetaData.DoMainCommand(this,
                 "maindosearch" + "." + listtype + "." + FirstSearchFilter); //sdi_acquistoipaview 
         }
@@ -859,7 +861,7 @@ namespace sdi_acquisto_default {
         private void btnImporta_all_Click(object sender, EventArgs e) {
             string listtype = "ipa";
             //Fatture da accettare/Rifiutare = stato in attesa
-            //Fatture da importare = stato Accettata oppure Decorsi i termini e non l'ho gi√† importata
+            //Fatture da importare = stato Accettata oppure Decorsi i termini e non l'ho gi‡ importata
             string FirstSearchFilter = QHC.DoPar(QHS.AppOr(
                 QHC.CmpEq("idsdi_status", 1), // in attesa
                 QHC.CmpEq("idsdi_status", 2), //accettate
@@ -871,7 +873,7 @@ namespace sdi_acquisto_default {
             FirstSearchFilter =
                 QHC.AppAnd(FirstSearchFilter,
                     QHC.CmpEq("notcreacontabilita",
-                        "N")); //E' una fattura per cui √® consentita la Creazione in contabilit√†
+                        "N")); //E' una fattura per cui Ë consentita la Creazione in contabilit‡
             MetaData.DoMainCommand(this,
                 "maindosearch" + "." + listtype + "." + FirstSearchFilter); //sdi_acquistoipaview
         }
@@ -898,10 +900,26 @@ namespace sdi_acquisto_default {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(DS.sdi_acquisto.Rows[0]["xml"].ToString());
             string versione = doc.DocumentElement.Attributes["versione"].Value;
-            string xsl = "";
-            if (btnVisualizza.Name == "btnVisualizzaSempl") xsl = "fatturapa_v1.2Semplificata.xslt";
-            else
-                xsl = versione == "1.1" ? "fatturapa_v1.1.xslt" : "fatturapa_v1.2.xslt";
+            string xsl;
+            DateTime dataCont = (DateTime)Meta.GetSys("datacontabile");
+            DateTime dataOttobre2020 = new DateTime(2020,10,1);
+
+            if (btnVisualizza.Name == "btnVisualizzaSempl"){
+                if (dataCont != null && dataCont > dataOttobre2020){
+                    xsl = "fatturapa_v1.2.1Semplificata.xslt";
+                }
+                else{
+                    xsl = "fatturapa_v1.2Semplificata.xslt";
+                }          
+            }
+            else{
+                if(dataCont != null && dataCont > dataOttobre2020){
+                  xsl = versione == "1.1" ? "fatturapa_v1.1.xslt" : "fatturapa_v1.2.1.xslt";
+                }
+                else{
+                  xsl = versione == "1.1" ? "fatturapa_v1.1.xslt" : "fatturapa_v1.2.xslt";
+                }
+            }       
             if (DS.sdi_acquisto.Rows[0]["xml"] == DBNull.Value) return;
 
             try {
@@ -986,7 +1004,7 @@ namespace sdi_acquisto_default {
             //    MessageBox.Show(this, "E' possibile indicare la motivazione del Rifiuto nell'apposito campo.", "Avviso");
             //    AvvisoMostrato = true;
             //}
-            if (MessageBox.Show("Si √® deciso di Rifiutare la Fattura Elettronica. Procedo col rifiuto?", "Avviso",
+            if (MessageBox.Show("Si Ë deciso di Rifiutare la Fattura Elettronica. Procedo col rifiuto?", "Avviso",
                     MessageBoxButtons.OKCancel) != DialogResult.OK) {
                 return;
             }
@@ -1012,12 +1030,13 @@ namespace sdi_acquisto_default {
             if (Meta.IsEmpty)
                 return;
             Meta.GetFormData(true);
-            if (MessageBox.Show(this, "Si √® deciso di Accettare la Fattura Elettronica. Procedo con l'Accettazione?",
+            if (MessageBox.Show(this, "Si Ë deciso di Accettare la Fattura Elettronica. Procedo con l'Accettazione?",
                     "Avviso",
                     MessageBoxButtons.OKCancel) != DialogResult.OK) {
                 return;
             }
 
+            if (DS.sdi_acquisto.Rows.Count == 0) return;
             // Verifica condizione importo totale calcolato
             DataRow Curr = DS.sdi_acquisto.Rows[0];
 
@@ -1026,7 +1045,7 @@ namespace sdi_acquisto_default {
             if (Curr["total"] != DBNull.Value && Curr["total_easy"] != DBNull.Value) {
                 if (total != total_easy) {
                     if (MessageBox.Show(this,
-                            "L'importo totale calcolato sui Dati di Riepilogo √® di ‚Ç¨ " + total_easy.ToString("c") +
+                            "L'importo totale calcolato sui Dati di Riepilogo Ë di Ä " + total_easy.ToString("c") +
                             " SI INTENDE PROCEDERE COMUNQUE?", "Avviso",
                             MessageBoxButtons.OKCancel) != DialogResult.OK) {
                         return;
@@ -1036,7 +1055,7 @@ namespace sdi_acquisto_default {
 
             if (Curr["xml"] == DBNull.Value) {
                 string messaggio;
-                messaggio = "Non vi √® alcun file\nErrore";
+                messaggio = "Non vi Ë alcun file\nErrore";
                 MessageBox.Show(this, messaggio);
                 return;
             }
@@ -1059,7 +1078,7 @@ namespace sdi_acquisto_default {
 
             if (noEsig) {
                 if (MessageBox.Show(this,
-                        "Attenzione! Il fornitore ha indicato un tipo di esigibilit√† IVA diverso da \"Split payment\".\n" +
+                        "Attenzione! Il fornitore ha indicato un tipo di esigibilit‡ IVA diverso da \"Split payment\".\n" +
                         "Sei comunque certo di voler accettare la fattura?", "Avviso", MessageBoxButtons.OKCancel) !=
                     DialogResult.OK) {
                     return;
@@ -1237,7 +1256,7 @@ namespace sdi_acquisto_default {
             DataRow Curr = DS.sdi_acquisto.Rows[0];
             if (Curr["xml"] == DBNull.Value) {
                 string messaggio;
-                messaggio = "Non vi √® alcun file\nErrore";
+                messaggio = "Non vi Ë alcun file\nErrore";
                 MessageBox.Show(this, messaggio);
                 return;
             }
@@ -1255,9 +1274,9 @@ namespace sdi_acquisto_default {
             foreach (XmlNode Dettaglio in Allegati) {
                 string NomeAttachment = Dettaglio["NomeAttachment"].InnerText;
                 string Attachment = Dettaglio["Attachment"].InnerText;
-                byte[] ByteArray = Convert.FromBase64String(Attachment);
                 string FilePath = Path.Combine(CartellaAllegati, NomeAttachment);
                 try {
+                    byte[] ByteArray = Convert.FromBase64String(Attachment);
                     ScriviFile(FilePath, ByteArray, 0);
                     //System.Diagnostics.Process.Start(FilePath);
                 }
@@ -1371,7 +1390,6 @@ namespace sdi_acquisto_default {
             Meta.FreshForm(true);
             Meta.SaveFormData();
         }
-
 
     }
 }

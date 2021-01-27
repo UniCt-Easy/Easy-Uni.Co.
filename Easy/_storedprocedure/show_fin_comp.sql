@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[show_fin_comp]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[show_fin_comp]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [show_fin_comp]
 GO
 
@@ -35,9 +37,9 @@ BEGIN
 DECLARE	@ayear int
 SELECT @ayear = YEAR(@date)
 
--- Verifica se l'avanzo di amministrazione non √® totalizzato e viene attribuito in previsione ad una voce  
+-- Verifica se l'avanzo di amministrazione non Ë totalizzato e viene attribuito in previsione ad una voce  
 -- di bilancio in entrata -- M. Smaldino
-DECLARE @flagincomesurplus char(1) -- Flag indicante se l'avanzo di amministrazione √® attribuito in previsione ad un capitolo di entrata o no 
+DECLARE @flagincomesurplus char(1) -- Flag indicante se l'avanzo di amministrazione Ë attribuito in previsione ad un capitolo di entrata o no 
 
 IF EXISTS (SELECT *  FROM fin  WHERE ayear = @ayear AND ((flag & 16) <>0) )
 	         SET @flagincomesurplus = 'S'
@@ -566,11 +568,11 @@ DECLARE	@tot_mov_R decimal(19,2)
 DECLARE	@tot_var_C decimal(19,2)
 DECLARE	@tot_var_R decimal(19,2)
 DECLARE	@nphase tinyint
-DECLARE @lbl_avail_firstphase varchar(150) -- Etichetta sulla disponibilit√† calcolata sulla prima fase di entrata o di spesa
-DECLARE @lbl_avail_ass varchar(150) -- Etichetta sulla disponibilit√† ad accertate
+DECLARE @lbl_avail_firstphase varchar(150) -- Etichetta sulla disponibilit‡ calcolata sulla prima fase di entrata o di spesa
+DECLARE @lbl_avail_ass varchar(150) -- Etichetta sulla disponibilit‡ ad accertate
 DECLARE @amount_lastphase_C decimal(19,2)
 DECLARE @amount_lastphase_R decimal(19,2)
-DECLARE @lbl_avail_app varchar(150) -- Etichetta sulla disponibilit√† ad impegnare
+DECLARE @lbl_avail_app varchar(150) -- Etichetta sulla disponibilit‡ ad impegnare
 -- Competenza
 IF (@finpart = 'E')
 BEGIN
@@ -594,11 +596,11 @@ BEGIN
 		END
 		SET @tot_mov_C = ISNULL((SELECT amount FROM #mov_C WHERE nphase = @nphase),0)
 		SET @tot_var_C = ISNULL((SELECT amount FROM #var_C WHERE nphase = @nphase),0)
-		-- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui √® imputata
+		-- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui Ë imputata
 		-- la voce di bilancio prendere in considerazione anche la previsione disponibile calcolata su questa fase 
 		IF (@nphase = @nphase_fin AND @nphase_fin < @nphase_ass_app)
 		BEGIN
-			SET @lbl_avail_firstphase = 'Disponibilit√†¬†per ulteriore ' + '"' + @desc_phase + '"'
+			SET @lbl_avail_firstphase = 'Disponibilit‡†per ulteriore ' + '"' + @desc_phase + '"'
 			INSERT INTO #situation VALUES(@lbl_avail_firstphase,
 			ISNULL(@prev_curr_M, 0) -
 			ISNULL(@tot_mov_C, 0) -
@@ -610,7 +612,7 @@ BEGIN
 			INSERT INTO #situation VALUES('2) Variazioni competenza (' + @desc_phase + ')', @tot_var_C, '')
 			INSERT INTO #situation VALUES('3) Totale movimenti competenza (' + @desc_phase + ')',
 				ISNULL(@tot_mov_C,0) + ISNULL(@tot_var_C,0),'')
-			SELECT @lbl_avail_ass = 'Disponibilit√† per ' + '"' + @desc_phase + '"' +' (Prev. Attuale - 3'
+			SELECT @lbl_avail_ass = 'Disponibilit‡ per ' + '"' + @desc_phase + '"' +' (Prev. Attuale - 3'
 			IF (@nphase = @nphase_fin_int) -- Informazioni inerenti gli accertamenti
 			BEGIN
 				IF (@finpart = 'E' AND (@nlevel is null ) AND @flagincomesurplus = 'N')-- Significa che stiamo sul titolo
@@ -771,11 +773,11 @@ BEGIN
 		END
 		SET @tot_mov_C = ISNULL((SELECT amount FROM #mov_C WHERE nphase = @nphase),0)
 		SET @tot_var_C = ISNULL((SELECT amount FROM #var_C WHERE nphase = @nphase),0)
-		-- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui √® imputata
+		-- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui Ë imputata
 		-- la voce di bilancio occorre prendere in considerazione la previsione disponibile calcolata su questa fase 
 		IF (@nphase = @nphase_fin and @nphase_fin < @nphase_ass_app )
 		BEGIN
-			SELECT @lbl_avail_firstphase = 'Disponibilit√†¬† per ulteriore ' + '"' + @desc_phase + '"'
+			SELECT @lbl_avail_firstphase = 'Disponibilit‡† per ulteriore ' + '"' + @desc_phase + '"'
 			INSERT INTO #situation VALUES(@lbl_avail_firstphase,
 			ISNULL(@prev_curr_M, 0) -
 			ISNULL(@tot_mov_C,0) -
@@ -788,7 +790,7 @@ BEGIN
 			INSERT INTO #situation	VALUES('2) Variazioni competenza ('+ @desc_phase + ')', @tot_var_C, '')
 			INSERT INTO #situation VALUES('3) Totale movimenti competenza (' +  @desc_phase + ')', 
 				ISNULL(@tot_mov_C,0) + ISNULL(@tot_var_C,0), '')
-			SELECT @lbl_avail_app = 'Disponibilit√† per ' + '"' + @desc_phase + '"' +' (Prev. Attuale - 3'
+			SELECT @lbl_avail_app = 'Disponibilit‡ per ' + '"' + @desc_phase + '"' +' (Prev. Attuale - 3'
 			IF @tot_pettycashop > 0
 			BEGIN
 				INSERT INTO #situation	VALUES(
@@ -977,4 +979,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

@@ -204,10 +204,10 @@
   </wsdl:binding>
   <wsdl:service name="webProt">
     <wsdl:port name="webProtSoap" binding="tns:webProtSoap">
-      <soap:address location="http://192.168.0.107/webProt/webProt.asmx" />
+      <soap:address location="http://10.10.0.107/webProt/webProt.asmx" />
     </wsdl:port>
     <wsdl:port name="webProtSoap12" binding="tns:webProtSoap12">
-      <soap12:address location="http://192.168.0.107/webProt/webProt.asmx" />
+      <soap12:address location="http://10.10.0.107/webProt/webProt.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

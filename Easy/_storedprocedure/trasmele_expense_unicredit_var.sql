@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_expense_unicredit_var]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_expense_unicredit_var]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_expense_unicredit_var]
 GO
  --setuser'amministrazione'
@@ -220,7 +222,7 @@ WHERE kpaymenttransmission = @kpaymenttransmission) = 0)
 BEGIN
 	INSERT INTO #error
 	VALUES('La distinta di trasmissione ' + CONVERT(varchar(4),@y) + '/'
-	+ CONVERT(varchar(6),@n) + ' √® vuota')
+	+ CONVERT(varchar(6),@n) + ' Ë vuota')
 END
 -- CONTROLLO N. 1. Presenza dei dati dell'ente
 DECLARE @error char(1)
@@ -246,14 +248,14 @@ END
 IF (DATALENGTH(@cod_department) > @len_agencycode)
 BEGIN
 	INSERT INTO #error
-	VALUES ('Il codice Ente inserito √® superiore alla lunghezza massima fissata a '
+	VALUES ('Il codice Ente inserito Ë superiore alla lunghezza massima fissata a '
 	+ CONVERT(varchar(2),@len_agencycode))
 END
 
--- CONTROLLO N. 3. Movimento di Spesa senza Modalit√† di Pagamento
+-- CONTROLLO N. 3. Movimento di Spesa senza Modalit‡ di Pagamento
 INSERT INTO #error (message)
 (SELECT 'Per il movimento n.' + CONVERT(varchar(6),nmov) 
-+ '/' + CONVERT(varchar(4),ymov) + ' non √® stata scelta una modalit√† di pagamento'
++ '/' + CONVERT(varchar(4),ymov) + ' non Ë stata scelta una modalit‡ di pagamento'
 FROM paymentcommunicated
 JOIN expensevar
 	ON paymentcommunicated.idexp = expensevar.idexp
@@ -274,10 +276,10 @@ JOIN expensevar
 WHERE expensevar.kpaymenttransmission = @kpaymenttransmission
 	AND DATALENGTH(ISNULL(RTRIM(refexternaldoc),''))> @len_refexternaldoc)
 
--- CONTROLLO N. 5. Movimento di Spesa con Modalit√† di Pagamento non configurata
+-- CONTROLLO N. 5. Movimento di Spesa con Modalit‡ di Pagamento non configurata
 INSERT INTO #error (message)
 (SELECT 'Nel movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit√† di pagamento scelta non √® configurata, Andare in Configurazione - Anagrafica - Modalit√† di Pagamento'
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit‡ di pagamento scelta non Ë configurata, Andare in Configurazione - Anagrafica - Modalit‡ di Pagamento'
 FROM paymentcommunicated
 JOIN expensevar
 	ON paymentcommunicated.idexp = expensevar.idexp
@@ -286,10 +288,10 @@ JOIN paymethod
 WHERE expensevar.kpaymenttransmission = @kpaymenttransmission
 	AND (paymethod.methodbankcode IS NULL OR REPLACE(paymethod.methodbankcode,' ','') = '')
 )
--- CONTROLLO N. 6. Codice IBAN o ABI o CAB devono essere valorizzati nel caso di modalit√† di pagamento 53 e 63
+-- CONTROLLO N. 6. Codice IBAN o ABI o CAB devono essere valorizzati nel caso di modalit‡ di pagamento 53 e 63
 INSERT INTO #error (message)
 (SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit√† di pagamento scelta non √® stato assegnato il codice ABI / CAB.'
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit‡ di pagamento scelta non Ë stato assegnato il codice ABI / CAB.'
 FROM paymentcommunicated
 	JOIN paymethod
 	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -300,17 +302,17 @@ WHERE expensevar.kpaymenttransmission = @kpaymenttransmission
 	AND (
 		(paymentcommunicated.idcab IS NULL OR REPLACE(paymentcommunicated.idcab,' ','') = '')
 		OR (paymentcommunicated.idbank IS NULL OR REPLACE(paymentcommunicated.idbank,' ','') = '')
--- N.B. Giuseppe Rusciano scrive: Su richesta dell'Universit√† di Bari, stiamo commentando l'obbligatoriet√† dell'IBAN, 
+-- N.B. Giuseppe Rusciano scrive: Su richesta dell'Universit‡ di Bari, stiamo commentando l'obbligatoriet‡ dell'IBAN, 
 -- negli ultimi giorni di maggio la rimettiamo e nel caso la vogliono togliere di nuovo ci facciamo mandare una mail
--- in quanto dal 3 giugno 2008 chi non mette l'IBAN √® soggetto ad una sanzione di 1 euro
+-- in quanto dal 3 giugno 2008 chi non mette l'IBAN Ë soggetto ad una sanzione di 1 euro
 --		OR (paymentcommunicated.iban IS NULL OR REPLACE(paymentcommunicated.iban,' ','') = '')
 	)
 )
 
--- CONTROLLO N. 6. Codice BIC/SWIFT  devono essere valorizzati nel caso di modalit√† di pagamento 69 (Bonifico SEPA)
+-- CONTROLLO N. 6. Codice BIC/SWIFT  devono essere valorizzati nel caso di modalit‡ di pagamento 69 (Bonifico SEPA)
 INSERT INTO #error (message)
 (SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit√† di pagamento scelta non √® stato assegnato il codice BIC/SWIFT.'
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit‡ di pagamento scelta non Ë stato assegnato il codice BIC/SWIFT.'
 FROM paymentcommunicated
 	JOIN paymethod
 	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -324,10 +326,10 @@ WHERE expensevar.kpaymenttransmission = @kpaymenttransmission
 		 )
 	)
 	
--- CONTROLLO N. 6. Codice IBAN  o CC Estero devono essere valorizzati nel caso di modalit√† di pagamento 69 (Bonifico SEPA estero)
+-- CONTROLLO N. 6. Codice IBAN  o CC Estero devono essere valorizzati nel caso di modalit‡ di pagamento 69 (Bonifico SEPA estero)
 INSERT INTO #error (message)
 (SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit√† di pagamento scelta non √® stato assegnato il codice IBAN o il CONTO CORRENTE ESTERO.'
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit‡ di pagamento scelta non Ë stato assegnato il codice IBAN o il CONTO CORRENTE ESTERO.'
 FROM paymentcommunicated
 	JOIN paymethod
 	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -343,10 +345,10 @@ WHERE expensevar.kpaymenttransmission = @kpaymenttransmission
 		)
 	)
 	
--- CONTROLLO N. 6. Codice IBAN non deve essere italiano nel caso di modalit√† di pagamento 69 (Bonifico SEPA estero)
+-- CONTROLLO N. 6. Codice IBAN non deve essere italiano nel caso di modalit‡ di pagamento 69 (Bonifico SEPA estero)
 INSERT INTO #error (message)
 (SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit√† di pagamento scelta  (Bonifico SEPA) √® stato assegnato un codice IBAN ITALIANO.'
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit‡ di pagamento scelta  (Bonifico SEPA) Ë stato assegnato un codice IBAN ITALIANO.'
 FROM paymentcommunicated
 	JOIN paymethod
 	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -360,10 +362,10 @@ WHERE expensevar.kpaymenttransmission = @kpaymenttransmission
 		)
 	)
 	
--- CONTROLLO N. 7. Il codice ABI, CAB e il CIN non devono eccedere la lunghezza massima nel caso di modalit√† di pagamento 53 e 63
+-- CONTROLLO N. 7. Il codice ABI, CAB e il CIN non devono eccedere la lunghezza massima nel caso di modalit‡ di pagamento 53 e 63
 INSERT INTO #error (message)
 (SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit√† di pagamento il codice ABI eccede la lunghezza di '
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit‡ di pagamento il codice ABI eccede la lunghezza di '
 + CONVERT(varchar(3),@len_ABI) + ' caratteri e/o il codice CAB eccede la lunghezza di '
 + CONVERT(varchar(3),@len_CAB) + ' caratteri e/o il CIN eccede la lunghezza di '
 + CONVERT(varchar(3),@len_cin) + ' caratteri'
@@ -380,7 +382,7 @@ WHERE expensevar.kpaymenttransmission = @kpaymenttransmission
 	OR (DATALENGTH(paymentcommunicated.cin) > @len_cin)
 		)
 	)
--- CONTROLLO N. 8. Conto Corrente valorizzato e di lunghezza massima 12 caratteri nel caso di modalit√† di pagamento 52, 53 e 63
+-- CONTROLLO N. 8. Conto Corrente valorizzato e di lunghezza massima 12 caratteri nel caso di modalit‡ di pagamento 52, 53 e 63
 IF EXISTS
 (SELECT * FROM paymentcommunicated
 JOIN paymethod
@@ -401,7 +403,7 @@ BEGIN
 	INSERT INTO #error (message)
 	(SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
 	+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov)
-	+ ' nella modalit√† di pagamento non √® stato il C/C o la lunghezza del C/C eccede i '
+	+ ' nella modalit‡ di pagamento non Ë stato il C/C o la lunghezza del C/C eccede i '
 	+ CONVERT(varchar(2),@len_cc) + ' caratteri'
 	FROM paymentcommunicated
 	JOIN paymethod
@@ -434,7 +436,7 @@ WHERE R.idregistryclass IS NULL
 
 -- CONTROLLO N. 10
 INSERT INTO #error (message)
-SELECT distinct 'Correggere il codice della modalit√† di pagamento ' + pm.description + '. La lunghezza deve essere 2. '
+SELECT distinct 'Correggere il codice della modalit‡ di pagamento ' + pm.description + '. La lunghezza deve essere 2. '
 FROM expenselast el
 JOIN payment p
 	ON p.kpay = el.kpay
@@ -458,10 +460,10 @@ WHERE EV.kpaymenttransmission = @kpaymenttransmission
         AND len(pm.committeecode)<>1
 
 
--- CONTROLLO N. 11. Uso di modlait√† di pagamento NON ammesse dalla banca-  vedi 'MIF ABI-USI txt Multirecord - note V2200.pdf'
+-- CONTROLLO N. 11. Uso di modlait‡ di pagamento NON ammesse dalla banca-  vedi 'MIF ABI-USI txt Multirecord - note V2200.pdf'
 INSERT INTO #error (message)
 (SELECT 'Nel movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' √® stata usata una modalit√† di pagamento non prevista dalla banca.'
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' Ë stata usata una modalit‡ di pagamento non prevista dalla banca.'
 FROM paymentcommunicated
 JOIN paymethod
 	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -471,10 +473,10 @@ WHERE expensevar.kpaymenttransmission = @kpaymenttransmission
 	AND paymethod.methodbankcode NOT IN ('51','52','53','55','57','61','63','64','65','67','68','69','71','72')
 )
 
--- CONTROLLO N. 12. Modalit√† di Pagamento Esclusiva Cassiere
+-- CONTROLLO N. 12. Modalit‡ di Pagamento Esclusiva Cassiere
 INSERT INTO #error (message)
 (SELECT 'Nel movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit√† di pagamento scelta √® Esclusiva Cassiere. Sostituirla con una pi√π adeguata, al fine di attribuirne un significato pi√π consono nella trasmissione telematica. '
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit‡ di pagamento scelta Ë Esclusiva Cassiere. Sostituirla con una pi˘ adeguata, al fine di attribuirne un significato pi˘ consono nella trasmissione telematica. '
 FROM paymentcommunicated
 JOIN paymethod
 	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -513,7 +515,7 @@ BEGIN
 	INSERT INTO #error (message)
 		(SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
 		+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov)
-		+ ' nella modalit√† di pagamento non √® stato inserito il Codice contabilit√† speciale o la sua lunghezza supera i '
+		+ ' nella modalit‡ di pagamento non Ë stato inserito il Codice contabilit‡ speciale o la sua lunghezza supera i '
 		+ CONVERT(varchar(7),@lencodicecontabilitaspeciale) + ' caratteri'
 		FROM paymentcommunicated
         join expenselast
@@ -577,7 +579,7 @@ JOIN paymenttransmission t
 WHERE v.kpaymenttransmission = @kpaymenttransmission
 
 -- Attenzione! Altri controlli sono presenti nel testo della SP in quanto non era possibile calcolarli a priori
--- I controlli vengono riconosciuti in quanto il prefisso adoperato come linea di commento sar√† CONTROLLO N. x.
+-- I controlli vengono riconosciuti in quanto il prefisso adoperato come linea di commento sar‡ CONTROLLO N. x.
 -- Fine Sezione Controlli
 SET @cod_department = @cod_department + SUBSTRING(SPACE(@len_agencycode),1,@len_agencycode - DATALENGTH(@cod_department))
 
@@ -597,7 +599,7 @@ SELECT @expenseregphase = expenseregphase FROM  uniconfig
 -- Tabella dei pagamenti
 CREATE TABLE #payment
 (
-	opkind char(2), -- Pu√≤ assumere i valori A o VB
+	opkind char(2), -- PuÚ assumere i valori A o VB
 	ypaymenttransmission int,
 	npaymenttransmission int,
 	ydoc int,
@@ -654,9 +656,9 @@ CREATE TABLE #payment
 	CIG varchar(10),
 	cigcodeexpense varchar(10),
 	cigcodemandate varchar(10),
-	originalamount decimal(19,2), --> Mi serve per gli annulli parziali, perch√® devo inviare la testata MT con l'importo 
+	originalamount decimal(19,2), --> Mi serve per gli annulli parziali, perchË devo inviare la testata MT con l'importo 
 									-- decurtato dei sub annullati, e il SUB nell'MP con l'importo originale
-	txt varchar(200),-- E' il campo txt di payment che finir√†, insieme ad altri, nel record DM delle note
+	txt varchar(200),-- E' il campo txt di payment che finir‡, insieme ad altri, nel record DM delle note
 	info_fatture varchar(750),
 	bank_charges_exempt char(1),
     fincodefin    varchar(50), fintitle varchar(150),
@@ -868,7 +870,7 @@ SELECT
 -- Partita Iva estera
 	CASE
 		WHEN ctc.flaghuman = 'N' AND c.p_iva IS NOT NULL AND ASCII(SUBSTRING(c.p_iva,1,1)) NOT BETWEEN 48 AND 57
-		-- Se √® straniera la copiamo tale e quale. Quando verrr√† inserita nel Record MP verr√† interrogata nuovamente.		
+		-- Se Ë straniera la copiamo tale e quale. Quando verrr‡ inserita nel Record MP verr‡ interrogata nuovamente.		
 		THEN SUBSTRING(c.p_iva,1,@len_pi_estera)
 		ELSE NULL
 	END,
@@ -989,7 +991,7 @@ WHERE d.kpay IN (SELECT kpay FROM #paymentvar) --> Solo i mandati variati di Sio
 		-- Per gli annulli prendiamo solo i SUB non esitati
 		( (select count(*) FROM #paymentvar where varsiope = 'N')>=1 AND ISNULL((SELECT SUM(amount) FROM banktransaction WHERE yban = @y AND idexp = el.idexp), 0) = 0 )
 		OR
-		-- Per le var siope tutti i SUB esitati e non, purch√® abbiano subito della var. Siope
+		-- Per le var siope tutti i SUB esitati e non, purchË abbiano subito della var. Siope
 		(select count(*) FROM #paymentvar where varsiope = 'S')>=1 AND el.idexp in (select idexp FROM #paymentvar)
 		)
  
@@ -1005,7 +1007,7 @@ DECLARE @max_count_idpay int
 SET @max_count_idpay   = 500
 					
 INSERT INTO #error (message)
-SELECT 'Il mandato di pagamento n¬∞ ' + CONVERT(varchar(6),p.ndoc) + '/' + CONVERT(varchar(4),p.ydoc) 
+SELECT 'Il mandato di pagamento n∞ ' + CONVERT(varchar(6),p.ndoc) + '/' + CONVERT(varchar(4),p.ydoc) 
 + ' contiene un numero di beneficiari superiore a ' + CONVERT(varchar(4),@max_count_idpay )
 + ' Si consiglia di controllare i pagamenti contenuti nel mandato.'
 FROM #payment p
@@ -1078,14 +1080,14 @@ where cigcodeexpense is null and cigcodemandate is null
 UPDATE #payment SET CIG = ISNULL(cigcodeexpense,ISNULL(cigcodemandate,''))  --Codice CIG
 UPDATE #payment SET CUP = ISNULL(cupcodeexpense,ISNULL(cupcodedetail, ISNULL(cupcodeupb, ISNULL(cupcodefin,'')))) --Codice CUP
 -- Valorizzo il carico commissioni e spese solo una volta per i bonifici. Se nel presente elenco
--- quel percipiente compare pi√π di una volta, prendo il pagamento a importo massimo. In tutti gli altri casi 
+-- quel percipiente compare pi˘ di una volta, prendo il pagamento a importo massimo. In tutti gli altri casi 
 -- se si tratta di bonifico, specifico l'esenzione, per gli altri casi, non valorizzo nessun campo del flusso
 -- in modo che si applichi la convenzione di tesoreria
 
 -- BONIFICI 
 UPDATE #payment SET bank_charges_exempt  = 'N'
 WHERE  ISNULL(#payment.curramount,0) =  (SELECT MAX(curramount) FROM #payment B
-WHERE  B.idreg = #payment.idreg AND ISNULL(B.committeecode,'') = ISNULL(#payment.committeecode,'') -- a parit√† di modalit√† carico commissioni
+WHERE  B.idreg = #payment.idreg AND ISNULL(B.committeecode,'') = ISNULL(#payment.committeecode,'') -- a parit‡ di modalit‡ carico commissioni
 AND  B.idpaymethodTRS = #payment.idpaymethodTRS )
 AND    #payment.idexp = (SELECT top 1 idexp FROM #payment C
 WHERE  C.idreg = #payment.idreg AND ISNULL(C.committeecode,'') = ISNULL(#payment.committeecode,'') 
@@ -1099,7 +1101,7 @@ AND    #payment.idpaymethodTRS  = '53' -- solo per bonifici, specifica l'esenzio
 -- indipendentemente dalla convenzione di Tesoreria
 
 UPDATE #payment SET bank_charges_exempt  = 'C' WHERE bank_charges_exempt IS NULL -- 
-AND    #payment.idpaymethodTRS  <> '53' -- per tutte le altre modalit√† di pagamento,
+AND    #payment.idpaymethodTRS  <> '53' -- per tutte le altre modalit‡ di pagamento,
 -- specifica l'applicazione della normale convenzione di Tesoreria
 
 
@@ -1165,7 +1167,7 @@ BEGIN
 	UPDATE #payment SET codefin = REPLICATE('0',@len_codifica_bilancio)
 END
 
--- Se il coddice di bilancio non √® un numerico compatibile lo pone a 0
+-- Se il coddice di bilancio non Ë un numerico compatibile lo pone a 0
 UPDATE #payment SET codefin = REPLICATE('0',@len_codifica_bilancio) WHERE ( ISNUMERIC(ISNULL(codefin,'')) <> 1 )
 
 ----------------------------------------------------------------
@@ -1195,7 +1197,7 @@ SELECT @maxincomephase = MAX(nphase) FROM incomephase
 INSERT INTO #error (message)
 SELECT 'Il movimento di entrata ' + CONVERT(varchar(6),I.nmov) + '/' + CONVERT(varchar(4),I.ymov)
 + ' associato al movimento di spesa ' + CONVERT(varchar(6),E.nmov) + '/' + CONVERT(varchar(4),E.nmov)
-+ ' non √® stato inserito in una distinta di trasmissione'
++ ' non Ë stato inserito in una distinta di trasmissione'
 FROM #payment P
 JOIN income I
 	ON I.idpayment = P.idexp	
@@ -1253,8 +1255,8 @@ WHERE e.nphase = @maxincomephase
 
 
 
--- L'incasso reale sar√† suddiviso in due tranches, uno di importo parti al sospeso e non collegato alla spesa
--- l'altro sar√† un incasso virtuale  collegato alla spesa (in modo da ottenere complessivamente saldo zero ) e con idpro
+-- L'incasso reale sar‡ suddiviso in due tranches, uno di importo parti al sospeso e non collegato alla spesa
+-- l'altro sar‡ un incasso virtuale  collegato alla spesa (in modo da ottenere complessivamente saldo zero ) e con idpro
 -- fittizio pari a 2 (obblighiamo a fare le reversali singole in tali casi)
 INSERT INTO #pendingincome
 (
@@ -1287,8 +1289,8 @@ DECLARE @max_count_tax int
 SET @max_count_tax = 30
 
 --INSERT INTO #error (message)
---SELECT 'Il mandato di pagamento n¬∞ ' + CONVERT(varchar(6),t.ndoc) + '/' + CONVERT(varchar(4),t.ydoc) 
---+ ' √® collegato a un numero di ritenute superiore a ' + CONVERT(varchar(4),@max_count_tax)
+--SELECT 'Il mandato di pagamento n∞ ' + CONVERT(varchar(6),t.ndoc) + '/' + CONVERT(varchar(4),t.ydoc) 
+--+ ' Ë collegato a un numero di ritenute superiore a ' + CONVERT(varchar(4),@max_count_tax)
 --+ ' Si consiglia di controllare i pagamenti contenuti nel mandato e le reversali collegate.'
 --FROM #tax t
 --GROUP BY t.ydoc, t.ndoc
@@ -1302,7 +1304,7 @@ END
 
 
 -- se il pagamento principale, sottraendo le reversali delle ritenute associate ha un netto pari a zero, 
--- la modalit√† di pagamento  deve essere cambiata in pagamento interno 71
+-- la modalit‡ di pagamento  deve essere cambiata in pagamento interno 71
 
 --UPDATE #payment SET idpaymethodTRS = '71' -- Pagamento per cassa interno
 --WHERE  ISNULL(curramount,0) = ISNULL((SELECT SUM(curramount) FROM #tax WHERE #payment.idexp = #tax.idexp),0)
@@ -1494,9 +1496,9 @@ END
 
 ----  Controllo sui pagamenti a netto zero
 --INSERT INTO #error (message)
---SELECT 'Il mandato di pagamento n¬∞ ' + CONVERT(varchar(6),p.ndoc) + '/' + CONVERT(varchar(4),p.ydoc) 
---+ ' contiene il pagamento per cassa interno n¬∞ ' + CONVERT(varchar(6),e.nmov) + '/' + CONVERT(varchar(4),e.ymov) 
---+ ' che per√≤ non √® collegato a incassi di pari importo. ' 
+--SELECT 'Il mandato di pagamento n∞ ' + CONVERT(varchar(6),p.ndoc) + '/' + CONVERT(varchar(4),p.ydoc) 
+--+ ' contiene il pagamento per cassa interno n∞ ' + CONVERT(varchar(6),e.nmov) + '/' + CONVERT(varchar(4),e.ymov) 
+--+ ' che perÚ non Ë collegato a incassi di pari importo. ' 
 --+ ' Si consiglia di controllare i sub - movimenti del mandato e delle reversali collegate.'
 --FROM #payment p
 --join expenseview e on  p.idexp = e.idexp
@@ -1524,9 +1526,9 @@ BEGIN
 END
 
 -- Unificazione descrizioni di pagamento per movimenti di spesa che sono stati accorpati
--- L'unificazione della descrizione √® necessaria in quanto nella group by finale viene inserita anche la descrizione
+-- L'unificazione della descrizione Ë necessaria in quanto nella group by finale viene inserita anche la descrizione
 UPDATE #payment
-SET paymentdescr = 'ACCORPAMENTO PAGAMENTI' -- + SPACE(348) La formattazione l'ho postata alla fine, perch√® deve scrivere anche il CUP e CIG, ponendoli come prima info del campo 'casuale pagamento'
+SET paymentdescr = 'ACCORPAMENTO PAGAMENTI' -- + SPACE(348) La formattazione l'ho postata alla fine, perchË deve scrivere anche il CUP e CIG, ponendoli come prima info del campo 'casuale pagamento'
 WHERE
 	(SELECT COUNT(*)
 	FROM #payment p2
@@ -1555,7 +1557,7 @@ WHERE
 --  Controllo sui CIG e CUP 
  
 INSERT INTO #error (message)
-SELECT DISTINCT 'Il mandato di pagamento n¬∞ ' + CONVERT(varchar(6),p.ndoc) + '/' + CONVERT(varchar(4),p.ydoc) 
+SELECT DISTINCT 'Il mandato di pagamento n∞ ' + CONVERT(varchar(6),p.ndoc) + '/' + CONVERT(varchar(4),p.ydoc) 
 + ' contiene il pagamento ' 
 + CONVERT(varchar(6),e.nmov) + '/' + CONVERT(varchar(4),e.ymov)  + ' raggruppato con altri ' 
 + ' che tuttavia sono ora distinguibili per il CIG o il CUP. ' 
@@ -1698,12 +1700,12 @@ GROUP BY #payment.ypaymenttransmission, #payment.npaymenttransmission, #payment.
 	SUBSTRING(sorting.description,1,@len_desc_sort),#payment.idexp, 
 	#payment.cupcodeexpense, #payment.cupcodedetail,#payment.cupcodeupb, #payment.cupcodefin
 
--- CONTROLLO N. 12 Il numero di classificazioni non pu√≤ superare il limite massimo per ogni beneficiario
+-- CONTROLLO N. 12 Il numero di classificazioni non puÚ superare il limite massimo per ogni beneficiario
 DECLARE @max_sort_number int
 SET @max_sort_number = 30
 INSERT INTO #error (message)
 (SELECT 'Il mandato n. ' + CONVERT(varchar(6),ndoc) + '/' + CONVERT(varchar(4),ydoc)
-+ ' contiene pi√π di ' + CONVERT(varchar(2),@max_sort_number) + ' classificazioni SIOPE'
++ ' contiene pi˘ di ' + CONVERT(varchar(2),@max_sort_number) + ' classificazioni SIOPE'
 FROM #siope WHERE
 	(SELECT COUNT(distinct s2.sortcode) FROM #siope s2
 	WHERE s2.ypaymenttransmission = #siope.ypaymenttransmission
@@ -1735,7 +1737,7 @@ END
 --WHERE ltrim(rtrim(#payment.txt)) <> ''
 --GROUP BY ypaymenttransmission, npaymenttransmission, ndoc, idpay, 
 --		 ydoc, ndocformatted,txt
-if (@cod_department = '9004000') -- SECONDA UNIVERSIT√† NAPOLI
+if (@cod_department = '9004000') -- SECONDA UNIVERSIT‡ NAPOLI
 BEGIN
 INSERT INTO #note (ypaymenttransmission, npaymenttransmission, ydoc, ndoc, ndocformatted, idpay, nome_campo, testo)
 SELECT
@@ -1818,7 +1820,7 @@ JOIN expensebill ON #payment.idexp = expensebill.idexp
 --	INSERT INTO #error (message)
 --	SELECT DISTINCT 
 --	'I pagamenti  a copertura contenuti nella distinta ' + CONVERT(varchar(6),@n) + '/' + CONVERT(varchar(4),@y) + 
---	' non coprono interamente il sospeso di uscita n¬∞ ' + CONVERT(varchar(6),b.nbill) + '/' + CONVERT(varchar(4),b.ybill) 
+--	' non coprono interamente il sospeso di uscita n∞ ' + CONVERT(varchar(6),b.nbill) + '/' + CONVERT(varchar(4),b.ybill) 
 --	+ ' di importo corrente  ' + CONVERT(varchar(20), ISNULL(b.total,0 ) - ISNULL(b.reduction,0)) + '.'
 --	+ ' Si consiglia di controllare i pagamenti associati al sospeso.'
 --	FROM billview b
@@ -1893,7 +1895,7 @@ SELECT
 	SPACE(30) +
 	-- Gestione
 	CR + 
-	-- da Anno Residuo a Disponibilit√† Cassa (7 campi)
+	-- da Anno Residuo a Disponibilit‡ Cassa (7 campi)
 	REPLICATE('0',94) +
 	-- Filler EX Testata Classificazione (3 campi)
 	SPACE(32) +
@@ -1907,7 +1909,7 @@ SELECT
 	@desc_dept +
 	-- Indirizzo Ente
 	@address_dept +
-	-- Localit√† Ente
+	-- Localit‡ Ente
 	@location_dept +
 	-- Codice Ente
 	@cod_department +
@@ -1952,7 +1954,7 @@ SELECT
 		WHEN idpaymethodTRS ='61'THEN extracode 
 		ELSE REPLICATE('0',7) 
 	end +
-	-- Tipo Contabilit√† Ente ricevente
+	-- Tipo Contabilit‡ Ente ricevente
 	SPACE(1) +
 	-- Gestione Provvisoria 
 	SPACE(1) +
@@ -1964,11 +1966,11 @@ SELECT
 	address_ben +
 	-- C.A.P. Beneficiario
 	cap_ben + 
-	-- Localit√† Beneficiario
+	-- Localit‡ Beneficiario
 	location_ben +
 	-- Provincia Beneficiario
 	province_ben +
-	-- Partita IVA (Se la Partita IVA √® estera valorizzare il campo con 11 nove e contestualmente valorizzare
+	-- Partita IVA (Se la Partita IVA Ë estera valorizzare il campo con 11 nove e contestualmente valorizzare
 	-- il campo informazioni tesoriere - decisione presa dopo colloquio telefonico con Gagliardi)
 	/*
 		CASE
@@ -1977,7 +1979,7 @@ SELECT
 		ELSE pi_ben
 	END + 
 	*/
-	pi_ben + -->  SE Italiana sar√† gi√† stata valorizzata bene nella SELECT iniziale, SE Estera sar√† stata valorizzata con 11 nove. Quindi la leggiamo e basta.
+	pi_ben + -->  SE Italiana sar‡ gi‡ stata valorizzata bene nella SELECT iniziale, SE Estera sar‡ stata valorizzata con 11 nove. Quindi la leggiamo e basta.
 	-- Codice Fiscale
 	cf_ben +
 	-- Invio Avviso (per ora valorizzo a ' ' CHIEDERE a Francesco)
@@ -2031,7 +2033,7 @@ SELECT
 		WHEN idpaymethodTRS = '52' THEN cc
 		ELSE REPLICATE('0',@len_cc)
 	END +
-	-- Codice Ente Beneficiario (IMPOSTATO a '0000000' perch√© viene applicato sempre la mod. BONIFICO)
+	-- Codice Ente Beneficiario (IMPOSTATO a '0000000' perchÈ viene applicato sempre la mod. BONIFICO)
 	REPLICATE('0',7) +
 	------------------------------------------------------------------------------------------
 	--------------------------- INIZIO  BONIFICO SEPA O BONIFICO ESTERO ----------------------
@@ -2098,7 +2100,7 @@ SELECT
 	END +
 	-- Tipo Pagamento
 	desc_paymethod +
-	-- Codice Modalit√† Pagamento
+	-- Codice Modalit‡ Pagamento
 	idpaymethodTRS +
 	-- Importo Dettagli
 	SUBSTRING(REPLICATE('0',@len_amount),1,1 + @len_amount - 
@@ -2171,7 +2173,7 @@ SELECT
 	-- Informazioni Tesoriere
 	paymenthodistructions + 
 	CASE
--- Non dobbiamo pi√† interrogare il primo carattere, perch√® abbiamo introdotto il campo pi_ben_estera che contiente la p.iva estera oppure vale null.
+-- Non dobbiamo pi‡ interrogare il primo carattere, perchË abbiamo introdotto il campo pi_ben_estera che contiente la p.iva estera oppure vale null.
 		--WHEN ASCII(SUBSTRING(pi_ben,1,1)) NOT BETWEEN 48 AND 57
 		WHEN pi_ben_estera is not null
 		THEN @nota_pivaestera + pi_ben_estera + 
@@ -2364,7 +2366,7 @@ WHERE (select COUNT(*) FROM #paymentvar where varsiope = 'S')>=1
 GROUP BY #payment.ypaymenttransmission, #payment.npaymenttransmission, #payment.ydoc, #payment.ndoc, 
 #payment.ndocformatted, #payment.idpay, #expensebill.nbill
 
-if (@cod_department = '9004000') -- SECONDA UNIVERSIT√† NAPOLI
+if (@cod_department = '9004000') -- SECONDA UNIVERSIT‡ NAPOLI
 	BEGIN
 	INSERT INTO #trace (y, n, ndoc, nrow, out_str)
 	SELECT
@@ -2461,12 +2463,12 @@ REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(
 out_str,
-'√á','c'),'√ß','c'),'‚Ç¨','e'),'|',' '),'\',' '),'¬£',' '),'¬ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'√ô','u'),
-'√ñ','o'),'√ú','u'),'√ë','n'),'√ê','d'),'√ä','e'),'√ã','e'),'√é','i'),'√è','i'),'√î','o'),'√ï','o'),'√õ','u'),'√ù','y'),
-']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'√º','u'),'√¢','a'),'√§','a'),'√•','a'),'√™','e'),'√´','e'),'√Ø','i'),
-'√Æ','i'),'√Ñ','a'),'√Ö','a'),'√¥','o'),'√∂','o'),'√ª','u'),'√ø','y'),'√±','n'),'√Ç','a'),'¬•','y'),'√£','a'),'√É','a'),
-'√µ','o'),'√Ω','y'),'√©','e'),'√†','a'),'√®','e'),'√¨','i'),'√≤','o'),'√π','u'),'√°','a'),'√≠','i'),'√≥','o'),'√â','e'),
-'√Å','a'),'√Ä','a'),'√à','e'),'√ç','i'),'√å','i'),'√ì','o'),'√í','o'),'√ö','u'),
+'«','c'),'Á','c'),'Ä','e'),'|',' '),'\',' '),'£',' '),'ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'Ÿ','u'),
+'÷','o'),'‹','u'),'—','n'),'–','d'),' ','e'),'À','e'),'Œ','i'),'œ','i'),'‘','o'),'’','o'),'€','u'),'›','y'),
+']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'¸','u'),'‚','a'),'‰','a'),'Â','a'),'Í','e'),'Î','e'),'Ô','i'),
+'Ó','i'),'ƒ','a'),'≈','a'),'Ù','o'),'ˆ','o'),'˚','u'),'ˇ','y'),'Ò','n'),'¬','a'),'•','y'),'„','a'),'√','a'),
+'ı','o'),'˝','y'),'È','e'),'‡','a'),'Ë','e'),'Ï','i'),'Ú','o'),'˘','u'),'·','a'),'Ì','i'),'Û','o'),'…','e'),
+'¡','a'),'¿','a'),'»','e'),'Õ','i'),'Ã','i'),'”','o'),'“','o'),'⁄','u'),
 CHAR(9),' '),CHAR(10),' '),CHAR(13),' ')
 
 SELECT out_str FROM #trace ORDER BY y, n, ndoc, nrow
@@ -2484,4 +2486,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

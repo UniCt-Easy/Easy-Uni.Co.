@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Data;
@@ -120,8 +122,12 @@ namespace e2e {
 
 		    var mMandate = t.editDataRow(filterDoc, "mandate", "default");
 		    mMandate.EditNewCopy();		    
-		    var ds= t.saveFormDataNoBL(mMandate);
-		    Assert.IsNotNull(ds, "Copia Contratto Passivo completata");
+		    var res= t.saveFormDataNoBL(mMandate);
+
+
+		    Assert.AreEqual(0,res.Count, "Copia Contratto Passivo completata");
+
+		    var ds = mMandate.ds;
 
 			 
 			DataTable tMandate = ds.Tables["mandate"];
@@ -141,6 +147,11 @@ namespace e2e {
 			q filterDocNew = q.eq("idmankind", tMandate.Rows[0]["idmankind"]) & q.eq("yman", tMandate.Rows[0]["yman"]) & q.eq("nman", tMandate.Rows[0]["nman"]);
 			ds = t.maindeleteData(filterDocNew, "mandate", "default");
 			Assert.IsNull(ds, "Cancellazione Contratto Passivo(InsertCopy)completata");
+
+			mMandate.ds.AcceptChanges();
+			mMandate.dontWarnOnInsertCancel = true;
+			mMandate.linkedForm.Close();
+
 		}
 
 		[TestMethod]
@@ -211,13 +222,18 @@ namespace e2e {
 		    mEstimate.ds.Tables["estimate"].Columns["idestimkind"].DefaultValue = "CartaDocente_1";
 		    mEstimate.EditNewCopy();		    
 
-		    var ds= t.saveFormDataNoBL(mEstimate);
+		    var res= t.saveFormDataNoBL(mEstimate);
+
+		    Assert.AreEqual(0,res.Count, "Copia Contratto Attivo completata");
+
+		    var ds = mEstimate.ds;
+
+
 		    DataTable tEstimate = ds.Tables["estimate"];
 		    Assert.AreEqual("CartaDocente", ds.Tables["estimate"].Rows[0]["idestimkind"]);
 		    Assert.AreNotEqual(1, tEstimate.Rows[0]["nestim"]);
 
 
-			Assert.IsNotNull(ds, "Copia Contratto Attivo completata");
 
 			//Controlla che i campi da non copiare siano dbnull
 			
@@ -229,6 +245,11 @@ namespace e2e {
 			q.eq("nestim", tEstimate.Rows[0]["nestim"]);
 			ds = t.maindeleteData(filterDocNew, "estimate", "default");
 			Assert.IsNull(ds, "Cancellazione Contratto Attivo(InsertCopy)completata");
+
+
+			mEstimate.ds.AcceptChanges();
+			mEstimate.dontWarnOnInsertCancel = true;
+			mEstimate.linkedForm.Close();
 		}
 		[TestMethod]
 		public void testMetaDataEstimateKindCopy() {
@@ -239,11 +260,14 @@ namespace e2e {
 		    var mEstimateKind = t.editDataRow(filterDoc, "estimatekind", "default");
 		    mEstimateKind.EditNewCopy();
 		    mEstimateKind.ds.Tables["estimatekind"].Rows[0]["idestimkind"] = "CartaDocente_1";
-		    var ds= t.saveFormDataNoBL(mEstimateKind);
-            
-			Assert.IsNotNull(ds, "Copia Tipo Contratto Attivo completata");
+		    
+		    var res= t.saveFormDataNoBL(mEstimateKind);
 
-			//Controlla che i campi da non copiare siano dbnull
+		    Assert.AreEqual(0,res.Count, "Copia Tipo Contratto Attivo completata");
+
+		    var ds = mEstimateKind.ds;
+
+		    //Controlla che i campi da non copiare siano dbnull
 			DataTable tEstimatekind = ds.Tables["estimatekind"];
 			Assert.AreEqual("CartaDocente_1", tEstimatekind.Rows[0]["idestimkind"]);
 
@@ -290,6 +314,7 @@ namespace e2e {
 
 			ds = t.maindeleteData(filterDocNew, "epacc", "default");
 			Assert.IsNull(ds, "Cancellazione Accertamento di Budget (InsertCopy)completata");
+
 		}
 		[TestMethod]
 		public void testMetaDataMandateKindCopy() {
@@ -300,9 +325,10 @@ namespace e2e {
 		    var mMandateKind = t.editDataRow(filterDoc, "mandatekind", "default");
 		    mMandateKind.EditNewCopy();
 		    mMandateKind.ds.Tables["mandatekind"].Rows[0]["idmankind"] = "B_ORDINE_comm_AMZ";
-		    var ds= t.saveFormDataNoBL(mMandateKind);
-			Assert.IsNotNull(ds, "Copia Tipo Contratto Passivo completata");
+		    var res= t.saveFormDataNoBL(mMandateKind);
 
+			Assert.AreEqual(0,res.Count, "Copia Tipo Contratto Passivo completata");
+			var ds = mMandateKind.ds;
 			//Controlla che i campi da non copiare siano dbnull
 			DataTable tMandatekind = ds.Tables["mandatekind"];
 			Assert.AreEqual("B_ORDINE_comm_AMZ", tMandatekind.Rows[0]["idmankind"]);
@@ -563,7 +589,7 @@ namespace e2e {
 			//Assert.AreEqual(DBNull.Value, tInvoice.Rows[0]["docdate"]);
 			//Assert.AreEqual(DBNull.Value, tInvoice.Rows[0]["protocoldate"]);
 			//Assert.AreEqual(DBNull.Value, tInvoice.Rows[0]["iduniqueregister"]);
-			Assert.IsTrue(ds.Tables["uniqueregister"].Rows.Count == 0, "uniqueregister Ã¨ vuota");
+			Assert.IsTrue(ds.Tables["uniqueregister"].Rows.Count == 0, "uniqueregister è vuota");
 			Assert.AreEqual(DBNull.Value, tInvoice.Rows[0]["idinvkind_forwarder"]);
 			Assert.AreEqual(DBNull.Value, tInvoice.Rows[0]["yinv_forwarder"]);
 			Assert.AreEqual(DBNull.Value, tInvoice.Rows[0]["ninv_forwarder"]);
@@ -605,7 +631,7 @@ namespace e2e {
             q filterPagamento = q.eq("ayear", 2018) & q.eq("idexp", 1377765);
             DataTable tExpensetotal = t.testConn.readTable("expensetotal", filterPagamento);
             object ImportoMov = tExpensetotal.Rows[0]["curramount"];
-            Assert.AreEqual(SortAmount, ImportoMov, "Il pagamento Ã¨ totalmente classificato.");
+            Assert.AreEqual(SortAmount, ImportoMov, "Il pagamento è totalmente classificato.");
 
             ds.RejectChanges();
             
@@ -640,7 +666,7 @@ namespace e2e {
 			var ds = t.insertCopyData(filterDoc, "assetload", "default");
 			Assert.IsNotNull(ds, "Copia Buono di Carico completata");
 		    Assert.IsTrue(ds.Tables["assetload"].Rows.Count > 0, "Il buono carico esiste");
-		    Assert.IsTrue(ds.Tables["assetacquireview"].Rows.Count == 0, "Il buono carico Ã¨ vuoto");
+		    Assert.IsTrue(ds.Tables["assetacquireview"].Rows.Count == 0, "Il buono carico è vuoto");
 
 			//Controlla che i campi da non copiare siano dbnull
 			DataTable tAssetLoad= ds.Tables["assetload"];
@@ -666,7 +692,7 @@ namespace e2e {
 			Assert.IsTrue(ds.Tables["assetunload"].Rows.Count > 0, "Il buono scarico esiste");
 			Assert.IsTrue(ds.Tables["assetpieceview"].Rows.Count == 0, "Il buono scarico non contiene cespiti");
 			Assert.IsTrue(ds.Tables["assetamortizationunloadview"].Rows.Count == 0, "Il buono scarico non contiene ammortamenti");
-		    Assert.IsTrue(ds.Tables["assetunloadincome"].Rows.Count == 0, "Il buono scarico non Ã¨ collegato a mov. di entrata");
+		    Assert.IsTrue(ds.Tables["assetunloadincome"].Rows.Count == 0, "Il buono scarico non è collegato a mov. di entrata");
 			//Controlla che i campi da non copiare siano dbnull
 			DataTable tAssetUnLoad= ds.Tables["assetunload"];
 			Assert.AreEqual(DBNull.Value, tAssetUnLoad.Rows[0]["transmitted"]);
@@ -796,7 +822,7 @@ namespace e2e {
 		[TestMethod]
 		public void testDeleteEPFromInvoice() {
 			var t= new TestHelp(new DateTime(2018,12,31));
-			/*invÂ§164Â§2015Â§1Â§2*/
+			/*inv§164§2015§1§2*/
 			q filterInv = q.eq("idinvkind", 167) & q.eq("yinv", 2018) & q.eq("ninv", 4);
             t.binaryReplaceSet(filterInv,t.getTableSet(TestHelp.mainObject.invoice));
 		    DataTable tInvoice = t.testConn.readTable("invoice",filterInv);
@@ -832,22 +858,22 @@ namespace e2e {
 		}
 
 		/*
-		manÂ§VARI_GEST_nofatturaÂ§2018Â§1
-		paytransÂ§2018Â§1
-		manÂ§VARI_GEST_nofatturaÂ§2018Â§2
-		protransÂ§2018Â§1
-		payrollÂ§12394Â§2018Â§1
-		pettycashoperationÂ§29Â§2018Â§3
-		bankimportÂ§1147
-		estimÂ§DOCAMM-dimetÂ§2018Â§1
-		casconÂ§2018Â§2
-		taxpayÂ§2018Â§2Â§18
+		man§VARI_GEST_nofattura§2018§1
+		paytrans§2018§1
+		man§VARI_GEST_nofattura§2018§2
+		protrans§2018§1
+		payroll§12394§2018§1
+		pettycashoperation§29§2018§3
+		bankimport§1147
+		estim§DOCAMM-dimet§2018§1
+		cascon§2018§2
+		taxpay§2018§2§18
 		*/
 
 		[TestMethod]
 		public void testDeleteEPFromMandate() {
 			var t= new TestHelp(new DateTime(2018,12,31));
-			/*manÂ§VARI_GEST_nofatturaÂ§2018Â§1*/
+			/*man§VARI_GEST_nofattura§2018§1*/
 			q filterMan = q.eq("idmankind", "VARI_GEST_nofattura") & q.eq("yman", 2018) & q.eq("nman", 1);
 			t.binaryReplaceSet(filterMan, t.getTableSet(TestHelp.mainObject.mandate));
 			DataTable tMandate= t.testConn.readTable("mandate",filterMan);
@@ -884,7 +910,7 @@ namespace e2e {
 		[TestMethod]
 		public void testDeleteEPFromEstimate() {
 			var t= new TestHelp(new DateTime(2018,12,31));
-			/*estimÂ§DOCAMM-dimetÂ§2018Â§1*/
+			/*estim§DOCAMM-dimet§2018§1*/
 			q filterEstim = q.eq("idestimkind", "DOCAMM-dimet") & q.eq("yestim", 2018) & q.eq("nestim", 1);
 			t.binaryReplaceSet(filterEstim, t.getTableSet(TestHelp.mainObject.estimate));
 			DataTable tEstimate= t.testConn.readTable("estimate",filterEstim);
@@ -919,7 +945,7 @@ namespace e2e {
 		[TestMethod]
 		public void testDeleteEPFromProceedsTransmission() {
 			var t= new TestHelp(new DateTime(2018,12,31));
-			/*protransÂ§2018Â§1*/
+			/*protrans§2018§1*/
 			q filterProTrans = q.eq("kproceedstransmission", 9896);
 			t.binaryReplaceSet(filterProTrans, t.getTableSet(TestHelp.mainObject.proceedstransmission));
 			DataTable tProceedsTransmission= t.testConn.readTable("proceedstransmission",filterProTrans);
@@ -954,7 +980,7 @@ namespace e2e {
 		[TestMethod]
 		public void testDeleteEPFromPaymentTransmission() {
 			var t= new TestHelp(new DateTime(2018,12,31));
-			/*paytransÂ§2018Â§1*/
+			/*paytrans§2018§1*/
 			/*
 			 * 15010
 				15011
@@ -1059,7 +1085,7 @@ namespace e2e {
 		public void testDeleteEPFromPettyCashOperation() {
 			var t= new TestHelp(new DateTime(2019,12,31));
 			//idpettycash, yoperation, noperation
-			//pettycashoperationÂ§29Â§2019Â§9
+			//pettycashoperation§29§2019§9
 			q filterPettyCashOperation= q.eq("idpettycash", 29) & q.eq("yoperation", 2019) & q.eq("noperation", 9);
 			DataTable tPettyCashOperation= t.testConn.readTable("pettycashoperation",filterPettyCashOperation);
 			Assert.AreEqual(1, tPettyCashOperation.Rows.Count, "L'operazione fondo economale esiste");
@@ -1085,7 +1111,7 @@ namespace e2e {
 		public void testDeleteEPFromCasualContract() {
 			var t= new TestHelp(new DateTime(2019,12,31));
 			//ycon, ncon
-			//casconÂ§2019Â§3
+			//cascon§2019§3
 			q filterCasualContract=  q.eq("ycon", 2019) & q.eq("ncon", 3);
 			DataTable tCasualContract= t.testConn.readTable("casualcontract",filterCasualContract);
 			Assert.AreEqual(1, tCasualContract.Rows.Count, "L'operazione fondo economale esiste");
@@ -1113,7 +1139,7 @@ namespace e2e {
 		public void testDeleteEPFromWageAddition() {
 			var t= new TestHelp(new DateTime(2019,12,31));
 			//ycon, ncon
-			//wageaddÂ§2019Â§2
+			//wageadd§2019§2
 			q filterWageAddition=  q.eq("ycon", 2019) & q.eq("ncon", 2);
 			DataTable tWageAddition= t.testConn.readTable("wageaddition",filterWageAddition);
 			Assert.AreEqual(1, tWageAddition.Rows.Count, "L'operazione fondo economale esiste");
@@ -1160,7 +1186,7 @@ namespace e2e {
 
 			DataTable tEntry = t.testConn.readTable("entrytotal",filterEntry);
 			Assert.AreEqual(1, tEntry.Rows.Count, "La scrittura esiste");
-			Assert.AreEqual(0, CfgFn.GetNoNullDecimal(tEntry.Rows[0]["amount"]), "Il totalizzatore della scritture Ã¨ 0");
+			Assert.AreEqual(0, CfgFn.GetNoNullDecimal(tEntry.Rows[0]["amount"]), "Il totalizzatore della scritture è 0");
 		}
 
 		[TestMethod]
@@ -1249,12 +1275,12 @@ namespace e2e {
                 importo: 25.70m,
                 codiceConto:"PA2.4.01.02.001",
                 codiceUPB:"AIVdigspSERVIZI_GENERALI",
-                filterDetail:q.eq("description","Liquidazione nÂ° 6962/2018 Mand.  nÂ° 2494/2018")));
+                filterDetail:q.eq("description","Liquidazione n° 6962/2018 Mand.  n° 2494/2018")));
             Assert.IsTrue(t.checkScritturaDare(tPaymentTrasm.Rows[0],
                 importo: 66.23m,
                 codiceConto:"PA2.4.02.01.001",
                 codiceUPB:"AIVdigspSERVIZI_GENERALI",                
-                filterDetail:q.eq("description","Liquidazione nÂ° 6963/2018 Mand.  nÂ° 2494/2018")));
+                filterDetail:q.eq("description","Liquidazione n° 6963/2018 Mand.  n° 2494/2018")));
         }
 
         [TestMethod]
@@ -1273,7 +1299,7 @@ namespace e2e {
                 codiceConto:"CN1.2.08.06.003",
                 codiceUPB:"RIEsavoiapRICFIN14-17",
                 codiceCausale:"CN1.2.08.06.003",
-                filterDetail:q.eq("description","IVA Extraue - American Journal Experts - Invoice# S68Y4FL6Q of 23 jan 2018. Commissioni_bancarie. Imponibile al 22%  â‚¬ 20,39")));
+                filterDetail:q.eq("description","IVA Extraue - American Journal Experts - Invoice# S68Y4FL6Q of 23 jan 2018. Commissioni_bancarie. Imponibile al 22%  € 20,39")));
         }
 
         //[TestMethod]

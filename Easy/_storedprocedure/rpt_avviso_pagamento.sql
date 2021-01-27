@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_avviso_pagamento]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_avviso_pagamento]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_avviso_pagamento]
 GO
 
@@ -671,7 +673,7 @@ SELECT
 			-- + ISNULL(CONVERT(varchar(2),DAY(deputy.birthdate)),'') + '-' + ISNULL(CONVERT(varchar(2),MONTH(deputy.birthdate)),'')
 			-- + '-' + ISNULL(CONVERT(varchar(4),YEAR(deputy.birthdate)),'')
 		WHEN (#advice.idpaydisposition IS NOT NULL)
-			THEN isnull(PD.motive,P.motive) -- se la causale del dettaglio √® null prende quella del principale
+			THEN isnull(PD.motive,P.motive) -- se la causale del dettaglio Ë null prende quella del principale
 		ELSE ISNULL(S_MAIN_LAST.paymentdescr,'')
 	END as paymentdescr,
  	CASE WHEN #advice.idpaydisposition IS NOT NULL 
@@ -712,11 +714,11 @@ SELECT
 	END
 	AS footerpaymentadvice,
  	CASE 	
-		-- √® una disposizione e c'√® l'IBAN => Bonifico
+		-- Ë una disposizione e c'Ë l'IBAN => Bonifico
 		WHEN (#advice.idpaydisposition IS NOT NULL AND PD.iban IS NOT NULL) THEN 'N'
-		-- √® una disposizione e NON c'√® l'iban => Sportello
+		-- Ë una disposizione e NON c'Ë l'iban => Sportello
 		WHEN (#advice.idpaydisposition IS NOT NULL AND PD.iban IS NULL) THEN 'S'
-		-- √® un mandato normale con modalit√† sportello
+		-- Ë un mandato normale con modalit‡ sportello
 		WHEN ((paymethod.flag & 8 <>0) and (paymethod.flag & 1 <>0) ) THEN 'S'
 		ELSE 'N'
 	END
@@ -783,4 +785,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

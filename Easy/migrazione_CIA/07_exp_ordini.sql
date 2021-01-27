@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[CHARINDEX_BIN]') and OBJECTPROPERTY(id, N'IsScalarFunction') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[CHARINDEX_BIN]') and OBJECTPROPERTY(id, N'IsScalarFunction') = 1)
     DROP FUNCTION CHARINDEX_BIN;
 GO
 
@@ -126,7 +128,7 @@ SELECT
 	DBO.STRFILTER(O.NUMERO_ORDINE,'0123456789') as 'numero_cpassivo',
 	O.DATA_EMISSIONE as 'datacont',
 	O.INDIRIZZO_CONSEGNA as 'indcons',
-	CASE when  len(O.MODALITA_CONSEGNA)<=50  then O.MODALITA_CONSEGNA --> max len √® 100, quindi 50 qua, 50 nelle note
+	CASE when  len(O.MODALITA_CONSEGNA)<=50  then O.MODALITA_CONSEGNA --> max len Ë 100, quindi 50 qua, 50 nelle note
 		when  len(O.MODALITA_CONSEGNA)>50  then  substring(O.MODALITA_CONSEGNA,1,50)
 		Else null
 	END as 'datacons',
@@ -146,9 +148,9 @@ SELECT
 	CASE 
 		/*	-- 22 + 50 = 72, restano 328	. Le note_ordine hanno lunghezza 500, mentre O.note arriva a 686, quindi max 186 verranno scritti qui. 	*/
 		when  (len(O.MODALITA_CONSEGNA)>50 and len(O.note)>500 ) 
-		then 'Mod.Consegna(2¬∞p.):' + substring(O.MODALITA_CONSEGNA, 51, len(O.MODALITA_CONSEGNA)-50) + '. '+ 'Note(2¬∞p.):' + substring(O.NOTE,501,len(O.NOTE)-500) 
-		when  len(O.MODALITA_CONSEGNA)>50  then 'Mod.Consegna(2¬∞parte):' + substring(O.MODALITA_CONSEGNA, 51, len(O.MODALITA_CONSEGNA)-50) 
-		when  len(O.note)>500 then 'Note(2¬∞p.):' + substring(O.NOTE, 501, len(O.NOTE)-500) 
+		then 'Mod.Consegna(2∞p.):' + substring(O.MODALITA_CONSEGNA, 51, len(O.MODALITA_CONSEGNA)-50) + '. '+ 'Note(2∞p.):' + substring(O.NOTE,501,len(O.NOTE)-500) 
+		when  len(O.MODALITA_CONSEGNA)>50  then 'Mod.Consegna(2∞parte):' + substring(O.MODALITA_CONSEGNA, 51, len(O.MODALITA_CONSEGNA)-50) 
+		when  len(O.note)>500 then 'Note(2∞p.):' + substring(O.NOTE, 501, len(O.NOTE)-500) 
 		else null
 	END as noterich ,-- lunghezza  400 Tipo:         Stringa Descrizione: Note richiedente
 	null as 'resp', 
@@ -180,7 +182,7 @@ SELECT
 		else 'N' 
 	END as 'attivo',
 	D.numero_dettaglio_o as 'nriga_cpassivo',
-	substring(D.descrizione_bene,1,150) as 'descrdett',-- IMPORTANTE : la max len √® 250, la parte restante verr√† scritta in 'annotation del detail'
+	substring(D.descrizione_bene,1,150) as 'descrdett',-- IMPORTANTE : la max len Ë 250, la parte restante verr‡ scritta in 'annotation del detail'
 	null as 'promiscuo',
 	CONVERT(decimal(19,2),CASE WHEN D.esercizio>=2002 THEN D.prezzo_unitario 
 	ELSE ROUND(D.prezzo_unitario/1936.27,2) END) 
@@ -199,18 +201,18 @@ SELECT
 	case when D.stato='N' then 'N' 	
 		else 'S' 
 	END as 'toinvoice',
-				---S|N Descrizione: Proponi per inserimento in fatture Non c'√® un'info a riguardo, c'√® solo il tipo fatturazione, 
-				--ma √® un concetto diverso:Il campo ‚ÄòTipo fatturazione‚Äô serve per indicare
+				---S|N Descrizione: Proponi per inserimento in fatture Non c'Ë un'info a riguardo, c'Ë solo il tipo fatturazione, 
+				--ma Ë un concetto diverso:Il campo ëTipo fatturazioneí serve per indicare
 				/* al sistema se la pratica amministrativa afferisce
-				all‚Äôattivit√† istituzionale dell‚Äôunit√† organizzativa oppure all‚Äôattivit√† commerciale: in base alla
-				scelta effettuata, il sistema sapr√† quali aliquote Iva proporre all‚Äôutente durante la registrazione del
+				allíattivit‡ istituzionale dellíunit‡ organizzativa oppure allíattivit‡ commerciale: in base alla
+				scelta effettuata, il sistema sapr‡ quali aliquote Iva proporre allíutente durante la registrazione del
 				documento.*/
 	CASE 	when o.tipo_fatturazione = 'I' then '1'
 			when o.tipo_fatturazione = 'C' then '2'
 	else '4'
 	END as 'tipoattivita',
 	U.codeupb as 'codiceupb',
-	'1' as 'nfasespesa',--> in documento_contabile  D.S.00.1.2001/125 si evince che l'impegno √® la fase 1
+	'1' as 'nfasespesa',--> in documento_contabile  D.S.00.1.2001/125 si evince che l'impegno Ë la fase 1
     null as 'esercmovspesacontimpon',
     null as 'nummovspesacontimpon',
     null as 'esercmovspesacontiva',
@@ -220,8 +222,8 @@ SELECT
 	D.inizio as 'compstart',
 	D.fine as 'compstop',
 	CASE when (len(D.DESCRIZIONE_BENE)>150 and I.ymov is not null)
-		then 'Mov.eserc.' + convert(varchar(4), I.ymov) + ' N.'+ convert(varchar(20),I.nmov) + '.'+' Descr.Bene (2¬∞parte): '+	substring(D.DESCRIZIONE_BENE, 151, len(D.DESCRIZIONE_BENE)-150) 
-		when len(D.DESCRIZIONE_BENE)>150 then  'Descr.Bene (2¬∞parte): '+	substring(D.DESCRIZIONE_BENE, 151, len(D.DESCRIZIONE_BENE)-150)
+		then 'Mov.eserc.' + convert(varchar(4), I.ymov) + ' N.'+ convert(varchar(20),I.nmov) + '.'+' Descr.Bene (2∞parte): '+	substring(D.DESCRIZIONE_BENE, 151, len(D.DESCRIZIONE_BENE)-150) 
+		when len(D.DESCRIZIONE_BENE)>150 then  'Descr.Bene (2∞parte): '+	substring(D.DESCRIZIONE_BENE, 151, len(D.DESCRIZIONE_BENE)-150)
 		when I.ymov is not null then 'Mov.eserc.' + convert(varchar(4), I.ymov) + ' N.'+ convert(varchar(20),I.nmov)+ '.'
 		else null
 	END as 'annotations', --> lunghezza 400
@@ -255,4 +257,3 @@ GO
 	---exec exp_ordini 'A.DIMSA'
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
-	

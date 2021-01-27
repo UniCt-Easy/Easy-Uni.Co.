@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -734,13 +736,13 @@ namespace admpay_default {
             AskTask compito = new AskTask(0);
             DialogResult dr = compito.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "Non Ë stato scelto alcun compito", "Avvertimento");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stato scelto alcun compito", "Avvertimento");
                 return;
             }
 
             //Riempie il datatable MData leggendo dal foglio Excel
             if (!LeggiFile()) {
-                MessageBox.Show(this, "Errore nell'apertura del file");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nell'apertura del file");
                 return;
             }
             //Arrotonda a due cifre decimali la colonna importo (dovrebbe esistere)
@@ -755,7 +757,7 @@ namespace admpay_default {
             if (!CreaHashTable(compito.Choosen)) {
                 FrmError frm = new FrmError(tErrorLog);
                 DialogResult dr1 = frm.ShowDialog();
-                MessageBox.Show(this, "Errore nella fase di raggruppamento dei dati");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella fase di raggruppamento dei dati");
                 return;
             }
 
@@ -824,7 +826,7 @@ namespace admpay_default {
                 msg = "Generazione dei Pseudo Movimenti fallita!";
                 mbi = MessageBoxIcon.Error;
             }
-			MessageBox.Show(this, msg, "Responso Salvataggio", MessageBoxButtons.OK, mbi);
+			MetaFactory.factory.getSingleton<IMessageShower>().Show(this, msg, "Responso Salvataggio", MessageBoxButtons.OK, mbi);
 			dsImport.Clear();
 			dsImport.AcceptChanges();
 		}
@@ -916,7 +918,7 @@ namespace admpay_default {
             object idsorkind_idaccmotivegroup1 = rWageImportSetup["idsorkind_accmotivegroup1"];
             object idsorkind_idaccmotivegroup2 = rWageImportSetup["idsorkind_accmotivegroup2"];
             if ((idsorkind_idaccmotivegroup1 == DBNull.Value) && (idsorkind_idaccmotivegroup2 == DBNull.Value)) {
-                MessageBox.Show(this, "Non sono state impostate le classificazioni per la generazione delle scritture E/P");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non sono state impostate le classificazioni per la generazione delle scritture E/P");
                 return true;
             }
 
@@ -1006,7 +1008,7 @@ namespace admpay_default {
                 new DataColumn[] { TT3.Columns["yentry"], TT3.Columns["nentry"], TT3.Columns["ndetail"] },
                 false);
             if (TT3.Rows.Count > 0) {
-                MessageBox.Show("Ci sono ratei associati alle scritture che saranno scollegati. Sar‡ " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono ratei associati alle scritture che saranno scollegati. Sar‡ " +
                     "necessario ricollegarli a mano");
                 foreach (DataRow R3 in TT3.Rows) R3.Delete();
             }
@@ -1070,7 +1072,7 @@ namespace admpay_default {
                 }
             }
             catch (Exception ex) {
-                MessageBox.Show(this, ex.Message);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, ex.Message);
             }
 		}
 
@@ -1822,7 +1824,7 @@ namespace admpay_default {
 			// Passo 1. Proiezione
             //bool res = proiettaDati(tSource, IoE, task);
             //if (!res) {
-            //    MessageBox.Show(this, "Si sono verificati dei problemi nella codifica dei dati",
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si sono verificati dei problemi nella codifica dei dati",
             //        "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //}
 
@@ -1873,7 +1875,7 @@ namespace admpay_default {
             DataRow [] WIS = dsImport.Tables["wageimportsetup"].Select(QHC.CmpEq("kind", task));
             if (WIS.Length == 0) {
                 string msg = "Tabella di configurazione importazione stipendi vuota per il compito scelto";
-                MessageBox.Show(this, msg);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, msg);
                 fillLog(msg);
                 return false;
             }
@@ -1888,7 +1890,7 @@ namespace admpay_default {
                 DataTable tSK = Meta.Conn.SQLRunner(query);
                 if (tSK == null) {
                     string msg1 = "Errore nell'estrazione dei dati dal tipo classificazione " + field;
-                    MessageBox.Show(this, msg1);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, msg1);
                     fillLog(msg1);
                     return false;
                 }
@@ -2093,13 +2095,13 @@ namespace admpay_default {
             dsImport.Clear();
             riempiTabelle();
             if (!generaMovPrincipali("I")) {
-                MessageBox.Show(this, "Errore nella generazione dei movimenti finanziari di entrata");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella generazione dei movimenti finanziari di entrata");
                 dsFinancial.Clear();
                 dsFinancial.AcceptChanges();
                 return;
             };
             if (!generaMovPrincipali("E")) {
-                MessageBox.Show(this, "Errore nella generazione dei movimenti finanziari di spesa");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella generazione dei movimenti finanziari di spesa");
                 dsFinancial.Clear();
                 dsFinancial.AcceptChanges();
                 return;
@@ -2268,7 +2270,7 @@ namespace admpay_default {
                 string filterimp = QHS.CmpEq(idMovField, myMImp[idMovField]);
                 DataRow[] MImp = DBImpMov.Select(filterimp);
                 if (MImp.Length == 0) {
-                    MessageBox.Show("Errore, il movimento con " + idMovField + "=" + myMImp[idMovField].ToString() +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore, il movimento con " + idMovField + "=" + myMImp[idMovField].ToString() +
                         " non Ë stato trovato nell'anno corrente.");
                     RemoveDummyCols();
                     return false;
@@ -2281,10 +2283,10 @@ namespace admpay_default {
                 string filter = QHC.CmpKey(myMImp);
                 if (dsImport.Tables[tAdmPayMov].Select(filter).Length == 0) {
                     if (IoE == "I")
-                        MessageBox.Show("Il meta-accertamento n." + myMImp["nassessment"].ToString() +
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Il meta-accertamento n." + myMImp["nassessment"].ToString() +
                             " non ha incassi collegati e sar‡ ignorato");
                     else
-                        MessageBox.Show("Il meta-impegno n." + myMImp["nappropriation"].ToString() +
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Il meta-impegno n." + myMImp["nappropriation"].ToString() +
                             " non ha pagamenti collegati e sar‡ ignorato");
                     myMImp.Delete();
                 }
@@ -2297,12 +2299,12 @@ namespace admpay_default {
 				DataRow []rAppAss_LISTA = dsImport.Tables[tAppAss].Select(fAppr);
                 if (rAppAss_LISTA.Length == 0) {
                     if (IoE=="I"){
-                        MessageBox.Show("Il meta movimento di entrata n." + R["nincome"].ToString() + " non Ë associato ad un meta accertamento");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Il meta movimento di entrata n." + R["nincome"].ToString() + " non Ë associato ad un meta accertamento");
                         RemoveDummyCols();
                         return false;
                     }
                     if (IoE == "E") {
-                        MessageBox.Show("Il meta movimento di spesa n." + R["nexpense"].ToString() + " non Ë associato ad un meta impegno");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Il meta movimento di spesa n." + R["nexpense"].ToString() + " non Ë associato ad un meta impegno");
                         RemoveDummyCols();
                         return false;
                     }
@@ -2371,7 +2373,7 @@ namespace admpay_default {
                             object registry = Meta.Conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", codicecreddeb), "title");
                             DataRow ModPagam = CfgFn.ModalitaPagamentoDefault(Meta.Conn, codicecreddeb);
                             if (ModPagam == null) {
-                                MessageBox.Show(this,
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                     "E' necessario che sia definita almeno una modalit‡ di pagamento per il percipiente " +
                                     "\"" + registry.ToString() + "\"\n\n" +
                                     "Dati non salvati", "Errore", MessageBoxButtons.OK);
@@ -2487,12 +2489,12 @@ namespace admpay_default {
             ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
             bool res = ga.GeneraAutomatismiAfterPost(true);
             if (!res) {
-                MessageBox.Show(this, "Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
             }
             else {
                 res = ga.doPost(Meta.Dispatcher);
                 if (res) {
-                    MessageBox.Show(this, "Salvataggio dei movimenti finanziari avvenuto con successo");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Salvataggio dei movimenti finanziari avvenuto con successo");
                     if (DS.admpay.Rows.Count > 0) {
                         DS.admpay.Rows[0]["processed"] = "S";
                         Meta.SaveFormData();
@@ -2500,7 +2502,7 @@ namespace admpay_default {
                     // Qui devo ricopiare i dati nel Dataset principale
                 }
                 else {
-                    MessageBox.Show(this, "Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
                 }
             }
             dsFinancial.Clear();
@@ -2610,7 +2612,7 @@ namespace admpay_default {
                 ReadCurrentSheet();
             }
             catch (Exception ex) {
-                MessageBox.Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
                 return false;
             }
 

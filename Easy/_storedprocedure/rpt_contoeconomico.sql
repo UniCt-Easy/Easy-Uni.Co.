@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_contoeconomico]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_contoeconomico]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_contoeconomico]
 GO
 
@@ -389,7 +391,7 @@ DECLARE @PY_C_C17 decimal(19,2)
 SET @PY_C_C17 = @PY_C_C17a + @PY_C_C17b + @PY_C_C17c + @PY_C_C17d
 DECLARE @PY_C_C decimal(19,2)
 SET @PY_C_C = @PY_C_C17
- --Attenzione i COSTI presenti nella lettera D non devono essere cambiati di segno perch√© sono presenti nella stessa sezione dei ricavi
+ --Attenzione i COSTI presenti nella lettera D non devono essere cambiati di segno perchÈ sono presenti nella stessa sezione dei ricavi
 DECLARE @PY_C_D19a decimal(19,2)
 SET @PY_C_D19a = 
 ISNULL(
@@ -447,7 +449,7 @@ DECLARE @PY_C_D19 decimal(19,2)
 SET @PY_C_D19 = @PY_C_D19a + @PY_C_D19b + @PY_C_D19c
 DECLARE @PY_C_D decimal(19,2)
 SET @PY_C_D = @PY_C_D19
- --Attenzione i COSTI presenti nella lettera E non devono essere cambiati di segno perch√© sono presenti nella stessa sezione dei ricavi
+ --Attenzione i COSTI presenti nella lettera E non devono essere cambiati di segno perchÈ sono presenti nella stessa sezione dei ricavi
 DECLARE @PY_C_E21a decimal(19,2)
 SET @PY_C_E21a = 
 ISNULL(
@@ -1306,7 +1308,7 @@ ISNULL(
 ,0)
 DECLARE @C_B decimal(19,2)
 SET @C_B = @C_B6 + @C_B7 + @C_B8 + @C_B9 + @C_B10 + @C_B11 + @C_B12 + @C_B13 + @C_B14
- --Attenzione i COSTI presenti nella lettera C non devono essere cambiati di segno perch√© sono presenti nella stessa sezione dei ricavi
+ --Attenzione i COSTI presenti nella lettera C non devono essere cambiati di segno perchÈ sono presenti nella stessa sezione dei ricavi
 DECLARE @C_C17a decimal(19,2)
 SET @C_C17a = 
 ISNULL(
@@ -1379,7 +1381,7 @@ DECLARE @C_C17 decimal(19,2)
 SET @C_C17 = @C_C17a + @C_C17b + @C_C17c + @C_C17d
 DECLARE @C_C decimal(19,2)
 SET @C_C = @C_C17
- --Attenzione i COSTI presenti nella lettera D non devono essere cambiati di segno perch√© sono presenti nella stessa sezione dei ricavi
+ --Attenzione i COSTI presenti nella lettera D non devono essere cambiati di segno perchÈ sono presenti nella stessa sezione dei ricavi
 DECLARE @C_D19a decimal(19,2)
 SET @C_D19a = 
 ISNULL(
@@ -1435,7 +1437,7 @@ DECLARE @C_D19 decimal(19,2)
 SET @C_D19 = @C_D19a + @C_D19b + @C_D19c
 DECLARE @C_D decimal(19,2)
 SET @C_D = @C_D19
- --Attenzione i COSTI presenti nella lettera E non devono essere cambiati di segno perch√© sono presenti nella stessa sezione dei ricavi
+ --Attenzione i COSTI presenti nella lettera E non devono essere cambiati di segno perchÈ sono presenti nella stessa sezione dei ricavi
 DECLARE @C_E21a decimal(19,2)
 SET @C_E21a = 
 ISNULL(
@@ -2104,4 +2106,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

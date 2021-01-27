@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -190,6 +192,10 @@ namespace payroll_default {//cedolino//
 			this.btnModificaStorno = new System.Windows.Forms.Button();
 			this.btnInserisciStorno = new System.Windows.Forms.Button();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.gboxUPB = new System.Windows.Forms.GroupBox();
+			this.txtUPB = new System.Windows.Forms.TextBox();
+			this.txtDescrUPB = new System.Windows.Forms.TextBox();
+			this.btnUPBCode = new System.Windows.Forms.Button();
 			this.btnGeneraPreImpegni = new System.Windows.Forms.Button();
 			this.btnViewPreimpegni = new System.Windows.Forms.Button();
 			this.labEP = new System.Windows.Forms.Label();
@@ -199,10 +205,6 @@ namespace payroll_default {//cedolino//
 			this.btnVisualizzaEP = new System.Windows.Forms.Button();
 			this.btnOk = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
-			this.gboxUPB = new System.Windows.Forms.GroupBox();
-			this.txtUPB = new System.Windows.Forms.TextBox();
-			this.txtDescrUPB = new System.Windows.Forms.TextBox();
-			this.btnUPBCode = new System.Windows.Forms.Button();
 			this.DS = new payroll_default.vistaForm();
 			this.gboxContratto.SuspendLayout();
 			this.grpComune.SuspendLayout();
@@ -554,15 +556,16 @@ namespace payroll_default {//cedolino//
 			// 
 			// label15
 			// 
-			this.label15.Location = new System.Drawing.Point(240, 224);
+			this.label15.Location = new System.Drawing.Point(230, 221);
 			this.label15.Name = "label15";
-			this.label15.Size = new System.Drawing.Size(100, 23);
+			this.label15.Size = new System.Drawing.Size(92, 23);
 			this.label15.TabIndex = 20;
 			this.label15.Text = "Compenso netto";
+			this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// txtDataFine
 			// 
-			this.txtDataFine.Location = new System.Drawing.Point(120, 176);
+			this.txtDataFine.Location = new System.Drawing.Point(120, 207);
 			this.txtDataFine.Name = "txtDataFine";
 			this.txtDataFine.Size = new System.Drawing.Size(104, 20);
 			this.txtDataFine.TabIndex = 16;
@@ -570,7 +573,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// txtDataInizio
 			// 
-			this.txtDataInizio.Location = new System.Drawing.Point(120, 208);
+			this.txtDataInizio.Location = new System.Drawing.Point(120, 184);
 			this.txtDataInizio.Name = "txtDataInizio";
 			this.txtDataInizio.Size = new System.Drawing.Size(104, 20);
 			this.txtDataInizio.TabIndex = 15;
@@ -578,16 +581,16 @@ namespace payroll_default {//cedolino//
 			// 
 			// label14
 			// 
-			this.label14.Location = new System.Drawing.Point(8, 176);
+			this.label14.Location = new System.Drawing.Point(27, 207);
 			this.label14.Name = "label14";
-			this.label14.Size = new System.Drawing.Size(100, 23);
+			this.label14.Size = new System.Drawing.Size(81, 23);
 			this.label14.TabIndex = 19;
 			this.label14.Text = "Data Fine:";
 			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// label13
 			// 
-			this.label13.Location = new System.Drawing.Point(24, 208);
+			this.label13.Location = new System.Drawing.Point(24, 184);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(88, 23);
 			this.label13.TabIndex = 18;
@@ -839,6 +842,55 @@ namespace payroll_default {//cedolino//
 			this.tabPage1.Text = "E/P";
 			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
+			// gboxUPB
+			// 
+			this.gboxUPB.Controls.Add(this.txtUPB);
+			this.gboxUPB.Controls.Add(this.txtDescrUPB);
+			this.gboxUPB.Controls.Add(this.btnUPBCode);
+			this.gboxUPB.Location = new System.Drawing.Point(19, 160);
+			this.gboxUPB.Name = "gboxUPB";
+			this.gboxUPB.Size = new System.Drawing.Size(305, 104);
+			this.gboxUPB.TabIndex = 30;
+			this.gboxUPB.TabStop = false;
+			this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
+			// 
+			// txtUPB
+			// 
+			this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtUPB.Location = new System.Drawing.Point(8, 77);
+			this.txtUPB.Name = "txtUPB";
+			this.txtUPB.Size = new System.Drawing.Size(288, 20);
+			this.txtUPB.TabIndex = 5;
+			this.txtUPB.Tag = "upb.codeupb?x";
+			// 
+			// txtDescrUPB
+			// 
+			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDescrUPB.Location = new System.Drawing.Point(175, 9);
+			this.txtDescrUPB.Multiline = true;
+			this.txtDescrUPB.Name = "txtDescrUPB";
+			this.txtDescrUPB.ReadOnly = true;
+			this.txtDescrUPB.Size = new System.Drawing.Size(121, 62);
+			this.txtDescrUPB.TabIndex = 4;
+			this.txtDescrUPB.TabStop = false;
+			this.txtDescrUPB.Tag = "upb.title";
+			// 
+			// btnUPBCode
+			// 
+			this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
+			this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.btnUPBCode.Location = new System.Drawing.Point(8, 51);
+			this.btnUPBCode.Name = "btnUPBCode";
+			this.btnUPBCode.Size = new System.Drawing.Size(112, 20);
+			this.btnUPBCode.TabIndex = 2;
+			this.btnUPBCode.TabStop = false;
+			this.btnUPBCode.Tag = "manage.upb.tree";
+			this.btnUPBCode.Text = "UPB:";
+			this.btnUPBCode.UseVisualStyleBackColor = false;
+			// 
 			// btnGeneraPreImpegni
 			// 
 			this.btnGeneraPreImpegni.Location = new System.Drawing.Point(19, 91);
@@ -916,55 +968,6 @@ namespace payroll_default {//cedolino//
 			this.btnCancel.TabIndex = 23;
 			this.btnCancel.Tag = "";
 			this.btnCancel.Text = "Annulla";
-			// 
-			// gboxUPB
-			// 
-			this.gboxUPB.Controls.Add(this.txtUPB);
-			this.gboxUPB.Controls.Add(this.txtDescrUPB);
-			this.gboxUPB.Controls.Add(this.btnUPBCode);
-			this.gboxUPB.Location = new System.Drawing.Point(19, 160);
-			this.gboxUPB.Name = "gboxUPB";
-			this.gboxUPB.Size = new System.Drawing.Size(305, 104);
-			this.gboxUPB.TabIndex = 30;
-			this.gboxUPB.TabStop = false;
-			this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
-			// 
-			// txtUPB
-			// 
-			this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtUPB.Location = new System.Drawing.Point(8, 77);
-			this.txtUPB.Name = "txtUPB";
-			this.txtUPB.Size = new System.Drawing.Size(288, 20);
-			this.txtUPB.TabIndex = 5;
-			this.txtUPB.Tag = "upb.codeupb?x";
-			// 
-			// txtDescrUPB
-			// 
-			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescrUPB.Location = new System.Drawing.Point(175, 9);
-			this.txtDescrUPB.Multiline = true;
-			this.txtDescrUPB.Name = "txtDescrUPB";
-			this.txtDescrUPB.ReadOnly = true;
-			this.txtDescrUPB.Size = new System.Drawing.Size(121, 62);
-			this.txtDescrUPB.TabIndex = 4;
-			this.txtDescrUPB.TabStop = false;
-			this.txtDescrUPB.Tag = "upb.title";
-			// 
-			// btnUPBCode
-			// 
-			this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
-			this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.btnUPBCode.Location = new System.Drawing.Point(8, 51);
-			this.btnUPBCode.Name = "btnUPBCode";
-			this.btnUPBCode.Size = new System.Drawing.Size(112, 20);
-			this.btnUPBCode.TabIndex = 2;
-			this.btnUPBCode.TabStop = false;
-			this.btnUPBCode.Tag = "manage.upb.tree";
-			this.btnUPBCode.Text = "UPB:";
-			this.btnUPBCode.UseVisualStyleBackColor = false;
 			// 
 			// DS
 			// 

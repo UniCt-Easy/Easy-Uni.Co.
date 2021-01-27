@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilconsuntivosorting_mpsiope]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilconsuntivosorting_mpsiope]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_bilconsuntivosorting_mpsiope]
 GO
 
@@ -98,7 +100,21 @@ SELECT  @levelusable = MIN(nlevel)
 FROM 	finlevel
 WHERE 	ayear =@ayear and (flag&2)<>0
 */
+CREATE TABLE #myhistorypaymentview(
+	idexp int,
+	idupb 			varchar(36),
+	amount			decimal(19,6)
+)
 
+insert into #myhistorypaymentview(idexp, idupb, amount)
+select 
+	HPV.idexp, HPV.idupb, sum(amount)
+from historypaymentview HPV
+where (HPV.ymov = @ayear)
+		AND HPV.competencydate <= @date
+		AND (HPV.idupb LIKE @idupb)
+		AND HPV.amount <> 0
+group by HPV.idexp, HPV.idupb
 
 -- Legge le previsioni e le moltiplica per la quota della Classificazione Missione e Programmi
 	INSERT INTO #situation(
@@ -114,7 +130,7 @@ WHERE 	ayear =@ayear and (flag&2)<>0
 		US.idsor,
 		SortSiope.idsor,
 		ISNULL(SUM(HPV.amount*ISNULL(US.quota,0)*ISNULL( SorExp.amount/HPV.amount ,0)),0)
-	FROM historypaymentview HPV
+	FROM #myhistorypaymentview HPV
 	JOIN upbsorting US						on US.idupb = HPV.idupb
 	join sorting SortUpb					ON SortUpb.idsor = US.idsor	
 	JOIN expenselast ELAST					on ELAST.idexp = HPV.idexp
@@ -124,9 +140,8 @@ WHERE 	ayear =@ayear and (flag&2)<>0
 	--JOIN fin F
 		--ON HPV.idfin = F.idfin
 	WHERE /*((F.flag & 1)= @finpart_bit) 
-		AND */(HPV.ymov = @ayear)
-		AND HPV.competencydate <= @date
-		AND (U.idupb LIKE @idupb)
+		AND */
+		 (U.idupb LIKE @idupb)
 		and SortUpb.idsorkind = @idsorkind_MissProg
 		AND SortSiope.idsorkind = @idsorkind_siope
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)
@@ -143,8 +158,8 @@ WHERE 	ayear =@ayear and (flag&2)<>0
 declare	@Sorkind	varchar(50)--> Classificazione Missioni Programmi
 select @Sorkind = description from sortingkind where idsorkind = @idsorkind_MissProg
 
-declare @levelparent varchar(50) --> Nome del 1¬∞ livello della classificazione Missioni/Programmi
-declare @levelchild varchar(50)--> Nome del 2¬∞ livello della classificazione Missioni/Programmi
+declare @levelparent varchar(50) --> Nome del 1∞ livello della classificazione Missioni/Programmi
+declare @levelchild varchar(50)--> Nome del 2∞ livello della classificazione Missioni/Programmi
 select @levelparent = description from sortinglevel where idsorkind = @idsorkind_MissProg and nlevel = 1
 select @levelchild = description from sortinglevel where idsorkind = @idsorkind_MissProg and nlevel = 2
 
@@ -257,4 +272,3 @@ GO
 
 
 
-	

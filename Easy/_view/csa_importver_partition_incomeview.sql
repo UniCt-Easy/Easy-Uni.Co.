@@ -1,22 +1,25 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿-- CREAZIONE VISTA [csa_importver_partition_incomeview]
+
+-- CREAZIONE VISTA [csa_importver_partition_incomeview]
 IF EXISTS(select * from sysobjects where id = object_id(N'[csa_importver_partition_incomeview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [csa_importver_partition_incomeview]
 GO  
+
 -- setuser 'amm'
  --setuser 'amministrazione'
 --SELECT * FROM [csa_importver_partition_incomeview]
@@ -58,6 +61,7 @@ CREATE       VIEW  [csa_importver_partition_incomeview]
 	idreg_agency,
 	registry_agency,
 	matricola,flagcr,
+	ruolocsa,
 	lu,	lt,cu,ct
 )
 AS SELECT 
@@ -100,6 +104,7 @@ AS SELECT
 	REG_AG.idreg,
 	REG_AG.title,
 	IV.matricola, IV.flagcr,
+	IV.ruolocsa,
 	VI.lu,	VI.lt,VI.cu,VI.ct
 FROM csa_importver_partition_income PVI
 JOIN csa_importver_partition VI		ON PVI.idcsa_import = VI.idcsa_import  AND PVI.idver = VI.idver AND PVI.ndetail = VI.ndetail
@@ -119,4 +124,3 @@ LEFT OUTER JOIN csa_movkind MK		ON 	MK.movkind = PVI.movkind
 GO
 
 
-	

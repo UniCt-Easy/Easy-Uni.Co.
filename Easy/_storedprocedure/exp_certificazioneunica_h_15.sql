@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_h_15]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_h_15]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_certificazioneunica_h_15]
 GO
  
@@ -59,7 +61,7 @@ AS BEGIN
 		exemptionquota_applied decimal(19,2)
 	)
 
--- Il quadro H √® per il lavoro autonomo
+-- Il quadro H Ë per il lavoro autonomo
 	CREATE TABLE #recHNonArrot
 	(
 		progr int,
@@ -122,7 +124,7 @@ AS BEGIN
 			+ ISNULL(
 				(SELECT SUM(amount) FROM expensevar
 				WHERE expensevar.idexp = expense.idexp
-				-- AND expensevar.yvar <= @annoredditi  superfluo poich√© expense di ultima fase
+				-- AND expensevar.yvar <= @annoredditi  superfluo poichÈ expense di ultima fase
 				AND ISNULL(autokind,0) <> 4)
 			,0)) > 0
 			and (select count(*) from expensetaxofficial 
@@ -383,7 +385,7 @@ AS BEGIN
 	set @au07_AltreSommeNonSoggetteARitenuta=0
 	SET @au07_AltreSommeNonSoggetteARitenuta = 
 					@au04_ammontarelordocorrisposto
-					- ISNULL((SELECT SUM(taxablenet) --somma imponibili netti ove la rit fiscale non √® zero esclusi stranieri conv.
+					- ISNULL((SELECT SUM(taxablenet) --somma imponibili netti ove la rit fiscale non Ë zero esclusi stranieri conv.
 							FROM expensetaxofficial
 				              		join tax
 								ON tax.taxcode = expensetaxofficial.taxcode
@@ -394,7 +396,7 @@ AS BEGIN
 							AND taxref <>'07_IRPEF_FC'
 							AND expensetaxofficial.stop is null
 					),0)
-					-- RITENUTA IPREF STRANIERI IN CONVENZIONE, √® necessario prenderle a parte poich√© per esse la ritenuta √® zero
+					-- RITENUTA IPREF STRANIERI IN CONVENZIONE, Ë necessario prenderle a parte poichÈ per esse la ritenuta Ë zero
 					- @au05_SommeNonSoggetteARitenutaPerRegimeConvenzionale
 					
 	-- mettiamo 3 se diverso da zero 
@@ -566,4 +568,3 @@ GO
 ---  
 
  
-	

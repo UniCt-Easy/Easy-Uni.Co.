@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilprevisione_bozza_riep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilprevisione_bozza_riep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_bilprevisione_bozza_riep]
 GO
 
@@ -292,7 +294,7 @@ BEGIN
 				AND ((fi.flag & 16 =0) OR @infoadvance = 'N' OR @infoadvance = 'B')
 				AND FLK.idparent = B.idfin 
 				),
-		-- ISNULL(sum(P.previousprevision),0), sar√† zero
+		-- ISNULL(sum(P.previousprevision),0), sar‡ zero
 		(SELECT 
 			ISNULL(SUM(FiY.previousprevision), 0.0)
 			FROM fin Fi
@@ -323,7 +325,7 @@ BEGIN
 				AND ((fi.flag & 16 =0) OR @infoadvance = 'N' OR @infoadvance = 'B')
 				AND FLK.idparent = B.idfin 
 				),
-		--ISNULL(sum(P.previoussecondaryprev),0), sar√† zero
+		--ISNULL(sum(P.previoussecondaryprev),0), sar‡ zero
 		(SELECT 
 			ISNULL(SUM(FiY.previoussecondaryprev), 0.0)
 			FROM fin Fi
@@ -511,7 +513,7 @@ CREATE TABLE #prevfindetail
 
 IF (@levelusable <= @minlevelusable )
 BEGIN
--- solo se la stampa √® x capitolo
+-- solo se la stampa Ë x capitolo
 INSERT INTO #prevfindetail
 (
 	idfin , 
@@ -545,7 +547,7 @@ SELECT
 			AND FiY.idupb = U.idupb
 			AND FLK.idparent = B.idfin 
 			),
-	-- ISNULL(P.previousprevision,0), √® zero perch√® i prevfindetail no ci sono i capitoli articolati, abbiamo solo le foglie
+	-- ISNULL(P.previousprevision,0), Ë zero perchË i prevfindetail no ci sono i capitoli articolati, abbiamo solo le foglie
 	(SELECT 
 		ISNULL(SUM(FiY.previousprevision), 0.0)
 		FROM fin Fi
@@ -1009,4 +1011,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

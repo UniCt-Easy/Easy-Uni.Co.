@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using metadatalibrary;
@@ -63,7 +65,7 @@ namespace EasyInstall
 			DataTable t2 = Migrazione.eseguiQuery(sourceConn, q2, form);
 			if (t2 == null) return null;
 
-			DialogResult dr = MessageBox.Show(form, "Vuoi migrare i fondi di ricerca negli UPB?", "", MessageBoxButtons.YesNo);
+			DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Vuoi migrare i fondi di ricerca negli UPB?", "", MessageBoxButtons.YesNo);
 			fondiMigrati = dr == DialogResult.Yes;
 			if (dr != DialogResult.Yes) {
 				string idUpbLibero = "0001";
@@ -78,7 +80,7 @@ namespace EasyInstall
 
 			string msgAss = "Si vuole calcolare gli accertamenti degli anni precedenti considerando" +
 				" come accertato la somma delle previsioni di spesa delle suddivisioni?";
-			DialogResult drAss = MessageBox.Show(form, msgAss, "", MessageBoxButtons.YesNo);
+			DialogResult drAss = MetaFactory.factory.getSingleton<IMessageShower>().Show(form, msgAss, "", MessageBoxButtons.YesNo);
 
 			foreach (DataRow r in t2.Rows) {
 				int conta = CfgFn.GetNoNullInt32(tUpb.Compute("count(codeupb)",
@@ -240,7 +242,7 @@ namespace EasyInstall
 			DataTable t1 = Migrazione.eseguiQuery(sourceConn, q1, form);
 			if (t1 == null) return null;
 
-			DialogResult dr = MessageBox.Show(form, "Vuoi migrare i centri di spesa negli UPB?", "", MessageBoxButtons.YesNo);
+			DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Vuoi migrare i centri di spesa negli UPB?", "", MessageBoxButtons.YesNo);
 			centriMigrati = (dr == DialogResult.Yes);
 			if (dr != DialogResult.Yes) {
 				string idUpbLibero = "0001";
@@ -261,7 +263,7 @@ namespace EasyInstall
 							parIdUpb_cen = (string) righe[0]["idupb"];
 						}
 						else {
-							MessageBox.Show("E' stato trovato il centro di spesa"+
+							MetaFactory.factory.getSingleton<IMessageShower>().Show("E' stato trovato il centro di spesa"+
 								r["centercode"].ToString()+
 									" con un rif. a padre inesistente");
 						}
@@ -327,7 +329,7 @@ namespace EasyInstall
 			if (tCdsUpb == null) return false;
 
 			if (!fondiMigrati && !centriMigrati) {
-				DialogResult dr = MessageBox.Show(form, "Vuoi migrare la tabella UPB?", "", MessageBoxButtons.YesNo);
+				DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Vuoi migrare la tabella UPB?", "", MessageBoxButtons.YesNo);
 				if (dr == DialogResult.Yes) {
 					string query = "select idupb, codeupb, title, paridupb, idunderwriter, idman, requested, granted, "
 						+ "previousappropriation, previousassessment, expiration, txt, rtf, "
@@ -483,7 +485,7 @@ namespace EasyInstall
 			int totRigheUpbRoot = tFdrUpb.Select("(idupb = '0001')").Length;
 			bool effettuaStorni = CfgFn.GetNoNullInt32(totRighe) != CfgFn.GetNoNullInt32(totRigheUpbRoot);
 			if (effettuaStorni) {
-				DialogResult dr = MessageBox.Show(form,"Si vuol procedere agli storni di bilancio dall'UPB Libero"
+				DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(form,"Si vuol procedere agli storni di bilancio dall'UPB Libero"
 					+ " agli UPB associati ai Fondi di Ricerca?", "", MessageBoxButtons.YesNo);
 				effettuaStorni = effettuaStorni && (dr == DialogResult.Yes);
 			}
@@ -629,7 +631,7 @@ namespace EasyInstall
             object secPrev = sourceConn.DO_READ_VALUE("persbilancio", "esercizio = '" + fromYear + "'", "tipoprevsecondaria");
 
             if (mainPrev == null) {
-                MessageBox.Show("Non è stata impostata la previsione principale di bilancio nell'esercizio " + fromYear);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stata impostata la previsione principale di bilancio nell'esercizio " + fromYear);
                 return false;
             }
             int totFasiDaConsiderare = 1;
@@ -647,7 +649,7 @@ namespace EasyInstall
                 case "C": {
                         if ((finPhase == null) || (finPhase == DBNull.Value)) {
                             string nFase = (eos == "S") ? "impegno" : "accertamento";
-                            MessageBox.Show("Non è stata impostata la fase relativa all'" + nFase + " nell'esercizio " + fromYear);
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stata impostata la fase relativa all'" + nFase + " nell'esercizio " + fromYear);
                             return false;
                         }
                         elencoFasi[0] = finPhase.ToString();
@@ -655,7 +657,7 @@ namespace EasyInstall
                         if ((secPrev != null) && (secPrev != DBNull.Value) && (secPrev.ToString().ToUpper() == "S")) {
                             if ((maxPhase == null) || (maxPhase == DBNull.Value)) {
                                 string parte = (eos == "S") ? "spesa" : "entrata";
-                                MessageBox.Show("Non esistono fasi di " + parte);
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non esistono fasi di " + parte);
                                 return false;
                             }
                             elencoFasi[1] = maxPhase.ToString();
@@ -666,7 +668,7 @@ namespace EasyInstall
                 case "S": {
                         if ((maxPhase == null) || (maxPhase == DBNull.Value)) {
                             string parte = (eos == "S") ? "spesa" : "entrata";
-                            MessageBox.Show("Non esistono fasi di " + parte);
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show("Non esistono fasi di " + parte);
                             return false;
                         }
                         elencoFasi[0] = maxPhase.ToString();
@@ -967,12 +969,12 @@ namespace EasyInstall
             if (generaCrediti) {
                 object appPhase = sourceConn.DO_READ_VALUE("persbilancio", "(esercizio = " + fromYear + ")", "codfaseimpegno");
                 if ((appPhase == null) || (appPhase == DBNull.Value)) {
-                    MessageBox.Show(form, "Non è stata definita la fase di impegno", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Non è stata definita la fase di impegno", "Errore");
                     return false;
                 }
                 object assPhase = sourceConn.DO_READ_VALUE("persbilancio", "(esercizio = " + fromYear + ")", "codfaseaccertamento");
                 if ((assPhase == null) || (assPhase == DBNull.Value)) {
-                    MessageBox.Show(form, "Non è stata definita la fase di accertamento", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Non è stata definita la fase di accertamento", "Errore");
                     return false;
                 }
                 generaVariazione_CC(form, sourceConn, destConn, tFdrUpb, appPhase, assPhase, "C");
@@ -981,12 +983,12 @@ namespace EasyInstall
             if (generaIncassi) {
                 object maxPhaseE = sourceConn.DO_READ_VALUE("fasespesa", null, "MAX(codicefase)");
                 if ((maxPhaseE == null) || (maxPhaseE == DBNull.Value)) {
-                    MessageBox.Show(form, "Non esistono fasi di spesa", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Non esistono fasi di spesa", "Errore");
                     return false;
                 }
                 object maxPhaseI = sourceConn.DO_READ_VALUE("faseentrata", null, "MAX(codicefase)");
                 if ((maxPhaseI == null) || (maxPhaseI == DBNull.Value)) {
-                    MessageBox.Show(form, "Non esistono fasi di entrata", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Non esistono fasi di entrata", "Errore");
                     return false;
                 }
                 generaVariazione_CC(form, sourceConn, destConn, tFdrUpb, maxPhaseE, maxPhaseI, "P");
@@ -1098,7 +1100,7 @@ namespace EasyInstall
                 if (t2 == null) {
                     string log_text = "Fondo " + rSuddivisione["idres"].ToString() + " Suddivisione " + rSuddivisione["idpar"].ToString()
                         + " non migrato. Errore nella query che calcola la previsione disponibile. Ramo in comune";
-                    MessageBox.Show(form, log_text, "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(form, log_text, "Errore");
                     return false;
                 }
                 decimal totDifferenza = CfgFn.GetNoNullDecimal(t2.Rows[0][0]);
@@ -1713,7 +1715,7 @@ namespace EasyInstall
 			foreach (DataRow r1 in tApp.Select()) {
 				object idUpb = getIdupbFromFinAndCen(r1["idfin"], r1["idcen"], tUpbLookup, tCdsUpb);
 				if (idUpb.ToString() == "0001") {
-					MessageBox.Show(form, "Impossibile tradurre una riga di assegnazione al centro di "
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Impossibile tradurre una riga di assegnazione al centro di "
 						+ eos + "; idcentrospesa="+QueryCreator.quotedstrvalue(r1["idcen"], false), "Errore nella tabella asscentro"+eos);
 					continue;
 					//r1.Delete();
@@ -1867,7 +1869,7 @@ namespace EasyInstall
 					return rupb3[0]["idupb"];
 				}
 				if (IdCenNotNull){
-					MessageBox.Show("E' stato azzerato l'upb di un mov. con centro di spesa di id "+idCen.ToString()+
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("E' stato azzerato l'upb di un mov. con centro di spesa di id "+idCen.ToString()+
 						" e idbilancio "+idFin.ToString());
 				}
 
@@ -1881,7 +1883,7 @@ namespace EasyInstall
 					return rCdsUpb[0]["idupb"];
 				}
 				else  {
-					MessageBox.Show("E' stato azzerato l'upb di un mov. con centro di spesa di id "+idCen.ToString());
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("E' stato azzerato l'upb di un mov. con centro di spesa di id "+idCen.ToString());
 					return "0001";
 				}
 			}
@@ -1951,7 +1953,7 @@ namespace EasyInstall
 					if (rTN.Length > 0) {
 						r["tablename"] = rTN[0]["newtable"];
 					} else {
-						MessageBox.Show(form, "In tabelleclassificabili esiste il seguente nome di tabella non traducibile:\n"+r["tablename"]);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "In tabelleclassificabili esiste il seguente nome di tabella non traducibile:\n"+r["tablename"]);
 						return false;
 					}
 				}
@@ -1974,7 +1976,7 @@ namespace EasyInstall
 				+ "e000100010%' and idfin not like '"+es100
 				+ "s000100010%'";
 			if (destConn.SQLRunner(query,false,3600) == null) {
-				MessageBox.Show(form, destConn.LastError);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, destConn.LastError);
 				return false;
 			}
 
@@ -1983,7 +1985,7 @@ namespace EasyInstall
 				+ "e000100010%' and idfin not like '"+es100
 				+ "s000100010%'";
 			if (destConn.SQLRunner(query,false,3600) == null) {
-				MessageBox.Show(form, destConn.LastError);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, destConn.LastError);
 				return false;
 			}
 
@@ -1992,7 +1994,7 @@ namespace EasyInstall
 				+ "e000100010%' and idfin not like '"+es100
 				+ "s000100010%'";
 			if (destConn.SQLRunner(query,false,3600) == null) {
-				MessageBox.Show(form, destConn.LastError);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, destConn.LastError);
 				return false;
 			}
 			
@@ -2013,19 +2015,19 @@ namespace EasyInstall
 				+ " and nlevel>"+NUMLIVELLIDACANCELLARE;
 			string errMsg;
 			if (destConn.SQLRunner(query, 3600, out errMsg) == null) {
-				MessageBox.Show(form, errMsg);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMsg);
 				return false;
 			}
 
 			query = "delete finlevel where ayear="+esercizio+" and nlevel<="+NUMLIVELLIDACANCELLARE;
 			if (destConn.SQLRunner(query, 3600, out errMsg) == null) {
-				MessageBox.Show(form, errMsg);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMsg);
 				return false;
 			}
 
 			query = "update finlevel set nlevel=nlevel-"+NUMLIVELLIDACANCELLARE+" where ayear="+esercizio;
 			if (destConn.SQLRunner(query, 3600, out errMsg) == null) {
-				MessageBox.Show(form, errMsg);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMsg);
 				return false;
 			}
 
@@ -2064,7 +2066,7 @@ namespace EasyInstall
 					+ campi[i,1]+"=left("+campi[i,1]+",3)+substring("+campi[i,1]+","+posIdFin+",100) "
 					+ "where left("+campi[i,1]+",2)='"+es100+"'";
 				if (destConn.SQLRunner(query, 3600, out errMsg) == null) {
-					MessageBox.Show(form, errMsg);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMsg);
 					return false;
 				}
 			}
@@ -2079,7 +2081,7 @@ namespace EasyInstall
 				"and B.codicelivello>1";
 			int NFinNoParent=CfgFn.GetNoNullInt32( SourceConn.DO_SYS_CMD(query,true));			
 			if (NFinNoParent>0) {
-				MessageBox.Show("Ci sono voci di bilancio senza voce genitore ");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono voci di bilancio senza voce genitore ");
 				return false;
 			}
 			query = "select * from imputazionespesa S where "+
@@ -2087,7 +2089,7 @@ namespace EasyInstall
 				"and S.idbilancio is not null";
 			int NExpNoFin= CfgFn.GetNoNullInt32( SourceConn.DO_SYS_CMD(query,true));			
 			if (NExpNoFin>0) {
-				if(MessageBox.Show(form,"Ci sono movimenti di spesa con capitoli inesistenti. Proseguo comunque? ","Avviso",
+				if(MetaFactory.factory.getSingleton<IMessageShower>().Show(form,"Ci sono movimenti di spesa con capitoli inesistenti. Proseguo comunque? ","Avviso",
 						MessageBoxButtons.YesNo)==DialogResult.No)
 					return false;
 			}
@@ -2096,7 +2098,7 @@ namespace EasyInstall
 				"and S.idcentrospesa is not null";
 			int NExpNoCen= CfgFn.GetNoNullInt32( SourceConn.DO_SYS_CMD(query,true));			
 			if (NExpNoCen>0) {
-				if (MessageBox.Show("Ci sono movimenti di spesa con centrospesa inesistente. Proseguo comunque? ","Avviso",
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono movimenti di spesa con centrospesa inesistente. Proseguo comunque? ","Avviso",
 						MessageBoxButtons.YesNo)==DialogResult.No)
 					return false;
 			}
@@ -2106,7 +2108,7 @@ namespace EasyInstall
 				"and S.codicefondo is not null and S.codiceripartizione is not null";
 			int NExpNoFon= CfgFn.GetNoNullInt32( SourceConn.DO_SYS_CMD(query,true));			
 			if (NExpNoFon>0) {
-				if (MessageBox.Show("Ci sono movimenti di spesa con fondo ricerca inesistente. Proseguo comunque? ","Avviso",
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono movimenti di spesa con fondo ricerca inesistente. Proseguo comunque? ","Avviso",
 					MessageBoxButtons.YesNo)==DialogResult.No)
 					return false;
 			}
@@ -2118,7 +2120,7 @@ namespace EasyInstall
 				"and E.idbilancio is not null";
 			int NIncNoFin= CfgFn.GetNoNullInt32( SourceConn.DO_SYS_CMD(query,true));			
 			if (NIncNoFin>0) {
-				if (MessageBox.Show("Ci sono movimenti di entrata con capitoli inesistenti. Proseguo comunque? ","Avviso",
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono movimenti di entrata con capitoli inesistenti. Proseguo comunque? ","Avviso",
 					MessageBoxButtons.YesNo)==DialogResult.No)
 					return false;
 			}
@@ -2127,7 +2129,7 @@ namespace EasyInstall
 				"and E.idcentrospesa is not null";
 			int NIncNoCen= CfgFn.GetNoNullInt32( SourceConn.DO_SYS_CMD(query,true));			
 			if (NIncNoCen>0) {
-				if(MessageBox.Show("Ci sono movimenti di entrata con centrospesa inesistente. Proseguo comunque? ","Avviso",
+				if(MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono movimenti di entrata con centrospesa inesistente. Proseguo comunque? ","Avviso",
 					MessageBoxButtons.YesNo)==DialogResult.No)
 					return false;
 			}
@@ -2137,7 +2139,7 @@ namespace EasyInstall
 				"and E.codicefondo is not null and E.codiceripartizione is not null";
 			int NIncNoFon= CfgFn.GetNoNullInt32( SourceConn.DO_SYS_CMD(query,true));			
 			if (NIncNoFon>0) {
-				if (MessageBox.Show("Ci sono movimenti di entrata con fondo ricerca inesistente. Proseguo comunque? ","Avviso",
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono movimenti di entrata con fondo ricerca inesistente. Proseguo comunque? ","Avviso",
 					MessageBoxButtons.YesNo)==DialogResult.No)
 					return false;
 			}
@@ -2148,7 +2150,7 @@ namespace EasyInstall
 				"and C.codicelivello>1";
 			int NCenNoParent=CfgFn.GetNoNullInt32( SourceConn.DO_SYS_CMD(query,true));			
 			if (NCenNoParent>0) {
-				MessageBox.Show("Ci sono voci di centrospesa  senza voce genitore ");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono voci di centrospesa  senza voce genitore ");
 				return false;
 			}
 
@@ -2158,7 +2160,7 @@ namespace EasyInstall
 			
 			int NRipNoFondo=CfgFn.GetNoNullInt32( SourceConn.DO_SYS_CMD(query,true));			
 			if (NRipNoFondo>0) {
-				MessageBox.Show("Ci sono ripartizioni fondi di fondi non esistenti");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono ripartizioni fondi di fondi non esistenti");
 				return false;
 			}
             object ayear = SourceConn.DO_READ_VALUE("esercizio", "flagtrasfconfigbilancio = 'S'", "MAX(esercizio)");
@@ -2187,7 +2189,7 @@ namespace EasyInstall
                 int NRipNoBil = CfgFn.GetNoNullInt32(SourceConn.DO_SYS_CMD(query, true));
                 if (NRipNoBil > 0)
                 {
-                    if (MessageBox.Show("Ci sono ripartizioni fondi senza capitolo di entrata e più capitoli usati in accertamenti. Proseguo comunque? ", "Avviso",
+                    if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono ripartizioni fondi senza capitolo di entrata e più capitoli usati in accertamenti. Proseguo comunque? ", "Avviso",
                         MessageBoxButtons.YesNo) == DialogResult.No)
                         return false;
                 }
@@ -2213,7 +2215,7 @@ namespace EasyInstall
                 NRipNoBil = CfgFn.GetNoNullInt32(SourceConn.DO_SYS_CMD(query, true));
                 if (NRipNoBil > 0)
                 {
-                    if (MessageBox.Show("Ci sono ripartizioni fondi senza capitolo di spesa e più capitoli usati in impegni. Proseguo comunque? ", "Avviso",
+                    if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono ripartizioni fondi senza capitolo di spesa e più capitoli usati in impegni. Proseguo comunque? ", "Avviso",
                         MessageBoxButtons.YesNo) == DialogResult.No)
                         return false;
                 }
@@ -2295,11 +2297,11 @@ namespace EasyInstall
                 }
 
                 int anno = CfgFn.GetNoNullInt32(SourceConn.DO_READ_VALUE("esercizio", "(flagtrasfbilancio = 'S')", "MAX(esercizio)"));
-                DialogResult drAss = MessageBox.Show("E' già stato fatto l'assestamento per l'esercizio in corso?", "Domanda", MessageBoxButtons.YesNo);
+                DialogResult drAss = MetaFactory.factory.getSingleton<IMessageShower>().Show("E' già stato fatto l'assestamento per l'esercizio in corso?", "Domanda", MessageBoxButtons.YesNo);
                 if (drAss != DialogResult.Yes) {
                     object tipoPrevPrinc = SourceConn.DO_READ_VALUE("persbilancio", "(esercizio = " + anno + ")", "tipoprevprincipale");
                     if (tipoPrevPrinc == null) {
-                        MessageBox.Show("Errore nell'interrogazione di PERSBILANCIO!!!");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nell'interrogazione di PERSBILANCIO!!!");
                         return false;
                     }
                     string querySuVarResiduiS = "";
@@ -2479,7 +2481,7 @@ namespace EasyInstall
                 if (drAss != DialogResult.Yes) {
                     object tipoPrevPrinc = SourceConn.DO_READ_VALUE("persbilancio", "(esercizio = " + anno + ")", "tipoprevprincipale");
                     if (tipoPrevPrinc == null) {
-                        MessageBox.Show("Errore nell'interrogazione di PERSBILANCIO!!!");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nell'interrogazione di PERSBILANCIO!!!");
                         return false;
                     }
 
@@ -2852,7 +2854,7 @@ namespace EasyInstall
 			//imputazionespesa -> expenseyear, finvar e finvardetail
 			if (!migraImputazioneEOS("spesa", form, sourceConn, destConn, tFdrUpb, tCdsUpb, tUpblookup)) return false;//1.9
 
-			DialogResult dr_FdR = MessageBox.Show(form, "Si vuole procedere a stornare le previsioni dell'ultimo anno"
+			DialogResult dr_FdR = MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Si vuole procedere a stornare le previsioni dell'ultimo anno"
 				+ " dei fondi di ricerca dall'UPB Dipartimento se esistono fondi associati ad un unica voce di bilancio"
 				+ " ponendo l'importo della variazione pari alla previsione disponibile del Fondo di Ricerca?",
 				"", MessageBoxButtons.YesNo);
@@ -2868,7 +2870,7 @@ namespace EasyInstall
 			int totRigheUpbRoot = tCdsUpb.Select("(idupb = '0001')").Length;
 			bool effettuaStorni = CfgFn.GetNoNullInt32(totRighe) != CfgFn.GetNoNullInt32(totRigheUpbRoot);
 			if (effettuaStorni) {
-				DialogResult dr = MessageBox.Show(form,"Si vuol procedere agli storni di bilancio dall'UPB Dipartimento"
+				DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(form,"Si vuol procedere agli storni di bilancio dall'UPB Dipartimento"
 					+ " agli UPB associati ai Centri di Spesa?", "", MessageBoxButtons.YesNo);
 				effettuaStorni = effettuaStorni && (dr == DialogResult.Yes);
 			}

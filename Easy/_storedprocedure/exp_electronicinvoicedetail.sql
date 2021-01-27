@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_electronicinvoicedetail]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_electronicinvoicedetail]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_electronicinvoicedetail]
 GO
 
@@ -34,7 +36,7 @@ select
 	ISNULL(ID.npackage, ID.number) as 'quantita',
 	ID.idfetransfer as 'TipoCessionePrestazione',
 	case when (ivakind.flag & 512 = 0 ) then sum(ID.taxable)
-		when (ivakind.flag & 512 <> 0 ) then sum(ID.taxable) + isnull(sum(ID.tax),0) 
+		 when  (ivakind.flag & 512 <> 0 ) then sum( isnull(ID.taxable,0) + isnull(ID.tax,0) )
 	end	as 'PrezzoUnitario',
 	case  
 		when ID.discount>0 then 'SC'
@@ -66,7 +68,7 @@ select
 			+'/'	+ ISNULL(REPLICATE('0', 5-DATALENGTH(CONVERT(varchar(7),I.ninv))) + CONVERT(varchar(5), I.ninv),REPLICATE('0',5))
 			+':'	+ substring(convert(varchar(10),I.idinvkind),1,11)
 		else null
-	end as 'IdDocumento',--> viene valorizzato solo se √® stato indicato il cig o il cup nel dettaglio fattura.
+	end as 'IdDocumento',--> viene valorizzato solo se Ë stato indicato il cig o il cup nel dettaglio fattura.
 	case 
 		when ID.idestimkind is not null --and (ID.cupcode is not null or ID.cigcode is not null)
 			then (select top 1 docdate from estimate where idestimkind = ID.idestimkind and yestim=ID.yestim and nestim = ID.nestim)
@@ -97,4 +99,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

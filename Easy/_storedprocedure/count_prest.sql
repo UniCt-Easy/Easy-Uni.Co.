@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[count_contract]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[count_contract]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [count_contract]
 GO
 
@@ -86,25 +88,25 @@ GO
 
 -- GENERAZIONE DATI PER auditcheck --
 IF exists(SELECT * FROM [auditcheck] WHERE idaudit = 'OCCAS015' AND idcheck = '1' AND opkind = 'I' AND tablename = 'casualcontract')
-UPDATE [auditcheck] SET flag_both = 'S',flag_cash = 'S',flag_comp = 'S',flag_credit = 'N',flag_proceeds = 'N',lt = {ts '2008-10-01 12:27:54.253'},lu = 'SA',message = 'Il prestatore d''opera ha gi√† svolto nell''anno, assunto dall''ateneo, una prestazione professionale. Probabilmente non si sta usando il modulo corretto per l''inserimento di questa prestazione.',precheck = 'S',sqlcmd = '[execute count_contract %<sys_esercizio>%,
+UPDATE [auditcheck] SET flag_both = 'S',flag_cash = 'S',flag_comp = 'S',flag_credit = 'N',flag_proceeds = 'N',lt = {ts '2008-10-01 12:27:54.253'},lu = 'SA',message = 'Il prestatore d''opera ha gi‡ svolto nell''anno, assunto dall''ateneo, una prestazione professionale. Probabilmente non si sta usando il modulo corretto per l''inserimento di questa prestazione.',precheck = 'S',sqlcmd = '[execute count_contract %<sys_esercizio>%,
 	''P'',  
 	%<casualcontract.idreg>% ,
 	@outvar output]{I}=0' WHERE idaudit = 'OCCAS015' AND idcheck = '1' AND opkind = 'I' AND tablename = 'casualcontract'
 ELSE
-INSERT INTO [auditcheck] (idaudit,idcheck,opkind,tablename,flag_both,flag_cash,flag_comp,flag_credit,flag_proceeds,lt,lu,message,precheck,sqlcmd) VALUES ('OCCAS015','1','I','casualcontract','S','S','S','N','N',{ts '2008-10-01 12:27:54.253'},'SA','Il prestatore d''opera ha gi√† svolto nell''anno, assunto dall''ateneo, una prestazione professionale. Probabilmente non si sta usando il modulo corretto per l''inserimento di questa prestazione.','S','[execute count_contract %<sys_esercizio>%,
+INSERT INTO [auditcheck] (idaudit,idcheck,opkind,tablename,flag_both,flag_cash,flag_comp,flag_credit,flag_proceeds,lt,lu,message,precheck,sqlcmd) VALUES ('OCCAS015','1','I','casualcontract','S','S','S','N','N',{ts '2008-10-01 12:27:54.253'},'SA','Il prestatore d''opera ha gi‡ svolto nell''anno, assunto dall''ateneo, una prestazione professionale. Probabilmente non si sta usando il modulo corretto per l''inserimento di questa prestazione.','S','[execute count_contract %<sys_esercizio>%,
 	''P'',  
 	%<casualcontract.idreg>% ,
 	@outvar output]{I}=0')
 GO
 
 IF exists(SELECT * FROM [auditcheck] WHERE idaudit = 'OCCAS015' AND idcheck = '2' AND opkind = 'I' AND tablename = 'casualcontract')
-UPDATE [auditcheck] SET flag_both = 'S',flag_cash = 'S',flag_comp = 'S',flag_credit = 'N',flag_proceeds = 'N',lt = {ts '2008-10-01 12:23:28.190'},lu = 'SA',message = 'Il prestatore d''opera ha una partita iva quindi √® un professionista. Verificare che la prestazione non debba quindi essere inquadrata come prestazione professionale.',precheck = 'S',sqlcmd = '[select isnull(p_iva,'''') from registry where idreg= %<casualcontract.idreg>%]{C} =''''' WHERE idaudit = 'OCCAS015' AND idcheck = '2' AND opkind = 'I' AND tablename = 'casualcontract'
+UPDATE [auditcheck] SET flag_both = 'S',flag_cash = 'S',flag_comp = 'S',flag_credit = 'N',flag_proceeds = 'N',lt = {ts '2008-10-01 12:23:28.190'},lu = 'SA',message = 'Il prestatore d''opera ha una partita iva quindi Ë un professionista. Verificare che la prestazione non debba quindi essere inquadrata come prestazione professionale.',precheck = 'S',sqlcmd = '[select isnull(p_iva,'''') from registry where idreg= %<casualcontract.idreg>%]{C} =''''' WHERE idaudit = 'OCCAS015' AND idcheck = '2' AND opkind = 'I' AND tablename = 'casualcontract'
 ELSE
-INSERT INTO [auditcheck] (idaudit,idcheck,opkind,tablename,flag_both,flag_cash,flag_comp,flag_credit,flag_proceeds,lt,lu,message,precheck,sqlcmd) VALUES ('OCCAS015','2','I','casualcontract','S','S','S','N','N',{ts '2008-10-01 12:23:28.190'},'SA','Il prestatore d''opera ha una partita iva quindi √® un professionista. Verificare che la prestazione non debba quindi essere inquadrata come prestazione professionale.','S','[select isnull(p_iva,'''') from registry where idreg= %<casualcontract.idreg>%]{C} =''''')
+INSERT INTO [auditcheck] (idaudit,idcheck,opkind,tablename,flag_both,flag_cash,flag_comp,flag_credit,flag_proceeds,lt,lu,message,precheck,sqlcmd) VALUES ('OCCAS015','2','I','casualcontract','S','S','S','N','N',{ts '2008-10-01 12:23:28.190'},'SA','Il prestatore d''opera ha una partita iva quindi Ë un professionista. Verificare che la prestazione non debba quindi essere inquadrata come prestazione professionale.','S','[select isnull(p_iva,'''') from registry where idreg= %<casualcontract.idreg>%]{C} =''''')
 GO
 
 IF exists(SELECT * FROM [auditcheck] WHERE idaudit = 'OCCAS015' AND idcheck = '1' AND opkind = 'U' AND tablename = 'casualcontract')
-UPDATE [auditcheck] SET flag_both = 'S',flag_cash = 'S',flag_comp = 'S',flag_credit = 'N',flag_proceeds = 'N',lt = {ts '2008-10-01 12:47:01.783'},lu = 'SA',message = 'Il prestatore d''opera ha gi√† svolto nell''anno, assunto dall''ateneo, una prestazione professionale. Probabilmente non si sta usando il modulo corretto per l''inserimento di questa prestazione.',precheck = 'S',sqlcmd = '[execute count_contract %<sys_esercizio>%,
+UPDATE [auditcheck] SET flag_both = 'S',flag_cash = 'S',flag_comp = 'S',flag_credit = 'N',flag_proceeds = 'N',lt = {ts '2008-10-01 12:47:01.783'},lu = 'SA',message = 'Il prestatore d''opera ha gi‡ svolto nell''anno, assunto dall''ateneo, una prestazione professionale. Probabilmente non si sta usando il modulo corretto per l''inserimento di questa prestazione.',precheck = 'S',sqlcmd = '[execute count_contract %<sys_esercizio>%,
 	''P'',  
 	%<casualcontract.idreg>% ,
 	@outvar output]{I}=0
@@ -113,7 +115,7 @@ or
 
 %<casualcontract.idreg>% =&<casualcontract.idreg>&' WHERE idaudit = 'OCCAS015' AND idcheck = '1' AND opkind = 'U' AND tablename = 'casualcontract'
 ELSE
-INSERT INTO [auditcheck] (idaudit,idcheck,opkind,tablename,flag_both,flag_cash,flag_comp,flag_credit,flag_proceeds,lt,lu,message,precheck,sqlcmd) VALUES ('OCCAS015','1','U','casualcontract','S','S','S','N','N',{ts '2008-10-01 12:47:01.783'},'SA','Il prestatore d''opera ha gi√† svolto nell''anno, assunto dall''ateneo, una prestazione professionale. Probabilmente non si sta usando il modulo corretto per l''inserimento di questa prestazione.','S','[execute count_contract %<sys_esercizio>%,
+INSERT INTO [auditcheck] (idaudit,idcheck,opkind,tablename,flag_both,flag_cash,flag_comp,flag_credit,flag_proceeds,lt,lu,message,precheck,sqlcmd) VALUES ('OCCAS015','1','U','casualcontract','S','S','S','N','N',{ts '2008-10-01 12:47:01.783'},'SA','Il prestatore d''opera ha gi‡ svolto nell''anno, assunto dall''ateneo, una prestazione professionale. Probabilmente non si sta usando il modulo corretto per l''inserimento di questa prestazione.','S','[execute count_contract %<sys_esercizio>%,
 	''P'',  
 	%<casualcontract.idreg>% ,
 	@outvar output]{I}=0
@@ -124,13 +126,13 @@ or
 GO
 
 IF exists(SELECT * FROM [auditcheck] WHERE idaudit = 'PROFE005' AND idcheck = '1' AND opkind = 'I' AND tablename = 'profservice')
-UPDATE [auditcheck] SET flag_both = 'S',flag_cash = 'S',flag_comp = 'S',flag_credit = 'N',flag_proceeds = 'N',lt = {ts '2008-10-01 12:47:47.610'},lu = 'SA',message = 'Il prestatore d''opera ha gi√† svolto nell''anno, assunto dall''ateneo, una prestazione occasionale. E'' possibile che non si stia usando il modulo corretto per l''effettuazione di questa prestazione.',precheck = 'S',sqlcmd = '[execute count_contract %<sys_esercizio>%,
+UPDATE [auditcheck] SET flag_both = 'S',flag_cash = 'S',flag_comp = 'S',flag_credit = 'N',flag_proceeds = 'N',lt = {ts '2008-10-01 12:47:47.610'},lu = 'SA',message = 'Il prestatore d''opera ha gi‡ svolto nell''anno, assunto dall''ateneo, una prestazione occasionale. E'' possibile che non si stia usando il modulo corretto per l''effettuazione di questa prestazione.',precheck = 'S',sqlcmd = '[execute count_contract %<sys_esercizio>%,
 	''C'',  
 	%<profservice.idreg>% ,
 	@outvar output]{I}=0
 ' WHERE idaudit = 'PROFE005' AND idcheck = '1' AND opkind = 'I' AND tablename = 'profservice'
 ELSE
-INSERT INTO [auditcheck] (idaudit,idcheck,opkind,tablename,flag_both,flag_cash,flag_comp,flag_credit,flag_proceeds,lt,lu,message,precheck,sqlcmd) VALUES ('PROFE005','1','I','profservice','S','S','S','N','N',{ts '2008-10-01 12:47:47.610'},'SA','Il prestatore d''opera ha gi√† svolto nell''anno, assunto dall''ateneo, una prestazione occasionale. E'' possibile che non si stia usando il modulo corretto per l''effettuazione di questa prestazione.','S','[execute count_contract %<sys_esercizio>%,
+INSERT INTO [auditcheck] (idaudit,idcheck,opkind,tablename,flag_both,flag_cash,flag_comp,flag_credit,flag_proceeds,lt,lu,message,precheck,sqlcmd) VALUES ('PROFE005','1','I','profservice','S','S','S','N','N',{ts '2008-10-01 12:47:47.610'},'SA','Il prestatore d''opera ha gi‡ svolto nell''anno, assunto dall''ateneo, una prestazione occasionale. E'' possibile che non si stia usando il modulo corretto per l''effettuazione di questa prestazione.','S','[execute count_contract %<sys_esercizio>%,
 	''C'',  
 	%<profservice.idreg>% ,
 	@outvar output]{I}=0
@@ -138,7 +140,7 @@ INSERT INTO [auditcheck] (idaudit,idcheck,opkind,tablename,flag_both,flag_cash,f
 GO
 
 IF exists(SELECT * FROM [auditcheck] WHERE idaudit = 'PROFE005' AND idcheck = '1' AND opkind = 'U' AND tablename = 'profservice')
-UPDATE [auditcheck] SET flag_both = 'S',flag_cash = 'S',flag_comp = 'S',flag_credit = 'N',flag_proceeds = 'N',lt = {ts '2008-10-01 12:47:42.393'},lu = 'SA',message = 'Il prestatore d''opera ha gi√† svolto nell''anno, assunto dall''ateneo, una prestazione occasionale. E'' possibile che non si stia usando il modulo corretto per l''effettuazione di questa prestazione.',precheck = 'S',sqlcmd = '[execute count_contract %<sys_esercizio>%,
+UPDATE [auditcheck] SET flag_both = 'S',flag_cash = 'S',flag_comp = 'S',flag_credit = 'N',flag_proceeds = 'N',lt = {ts '2008-10-01 12:47:42.393'},lu = 'SA',message = 'Il prestatore d''opera ha gi‡ svolto nell''anno, assunto dall''ateneo, una prestazione occasionale. E'' possibile che non si stia usando il modulo corretto per l''effettuazione di questa prestazione.',precheck = 'S',sqlcmd = '[execute count_contract %<sys_esercizio>%,
 	''C'',  
 	%<profservice.idreg>% ,
 	@outvar output]{I}=0
@@ -147,7 +149,7 @@ or
 
 %<profservice.idreg>% =&<profservice.idreg>&' WHERE idaudit = 'PROFE005' AND idcheck = '1' AND opkind = 'U' AND tablename = 'profservice'
 ELSE
-INSERT INTO [auditcheck] (idaudit,idcheck,opkind,tablename,flag_both,flag_cash,flag_comp,flag_credit,flag_proceeds,lt,lu,message,precheck,sqlcmd) VALUES ('PROFE005','1','U','profservice','S','S','S','N','N',{ts '2008-10-01 12:47:42.393'},'SA','Il prestatore d''opera ha gi√† svolto nell''anno, assunto dall''ateneo, una prestazione occasionale. E'' possibile che non si stia usando il modulo corretto per l''effettuazione di questa prestazione.','S','[execute count_contract %<sys_esercizio>%,
+INSERT INTO [auditcheck] (idaudit,idcheck,opkind,tablename,flag_both,flag_cash,flag_comp,flag_credit,flag_proceeds,lt,lu,message,precheck,sqlcmd) VALUES ('PROFE005','1','U','profservice','S','S','S','N','N',{ts '2008-10-01 12:47:42.393'},'SA','Il prestatore d''opera ha gi‡ svolto nell''anno, assunto dall''ateneo, una prestazione occasionale. E'' possibile che non si stia usando il modulo corretto per l''effettuazione di questa prestazione.','S','[execute count_contract %<sys_esercizio>%,
 	''C'',  
 	%<profservice.idreg>% ,
 	@outvar output]{I}=0
@@ -159,4 +161,3 @@ GO
 
 -- FINE GENERAZIONE SCRIPT --
 
-	

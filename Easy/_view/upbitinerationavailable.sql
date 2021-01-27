@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- CREAZIONE VISTA upbitinerationavailable
+
+-- CREAZIONE VISTA upbitinerationavailable
 IF EXISTS(select * from sysobjects where id = object_id(N'[upbitinerationavailable]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [upbitinerationavailable]
 GO
@@ -60,10 +62,10 @@ CREATE VIEW [upbitinerationavailable]
 	ayear,
 	--totresidual,
 	previsionedisponibile_impegni,  --> (A) disponibile ad impegnare (creare una nuova fase 1)
-    disponibilita_impegni,			--> (B) disponibilit√† degli impegni
+    disponibilita_impegni,			--> (B) disponibilit‡ degli impegni
     missioniupbnoncontabilizzate,	--> (C) missioni attribuite all'UPB ma non contabilizzate (in anticipo o saldo)
     disptotale,						--> la somma dei precedenti (A+B+C)
-	differenzadisponibilita,		--> Differenza Disponibilit√†  (B-C)
+	differenzadisponibilita,		--> Differenza Disponibilit‡  (B-C)
 	cu, 
 	ct, 
 	lu, 
@@ -374,7 +376,7 @@ SELECT
 		,0)
 		,
 
-	 -- Differenza Disponibilit√† = come B-C 
+	 -- Differenza Disponibilit‡ = come B-C 
     --  (B) disponibile della fase 1
 	ISNULL(
 		(SELECT
@@ -473,4 +475,3 @@ JOIN manager with (nolock)	ON manager.idman = upb.idman
 LEFT OUTER JOIN underwriter with (nolock)	ON underwriter.idunderwriter = upb.idunderwriter
 LEFT OUTER JOIN treasurer 	ON upb.idtreasurer=treasurer.idtreasurer
 GO
-	

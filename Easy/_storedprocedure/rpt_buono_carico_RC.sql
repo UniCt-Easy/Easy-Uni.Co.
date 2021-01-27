@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_buono_carico_RC]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_buono_carico_RC]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_buono_carico_RC]
 GO
 
@@ -82,7 +84,9 @@ CREATE TABLE #assetload
 	description varchar(150),
 	enactment varchar(150),
 	enactmentdate datetime,
-	annotation varchar(6000)
+	annotation varchar(6000),
+	rfid varchar(30),
+	idsubmanager int
 )
 
 INSERT INTO #assetload
@@ -114,7 +118,9 @@ INSERT INTO #assetload
 	number,
 	aq_startnumber,
 	nassetacquire, 
-	prezzocopertina -- importo al lordo dello sconto	
+	prezzocopertina ,-- importo al lordo dello sconto	
+	rfid,
+	idsubmanager
 )
 SELECT
 	assetload.idassetloadkind,
@@ -147,7 +153,12 @@ SELECT
 	CONVERT(decimal(19,2),ROUND(
 			ROUND(ISNULL(assetacquire.taxable, 0),2)
 			+ ROUND(ISNULL(assetacquire.taxable,0) * isnull(assetacquire.taxrate,1),2)-- IVA calcolata PRIMA dello sconto
-			,2))  
+			,2))  ,
+	asset.rfid,
+	(SELECT TOP 1 idmanager
+				FROM assetsubmanager
+				WHERE assetsubmanager.idasset = asset.idasset
+				ORDER BY start desc)
 FROM assetacquire
 JOIN assetload
 	ON assetload.idassetload = assetacquire.idassetload
@@ -194,7 +205,9 @@ INSERT INTO #assetload
 	number,
 	aq_startnumber,
 	nassetacquire, 
-	prezzocopertina -- importo al lordo dello sconto 
+	prezzocopertina, -- importo al lordo dello sconto 
+	rfid,
+	idsubmanager
 )
 SELECT
 	assetload.idassetloadkind,
@@ -227,7 +240,12 @@ SELECT
 	CONVERT(decimal(19,2),ROUND(
 			ROUND(ISNULL(assetacquire.taxable, 0),2)
 			+ ROUND(ISNULL(assetacquire.taxable,0) * isnull(assetacquire.taxrate,1),2)-- IVA calcolata PRIMA dello sconto
-			,2)) 
+			,2)) ,
+	asset.rfid,
+	(SELECT TOP 1 idmanager
+				FROM assetsubmanager
+				WHERE assetsubmanager.idasset = asset.idasset
+				ORDER BY start desc)
 FROM assetacquire
 JOIN assetload
 	ON assetload.idassetload = assetacquire.idassetload
@@ -302,7 +320,9 @@ CREATE TABLE #assetloadfinal
 	descrclass varchar(200),
 	valoretotale decimal(19,2),
 	nassetacquire int,
-	annotation varchar(6000)		
+	annotation varchar(6000)	,
+	rfid varchar(30),
+	idsubmanager int 	
 )
 
 INSERT INTO #assetloadfinal
@@ -338,7 +358,9 @@ INSERT INTO #assetloadfinal
 	aq_startnumber,
 	valoretotale,
 	nassetacquire,
-	prezzocopertina
+	prezzocopertina,
+	rfid,
+	idsubmanager
 )
 SELECT
 	idassetloadkind,
@@ -372,7 +394,9 @@ SELECT
 	aq_startnumber,
 	0, --valore totale
 	nassetacquire,
-	0 -- prezzocopertina
+	0, -- prezzocopertina
+	rfid,
+	idsubmanager
 FROM 
 #assetload
 
@@ -484,7 +508,7 @@ update #assetloadfinal
 	,f.idinventory 
 	,f.nassetacquire  
 	),0.0)
-------- necessario xch√® il responsabile pu√≤ cambiare per numero inventario
+------- necessario xchË il responsabile puÚ cambiare per numero inventario
 DECLARE @num int
 DECLARE @responsabile varchar(300)
 DECLARE @responsabile1 varchar(300)
@@ -518,7 +542,7 @@ BEGIN
 	FETCH NEXT FROM  num_cursor INTO @num, @resp
 END
 DEALLOCATE num_cursor
-------- necessario xch√® l'ubicazione puo' cambiare per numero inventario
+------- necessario xchË l'ubicazione puo' cambiare per numero inventario
 DECLARE @ubicazione varchar(200)
 DECLARE @ubicazione1 varchar(200)
 DECLARE @ubi varchar(400)
@@ -622,7 +646,9 @@ SELECT DISTINCT
 	isnull(#assetloadfinal.prezzocopertina,0) as prezzocopertina,
 	case	when  INVKIND.flag & 4 <>0 then 'S'
 			else 'N'
-	end as 'libri'
+	end as 'libri',
+	rfid,
+	Submanager.title as submanager
 FROM #assetloadfinal
 LEFT OUTER JOIN assetloadmotive
 	ON #assetloadfinal.idmot = assetloadmotive.idmot
@@ -632,6 +658,8 @@ LEFT OUTER JOIN inventoryagency AGENCY
 	ON AGENCY.idinventoryagency = #assetloadfinal.idinventoryagency
 JOIN inventorykind INVKIND
 	ON INVKIND.idinventorykind = #assetloadfinal.idinventorykind
+LEFT OUTER JOIN  manager as Submanager
+	ON Submanager.idman = #assetloadfinal.idsubmanager
 ORDER BY nassetload,aq_startnumber,operationorder
 END
 
@@ -642,4 +670,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

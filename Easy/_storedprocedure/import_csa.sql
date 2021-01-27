@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[import_anagrafiche_csa]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[import_anagrafiche_csa]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [import_anagrafiche_csa]
 GO
 
@@ -37,16 +39,16 @@ CREATE TABLE #anagrafiche
 	--------------------------------------------------------------
 	codice int,   					--
 	tipologia  varchar(2),			--tipologia lunghezza 2
-	tiporesidenza	char,			--tipo residenza I J X poi sar√† char
+	tiporesidenza	char,			--tipo residenza I J X poi sar‡ char
 	denominazione varchar(100),   	--denominazione
 	cognome varchar(50),			--cognome
 	nome varchar(50),				--nome
 	sesso char,						--sesso
 	p_iva	varchar(15),			--partita iva
 	cf      varchar(16),			--codice fiscale
-	cf_ext varchar(40),				--codice fiscale estero dovr√† avere lunghezza 20 nel tracciato	
+	cf_ext varchar(40),				--codice fiscale estero dovr‡ avere lunghezza 20 nel tracciato	
 	datanasc datetime,				--data di nascita
-	localitanasc varchar(50),		--localit√† nascita
+	localitanasc varchar(50),		--localit‡ nascita
 	catastalenasc varchar(4),		--generalmente sono gli ultimi 4 caratteri del codice fiscale
 	matricola  varchar(40),			--numero di matricola
 	esenteeq char,					--S/N
@@ -55,7 +57,7 @@ CREATE TABLE #anagrafiche
 	---------------------------------------------------------------
 	----------INDIRIZZO PREDEFINITO/RESIDENZA----------------------
 	---------------------------------------------------------------
-	dataind_res	datetime,	-- inizio validit√† predefinito/residenza
+	dataind_res	datetime,	-- inizio validit‡ predefinito/residenza
 	indirizzo_res	varchar(100),	-- indirizzo predefinito/residenza
 	cap_res		varchar(20),	-- CAP predefinito/residenza
 	ufficio_res	varchar(50),	-- nome ufficio predefinito/residenza
@@ -64,7 +66,7 @@ CREATE TABLE #anagrafiche
 	---------------------------------------------------------------
 	----------DOMICILIO FISCALE OVE DIVERSO DAL PREDEFINITO--------
 	---------------------------------------------------------------
-	dataind_dom	datetime,	-- inizio validit√† domicilio fiscale
+	dataind_dom	datetime,	-- inizio validit‡ domicilio fiscale
 	indirizzo_dom	varchar(100),	-- indirizzo  domicilio fiscale
 	cap_dom		varchar(20),	-- CAP  domicilio fiscale
 	ufficio_dom 	varchar(50),	-- nome ufficio  domicilio fiscale
@@ -73,8 +75,8 @@ CREATE TABLE #anagrafiche
 	---------------------------------------------------------------
 	---------------------MODALITA' DI PAGAMENTO--------------------
 	---------------------------------------------------------------
-	idpaymethod int,		-- tipo codificato della modalit√† di pagamento
-	nomemod   varchar(50),	-- nome della modalit√† di pagamento
+	idpaymethod int,		-- tipo codificato della modalit‡ di pagamento
+	nomemod   varchar(50),	-- nome della modalit‡ di pagamento
 	abi	 varchar(20),		-- codice ABI Ist. Bancario
 	cab	varchar(20), 		-- codice CAB Sportello
 	cc	varchar(30),		-- codice del conto corrente
@@ -171,10 +173,10 @@ WHERE A.data_in = (SELECT MAX(data_in) FROM ' +  @OPENQUERY + @SGE_INTERVALLI_PL
 		WHERE   C.comparto = A.comparto AND  C.ruolo = A.ruolo AND  C.inquadr = A.inquadr AND C.matricola = A.matricola)'
 
 EXEC (@query_ANAGRAFICA)
--- In REAL_REAL_ANA_DATI_FISC, contiente il CF, per ogni matricola possono pi√π righe o perch√® ci sono pi√π CF, o perch√® ci sono + indirizzi
+-- In REAL_REAL_ANA_DATI_FISC, contiente il CF, per ogni matricola possono pi˘ righe o perchË ci sono pi˘ CF, o perchË ci sono + indirizzi
 -- selezionando SOLO la riga con data inzio MAX si ha per ogni matricola un CF, e viceversa
--- Ma in SGE_INTERVALLI_PLUS per la stessa persona ci sono + righe, perch√® la persona pu√≤ avere + ruoli,  + inquadramenti
--- possiamo fare il distinct perch√® stiamo importando solo i dati anagrafici
+-- Ma in SGE_INTERVALLI_PLUS per la stessa persona ci sono + righe, perchË la persona puÚ avere + ruoli,  + inquadramenti
+-- possiamo fare il distinct perchË stiamo importando solo i dati anagrafici
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -224,4 +226,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

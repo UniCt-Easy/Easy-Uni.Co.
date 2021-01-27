@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_tax_to_fiscaloffice]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_tax_to_fiscaloffice]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_tax_to_fiscaloffice]
 GO
 
@@ -927,7 +929,7 @@ BEGIN
 	nmov AS ''Num. Mov.'',ymov AS ''Eserc. Mov.'',registry AS Denominazione,cf AS ''C.F.'',surname AS Cognome,
 	forename AS Nome,birthdate AS ''Data Nascita'',birthplace AS ''Luogo Nascita'',birthprovince AS ''Prov. Nascita'',
 	birthnation AS ''Stato Nascita'',sex AS Sesso,idser AS ''Cod. Prestazione'',desc_exp AS ''Desc. Spesa'',
-	servicestart AS ''Inizio Prest.'',servicestop AS ''Fine Prest.'',address AS Indirizzo,location AS ''Localit√†'',
+	servicestart AS ''Inizio Prest.'',servicestop AS ''Fine Prest.'',address AS Indirizzo,location AS ''Localit‡'',
 	province AS Provincia,nation as Stato, CAP, fiscaltaxcity as ''Comune'', fiscaltaxregion as ''Regione Fiscale'','
 END
 ELSE
@@ -935,7 +937,7 @@ BEGIN
 	SET @SQL_string = N'SELECT 
 	registry AS Denominazione,cf AS ''C.F.'',surname AS Cognome,forename AS Nome,birthdate AS ''Data Nascita'',
 	birthplace AS ''Luogo Nascita'',birthprovince AS ''Prov. Nascita'',birthnation AS ''Stato Nascita'',sex AS Sesso,
-	address AS Indirizzo,location AS ''Localit√†'',province AS Provincia,nation AS Stato,CAP,
+	address AS Indirizzo,location AS ''Localit‡'',province AS Provincia,nation AS Stato,CAP,
 	fiscaltaxcity AS ''Comune'', fiscaltaxregion AS ''Regione Fiscale'','
 END
 
@@ -1001,4 +1003,3 @@ GO
 
 
 
-	

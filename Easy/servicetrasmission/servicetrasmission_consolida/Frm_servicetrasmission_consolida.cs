@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -62,7 +64,7 @@ namespace servicetrasmission_consolida{
 
         private void btnConsolida_Click(object sender, EventArgs e){
             if ((chkyear.Checked) && (txtEsercizio.Text == "")){
-                MessageBox.Show(this, "indicare l'Esercizio");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "indicare l'Esercizio");
                 return;
             }
             GeneraFile("c");
@@ -70,7 +72,7 @@ namespace servicetrasmission_consolida{
 
         private void btnConsolidaDipendenti_Click(object sender, EventArgs e){
             if ((chkyear.Checked) && (txtEsercizio.Text == "")){
-                MessageBox.Show(this, "indicare l'Esercizio");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "indicare l'Esercizio");
                 return;
             }
             GeneraFile("d");
@@ -79,7 +81,7 @@ namespace servicetrasmission_consolida{
         private DataTable chiamaSP(string sp, object[] parametri){
             DataSet ds = Meta.Conn.CallSP(sp, parametri);
             if ((ds == null) || (ds.Tables.Count == 0)){
-                MessageBox.Show(this, "Errore nella chiamata " + sp);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella chiamata " + sp);
                 return null;
             }
             return ds.Tables[0];
@@ -202,9 +204,9 @@ namespace servicetrasmission_consolida{
 
 
             if (tServiceRegistry.Rows.Count == 0){
-                MessageBox.Show(this, "Non ci sono Incarichi da trasmettere");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono Incarichi da trasmettere");
                 if (tServicePayment.Rows.Count == 0){
-                    MessageBox.Show(this, "Non ci sono Pagamenti da trasmettere");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono Pagamenti da trasmettere");
                     return;
                 }
             }
@@ -243,7 +245,7 @@ namespace servicetrasmission_consolida{
             StreamWriter stw = new StreamWriter(saveFileDialog1.OpenFile());
             stw.Write(sw.ToString());
             stw.Close();
-            MessageBox.Show(this, "Operazione Eseguita");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Operazione Eseguita");
         }
 
         private void InsertConsulenti(){
@@ -510,13 +512,13 @@ namespace servicetrasmission_consolida{
                 XmlAttribute esito = esitoInserimentoIncarichi.GetAttributeNode("esitoFile");
                 if (esito == null)
                 {
-                    MessageBox.Show("Controllare che il file selezionato sia quello di Risposta", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Controllare che il file selezionato sia quello di Risposta", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (esito.Value.ToString().ToUpper() == "KO")
                 {
-                    MessageBox.Show(this, "Il file Trasmesso Ë ERRATO. Correggere i dati inseriti.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il file Trasmesso Ë ERRATO. Correggere i dati inseriti.");
                     //TrasmissioneApprovata(document);// riceve il file in input estrae gli id da NuovoIncarico e li scrive nel db
                     foreach (XmlElement esitoNuoviIncarichi in esitoInserimentoIncarichi.GetElementsByTagName("esitoNuoviIncarichi")){
                         if (esitoNuoviIncarichi.FirstChild.Name == "consulente"){
@@ -529,7 +531,7 @@ namespace servicetrasmission_consolida{
                 }
             }
             sw.Close();
-            MessageBox.Show("File salvato in " + filename, "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("File salvato in " + filename, "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
            
         }
 
@@ -834,7 +836,7 @@ namespace servicetrasmission_consolida{
             {
                 messaggio = "Non riesco ad aprire il file: " + txtNomeFile.Text +
                     "\nErrore: " + ex.Message;
-                MessageBox.Show(this, messaggio);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio);
                 return;
             }
             ElaboraFileRitorno(document);

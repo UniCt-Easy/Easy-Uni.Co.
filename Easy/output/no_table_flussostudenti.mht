@@ -2,10 +2,10 @@ MIME-Version: 1.0
 Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--1P3G4O2L6ZTOLCLZVY8AI3BCF"
+  boundary="---------blocknote.net--QG2666J1R57T1XPCXP71BY6EZ5"
 
 
------------blocknote.net--1P3G4O2L6ZTOLCLZVY8AI3BCF
+-----------blocknote.net--QG2666J1R57T1XPCXP71BY6EZ5
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -21,6 +21,7 @@ Software And More s.r.l\Easy\bin\no_table_invoicecomunicate.mht">
     <META name=3D"source">
     <META name=3D"source" content=3D"mhtml:file://C:\Program Files (x86)\=
 Tempo Srl\Easy\bin\accountvar_default.mht">
+    <META name=3D"source">
     <BASEFONT face=3D"Times New Roman" size=3D"3">
     <TITLE></TITLE><STYLE>BODY { FONT-FAMILY:Times New Roman; FONT-SIZE:1=
 2pt }
@@ -30,11 +31,22 @@ TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
 </STYLE>
   </HEAD>
 <BODY>
+<TABLE align=3D"right" border=3D"1" cellpadding=3D"1" cellspacing=3D"1" w=
+idth=3D"5%">
+  <TR>
+    <TD valign=3D"middle" align=3D"center"><STRONG>v. 1.0</STRONG></TD>
+  </TR>
+  <TR>
+    <TD valign=3D"middle" align=3D"center"><STRONG>06/05/2020</STRONG></T=
+D>
+  </TR>
+</TABLE>
+<DIV align=3D"justify">&nbsp;</DIV>
 <DIV align=3D"justify"><STRONG><FONT size=3D"5">ELABORAZIONE CREDITI ed E=
 LABORAZIONE INCASSI</FONT></STRONG></DIV>
-<DIV align=3D"justify"><FONT size=3D"4">Menu: <STRONG>ENTRATE - PAGOPA-EL=
-ABORAZIONE FLUSSI DA WEB SERVICES E PARTNER TECNOLOGICO - ELABORAZIONE CR=
-EDITI/ELABORAZIONE INCASSI</FONT></STRONG></DIV><HR>
+<DIV align=3D"justify"><FONT size=3D"4">Menu: <STRONG>Entrate&gt;PAGOPA&g=
+t;Elaborazione flussi da Web Services e Partner tecnologico&gt;Elaborazio=
+ne Crediti/Elaborazione Incassi</FONT></STRONG></DIV><HR>
 <DIV align=3D"justify"><FONT size=3D"4">Link guide correlate:</FONT></DIV=
 >
 <DIV align=3D"justify"><A href=3D"flussocreditidetail_default.mht"><FONT =
@@ -44,11 +56,14 @@ size=3D"4">Dettaglio Incassi</FONT></A></FONT></DIV>
 <DIV align=3D"justify"><A href=3D"flussocrediti_default.mht"><FONT size=3D=
 "4">Flusso crediti</FONT></A></FONT></DIV>
 <DIV align=3D"justify"><A href=3D"flussoincassi_default.mht"><FONT size=3D=
-"4">Flusso Incassi</FONT></A></FONT></DIV><HR>
+"4">Flusso Incassi</FONT></A></FONT></DIV>
+<DIV align=3D"justify"><A href=3D"impflussiPagoPaDaExcel.mht"><FONT size=3D=
+"4">Importazione flusso crediti e incassi da file Excel</FONT></A></FONT>=
+</DIV><HR>
 <P align=3D"justify"><STRONG><FONT size=3D"5">ELABORAZIONE CREDITI</FONT>=
 </STRONG></P>
-<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:1LX67ALINBIJ0I63JBW1=
-HQMWVC"></FONT></P>
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:VMDKP6LFNNT21GRYFLW4=
+6IGDG"></FONT></P>
 <P align=3D"justify"><FONT size=3D"4">Per ciascun <A href=3D"flussocredit=
 idetail_default.mht">Dettaglio credito</A><STRONG> configurato per genera=
 re un Contratto attivo</STRONG> (e non una Fattura di vendita), il primo =
@@ -80,13 +95,13 @@ stesso modo, la procedura di <STRONG>Elaborazione dei crediti </STRONG>di=
 reato in sede di <STRONG>Elaborazione Incassi</STRONG> (menu <STRONG>Entr=
 ate&gt;PagoPA&gt;Elaborazione flussi da Web service e Partner tecnologico=
 &gt; Elaborazione incassi</STRONG>).</FONT></P>
-<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:CRA7OSLOI0FQA0YZ6V1I=
-DJNQ0"></FONT></P>
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:X3XQKTKQU21454AHTP1A=
+2Y2EQ"></FONT></P>
 <P align=3D"center">&nbsp;</P>
 <P align=3D"justify"><STRONG><FONT size=3D"5">ELABORAZIONE INCASSI</FONT>=
 </STRONG></P>
 <P align=3D"justify">&nbsp;</P>
-<P align=3D"center"><IMG src=3D"cid:KMHUAHIBP4GX3Q9YUL1HWKGO"></P>
+<P align=3D"center"><IMG src=3D"cid:RH5458HTF981XMC2WRYUNBLZ"></P>
 <P align=3D"justify">&nbsp;</P>
 <P align=3D"justify"><FONT size=3D"4">Il primo pulsante <STRONG>&quot;1- =
 Crea Incassi per i contratti attivi&quot;</STRONG> serve a generare gli I=
@@ -116,7 +131,7 @@ FONT></P>
 tture Attive nel modulo IVA-Fatture, ma non crea le Fatture elettroniche,=
  che vanno predisposte per l=E2=80=99invio al SDI, come di consueto.</FON=
 T></STRONG></P>
-<P align=3D"center"><IMG src=3D"cid:VLM4QAL9FK5B9W7PO0INOPZ3"></P>
+<P align=3D"center"><IMG src=3D"cid:4IL0XM4EKN65LM9Q2O2RMSB"></P>
 <DIV>&nbsp;</DIV>
 <P align=3D"justify"><FONT size=3D"4">Il terzo pulsante <STRONG>&quot;3-C=
 rea accertamenti e incassi fatture&quot; </STRONG>genera gli accertamenti=
@@ -127,9 +142,9 @@ NT></P>
 </BODY>
 </HTML>
 
------------blocknote.net--1P3G4O2L6ZTOLCLZVY8AI3BCF
+-----------blocknote.net--QG2666J1R57T1XPCXP71BY6EZ5
 Content-Type: image/x-png
-Content-Id: <1LX67ALINBIJ0I63JBW1HQMWVC>
+Content-Id: <VMDKP6LFNNT21GRYFLW46IGDG>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/MHT/Elaborazione crediti.png
 
@@ -301,9 +316,9 @@ fefog6P3j+52/YHjk/ga03zuCwBAFmt/7nvzxs2uAwAAe2D6577rZd8fv3K9awEA
 wN44k+wLAADPFvf7AgCQkewLAEAWX9/zAAAAF5V7HgAAyGQ2+/+a374VOUpJHwAA
 AABJRU5ErkJggg===
 
------------blocknote.net--1P3G4O2L6ZTOLCLZVY8AI3BCF
+-----------blocknote.net--QG2666J1R57T1XPCXP71BY6EZ5
 Content-Type: image/x-png
-Content-Id: <CRA7OSLOI0FQA0YZ6V1IDJNQ0>
+Content-Id: <X3XQKTKQU21454AHTP1A2Y2EQ>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/MHT/Tipo contratto attivo.png
 
@@ -529,9 +544,9 @@ ALQnXwGgPfkKAO3JVwBoT74CQHvyFQDak68A0J58BYD25CsAtCdfAaA9+QoA7d34
 Ll//4A/fuV4EAKyun68AQCtefwWAjbjx7nfe7boAQBNnZ/8fZooBJ9ssV9EAAAAA
 SUVORK5CYII==
 
------------blocknote.net--1P3G4O2L6ZTOLCLZVY8AI3BCF
+-----------blocknote.net--QG2666J1R57T1XPCXP71BY6EZ5
 Content-Type: image/x-png
-Content-Id: <KMHUAHIBP4GX3Q9YUL1HWKGO>
+Content-Id: <RH5458HTF981XMC2WRYUNBLZ>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/MHT/Elaborazione incassi.png
 
@@ -878,9 +893,9 @@ OQYAgJ1WjkVERERElh3lWERERESkzpLLcTi9iIiIiMjOydLKcTixiIiIiMhOS9Fa
 c1tYjgEAYHdRjgEAoKYcAwBAbaFyHCYBAMAIPeeeR5RjAACoKMcAAFBTjgEAoKYc
 AwBATTkGAIBaVY7X1v5/2CSDkev8DjsAAAAASUVORK5CYII==
 
------------blocknote.net--1P3G4O2L6ZTOLCLZVY8AI3BCF
+-----------blocknote.net--QG2666J1R57T1XPCXP71BY6EZ5
 Content-Type: image/x-png
-Content-Id: <VLM4QAL9FK5B9W7PO0INOPZ3>
+Content-Id: <4IL0XM4EKN65LM9Q2O2RMSB>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/MHT/Dett. Incassi.png
 
@@ -1376,4 +1391,4 @@ AEAIH1vwTAQAAHiJ2AIAAHiJ2AIAAHiJ2AIAAHiJ2AIAAHiJ2AIAAHiJ2AIAAHiJ
 xBYAAMBLxBYAAMBLxBYAAMBLxBYAAMBLMak7P1VJAACAhvJ/TiTGmAcAAGgkFVsY
 /wEAAHhA0/4/ud+7nnoeZVQAAAAASUVORK5CYII==
 
------------blocknote.net--1P3G4O2L6ZTOLCLZVY8AI3BCF--
+-----------blocknote.net--QG2666J1R57T1XPCXP71BY6EZ5--

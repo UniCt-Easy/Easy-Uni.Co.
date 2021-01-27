@@ -1,0 +1,274 @@
+﻿* {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.container {
+    margin-top: 10px;
+}
+
+.row {
+    margin-bottom: 10px;
+}
+
+input, textarea {
+    border:1px solid #ccc;
+    border-radius:4px;
+    max-width: 100%;
+}
+
+input[type="radio"] {
+    margin-right: 6px;
+}
+
+.min100 {
+    min-width: 100px;
+}
+
+.serverinfo {
+    color: #888;
+    font-size:14px;
+}
+
+span[errormessage] {
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.tab-pane {
+    border-right: 1px solid #eaeaea;
+    border-left: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+    padding: 20px;
+    /*background-color: #e8ffff;*/
+}
+
+.form-group {
+    border-radius: 8px;
+}
+
+.stdfieldset.form-group {
+    margin-top: 25px;
+    border: 1px solid #ccc;
+}
+
+.autochoose button:after {
+    content: '...';
+    position: absolute;
+    left: 11px;
+    top: 3px;
+    font-size: 16px;
+    color: white;
+    z-index: 100;
+}
+
+.autochoose button {
+    float: right;
+    width: 40px;
+    padding: 6px 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin: 0 !important;
+    position: relative;
+    font-size: 0px;
+    height: 34px;
+}
+
+.autochoose input {
+    float: left;
+    width: calc(100% - 40px);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.collapse.in, .collapsing {
+    margin-top: -3px;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    background-color: white;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+label {
+    line-height: 16px;
+    margin-bottom: 0;
+}
+
+.do-accordion h3 {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.do-accordion div * {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+
+.ui-accordion .ui-accordion-content {
+    padding: 2px 0 !important;
+    overflow: hidden !important;
+    height: auto !important;
+}
+
+.tab-content, #mainTabControl .active a {
+    background-color: #f6f7f9;
+}
+
+.tab-content {
+    margin-top: -1px;
+}
+
+.nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:focus, .nav-tabs.nav-justified > .active > a:hover {
+    border-bottom-color: transparent;
+}
+
+#mainTabControl li a {
+    background-color: white;
+    border-left: 1px solid #eaeaea;
+    border-top: 1px solid #eaeaea;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-right: 1px solid #f0f0f0;
+    padding: 10px 8px 8px 8px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ui-pgrid td {
+    font-style: normal !important;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 5px 2px 4px !important;
+}
+
+.ui-dialog-titlebar-close {
+    background-color: white;
+    border: 1px solid #666;
+    border-radius: 4px;
+}
+
+.ui-dialog-titlebar-close:after {
+    content: '\00d7';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    line-height: 15px;
+}
+
+.tblFooter {
+    margin-top: 10px;
+}
+
+.glyphicon {
+    margin-right: 8px;
+}
+
+.btn {
+    margin: 0 5px 6px 0;
+}
+
+.ui-dialog-content {
+    display: block;
+    overflow: hidden !important;
+    max-width: 100%;
+}
+
+.form-group {
+    background-color: #e5f9ff !important;
+}
+
+div.stdfieldset > fieldset {
+    border: 0!important;
+    padding: 13px 12px 2px 13px;
+}
+
+.panel-body.row.form-horizontal {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.nav-tabs.nav-justified > li {
+    display: table-cell !important;
+    width: 1% !important;
+}
+
+[readonly] {
+    cursor: no-drop;
+}
+
+.btn-80 {
+    width: 80px;
+}
+
+div.gbox legend {
+    padding: 0 0 0 15px!important;
+}
+
+.ui-dialog {
+    top: 4%;
+    width: 80% !important;
+    left: 10%;
+    padding: 8px 8px 0 8px;
+    position: absolute !important;
+}
+
+.ui-dialog .btn {
+    width: 96px;
+    margin: 2px 0 0 12px !important;
+}
+
+.ui-dialog-buttonpane {
+    padding-right: 1px !important;
+}
+
+.TreeViewContainer {
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    overflow: auto;
+    font-size: 12px;
+    border-radius: 5px;
+}
+
+button.close.btn.btn-info {
+    margin: 0;
+    right: 16px;
+    position: absolute;
+    top: 16px;
+    border: 1px solid gray;
+    padding: 0px 5px;
+}
+
+.align-self-end button {
+    margin-bottom: 0;
+}
+
+.gbox.scheduler-border.form-group {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.gbox.scheduler-border.form-group[style="background-color:MistyRose;"] {
+    border: 0;
+    padding: 0;
+}
+
+.gbox.scheduler-border.form-group table tr td {
+    padding: 5px;
+}
+
+.grpborder {
+    border: 1px solid #ccc!important;
+}
+
+.ui-dialog-content .ui-pgrid-footer {
+    display: none !important
+}
+
+.ui-pgrid-footer {
+    display: block
+}

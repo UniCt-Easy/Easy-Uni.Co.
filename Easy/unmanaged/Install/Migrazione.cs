@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Windows.Forms;
@@ -37,7 +39,7 @@ namespace Install
 			DataTable t = sourceConn.SQLRunner(command, 0 , out errMsg);
 			if (errMsg != null) {
 				QueryCreator.ShowError(null,errMsg,command);
-				MessageBox.Show(form, errMsg);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMsg);
 			}
 			return t;
 		}
@@ -94,7 +96,7 @@ namespace Install
 							StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
 							fsw.Write(s.ToString());
 							fsw.Close();
-							MessageBox.Show(form, "Errore durante la copia "+title+"\r\nLo script lanciato si trova nel file 'temp.sql'");
+							MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore durante la copia "+title+"\r\nLo script lanciato si trova nel file 'temp.sql'");
 
 							return false;
 						}
@@ -110,7 +112,7 @@ namespace Install
 						StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
 						fsw.Write(s.ToString());
 						fsw.Close();
-						MessageBox.Show(form, "Errore durante la copia "+title+"\r\nLo script lanciato si trova nel file 'temp.sql'");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore durante la copia "+title+"\r\nLo script lanciato si trova nel file 'temp.sql'");
 
 						return false;
 					}
@@ -132,7 +134,7 @@ namespace Install
 		public static bool lanciaScript(Form form, DataAccess destConn, DataSet ds, string nomeCopia) {
 			if (ds.Tables.Count==1){
 				if (!CopyTable(form, ds.Tables[0],destConn,nomeCopia)){
-					MessageBox.Show(form, "Errore durante la copia: "+nomeCopia+"\r\n");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore durante la copia: "+nomeCopia+"\r\n");
 					return false;
 				}
 				return true;
@@ -145,7 +147,7 @@ namespace Install
 				StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
 				fsw.Write(sw.ToString());
 				fsw.Close();
-				MessageBox.Show(form, "Errore durante la copia: "+nomeCopia+"\r\nLo script lanciato si trova nel file 'temp.sql'");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore durante la copia: "+nomeCopia+"\r\nLo script lanciato si trova nel file 'temp.sql'");
 				return false;
 			}
 			return true;
@@ -153,7 +155,7 @@ namespace Install
 
 		public static bool lanciaScript(Form form, DataAccess destConn, DataTable t, string nomeCopia) {
 			if (!CopyTable(form,t,destConn,nomeCopia)){
-				MessageBox.Show(form, "Errore durante la copia: "+nomeCopia+"\r\n");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore durante la copia: "+nomeCopia+"\r\n");
 				return false;
 			}
 			return true;
@@ -165,7 +167,7 @@ namespace Install
 				StreamWriter fsw = File.CreateText("temp.sql");
 				fsw.Write(sw.ToString());
 				fsw.Close();
-				MessageBox.Show(form, "Errore durante la copia: "+nomeCopia+"\r\nLo script lanciato si trova nel file 'temp.sql'");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore durante la copia: "+nomeCopia+"\r\nLo script lanciato si trova nel file 'temp.sql'");
 			}
 			*/
 		}
@@ -359,7 +361,7 @@ namespace Install
 
 				return eseguiQuery(sourceConn, query, form);
 			} else {
-				MessageBox.Show(form, "La tabella "+oldTable+" non esiste più");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "La tabella "+oldTable+" non esiste più");
 				return null;
 			}
 		}
@@ -395,7 +397,7 @@ namespace Install
 
 				return eseguiQuery(sourceConn, query, form);
 			} else {
-				MessageBox.Show(form, "La tabella "+oldTable+" non esiste più");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "La tabella "+oldTable+" non esiste più");
 				return null;
 			}
 		}
@@ -434,7 +436,7 @@ namespace Install
 
 			sw.Close();
 
-			if (NDONE==NTAB)MessageBox.Show("Script "+filename+" creato correttamente");
+			if (NDONE==NTAB)MetaFactory.factory.getSingleton<IMessageShower>().Show("Script "+filename+" creato correttamente");
 		}
 
 
@@ -476,7 +478,7 @@ namespace Install
 				//Crea lo script per la tabella T
                 DataTable T = Conn.CreateTableByName(TabRow["objectname"].ToString(), "*", true); //ex newtable
 				if (T.Columns.Count==0) {
-					MessageBox.Show(form, "Non esiste la tabella "+
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Non esiste la tabella "+
 						T.TableName+"\npertanto non sarà generato lo script per tale tabella.", "ERRORE!");
 					continue;
 				} 
@@ -484,7 +486,7 @@ namespace Install
 				T.Columns.CopyTo(colonne, 0);
 				foreach (DataColumn c in colonne) {
 					if (c.ColumnName.ToUpper().StartsWith("DELETE")) {
-						//MessageBox.Show("trovata colonna "+T.TableName+"."+c.ColumnName);
+						//MetaFactory.factory.getSingleton<IMessageShower>().Show("trovata colonna "+T.TableName+"."+c.ColumnName);
 						T.Columns.Remove(c);
 					}
 				}
@@ -516,7 +518,7 @@ namespace Install
 			//			StreamWriter write = ff.CreateText();
 			//			write.Write(All.ToString());
 			//			write.Close();
-            if (NDONE == NTAB) MessageBox.Show("Script " + filename + " creato correttamente ("
+            if (NDONE == NTAB) MetaFactory.factory.getSingleton<IMessageShower>().Show("Script " + filename + " creato correttamente ("
                              + NDONE.ToString() + " tabelle)");
 
 
@@ -593,14 +595,14 @@ namespace Install
 					Tok = SPB.NextToken(out skipped);
 					All.Append(skipped);
 					if (Tok.val.ToLower()!="create") {
-						MessageBox.Show("Impossibile compilare la vista "+viewname);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Impossibile compilare la vista "+viewname);
 						continue;
 					}
 					All.Append(Tok.val);
 					Tok= SPB.NextToken(out skipped);
 					All.Append(skipped);
 					if (Tok.val.ToLower()!="view") {
-						MessageBox.Show("Impossibile compilare la vista "+viewname);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Impossibile compilare la vista "+viewname);
 						continue;
 					}
 					All.Append(Tok.val);
@@ -671,15 +673,15 @@ namespace Install
 			write.Close();
 
 			if (NDONE==NSP){
-				MessageBox.Show("Script "+filenameNonDbo+"("+N_NODBO+" SP) e "+filenameDbo+"("+N_DBO+" SP) creati correttamente, per un totale di "
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Script "+filenameNonDbo+"("+N_NODBO+" SP) e "+filenameDbo+"("+N_DBO+" SP) creati correttamente, per un totale di "
                             + NDONE.ToString()+" viste ");
 			}
 			else {
-				MessageBox.Show(NDONE.ToString()+" di "+NSP.ToString()+" viste elaborate");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(NDONE.ToString()+" di "+NSP.ToString()+" viste elaborate");
 				foreach (DataRow EL in SysObjects.Rows){
 					int id = (int) EL["id"];
 					if (id<0) continue;
-					MessageBox.Show("La vista "+EL["name"].ToString()+" non è stata elaborata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("La vista "+EL["name"].ToString()+" non è stata elaborata.");
 
 				}
 			}
@@ -772,7 +774,7 @@ namespace Install
 					StringBuilder All = new StringBuilder();
 					All.Append(skipped);
 					if (Tok.val.ToLower()!="create"){
-						MessageBox.Show("Impossibile compilare la sp "+spname);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Impossibile compilare la sp "+spname);
 						continue;
 					}
 					All.Append(Tok.val);
@@ -781,7 +783,7 @@ namespace Install
 					string tipo = Tok.val;
 					if ((Tok.val.ToLower()!="procedure")&&(Tok.val.ToLower()!="trigger")&&
 							(Tok.val.ToLower()!="function")){
-						MessageBox.Show("Impossibile compilare la sp "+spname);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Impossibile compilare la sp "+spname);
 						continue;
 					}
 					bool dbo=false;
@@ -802,7 +804,7 @@ namespace Install
 						Tok = SPB.NextToken(out skipped);
 						All.Append(skipped);
 						if (Tok.val != "ON") {
-							MessageBox.Show("Impossibile compilare il trigger "+spname);
+							MetaFactory.factory.getSingleton<IMessageShower>().Show("Impossibile compilare il trigger "+spname);
 							continue;
 						}
 						All.Append(Tok.val);
@@ -847,17 +849,17 @@ namespace Install
 				}
 			}
 			if (NDONE==NSP){
-				MessageBox.Show("Script "+filenamedbo+"("+N_DBO+" SP) e "+filenamenondbo+
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Script "+filenamedbo+"("+N_DBO+" SP) e "+filenamenondbo+
                             "("+N_NODBO+" SP) creati correttamente, per un totale di "
                     + NDONE.ToString()+" SP"
                     );
 			}
 			else {
-				MessageBox.Show(NDONE.ToString()+" di "+NSP.ToString()+" s.p. elaborate");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(NDONE.ToString()+" di "+NSP.ToString()+" s.p. elaborate");
 				foreach (DataRow EL in SysObjects.Rows){
 					int id = (int) EL["id"];
 					if (id<0) continue;
-					MessageBox.Show("La sp "+EL["name"].ToString()+" non è stata elaborata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("La sp "+EL["name"].ToString()+" non è stata elaborata.");
 
 				}
 			}
@@ -909,7 +911,7 @@ namespace Install
 			string errMsg;
 			DataTable tDepend = Conn.SQLRunner(filtro, 0, out errMsg);
 			if (errMsg != null) {
-				MessageBox.Show(form, errMsg);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMsg);
 			}
 			bool isDbo = true;
 			foreach (DataRow rDepend in tDepend.Rows) {
@@ -929,7 +931,7 @@ namespace Install
 						}
 						break;
 					default:
-						MessageBox.Show(form, xtype+" è un xtype non conosciuto");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(form, xtype+" è un xtype non conosciuto");
 						break;
 				}
 			}
@@ -1042,7 +1044,7 @@ namespace Install
 
             if (tVar == null) {
                 string msg = "Errore nella migrazione delle variazioni di " + tName_src;
-                MessageBox.Show(form, msg, "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(form, msg, "Errore");
                 return false;
             }
 
@@ -1109,7 +1111,7 @@ namespace Install
 			string errMess;
 			DataTable tMovFin_src = sourceConn.SQLRunner(query, 0, out errMess);
 			if (errMess != null) {
-				MessageBox.Show(form, errMess);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMess);
 				return false;
 			}
 			tMovFin_src.TableName = tName_dest;
@@ -1469,7 +1471,7 @@ namespace Install
 					decimal importo = CfgFn.GetNoNullDecimal(rEsito["importo"]);
                     decimal importomovfin = CfgFn.GetNoNullDecimal(rMov["importocorrente"]);
                     if(importo > importomovfin) {
-                        MessageBox.Show("Il movimento bancario " + tipo + " " +
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Il movimento bancario " + tipo + " " +
                             rEsito["esercmovbancario"].ToString() + "/" + rEsito["nummovbancario"].ToString() +
                             " ha un importo pari a " + importo.ToString("c")+
                             " ma IL mov.finanziario associato ha importo "+importomovfin.ToString("c")+
@@ -1672,7 +1674,7 @@ namespace Install
 				
 				DataRow [] MovFin = tMovFin_src.Select(filter);
                 if(MovFin.Length == 0) {
-                    MessageBox.Show("Non sono riuscito ad esitare il movimento bancario " + tipo + " " +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non sono riuscito ad esitare il movimento bancario " + tipo + " " +
                         rEsito["esercmovbancario"].ToString() + "/" + rEsito["nummovbancario"].ToString() +
                         " per un importo pari a " + residuoEsito.ToString("c"));
                     continue;
@@ -1709,7 +1711,7 @@ namespace Install
 					residuoEsito -= importodaEsitare;
 				}
                 if(residuoEsito > 0) {
-                    MessageBox.Show("Non sono riuscito ad esitare il movimento bancario " + tipo + " " +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non sono riuscito ad esitare il movimento bancario " + tipo + " " +
                         rEsito["esercmovbancario"].ToString() + "/" + rEsito["nummovbancario"].ToString()+
                         " per un importo pari a "+residuoEsito.ToString("c"));                        
                 }
@@ -1812,7 +1814,7 @@ namespace Install
 				StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
 				fsw.Write(sw.ToString());
 				fsw.Close();
-				MessageBox.Show(form, "Errore durante la copia: "+nomeCopia+"\r\nLo script lanciato si trova nel file 'temp.sql'");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore durante la copia: "+nomeCopia+"\r\nLo script lanciato si trova nel file 'temp.sql'");
 			}
 			sw.Close();
 		}
@@ -1896,7 +1898,7 @@ namespace Install
 			tPianoSorting= new DataTable("pianosorting");
 			tPianoSorting.Columns.Add("idsor", typeof(string));
 
-			DialogResult dr = MessageBox.Show(form, "Vuoi migrare il piano dei conti come classificazione supplementare?",
+			DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Vuoi migrare il piano dei conti come classificazione supplementare?",
 				"Domanda", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if(dr != DialogResult.OK) {
                 return true;
@@ -2135,21 +2137,21 @@ namespace Install
 			string query = "select * from movimentobancario where numoperazione is null";
 			int NPayNoNumOp=CfgFn.GetNoNullInt32( SourceConn.DO_SYS_CMD(query,true));			
 			if (NPayNoNumOp>0) {
-				if(MessageBox.Show(form,"Ci sono movimenti bancari senza numero operazione, che sarà quindi posto a zero. Procedo comunque? ","Avviso",
+				if(MetaFactory.factory.getSingleton<IMessageShower>().Show(form,"Ci sono movimenti bancari senza numero operazione, che sarà quindi posto a zero. Procedo comunque? ","Avviso",
 					MessageBoxButtons.YesNo)==DialogResult.No)
 					return false;
 			}
 			query = "select * from dettmovimentobancario where numoperazione is null";
 			int NDettPayNoNumOp=CfgFn.GetNoNullInt32( SourceConn.DO_SYS_CMD(query,true));			
 			if (NDettPayNoNumOp>0) {
-				if(MessageBox.Show(form,"Ci sono DETTAGLI di movimenti bancari senza numero operazione, che sarà quindi posto a zero. Procedo comunque? ","Avviso",
+				if(MetaFactory.factory.getSingleton<IMessageShower>().Show(form,"Ci sono DETTAGLI di movimenti bancari senza numero operazione, che sarà quindi posto a zero. Procedo comunque? ","Avviso",
 					MessageBoxButtons.YesNo)==DialogResult.No)
 					return false;
 			}
 			query = "select * from movimentobancario where numdocumento is null or esercdocumento is null";
 			int NPayNoDoc=CfgFn.GetNoNullInt32( SourceConn.DO_SYS_CMD(query,true));			
 			if (NPayNoDoc>0) {
-				if(MessageBox.Show(form,"Ci sono movimenti bancari senza mandato o reversale, che saranno quindi SALTATI. Procedo comunque? ","Avviso",
+				if(MetaFactory.factory.getSingleton<IMessageShower>().Show(form,"Ci sono movimenti bancari senza mandato o reversale, che saranno quindi SALTATI. Procedo comunque? ","Avviso",
 					MessageBoxButtons.YesNo)==DialogResult.No)
 					return false;
 			}
@@ -2164,7 +2166,7 @@ namespace Install
             int NPayNoMov = CfgFn.GetNoNullInt32(SourceConn.DO_SYS_CMD(query, true));
             if (NPayNoMov > 0)
             {
-                if (MessageBox.Show(form, "Ci sono movimenti bancari non associati ad alcun movimento di entrata/spesa, che saranno quindi SALTATI. Procedo comunque? ", "Avviso",
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Ci sono movimenti bancari non associati ad alcun movimento di entrata/spesa, che saranno quindi SALTATI. Procedo comunque? ", "Avviso",
                     MessageBoxButtons.YesNo) == DialogResult.No)
                     return false;
             }
@@ -2582,7 +2584,7 @@ namespace Install
             string errMsg;
             DataTable tProfRefund = sourceConn.SQLRunner(sql, 0, out errMsg);
             if (errMsg != null) {
-                MessageBox.Show(form, errMsg);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(form, errMsg);
                 return false;
             }
             tProfRefund.TableName = "profrefund";

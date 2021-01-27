@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_miur_bari]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_miur_bari]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_miur_bari]
 GO
 
@@ -179,7 +181,7 @@ end
 -- C-ALTRI SERVIZI DI SUPPORTO
 
 
--- Creazione della Tabella che visualizzer√† il riepilogo dei dati su foglio Excel
+-- Creazione della Tabella che visualizzer‡ il riepilogo dei dati su foglio Excel
 
 CREATE TABLE #MIUR_balance
 (
@@ -541,10 +543,10 @@ BEGIN
 	DECLARE @faseMIURprimafase tinyint
 	-- per distinguere i movimenti in conto competenza dai movimenti in conto residui faremo
 	-- sempre riferimento alla fase 1
-	-- movimenti in conto competenza, la cui fase 1 √® pari all'anno corrente della stampa @ayear
+	-- movimenti in conto competenza, la cui fase 1 Ë pari all'anno corrente della stampa @ayear
 	-- movimenti in conto residui, si distinguono in due categorie
-	-- 1) movimenti la cui fase 1 √® anteriore al 2008 (<)
-	-- 2) movimenti la cui fase 1 √® compresa (>=) tra  2008 e @ayear - 1
+	-- 1) movimenti la cui fase 1 Ë anteriore al 2008 (<)
+	-- 2) movimenti la cui fase 1 Ë compresa (>=) tra  2008 e @ayear - 1
 
 	SELECT @phaseMIUR = nphaseexpense FROM sortingkind WHERE idsorkind  = @eMIUR
 	SELECT @phaseFUNZ = nphaseexpense FROM sortingkind WHERE idsorkind  = @eFUNZ
@@ -1247,4 +1249,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

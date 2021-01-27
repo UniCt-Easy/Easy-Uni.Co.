@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿SET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -82,8 +84,8 @@ declare @is_variation char(1)
 	--vogliamo che @amount abbia un segno tale che sommato sia conforme alla chiusura dell'accertamento
 	if  (@is_variation = 'S')
 	Begin
-		--visto che di norma il ricavo Ã¨ in avere ma importo negativo(*), per gli accertamenti normali basta sommarlo col suo valore
-		-- per le variazioni di accertamento invece il ricavo vogliamo che si chiuda in dare ossia quando Ã¨ positivo,
+		--visto che di norma il ricavo è in avere ma importo negativo(*), per gli accertamenti normali basta sommarlo col suo valore
+		-- per le variazioni di accertamento invece il ricavo vogliamo che si chiuda in dare ossia quando è positivo,
 		--  quindi in questo caso dobbiamo cambiarlo di segno
 
 		SET @amount  = - isnull(@amount,0)
@@ -162,4 +164,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

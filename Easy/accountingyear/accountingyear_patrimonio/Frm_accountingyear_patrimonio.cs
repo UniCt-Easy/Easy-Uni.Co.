@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -321,7 +323,7 @@ namespace accountingyear_patrimonio//esercizio_patrimonio//
             int Nvar = Meta.Conn.RUN_SELECT_COUNT("assetvar",
                             QHS.AppAnd(QHS.BitClear("flag", 0), QHS.CmpEq("yvar", esercizio + 1)), false);
             if (Nvar > 0) {
-                MessageBox.Show("Esiste gi‡ una variazione iniziale nell'anno successivo. Operazione vietata.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Esiste gi‡ una variazione iniziale nell'anno successivo. Operazione vietata.");
                 return;
             }
 
@@ -335,11 +337,11 @@ namespace accountingyear_patrimonio//esercizio_patrimonio//
             //if (t.Rows.Count > 0) {
             //    string messaggio = "La procedura potrebbe effettuare ammortamenti anche ove il valore, sommato agli ammortamenti non inclusi in buoni di scarico, diventi minore di zero, causando incongruenze."
             //        + "\nSi intende procedere ugualmente?";
-            //    DialogResult dr = MessageBox.Show(this, messaggio, "Avviso", MessageBoxButtons.YesNoCancel);
+            //    DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio, "Avviso", MessageBoxButtons.YesNoCancel);
             //    if (dr != DialogResult.Yes) return;
             //}
             string includi = "N";
-            if (MessageBox.Show(this, "Si vogliono marcare gli ammortamenti come da 'Includere in buono di scarico'?", "Richiesta informazioni",
+            if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si vogliono marcare gli ammortamenti come da 'Includere in buono di scarico'?", "Richiesta informazioni",
                     MessageBoxButtons.YesNo) == DialogResult.Yes) {
                 includi = "S";
             }
@@ -347,11 +349,11 @@ namespace accountingyear_patrimonio//esercizio_patrimonio//
 			DataSet app = Meta.Conn.CallSP("closeyear_asset_ammortization",new object[]{esercizio,includi},false,0);
 			if (!(app == null))
 			{
-				MessageBox.Show("Ammortamento dei Cespiti Eseguita Con Successo!");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Ammortamento dei Cespiti Eseguita Con Successo!");
 			}
 			else
 			{
-				MessageBox.Show("Errori nell'ammortamento");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Errori nell'ammortamento");
 			}
 		}
 
@@ -363,7 +365,7 @@ namespace accountingyear_patrimonio//esercizio_patrimonio//
             filtro += filtroInterno+ "))";
             DataTable t = Meta.Conn.RUN_SELECT("inventoryagency", null, "codeinventoryagency", filtro, null, true);
             if (t.Rows.Count == 0) {
-                MessageBox.Show(this, "Per tutti gli enti Ë gi‡ stata eseguita la chiusura del patrimonio!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per tutti gli enti Ë gi‡ stata eseguita la chiusura del patrimonio!");
                 return;
             }
             ListViewItem[] items = new ListViewItem[t.Rows.Count];
@@ -391,15 +393,15 @@ namespace accountingyear_patrimonio//esercizio_patrimonio//
                
                 if (app != null) {
                     okMessage = true;
-                    //MessageBox.Show(this, "Chiusura del Patrimonio Eseguita Con Successo per l'ente '" + descrizione + "'");
+                    //MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Chiusura del Patrimonio Eseguita Con Successo per l'ente '" + descrizione + "'");
                 }
                 else {
                     errMessage = true;
-                    MessageBox.Show(this, "Errori nella chiusura patrimoniale dell'ente '" + descrizione + "'");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errori nella chiusura patrimoniale dell'ente '" + descrizione + "'");
                 }
             }
             if ((okMessage) && (!errMessage))
-                MessageBox.Show(this, "Chiusura del Patrimonio Eseguita Con Successo per gli enti selezionati ");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Chiusura del Patrimonio Eseguita Con Successo per gli enti selezionati ");
         }
 
         private void btnFase3_Click(object sender, EventArgs e) {
@@ -424,10 +426,10 @@ namespace accountingyear_patrimonio//esercizio_patrimonio//
 
             Post.InitClass(DS, Meta.Conn);
             if (!Post.DO_POST()) {
-                MessageBox.Show(this, "Errore durante la chiusura dell'esercizio" + esercizio);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la chiusura dell'esercizio" + esercizio);
             }
             else {
-                MessageBox.Show(this, "Esercizio " + esercizio + " chiuso correttamente");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Esercizio " + esercizio + " chiuso correttamente");
             }
             this.Close();
         }
@@ -437,10 +439,10 @@ namespace accountingyear_patrimonio//esercizio_patrimonio//
             DataSet dsOut = DataAccess.CallSP(Meta.Conn, "closeyear_reopenayear", new object [] {esercizio, "P"}, true, 0);
 
             if (dsOut == null) {
-                MessageBox.Show(this, "Errore nella S.P. di riapertura dell'esercizio " + esercizio);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella S.P. di riapertura dell'esercizio " + esercizio);
             }
             else {
-                MessageBox.Show(this, "Esercizio " + esercizio + " riaperto correttamente");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Esercizio " + esercizio + " riaperto correttamente");
             }
             this.Close();
         }

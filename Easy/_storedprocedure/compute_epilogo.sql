@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[compute_epilogo]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[compute_epilogo]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_epilogo]
 GO
  
@@ -22,6 +24,7 @@ GO
 SET ANSI_NULLS ON 
 GO
 --setuser 'amm'
+
 CREATE    procedure [compute_epilogo](
 	@ayear int,
 	@kind char(1),-- E: epilogo conto Economico, P: epilogo conti patrimoniali, R:Rilevazione risultato economico
@@ -67,7 +70,7 @@ as begin
 	End
 
 	-- Epilogo conti patrimoniali
-	-- Nell'epilogo dei conti patrimoniali dobbiamo valorizzare idaccmotive(solo se idepexp √® valorizzato) e idepexp dai dettagli scritture
+	-- Nell'epilogo dei conti patrimoniali dobbiamo valorizzare idaccmotive(solo se idepexp Ë valorizzato) e idepexp dai dettagli scritture
 	if(@kind='P')
 	Begin
 		set @idaccToUse= @idaccPAT
@@ -95,13 +98,16 @@ as begin
 		set @idaccToUse= @idacc_risultatoesercizio
 		insert into @MyTable(amount, idacc,  idupb, idreg)
 		SELECT -SUM(ED.amount) AS amount, ED.idacc, 
-             case when flag&2 =0 then ED.idupb else null end as idupb , 
-             case when flag&1 =0 then ED.idreg else null end as idreg 			 
+             case when ACC.flag&2 =0 then U.idupb else null end as idupb , 
+             case when ACC.flag&1 =0 then ED.idreg else null end as idreg 			 
              FROM entrydetail ED 
              JOIN account ACC               ON ED.idacc = ACC.idacc
+			 left outer join UPB UPB_associati on ED.idupb = UPB_associati.idupb 
+             left outer join UPB U on U.idupb  = ISNULL(UPB_associati.idupb_capofila,UPB_associati.idupb) 
              WHERE ED.yentry = @ayear		and ACC.ayear = @ayear		and ED.idacc = @idaccPL
-             GROUP BY ED.idacc, (case when flag&2 =0  then ED.idupb else null end), 
-							    ( case when flag&1 =0 then ED.idreg else null end)
+             GROUP BY ED.idacc, 
+							(case when ACC.flag&2 =0  then U.idupb else null end), 
+							 ( case when ACC.flag&1 =0 then ED.idreg else null end)
              having SUM(ED.amount)<>0 
 	End
 
@@ -223,4 +229,3 @@ GO
 
 -- select * from entry where cu='compute_epilogo'
 -- select * from entrydetail where cu='compute_epilogo'
-	

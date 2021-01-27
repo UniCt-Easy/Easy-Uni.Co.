@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -91,7 +93,7 @@ namespace paydisposition_default {
                 exportclass.DataTableToExcel(tExcel, true);
             }
             else {
-                MessageBox.Show(this, "Esportazione non riuscita!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Esportazione non riuscita!");
             }
         }
 
@@ -544,7 +546,7 @@ namespace paydisposition_default {
             }
 
             if ((drTestata["CodiceSia"].ToString() == "") && !BancaCarime) {
-                MessageBox.Show("Non Ë stato inserito il CodiceSIA. Inserirlo in Configurazione/Tesoriere.\n " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stato inserito il CodiceSIA. Inserirlo in Configurazione/Tesoriere.\n " +
                                 "L'operazione sar‡ annullata.", "Attenzione", MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation);
                 return;
@@ -586,7 +588,7 @@ namespace paydisposition_default {
                         Beneficiario = rDetail["title"].ToString();
                     }
 
-                    MessageBox.Show("Nella disposizione per " + Beneficiario.ToString() +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Nella disposizione per " + Beneficiario.ToString() +
                                     " sono state indicate le coordinate bancarie "
                         , "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -679,7 +681,7 @@ namespace paydisposition_default {
                 }
 
                 if (drRighe["Causale"].ToString() == "") {
-                    MessageBox.Show("Non Ë stato inserita la Causale.\n " +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stato inserita la Causale.\n " +
                                     "L'operazione sar‡ annullata.", "Attenzione", MessageBoxButtons.OK,
                         MessageBoxIcon.Exclamation);
                     return;
@@ -782,7 +784,7 @@ namespace paydisposition_default {
             // scrittura footer file riba
             sw.WriteLine(riba.RecordEF());
             sw.Close();
-            MessageBox.Show("File salvato in " + filename, "Informazioni", MessageBoxButtons.OK,
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("File salvato in " + filename, "Informazioni", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
 
@@ -807,7 +809,7 @@ namespace paydisposition_default {
                 txtInputFile.Text = fileName;
             }
             catch (Exception ex) {
-                MessageBox.Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
                 return false;
             }
 
@@ -849,7 +851,7 @@ namespace paydisposition_default {
         //         }
         //     }
         //     catch (Exception ex) {
-        //         MessageBox.Show(this, ex.Message);
+        //         MetaFactory.factory.getSingleton<IMessageShower>().Show(this, ex.Message);
         //     }
         //    // pulizia nomi colonne da eventuali spazi
         //    foreach (DataColumn C in mData.Columns) {
@@ -1449,14 +1451,14 @@ namespace paydisposition_default {
             }
 
             sw.Close();
-            MessageBox.Show("File salvato in " + filename, "Informazioni", MessageBoxButtons.OK,
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("File salvato in " + filename, "Informazioni", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
 
         private bool datiCorretti() {
             object publicagency = readValue("uniconfig", null, "publicagency");
             if (publicagency.ToString() == "") {
-                MessageBox.Show(this, "Indicare il Tipo Universit‡ nella Configurazione Pluriennale.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Indicare il Tipo Universit‡ nella Configurazione Pluriennale.");
                 return false;
             }
 
@@ -1469,12 +1471,12 @@ namespace paydisposition_default {
             if (!getFormData(false)) return;
             PostData.RemoveFalseUpdates(DS);
             if (DS.HasChanges()) {
-                MessageBox.Show(this, "Per generare il file occorre prima SALVARE");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per generare il file occorre prima SALVARE");
                 return;
             }
 
             if (DS.paydispositiondetail.Filter(eq("flagtaxrefund", 'S')).Length == 0) {
-                MessageBox.Show(this, "Non ci sono disposizioni marcate come Rimborso Spese.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono disposizioni marcate come Rimborso Spese.");
                 return;
             }
 
@@ -1633,7 +1635,7 @@ namespace paydisposition_default {
             }
             PostData.RemoveFalseUpdates(DS);
             if (DS.HasChanges()) {
-                MessageBox.Show(this, "Per creare i Movimenti Finanziari occorre prima SALVARE");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per creare i Movimenti Finanziari occorre prima SALVARE");
                 return;
             }
 
@@ -1642,7 +1644,7 @@ namespace paydisposition_default {
             DataRow[] RowSelected = getGridSelectedRows(dgDetail);
             DSFinancial.Clear();
             if (RowSelected.Length == 0) {
-                MessageBox.Show("Selezionare almeno un dettaglio  non associato a movimenti finanziari");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Selezionare almeno un dettaglio  non associato a movimenti finanziari");
                 return;
             }
 

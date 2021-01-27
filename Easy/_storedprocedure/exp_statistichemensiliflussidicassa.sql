@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_statistichemensiliflussidicassa]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_statistichemensiliflussidicassa]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_statistichemensiliflussidicassa]
 GO
 
@@ -31,7 +33,7 @@ CREATE   PROCEDURE exp_statistichemensiliflussidicassa(
 	@finpart char(1),
 	@officialvar char(1),
 	@suppressifblank char(1),
-	@insidecall char(1)  -- E' un parametro nascosto che indica che la sp √® chiamata internamente dalla sp Previsione liquidit√† o meno.
+	@insidecall char(1)  -- E' un parametro nascosto che indica che la sp Ë chiamata internamente dalla sp Previsione liquidit‡ o meno.
 )
 AS BEGIN
 --	exec exp_statistichemensiliflussidicassa 2011 , 'S', 'N', 'S','S'
@@ -597,7 +599,7 @@ END
 
 /*
  Se N qualora per un capitolo non esistano sott-capitoli con legami con l'upb fondo
- NON verr√† visualizzata l'indicazione del Titolo/Categoria/Capitolo
+ NON verr‡ visualizzata l'indicazione del Titolo/Categoria/Capitolo
 */
 IF( @suppressifblank = 'S' )
 BEGIN
@@ -1196,7 +1198,7 @@ BEGIN
 		Case when ResiduiFineAnno3112 = 0 then null
 			else CONVERT(varchar(50),convert(decimal(19,2), Round((_12PagatoResiduo / ResiduiFineAnno3112) ,2)))
 		End  as'Dic.% Res.',
-	-- Se la sp √® chiamata internamente da exp_previsionediliquidit√† deve restituitre anche l'idfin. Lo metto come ultima colonna e senza intesatzione cos√¨
+	-- Se la sp Ë chiamata internamente da exp_previsionediliquidit‡ deve restituitre anche l'idfin. Lo metto come ultima colonna e senza intesatzione cosÏ
 	-- l'utente non nota l'aggiunta della colonna vuota
 		F.idfin,
    		CASE
@@ -1233,4 +1235,3 @@ GO
 
 exec exp_statistichemensiliflussidicassa 2011 , 'E', 'N', 'S','S'
 */
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_riepilogo_ritenute_applicate]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_riepilogo_ritenute_applicate]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_riepilogo_ritenute_applicate]
 GO
 
@@ -481,13 +483,13 @@ WHERE #tax.idreg = i1.idreg
 --------------------------------------------------
 
 
--- La condizione sul dipartimento √® stata valutata solo col @unified_mov='N', perch√® la sp del consolidmanto
+-- La condizione sul dipartimento Ë stata valutata solo col @unified_mov='N', perchË la sp del consolidmanto
 -- chiama questa sp con @unified_mov = N, al fine di ottenere tutti i dati e poi elaborarli prima del'output.
 -- Quindi se la sp viene chiamata dal consolidamento
 -- il @show_department vale S e @unified_mov vale N
 -- Se la sp non viene chiamata dal consolidamento
 -- avremo "@show_department = N e @unified_mov = N"  oppure @unified_mov=S
--- In pratica solo la sp "normale" po√≤ consolidare i movimenti dei percipienti
+-- In pratica solo la sp "normale" poÚ consolidare i movimenti dei percipienti
 IF (@unified_mov='S') 
 BEGIN
       SELECT
@@ -500,7 +502,7 @@ BEGIN
         ISNULL(GN.title,'ITALIA') as 'Stato Nascita',
         R.gender as 'Sesso',
         #tax.address as 'Indirizzo',
-        #tax.location as 'Localit√†',
+        #tax.location as 'Localit‡',
         #tax.province as 'Provincia',
         #tax.nation as 'Stato',
         #tax.cap as 'CAP',
@@ -548,7 +550,7 @@ BEGIN
         #tax.servicestart as 'Inizio Prest.',
         #tax.servicestop as 'Fine Prest.',
         #tax.address as 'Indirizzo',
-        #tax.location as 'Localit√†',
+        #tax.location as 'Localit‡',
         #tax.province as 'Provincia',
         #tax.nation as 'Stato',
         #tax.cap as 'CAP',
@@ -593,4 +595,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

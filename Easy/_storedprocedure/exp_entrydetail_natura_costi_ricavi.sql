@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_entrydetail_natura_costi_ricavi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_entrydetail_natura_costi_ricavi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_entrydetail_natura_costi_ricavi]
 GO
  
@@ -148,8 +150,8 @@ END
 DECLARE @lenlab int
 DECLARE @lenlabdetail int
 DECLARE @leneserc int
-SET @lenlab = 5  -- Indica la posizione del campo idinvkind all'interno di idrelated nel caso di fattura : INVÂ§1
-SET @lenlabdetail = 15  -- Indica la posizione del campo idinvkind all'interno di idrelated nel caso di DETTAGLIO CONTRATTO PASSIVO : MANDATEDETAILÂ§1
+SET @lenlab = 5  -- Indica la posizione del campo idinvkind all'interno di idrelated nel caso di fattura : INV§1
+SET @lenlabdetail = 15  -- Indica la posizione del campo idinvkind all'interno di idrelated nel caso di DETTAGLIO CONTRATTO PASSIVO : MANDATEDETAIL§1
 
 SET @leneserc = 4 -- Viene applicato come len(esercizio) + 1 per calcolare la posizione del numero dell afattura all'interno del campo idrelated
 	
@@ -491,4 +493,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

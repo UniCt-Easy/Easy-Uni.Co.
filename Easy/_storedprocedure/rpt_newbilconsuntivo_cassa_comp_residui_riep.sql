@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_newbilconsuntivo_cassa_comp_residui_riep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_newbilconsuntivo_cassa_comp_residui_riep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_newbilconsuntivo_cassa_comp_residui_riep]
 GO
 
@@ -112,39 +114,39 @@ WHERE ayear = @ayear
 IF (@finpart = 'E')
 BEGIN
 	-- ricerca la fase equivalente all'accertamento
-	-- se √® stata inserita nella tabella di configurazione del bilancio
+	-- se Ë stata inserita nella tabella di configurazione del bilancio
 	SELECT @finphase = assessmentphasecode FROM config WHERE ayear = @ayear
 	IF @finphase IS NULL
 	BEGIN
-		-- se non √® stata inserita nella tabella di configurazione
+		-- se non Ë stata inserita nella tabella di configurazione
 		-- ipotizza che si tratti della fase dove viene identificata
 		-- la voce di bilancio
 		SELECT @finphase = incomefinphase FROM uniconfig
 	END
-	-- la fase di cassa √® sempre l'ultima fase della procedura
+	-- la fase di cassa Ë sempre l'ultima fase della procedura
 	-- di entrata
 	SELECT @maxphase = MAX(nphase) FROM incomephase
 END
 IF (@finpart = 'S')
 BEGIN
 	-- ricerca la fase equivalente all'impegno
-	-- se √® stata inserita nella tabella di configurazione
+	-- se Ë stata inserita nella tabella di configurazione
 	-- del bilancio
 	SELECT @finphase = appropriationphasecode FROM config WHERE ayear = @ayear
 	IF @finphase IS NULL
 	BEGIN
-		-- se non √® stata inserita nella tabella di configurazione
+		-- se non Ë stata inserita nella tabella di configurazione
 		-- ipotizza che si tratti della fase dove viene identificata
 		-- la voce di bilancio
 		SELECT @finphase = expensefinphase FROM uniconfig
 	END
-	-- la fase di cassa √® sempre l'ultima fase della procedura di spesa
+	-- la fase di cassa Ë sempre l'ultima fase della procedura di spesa
 	SELECT @maxphase = MAX(nphase) FROM expensephase
 END
--- Se @fin_kind = 1 ==> √® stata personalizzata una
+-- Se @fin_kind = 1 ==> Ë stata personalizzata una
 -- previsione principale di tipo "competenza", se @fin_kind = 2
--- ==> √® stata personalizzata una previsione principale di tipo "cassa", se
--- @fin_kind = 3 ==> √® stata personalizzata una
+-- ==> Ë stata personalizzata una previsione principale di tipo "cassa", se
+-- @fin_kind = 3 ==> Ë stata personalizzata una
 -- previsione principale di tipo "altra previsione". 
 DECLARE @supposed_ff_jan01 decimal(19,2)
 DECLARE @supposed_aa_jan01 decimal(19,2)
@@ -227,7 +229,7 @@ end
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------- SE SI √® DECISO DI NON VEDERE L'UPB ---------------------------------------------------------------------------
+------------------------------------------------- SE SI Ë DECISO DI NON VEDERE L'UPB ---------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 print 'insert prevision'
@@ -1112,10 +1114,10 @@ if (@kind='R')
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------- SE SI √® DECISO DI NON VEDERE  UPB ---------------------------------------------------------------------------------
+------------------------------------------------- SE SI Ë DECISO DI NON VEDERE  UPB ---------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- Se la stampa √® eseguita a livello inferiore del minimo livello operativo
+-- Se la stampa Ë eseguita a livello inferiore del minimo livello operativo
 -- le differenze rispetto alle previsioni devono essere calcolate a tale lvello
 	
 
@@ -1375,4 +1377,3 @@ GO
 
 
 
-	

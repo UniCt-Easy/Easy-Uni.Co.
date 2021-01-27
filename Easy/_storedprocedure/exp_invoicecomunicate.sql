@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoicecomunicate]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoicecomunicate]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_invoicecomunicate]
 GO
 
@@ -174,7 +176,7 @@ ROW_NUMBER() OVER(PARTITION BY I.yinv-- I.idinvkind, I.yinv, I.ninv
 		WHEN ((IK.flag&4)=0) THEN 'F'--fattura
 		WHEN ((IK.flag&4)<>0) THEN 'V'-- nota di credito
 	END as 'tipofattura',
---	<CEDENTE PRESTATORE> √® l' Universit√†
+--	<CEDENTE PRESTATORE> Ë l' Universit‡
 	@cf as 'IdTrasmittenteCodice',
 	-- n 1 del 2014 => 1400000001
 	substring(convert(varchar(4),@esercizio),3,2)+ @kind+replicate('0',6-len(convert(varchar(6),@semestre ))) + convert(varchar(6),@semestre )
@@ -193,10 +195,10 @@ ROW_NUMBER() OVER(PARTITION BY I.yinv-- I.idinvkind, I.yinv, I.ninv
 	'IT' as 'nazioneDip',
 	
 -- Se I-Italia, leggiamo la piva
--- Se J-UE, leggiamo la p.iva, che sar√† valorizzata con la p.iva estera
--- Se X-Extra UE, leggiamo foreigncf, che sar√† valorizzato con il codice identificativo estero
+-- Se J-UE, leggiamo la p.iva, che sar‡ valorizzata con la p.iva estera
+-- Se X-Extra UE, leggiamo foreigncf, che sar‡ valorizzato con il codice identificativo estero
 
---<CESSIONARIO COMMITTENTE>  √® l' Anagrafica inserito in fattura		-- FARE UN CHECK PER CONTROLLARE CHE questa select dia l'info del paese
+--<CESSIONARIO COMMITTENTE>  Ë l' Anagrafica inserito in fattura		-- FARE UN CHECK PER CONTROLLARE CHE questa select dia l'info del paese
 	case when RR.coderesidence = 'I' then 'IT' 
 		 when RR.coderesidence = 'J' then isnull(substring(R.p_iva,1,2), #SedeAnagrafica.nation)--task 11360
 		 when RR.coderesidence = 'X' then isnull(#SedeAnagrafica.nation,substring(R.foreigncf,1,2))
@@ -255,7 +257,7 @@ TD11 fattura di acquisto intracomunitario servizi
 	END as 'Tipodocumento',
 	I.docdate as 'datadocumento',
 	I.adate	as'dataregistrazione',
-	-- la lunghezza √® 20
+	-- la lunghezza Ë 20
 	substring(ltrim(rtrim(I.doc)),1, 20-len(isnull(ik.printingcode,''))-1)+ '/'+isnull(ik.printingcode,'') as 'numero',
 	RR.coderesidence
 from invoiceview I 
@@ -292,4 +294,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

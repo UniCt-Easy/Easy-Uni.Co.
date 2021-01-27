@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø
+
+
 -- GENERAZIONE DATI PER report --
 IF not exists(SELECT * FROM [report] WHERE reportname = 'bilancioconsuntivo_S_cassa')
 INSERT INTO [report] (reportname,active,description,filename,flag_both,flag_cash,flag_comp,groupname,modulename,orientation,papersize,sp_doupdate,timeout,webvisible) 
@@ -49,9 +51,9 @@ INSERT INTO [reportadditionalparam] (paramname,reportname,ct,cu,lt,lu,paramvalue
 IF not exists(SELECT * FROM [reportadditionalparam] WHERE paramname = 'MostraDataStampa' AND reportname = 'bilancioconsuntivo_S_cassa')
 INSERT INTO [reportadditionalparam] (paramname,reportname,ct,cu,lt,lu,paramvalue,title) VALUES ('MostraDataStampa','bilancioconsuntivo_S_cassa',null,null,{ts '2007-01-16 10:48:30.233'},'''SARA''','S','Parametro che gestisce la visualizzazione delle informazioni inerenti la data di stampa (S = Visualizza, N = Non Visualizza)')
 IF not exists(SELECT * FROM [reportadditionalparam] WHERE paramname = 'MostraDenominazioneUniversita' AND reportname = 'bilancioconsuntivo_S_cassa')
-INSERT INTO [reportadditionalparam] (paramname,reportname,ct,cu,lt,lu,paramvalue,title) VALUES ('MostraDenominazioneUniversita','bilancioconsuntivo_S_cassa',null,null,null,null,'S','Parametro che gestisce la visualizzazione del nome dell''universit√† (S = Visualizza, N = Non Visualizza)')
+INSERT INTO [reportadditionalparam] (paramname,reportname,ct,cu,lt,lu,paramvalue,title) VALUES ('MostraDenominazioneUniversita','bilancioconsuntivo_S_cassa',null,null,null,null,'S','Parametro che gestisce la visualizzazione del nome dell''universit‡ (S = Visualizza, N = Non Visualizza)')
 IF not exists(SELECT * FROM [reportadditionalparam] WHERE paramname = 'MostraLogo' AND reportname = 'bilancioconsuntivo_S_cassa')
-INSERT INTO [reportadditionalparam] (paramname,reportname,ct,cu,lt,lu,paramvalue,title) VALUES ('MostraLogo','bilancioconsuntivo_S_cassa',null,null,null,null,'S','Parametro che gestisce la visualizzazione del logo dell''universit√† (S = Visualizza, N = Non Visualizza)')
+INSERT INTO [reportadditionalparam] (paramname,reportname,ct,cu,lt,lu,paramvalue,title) VALUES ('MostraLogo','bilancioconsuntivo_S_cassa',null,null,null,null,'S','Parametro che gestisce la visualizzazione del logo dell''universit‡ (S = Visualizza, N = Non Visualizza)')
 IF not exists(SELECT * FROM [reportadditionalparam] WHERE paramname = 'MostraNomeDipartimento' AND reportname = 'bilancioconsuntivo_S_cassa')
 INSERT INTO [reportadditionalparam] (paramname,reportname,ct,cu,lt,lu,paramvalue,title) VALUES ('MostraNomeDipartimento','bilancioconsuntivo_S_cassa',null,null,null,null,'S','Parametro che gestisce la visualizzazione del nome dell''ente (S = Visualizza, N = Non Visualizza)')
 /*IF not exists(SELECT * FROM [reportadditionalparam] WHERE paramname = 'MostraScambioCol8Con5' AND reportname = 'bilancioconsuntivo_S_cassa')
@@ -65,4 +67,3 @@ GO
 
 
 
-	

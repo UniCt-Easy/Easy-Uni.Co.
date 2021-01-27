@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[count_idfin_table]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[count_idfin_table]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [count_idfin_table]
 GO
 
@@ -48,7 +50,7 @@ DECLARE @currstmt nvarchar(1000)
 declare @currtablename varchar(40) 
 CREATE table #mytable (nrows int)
 
---Se sto eseguendo questa sp vuol dire che il livello di @idfinvalue √® <= di  unifiedfinlevel, quindi devo cercare in tutti i dipartimenti, 
+--Se sto eseguendo questa sp vuol dire che il livello di @idfinvalue Ë <= di  unifiedfinlevel, quindi devo cercare in tutti i dipartimenti, 
 -- in base a AYEAR/CODEFIN/fla&1
 DECLARE @cursore cursor
 SET @cursore = cursor for select  iddbdepartment from dbdepartment
@@ -110,4 +112,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

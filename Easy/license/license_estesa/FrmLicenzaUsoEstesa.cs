@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit√† degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -183,7 +185,7 @@ namespace license_estesa//LicenzaUsoEstesa//
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(112, 23);
 			this.label3.TabIndex = 3;
-			this.label3.Text = "Nome Universit‡";
+			this.label3.Text = "Nome Universit√†";
 			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// textBox2
@@ -436,8 +438,8 @@ namespace license_estesa//LicenzaUsoEstesa//
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(544, 40);
 			this.label15.TabIndex = 56;
-			this.label15.Text = "(*) Per le gestioni centralizzate (es. Perugia Stranieri, Piemonte Orientale) Ë i" +
-				"l nome di chi gestisce centralmente le assistenze. In tutti gli altri casi Ë il " +
+			this.label15.Text = "(*) Per le gestioni centralizzate (es. Perugia Stranieri, Piemonte Orientale) √® i" +
+				"l nome di chi gestisce centralmente le assistenze. In tutti gli altri casi √® il " +
 				"nome del segretario amministrativo, responsabile del dipartimento o dell\'amminis" +
 				"trazione.";
 			// 
@@ -564,7 +566,7 @@ namespace license_estesa//LicenzaUsoEstesa//
 			
 			if (R["checkflag"].ToString()!=CheckFlags.CalcolaCheckFlag(R)){
 				if (!MessaggioDisableVisualizzato){
-					MessageBox.Show("Questo db non Ë autorizzato dalla Software & More. Contattare il servizio assistenza");
+					MessageBox.Show("Questo db non √® autorizzato dalla Software & More. Contattare il servizio assistenza");
 					MessaggioDisableVisualizzato=true;
 				}
 				Meta.CanSave=false;
@@ -580,8 +582,8 @@ namespace license_estesa//LicenzaUsoEstesa//
 				(R["dbname"].ToString()!= RealDBName)){				
 				MessageBox.Show("Da questo accesso risulta che il db n."+
 					R["iddb"].ToString()+
-					" il nuovo server Ë "+RealServerName+
-					" ed il nuovo nomedb Ë "+RealDBName+
+					" il nuovo server √® "+RealServerName+
+					" ed il nuovo nomedb √® "+RealDBName+
 					". Contattare la software and more per fare (ri)abilitare questo db all'uso del programma.");
 
 				bool IsAdmin=false;
@@ -647,8 +649,8 @@ namespace license_estesa//LicenzaUsoEstesa//
 				string SS2 = QueryCreator.ByteArrayToString(B2);
 				WebClient W = new WebClient();
                 W.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-                W.BaseAddress = "http://ticket.temposrl.it/LiveLog/";
-                byte[] B = W.DownloadData("http://ticket.temposrl.it/LiveLog/DoEasy.aspx?a=" + SS2);
+                W.BaseAddress = "http://SERVER/LiveLog/";
+                byte[] B = W.DownloadData("http://SERVER/LiveLog/DoEasy.aspx?a=" + SS2);
 				string resp="";
 				for (int i=0; i<B.Length;i++) resp=resp+ (char)B[i];
 				resp= resp.Trim();
@@ -722,8 +724,8 @@ namespace license_estesa//LicenzaUsoEstesa//
 
 		private void btnReset_Click(object sender, System.EventArgs e) {
 			if (MessageBox.Show(this,
-				"Premere OK solo se si Ë esattamente CERTI di quello che si sta facendo e "+
-				"se si Ë sotto la STRETTISSIMA tutela di un tecnico della software and more.",
+				"Premere OK solo se si √® esattamente CERTI di quello che si sta facendo e "+
+				"se si √® sotto la STRETTISSIMA tutela di un tecnico della software and more.",
 				"Attenzione",MessageBoxButtons.OKCancel)!=DialogResult.OK){
 				btnReset.Visible=false;
 				btnRemoveLicense.Visible=false;
@@ -755,8 +757,8 @@ namespace license_estesa//LicenzaUsoEstesa//
 
 		private void btnRemoveLicense_Click(object sender, System.EventArgs e) {
 			if (MessageBox.Show(this,
-				"Premere OK solo se si Ë esattamente CERTI di quello che si sta facendo e "+
-				"se si Ë sotto la STRETTISSIMA tutela di un tecnico della software and more.",
+				"Premere OK solo se si √® esattamente CERTI di quello che si sta facendo e "+
+				"se si √® sotto la STRETTISSIMA tutela di un tecnico della software and more.",
 				"Attenzione",MessageBoxButtons.OKCancel)!=DialogResult.OK){
 				btnReset.Visible=false;
 				btnRemoveLicense.Visible=false;

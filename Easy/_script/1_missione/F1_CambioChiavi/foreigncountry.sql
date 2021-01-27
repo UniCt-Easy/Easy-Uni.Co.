@@ -1,23 +1,25 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- Aggiornamento tabella FOREIGNCOUNTRY e tabelle dipendenti
+
+-- Aggiornamento tabella FOREIGNCOUNTRY e tabelle dipendenti
 -- Le tabelle dipendenti sono:
 -- foreignallowancerule, itinerationlap
 
--- Passo 0: Cancellazione o Inserimento delle righe che violano l'integrit√† referenziale
+-- Passo 0: Cancellazione o Inserimento delle righe che violano l'integrit‡ referenziale
 INSERT INTO foreigncountry (idforeigncountry, description, ct, cu, lt, lu)
 SELECT DISTINCT idforeigncountry, idforeigncountry, GETDATE(), 'SA', GETDATE(), 'SA'
 FROM foreignallowancerule
@@ -147,7 +149,7 @@ BEGIN
 END
 GO
 
--- Passo 5. Creazione del nuovo campo (che avr√† nome come il vecchio ma con tipo diverso)
+-- Passo 5. Creazione del nuovo campo (che avr‡ nome come il vecchio ma con tipo diverso)
 -- Tabelle interessate foreigncountry e tabelle collegate
 
 IF NOT exists(select * from [sysobjects] as T inner join syscolumns C on T.ID = C.ID where t.name = 'foreigncountry' and C.name = 'idforeigncountry' AND (T.uid = USER_ID( ) OR T.uid = USER_ID('dbo')))
@@ -317,4 +319,3 @@ BEGIN
 	ALTER TABLE [itinerationlap] DROP COLUMN idforeigncountryint
 END
 GO
-	

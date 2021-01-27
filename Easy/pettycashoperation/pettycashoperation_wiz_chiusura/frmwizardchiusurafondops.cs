@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -488,7 +490,7 @@ namespace pettycashoperation_wiz_chiusura {//wizard_chiusurafondops//
 			}
 			
 			if (!CheckAperturaFondo(cmbFondoPS.SelectedValue)) {
-				DialogResult res = MessageBox.Show(this, Messaggi["warn_fondoaperto"].ToString()+"\nContinuare?", 
+				DialogResult res = MetaFactory.factory.getSingleton<IMessageShower>().Show(this, Messaggi["warn_fondoaperto"].ToString()+"\nContinuare?", 
 					"Avvertimento", MessageBoxButtons.YesNo);
 				if (res!=DialogResult.Yes) {
 					lblMessaggi.Text=Messaggi["err_fondoaperto"].ToString();
@@ -583,7 +585,37 @@ namespace pettycashoperation_wiz_chiusura {//wizard_chiusurafondops//
 
             FillTables(pettycashclosing);
             pettycashclosing.Columns.Add("livsupid", typeof(int));
+            pettycashclosing.Columns.Add("idexp", typeof(int));
             SP_Result = pettycashclosing.Copy();
+
+			//Prende l'elenco dei pagamenti di reintegro ancora non trasmessi
+			string sql = $@"select EL.idexp, EL.curramount from pettycashoperation PO
+				join pettycashexpense PE on PE.idpettycash=PO.idpettycash and PE.yoperation=PO.yoperation and PE.noperation=PO.noperation
+				join expenselastview EL on PE.idexp=EL.idexp
+				left outer join payment P on P.kpay=EL.kpay
+				where (PO.flag & 2)<>0 and PO.yoperation={QHS.quote(esercizio)}
+				and PO.idpettycash={QHS.quote(idpettycash)} AND P.kpaymenttransmission is  null";
+			var tExp = Conn.SQLRunner(sql, false);
+			if (tExp == null) return true;
+
+			var currRow = SP_Result.Rows[0];
+			decimal curramount = CfgFn.GetNoNullDecimal(currRow["amount"]);
+			foreach (DataRow rExp in tExp.Rows) {
+				decimal amount = CfgFn.GetNoNullDecimal(rExp["curramount"]);
+				var newRow = SP_Result.NewRowAs(currRow);
+				newRow["idexp"] = rExp["idexp"];
+				newRow["amount"] = amount;
+				curramount -= amount;
+				if (curramount < 0) {
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("L'importo dei reintegri supera l'importo dell'apertura", "Errore");
+					return false;
+				}
+
+				SP_Result.Rows.Add(newRow);
+			}
+			
+			currRow["amount"] = curramount;
+
             return true;
         }
 
@@ -738,6 +770,7 @@ namespace pettycashoperation_wiz_chiusura {//wizard_chiusurafondops//
                     FillMovimento(NewEntrataRow, R);
                     R["idmovimento"] = NewEntrataRow["idinc"];
                     NewEntrataRow["nphase"] = faseCorrente;
+                    NewEntrataRow["idpayment"] = R["idexp"];
 
                     if (faseCorrente < faseCreditoreDebitoreEntrata) {
                         NewEntrataRow["idreg"] = DBNull.Value;
@@ -851,7 +884,7 @@ namespace pettycashoperation_wiz_chiusura {//wizard_chiusurafondops//
 
                 res = ga.GeneraAutomatismiAfterPost(true);
                 if (!res) {
-                    MessageBox.Show(this, "Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
                     return;
                 }
                 //ga.GeneraClassificazioniIndirette(ga.DSP, true);   vedo come fa in apertura, visto che il task 9791 dice che le duplica
@@ -865,7 +898,7 @@ namespace pettycashoperation_wiz_chiusura {//wizard_chiusurafondops//
                 Easy_PostData MyPostData = new Easy_PostData();
                 MyPostData.InitClass(DS.Copy(), Conn);
                 if (MyPostData.DO_POST()) {
-                    MessageBox.Show("Salvataggio effettuato correttamente");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Salvataggio effettuato correttamente");
                 }
             }
 
@@ -981,7 +1014,7 @@ namespace pettycashoperation_wiz_chiusura {//wizard_chiusurafondops//
 			string rowfilter;
 			int maxfase = GetMaxFaseForSelection(RigheSelezionate, "income");
 			if (maxfase<1){
-				MessageBox.Show("Non Ë possibile collegare tutte le righe selezionate ad uno stesso movimento.\n"+
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë possibile collegare tutte le righe selezionate ad uno stesso movimento.\n"+
 					"Le informazioni di bilancio, versante e UPB sono "+
 					"troppo diverse tra loro.","Errore");
 				return;

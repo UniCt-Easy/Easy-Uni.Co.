@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_spese_intestazione_resp_fin]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_spese_intestazione_resp_fin]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_partitario_spese_intestazione_resp_fin]
 GO
 
@@ -69,12 +71,12 @@ IF (@nfinphase IS NULL)
 BEGIN
 	SELECT @nfinphase = expensefinphase FROM uniconfig
 END
--- ovvero prendo la massima fase tra quelle che contengono o il codice di bilancio o il creditore perchÃ¨  questaÂ Ã¨ la vera fase di impegno giuridico
+-- ovvero prendo la massima fase tra quelle che contengono o il codice di bilancio o il creditore perchè  questa è la vera fase di impegno giuridico
 DECLARE @maxexpensephase tinyint
 SELECT 	@maxexpensephase = MAX(nphase)
 FROM  	expensephase 
--- ATTENZIONE L'ipotesi di funzionamento di questa sp Ã¨ che faseimpegno = fasepagamento - 1.
--- ALTRIMENTI SBALLA LE RIGHE DEL PAGAMENTO SUL REPORT (o meglio con un pÃ² di tempo si deve fare un controllo per eliminare tutte le fasi 
+-- ATTENZIONE L'ipotesi di funzionamento di questa sp è che faseimpegno = fasepagamento - 1.
+-- ALTRIMENTI SBALLA LE RIGHE DEL PAGAMENTO SUL REPORT (o meglio con un pò di tempo si deve fare un controllo per eliminare tutte le fasi 
 -- che non sono fasepagamento e faseimpegno, anzi lo faccio subito inserendo alla fine una DELETE WHERE nphase <> fasepagamento AND nphase <> faseimpegno)
 
 DECLARE @level_input tinyint
@@ -924,7 +926,7 @@ UPDATE #expense SET
 					
 
 
-if (@suppressifblank = 'S') and @codelevel>2	--> se la stampa Ã¨ x un livello sottostante la categoria cancella le righe
+if (@suppressifblank = 'S') and @codelevel>2	--> se la stampa è x un livello sottostante la categoria cancella le righe
 	BEGIN
 		DELETE FROM  #expense   
 		WHERE  
@@ -1014,4 +1016,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

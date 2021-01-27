@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
@@ -48,7 +50,7 @@ namespace csa_import_default {
         //    int nriga = CfgFn.GetNoNullInt32(fromRow[idfield]);
         //    if (!listaMovimenti.ContainsKey(nriga)) return;
         //    var listaCollegata = listaMovimenti[nriga];
-        //    listaCollegata.Remove(quotaCsa);    //Primo dubbio: non √® che non sta funzionando e rimane sempre tutto dov'√®??        
+        //    listaCollegata.Remove(quotaCsa);    //Primo dubbio: non Ë che non sta funzionando e rimane sempre tutto dov'Ë??        
         //}
 
         /// <summary>
@@ -102,7 +104,7 @@ namespace csa_import_default {
             decimal amountToCover = CfgFn.GetNoNullDecimal(movRow["amount"]);
             while (amountToCover>0) {
                 var linked = getLinkedToMov(movRow);
-                if (linked.Count == 0) throw new Exception("Errore interno, c'√® un movimento che non ha abbastanza righe csa collegate");
+                if (linked.Count == 0) throw new Exception("Errore interno, c'Ë un movimento che non ha abbastanza righe csa collegate");
                 var first = linked[0];
                 decimal amountCsa = first.quota;
                 if (amountCsa <= amountToCover) {
@@ -170,7 +172,7 @@ namespace csa_import_default {
             return quoteEntrata.Count;
         }
 
-        //Verifica se il n. di incassi collegati  non sia gi√† pari al massimo possibile
+        //Verifica se il n. di incassi collegati  non sia gi‡ pari al massimo possibile
         public bool saturoReversali() {
             return quoteEntrata.Count == nMaxReversali;
         }
@@ -297,7 +299,7 @@ namespace csa_import_default {
    
 
         /// <summary>
-        /// Pu√≤ variare la collezione dei movimenti raggruppati ma non varia quella delle entrate
+        /// PuÚ variare la collezione dei movimenti raggruppati ma non varia quella delle entrate
         /// </summary>
         /// <param name="entrata"></param>
         /// <returns></returns>
@@ -308,19 +310,19 @@ namespace csa_import_default {
             if (collegaEntrataMatchMassimaCapienza(entrata)) return true;
             
             //Dato che ogni volta che colleghiamo un'entrata splittiamo il netto ove ci siano 30 reversali,
-            // non √® possibile che vi sia un movimento con disponibile sufficiente ma 30 reversali
-            //Quindi vi devono essere movimenti di spesa con disponibilit√† insufficiente e meno di 30 reversali
+            // non Ë possibile che vi sia un movimento con disponibile sufficiente ma 30 reversali
+            //Quindi vi devono essere movimenti di spesa con disponibilit‡ insufficiente e meno di 30 reversali
             //A questo punto ad ognuno di loro associamo una quota dell'entrata data
             while (entrata.quota > 0) {
                 MovimentoRaggruppato movimentoConMaxDisp = movConMassimoResiduo();
                 if (movimentoConMaxDisp == null) return false; //non dovrebbe accadere
                 decimal residuo = movimentoConMaxDisp.importoNetto();
                 if (residuo >= entrata.quota) {
-                    //il movimento considerato √® capiente per quel che rimane dell'entrata
+                    //il movimento considerato Ë capiente per quel che rimane dell'entrata
                     collegaEntrataAGruppo(entrata, movimentoConMaxDisp);
                     return true;
                 }
-                //mette su quel movimento quello che pu√≤, usandone il residuo
+                //mette su quel movimento quello che puÚ, usandone il residuo
                 var quotaEntrata = entrata.splittaQuota(residuo);
                 movimentoConMaxDisp.addEntrata(quotaEntrata);
             }
@@ -341,7 +343,7 @@ namespace csa_import_default {
             foreach (MovimentoRaggruppato mov in movimenti) {
                 decimal netto = mov.importoNetto();
                 if (netto == 0) continue;
-                if (mov.nReversali() == 0) continue; //√® gi√† Netto
+                if (mov.nReversali() == 0) continue; //Ë gi‡ Netto
                 MovimentoRaggruppato nuovo= mov.splittaResiduo();
                 toAdd.Add(nuovo);
             }
@@ -367,8 +369,8 @@ namespace csa_import_default {
     public class nuovaGestionOutTable {
         public static DataTable calcola(DataTable movimentiCsa, DataAccess conn, out QuoteCsa quote) {
             //Raggruppa tutti i movimenti di uscita netti in base a capitolo, upb, anagrafica, siope?, movimento parent
-            //Sin qui la struttura prevede che ogni movimento abbia in se l'idriep e l'idver,  ove lo stesso idriep e ver possono essere collegati a pi√π movimenti, sebbene 
-            // ogni movimento sia associato unicamenteo ad un idriep o idver. La quota assegnata a quell'idriep √® dunque l'intero movimento
+            //Sin qui la struttura prevede che ogni movimento abbia in se l'idriep e l'idver,  ove lo stesso idriep e ver possono essere collegati a pi˘ movimenti, sebbene 
+            // ogni movimento sia associato unicamenteo ad un idriep o idver. La quota assegnata a quell'idriep Ë dunque l'intero movimento
 
             //Ora dobbiamo raggruppare i movimenti in base alle coordinate finanziarie, ci serve quindi una tabella di corrispondenza 1 a N tra movimenti finanziari e 
             // idriep / idver collegati, con relative quote
@@ -412,7 +414,7 @@ namespace csa_import_default {
 			//DialogResult dr = frm.ShowDialog();
 
 			//lookupQuote = elenco di associazioni "nuova riga"(int) a "elenco righe csa originali, pro quota"
-			//  "nuova riga" √® proprio l'indice in groupedMovs 
+			//  "nuova riga" Ë proprio l'indice in groupedMovs 
 
 
 			//Effettua i collegamenti entrate-spese sui movimenti raggruppati
@@ -422,7 +424,7 @@ namespace csa_import_default {
                 return null;
             }
 
-            //In linkedMovs il valore di idfield non √® univoco
+            //In linkedMovs il valore di idfield non Ë univoco
 
             linkedMovs.Columns.Add(new DataColumn("id_definitivo", typeof(Int32)));            
             for (int i = 0; i < linkedMovs.Rows.Count; i++) linkedMovs.Rows[i]["id_definitivo"] = i;
@@ -435,8 +437,8 @@ namespace csa_import_default {
             // lookupQuote collega id_privato_temp  a   N righe Csa
             foreach (DataRow r in linkedMovs.Rows) {
                 //decimal importoMovimento = CfgFn.GetNoNullDecimal(r);                
-                //il movimento collegato pu√≤ avere un importo minore di quello originariamente collegato, per via di split a causa delle nettizzazioni, suddivisione incassi e varie
-                //Ossia r[idfield] pu√≤ avere valori ripetuti in linkedMovs.Rows
+                //il movimento collegato puÚ avere un importo minore di quello originariamente collegato, per via di split a causa delle nettizzazioni, suddivisione incassi e varie
+                //Ossia r[idfield] puÚ avere valori ripetuti in linkedMovs.Rows
                 lookupQuote.MoveQuoteTo(r,quote);
             }
 
@@ -492,14 +494,14 @@ namespace csa_import_default {
             foreach (var rAnag in righePerAnagrafica.Values) {
                 if (!rAnag.collegaTutteEntrate()) {
                     MessageBox.Show(
-                        $"L'importo del movimento netto verso l'Anagrafica {rAnag.registry} √® negativo"
+                        $"L'importo del movimento netto verso l'Anagrafica {rAnag.registry} Ë negativo"
                         , "Errore");
                     someError=true;
                 }
             }
 
             if (someError) {
-                MessageBox.Show("Poich√® sono stati riscontrati problemi, l'elaborazione sar√† annullata.", "Avviso");
+                MessageBox.Show("PoichË sono stati riscontrati problemi, l'elaborazione sar‡ annullata.", "Avviso");
                 return null;
             }
             //Per ogni raggruppamento rimanente avente un netto maggiore di zero e con reversali, ne prende il netto
@@ -532,7 +534,7 @@ namespace csa_import_default {
 
             var currIndice = 0;
             foreach (var m in listaMov) {
-                //creare in nuoviMovimenti una copia di m.quotaSpesa.mov avente per√≤ importo m.quotaSpesa.quota 
+                //creare in nuoviMovimenti una copia di m.quotaSpesa.mov avente perÚ importo m.quotaSpesa.quota 
                 var rSpesa = nuoviMovimenti.NewRowAs(m.quotaSpesa.mov);
                 rSpesa["amount"] = m.quotaSpesa.quota;
                 int currIndiceSpesa = currIndice;
@@ -574,7 +576,7 @@ namespace csa_import_default {
                 fields = new[] { "parentidexp", "idman","idreg","idfin","idupb","idsor","idacc","idunderwriting"};
             }
              
-			string keytemp =string.Join("¬ß", (from field in fields select r[field].ToString()).ToArray());
+			string keytemp =string.Join("ß", (from field in fields select r[field].ToString()).ToArray());
 			if (r["idver"] != DBNull.Value) return keytemp + "ver";
 			else return keytemp + "riep";
 

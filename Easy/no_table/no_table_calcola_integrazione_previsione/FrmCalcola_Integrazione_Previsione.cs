@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -54,7 +56,7 @@ namespace no_table_calcola_integrazione_previsione {
 
 		private void btnTrasferisciVariazioni_Click(object sender, EventArgs e) {
 			string errMsg;
-			if (MessageBox.Show("Vuoi salvare una variazione non operativa?", "Conferma salvataggio",
+			if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Vuoi salvare una variazione non operativa?", "Conferma salvataggio",
 					MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) != DialogResult.Yes)
 				return;
 
@@ -62,9 +64,9 @@ namespace no_table_calcola_integrazione_previsione {
 				adate,10/*MostraTutto*/, "N","S"}, 600, out errMsg);
 
 			if (errMsg != null) {
-				MessageBox.Show("Errore", errMsg);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show( errMsg,"Errore");
 			} else
-				MessageBox.Show("Operazione eseguita");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Operazione eseguita");
 			Close();
 		}
 
@@ -96,7 +98,7 @@ namespace no_table_calcola_integrazione_previsione {
 				dataDiRiferimento,esportazionekind}, 600, out errMsg);
 
 				if (DResult == null) {
-					MessageBox.Show("Errore", errMsg);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore", errMsg);
 				}
 				DataTable TResult = DResult.Tables[0];
 

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[entry_integrazione_apertura]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[entry_integrazione_apertura]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [entry_integrazione_apertura]
 GO
 
@@ -116,7 +118,7 @@ IF (@kind = 'D')
 	
 	UNION  ALL
 	/*aggiungo altrettanti dettagli privi dell'informazione su idepexp e con segno pari ai dettagli originali da integrare*/
-	/* affinch√® il saldo finale della scrittura sia pari a zero*/
+	/* affinchË il saldo finale della scrittura sia pari a zero*/
 	SELECT 			
 	@ayear,ISNULL(@nentry,@max_nentry + 1),ED.amount, ED.competencystart,ED.competencystop,
 	GETDATE(),	ED.cu,	ED.idacc,	ED.idaccmotive,ED.idreg,
@@ -173,7 +175,7 @@ IF (@kind = 'D')
 		and (select sum(ed3.amount) from entrydetail ed3 where ed3.yentry=@ayear and ed3.idacc=ed.idacc and ed3.idupb=ed.idupb and ed3.idepacc=ed.idepacc)>0
 	UNION  ALL
 	/*aggiungo altrettanti dettagli privi dell'informazione su idepacc e con segno pari ai dettagli originali da integrare*/
-	/* affinch√® il saldo finale della scrittura sia pari a zero*/
+	/* affinchË il saldo finale della scrittura sia pari a zero*/
 
 	SELECT 			
 	@ayear,ISNULL(@nentry,@max_nentry + 1),ED.amount,ED.competencystart,ED.competencystop,
@@ -236,4 +238,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

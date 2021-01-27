@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[import_inquadranagrafiche_csa]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[import_inquadranagrafiche_csa]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [import_inquadranagrafiche_csa]
 GO
 
@@ -75,7 +77,7 @@ CREATE TABLE #INQUADRAMENTI
 	---------------------------------------------------------------
 	------------INQUADRAMENTO E REDDITO ANNUO PRESUNTO-------------
 	---------------------------------------------------------------
-	datadecorrenza datetime,		-- --in_vigore_Econ, inizio validit√† inquadramento
+	datadecorrenza datetime,		-- --in_vigore_Econ, inizio validit‡ inquadramento
 	in_vigore_giur datetime, 
 	imponpresunto decimal(19,2),	-- reddito annuo presunto
 	classestipendiale int,			-- classe stipendiale
@@ -155,10 +157,10 @@ CREATE TABLE #ModPagamento
 	---------------------------------------------------------------
 	---------------------MODALITA' DI PAGAMENTO--------------------
 	---------------------------------------------------------------
-	idpaymethod int,		-- tipo codificato della modalit√† di pagamento
+	idpaymethod int,		-- tipo codificato della modalit‡ di pagamento
 	idchargehandling int,   -- tipo codificato trattamento delle spese bancarie
 	flag int,				-- flag esente da spese bancarie
-	nomemod   varchar(50),	-- nome della modalit√† di pagamento
+	nomemod   varchar(50),	-- nome della modalit‡ di pagamento
 	abi	 varchar(20),		-- codice ABI Ist. Bancario
 	cab	varchar(20), 		-- codice CAB Sportello
 	cc	varchar(30),		-- codice del conto corrente
@@ -228,7 +230,7 @@ SELECT
 	---------------------------------------------------------------
 	---------------------MODALITA' DI PAGAMENTO--------------------
 	---------------------------------------------------------------
-	null as idpaymethod,-- √® quella di Easy ottenuta tramite il lookup
+	null as idpaymethod,-- Ë quella di Easy ottenuta tramite il lookup
 	null as idchargehandling,
 	null as flag,
 	null as nomemod ,
@@ -252,9 +254,9 @@ SELECT
 	C.in_vigore_giur,
 	C.classestipendiale,
 
-	C.codicequalifica ,-- √® l'idposition di Easy
-	C.iddaliaposition ,-- √® l'iddaliaposition di Easy
-	C.imponpresunto	,  -- √® l'imponibile presunto di Easy
+	C.codicequalifica ,-- Ë l'idposition di Easy
+	C.iddaliaposition ,-- Ë l'iddaliaposition di Easy
+	C.imponpresunto	,  -- Ë l'imponibile presunto di Easy
 	'N' as avviso,
 	null as dettaglio,
 	C.comparto,
@@ -269,9 +271,9 @@ SELECT
 	---------------------------------------------------------------
 	---------------------MODALITA' DI PAGAMENTO--------------------
 	---------------------------------------------------------------
-	P.idpaymethod,-- √® quella di Easy ottenuta tramite il lookup
-	P.idchargehandling,-- √® quella di Easy ottenuta tramite il lookup
-	P.flag,-- √® quella di Easy ottenuta tramite il lookup
+	P.idpaymethod,-- Ë quella di Easy ottenuta tramite il lookup
+	P.idchargehandling,-- Ë quella di Easy ottenuta tramite il lookup
+	P.flag,-- Ë quella di Easy ottenuta tramite il lookup
 	P.nomemod ,
 	P.abi,
 	P.cab,
@@ -290,12 +292,12 @@ SELECT
 	null as in_vigore_giur,
 	null as classestipendiale,
 
-	null as codicequalifica ,-- √® l'idposition di Easy
-	null as iddaliaposition,-- √® l'iddaliaposition di Easy
-	null as imponpresunto	,  -- √® l'imponibile presunto di Easy
+	null as codicequalifica ,-- Ë l'idposition di Easy
+	null as iddaliaposition,-- Ë l'iddaliaposition di Easy
+	null as imponpresunto	,  -- Ë l'imponibile presunto di Easy
 	isnull(p.avviso,'N') as avviso,
 	case 
-		when (isnull(P.avviso,'N')='S')  then 'Sono state riscontrate pi√π Mod.Pagamento'
+		when (isnull(P.avviso,'N')='S')  then 'Sono state riscontrate pi˘ Mod.Pagamento'
 		else NULL
 	end as dettaglio,
 	null as comparto,
@@ -315,4 +317,3 @@ GO
 
 
 -- exec import_inquadranagrafiche_csa 'NOMELKS', null
-	

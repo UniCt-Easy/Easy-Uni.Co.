@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[AL_rpt_bilpreventivo_UPB]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[AL_rpt_bilpreventivo_UPB]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [AL_rpt_bilpreventivo_UPB]
 GO
 
@@ -260,7 +262,7 @@ WHERE ayear = @ayear
 
 
 --DECLARE @newnlevel int
---SET @newnlevel = (CONVERT(int, @levelusable)*4)+3 --> √® la lughezza del bilancio a partire dal livello scelto dall'utente(in realt√† il termine flagusable non √® esatto esso infatti rappresenta il "level")
+--SET @newnlevel = (CONVERT(int, @levelusable)*4)+3 --> Ë la lughezza del bilancio a partire dal livello scelto dall'utente(in realt‡ il termine flagusable non Ë esatto esso infatti rappresenta il "level")
 
 DECLARE @supposed_ff_jan01 decimal(19,2)
 DECLARE @supposed_aa_jan01 decimal(19,2)
@@ -331,7 +333,7 @@ SELECT @infoadvance = paramvalue
 FROM generalreportparameter
 WHERE idparam = 'MostraAvanzo'
 
-DECLARE @idfinincomesurplus int -- Flag indicante se l'avanzo di amministrazione √® attribuito in previsione ad un capitolo di entrata o no --M. Smaldino
+DECLARE @idfinincomesurplus int -- Flag indicante se l'avanzo di amministrazione Ë attribuito in previsione ad un capitolo di entrata o no --M. Smaldino
 SELECT @idfinincomesurplus = isnull(idfinincomesurplus,0) 
 	FROM config
 	WHERE ayear = @ayear
@@ -785,7 +787,7 @@ BEGIN
 			,isnull(previousprevision, 0.0)
 			,isnull(secondaryprevision, 0.0)
 			,previoussecondaryprev = isnull(previoussecondaryprev, 0.0)
--- NEL 2005 √® TOT CAMBIATO IL BILANCIO X CUI I RESIDUI ATTIVIE PASSIVI VERRANNO MESSI 
+-- NEL 2005 Ë TOT CAMBIATO IL BILANCIO X CUI I RESIDUI ATTIVIE PASSIVI VERRANNO MESSI 
 -- NEL CAMPO currentarrears E previousarrears 
 			,currentarrears = ISNULL(currentarrears, 0.0)
 			,previousarrears = ISNULL(previousarrears, 0.0)
@@ -1102,4 +1104,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

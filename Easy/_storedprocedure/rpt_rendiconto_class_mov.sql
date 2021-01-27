@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_rendiconto_class_mov]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_rendiconto_class_mov]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_rendiconto_class_mov]
 GO
 
@@ -156,7 +158,7 @@ SELECT @lencode_lev6 = flag/256
 /* 
 
 Tutte le parti commentate sono dovute ad una modifica sull'output, bisogna visualizzare unicamente il codice a livello operativo
-della classificazione e per questo √® necessario avere nell'output la stringa contenente il codice della voce operativa 
+della classificazione e per questo Ë necessario avere nell'output la stringa contenente il codice della voce operativa 
 livello = @usablesortinglevel.
 Ho voluto lasciare questi commenti nel caso in cui debba essere ripristinato qualcosa in futuro.
  
@@ -218,7 +220,7 @@ UPDATE #sorting SET
 				AND incomesorted.ayear = @ayear
 				AND income.nphase = @nphaseincome
 				AND income.adate <= @date
-				-- in #sorting avr√≤ comunque i nodi foglia
+				-- in #sorting avrÚ comunque i nodi foglia
 				AND sortinglink.idparent = #sorting.idsor 
 --			GROUP BY sortinglink.idparent
 			), 0.0),
@@ -237,7 +239,7 @@ UPDATE #sorting SET
 				AND expensesorted.ayear = @ayear
 				AND expense.nphase = @nphaseexpense
 				AND expense.adate <= @date
-				-- in #sorting avr√≤ comunque i nodi foglia
+				-- in #sorting avrÚ comunque i nodi foglia
 				AND sortinglink.idparent = #sorting.idsor
 --			GROUP BY sortinglink.idparent
 			), 0.0),
@@ -251,7 +253,7 @@ UPDATE #sorting SET
 			WHERE sorting.idsorkind = @idsorkind
 				AND sortingprevincomevar.ayear = @ayear
 				AND sortingprevincomevar.adate <= @date
-				-- in #sorting avr√≤ comunque i nodi foglia
+				-- in #sorting avrÚ comunque i nodi foglia
 				AND sortinglink.idparent = #sorting.idsor
 --			GROUP BY sortinglink.idparent
 			), 0.0),
@@ -265,7 +267,7 @@ UPDATE #sorting SET
 			WHERE sorting.idsorkind = @idsorkind
 				AND sortingprevexpensevar.ayear = @ayear
 				AND sortingprevexpensevar.adate <= @date
-				-- in #sorting avr√≤ comunque i nodi foglia
+				-- in #sorting avrÚ comunque i nodi foglia
 				AND sortinglink.idparent = #sorting.idsor
 --			GROUP BY sortinglink.idparent
 			), 0.0)
@@ -383,4 +385,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

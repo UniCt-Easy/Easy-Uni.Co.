@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using metadatalibrary;
 using System.Data;
@@ -116,10 +118,10 @@ namespace task_2019 {
              * 
 per ottenere alfa1
 password db criptata = CryptString(depPassword.PadRight(31));
-questo √® uguale a  alpha xor alpha1
+questo Ë uguale a  alpha xor alpha1
 quindi alfa  = CryptString(depPassword.PadRight(31)) xor alpha1
 dove alpha1 sta nel dbaccess dell'utente
-e alfa √® SHA256.Create().ComputeHash(Encoding.Default.GetBytes(userPassword));	
+e alfa Ë SHA256.Create().ComputeHash(Encoding.Default.GetBytes(userPassword));	
 quindi proviamo tutte le password sino  a trovarne una tale che 
 	SHA256.Create().ComputeHash(Encoding.Default.GetBytes(userPassword)) = aphpa cosi determinato
 	

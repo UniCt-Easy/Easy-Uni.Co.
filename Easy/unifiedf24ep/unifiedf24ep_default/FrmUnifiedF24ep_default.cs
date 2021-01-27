@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -111,12 +113,12 @@ namespace unifiedf24ep_default {
             }
             if ((DS.unifiedtax.Rows.Count == 0) && (DS.unifiedtaxcorrige.Rows.Count == 0) && (DS.unifiedclawback.Rows.Count == 0) 
                  && DS.unifiedf24epsanction.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono dettagli ritenute da elaborare!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono dettagli ritenute da elaborare!");
                 return;
             }
             PostData.RemoveFalseUpdates(DS);
             if (DS.HasChanges()) {
-                MessageBox.Show(this, "Per generare il file del modello f24EP occorre prima SALVARE");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per generare il file del modello f24EP occorre prima SALVARE");
                 return;
             }
             DataRow Curr = DS.unifiedf24ep.Rows[0];
@@ -132,7 +134,7 @@ namespace unifiedf24ep_default {
                     txtPercorso.Text = saveFileDialog1.FileName;
                 }
                 else {
-                    MessageBox.Show(this, "Non Ë stato selezionato il percorso in cui memorizzare il file dell'F24");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stato selezionato il percorso in cui memorizzare il file dell'F24");
                     return;
                 }
                 Stream stream = saveFileDialog1.OpenFile();
@@ -166,7 +168,7 @@ namespace unifiedf24ep_default {
                     txtDataGenerazione.Tag.ToString(), DS.unifiedf24ep.Columns["adate"]);
                 Curr["adate"] = Meta.GetSys("datacontabile");
                 Meta.SaveFormData();
-                MessageBox.Show(this, "Dati salvati", "Ok");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Dati salvati", "Ok");
             }
             Meta.SaveFormData();
         }
@@ -325,7 +327,7 @@ namespace unifiedf24ep_default {
                 nmonth = CfgFn.GetNoNullInt32(cmbMese.SelectedValue);
             }
             else {
-                MessageBox.Show("Valorizzare il mese della dichiarazione","Attenzione");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Valorizzare il mese della dichiarazione","Attenzione");
                 return;
             }
             if (nmonth == 1) {
@@ -375,11 +377,11 @@ namespace unifiedf24ep_default {
 
             if (DS.unifiedtax.Select().Length > 0 || DS.unifiedtaxcorrige.Select().Length > 0 || DS.unifiedclawback.Select().Length > 0)
             {
-                MessageBox.Show(this, "Operazione completata", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Operazione completata", "Avviso");
                 cmbMese.Enabled = false;
             }
             else
-                MessageBox.Show(this, "Non ci sono dettagli da collegare al modello", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono dettagli da collegare al modello", "Avviso");
 
             riempiCampiCalcolati();
 
@@ -439,12 +441,12 @@ namespace unifiedf24ep_default {
             }
             if ((DS.unifiedtax.Rows.Count == 0) && (DS.unifiedtaxcorrige.Rows.Count == 0) && (DS.unifiedclawback.Rows.Count == 0)
                  && DS.unifiedf24epsanction.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono dettagli ritenute da elaborare!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono dettagli ritenute da elaborare!");
                 return;
             }
             PostData.RemoveFalseUpdates(DS);
             if (DS.HasChanges()) {
-                MessageBox.Show(this, "Per generare il file del modello f24EP occorre prima SALVARE");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per generare il file del modello f24EP occorre prima SALVARE");
                 return;
             }
 

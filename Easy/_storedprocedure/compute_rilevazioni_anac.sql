@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[compute_rilevazioni_anac]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[compute_rilevazioni_anac]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_rilevazioni_anac]
 GO
 
@@ -175,7 +177,7 @@ UPDATE #CIG
         ),1,2,'')
 */
 
--- Crea questa tabella perchÃ¨ deve calcolare il pagato 
+-- Crea questa tabella perchè deve calcolare il pagato 
 
 create table #impegni(idexp int,	
 	idmankind varchar(20),	yman smallint,	nman int,	cigcode varchar(10), 
@@ -201,8 +203,8 @@ update #impegni set PagatoDelSingoloImpegno = (select isnull(sum(ET.curramount),
 										where E.idexp = #impegni.idexp)
 
 select 
-		case WHEN #cig.ycon is not null then 'profÂ§'+convert(varchar(4),#cig.ycon)+'Â§'+convert(varchar(10),#cig.ncon)
-			 when #cig.yman is not null then 'manÂ§'+#cig.idmankind+'Â§'+convert(varchar(4),#cig.yman)+'Â§'+convert(varchar(10),#cig.nman)
+		case WHEN #cig.ycon is not null then 'prof§'+convert(varchar(4),#cig.ycon)+'§'+convert(varchar(10),#cig.ncon)
+			 when #cig.yman is not null then 'man§'+#cig.idmankind+'§'+convert(varchar(4),#cig.yman)+'§'+convert(varchar(10),#cig.nman)
 		end as ID,
 		#CIG.cigcode as CIG,
 		MK.header as 'StrutturaProponente',
@@ -257,4 +259,3 @@ END
 GO
 
  
-	

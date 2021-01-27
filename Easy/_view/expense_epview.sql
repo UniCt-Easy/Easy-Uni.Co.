@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿-- CREAZIONE VISTA expenseview
+
+-- CREAZIONE VISTA expenseview
 IF EXISTS(select * from sysobjects where id = object_id(N'[expense_epview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [expense_epview]
 GO
@@ -26,11 +28,11 @@ GO
 --select top 1000 * from expense_epview where ymov=2019  --su test 26948 righe 2:49  2:08
 
 
---select convert(int, replace(replace(idrelated,'expenseÂ§',''),'Â§debit','')), idrelated from entrydetail where idrelated like 'expenseÂ§%'
---update entrydetail set idexp=convert(int, replace(replace(idrelated,'expenseÂ§',''),'Â§debit','')) where idrelated like 'expenseÂ§%' and not idrelated like like '%Â§debit'
---update entrydetail set idexp=null where idrelated like '%Â§debit'
---update entrydetail set idinc=null where idrelated like '%Â§credit'
---update entrydetail set idinc=convert(int, replace(replace(idrelated,'incomeÂ§',''),'Â§credit','')) where idrelated like 'incomeÂ§%' and not idrelated like '%Â§credit'
+--select convert(int, replace(replace(idrelated,'expense§',''),'§debit','')), idrelated from entrydetail where idrelated like 'expense§%'
+--update entrydetail set idexp=convert(int, replace(replace(idrelated,'expense§',''),'§debit','')) where idrelated like 'expense§%' and not idrelated like like '%§debit'
+--update entrydetail set idexp=null where idrelated like '%§debit'
+--update entrydetail set idinc=null where idrelated like '%§credit'
+--update entrydetail set idinc=convert(int, replace(replace(idrelated,'income§',''),'§credit','')) where idrelated like 'income§%' and not idrelated like '%§credit'
 
 --clear_table_info 'expense_epview'
 CREATE      VIEW expense_epview
@@ -170,10 +172,10 @@ AS SELECT
 	isnull( (select sum(et2.curramount) from expense e2 with(nolock) join expenselast el2 with(nolock) on el2.idexp=e2.idexp join expensetotal et2 with(nolock) on et2.idexp=e2.idexp
 						where e2.idpayment= expense.idexp),0) --as 'pagamenti contributi',
 	--isnull( (select -sum(ed2.amount) from expense e2 with(nolock) join expenselast el2 with(nolock) on el2.idexp=e2.idexp join expensetotal et2 with(nolock) on et2.idexp=e2.idexp
-	--				join entrydetail ed2 on ed2.idrelated= 'expenseÂ§'+convert(varchar(15),el2.idexp)+'Â§debit'	where e2.idpayment= expense.idexp
+	--				join entrydetail ed2 on ed2.idrelated= 'expense§'+convert(varchar(15),el2.idexp)+'§debit'	where e2.idpayment= expense.idexp
 	--						),0),-- as 'chiusura debito contributi',
 	--isnull( (select -sum(ed2.amount) from expense e2 with(nolock) join expenselast el2 with(nolock) on el2.idexp=e2.idexp join expensetotal et2 with(nolock) on et2.idexp=e2.idexp
-	--				join entrydetail ed2 with(nolock) on ed2.idrelated= 'expenseÂ§'+convert(varchar(15),el2.idexp)
+	--				join entrydetail ed2 with(nolock) on ed2.idrelated= 'expense§'+convert(varchar(15),el2.idexp)
 	--						where e2.idpayment= e2.idexp
 	--						),0)-- as 'contributi da esitare'
 FROM expenselast  with(nolock)
@@ -206,8 +208,7 @@ where (  ed.yentry is null or
 			--and nmov=29496
 GO
 
---select * from entrydetail where	((idrelated='expenseÂ§1209229Â§debit')OR(idrelated='expenseÂ§1209229')) AND(yentry=2019)
+--select * from entrydetail where	((idrelated='expense§1209229§debit')OR(idrelated='expense§1209229')) AND(yentry=2019)
 --select * from expense where idexp=1209229
 --1209229
  
-	

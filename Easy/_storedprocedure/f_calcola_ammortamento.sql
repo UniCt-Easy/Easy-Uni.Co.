@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø--closeyear_asset_ammortization 2011
+
+--closeyear_asset_ammortization 2011
 if exists (select * from dbo.sysobjects where id = object_id(N'[f_calcola_ammortamento]') and OBJECTPROPERTY(id, N'IsScalarFunction') = 1)
 drop function f_calcola_ammortamento
 GO
@@ -39,7 +41,7 @@ CREATE  FUNCTION [f_calcola_ammortamento]
 RETURNS decimal(19,2) AS
  BEGIN
 -- setuser 'ammINISTRAZIONE'
--- se l'ammortamento calcolato √® tale da rendere il valore corrente viene considerata una base per l'ammortamento opportunamente ridotta
+-- se l'ammortamento calcolato Ë tale da rendere il valore corrente viene considerata una base per l'ammortamento opportunamente ridotta
 -- in modo da far si che l'aliquota di ammortamento per la base di ammortamento vada ad azzerare il valore residuo del cespite
 IF (ISNULL(@actualvalue,0) = 0) RETURN 0
 
@@ -139,7 +141,7 @@ IF
   
 
 -- Caso in cui il cespite ha la data di inizio esistenza NOT NULL 
--- Applico tutte le rivalutazioni UFFICIALI che nell'anno sono associate alla classificazione cespite con et√†¬†pari alla differenza tra l'anno
+-- Applico tutte le rivalutazioni UFFICIALI che nell'anno sono associate alla classificazione cespite con et‡†pari alla differenza tra l'anno
 -- di acquisizione del cespite e la data contabile
 -- In questo caso prima di effettuare le rivalutazioni controllo se ci sono rivalutazioni che hanno il campo ETA' valorizzato,
 -- in caso negativo provo ad effettuare rivalutazioni senza ETA' (costanti nel tempo)
@@ -334,7 +336,7 @@ IF
 			SET @reval=ROUND(ISNULL(@assetvalue, 0.0) * ISNULL(@amortizationquota,0.0) ,2)
 
 			-- Viene sostituito il precedente controllo (@reval > @actualvalue) in quanto @reval nel caso di ammortamenti
-			-- √® negativo! Quindi la somma algebrica dei due importi deve essere sempre >=0
+			-- Ë negativo! Quindi la somma algebrica dei due importi deve essere sempre >=0
 			IF ( (@reval + @actualvalue) < 0) 
 			BEGIN
 				SET @amortizationquota  = -@actualvalue/@assetvalue
@@ -355,4 +357,3 @@ SET ANSI_NULLS ON
 GO
 
  
-	

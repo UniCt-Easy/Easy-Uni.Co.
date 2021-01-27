@@ -2,10 +2,10 @@ MIME-Version: 1.0
 Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--125ZMU3JUZSMJDF9T4S1EX7VTV"
+  boundary="---------blocknote.net--1KE40HVL2NVPC2OJ82QYXQL33"
 
 
------------blocknote.net--125ZMU3JUZSMJDF9T4S1EX7VTV
+-----------blocknote.net--1KE40HVL2NVPC2OJ82QYXQL33
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -24,6 +24,7 @@ Tempo Srl\Easy\bin\casualcontract_default.mht">
     <META name=3D"source">
     <META name=3D"source">
     <META name=3D"source">
+    <META name=3D"source">
     <BASEFONT face=3D"Times New Roman" size=3D"3">
     <TITLE></TITLE><STYLE>BODY { FONT-FAMILY:Times New Roman; FONT-SIZE:1=
 2pt }
@@ -33,19 +34,30 @@ TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
 </STYLE>
   </HEAD>
 <BODY>
-<DIV><STRONG><FONT size=3D"4">MANDATO di PAGAMENTO</FONT></STRONG></DIV>
+<TABLE align=3D"left" border=3D"1" cellpadding=3D"1" cellspacing=3D"1" wi=
+dth=3D"20%">
+  <TR>
+    <TD valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2">12/05=
+/2020</FONT></STRONG></TD>
+    <TD valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2">v. 1.=
+0</FONT></STRONG></TD>
+    <TD valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2">Creaz=
+ione</FONT></STRONG></TD>
+  </TR>
+</TABLE>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV><STRONG><FONT size=3D"5">MANDATO di PAGAMENTO</FONT></STRONG></DIV>
 <DIV align=3D"justify"><FONT size=3D"4">Menu: <STRONG>Spese&gt;Mandato di=
  pagamento</FONT></STRONG></DIV><HR>
 <DIV align=3D"justify"><FONT size=3D"4">Link guide correlate:</FONT></DIV=
 >
 <DIV align=3D"justify"><A href=3D"paymenttransmission_default.mht.mht"><F=
 ONT size=3D"4">Distinta di trasmissione</FONT></A></FONT></DIV>
-<DIV align=3D"justify"><A href=3D"paymenttransmission_default.mht#Distint=
-a di Annullo"><FONT size=3D"4">Distinta di Annullo</FONT></A></FONT></DIV=
->
-<DIV align=3D"justify"><A href=3D"paymenttransmission_default.mht#Distint=
-a di Variazione"><FONT size=3D"4">Distinta di Variazione</FONT></A></FONT=
-></DIV>
+<DIV align=3D"justify"><A href=3D"distinta_annullo.mht"><FONT size=3D"4">=
+Distinta di Annullo</FONT></A></FONT></DIV>
+<DIV align=3D"justify"><A href=3D"distinta_variazione.mht"><FONT size=3D"=
+4">Distinta di Variazione</FONT></A></FONT></DIV>
 <DIV><A href=3D"annullamentomandato_prestazioneoccasionale.mht"><FONT siz=
 e=3D"4">Annullamento mandato Compenso Occasionale</FONT></A></FONT></DIV>
 <DIV><A href=3D"annullamento_mandatofatturasplitpayment.mht"><FONT size=3D=
@@ -60,7 +72,9 @@ a d'acconto (professionisti)</FONT></A></FONT></DIV>
 missione SIOPE+</FONT></A></FONT></DIV>
 <DIV><A href=3D"paymenttransmission_generazioneautomatica.mht"><FONT size=
 =3D"4">Generazione automatica distinta di trasmissione</FONT></A></FONT><=
-/DIV><HR>
+/DIV>
+<DIV><A href=3D"expense_levels.mht"><FONT size=3D"4">Pagamento</FONT></A>=
+</FONT></DIV><HR>
 <P><FONT size=3D"4">Per tutti gli enti del comparto pubblico, i mandati e=
  le reversali cartacei sono stati sostituiti dagli Ordinativi di Pagament=
 o e Incasso (OPI), che sono scambiati fra gli Enti e le banche tesoriere =
@@ -68,8 +82,7 @@ o cassiere, per il tramite del sistema SIOPE+.</FONT></P>
 <DIV><FONT size=3D"4">In Easy i passaggi da effettuare per poter generare=
  l'OPI da trasmettere con SIOPE+ sono i seguenti:</FONT></DIV>
 <OL>
-<LI><P><STRONG><FONT size=3D"5">registrare e salvare il Mandato</FONT></S=
-TRONG></P></LI>
+<LI><P><FONT size=3D"4">registrare e salvare il Mandato</FONT></P></LI>
 <LI><P><FONT size=3D"4">inserire uno o pi=C3=B9 mandati in una Distinta d=
 i trasmissione</FONT></P></LI>
 <LI><P><FONT size=3D"4">generare il file XML dell'OPI accedendo al menu <=
@@ -113,7 +126,7 @@ tomaticamente da <EM>Easy</EM>, che riporta l'importo di tutti i pagament=
 i inseriti nel mandato, al lordo di eventuali reversali collegate.</FONT>=
 </P>
 <P>&nbsp;</P>
-<P align=3D"center"><IMG src=3D"cid:6VAH6SKHEPNI10ERHZ016QSTTD"></P>
+<P align=3D"center"><IMG src=3D"cid:1FSFRTCLPFJVN1TR6BH78T0H6W"></P>
 <P align=3D"justify">&nbsp;</P>
 <P>&nbsp;</P>
 <P><STRONG><FONT size=3D"6">Scheda Principale</FONT></STRONG></P>
@@ -193,12 +206,12 @@ mento contenuto nel mandato rappresenta un &quot;sub-ordinativo&quot; nel=
  file OPI ed =C3=A8 numerato prograssivamente. In Easy il numero di ciasc=
 un &quot;sub-ordinativo&quot; pu=C3=B2 essere visualizzato nel campo <STR=
 ONG>Num. Mov. bancario.</FONT></STRONG></P>
-<P align=3D"center"><IMG src=3D"cid:AA7QWIL0D7MRYFOVC0Z4JG7G"></P>
+<P align=3D"center"><IMG src=3D"cid:LYYUDFJS0BESEBMKRRMJCG6X"></P>
 <P align=3D"justify"><FONT size=3D"4">La <U>seconda sezione</U> riporta i=
  dati relativi alle esitazioni e per gli Enti che hanno la gestione autom=
 atizzata dell'Importazione esiti e sospesi, viene compilata automaticamen=
 te al salvataggio dell'importazione dei Giornali di cassa.</FONT></P>
-<DIV align=3D"center"><IMG src=3D"cid:18I7OFDKHXL6Q18TQC92ZME3A"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:FQGYNUI18QVO13LTF2C17YVNB8"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"justify"><FONT size=3D"4">Solo gli Enti che non hanno la ge=
 stione automatizzata delle esitazioni, dovranno inserire le esitazioni a =
@@ -218,8 +231,8 @@ i=C3=B9 ampi.</FONT></DIV>
 postato di default in base a quello presente sulla configurazione dell'ut=
 ente che sta inserendo il Mandato.</FONT></DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:KLXPPGIEWBAV1WZ4GP=
-J131WQRG"></FONT></DIV>
+<DIV align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:HVKGWWJXV8MZF1J8A9=
+1KUSANV"></FONT></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
 <DIV align=3D"justify"><STRONG><FONT size=3D"6">Scheda Disposizioni di pa=
@@ -232,8 +245,8 @@ ciate al mandato in oggetto. Solitamente le Disposizioni di pagamento in =
 i rimborsi agli studenti.</FONT></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"center">&nbsp;</DIV>
-<DIV align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:13B2XIDIDQETO71237=
-71CYYXUW"></FONT></DIV>
+<DIV align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:1N8KCD6L77K38CHUK5=
+F1H3CIHG"></FONT></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"left">&nbsp;</DIV>
@@ -241,9 +254,9 @@ i rimborsi agli studenti.</FONT></DIV>
 </BODY>
 </HTML>
 
------------blocknote.net--125ZMU3JUZSMJDF9T4S1EX7VTV
+-----------blocknote.net--1KE40HVL2NVPC2OJ82QYXQL33
 Content-Type: image/x-png
-Content-Id: <6VAH6SKHEPNI10ERHZ016QSTTD>
+Content-Id: <1FSFRTCLPFJVN1TR6BH78T0H6W>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Mandto princ.png
 
@@ -933,9 +946,9 @@ ALQCdQYAAAAAaAXqDAAAAADQCtQZAAAAAKAVqDMAAAAAQCtq1Vl2AAAAAABAA6gz
 AAAAAEArUGcAAAAAgFagzgAAAAAALfjoF/5/lfWG9zEYd6QAAAAASUVORK5CYII=
 =
 
------------blocknote.net--125ZMU3JUZSMJDF9T4S1EX7VTV
+-----------blocknote.net--1KE40HVL2NVPC2OJ82QYXQL33
 Content-Type: image/x-png
-Content-Id: <AA7QWIL0D7MRYFOVC0Z4JG7G>
+Content-Id: <LYYUDFJS0BESEBMKRRMJCG6X>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Mandto banca sub.png
 
@@ -1677,9 +1690,9 @@ sLvib52Tf1BdXb2h+LhOAwAAAODk/m+/ogUaAAAAcOGMBOuDoQEAAACERAs0AAAA
 4MIZNEADAAAA4aMLBwAAAOBCwsnq6hYJCR0/rdQJAAAAAEIQAbQeAwAAAFAT2QKt
 RwEAAACEZhj/P7aFMQthhinmAAAAAElFTkSuQmCC=
 
------------blocknote.net--125ZMU3JUZSMJDF9T4S1EX7VTV
+-----------blocknote.net--1KE40HVL2NVPC2OJ82QYXQL33
 Content-Type: image/x-png
-Content-Id: <18I7OFDKHXL6Q18TQC92ZME3A>
+Content-Id: <FQGYNUI18QVO13LTF2C17YVNB8>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Mandto banca esit.png
 
@@ -2423,9 +2436,9 @@ gJOHvv+aHmgAAADAhSYJ1h+GBgAAABASPdAAAACAC03ogAYAAADCxxAOAAAAwIWE
 01VVzRMS0j+r0AkAAAAAQhABtJ4DAAAAUB3ZA61nAQAAAIRmGP8/Kq+DRqrilfgA
 AAAASUVORK5CYII==
 
------------blocknote.net--125ZMU3JUZSMJDF9T4S1EX7VTV
+-----------blocknote.net--1KE40HVL2NVPC2OJ82QYXQL33
 Content-Type: image/x-png
-Content-Id: <KLXPPGIEWBAV1WZ4GPJ131WQRG>
+Content-Id: <HVKGWWJXV8MZF1J8A91KUSANV>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/5.png
 
@@ -2909,9 +2922,9 @@ sEFoBgAAAGwQmgEAAAAbhGYAAADABqEZAAAAsCEfObdl/yldAwAAAOCHkWYAAADA
 BqEZAAAAsEFoBgAAAGwQmgEAAAAbhGYAAADARlSfPRW6CAAAAAAAAABArRnG/wcp
 DkwZoe2s2QAAAABJRU5ErkJggg===
 
------------blocknote.net--125ZMU3JUZSMJDF9T4S1EX7VTV
+-----------blocknote.net--1KE40HVL2NVPC2OJ82QYXQL33
 Content-Type: image/x-png
-Content-Id: <13B2XIDIDQETO7123771CYYXUW>
+Content-Id: <1N8KCD6L77K38CHUK5F1H3CIHG>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/Desktop/6.png
 
@@ -4920,4 +4933,4 @@ AAAAAAAAIYfwCQAAAAAAACGH8AkAAAAAAAAhR6vuMbNZiKAAAAAAAADwU6n1dovN
 ACGH8AkAAAAAAAAhh/AJAAAAAAAAIYfwCQAAAAAAACGH8AkAAAAAAAAhRlH/D5c9
 RaOYRrI0AAAAAElFTkSuQmCC=
 
------------blocknote.net--125ZMU3JUZSMJDF9T4S1EX7VTV--
+-----------blocknote.net--1KE40HVL2NVPC2OJ82QYXQL33--

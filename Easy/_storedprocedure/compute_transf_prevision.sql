@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ÔªøSET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -36,8 +38,8 @@ SELECT  @levelusable = MAX(nlevel) FROM finlevel WHERE ayear = @ayear
 DECLARE @infoavanzo char(1)
 SELECT  @infoavanzo = paramvalue FROM generalreportparameter WHERE idparam = 'MostraAvanzo'
 
--- Se @fin_kind = 1 ==> √® stata personalizzata una previsione principale di tipo "competenza", se @fin_kind = 2
--- ==> √® stata personalizzata una previsione principale di tipo "cassa", se  @fin_kind = 3 ==> √® stata personalizzata una
+-- Se @fin_kind = 1 ==> Ë stata personalizzata una previsione principale di tipo "competenza", se @fin_kind = 2
+-- ==> Ë stata personalizzata una previsione principale di tipo "cassa", se  @fin_kind = 3 ==> Ë stata personalizzata una
 -- previsione principale di tipo "altra previsione". 
 DECLARE @fin_kind tinyint
 
@@ -45,25 +47,25 @@ SELECT @fin_kind = ISNULL(fin_kind,0) FROM config WHERE ayear = @ayear
 
 /*
 Se un capitolo nell'anno successivo, 2009: 
-- perde tutti gli articoli perch√® cancellati,esister√† in convert bilancio l'associazione tra gli articoli e il capitolo.
-- o perde tutti gli articoli perch√® associati ad altri capitoli, esister√† in convert bilancio l'associazione tra gli articoli e i nuovi capitoli
+- perde tutti gli articoli perchË cancellati,esister‡ in convert bilancio l'associazione tra gli articoli e il capitolo.
+- o perde tutti gli articoli perchË associati ad altri capitoli, esister‡ in convert bilancio l'associazione tra gli articoli e i nuovi capitoli
 ALLORA cancelliamo la riga del capitolo in #finlookup.
-Perch√® nel primo caso la prev. del capitolo sar√† data dalla SUM delle prev. degli articoli, nel secondo caso sar√† zero.
+PerchË nel primo caso la prev. del capitolo sar‡ data dalla SUM delle prev. degli articoli, nel secondo caso sar‡ zero.
 
 In altre parole,cancelliamo #finlookup le corrispondenze capitolo 2008 -->capitolo 2009 ove: 
-1)capitolo 2008 √® articolato 
-2)capitolo 2009 non √® articolato
+1)capitolo 2008 Ë articolato 
+2)capitolo 2009 non Ë articolato
 3)esistono altre voci (al di fuori di se stesso) che puntano a capitolo 2009 (ad esempio suoi articoli o altri)
 Nel caso in cui, invece:
-1)capitolo 2008 √® articolato 
-2)capitolo 2009 non √® articolato
+1)capitolo 2008 Ë articolato 
+2)capitolo 2009 non Ë articolato
 3)NON esistono altre voci (al di fuori di se stesso) che puntano a capitolo 2009 
 anche qui si potrebbe spezzare tanto deve andare a zero comunque
 
 Quindi, quando
-1)capitolo 2008 √® articolato 
-2)capitolo 2009 non √® articolato
-si pu√≤ spezzare il legame capitolo 2008-2009 in #finlookup
+1)capitolo 2008 Ë articolato 
+2)capitolo 2009 non Ë articolato
+si puÚ spezzare il legame capitolo 2008-2009 in #finlookup
 */
 
 CREATE TABLE #finlookup(
@@ -81,8 +83,8 @@ WHERE fin.ayear = @ayear
 --select * from #finlookup
 
 -- Cancella il capitolo articolato nel 2008, e dearticolato nel 2009.
-DELETE FROM #finlookup WHERE EXISTS ( select * from fin where fin.paridfin = #finlookup.oldidfin )--√® parent nel  2008
-                                AND NOT EXISTS ( select * from fin where fin.paridfin = #finlookup.newidfin )-- non √® parent nel 2009
+DELETE FROM #finlookup WHERE EXISTS ( select * from fin where fin.paridfin = #finlookup.oldidfin )--Ë parent nel  2008
+                                AND NOT EXISTS ( select * from fin where fin.paridfin = #finlookup.newidfin )-- non Ë parent nel 2009
 
 CREATE TABLE #bilprevision
 (
@@ -221,8 +223,8 @@ WHERE FV.yvar = @ayear
 GROUP BY FVD.idupb, FK.newidfin,fin.paridfin,fin.nlevel --ISNULL(finlink.idparent, FK.newidfin)
 --print 'quinta insert'
 
----- Per questi due campi in un bilancio di sola cassa la previoussecondaryprev non sar√† valorizzata 
----- controllare nel form se √® giusto cos√¨
+---- Per questi due campi in un bilancio di sola cassa la previoussecondaryprev non sar‡ valorizzata 
+---- controllare nel form se Ë giusto cosÏ
 --UPDATE #bilprevision
 --SET 
 --	previousprevision = 
@@ -251,8 +253,8 @@ SET 	@nextayear = @ayear + 1
 
 -- Procedura che imposta il valore dei capitoli articolati pari alla somma degli articoli
 -- in particolare sta prendendo i capitoli degli articoli, se non esistono nella tabella.
--- Per esempio se ho fatto solo un mov. di spesa sull'articolo, lo trover√≤ SOLO in expenseyear
--- quindi in #bilprevision trover√≤ SOLO l'articolo. Questo ciclo serve ad inserisce anche il relativo capitolo
+-- Per esempio se ho fatto solo un mov. di spesa sull'articolo, lo troverÚ SOLO in expenseyear
+-- quindi in #bilprevision troverÚ SOLO l'articolo. Questo ciclo serve ad inserisce anche il relativo capitolo
 -- per poterlo totalizzare.
 DECLARE @minlivop tinyint
 DECLARE @maxlivop tinyint
@@ -391,7 +393,7 @@ nel 2008 ho cap. e articolo : CAP09, ART09
 in finlookup c'era CAP08 che puntava a CAP09
 ora invece CAP08 deve puntare a ART09
 Quindi CAP09 non ha nessuno che lo punta, succede che in finyear la sp NON crea la riga del capitolo MA solo quella dell'articolo!
-Questo cursore se esiste una riga in finyear il cui padre non √® puntato da nessuno in finlookup
+Questo cursore se esiste una riga in finyear il cui padre non Ë puntato da nessuno in finlookup
 fa o l'UPDATE o la INSERT in finyear
 */
 
@@ -489,4 +491,3 @@ GO
 
 --compute_transf_prevision 2015, '31-12-2015'
 
-	

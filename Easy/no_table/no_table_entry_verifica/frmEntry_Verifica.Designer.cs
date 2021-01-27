@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªønamespace no_table_entry_verifica {
+
+namespace no_table_entry_verifica {
     partial class frmEntry_Verifica {
         /// <summary>
         /// Required designer variable.
@@ -93,6 +95,7 @@
 			this.txtGene1 = new System.Windows.Forms.TextBox();
 			this.btnGene1 = new System.Windows.Forms.Button();
 			this.tabRigenerazione = new System.Windows.Forms.TabPage();
+			this.btnRigeneraLiqImposte = new System.Windows.Forms.Button();
 			this.btnSpeseFondoEconomale = new System.Windows.Forms.Button();
 			this.btnRigeneraLiqIva = new System.Windows.Forms.Button();
 			this.btnTrg_evaluatearrearsepacc = new System.Windows.Forms.Button();
@@ -296,7 +299,8 @@
 			this.progBar = new System.Windows.Forms.ProgressBar();
 			this.label3 = new System.Windows.Forms.Label();
 			this.txtCurrent = new System.Windows.Forms.TextBox();
-			this.btnRigeneraLiqImposte = new System.Windows.Forms.Button();
+			this.txtBoxGen13 = new System.Windows.Forms.TextBox();
+			this.btnGen13 = new System.Windows.Forms.Button();
 			this.tabMovBudget.SuspendLayout();
 			this.tabFatture.SuspendLayout();
 			this.txtGene9.SuspendLayout();
@@ -656,6 +660,8 @@
 			// 
 			// txtGene9
 			// 
+			this.txtGene9.Controls.Add(this.txtBoxGen13);
+			this.txtGene9.Controls.Add(this.btnGen13);
 			this.txtGene9.Controls.Add(this.textBox15);
 			this.txtGene9.Controls.Add(this.exp3);
 			this.txtGene9.Controls.Add(this.txtGene13);
@@ -719,7 +725,7 @@
 			this.txtGene13.ReadOnly = true;
 			this.txtGene13.Size = new System.Drawing.Size(611, 40);
 			this.txtGene13.TabIndex = 35;
-			this.txtGene13.Text = "Elenco dei conti EP operativi non associati n√® a Stato Patrimoniale e n√® Conto Ec" +
+			this.txtGene13.Text = "Elenco dei conti EP operativi non associati nË a Stato Patrimoniale e nË Conto Ec" +
     "onomico o collegate a voci non foglia dello stato patrimoniale o conto economico" +
     "";
 			// 
@@ -975,6 +981,16 @@
 			this.tabRigenerazione.TabIndex = 1;
 			this.tabRigenerazione.Text = "Rigenerazione";
 			this.tabRigenerazione.UseVisualStyleBackColor = true;
+			// 
+			// btnRigeneraLiqImposte
+			// 
+			this.btnRigeneraLiqImposte.Location = new System.Drawing.Point(432, 92);
+			this.btnRigeneraLiqImposte.Name = "btnRigeneraLiqImposte";
+			this.btnRigeneraLiqImposte.Size = new System.Drawing.Size(197, 23);
+			this.btnRigeneraLiqImposte.TabIndex = 22;
+			this.btnRigeneraLiqImposte.Text = "Liquidazioni imposte";
+			this.btnRigeneraLiqImposte.UseVisualStyleBackColor = true;
+			this.btnRigeneraLiqImposte.Click += new System.EventHandler(this.btnRigeneraLiqImposte_Click);
 			// 
 			// btnSpeseFondoEconomale
 			// 
@@ -2211,7 +2227,7 @@
 			this.txtAccertamentiBudget_1.Size = new System.Drawing.Size(623, 20);
 			this.txtAccertamentiBudget_1.TabIndex = 20;
 			this.txtAccertamentiBudget_1.Text = "Accertamenti di Budget  collegati dall\'inserisci copia a dettagli contratti attiv" +
-    "i ma in realt√† collegati ad altri dettagli";
+    "i ma in realt‡ collegati ad altri dettagli";
 			// 
 			// btnAccertamentiBudget_1
 			// 
@@ -2418,7 +2434,7 @@
 			this.txtImpegniFattDuplicati.ReadOnly = true;
 			this.txtImpegniFattDuplicati.Size = new System.Drawing.Size(590, 20);
 			this.txtImpegniFattDuplicati.TabIndex = 43;
-			this.txtImpegniFattDuplicati.Text = "Impegni su fatture gi√† generati in fase di c.passivo. Da cancellare.";
+			this.txtImpegniFattDuplicati.Text = "Impegni su fatture gi‡ generati in fase di c.passivo. Da cancellare.";
 			// 
 			// btnImpegniFattDuplicati
 			// 
@@ -2740,7 +2756,7 @@
 			this.txtImpegniIncoerentiIdrelated.ReadOnly = true;
 			this.txtImpegniIncoerentiIdrelated.Size = new System.Drawing.Size(693, 20);
 			this.txtImpegniIncoerentiIdrelated.TabIndex = 50;
-			this.txtImpegniIncoerentiIdrelated.Text = "Scritture in pd di il cui impegno collegato tramite chiave √® diverso da quello de" +
+			this.txtImpegniIncoerentiIdrelated.Text = "Scritture in pd di il cui impegno collegato tramite chiave Ë diverso da quello de" +
     "ll\'idrelated";
 			// 
 			// crgFattureCPassiviContoIncoerente
@@ -2880,7 +2896,7 @@
 			this.txtAccertamentiIncoerentiIdrelated.ReadOnly = true;
 			this.txtAccertamentiIncoerentiIdrelated.Size = new System.Drawing.Size(693, 20);
 			this.txtAccertamentiIncoerentiIdrelated.TabIndex = 18;
-			this.txtAccertamentiIncoerentiIdrelated.Text = "Scritture in pd di il cui accertamento collegato tramite chiave √® diverso da quel" +
+			this.txtAccertamentiIncoerentiIdrelated.Text = "Scritture in pd di il cui accertamento collegato tramite chiave Ë diverso da quel" +
     "lo dell\'idrelated";
 			// 
 			// btnEntryVarDataWrong
@@ -3287,15 +3303,26 @@
 			this.txtCurrent.Size = new System.Drawing.Size(825, 20);
 			this.txtCurrent.TabIndex = 6;
 			// 
-			// btnRigeneraLiqImposte
+			// txtBoxGen13
 			// 
-			this.btnRigeneraLiqImposte.Location = new System.Drawing.Point(432, 92);
-			this.btnRigeneraLiqImposte.Name = "btnRigeneraLiqImposte";
-			this.btnRigeneraLiqImposte.Size = new System.Drawing.Size(197, 23);
-			this.btnRigeneraLiqImposte.TabIndex = 22;
-			this.btnRigeneraLiqImposte.Text = "Liquidazioni imposte";
-			this.btnRigeneraLiqImposte.UseVisualStyleBackColor = true;
-			this.btnRigeneraLiqImposte.Click += new System.EventHandler(this.btnRigeneraLiqImposte_Click);
+			this.txtBoxGen13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtBoxGen13.Location = new System.Drawing.Point(172, 367);
+			this.txtBoxGen13.Name = "txtBoxGen13";
+			this.txtBoxGen13.ReadOnly = true;
+			this.txtBoxGen13.Size = new System.Drawing.Size(611, 20);
+			this.txtBoxGen13.TabIndex = 39;
+			this.txtBoxGen13.Text = "Dettagli scrittura con conti con id errato";
+			// 
+			// btnGen13
+			// 
+			this.btnGen13.Location = new System.Drawing.Point(6, 365);
+			this.btnGen13.Name = "btnGen13";
+			this.btnGen13.Size = new System.Drawing.Size(137, 23);
+			this.btnGen13.TabIndex = 38;
+			this.btnGen13.Text = "Verifica";
+			this.btnGen13.UseVisualStyleBackColor = true;
+			this.btnGen13.Click += new System.EventHandler(this.btnGen13_Click);
 			// 
 			// frmEntry_Verifica
 			// 
@@ -3599,5 +3626,7 @@
 		private System.Windows.Forms.TextBox txtImpegni_3;
 		private System.Windows.Forms.Button btnImpegni_3;
 		private System.Windows.Forms.Button btnRigeneraLiqImposte;
+		private System.Windows.Forms.TextBox txtBoxGen13;
+		private System.Windows.Forms.Button btnGen13;
 	}
 }

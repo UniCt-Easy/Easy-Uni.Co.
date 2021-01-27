@@ -1637,7 +1637,7 @@ function CreateList(pValue, pName, pPage)
         pgrid_select: true,
         pgrid_multi_select: false,
         pgrid_paginate: true,
-        pgrid_perpage: 20,
+        pgrid_perpage: 30,
         pgrid_row_hover_effect: false,
         pgrid_view_height: 'auto',
         pgrid_resize: false
@@ -2468,7 +2468,7 @@ function formatAllGrids() {
         pgrid_select: true,
         pgrid_multi_select: false,
         pgrid_paginate: true,
-        pgrid_perpage: 20,
+        pgrid_perpage: 30,
         pgrid_row_hover_effect: true,
         pgrid_view_height: 'auto',
         pgrid_resize: false

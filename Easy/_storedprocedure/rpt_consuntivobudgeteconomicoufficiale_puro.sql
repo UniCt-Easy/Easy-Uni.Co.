@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø--setuser 'amministrazione'
+
+--setuser 'amministrazione'
 ---------------------------------------
 ------- NUOVA VERSIONE ----------------
 ---------------------------------------
@@ -96,7 +98,7 @@ INSERT INTO #dati  SELECT 1,'3) Proventi da Ricerche con finanziamenti competiti
 	2)Contributi Regioni e Province autonome
 	3)Contributi altre Amministrazioni locali
 	4)Contributi Unione Europea e altri Organismi Internazionali
-	5)Contributi da Universit√†
+	5)Contributi da Universit‡
 	6)Contributi da altri (pubblici)
 	7)Contributi da altri (privati)
 */
@@ -111,19 +113,19 @@ else
 	SET @label_1 = '4) Contributi Unione Europea e Resto del Mondo'
 
 INSERT INTO #dati  SELECT 1,@label_1, 'EA1204%',  0,0,0,0,0,0,0,0, 'R','II. CONTRIBUTI',1 
-INSERT INTO #dati  SELECT 1,'5) Contributi da Universit√†', 'EA1205%', 0,0,0,0,0,0,0,0, 'R' ,'II. CONTRIBUTI',1
+INSERT INTO #dati  SELECT 1,'5) Contributi da Universit‡', 'EA1205%', 0,0,0,0,0,0,0,0, 'R' ,'II. CONTRIBUTI',1
 INSERT INTO #dati  SELECT 1,'6) Contributi da altri enti (pubblici)', 'EA1206%',  0,0,0,0,0,0,0,0, 'R' ,'II. CONTRIBUTI',1
 INSERT INTO #dati  SELECT 1,'7) Contributi da altri enti (privati)', 'EA1207%', 0,0,0,0,0,0,0,0, 'R' ,'II. CONTRIBUTI',1 
 
 -------------- PROVENTI PER ATTIVITA' ASSISTENZIALE ---------------------------------- 
-INSERT INTO #dati  SELECT 2,'III. PROVENTI PER ATTIVITA‚Äô ASSISTENZIALE', 'EA1301%',  0,0,0,0,0,0,0,0, 'R',  null,1 
+INSERT INTO #dati  SELECT 2,'III. PROVENTI PER ATTIVITAí ASSISTENZIALE', 'EA1301%',  0,0,0,0,0,0,0,0, 'R',  null,1 
 -------------- PROVENTI PER GESTIONE DIRETTA ---------------------------------- 
 INSERT INTO #dati  SELECT 2,'IV. PROVENTI PER LA GESTIONE DIRETTA INTERVENTI PER IL DIRITTO ALLO STUDIO', 'EA1401%',  0,0,0,0,0,0,0,0, 'R', null,1
 -- V.ALTRI PROVENTI E RICAVI DIVERSI
--- 1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilit√† finanziaria
+-- 1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilit‡ finanziaria
 -- 2) Altri Proventi e Ricavi Diversi
 INSERT INTO #dati  SELECT 2,'V. ALTRI PROVENTI  E RICAVI DIVERSI',null,  0,0,0,0,0,0,0,0, 'R' ,  null,1
-INSERT INTO #dati  SELECT 1,'1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilit√† finanziaria', 'EA1501%', 0,0,0,0,0,0,0,0, 'R' ,  'V. ALTRI PROVENTI  E RICAVI DIVERSI',1
+INSERT INTO #dati  SELECT 1,'1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilit‡ finanziaria', 'EA1501%', 0,0,0,0,0,0,0,0, 'R' ,  'V. ALTRI PROVENTI  E RICAVI DIVERSI',1
 INSERT INTO #dati  SELECT 1,'2) Altri Proventi e Ricavi Diversi', 'EA1502%', 0,0,0,0,0,0,0,0, 'R' ,'V. ALTRI PROVENTI  E RICAVI DIVERSI',1 
 -------------- Variazioni Rimanenze  ---------------------------------- 
 INSERT INTO #dati  SELECT 2,'VI. VARIAZIONE RIMANENZE', 'EA1601%', 0,0,0,0,0,0,0,0, 'R',  null,1 
@@ -159,7 +161,7 @@ INSERT INTO #dati  SELECT 1,'2) Costi del personale dirigente e tecnico-amminist
 IX.COSTI DELLA GESTIONE CORRENTE
 1)Costi per sostegno agli studenti
 2)Costi per il diritto allo studio
-3)Costi per la ricerca e l'attivit√† editoriale
+3)Costi per la ricerca e l'attivit‡ editoriale
 4)Trasferimenti a partner di progetti coordinati
 5)Acquisto materiale consumo per laboratori
 6)Variazione rimanenze di materiale di consumo per laboratori
@@ -174,9 +176,9 @@ INSERT INTO #dati  SELECT 2,'IX. COSTI DELLA GESTIONE CORRENTE', null, 0,0,0,0,0
 INSERT INTO #dati  SELECT 1,'1) Costi per sostegno agli studenti', 'EB2101%', 0,0,0,0,0,0,0,0, 'C', 'IX. COSTI DELLA GESTIONE CORRENTE',1   
 INSERT INTO #dati  SELECT 1,'2) Costi per il diritto allo studio', 'EB2102%', 0,0,0,0,0,0,0,0, 'C'  , 'IX. COSTI DELLA GESTIONE CORRENTE',1  
 IF (@ayear<=2017)  
-	SET @label_1 = '3) Costi per la ricerca e l''attivit√† editoriale'
+	SET @label_1 = '3) Costi per la ricerca e l''attivit‡ editoriale'
 else 
-	SET @label_1 = '3) Costi per l''attivit√† editoriale'
+	SET @label_1 = '3) Costi per l''attivit‡ editoriale'
 
 INSERT INTO #dati  SELECT 1,@label_1, 'EB2103%', 0,0,0,0,0,0,0,0, 'C', 'IX. COSTI DELLA GESTIONE CORRENTE',1  
 INSERT INTO #dati  SELECT 1,'4) Trasferimenti a partner di progetti coordinati', 'EB2104%',0,0,0,0,0,0,0,0, 'C' , 'IX. COSTI DELLA GESTIONE CORRENTE',1  
@@ -193,13 +195,13 @@ INSERT INTO #dati  SELECT 1,'12) Altri costi', 'EB2112%', 0,0,0,0,0,0,0,0, 'C', 
 		1) Ammortamenti immobilizzazioni immateriali
 		2) Ammortamenti immobilizzazioni materiali
 		3) Svalutazioni immobilizzazioni
-		4) Svalutazioni dei crediti compresi nell'attivo circolante e nelle disponibilit√† liquide
+		4) Svalutazioni dei crediti compresi nell'attivo circolante e nelle disponibilit‡ liquide
 */
 INSERT INTO #dati  SELECT 2,'X. AMMORTAMENTI E SVALUTAZIONI', null,0,0,0,0,0,0,0,0, 'C' ,null,1
 INSERT INTO #dati  SELECT 1,'1) Ammortamenti immobilizzazioni immateriali', 'EB3101%',0,0,0,0,0,0,0,0, 'C','X. AMMORTAMENTI E SVALUTAZIONI',1
 INSERT INTO #dati  SELECT 1,'2) Ammortamenti immobilizzazioni materiali', 'EB3102%', 0,0,0,0,0,0,0,0, 'C','X. AMMORTAMENTI E SVALUTAZIONI',1 
 INSERT INTO #dati  SELECT 1,'3) Svalutazioni immobilizzazioni', 'EB3103%',0,0,0,0,0,0,0,0, 'C','X. AMMORTAMENTI E SVALUTAZIONI',1 
-INSERT INTO #dati  SELECT 1,'4) Svalutazioni dei crediti compresi nell‚Äôattivo circolante e nelle disponibilit√† liquide', 'EB3104%', 0,0,0,0,0,0,0,0, 'C' ,'X. AMMORTAMENTI E SVALUTAZIONI',1
+INSERT INTO #dati  SELECT 1,'4) Svalutazioni dei crediti compresi nellíattivo circolante e nelle disponibilit‡ liquide', 'EB3104%', 0,0,0,0,0,0,0,0, 'C' ,'X. AMMORTAMENTI E SVALUTAZIONI',1
 INSERT INTO #dati  SELECT 2,'XI. ACCANTONAMENTI PER RISCHI E ONERI', 'EB4101%', 0,0,0,0,0,0,0,0, 'C', null, 1 
 INSERT INTO #dati  SELECT 2,'XII. ONERI DIVERSI DI GESTIONE','EB5101%',0,0,0,0,0,0,0,0, 'C' , null, 1
 INSERT INTO #dati  SELECT 0,'TOTALE COSTI  (B)', null, 0,0,0,0,0,0,0,0, 'C' ,null,null 
@@ -219,8 +221,8 @@ INSERT INTO #dati  SELECT 1,' Utili', 'EC1103%',0,0,0,0,0,0,0,0, 'R' , '3) Utili
 INSERT INTO #dati  SELECT 1,' Perdite', 'EC1104%',0,0,0,0,0,0,0,0, 'C' ,'3) Utili e Perdite su cambi',-1
 /*
 	D) RETTIFICHE DI VALORE DI ATTIVITA' FINANZIARIE
-		1) Rivalutazioni di attivit√† finanziarie
-		2) Svalutazioni di attivit√† finanziarie
+		1) Rivalutazioni di attivit‡ finanziarie
+		2) Svalutazioni di attivit‡ finanziarie
 */
 INSERT INTO #dati  SELECT 2,'D) RETTIFICHE DI VALORE DI ATTIVITA'' FINANZIARIE', null, 0,0,0,0,0,0,0,0, 'A', null,1   --,'S' 
 INSERT INTO #dati  SELECT 1,'1) Rivalutazioni', 'ED1101%',0,0,0,0,0,0,0,0, 'R', 'D) RETTIFICHE DI VALORE DI ATTIVITA'' FINANZIARIE',1 
@@ -238,7 +240,7 @@ INSERT INTO #dati  SELECT 1,'2) Oneri',  'EE1102%', 0,0,0,0,0,0,0,0, 'C','E) PRO
 */
 INSERT INTO #dati  SELECT 1,'F) IMPOSTE SUL REDDITO DELL''ESERCIZIO CORRENTI, DIFFERITE, ANTICIPATE', 'EF1101%',0,0,0,0,0,0,0,0, 'C', null, -1
 /*
-	G) Utilizzo di riservedi Patrimonio Netto derivanti dalla contabilit√† economico-patrimoniale
+	G) Utilizzo di riservedi Patrimonio Netto derivanti dalla contabilit‡ economico-patrimoniale
 */
 -------------Tot Ricavi  ------------------------------------------------------------   
 INSERT INTO #dati  SELECT 3,'TotRicavi', null,0,0,0,0,0,0,0,0, 'TOTR', 'RISULTATO ECONOMICO', 1 
@@ -299,7 +301,7 @@ INSERT INTO #dati  SELECT 5,'RISULTATO A PAREGGIO', null, 0,0,0,0,0,0,0,0, 'TOT'
 			WHERE V.yvar = @ayear
 				AND adate<= @adate
 				AND A.nlevel = @nlevel
-				AND V.idaccountvarstatus = 5 and V.variationkind <> 5 
+				AND V.idaccountvarstatus = 5 and V.variationkind in (1,3,4) --<> 5 
 				AND (U.idupb like @idupb)
 				AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
 				AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
@@ -584,27 +586,28 @@ isnull((select sum(_nonrealizzato ) FROM #dati  where #dati.label = 'TOTALE COST
 where #dati.label = ('DIFFERENZA TRA PROVENTI E COSTI OPERATIVI (A-B)')
 
 --- Valorizzo la voce TotRicavi
+--- Valorizzo la voce TotRicavi
 UPDATE #dati SET _initprev = isnull((select sum(_initprev ) FROM #dati child
-where child.KIND = 'R' and nlevel = 1 ),0)		where  #dati.label = 'TotRicavi'
+where child.KIND = 'R' and (nlevel = 1 or sortcode is not null)),0)		where  #dati.label = 'TotRicavi'
 
 UPDATE #dati SET _var =  isnull((select sum(_var ) FROM #dati child
-where child.KIND = 'R' and nlevel = 1 ),0)		where  #dati.label = 'TotRicavi'
+where child.KIND = 'R' and (nlevel = 1 or sortcode is not null)),0)		where  #dati.label = 'TotRicavi'
 
 UPDATE #dati SET _prevcorr = isnull((select sum(_prevcorr ) FROM #dati child
-where child.KIND = 'R' and nlevel = 1)	,0)	 where  #dati.label = 'TotRicavi'
+where child.KIND = 'R'  and (nlevel = 1 or sortcode is not null))	,0)	 where  #dati.label = 'TotRicavi'
 
 UPDATE #dati SET _preacc=  isnull((select sum(_preacc ) FROM #dati child
-where child.KIND = 'R' and nlevel = 1)	,0)	where  #dati.label = 'TotRicavi'
+where child.KIND = 'R' and (nlevel = 1 or sortcode is not null))	,0)	where  #dati.label = 'TotRicavi'
 
 
 UPDATE #dati SET _saldo= isnull((select sum(_saldo ) FROM #dati child
-where child.KIND = 'R' and nlevel = 1 ),0)		where  #dati.label = 'TotRicavi'
+where child.KIND = 'R' and (nlevel = 1 or sortcode is not null)),0)		where  #dati.label = 'TotRicavi'
 
 UPDATE #dati SET _entry = isnull((select sum(_entry ) FROM #dati child
-where child.KIND = 'R' and nlevel = 1 )	,0)		where  #dati.label = 'TotRicavi'
+where child.KIND = 'R' and (nlevel = 1 or sortcode is not null))	,0)		where  #dati.label = 'TotRicavi'
 
 UPDATE #dati SET _nonrealizzato=  isnull((select sum(_nonrealizzato ) FROM #dati child
-where  child.KIND = 'R' and nlevel = 1 )	,0)		where  #dati.label = 'TotRicavi'
+where  child.KIND = 'R' and (nlevel = 1 or sortcode is not null))	,0)		where  #dati.label = 'TotRicavi'
 
 --- Valorizzo la voce TotCosti
 UPDATE #dati SET _initprev = isnull((select sum(_initprev ) FROM #dati child
@@ -699,4 +702,3 @@ GO
  
 
  
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_fondopsp_registro_no_upb]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_fondopsp_registro_no_upb]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_fondopsp_registro_no_upb]
 GO
 
@@ -279,7 +281,7 @@ UPDATE #pettycashreg SET detail =substring(detail,1,len(detail)-1) + ')'
 /*UPDATE #pettycashreg SET detail = isnull(detail,'')+ ' mand. n.'
 					WHERE operation='Reintegro' or operation='Apertura'*/
 /*
-UPDATE #pettycashreg SET payment = ' nÂ° '
+UPDATE #pettycashreg SET payment = ' n° '
 					WHERE operation='Reintegro' or operation='Apertura'
 */
 DECLARE @npay int
@@ -309,7 +311,7 @@ DECLARE cursore CURSOR FORWARD_ONLY for
 	
 	WHILE (@@fetch_status=0) BEGIN
 		UPDATE 	#pettycashreg set
-		payment = isnull(payment,' nÂ° ') + isnull(convert(varchar(10),@npay),'') + ' '
+		payment = isnull(payment,' n° ') + isnull(convert(varchar(10),@npay),'') + ' '
 		WHERE #pettycashreg.operation in('Reintegro','Apertura')
 			and noperation=@noperation  and @npay is not null
 		FETCH NEXT FROM cursore 
@@ -368,7 +370,7 @@ DECLARE cursore CURSOR FORWARD_ONLY for
  	
 	WHILE (@@fetch_status=0) 
 	BEGIN
-		UPDATE #pettycashreg SET payment = isnull(payment,'') + ' nÂ° '+isnull(convert(varchar(10),@npay),'') + '; '
+		UPDATE #pettycashreg SET payment = isnull(payment,'') + ' n° '+isnull(convert(varchar(10),@npay),'') + '; '
 		WHERE #pettycashreg.idexpIx = @idexpIx and #pettycashreg.noperation  = @noperation 
 	FETCH NEXT FROM cursore INTO @npay, @idexpIx, @noperation
 	END
@@ -426,4 +428,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

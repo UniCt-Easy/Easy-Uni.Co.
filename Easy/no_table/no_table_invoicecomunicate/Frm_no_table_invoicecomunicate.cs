@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -77,7 +79,7 @@ namespace no_table_invoicecomunicate {
                 esercizio = (int)HelpForm.GetObjectFromString(typeof(int),
                     txtEsercizio.Text.ToString(), "x.y.year");
                 if ((esercizio < 0)) {
-                    MessageBox.Show("L'esercizio non pu√≤ essere negativo");
+                    MessageBox.Show("L'esercizio non puÚ essere negativo");
                     txtEsercizio.Focus();
                     return false;
                 }
@@ -135,12 +137,12 @@ namespace no_table_invoicecomunicate {
         }
         private string aggiustaStringa(string stringa, bool toglichiocciola) {
 
-            string s = stringa.Replace('‚Äô', ' ').Replace('¬¥', ' ').Replace('√á', 'c').Replace('√ß', 'c').Replace('‚Ç¨', 'e').Replace('|', ' ').Replace('\\', ' ').Replace('¬£', ' ').Replace('¬ß', ' ').Replace('[', ' ').Replace('#', ' ').Replace('!', ' ').Replace('√ô', 'u').Replace(
-                '√ñ', 'o').Replace('√ú', 'u').Replace('√ë', 'n').Replace('√ê', 'd').Replace('√ä', 'e').Replace('√ã', 'e').Replace('√é', 'i').Replace('√è', 'i').Replace('√î', 'o').Replace('√ï', 'o').Replace('√õ', 'u').Replace('√ù', 'y').Replace(
-                ']', ' ').Replace('`', ' ').Replace('{', ' ').Replace('}', ' ').Replace('~', ' ').Replace('√º', 'u').Replace('√¢', 'a').Replace('√§', 'a').Replace('√•', 'a').Replace('√™', 'e').Replace('√´', 'e').Replace('√Ø', 'i').Replace(
-                '√Æ', 'i').Replace('√Ñ', 'a').Replace('√Ö', 'a').Replace('√¥', 'o').Replace('√∂', 'o').Replace('√ª', 'u').Replace('√ø', 'y').Replace('√±', 'n').Replace('√Ç', 'a').Replace('¬•', 'y').Replace('√£', 'a').Replace('√É', 'a').Replace(
-                '√µ', 'o').Replace('√Ω', 'y').Replace('√©', 'e').Replace('√†', 'a').Replace('√®', 'e').Replace('√¨', 'i').Replace('√≤', 'o').Replace('√π', 'u').Replace('√°', 'a').Replace('√≠', 'i').Replace('√≥', 'o').Replace('√â', 'e').Replace(
-                '√Å', 'a').Replace('√Ä', 'a').Replace('√à', 'e').Replace('√ç', 'i').Replace('√å', 'i').Replace('√ì', 'o').Replace('√í', 'o').Replace('√ö', 'u').Replace('\t', ' ').Replace('\n', ' ').Replace('\r', ' ').Replace('¬∞', ' ');
+            string s = stringa.Replace('í', ' ').Replace('¥', ' ').Replace('«', 'c').Replace('Á', 'c').Replace('Ä', 'e').Replace('|', ' ').Replace('\\', ' ').Replace('£', ' ').Replace('ß', ' ').Replace('[', ' ').Replace('#', ' ').Replace('!', ' ').Replace('Ÿ', 'u').Replace(
+                '÷', 'o').Replace('‹', 'u').Replace('—', 'n').Replace('–', 'd').Replace(' ', 'e').Replace('À', 'e').Replace('Œ', 'i').Replace('œ', 'i').Replace('‘', 'o').Replace('’', 'o').Replace('€', 'u').Replace('›', 'y').Replace(
+                ']', ' ').Replace('`', ' ').Replace('{', ' ').Replace('}', ' ').Replace('~', ' ').Replace('¸', 'u').Replace('‚', 'a').Replace('‰', 'a').Replace('Â', 'a').Replace('Í', 'e').Replace('Î', 'e').Replace('Ô', 'i').Replace(
+                'Ó', 'i').Replace('ƒ', 'a').Replace('≈', 'a').Replace('Ù', 'o').Replace('ˆ', 'o').Replace('˚', 'u').Replace('ˇ', 'y').Replace('Ò', 'n').Replace('¬', 'a').Replace('•', 'y').Replace('„', 'a').Replace('√', 'a').Replace(
+                'ı', 'o').Replace('˝', 'y').Replace('È', 'e').Replace('‡', 'a').Replace('Ë', 'e').Replace('Ï', 'i').Replace('Ú', 'o').Replace('˘', 'u').Replace('·', 'a').Replace('Ì', 'i').Replace('Û', 'o').Replace('…', 'e').Replace(
+                '¡', 'a').Replace('¿', 'a').Replace('»', 'e').Replace('Õ', 'i').Replace('Ã', 'i').Replace('”', 'o').Replace('“', 'o').Replace('⁄', 'u').Replace('\t', ' ').Replace('\n', ' ').Replace('\r', ' ').Replace('∞', ' ');
             if (toglichiocciola)
                 s = s.Replace('@', ' ');
             return s;
@@ -485,7 +487,7 @@ namespace no_table_invoicecomunicate {
                if (rFattura["IdFiscaleIvaPaeseAnagrafica"].ToString() == "IT") {
                     string errorePIVA = CalcolaPartitaIva.controllaPartitaIva(rFattura["IdFiscaleIvaCodiceAnagrafica"].ToString());
                     if (errorePIVA != null) {
-                        rFattura["error"] = rFattura["error"].ToString()  + "La Partita IVA inserita non √® valida.";
+                        rFattura["error"] = rFattura["error"].ToString()  + "La Partita IVA inserita non Ë valida.";
                         CountError++;
                     }
                 }

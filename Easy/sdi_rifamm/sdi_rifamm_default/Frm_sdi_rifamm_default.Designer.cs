@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªønamespace sdi_rifamm_default {
+
+namespace sdi_rifamm_default {
     partial class Frm_sdi_rifamm_default {
         /// <summary>
         /// Required designer variable.
@@ -177,7 +179,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(329, 13);
             this.label10.TabIndex = 122;
-            this.label10.Text = "Nota: questo √® il campo da riempire per il nuovo servizio Titulus Easy";
+            this.label10.Text = "Nota: questo Ë il campo da riempire per il nuovo servizio Titulus Easy";
             // 
             // label2
             // 

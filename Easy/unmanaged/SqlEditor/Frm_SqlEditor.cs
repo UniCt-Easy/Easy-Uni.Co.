@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -222,7 +224,7 @@ namespace SqlEditor{//SqlEditor//
 				DS.WriteXml(currdir+"\\system_SQLkeys.xml");
 			}
 			catch (Exception E){
-				MessageBox.Show(E.Message);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
 			}
 		}
 
@@ -232,7 +234,7 @@ namespace SqlEditor{//SqlEditor//
 				Generate_SystemSqlkeysXml();
 			}
 			if (!File.Exists(currdir+"\\system_SQLkeys.xml")){
-				MessageBox.Show("File system_SQLkeys.xml non tovato.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("File system_SQLkeys.xml non tovato.");
 				return;
 			}
 			DS.ReadXml(currdir+"\\system_SQLkeys.xml");
@@ -260,257 +262,256 @@ namespace SqlEditor{//SqlEditor//
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSqlEditor));
-            this.Generic_field_Btn = new System.Windows.Forms.Button();
-            this.btn_C = new System.Windows.Forms.Button();
-            this.btn_N = new System.Windows.Forms.Button();
-            this.btn_F = new System.Windows.Forms.Button();
-            this.btn_D = new System.Windows.Forms.Button();
-            this.btn_V = new System.Windows.Forms.Button();
-            this.btnAutomatico = new System.Windows.Forms.Button();
-            this.BtnNewPar = new System.Windows.Forms.Button();
-            this.BtnOldPar = new System.Windows.Forms.Button();
-            this.BtnEsercizio = new System.Windows.Forms.Button();
-            this.btnOk = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.treeFields = new System.Windows.Forms.TreeView();
-            this.icons = new System.Windows.Forms.ImageList(this.components);
-            this.txtSQL = new System.Windows.Forms.RichTextBox();
-            this.DS = new SqlEditor.vistaForm();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.cmbSysType = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // Generic_field_Btn
-            // 
-            this.Generic_field_Btn.Location = new System.Drawing.Point(8, 8);
-            this.Generic_field_Btn.Name = "Generic_field_Btn";
-            this.Generic_field_Btn.Size = new System.Drawing.Size(64, 23);
-            this.Generic_field_Btn.TabIndex = 0;
-            this.Generic_field_Btn.Tag = "I";
-            this.Generic_field_Btn.Text = "[( )] {I}";
-            this.toolTip1.SetToolTip(this.Generic_field_Btn, "Espressione di tipo int");
-            this.Generic_field_Btn.Click += new System.EventHandler(this.Generic_field_Btn_Click);
-            // 
-            // btn_C
-            // 
-            this.btn_C.Location = new System.Drawing.Point(147, 8);
-            this.btn_C.Name = "btn_C";
-            this.btn_C.Size = new System.Drawing.Size(61, 23);
-            this.btn_C.TabIndex = 1;
-            this.btn_C.Tag = "C";
-            this.btn_C.Text = "[( )] {C}";
-            this.toolTip1.SetToolTip(this.btn_C, "Espressione di tipo varchar(255)");
-            this.btn_C.Click += new System.EventHandler(this.Generic_field_Btn_Click);
-            // 
-            // btn_N
-            // 
-            this.btn_N.Location = new System.Drawing.Point(147, 40);
-            this.btn_N.Name = "btn_N";
-            this.btn_N.Size = new System.Drawing.Size(61, 23);
-            this.btn_N.TabIndex = 2;
-            this.btn_N.Tag = "N";
-            this.btn_N.Text = "[( )] {N}";
-            this.toolTip1.SetToolTip(this.btn_N, "Espressione di tipo decimal(23,6)");
-            this.btn_N.Click += new System.EventHandler(this.Generic_field_Btn_Click);
-            // 
-            // btn_F
-            // 
-            this.btn_F.Location = new System.Drawing.Point(80, 8);
-            this.btn_F.Name = "btn_F";
-            this.btn_F.Size = new System.Drawing.Size(48, 23);
-            this.btn_F.TabIndex = 3;
-            this.btn_F.Tag = "F";
-            this.btn_F.Text = "[( )] {F}";
-            this.toolTip1.SetToolTip(this.btn_F, "Espressione di tipo real");
-            this.btn_F.Click += new System.EventHandler(this.Generic_field_Btn_Click);
-            // 
-            // btn_D
-            // 
-            this.btn_D.Location = new System.Drawing.Point(8, 40);
-            this.btn_D.Name = "btn_D";
-            this.btn_D.Size = new System.Drawing.Size(64, 23);
-            this.btn_D.TabIndex = 4;
-            this.btn_D.Tag = "D";
-            this.btn_D.Text = "[( )] {D}";
-            this.toolTip1.SetToolTip(this.btn_D, "Espressione di tipo datetime");
-            this.btn_D.Click += new System.EventHandler(this.Generic_field_Btn_Click);
-            // 
-            // btn_V
-            // 
-            this.btn_V.Location = new System.Drawing.Point(80, 40);
-            this.btn_V.Name = "btn_V";
-            this.btn_V.Size = new System.Drawing.Size(48, 23);
-            this.btn_V.TabIndex = 5;
-            this.btn_V.Tag = "V";
-            this.btn_V.Text = "[( )] {V}";
-            this.toolTip1.SetToolTip(this.btn_V, "Espressione di tipo decimal(23,2)");
-            this.btn_V.Click += new System.EventHandler(this.Generic_field_Btn_Click);
-            // 
-            // btnAutomatico
-            // 
-            this.btnAutomatico.Location = new System.Drawing.Point(32, 72);
-            this.btnAutomatico.Name = "btnAutomatico";
-            this.btnAutomatico.Size = new System.Drawing.Size(144, 24);
-            this.btnAutomatico.TabIndex = 6;
-            this.btnAutomatico.Text = "[( )] {AUTOMATICO}";
-            this.toolTip1.SetToolTip(this.btnAutomatico, "Sceglie da solo il tipo di espressione più adatto");
-            this.btnAutomatico.Click += new System.EventHandler(this.btnAutomatico_Click);
-            // 
-            // BtnNewPar
-            // 
-            this.BtnNewPar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.BtnNewPar.Location = new System.Drawing.Point(40, 414);
-            this.BtnNewPar.Name = "BtnNewPar";
-            this.BtnNewPar.Size = new System.Drawing.Size(56, 23);
-            this.BtnNewPar.TabIndex = 7;
-            this.BtnNewPar.Tag = "%<x>%";
-            this.BtnNewPar.Text = "%<P>%";
-            this.toolTip1.SetToolTip(this.BtnNewPar, "Valore nuovo");
-            this.BtnNewPar.Click += new System.EventHandler(this.BtnNewPar_Click);
-            // 
-            // BtnOldPar
-            // 
-            this.BtnOldPar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.BtnOldPar.Location = new System.Drawing.Point(120, 414);
-            this.BtnOldPar.Name = "BtnOldPar";
-            this.BtnOldPar.Size = new System.Drawing.Size(56, 23);
-            this.BtnOldPar.TabIndex = 8;
-            this.BtnOldPar.Tag = "&&<x>&&";
-            this.BtnOldPar.Text = "&&<O>&&";
-            this.toolTip1.SetToolTip(this.BtnOldPar, "Valore precedente");
-            this.BtnOldPar.Click += new System.EventHandler(this.BtnNewPar_Click);
-            // 
-            // BtnEsercizio
-            // 
-            this.BtnEsercizio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.BtnEsercizio.Location = new System.Drawing.Point(8, 446);
-            this.BtnEsercizio.Name = "BtnEsercizio";
-            this.BtnEsercizio.Size = new System.Drawing.Size(208, 23);
-            this.BtnEsercizio.TabIndex = 9;
-            this.BtnEsercizio.Text = "%<esercizio>%";
-            this.toolTip1.SetToolTip(this.BtnEsercizio, "Variabile di sistema");
-            this.BtnEsercizio.Click += new System.EventHandler(this.BtnEsercizio_Click);
-            // 
-            // btnOk
-            // 
-            this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOk.Location = new System.Drawing.Point(120, 510);
-            this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(75, 23);
-            this.btnOk.TabIndex = 11;
-            this.btnOk.Text = "Ok";
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(16, 510);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 12;
-            this.btnCancel.Text = "Annulla";
-            // 
-            // treeFields
-            // 
-            this.treeFields.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSqlEditor));
+			this.Generic_field_Btn = new System.Windows.Forms.Button();
+			this.btn_C = new System.Windows.Forms.Button();
+			this.btn_N = new System.Windows.Forms.Button();
+			this.btn_F = new System.Windows.Forms.Button();
+			this.btn_D = new System.Windows.Forms.Button();
+			this.btn_V = new System.Windows.Forms.Button();
+			this.btnAutomatico = new System.Windows.Forms.Button();
+			this.BtnNewPar = new System.Windows.Forms.Button();
+			this.BtnOldPar = new System.Windows.Forms.Button();
+			this.BtnEsercizio = new System.Windows.Forms.Button();
+			this.btnOk = new System.Windows.Forms.Button();
+			this.btnCancel = new System.Windows.Forms.Button();
+			this.treeFields = new System.Windows.Forms.TreeView();
+			this.icons = new System.Windows.Forms.ImageList(this.components);
+			this.txtSQL = new System.Windows.Forms.RichTextBox();
+			this.DS = new SqlEditor.vistaForm();
+			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.cmbSysType = new System.Windows.Forms.ComboBox();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// Generic_field_Btn
+			// 
+			this.Generic_field_Btn.Location = new System.Drawing.Point(8, 8);
+			this.Generic_field_Btn.Name = "Generic_field_Btn";
+			this.Generic_field_Btn.Size = new System.Drawing.Size(64, 23);
+			this.Generic_field_Btn.TabIndex = 0;
+			this.Generic_field_Btn.Tag = "I";
+			this.Generic_field_Btn.Text = "[( )] {I}";
+			this.toolTip1.SetToolTip(this.Generic_field_Btn, "Espressione di tipo int");
+			this.Generic_field_Btn.Click += new System.EventHandler(this.Generic_field_Btn_Click);
+			// 
+			// btn_C
+			// 
+			this.btn_C.Location = new System.Drawing.Point(147, 8);
+			this.btn_C.Name = "btn_C";
+			this.btn_C.Size = new System.Drawing.Size(61, 23);
+			this.btn_C.TabIndex = 1;
+			this.btn_C.Tag = "C";
+			this.btn_C.Text = "[( )] {C}";
+			this.toolTip1.SetToolTip(this.btn_C, "Espressione di tipo varchar(255)");
+			this.btn_C.Click += new System.EventHandler(this.Generic_field_Btn_Click);
+			// 
+			// btn_N
+			// 
+			this.btn_N.Location = new System.Drawing.Point(147, 40);
+			this.btn_N.Name = "btn_N";
+			this.btn_N.Size = new System.Drawing.Size(61, 23);
+			this.btn_N.TabIndex = 2;
+			this.btn_N.Tag = "N";
+			this.btn_N.Text = "[( )] {N}";
+			this.toolTip1.SetToolTip(this.btn_N, "Espressione di tipo decimal(23,6)");
+			this.btn_N.Click += new System.EventHandler(this.Generic_field_Btn_Click);
+			// 
+			// btn_F
+			// 
+			this.btn_F.Location = new System.Drawing.Point(80, 8);
+			this.btn_F.Name = "btn_F";
+			this.btn_F.Size = new System.Drawing.Size(48, 23);
+			this.btn_F.TabIndex = 3;
+			this.btn_F.Tag = "F";
+			this.btn_F.Text = "[( )] {F}";
+			this.toolTip1.SetToolTip(this.btn_F, "Espressione di tipo real");
+			this.btn_F.Click += new System.EventHandler(this.Generic_field_Btn_Click);
+			// 
+			// btn_D
+			// 
+			this.btn_D.Location = new System.Drawing.Point(8, 40);
+			this.btn_D.Name = "btn_D";
+			this.btn_D.Size = new System.Drawing.Size(64, 23);
+			this.btn_D.TabIndex = 4;
+			this.btn_D.Tag = "D";
+			this.btn_D.Text = "[( )] {D}";
+			this.toolTip1.SetToolTip(this.btn_D, "Espressione di tipo datetime");
+			this.btn_D.Click += new System.EventHandler(this.Generic_field_Btn_Click);
+			// 
+			// btn_V
+			// 
+			this.btn_V.Location = new System.Drawing.Point(80, 40);
+			this.btn_V.Name = "btn_V";
+			this.btn_V.Size = new System.Drawing.Size(48, 23);
+			this.btn_V.TabIndex = 5;
+			this.btn_V.Tag = "V";
+			this.btn_V.Text = "[( )] {V}";
+			this.toolTip1.SetToolTip(this.btn_V, "Espressione di tipo decimal(23,2)");
+			this.btn_V.Click += new System.EventHandler(this.Generic_field_Btn_Click);
+			// 
+			// btnAutomatico
+			// 
+			this.btnAutomatico.Location = new System.Drawing.Point(32, 72);
+			this.btnAutomatico.Name = "btnAutomatico";
+			this.btnAutomatico.Size = new System.Drawing.Size(144, 24);
+			this.btnAutomatico.TabIndex = 6;
+			this.btnAutomatico.Text = "[( )] {AUTOMATICO}";
+			this.toolTip1.SetToolTip(this.btnAutomatico, "Sceglie da solo il tipo di espressione più adatto");
+			this.btnAutomatico.Click += new System.EventHandler(this.btnAutomatico_Click);
+			// 
+			// BtnNewPar
+			// 
+			this.BtnNewPar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.BtnNewPar.Location = new System.Drawing.Point(40, 414);
+			this.BtnNewPar.Name = "BtnNewPar";
+			this.BtnNewPar.Size = new System.Drawing.Size(56, 23);
+			this.BtnNewPar.TabIndex = 7;
+			this.BtnNewPar.Tag = "%<x>%";
+			this.BtnNewPar.Text = "%<P>%";
+			this.toolTip1.SetToolTip(this.BtnNewPar, "Valore nuovo");
+			this.BtnNewPar.Click += new System.EventHandler(this.BtnNewPar_Click);
+			// 
+			// BtnOldPar
+			// 
+			this.BtnOldPar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.BtnOldPar.Location = new System.Drawing.Point(120, 414);
+			this.BtnOldPar.Name = "BtnOldPar";
+			this.BtnOldPar.Size = new System.Drawing.Size(56, 23);
+			this.BtnOldPar.TabIndex = 8;
+			this.BtnOldPar.Tag = "&&<x>&&";
+			this.BtnOldPar.Text = "&&<O>&&";
+			this.toolTip1.SetToolTip(this.BtnOldPar, "Valore precedente");
+			this.BtnOldPar.Click += new System.EventHandler(this.BtnNewPar_Click);
+			// 
+			// BtnEsercizio
+			// 
+			this.BtnEsercizio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.BtnEsercizio.Location = new System.Drawing.Point(8, 446);
+			this.BtnEsercizio.Name = "BtnEsercizio";
+			this.BtnEsercizio.Size = new System.Drawing.Size(208, 23);
+			this.BtnEsercizio.TabIndex = 9;
+			this.BtnEsercizio.Text = "%<esercizio>%";
+			this.toolTip1.SetToolTip(this.BtnEsercizio, "Variabile di sistema");
+			this.BtnEsercizio.Click += new System.EventHandler(this.BtnEsercizio_Click);
+			// 
+			// btnOk
+			// 
+			this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.btnOk.Location = new System.Drawing.Point(120, 510);
+			this.btnOk.Name = "btnOk";
+			this.btnOk.Size = new System.Drawing.Size(75, 23);
+			this.btnOk.TabIndex = 11;
+			this.btnOk.Text = "Ok";
+			this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+			// 
+			// btnCancel
+			// 
+			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnCancel.Location = new System.Drawing.Point(16, 510);
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.Size = new System.Drawing.Size(75, 23);
+			this.btnCancel.TabIndex = 12;
+			this.btnCancel.Text = "Annulla";
+			// 
+			// treeFields
+			// 
+			this.treeFields.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.treeFields.FullRowSelect = true;
-            this.treeFields.HideSelection = false;
-            this.treeFields.ImageIndex = 1;
-            this.treeFields.ImageList = this.icons;
-            this.treeFields.Location = new System.Drawing.Point(8, 104);
-            this.treeFields.Name = "treeFields";
-            this.treeFields.SelectedImageIndex = 0;
-            this.treeFields.ShowNodeToolTips = true;
-            this.treeFields.Size = new System.Drawing.Size(200, 302);
-            this.treeFields.TabIndex = 13;
-            this.treeFields.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeFields_BeforeExpand);
-            this.treeFields.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeFields_AfterSelect);
-            this.treeFields.DoubleClick += new System.EventHandler(this.treeFields_DoubleClick);
-            // 
-            // icons
-            // 
-            this.icons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("icons.ImageStream")));
-            this.icons.TransparentColor = System.Drawing.Color.Transparent;
-            this.icons.Images.SetKeyName(0, "");
-            this.icons.Images.SetKeyName(1, "");
-            // 
-            // txtSQL
-            // 
-            this.txtSQL.AcceptsTab = true;
-            this.txtSQL.AllowDrop = true;
-            this.txtSQL.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.treeFields.FullRowSelect = true;
+			this.treeFields.HideSelection = false;
+			this.treeFields.ImageIndex = 1;
+			this.treeFields.ImageList = this.icons;
+			this.treeFields.Location = new System.Drawing.Point(8, 104);
+			this.treeFields.Name = "treeFields";
+			this.treeFields.SelectedImageIndex = 0;
+			this.treeFields.ShowNodeToolTips = true;
+			this.treeFields.Size = new System.Drawing.Size(200, 302);
+			this.treeFields.TabIndex = 13;
+			this.treeFields.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeFields_BeforeExpand);
+			this.treeFields.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeFields_AfterSelect);
+			this.treeFields.DoubleClick += new System.EventHandler(this.treeFields_DoubleClick);
+			// 
+			// icons
+			// 
+			this.icons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("icons.ImageStream")));
+			this.icons.TransparentColor = System.Drawing.Color.Transparent;
+			this.icons.Images.SetKeyName(0, "");
+			this.icons.Images.SetKeyName(1, "");
+			// 
+			// txtSQL
+			// 
+			this.txtSQL.AcceptsTab = true;
+			this.txtSQL.AllowDrop = true;
+			this.txtSQL.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSQL.AutoWordSelection = true;
-            this.txtSQL.DetectUrls = false;
-            this.txtSQL.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSQL.HideSelection = false;
-            this.txtSQL.Location = new System.Drawing.Point(224, 8);
-            this.txtSQL.Name = "txtSQL";
-            this.txtSQL.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.txtSQL.ShowSelectionMargin = true;
-            this.txtSQL.Size = new System.Drawing.Size(672, 525);
-            this.txtSQL.TabIndex = 15;
-            this.txtSQL.Text = "";
-            this.txtSQL.TextChanged += new System.EventHandler(this.txtSQL_TextChanged);
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            this.DS.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.AutomaticDelay = 0;
-            this.toolTip1.AutoPopDelay = 5000;
-            this.toolTip1.InitialDelay = 50;
-            this.toolTip1.IsBalloon = true;
-            this.toolTip1.ReshowDelay = 1;
-            this.toolTip1.ShowAlways = true;
-            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            // 
-            // cmbSysType
-            // 
-            this.cmbSysType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmbSysType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSysType.Location = new System.Drawing.Point(8, 478);
-            this.cmbSysType.Name = "cmbSysType";
-            this.cmbSysType.Size = new System.Drawing.Size(208, 21);
-            this.cmbSysType.TabIndex = 16;
-            this.cmbSysType.SelectedIndexChanged += new System.EventHandler(this.cmbSysType_SelectedIndexChanged);
-            // 
-            // frmSqlEditor
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(904, 547);
-            this.Controls.Add(this.cmbSysType);
-            this.Controls.Add(this.txtSQL);
-            this.Controls.Add(this.treeFields);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnOk);
-            this.Controls.Add(this.BtnEsercizio);
-            this.Controls.Add(this.BtnOldPar);
-            this.Controls.Add(this.BtnNewPar);
-            this.Controls.Add(this.btnAutomatico);
-            this.Controls.Add(this.btn_V);
-            this.Controls.Add(this.btn_D);
-            this.Controls.Add(this.btn_F);
-            this.Controls.Add(this.btn_N);
-            this.Controls.Add(this.btn_C);
-            this.Controls.Add(this.Generic_field_Btn);
-            this.Name = "frmSqlEditor";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Modifica Comando SQL";
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.ResumeLayout(false);
+			this.txtSQL.AutoWordSelection = true;
+			this.txtSQL.DetectUrls = false;
+			this.txtSQL.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtSQL.HideSelection = false;
+			this.txtSQL.Location = new System.Drawing.Point(224, 8);
+			this.txtSQL.Name = "txtSQL";
+			this.txtSQL.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+			this.txtSQL.ShowSelectionMargin = true;
+			this.txtSQL.Size = new System.Drawing.Size(672, 525);
+			this.txtSQL.TabIndex = 15;
+			this.txtSQL.Text = "";
+			this.txtSQL.TextChanged += new System.EventHandler(this.txtSQL_TextChanged);
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// toolTip1
+			// 
+			this.toolTip1.AutomaticDelay = 0;
+			this.toolTip1.AutoPopDelay = 5000;
+			this.toolTip1.InitialDelay = 50;
+			this.toolTip1.IsBalloon = true;
+			this.toolTip1.ReshowDelay = 1;
+			this.toolTip1.ShowAlways = true;
+			this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+			// 
+			// cmbSysType
+			// 
+			this.cmbSysType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.cmbSysType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbSysType.Location = new System.Drawing.Point(8, 478);
+			this.cmbSysType.Name = "cmbSysType";
+			this.cmbSysType.Size = new System.Drawing.Size(208, 21);
+			this.cmbSysType.TabIndex = 16;
+			this.cmbSysType.SelectedIndexChanged += new System.EventHandler(this.cmbSysType_SelectedIndexChanged);
+			// 
+			// frmSqlEditor
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.CancelButton = this.btnCancel;
+			this.ClientSize = new System.Drawing.Size(904, 547);
+			this.Controls.Add(this.cmbSysType);
+			this.Controls.Add(this.txtSQL);
+			this.Controls.Add(this.treeFields);
+			this.Controls.Add(this.btnCancel);
+			this.Controls.Add(this.btnOk);
+			this.Controls.Add(this.BtnEsercizio);
+			this.Controls.Add(this.BtnOldPar);
+			this.Controls.Add(this.BtnNewPar);
+			this.Controls.Add(this.btnAutomatico);
+			this.Controls.Add(this.btn_V);
+			this.Controls.Add(this.btn_D);
+			this.Controls.Add(this.btn_F);
+			this.Controls.Add(this.btn_N);
+			this.Controls.Add(this.btn_C);
+			this.Controls.Add(this.Generic_field_Btn);
+			this.Name = "frmSqlEditor";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "Modifica Comando SQL";
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.ResumeLayout(false);
 
 		}
 		#endregion

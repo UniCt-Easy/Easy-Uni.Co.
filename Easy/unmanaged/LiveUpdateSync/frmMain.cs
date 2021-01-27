@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
@@ -896,7 +898,7 @@ namespace LiveUpdateSync {
 				return;
 			}
 			if (modified) {
-				ShowMsg("Ci sono modifiche in corso, Ã¨ necessario salvare prima di effettuare il sync");
+				ShowMsg("Ci sono modifiche in corso, è necessario salvare prima di effettuare il sync");
 				return;
 			}
 			DataTable T=GetTableMemory();
@@ -927,7 +929,7 @@ namespace LiveUpdateSync {
 //			else
 //				DO_SYNC_REMOTO(T);
 
-			//Al momento Ã¨ gestito solo da locale
+			//Al momento è gestito solo da locale
 			DO_SYNC_LOCALE(T);
 		}
 
@@ -943,7 +945,7 @@ namespace LiveUpdateSync {
 
 		#region Sincronizzazione da LOCALE
 		/// <summary>
-		/// Questo metodo viene utilizzato quando il sito da replicare Ã¨ una cartella locale
+		/// Questo metodo viene utilizzato quando il sito da replicare è una cartella locale
 		/// </summary>
 		/// <param name="source">indirizzo da replicare</param>
 		/// <param name="T">Tabella che contiene i siti da sincronizzare</param>
@@ -955,8 +957,8 @@ namespace LiveUpdateSync {
 				XDir.CheckCreate(tempdirmaster);
 				XDir.Svuota(tempdirmaster,true);
 				XDir.CheckCreate(tempdirslave);
-				//Per ogni index, se in locale non esiste anzichÃ© uscire continuo l'elaborazione
-				//e se l'indice locale Ã¨ null la sincronizzazione viene ignorata ma viene aggiunto un msg di log
+				//Per ogni index, se in locale non esiste anziché uscire continuo l'elaborazione
+				//e se l'indice locale è null la sincronizzazione viene ignorata ma viene aggiunto un msg di log
 				DataSet DSMasterDLL=GetDSIndex_LOCALE(localdir,tempdirmaster,"D");
 				if (DSMasterDLL==null) AggiungiLog(localdir,"Sincronizzazione DLL non eseguita");
 
@@ -1103,7 +1105,7 @@ namespace LiveUpdateSync {
 					string tempdirslave, string tempdirmaster, string type) {
 
 			string versionfilename;
-			//La sincronizzazione viene ignorata se il DS sorgente Ã¨ null
+			//La sincronizzazione viene ignorata se il DS sorgente è null
 			if (Source==null) return true;
 			//risultato del metodo
 			bool risultato=true;
@@ -1160,7 +1162,7 @@ namespace LiveUpdateSync {
 			foreach (DataRow Rsource in Tsource.Rows) {
 				if (Tdest!=null) {
 					DataRow[] Rdest = Tdest.Select("dllname="+QueryCreator.quotedstrvalue(Rsource["dllname"],false));
-					//se il file Ã¨ nuovo o da aggiornare
+					//se il file è nuovo o da aggiornare
 					if (Rdest.Length==0 || IsFileToUpdate(Rsource,Rdest[0])) {
 						if (!AggiornaFile_LOCALE(localdir, ftpDest, tempdirmaster, remotedir, Rsource["dllname"].ToString()+".zip"))
 							risultato=false;
@@ -1172,7 +1174,7 @@ namespace LiveUpdateSync {
 						risultato=false;
 				}
 			}
-			//se Ã¨ tutto ok  aggiorno pure l'index dei file (nella directory principale dello slave)
+			//se è tutto ok  aggiorno pure l'index dei file (nella directory principale dello slave)
 			if (risultato) risultato= AggiornaFile_LOCALE(localdir, ftpDest, tempdirmaster, "", filename);
 
 			
@@ -1197,7 +1199,7 @@ namespace LiveUpdateSync {
 					string tempdirslave, string tempdirmaster) {
 
 			string versionfilename="versionedb.txt";
-			//La sincronizzazione viene ignorata se il DS sorgente Ã¨ null
+			//La sincronizzazione viene ignorata se il DS sorgente è null
 			if (Source==null) return false;
 			//risultato del metodo
 			bool risultato=true;
@@ -1251,7 +1253,7 @@ namespace LiveUpdateSync {
 						risultato=false;
 				}
 			}
-			//se Ã¨ stato aggiornato almeno un file aggiorno pure l'index (in sql\..) e la versione (nella dir.princ.)
+			//se è stato aggiornato almeno un file aggiorno pure l'index (in sql\..) e la versione (nella dir.princ.)
 			if (risultato) risultato = AggiornaFile_LOCALE(localdir, ftpDest, tempdirmaster, remotedir, filename);
 			if (risultato) risultato= AggiornaFile_LOCALE(localdir, ftpDest, tempdirmaster, "", versionfilename);
 
@@ -1271,7 +1273,7 @@ namespace LiveUpdateSync {
 		private bool Sincronizza_DBVERSION_LOCALE(string localdir, DataSet Source, Ftp ftpDest, 
 					string tempdirslave, string tempdir, string dbversion) {
 
-			//La sincronizzazione viene ignorata se il DS sorgente Ã¨ null
+			//La sincronizzazione viene ignorata se il DS sorgente è null
 			if (Source==null) return false;
 			//risultato del metodo
 			bool risultato=true;
@@ -1299,11 +1301,11 @@ namespace LiveUpdateSync {
 		/// <returns>True se va a buon fine</returns>
 		private bool SincronizzaSP_LOCALE(string localdir, DataSet Source, Ftp ftpDest, 
 					string tempdirslave, string tempdirmaster) {
-			//La sincronizzazione viene ignorata se il DS sorgente Ã¨ null
+			//La sincronizzazione viene ignorata se il DS sorgente è null
 			if (Source==null) return false;
 			//risultato del metodo
 			bool risultato=true;
-			//mi dice se Ã¨ stato aggiornato almeno un file
+			//mi dice se è stato aggiornato almeno un file
 			bool update=false;
 			string filename=C_INDEXSPZIP;
 			string remotedir="sp";
@@ -1333,7 +1335,7 @@ namespace LiveUpdateSync {
 				}
 			}
 
-			//se Ã¨ stato aggiornato almeno un file aggiorno pure l'index
+			//se è stato aggiornato almeno un file aggiorno pure l'index
 			if (update && risultato) return AggiornaFile_LOCALE(localdir, ftpDest, tempdirmaster, "", filename);
 			return risultato;
 		}
@@ -1349,11 +1351,11 @@ namespace LiveUpdateSync {
 		/// <returns>True se va a buon fine o se non ci sono versioni sql da aggiornare</returns>
 		private bool SincronizzaOnDemand_LOCALE(string localdir, DataSet Source, Ftp ftpDest, 
 					string tempdirslave, string tempdirmaster) {
-			//La sincronizzazione viene ignorata se il DS sorgente Ã¨ null
+			//La sincronizzazione viene ignorata se il DS sorgente è null
 			if (Source==null) return true;
 			//risultato del metodo
 			bool risultato=true;
-			//mi dice se Ã¨ stato aggiornato almeno un file
+			//mi dice se è stato aggiornato almeno un file
 			bool update=false;
 			string filename=C_INDEXONDEMANDZIP;
 			string remotedir="ondemand";
@@ -1380,7 +1382,7 @@ namespace LiveUpdateSync {
 						risultato=false;
 				}
 			}
-			//se Ã¨ stato aggiornato almeno un file aggiorno pure l'index
+			//se è stato aggiornato almeno un file aggiorno pure l'index
 			if (update && risultato)return AggiornaFile_LOCALE(localdir, ftpDest, tempdirmaster, "ondemand", filename);
 			return risultato;
 		}
@@ -1414,7 +1416,7 @@ namespace LiveUpdateSync {
 
 		/// <summary>
 		/// Se non presente in tempdir copia il file in tempdir ed esegue una Put sul server ftp.
-		/// Per i file SQL viene sempre effettuata una copia perchÃ© potrebbero esserci piÃ¹ versioni
+		/// Per i file SQL viene sempre effettuata una copia perché potrebbero esserci più versioni
 		/// dello stesso file
 		/// </summary>
 		/// <param name="localdir">root cartella live update</param>
@@ -1426,7 +1428,7 @@ namespace LiveUpdateSync {
 		/// <returns>True se va a buon fine l'aggiornamento</returns>
 		private bool AggiornaFile_LOCALE(string localdir, Ftp ftpDest, string tempdir, string remotedir, string filename, bool GetAlways) {
 			string fullname=tempdir+filename;
-			//se non esiste o se il flag Ã¨ true (in caso di script sql l'omonimia puo' essere frequente) lo copio
+			//se non esiste o se il flag è true (in caso di script sql l'omonimia puo' essere frequente) lo copio
 			if (!File.Exists(fullname) || GetAlways) {
 				string s=XFile.Copia(localdir+@"\"+remotedir+@"\"+filename,fullname,true);
 				if (s!=null) {
@@ -1693,7 +1695,7 @@ namespace LiveUpdateSync {
 				return;
 			}
 			if (modified) {
-				ShowMsg("Ci sono modifiche in corso, Ã¨ necessario salvare prima di effettuare il sync");
+				ShowMsg("Ci sono modifiche in corso, è necessario salvare prima di effettuare il sync");
 				return;
 			}
 			DataTable T=GetTableMemory();

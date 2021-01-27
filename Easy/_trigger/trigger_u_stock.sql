@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ÔªøSET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -48,8 +50,8 @@ SET @OldNumStockTotal = (SELECT number from stocktotal where idstore = @oldidsto
 DECLARE @CurrNumStockTotal int  -->  Nuova giacenza del vecchio magazzino
 SET @CurrNumStockTotal = @OldNumStockTotal - @oldnumber 
 
--- Se la giacenza √® inferiore alle prenotazioni, vuol dire che le prenotazioni non sono state tutte assegnate.
--- Se invece, la giacenza √® superiore alle prenotazioni, vuol dire che avevo gi√† assegnato la merce a tutte le prenotazioni.
+-- Se la giacenza Ë inferiore alle prenotazioni, vuol dire che le prenotazioni non sono state tutte assegnate.
+-- Se invece, la giacenza Ë superiore alle prenotazioni, vuol dire che avevo gi‡ assegnato la merce a tutte le prenotazioni.
 
 if ( @OldNumStockTotal <= @oldbooked )
 	Begin
@@ -82,10 +84,10 @@ End
 DECLARE @CurrNumStockTotalNew int --> Nuova giacenza del Nuovo magazzino
 SET @CurrNumStockTotalNew = @OldNumStockTotal_newpart + @newnumber
 
--- Se con questo carico NON riesco ad assegnate la merce a tutte le prenotazioni esistenti, perch√®
--- le prenotazioni sono superiori al valore caricato, allora sommer√≤ semplicemente @newnumber
--- altrimenti devo assegnare : q.t√† prenotazioni - la vecchia q.t√† caricata,
--- cio√® depuro la q.t√† da assegnare alle prenotazioni, della q.t√† che ho gi√† assegnato prima, quando √® nato il carico.
+-- Se con questo carico NON riesco ad assegnate la merce a tutte le prenotazioni esistenti, perchË
+-- le prenotazioni sono superiori al valore caricato, allora sommerÚ semplicemente @newnumber
+-- altrimenti devo assegnare : q.t‡ prenotazioni - la vecchia q.t‡ caricata,
+-- cioË depuro la q.t‡ da assegnare alle prenotazioni, della q.t‡ che ho gi‡ assegnato prima, quando Ë nato il carico.
 
 if ( @CurrNumStockTotalNew <= @booked )
 	Begin
@@ -104,7 +106,7 @@ IF ( @newidstore = @oldidstore  and  @newidlist = @oldidlist )
 		UPDATE stocktotal SET number = number + @newnumber - @oldnumber
 		WHERE idstore = @newidstore and idlist = @newidlist
 
-		SET @valoredaSommare = @valoredaSommare + @valoredaSottarre --> √® gi√† negativo 
+		SET @valoredaSommare = @valoredaSommare + @valoredaSottarre --> Ë gi‡ negativo 
 		EXEC trg_upd_booktotal_allocated @newidstore, @newidlist, @valoredaSommare
 	End
 ELSE

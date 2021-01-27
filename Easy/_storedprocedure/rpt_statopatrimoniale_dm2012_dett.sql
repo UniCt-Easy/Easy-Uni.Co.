@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_statopatrimoniale_dm2012_dett]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_statopatrimoniale_dm2012_dett]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_statopatrimoniale_dm2012_dett]
 GO
 SET ANSI_NULLS ON
@@ -27,7 +29,7 @@ CREATE  PROCEDURE [rpt_statopatrimoniale_dm2012_dett]
 	@ayear			int,
 	@start			datetime,
 	@stop			datetime,
-	@nlevel 		varchar(1),
+	--@nlevel 		varchar(1),
 	@filterpatrimony 		varchar(50),
 	@idsor1 int,
 	@idsor2 int,
@@ -44,8 +46,10 @@ CREATE  PROCEDURE [rpt_statopatrimoniale_dm2012_dett]
 	AS
 
 	BEGIN
+	declare @nlevel 		varchar(1)
+	set @nlevel = (select MAX(nlevel) FROM patrimonylevel  WHERE ayear = @ayear)
 	
-	-- exec  rpt_statopatrimoniale_dm2012_dett 2019, {ts '2019-01-01 00:00:00'}, {ts '2019-05-10 00:00:00'}, '4', NULL, NULL, NULL, NULL, 'S', null, 'N', NULL, NULL, NULL, NULL, NULL
+	-- exec  rpt_statopatrimoniale_dm2012_dett 2019, {ts '2019-01-01 00:00:00'}, {ts '2019-05-10 00:00:00'},  NULL, NULL, NULL, NULL, 'S', null, 'N', NULL, NULL, NULL, NULL, NULL
 	DECLARE @idupboriginal varchar(36)
 	SET @idupboriginal= @idupb
 
@@ -87,7 +91,7 @@ CREATE  PROCEDURE [rpt_statopatrimoniale_dm2012_dett]
 
 
 -- Se ho scelto un livello sottostante del livello operativo utilizzo quello, 
--- altrimenti user√≤ il I liv.operativo
+-- altrimenti userÚ il I liv.operativo
 /*	DECLARE @levelusable	varchar(20)
 	SELECT @levelusable = MIN(nlevel)
 		FROM patrimonylevel
@@ -148,7 +152,8 @@ CREATE  PROCEDURE [rpt_statopatrimoniale_dm2012_dett]
 		left outer JOIN upb				ON upb.idupb  = entrydetail.idupb 
 		JOIN account					ON account.idacc = entrydetail.idacc
 		JOIN patrimony					ON patrimony.idpatrimony = account.idpatrimony
-		WHERE entry.yentry = @ayear				
+		WHERE entry.yentry = @ayear		
+			and account.ayear = @ayear		
 			and (entry.adate BETWEEN @start AND @stop)
 			AND  (entrydetail.idupb like @idupb  OR @idupb = '%' )
 			and (@filterpatrimony IS NULL OR SUBSTRING(patrimony.codepatrimony, 1,@lenfilter) = @filterpatrimony)
@@ -196,6 +201,7 @@ BEGIN
 			JOIN account				ON patrimony.idpatrimony = account.idpatrimony
 			WHERE (@filterpatrimony IS NULL OR SUBSTRING(patrimony.codepatrimony, 1,@lenfilter) = @filterpatrimony)
 				and patrimony.ayear = @ayear
+				and account.ayear = @ayear
 				and (select count(*)  from #bilanciostatopatrimoniale P
 						where P.idpatrimony = patrimony.idpatrimony
 						and P.idacc = account.idacc)=0
@@ -277,6 +283,7 @@ FROM	upb
 WHERE	idupb = @idupboriginal
 
 	SELECT  
+	@nlevel as 'nlevel',
 	substring(idpatrimony1,3,1) as patpart,
 	@idupboriginal	as   idupb          ,
 	@codeupb	    as	 codeupb	    ,
@@ -310,7 +317,6 @@ WHERE	idupb = @idupboriginal
 			 ELSE  sum(isnull(amount,0.0)) -- P PASSIVITA'
 			END as amount,
 	idacc,
-	idacc,
 	codeacc,
 	account	 
 	---FROM patrimony 
@@ -318,7 +324,7 @@ WHERE	idupb = @idupboriginal
 	GROUP BY #bilanciostatopatrimoniale.idpatrimony,
 	idpatrimony1,code1,title1,printingordpatr1,idpatrimony2,code2,title2,printingordpatr2,idpatrimony3,code3,title3,printingordpatr3,idpatrimony4,code4,title4,printingordpatr4,idpatrimony5,code5,title5,printingordpatr5,
 		idacc,	codeacc,	account
-		ORDER BY 		substring(idpatrimony1,3,1),printingordpatr1,printingordpatr2,printingordpatr3,printingordpatr4,printingordpatr5
+		ORDER BY 		substring(idpatrimony1,3,1),printingordpatr1,printingordpatr2,printingordpatr3,printingordpatr4,printingordpatr5,codeacc
 --ORDER BY substring(idpatrimony1,3,1) 
 	
 END
@@ -338,4 +344,3 @@ GO
 
 
 
-	

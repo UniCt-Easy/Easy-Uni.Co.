@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_split_ivapay]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_split_ivapay]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_split_ivapay]
 GO
 
@@ -91,8 +93,8 @@ AS BEGIN
 		docdate smalldatetime
 	)
 	
-	-- il segno Ã¨ da cambiare se flagdeferred oppure se kind<>registerclass
-	-- inoltre per le fatture non intracom con la doppia presenza A/V Ã¨ da cancellare la riga in vendita
+	-- il segno è da cambiare se flagdeferred oppure se kind<>registerclass
+	-- inoltre per le fatture non intracom con la doppia presenza A/V è da cancellare la riga in vendita
 	
 	-- Sezione 1. Calcolo dell'IVA IMMEDIATA a Debito e a Credito
 	-- Si prendono tutte le fatture con IVA immediata 
@@ -160,7 +162,7 @@ AS BEGIN
 	  
 	-- Sezione 2.1 IVA Differita a DEBITO (fatt.vendita) - DATA REVERSALE
 	-- Vengono inseriti tutti i dettagli delle fatture di vendita  (incluse note di variazione)
-	-- 	la cui REVERSALE associata Ã¨ stata EMESSA nel range di date fornito in input alla SP
+	-- 	la cui REVERSALE associata è stata EMESSA nel range di date fornito in input alla SP
 	--		e aventi data competenza del dettaglio NULL
 	INSERT INTO #invoice
 	(
@@ -216,7 +218,7 @@ AS BEGIN
 
 	-- Sezione 2.2 IVA Differita  - DATA MANDATO
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato Ã¨ stato trasmesso nel range di date fornito in input alla SP
+	-- il cui mandato associato è stato trasmesso nel range di date fornito in input alla SP
 	INSERT INTO #invoice
 	(
 		idinvkind, yinv, ninv,rownum, flagdeferred, 
@@ -599,9 +601,9 @@ AS BEGIN
 				WHEN 2 THEN 'Commerciale'
 				WHEN 1 THEN 'Promiscua'
 				WHEN 1 THEN 'Altro'
-		   END as 'Tipo attivitÃ ',
+		   END as 'Tipo attività',
 		   ivaregisterkind.registerclass as 'Classe registro',
-		   invoicekind.description  + ' nÂ°' + CONVERT(varchar(10), #invoice.ninv) +'/' + CONVERT( varchar(4),#invoice.yinv)  as 'Fattura',
+		   invoicekind.description  + ' n°' + CONVERT(varchar(10), #invoice.ninv) +'/' + CONVERT( varchar(4),#invoice.yinv)  as 'Fattura',
 		   #invoice.doc as 'Doc.',
 		   #invoice.docdate as 'Data Doc.',
 		   CASE #invoice.flagintracom
@@ -618,14 +620,14 @@ AS BEGIN
 		   npay_taxable as 'Num. Mandato',
 		   paymentadate_taxable as  'Emesso il ', 
 		   ypaytransmission_taxable as 'Elenco Trasm. Eserc.',
-		   npaytransmission_taxable as 'Elenco Trasm. nÂ°', 
+		   npaytransmission_taxable as 'Elenco Trasm. n°', 
 		   transmissiondate_taxable as 'Trasmissione del ',
 		   phase_iva  + ' ' + CONVERT(varchar(4),ymov_iva) + '/' + CONVERT(varchar(10),nmov_iva)  as 'Contabilizzazione IVA', 
 		   ypay_iva as 'Eserc. Mandato',
 		   npay_iva as 'Num. Mandato',
 		   paymentadate_iva as  'Emesso il ', 
 		   ypaytransmission_iva as 'Elenco Trasm. Eserc.',
-		   npaytransmission_iva as 'Elenco Trasm. nÂ°', 
+		   npaytransmission_iva as 'Elenco Trasm. n°', 
 		   transmissiondate_iva as 'Trasmissione del',
 		   curramount as 'Importo Iva Split Payment',
 	       phase_iva  as 'Fase',
@@ -634,7 +636,7 @@ AS BEGIN
 		   ypro_iva   as 'Eserc. Reversale Split',
 		   npro_iva   as 'Num. Reversale Split',
 		   yproceedstransmission_iva_split as 'Elenco Trasm. Split Eserc.',
-		   nproceedstransmission_iva_split as 'Elenco Trasm. NÂ° Split', 
+		   nproceedstransmission_iva_split as 'Elenco Trasm. N° Split', 
 		   transmissiondate_iva_split as 'Trasmissione Split del'
 	 FROM #invoice
 		JOIN invoicekind
@@ -670,4 +672,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

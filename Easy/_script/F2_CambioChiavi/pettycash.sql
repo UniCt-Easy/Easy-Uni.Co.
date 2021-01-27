@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿-- Aggiornamento tabella PETTYCASH e tabelle dipendenti
+
+-- Aggiornamento tabella PETTYCASH e tabelle dipendenti
 -- Passo 0. Inserimento delle righe in PETTYCASH ove non esista una riga nella tabella ma ci siano righe nelle tab dipendenti
 INSERT INTO pettycash
 (
@@ -539,7 +541,7 @@ BEGIN
 END
 GO
 
--- Passo 5. Creazione del nuovo campo (che avrÃ  nome come il vecchio ma con tipo diverso)
+-- Passo 5. Creazione del nuovo campo (che avrà nome come il vecchio ma con tipo diverso)
 -- Tabelle interessate clawback e tabelle collegate
 
 IF NOT exists(select * from [sysobjects] as T inner join syscolumns C on T.ID = C.ID where t.name = 'pettycash' and C.name = 'idpettycash' AND (T.uid = USER_ID( ) OR T.uid = USER_ID('dbo')))
@@ -1056,15 +1058,14 @@ GO
 
 -- Aggiornamento degli idrelated della tabella ENTRY
 UPDATE entry
-SET idrelated = SUBSTRING(idrelated, 1, LEN('pettycashoperationÂ§')) +
+SET idrelated = SUBSTRING(idrelated, 1, LEN('pettycashoperation§')) +
 CONVERT(varchar(10),idpettycash) +
-SUBSTRING(idrelated, LEN('pettycashoperationÂ§') +
-	CHARINDEX('Â§', SUBSTRING(idrelated, len('pettycashoperationÂ§')+1, LEN(idrelated))) , LEN(idrelated)
+SUBSTRING(idrelated, LEN('pettycashoperation§') +
+	CHARINDEX('§', SUBSTRING(idrelated, len('pettycashoperation§')+1, LEN(idrelated))) , LEN(idrelated)
 )
 FROM pettycash
-WHERE idrelated LIKE 'pettycashoperationÂ§%'
-AND SUBSTRING(idrelated, LEN('pettycashoperationÂ§') + 1,
-CHARINDEX('Â§', SUBSTRING(idrelated, LEN('pettycashoperationÂ§') + 1, LEN(idrelated))) - 1)
+WHERE idrelated LIKE 'pettycashoperation§%'
+AND SUBSTRING(idrelated, LEN('pettycashoperation§') + 1,
+CHARINDEX('§', SUBSTRING(idrelated, LEN('pettycashoperation§') + 1, LEN(idrelated))) - 1)
 = pettycash.pettycode
 GO
-	

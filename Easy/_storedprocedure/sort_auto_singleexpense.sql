@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[sort_auto_singleexpense]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[sort_auto_singleexpense]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [sort_auto_singleexpense]
 GO
 
@@ -154,7 +156,7 @@ UPDATE #tmp SET valuev3 = @expenseamount WHERE defaultV3 = '@'
 UPDATE #tmp SET valuev4 = @expenseamount WHERE defaultV4 = '@'
 UPDATE #tmp SET valuev5 = @expenseamount WHERE defaultV5 = '@'
 
---rimuove quelli meno specifici ove presenti altri piÃ¹ specifici
+--rimuove quelli meno specifici ove presenti altri più specifici
 DELETE FROM #tmp
 WHERE (
 	SELECT COUNT(*)
@@ -171,7 +173,7 @@ WHERE (
 		  (#tmp.idsorkindreg IS NULL and T2.idsorkindreg is not null) or (#tmp.idsorkindreg is not null and T2.idsorkindreg IS NULL) or (#tmp.idsorkindreg<>T2.idsorkindreg) or
 		  (#tmp.idsorreg IS NULL and T2.idsorreg is not null) or (#tmp.idsorreg is not null and T2.idsorreg IS NULL) or (#tmp.idsorreg<>T2.idsorreg) 
 		) AND
-		--l'insieme individuato da T2  deve essere piÃ¹ specifico di quello di #tmp
+		--l'insieme individuato da T2  deve essere più specifico di quello di #tmp
 		((#tmp.idfin IS NULL) or (K.idparent = #tmp.idfin )) AND 
 		((#tmp.idupb IS NULL)or(T2.idupb LIKE #tmp.idupb+'%') ) AND
 		((#tmp.idman IS NULL)or(T2.idman = #tmp.idman) ) AND
@@ -263,4 +265,3 @@ SET ANSI_NULLS ON
 GO
 
  
-	

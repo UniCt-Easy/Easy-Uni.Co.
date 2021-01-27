@@ -1,11 +1,11 @@
 MIME-Version: 1.0
-Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occ.)
+Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--1KGDEZ6JZCPXA1AIAIS419UF7L8"
+  boundary="---------blocknote.net--1NIDQTUJ2L85S1CMPDP59HHW9L"
 
 
------------blocknote.net--1KGDEZ6JZCPXA1AIAIS419UF7L8
+-----------blocknote.net--1NIDQTUJ2L85S1CMPDP59HHW9L
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -18,6 +18,7 @@ Content-Transfer-Encoding: quoted-printable
     <META name=3D"source" content=3D"mhtml:file://C:\Users\Utente\Desktop=
 \STIPENDI-CSA\Guide CSA mht\EntiCSA.mht">
     <META name=3D"source">
+    <META name=3D"source">
     <BASEFONT face=3D"Times New Roman" size=3D"3">
     <TITLE></TITLE><STYLE>BODY { FONT-FAMILY:Times New Roman; FONT-SIZE:1=
 2pt }
@@ -27,7 +28,26 @@ TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
 </STYLE>
   </HEAD>
 <BODY>
-<DIV align=3D"justify"><STRONG><FONT size=3D"4">REGOLA GENERALE</FONT></S=
+<TABLE align=3D"left" border=3D"1" cellpadding=3D"1" cellspacing=3D"1" wi=
+dth=3D"30%">
+  <TR>
+    <TD valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2">31/01=
+/2019</FONT></STRONG></TD>
+    <TD valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2">v. 1.=
+0</FONT></STRONG></TD>
+    <TD valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2">Creaz=
+ione</FONT></STRONG></TD>
+  </TR>
+  <TR>
+    <TD valign=3D"middle" align=3D"center">&nbsp;</TD>
+    <TD valign=3D"middle" align=3D"center">&nbsp;</TD>
+    <TD valign=3D"middle" align=3D"center">&nbsp;</TD>
+  </TR>
+</TABLE>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><FONT size=3D"5">REGOLA GENERALE</FONT></S=
 TRONG></DIV>
 <DIV align=3D"justify"><FONT size=3D"4">Menu: <STRONG>Opzioni &gt;Compens=
 i&gt;Configurazioni procedura stipendi&gt; Regola generale</FONT></STRONG=
@@ -38,18 +58,25 @@ i&gt;Configurazioni procedura stipendi&gt; Regola generale</FONT></STRONG=
 "4">Regola specifica</FONT></A></FONT></DIV>
 <DIV align=3D"justify"><A href=3D"csa_incomesetup_default.mht"><FONT size=
 =3D"4">Configurazione voci di versamento</FONT></A></FONT></DIV>
-<DIV align=3D"justify">&nbsp;</DIV><HR>
+<DIV align=3D"justify"><A href=3D"csa_contractkindrules_search.mht"><FONT=
+ size=3D"4">Regola di Individuazione</A></FONT></DIV><HR>
 <P align=3D"justify"><FONT size=3D"4">La procedura di contabilizzazione d=
 egli stipendi presente in <EM>Easy</EM> si basa sulla lettura di 2 tracci=
 ati in formato <EM>Excel</EM>, il file dei RIEPILOGHI e il file dei VERSA=
 MENTI.</FONT></P>
 <P align=3D"justify"><FONT size=3D"4">Ciascuna riga del file RIEPILOGHI e=
  del file VERSAMENTI pu=C3=B2 essere elaborata da <EM>Easy</EM>, solo se =
-la terna RUOLO-CAPITOLO-COMPETENZA =C3=A8 presente in una Regola di indiv=
-iduazione di una <STRONG>Regola generale</STRONG>.</FONT></P>
-<P align=3D"center"><IMG src=3D"cid:1FQ3XOTJ7289J1L5B5Q1JOZGA7"></P>
+la terna RUOLO-CAPITOLO-COMPETENZA =C3=A8 correttamente configurata. In p=
+articolare il RUOLO e il CAPITOLO devono essere presenti in una <A href=3D=
+"csa_contractkindrules_search.mht">Regola di Individuazione</A> e tale Re=
+gola di individuazione deve essere presente su una Regola Generale (o <A =
+href=3D"csa_contract_default.mht">Regola specifica</A>) compatibile con l=
+'esercizio di COMPETENZA presente nel file RIEPILOGHI e VERSAMENTI.</FONT=
+></P>
+<P align=3D"justify"><FONT size=3D"4">Tutte le </FONT></P>
+<P align=3D"center"><IMG src=3D"cid:1CLW0DPKCA83J13D9321W9VJL8"></P>
 <DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:N58O1ULJ0ILF1TOMJS01OR0FTI"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:159P506HUXZTUVSKEJPHKFDVV"></DIV>
 <P align=3D"justify"><FONT size=3D"4">Per inserire una nuova Regola gener=
 ale dobbiamo cliccare sul pulsante <STRONG><EM>Inserisci </EM></STRONG>in=
  alto a sinistra e su <STRONG><EM>Salva</EM></STRONG>, dopo aver inserito=
@@ -83,7 +110,7 @@ edente all'anno corrente, andr=C3=A0 a cercare le Regole generali di tipo=
  Residui. <U>NB!! E' fortemente consigliato creare sempre 2 Regole genera=
 li con Codice identico e diversa descrizione, una di tipo COMPETENZA e un=
 a di tipo RESIDUI. Questo garantisce il corretto ribaltamento delle confi=
-gurazioni tra un esercizio e l'altro.</U></FONT></U></P></LI>
+gurazioni tra un esercizio e l'altro.</FONT></U></P></LI>
 <LI><P align=3D"justify"><STRONG><FONT size=3D"4">Flag attivo</STRONG>: l=
 a Regola generale verr=C3=A0 presa in considerazione in fase di Elaborazi=
 one dei tracciati degli stipendi, solo se il flag =C3=A8 valorizzato. In =
@@ -96,20 +123,28 @@ odo si evita di dover reinserire ogni anno le Regole generali. Le Regole =
 generali che hanno il flag valorizzato ma NON SONO ATTIVE non vengono rib=
 altate nell'esercizio successivo.</FONT></P></LI></UL>
 
-<P align=3D"justify"><FONT size=3D"4">La <STRONG><U>sotto-sezione Regole =
-di individuazione</U></STRONG> (vedi figura in alto), consente di inserir=
-e una o pi=C3=B9 regole di individuazione nella Regola generale CSA. Si p=
-ossono inserire nella stessa Regola generale, tutte le terne RUOLO-CAPITO=
-LO-COMPETENZA che si vuole contabilizzare con le stesse regole di imputaz=
-ione (stessa UPB, stessa capitolo di spesa, stessa conto EP, ecc...). Cli=
-ccando sul pulsante <STRONG><EM>Aggiungi, </EM></STRONG>inseriamo il Capi=
-tolo CSA e il Ruolo CSA facendo attenzione ad inserire esattamente quanto=
- riportato nelle righe del file RIEPILOGHI, nelle colonne &quot;CAPITOLO&=
-quot; e &quot;RUOLO&quot;. Clicchiamo sul pulsante OK per confermare l'in=
-serimento della Regola di Individuazione. Le righe delle Regole di Indivi=
-duazione gi=C3=A0 inserite possono essere Cancellate o Modificate cliccan=
-do sugli appositi pulsanti <STRONG><EM>Correggi </EM></STRONG>e <STRONG><=
-EM>Cancella</EM></STRONG>.</FONT></P>
+<P align=3D"justify"><FONT size=3D"4">La <STRONG><U>sotto-sezione </STRON=
+G><A href=3D"csa_contractkindrules_search.mht">Regola di Individuazione</=
+A> (vedi figura in alto), consente di inserire una o pi=C3=B9 regole di i=
+ndividuazione nella Regola generale CSA. Si possono inserire nella stessa=
+ Regola generale, tutte le coppie RUOLO-CAPITOLO che si vuole contabilizz=
+are con le stesse regole di imputazione (stessa UPB, stessa capitolo di s=
+pesa, stessa conto EP, ecc...). Cliccando sul pulsante <STRONG><EM>Aggiun=
+gi, </EM></STRONG>inseriamo il Capitolo CSA e il Ruolo CSA facendo attenz=
+ione ad inserire esattamente quanto riportato nelle righe del file RIEPIL=
+OGHI, nelle colonne &quot;CAPITOLO&quot; e &quot;RUOLO&quot;. Clicchiamo =
+sul pulsante OK per confermare l'inserimento della Regola di Individuazio=
+ne. Le righe delle Regole di Individuazione gi=C3=A0 inserite possono ess=
+ere Cancellate o Modificate cliccando sugli appositi pulsanti <STRONG><EM=
+>Correggi </EM></STRONG>e <STRONG><EM>Cancella</EM></STRONG>.</FONT></P>
+<P align=3D"justify"><FONT size=3D"4">NB! l'<STRONG>Esercizio</STRONG> de=
+lla Regola di individuzione sta ad indicare l'esercizio in cui si sta cre=
+ando la Regola e NON deve necessariamente coincidere con l'esercizio di C=
+OMPETENZA presente nel file RIEPILOGHI e VERSAMENTI. Ad esempio se stiamo=
+ inserendo una Regola di individuazione di Tipo residui nell'esercizio 20=
+18, l'esercizio della Regola di Individuazione sar=C3=A0 2018, ma le righ=
+e del file RIEPILOGHI e VERSAMENTI che verranno lette avranno esercizi pr=
+ecedenti al 2018 (2017, 2016, ecc...)</FONT></P>
 <P align=3D"justify"><FONT size=3D"4">La <STRONG><U>sotto-sezione</U></ST=
 RONG> <STRONG><U>Imputazione</U></STRONG> contiene tutti i dati utili all=
 a contabilizzazione in Contabilit=C3=A0 Finanziaria e in Contabilit=C3=A0=
@@ -140,7 +175,7 @@ LO-COMPETENZA inseriti nelle Regole di Individuazione. Sullo stesso conto=
 </LI></UL>
 
 <P align=3D"justify">&nbsp;</P>
-<P align=3D"center"><IMG src=3D"cid:19M34SEJ4XEZL1L3QI791HG6KHR"></P>
+<P align=3D"center"><IMG src=3D"cid:1OFGFSJKBM5F6115KEK2YYMNX1"></P>
 <P align=3D"justify"><FONT size=3D"4">La <STRONG><U>sotto-sezione Contrib=
 uti</U></STRONG> contiene tutti i dati utili alla contabilizzazione in Co=
 ntabilit=C3=A0 Finanziaria e in Contabilit=C3=A0 Generale e di Budget (ov=
@@ -156,7 +191,7 @@ G> Le voci di versamento relative a Ritenute e Recuperi vanno configurate=
 dura stipendi-Configurazione voci di versamento. </EM></STRONG>(vai alla =
 guida <A href=3D"csa_incomesetup_default.mht">Configurazione voci di vers=
 amento</A>)</FONT></P>
-<P align=3D"center"><IMG src=3D"cid:REV4X8KF20IPH4YM4G1HKDRAT"></P>
+<P align=3D"center"><IMG src=3D"cid:31PZKVKBYB4X1K74R5W1PQ4C02"></P>
 <P align=3D"justify">&nbsp;</P>
 <P align=3D"justify"><FONT size=3D"4">Clicchiamo sul pulsante <STRONG><EM=
 >Aggiungi </EM></STRONG>e compiliamo i seguenti campi:</FONT></P>
@@ -202,9 +237,9 @@ A href=3D"csa_contract_default.mht">Regole specifiche</A><EM>.</FONT></EM=
 </BODY>
 </HTML>
 
------------blocknote.net--1KGDEZ6JZCPXA1AIAIS419UF7L8
+-----------blocknote.net--1NIDQTUJ2L85S1CMPDP59HHW9L
 Content-Type: image/x-png
-Content-Id: <1FQ3XOTJ7289J1L5B5Q1JOZGA7>
+Content-Id: <1CLW0DPKCA83J13D9321W9VJL8>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Terna riepiloghi2.png
 
@@ -564,9 +599,9 @@ e49u//5//oP/rtODUGsrnfXaCJpzc3OH/ZcxO3aRf2WUiuD6YPPI+AhYEsDYUfG4
 pZqRHio1zEkM2EIo5+nGCgXAIk4GLBhcm1jYzArrmhGIL17z3uutuV6P4s3qBACm
 kPD6kLzmkIE5KNgTjxHY6fx/GyBiV+rDICwAAAAASUVORK5CYII==
 
------------blocknote.net--1KGDEZ6JZCPXA1AIAIS419UF7L8
+-----------blocknote.net--1NIDQTUJ2L85S1CMPDP59HHW9L
 Content-Type: image/x-png
-Content-Id: <N58O1ULJ0ILF1TOMJS01OR0FTI>
+Content-Id: <159P506HUXZTUVSKEJPHKFDVV>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Regola generale-Regole di individuazione.png
 
@@ -1515,9 +1550,9 @@ AMgD3wvH9B/0AQAAAACAHPjL9/8HPeIAAAAAAHmAQBwAAAAAIA8QiAMAAAAA5AEC
 cQAAAACAPEAgDgAAAACQB77SV4fEJAAAAAAA5Iai/P+n2TampzIDSgAAAABJRU5E
 rkJggg===
 
------------blocknote.net--1KGDEZ6JZCPXA1AIAIS419UF7L8
+-----------blocknote.net--1NIDQTUJ2L85S1CMPDP59HHW9L
 Content-Type: image/x-png
-Content-Id: <19M34SEJ4XEZL1L3QI791HG6KHR>
+Content-Id: <1OFGFSJKBM5F6115KEK2YYMNX1>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Regola generale-Imputazione2.png
 
@@ -2148,9 +2183,9 @@ cXFxIrbeIGJrAAAAAC0VExsbq5IAAAAAWoH51gAAAIAziK0BAAAAZxBbAwAAAM4g
 tgYAAACcId++53K5Lq+qVwUAAAAAWkDT/j8Sk9Jugbq8CAAAAABJRU5ErkJggg==
 =
 
------------blocknote.net--1KGDEZ6JZCPXA1AIAIS419UF7L8
+-----------blocknote.net--1NIDQTUJ2L85S1CMPDP59HHW9L
 Content-Type: image/x-png
-Content-Id: <REV4X8KF20IPH4YM4G1HKDRAT>
+Content-Id: <31PZKVKBYB4X1K74R5W1PQ4C02>
 Content-Transfer-Encoding: base64
 Content-Location: file://P:/00Sviluppo_Assistenza/ATTIVITA'/TUTTI i clienti/CSA REVISIONE 2018/MHT AGGIORNATI CSA NUOVA VERSIONE/IMMAGINI/Regola generale-Contributi2.png
 
@@ -3351,4 +3386,4 @@ sYjvy0V8Xysy0D/Q3/9C9x18rwgAAAAyAmdFMkmYq0F8J0n0hKkEAAAA0kPouCx7
 giiSefSwLPOkimr6b0wZAAAAyAQM0EprenCWnDADs1RZDswyw7Pkz+DgrVsDws2B
 /ucvTGCAFgAAADKAZf1/zX0QQoB9WcQAAAAASUVORK5CYII==
 
------------blocknote.net--1KGDEZ6JZCPXA1AIAIS419UF7L8--
+-----------blocknote.net--1NIDQTUJ2L85S1CMPDP59HHW9L--

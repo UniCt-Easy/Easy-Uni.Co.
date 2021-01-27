@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -671,22 +673,22 @@ namespace generaSQL//GeneraSQL//
 
 		private bool Validazioni() {
 			if (cboTable.Text.Trim() == "") {
-				MessageBox.Show("Selezionare il nome della tabella / vista", "Attenzione",
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Selezionare il nome della tabella / vista", "Attenzione",
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return false;
 			}
 			if (txtOutputFile.Text.Trim() == "") {
-				MessageBox.Show("Inserire il nome del file che verr‡ generato", "Attenzione",
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Inserire il nome del file che verr‡ generato", "Attenzione",
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return false;
 			}
 			if (File.Exists(txtOutputFile.Text.Trim())) {
-				DialogResult res = MessageBox.Show("Il file esiste, sovrascriverlo?", "Attenzione",
+				DialogResult res = MetaFactory.factory.getSingleton<IMessageShower>().Show("Il file esiste, sovrascriverlo?", "Attenzione",
 					MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 				if (res != DialogResult.Yes) return false;
 			}
 		    if (cboTable.Text.ToLower() == "audit" && radioButtonOnlyInsert.Checked == false) {
-		        MessageBox.Show("Non Ë ammesso creare degli script sulla tabella audit in update", "Errore");
+		        MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë ammesso creare degli script sulla tabella audit in update", "Errore");
                 return false;
 		    }
 			return true;
@@ -694,12 +696,12 @@ namespace generaSQL//GeneraSQL//
 
         private bool ValidazioniCustom() {
             if (txtOutputFile.Text.Trim() == "") {
-                MessageBox.Show("Inserire il nome del file che verr‡ generato", "Attenzione",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Inserire il nome del file che verr‡ generato", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             if (File.Exists(txtOutputFile.Text.Trim())) {
-                DialogResult res = MessageBox.Show("Il file esiste, sovrascriverlo?", "Attenzione",
+                DialogResult res = MetaFactory.factory.getSingleton<IMessageShower>().Show("Il file esiste, sovrascriverlo?", "Attenzione",
                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (res != DialogResult.Yes) return false;
             }
@@ -726,7 +728,7 @@ namespace generaSQL//GeneraSQL//
 					this.Conn.CallSP("clear_table_info",
 						new object[] { tableName });
 				} catch {
-					MessageBox.Show("Errore eseguendo clear_table_info su '" + tableName + "'");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore eseguendo clear_table_info su '" + tableName + "'");
 				}
 				dbstructure DBS = (dbstructure)this.Conn.GetStructure(tableName);
 		        Conn.SaveStructure(DBS);
@@ -739,7 +741,7 @@ namespace generaSQL//GeneraSQL//
                 if (chkDati.Checked) {
                     DataAccess.RUN_SELECT_INTO_TABLE(Conn, t, null, filter, null, true);
                     if (t.Rows.Count == 0) {
-                        MessageBox.Show("Nessuna riga trovata. Filtro:" + filter +
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata. Filtro:" + filter +
                             " Ultimo errore:" + Conn.LastError);
                         if (chkSoloDati.Enabled && chkSoloDati.Checked) {
                             return;
@@ -774,7 +776,7 @@ namespace generaSQL//GeneraSQL//
 
             }
 
-            MessageBox.Show("Script generato con successo.");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("Script generato con successo.");
 			Cursor.Current = Cursors.Default;
 		}
 
@@ -832,9 +834,9 @@ namespace generaSQL//GeneraSQL//
 				if (txtFiltro.Text != "") {
 					messaggio += "i cui nomi cominciano per "+txtFiltro.Text;
 				}
-				MessageBox.Show(this, messaggio+"\nsono stati creati nella cartella "+folderBrowserDialog1.SelectedPath);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio+"\nsono stati creati nella cartella "+folderBrowserDialog1.SelectedPath);
 			} else {
-				MessageBox.Show(this, "Non Ë stata specificata la cartella di destinazione");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stata specificata la cartella di destinazione");
 			}
 		}
 
@@ -845,10 +847,10 @@ namespace generaSQL//GeneraSQL//
             if (txtFiltro.Text.Trim() != "") filter = txtFiltro.Text.Trim();
 
             if (!GeneraSQL.generaTaxRateCity(Conn, txtOutputFile.Text.Trim(), filter)) {
-                MessageBox.Show(this, "Errore di generazione dello Script");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore di generazione dello Script");
             }
             else {
-                MessageBox.Show(this, "Script generato con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script generato con successo!");
             }
 
             Cursor.Current = Cursors.Default;
@@ -861,10 +863,10 @@ namespace generaSQL//GeneraSQL//
             if (txtFiltro.Text.Trim() != "") filter = txtFiltro.Text.Trim();
 
             if (!GeneraSQL.generaSortingKind(Conn, txtOutputFile.Text.Trim(), filter)) {
-                MessageBox.Show(this, "Errore di generazione dello Script");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore di generazione dello Script");
             }
             else {
-                MessageBox.Show(this, "Script generato con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script generato con successo!");
             }
 
             Cursor.Current = Cursors.Default;
@@ -877,10 +879,10 @@ namespace generaSQL//GeneraSQL//
             if (txtFiltro.Text.Trim() != "") filter = txtFiltro.Text.Trim();
 
             if (!GeneraSQL.generaInventorytree(Conn, txtOutputFile.Text.Trim(), filter)) {
-                MessageBox.Show(this, "Errore di generazione dello Script");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore di generazione dello Script");
             }
             else {
-                MessageBox.Show(this, "Script generato con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script generato con successo!");
             }
 
             Cursor.Current = Cursors.Default;
@@ -894,10 +896,10 @@ namespace generaSQL//GeneraSQL//
             if (txtFiltro.Text.Trim() != "") filter = txtFiltro.Text.Trim();
 
             if (!GeneraSQL.generaABICAB(Conn, txtOutputFile.Text.Trim(), filter)) {
-                MessageBox.Show(this, "Errore di generazione dello Script");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore di generazione dello Script");
             }
             else {
-                MessageBox.Show(this, "Script generato con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script generato con successo!");
             }
 
             Cursor.Current = Cursors.Default;
@@ -910,10 +912,10 @@ namespace generaSQL//GeneraSQL//
             if (txtFiltro.Text.Trim() != "") filter = txtFiltro.Text.Trim();
 
             if (!GeneraSQL.generaService(Conn, txtOutputFile.Text.Trim(), filter)) {
-                MessageBox.Show(this, "Errore di generazione dello Script");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore di generazione dello Script");
             }
             else {
-                MessageBox.Show(this, "Script generato con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script generato con successo!");
             }
 
             Cursor.Current = Cursors.Default;
@@ -926,10 +928,10 @@ namespace generaSQL//GeneraSQL//
             if (txtFiltro.Text.Trim() != "") filter = txtFiltro.Text.Trim();
 
             if (!GeneraSQL.generaSortingTranslation(Conn, txtOutputFile.Text.Trim(), filter)){
-                MessageBox.Show(this, "Errore di generazione dello Script");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore di generazione dello Script");
             }
             else{
-                MessageBox.Show(this, "Script generato con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script generato con successo!");
             }
 
             Cursor.Current = Cursors.Default;
@@ -944,10 +946,10 @@ namespace generaSQL//GeneraSQL//
             if (txtFiltro.Text.Trim() != "") filter = txtFiltro.Text.Trim();
 
             if (!GeneraSQL.generaCurrency(Conn, txtOutputFile.Text.Trim(), filter)) {
-                MessageBox.Show(this, "Errore di generazione dello Script");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore di generazione dello Script");
             }
             else {
-                MessageBox.Show(this, "Script generato con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script generato con successo!");
             }
 
             Cursor.Current = Cursors.Default;
@@ -960,10 +962,10 @@ namespace generaSQL//GeneraSQL//
             if (txtFiltro.Text.Trim() != "") filter = txtFiltro.Text.Trim();
 
             if (!GeneraSQL.generaBilancio(Conn, txtOutputFile.Text.Trim())) {
-                MessageBox.Show(this, "Errore di generazione dello Script");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore di generazione dello Script");
             }
             else {
-                MessageBox.Show(this, "Script generato con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script generato con successo!");
             }
 
             Cursor.Current = Cursors.Default;
@@ -977,10 +979,10 @@ namespace generaSQL//GeneraSQL//
             if (txtFiltro.Text.Trim() != "") filter = txtFiltro.Text.Trim();
 
             if (!GeneraSQL.generaTaxRateRegion(Conn, txtOutputFile.Text.Trim(), filter)) {
-                MessageBox.Show(this, "Errore di generazione dello Script");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore di generazione dello Script");
             }
             else {
-                MessageBox.Show(this, "Script generato con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script generato con successo!");
             }
 
             Cursor.Current = Cursors.Default;
@@ -993,10 +995,10 @@ namespace generaSQL//GeneraSQL//
             if (txtFiltro.Text.Trim() != "") filter = txtFiltro.Text.Trim();
 
             if (!GeneraSQL.generaClassificazioniBilancio(Conn, txtOutputFile.Text.Trim(), filter)){
-                MessageBox.Show(this, "Errore di generazione dello Script");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore di generazione dello Script");
             }
             else{
-                MessageBox.Show(this, "Script generato con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script generato con successo!");
             }
 
             Cursor.Current = Cursors.Default;
@@ -1010,11 +1012,11 @@ namespace generaSQL//GeneraSQL//
 
             if (!GeneraSQL.generaTaxRateStartBracket(Conn, txtOutputFile.Text.Trim(), filter))
             {
-                MessageBox.Show(this, "Errore di generazione dello Script");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore di generazione dello Script");
             }
             else
             {
-                MessageBox.Show(this, "Script generato con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script generato con successo!");
             }
 
             Cursor.Current = Cursors.Default;
@@ -1029,7 +1031,7 @@ namespace generaSQL//GeneraSQL//
             DataTable t = Conn.CreateTableByName("audit", "*", true);
             DataAccess.RUN_SELECT_INTO_TABLE(Conn, t, null, filter, null, true);
                 if (t.Rows.Count == 0) {
-                    MessageBox.Show("Nessuna riga trovata nella tabella audit. Filtro:" + filter +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata nella tabella audit. Filtro:" + filter +
                         " Ultimo errore:" + Conn.LastError);
                 }
                 Conn.AddExtendedProperty( t);
@@ -1042,7 +1044,7 @@ namespace generaSQL//GeneraSQL//
             t = Conn.CreateTableByName("auditcheck", "*", true);
             DataAccess.RUN_SELECT_INTO_TABLE(Conn, t, null, filter, null, true);
             if (t.Rows.Count == 0) {
-                MessageBox.Show("Nessuna riga trovata nella tabella auditcheck. Filtro:" + filter +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata nella tabella auditcheck. Filtro:" + filter +
                     " Ultimo errore:" + Conn.LastError);
             }
             Conn.AddExtendedProperty(t);
@@ -1050,7 +1052,7 @@ namespace generaSQL//GeneraSQL//
             GeneraSQL.GeneraStrutturaEDati(/*true, */Conn, DS, txtOutputFile.Text.Trim(), true,
                 UpdateType.insertAndUpdate, DataGenerationType.onlyData, true);
 
-            MessageBox.Show("Script generato con successo.");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("Script generato con successo.");
             Cursor.Current = Cursors.Default;
         }
 
@@ -1095,7 +1097,7 @@ namespace generaSQL//GeneraSQL//
                 GeneraSQL.GeneraStrutturaEDati(/*true, */Conn, DS, txtOutputFile.Text.Trim(), true,
                     updateType, generationType, IsTable/*, chkCRLF.Checked*/);
 
-                MessageBox.Show(@"Script generato in "+ txtOutputFile.Text.Trim(), @"Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(@"Script generato in "+ txtOutputFile.Text.Trim(), @"Avviso");
             }
         }
 

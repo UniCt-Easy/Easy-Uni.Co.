@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[show_finyear_comp]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[show_finyear_comp]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [show_finyear_comp]
 GO
 
@@ -38,11 +40,11 @@ BEGIN
 DECLARE	@ayear int -- Esercizio
 SELECT @ayear = YEAR(@date)
 
-DECLARE @lbl_dispacc varchar(150) -- Etichetta sulla disponibilitÃ Â ad accertate
+DECLARE @lbl_dispacc varchar(150) -- Etichetta sulla disponibilità ad accertate
 DECLARE @lbl_dispcomp_e varchar(150) -- Etichetta sulla prev. disponibile di competenza
-DECLARE @lbl_dispimp varchar(150) -- Etichetta sulla disponibilitÃ Â ad impegnare che varia in base alla presenza delle operazioni del fondo economale
+DECLARE @lbl_dispimp varchar(150) -- Etichetta sulla disponibilità ad impegnare che varia in base alla presenza delle operazioni del fondo economale
 DECLARE @lbl_dispcomp_s varchar(150) -- Etichetta sulla prev. disponibile di competenza che varia in base alla presenza delle operazioni del fondo economale
-DECLARE @lbl_dispprimafase varchar(150) -- Etichetta sulla disponibilitÃ Â calcolata sulla prima fase di entrata o di spesa 
+DECLARE @lbl_dispprimafase varchar(150) -- Etichetta sulla disponibilità calcolata sulla prima fase di entrata o di spesa 
 DECLARE	@mainprev_var_AUM decimal(19,2) -- Totale delle variazioni di previsione principale in aumento
 DECLARE	@mainprev_var_DIM decimal(19,2) -- Totale delle variazioni di previsione principale in diminuzione
 
@@ -668,12 +670,12 @@ IF @finpart = 'E'
 				SELECT @competencyvar_total = ISNULL(amount, 0)
 					FROM #tot_var_c
 					WHERE nphase = @nphase
--- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui Ã¨ imputata
+-- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui è imputata
 -- la voce di bilancio prendere in considerazione anche la previsione disponibile calcolata su questa fase 
 -- M. Smaldino
 				IF (@nphase = @finphase and @finphase < @competencyphase )
 				    BEGIN
-					SELECT @lbl_dispprimafase = '   DisponibilitÃ Â  per ulteriore ' + '"' + @phasetitle + '"'
+					SELECT @lbl_dispprimafase = '   Disponibilità  per ulteriore ' + '"' + @phasetitle + '"'
 					INSERT INTO #situation VALUES(@lbl_dispprimafase,
 						ISNULL(@currmainprev, 0) -
 						ISNULL(@competency_total, 0) -
@@ -690,7 +692,7 @@ IF @finpart = 'E'
 					+ @phasetitle	+ ')',
 					ISNULL(@competency_total,0) +
 					ISNULL(@competencyvar_total,0),'')
-					SELECT @lbl_dispacc = 'DisponibilitÃ Â  per ' + '"' + @phasetitle + '"' + ' (Prev. Attuale - 3'
+					SELECT @lbl_dispacc = 'Disponibilità  per ' + '"' + @phasetitle + '"' + ' (Prev. Attuale - 3'
 						IF (@nphase = @arrearsphase) -- Informazioni inerenti gli accertamenti
 							BEGIN
 								SELECT @lbl_dispacc = @lbl_dispacc + ')'
@@ -874,12 +876,12 @@ ELSE -- fase spesa
 				SELECT @competencyvar_total = ISNULL(amount, 0)
 					FROM #tot_var_c
 					WHERE nphase = @nphase
--- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui Ã¨ imputata
+-- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui è imputata
 -- la voce di bilancio occorre prendere in considerazione la previsione disponibile calcolata su questa fase 
 -- M. Smaldino
 				IF (@nphase = @finphase and @finphase < @competencyphase )
 				    BEGIN
-					SELECT @lbl_dispprimafase = '  DisponibilitÃ Â  per ulteriore ' + '"' + @phasetitle + '"'
+					SELECT @lbl_dispprimafase = '  Disponibilità  per ulteriore ' + '"' + @phasetitle + '"'
 					INSERT INTO #situation VALUES(@lbl_dispprimafase,
 						ISNULL(@currmainprev, 0) -
 						ISNULL(@competency_total,0) -
@@ -897,7 +899,7 @@ ELSE -- fase spesa
 						+ @phasetitle	+ ')', 
 						ISNULL(@competency_total,0) +
 						ISNULL(@competencyvar_total,0), '')
-						SELECT @lbl_dispimp = 'DisponibilitÃ Â  per ' + '"' + @phasetitle + '"' + ' (Prev. Attuale - 3'
+						SELECT @lbl_dispimp = 'Disponibilità  per ' + '"' + @phasetitle + '"' + ' (Prev. Attuale - 3'
 						IF @totpettycashop > 0
 							BEGIN
 								INSERT INTO #situation	VALUES(
@@ -1107,4 +1109,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

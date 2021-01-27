@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- CREAZIONE VISTA proceedspartview
+
+-- CREAZIONE VISTA proceedspartview
 IF EXISTS(select * from sysobjects where id = object_id(N'[proceedspartview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [proceedspartview]
 GO
@@ -53,9 +55,9 @@ CREATE                                 VIEW proceedspartview
 	adate,
 	--	> Importo destinato, valorizzato se Te<>Ts
 	allocatedamount,
-	--	> Importo da Girofondare: importo che non √® stato ancora girofondato;
+	--	> Importo da Girofondare: importo che non Ë stato ancora girofondato;
 	moneytotransfer,
-	--	> Importo Girofondato: importo per cui √® stato fatto il girofondo ala cassiere di destinazione;
+	--	> Importo Girofondato: importo per cui Ë stato fatto il girofondo ala cassiere di destinazione;
 	moneytransfered,
 	idsor01,idsor02,idsor03,idsor04,idsor05,
 	cu,
@@ -100,7 +102,7 @@ CREATE                                 VIEW proceedspartview
 		when isnull(TP.idtreasurer,0) <>isnull(UU.idtreasurer,0) then proceedspart.amount
 		else null
 	end,	
-	-- > moneytotransfer = Importo da Girofondare: importo che non √® stato ancora girofondato;
+	-- > moneytotransfer = Importo da Girofondare: importo che non Ë stato ancora girofondato;
 		case 
 		when  ( isnull(TP.idtreasurer,0) <>isnull(UU.idtreasurer,0)) 
 				then (proceedspart.amount - 	ISNULL(	(SELECT SUM(moneytransfer.amount) FROM moneytransfer
@@ -109,7 +111,7 @@ CREATE                                 VIEW proceedspartview
 												,0))
 		else null
 	end,
-	--	> moneytransfered = Importo Girofondato: importo per cui √® stato fatto il girofondo la cassiere di destinazione;
+	--	> moneytransfered = Importo Girofondato: importo per cui Ë stato fatto il girofondo la cassiere di destinazione;
 		case 
 		when  ( isnull(TP.idtreasurer,0) <>isnull(UU.idtreasurer,0)) 
 				then ( SELECT SUM(moneytransfer.amount) FROM moneytransfer
@@ -163,4 +165,3 @@ CREATE                                 VIEW proceedspartview
 
 GO
 
-	

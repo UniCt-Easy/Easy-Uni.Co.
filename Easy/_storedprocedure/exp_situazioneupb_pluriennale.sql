@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_situazioneupb_pluriennale]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_situazioneupb_pluriennale]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_situazioneupb_pluriennale]
 GO
  
@@ -61,7 +63,7 @@ SET 	@firstday = CONVERT(datetime, '01-01-' + CONVERT(varchar(4),@ayear), 105)
 		)  
 
 --  Previsione disponibile @ayear-1
--- Ho inserito la previsione disponiile in uscita per quei casi di UPB che hanno una disponibit√† che non deriva da incassi registrati
+-- Ho inserito la previsione disponiile in uscita per quei casi di UPB che hanno una disponibit‡ che non deriva da incassi registrati
 	INSERT INTO #situazione( idupb,  prevdispU) 
 	select  idupb,  expenseprevavailable
 		from upbyearview 
@@ -138,7 +140,7 @@ SET 	@firstday = CONVERT(datetime, '01-01-' + CONVERT(varchar(4),@ayear), 105)
 
 --	A. Fatture di vendita a iva differita, non ancora incassate:
 	-- Vengono inseriti tutti i dettagli delle fatture di vendita  (incluse note di variazione)
-	-- la cui REVERSALE associata NON √® stata EMESSA al 31/12/@ayear-1 
+	-- la cui REVERSALE associata NON Ë stata EMESSA al 31/12/@ayear-1 
 	--	e aventi data competenza del dettaglio NULL
 	INSERT INTO #situazione(
 		idupb,
@@ -176,7 +178,7 @@ SELECT
 --	B2.Contratti Passivi registrati negli anni precedenti a (Anno) ma non pagati fino al 31.12.(anno-1)) - Valore iva inclusa
 
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato NON √® stato TRASMESSO al 31/12/@ayear-1 
+	-- il cui mandato associato NON Ë stato TRASMESSO al 31/12/@ayear-1 
 	INSERT INTO #situazione(
 		idupb,
 		fattacq
@@ -201,7 +203,7 @@ SELECT
 		AND IRK.registerclass<>'P'				
 		AND ISNULL(IDET.rounding,'N') <>'S'
 		and (isnull(IDET.flagbit,0) & 4) = 0
-		-- la fattura non √® contabilizzata da spesa, e non esiste neanche la contabilizzazione dcol fondo PS
+		-- la fattura non Ë contabilizzata da spesa, e non esiste neanche la contabilizzazione dcol fondo PS
 		AND NOT exists (SELECT * FROM pettycashoperationinvoice PCOI
 					JOIN pettycashoperation PCO			ON PCO.idpettycash = PCOI.idpettycash	AND PCO.yoperation = PCOI.yoperation	AND PCO.noperation = PCOI.noperation 
 					WHERE PCOI.idinvkind = I.idinvkind
@@ -539,4 +541,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

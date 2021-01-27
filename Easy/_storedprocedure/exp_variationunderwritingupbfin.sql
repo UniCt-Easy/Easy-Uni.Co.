@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_variationunderwritingupbfin]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_variationunderwritingupbfin]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_variationunderwritingupbfin]
 GO
 
@@ -109,7 +111,7 @@ CREATE TABLE #PICCOLE_SPESE(
 	amount decimal(19,2)
 	)  
 
---Il SUM lo mettiamo perch√® potrebbero esserci n righe in pettycashoperationunderwriting, ossia n op.imputate alla terna.
+--Il SUM lo mettiamo perchË potrebbero esserci n righe in pettycashoperationunderwriting, ossia n op.imputate alla terna.
 INSERT INTO #PICCOLE_SPESE(idunderwriting, idupb, idfin, amount)  
 --> Con Finanziamento	
 select FV.idunderwriting, FV.idupb, FV.idfin, SUM(U.amount)
@@ -459,4 +461,3 @@ GO
 
 
 
-	

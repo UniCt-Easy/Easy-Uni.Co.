@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_intra12_dati_unified]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_intra12_dati_unified]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_intra12_dati_unified]
 GO 
 /*
@@ -86,7 +88,7 @@ END
 	DECLARE @7Codicefiscalesocietadichiarante varchar(11)	-- 11 CF
 	SET @7Codicefiscalesocietadichiarante = '02890460781' -- Tempo
 
-	DECLARE @14CodiceAttivita varchar(6)	  -- va riportato senza il punto, perch√® il campo ha lunghezza 6
+	DECLARE @14CodiceAttivita varchar(6)	  -- va riportato senza il punto, perchË il campo ha lunghezza 6
 	SELECT @14CodiceAttivita = REPLACE(cudactivitycode,'.','') FROM config WHERE ayear = @ayear
 
 
@@ -111,7 +113,7 @@ END
 	SET @lenComune = 40
 	DECLARE @37ProvinciaNascitaRappresentante varchar(2)	-- 2 PN
 
--- Se √® presente almeno uno dei campi 38, 39, 40, 41, i campi 38 e 41 sono obbligatori.
+-- Se Ë presente almeno uno dei campi 38, 39, 40, 41, i campi 38 e 41 sono obbligatori.
 	DECLARE @38CodiceStatoesteroRappresentante varchar(3)	-- 3 NU
 	DECLARE @39Statofederatoprovinciacontea varchar(65)		-- 24 AN
 
@@ -183,7 +185,7 @@ begin
 end
 
 IF (@natoallestero = 'N')
--- Vuol dire che √® nato all'estero
+-- Vuol dire che Ë nato all'estero
 Begin
 -- Leggiamo i dati della Nascita : stato estero di nascita 
 	SELECT @36Comune_oStatoEstero_NascitaRappresentante = N.title 
@@ -334,7 +336,7 @@ SELECT
 		THEN ISNULL(@13PartitaIVA,'') + SUBSTRING(SPACE(@lenPiva),1,@lenPiva - DATALENGTH(ISNULL(@13PartitaIVA,'')))
 		ELSE SUBSTRING(@13PartitaIVA,1,@lenPiva)
 	END as 'P.iva',
-	@14CodiceAttivita as 'Codice Attivit√†',
+	@14CodiceAttivita as 'Codice Attivit‡',
 	'0' as 'Eventi eccezionali',
 	CASE
 		WHEN DATALENGTH(ISNULL(@22Denominazione,'')) <= @lenDenominazione
@@ -401,4 +403,3 @@ GO
 
 
  
-	

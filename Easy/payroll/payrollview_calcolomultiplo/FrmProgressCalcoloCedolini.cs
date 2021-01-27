@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -362,27 +364,27 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
 						int idCedolinoConguaglio = ottieniIdCedolinoConguaglio(rCedolino, tempCed);
 						errore = coc.calcolaCedolino(idCedolino, false, "N");
 						if (errore != null) {
-							MessageBox.Show(this,"Errore nel calcolo del cedolino n∞ "+idCedolino+".\n" + errore);
+							MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Errore nel calcolo del cedolino n∞ "+idCedolino+".\n" + errore);
 						}
 						else {
 							errore = coc.calcolaCedolino(idCedolinoConguaglio, false, "F");
 							if (errore != null) {
-								MessageBox.Show(this,"Errore nel calcolo del cedolino n∞ "+idCedolinoConguaglio+".\n" + errore);
+								MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Errore nel calcolo del cedolino n∞ "+idCedolinoConguaglio+".\n" + errore);
 							}
 							else {						
 								errore = coc.aggiungiRitenuteNonFiscaliCedolinoConguaglio(idCedolinoConguaglio, false);
 								if (errore != null) {
-									MessageBox.Show(this,"Errore nel calcolo del cedolino n∞ "+idCedolinoConguaglio+".\n" + errore);
+									MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Errore nel calcolo del cedolino n∞ "+idCedolinoConguaglio+".\n" + errore);
 								}
 								else {
 									errore = coc.aggiungiRitenuteFiscaliUltimoCedolinoRata(idCedolino, idCedolinoConguaglio, false);
 									if (errore != null) {
-										MessageBox.Show(this,"Errore nel calcolo del cedolino n∞ "+idCedolino+".\n" + errore);
+										MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Errore nel calcolo del cedolino n∞ "+idCedolino+".\n" + errore);
 									}
 									else {
 										errore = coc.aggiornaDatiCedolinoConguaglio(idCedolinoConguaglio, false);
 										if (errore != null) {
-											MessageBox.Show(this, "Errore nel calcolo del cedolino n∞ " + idCedolinoConguaglio+".\n" + errore);
+											MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel calcolo del cedolino n∞ " + idCedolinoConguaglio+".\n" + errore);
 										}
 									}
 								}
@@ -475,7 +477,7 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
 				EP.ClearDetails(mainEntry);
 				object idaccmot_main= CurrContratto["idaccmotive"];
 				if (idaccmot_main==DBNull.Value){
-					MessageBox.Show("Non Ë stata impostata la causale per la prestazione.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stata impostata la causale per la prestazione.");
 					return;
 				}
 			
@@ -484,7 +486,7 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
                     CurrContratto["idaccmotivedebit"], CurrContratto["idreg"]);
 
                 if (idacc_registry == null || idacc_registry == DBNull.Value) {
-					MessageBox.Show("Non Ë stato configurato il conto di debito/credito opportuno");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stato configurato il conto di debito/credito opportuno");
 					return;
 				}
 
@@ -494,7 +496,7 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
                 string idrelated = BudgetFunction.GetIdForDocument(CurrCedolino);
                 object idepexp = Conn.DO_READ_VALUE("epexp", QHS.AppAnd(QHS.CmpEq("idrelated", idrelated), QHS.CmpEq("nphase", 2)), "idepexp");
                 if ((idepexp == null || idepexp == DBNull.Value) && flagEpExp == "S" && esercizio > 2015) {
-                    MessageBox.Show("Errore", "Non Ë stato trovato alcun impegno di budget per il contratto");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore", "Non Ë stato trovato alcun impegno di budget per il contratto");
                     return;
                 }
 
@@ -535,7 +537,7 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
                     }
 
 					if (idaccmotive_touse==DBNull.Value){
-						MessageBox.Show("Il contributo "+TipoRit["description"].ToString()+
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Il contributo "+TipoRit["description"].ToString()+
 							" non Ë correttamente configurato per l'E/P");
 						return; //Errore fatale!
 					}
@@ -547,7 +549,7 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
                         string idrelatedContrib = BudgetFunction.GetIdForDocument(Rit);
                         object idepexpContrib = Conn.DO_READ_VALUE("epexp", QHS.AppAnd(QHS.CmpEq("idrelated", idrelatedContrib), QHS.CmpEq("nphase", 2)), "idepexp");
                         if ((idepexpContrib == null || idepexpContrib == DBNull.Value) && flagEpExp == "S" && esercizio > 2015) {
-                            MessageBox.Show("Errore", "Non Ë stato trovato alcun impegno di budget per il contributo" + Rit["taxcode"].ToString());
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore", "Non Ë stato trovato alcun impegno di budget per il contributo" + Rit["taxcode"].ToString());
                             return;
                         }
                         DataRow[] ContiContribCosto = EP.GetAccMotiveDetails(idaccmotive_cost.ToString());
@@ -574,7 +576,7 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
                     else {
                         DataTable Regs = TEH.GetIdRegFor(Rit["taxcode"], DBNull.Value, DBNull.Value);
                         if (Regs==null || Regs.Rows.Count == 0) {
-                            MessageBox.Show("Anagrafica per il versamento non trovata per la ritenuta di tipo " + Rit["taxref"].ToString(), "Errore"); 
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show("Anagrafica per il versamento non trovata per la ritenuta di tipo " + Rit["taxref"].ToString(), "Errore"); 
                         }
                         else {
                             foreach (DataRow Registry in Regs.Rows) {
@@ -688,7 +690,7 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
                     //Genera impegni e scritture nell'anno di competenza del cedolino
                     newConn = ottieniConnessioneNuovoEsercizio(Conn, annostop);
                     if (newConn == null) {
-                        MessageBox.Show("Ci sono problemi nell'accedere all'anno " + annostop + ", non saranno generati impegni di budget o scritture", "Errore");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono problemi nell'accedere all'anno " + annostop + ", non saranno generati impegni di budget o scritture", "Errore");
                         erroriep = true;
                     }
                     else {
@@ -725,7 +727,7 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
                 Conn.RUN_SELECT("accountingyear", "*", null, QHS.CmpEq("ayear", esercizio), null, true);
 
             if (EsercizioTable.Rows.Count == 0) {
-                MessageBox.Show("L'esercizio " + esercizio + " non Ë stato creato.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("L'esercizio " + esercizio + " non Ë stato creato.");
                 return false;
             }
             return true;
@@ -755,7 +757,7 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
 
             DateTime newDate = new DateTime(newEsercizio, 12, 31);
             if (!CambioDataConsentita(Conn, newDate)) {
-                MessageBox.Show("L'utente non ha diritto ad agire nell'esercizio " + newEsercizio, "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("L'utente non ha diritto ad agire nell'esercizio " + newEsercizio, "Errore");
                 return null;
             }
             Easy_DataAccess newConn = (Easy_DataAccess)Conn.Duplicate();

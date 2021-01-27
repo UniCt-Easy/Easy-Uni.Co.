@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -27,37 +29,37 @@ public class upbviewRow: MetaRow  {
 
 	#region Field Definition
 	public String idupb{ 
-		get {if (this["idupb"]==DBNull.Value)return null; return  (String)this["idupb"];}
-		set {if (value==null) this["idupb"]= DBNull.Value; else this["idupb"]= value;}
+		get {return  (String)this["idupb"];}
+		set {this["idupb"]= value;}
 	}
 	public object idupbValue { 
 		get{ return this["idupb"];}
-		set {if (value==null|| value==DBNull.Value) this["idupb"]= DBNull.Value; else this["idupb"]= value;}
+		set {this["idupb"]= value;}
 	}
 	public String idupbOriginal { 
-		get {if (this["idupb",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idupb",DataRowVersion.Original];}
+		get {return  (String)this["idupb",DataRowVersion.Original];}
 	}
 	public String codeupb{ 
-		get {if (this["codeupb"]==DBNull.Value)return null; return  (String)this["codeupb"];}
-		set {if (value==null) this["codeupb"]= DBNull.Value; else this["codeupb"]= value;}
+		get {return  (String)this["codeupb"];}
+		set {this["codeupb"]= value;}
 	}
 	public object codeupbValue { 
 		get{ return this["codeupb"];}
-		set {if (value==null|| value==DBNull.Value) this["codeupb"]= DBNull.Value; else this["codeupb"]= value;}
+		set {this["codeupb"]= value;}
 	}
 	public String codeupbOriginal { 
-		get {if (this["codeupb",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codeupb",DataRowVersion.Original];}
+		get {return  (String)this["codeupb",DataRowVersion.Original];}
 	}
 	public String title{ 
-		get {if (this["title"]==DBNull.Value)return null; return  (String)this["title"];}
-		set {if (value==null) this["title"]= DBNull.Value; else this["title"]= value;}
+		get {return  (String)this["title"];}
+		set {this["title"]= value;}
 	}
 	public object titleValue { 
 		get{ return this["title"];}
-		set {if (value==null|| value==DBNull.Value) this["title"]= DBNull.Value; else this["title"]= value;}
+		set {this["title"]= value;}
 	}
 	public String titleOriginal { 
-		get {if (this["title",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["title",DataRowVersion.Original];}
+		get {return  (String)this["title",DataRowVersion.Original];}
 	}
 	public String paridupb{ 
 		get {if (this["paridupb"]==DBNull.Value)return null; return  (String)this["paridupb"];}
@@ -115,15 +117,15 @@ public class upbviewRow: MetaRow  {
 		get {if (this["underwriter",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["underwriter",DataRowVersion.Original];}
 	}
 	public String printingorder{ 
-		get {if (this["printingorder"]==DBNull.Value)return null; return  (String)this["printingorder"];}
-		set {if (value==null) this["printingorder"]= DBNull.Value; else this["printingorder"]= value;}
+		get {return  (String)this["printingorder"];}
+		set {this["printingorder"]= value;}
 	}
 	public object printingorderValue { 
 		get{ return this["printingorder"];}
-		set {if (value==null|| value==DBNull.Value) this["printingorder"]= DBNull.Value; else this["printingorder"]= value;}
+		set {this["printingorder"]= value;}
 	}
 	public String printingorderOriginal { 
-		get {if (this["printingorder",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["printingorder",DataRowVersion.Original];}
+		get {return  (String)this["printingorder",DataRowVersion.Original];}
 	}
 	public Decimal? requested{ 
 		get {if (this["requested"]==DBNull.Value)return null; return  (Decimal?)this["requested"];}
@@ -379,48 +381,81 @@ public class upbviewRow: MetaRow  {
 		get {if (this["flag",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["flag",DataRowVersion.Original];}
 	}
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
+	}
+	public String idupb_capofila{ 
+		get {if (this["idupb_capofila"]==DBNull.Value)return null; return  (String)this["idupb_capofila"];}
+		set {if (value==null) this["idupb_capofila"]= DBNull.Value; else this["idupb_capofila"]= value;}
+	}
+	public object idupb_capofilaValue { 
+		get{ return this["idupb_capofila"];}
+		set {if (value==null|| value==DBNull.Value) this["idupb_capofila"]= DBNull.Value; else this["idupb_capofila"]= value;}
+	}
+	public String idupb_capofilaOriginal { 
+		get {if (this["idupb_capofila",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idupb_capofila",DataRowVersion.Original];}
+	}
+	public String codeupb_capofila{ 
+		get {if (this["codeupb_capofila"]==DBNull.Value)return null; return  (String)this["codeupb_capofila"];}
+		set {if (value==null) this["codeupb_capofila"]= DBNull.Value; else this["codeupb_capofila"]= value;}
+	}
+	public object codeupb_capofilaValue { 
+		get{ return this["codeupb_capofila"];}
+		set {if (value==null|| value==DBNull.Value) this["codeupb_capofila"]= DBNull.Value; else this["codeupb_capofila"]= value;}
+	}
+	public String codeupb_capofilaOriginal { 
+		get {if (this["codeupb_capofila",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codeupb_capofila",DataRowVersion.Original];}
+	}
+	public String upb_capofila{ 
+		get {if (this["upb_capofila"]==DBNull.Value)return null; return  (String)this["upb_capofila"];}
+		set {if (value==null) this["upb_capofila"]= DBNull.Value; else this["upb_capofila"]= value;}
+	}
+	public object upb_capofilaValue { 
+		get{ return this["upb_capofila"];}
+		set {if (value==null|| value==DBNull.Value) this["upb_capofila"]= DBNull.Value; else this["upb_capofila"]= value;}
+	}
+	public String upb_capofilaOriginal { 
+		get {if (this["upb_capofila",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["upb_capofila",DataRowVersion.Original];}
 	}
 	#endregion
 
@@ -464,6 +499,9 @@ public class upbviewTable : MetaTableBase<upbviewRow> {
 			{"ct",createColumn("ct",typeof(DateTime),false,false)},
 			{"lu",createColumn("lu",typeof(string),false,false)},
 			{"lt",createColumn("lt",typeof(DateTime),false,false)},
+			{"idupb_capofila",createColumn("idupb_capofila",typeof(string),true,false)},
+			{"codeupb_capofila",createColumn("codeupb_capofila",typeof(string),true,false)},
+			{"upb_capofila",createColumn("upb_capofila",typeof(string),true,false)},
 		};
 	}
 }

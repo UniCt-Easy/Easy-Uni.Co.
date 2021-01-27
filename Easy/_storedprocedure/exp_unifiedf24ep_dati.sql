@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_unifiedf24ep_dati]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_unifiedf24ep_dati]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_unifiedf24ep_dati]
 GO
  
@@ -37,20 +39,20 @@ begin
 
 	--exec exp_unifiedf24ep_dati 1
 	
-	insert into #tributi values ('S','384E','Addizionale comunale Irpef trattenuta dai sostituti dâ€™imposta -saldo','CCCC','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti dâ€™imposta -saldo  
-	insert into #tributi values ('S','385E','Addizionale comunale Irpef trattenuta dai sostituti dâ€™imposta- acconto','CCCC','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti dâ€™imposta- acconto 
-	insert into #tributi values ('S','891E','Sanzioni per ravvedimento su Addizionale comunale Irpef trattenuta dai sostituti dâ€™imposta','CCCC',  null,'AAAA') -- Sanzioni per ravvedimento su Addizionale comunale Irpef trattenuta dai sostituti dâ€™imposta 
-	--insert into #tributi values ('382E',  'EE','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti dâ€™imposta  su emolumenti corrisposti nellâ€™anno solare 2007â€“saldo  	
-	--insert into #tributi values ('383E',  'EE','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti dâ€™imposta su emolumenti corrisposti nellâ€™anno solare 2007- acconto    
+	insert into #tributi values ('S','384E','Addizionale comunale Irpef trattenuta dai sostituti d’imposta -saldo','CCCC','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti d’imposta -saldo  
+	insert into #tributi values ('S','385E','Addizionale comunale Irpef trattenuta dai sostituti d’imposta- acconto','CCCC','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti d’imposta- acconto 
+	insert into #tributi values ('S','891E','Sanzioni per ravvedimento su Addizionale comunale Irpef trattenuta dai sostituti d’imposta','CCCC',  null,'AAAA') -- Sanzioni per ravvedimento su Addizionale comunale Irpef trattenuta dai sostituti d’imposta 
+	--insert into #tributi values ('382E',  'EE','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti d’imposta  su emolumenti corrisposti nell’anno solare 2007–saldo  	
+	--insert into #tributi values ('383E',  'EE','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti d’imposta su emolumenti corrisposti nell’anno solare 2007- acconto    
 	
 	insert into #tributi values ('R','380E', 'IRAP', 'RR','00MM','AAAA') -- IRAP  	
-	insert into #tributi values ('R','381E', 'Addizionale regionale Irpef trattenuta dai sostituti dâ€™imposta', 'RR','00MM','AAAA') -- Addizionale regionale Irpef trattenuta dai sostituti dâ€™imposta  
+	insert into #tributi values ('R','381E', 'Addizionale regionale Irpef trattenuta dai sostituti d’imposta', 'RR','00MM','AAAA') -- Addizionale regionale Irpef trattenuta dai sostituti d’imposta  
 	insert into #tributi values ('R','892E', 'Sanzioni per ravvedimento su IRAP', 'RR',  null,'AAAA') -- Sanzioni per ravvedimento su IRAP 
-	insert into #tributi values ('R','893E', 'Sanzioni per ravvedimento Addizionale regionale Irpef trattenuta dai sostituti dâ€™imposta', 'RR',  null,'AAAA') -- Sanzioni per ravvedimento Addizionale regionale Irpef trattenuta dai sostituti dâ€™imposta  
+	insert into #tributi values ('R','893E', 'Sanzioni per ravvedimento Addizionale regionale Irpef trattenuta dai sostituti d’imposta', 'RR',  null,'AAAA') -- Sanzioni per ravvedimento Addizionale regionale Irpef trattenuta dai sostituti d’imposta  
 	
 	insert into #tributi values ('F','100E', 'Ritenute sui redditi da lavoro dipendente ed assimilati',  null,'00MM','AAAA') -- Ritenute sui redditi da lavoro dipendente ed assimilati  
 	insert into #tributi values ('F','104E', 'Ritenute sui redditi da lavoro autonomo', null,'00MM','AAAA') -- Ritenute sui redditi da lavoro autonomo  
-	insert into #tributi values ('F','105E', 'Ritenute sulle indennitÃ  di esproprio, occupazione , etc. - articolo 11, legge 413/91', null,'00MM','AAAA') -- Ritenute sulle indennitÃ  di esproprio, occupazione , etc. - articolo 11, legge 413/91  
+	insert into #tributi values ('F','105E', 'Ritenute sulle indennità di esproprio, occupazione , etc. - articolo 11, legge 413/91', null,'00MM','AAAA') -- Ritenute sulle indennità di esproprio, occupazione , etc. - articolo 11, legge 413/91  
 	insert into #tributi values ('F','106E', 'Ritenute sui contributi corrisposti alle imprese - articolo 28 D.P.R. 600/73', null,'00MM','AAAA') -- Ritenute sui contributi corrisposti alle imprese - articolo 28 D.P.R. 600/73 
 	insert into #tributi values ('F','107E', 'Altre ritenute alla fonte', null,'00MM','AAAA') -- Altre ritenute alla fonte  
 	insert into #tributi values ('F','890E', 'Sanzioni per ravvedimento su ritenute erariali', null,  null,'AAAA') -- Sanzioni per ravvedimento su ritenute erariali 
@@ -73,7 +75,7 @@ begin
 											 A SEGUITO DI ASSISTENZA FISCALE - ART. 15, COMMA1,
 											 LETT.A)D.LGS. N. 175/2014',  'RR', null, 'AAAA') --SOMME A TITOLO DI ADDIZIONALE REGIONALE ALL''IRPEF RIMBORSATE DAL SOSTITUTO D''IMPOSTA A SEGUITO DI ASSISTENZA FISCALE - ART. 15, COMMA1,LETT.A)D.LGS. N. 175/2014
 	insert into #tributi values ('S','127E', 'ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA 
-											 DAL SOSTITUTO D''IMPOSTA MOD. 730- ACCONTO â€“ ',  'CCCC','00MM','AAAA') --ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA MOD. 730- ACCONTO â€“
+											 DAL SOSTITUTO D''IMPOSTA MOD. 730- ACCONTO – ',  'CCCC','00MM','AAAA') --ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA MOD. 730- ACCONTO –
 	insert into #tributi values ('S','154E', 'SOMME A TITOLO DI ADDIZIONALE 
 											  COMUNALE ALL''IRPEF RIMBORSATE DAL SOSTITUTO 
 											  D''IMPOSTA A SEGUITO DI ASSISTENZA 
@@ -84,8 +86,8 @@ begin
 	-- inserire qui i codici tributo a credito
 
 		
-	insert into #tributi values ( 'S','161E', 'Addizionale comunale Irpef trattenuta dai sostituti dâ€™imposta -saldo', 'CCCC','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti dâ€™imposta -saldo  
-	insert into #tributi values ( 'R','160E', 'Addizionale regionale Irpef trattenuta dai sostituti dâ€™imposta',  'RR','00MM','AAAA') -- Addizionale regionale Irpef trattenuta dai sostituti dâ€™imposta  
+	insert into #tributi values ( 'S','161E', 'Addizionale comunale Irpef trattenuta dai sostituti d’imposta -saldo', 'CCCC','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti d’imposta -saldo  
+	insert into #tributi values ( 'R','160E', 'Addizionale regionale Irpef trattenuta dai sostituti d’imposta',  'RR','00MM','AAAA') -- Addizionale regionale Irpef trattenuta dai sostituti d’imposta  
 	insert into #tributi values ( 'F','156E', 'Ritenute sui redditi da lavoro autonomo', null,'00MM','AAAA') -- Ritenute sui redditi da lavoro autonomo  	
 	insert into #tributi values ( 'F','155E', 'Ritenute sui redditi da lavoro dipendente ed assimilati', null,'00MM','AAAA') -- Ritenute sui redditi da lavoro dipendente ed assimilati  
 	insert into #tributi values ( 'F','165E', 'Bonus fiscale', null,'00MM','AAAA') -- Bonus fiscale 
@@ -156,7 +158,7 @@ insert into #errori (taxcode, idexp, iddbdepartment, ymov, nmov, message)
 		select  distinct unifiedtax.taxcode, null, iddbdepartment, null,null,
 		'Il tributo '+isnull(tax.taxref,'')+' ha il codice '+
 		isnull(tax.fiscaltaxcode,'')+
-		' che non Ã¨ gestito dalla procedura di generazione del modello f24ep'
+		' che non è gestito dalla procedura di generazione del modello f24ep'
 		from unifiedtax 
 		join tax on tax.taxcode = unifiedtax.taxcode
 		where idunifiedf24ep = @idunifiedf24ep
@@ -431,7 +433,7 @@ insert into #errori (taxcode, idexp, iddbdepartment, ymov, nmov, message)
 		insert into #errori (iddbdepartment, taxcode, idexp, ymov, nmov, message)
 			values (@iddbdepartment, @taxcode, @idexp, @ymov, @nmov, 
 			'Per il tributo con codice ' + isnull(@codiceTributo, '')
-			+ ' non Ã¨ stato valorizzato il comune di riferimento');
+			+ ' non è stato valorizzato il comune di riferimento');
 		end
 
 
@@ -440,7 +442,7 @@ insert into #errori (taxcode, idexp, iddbdepartment, ymov, nmov, message)
 		insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov,  message)
 			values (@iddbdepartment, @taxcode, @idexp,@ymov,@nmov, 
 			'Per il tributo con codice ' + isnull(@codiceTributo, '')
-			+ ' non Ã¨ stato valorizzata la regione di riferimento');
+			+ ' non è stato valorizzata la regione di riferimento');
 		end
 
 		if (@rifA = '00MM')
@@ -474,20 +476,20 @@ insert into #errori (taxcode, idexp, iddbdepartment, ymov, nmov, message)
 			insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov, message)
 					values (@iddbdepartment, @taxcode, @idexp, @ymov, @nmov, 
 					'Per il tributo con codice ' + isnull(@codiceTributo, '')
-					+ ' la procedura non Ã¨ stata in grado di ricavare il mese di riferimento');
+					+ ' la procedura non è stata in grado di ricavare il mese di riferimento');
 
 
 		if (@rifA='MMAAAA' and @riferimentoA is null and @rifB is null)
 			insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov, message)
 					values (@iddbdepartment, @taxcode, @idexp, @ymov, @nmov, 
 					'Per il tributo con codice ' + isnull(@codiceTributo, '')
-					+ ' la procedura non Ã¨ stata in grado di ricavare la data di pagamento');
+					+ ' la procedura non è stata in grado di ricavare la data di pagamento');
 
 		if (@rifA='MMAAAA' and @riferimentoA is null and @rifB is not null)
 			insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov, message)
 					values (@iddbdepartment, @taxcode, @idexp, @ymov, @nmov, 
 					'Per il tributo con codice ' + isnull(@codiceTributo, '')
-					+ ' la procedura non Ã¨ stata in grado di ricavare la data di inizio competenza');
+					+ ' la procedura non è stata in grado di ricavare la data di inizio competenza');
 
 		if (@rifB = 'MMAAAA' )
 		begin
@@ -507,13 +509,13 @@ insert into #errori (taxcode, idexp, iddbdepartment, ymov, nmov, message)
 			insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov, message)
 					values (@iddbdepartment, @taxcode, @idexp, @ymov, @nmov, 
 					'Per il tributo con codice ' + isnull(@codiceTributo, '')
-					+ ' la procedura non Ã¨ stata in grado di ricavare l''anno di riferimento');
+					+ ' la procedura non è stata in grado di ricavare l''anno di riferimento');
 
 		if (@rifB='MMAAAA' and @riferimentoB is null)
 			insert into #errori (iddbdepartment, taxcode, idexp, ymov, nmov, message)
 					values (@iddbdepartment, @taxcode, @idexp, @ymov, @nmov, 
 					'Per il tributo con codice ' + isnull(@codiceTributo, '')
-					+ ' la procedura non Ã¨ stata in grado di ricavare la data di fine competenza');
+					+ ' la procedura non è stata in grado di ricavare la data di fine competenza');
 
 
 --sezione: ENTI LOCALI
@@ -551,7 +553,7 @@ insert into #errori (taxcode, idexp, iddbdepartment, ymov, nmov, message)
 					insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov,  message)
 						values (@iddbdepartment,@taxcode, @idexp, @ymov,@nmov,
 						'Per il tributo con codice ' + isnull(@codiceTributo, '')
-						+ ' la procedura non Ã¨ stata in grado di ricavare il codice dell''ente 
+						+ ' la procedura non è stata in grado di ricavare il codice dell''ente 
 						(provincia autonoma/regione)');
 					end
 			end
@@ -577,7 +579,7 @@ insert into #errori (taxcode, idexp, iddbdepartment, ymov, nmov, message)
 				insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov, message)
 					values (@iddbdepartment, @taxcode, @idexp,@ymov,@nmov,
 					'Per il tributo con codice ' + isnull(@codiceTributo, '')
-					+ ' la procedura non Ã¨ stata in grado di ricavare il codice dell''ente 
+					+ ' la procedura non è stata in grado di ricavare il codice dell''ente 
 					(comune)');
 				end
 		end
@@ -596,7 +598,7 @@ insert into #errori (taxcode, idexp, iddbdepartment, ymov, nmov, message)
 				insert into #errori (iddbdepartment,taxcode, idexp, ymov, nmov,  message)
 					values (@iddbdepartment,@taxcode, @idexp,@ymov,@nmov,
 					'Per il tributo con codice ' + isnull(@codiceTributo, '')
-					+ ' la procedura non Ã¨ stata in grado di ricavare il codice dell''ente (regione)');
+					+ ' la procedura non è stata in grado di ricavare il codice dell''ente (regione)');
 			end
 		end
 
@@ -822,4 +824,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

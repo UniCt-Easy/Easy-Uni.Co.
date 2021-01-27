@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[split_invoicedetail_incomevar]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[split_invoicedetail_incomevar]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [split_invoicedetail_incomevar]
 GO
 
@@ -206,7 +208,7 @@ BEGIN
 	SET @erroreprecedente=0
 	--SET @erroredetraibileprec = 0 
 
--- Servir√† dopo nello split
+-- Servir‡ dopo nello split
 	select  @nrow = max(rownum)  
 	from invoicedetail 
 	where idinvkind=@idinvkind and yinv = @yinv and ninv = @ninv
@@ -215,7 +217,7 @@ BEGIN
 	from invoice
 	where idinvkind=@idinvkind and yinv = @yinv and ninv = @ninv
 
--- controlla se la fattura √® stata liquidata
+-- controlla se la fattura Ë stata liquidata
 	if (select COUNT(*) from invoicedeferred 
 			    where idinvkind = @idinvkind and yinv = @yinv and ninv = @ninv)>0	 
 		set @liquidata = 1
@@ -326,7 +328,7 @@ BEGIN
 		where idinvkind = @idinvkind and yinv = @yinv and ninv =@ninv
 		and idinc_taxable is null and idinc_iva is null
 
-		while (@elabora<30)-- questo cicla finch√® non quadra 
+		while (@elabora<30)-- questo cicla finchË non quadra 
 		begin
 			select @totimponibileeffettivo = CONVERT(DECIMAL(19,2),
 				      ISNULL(SUM(
@@ -406,7 +408,7 @@ BEGIN
 			and idinc_taxable is null and idinc_iva is null)
 		--End
 
-		while (@elabora<30 and @epsilon_c<>1)-- questo cicla finch√® non quadra 
+		while (@elabora<30 and @epsilon_c<>1)-- questo cicla finchË non quadra 
 		begin
 			select @totivaeffettivo =  CONVERT(DECIMAL(19,2),
 						ISNULL(SUM(Round(Round(tax*@epsilon_iva_c,2)*CONVERT(decimal(19,6), @exchangerate),2)	
@@ -605,4 +607,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

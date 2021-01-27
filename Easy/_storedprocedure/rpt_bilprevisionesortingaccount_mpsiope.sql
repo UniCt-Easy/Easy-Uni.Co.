@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilprevisionesortingaccount_mpsiope]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilprevisionesortingaccount_mpsiope]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_bilprevisionesortingaccount_mpsiope]
 GO
 
@@ -127,8 +129,8 @@ IF 	(@showchildupb = 'S') set @idupb=@idupb+'%'
 declare	@Sorkind	varchar(50)--> Classificazione Missioni Programmi
 select @Sorkind = description from sortingkind where idsorkind = @idsorkind_MissProg
 
-declare @levelparent varchar(50) --> Nome del 1¬∞ livello della classificazione Missioni/Programmi
-declare @levelchild varchar(50)--> Nome del 2¬∞ livello della classificazione Missioni/Programmi
+declare @levelparent varchar(50) --> Nome del 1∞ livello della classificazione Missioni/Programmi
+declare @levelchild varchar(50)--> Nome del 2∞ livello della classificazione Missioni/Programmi
 select @levelparent = description from sortinglevel where idsorkind = @idsorkind_MissProg and nlevel = 1
 select @levelchild = description from sortinglevel where idsorkind = @idsorkind_MissProg and nlevel = 2
 
@@ -236,4 +238,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

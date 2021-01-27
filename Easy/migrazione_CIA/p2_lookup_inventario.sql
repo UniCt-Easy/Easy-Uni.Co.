@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿IF  EXISTS(select * from sysobjects where id = object_id(N'[lookup_inventario]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+
+IF  EXISTS(select * from sysobjects where id = object_id(N'[lookup_inventario]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 BEGIN
 	DROP TABLE lookup_inventario
 END
@@ -22,7 +24,7 @@ CREATE TABLE lookup_inventario (
 	codiceente varchar(20),
 	descrizioneente varchar(150),	
 	codiceinventario varchar(20),
-	descrizioneinventario varchar(100), --va troncata a 50 perÃ²
+	descrizioneinventario varchar(100), --va troncata a 50 però
 	tipo_LIB_ORD varchar(3),
 	id_inventario varchar(10) not null
 )
@@ -84,11 +86,10 @@ from lookup_inventario
 	join lookup_inventario I2 ON  I2.codiceente= [lookup_inventario].codiceente and I2.tipo_LIB_ORD='ORD'
 where [lookup_inventario].tipo_LIB_ORD='LIB'
 
---rende piÃ¹ previ le descr. per non sforare i 50 caratteri inutilmente
+--rende più previ le descr. per non sforare i 50 caratteri inutilmente
 update lookup_inventario set descrizioneinventario= substring(REPLACE(descrizioneinventario,'dipartimento','Dip.') ,1,50)
 
 GO
 
 
 
-	

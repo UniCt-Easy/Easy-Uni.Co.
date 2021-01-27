@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[get_originalassetvalue]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [get_originalassetvalue]
 GO
@@ -137,7 +139,7 @@ IF   (@idpiece > 1)
 	END
 
 ------------------------------------------------------------------------------------------
--- Calcola gli accessori scaricati caricati come posseduti e giÃ  inclusi nel cespite -----
+-- Calcola gli accessori scaricati caricati come posseduti e già inclusi nel cespite -----
 ------------------------------------------------------------------------------------------	
 DECLARE @totpieceunloaded decimal(19,2) 
 IF      (@idpiece = 1)
@@ -217,7 +219,7 @@ if @totpieceunloaded > 0 begin
 				AND   (inventoryamortization.flag & 2 <> 0))
 			,0)
 
--- sia valore tot = valore attuale del cespite piÃ¹ tutti i valori degli accessori scaricati, al momento dello scarico
+-- sia valore tot = valore attuale del cespite più tutti i valori degli accessori scaricati, al momento dello scarico
 -- sia 	@initialamount = valore del carico iniziale (cespite e accessori posseduti insieme)
 --			 valore tot = (original + accessori) * (1+sum am.quota prima degli scarichi) + original * (sum am.quota dopo scarichi)
 --						=  original  * (1+sum all am.quota)  +   (accessori * (1+sum am.quota prima scarichi))
@@ -260,7 +262,7 @@ val.attuale rimasto = C0(1+X+Y)
 	   
 
 Ora considerando un valore di partenza STORICO Z diverso da quello di carico iniziale, 
-ove Z = Z0+A0 Ã¨ il valore iniziale complessivo dei cespiti posseduti	rivelatisi nella nuova gestione
+ove Z = Z0+A0 è il valore iniziale complessivo dei cespiti posseduti	rivelatisi nella nuova gestione
 mentre Z0 il valore al netto (equivalente di C0 nel precedente esempio)		
 			val.corrente + scaricato = C0 + Z0(X+Y) + A
 									 = C0 + Z0(X+Y) + A0(1+X)
@@ -309,4 +311,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

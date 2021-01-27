@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_anagrafica]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_anagrafica]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_anagrafica]
 GO
 
@@ -42,7 +44,7 @@ SET @len_note = 400
 
 SELECT 
 	LKA.idreg as 'codice',
--- 21: Societ√†, enti commerciali, ditte individuali e studi associati. 
+-- 21: Societ‡, enti commerciali, ditte individuali e studi associati. 
 -- 22: Persona Fisica 
 -- 23: Enti non commerciali ed istituzioni internazionali 
 -- 24: Anagrafiche complementari 
@@ -138,7 +140,7 @@ SELECT
     null as datainizioposgiurid, --      datainizioposgiurid: Pos. 1376 lunghezza    8 Tipo:            Data Descrizione: Data Inizio Posizione giuridica
     null as imponpresunto, --            imponpresunto: Pos. 1384 lunghezza   22 Tipo:          Numero Descrizione: Imponibile presunto anno
     null as classestipendiale, --        classestipendiale: Pos. 1406 lunghezza    8 Tipo:          Intero Descrizione: Classe Stipendiale
-    null as codicequalifica, --          codicequalifica: Pos. 1414 lunghezza   20 Tipo:         Stringa Descrizione: Codice Qualifica (deve corrispondere ad un codice gi√† presente nel db)
+    null as codicequalifica, --          codicequalifica: Pos. 1414 lunghezza   20 Tipo:         Stringa Descrizione: Codice Qualifica (deve corrispondere ad un codice gi‡ presente nel db)
     null as id_class_centralizzata, --   id_class_centralizzata: Pos. 1434 lunghezza   20 Tipo:         Stringa Descrizione: ID classificazione centralizzata
     null as descr_class_centralizzata, --descr_class_centralizzata: Pos. 1454 lunghezza   50 Tipo:         Stringa Descrizione: Descrizione class. centralizzata
     null as id_tipo_anagrafica, --       id_tipo_anagrafica: Pos. 1504 lunghezza   4  Tipo:          intero Descrizione: ID tipo anagrafica
@@ -217,7 +219,7 @@ SELECT
     null as datainizioposgiurid, --      datainizioposgiurid: Pos. 1376 lunghezza    8 Tipo:            Data Descrizione: Data Inizio Posizione giuridica
     null as imponpresunto, --            imponpresunto: Pos. 1384 lunghezza   22 Tipo:          Numero Descrizione: Imponibile presunto anno
     null as classestipendiale, --        classestipendiale: Pos. 1406 lunghezza    8 Tipo:          Intero Descrizione: Classe Stipendiale
-    null as codicequalifica, --          codicequalifica: Pos. 1414 lunghezza   20 Tipo:         Stringa Descrizione: Codice Qualifica (deve corrispondere ad un codice gi√† presente nel db)
+    null as codicequalifica, --          codicequalifica: Pos. 1414 lunghezza   20 Tipo:         Stringa Descrizione: Codice Qualifica (deve corrispondere ad un codice gi‡ presente nel db)
     null as id_class_centralizzata, --   id_class_centralizzata: Pos. 1434 lunghezza   20 Tipo:         Stringa Descrizione: ID classificazione centralizzata
     null as descr_class_centralizzata, --descr_class_centralizzata: Pos. 1454 lunghezza   50 Tipo:         Stringa Descrizione: Descrizione class. centralizzata
     null as id_tipo_anagrafica, --       id_tipo_anagrafica: Pos. 1504 lunghezza   4  Tipo:          intero Descrizione: ID tipo anagrafica
@@ -293,7 +295,7 @@ SELECT DISTINCT
     null as datainizioposgiurid, --      datainizioposgiurid: Pos. 1376 lunghezza    8 Tipo:            Data Descrizione: Data Inizio Posizione giuridica
     null as imponpresunto, --            imponpresunto: Pos. 1384 lunghezza   22 Tipo:          Numero Descrizione: Imponibile presunto anno
     null as classestipendiale, --        classestipendiale: Pos. 1406 lunghezza    8 Tipo:          Intero Descrizione: Classe Stipendiale
-    null as codicequalifica, --          codicequalifica: Pos. 1414 lunghezza   20 Tipo:         Stringa Descrizione: Codice Qualifica (deve corrispondere ad un codice gi√† presente nel db)
+    null as codicequalifica, --          codicequalifica: Pos. 1414 lunghezza   20 Tipo:         Stringa Descrizione: Codice Qualifica (deve corrispondere ad un codice gi‡ presente nel db)
     null as id_class_centralizzata, --   id_class_centralizzata: Pos. 1434 lunghezza   20 Tipo:         Stringa Descrizione: ID classificazione centralizzata
     null as descr_class_centralizzata, --descr_class_centralizzata: Pos. 1454 lunghezza   50 Tipo:         Stringa Descrizione: Descrizione class. centralizzata
     null as id_tipo_anagrafica, --       id_tipo_anagrafica: Pos. 1504 lunghezza   4  Tipo:          intero Descrizione: ID tipo anagrafica
@@ -321,4 +323,3 @@ GO
 --EXEC exp_anagrafica
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
-	

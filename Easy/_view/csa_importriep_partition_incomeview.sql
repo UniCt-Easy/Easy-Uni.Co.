@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿-- CREAZIONE VISTA [csa_importriep_partition_incomeview]
+
+-- CREAZIONE VISTA [csa_importriep_partition_incomeview]
 IF EXISTS(select * from sysobjects where id = object_id(N'[csa_importriep_partition_incomeview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [csa_importriep_partition_incomeview]
 GO  
@@ -52,6 +54,7 @@ CREATE VIEW  [csa_importriep_partition_incomeview]
 	idreg_main,
 	registry_main,
 	matricola,
+	ruolocsa,
 	lu,	lt,cu,ct
 )
 AS SELECT 
@@ -82,6 +85,7 @@ AS SELECT
 	REG_MAIN.idreg,
 	REG_MAIN.title,
 	IR.matricola,
+	IR.ruolocsa,
 	RE.lu,	RE.lt,RE.cu,RE.ct
 FROM csa_importriep_partition_income RPI
 JOIN csa_importriep_partition RE	ON RPI.idcsa_import = RE.idcsa_import  AND RPI.idriep = RE.idriep AND RPI.ndetail = RE.ndetail
@@ -100,4 +104,3 @@ LEFT OUTER JOIN csa_movkind MK		ON 	MK.movkind = RPI.movkind
 GO
 
 
-	

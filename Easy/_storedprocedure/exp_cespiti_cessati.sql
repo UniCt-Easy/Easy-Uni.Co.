@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_cespiti_cessati]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_cespiti_cessati]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_cespiti_cessati]
 GO
 
@@ -25,7 +27,7 @@ GO
 --exp_cespiti_cessati 'amm',null
 
 /*
-Il dipartimento di destinazione normalmente dovrebbe essere quello di lookup_inventory MA se c'√® corrispondenza tra
+Il dipartimento di destinazione normalmente dovrebbe essere quello di lookup_inventory MA se c'Ë corrispondenza tra
  codice dip. e idmanager presenti in lookup_manager, il dipartimento di destinazione cambia
 
 */
@@ -67,7 +69,7 @@ AS BEGIN
 												  else  LKINV.dipdest 
         END as descrinvagency ,		  --Descrizione Ente Inventariale;Stringa;150",
         AV.ninventory as  numinv,	 --	;Numero di inventario;Intero;8",
-        AV.idpiece as  nprogr,		--;Numero progressivo. 1 per i cespiti, 2 o pi√π per gli accessori;Intero;5",
+        AV.idpiece as  nprogr,		--;Numero progressivo. 1 per i cespiti, 2 o pi˘ per gli accessori;Intero;5",
 		AV.lifestart as inizioesist,	--;Inizio esistenza;Data;8",
 		AV.codeinv as codiceclass, --Codice classificazione inventariale;Stringa;20",
 		AV.description as	descr, --;Descrizione Cespite;Stringa;150",
@@ -109,8 +111,8 @@ AS BEGIN
 	where AV.is_loaded='S' and AV.is_unloaded='N'
 				AND isnull(@codeinventoryagency,IA_S.codeinventoryagency)=IA_S.codeinventoryagency
 
-				--se c'√® un collegamento responsabile -> nuovo dipartimento allora dipdest deve essere quello
-				--se invece non c'√® allora va preso la riga LKINV con dipdest = null ossia che 
+				--se c'Ë un collegamento responsabile -> nuovo dipartimento allora dipdest deve essere quello
+				--se invece non c'Ë allora va preso la riga LKINV con dipdest = null ossia che 
 				and  (		(LKMAN.dipdest = LKINV.dipdest )
 						or	(LKMAN.dipdest is null AND  LKINV.default_dest  = 'S')
 					 )
@@ -126,4 +128,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

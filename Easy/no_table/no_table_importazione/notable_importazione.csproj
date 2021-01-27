@@ -214,6 +214,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>vistaEntiCsa.xsd</DependentUpon>
     </Compile>
+    <Compile Include="vistaGomp.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaGomp.xsd</DependentUpon>
+    </Compile>
     <Compile Include="vistaListClass.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -651,6 +656,17 @@
     </None>
     <None Include="vistaEntiCsa.xss">
       <DependentUpon>vistaEntiCsa.xsd</DependentUpon>
+    </None>
+    <None Include="vistaGomp.xsc">
+      <DependentUpon>vistaGomp.xsd</DependentUpon>
+    </None>
+    <None Include="vistaGomp.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaGomp.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaGomp.xss">
+      <DependentUpon>vistaGomp.xsd</DependentUpon>
     </None>
     <None Include="VistaMovBudget.xsc">
       <DependentUpon>VistaMovBudget.xsd</DependentUpon>
@@ -1405,7 +1421,7 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System.Data;
+
+using System.Data;
 using metadatalibrary;
 using metaeasylibrary;
 //$CustomUsing$
@@ -55,8 +57,8 @@ namespace meta_geo_nation
 					
 			switch (ListingType) {
 				case "default": {
-						DescribeAColumn(T, "start", "Inizio validit√†", nPos++);
-						DescribeAColumn(T, "stop", "Fine validit√†", nPos++);
+						DescribeAColumn(T, "start", "Inizio validit‡", nPos++);
+						DescribeAColumn(T, "stop", "Fine validit‡", nPos++);
 						DescribeAColumn(T, "title", "Nazione", nPos++);
 						break;
 					}
@@ -68,8 +70,8 @@ namespace meta_geo_nation
 						DescribeAColumn(T, "title", "Denominazione", nPos++);
 						DescribeAColumn(T, "!idcontinent_geo_continent_title", "Continente", nPos++);
 						DescribeAColumn(T, "lang", "Lingua", nPos++);
-						DescribeAColumn(T, "!newnation_geo_nation_title", "nazione in cui questa √® confluita", nPos++);
-						DescribeAColumn(T, "!oldnation_geo_nation_title", "nazione da cui questa  √® confluita", nPos++);
+						DescribeAColumn(T, "!newnation_geo_nation_title", "nazione in cui questa Ë confluita", nPos++);
+						DescribeAColumn(T, "!oldnation_geo_nation_title", "nazione da cui questa  Ë confluita", nPos++);
 						DescribeAColumn(T, "start", "data inizio", nPos++);
 						DescribeAColumn(T, "stop", "data fine", nPos++);
 						break;
@@ -77,8 +79,8 @@ namespace meta_geo_nation
 				case "segchild": {
 						DescribeAColumn(T, "title", "Denominazione", nPos++);
 						DescribeAColumn(T, "lang", "Lingua", nPos++);
-						DescribeAColumn(T, "!newnation_geo_nation_title", "nazione in cui questa √® confluita", nPos++);
-						DescribeAColumn(T, "!oldnation_geo_nation_title", "nazione da cui questa  √® confluita", nPos++);
+						DescribeAColumn(T, "!newnation_geo_nation_title", "nazione in cui questa Ë confluita", nPos++);
+						DescribeAColumn(T, "!oldnation_geo_nation_title", "nazione da cui questa  Ë confluita", nPos++);
 						DescribeAColumn(T, "start", "data inizio", nPos++);
 						DescribeAColumn(T, "stop", "data fine", nPos++);
 						break;

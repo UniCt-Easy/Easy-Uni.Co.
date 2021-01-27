@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -445,6 +447,9 @@ namespace upb_default {
 		private RadioButton rdbUE01;
 		private ComboBox cmbCofog;
 		private Label label66;
+		private GroupBox gboxUPB;
+		private Button btnUPBCapofila;
+		public TextBox txtUPBCapofila;
 
 		delegate string myUPBComparator(string field, object value);
 		myUPBComparator upbComp;
@@ -863,6 +868,9 @@ namespace upb_default {
 			this.txtCostiDare = new System.Windows.Forms.TextBox();
 			this.btnCalcolaTutto = new System.Windows.Forms.Button();
 			this.tabAltro = new System.Windows.Forms.TabPage();
+			this.gboxUPB = new System.Windows.Forms.GroupBox();
+			this.btnUPBCapofila = new System.Windows.Forms.Button();
+			this.txtUPBCapofila = new System.Windows.Forms.TextBox();
 			this.checkBox2 = new System.Windows.Forms.CheckBox();
 			this.groupBox9 = new System.Windows.Forms.GroupBox();
 			this.chkBloccaCoFiMovimenti = new System.Windows.Forms.CheckBox();
@@ -951,6 +959,7 @@ namespace upb_default {
 			this.groupBox10.SuspendLayout();
 			this.tabPage5.SuspendLayout();
 			this.tabAltro.SuspendLayout();
+			this.gboxUPB.SuspendLayout();
 			this.groupBox9.SuspendLayout();
 			this.grpBlocca.SuspendLayout();
 			this.grpDatiPrevisioneBudget.SuspendLayout();
@@ -1006,7 +1015,7 @@ namespace upb_default {
 			this.MetaDataDetail.Multiline = true;
 			this.MetaDataDetail.Name = "MetaDataDetail";
 			this.MetaDataDetail.SelectedIndex = 0;
-			this.MetaDataDetail.Size = new System.Drawing.Size(678, 553);
+			this.MetaDataDetail.Size = new System.Drawing.Size(753, 553);
 			this.MetaDataDetail.TabIndex = 1;
 			// 
 			// tabPrincipale
@@ -1049,7 +1058,7 @@ namespace upb_default {
 			this.tabPrincipale.Controls.Add(this.label16);
 			this.tabPrincipale.Location = new System.Drawing.Point(4, 23);
 			this.tabPrincipale.Name = "tabPrincipale";
-			this.tabPrincipale.Size = new System.Drawing.Size(670, 526);
+			this.tabPrincipale.Size = new System.Drawing.Size(745, 526);
 			this.tabPrincipale.TabIndex = 0;
 			this.tabPrincipale.Text = "Principale";
 			this.tabPrincipale.UseVisualStyleBackColor = true;
@@ -1140,24 +1149,24 @@ namespace upb_default {
 			// 
 			// gboxResponsabile
 			// 
-			this.gboxResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.gboxResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.gboxResponsabile.Controls.Add(this.txtResponsabile);
 			this.gboxResponsabile.Controls.Add(this.btnResponsabile);
 			this.gboxResponsabile.Location = new System.Drawing.Point(8, 137);
 			this.gboxResponsabile.Name = "gboxResponsabile";
-			this.gboxResponsabile.Size = new System.Drawing.Size(654, 40);
+			this.gboxResponsabile.Size = new System.Drawing.Size(729, 40);
 			this.gboxResponsabile.TabIndex = 5;
 			this.gboxResponsabile.TabStop = false;
 			this.gboxResponsabile.Tag = "AutoChoose.txtResponsabile.default.(financeactive=\'S\')";
 			// 
 			// txtResponsabile
 			// 
-			this.txtResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtResponsabile.Location = new System.Drawing.Point(114, 14);
 			this.txtResponsabile.Name = "txtResponsabile";
-			this.txtResponsabile.Size = new System.Drawing.Size(534, 20);
+			this.txtResponsabile.Size = new System.Drawing.Size(609, 20);
 			this.txtResponsabile.TabIndex = 0;
 			this.txtResponsabile.Tag = "manager.title?x";
 			// 
@@ -1173,24 +1182,24 @@ namespace upb_default {
 			// 
 			// gboxUnderwriting
 			// 
-			this.gboxUnderwriting.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.gboxUnderwriting.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.gboxUnderwriting.Controls.Add(this.txtUnderwriting);
 			this.gboxUnderwriting.Controls.Add(this.btnEnteFin);
 			this.gboxUnderwriting.Location = new System.Drawing.Point(8, 183);
 			this.gboxUnderwriting.Name = "gboxUnderwriting";
-			this.gboxUnderwriting.Size = new System.Drawing.Size(654, 44);
+			this.gboxUnderwriting.Size = new System.Drawing.Size(729, 44);
 			this.gboxUnderwriting.TabIndex = 6;
 			this.gboxUnderwriting.TabStop = false;
 			this.gboxUnderwriting.Tag = "AutoChoose.txtUnderwriting.default";
 			// 
 			// txtUnderwriting
 			// 
-			this.txtUnderwriting.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtUnderwriting.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtUnderwriting.Location = new System.Drawing.Point(114, 18);
 			this.txtUnderwriting.Name = "txtUnderwriting";
-			this.txtUnderwriting.Size = new System.Drawing.Size(534, 20);
+			this.txtUnderwriting.Size = new System.Drawing.Size(609, 20);
 			this.txtUnderwriting.TabIndex = 0;
 			this.txtUnderwriting.Tag = "underwriter.description?x";
 			// 
@@ -1480,12 +1489,12 @@ namespace upb_default {
 			// 
 			// txtDenominazione
 			// 
-			this.txtDenominazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDenominazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDenominazione.Location = new System.Drawing.Point(8, 91);
 			this.txtDenominazione.Multiline = true;
 			this.txtDenominazione.Name = "txtDenominazione";
-			this.txtDenominazione.Size = new System.Drawing.Size(654, 40);
+			this.txtDenominazione.Size = new System.Drawing.Size(729, 40);
 			this.txtDenominazione.TabIndex = 4;
 			this.txtDenominazione.Tag = "upb.title?upbyearview.upb";
 			// 
@@ -1542,48 +1551,48 @@ namespace upb_default {
 			this.tabPrevisione.Controls.Add(this.btnInsPrevisione);
 			this.tabPrevisione.Controls.Add(this.btnEditPrevisione);
 			this.tabPrevisione.Controls.Add(this.btnDelPrevisione);
-			this.tabPrevisione.Location = new System.Drawing.Point(4, 42);
+			this.tabPrevisione.Location = new System.Drawing.Point(4, 23);
 			this.tabPrevisione.Name = "tabPrevisione";
-			this.tabPrevisione.Size = new System.Drawing.Size(619, 507);
+			this.tabPrevisione.Size = new System.Drawing.Size(745, 526);
 			this.tabPrevisione.TabIndex = 4;
 			this.tabPrevisione.Text = "Previsione";
 			this.tabPrevisione.UseVisualStyleBackColor = true;
 			// 
 			// groupBox5
 			// 
-			this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox5.Controls.Add(this.dgVariazioni);
 			this.groupBox5.Location = new System.Drawing.Point(10, 269);
 			this.groupBox5.Name = "groupBox5";
-			this.groupBox5.Size = new System.Drawing.Size(606, 227);
+			this.groupBox5.Size = new System.Drawing.Size(732, 246);
 			this.groupBox5.TabIndex = 24;
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Variazioni Bilancio";
 			// 
 			// dgVariazioni
 			// 
-			this.dgVariazioni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.dgVariazioni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgVariazioni.DataMember = "";
 			this.dgVariazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgVariazioni.Location = new System.Drawing.Point(6, 28);
 			this.dgVariazioni.Name = "dgVariazioni";
-			this.dgVariazioni.Size = new System.Drawing.Size(593, 193);
+			this.dgVariazioni.Size = new System.Drawing.Size(719, 212);
 			this.dgVariazioni.TabIndex = 24;
 			this.dgVariazioni.Tag = "finvardetailview.upb";
 			// 
 			// dgPrevisione
 			// 
-			this.dgPrevisione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.dgPrevisione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgPrevisione.DataMember = "";
 			this.dgPrevisione.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgPrevisione.Location = new System.Drawing.Point(97, 8);
 			this.dgPrevisione.Name = "dgPrevisione";
-			this.dgPrevisione.Size = new System.Drawing.Size(514, 255);
+			this.dgPrevisione.Size = new System.Drawing.Size(640, 255);
 			this.dgPrevisione.TabIndex = 22;
 			this.dgPrevisione.Tag = "finyearview.previsionfin.previsionfin";
 			// 
@@ -1624,9 +1633,9 @@ namespace upb_default {
 			this.tabBudget.Controls.Add(this.button1);
 			this.tabBudget.Controls.Add(this.button2);
 			this.tabBudget.Controls.Add(this.button3);
-			this.tabBudget.Location = new System.Drawing.Point(4, 42);
+			this.tabBudget.Location = new System.Drawing.Point(4, 23);
 			this.tabBudget.Name = "tabBudget";
-			this.tabBudget.Size = new System.Drawing.Size(619, 507);
+			this.tabBudget.Size = new System.Drawing.Size(670, 526);
 			this.tabBudget.TabIndex = 7;
 			this.tabBudget.Text = "Budget";
 			this.tabBudget.UseVisualStyleBackColor = true;
@@ -1666,39 +1675,39 @@ namespace upb_default {
 			// 
 			// groupBox2
 			// 
-			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox2.Controls.Add(this.dgBudgetVar);
 			this.groupBox2.Location = new System.Drawing.Point(9, 269);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(605, 227);
+			this.groupBox2.Size = new System.Drawing.Size(656, 246);
 			this.groupBox2.TabIndex = 29;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Variazioni Budget";
 			// 
 			// dgBudgetVar
 			// 
-			this.dgBudgetVar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.dgBudgetVar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgBudgetVar.DataMember = "";
 			this.dgBudgetVar.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgBudgetVar.Location = new System.Drawing.Point(6, 28);
 			this.dgBudgetVar.Name = "dgBudgetVar";
-			this.dgBudgetVar.Size = new System.Drawing.Size(593, 193);
+			this.dgBudgetVar.Size = new System.Drawing.Size(644, 212);
 			this.dgBudgetVar.TabIndex = 24;
 			this.dgBudgetVar.Tag = "accountvardetailview.upb";
 			// 
 			// dgBudget
 			// 
-			this.dgBudget.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.dgBudget.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgBudget.DataMember = "";
 			this.dgBudget.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgBudget.Location = new System.Drawing.Point(96, 38);
 			this.dgBudget.Name = "dgBudget";
-			this.dgBudget.Size = new System.Drawing.Size(513, 225);
+			this.dgBudget.Size = new System.Drawing.Size(564, 225);
 			this.dgBudget.TabIndex = 28;
 			this.dgBudget.Tag = "accountyearview.previsionaccount.previsionaccount";
 			// 
@@ -1736,23 +1745,23 @@ namespace upb_default {
 			this.tabClassificazione.Controls.Add(this.btnModifica);
 			this.tabClassificazione.Controls.Add(this.btnInserisci);
 			this.tabClassificazione.ImageIndex = 0;
-			this.tabClassificazione.Location = new System.Drawing.Point(4, 42);
+			this.tabClassificazione.Location = new System.Drawing.Point(4, 23);
 			this.tabClassificazione.Name = "tabClassificazione";
-			this.tabClassificazione.Size = new System.Drawing.Size(619, 507);
+			this.tabClassificazione.Size = new System.Drawing.Size(745, 526);
 			this.tabClassificazione.TabIndex = 1;
 			this.tabClassificazione.Text = "Class.";
 			this.tabClassificazione.UseVisualStyleBackColor = true;
 			// 
 			// dGridClassSup
 			// 
-			this.dGridClassSup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.dGridClassSup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dGridClassSup.DataMember = "";
 			this.dGridClassSup.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dGridClassSup.Location = new System.Drawing.Point(88, 9);
 			this.dGridClassSup.Name = "dGridClassSup";
-			this.dGridClassSup.Size = new System.Drawing.Size(523, 485);
+			this.dGridClassSup.Size = new System.Drawing.Size(649, 504);
 			this.dGridClassSup.TabIndex = 17;
 			this.dGridClassSup.Tag = "upbsorting.default.default";
 			// 
@@ -1791,24 +1800,24 @@ namespace upb_default {
 			this.tabAttributi.Controls.Add(this.gboxclass03);
 			this.tabAttributi.Controls.Add(this.gboxclass02);
 			this.tabAttributi.Controls.Add(this.gboxclass01);
-			this.tabAttributi.Location = new System.Drawing.Point(4, 42);
+			this.tabAttributi.Location = new System.Drawing.Point(4, 23);
 			this.tabAttributi.Name = "tabAttributi";
 			this.tabAttributi.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAttributi.Size = new System.Drawing.Size(619, 507);
+			this.tabAttributi.Size = new System.Drawing.Size(745, 526);
 			this.tabAttributi.TabIndex = 2;
 			this.tabAttributi.Text = "Attributi";
 			this.tabAttributi.UseVisualStyleBackColor = true;
 			// 
 			// gboxclass05
 			// 
-			this.gboxclass05.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.gboxclass05.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.gboxclass05.Controls.Add(this.txtCodice05);
 			this.gboxclass05.Controls.Add(this.btnCodice05);
 			this.gboxclass05.Controls.Add(this.txtDenom05);
 			this.gboxclass05.Location = new System.Drawing.Point(5, 286);
 			this.gboxclass05.Name = "gboxclass05";
-			this.gboxclass05.Size = new System.Drawing.Size(611, 64);
+			this.gboxclass05.Size = new System.Drawing.Size(737, 64);
 			this.gboxclass05.TabIndex = 18;
 			this.gboxclass05.TabStop = false;
 			this.gboxclass05.Tag = "";
@@ -1833,28 +1842,28 @@ namespace upb_default {
 			// 
 			// txtDenom05
 			// 
-			this.txtDenom05.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDenom05.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDenom05.Location = new System.Drawing.Point(267, 8);
 			this.txtDenom05.Multiline = true;
 			this.txtDenom05.Name = "txtDenom05";
 			this.txtDenom05.ReadOnly = true;
-			this.txtDenom05.Size = new System.Drawing.Size(336, 52);
+			this.txtDenom05.Size = new System.Drawing.Size(462, 52);
 			this.txtDenom05.TabIndex = 3;
 			this.txtDenom05.TabStop = false;
 			this.txtDenom05.Tag = "sorting05.description";
 			// 
 			// gboxclass04
 			// 
-			this.gboxclass04.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.gboxclass04.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.gboxclass04.Controls.Add(this.txtCodice04);
 			this.gboxclass04.Controls.Add(this.btnCodice04);
 			this.gboxclass04.Controls.Add(this.txtDenom04);
 			this.gboxclass04.Location = new System.Drawing.Point(5, 216);
 			this.gboxclass04.Name = "gboxclass04";
-			this.gboxclass04.Size = new System.Drawing.Size(611, 64);
+			this.gboxclass04.Size = new System.Drawing.Size(737, 64);
 			this.gboxclass04.TabIndex = 17;
 			this.gboxclass04.TabStop = false;
 			this.gboxclass04.Tag = "";
@@ -1879,28 +1888,28 @@ namespace upb_default {
 			// 
 			// txtDenom04
 			// 
-			this.txtDenom04.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDenom04.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDenom04.Location = new System.Drawing.Point(267, 8);
 			this.txtDenom04.Multiline = true;
 			this.txtDenom04.Name = "txtDenom04";
 			this.txtDenom04.ReadOnly = true;
-			this.txtDenom04.Size = new System.Drawing.Size(336, 52);
+			this.txtDenom04.Size = new System.Drawing.Size(462, 52);
 			this.txtDenom04.TabIndex = 3;
 			this.txtDenom04.TabStop = false;
 			this.txtDenom04.Tag = "sorting04.description";
 			// 
 			// gboxclass03
 			// 
-			this.gboxclass03.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.gboxclass03.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.gboxclass03.Controls.Add(this.txtCodice03);
 			this.gboxclass03.Controls.Add(this.btnCodice03);
 			this.gboxclass03.Controls.Add(this.txtDenom03);
 			this.gboxclass03.Location = new System.Drawing.Point(6, 146);
 			this.gboxclass03.Name = "gboxclass03";
-			this.gboxclass03.Size = new System.Drawing.Size(611, 64);
+			this.gboxclass03.Size = new System.Drawing.Size(737, 64);
 			this.gboxclass03.TabIndex = 15;
 			this.gboxclass03.TabStop = false;
 			this.gboxclass03.Tag = "";
@@ -1925,28 +1934,28 @@ namespace upb_default {
 			// 
 			// txtDenom03
 			// 
-			this.txtDenom03.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDenom03.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDenom03.Location = new System.Drawing.Point(267, 8);
 			this.txtDenom03.Multiline = true;
 			this.txtDenom03.Name = "txtDenom03";
 			this.txtDenom03.ReadOnly = true;
-			this.txtDenom03.Size = new System.Drawing.Size(336, 52);
+			this.txtDenom03.Size = new System.Drawing.Size(462, 52);
 			this.txtDenom03.TabIndex = 3;
 			this.txtDenom03.TabStop = false;
 			this.txtDenom03.Tag = "sorting03.description";
 			// 
 			// gboxclass02
 			// 
-			this.gboxclass02.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.gboxclass02.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.gboxclass02.Controls.Add(this.txtCodice02);
 			this.gboxclass02.Controls.Add(this.btnCodice02);
 			this.gboxclass02.Controls.Add(this.txtDenom02);
 			this.gboxclass02.Location = new System.Drawing.Point(6, 76);
 			this.gboxclass02.Name = "gboxclass02";
-			this.gboxclass02.Size = new System.Drawing.Size(610, 64);
+			this.gboxclass02.Size = new System.Drawing.Size(736, 64);
 			this.gboxclass02.TabIndex = 16;
 			this.gboxclass02.TabStop = false;
 			this.gboxclass02.Tag = "";
@@ -1971,28 +1980,28 @@ namespace upb_default {
 			// 
 			// txtDenom02
 			// 
-			this.txtDenom02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDenom02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDenom02.Location = new System.Drawing.Point(267, 8);
 			this.txtDenom02.Multiline = true;
 			this.txtDenom02.Name = "txtDenom02";
 			this.txtDenom02.ReadOnly = true;
-			this.txtDenom02.Size = new System.Drawing.Size(335, 52);
+			this.txtDenom02.Size = new System.Drawing.Size(461, 52);
 			this.txtDenom02.TabIndex = 3;
 			this.txtDenom02.TabStop = false;
 			this.txtDenom02.Tag = "sorting02.description";
 			// 
 			// gboxclass01
 			// 
-			this.gboxclass01.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.gboxclass01.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.gboxclass01.Controls.Add(this.txtCodice01);
 			this.gboxclass01.Controls.Add(this.btnCodice01);
 			this.gboxclass01.Controls.Add(this.txtDenom01);
 			this.gboxclass01.Location = new System.Drawing.Point(6, 6);
 			this.gboxclass01.Name = "gboxclass01";
-			this.gboxclass01.Size = new System.Drawing.Size(610, 64);
+			this.gboxclass01.Size = new System.Drawing.Size(736, 64);
 			this.gboxclass01.TabIndex = 14;
 			this.gboxclass01.TabStop = false;
 			this.gboxclass01.Tag = "";
@@ -2017,14 +2026,14 @@ namespace upb_default {
 			// 
 			// txtDenom01
 			// 
-			this.txtDenom01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDenom01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDenom01.Location = new System.Drawing.Point(267, 8);
 			this.txtDenom01.Multiline = true;
 			this.txtDenom01.Name = "txtDenom01";
 			this.txtDenom01.ReadOnly = true;
-			this.txtDenom01.Size = new System.Drawing.Size(335, 52);
+			this.txtDenom01.Size = new System.Drawing.Size(461, 52);
 			this.txtDenom01.TabIndex = 3;
 			this.txtDenom01.TabStop = false;
 			this.txtDenom01.Tag = "sorting01.description";
@@ -2034,40 +2043,40 @@ namespace upb_default {
 			this.tabClassAutoSpese.BackColor = System.Drawing.Color.Transparent;
 			this.tabClassAutoSpese.Controls.Add(this.groupBox4);
 			this.tabClassAutoSpese.Controls.Add(this.groupBox3);
-			this.tabClassAutoSpese.Location = new System.Drawing.Point(4, 42);
+			this.tabClassAutoSpese.Location = new System.Drawing.Point(4, 23);
 			this.tabClassAutoSpese.Name = "tabClassAutoSpese";
 			this.tabClassAutoSpese.Padding = new System.Windows.Forms.Padding(3);
-			this.tabClassAutoSpese.Size = new System.Drawing.Size(619, 507);
+			this.tabClassAutoSpese.Size = new System.Drawing.Size(745, 526);
 			this.tabClassAutoSpese.TabIndex = 3;
 			this.tabClassAutoSpese.Text = "Class. Autom. S.";
 			this.tabClassAutoSpese.UseVisualStyleBackColor = true;
 			// 
 			// groupBox4
 			// 
-			this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox4.Controls.Add(this.dGridFilterClassExp);
 			this.groupBox4.Controls.Add(this.btnEliminaFilterS);
 			this.groupBox4.Controls.Add(this.btnModificaFilterS);
 			this.groupBox4.Controls.Add(this.btnInserisciFilterS);
 			this.groupBox4.Location = new System.Drawing.Point(8, 240);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(605, 261);
+			this.groupBox4.Size = new System.Drawing.Size(731, 280);
 			this.groupBox4.TabIndex = 1;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Filtri Classificazione Automatica delle Spese";
 			// 
 			// dGridFilterClassExp
 			// 
-			this.dGridFilterClassExp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.dGridFilterClassExp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dGridFilterClassExp.DataMember = "";
 			this.dGridFilterClassExp.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dGridFilterClassExp.Location = new System.Drawing.Point(84, 19);
 			this.dGridFilterClassExp.Name = "dGridFilterClassExp";
-			this.dGridFilterClassExp.Size = new System.Drawing.Size(518, 236);
+			this.dGridFilterClassExp.Size = new System.Drawing.Size(644, 255);
 			this.dGridFilterClassExp.TabIndex = 24;
 			this.dGridFilterClassExp.Tag = "sortingexpensefilter.upb.single";
 			// 
@@ -2100,29 +2109,29 @@ namespace upb_default {
 			// 
 			// groupBox3
 			// 
-			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox3.Controls.Add(this.dGridClassAutoExp);
 			this.groupBox3.Controls.Add(this.btnEliminaClassS);
 			this.groupBox3.Controls.Add(this.btnModificaClassS);
 			this.groupBox3.Controls.Add(this.btnInserisciClassS);
 			this.groupBox3.Location = new System.Drawing.Point(6, 9);
 			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(605, 221);
+			this.groupBox3.Size = new System.Drawing.Size(731, 221);
 			this.groupBox3.TabIndex = 0;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Configurazione Classificazione Automatica delle Spese";
 			// 
 			// dGridClassAutoExp
 			// 
-			this.dGridClassAutoExp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.dGridClassAutoExp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dGridClassAutoExp.DataMember = "";
 			this.dGridClassAutoExp.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dGridClassAutoExp.Location = new System.Drawing.Point(81, 19);
 			this.dGridClassAutoExp.Name = "dGridClassAutoExp";
-			this.dGridClassAutoExp.Size = new System.Drawing.Size(517, 196);
+			this.dGridClassAutoExp.Size = new System.Drawing.Size(643, 196);
 			this.dGridClassAutoExp.TabIndex = 21;
 			this.dGridClassAutoExp.Tag = "autoexpensesorting.upb.single";
 			// 
@@ -2157,39 +2166,39 @@ namespace upb_default {
 			// 
 			this.tabClassAutoEntrate.Controls.Add(this.groupBox6);
 			this.tabClassAutoEntrate.Controls.Add(this.groupBox7);
-			this.tabClassAutoEntrate.Location = new System.Drawing.Point(4, 42);
+			this.tabClassAutoEntrate.Location = new System.Drawing.Point(4, 23);
 			this.tabClassAutoEntrate.Name = "tabClassAutoEntrate";
-			this.tabClassAutoEntrate.Size = new System.Drawing.Size(619, 507);
+			this.tabClassAutoEntrate.Size = new System.Drawing.Size(745, 526);
 			this.tabClassAutoEntrate.TabIndex = 6;
 			this.tabClassAutoEntrate.Text = "Class. Autom. E.";
 			this.tabClassAutoEntrate.UseVisualStyleBackColor = true;
 			// 
 			// groupBox6
 			// 
-			this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox6.Controls.Add(this.dGridFilterClassInc);
 			this.groupBox6.Controls.Add(this.btnEliminaFilterE);
 			this.groupBox6.Controls.Add(this.btnModificaFilterE);
 			this.groupBox6.Controls.Add(this.btnInserisciFilterE);
 			this.groupBox6.Location = new System.Drawing.Point(8, 240);
 			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(605, 261);
+			this.groupBox6.Size = new System.Drawing.Size(731, 280);
 			this.groupBox6.TabIndex = 3;
 			this.groupBox6.TabStop = false;
 			this.groupBox6.Text = "Filtri Classificazione Automatica delle Entrate";
 			// 
 			// dGridFilterClassInc
 			// 
-			this.dGridFilterClassInc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.dGridFilterClassInc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dGridFilterClassInc.DataMember = "";
 			this.dGridFilterClassInc.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dGridFilterClassInc.Location = new System.Drawing.Point(84, 19);
 			this.dGridFilterClassInc.Name = "dGridFilterClassInc";
-			this.dGridFilterClassInc.Size = new System.Drawing.Size(518, 236);
+			this.dGridFilterClassInc.Size = new System.Drawing.Size(644, 255);
 			this.dGridFilterClassInc.TabIndex = 24;
 			this.dGridFilterClassInc.Tag = "sortingincomefilter.upb.single";
 			// 
@@ -2222,29 +2231,29 @@ namespace upb_default {
 			// 
 			// groupBox7
 			// 
-			this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox7.Controls.Add(this.dGridClassAutoInc);
 			this.groupBox7.Controls.Add(this.btnEliminaClassE);
 			this.groupBox7.Controls.Add(this.btnModificaClassE);
 			this.groupBox7.Controls.Add(this.btnInserisciClassE);
 			this.groupBox7.Location = new System.Drawing.Point(6, 9);
 			this.groupBox7.Name = "groupBox7";
-			this.groupBox7.Size = new System.Drawing.Size(605, 221);
+			this.groupBox7.Size = new System.Drawing.Size(731, 221);
 			this.groupBox7.TabIndex = 2;
 			this.groupBox7.TabStop = false;
 			this.groupBox7.Text = "Configurazione Classificazione Automatica delle Entrate";
 			// 
 			// dGridClassAutoInc
 			// 
-			this.dGridClassAutoInc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.dGridClassAutoInc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dGridClassAutoInc.DataMember = "";
 			this.dGridClassAutoInc.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dGridClassAutoInc.Location = new System.Drawing.Point(81, 19);
 			this.dGridClassAutoInc.Name = "dGridClassAutoInc";
-			this.dGridClassAutoInc.Size = new System.Drawing.Size(517, 196);
+			this.dGridClassAutoInc.Size = new System.Drawing.Size(643, 196);
 			this.dGridClassAutoInc.TabIndex = 21;
 			this.dGridClassAutoInc.Tag = "autoincomesorting.upb.single";
 			this.dGridClassAutoInc.Navigate += new System.Windows.Forms.NavigateEventHandler(this.dGridClassAutoInc_Navigate);
@@ -2279,25 +2288,25 @@ namespace upb_default {
 			// tabRiepilogo
 			// 
 			this.tabRiepilogo.Controls.Add(this.grpRiepilogo);
-			this.tabRiepilogo.Location = new System.Drawing.Point(4, 42);
+			this.tabRiepilogo.Location = new System.Drawing.Point(4, 23);
 			this.tabRiepilogo.Name = "tabRiepilogo";
 			this.tabRiepilogo.Padding = new System.Windows.Forms.Padding(3);
-			this.tabRiepilogo.Size = new System.Drawing.Size(619, 507);
+			this.tabRiepilogo.Size = new System.Drawing.Size(745, 526);
 			this.tabRiepilogo.TabIndex = 5;
 			this.tabRiepilogo.Text = "Riepilogo";
 			this.tabRiepilogo.UseVisualStyleBackColor = true;
 			// 
 			// grpRiepilogo
 			// 
-			this.grpRiepilogo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.grpRiepilogo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpRiepilogo.Controls.Add(this.chkUpbChilds);
 			this.grpRiepilogo.Controls.Add(this.tabCtrl);
 			this.grpRiepilogo.Controls.Add(this.btnCalcolaTutto);
 			this.grpRiepilogo.Location = new System.Drawing.Point(8, 6);
 			this.grpRiepilogo.Name = "grpRiepilogo";
-			this.grpRiepilogo.Size = new System.Drawing.Size(605, 492);
+			this.grpRiepilogo.Size = new System.Drawing.Size(731, 511);
 			this.grpRiepilogo.TabIndex = 1;
 			this.grpRiepilogo.TabStop = false;
 			// 
@@ -2314,9 +2323,9 @@ namespace upb_default {
 			// 
 			// tabCtrl
 			// 
-			this.tabCtrl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.tabCtrl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabCtrl.Controls.Add(this.tabPage1);
 			this.tabCtrl.Controls.Add(this.tabPage2);
 			this.tabCtrl.Controls.Add(this.tabPage3);
@@ -2325,7 +2334,7 @@ namespace upb_default {
 			this.tabCtrl.Location = new System.Drawing.Point(10, 50);
 			this.tabCtrl.Name = "tabCtrl";
 			this.tabCtrl.SelectedIndex = 0;
-			this.tabCtrl.Size = new System.Drawing.Size(593, 436);
+			this.tabCtrl.Size = new System.Drawing.Size(719, 455);
 			this.tabCtrl.TabIndex = 61;
 			// 
 			// tabPage1
@@ -2335,15 +2344,15 @@ namespace upb_default {
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(585, 410);
+			this.tabPage1.Size = new System.Drawing.Size(711, 429);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Entrate";
 			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
 			// grpPrevCassa_E
 			// 
-			this.grpPrevCassa_E.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.grpPrevCassa_E.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpPrevCassa_E.Controls.Add(this.txtPrevDispCassaPerAccertamenti);
 			this.grpPrevCassa_E.Controls.Add(this.label64);
 			this.grpPrevCassa_E.Controls.Add(this.lblPrevDispCassaAccertamenti);
@@ -2367,7 +2376,7 @@ namespace upb_default {
 			this.grpPrevCassa_E.Controls.Add(this.txtPrevInizialeCassa_E);
 			this.grpPrevCassa_E.Location = new System.Drawing.Point(8, 204);
 			this.grpPrevCassa_E.Name = "grpPrevCassa_E";
-			this.grpPrevCassa_E.Size = new System.Drawing.Size(570, 208);
+			this.grpPrevCassa_E.Size = new System.Drawing.Size(696, 208);
 			this.grpPrevCassa_E.TabIndex = 63;
 			this.grpPrevCassa_E.TabStop = false;
 			// 
@@ -2566,8 +2575,8 @@ namespace upb_default {
 			// 
 			// grpPrevCompetenza_E
 			// 
-			this.grpPrevCompetenza_E.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.grpPrevCompetenza_E.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpPrevCompetenza_E.Controls.Add(this.label23);
 			this.grpPrevCompetenza_E.Controls.Add(this.label24);
 			this.grpPrevCompetenza_E.Controls.Add(this.txtPrevAttualeCompetenzaE);
@@ -2585,7 +2594,7 @@ namespace upb_default {
 			this.grpPrevCompetenza_E.Controls.Add(this.txtPrevInizialeCompetenza_E);
 			this.grpPrevCompetenza_E.Location = new System.Drawing.Point(6, 6);
 			this.grpPrevCompetenza_E.Name = "grpPrevCompetenza_E";
-			this.grpPrevCompetenza_E.Size = new System.Drawing.Size(571, 182);
+			this.grpPrevCompetenza_E.Size = new System.Drawing.Size(697, 182);
 			this.grpPrevCompetenza_E.TabIndex = 60;
 			this.grpPrevCompetenza_E.TabStop = false;
 			// 
@@ -2736,15 +2745,15 @@ namespace upb_default {
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(585, 410);
+			this.tabPage2.Size = new System.Drawing.Size(636, 429);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Spese";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
 			// grpPrevCompetenza_S
 			// 
-			this.grpPrevCompetenza_S.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.grpPrevCompetenza_S.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpPrevCompetenza_S.Controls.Add(this.label27);
 			this.grpPrevCompetenza_S.Controls.Add(this.label28);
 			this.grpPrevCompetenza_S.Controls.Add(this.txtPrevAttualeCompetenzaS);
@@ -2765,7 +2774,7 @@ namespace upb_default {
 			this.grpPrevCompetenza_S.Controls.Add(this.txtPrevInizialeCompetenza_S);
 			this.grpPrevCompetenza_S.Location = new System.Drawing.Point(6, 6);
 			this.grpPrevCompetenza_S.Name = "grpPrevCompetenza_S";
-			this.grpPrevCompetenza_S.Size = new System.Drawing.Size(577, 185);
+			this.grpPrevCompetenza_S.Size = new System.Drawing.Size(628, 185);
 			this.grpPrevCompetenza_S.TabIndex = 63;
 			this.grpPrevCompetenza_S.TabStop = false;
 			// 
@@ -2937,8 +2946,8 @@ namespace upb_default {
 			// 
 			// grpPrevCassa_S
 			// 
-			this.grpPrevCassa_S.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.grpPrevCassa_S.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpPrevCassa_S.Controls.Add(this.txtPrevDispCassaPerImpegni);
 			this.grpPrevCassa_S.Controls.Add(this.label65);
 			this.grpPrevCassa_S.Controls.Add(this.lblPrevDispCassaImpegni);
@@ -2965,7 +2974,7 @@ namespace upb_default {
 			this.grpPrevCassa_S.Controls.Add(this.txtPrevInizialeCassa_S);
 			this.grpPrevCassa_S.Location = new System.Drawing.Point(5, 189);
 			this.grpPrevCassa_S.Name = "grpPrevCassa_S";
-			this.grpPrevCassa_S.Size = new System.Drawing.Size(577, 219);
+			this.grpPrevCassa_S.Size = new System.Drawing.Size(628, 219);
 			this.grpPrevCassa_S.TabIndex = 62;
 			this.grpPrevCassa_S.TabStop = false;
 			// 
@@ -3196,15 +3205,15 @@ namespace upb_default {
 			this.tabPage3.Controls.Add(this.grpCassa);
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Size = new System.Drawing.Size(585, 410);
+			this.tabPage3.Size = new System.Drawing.Size(636, 429);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Assegnazione crediti e cassa";
 			this.tabPage3.UseVisualStyleBackColor = true;
 			// 
 			// grpCrediti
 			// 
-			this.grpCrediti.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.grpCrediti.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpCrediti.Controls.Add(this.label31);
 			this.grpCrediti.Controls.Add(this.labelTotaleCrediti);
 			this.grpCrediti.Controls.Add(this.txtTotaleCrediti);
@@ -3222,7 +3231,7 @@ namespace upb_default {
 			this.grpCrediti.Controls.Add(this.txtCreditiAssegnati);
 			this.grpCrediti.Location = new System.Drawing.Point(8, 3);
 			this.grpCrediti.Name = "grpCrediti";
-			this.grpCrediti.Size = new System.Drawing.Size(574, 175);
+			this.grpCrediti.Size = new System.Drawing.Size(625, 175);
 			this.grpCrediti.TabIndex = 60;
 			this.grpCrediti.TabStop = false;
 			// 
@@ -3366,8 +3375,8 @@ namespace upb_default {
 			// 
 			// grpCassa
 			// 
-			this.grpCassa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.grpCassa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpCassa.Controls.Add(this.label32);
 			this.grpCassa.Controls.Add(this.labelTotaleCassa);
 			this.grpCassa.Controls.Add(this.txtTotaleCassa);
@@ -3391,7 +3400,7 @@ namespace upb_default {
 			this.grpCassa.Controls.Add(this.txtAssegnazioniCassa);
 			this.grpCassa.Location = new System.Drawing.Point(3, 180);
 			this.grpCassa.Name = "grpCassa";
-			this.grpCassa.Size = new System.Drawing.Size(574, 221);
+			this.grpCassa.Size = new System.Drawing.Size(625, 221);
 			this.grpCassa.TabIndex = 61;
 			this.grpCassa.TabStop = false;
 			// 
@@ -3596,7 +3605,7 @@ namespace upb_default {
 			this.tabBudgetRiep.Location = new System.Drawing.Point(4, 22);
 			this.tabBudgetRiep.Name = "tabBudgetRiep";
 			this.tabBudgetRiep.Padding = new System.Windows.Forms.Padding(3);
-			this.tabBudgetRiep.Size = new System.Drawing.Size(585, 410);
+			this.tabBudgetRiep.Size = new System.Drawing.Size(636, 429);
 			this.tabBudgetRiep.TabIndex = 3;
 			this.tabBudgetRiep.Text = "Budget";
 			this.tabBudgetRiep.UseVisualStyleBackColor = true;
@@ -4134,7 +4143,7 @@ namespace upb_default {
 			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage5.Size = new System.Drawing.Size(585, 410);
+			this.tabPage5.Size = new System.Drawing.Size(636, 429);
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "EP";
 			this.tabPage5.UseVisualStyleBackColor = true;
@@ -4859,7 +4868,7 @@ namespace upb_default {
 			// btnCalcolaTutto
 			// 
 			this.btnCalcolaTutto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnCalcolaTutto.Location = new System.Drawing.Point(516, 19);
+			this.btnCalcolaTutto.Location = new System.Drawing.Point(642, 19);
 			this.btnCalcolaTutto.Name = "btnCalcolaTutto";
 			this.btnCalcolaTutto.Size = new System.Drawing.Size(83, 25);
 			this.btnCalcolaTutto.TabIndex = 66;
@@ -4869,6 +4878,7 @@ namespace upb_default {
 			// 
 			// tabAltro
 			// 
+			this.tabAltro.Controls.Add(this.gboxUPB);
 			this.tabAltro.Controls.Add(this.checkBox2);
 			this.tabAltro.Controls.Add(this.groupBox9);
 			this.tabAltro.Controls.Add(this.grpBlocca);
@@ -4880,15 +4890,48 @@ namespace upb_default {
 			this.tabAltro.Location = new System.Drawing.Point(4, 23);
 			this.tabAltro.Name = "tabAltro";
 			this.tabAltro.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAltro.Size = new System.Drawing.Size(670, 526);
+			this.tabAltro.Size = new System.Drawing.Size(745, 526);
 			this.tabAltro.TabIndex = 8;
 			this.tabAltro.Text = "Altro";
 			this.tabAltro.UseVisualStyleBackColor = true;
 			// 
+			// gboxUPB
+			// 
+			this.gboxUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.gboxUPB.Controls.Add(this.btnUPBCapofila);
+			this.gboxUPB.Controls.Add(this.txtUPBCapofila);
+			this.gboxUPB.Location = new System.Drawing.Point(262, 20);
+			this.gboxUPB.Name = "gboxUPB";
+			this.gboxUPB.Size = new System.Drawing.Size(479, 48);
+			this.gboxUPB.TabIndex = 64;
+			this.gboxUPB.TabStop = false;
+			this.gboxUPB.Tag = "AutoChoose.txtUPBCapofila.default.(active=\'S\')";
+			// 
+			// btnUPBCapofila
+			// 
+			this.btnUPBCapofila.Location = new System.Drawing.Point(12, 17);
+			this.btnUPBCapofila.Name = "btnUPBCapofila";
+			this.btnUPBCapofila.Size = new System.Drawing.Size(121, 23);
+			this.btnUPBCapofila.TabIndex = 7;
+			this.btnUPBCapofila.Tag = "choose.upb_capofila.default";
+			this.btnUPBCapofila.Text = "UPB capogruppo";
+			this.btnUPBCapofila.UseVisualStyleBackColor = true;
+			// 
+			// txtUPBCapofila
+			// 
+			this.txtUPBCapofila.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtUPBCapofila.Location = new System.Drawing.Point(149, 19);
+			this.txtUPBCapofila.Name = "txtUPBCapofila";
+			this.txtUPBCapofila.Size = new System.Drawing.Size(324, 20);
+			this.txtUPBCapofila.TabIndex = 6;
+			this.txtUPBCapofila.Tag = "upb_capofila.codeupb?x";
+			// 
 			// checkBox2
 			// 
 			this.checkBox2.AutoSize = true;
-			this.checkBox2.Location = new System.Drawing.Point(5, 305);
+			this.checkBox2.Location = new System.Drawing.Point(11, 304);
 			this.checkBox2.Name = "checkBox2";
 			this.checkBox2.Size = new System.Drawing.Size(300, 17);
 			this.checkBox2.TabIndex = 63;
@@ -4898,14 +4941,14 @@ namespace upb_default {
 			// 
 			// groupBox9
 			// 
-			this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox9.Controls.Add(this.chkBloccaCoFiMovimenti);
 			this.groupBox9.Controls.Add(this.chkBloccaCoGeMovimenti);
 			this.groupBox9.Location = new System.Drawing.Point(5, 446);
 			this.groupBox9.Name = "groupBox9";
 			this.groupBox9.Padding = new System.Windows.Forms.Padding(10);
-			this.groupBox9.Size = new System.Drawing.Size(661, 53);
+			this.groupBox9.Size = new System.Drawing.Size(736, 53);
 			this.groupBox9.TabIndex = 5;
 			this.groupBox9.TabStop = false;
 			this.groupBox9.Text = "Blocco movimenti di prima fase e variazioni di previsione";
@@ -4934,14 +4977,14 @@ namespace upb_default {
 			// 
 			// grpBlocca
 			// 
-			this.grpBlocca.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.grpBlocca.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpBlocca.Controls.Add(this.SubEntity_chkBloccaCoFi);
 			this.grpBlocca.Controls.Add(this.SubEntity_chkBloccaCoGe);
 			this.grpBlocca.Location = new System.Drawing.Point(5, 387);
 			this.grpBlocca.Name = "grpBlocca";
 			this.grpBlocca.Padding = new System.Windows.Forms.Padding(10);
-			this.grpBlocca.Size = new System.Drawing.Size(661, 53);
+			this.grpBlocca.Size = new System.Drawing.Size(736, 53);
 			this.grpBlocca.TabIndex = 4;
 			this.grpBlocca.TabStop = false;
 			this.grpBlocca.Text = "Blocco per assestamento di bilancio";
@@ -4970,8 +5013,8 @@ namespace upb_default {
 			// 
 			// grpDatiPrevisioneBudget
 			// 
-			this.grpDatiPrevisioneBudget.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.grpDatiPrevisioneBudget.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpDatiPrevisioneBudget.Controls.Add(this.label36);
 			this.grpDatiPrevisioneBudget.Controls.Add(this.SubEntity_txtCostiPresunti);
 			this.grpDatiPrevisioneBudget.Controls.Add(this.SubEntity_txtRicaviPresunti);
@@ -4979,7 +5022,7 @@ namespace upb_default {
 			this.grpDatiPrevisioneBudget.Location = new System.Drawing.Point(5, 328);
 			this.grpDatiPrevisioneBudget.Name = "grpDatiPrevisioneBudget";
 			this.grpDatiPrevisioneBudget.Padding = new System.Windows.Forms.Padding(10);
-			this.grpDatiPrevisioneBudget.Size = new System.Drawing.Size(661, 53);
+			this.grpDatiPrevisioneBudget.Size = new System.Drawing.Size(736, 53);
 			this.grpDatiPrevisioneBudget.TabIndex = 3;
 			this.grpDatiPrevisioneBudget.TabStop = false;
 			this.grpDatiPrevisioneBudget.Text = "Dati utili Percentuale completamento";
@@ -5004,7 +5047,7 @@ namespace upb_default {
 			// SubEntity_txtRicaviPresunti
 			// 
 			this.SubEntity_txtRicaviPresunti.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.SubEntity_txtRicaviPresunti.Location = new System.Drawing.Point(538, 23);
+			this.SubEntity_txtRicaviPresunti.Location = new System.Drawing.Point(613, 23);
 			this.SubEntity_txtRicaviPresunti.Name = "SubEntity_txtRicaviPresunti";
 			this.SubEntity_txtRicaviPresunti.Size = new System.Drawing.Size(112, 20);
 			this.SubEntity_txtRicaviPresunti.TabIndex = 58;
@@ -5013,7 +5056,7 @@ namespace upb_default {
 			// label37
 			// 
 			this.label37.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label37.Location = new System.Drawing.Point(367, 22);
+			this.label37.Location = new System.Drawing.Point(442, 22);
 			this.label37.Name = "label37";
 			this.label37.Size = new System.Drawing.Size(166, 23);
 			this.label37.TabIndex = 60;
@@ -5023,7 +5066,7 @@ namespace upb_default {
 			// btnInsDettagli
 			// 
 			this.btnInsDettagli.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnInsDettagli.Location = new System.Drawing.Point(453, 300);
+			this.btnInsDettagli.Location = new System.Drawing.Point(528, 300);
 			this.btnInsDettagli.Name = "btnInsDettagli";
 			this.btnInsDettagli.Size = new System.Drawing.Size(207, 22);
 			this.btnInsDettagli.TabIndex = 62;
@@ -5033,29 +5076,29 @@ namespace upb_default {
 			// 
 			// groupBox8
 			// 
-			this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox8.Controls.Add(this.dataGrid1);
 			this.groupBox8.Controls.Add(this.button4);
 			this.groupBox8.Controls.Add(this.button5);
 			this.groupBox8.Controls.Add(this.button6);
 			this.groupBox8.Location = new System.Drawing.Point(11, 74);
 			this.groupBox8.Name = "groupBox8";
-			this.groupBox8.Size = new System.Drawing.Size(656, 221);
+			this.groupBox8.Size = new System.Drawing.Size(731, 221);
 			this.groupBox8.TabIndex = 2;
 			this.groupBox8.TabStop = false;
 			this.groupBox8.Text = "Destinazione Utile Progetto  a Scadenza";
 			// 
 			// dataGrid1
 			// 
-			this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGrid1.DataMember = "";
 			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid1.Location = new System.Drawing.Point(81, 19);
 			this.dataGrid1.Name = "dataGrid1";
-			this.dataGrid1.Size = new System.Drawing.Size(568, 196);
+			this.dataGrid1.Size = new System.Drawing.Size(643, 196);
 			this.dataGrid1.TabIndex = 21;
 			this.dataGrid1.Tag = "upbprofitpartition.default.single";
 			// 
@@ -5093,7 +5136,7 @@ namespace upb_default {
 			this.cmbEPUPBKind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbEPUPBKind.Location = new System.Drawing.Point(10, 35);
 			this.cmbEPUPBKind.Name = "cmbEPUPBKind";
-			this.cmbEPUPBKind.Size = new System.Drawing.Size(364, 21);
+			this.cmbEPUPBKind.Size = new System.Drawing.Size(237, 21);
 			this.cmbEPUPBKind.TabIndex = 1;
 			this.cmbEPUPBKind.Tag = "upb.idepupbkind";
 			this.cmbEPUPBKind.ValueMember = "idepupbkind";
@@ -5113,25 +5156,25 @@ namespace upb_default {
 			this.tabPage4.Controls.Add(this.button7);
 			this.tabPage4.Controls.Add(this.button8);
 			this.tabPage4.Controls.Add(this.button9);
-			this.tabPage4.Location = new System.Drawing.Point(4, 42);
+			this.tabPage4.Location = new System.Drawing.Point(4, 23);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage4.Size = new System.Drawing.Size(619, 507);
+			this.tabPage4.Size = new System.Drawing.Size(745, 526);
 			this.tabPage4.TabIndex = 9;
 			this.tabPage4.Text = "Allegati";
 			this.tabPage4.UseVisualStyleBackColor = true;
 			// 
 			// dataGrid3
 			// 
-			this.dataGrid3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGrid3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGrid3.DataMember = "";
 			this.dataGrid3.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid3.Location = new System.Drawing.Point(28, 59);
 			this.dataGrid3.Name = "dataGrid3";
 			this.dataGrid3.ReadOnly = true;
-			this.dataGrid3.Size = new System.Drawing.Size(583, 351);
+			this.dataGrid3.Size = new System.Drawing.Size(709, 370);
 			this.dataGrid3.TabIndex = 26;
 			this.dataGrid3.Tag = "upbattachment.default.default";
 			// 
@@ -5171,7 +5214,7 @@ namespace upb_default {
 			this.tabFabbisogno.Location = new System.Drawing.Point(4, 23);
 			this.tabFabbisogno.Name = "tabFabbisogno";
 			this.tabFabbisogno.Padding = new System.Windows.Forms.Padding(3);
-			this.tabFabbisogno.Size = new System.Drawing.Size(670, 526);
+			this.tabFabbisogno.Size = new System.Drawing.Size(745, 526);
 			this.tabFabbisogno.TabIndex = 10;
 			this.tabFabbisogno.Text = "Fabbisogno";
 			this.tabFabbisogno.UseVisualStyleBackColor = true;
@@ -5206,7 +5249,7 @@ namespace upb_default {
 			this.label69.Size = new System.Drawing.Size(432, 13);
 			this.label69.TabIndex = 44;
 			this.label69.Text = "Dati necessari ai fini della compilazione della sezione ARCONET del tracciato OPI" +
-	" SIOPE+";
+    " SIOPE+";
 			// 
 			// grpCodUE
 			// 
@@ -5291,7 +5334,7 @@ namespace upb_default {
 			// Frm_upb_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(1004, 553);
+			this.ClientSize = new System.Drawing.Size(1079, 553);
 			this.Controls.Add(this.splitter1);
 			this.Controls.Add(this.MetaDataDetail);
 			this.Controls.Add(this.treeView1);
@@ -5369,6 +5412,8 @@ namespace upb_default {
 			this.tabPage5.PerformLayout();
 			this.tabAltro.ResumeLayout(false);
 			this.tabAltro.PerformLayout();
+			this.gboxUPB.ResumeLayout(false);
+			this.gboxUPB.PerformLayout();
 			this.groupBox9.ResumeLayout(false);
 			this.groupBox9.PerformLayout();
 			this.grpBlocca.ResumeLayout(false);
@@ -5406,7 +5451,7 @@ namespace upb_default {
 			}
 			string filtereserc = QHS.CmpEq("ayear", Meta.GetSys("esercizio"));
 			GetData.SetStaticFilter(DS.upbyear, filtereserc);
-			GetData.SetStaticFilter(DS.upbyearview, filtereserc);
+			
 			string Filteraccountyearview = "(isnull(coalesce(prevision,prevision2,prevision3,prevision4,prevision5),0)<>0)";
 			GetData.SetStaticFilter(DS.accountyearview, QHS.AppAnd(filtereserc, Filteraccountyearview));
 			QueryCreator.SetTableForPosting(DS.accountyearview, "accountyear");
@@ -5417,6 +5462,7 @@ namespace upb_default {
 			FilterFinyearview = QHS.AppAnd(FilterFinyearview, filtereserc);
 			GetData.SetStaticFilter(DS.finyearview, FilterFinyearview);
 			QueryCreator.SetTableForPosting(DS.finyearview, "finyear");
+			DataAccess.SetTableForReading(DS.upb_capofila, "upb");
 			GetData.SetStaticFilter(DS.finvardetailview, QHS.CmpEq("yvar", Meta.GetSys("esercizio")));
 			GetData.SetSorting(DS.finvardetailview, "nvar,rownum");
 
@@ -5501,13 +5547,13 @@ namespace upb_default {
 				lblPagamenti1.Text = "Tot. fase " + pagamento.ToString().ToLower();
 				lblPrevDispCassa_S.Text = "Previsione Disponibile di cassa su " + pagamento.ToString().ToLower();
 			} else {
-				MessageBox.Show("Non Ë stata definita la fase di pagamento (ultima fase di spesa)", "Avviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stata definita la fase di pagamento (ultima fase di spesa)", "Avviso");
 			}
 			if (incasso != null) {
 				lblIncassi.Text = "Tot. fase " + incasso.ToString().ToLower();
 				lblPrevDispCassa_E.Text = "Previsione Disponibile di cassa su " + incasso.ToString().ToLower();
 			} else {
-				MessageBox.Show("Non Ë stata definita la fase di incasso (ultima fase di entrata)", "Avviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stata definita la fase di incasso (ultima fase di entrata)", "Avviso");
 			}
 
 			if (impegno != null) {
@@ -5515,7 +5561,7 @@ namespace upb_default {
 				lblImpegniAll.Text = "Tot. fase " + impegno.ToString().ToLower();
 				lblPrevDispCassaImpegni.Text = "Previsione Disponibile di cassa su " + impegno.ToString().ToLower();
 			} else {
-				MessageBox.Show("Non Ë stata definita la fase di impegno (prima fase di spesa)", "Avviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stata definita la fase di impegno (prima fase di spesa)", "Avviso");
 			}
 
 
@@ -5524,7 +5570,7 @@ namespace upb_default {
 				lblAccertamentiAll.Text = "Tot. fase " + accertamento.ToString().ToLower();
 				lblPrevDispCassaAccertamenti.Text = "Previsione Disponibile di cassa su " + accertamento.ToString().ToLower();
 			} else {
-				MessageBox.Show("Non Ë stata definita la fase di accertamento (prima fase di entrata)", "Avviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stata definita la fase di accertamento (prima fase di entrata)", "Avviso");
 			}
 
 		}
@@ -5619,7 +5665,7 @@ namespace upb_default {
 			if (flagcredit == null || flagproceeds == null) {
 				flagcredit = "N";
 				flagproceeds = "N";
-				MessageBox.Show("Manca la configurazione annuale dell'esercizio");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Manca la configurazione annuale dell'esercizio");
 			}
 			if (flagcredit.ToString().ToUpper() == "S")
 				grpCrediti.Visible = true;
@@ -6428,7 +6474,7 @@ namespace upb_default {
 				}
 				OK = true;
 			} catch {
-				MessageBox.Show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
 				return false;
 			}
 			return OK;
@@ -7257,16 +7303,16 @@ namespace upb_default {
 			txtAltrevociAttivoDifferenza.Text = (AltrevociAttivoDare - AltrevociAttivoAvere).ToString("C");
 
 
-			decimal FondiAmmortamentoDare = DettagliScritture(14, "D");
+			decimal FondiAmmortamentoDare = DettagliScritture(15, "D");
 			txtFondiAmmortamentoDare.Text = FondiAmmortamentoDare.ToString("C");
-			decimal FondiAmmortamentoAvere = DettagliScritture(14, "A");
+			decimal FondiAmmortamentoAvere = DettagliScritture(15, "A");
 			txtFondiAmmortamentoAvere.Text = FondiAmmortamentoAvere.ToString("C");
 			txtFondiAmmortamentoDifferenza.Text = (FondiAmmortamentoDare - FondiAmmortamentoAvere).ToString("C");
 
 
-			decimal AltrevociPassivoDare = DettagliScritture(14, "D");
+			decimal AltrevociPassivoDare = DettagliScritture(16, "D");
 			txtAltrevociPassivoDare.Text = AltrevociPassivoDare.ToString("C");
-			decimal AltrevociPassivoAvere = DettagliScritture(14, "A");
+			decimal AltrevociPassivoAvere = DettagliScritture(16, "A");
 			txtAltrevociPassivoAvere.Text = AltrevociPassivoAvere.ToString("C");
 			txtAltrevociPassivoDifferenza.Text = (AltrevociPassivoDare - AltrevociPassivoAvere).ToString("C");
 

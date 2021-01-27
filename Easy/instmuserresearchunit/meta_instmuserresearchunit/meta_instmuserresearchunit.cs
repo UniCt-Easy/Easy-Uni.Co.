@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Data;
 using metadatalibrary;
 using metaeasylibrary;
@@ -26,7 +28,7 @@ namespace meta_instmuserresearchunit
 	{
         public Meta_instmuserresearchunit(DataAccess Conn, MetaDataDispatcher Dispatcher) :
             base(Conn, Dispatcher, "instmuserresearchunit") {
-				Name = "Unit√† di ricerca dell'afferente";
+				Name = "Unit‡ di ricerca dell'afferente";
 			EditTypes.Add("instmuser");
 			ListingTypes.Add("instmuser");
 			EditTypes.Add("regafferente");
@@ -66,7 +68,7 @@ namespace meta_instmuserresearchunit
 					
 			switch (ListingType) {
 				case "instmuser": {
-						DescribeAColumn(T, "!idinstmresearchunit_instmresearchunit_title", "Unit√† di Ricerca", nPos++);
+						DescribeAColumn(T, "!idinstmresearchunit_instmresearchunit_title", "Unit‡ di Ricerca", nPos++);
 						DescribeAColumn(T, "start", "Data Inizio", nPos++);
 						if (T.Columns.Contains("start")) T.Columns["start"].ExtendedProperties["format"] = "g";
 						DescribeAColumn(T, "stop", "Data Fine", nPos++);
@@ -74,7 +76,7 @@ namespace meta_instmuserresearchunit
 						break;
 					}
 				case "regafferente": {
-						DescribeAColumn(T, "!idinstmresearchunit_instmresearchunit_title", "Unit√† di Ricerca", nPos++);
+						DescribeAColumn(T, "!idinstmresearchunit_instmresearchunit_title", "Unit‡ di Ricerca", nPos++);
 						DescribeAColumn(T, "start", "Data Inizio", nPos++);
 						if (T.Columns.Contains("start")) T.Columns["start"].ExtendedProperties["format"] = "g";
 						DescribeAColumn(T, "stop", "Data Fine", nPos++);

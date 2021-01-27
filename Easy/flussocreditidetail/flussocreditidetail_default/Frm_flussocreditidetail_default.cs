@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -74,7 +76,7 @@ namespace flussocreditidetail_default {
                 QHS.CmpEq("ayear", Meta.GetSys("esercizio")), null, null, true);
 
             if (tConfig == null || tConfig.Rows.Count == 0) {
-                MessageBox.Show("Configurazione annuale non trovata.", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Configurazione annuale non trovata.", "Errore");
                 Meta.ErroreIrrecuperabile = true;
                 return;
             }
@@ -142,7 +144,7 @@ namespace flussocreditidetail_default {
             string error;
             var avviso = PagoPaService.ottieniAvvisoPagamento(Conn, curr.iuv, null, out error);
             if (error != null) {
-                MessageBox.Show(error, "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(error, "Errore");
                 return;
             }
 
@@ -164,19 +166,30 @@ namespace flussocreditidetail_default {
         }
 
         private void btnCheckIncassi_Click(object sender, EventArgs e) {
-            DataRow curr = DS.flussocreditidetail.Rows[0];
-            if (curr["iuv"] == DBNull.Value) {
-                MessageBox.Show(this, @"Non √® presente lo IUV per il credito, non √® possibile interrogare la banca.",
-                    @"Avviso");
+            DataRow curr;
+
+            if (DS.flussocreditidetail.Rows.Count != 0) {
+                curr = DS.flussocreditidetail.Rows[0];
+                if (curr["iuv"] == DBNull.Value) {
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, @"Non Ë presente lo IUV per il credito, non Ë possibile interrogare la banca.",
+                        @"Avviso");
+                    return;
+                }
+            }
+            else {
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, @"Selezionare un flusso per controllare la presenza di incassi.",
+                        @"Avviso");
                 return;
             }
+
+
 
             DataTable Incassi = Conn.RUN_SELECT("flussoincassidetailview", "*", null, QHS.CmpEq("iuv", curr["iuv"]),
                 null, false);
             if (Incassi.Rows.Count > 0) {
                 DataRow rIncasso = Incassi.Rows[0];
-                MessageBox.Show(this,
-                    $@"E' gi√† presente un incasso collegato, nel flusso di codice {rIncasso["codiceflusso"]}.",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
+                    $@"E' gi‡ presente un incasso collegato, nel flusso di codice {rIncasso["codiceflusso"]}.",
                     "Avviso");
                 //return;
             }
@@ -184,7 +197,7 @@ namespace flussocreditidetail_default {
             string error;
             var msg = PagoPaService.AggiornaIuv(Conn, curr["iuv"].ToString());
             if (msg != null) {
-                MessageBox.Show(this, msg,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, msg,
                     @"Errore");
                 return;
             }
@@ -192,13 +205,13 @@ namespace flussocreditidetail_default {
             Incassi = Conn.RUN_SELECT("flussoincassidetailview", "*", null, QHS.CmpEq("iuv", curr["iuv"]), null, false);
             if (Incassi.Rows.Count > 0) {
                 DataRow rIncasso = Incassi.Rows[0];
-                MessageBox.Show(this,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                     $@"E' stato letto un incasso collegato, nel flusso di codice {rIncasso["codiceflusso"]}.",
                     @"Avviso");
                 return;
             }
 
-            MessageBox.Show(this, $@"Non sono stati registrati incassi su questo IUV, nell'esercizio corrente.",
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, $@"Non sono stati registrati incassi su questo IUV, nell'esercizio corrente.",
                 @"Avviso");
         }
     }

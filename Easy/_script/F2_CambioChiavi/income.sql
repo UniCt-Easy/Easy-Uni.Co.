@@ -1,24 +1,26 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- Aggiornamento tabella INCOME e tabelle dipendenti
+
+-- Aggiornamento tabella INCOME e tabelle dipendenti
 -- Le tabelle dipendenti sono:
 -- admpay_assessment, assetunloadincome, banktransaction, creditpart, estimatedetail, income, incomeestimate,
 -- incomeinvoice, incomesorted, incometotal, incomevar, incomeyear, invoicedetail, ivapayincome, pettycashincome, proceedspart
 
--- Passo 0: Cancellazione di righe che violano l'integrit√† referenziale
+-- Passo 0: Cancellazione di righe che violano l'integrit‡ referenziale
 DELETE FROM incomevar WHERE NOT EXISTS(SELECT * FROM income WHERE income.idinc = incomevar.idinc)
 GO
 
@@ -71,7 +73,7 @@ if exists (select * from dbo.sysobjects where id = object_id(N'[trigger_u_income
 drop trigger [trigger_u_incomeyear]
 GO
 
--- Passo 0.ter: Cancellazione del campo idprooceds dalle tabelle ove non deve pi√π esistere
+-- Passo 0.ter: Cancellazione del campo idprooceds dalle tabelle ove non deve pi˘ esistere
 -- Tabelle interessate: income, expense
 IF EXISTS (SELECT * FROM sysindexes where name='xi8income' and id=object_id('income'))
 	drop index income.xi8income
@@ -791,7 +793,7 @@ BEGIN
 END
 GO
 
--- Passo 5. Creazione del nuovo campo (che avr√† nome come il vecchio ma con tipo diverso)
+-- Passo 5. Creazione del nuovo campo (che avr‡ nome come il vecchio ma con tipo diverso)
 -- Tabelle interessate expense e tabelle collegate
 IF NOT exists(select * from [sysobjects] as T inner join syscolumns C on T.ID = C.ID where t.name = 'income' and C.name = 'idinc' AND (T.uid = USER_ID( ) OR T.uid = USER_ID('dbo')))
 BEGIN
@@ -1612,4 +1614,3 @@ BEGIN
 END
 GO
 
-	

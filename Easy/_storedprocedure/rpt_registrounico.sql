@@ -1,20 +1,22 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_registrounico]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-drop procedure [rpt_registrounico]
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_registrounico_new]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [rpt_registrounico_new]
 GO
 
 SET QUOTED_IDENTIFIER ON 
@@ -23,9 +25,9 @@ SET ANSI_NULLS ON
 GO
 
 -- setuser 'amministrazione'
--- exec rpt_registrounico 1, 543, null ,null ,null ,null ,null   
+-- exec rpt_registrounico_new 1, 543, null ,null ,null ,null ,null   
 
-CREATE    PROCEDURE rpt_registrounico
+CREATE    PROCEDURE rpt_registrounico_new
 	@nbegin int,
 	@nend int,
 	@idsor01 int,
@@ -44,13 +46,13 @@ CREATE TABLE #registro
 	dataemissione datetime,				--4)	La data di emissione della fattura o del documento contabile equivalente
 	dataricezione datetime,
 	idreg int,							--5)	Il nome del creditore e il relativo codice fiscale
-	description varchar(150),			--	6)	L‚Äôoggetto della fornitura
-	amount decimal(19,2),				--	7)	L‚Äôimporto totale, al lordo di IVA e di eventuali altri oneri e spese indicati
+	description varchar(150),			--	6)	Líoggetto della fornitura
+	amount decimal(19,2),				--	7)	Líimporto totale, al lordo di IVA e di eventuali altri oneri e spese indicati
 	scadenza datetime,					--8)	La scadenza della fattura
-	impegno varchar(400),				-- 	9)	Nel caso di enti in contabilit√† finanziaria, gli estremi dell‚Äôimpegno indicato nella fattura o nel documento contabile equivalente oppure il capitolo 	e il piano gestionale, o analoghe unit√† gestionali del bilancio sul quale verr√† effettuato il pagamento.
-	rilevanteiva char(1),				--10)	Se la spesa √® rilevante ai fini IVA
+	impegno varchar(3000),				-- 	9)	Nel caso di enti in contabilit‡ finanziaria, gli estremi dellíimpegno indicato nella fattura o nel documento contabile equivalente oppure il capitolo 	e il piano gestionale, o analoghe unit‡ gestionali del bilancio sul quale verr‡ effettuato il pagamento.
+	rilevanteiva char(1),				--10)	Se la spesa Ë rilevante ai fini IVA
 	cigcode varchar(200),				--11)	Il CIG tranne i casi di esclusione
-	cupcode varchar(200),				--12)	Il CUP ove √® previsto
+	cupcode varchar(200),				--12)	Il CUP ove Ë previsto
 	annotations varchar(400),				--	13)	Qualsiasi altra informazione che si ritiene necessaria.)
 	idinvkind int,
 	yinv smallint,
@@ -113,11 +115,11 @@ SELECT
 		when (I.idexpirationkind = 6 AND isnull(I.paymentexpiring,0)=0) then I.protocoldate
 	else null
 	end ,
-	-- 	rilevanteiva : per le fatture interrogheremo l''attivit√† del registro associata al documento, 
-	-- se commerciale = √® rilevante, 
+	-- 	rilevanteiva : per le fatture interrogheremo l''attivit‡ del registro associata al documento, 
+	-- se commerciale = Ë rilevante, 
 	-- se istituzionale e di tipo intra/extra = rilevante, 
 	-- se istituzionale e tipo Italia = non rilevante, 
-	-- se promiscua = rilevante, perch√® assimiliamo l''attivit√† promiscua a quella commerciale.
+	-- se promiscua = rilevante, perchË assimiliamo l''attivit‡ promiscua a quella commerciale.
 	--I 1, C 2, P 3, Q 4
 	case	when (IRK.flagactivity = 2) then 'S'
 			when (IRK.flagactivity = 3) then 'S'
@@ -143,300 +145,122 @@ where U.iduniqueregister between @nbegin and @nend
 	AND (I.idsor05 = @idsor05 OR @idsor05 IS NULL)
 
 
-DECLARE @idinvkind int
-DECLARE @yinv smallint
-DECLARE @ninv int
-declare @cupcode varchar(15)
-declare @cigcode varchar(10)
-declare @idexp_iva int
-declare @ymov_iva smallint
-declare @nmov_iva int
-declare @idexp_taxable int
-declare @ymov_taxable smallint
-declare @nmov_taxable int
-declare @idexp int
-declare @ymov smallint
-declare @nmov int
 
--- CUP: letto dal dettaglio contratto passivo
-	DECLARE cursore_fatture01 CURSOR FORWARD_ONLY for 
-	SELECT distinct invdett.idinvkind, invdett.yinv, invdett.ninv, mandett.cupcode
-	FROM invoicedetail invdett
-	join #registro R			on invdett.idinvkind = R.idinvkind		and invdett.yinv = R.yinv	and invdett.ninv = R.ninv
-	join mandatedetail mandett	on invdett.idmankind = mandett.idmankind		and invdett.yman = mandett.yman		and invdett.nman = mandett.nman
-		AND ISNULL(INVDETT.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
-			 and (isnull(INVDETT.flagbit,0) & 4) = 0
-	where mandett.cupcode is not null
-
-	OPEN cursore_fatture01
-	FETCH NEXT FROM cursore_fatture01 
-	INTO @idinvkind, @yinv, @ninv, @cupcode
- 
-	WHILE (@@fetch_status=0) BEGIN
-	
-	UPDATE 	#registro set
-	  cupcode = case when @cupcode is not null then isnull(cupcode,'') +'' +isnull(convert(varchar(15),@cupcode),'')+'. '
-							else isnull(cupcode,'')
-							end
-	 WHERE idinvkind = @idinvkind and yinv = @yinv and ninv = @ninv
-
-		FETCH NEXT FROM cursore_fatture01 
-		INTO  @idinvkind, @yinv, @ninv, @cupcode 
-	END
-CLOSE cursore_fatture01
-
--- CIG: letto dal dettaglio contratto passivo
-	DECLARE cursore_fatture02 CURSOR FORWARD_ONLY for 
-	SELECT distinct invdett.idinvkind, invdett.yinv, invdett.ninv, isnull(mandett.cigcode, M.cigcode)
-	FROM invoicedetail invdett
-	join #registro R		on invdett.idinvkind = R.idinvkind	and invdett.yinv = R.yinv	and invdett.ninv = R.ninv
-	join mandate M			on invdett.idmankind = M.idmankind	and invdett.yman = M.yman	and invdett.nman = M.nman
-	join mandatedetail mandett		on invdett.idmankind = mandett.idmankind	and invdett.yman = mandett.yman		and invdett.nman = mandett.nman
-	where (mandett.cigcode is not null OR M.cigcode is not null)
-		 AND ISNULL(INVDETT.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
-		 and (isnull(INVDETT.flagbit,0) & 4) = 0
-
-	OPEN cursore_fatture02
-	FETCH NEXT FROM cursore_fatture02 
-	INTO @idinvkind, @yinv, @ninv,  @cigcode
- 
-	WHILE (@@fetch_status=0) BEGIN
-	
-	UPDATE 	#registro set
-	  cigcode = case when @cigcode is not null then isnull(cigcode,'') +'' +isnull(convert(varchar(15),@cigcode),'')+' '
-							else isnull(cigcode,'')
-							end
-	 WHERE idinvkind = @idinvkind and yinv = @yinv and ninv = @ninv
-
-		FETCH NEXT FROM cursore_fatture02 
-		INTO  @idinvkind, @yinv, @ninv,  @cigcode
-	END
-CLOSE cursore_fatture02
-
+-- In questa tabella saranno scritte le indo della Fattura + impegno + CIG e CUP. Poi tramite la tabella @TabInfoConcat le info di Impegni / CIG e CUP verranno concatenti 
+declare @TabInfoInvoice table   (idinvkind int, yinv smallint, ninv int, idexp int, idexp_iva int, cupcode varchar(15), cigcode varchar(10) , impegno varchar(2000))
 
 -- IMPEGNI letti da dettagli contratto passivo
-	DECLARE cursore_fatture03 CURSOR FORWARD_ONLY for 
-	SELECT distinct invdett.idinvkind, invdett.yinv, invdett.ninv, 
-		E.ymov, E.nmov
-	FROM invoicedetail invdett
-	join #registro R			on invdett.idinvkind = R.idinvkind	and invdett.yinv = R.yinv and invdett.ninv = R.ninv
-	join mandatedetail mandett	on invdett.idmankind = mandett.idmankind	and invdett.yman = mandett.yman	and invdett.nman = mandett.nman
-	join expensemandate EM		on EM.idmankind = mandett.idmankind		and EM.yman = mandett.yman		and EM.nman = mandett.nman
-	join expense E				on EM.idexp = E.idexp
-	where  ISNULL(INVDETT.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
-			 and (isnull(INVDETT.flagbit,0) & 4) = 0
+-- CUP: letto dal dettaglio contratto passivo
+-- CIG: letto dal dettaglio contratto passivo
+--------------------------------------------------------------------------- Fatture associate a Contratto Passivo -------------------------------------------------
+;WITH t1(idinvkind, yinv, ninv, idexp, cupcode, cigcode)
+as
+(SELECT	distinct ID.idinvkind, ID.yinv, ID.ninv, 
+			case	when (MD.idexp_iva = MD.idexp_taxable) then MD.idexp_taxable
+					when (MD.idexp_taxable is not null  and  MD.idexp_taxable <> isnull(MD.idexp_iva,'') ) then MD.idexp_taxable
+					when (MD.idexp_iva IS NOT NULL and  MD.idexp_iva <> isnull(MD.idexp_taxable,'') ) then MD.idexp_iva
+			end, 
+		MD.cupcode,  isnull(MD.cigcode, M.cigcode)
+	from  #registro R 
+	join invoicedetail ID 	(nolock)		on ID.idinvkind = R.idinvkind and ID.yinv = R.yinv and ID.ninv = R.ninv
+	join mandatedetail MD	(nolock)			on ID.idmankind = MD.idmankind and ID.yman = MD.yman and ID.nman = MD.nman and ID.manrownum = MD.rownum
+	join mandate M			on ID.idmankind = M.idmankind	and ID.yman = M.yman	and ID.nman = M.nman
+	where  ISNULL(ID.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
+			 and (isnull(ID.flagbit,0) & 4) = 0
+)
+insert into @TabInfoInvoice(idinvkind , yinv , ninv , idexp, cupcode, cigcode, impegno)
+select t1.idinvkind, t1.yinv, t1.ninv, 
+	E.idexp,
+	t1.cupcode, 
+	t1.cigcode,  
+	'Es.'+convert(varchar(10),E.ymov) + ' N.'+convert(varchar(20),E.nmov)+'. '
+from t1
+join expense E
+	on t1.idexp = E.idexp
 
-	OPEN cursore_fatture03
-	FETCH NEXT FROM cursore_fatture03 
-	INTO @idinvkind, @yinv, @ninv, 
-		@ymov,		@nmov
- 
-	WHILE (@@fetch_status=0) BEGIN
-	
-	UPDATE 	#registro set
-		impegno = isnull(impegno,'') + 'Eserc.'+convert(varchar(10),@ymov) + ' Num.'+convert(varchar(20),@nmov)+'. '
-	WHERE idinvkind = @idinvkind and yinv = @yinv and ninv = @ninv
 
-		FETCH NEXT FROM cursore_fatture03 
-		INTO  @idinvkind, @yinv, @ninv, @ymov,		@nmov
-	END
-CLOSE cursore_fatture03
-
---------------------------------------------------------------------------- Fatture associate a Contratti Professionali -------------------------------------------------
-
--- Impegni letti dalla contabilizzazione di Contratti Professionali
-	DECLARE cursore_fatture04 CURSOR FORWARD_ONLY for 
-	SELECT distinct P.idinvkind, P.yinv, P.ninv, 
-		E.idexp, E.ymov, E.nmov
-	FROM profservice P
-	join #registro R				on P.idinvkind = R.idinvkind and P.yinv = R.yinv	and P.ninv = R.ninv
-	join expenseprofservice EPS		on EPS.ycon = P.ycon	and EPS.ncon = P.ncon
-	join expense E					on EPS.idexp = E.idexp
-	where not exists (select * from invoicedetail ID where  ID.idinvkind = R.idinvkind and ID.yinv = R.yinv and ID.ninv = R.ninv and ID.ycon is not null)  
-	
-	OPEN cursore_fatture04
-	FETCH NEXT FROM cursore_fatture04 
-	INTO @idinvkind, @yinv, @ninv, 
-		@idexp,		@ymov,		@nmov
- 
-	WHILE (@@fetch_status=0) BEGIN
-	
-	UPDATE 	#registro set
-		impegno = isnull(impegno,'') + 'Eserc.'+convert(varchar(10),@ymov) + ' Num.'+convert(varchar(20),@nmov)+'. '
-	WHERE idinvkind = @idinvkind and yinv = @yinv and ninv = @ninv
-
-		FETCH NEXT FROM cursore_fatture04 
-		INTO  @idinvkind, @yinv, @ninv, 
-		@idexp,		@ymov,		@nmov
-	END
-CLOSE cursore_fatture04
-
--- CUP: letto dall'impegno che contabilizza il professionale
-	DECLARE cursore_fatture11 CURSOR FORWARD_ONLY for 
-	SELECT distinct P.idinvkind, P.yinv, P.ninv, E.cupcode
-	FROM profservice P
-	join #registro R			on P.idinvkind = R.idinvkind	and P.yinv = R.yinv	and P.ninv = R.ninv
-	join expenseprofservice EPS	on EPS.ycon = P.ycon	and EPS.ncon = P.ncon
-	join expense E				on EPS.idexp = E.idexp
-	where E.cupcode is not null
-		
-	OPEN cursore_fatture11
-	FETCH NEXT FROM cursore_fatture11 
-	INTO @idinvkind, @yinv, @ninv, @cupcode
- 
-	WHILE (@@fetch_status=0) BEGIN
-	
-	UPDATE 	#registro set
-	  cupcode = case when @cupcode is not null then isnull(cupcode,'') +'' +isnull(convert(varchar(15),@cupcode),'')+'. '
-							else isnull(cupcode,'')
-							end
-	 WHERE idinvkind = @idinvkind and yinv = @yinv and ninv = @ninv
-
-		FETCH NEXT FROM cursore_fatture11 
-		INTO  @idinvkind, @yinv, @ninv, @cupcode 
-	END
-CLOSE cursore_fatture11
-
--- CIG: letto dall'impegno che contabilizza il professionale
-	DECLARE cursore_fatture12 CURSOR FORWARD_ONLY for 
-	SELECT distinct P.idinvkind, P.yinv, P.ninv, E.cigcode
-	FROM profservice P
-	join #registro R				on P.idinvkind = R.idinvkind	and P.yinv = R.yinv	and P.ninv = R.ninv
-	join expenseprofservice EPS		on EPS.ycon = P.ycon		and EPS.ncon = P.ncon
-	join expense E					on EPS.idexp = E.idexp
-	where E.cigcode is not null
-
-	OPEN cursore_fatture12
-	FETCH NEXT FROM cursore_fatture12 
-	INTO @idinvkind, @yinv, @ninv,  @cigcode
- 
-	WHILE (@@fetch_status=0) BEGIN
-	
-	UPDATE 	#registro set
-	  cigcode = case when @cigcode is not null then isnull(cigcode,'') +'' +isnull(convert(varchar(15),@cigcode),'')+' '
-							else isnull(cigcode,'')
-							end
-	 WHERE idinvkind = @idinvkind and yinv = @yinv and ninv = @ninv
-
-		FETCH NEXT FROM cursore_fatture12 
-		INTO  @idinvkind, @yinv, @ninv,  @cigcode
-	END
-CLOSE cursore_fatture12
-
------------------------------------------------------------ Fatture non collegate ne a Contratti Passivi ne a Contratti Professionali -------------------------------
-
--- IMPEGNI dei Pagamenti della fattura, ove la fatture non fosse collegata ne a Contratto Passivo , e dett. fatt. non associati o associati a Prestazione professionale
-
+--------------------------------------------------------------------------- Fatture NON associate a Contratto Passivo -------------------------------------------------
 declare @finphase tinyint
 SET @finphase = (SELECT top 1 expensephase
 FROM config
 order by ayear desc)
 
-	DECLARE cursore_fatture05 CURSOR FORWARD_ONLY for 
-	SELECT distinct R.idinvkind, R.yinv, R.ninv, 
-		E.idexp, E.ymov, E.nmov
-	FROM #registro R
-	JOIN invoicedetail ID			ON   ID.idinvkind = R.idinvkind and	 ID.yinv = R.yinv and	 ID.ninv = R.ninv
-	JOIN expenseinvoice EI			ON   EI.idinvkind = R.idinvkind and	 EI.yinv = R.yinv and	 EI.ninv = R.ninv
-	JOIN expenselink				ON expenselink.idchild = EI.idexp
-	JOIN expense E					on expenselink.idparent = E.idexp and E.nphase = @finphase
-	where ID.idmankind is null
-		AND ISNULL(ID.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
+-- Impegni letti dalla contabilizzazione di Contratti Professionali o senza professionale
+-- CUP: letto dall'impegno
+-- CIG: letto dall'impegno
+
+;WITH t2(idinvkind, yinv, ninv, idexp, cupcode, cigcode)
+as
+	(SELECT distinct ID.idinvkind, ID.yinv, ID.ninv,
+			EI.idexp, 
+			isnull(E.cupcode, ID.cupcode), isnull(E.cigcode,ID.cigcode)
+		from  #registro R 
+		join invoicedetail ID		on ID.idinvkind = R.idinvkind and ID.yinv = R.yinv and ID.ninv = R.ninv
+		JOIN expenseinvoice EI			ON   EI.idinvkind = R.idinvkind and	 EI.yinv = R.yinv and	 EI.ninv = R.ninv
+		JOIN expenselink				ON expenselink.idchild = EI.idexp
+		JOIN expense E					on expenselink.idparent = E.idexp and E.nphase = @finphase
+		Where ID.idmankind is null-------------->>> NON COLLEGATE A CP. Prende le fatture indipendentemente dall'associazione con la parcella. IMPORTANTE!!!
+ 		AND ISNULL(ID.rounding,'N') <>'S'  
 		 and (isnull(ID.flagbit,0) & 4) = 0
-		/* AND (ID.ycon is null AND NOT EXISTS (SELECT * FROM profservice 
-									WHERE profservice.idinvkind = R.idinvkind 
-										and profservice.yinv = R.yinv 
-										and profservice.ninv = R.ninv)
-				or ID.ycon  is not null)*/
-	and impegno is null -- valorizza l'impegno leggendolo dal pagamento della fattura, a prescinedere che sia collegaa o meno alla parcella.
+		 )
+insert into @TabInfoInvoice(idinvkind , yinv , ninv , idexp, cupcode, cigcode, impegno)
+select t2.idinvkind, t2.yinv, t2.ninv, 
+	E.idexp,
+	t2.cupcode, 
+	t2.cigcode,  
+	'Es.'+convert(varchar(10),E.ymov) + ' N.'+convert(varchar(20),E.nmov)+'. '
+from t2
+join expense E
+	on t2.idexp = E.idexp
 
-	OPEN cursore_fatture05
-	FETCH NEXT FROM cursore_fatture05 
-	INTO @idinvkind, @yinv, @ninv, 
-		@idexp,		@ymov,		@nmov
- 
-	WHILE (@@fetch_status=0) BEGIN
-	
-	UPDATE 	#registro set
-		impegno = isnull(impegno,'') + 'Eserc.'+convert(varchar(10),@ymov) + ' Num.'+convert(varchar(20),@nmov)+'. '
-	 WHERE idinvkind = @idinvkind and yinv = @yinv and ninv = @ninv
-
-		FETCH NEXT FROM cursore_fatture05 
-		INTO  @idinvkind, @yinv, @ninv, 
-		@idexp,		@ymov,		@nmov
-	END
-CLOSE cursore_fatture05
-
--- CIG e CUP letti dall'impegno del pagamento della fattura, ove la fattura non fosse collegata ne a Contratto Passivo ce a prestazione Professionale
-declare @CupCigInvoice table   (idinvkind int, yinv smallint, ninv int, cupcode varchar(15), cigcode varchar(10) )
-
-insert into @CupCigInvoice(idinvkind, yinv, ninv, cupcode, cigcode)
-SELECT distinct R.idinvkind, R.yinv, R.ninv, E.cupcode, E.cigcode
-FROM #registro R	
-JOIN invoicedetail ID		ON   ID.idinvkind = R.idinvkind and	ID.yinv = R.yinv and	ID.ninv = R.ninv
-JOIN expenseinvoice EI		ON   EI.idinvkind = R.idinvkind and	EI.yinv = R.yinv and	EI.ninv = R.ninv
-JOIN expenselink			ON expenselink.idchild = EI.idexp
-JOIN expense E				on expenselink.idparent = E.idexp and E.nphase = @finphase
-where ID.idmankind is null and (E.cupcode is not null or E.cigcode is not null )
-		AND ISNULL(ID.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
+-- CUP: letto dal dett. fattura
+-- CIG: letto dal dett. fattura
+-- Praticamente inserisce CUP e CIG delle fatture non contabilizzare
+	insert into @TabInfoInvoice(idinvkind , yinv , ninv ,  idexp, cupcode, cigcode)
+	SELECT distinct ID.idinvkind, ID.yinv, ID.ninv,
+			null,
+			ID.cupcode, ID.cigcode
+		from  #registro R 
+		join invoicedetail ID		on ID.idinvkind = R.idinvkind and ID.yinv = R.yinv and ID.ninv = R.ninv
+		Where ID.idmankind is null-------------->>> NON COLLEGATE A CP. Prende le fatture indipendentemente dall'associazione con la parcella. IMPORTANTE!!!
+ 		AND ISNULL(ID.rounding,'N') <>'S'  
 		 and (isnull(ID.flagbit,0) & 4) = 0
-
-insert into @CupCigInvoice(idinvkind, yinv, ninv, cupcode, cigcode)
-SELECT distinct R.idinvkind, R.yinv, R.ninv, ID.cupcode, ID.cigcode
-FROM #registro R
-JOIN invoicedetail ID
-	ON   ID.idinvkind = R.idinvkind and
-		ID.yinv = R.yinv and
-		ID.ninv = R.ninv
-where ID.cupcode is not null or ID.cigcode is not null
-		AND ISNULL(ID.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
-		 and (isnull(ID.flagbit,0) & 4) = 0
-
-	DECLARE cursore_fatture13 CURSOR FORWARD_ONLY for 
-	SELECT distinct idinvkind, yinv, ninv, cupcode
-	FROM @CupCigInvoice
-	where cupcode is not null
-
-	OPEN cursore_fatture13
-	FETCH NEXT FROM cursore_fatture13 
-	INTO @idinvkind, @yinv, @ninv, @cupcode
- 
-	WHILE (@@fetch_status=0) BEGIN
-	
-	UPDATE 	#registro set
-	  cupcode = case when @cupcode is not null then isnull(cupcode,'') +'' +isnull(convert(varchar(15),@cupcode),'')+' '
-							else isnull(cupcode,'')
-							end
-	 WHERE idinvkind = @idinvkind and yinv = @yinv and ninv = @ninv
-
-		FETCH NEXT FROM cursore_fatture13 
-		INTO  @idinvkind, @yinv, @ninv, @cupcode
-	END
-CLOSE cursore_fatture13
+		 and not exists(select * from #registro P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 
 
-	DECLARE cursore_fatture14 CURSOR FORWARD_ONLY for 
-	SELECT distinct idinvkind, yinv, ninv, cigcode
-	FROM @CupCigInvoice
-	where cigcode is not null
+declare @TabInfoConcat table  (idinvkind int, yinv smallint, ninv int, 
+							idmankind varchar(20),yman smallint, nman int, 
+							ycon smallint,	ncon int,
+							idexp int,  cupcode varchar(100), cigcode varchar(100), impegni varchar(1000) )
 
-	OPEN cursore_fatture14
-	FETCH NEXT FROM cursore_fatture14 
-	INTO @idinvkind, @yinv, @ninv, @cigcode
- 
-	WHILE (@@fetch_status=0) BEGIN
-	
-	UPDATE 	#registro set
-	  cigcode = case when @cigcode is not null then isnull(cigcode,'') +'' +isnull(convert(varchar(15),@cigcode),'')+' '
-							else isnull(cigcode,'')
-							end
-	 WHERE idinvkind = @idinvkind and yinv = @yinv and ninv = @ninv
-
-		FETCH NEXT FROM cursore_fatture14 
-		INTO  @idinvkind, @yinv, @ninv, @cigcode
-	END
-CLOSE cursore_fatture14
-
+-- In	@TabInfoConcat concateno le info di Impegno / CIG / CUP della Fattura
+INSERT INTO  @TabInfoConcat(idinvkind, yinv, ninv, impegni, cupcode, cigcode)
+SELECT distinct Tinv.idinvkind , Tinv.yinv , Tinv.ninv,
+    SUBSTRING(
+        (SELECT ', ' + impegno
+            FROM @TabInfoInvoice Tinv2
+            WHERE Tinv.idinvkind = Tinv2.idinvkind and Tinv.yinv = Tinv2.yinv and Tinv.ninv = Tinv2.ninv
+            FOR XML PATH ('')
+        )
+    , 3, 1000) Impegni,
+    SUBSTRING(
+        (SELECT ', ' + cupcode
+            FROM @TabInfoInvoice Tinv2
+            WHERE Tinv.idinvkind = Tinv2.idinvkind and Tinv.yinv = Tinv2.yinv and Tinv.ninv = Tinv2.ninv
+			group by cupcode
+            FOR XML PATH ('')
+        )
+    , 3, 1000) cupcode,
+	    SUBSTRING(
+        (SELECT ', ' + cigcode
+            FROM @TabInfoInvoice Tinv2
+            WHERE Tinv.idinvkind = Tinv2.idinvkind and Tinv.yinv = Tinv2.yinv and Tinv.ninv = Tinv2.ninv
+			group by cigcode
+            FOR XML PATH ('')
+        )
+    , 3, 1000) cigcode
+  FROM @TabInfoInvoice Tinv
+  
 
 -- Contratto Passivo NON collegabile a Fattura
 insert into #registro(
@@ -487,11 +311,11 @@ SELECT
 
 	else null
 	end ,
-	-- 	rilevanteiva : per le fatture interrogheremo l''attivit√† del registro associata al documento, 
-	-- se commerciale = √® rilevante, 
+	-- 	rilevanteiva : per le fatture interrogheremo l''attivit‡ del registro associata al documento, 
+	-- se commerciale = Ë rilevante, 
 	-- se istituzionale e di tipo intra/extra = rilevante, 
 	-- se istituzionale e tipo Italia = non rilevante, 
-	-- se promiscua = rilevante, perch√® assimiliamo l''attivit√† promiscua a quella commerciale.
+	-- se promiscua = rilevante, perchË assimiliamo l''attivit‡ promiscua a quella commerciale.
 	--I 1, C 2, P 3, Q 4
 	case	when (MK.flagactivity = 2) then 'S'
 			when (MK.flagactivity = 3) then 'S'
@@ -512,89 +336,46 @@ where U.iduniqueregister between @nbegin and @nend
 	AND (isnull(M.idsor04,MK.idsor04) = @idsor04 OR @idsor04 IS NULL)
 	AND (isnull(M.idsor05,MK.idsor05) = @idsor05 OR @idsor05 IS NULL)
 
--- Ciclo per concatenare gli impegni, e CIG e CUP
-DECLARE @idmankind varchar(20)
-DECLARE @yman int
-DECLARE @nman int
--- CIG
-DECLARE cursore_conpassivo01 CURSOR FORWARD_ONLY for 
-	SELECT mandett.idmankind, mandett.yman, mandett.nman,  isnull(mandett.cigcode, M.cigcode)
+declare @TabInfoMandate table   (idmankind varchar(20),	yman smallint,	nman int, idexp int, idexp_iva int, cupcode varchar(15), cigcode varchar(10),impegno varchar(100) )
+
+-- Impegno, CIG e CUP
+	insert into @TabInfoMandate (idmankind ,yman,nman, idexp , cupcode , cigcode, impegno)
+	SELECT distinct mandett.idmankind, mandett.yman, mandett.nman, EM.idexp, mandett.cupcode , isnull(mandett.cigcode, M.cigcode),
+	'Es.'+convert(varchar(10),E.ymov) + ' N.'+convert(varchar(20),E.nmov)+'. '
 	FROM  #registro R
 	join mandatedetail mandett			on R.idmankind = mandett.idmankind	and R.yman = mandett.yman	and R.nman = mandett.nman
 	join mandate M						on R.idmankind = M.idmankind		and R.yman = M.yman			and R.nman = M.nman
-	where (mandett.cigcode is not null OR M.cigcode is not null)
-	group by mandett.idmankind, mandett.yman, mandett.nman, isnull(mandett.cigcode, M.cigcode)
+	left outer join expensemandate EM 	on R.idmankind = EM.idmankind 	and R.yman = EM.yman 	and R.nman = EM.nman --Uso il LEFT perchË se il CUP e CIG li sto prendendo ora, quindi se non ci fosse la contab. non li riuscirei a prendree.
+	left outer join expense E on EM.idexp = E.idexp
+	where (mandett.cigcode is not null OR M.cigcode is not null or mandett.cupcode is not null or EM.idexp is not null)
 
-	OPEN cursore_conpassivo01
-	FETCH NEXT FROM cursore_conpassivo01 
-	INTO @idmankind, @yman, @nman, @cigcode
-		 
-	WHILE (@@fetch_status=0) BEGIN
-	
-	UPDATE 	#registro set
-	  cigcode = case when @cigcode is not null then isnull(cigcode,'') +'' +isnull(convert(varchar(15),@cigcode),'')+' '
-							else isnull(cigcode,'')
-							end
-	 WHERE idmankind = @idmankind and yman = @yman and nman = @nman
-
-		FETCH NEXT FROM cursore_conpassivo01 
-		INTO @idmankind, @yman, @nman, @cigcode
-	END
-CLOSE cursore_conpassivo01
-
--- CUP
-DECLARE cursore_conpassivo02 CURSOR FORWARD_ONLY for 
-	SELECT distinct mandett.idmankind, mandett.yman, mandett.nman, mandett.cupcode 
-	FROM  #registro R
-	join mandatedetail mandett		on R.idmankind = mandett.idmankind	and R.yman = mandett.yman	and R.nman = mandett.nman
-	where mandett.cupcode is not null
-
-	OPEN cursore_conpassivo02
-	FETCH NEXT FROM cursore_conpassivo02 
-	INTO @idmankind, @yman, @nman, @cupcode 
-		 
-	WHILE (@@fetch_status=0) BEGIN
-	
-	UPDATE 	#registro set
-	  cupcode = case when @cupcode is not null then isnull(cupcode,'') +'' +isnull(convert(varchar(15),@cupcode),'')+' '
-							else isnull(cupcode,'')
-							end
-	 WHERE idmankind = @idmankind and yman = @yman and nman = @nman
-
-		FETCH NEXT FROM cursore_conpassivo02 
-		INTO @idmankind, @yman, @nman, @cupcode
-	END
-CLOSE cursore_conpassivo02
-
-
--- IMPEGNI
-DECLARE cursore_conpassivo03 CURSOR FORWARD_ONLY for 
-	SELECT distinct R.idmankind, R.yman, R.nman,
-		E.idexp,		E.ymov,			E.nmov
-	FROM  #registro R
-	join expensemandate EM
-		on R.idmankind = EM.idmankind
-		and R.yman = EM.yman
-		and R.nman = EM.nman
-	join expense E
-		on E.idexp = EM.idexp
-
-	OPEN cursore_conpassivo03
-	FETCH NEXT FROM cursore_conpassivo03 
-	INTO @idmankind, @yman, @nman, 
-		@idexp,		@ymov,		@nmov
-		 
-	WHILE (@@fetch_status=0) BEGIN
-	
-	UPDATE 	#registro set
-		impegno = isnull(impegno,'') + 'Eserc.'+convert(varchar(10),@ymov) + ' Num.'+convert(varchar(20),@nmov)+'. '
-	 WHERE idmankind = @idmankind and yman = @yman and nman = @nman
-
-		FETCH NEXT FROM cursore_conpassivo03 
-		INTO @idmankind, @yman, @nman, 
-			@idexp,		@ymov,		@nmov
-	END
-CLOSE cursore_conpassivo03
+-- In @TabInfoConcat concateno le info di Impegno / CIG / CUP del Contratto Passivo
+INSERT INTO  @TabInfoConcat(idmankind ,yman,nman, impegni, cupcode, cigcode)
+SELECT distinct Tman.idmankind , Tman.yman, Tman.nman,
+    SUBSTRING(
+        (SELECT ', ' + impegno
+            FROM @TabInfoMandate Tman2
+            WHERE Tman.idmankind = Tman2.idmankind and Tman.yman = Tman2.yman and Tman.nman = Tman2.nman
+            FOR XML PATH ('')
+        )
+    , 3, 1000) Impegni,
+    SUBSTRING(
+        (SELECT ', ' + cupcode
+            FROM @TabInfoMandate Tman2
+            WHERE Tman.idmankind = Tman2.idmankind and Tman.yman = Tman2.yman and Tman.nman = Tman2.nman
+			group by cupcode
+            FOR XML PATH ('')
+        )
+    , 3, 1000) cupcode,
+	    SUBSTRING(
+        (SELECT ', ' + cigcode
+            FROM @TabInfoMandate Tman2
+            WHERE Tman.idmankind = Tman2.idmankind and Tman.yman = Tman2.yman and Tman.nman = Tman2.nman
+			group by cigcode
+            FOR XML PATH ('')
+        )
+    , 3, 1000) cigcode
+  FROM @TabInfoMandate Tman
 
 -- Contratto Occasionale
 insert into #registro(
@@ -615,12 +396,11 @@ where U.iduniqueregister between @nbegin and @nend
 	AND (C.idsor03 = @idsor03 OR @idsor03 IS NULL)
 	AND (C.idsor04 = @idsor04 OR @idsor04 IS NULL)
 	AND (C.idsor05 = @idsor05 OR @idsor05 IS NULL)
-DECLARE @ycon smallint
-DECLARE @ncon int
 
-
-DECLARE cursore_occasionale CURSOR FORWARD_ONLY for 
-	SELECT ECC.ycon, ECC.ncon, E.idexp, E.ymov, E.nmov
+declare @TabInfoOccasionale table   (ycon smallint,	ncon int, idexp int, impegno varchar(100))
+insert into @TabInfoOccasionale(ycon, ncon, idexp, impegno	) 
+	SELECT ECC.ycon, ECC.ncon, E.idexp ,
+	'Es.'+convert(varchar(10),E.ymov) + ' N.'+convert(varchar(20),E.nmov)+'. '
 	FROM  #registro R
 	join expensecasualcontract ECC
 		on R.ycon = ECC.ycon
@@ -628,20 +408,17 @@ DECLARE cursore_occasionale CURSOR FORWARD_ONLY for
 	join expense E
 		on E.idexp = ECC.idexp
 
-	OPEN cursore_occasionale
-	FETCH NEXT FROM cursore_occasionale 
-	INTO @ycon, @ncon, 	@idexp,	@ymov, @nmov
-		 
-	WHILE (@@fetch_status=0) BEGIN
-	
-	UPDATE 	#registro set
-		impegno = isnull(impegno,'') + 'Eserc.'+convert(varchar(10),@ymov) + ' Num.'+convert(varchar(20),@nmov)+'. '
-	 WHERE ycon = @ycon and ncon = @ncon
+INSERT INTO  @TabInfoConcat(ycon,ncon, impegni)
+SELECT distinct Tcon.ycon, Tcon.ncon,
+    SUBSTRING(
+        (SELECT ', ' + impegno
+            FROM @TabInfoOccasionale Tcon2
+            WHERE Tcon.ycon = Tcon2.ycon and Tcon.ncon = Tcon2.ncon
+            FOR XML PATH ('')
+        )
+    , 3, 1000) Impegni
+FROM @TabInfoOccasionale Tcon
 
-		FETCH NEXT FROM cursore_occasionale 
-		INTO @ycon, @ncon, 	@idexp,	@ymov, @nmov
-	END
-CLOSE cursore_occasionale
 
 declare @headertreasurer varchar(150)
 if (select count(*) from treasurer where 
@@ -661,16 +438,26 @@ if (select count(*) from treasurer where
 				AND (idsor05 = @idsor05 OR @idsor05 IS NULL)
 	End
 
-
+--select  * from @TabInfoConcat where idinvkind = 105 and ninv = 428
 SELECT 
-	iduniqueregister ,	arrivalprotocolnum ,	doc ,	dataemissione ,	dataricezione ,	R.idreg ,	description,amount ,
-	scadenza ,impegno ,	rilevanteiva ,	cigcode ,	cupcode ,	annotations,	idinvkind ,	yinv ,	ninv ,
-	ycon ,	ncon ,	idmankind,	yman ,	nman,	A.title as registry,	A.cf ,	tipodocumento,
+	R.iduniqueregister ,	R.arrivalprotocolnum ,	R.doc ,	R.dataemissione ,	R.dataricezione ,	R.idreg ,	R. description,
+	R.amount ,
+	R.scadenza, ISNULL(I.impegni, isnull(M.impegni, C.impegni)) ,	
+	R.rilevanteiva ,	
+	ISNULL(I.cigcode, isnull(M.cigcode, isnull(C.cigcode, R.cigcode))) ,
+	ISNULL(I.cupcode, isnull(M.cupcode, isnull(C.cupcode, R.cupcode))) ,
+	R.annotations,	R.idinvkind ,	R.yinv ,	R.ninv ,
+	R.ycon ,	R.ncon ,	
+	R.idmankind,	R.yman ,R.nman,	
+	A.title as registry,	A.cf ,	R.tipodocumento,
 	@headertreasurer as headertreasurer
  FROM #registro R
 join registry A
 	on R.idreg = A.idreg
-
+left outer join @TabInfoConcat I on R.idinvkind = I.idinvkind and R.yinv = I.yinv and R.ninv = I.ninv and I.idinvkind is not null
+left outer join @TabInfoConcat M on R.idmankind = M.idmankind and R.yman = M.yman and R.nman = M.nman and M.idmankind is not null
+left outer join @TabInfoConcat C on R.ycon = C.ycon and R.ncon = C.ncon and C.ycon is not null
+--where idinvkind = 105 and ninv = 428
 order by iduniqueregister
 END
 
@@ -688,4 +475,3 @@ SET ANSI_NULLS ON
 GO
 
  
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilconsuntivo_residui_stanz]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_bilconsuntivo_residui_stanz]
 GO
@@ -111,9 +113,9 @@ select @fin_kind = fin_kind
 FROM config 
 WHERE ayear = @ayear
 
--- L'ipotesi fondamentale di questo report √® che la fase del residuo di stanziamento √® la 1
--- Quella del residuo giuridico √® la 3
--- Quella dello stanziamento √® 1
+-- L'ipotesi fondamentale di questo report Ë che la fase del residuo di stanziamento Ë la 1
+-- Quella del residuo giuridico Ë la 3
+-- Quella dello stanziamento Ë 1
 SELECT @finallocation = 1
 SELECT @finphase2 = 2
 SELECT @finphase = 3  ---<<== IPOTESI DEL REPORT
@@ -477,7 +479,7 @@ BEGIN
 		ON f1.idfin = f2.paridfin
 	LEFT OUTER JOIN finlink FLK
 		ON FLK.idchild = f5.idfin AND FLK.nlevel = @levelusable
-	JOIN #mov_Fase1_R -- LEFT OUTER tolto perch√® voglio solo le righe di cui esiste un residuo di stanziamento
+	JOIN #mov_Fase1_R -- LEFT OUTER tolto perchË voglio solo le righe di cui esiste un residuo di stanziamento
 		ON ISNULL(FLK.idparent,f5.idfin) = #mov_Fase1_R.idfin
 	WHERE f5.ayear = @ayear	
 		AND ((f5.flag & 1)= @finpart_bit)
@@ -581,7 +583,7 @@ BEGIN
 		ON f1.idfin = f2.paridfin
 	LEFT OUTER JOIN finlink FLK
 		ON FLK.idchild = f5.idfin AND FLK.nlevel = @levelusable
-	JOIN #mov_Fase1_R -- LEFT OUTER tolto perch√® voglio solo le righe di cui esiste un residuo di stanziamento
+	JOIN #mov_Fase1_R -- LEFT OUTER tolto perchË voglio solo le righe di cui esiste un residuo di stanziamento
 		ON ISNULL(FLK.idparent,f5.idfin) = #mov_Fase1_R.idfin
 		AND upb.idupb = #mov_Fase1_R.idupb
 	WHERE f5.ayear = @ayear
@@ -1609,7 +1611,7 @@ END
 
 /*
  Se N qualora per un capitolo non esistano sott-capitoli con legami con l'upb fondo
- NON verr√† visualizzata l'indicazione del Titolo/Categoria/Capitolo
+ NON verr‡ visualizzata l'indicazione del Titolo/Categoria/Capitolo
 */
 
 IF(Upper(@MostraTutteVoci)='N' AND @suppressifblank = 'S' )
@@ -1837,7 +1839,7 @@ as var_Stanziamenti_red,
 END
 /*
 
-se fase1 < 2008 √® tutto proprio
+se fase1 < 2008 Ë tutto proprio
 se fase 1 = 2008 allora stiamo almeno nel consuntivo 2009
 	- se fase 3 = 2008 allora impegno proprio 
 Quindi se fase 1 < 2008 allora porre = 2008
@@ -1877,11 +1879,11 @@ se fase 1 = 2010
 CONSUNTIVO 2010 --------------------
 
 Quindi:
-- se fase 3 = <esercizio consuntivo> allora √® un residuo divenuto proprio
-- se fase 3 < <esercizio consuntivo> √® un residuo proprio
+- se fase 3 = <esercizio consuntivo> allora Ë un residuo divenuto proprio
+- se fase 3 < <esercizio consuntivo> Ë un residuo proprio
 
 Inoltre 
-√® residuo di stanziamento:
+Ë residuo di stanziamento:
 Somma Fase1 - Somma di tutti gli impegni propri ovvero
  Somma Fase1 - Somma Fase3 < <esercizio consuntivo>
 */
@@ -1893,4 +1895,3 @@ SET ANSI_NULLS ON
 GO
 
 -- exec rpt_bilconsuntivo_residui_stanz 2009,{ts '2009-12-31 00:00:00'},3,'%','N','S','S','S'
-	

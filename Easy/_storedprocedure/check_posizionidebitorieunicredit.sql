@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[check_posizionidebitorieunicredit ]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[check_posizionidebitorieunicredit ]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [check_posizionidebitorieunicredit ]
 GO
 
@@ -44,7 +46,7 @@ Begin
 	SELECT 'Manca il Codice Cliente censito sulla Piattaforma Incassi ed attribuito alla PA. Andare nella maschera Opzioni - Tesoriere - Tesoriere, ed inserire Codice Ente'
 End
 
--- Controllo presenza del campo Codice Tipo Flusso censito ed associato al servizio d‚Äôincasso sulla Piattaforma Incassi, come comunicato dalla Banca per ogni servizio( flussocrediticode)
+-- Controllo presenza del campo Codice Tipo Flusso censito ed associato al servizio díincasso sulla Piattaforma Incassi, come comunicato dalla Banca per ogni servizio( flussocrediticode)
 IF(
 select TOP  1 T.flussocrediticode from treasurer T
 	JOIN flussocrediti F
@@ -54,7 +56,7 @@ select TOP  1 T.flussocrediticode from treasurer T
 ) is null
 Begin
 	INSERT INTO #error (message)
-	SELECT 'Manca il Codice Tipo Flusso censito ed associato al servizio d‚Äôincasso sulla Piattaforma Incassi. Andare nella maschera Opzioni - Tesoriere - Tesoriere, ed inserire Codice Ente'
+	SELECT 'Manca il Codice Tipo Flusso censito ed associato al servizio díincasso sulla Piattaforma Incassi. Andare nella maschera Opzioni - Tesoriere - Tesoriere, ed inserire Codice Ente'
 End
 
 
@@ -104,7 +106,7 @@ SELECT COUNT(*)
 	WHERE F.idflusso = @n and R.cf is null and R.p_iva is null and R.foreigncf is null)>0
 Begin
 	INSERT INTO #error (message)
-	(SELECT 'L''anagrafica: ' + R.title + ', codice: '+CONVERT(varchar(10), R.idreg) + ', √® priva di Codice Fiscale, Partita IVA e CF estero. Valorizzare almeno un dato.'
+	(SELECT 'L''anagrafica: ' + R.title + ', codice: '+CONVERT(varchar(10), R.idreg) + ', Ë priva di Codice Fiscale, Partita IVA e CF estero. Valorizzare almeno un dato.'
 	FROM flussocrediti F
 	JOIN flussocreditidetail FD
 		on F.idflusso = FD.idflusso
@@ -129,7 +131,7 @@ SELECT COUNT(*)
 	WHERE F.idflusso = @n and R.cf is null and R.p_iva is null and R.foreigncf is null)>0
 Begin
 	INSERT INTO #error (message)
-	(SELECT 'L''anagrafica: ' + R.title + ', codice: '+CONVERT(varchar(10), R.idreg) + ', √® priva di Codice Fiscale, Partita IVA e CF estero. Valorizzare almeno un dato.'
+	(SELECT 'L''anagrafica: ' + R.title + ', codice: '+CONVERT(varchar(10), R.idreg) + ', Ë priva di Codice Fiscale, Partita IVA e CF estero. Valorizzare almeno un dato.'
 	FROM flussocrediti F
 	JOIN flussocreditidetail FD
 		on F.idflusso = FD.idflusso
@@ -157,4 +159,3 @@ SET ANSI_NULLS ON
 GO
 
 --exec check_posizionidebitorieunicredit  25
-	

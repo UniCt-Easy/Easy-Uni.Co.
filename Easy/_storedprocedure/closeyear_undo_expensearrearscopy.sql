@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø--setuser 'amministrazione'
+
+--setuser 'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_undo_expensearrearscopy]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [closeyear_undo_expensearrearscopy]
 GO
@@ -86,10 +88,10 @@ EXEC closeyear_undo_epexparrearscopy @ayear
 
 CREATE TABLE #info (msg varchar(800))
 INSERT INTO #info
-VALUES('Il trasferimento dei residui passivi all''esercizio ' + @nextayearstr + ' √® stato annullato ')
+VALUES('Il trasferimento dei residui passivi all''esercizio ' + @nextayearstr + ' Ë stato annullato ')
 
 INSERT INTO #info
-VALUES('Il trasferimento degli impegni di budget, per la quota non pagata,  all''esercizio ' + @nextayearstr  + ' √® stato annullato ')
+VALUES('Il trasferimento degli impegni di budget, per la quota non pagata,  all''esercizio ' + @nextayearstr  + ' Ë stato annullato ')
 
 	
 -- Azzero i bit da 0 a 3 e imposto il valore 4 nell'esercizio corrente. (Pari alla fase precedente: trasferimento residui attivi)
@@ -106,4 +108,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

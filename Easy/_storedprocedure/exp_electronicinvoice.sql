@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_electronicinvoice]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_electronicinvoice]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_electronicinvoice]
 GO
 
@@ -212,7 +214,7 @@ ROW_NUMBER() OVER(PARTITION BY  I.ipa_ven_cliente, I.rifamm_ven_cliente,  I.emai
 		WHEN ((IK.flag&4)<>0) THEN 'V'-- nota di credito
 	END as 'tipofattura',
 	I.idinvkind, I.yinv, I.ninv,
---	<CEDENTE PRESTATORE> √® l' Universit√†
+--	<CEDENTE PRESTATORE> Ë l' Universit‡
 	@cf as 'IdTrasmittenteCodice',
 	-- n 1 del 2014 => 1400000001
 	substring(convert(varchar(4),@yelectronicinvoice),3,2)+ replicate('0',8-len(convert(varchar(8),@nelectronicinvoice ))) + convert(varchar(8),@nelectronicinvoice )
@@ -240,10 +242,10 @@ ROW_NUMBER() OVER(PARTITION BY  I.ipa_ven_cliente, I.rifamm_ven_cliente,  I.emai
 	'IT' as 'nazioneDip',
 	
 -- Se I-Italia, leggiamo la piva
--- Se J-UE, leggiamo la p.iva, che sar√† valorizzata con la p.iva estera
--- Se X-Extra UE, leggiamo foreigncf, che sar√† valorizzato con il codice identificativo estero
+-- Se J-UE, leggiamo la p.iva, che sar‡ valorizzata con la p.iva estera
+-- Se X-Extra UE, leggiamo foreigncf, che sar‡ valorizzato con il codice identificativo estero
 
---<CESSIONARIO COMMITTENTE>  √® il cliente inserito in fattura		-- FARE UN CHECK PER CONTROLLARE CHE questa select dia l'info del paese
+--<CESSIONARIO COMMITTENTE>  Ë il cliente inserito in fattura		-- FARE UN CHECK PER CONTROLLARE CHE questa select dia l'info del paese
 	case when RR.coderesidence = 'I' then 'IT' 
 		 when RR.coderesidence = 'J' then #SedeCliente.nation
 --		 when RR.coderesidence = 'J' and ASCII(SUBSTRING(R.p_iva,1,1)) BETWEEN 48 AND 57 /* 0..9 */ then #SedeCliente.nation
@@ -309,8 +311,8 @@ ROW_NUMBER() OVER(PARTITION BY  I.ipa_ven_cliente, I.rifamm_ven_cliente,  I.emai
 	--I.doc as 'numero',
 	'dip' + replicate('0',5-len(convert(varchar(5),I.idinvkind ))) + convert(varchar(5),I.idinvkind )+ '-'+I.doc as 'numero',
 	I.docdate as 'datadocumento',
-	-- Sulla fattura, sull'intera fattura non sul dettaglio, √® previsto o uno sconto o una maggiorazione. Per questo potremmo fare un altro check, che verifichi non vi siano sia sconti che maggiorazioni 
-	-- nella stessa fattura, perch√® non possiamo trasmettere nello stesso file un dettaglio scontato e un dettaglio maggiorato.Anche se il concetto di maggiorazione credo non venga usato proprio...
+	-- Sulla fattura, sull'intera fattura non sul dettaglio, Ë previsto o uno sconto o una maggiorazione. Per questo potremmo fare un altro check, che verifichi non vi siano sia sconti che maggiorazioni 
+	-- nella stessa fattura, perchË non possiamo trasmettere nello stesso file un dettaglio scontato e un dettaglio maggiorato.Anche se il concetto di maggiorazione credo non venga usato proprio...
 	--> Imponibile totale -  Imponibile totale scontato = importo sconto
 	 ROUND((  select 
 		  sum( CONVERT(decimal(19,8), (ID2.taxable_euro/ISNULL(ID2.npackage, ID2.number)-ID2.taxable))*ISNULL(ID2.npackage, ID2.number))		   
@@ -327,8 +329,8 @@ ROW_NUMBER() OVER(PARTITION BY  I.ipa_ven_cliente, I.rifamm_ven_cliente,  I.emai
 	I.total as 'ImportoTotaleDocumento',
 	I.description as 'Causale',
 --	<DatiFattureCollegate>	
-	null as 'RiferimentoNumeroLinea',-- linea di dettaglio della fattura a cui si fa riferimento (se il riferimento √® all'intera fattura, non viene valorizzato) 
-									-- Non lo valorizziamo perch√® noi nel dettaglio spefichiamo la fattura madre, e non anche la riga di dettaglio
+	null as 'RiferimentoNumeroLinea',-- linea di dettaglio della fattura a cui si fa riferimento (se il riferimento Ë all'intera fattura, non viene valorizzato) 
+									-- Non lo valorizziamo perchË noi nel dettaglio spefichiamo la fattura madre, e non anche la riga di dettaglio
 	(select TOP 1 substring(M.doc,1,20) from invoice M 
 			join invoicedetail id2
 				on M.idinvkind = id2.idinvkind_main and M.yinv = id2.yinv_main and M.ninv = id2.ninv_main
@@ -341,7 +343,7 @@ ROW_NUMBER() OVER(PARTITION BY  I.ipa_ven_cliente, I.rifamm_ven_cliente,  I.emai
 	I.idfepaymethodcondition as 'CondizioniPagamento',
 	I.idfepaymethod as 'ModalitaPagamento',
 	-- Data Scadenza Pagamento
-/* Lasciamolo calcolare al form, perch√® √® pi√π semplice calcolare le date
+/* Lasciamolo calcolare al form, perchË Ë pi˘ semplice calcolare le date
 	case 
 		-- Data contabile(data registrazione)  = Numero gg D.R.F.
 		when I.idexpirationkind = 1 and I.paymentexpiring is not null then I.adate + paymentexpiring
@@ -401,10 +403,10 @@ GO
 	<ImponibileImporto>	
 	<Imposta>
 
-<DatiPagamento>√® un blocco facoltativo, contiene diverse info che non abbiamo.Valorizziamo il blocco con una sola occorrenza
+<DatiPagamento>Ë un blocco facoltativo, contiene diverse info che non abbiamo.Valorizziamo il blocco con una sola occorrenza
 <CondizioniPagamento> TP01: pagamento a rate, TP02: pagamento completo, TP03: anticipo >>> AGGIUNGERE >>>
 <DettaglioPagamento>
-	<ModalitaPagamento> valori codificati.Se l'anagrafica √® 'Regolarizzazione riscossioni presso Banca d'Italia' ci metto MP15=giroconto su conti di contabilit√† speciale, per default, altrimenti lascio vuoto rendendolo obbligatorio.
+	<ModalitaPagamento> valori codificati.Se l'anagrafica Ë 'Regolarizzazione riscossioni presso Banca d'Italia' ci metto MP15=giroconto su conti di contabilit‡ speciale, per default, altrimenti lascio vuoto rendendolo obbligatorio.
 	<DataRiferimentoTerminiPagamento>	data emissione fattura 
 	<GiorniTerminiPagamento>data riferimento termini pagamento - data scadenza pagamento
 	<DataScadenzaPagamento>
@@ -412,4 +414,3 @@ GO
 
 
  
-	

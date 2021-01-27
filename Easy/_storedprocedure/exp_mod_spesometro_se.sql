@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_spesometro_SE]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_spesometro_SE]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_spesometro_SE]
 GO
 
@@ -64,14 +66,14 @@ where YEAR(I.adate) = @ayear
 -- RECORD "D"
 CREATE TABLE #REC_D(
 	idreg int,
-	ProgressivoModulo int, -- Impostare ad 1 per il primo modulo di ogni quadro compilato, incrementando tale valore di una unit√† per ogni ulteriore modulo
+	ProgressivoModulo int, -- Impostare ad 1 per il primo modulo di ogni quadro compilato, incrementando tale valore di una unit‡ per ogni ulteriore modulo
 -->> QUADRO SE - Acquisti da operatori di San Marino
 	SE001012_dataemissionefattura datetime,
 	SE001013_dataregistrazionefattura datetime,--la data deve essere inclusa nell'anno di riferimento
 	SE001014_numfattura varchar(35),
 	SE001015_imponibile int,
 	SE001016_imposta  int,
-	SE001017_confermaimporto int-- dato obbligatorio se l'importo √® maggiore di 999999
+	SE001017_confermaimporto int-- dato obbligatorio se l'importo Ë maggiore di 999999
 )
 -- Acquisti
 INSERT INTO #REC_D(
@@ -135,4 +137,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

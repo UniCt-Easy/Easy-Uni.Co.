@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿using System;
+
+using System;
 using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
@@ -2275,7 +2277,7 @@ namespace Install{//Install//
 				if (!MainConn.Open()){
 					MainConn.Destroy();
 					MainConn=null;
-					MessageBox.Show(this,"Non è stato possibile collegarsi al database "+txtDBName.Text);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non è stato possibile collegarsi al database "+txtDBName.Text);
 					return false;
 				}
 				if (DBNuovo) {
@@ -2307,7 +2309,7 @@ namespace Install{//Install//
                     if (t1 == null) {
                         MainConn.Destroy();
                         MainConn = null;
-                        MessageBox.Show(this, "L'utente selezionato non ha le autorizzazioni sufficienti per effettuare l'operazione.", "Errore");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'utente selezionato non ha le autorizzazioni sufficienti per effettuare l'operazione.", "Errore");
                         return false;
                     }
 
@@ -2487,7 +2489,7 @@ namespace Install{//Install//
 			DBNuovo=false;
 			MainConn=null;
 			if (txtDBName.Text.Trim()==""){
-				MessageBox.Show(this, "Inserire il nome del database da creare (o esistente vuoto)");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire il nome del database da creare (o esistente vuoto)");
 				txtDBName.Focus();
 				return;
 			}
@@ -2495,7 +2497,7 @@ namespace Install{//Install//
 			DataAccess MASTERConn=null;
 			try {
 				if (txtServerName.Text.Trim()==""){
-					MessageBox.Show(this, "Inserire il nome del server");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire il nome del server");
 					txtServerName.Focus();
 					return;
 				}
@@ -2505,7 +2507,7 @@ namespace Install{//Install//
 				//				}
 				//				else {
 				if (txtUserName.Text.Trim()==""){
-					MessageBox.Show(this, "Inserire il nome dell'utente con cui collegarsi al server");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire il nome dell'utente con cui collegarsi al server");
 					txtUserName.Focus();
 					return;
 				}
@@ -2524,14 +2526,14 @@ namespace Install{//Install//
 			if (MASTERConn.openError){
 				MASTERConn.Destroy();
 				EnableDisableNavigation(true);
-				MessageBox.Show(this,"Non è stato possibile collegarsi al server "+txtServerName.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non è stato possibile collegarsi al server "+txtServerName.Text);
 				return;
 			}
 			string err;
 			DataTable T= MASTERConn.SQLRunner("select name from master.dbo.sysdatabases order by name",
 				false,-1);
 			if (T==null) {
-				MessageBox.Show(this, "Errore accedendo all'elenco dei db sul server");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore accedendo all'elenco dei db sul server");
 				MASTERConn.Destroy();
 				EnableDisableNavigation(true);
 				return;
@@ -2540,12 +2542,12 @@ namespace Install{//Install//
 			if (T.Select("name="+QueryCreator.quotedstrvalue(txtDBName.Text.Trim(),false)).Length==0){
 				object O = MASTERConn.DO_SYS_CMD("CREATE DATABASE "+txtDBName.Text.Trim(),out err);
 				if (err!=null) 	{
-					MessageBox.Show(this,err,"Errore nella creazione del database. ");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,err,"Errore nella creazione del database. ");
 					MASTERConn.Destroy();
 					EnableDisableNavigation(true);
 					return;
 				}
-				MessageBox.Show(this, "Il database "+txtDBName.Text+" è stato creato sul server "+
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il database "+txtDBName.Text+" è stato creato sul server "+
 					txtServerName.Text+ ".");
 			}
 			MASTERConn.Destroy();
@@ -2557,7 +2559,7 @@ namespace Install{//Install//
 
 			if (MainConn.openError){
 				MainConn.Destroy();
-				MessageBox.Show(this,"Non è stato possibile collegarsi al database "+txtDBName.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non è stato possibile collegarsi al database "+txtDBName.Text);
 				EnableDisableNavigation(true);
 				return;
 			}
@@ -2565,14 +2567,14 @@ namespace Install{//Install//
 			//Se esistono già delle tabelle nel nuovo db, non prosegue!
 			T= MainConn.SQLRunner("SELECT * FROM DBO.SYSOBJECTS WHERE XTYPE='U'",-1, out err);
 			if (err!=null){
-				MessageBox.Show(this,err);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,err);
 				MainConn.Destroy();
 				EnableDisableNavigation(true);
 				return;
 			}
 
 			if (T.Rows.Count>0){
-				MessageBox.Show(this, "Esistono già delle tabelle nel database "+txtDBName.Text.Trim()+
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Esistono già delle tabelle nel database "+txtDBName.Text.Trim()+
 					". La creazione non sarà effettuata.");
 				MainConn.Destroy();
 				EnableDisableNavigation(true);
@@ -2589,7 +2591,7 @@ namespace Install{//Install//
 				SB = Download.LeggiTestoScript("creatabdbo.sql");
 				ok = Download.RUN_SCRIPT_NONSTOP(MainConn,SB,"Creazione tabelle dbo");
 				if (!ok) {
-					MessageBox.Show(this, "Errore durante la creazione delle tabelle dbo");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la creazione delle tabelle dbo");
 					//					return null;
 				}
 			}
@@ -2598,7 +2600,7 @@ namespace Install{//Install//
 				SB = Download.LeggiTestoScript("creaviewdbo.sql");
 				ok = Download.RUN_SCRIPT_NONSTOP(MainConn,SB,"Creazione viste dbo");
 				if (!ok) {
-					MessageBox.Show(this, "Errore durante la creazione delle viste dbo");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la creazione delle viste dbo");
 					//					return null;
 				}
 			}
@@ -2607,7 +2609,7 @@ namespace Install{//Install//
 				SB = Download.LeggiTestoScript("creaspdbo.sql");
 				ok = Download.RUN_SCRIPT_NONSTOP(MainConn,SB,"Creazione stored procedure dbo");
 				if (!ok) {
-					MessageBox.Show(this, "Errore durante la creazione delle stored procedure dbo");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la creazione delle stored procedure dbo");
 					//					return null;
 				}
 			}
@@ -2618,23 +2620,23 @@ namespace Install{//Install//
 				SB = Download.LeggiTestoScript("AllSystemNoGeo.sql");
 				ok =Download.RUN_SCRIPT_NONSTOP(MainConn,SB,"Configurazione tabelle sistema");
 				if (!ok)
-					MessageBox.Show("Errore nella copia dei dati di sistema (AllSystemNoGeo).");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella copia dei dati di sistema (AllSystemNoGeo).");
 			}
 			if (ok){
 				SB = Download.LeggiTestoScript("AllGeo.sql");
 				ok=Download.RUN_SCRIPT_NONSTOP(MainConn,SB,"Configurazione tabelle geo");
 				if (!ok)
-					MessageBox.Show("Errore nella copia dei dati GEO.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella copia dei dati GEO.");
 			}
 
 			if (ok){
-				MessageBox.Show(this,"La creazione del database ha avuto successo.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"La creazione del database ha avuto successo.");
 				DBNuovo=true;
 				btnCreaDataBase.Enabled=false;
 			}
 			else
 			{
-				MessageBox.Show(this,"Sono avvenuti degli errori. Il database NON E'stato creato.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Sono avvenuti degli errori. Il database NON E'stato creato.");
 				DBNuovo=false;
 			}
 
@@ -2660,7 +2662,7 @@ namespace Install{//Install//
 			TempConn.Open();
 			if (TempConn.openError){
 				TempConn.Destroy();
-				MessageBox.Show(this,"Non è stato possibile collegarsi al database "+txtDBName.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non è stato possibile collegarsi al database "+txtDBName.Text);
 				return;
 			}
 
@@ -2711,7 +2713,7 @@ namespace Install{//Install//
 				Tok = SPB.NextToken(out skipped);
 				All.Append(skipped);
 				if (Tok.val.ToLower()!="create"){
-					MessageBox.Show(this, "Impossibile compilare la sp "+spname);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Impossibile compilare la sp "+spname);
 					continue;
 				}
 				All.Append("ALTER "); //All.Append(Tok.val);
@@ -2719,7 +2721,7 @@ namespace Install{//Install//
 				All.Append(skipped);
 				bool isView = Tok.val.ToLower()=="view";
 				if ((Tok.val.ToLower()!="view")&&(Tok.val.ToLower()!="procedure")&&(Tok.val.ToLower()!="trigger")){
-					MessageBox.Show(this, "Impossibile compilare la sp "+spname);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Impossibile compilare la sp "+spname);
 					continue;
 				}
 				All.Append(Tok.val);
@@ -2749,14 +2751,14 @@ namespace Install{//Install//
 			}
 
 			if (NDONE==NSP){
-				MessageBox.Show(this, "Aggiornamento effettuato correttamente");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Aggiornamento effettuato correttamente");
 			}
 			else {
-				MessageBox.Show(this, NDONE+" di "+NSP+" s.p. elaborate");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, NDONE+" di "+NSP+" s.p. elaborate");
 				foreach (DataRow EL in SysObjects.Rows){
 					int id = (int) EL["id"];
 					if (id<0) continue;
-					MessageBox.Show(this, "La sp "+EL["name"]+" non è stata elaborata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La sp "+EL["name"]+" non è stata elaborata.");
 
 				}
 			}
@@ -2771,7 +2773,7 @@ namespace Install{//Install//
 			TempConn.Open();
 			if (TempConn.openError){
 				TempConn.Destroy();
-				MessageBox.Show(this,"Non è stato possibile collegarsi al database "+txtDBName.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non è stato possibile collegarsi al database "+txtDBName.Text);
 				return;
 			}
 
@@ -2846,7 +2848,7 @@ namespace Install{//Install//
 					Tok = SPB.NextToken(out skipped);
 					All.Append(skipped);
 					if (Tok.val.ToLower()!="create"){
-						MessageBox.Show("Impossibile compilare la sp "+spname);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Impossibile compilare la sp "+spname);
 						continue;
 					}
 					
@@ -2856,7 +2858,7 @@ namespace Install{//Install//
 					bool isView = Tok.val.ToLower()=="view";
                     if ((Tok.val.ToLower() != "view") && (Tok.val.ToLower() != "function") &&
                         (Tok.val.ToLower()!="procedure")&&(Tok.val.ToLower()!="trigger")){
-						MessageBox.Show("Impossibile compilare la sp "+spname);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Impossibile compilare la sp "+spname);
 						continue;
 					}
 					All.Append(Tok.val);
@@ -2871,7 +2873,7 @@ namespace Install{//Install//
 					All.Append(spbody.Substring(mark));				
 					DataTable t = TempConn.SQLRunner(All.ToString());
 					if (t == null) {
-						MessageBox.Show(this, TempConn.LastError);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this, TempConn.LastError);
 					}
 //					if (foundname=="[DBO].[invoiceavailable]") {
 //						Console.WriteLine(All);
@@ -2887,14 +2889,14 @@ namespace Install{//Install//
 				}
 			}
 			if (NDONE==NSP){
-				MessageBox.Show("Aggiornamento effettuato correttamente");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Aggiornamento effettuato correttamente");
 			}
 			else {
-				MessageBox.Show(NDONE.ToString()+" di "+NSP.ToString()+" s.p. elaborate");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(NDONE.ToString()+" di "+NSP.ToString()+" s.p. elaborate");
 				foreach (DataRow EL in SysObjects.Rows){
 					int id = (int) EL["id"];
 					if (id<0) continue;
-					MessageBox.Show("La sp "+EL["name"].ToString()+" non è stata elaborata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("La sp "+EL["name"].ToString()+" non è stata elaborata.");
 
 				}
 			}
@@ -2916,7 +2918,7 @@ namespace Install{//Install//
 			//			}
 			if (TempConn.openError){
 				TempConn.Destroy();
-				MessageBox.Show(this,"Non è stato possibile collegarsi al database "+txtDBName.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non è stato possibile collegarsi al database "+txtDBName.Text);
 				return;
 			}
 			
@@ -2953,7 +2955,7 @@ namespace Install{//Install//
 
 			bool IsSQLAdmin=MainConn.isSystemAdmin();
 			if (!IsSQLAdmin){
-				MessageBox.Show(this, "Per poter copiare dei dati è necessario essere amministratori del db. Non sarà copiato alcun dato.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per poter copiare dei dati è necessario essere amministratori del db. Non sarà copiato alcun dato.");
 				return true;
 			}
 
@@ -2966,7 +2968,7 @@ namespace Install{//Install//
 			}
 			if (!SourceConn.Open()){
 				DisposeSourceConn();
-				MessageBox.Show(this,"Non è stato possibile collegarsi al database "+txtSourceDataBase.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non è stato possibile collegarsi al database "+txtSourceDataBase.Text);
 				return false;
 			}
 
@@ -3029,8 +3031,8 @@ namespace Install{//Install//
                                     false,
                                     500);
 
-			if (res) MessageBox.Show(this, "Dati copiati correttamente");
-				else MessageBox.Show(this, "Migrazione interrotta");
+			if (res) MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Dati copiati correttamente");
+				else MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Migrazione interrotta");
 			DisposeSourceConn();
 			return true;
 
@@ -3104,7 +3106,7 @@ namespace Install{//Install//
 			}
 			if (!SourceConn.Open()){
 				DisposeSourceConn();
-				MessageBox.Show(this,"Non è stato possibile collegarsi al database "+txtSourceDataBase.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non è stato possibile collegarsi al database "+txtSourceDataBase.Text);
 				return false;
 			}
 
@@ -3170,7 +3172,7 @@ namespace Install{//Install//
 				if (SourceConn.RUN_SELECT_COUNT(oldTable,null,false)==0)continue;
 
 				if (DepConn.RUN_SELECT_COUNT(newTable,null,false)>0){
-					//					if (MessageBox.Show(FM,"Non ho potuto effettuare la copia "+oldTable+" -> "+newTable+" perché "+newTable+" non era vuota.\n\nProseguo con la copia delle altre tabelle?","Conferma",
+					//					if (MetaFactory.factory.getSingleton<IMessageShower>().Show(FM,"Non ho potuto effettuare la copia "+oldTable+" -> "+newTable+" perché "+newTable+" non era vuota.\n\nProseguo con la copia delle altre tabelle?","Conferma",
 					//						MessageBoxButtons.OKCancel)!=DialogResult.OK) {
 					//						Conn.SQLRunner("exec sp_MSforeachtable 'ALTER TABLE ? ENABLE TRIGGER ALL'",false,-1);
 					//						return false;
@@ -3188,7 +3190,7 @@ namespace Install{//Install//
 					StreamWriter fsw = new StreamWriter("temp.sql", false, Encoding.Default);
 					fsw.Write(scriptErrato);
 					fsw.Close();
-					DialogResult dr = MessageBox.Show(this, "Lo script lanciato si trova nel file 'temp.sql'"
+					DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Lo script lanciato si trova nel file 'temp.sql'"
 						+"\r\nProseguo con la copia delle altre tabelle?", "Errore durante la copia: "+oldTable+" -> "+newTable, MessageBoxButtons.OKCancel);
 					if (dr != DialogResult.OK) {
 						FM.Close();
@@ -3206,7 +3208,7 @@ namespace Install{//Install//
             StringBuilder SB = Download.LeggiTestoScript("datiufficiali.sql");
             bool ok = Download.RUN_SCRIPT_NONSTOP(DepConn, SB, "Impostazione ritenute e prestazioni ufficiali");
             if (!ok)
-                MessageBox.Show("Errore in datiufficiali.sql");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore in datiufficiali.sql");
 
             
 
@@ -3219,7 +3221,7 @@ namespace Install{//Install//
             SB = Download.LeggiTestoScript("firstupdate_db.sql");
             ok = Download.RUN_SCRIPT_NONSTOP(DepConn, SB, "Impostazione di alcuni campi ");
             if (!ok)
-                MessageBox.Show("Errore in firstupdate_db.sql");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore in firstupdate_db.sql");
 
 
 			FM.Close();
@@ -3354,7 +3356,7 @@ namespace Install{//Install//
 
 		private bool eliminaEventualmentePrimiDueLivelliDiBilancio() {
 			if (SourceConn.RUN_SELECT_COUNT("upblookup", null, true) > 0) {
-				DialogResult dr = MessageBox.Show(this, "Si vogliono eliminare il primo e secondo livello delle voci di bilancio?", "ATTENZIONE", MessageBoxButtons.YesNoCancel);
+				DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si vogliono eliminare il primo e secondo livello delle voci di bilancio?", "ATTENZIONE", MessageBoxButtons.YesNoCancel);
 				if (dr == DialogResult.Yes) {
 					return Upb.troncaNLivelliDiBilancio(this, DepConn, 2);
 				}
@@ -3368,7 +3370,7 @@ namespace Install{//Install//
 
 			SB = Download.LeggiTestoScript("AllRules.sql");
 			if (!Download.RUN_SCRIPT_NONSTOP(DepConn,SB,"Configurazione logica di business"))return false;
-			//MessageBox.Show("Configurazione delle regole trasferita correttamente.");
+			//MetaFactory.factory.getSingleton<IMessageShower>().Show("Configurazione delle regole trasferita correttamente.");
 
 			SB = Download.LeggiTestoScript("Report.sql");
 			Download.RUN_SCRIPT_NONSTOP(DepConn,SB,"Configurazione dei reports");
@@ -3383,11 +3385,11 @@ namespace Install{//Install//
 			if (chkCopiaTutto.Checked){
 				//				bool IsSQLAdmin=(bool)Conn.GetSys("IsSystemAdmin");
 				//				if (!IsSQLAdmin){
-				//					MessageBox.Show("Per poter creare un db è necessario essere amministratori del db.");
+				//					MetaFactory.factory.getSingleton<IMessageShower>().Show("Per poter creare un db è necessario essere amministratori del db.");
 				//					return false;
 				//				}
 
-				if (MessageBox.Show(this,"Si desidera creare una copia integrale del db di origine?","Conferma",
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Si desidera creare una copia integrale del db di origine?","Conferma",
 					MessageBoxButtons.OKCancel)!=DialogResult.OK) return false;
 				return CopiaTutto();
 			}
@@ -3405,7 +3407,7 @@ namespace Install{//Install//
 			if (DBNuovo){
 				//				bool IsSQLAdmin=(bool)Conn.GetSys("IsSystemAdmin");
 				//				if (!IsSQLAdmin){
-				//					MessageBox.Show("Per poter creare un db è necessario essere amministratori del db.");
+				//					MetaFactory.factory.getSingleton<IMessageShower>().Show("Per poter creare un db è necessario essere amministratori del db.");
 				//					return false;
 				//				}
 
@@ -3421,13 +3423,13 @@ namespace Install{//Install//
                 if (!chkCfgPrestazioni.Checked) {
                     SB = Download.LeggiTestoScript("Prestazioni.sql");
                     Download.RUN_SCRIPT_NONSTOP(DepConn, SB, "Configurazioni prestazioni e ritenute");
-                    //MessageBox.Show("Configurazione delle prestazioni e ritenuta trasferiti correttamente.");
+                    //MetaFactory.factory.getSingleton<IMessageShower>().Show("Configurazione delle prestazioni e ritenuta trasferiti correttamente.");
                 }
 				
 				if (!chkIva.Checked){					
 					SB = Download.LeggiTestoScript("IvaDBO.sql");
 					Download.RUN_SCRIPT_NONSTOP(DepConn,SB,"Configurazione iva (tab. DBO)");
-					//MessageBox.Show("Configurazione IVA trasferita correttamente.");
+					//MetaFactory.factory.getSingleton<IMessageShower>().Show("Configurazione IVA trasferita correttamente.");
 				}				
 
 
@@ -3448,7 +3450,7 @@ namespace Install{//Install//
 			if (!chkIva.Checked && DipartimentoNuovo){					
 				SB = Download.LeggiTestoScript("IvaNonDBO.sql");
 				Download.RUN_SCRIPT_NONSTOP(DepConn,SB,"Configurazione iva (tab. Non DBO)");
-				//MessageBox.Show("Configurazione IVA trasferita correttamente.");
+				//MetaFactory.factory.getSingleton<IMessageShower>().Show("Configurazione IVA trasferita correttamente.");
 			}
 
            
@@ -3491,7 +3493,7 @@ namespace Install{//Install//
 					}
 					Conn.RUN_SELECT_INTO_TABLE(TT,null,filtro,null,false);
 //				}
-                    if (TT.Rows.Count == 0) MessageBox.Show("Nessuna riga trovata in " + TT.TableName, "Errore");
+                    if (TT.Rows.Count == 0) MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata in " + TT.TableName, "Errore");
 				DD.Tables.Add(TT);
 			}
 
@@ -3501,7 +3503,7 @@ namespace Install{//Install//
 					DataGenerationType.onlyData, true);
 			}
 			catch (Exception e){
-				MessageBox.Show(this, "Errore creando lo script "+scriptPath+"\n"+e);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore creando lo script "+scriptPath+"\n"+e);
 				return;
 			}
 		}
@@ -3530,7 +3532,7 @@ namespace Install{//Install//
 					TT.TableName = r["newtable"].ToString();
 					string scriptErrato;
 					if (!CopyTable(TT, DepConn, out scriptErrato)) {
-						MessageBox.Show(this, "Errore durante la copia "+r["oldtable"]+" -> "+r["newtable"]+"\n"+scriptErrato);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la copia "+r["oldtable"]+" -> "+r["newtable"]+"\n"+scriptErrato);
 						return false;
 					}
 //				}
@@ -3544,7 +3546,7 @@ namespace Install{//Install//
 
 			if (!Conn.Open()){
 				Conn.Destroy();
-				MessageBox.Show(this,"Non è stato possibile collegarsi al database "+txtSourceDataBase.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non è stato possibile collegarsi al database "+txtSourceDataBase.Text);
 				return;
 			}
 			Cursor = Cursors.WaitCursor;
@@ -3628,7 +3630,7 @@ namespace Install{//Install//
 			Conn.Destroy();
 			Cursor = null;
 
-			MessageBox.Show(this, "Script della cfg di sistema creato correttamente");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script della cfg di sistema creato correttamente");
 
 			//SB = Download.LeggiTestoScript("AllSystemCfg.sql");
 
@@ -3840,19 +3842,19 @@ namespace Install{//Install//
 			bool IsSQLAdmin=MainConn.isSystemAdmin();
 
 			if (!IsSQLAdmin){
-				MessageBox.Show(this, "Per poter aggiungere utenti è necessario essere amministratori del db.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per poter aggiungere utenti è necessario essere amministratori del db.");
 				return;
 			}
 			
 			bool DoClientConfig=true;
 			if (txtNomeEnte.Text.Trim()==""){
 				DoClientConfig=false;
-//				MessageBox.Show(this, "Inserire il nome ente");
+//				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire il nome ente");
 //				txtNomeEnte.Focus();
 //				return;
 			}
 			if (cmbUserList.Text.Trim()==""){
-				MessageBox.Show(this, "Selezionare un utente da abilitare");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Selezionare un utente da abilitare");
 				cmbUserList.Focus();
 				return;
 			}
@@ -3870,7 +3872,7 @@ namespace Install{//Install//
 						listClientUser.Items.Add(USER);
 				}
 				else {
-					MessageBox.Show(this, "L'utente è già configurato sul client");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'utente è già configurato sul client");
 				}
 			}
 		
@@ -3886,7 +3888,7 @@ namespace Install{//Install//
 				
 			}
 			else {
-				MessageBox.Show(this, "L'utente è già configurato sul server");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'utente è già configurato sul server");
 			}
 
 			if (listDepartmentUser.Items.IndexOf(USER)<0){
@@ -3895,14 +3897,14 @@ namespace Install{//Install//
 				ImpostaTabConnessioni();
 			}
 			else {
-				MessageBox.Show(this, "L'utente è già configurato sul dipartimento");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'utente è già configurato sul dipartimento");
 			}
 		}
 
 		private void btnCreateLogin_Click(object sender, System.EventArgs e) {
 			bool IsSQLAdmin= MainConn.isSystemAdmin();
 			if (!IsSQLAdmin){
-				MessageBox.Show(this, "Per poter aggiungere login è necessario essere amministratori del db.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per poter aggiungere login è necessario essere amministratori del db.");
 				return ;
 			}
 
@@ -3915,7 +3917,7 @@ namespace Install{//Install//
 		private void mnuDelClient_Click(object sender, System.EventArgs e) {
 			bool IsSQLAdmin= MainConn.isSystemAdmin();
             if (!IsSQLAdmin){
-				MessageBox.Show(this, "Per poter rimuovere utenti è necessario essere amministratori del db.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per poter rimuovere utenti è necessario essere amministratori del db.");
 				return ;
 			}
 			if (listClientUser.SelectedIndex<0) return;
@@ -3931,7 +3933,7 @@ namespace Install{//Install//
 
 			bool IsSQLAdmin= MainConn.isSystemAdmin();
             if (!IsSQLAdmin){
-				MessageBox.Show(this, "Per poter rimuovere utenti è necessario essere amministratori del db.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per poter rimuovere utenti è necessario essere amministratori del db.");
 				return ;
 			}
 			string todel= listServerUser.Items[listServerUser.SelectedIndex].ToString();
@@ -3942,7 +3944,7 @@ namespace Install{//Install//
 			
 			object res=MainConn.DO_SYS_CMD(delcmd,out err);
 			if (err!=null) {
-				MessageBox.Show(this, "Errore :"+err);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore :"+err);
 				return;
 			}
 
@@ -3955,13 +3957,13 @@ namespace Install{//Install//
 				"and (l.loginname = "+	QueryCreator.quotedstrvalue(todel,false)+ ")";
 			object DBName=MainConn.DO_SYS_CMD(cmd,out err);
 			if (DBName==DBNull.Value){
-				MessageBox.Show("L'utente non era più collegato al DB");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("L'utente non era più collegato al DB");
 				RemoveFromList(todel,iddbdepartment);
 				ImpostaTabConnessioni();
 				return;
 			}
 			if (err!=null) {
-				MessageBox.Show(this, "Errore :"+err);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore :"+err);
 				ImpostaTabConnessioni();
 				return;
 			}
@@ -3969,7 +3971,7 @@ namespace Install{//Install//
 			cmd = "exec sp_revokedbaccess "+QueryCreator.quotedstrvalue(DBName,false);
 			DBName=MainConn.DO_SYS_CMD(cmd,out err);
 			if (err!=null) {
-				MessageBox.Show(this, "Errore :"+err);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore :"+err);
 				ImpostaTabConnessioni();
 				return;
 			}			
@@ -4478,7 +4480,7 @@ namespace Install{//Install//
 		private void EnableHidden_Click(object sender, System.EventArgs e) {
 			FrmAskPwd  F = new FrmAskPwd(2);
 			if (F.ShowDialog(this)!=DialogResult.OK) return;
-			if (F.txtResult.Text=="insert a strong password"){
+			if (F.txtResult.Text=="falco"){
 				btnGeneraScript.Visible=true;
 				btnSysDepends.Visible=true;
 				btnCreaScriptTabSistema.Visible=true;
@@ -4527,7 +4529,7 @@ namespace Install{//Install//
 				DS.WriteXml(filename, XmlWriteMode.WriteSchema);
 			}
 			catch(Exception E) {
-				MessageBox.Show("Couldn't write to file " + filename + " - " +
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Couldn't write to file " + filename + " - " +
 					E.Message,"ExportTableToXML");
 				return false;
 			}
@@ -4547,7 +4549,7 @@ namespace Install{//Install//
 			TempConn.Open();
 			if (TempConn.openError){
 				TempConn.Destroy();
-				MessageBox.Show(this,"Non è stato possibile collegarsi al database "+txtDBName.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non è stato possibile collegarsi al database "+txtDBName.Text);
 				return;
 			}
 
@@ -4556,10 +4558,10 @@ namespace Install{//Install//
 			tTableName = DataAccess.RUN_SELECT(TempConn, "tablename", null, null, null, null, null, true);
 			tColName = DataAccess.RUN_SELECT(TempConn, "colname", null, null, null, null, null, true);
 			if (tTableName.Rows.Count == 0) {
-				MessageBox.Show(this, "La tabella tablename è vuota");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La tabella tablename è vuota");
 			}
 			if (tColName.Rows.Count == 0) {
-				MessageBox.Show(this, "La tabella colname è vuota");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La tabella colname è vuota");
 			}
 			DS.Tables.Add(tTableName);
 			DS.Tables.Add(tColName);
@@ -4580,7 +4582,7 @@ namespace Install{//Install//
 				Stream stream = File.Create("tables.dat");
 				stream.Write(buffer, 0, buffer.Length);
 				stream.Close();
-				MessageBox.Show(this, "Tabelle 'tablename' e 'colname' esportate nel file 'tables.dat'");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Tabelle 'tablename' e 'colname' esportate nel file 'tables.dat'");
 			}
 			catch(Exception E) {
 				QueryCreator.ShowException(this, "Errore durante l'esportazione delle tabelle 'tablename' e 'colname' nel file 'tables.dat'", E);
@@ -4588,7 +4590,7 @@ namespace Install{//Install//
 
 			tTableName.Columns.Add("copiato", typeof(string));
 			TempConn.Destroy();
-			MessageBox.Show("File tables.dat creato (da tablename e colname).");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show("File tables.dat creato (da tablename e colname).");
 		}
 
 
@@ -4640,7 +4642,7 @@ namespace Install{//Install//
 				return errore;
 			}
 			EA.linkUserToDepartment(username, out errore);
-			if (errore!=null) MessageBox.Show(errore);
+			if (errore!=null) MetaFactory.factory.getSingleton<IMessageShower>().Show(errore);
 			return errore;
 		}
 
@@ -4659,7 +4661,7 @@ namespace Install{//Install//
 
 			bool IsSQLAdmin=MainConn.isSystemAdmin();
 			if (!IsSQLAdmin){
-				MessageBox.Show(this, "Per poter rimuovere utenti è necessario essere amministratori del db.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per poter rimuovere utenti è necessario essere amministratori del db.");
 				return ;
 			}
 			string todel= listDepartmentUser.Items[listDepartmentUser.SelectedIndex].ToString();
@@ -4671,7 +4673,7 @@ namespace Install{//Install//
 			
 			object res=MainConn.DO_SYS_CMD(delcmd,out err);
 			if (err!=null) {
-				MessageBox.Show(this, "Errore :"+err);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore :"+err);
 				ImpostaTabConnessioni();
 				return;
 			}
@@ -4696,7 +4698,7 @@ namespace Install{//Install//
 			}			
 
 			if (ResetPassword(Main,txtUserName.Text,txtUserPwd.Text)){
-				MessageBox.Show(this,"Reset effettuato");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Reset effettuato");
 			}
 			Main.Destroy();
 		
@@ -4714,7 +4716,7 @@ namespace Install{//Install//
 				return false;
 			}
 			if (DBACCESS.Rows.Count==0){
-				MessageBox.Show("Non ci sono utenti, probabilmente l'utente"+iddbdepartment+" non è un DIPARTIMENTO");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ci sono utenti, probabilmente l'utente"+iddbdepartment+" non è un DIPARTIMENTO");
 				return false;
 			}
 			foreach(DataRow R in DBACCESS.Select()){
@@ -4748,7 +4750,7 @@ namespace Install{//Install//
 				return;
 			}
 			int NDip=DBACCESS.Rows.Count;
-			MessageBox.Show("Dipartimenti trovati:"+NDip);
+			MetaFactory.factory.getSingleton<IMessageShower>().Show("Dipartimenti trovati:"+NDip);
 			foreach(DataRow R in DBACCESS.Select()){
 				string idDbDepartment= R["iddbdepartment"].ToString();
 
@@ -4772,13 +4774,13 @@ namespace Install{//Install//
 
 
 					if (err!=null){
-						MessageBox.Show(this, "Errore creando l'utente "+idDbDepartment+": " +err);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore creando l'utente "+idDbDepartment+": " +err);
 						continue;
 					}		
 					else {
-						MessageBox.Show(this, "Login "+idDbDepartment+" creata con password: " +
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Login "+idDbDepartment+" creata con password: " +
 							Easy_DataAccess.INITIAL_PASSWORD);
-						MessageBox.Show(this,"Sarà necessario azzerare le password degli utenti di "+idDbDepartment);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Sarà necessario azzerare le password degli utenti di "+idDbDepartment);
 					}
 				}
 				object id_DIP= Main.DO_SYS_CMD("SELECT sid from sysusers where name="+
@@ -4788,7 +4790,7 @@ namespace Install{//Install//
 					QueryCreator.quotedstrvalue(idDbDepartment,true));
 				if (id_SER==null) id_SER=new byte[]{13};
 				if (QueryCreator.ByteArrayToString((byte [])id_DIP)==QueryCreator.ByteArrayToString((byte [])id_SER)){
-					MessageBox.Show("La login "+idDbDepartment+" è già sincronizzata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("La login "+idDbDepartment+" è già sincronizzata.");
 					continue;
 				}
 
@@ -4798,10 +4800,10 @@ namespace Install{//Install//
 							QueryCreator.quotedstrvalue(idDbDepartment,true)+","+
 							QueryCreator.quotedstrvalue(idDbDepartment,true),out err);
 				if ((err!=null)&&(err!="")){
-					MessageBox.Show(this,"Problemi correggendo la login del dipartimento "+idDbDepartment);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Problemi correggendo la login del dipartimento "+idDbDepartment);
 				}
 				else {
-					MessageBox.Show(this,"La login del dipartimento "+idDbDepartment+ " è stata sincronizzata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"La login del dipartimento "+idDbDepartment+ " è stata sincronizzata.");
 				}
 
 			}
@@ -4836,16 +4838,16 @@ namespace Install{//Install//
 				return ;
 			}
 			if (DBACCESS.Rows.Count==0){
-				MessageBox.Show("Non ci sono utenti, probabilmente l'utente"+iddep+" non è un DIPARTIMENTO");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ci sono utenti, probabilmente l'utente"+iddep+" non è un DIPARTIMENTO");
 				return ;
 			}
 
 			int NDip=DBACCESS.Rows.Count;
-			MessageBox.Show("Utenti trovati:"+NDip);
+			MetaFactory.factory.getSingleton<IMessageShower>().Show("Utenti trovati:"+NDip);
 			foreach(DataRow R in DBACCESS.Select()){
 				string iduser= R["login"].ToString();
 				if (iduser.ToUpper()=="SA"){
-					MessageBox.Show("Utente SA saltato.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Utente SA saltato.");
 					continue;
 				}
 
@@ -4868,11 +4870,11 @@ namespace Install{//Install//
                         ", CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF", out err);
 
                     if (err != null) {
-						MessageBox.Show(this, "Errore creando l'utente "+iduser+": " +err);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore creando l'utente "+iduser+": " +err);
 						continue;
 					}		
 					else {
-						MessageBox.Show(this, "Login "+iduser+" creata con password: " +
+						MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Login "+iduser+" creata con password: " +
 							Easy_DataAccess.INITIAL_PASSWORD);
 					}
 				}
@@ -4883,7 +4885,7 @@ namespace Install{//Install//
 					QueryCreator.quotedstrvalue(iduser,true));
 				if (id_SER==null) id_SER=new byte[]{13};
 				if (QueryCreator.ByteArrayToString((byte [])id_DIP)==QueryCreator.ByteArrayToString((byte [])id_SER)){
-					MessageBox.Show("La login "+iduser+" è già sincronizzata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("La login "+iduser+" è già sincronizzata.");
 					continue;
 				}
 
@@ -4893,10 +4895,10 @@ namespace Install{//Install//
 					QueryCreator.quotedstrvalue(iduser,true)+","+
 					QueryCreator.quotedstrvalue(iduser,true),out err);
 				if ((err!=null)&&(err!="")){
-					MessageBox.Show(this,"Problemi correggendo la login dell'utente "+iduser);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Problemi correggendo la login dell'utente "+iduser);
 				}
 				else {
-					MessageBox.Show(this,"La login dell'utente "+iduser+ " è stata sincronizzata.");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"La login dell'utente "+iduser+ " è stata sincronizzata.");
 				}
 
 			}
@@ -4908,7 +4910,7 @@ namespace Install{//Install//
 				txtUserName.Text.Trim(), txtUserPwd.Text.Trim(), 2000,DateTime.Now);
 			if (!Conn.Open()){
 				Conn.Destroy();
-				MessageBox.Show(this,"Non è stato possibile collegarsi al database "+txtSourceDataBase.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non è stato possibile collegarsi al database "+txtSourceDataBase.Text);
 				return;
 			}
 			string filter= "(idsorkind="+QueryCreator.quotedstrvalue(tipoclass,true)+")";
@@ -4936,7 +4938,7 @@ namespace Install{//Install//
 			Conn.Destroy();
 			Cursor = null;
 
-			MessageBox.Show(this, "Script memorizzato nel file "+fname);
+			MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script memorizzato nel file "+fname);
 
 		}
 
@@ -4950,7 +4952,7 @@ namespace Install{//Install//
 
 			if (!Conn.Open()){
 				Conn.Destroy();
-				MessageBox.Show(this,"Non è stato possibile collegarsi al database "+txtSourceDataBase.Text);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non è stato possibile collegarsi al database "+txtSourceDataBase.Text);
 				return;
 			}
 			Cursor = Cursors.WaitCursor;
@@ -5107,7 +5109,7 @@ namespace Install{//Install//
 			Conn.Destroy();
 			Cursor = null;
 
-			MessageBox.Show(this, "Script memorizzato nel file 'datiufficiali.sql'");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script memorizzato nel file 'datiufficiali.sql'");
 		}
 
 		/// <summary>
@@ -5133,7 +5135,7 @@ namespace Install{//Install//
 
         //    if (!Conn.Open()){ 
         //        Conn.Destroy(); 
-        //        MessageBox.Show(this,"Non è stato possibile collegarsi al database "+txtSourceDataBase.Text); 
+        //        MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non è stato possibile collegarsi al database "+txtSourceDataBase.Text); 
         //        return; 
         //    } 
         //    Cursor = Cursors.WaitCursor; 
@@ -5161,7 +5163,7 @@ namespace Install{//Install//
         //    Conn.Destroy(); 
         //    Cursor = null; 
 
-        //    MessageBox.Show(this, "Script memorizzato nel file 'uniforma_registryclass.sql'"); 
+        //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script memorizzato nel file 'uniforma_registryclass.sql'"); 
         //} 
 
         //private void CreaScript_uniformaResidence() { 
@@ -5170,7 +5172,7 @@ namespace Install{//Install//
 
         //    if (!Conn.Open()){ 
         //        Conn.Destroy(); 
-        //        MessageBox.Show(this,"Non è stato possibile collegarsi al database "+txtSourceDataBase.Text); 
+        //        MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non è stato possibile collegarsi al database "+txtSourceDataBase.Text); 
         //        return; 
         //    } 
         //    Cursor = Cursors.WaitCursor; 
@@ -5196,7 +5198,7 @@ namespace Install{//Install//
         //    Conn.Destroy(); 
         //    Cursor = null; 
 
-        //    MessageBox.Show(this, "Script memorizzato nel file 'uniforma_residence.sql'"); 
+        //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Script memorizzato nel file 'uniforma_residence.sql'"); 
         //}
 
         private void btnDBCopia_Click(object sender, EventArgs e) {
@@ -5211,7 +5213,7 @@ namespace Install{//Install//
             //			}
             if (TempConn.openError) {
                 TempConn.Destroy();
-                MessageBox.Show(this, "Non è stato possibile collegarsi al database " + txtDBName.Text);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non è stato possibile collegarsi al database " + txtDBName.Text);
                 return;
             }
 
@@ -5230,7 +5232,7 @@ namespace Install{//Install//
         private void btnMultilogin_Click(object sender, EventArgs e) {
             bool IsSQLAdmin = MainConn.isSystemAdmin();
             if (!IsSQLAdmin) {
-                MessageBox.Show(this, "Per poter aggiungere login è necessario essere amministratori del db.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per poter aggiungere login è necessario essere amministratori del db.");
                 return;
             }
 
@@ -5244,7 +5246,7 @@ namespace Install{//Install//
                 user = user.Replace("\r", "");
                 user = user.Replace("\n", "");
                 if (user == "") continue;
-                if (!CreateSQLAccount(user, "insert a strong password")) continue;
+                if (!CreateSQLAccount(user, "**********")) continue;
                 ConnectUserToDip(user);
 
                 ImpostaTabConnessioni();
@@ -5274,7 +5276,7 @@ namespace Install{//Install//
 
             }
             else {
-                MessageBox.Show(this, "L'utente è già configurato sul server");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'utente è già configurato sul server");
             }
 
             if (listDepartmentUser.Items.IndexOf(USER) < 0) {
@@ -5282,7 +5284,7 @@ namespace Install{//Install//
 
             }
             else {
-                MessageBox.Show(this, "L'utente è già configurato sul dipartimento");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'utente è già configurato sul dipartimento");
             }
 
 
@@ -5302,7 +5304,7 @@ namespace Install{//Install//
             if (T1 != null) {
                 foreach (DataRow R1 in T1.Rows) {
                     if (R1["loginname"].ToString().ToUpper() == username.ToUpper()) {
-                        MessageBox.Show("La login " + R1["loginname"].ToString() +
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("La login " + R1["loginname"].ToString() +
                             " è già presente nel server.");
                         return true;
                     }
@@ -5312,7 +5314,7 @@ namespace Install{//Install//
             MainConn.DO_SYS_CMD("EXEC sp_addlogin " + QueryCreator.quotedstrvalue(username, false) +
                                             "," + QueryCreator.quotedstrvalue(pwd, false), out err);
             if (err != null) {
-                MessageBox.Show("Errore: " + err);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore: " + err);
                 return false;
             }
 
@@ -5369,7 +5371,7 @@ namespace Install{//Install//
                     ", CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF", out err);
 
                 if (err != null) {
-                    MessageBox.Show("Errore: " + err);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore: " + err);
                     return null;
                 }
             }
@@ -5450,7 +5452,7 @@ namespace Install{//Install//
             StringBuilder SB = Download.LeggiTestoScript("creatabsistnondbo.sql");
             bool ok = Download.RUN_SCRIPT_NONSTOP(myConn, SB, "Creazione tabelle di sistema non dbo");
             if (!ok) {
-                MessageBox.Show("Errore durante la creazione delle tabelle di sistema non dbo");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore durante la creazione delle tabelle di sistema non dbo");
                 //					return null;
             }
 
@@ -5458,7 +5460,7 @@ namespace Install{//Install//
                 SB = Download.LeggiTestoScript("creatabnondbo.sql");
                 ok = Download.RUN_SCRIPT_NONSTOP(myConn, SB, "Creazione tabelle non dbo");
                 if (!ok) {
-                    MessageBox.Show("Errore durante la creazione delle tabelle non dbo");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore durante la creazione delle tabelle non dbo");
                     //					return null;
                 }
             }
@@ -5467,7 +5469,7 @@ namespace Install{//Install//
                 SB = Download.LeggiTestoScript("creaviewnondbo.sql");
                 ok = Download.RUN_SCRIPT_NONSTOP(myConn, SB, "Creazione viste non dbo");
                 if (!ok) {
-                    MessageBox.Show("Errore durante la creazione delle viste non dbo");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore durante la creazione delle viste non dbo");
                     //					return null;
                 }
             }
@@ -5476,7 +5478,7 @@ namespace Install{//Install//
                 SB = Download.LeggiTestoScript("creaspnondbo.sql");
                 ok = Download.RUN_SCRIPT_NONSTOP(myConn, SB, "Creazione stored procedure non dbo");
                 if (!ok) {
-                    MessageBox.Show( "Errore durante la creazione delle stored procedure non dbo");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show( "Errore durante la creazione delle stored procedure non dbo");
                     //					return null;
                 }
             }
@@ -5509,7 +5511,7 @@ namespace Install{//Install//
 
              SB = Download.LeggiTestoScript("AllRules.sql");
              if (!Download.RUN_SCRIPT_NONSTOP(DepConn, SB, "Configurazione logica di business")) return ;
-             //MessageBox.Show("Configurazione delle regole trasferita correttamente.");
+             //MetaFactory.factory.getSingleton<IMessageShower>().Show("Configurazione delle regole trasferita correttamente.");
 
              SB = Download.LeggiTestoScript("Report.sql");
              Download.RUN_SCRIPT_NONSTOP(DepConn, SB, "Configurazione dei reports");
@@ -5521,7 +5523,7 @@ namespace Install{//Install//
 
               SB = Download.LeggiTestoScript("IvaNonDBO.sql");
                 Download.RUN_SCRIPT_NONSTOP(DepConn, SB, "Configurazione iva (tab. Non DBO)");
-                //MessageBox.Show("Configurazione IVA trasferita correttamente.");   
+                //MetaFactory.factory.getSingleton<IMessageShower>().Show("Configurazione IVA trasferita correttamente.");   
         }
 
         private string[] GetLiveUpdateAddress() {

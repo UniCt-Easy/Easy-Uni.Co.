@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using funzioni_configurazione;
 using metadatalibrary;
@@ -504,7 +506,7 @@ namespace bankdispositionsetup_importnew {
                 if (k == 0) {
                     string msg = $"{$"Non esiste il mandato numero "}{rp.ndoc.ToString()} nell'anno {esercizioflusso}.";
                     if (!msgs.Contains(msg)) {
-                        //MessageBox.Show(msg, "Errore");
+                        //MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Errore");
                         msgs.Add(msg);
                     }
                     continue;
@@ -513,7 +515,7 @@ namespace bankdispositionsetup_importnew {
                 if (rp.progressivo == 0) {
                     string msg = $"Non Ë ammissibile il progressivo zero per il mandato numero {rp.ndoc.ToString()} del {esercizioflusso}.";
                     if (!msgs.Contains(msg)) {
-                        //MessageBox.Show(msg, "Errore");
+                        //MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Errore");
                         msgs.Add(msg);
                     }
                     continue;
@@ -527,7 +529,7 @@ namespace bankdispositionsetup_importnew {
                 if (k == 0) {
                     string msg = $"Non esiste la reversale numero {rr.ndoc.ToString()} nell'esercizio {esercizioflusso}.";
                     if (!msgs.Contains(msg)) {
-                        //MessageBox.Show(msg, "Errore");
+                        //MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Errore");
                         msgs.Add(msg);
                     }
 
@@ -537,7 +539,7 @@ namespace bankdispositionsetup_importnew {
                 if (rr.progressivo == 0) {
                     string msg = $"Non Ë ammissibile il progressivo zero per la reversale numero {rr.ndoc.ToString()} del {esercizioflusso}.";
                     if (!msgs.Contains(msg)) {
-                        //MessageBox.Show(msg, "Errore");
+                        //MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Errore");
                         msgs.Add(msg);
                     }
 
@@ -572,7 +574,7 @@ namespace bankdispositionsetup_importnew {
 
         public static DatiImportati ImportFile(DataAccess Conn,string fname, object idbank) {
             if (idbank == null || idbank == DBNull.Value) {
-                   MessageBox.Show("E' necessario selezionare una banca","Errore");
+                   MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare una banca","Errore");
                 return null;
             }
             DatiImportati I = null;
@@ -581,7 +583,7 @@ namespace bankdispositionsetup_importnew {
                                         "02008", "05372", "01010", "08661", "01010",
                                         "06065", "03069", "05262", "08553", "03019","05216","03599" });
             if (!abi.Contains(idbank.ToString())) {
-                MessageBox.Show("La banca selezionata non Ë al momento gestita dall'applicazione", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La banca selezionata non Ë al momento gestita dall'applicazione", "Errore");
                 return null;
             }
 
@@ -611,7 +613,7 @@ namespace bankdispositionsetup_importnew {
 
         public static DatiImportati[] ImportFileSiopePlus(DataAccess Conn, /*object idbank,*/ DateTime inizio, DateTime fine) {
             //if (idbank == null || idbank == DBNull.Value) {
-            //    MessageBox.Show("E' necessario selezionare una banca", "Errore");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare una banca", "Errore");
             //    return null;
             //}
             //Chiamata GET per chiedere il file del Giornale di Cassa
@@ -687,7 +689,7 @@ namespace bankdispositionsetup_importnew {
 
         public static DatiImportati ImportFileManualeSiopePlus(DataAccess Conn, string fname) {
             //if (idbank == null || idbank == DBNull.Value) {
-            //    MessageBox.Show("E' necessario selezionare una banca", "Errore");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare una banca", "Errore");
             //    return null;
             //}
             //Chiamata GET per chiedere il file del Giornale di Cassa
@@ -770,7 +772,7 @@ namespace bankdispositionsetup_importnew {
             }
 
             //if (!verificaDoppiaImportazioneSolodate(Conn, M,idbank, lastbillexpense, lastbillincome, lastpayment, lastproceeds)) {
-            //    MessageBox.Show("Il file selezionato Ë stato gi‡ IN PASSATO importato nel db. Operazione non consentita.", "Errore");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show("Il file selezionato Ë stato gi‡ IN PASSATO importato nel db. Operazione non consentita.", "Errore");
             //    return false;
             //}
 

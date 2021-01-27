@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_interscambio_csa_missioni_single]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_interscambio_csa_missioni_single]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_interscambio_csa_missioni_single]
 GO
 
@@ -43,7 +45,7 @@ IF (@tipoCompenso = 'T') SET  @mask = 2 --Compensi a dipendenti/ Conto Terzi
 IF (@tipoCompenso = 'B') SET  @mask = 4 --Borse di Studio
 IF (@tipoCompenso = 'M') SET  @mask = 8 --Missioni
 
--- ATTENZIONE: Questa sp √® chiamata anche da 'exp_interscambio_csa_dipendentiassimilato_dati'. Quest'ultima mostra i dati che stiamo comunicando attraverso il file.
+-- ATTENZIONE: Questa sp Ë chiamata anche da 'exp_interscambio_csa_dipendentiassimilato_dati'. Quest'ultima mostra i dati che stiamo comunicando attraverso il file.
 --exec exp_interscambio_csa_missioni_single {ts '2011-12-31 01:02:03'} ,2011, '70136','M',{ts '2011-01-01 01:02:03'},{ts '2011-12-31 01:02:03'}
 DECLARE @annoredditi int
 SET @annoredditi = @ayear
@@ -113,7 +115,7 @@ join payment P
 	on P.kpay = EL.kpay
 JOIN service S
 	ON S.idser = I.idser
-WHERE E.movkind = 4 --> Considero solo le missioni per cui √® stato pagato il Saldo.
+WHERE E.movkind = 4 --> Considero solo le missioni per cui Ë stato pagato il Saldo.
 	AND S.voce8000 is not null --> Solole missioni da comunicare
 	AND I.yitineration = @ayear
 	AND P.adate between @start and @stop
@@ -140,7 +142,7 @@ JOIN itinerationtax IT
 	ON I.iditineration = IT.iditineration
 JOIN voce8000lookup V
 	ON V.taxcode = IT.taxcode
-WHERE E.movkind = 4 --> Considero solo le missioni per cui √® stato pagato il Saldo.
+WHERE E.movkind = 4 --> Considero solo le missioni per cui Ë stato pagato il Saldo.
 	AND V.conto  = 'A' AND isnull(IT.admintax,0) >=0 
 	AND (( V.flagcsausability & @mask) <>0 )
 	AND I.yitineration = @ayear
@@ -167,7 +169,7 @@ JOIN itinerationtax IT
 	ON I.iditineration = IT.iditineration
 JOIN voce8000lookup V
 	ON V.taxcode = IT.taxcode
-WHERE E.movkind = 4 --> Considero solo le missioni per cui √® stato pagato il Saldo.
+WHERE E.movkind = 4 --> Considero solo le missioni per cui Ë stato pagato il Saldo.
 	AND V.conto  = 'D' AND isnull(IT.employtax,0) >= 0
 	AND (( V.flagcsausability & @mask) <>0 )
 	AND I.yitineration = @ayear
@@ -275,7 +277,7 @@ CLOSE curr_missione
 DEALLOCATE curr_missione
 
 -- Calcola l'importo della spesa. Vanno comunicate le spese per le missioni all'estero e le spese per le missioni in italia
--- Potrebbero esserci missioni con Tappe in Italia e tappe all'estero, per discriminare la spesa √® stato utilizzato il "flag_geo" 
+-- Potrebbero esserci missioni con Tappe in Italia e tappe all'estero, per discriminare la spesa Ë stato utilizzato il "flag_geo" 
 -- della tabella delle spese delle missioni
 
 INSERT INTO #Missione(iditineration, importo, voce8000/*, flagitalian*/)	
@@ -300,8 +302,8 @@ update #missione set idexp = (select top 1 idexp from #Missione M2 where M2.idit
 UPDATE #Missione SET idregistrylegalstatus = ( SELECT idregistrylegalstatus FROM itineration WHERE itineration.iditineration = #Missione.iditineration )
 
 
--- Corregge l'idregistrylegalstatus. Se facciamo l'importazione delle anagrafiche, e queste sono state gi√† usate nei contratti, nelle tabelle dei contratti il campo
--- idregistrlegal status non sar√† valorizzato, quindi dobbiamo cercare di leggerlo adesso.
+-- Corregge l'idregistrylegalstatus. Se facciamo l'importazione delle anagrafiche, e queste sono state gi‡ usate nei contratti, nelle tabelle dei contratti il campo
+-- idregistrlegal status non sar‡ valorizzato, quindi dobbiamo cercare di leggerlo adesso.
 UPDATE #Missione SET idregistrylegalstatus = 
 									(select TOP 1 R1.idregistrylegalstatus -- ci sono anagrafiche con lo stesso ruolo ma aventi data decorrenza diversa
 										from registrylegalstatus R1
@@ -327,8 +329,8 @@ SET  @departmentname  = ISNULL( (SELECT paramvalue from
 DECLARE @iddb varchar(50)
 SET @iddb = (select user)
 
--- In Out forniamo anche idexp perch√® il file deve comunicare un record per pagamento
--- Ma l'idexp non basta, perch√® √® univoco nel dipartimento non nel DB, quindi vi concateniamo anche lo user per avere una chiave
+-- In Out forniamo anche idexp perchË il file deve comunicare un record per pagamento
+-- Ma l'idexp non basta, perchË Ë univoco nel dipartimento non nel DB, quindi vi concateniamo anche lo user per avere una chiave
 -- univoca del mov. di spesa all'interno del DB consolidato
 SELECT  P.idreg,
 		@departmentname,
@@ -348,7 +350,7 @@ JOIN payment M
 	ON EL.kpay = M.kpay
 where idregistrylegalstatus is not null --	<<
 and P.importo <> 0
-GROUP BY  P.idreg,P.idexp, P.idregistrylegalstatus,P.voce8000,	-- metto la GROUP BY perch√® sono solo spese, classificate tutte allo stesso modo,
+GROUP BY  P.idreg,P.idexp, P.idregistrylegalstatus,P.voce8000,	-- metto la GROUP BY perchË sono solo spese, classificate tutte allo stesso modo,
 																				-- credo non vi sia la necessita di fornirel su righe separate.
 		E.ymov,	E.nmov,	M.adate
 ORDER BY P.idreg, P.idexp, P.voce8000
@@ -363,4 +365,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

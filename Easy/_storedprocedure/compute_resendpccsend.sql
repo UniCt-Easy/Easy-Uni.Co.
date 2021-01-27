@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[compute_resendpccsend]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[compute_resendpccsend]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_resendpccsend]
 GO
 
@@ -373,8 +375,8 @@ as (
 select distinct 
 R.idreg, R.title, R.cf,
 -- Se I-Italia, leggiamo la piva
--- Se J-UE, leggiamo la p.iva, che sar√† valorizzata con la p.iva estera
--- Se X-Extra UE, leggiamo foreigncf, che sar√† valorizzato con il codice identificativo estero
+-- Se J-UE, leggiamo la p.iva, che sar‡ valorizzata con la p.iva estera
+-- Se X-Extra UE, leggiamo foreigncf, che sar‡ valorizzato con il codice identificativo estero
 	case when RR.coderesidence = 'I' then 'IT' + R.p_iva
 		 when RR.coderesidence = 'J' then R.p_iva
 		 when RR.coderesidence = 'X' then substring(R.foreigncf,1,16)
@@ -457,4 +459,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

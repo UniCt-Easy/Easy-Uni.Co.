@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[check_emens]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[check_emens]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [check_emens]
 GO
 
@@ -64,12 +66,12 @@ SET  @curr_departmentname = ISNULL( (SELECT paramvalue from
 
 -- Controllo degli errori su #mittente
 INSERT INTO #logerror
-SELECT 'S',@curr_departmentname,'Non √® stato selezionato un responsabile per la trasmissione dell''E-Mens',
+SELECT 'S',@curr_departmentname,'Non Ë stato selezionato un responsabile per la trasmissione dell''E-Mens',
 'Andare in ''Configurazione - Responsabile Trasmissione - Configurazione'', ed inserire un responsabile per la trasmissione del modello E-Mens'
 FROM #mittente WHERE flagesisteresponsabile = 'N'
 
 INSERT INTO #logerror
-SELECT 'S',@curr_departmentname,'Non √® stato inserito il codice fiscale del mittente',
+SELECT 'S',@curr_departmentname,'Non Ë stato inserito il codice fiscale del mittente',
 'Andare in ''Configurazione - Informazioni Ente'' ed inserire il codice fiscale'
 FROM #mittente WHERE (cfmittente = '' OR cfmittente IS NULL)
 
@@ -79,7 +81,7 @@ SELECT 'S',@curr_departmentname,'Il codice fiscale del mittente non ha lunghezza
 FROM #mittente WHERE (DATALENGTH(cfmittente) <> 11)
 
 INSERT INTO #logerror
-SELECT 'S',@curr_departmentname,'Non √® stato inserito il codice fiscale del responsabile alla trasmissione dell''E-Mens',
+SELECT 'S',@curr_departmentname,'Non Ë stato inserito il codice fiscale del responsabile alla trasmissione dell''E-Mens',
 'Andare in ''Anagrafiche - Anagrafica - Anagrafica'', scegliere il responsabile della trasmissione dell''E-Mens
  (precedentemente configurato in Configurazione - Responsabile Trasmissione - Configurazione) ed inserire il codice fiscale.'
 FROM #mittente WHERE (cfpersonamittente = '' OR cfpersonamittente IS NULL)
@@ -198,7 +200,7 @@ Begin
 				aliquota   BETWEEN (	employrate -  @epsilon) AND (employrate + @epsilon)) ) > 0
 			BEGIN
 				INSERT INTO #logerror
-				SELECT 'S',departmentname,'L''aliquota ' + CONVERT(varchar(20),aliquota*100)+ '%' + ' applicata a ' + cognome + ' ' + nome + ' √® errata' ,''
+				SELECT 'S',departmentname,'L''aliquota ' + CONVERT(varchar(20),aliquota*100)+ '%' + ' applicata a ' + cognome + ' ' + nome + ' Ë errata' ,''
 				FROM #listacollaboratori
 				WHERE NOT EXISTS (select * FROM #config_corrente_inps  WHERE 
 				aliquota   BETWEEN (	employrate -  @epsilon) AND (employrate + @epsilon))
@@ -216,7 +218,7 @@ Begin
 				aliquota BETWEEN (	employrate  +0.0051 -  @epsilon) AND (employrate  +0.0051 + @epsilon)) ) > 0
 			BEGIN
 				INSERT INTO #logerror
-				SELECT 'S',departmentname,'L''aliquota ' + CONVERT(varchar(20),aliquota*100)+ '%' + ' applicata a ' + cognome + ' ' + nome + ' √® errata...' ,''
+				SELECT 'S',departmentname,'L''aliquota ' + CONVERT(varchar(20),aliquota*100)+ '%' + ' applicata a ' + cognome + ' ' + nome + ' Ë errata...' ,''
 				FROM #listacollaboratori
 				WHERE NOT EXISTS (select * FROM #config_corrente_inps  WHERE 
 				aliquota   BETWEEN (	employrate  +0.0051-  @epsilon) AND (employrate  +0.0051+ @epsilon))
@@ -240,19 +242,19 @@ Begin
         
         INSERT INTO #logerror
         SELECT 'S',departmentname,'La lunghezza del codice del comune per il collaboratore ' + cognome + ' ' + nome + 
-        ' nel periodo ' + CONVERT(varchar(16),dal) + ' √® differente dalla lunghezza standard di 4 caratteri',
+        ' nel periodo ' + CONVERT(varchar(16),dal) + ' Ë differente dalla lunghezza standard di 4 caratteri',
         'Controllare il codice Belfiore del comune (idagency = 1, idcode = 1)'
         FROM #listacollaboratori WHERE DATALENGTH(codicecomune) <> 4
         
         INSERT INTO #logerror
         SELECT 'S',departmentname,'Al collaboratore ' + cognome + ' ' + nome + 
-        ' non √® stato associato il codice comune',
+        ' non Ë stato associato il codice comune',
         'Andare in Configurazione\Informazioni ente ed inserire il comune dell''Ente. '
         FROM #listacollaboratori WHERE codicecomune IS NULL
 		
 		INSERT INTO #logerror
         SELECT 'S',departmentname,'Al percipiente ' + cognome + ' ' + nome + 
-        ' non √® stato associato il tipo rapporto Emens in corrispondenza ' + 
+        ' non Ë stato associato il tipo rapporto Emens in corrispondenza ' + 
 		' di una prestazione con ritenuta INPS effettuata presso ' + departmentname ,
         ' Controllare le prestazioni effettuate '
         FROM #listacollaboratori WHERE tiporapporto IS NULL AND servicemodule IN ('OCCASIONALE','COCOCO')
@@ -264,7 +266,7 @@ Begin
         DECLARE @posizione char(1)
         DECLARE @departmentname varchar(500)
         -- Il cursore viene costruito in modo da considerare tutti i percipienti e il responsabile della trasmissione.
-        -- Il responsabile della trasmissione √® marcato con il valore R mentre i percipienti con P, in modo da parametrizzare
+        -- Il responsabile della trasmissione Ë marcato con il valore R mentre i percipienti con P, in modo da parametrizzare
         -- il messaggio di output
         DECLARE listacoll_cursor INSENSITIVE CURSOR FOR
         SELECT DISTINCT cfcollaboratore,cognome,nome,'P' AS posizione,departmentname FROM #listacollaboratori
@@ -309,13 +311,13 @@ Begin
         		IF (@posizione = 'P')
         		 BEGIN
             		INSERT INTO #logerror
-        			VALUES('S',@departmentname,'L''ultimo carattere del codice fiscale di ' + @cognome + ' ' + @nome + ' non √® corretto',
+        			VALUES('S',@departmentname,'L''ultimo carattere del codice fiscale di ' + @cognome + ' ' + @nome + ' non Ë corretto',
         			'Andare in in ''Anagrafiche - Anagrafica - Anagrafica e correggere il codice fiscale')
         		 END
         		IF (@posizione = 'R')
         		 BEGIN
             		INSERT INTO #logerror
-        			VALUES('S',@departmentname,'L''ultimo carattere del codice fiscale del responsabile della trasmissione non √® corretto',
+        			VALUES('S',@departmentname,'L''ultimo carattere del codice fiscale del responsabile della trasmissione non Ë corretto',
         			'Andare in in ''Anagrafiche - Anagrafica - Anagrafica e correggere il codice fiscale')
         		 END
         	END
@@ -349,4 +351,3 @@ SET ANSI_NULLS ON
 GO
 
  exec check_emens {ts '2017-07-31 00:00:00'},2017, 7, 7,'N'
-	

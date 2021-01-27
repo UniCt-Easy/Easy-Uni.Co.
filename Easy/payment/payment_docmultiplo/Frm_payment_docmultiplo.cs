@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -1700,7 +1702,7 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
               " join expense E on E.idexp = II.idpayment " +
               " where (II.idpayment in (" + list + ")) " +
                 //task 5739: filtro l'anag. solo per autokind 4, come la stampa
-              " and ((II.autokind = 4 and II.idreg=E.idreg) OR II.autokind = 6 OR II.autokind = 14 OR  II.autokind in (20,21,30,31))  ";
+              " and ((II.autokind = 4 and II.idreg=E.idreg) OR II.autokind in (6,7,14,20,21,30,31))  ";
               //" and II.idreg = E.idreg  ";
 
             // sottrai contributi c/ente  (temporaneamente sospeso, si deve considerare la coerenza con la stampa)
@@ -1808,7 +1810,7 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
             if (UsoSiope) {
                 Dictionary<int, DataRow> admitted;
                 string res = pp.Meta_payment.SimulaGenerazioneOrdinativo(Conn, DS.expenselastview, out admitted);
-                if (res!=null)MessageBox.Show(res, "Informazione");
+                if (res!=null)MetaFactory.factory.getSingleton<IMessageShower>().Show(res, "Informazione");
             }
         }
 
@@ -1836,7 +1838,7 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
             if (UsoSiope) {
                 Dictionary<int, DataRow> admitted;
                 string res = pp.Meta_payment.SimulaGenerazioneOrdinativo(Conn, DS.expenselastview, out admitted);
-                if (res!=null)MessageBox.Show(res, "Informazione");
+                if (res!=null)MetaFactory.factory.getSingleton<IMessageShower>().Show(res, "Informazione");
             }
         }
 		
@@ -1851,7 +1853,7 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
             if (UsoSiope) {
                 Dictionary<int, DataRow> admitted;
                 string res = pp.Meta_payment.SimulaGenerazioneOrdinativo(Conn, DS.expenselastview, out admitted);
-                if (res!=null)MessageBox.Show(res, "Informazione");
+                if (res!=null)MetaFactory.factory.getSingleton<IMessageShower>().Show(res, "Informazione");
             }
         }
 
@@ -2100,7 +2102,7 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
             Dictionary<int, DataRow> admitted;
             string res = pp.Meta_payment.SimulaGenerazioneOrdinativo(Conn, DS.expenselastview, out admitted);
             if (res == null) res = "L'ordinativo ha gi‡ una dimensione accettabile.";
-            if (res!=null)MessageBox.Show(res, "Informazione");
+            if (res!=null)MetaFactory.factory.getSingleton<IMessageShower>().Show(res, "Informazione");
             int n = 0;
             Dictionary<int,DataRow> rowPerIdExp = new Dictionary<int, DataRow>();
             foreach (DataRow r in DS.expenselastview.Rows) {
@@ -2119,7 +2121,7 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
                 }
             }
 
-            MessageBox.Show("Sono stati rimossi " + n + " pagamenti dal mandato.", "Avviso");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("Sono stati rimossi " + n + " pagamenti dal mandato.", "Avviso");
 
         }
     }

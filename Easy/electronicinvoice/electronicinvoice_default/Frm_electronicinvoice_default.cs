@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -125,7 +127,7 @@ namespace electronicinvoice_default {
 
             if (T.TableName == "registry") {
                 Meta.GetFormData(true);
-                //Imposta l'ipa del Destinatario, solo se Insert. Lo fa solo una volta, poi la persona lo pu√† modificare
+                //Imposta l'ipa del Destinatario, solo se Insert. Lo fa solo una volta, poi la persona lo pu‡ modificare
                 if (Meta.InsertMode) {
                     if ((R != null) && (R["ipa_fe"].ToString() != "")) {
                         txtIpa_ven_cliente.Text = R["ipa_fe"].ToString();
@@ -346,7 +348,7 @@ namespace electronicinvoice_default {
 			//        filter = QH.AppAnd(filter, QH.CmpEq("ipa_ven_cliente", ipa_ven_cliente));
 			//    }
 			//    else {
-			//        //questo else non dovrebbe MAI verificarsi, perch√® l'IPA del destinatario √® obbligatorio del tracciato.
+			//        //questo else non dovrebbe MAI verificarsi, perchË l'IPA del destinatario Ë obbligatorio del tracciato.
 			//        filter = QH.AppAnd(filter, QH.IsNull("ipa_ven_cliente"));
 			//    }
 			//    object rifamm_ven_cliente = rInvoice["rifamm_ven_cliente"];
@@ -366,7 +368,7 @@ namespace electronicinvoice_default {
             MetaData.GetFormData(this, true);
 
             if ((txtIpa_ven_cliente.Text=="")&&(txtPec_ven_cliente.Text == "")&& (txtEmail_ven_cliente.Text=="")) {
-                MessageBox.Show(this, "Inserire Codice Univoco Ufficio di PCC o Codice Univoco Ufficio di IPA, o indirizzo PEC o mail F.E.del Destinatario.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire Codice Univoco Ufficio di PCC o Codice Univoco Ufficio di IPA, o indirizzo PEC o mail F.E.del Destinatario.");
                 return;
             }
 
@@ -377,7 +379,7 @@ namespace electronicinvoice_default {
 
             DataSet MyDS = (DataSet)gridFatture.DataSource;
             DataTable MyTable = MyDS.Tables[gridFatture.DataMember.ToString()];
-            //Se abbiamo scelto una fattura e l'anagrafica non √® sta valorizzata: 
+            //Se abbiamo scelto una fattura e l'anagrafica non Ë sta valorizzata: 
             if ((MyTable.Rows.Count > 0) &&(txtCreditoreDebitore.Text=="")) {
                 DataRow MyRow = MyTable.Rows[0];
                 object idreg = MyRow["idreg"];
@@ -399,7 +401,7 @@ namespace electronicinvoice_default {
                 return;
             Meta.GetFormData(true);
 			if ((txtIpa_ven_cliente.Text == "") && (txtPec_ven_cliente.Text == "")) {
-				MessageBox.Show(this, "Inserire Codice Univoco Ufficio di PCC o Codice Univoco Ufficio di IPA, o indirizzo PEC del Destinatario.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire Codice Univoco Ufficio di PCC o Codice Univoco Ufficio di IPA, o indirizzo PEC del Destinatario.");
 				return;
 			}
 			string MyFilter = GetFilterForLinking(QHC);
@@ -426,12 +428,12 @@ namespace electronicinvoice_default {
 
         private string aggiustaStringa(string stringa, bool toglichiocciola) {
 
-            string s = stringa.Replace('‚Äô', ' ').Replace('¬¥', ' ').Replace('√á', 'c').Replace('√ß', 'c').Replace('‚Ç¨', 'e').Replace('|', ' ').Replace('\\', ' ').Replace('¬£', ' ').Replace('¬ß', ' ').Replace('[', ' ').Replace('#', ' ').Replace('!', ' ').Replace('√ô', 'u').Replace(
-                '√ñ', 'o').Replace('√ú', 'u').Replace('√ë', 'n').Replace('√ê', 'd').Replace('√ä', 'e').Replace('√ã', 'e').Replace('√é', 'i').Replace('√è', 'i').Replace('√î', 'o').Replace('√ï', 'o').Replace('√õ', 'u').Replace('√ù', 'y').Replace(
-                ']', ' ').Replace('`', ' ').Replace('{', ' ').Replace('}', ' ').Replace('~', ' ').Replace('√º', 'u').Replace('√¢', 'a').Replace('√§', 'a').Replace('√•', 'a').Replace('√™', 'e').Replace('√´', 'e').Replace('√Ø', 'i').Replace(
-                '√Æ', 'i').Replace('√Ñ', 'a').Replace('√Ö', 'a').Replace('√¥', 'o').Replace('√∂', 'o').Replace('√ª', 'u').Replace('√ø', 'y').Replace('√±', 'n').Replace('√Ç', 'a').Replace('¬•', 'y').Replace('√£', 'a').Replace('√É', 'a').Replace(
-                '√µ', 'o').Replace('√Ω', 'y').Replace('√©', 'e').Replace('√†', 'a').Replace('√®', 'e').Replace('√¨', 'i').Replace('√≤', 'o').Replace('√π', 'u').Replace('√°', 'a').Replace('√≠', 'i').Replace('√≥', 'o').Replace('√â', 'e').Replace(
-                '√Å', 'a').Replace('√Ä', 'a').Replace('√à', 'e').Replace('√ç', 'i').Replace('√å', 'i').Replace('√ì', 'o').Replace('√í', 'o').Replace('√ö', 'u').Replace('\t', ' ').Replace('\n', ' ').Replace('\r', ' ').Replace('¬∞', ' ');
+            string s = stringa.Replace('í', ' ').Replace('¥', ' ').Replace('«', 'c').Replace('Á', 'c').Replace('Ä', 'e').Replace('|', ' ').Replace('\\', ' ').Replace('£', ' ').Replace('ß', ' ').Replace('[', ' ').Replace('#', ' ').Replace('!', ' ').Replace('Ÿ', 'u').Replace(
+                '÷', 'o').Replace('‹', 'u').Replace('—', 'n').Replace('–', 'd').Replace(' ', 'e').Replace('À', 'e').Replace('Œ', 'i').Replace('œ', 'i').Replace('‘', 'o').Replace('’', 'o').Replace('€', 'u').Replace('›', 'y').Replace(
+                ']', ' ').Replace('`', ' ').Replace('{', ' ').Replace('}', ' ').Replace('~', ' ').Replace('¸', 'u').Replace('‚', 'a').Replace('‰', 'a').Replace('Â', 'a').Replace('Í', 'e').Replace('Î', 'e').Replace('Ô', 'i').Replace(
+                'Ó', 'i').Replace('ƒ', 'a').Replace('≈', 'a').Replace('Ù', 'o').Replace('ˆ', 'o').Replace('˚', 'u').Replace('ˇ', 'y').Replace('Ò', 'n').Replace('¬', 'a').Replace('•', 'y').Replace('„', 'a').Replace('√', 'a').Replace(
+                'ı', 'o').Replace('˝', 'y').Replace('È', 'e').Replace('‡', 'a').Replace('Ë', 'e').Replace('Ï', 'i').Replace('Ú', 'o').Replace('˘', 'u').Replace('·', 'a').Replace('Ì', 'i').Replace('Û', 'o').Replace('…', 'e').Replace(
+                '¡', 'a').Replace('¿', 'a').Replace('»', 'e').Replace('Õ', 'i').Replace('Ã', 'i').Replace('”', 'o').Replace('“', 'o').Replace('⁄', 'u').Replace('\t', ' ').Replace('\n', ' ').Replace('\r', ' ').Replace('∞', ' ');
             if (toglichiocciola)
                 s = s.Replace('@', ' ');
             return s;
@@ -562,7 +564,7 @@ namespace electronicinvoice_default {
             }
 
             if (DS.invoiceview.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono fatture!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono fatture!");
                 return;
             }
 
@@ -570,14 +572,14 @@ namespace electronicinvoice_default {
                 return;
             PostData.RemoveFalseUpdates(DS);
             if (DS.HasChanges()) {
-                MessageBox.Show(this, "Per generare il file occorre prima SALVARE");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per generare il file occorre prima SALVARE");
                 return;
             }
             DataRow Curr = DS.electronicinvoice.Rows[0];
             DataTable tElectronicinvoice = Meta.Conn.CallSP("exp_electronicinvoice", 
                     new[] { Curr["yelectronicinvoice"], Curr["nelectronicinvoice"] },false,60).Tables[0];
             if (tElectronicinvoice.Rows.Count == 0) {
-                MessageBox.Show(this, "Non vi sono fattura da esportare.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non vi sono fattura da esportare.");
                 return;
             }
             DataTable tElectronicinvoicedetail = Meta.Conn.CallSP("exp_electronicinvoicedetail", 
@@ -592,13 +594,13 @@ namespace electronicinvoice_default {
             //    txtPercorso.Text = saveFileDialog1.FileName;
             //}
             //else {
-            //    MessageBox.Show(this, "Non √® stato selezionato il percorso in cui memorizzare il file");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stato selezionato il percorso in cui memorizzare il file");
             //    return;
             //}
             txtPercorso.Text = "";
             faiScegliereCartella();
             if (txtPercorso.Text == "") {
-                MessageBox.Show(this, "Occorre specificare la cartella in cui creare il file", "errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Occorre specificare la cartella in cui creare il file", "errore");
                 return;
             }
 
@@ -680,10 +682,10 @@ namespace electronicinvoice_default {
             writer.WriteEndElement();// chiude <Sede>
 			//		1.4.3 < StabileOrganizzazione > Blocco da valorizzare se e solo se l'elemento informativo 1.1.3 <FormatoTrasmissione> = "FPR12" (fattura tra privati), nel caso di cessionario/committente non residente e con stabile organizzazione in Italia
 			//	1.4.3.1 < Indirizzo > xs:normalizedString Indirizzo della sede del cessionario / committente(nome della via, piazza etc.)
-			//	1.4.3.2 < NumeroCivico > xs:normalizedString Numero civico riferito all'indirizzo (non indicare se gi√† presente nell'elemento informativo indirizzo)
+			//	1.4.3.2 < NumeroCivico > xs:normalizedString Numero civico riferito all'indirizzo (non indicare se gi‡ presente nell'elemento informativo indirizzo)
 			//	1.4.3.3 < CAP > xs:string   Codice Avviamento Postale
 			//	1.4.3.4 < Comune > xs:normalizedString Comune relativo alla stabile organizzazione in Italia
-			//	1.4.3.5 < Provincia > xs:string   Sigla della provincia di appartenenza del comune indicato nell'elemento informativo 1.4.3.4 <Comune>. Da valorizzare se l'elemento informativo 1.4,3.6 < Nazione > √® uguale a IT
+			//	1.4.3.5 < Provincia > xs:string   Sigla della provincia di appartenenza del comune indicato nell'elemento informativo 1.4.3.4 <Comune>. Da valorizzare se l'elemento informativo 1.4,3.6 < Nazione > Ë uguale a IT
 			//	1.4.3.6 < Nazione > xs:string   Codice della nazione espresso secondo lo standard ISO 3166 - 1 alpha - 2 code
 			if ((versione == "FPR12") && (R["indirizzoStabileOrg"] != DBNull.Value)) {
 				writersdi.WriteStartElement("StabileOrganizzazione"); //Apre <StabileOrganizzazione>
@@ -696,7 +698,7 @@ namespace electronicinvoice_default {
 			}
 
 			//1.4.4 < RappresentanteFiscale > Blocco da valorizzare se e solo se l'elemento informativo 1.1.3 <FormatoTrasmissione> = "FPR12" (fattura tra privati), nel caso di cessionario/committente che si avvale di rappresentante fiscale in Italia
-			//	1.4.4.1 < IdFiscaleIVA > Numero di identificazione fiscale ai fini IVA; i primi due caratteri rappresentano il paese(IT, DE, ES ‚Ä¶..) ed i restanti(fino ad un massimo di 28) il codice vero e proprio che, per i residenti in Italia, corrisponde al numero di partita IVA.
+			//	1.4.4.1 < IdFiscaleIVA > Numero di identificazione fiscale ai fini IVA; i primi due caratteri rappresentano il paese(IT, DE, ES Ö..) ed i restanti(fino ad un massimo di 28) il codice vero e proprio che, per i residenti in Italia, corrisponde al numero di partita IVA.
 			//		1.4.4.1.1 < IdPaese > xs:string   Codice della nazione espresso secondo lo standard ISO 3166 - 1 alpha - 2 code
 			//		1.4.4.1.2 < IdCodice > xs:string   Codice identificativo fiscale
 			//		1.4.4.2 < Denominazione > (campo assente nella scheda indirizzi dell'anagrafica)				
@@ -784,7 +786,7 @@ namespace electronicinvoice_default {
                 string filterOrdineAcquisto = QHC.AppAnd(QHC.CmpEq("idinvkind", rFattura["idinvkind"]),
                     QHC.CmpEq("yinv", rFattura["yinv"]), QHC.CmpEq("ninv", rFattura["ninv"]), QHC.IsNotNull("IdDocumento"));
 
-                //"IdDocumento" viene valorizzato solo se c'√® il collegamento al C.A. ed √® stato indicato il cig o il cup nel dettaglio fattura.
+                //"IdDocumento" viene valorizzato solo se c'Ë il collegamento al C.A. ed Ë stato indicato il cig o il cup nel dettaglio fattura.
                 foreach (DataRow rDetail in tElectronicinvoicedetail.Select(filterOrdineAcquisto)) {
                     writer.WriteStartElement("DatiOrdineAcquisto");//Apre - <DatiOrdineAcquisto>
                     writer.WriteElementString("RiferimentoNumeroLinea", format(rDetail["RiferimentoNumeroLinea"]));
@@ -804,7 +806,7 @@ namespace electronicinvoice_default {
                     writer.WriteEndElement();// Chiude -  <DatiOrdineAcquisto>
                 }
 
-                if (rFattura["tipofattura"].ToString() == "V" && rFattura["IdDocumentoFatturaMadre"].ToString()!="") {// Se √® una Nota di Credito
+                if (rFattura["tipofattura"].ToString() == "V" && rFattura["IdDocumentoFatturaMadre"].ToString()!="") {// Se Ë una Nota di Credito
                     writer.WriteStartElement("DatiFattureCollegate");
                     writer.WriteElementString("IdDocumento", getLatin1(rFattura["IdDocumentoFatturaMadre"]));
                     writer.WriteElementString("Data", format(rFattura["DataFatturaMadre"]));
@@ -833,7 +835,7 @@ namespace electronicinvoice_default {
                     //PrezzoUnitario: decimali che vanno da un minimo di due ad un massimo di otto cifre
                     decimal prezzoUnitario = CfgFn.GetNoNullDecimal(rDettFattura["PrezzoUnitario"]);
                     decimal prezzoTotale = CfgFn.GetNoNullDecimal(rDettFattura["PrezzoTotale"]);
-                    // prezzoUnitario: decimali che vanno da un minimo di due ad un massimo di otto cifre, in invoicedetail √® decimal(19,5)
+                    // prezzoUnitario: decimali che vanno da un minimo di due ad un massimo di otto cifre, in invoicedetail Ë decimal(19,5)
                     writer.WriteElementString("PrezzoUnitario", SecurityElement.Escape(FormatDecimalN(prezzoUnitario,6)));  //taxable di invoicedetail
                     if (rDettFattura["tipoScontoMaggiorazioneDettaglio"].ToString() != "") {
                         //calcola lo sconto a runtime, a scanso di equivoci
@@ -933,7 +935,7 @@ namespace electronicinvoice_default {
             DS.electronicinvoice.Rows[0]["rtf"] = xml;
 
             Meta.SaveFormData();
-            MessageBox.Show("Creato il file " + NomeCompletoFileXML, "Avviso");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("Creato il file " + NomeCompletoFileXML, "Avviso");
             //ValidaFile_conXSD();
 
         }
@@ -1018,14 +1020,14 @@ namespace electronicinvoice_default {
             }
 
             if (DS.invoiceview.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono fatture!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono fatture!");
                 return;
             }
 
             if (!Meta.GetFormData(false)) return;
             PostData.RemoveFalseUpdates(DS);
             if (DS.HasChanges()) {
-                MessageBox.Show(this, "Per controllare i dati occorre prima SALVARE");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per controllare i dati occorre prima SALVARE");
                 return;
             }
             DataRow Curr = DS.electronicinvoice.Rows[0];
@@ -1034,7 +1036,7 @@ namespace electronicinvoice_default {
                 return;
             }
             if (tElectronicinvoicecheck.Rows.Count == 0) {
-                MessageBox.Show(this, "Non vi sono errori.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non vi sono errori.");
                 return;
             }
 
@@ -1101,7 +1103,7 @@ namespace electronicinvoice_default {
                 xw.Close();
             }
             catch (Exception E) {
-                MessageBox.Show("Errore aprendo la fattura selezionata", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore aprendo la fattura selezionata", "Errore");
                 DataRow Curr = DS.electronicinvoice.Rows[0];
                 string errmsg = "Frm_electronicinvoice_default: Errore su fatturapa_v1.2.xslt, Fattura anno: "+Curr["yelectronicinvoice"]+" numero: "+Curr["nelectronicinvoice"];
                 Meta.LogError(errmsg, E);
@@ -1129,7 +1131,7 @@ namespace electronicinvoice_default {
             }
 
             if (DS.invoiceview.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono fatture!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono fatture!");
                 return;
             }
 
@@ -1137,7 +1139,7 @@ namespace electronicinvoice_default {
                 return;
             PostData.RemoveFalseUpdates(DS);
             if (DS.HasChanges()) {
-                MessageBox.Show(this, "Per generare il file occorre prima SALVARE");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per generare il file occorre prima SALVARE");
                 return;
             }
 			DataTable tElectronicinvoice = new DataTable();
@@ -1151,7 +1153,7 @@ namespace electronicinvoice_default {
 			tElectronicinvoice = Out.Tables[0];
 			if (tElectronicinvoice.Rows.Count == 0) {
                 Meta.dontClose = false;
-                MessageBox.Show(this, "Non vi sono fatture da esportare.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non vi sono fatture da esportare.");
                 return;
             }
            
@@ -1249,10 +1251,10 @@ namespace electronicinvoice_default {
                 writersdi.WriteEndElement();// chiude <Sede>
 				//		1.4.3 < StabileOrganizzazione > Blocco da valorizzare se e solo se l'elemento informativo 1.1.3 <FormatoTrasmissione> = "FPR12" (fattura tra privati), nel caso di cessionario/committente non residente e con stabile organizzazione in Italia
 				//	1.4.3.1 < Indirizzo > xs:normalizedString Indirizzo della sede del cessionario / committente(nome della via, piazza etc.)
-				//	1.4.3.2 < NumeroCivico > xs:normalizedString Numero civico riferito all'indirizzo (non indicare se gi√† presente nell'elemento informativo indirizzo)
+				//	1.4.3.2 < NumeroCivico > xs:normalizedString Numero civico riferito all'indirizzo (non indicare se gi‡ presente nell'elemento informativo indirizzo)
 				//	1.4.3.3 < CAP > xs:string   Codice Avviamento Postale
 				//	1.4.3.4 < Comune > xs:normalizedString Comune relativo alla stabile organizzazione in Italia
-				//	1.4.3.5 < Provincia > xs:string   Sigla della provincia di appartenenza del comune indicato nell'elemento informativo 1.4.3.4 <Comune>. Da valorizzare se l'elemento informativo 1.4,3.6 < Nazione > √® uguale a IT
+				//	1.4.3.5 < Provincia > xs:string   Sigla della provincia di appartenenza del comune indicato nell'elemento informativo 1.4.3.4 <Comune>. Da valorizzare se l'elemento informativo 1.4,3.6 < Nazione > Ë uguale a IT
 				//	1.4.3.6 < Nazione > xs:string   Codice della nazione espresso secondo lo standard ISO 3166 - 1 alpha - 2 code
 				if ((versione == "FPR12") && (R["indirizzoStabileOrg"] !=DBNull.Value)) { 
 					writersdi.WriteStartElement("StabileOrganizzazione"); //Apre <StabileOrganizzazione>
@@ -1279,7 +1281,7 @@ namespace electronicinvoice_default {
                 }
 
                 //1.4.4 < RappresentanteFiscale > Blocco da valorizzare se e solo se l'elemento informativo 1.1.3 <FormatoTrasmissione> = "FPR12" (fattura tra privati), nel caso di cessionario/committente che si avvale di rappresentante fiscale in Italia
-                //	1.4.4.1 < IdFiscaleIVA > Numero di identificazione fiscale ai fini IVA; i primi due caratteri rappresentano il paese(IT, DE, ES ‚Ä¶..) ed i restanti(fino ad un massimo di 28) il codice vero e proprio che, per i residenti in Italia, corrisponde al numero di partita IVA.
+                //	1.4.4.1 < IdFiscaleIVA > Numero di identificazione fiscale ai fini IVA; i primi due caratteri rappresentano il paese(IT, DE, ES Ö..) ed i restanti(fino ad un massimo di 28) il codice vero e proprio che, per i residenti in Italia, corrisponde al numero di partita IVA.
                 //		1.4.4.1.1 < IdPaese > xs:string   Codice della nazione espresso secondo lo standard ISO 3166 - 1 alpha - 2 code
                 //		1.4.4.1.2 < IdCodice > xs:string   Codice identificativo fiscale
                 //		1.4.4.2 < Denominazione > (campo assente nella scheda indirizzi dell'anagrafica)				
@@ -1362,7 +1364,7 @@ namespace electronicinvoice_default {
                 string filterOrdineAcquisto = QHC.AppAnd(QHC.CmpEq("idinvkind", rFattura["idinvkind"]),
                     QHC.CmpEq("yinv", rFattura["yinv"]), QHC.CmpEq("ninv", rFattura["ninv"]), QHC.IsNotNull("IdDocumento"));
 
-				//"IdDocumento" viene valorizzato solo se c'√® il collegamento al C.A. ed √® stato indicato il cig o il cup nel dettaglio fattura.
+				//"IdDocumento" viene valorizzato solo se c'Ë il collegamento al C.A. ed Ë stato indicato il cig o il cup nel dettaglio fattura.
 				
 				
 				foreach (DataRow rDetail in tElectronicinvoicedetail.Select(filterOrdineAcquisto)) {
@@ -1383,7 +1385,7 @@ namespace electronicinvoice_default {
                     }
                     writersdi.WriteEndElement();// Chiude -  <DatiOrdineAcquisto>
                 }
-                if (rFattura["tipofattura"].ToString() == "V") {// Se √® una Nota di Credito
+                if (rFattura["tipofattura"].ToString() == "V") {// Se Ë una Nota di Credito
                     writersdi.WriteStartElement("DatiFattureCollegate");
                     writersdi.WriteElementString("IdDocumento", getLatin1(rFattura["IdDocumentoFatturaMadre"]));
                     writersdi.WriteElementString("Data", format(rFattura["DataFatturaMadre"]));

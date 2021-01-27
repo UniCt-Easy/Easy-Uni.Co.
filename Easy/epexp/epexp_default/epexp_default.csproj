@@ -80,15 +80,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="metadatalibrary">
-      <Name>metadatalibrary</Name>
+    <Reference Include="metadatalibrary, Version=2.3.59.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="metaeasylibrary">
-      <Name>metaeasylibrary</Name>
+    <Reference Include="metaeasylibrary, Version=2.1.198.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -172,6 +170,12 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FrmAskDataInizioFine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAskDataInizioFine.Designer.cs">
+      <DependentUpon>FrmAskDataInizioFine.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm_epexp_default.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +184,9 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <EmbeddedResource Include="FrmAskDataInizioFine.resx">
+      <DependentUpon>FrmAskDataInizioFine.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frm_epexp_default.resx">
       <DependentUpon>Frm_epexp_default.cs</DependentUpon>
       <SubType>Designer</SubType>

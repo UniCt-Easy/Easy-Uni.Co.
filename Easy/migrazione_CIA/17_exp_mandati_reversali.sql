@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_mandati_reversali]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mandati_reversali]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mandati_reversali]
 GO
 
@@ -32,9 +34,9 @@ CREATE PROCEDURE [exp_mandati_reversali]
 AS BEGIN
 
 /* prende i dati della fase 2 di CIA, il bilancio dalla fase 1 presumendo ci sia coerenza tra fase 1 e 2
-   il numero della distinta √® scelto in base alla data di trasmissione ed alla data di creazione della distinta
-   l'anagrafica √® presa dalla fase 2 di CIA
-   il numero del mandato √® preso dal substring della chiave_documento
+   il numero della distinta Ë scelto in base alla data di trasmissione ed alla data di creazione della distinta
+   l'anagrafica Ë presa dalla fase 2 di CIA
+   il numero del mandato Ë preso dal substring della chiave_documento
 
 */
 
@@ -148,4 +150,3 @@ WHERE D.BILANCIO = @bilancio  -- estraggo solo i documenti di un dato dipartimen
  
 END
 
-	

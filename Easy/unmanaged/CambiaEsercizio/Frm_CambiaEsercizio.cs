@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -159,12 +161,12 @@ namespace CambiaEsercizio//CambiaEsercizio//
                 esercizio = (int) HelpForm.GetObjectFromString(typeof(int),
                     txtEsercizio.Text.ToString(), "x.y.year");
                 if (esercizio < 1000) {
-                    MessageBox.Show("L'esercizio non puÚ essere minore di 1000","Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("L'esercizio non puÚ essere minore di 1000","Errore");
                     txtEsercizio.Focus();
                     return false;
                 }
                 if (esercizio > 3000) {
-                    MessageBox.Show("L'esercizio Ë troppo grande","Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("L'esercizio Ë troppo grande","Errore");
                     txtEsercizio.Focus();
                     return false;
                 }
@@ -172,7 +174,7 @@ namespace CambiaEsercizio//CambiaEsercizio//
                 //return true;
             }
             catch {
-                MessageBox.Show("E' necessario inserire un esercizio");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario inserire un esercizio");
                 txtEsercizio.Focus();
                 return false;
             }
@@ -182,7 +184,7 @@ namespace CambiaEsercizio//CambiaEsercizio//
                 DataAccessLocale.RUN_SELECT("accountingyear", "*", null, filteresercizio, null, true);
 
             if (EsercizioTable.Rows.Count == 0) {
-                MessageBox.Show("L'esercizio " + esercizio + " non Ë stato creato.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("L'esercizio " + esercizio + " non Ë stato creato.");
                 txtEsercizio.Focus();
                 return false;
             }
@@ -219,7 +221,7 @@ namespace CambiaEsercizio//CambiaEsercizio//
             }
 
             if (!CambioDataConsentita(DataAccessLocale, ToSet)) {
-                MessageBox.Show("Accesso non consentito in tale data in base alla gestione della sicurezza");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Accesso non consentito in tale data in base alla gestione della sicurezza");
                 return;
 
             }
@@ -227,7 +229,7 @@ namespace CambiaEsercizio//CambiaEsercizio//
             E.SetSys("esercizio", esercizio);
             E.SetSys("datacontabile", ToSet);
             if (esercizio != oldesercizio)
-                MessageBox.Show("Avvertimento: la data contabile Ë stata automaticamente impostata al \n" +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Avvertimento: la data contabile Ë stata automaticamente impostata al \n" +
                                 ((DateTime) E.GetSys("datacontabile")).ToShortDateString());
             DialogResult = DialogResult.OK;
         }

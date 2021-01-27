@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_situazioneupbbilancio]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_situazioneupbbilancio]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_situazioneupbbilancio]
 GO
  
@@ -42,7 +44,7 @@ BEGIN
 
 set @idupb = isnull(@idupb,'%')
 -- SE vogliamo vedere anche i figli, @idupb diventa '0001%'
--- altrimenti resta '0001' o '%', se non c'Ã¨ stata alcuna selezione
+-- altrimenti resta '0001' o '%', se non c'è stata alcuna selezione
 if (@showchildupb = 'S') 
 begin
 	set @idupb = @idupb+'%'
@@ -94,7 +96,7 @@ CREATE TABLE #PREVISIONE_PRINCIPALE_INIZIALE(
 	
 INSERT INTO #PREVISIONE_PRINCIPALE_INIZIALE( idupb, idfin, amount)  
 select U.idupb, isnull(FLK.idparent,U.idfin), isnull(U.currentprev,0)
-	from upbtotal U --> Lasciamo il totalizzatore, perchÃ¨ totalizza i figli. Altrimenti dobbiamo distinguere tra capitoli e articoli
+	from upbtotal U --> Lasciamo il totalizzatore, perchè totalizza i figli. Altrimenti dobbiamo distinguere tra capitoli e articoli
 	join upb 
 		on upb.idupb = U.idupb	
 	join fin f
@@ -174,7 +176,7 @@ CREATE TABLE #PREVISIONE_SECONDARIA_INIZIALE(
 	)
 INSERT INTO #PREVISIONE_SECONDARIA_INIZIALE( idupb, idfin, amount)  
 select U.idupb, isnull(FLK.idparent,U.idfin), isnull(U.currentsecondaryprev,0)
-	from upbtotal U --> Lasciamo il totalizzatore, perchÃ¨ totalizza i figli. Altrimenti dobbiamo distinguere tra capitoli e articoli
+	from upbtotal U --> Lasciamo il totalizzatore, perchè totalizza i figli. Altrimenti dobbiamo distinguere tra capitoli e articoli
 	join upb 
 		on upb.idupb = U.idupb	
 	join fin f
@@ -678,7 +680,7 @@ BEGIN
 				isnull(PagComp.amount,0) as 'Totale Pagamenti di Competenza',
 				isnull(PagRes.amount,0) as 'Totale Pagamenti residui',
 				isnull(PSI.amount,0) + isnull(VPS.amount,0)  - isnull(PagComp.amount,0) - isnull(PagRes.amount,0) -isnull(OPS.amount,0)  as 'Previsione disponibile Cassa',
-				--Residui al 31/12 (che Ã¨ valorizzata come "Impegni di Competenza"-"Pagato di competenza"+
+				--Residui al 31/12 (che è valorizzata come "Impegni di Competenza"-"Pagato di competenza"+
 				--"Impegni Residui al 01/01"+"Var. Impegni residui"-"Pagato in conto residui")
 				isnull(ImpComp.amount,0) - isnull(PagComp.amount,0) + isnull(ImpRes_01_01.amount,0) + 
 				isnull(VarImpRes.amount,0) - isnull(PagRes.amount,0) as 'Residui al 31/12',
@@ -1185,7 +1187,7 @@ BEGIN
 				isnull(IncComp.amount,0) as 'Totale Incassi di Competenza',
 				isnull(IncRes.amount,0) as 'Totale Incassi Residui',
 				isnull(PSI.amount,0) + isnull(VPS.amount,0)  - isnull(IncComp.amount,0) - isnull(IncRes.amount,0)  as 'Previsione disponibile Cassa',
-				--Residui al 31/12 (che Ã¨ valorizzata come "Accertamenti di Competenza"-"Incassato di competenza"+
+				--Residui al 31/12 (che è valorizzata come "Accertamenti di Competenza"-"Incassato di competenza"+
 				--"Accertamenti Residui al 01/01"+"Var. Accertamenti residui"-"Incassato in conto residui")
 				isnull(AccComp.amount,0) - isnull(IncComp.amount,0) + isnull(AccRes_01_01.amount,0) + 
 				isnull(VarAccRes.amount,0) - isnull(IncRes.amount,0) as 'Residui al 31/12'
@@ -1420,4 +1422,3 @@ SET ANSI_NULLS ON
 GO
 
  
-	

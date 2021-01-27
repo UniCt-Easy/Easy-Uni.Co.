@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -1838,11 +1840,11 @@ namespace surplus_default {//situazioneammin//
 
 		private void btnRicalcola1_Click(object sender, System.EventArgs e) {
 			if(txtDataAmmPresunta.Text=="") {	
-				MessageBox.Show("E' necessario inserire la data");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario inserire la data");
 				return;
 			}
 			if(txtEsercizio.Text=="") {	
-				MessageBox.Show("E' necessario inserire l'esercizio");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario inserire l'esercizio");
 				return;
 			}
 			DataAccess Conn = MetaData.GetConnection(this); 
@@ -1909,11 +1911,11 @@ namespace surplus_default {//situazioneammin//
 		
 		private void btnRicalcola2_Click(object sender, System.EventArgs e) {
 			if(txtDataAmmPresunta.Text=="") {	
-				MessageBox.Show("E' necessario inserire la data");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario inserire la data");
 				return;
 			}
 			if(txtEsercizio.Text=="") {	
-				MessageBox.Show("E' necessario inserire l'esercizio");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario inserire l'esercizio");
 				return;
 			}
 
@@ -1972,7 +1974,7 @@ namespace surplus_default {//situazioneammin//
 		
 		public void MetaData_AfterFill() {
 			if ((txtData.Text == "") && (Convert.ToInt32(Meta.ExtraParameter) == 1)) {
-				MessageBox.Show("E' necessario inserire una data");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario inserire una data");
 				txtData.Focus();
 			}
 		}
@@ -2110,7 +2112,7 @@ namespace surplus_default {//situazioneammin//
 		}
 		
 		private void message() {
-			MessageBox.Show("Non è stato possibile eseguire la stored procedure! - Dati non sufficienti");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stato possibile eseguire la stored procedure! - Dati non sufficienti");
 		}
 
 
@@ -2250,7 +2252,7 @@ namespace surplus_default {//situazioneammin//
 			txtDescrResiduiPassiviPresuntiPrecedenti.Text = "Residui Passivi Precedenti non pagati nel " + ddd.Year.ToString() + " e che hanno scadenza oltre il 31/12/" + ddd.Year.ToString();
 			txtDescrResiduiAttiviPresuntiCorrenti.Text = "Accertamenti non incassati nel " + ddd.Year.ToString() + " e che hanno scadenza oltre il 31/12/" + ddd.Year.ToString() ;
 			txtDescrResiduiPassiviPresuntiCorrenti.Text = "Impegni non pagati nel " + ddd.Year.ToString() + " e che hanno scadenza oltre il 31/12/" + ddd.Year.ToString() ;
-			if (txtData.Text=="") MessageBox.Show("Inserire la data di riferimento della situazione");
+			if (txtData.Text=="") MetaFactory.factory.getSingleton<IMessageShower>().Show("Inserire la data di riferimento della situazione");
 		}
 
 		// Il parametro entrata_spesa può assumere i valori 
@@ -2329,7 +2331,7 @@ namespace surplus_default {//situazioneammin//
 								
 			}
 			else {
-				MessageBox.Show("E' Necessario inserire l'esercizio");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' Necessario inserire l'esercizio");
 			}
 
 		}
@@ -2353,7 +2355,7 @@ namespace surplus_default {//situazioneammin//
 				}
 			}
 			else {
-				MessageBox.Show("E' necessario inserire l'esercizio");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario inserire l'esercizio");
 			}
 		}	
 
@@ -2756,7 +2758,7 @@ namespace surplus_default {//situazioneammin//
 			if (Meta.InsertMode) return;
 			PostData.RemoveFalseUpdates(DS);
 			if (DS.HasChanges()){
-				MessageBox.Show("Poiché non è ancora stato effettuato il salvataggio dei dati, la stampa potrebbe "+
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Poiché non è ancora stato effettuato il salvataggio dei dati, la stampa potrebbe "+
 					"non rispecchiare fedelmente i dati di questa schermata.");
 			}
 			MetaData MetaReport= MetaData.GetMetaData(this,"resultparameter");

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ÔªøSET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -140,7 +142,7 @@ WHERE kpaymenttransmission = @kpaymenttransmission) = 0)
 BEGIN
 	INSERT INTO #error
 	VALUES('La distinta di trasmissione ' + CONVERT(varchar(4),@y) + '/'
-	+ CONVERT(varchar(6),@n) + ' √® vuota')
+	+ CONVERT(varchar(6),@n) + ' Ë vuota')
 END
 -- CONTROLLO N. 1. Presenza dei dati dell'ente
 DECLARE @error char(1)
@@ -168,30 +170,30 @@ END
 IF (DATALENGTH(@cod_department) > @len_agencycode)
 BEGIN
 	INSERT INTO #error
-	VALUES ('Il codice Ente inserito √® superiore alla lunghezza massima fissata a '
+	VALUES ('Il codice Ente inserito Ë superiore alla lunghezza massima fissata a '
 	+ CONVERT(varchar(2),@len_agencycode))
 END
 
 IF (DATALENGTH(@cod_filiale) > @len_codfiliale)
 BEGIN
 	INSERT INTO #error
-	VALUES ('Il codice Filiale inserito √® superiore alla lunghezza massima fissata a '
+	VALUES ('Il codice Filiale inserito Ë superiore alla lunghezza massima fissata a '
 	+ CONVERT(varchar(2),@len_codfiliale))
 END
 
--- CONTROLLO N. 3. Movimento di Spesa senza Modalit√† di Pagamento
+-- CONTROLLO N. 3. Movimento di Spesa senza Modalit‡ di Pagamento
 INSERT INTO #error (message)
 (SELECT 'Per il movimento n.' + CONVERT(varchar(6),nmov) 
-+ '/' + CONVERT(varchar(4),ymov) + ' non √® stata scelta una modalit√† di pagamento'
++ '/' + CONVERT(varchar(4),ymov) + ' non Ë stata scelta una modalit‡ di pagamento'
 FROM paymentcommunicated
 WHERE ypaymenttransmission = @y
 	AND npaymenttransmission = @n
 	AND idpaymethod IS NULL)
 
--- CONTROLLO N. 5. Movimento di Spesa con Modalit√† di Pagamento non configurata
+-- CONTROLLO N. 5. Movimento di Spesa con Modalit‡ di Pagamento non configurata
 INSERT INTO #error (message)
 (SELECT 'Nel movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit√† di pagamento scelta non √® configurata, Andare in Configurazione - Anagrafica - Modalit√† di Pagamento'
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit‡ di pagamento scelta non Ë configurata, Andare in Configurazione - Anagrafica - Modalit‡ di Pagamento'
 FROM paymentcommunicated
 JOIN paymethod
 	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -200,10 +202,10 @@ WHERE paymentcommunicated.ypaymenttransmission = @y
 	AND (paymethod.methodbankcode IS NULL OR REPLACE(paymethod.methodbankcode,' ','') = '')
 )
 
--- CONTROLLO N. 6. Codice ABI e CAB devono essere valorizzati nel caso di modalit√† di pagamento 02 e 03
+-- CONTROLLO N. 6. Codice ABI e CAB devono essere valorizzati nel caso di modalit‡ di pagamento 02 e 03
 INSERT INTO #error (message)
 (SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit√† di pagamento scelta non √® stato assegnato il codice ABI / CAB.'
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit‡ di pagamento scelta non Ë stato assegnato il codice ABI / CAB.'
 FROM paymentcommunicated
 	JOIN paymethod
 	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -214,10 +216,10 @@ WHERE paymentcommunicated.ypaymenttransmission = @y
 	AND (paymentcommunicated.idbank IS NULL OR REPLACE(paymentcommunicated.idbank,' ','') = '')
 )
 
--- CONTROLLO N. 6BIS. Se il codice ABI √® quello della Banca di Roma la mod. di pagamento deve essere la 02
+-- CONTROLLO N. 6BIS. Se il codice ABI Ë quello della Banca di Roma la mod. di pagamento deve essere la 02
 INSERT INTO #error (message)
 (SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit√† di pagamento scelta non √® congrua con l''ABI specificato.'
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit‡ di pagamento scelta non Ë congrua con l''ABI specificato.'
 FROM paymentcommunicated
 	JOIN paymethod
 	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -227,10 +229,10 @@ WHERE paymentcommunicated.ypaymenttransmission = @y
 	AND (paymentcommunicated.idbank = @ABI_codebcaroma) 
 )
 
--- CONTROLLO N. 7. Il codice ABI, CAB e il CIN non devono eccedere la lunghezza massima nel caso di modalit√† di pagamento 02 e 03
+-- CONTROLLO N. 7. Il codice ABI, CAB e il CIN non devono eccedere la lunghezza massima nel caso di modalit‡ di pagamento 02 e 03
 INSERT INTO #error (message)
 (SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit√† di pagamento il codice ABI eccede la lunghezza di '
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit‡ di pagamento il codice ABI eccede la lunghezza di '
 + CONVERT(varchar(3),@len_ABI) + ' caratteri e/o il codice CAB eccede la lunghezza di '
 + CONVERT(varchar(3),@len_CAB) + ' caratteri e/o il CIN eccede la lunghezza di '
 + CONVERT(varchar(3),@len_cin) + ' caratteri'
@@ -246,7 +248,7 @@ WHERE paymentcommunicated.ypaymenttransmission = @y
 	OR (DATALENGTH(paymentcommunicated.cin) > @len_cin)
 		)
 	)
--- CONTROLLO N. 8. Conto Corrente valorizzato e di lunghezza massima 12 caratteri nel caso di modalit√† di pagamento 02, 03
+-- CONTROLLO N. 8. Conto Corrente valorizzato e di lunghezza massima 12 caratteri nel caso di modalit‡ di pagamento 02, 03
 IF EXISTS
 (SELECT * FROM paymentcommunicated
 JOIN paymethod
@@ -266,7 +268,7 @@ BEGIN
 	INSERT INTO #error (message)
 	(SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
 	+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov)
-	+ ' nella modalit√† di pagamento non √® stato il C/C o la lunghezza del C/C eccede i '
+	+ ' nella modalit‡ di pagamento non Ë stato il C/C o la lunghezza del C/C eccede i '
 	+ CONVERT(varchar(2),@len_cc) + ' caratteri'
 	FROM paymentcommunicated
 	JOIN paymethod
@@ -300,7 +302,7 @@ BEGIN
 	RETURN
 END
 -- Attenzione! Altri controlli sono presenti nel testo della SP in quanto non era possibile calcolarli a priori
--- I controlli vengono riconosciuti in quanto il prefisso adoperato come linea di commento sar√† CONTROLLO N. x.
+-- I controlli vengono riconosciuti in quanto il prefisso adoperato come linea di commento sar‡ CONTROLLO N. x.
 -- Fine Sezione Controlli
 
 SET @cod_department = @cod_department + SUBSTRING(SPACE(@len_agencycode),1,@len_agencycode - DATALENGTH(@cod_department))
@@ -376,7 +378,7 @@ JOIN proceedstransmission PT
 	ON PT.kproceedstransmission = P.kproceedstransmission
 
 -- 3. Inserimento dei movimenti di spesa non appartenenti alla trasmissione corrente ma che hanno riferimenti con movimenti di entrata
--- presenti in una reversale che dovr√† comparire in questa trasmissione
+-- presenti in una reversale che dovr‡ comparire in questa trasmissione
 INSERT INTO #allexpense
 (
 	idexp, kpay, ypay, npay, kpaymenttransmission, ypaymenttransmission, npaymenttransmission, amount
@@ -478,7 +480,7 @@ END
 
 INSERT INTO #error (message)
 SELECT 'Il movimento di spesa n. ' + CONVERT(varchar(6), expense.nmov) + '/' + CONVERT(varchar(4), expense.ymov) +
-' non √® correttamente classificato'
+' non Ë correttamente classificato'
 FROM expense
 JOIN #allexpense
 	ON #allexpense.idexp = expense.idexp
@@ -494,7 +496,7 @@ ISNULL(
 
 INSERT INTO #error (message)
 SELECT 'Il movimento di entrata n. ' + CONVERT(varchar(6), income.nmov) + '/' + CONVERT(varchar(4), income.ymov) +
-' non √® correttamente classificato'
+' non Ë correttamente classificato'
 FROM income
 JOIN #allincome
 	ON #allincome.idinc = income.idinc
@@ -702,7 +704,7 @@ CREATE TABLE #payment
 	idpro int,
 	idregpro int,
 	autokind tinyint,
-	totpayment int, -- Totale mandato, calcolato gi√† come int x formattazione
+	totpayment int, -- Totale mandato, calcolato gi‡ come int x formattazione
 	netamount decimal(19,2),
 	yproceedstransmission int,
 	idben int,
@@ -894,7 +896,7 @@ WHERE t.ypaymenttransmission = @y
 
 -- Inizio Formattazione del C/C	
 -- Banca di Roma ammette come C/C numeri e caratteri maiuscoli, il C/C deve essere allineato a destra, carattere di padding lo 0 a seconda della banca
--- se il c/c √® della Banca di Roma non ci sono caratteri diversi da numeri altrimenti possono restare
+-- se il c/c Ë della Banca di Roma non ci sono caratteri diversi da numeri altrimenti possono restare
 UPDATE #payment
 SET cc = 
 	UPPER(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
@@ -909,7 +911,7 @@ IF (SELECT COUNT(*) FROM #payment WHERE cf_ben IS NULL OR cf_ben = SPACE(@len_cf
 BEGIN
 	IF @cf_agency IS NULL OR @cf_agency = SPACE(@len_cf)
 	BEGIN
-		INSERT INTO #error (message) VALUES ('Il codice fiscale dell''ente √® assente')
+		INSERT INTO #error (message) VALUES ('Il codice fiscale dell''ente Ë assente')
 	END
 	IF (SELECT COUNT(*) FROM #error) > 0
 	BEGIN
@@ -1107,7 +1109,7 @@ CREATE TABLE #final
 	idpro int,
 	idregpro int,
 	autokind varchar(5),
-	totpayment int, -- Totale mandato, calcolato gi√† come int x formattazione
+	totpayment int, -- Totale mandato, calcolato gi‡ come int x formattazione
 	netamount decimal(19,2),
 	yproceedstransmission int,
 	idben int,
@@ -1181,12 +1183,12 @@ WHERE curramountpro = netamount
 DECLARE @limitamount decimal(19,2)
 SET @limitamount = 77.47
 
--- Cambio del codice bollo a 00 (esente) se l'importo del pagamento non supera i 77,47 ‚Ç¨
+-- Cambio del codice bollo a 00 (esente) se l'importo del pagamento non supera i 77,47 Ä
 -- J.T.R. 09.01.2008 - Dopo conversazione con Martinoli (Bca di Roma), siamo arrivati alla conclusione che tutti gli importi inferiori alla soglia
 -- devono avere bollo esente.
 -- Ad esempio: Se ho un mandato di 100 euro con unico mov. di spesa, dovrei pagare il bollo, ma se quel mov. di spesa
--- √® classificato con 2 voci SIOPE differenti al 50%, dato che verranno date in output 2 righe di importo pari a 50 euro
--- il bollo sar√† esente per entrambe le righe
+-- Ë classificato con 2 voci SIOPE differenti al 50%, dato che verranno date in output 2 righe di importo pari a 50 euro
+-- il bollo sar‡ esente per entrambe le righe
 
 UPDATE #final
 SET stamp_charge = '00'
@@ -1205,7 +1207,7 @@ END
 INSERT INTO #error (message)
 SELECT 'Il movimento di entrata ' + CONVERT(varchar(6),#payment.nmov_income) + '/' + CONVERT(varchar(4),#payment.ymov_income)
 + ' associato al movimento di spesa ' + CONVERT(varchar(6),expense.nmov) + '/' + CONVERT(varchar(4),expense.nmov)
-+ ' non √® stato inserito in una distinta di trasmissione'
++ ' non Ë stato inserito in una distinta di trasmissione'
 FROM #payment
 JOIN expense
 	ON #payment.idexp = expense.idexp
@@ -1437,7 +1439,7 @@ SELECT
 		WHEN fulfilled = 'S' THEN SPACE(@len_address)
 		ELSE address_ben
 	END +
-	-- Localit√† Beneficiario
+	-- Localit‡ Beneficiario
 	CASE
 		WHEN fulfilled = 'S' THEN SPACE(@len_location)
 		ELSE location_ben
@@ -1447,7 +1449,7 @@ SELECT
 		WHEN fulfilled = 'S' THEN SPACE(@len_province)
 		ELSE province_ben
 	END +
-	-- Localit√† Nascita Beneficiario
+	-- Localit‡ Nascita Beneficiario
 	CASE
 		WHEN fulfilled = 'S' THEN SPACE(@len_location)
 		ELSE birthplace_ben
@@ -1462,7 +1464,7 @@ SELECT
 		WHEN fulfilled = 'S' THEN SPACE(@len_cap)
 		ELSE cap_ben
 	END + 
-	-- Modalit√† Pagamento
+	-- Modalit‡ Pagamento
 	CASE
 		WHEN fulfilled = 'S' THEN '01'
 		ELSE idpaymethodTRS
@@ -1553,12 +1555,12 @@ REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(
 out_str,
-'√á','c'),'√ß','c'),'‚Ç¨','e'),'|',' '),'\',' '),'¬£',' '),'¬ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'√ô','u'),
-'√ñ','o'),'√ú','u'),'√ë','n'),'√ê','d'),'√ä','e'),'√ã','e'),'√é','i'),'√è','i'),'√î','o'),'√ï','o'),'√õ','u'),'√ù','y'),
-']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'√º','u'),'√¢','a'),'√§','a'),'√•','a'),'√™','e'),'√´','e'),'√Ø','i'),
-'√Æ','i'),'√Ñ','a'),'√Ö','a'),'√¥','o'),'√∂','o'),'√ª','u'),'√ø','y'),'√±','n'),'√Ç','a'),'¬•','y'),'√£','a'),'√É','a'),
-'√µ','o'),'√Ω','y'),'√©','e'),'√†','a'),'√®','e'),'√¨','i'),'√≤','o'),'√π','u'),'√°','a'),'√≠','i'),'√≥','o'),'√â','e'),
-'√Å','a'),'√Ä','a'),'√à','e'),'√ç','i'),'√å','i'),'√ì','o'),'√í','o'),'√ö','u'),
+'«','c'),'Á','c'),'Ä','e'),'|',' '),'\',' '),'£',' '),'ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'Ÿ','u'),
+'÷','o'),'‹','u'),'—','n'),'–','d'),' ','e'),'À','e'),'Œ','i'),'œ','i'),'‘','o'),'’','o'),'€','u'),'›','y'),
+']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'¸','u'),'‚','a'),'‰','a'),'Â','a'),'Í','e'),'Î','e'),'Ô','i'),
+'Ó','i'),'ƒ','a'),'≈','a'),'Ù','o'),'ˆ','o'),'˚','u'),'ˇ','y'),'Ò','n'),'¬','a'),'•','y'),'„','a'),'√','a'),
+'ı','o'),'˝','y'),'È','e'),'‡','a'),'Ë','e'),'Ï','i'),'Ú','o'),'˘','u'),'·','a'),'Ì','i'),'Û','o'),'…','e'),
+'¡','a'),'¿','a'),'»','e'),'Õ','i'),'Ã','i'),'”','o'),'“','o'),'⁄','u'),
 CHAR(9),' '),CHAR(10),' '),CHAR(13),' ')
 
 SELECT out_str FROM #trace ORDER BY y, n, ndoc, nrow
@@ -1571,4 +1573,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

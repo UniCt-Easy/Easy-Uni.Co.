@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_spesometro_SE_unified]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_spesometro_SE_unified]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_spesometro_SE_unified]
 GO
 
@@ -153,9 +155,9 @@ select
 + REPLICATE('0',6) -- Protocollo documento da sostituire o da annullare
 + '1' -- Dati aggragati
 + '0' -- Dati analitici
-+ '0'	-- Quadro FA ‚Äì Operazioni documentate da fattura esposte in forma aggregata 
-+ '0'	-- Quadro SA ‚Äì Operazioni senza fattura esposte in forma aggregata = Registri corrispettivi. DA NON COMPILARE
-+ '0'	--Quadro BL -	Operazioni con soggetti aventi sede, residenza o domicilio in paesi con fiscalit√† privilegiata  
++ '0'	-- Quadro FA ñ Operazioni documentate da fattura esposte in forma aggregata 
++ '0'	-- Quadro SA ñ Operazioni senza fattura esposte in forma aggregata = Registri corrispettivi. DA NON COMPILARE
++ '0'	--Quadro BL -	Operazioni con soggetti aventi sede, residenza o domicilio in paesi con fiscalit‡ privilegiata  
 		--				Operazioni con soggetti non residenti in forma aggregata  
 		--				Acquisti di servizi da non residenti in forma aggregata .
 + '0'-- Quadro FE - Relativo alla comunicazione analitica 
@@ -164,13 +166,13 @@ select
 + '0'-- Quadro NR - Relativo alla comunicazione analitica 
 + '0'-- Quadro DF - Relativo alla comunicazione analitica 
 + '0'-- Quadro FN - Relativo alla comunicazione analitica 
-+ '1'-- Quadro SE ‚Äì Limitatamente agli acquisti con operatori di San Marino(scritto nel pdf).  Acquisti di servizi da non residenti e Acquisti da operatori di San Marino.
++ '1'-- Quadro SE ñ Limitatamente agli acquisti con operatori di San Marino(scritto nel pdf).  Acquisti di servizi da non residenti e Acquisti da operatori di San Marino.
 		-- Per SE faremo una exp a parte!!!
-+ '0'-- Quadro TU‚Äì  Operazioni legate al turismo. DA NON COMPILARE
++ '0'-- Quadro TUñ  Operazioni legate al turismo. DA NON COMPILARE
 + '1'-- Quadro TA- Riepilogo
 
 + @PivaEnte 
-+ @cudactivitycode -- Codice attivit√† ATECO
++ @cudactivitycode -- Codice attivit‡ ATECO
 + @TelEnte
 + @FaxEnte
 + @EmailEnte
@@ -218,14 +220,14 @@ select
 
 CREATE TABLE #RECORD_D(
 	idreg int,
-	ProgressivoModulo int , -- Impostare ad 1 per il primo modulo di ogni quadro compilato, incrementando tale valore di una unit√† per ogni ulteriore modulo
+	ProgressivoModulo int , -- Impostare ad 1 per il primo modulo di ogni quadro compilato, incrementando tale valore di una unit‡ per ogni ulteriore modulo
 -->> QUADRO SE - Acquisti da operatori di San Marino
 	SE001012_dataemissionefattura datetime,
 	SE001013_dataregistrazionefattura datetime,--la data deve essere inclusa nell'anno di riferimento
 	SE001014_numfattura  varchar(35),
 	SE001015_imponibile int,
 	SE001016_imposta  int,
-	SE001017_confermaimporto int-- dato obbligatorio se l'importo √® maggiore di 999999
+	SE001017_confermaimporto int-- dato obbligatorio se l'importo Ë maggiore di 999999
 )
 
 
@@ -266,7 +268,7 @@ CREATE TABLE #RECORD_D_UNIFIED(
 	SE001014_numfattura  varchar(35),
 	SE001015_imponibile int,
 	SE001016_imposta  int,
-	SE001017_confermaimporto int,	-- dato obbligatorio se l'importo √® maggiore di 999999
+	SE001017_confermaimporto int,	-- dato obbligatorio se l'importo Ë maggiore di 999999
 	riga varchar(5) -- Valorizziamo quadro riga, tipo SE001, SE002, poi nella select finale faremo riga+001=> SE001001, SE001002...SE001016.SE002001, SE002002...SE002016
 )
 
@@ -306,7 +308,7 @@ CREATE TABLE #ANAGRAFICHE(
 	SE001005_provincia varchar(2),
 	SE001006_codicestatoestero int,
 	SE001007_denominazione varchar(100),
-	SE001008_citt√†estera varchar(65),
+	SE001008_citt‡estera varchar(65),
 	SE001009_codicestatoestero varchar(20), 
 	SE001010_indirizzoestero varchar(100),
 	SE001011_CodIVA varchar(20)
@@ -322,7 +324,7 @@ INSERT INTO #ANAGRAFICHE(idreg,
 	SE001006_codicestatoestero,	--Persona Fisica
 
 	SE001007_denominazione,		-- Persona NON Fisica
-	SE001008_citt√†estera,		-- Persona NON Fisica
+	SE001008_citt‡estera,		-- Persona NON Fisica
 	SE001009_codicestatoestero, -- Persona NON Fisica
 	SE001010_indirizzoestero,	-- Persona NON Fisica
 	SE001011_CodIVA
@@ -353,7 +355,7 @@ SELECT distinct R.idreg,
 	END,
 	CASE 
 			WHEN idregistryclass = 22 and RA.flagforeign='S'
-			then 'EE'-->La Provincia estera di nascita √® rappresentata dalla sigla 'EE'
+			then 'EE'-->La Provincia estera di nascita Ë rappresentata dalla sigla 'EE'
 			WHEN idregistryclass = 22 and RA.flagforeign='N' 
 			THEN CITY_BIRTH.provincecode
 	ELSE null
@@ -368,7 +370,7 @@ SELECT distinct R.idreg,
 		THEN R.title
 		ELSE null
 	END,
-	-- SE001008_citt√†estera: Citt√† estera delle Sede legale
+	-- SE001008_citt‡estera: Citt‡ estera delle Sede legale
 	CASE 
 		WHEN idregistryclass <> 22 and (NATION_ADDRESS.title IS NOT NULL )
 		THEN NATION_ADDRESS.title
@@ -435,7 +437,7 @@ SELECT
 + CASE when (A.SE001001_cognome is not null) then 'SE' + D.riga + '005' + SE001005_provincia else''  end
 + CASE when (A.SE001001_cognome is not null) then 'SE' + D.riga + '006' + convert(varchar(4),SE001006_codicestatoestero) else''  end
 + case when (A.SE001007_denominazione is not null) then 'SE' + D.riga + '007' + SE001007_denominazione else''  end
-+ case when (A.SE001007_denominazione is not null) then 'SE' + D.riga + '008' + SE001008_citt√†estera else''  end
++ case when (A.SE001007_denominazione is not null) then 'SE' + D.riga + '008' + SE001008_citt‡estera else''  end
 + case when (A.SE001007_denominazione is not null) then 'SE' + D.riga + '009' + convert(varchar(4),SE001009_codicestatoestero) else''  end
 + case when (A.SE001007_denominazione is not null) then 'SE' + D.riga + '010' + SE001010_indirizzoestero else''  end
 + case when SE001011_CodIVA is not null then 'SE' + D.riga + '011' + SE001011_CodIVA else''  end
@@ -506,7 +508,7 @@ FROM #traceByRecord where recordkind='E'
 INSERT INTO #trace (out_str) SELECT out_str FROM #traceByRecord where recordkind='Z'
 
 
--- Il file viene creato SOLO se √® stato compilato il Record D, contente gli importi.
+-- Il file viene creato SOLO se Ë stato compilato il Record D, contente gli importi.
 if ( select count(*) from #traceByRecord where recordkind='D')>0
 Begin
 	SELECT out_str FROM #trace 
@@ -528,4 +530,3 @@ GO
 
 
 --- exec exp_mod_spesometro_SE_unified 2012,4 
-	

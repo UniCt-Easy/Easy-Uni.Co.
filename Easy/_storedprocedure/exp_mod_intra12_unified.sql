@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_intra12_unified]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_intra12_unified]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_intra12_unified]
 GO
  
@@ -87,9 +89,9 @@ END
 	FROM license
  
 	DECLARE @7Codicefiscalesocietadichiarante varchar(11)	-- 11 CF
-	SET @7Codicefiscalesocietadichiarante = '02890460781'  -- Â§Tempo
+	SET @7Codicefiscalesocietadichiarante = '02890460781'  -- §Tempo
 
-	DECLARE @14CodiceAttivita varchar(6)	  -- va riportato senza il punto, perchÃ¨ il campo ha lunghezza 6
+	DECLARE @14CodiceAttivita varchar(6)	  -- va riportato senza il punto, perchè il campo ha lunghezza 6
 	SELECT @14CodiceAttivita = REPLACE(cudactivitycode,'.','') FROM config WHERE ayear = @ayear
 
  	
@@ -115,7 +117,7 @@ END
 	SET @lenComune = 40
 	DECLARE @37ProvinciaNascitaRappresentante varchar(2)	-- 2 PN
 
--- Se Ã¨ presente almeno uno dei campi 38, 39, 40, 41, i campi 38 e 41 sono obbligatori.
+-- Se è presente almeno uno dei campi 38, 39, 40, 41, i campi 38 e 41 sono obbligatori.
 	DECLARE @38CodiceStatoesteroRappresentante varchar(3)	-- 3 NU
 	DECLARE @39Statofederatoprovinciacontea varchar(65)		-- 24 AN
 
@@ -187,7 +189,7 @@ begin
 end
 
 IF (@natoallestero = 'N')
--- Vuol dire che Ã¨ nato all'estero
+-- Vuol dire che è nato all'estero
 Begin
 -- Leggiamo i dati della Nascita : stato estero di nascita 
 	SELECT @36Comune_oStatoEstero_NascitaRappresentante = N.title 
@@ -411,8 +413,8 @@ SELECT
 		THEN ISNULL(@7Codicefiscalesocietadichiarante,'') + SUBSTRING(SPACE(@lenCF16),1,@lenCF16 - DATALENGTH(ISNULL(@7Codicefiscalesocietadichiarante,'')))
 		ELSE SUBSTRING(@7Codicefiscalesocietadichiarante,1,@lenCF16)
 	END + 
-	'1'+ -- Flag conferma -- Il formato CB Ã¨ composto da 15 spazi e un numero '1'.
-	  -- Ufficio Competente	ora c'Ã¨ un Filler in base alle specifiche aggiornate 
+	'1'+ -- Flag conferma -- Il formato CB è composto da 15 spazi e un numero '1'.
+	  -- Ufficio Competente	ora c'è un Filler in base alle specifiche aggiornate 
 	SPACE(3) + 
 	convert(varchar(4),@ayear) + -- Anno di riferimento
 	-- Mese di riferimento
@@ -428,7 +430,7 @@ SELECT
 		THEN ISNULL(@13PartitaIVA,'') + SUBSTRING(SPACE(@lenPiva),1,@lenPiva - DATALENGTH(ISNULL(@13PartitaIVA,'')))
 		ELSE SUBSTRING(@13PartitaIVA,1,@lenPiva)
 	END + 
-	@14CodiceAttivita + -- Codice AttivitÃ 
+	@14CodiceAttivita + -- Codice Attività
 	'0' + -- Eventi eccezionali CB
 	SPACE(24) + -- Cognome
 	SPACE(20) + -- Nome
@@ -455,7 +457,7 @@ SELECT
 		ELSE SUBSTRING(@29CFdelrappresentante,1,@lenCF16)
 	END + 
 	@30codiceCaricaRappresentante +	-- Codice carica del rappresentante
-	-- Codice fiscale societÃ  dichiarante
+	-- Codice fiscale società dichiarante
 	CASE
 		WHEN DATALENGTH(ISNULL(@5a_2b_31b_2c_CF_universita,'')) <= @lenCF11
 		THEN ISNULL(@5a_2b_31b_2c_CF_universita,'') + SUBSTRING(SPACE(@lenCF11),1,@lenCF11 - DATALENGTH(ISNULL(@5a_2b_31b_2c_CF_universita,'')))
@@ -486,13 +488,13 @@ SELECT
 		ELSE SUBSTRING(@36Comune_oStatoEstero_NascitaRappresentante,1,@lenComune)
 	END + 
 	@37ProvinciaNascitaRappresentante +		-- Provincia Nascita Rappresentante
-	-- Ex Codice Stato estero ora c'Ã¨ un Filler in base alle specifiche aggiornate 
+	-- Ex Codice Stato estero ora c'è un Filler in base alle specifiche aggiornate 
 	SPACE (3) + 
-	-- Ex Stato federato provincia contea ora c'Ã¨ un Filler in base alle specifiche aggiornate 
+	-- Ex Stato federato provincia contea ora c'è un Filler in base alle specifiche aggiornate 
 	SPACE(24) + 
-	-- Ex LocalitÃ  di residenza ora c'Ã¨ un Filler in base alle specifiche aggiornate  
+	-- Ex Località di residenza ora c'è un Filler in base alle specifiche aggiornate  
 	SPACE(24) + 
-	-- Ex IndirizzoEstero ora c'Ã¨ un Filler in base alle specifiche aggiornate  
+	-- Ex IndirizzoEstero ora c'è un Filler in base alle specifiche aggiornate  
 	SPACE(35) + 
 	SPACE(12) + -- Telefono - cellulare del rappresentante
 	'1'+ -- Firma della Comunicazione CB
@@ -612,7 +614,7 @@ UPDATE #RECORD_C SET  out_str = REPLACE(out_str,'.',',')
 -- importi TR012001,002,003....questi campi vanno comunicati SOLO se valorizzati. 
 -- Quindi nel file dobbiamo valorizzare le prime 90 posizioni con i campi indicati dal tracciato, poi vanno inseriti questi importi, quindi vanno messi tanti
 -- filler fino alla posizione 1898. Per calcola quanti filler servono facciamo:
--- 1898 - 90 -(select datalength(out_str) FROM #RECORD_C)- 24, ove 24 Ã¨ la lunghezza dell'ultimo campo non posizionale TR012014 in cui alorizzaremo la data del versamento
+-- 1898 - 90 -(select datalength(out_str) FROM #RECORD_C)- 24, ove 24 è la lunghezza dell'ultimo campo non posizionale TR012014 in cui alorizzaremo la data del versamento
 
 DECLARE @1898Filler int
 SET @1898Filler =  1898 - 90 - (select datalength(out_str) FROM #RECORD_C)- 24
@@ -671,4 +673,3 @@ GO
 
 
  
-	

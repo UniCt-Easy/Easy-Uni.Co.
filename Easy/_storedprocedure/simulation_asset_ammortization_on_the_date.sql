@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿
+
+
 --simulation_asset_ammortization_on_the_date 2011
  if exists (select * from dbo.sysobjects where id = object_id(N'[simulation_asset_ammortization_on_the_date]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure simulation_asset_ammortization_on_the_date
@@ -33,11 +35,11 @@ CREATE PROCEDURE simulation_asset_ammortization_on_the_date
 AS BEGIN
 -- setuser 'amministrazione'
 -- simulation_asset_ammortization_on_the_date 2015, '12-31-2015'
---la stored procedure GetAssetValue Ã¨ usata per valutare l'importo corrente dei cespiti
---la stored procedure get_originalassetvalue Ã¨ usata per valutare l'importo iniziale dei cespiti, su cui calcolare l'ammortamento
--- se l'ammortamento calcolato Ã¨ tale da rendere il valore corrente viene considerata una base per l'ammortamento opportunamente ridotta
+--la stored procedure GetAssetValue è usata per valutare l'importo corrente dei cespiti
+--la stored procedure get_originalassetvalue è usata per valutare l'importo iniziale dei cespiti, su cui calcolare l'ammortamento
+-- se l'ammortamento calcolato è tale da rendere il valore corrente viene considerata una base per l'ammortamento opportunamente ridotta
 --   in modo da far si che l'aliquota di ammortamento per la base di ammortamento vada ad azzerare il valore residuo del cespite
--- Un anno bisestile Ã¨ un anno di 366 giorni anzichÃ© 365 (ad esempio il 2016)
+-- Un anno bisestile è un anno di 366 giorni anziché 365 (ad esempio il 2016)
 --select @adate
 DECLARE @dec_31 datetime
 SELECT  @dec_31 = CONVERT(datetime, '31-12-' + CONVERT(char(4), @ayear), 105)
@@ -311,7 +313,7 @@ END
 DEALLOCATE amt_crs
 
 -- Caso in cui il cespite ha la data di inizio esistenza NOT NULL 
--- Applico tutte le rivalutazioni UFFICIALI che nell'anno sono associate alla classificazione cespite con etÃ Â pari alla differenza tra l'anno
+-- Applico tutte le rivalutazioni UFFICIALI che nell'anno sono associate alla classificazione cespite con età pari alla differenza tra l'anno
 -- di acquisizione del cespite e la data contabile
 -- In questo caso prima di effettuare le rivalutazioni controllo se ci sono rivalutazioni che hanno il campo ETA' valorizzato,
 -- in caso negativo provo ad effettuare rivalutazioni senza ETA' (costanti nel tempo)
@@ -771,4 +773,3 @@ SET ANSI_NULLS ON
 GO
 
  
-	

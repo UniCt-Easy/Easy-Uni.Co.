@@ -181,6 +181,7 @@
     <xs:unique name="sortingview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sortingview" />
       <xs:field xpath="mstns:idsor" />
+      <xs:field xpath="mstns:ayear" />
     </xs:unique>
   </xs:element>
   <xs:annotation>

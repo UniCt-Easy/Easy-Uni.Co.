@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -123,7 +125,7 @@ namespace pcc_default {
                                 " where " + filterAll;
                 DataTable tRegistry = Conn.SQLRunner(script, true);
                 if (tRegistry == null || tRegistry.Rows.Count == 0) {
-                    MessageBox.Show(this, "Non √® stato trovata una Angrafica con CF o P.iva, uguali a quelli indicati nella licenza");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stato trovata una Angrafica con CF o P.iva, uguali a quelli indicati nella licenza");
                     return;
                 }
                 idreg = tRegistry.Rows[0]["idreg"];
@@ -136,12 +138,12 @@ namespace pcc_default {
                     idreg = DS.registry.Rows[0]["idreg"];
                 }
                 else {
-                    MessageBox.Show(this, "Selezionare il Responsabile");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Selezionare il Responsabile");
                     return;
                 }
 
                 if (txtPercorso.Text == "") {
-                    MessageBox.Show(this, "Occorre specificare la cartella in cui salvare il file", "errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Occorre specificare la cartella in cui salvare il file", "errore");
                     return;
                 }
             }
@@ -201,7 +203,7 @@ namespace pcc_default {
             string variabile = "";
             foreach (DataRow r in DT.Rows) {
                 foreach (DataColumn C in DT.Columns) {
-                    // quando  lo stato della fattura √® diversa da LIQ, LIQDASOSP LIQDANL (ovvero tutti gli stati che determinano la liquidabilit√† della fattura) 
+                    // quando  lo stato della fattura Ë diversa da LIQ, LIQDASOSP LIQDANL (ovvero tutti gli stati che determinano la liquidabilit‡ della fattura) 
                     //  la natura della spesa deve essere sovrascritta con il codice NAII  (task 6178)
                     //Cambiate le cose col task 8424: solo per gli stati elencati la natura di spesa va sovrascritta con NA
                     if (DT.Columns.Contains("statodeldebito") && DT.Columns.Contains("naturadispesa_co")) {
@@ -228,7 +230,7 @@ namespace pcc_default {
 
 
                     if (C.ColumnName == "aliquotaiva") {
-                        //se natura non √® stringa vuota o √® NA, allora non √® ammessa l'aliquota
+                        //se natura non Ë stringa vuota o Ë NA, allora non Ë ammessa l'aliquota
                         if (r["natura"].ToString() != "" && r["natura"].ToString().ToUpper() != "NA") {
                             variabile = format("NA");
                         }
@@ -288,8 +290,8 @@ namespace pcc_default {
                         "Versione del modello;1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
                         "Utente che trasmette il file (Codice Fiscale);" + CFTrasmittente + ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
                         "DATI AMMINISTRAZIONE (SDI 1.4 CessionarioCommittente);;;DATI FORNITORE (SDI 1.2 CedentePrestatore);;;LOTTO;DATI FATTURA;;;;;;;;;;;;;;;;;;;;;;ESITO ELABORAZIONE;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
-                        "Codice Fiscale* - Specificare il Codice Fiscale della Amministrazione destinataria del documento (SDI 1.4.1.2 CodiceFiscale);Codice Ufficio* - Specificare il Codice Univoco Ufficio di IPA oppure il Codice Ufficio PCC (SDI   1.1.4 CodiceDestinatario);Denominazione Amministrazione* - Specificare la denominazione dell'Amministrazione destinataria del documento (SDI 1.4.1.3 Anagrafica); Codice Fiscale* - Specificare il Codice Fiscale del Fornitore che ha emesso il documento (SDI  1.2.1.2 CodiceFiscale);Id Fiscale IVA* - Specificare il numero di identificazione fiscale ai fini IVA nel formato IT12345678901  (SDI  1.2.1.1 IdFiscaleIVA);Denominazione Fornitore* - Specificare la denominazione del Fornitore che ha emesso il documento (SDI 1.2.1.3 Anagrafica);Descrizione distinta o lotto* - Specificare una descrizione o numero relativo all'invio  (SDI 1.1.2 ProgressivoInvio);DATI GENERALI (SDI 2.1 DatiGenerali);;;;;;;;RIEPILOGO ALIQUOTE (SDI 2.2.2 DatiRiepilogo);;;;DISTRIBUZIONE PER CIG/CUP (SDI 2.2.1 DettaglioLinee);;;DETTAGLIO PAGAMENTO (SDI 2.4.2 DettaglioPagamento);;;;RICEZIONE;;;Forzatura immissione - Consente di specificare l'azione da eseguire nei casi di segnalazione di sospetto duplicato.  AG: Aggiungi la fattura come nuova /  SO: Sovrascivi la fattura gi√† presente;Codice segnalazione;Descrizione segnalazione;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
-                        ";;;;;;;Tipo Documento* - Specificare TD01: fattura /  TD02: acconto/anticipo su fattura /  TD03: acconto/anticipo su parcella /  TD04: nota di credito /  TD05: nota di debito /  TD06: parcella (SDI 2.1.1.1 TipoDocumento);Numero fattura* (SDI 2.1.1.4 Numero);Data emissione* (SDI 2.1.1.3 Data);Importo totale documento* (SDI 2.1.1.9 ImportoTotaleDocumento);Descrizione / Causale* (SDI 2.1.1.11 Causale);Art. 73 - Specificare SI  - Documento emesso secondo le modalit√† stabilite con DM ai sensi dell'art. 73 DPR 633/72 (SDI  2.1.1.12 Art73);Totale imponibile della fattura* (SDI  somma di 2.2.2.5 ImponibileImporto);Totale imposta della fattura* (SDI  somma di 2.2.2.6 Imposta);Aliquota IVA (SDI 2.2.2.1 AliquotaIVA);Codice Esenzione IVA (SDI 2.2.2.2 Natura);Totale Imponibile per aliquota (SDI 2.2.2.5 Imposta);Totale Imposta per aliquota (SDI 2.2.2.6 Imposta);Importo per CIG/CUP (SDI Somma di 2.2.1.11 PrezzoTotale + applicazione 2.2.1.12 AliquotaIVA);Codice CIG - Codice Identificativo della gara (SDI  2.1.2.7 CIG);Codice CUP - Codice Unitario Progetto (SDI 2.1.2.6 CUP);Data riferimento termini di pagamento - Specificare la data dalla quale decorrono i termini di pagamento (SDI 2.4.2.3 DataRiferimentoTerminiPagamento);Giorni termini pagamento - Specificare il numero di giorni entro i quali sar√† effettuato il pagamento  (SDI 2.4.2.4 GiorniTerminiPagamento);Data scadenza pagamento (SDI 2.4.2.5 DataScadenzaPagamento);Importo Pagamento (SDI 2.4.2.6 ImportoPagamento);Numero Protocollo in Entrata;Data ricezione - Specificare la data di ricezione da parte della PA. Se omessa, viene assunta come data di ricezione quella in cui viene caricato il file;Note;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n";
+                        "Codice Fiscale* - Specificare il Codice Fiscale della Amministrazione destinataria del documento (SDI 1.4.1.2 CodiceFiscale);Codice Ufficio* - Specificare il Codice Univoco Ufficio di IPA oppure il Codice Ufficio PCC (SDI   1.1.4 CodiceDestinatario);Denominazione Amministrazione* - Specificare la denominazione dell'Amministrazione destinataria del documento (SDI 1.4.1.3 Anagrafica); Codice Fiscale* - Specificare il Codice Fiscale del Fornitore che ha emesso il documento (SDI  1.2.1.2 CodiceFiscale);Id Fiscale IVA* - Specificare il numero di identificazione fiscale ai fini IVA nel formato IT12345678901  (SDI  1.2.1.1 IdFiscaleIVA);Denominazione Fornitore* - Specificare la denominazione del Fornitore che ha emesso il documento (SDI 1.2.1.3 Anagrafica);Descrizione distinta o lotto* - Specificare una descrizione o numero relativo all'invio  (SDI 1.1.2 ProgressivoInvio);DATI GENERALI (SDI 2.1 DatiGenerali);;;;;;;;RIEPILOGO ALIQUOTE (SDI 2.2.2 DatiRiepilogo);;;;DISTRIBUZIONE PER CIG/CUP (SDI 2.2.1 DettaglioLinee);;;DETTAGLIO PAGAMENTO (SDI 2.4.2 DettaglioPagamento);;;;RICEZIONE;;;Forzatura immissione - Consente di specificare l'azione da eseguire nei casi di segnalazione di sospetto duplicato.  AG: Aggiungi la fattura come nuova /  SO: Sovrascivi la fattura gi‡ presente;Codice segnalazione;Descrizione segnalazione;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
+                        ";;;;;;;Tipo Documento* - Specificare TD01: fattura /  TD02: acconto/anticipo su fattura /  TD03: acconto/anticipo su parcella /  TD04: nota di credito /  TD05: nota di debito /  TD06: parcella (SDI 2.1.1.1 TipoDocumento);Numero fattura* (SDI 2.1.1.4 Numero);Data emissione* (SDI 2.1.1.3 Data);Importo totale documento* (SDI 2.1.1.9 ImportoTotaleDocumento);Descrizione / Causale* (SDI 2.1.1.11 Causale);Art. 73 - Specificare SI  - Documento emesso secondo le modalit‡ stabilite con DM ai sensi dell'art. 73 DPR 633/72 (SDI  2.1.1.12 Art73);Totale imponibile della fattura* (SDI  somma di 2.2.2.5 ImponibileImporto);Totale imposta della fattura* (SDI  somma di 2.2.2.6 Imposta);Aliquota IVA (SDI 2.2.2.1 AliquotaIVA);Codice Esenzione IVA (SDI 2.2.2.2 Natura);Totale Imponibile per aliquota (SDI 2.2.2.5 Imposta);Totale Imposta per aliquota (SDI 2.2.2.6 Imposta);Importo per CIG/CUP (SDI Somma di 2.2.1.11 PrezzoTotale + applicazione 2.2.1.12 AliquotaIVA);Codice CIG - Codice Identificativo della gara (SDI  2.1.2.7 CIG);Codice CUP - Codice Unitario Progetto (SDI 2.1.2.6 CUP);Data riferimento termini di pagamento - Specificare la data dalla quale decorrono i termini di pagamento (SDI 2.4.2.3 DataRiferimentoTerminiPagamento);Giorni termini pagamento - Specificare il numero di giorni entro i quali sar‡ effettuato il pagamento  (SDI 2.4.2.4 GiorniTerminiPagamento);Data scadenza pagamento (SDI 2.4.2.5 DataScadenzaPagamento);Importo Pagamento (SDI 2.4.2.6 ImportoPagamento);Numero Protocollo in Entrata;Data ricezione - Specificare la data di ricezione da parte della PA. Se omessa, viene assunta come data di ricezione quella in cui viene caricato il file;Note;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n";
             }
             else {
                 valore = "0;0;0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
@@ -297,7 +299,7 @@ namespace pcc_default {
             "Versione del modello;1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
             "Utente che trasmette il file (Codice Fiscale);" + CFTrasmittente + ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
             "DATI AMMINISTRAZIONE (SDI 1.4 CessionarioCommittente);;DATI FORNITORE (SDI 1.2 CedentePrestatore);;TIPO OPERAZIONE;DATI IDENTIFICATIVI FATTURA* (SDI 2.1 DatiGenerali);;;;RICEZIONE (i campi con * sono da ritenersi obbligatori solo per TIPO OPERAZIONE = RC);;;COMUNICAZIONE RIFIUTO (i campi con * sono da ritenersi obbligatori solo per TIPO OPERAZIONE = RF);;CONTABILIZZAZIONE (i campi con * sono da ritenersi obbligatori solo per TIPO OPERAZIONE = CO);;;;;;;;;COMUNICAZIONE SCADENZA (i campi con * sono da ritenersi obbligatori solo per TIPO OPERAZIONE = CS);;;COMUNICAZIONE PAGAMENTO  (i campi con * sono da ritenersi obbligatori solo per TIPO OPERAZIONE = CP);;;;;;;;;;ESITO ELABORAZIONE;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
-            "Codice Fiscale* - Specificare il Codice Fiscale della Amministrazione destinataria del documento (SDI 1.4.1.2 CodiceFiscale);Codice Ufficio* - Specificare il Codice Univoco Ufficio di IPA oppure il Codice Ufficio PCC (SDI   1.1.4 CodiceDestinatario); Codice Fiscale* - Specificare il Codice Fiscale del Fornitore che ha emesso il documento (SDI  1.2.1.2 CodiceFiscale);Id Fiscale IVA* - Specificare il numero di identificazione fiscale ai fini IVA nel formato IT12345678901  (SDI  1.2.1.1 IdFiscaleIVA);Azione* - Specificare RC: Ricezione /  RF: Rifiuto / CO: Contabilizzazione / CS: Comunicazione scadenza /CP: Comunicazione pagamento;IDENTIFICATIVO 1;IDENTIFICATIVO 2 (da compilare solo se IDENTIFICATIVO 1 = NA);;;Numero Protocollo di Entrata;Data ricezione - Specificare la data di ricezione da parte della PA. Se omessa, viene assunta come data di ricezione quella in cui viene caricato il file;Note;Data rifiuto - Se omessa, viene assunta come data di rifiuto quella in cui viene caricato il file;Descrizione* - Indicare le motivazioni da associare all'azione di rifiuto ;Importo del movimento*;Natura di spesa* - Specificare CO: Spesa Corrente / CA: Conto Capitale / NA: Non Applicabile;Capitoli di spesa / Conto - Specificare i Capitoli di spesa o Conti separati da vigola;OPERAZIONE;;Descrizione - Indicare una descrizione del movimento ;Estremi Impegno;Codice CIG* - Codice Identificativo della gara;Codice CUP* - Codice Unitario Progetto;Comunica scadenza* - Specificare SI;Importo - Specificare l'importo a cui si riferisce la scadenza. Se omesso, s'intende l'importo totale della fattura;Data scadenza - Se non specificata sar√† assunta la data di scadenza riportata nella fattura;Importo pagato*;Natura di spesa* - Specificare CO: Spesa Corrente / CA: Conto Capitale;Capitoli di spesa / Conto - Specificare i Capitoli di spesa o Conti separati da vigola;Estremi Impegno;Mandato di pagamento*;;Id Fiscale IVA del Beneficiario* - Specificare il numero di identificazione fiscale del beneficiario ai fini IVA nel formato IT12345678901;Codice CIG* - Codice Identificativo della gara;Codice CUP* - Codice Unitario Progetto;Descrizione - Indicare una descrizione aggiuntiva del movimento ;Codice segnalazione;Descrizione segnalazione;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
+            "Codice Fiscale* - Specificare il Codice Fiscale della Amministrazione destinataria del documento (SDI 1.4.1.2 CodiceFiscale);Codice Ufficio* - Specificare il Codice Univoco Ufficio di IPA oppure il Codice Ufficio PCC (SDI   1.1.4 CodiceDestinatario); Codice Fiscale* - Specificare il Codice Fiscale del Fornitore che ha emesso il documento (SDI  1.2.1.2 CodiceFiscale);Id Fiscale IVA* - Specificare il numero di identificazione fiscale ai fini IVA nel formato IT12345678901  (SDI  1.2.1.1 IdFiscaleIVA);Azione* - Specificare RC: Ricezione /  RF: Rifiuto / CO: Contabilizzazione / CS: Comunicazione scadenza /CP: Comunicazione pagamento;IDENTIFICATIVO 1;IDENTIFICATIVO 2 (da compilare solo se IDENTIFICATIVO 1 = NA);;;Numero Protocollo di Entrata;Data ricezione - Specificare la data di ricezione da parte della PA. Se omessa, viene assunta come data di ricezione quella in cui viene caricato il file;Note;Data rifiuto - Se omessa, viene assunta come data di rifiuto quella in cui viene caricato il file;Descrizione* - Indicare le motivazioni da associare all'azione di rifiuto ;Importo del movimento*;Natura di spesa* - Specificare CO: Spesa Corrente / CA: Conto Capitale / NA: Non Applicabile;Capitoli di spesa / Conto - Specificare i Capitoli di spesa o Conti separati da vigola;OPERAZIONE;;Descrizione - Indicare una descrizione del movimento ;Estremi Impegno;Codice CIG* - Codice Identificativo della gara;Codice CUP* - Codice Unitario Progetto;Comunica scadenza* - Specificare SI;Importo - Specificare l'importo a cui si riferisce la scadenza. Se omesso, s'intende l'importo totale della fattura;Data scadenza - Se non specificata sar‡ assunta la data di scadenza riportata nella fattura;Importo pagato*;Natura di spesa* - Specificare CO: Spesa Corrente / CA: Conto Capitale;Capitoli di spesa / Conto - Specificare i Capitoli di spesa o Conti separati da vigola;Estremi Impegno;Mandato di pagamento*;;Id Fiscale IVA del Beneficiario* - Specificare il numero di identificazione fiscale del beneficiario ai fini IVA nel formato IT12345678901;Codice CIG* - Codice Identificativo della gara;Codice CUP* - Codice Unitario Progetto;Descrizione - Indicare una descrizione aggiuntiva del movimento ;Codice segnalazione;Descrizione segnalazione;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
             ";;;;;Numero Progressivo di Registrazione - attribuito dal sistema PCC in fase di Ricezione (se non disponibile specificare NA);Numero fattura (SDI 2.1.1.4 Numero);Data emissione (SDI 2.1.1.3 Data);Importo totale documento (SDI 2.1.1.9 ImportoTotaleDocumento);;;;;;;;;Stato del debito* -Indicare un codice valido tra i seguenti (v. Istruzioni): LIQ, SOSP, NOLIQ, LIQdaSOSP, LIQdaNL, SOSPdaLIQ, SOSPdaNL, NLdaLIQ, NLdaSOSP;Causale - Indicare un codice valido per il tipo di movimento;;;;;;;;;;;;Numero;Data;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n";
             }
             return valore;
@@ -330,13 +332,13 @@ namespace pcc_default {
             //txtPercorso.Text = NomeCompletoFileCSV;
 
             try {
-                string S = MyDataTableToCSV(suffisso, DT, false);// il secondo parametro √® l'header, ma impostato a false
+                string S = MyDataTableToCSV(suffisso, DT, false);// il secondo parametro Ë l'header, ma impostato a false
                 StreamWriter SWR = new StreamWriter(completename, false, Encoding.Default);
                 SWR.Write(S);
                 SWR.Close();
                 SWR.Dispose();
                 txtFilename.Text = NomeFile;
-                MessageBox.Show(this, "File salvato in " + completename);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "File salvato in " + completename);
             }
             catch (Exception E) {
                 QueryCreator.ShowException(E);
@@ -372,17 +374,17 @@ namespace pcc_default {
             txtPercorso.Text = "";
             faiScegliereCartella();
             if (txtPercorso.Text == "") {
-                MessageBox.Show(this, "Occorre specificare la cartella in cui salvare il file", "errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Occorre specificare la cartella in cui salvare il file", "errore");
                 return;
             }
         }
         private string TipoOperazione(DataTable T) {
-            return "O";//Per il momento sar√† solo O
+            return "O";//Per il momento sar‡ solo O
             //Prendiamo la prima riga con i dati
             /*DataRow R = T.Rows[7];
             string colonnaC = R[2].ToString();
             if (colonnaC.Length <= 16) {
-                //√® un Cf quindi siamo nel file O
+                //Ë un Cf quindi siamo nel file O
                 return "O";
             }
             else {
@@ -437,7 +439,7 @@ namespace pcc_default {
             public Dictionary<string, object> campi = new Dictionary<string, object>();
             public campiSkeleton(DataRow r) {
                 //Riempie il dictionary a partire da r eventualmente facendo i round, trim, e lower del caso per rendere omogenea la struttura risultante
-                //Per esempio (due campi a caso, non √® importante il nome che si da al campo basta che sono tra loro diversi)
+                //Per esempio (due campi a caso, non Ë importante il nome che si da al campo basta che sono tra loro diversi)
                 campi["cf"] = standardize(r[2].ToString());
                 campi["tipooperazione"] = standardize(r[4].ToString());
                 campi["numdocumento"] = standardize(r[6].ToString());
@@ -510,7 +512,7 @@ namespace pcc_default {
                                 + "\n CIG pagamento (col.AH): " + c.campi["cigpagamento"].ToString().ToUpperInvariant()
                                 + "\n CUP pagamento: (col.AI) " + c.campi["cuppagamento"].ToString().ToUpperInvariant()
                                 ;
-                        //MessageBox.Show($"Riscontrate differenze tra il file generato e il file importato. \r\n{location} non trovata :" + elencocampi, "Elenco campi");
+                        //MetaFactory.factory.getSingleton<IMessageShower>().Show($"Riscontrate differenze tra il file generato e il file importato. \r\n{location} non trovata :" + elencocampi, "Elenco campi");
                         errorFound++;
                         //if (errorFound>10)break;
                     }
@@ -531,7 +533,7 @@ namespace pcc_default {
         }
         private void btnImportaFileEsito_Click(object sender, EventArgs e) {
             if (DS.HasChanges()) {
-                MessageBox.Show("E' necessario salvare prima di importare un file", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario salvare prima di importare un file", "Avviso");
                 return;
             }
             DialogResult dr = openFileDialog1.ShowDialog(this);
@@ -572,7 +574,7 @@ namespace pcc_default {
                 //Il file di esito e il file generato contengono operazioni diverse.
                 string mess1 = (KindEsito == "I") ? "Invio" : "Operazioni su fatture precaricate";
                 string mess2 = (getTipoFile() == "I") ? "Invio" : "Operazioni su fatture precaricate";
-                MessageBox.Show(this, "Il file di esito contiene: " + mess1 + ", mentre il file trasmesso contiene: " + mess2 + ". Selezionare il file corretto da importare");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il file di esito contiene: " + mess1 + ", mentre il file trasmesso contiene: " + mess2 + ". Selezionare il file corretto da importare");
                 return;
             }
 
@@ -650,7 +652,7 @@ namespace pcc_default {
                 if ((colonnaE == "CO") || (colonnaE == "COF")) {
                     // Deve cancellare da pccexpense
                     if (!CancellazioneRigaPccexpenseEseguita(R)) {
-                        return;//C'√® stato un errore e interrompe l'operazione
+                        return;//C'Ë stato un errore e interrompe l'operazione
                     }
                 }
                 if (colonnaE == "CS") {
@@ -672,7 +674,7 @@ namespace pcc_default {
             }
             Meta.DoMainCommand("mainsave");
             if (!DS.HasChanges()) {
-                MessageBox.Show(this, "Salvataggio effettuato correttamente", "Informazione");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Salvataggio effettuato correttamente", "Informazione");
             }
         }
 
@@ -766,7 +768,7 @@ namespace pcc_default {
                  QHC.CmpEq("expiringdate", R["c25"]));  //QHC.CmpEq("amount", R["c24"]),
             DataRow[] Rows = DS.pccexpiringview.Select(filtro, null);
             if (Rows.Length == 0) {
-                MessageBox.Show(this, "Non √® stato trovata la riga di Scadenza avente:\r\n" +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stato trovata la riga di Scadenza avente:\r\n" +
                         "P.iva: " + p_iva + ",\nCF:" + R["c2"] + ",\nNum.Documento " + R["c6"]
                         + ",\n DataEmissione " + R["c7"] + "\nData scadenza " + R["c25"]
                         + ",\n ImportoTotaleDocumento " + R["c8"]);
@@ -784,7 +786,7 @@ namespace pcc_default {
                     }
                 }
                 else {
-                    MessageBox.Show(this, "Sono state trovare pi√π righe di Pagamenti aventi:\r\n" +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Sono state trovare pi˘ righe di Pagamenti aventi:\r\n" +
                                           "P.iva: " + p_iva + ",\nCF:" + R["c2"] + ",\nNum.Documento " + R["c6"]
                                           + ",\n DataEmissione " + R["c7"] + "\nData scadenza " + R["c25"]
                                           + ",\n ImportoTotaleDocumento " + R["c8"]);
@@ -823,7 +825,7 @@ namespace pcc_default {
 
             DataRow[] Rows = DS.pccpaymentview.Select(filtro, null);
             if (Rows.Length == 0) {
-                MessageBox.Show(this, "Non √® stato trovata la riga di Pagamento avente:\r\n" +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stato trovata la riga di Pagamento avente:\r\n" +
                         "P.iva: " + p_iva + ",\nCF:" + R["c2"] + ",\nNum.Documento " + R["c6"] +
                         "\ndataemissione:" + R["c7"] + "\nImporto:" + R["c26"] +
                         "\nN.mandato:" + R["c30"] + "\nCIG:" + R["c33"] + "\ncup:" + R["c34"] +
@@ -831,7 +833,7 @@ namespace pcc_default {
                 return false;
             }
             if (Rows.Length > 1) {
-                MessageBox.Show(this, "Sono state trovare pi√π righe di Pagamenti aventi:\r\n" +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Sono state trovare pi˘ righe di Pagamenti aventi:\r\n" +
                         "P.iva: " + p_iva + ",\nCF:" + R["c2"] + ",\nNum.Documento " + R["c6"] +
                         "dataemissione:" + R["c7"] + "\nImporto:" + R["c26"] +
                         "\nN.mandato:" + R["c30"] + "\nCIG:" + R["c33"] + "\ncup:" + R["c34"] +
@@ -862,8 +864,8 @@ namespace pcc_default {
                 //      6-num.fattura, 7-data emissione, 8-Importo tot.doc.,   >>>>>     Sono indentificativi della fattura 
                 QHC.CmpEq("numerodocumento", R["c6"]), QHC.CmpEq("dataemissione", (DateTime)R["c7"]), QHC.CmpEq("ImportoTotaleDocumento", CfgFn.GetNoNullDecimal(R["c8"])),
                 //     14-Importo del mov., 15-natura, 17-stato del debito, 19-descrizione, 30-num.impegno, 21-cig, 22-cup, >>>>> Sezione CONTABILIZZAZIONE
-                //QHC.CmpEq("amount", CfgFn.GetNoNullDecimal(R["c14"])),  Togliamo il confronto con l'importo perch√® in fase di trasmissione i dettagli sono stati ragguppati, 
-                //per cui pu√≤ capitare di avere un dettaglio nel file di esito e due o tre dettagli nel DB/pccexpense.
+                //QHC.CmpEq("amount", CfgFn.GetNoNullDecimal(R["c14"])),  Togliamo il confronto con l'importo perchË in fase di trasmissione i dettagli sono stati ragguppati, 
+                //per cui puÚ capitare di avere un dettaglio nel file di esito e due o tre dettagli nel DB/pccexpense.
                 filterNA,
                 //QHC.CmpEq("expensetaxkind", R["c17"]),
                 // 18 - Causale
@@ -872,7 +874,7 @@ namespace pcc_default {
 
             DataRow[] Rows = DS.pccexpenseview.Select(filtro, null);
             if (Rows.Length == 0) {
-                MessageBox.Show(this, "Non √® stata trovata la riga di Contabilizzazione avente:\r\n" +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stata trovata la riga di Contabilizzazione avente:\r\n" +
                         "P.iva: " + p_iva + ",\nCF:" + R["c2"] + ",\nNum.Documento " + R["c6"] +
                         "\nData emissione:" + R["c7"] +
                         //"\nnatura:"+R["c15"]+"\nstato debito:"+R["c17"]+
@@ -882,7 +884,7 @@ namespace pcc_default {
                 return false;
             }
             if (Rows.Length > 1) {
-                // Controlla che la somma dell'importo delle righe che sto cancellando sia uguale all'importo della riga del file di esito. Se √® uguale, cancella le righe, altrimenti comunica l'errore.
+                // Controlla che la somma dell'importo delle righe che sto cancellando sia uguale all'importo della riga del file di esito. Se Ë uguale, cancella le righe, altrimenti comunica l'errore.
                 decimal amountEsito = CfgFn.GetNoNullDecimal(R["c14"]);
                 decimal amountPccexpense = 0;
                 foreach (DataRow r in Rows) {
@@ -894,7 +896,7 @@ namespace pcc_default {
                     }
                 }
                 else {
-                    MessageBox.Show(this, "Sono state trovare pi√π righe di Contabilizzazione aventi:\r\n" +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Sono state trovare pi˘ righe di Contabilizzazione aventi:\r\n" +
                             "P.iva: " + p_iva + ",\nCF:" + R["c2"] + ",\nNum.Documento " + R["c6"] +
                         "\nData emissione:" + R["c7"] +
                         //"\nnatura:" + R["c15"] + "\nstato debito:" + R["c17"] +
@@ -919,7 +921,7 @@ namespace pcc_default {
             if (c.DataType == typeof(Double)) return "Double";
             if (c.DataType == typeof(Single)) return "Single";
             if (c.DataType == typeof(DateTime)) return "DateTime";
-            MessageBox.Show("Tipo " + c.DataType.ToString() + " non trovato");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("Tipo " + c.DataType.ToString() + " non trovato");
             return "Text";
         }
 
@@ -1072,7 +1074,7 @@ namespace pcc_default {
             //               "CurrencyThousandSymbol=\r\n" +
             //               "CurrencyDecimalSymbol=.\r\n" +
             //               "CurrencyDigits=2\r\n" +
-            //               "CurrencySymbol= ‚Ç¨\r\n" +
+            //               "CurrencySymbol= Ä\r\n" +
             //                        "ColNameHeader = False";
             //    dtEsito = model.Clone();
             //    if (dtEsito.Columns.Contains("codicesegnalazione")) {
@@ -1125,7 +1127,7 @@ namespace pcc_default {
             //        }
             //    }
             //    catch (Exception ex) {
-            //        MessageBox.Show(this, ex.Message);
+            //        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, ex.Message);
             //        File.Delete(fNameIni);
             //        return null;
             //    }
@@ -1146,7 +1148,7 @@ namespace pcc_default {
             //}
 
             if (extension == "xlsx") {
-                MessageBox.Show(@"Importo file xlsx", @"Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(@"Importo file xlsx", @"Avviso");
                 dtEsito = model.Clone();
                 if (dtEsito.Columns.Contains("codicesegnalazione")) {
                     dtEsito.Columns["codicesegnalazione"].DataType = typeof(string);
@@ -1163,7 +1165,7 @@ namespace pcc_default {
                     if (!res) return null;
                 }
                 catch (System.IO.IOException e) {
-                    MessageBox.Show(this, @"Errore nell'apertura del file:\n\r" + e, @"Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, @"Errore nell'apertura del file:\n\r" + e, @"Errore");
                     return null;
                 }
 

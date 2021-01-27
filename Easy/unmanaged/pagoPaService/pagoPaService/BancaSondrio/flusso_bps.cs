@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -38,7 +40,7 @@ namespace BancaSondrioFlusso {
             }
 
             flusso = null;
-            return "Il file selezionato non esiste o non √® accessibile.";
+            return "Il file selezionato non esiste o non Ë accessibile.";
         }
 
         private string Elabora(string filename) {
@@ -159,7 +161,7 @@ namespace BancaSondrioFlusso {
                         case "40":
                             disposizione.Debitore.Indirizzo1 = ElaboraAlfanumerico(riga, 10, 30);
                             disposizione.Debitore.CAP = ElaboraAlfanumerico(riga, 40, 5);
-                            disposizione.Debitore.Localit√† = ElaboraAlfanumerico(riga, 45, 25);
+                            disposizione.Debitore.Localit‡ = ElaboraAlfanumerico(riga, 45, 25);
                             disposizione.Debitore.Indirizzo2 = ElaboraAlfanumerico(riga, 70, 28);
                             disposizione.Debitore.Nazione = ElaboraAlfanumerico(riga, 98, 2);
 
@@ -190,8 +192,8 @@ namespace BancaSondrioFlusso {
                             disposizione.CodiceAvviso = ElaboraAlfanumerico(riga, 30, 18);
                             disposizione.TipoBollettino = ElaboraAlfanumerico(riga, 93, 1);
                             disposizione.ChiaviControllo = ElaboraAlfanumerico(riga, 100, 20);
-                            disposizione.DataInizioValidit√† = ElaboraDataLunga(riga, 104, 8);
-                            disposizione.DataFineValidit√† = ElaboraDataLunga(riga, 112, 8);
+                            disposizione.DataInizioValidit‡ = ElaboraDataLunga(riga, 104, 8);
+                            disposizione.DataFineValidit‡ = ElaboraDataLunga(riga, 112, 8);
 
                             break;
                     }
@@ -264,7 +266,7 @@ namespace BancaSondrioFlusso {
         /// Campo di libera composizione da parte dell'Azienda Mittente
         /// </summary>
         /// <remarks>
-        /// Dev'essere univoco nell'ambito della data di creazione e a parit√† di mittente e ricevente.
+        /// Dev'essere univoco nell'ambito della data di creazione e a parit‡ di mittente e ricevente.
         /// </remarks>
         public string NomeSupporto { get; set; }
 
@@ -319,7 +321,7 @@ namespace BancaSondrioFlusso {
         /// Campo di libera composizione da parte dell'Azienda Mittente
         /// </summary>
         /// <remarks>
-        /// Dev'essere univoco nell'ambito della data di creazione e a parit√† di mittente e ricevente.
+        /// Dev'essere univoco nell'ambito della data di creazione e a parit‡ di mittente e ricevente.
         /// </remarks>
         public string NomeSupporto { get; set; }
 
@@ -367,7 +369,7 @@ namespace BancaSondrioFlusso {
         public string Indirizzo1 { get; set; }
         public string Indirizzo2 { get; set; }
         public string CAP { get; set; }
-        public string Localit√† { get; set; }
+        public string Localit‡ { get; set; }
         public string Nazione { get; set; }
 
     }
@@ -403,8 +405,8 @@ namespace BancaSondrioFlusso {
         public string ChiaviControllo { get; set; }
         public string NumeroProvvisorio { get; set; }
         public string CodiceAvviso { get; set; }
-        public DateTime? DataInizioValidit√† { get; set; }
-        public DateTime? DataFineValidit√† { get; set; }
+        public DateTime? DataInizioValidit‡ { get; set; }
+        public DateTime? DataFineValidit‡ { get; set; }
 
         public string IUV {
             get {

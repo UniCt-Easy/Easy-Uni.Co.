@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_contoeconomico_dm2012_dett]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_contoeconomico_dm2012_dett]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_contoeconomico_dm2012_dett]
 GO
 SET ANSI_NULLS ON
@@ -190,7 +192,7 @@ INSERT INTO #bilanciocontoeconomico(
  
 
 --4) Se si usa il "Mostra UPB", nell'esportazione si chiede di visualizzare le seguenti ulteriori colonne:
---- il flagactivity dell'upb con la dicitura "Tipo attivit√† dell'UPB" e i valori Qualsiasi\Non specificata, Istituzionale o Commerciale
+--- il flagactivity dell'upb con la dicitura "Tipo attivit‡ dell'UPB" e i valori Qualsiasi\Non specificata, Istituzionale o Commerciale
 --- il codice tipo UPB con la dicitura "Tipo UPB"
 --- il flagkind con la dicitura "Funzione dell'UPB" e i valori Didattica o Ricerca
 --- la Data inizio
@@ -235,7 +237,7 @@ Begin
 								 when upb.flagactivity = 2 then 'Commerciale'
 								 when upb.flagactivity = 4 then 'Qualsiasi\Non specificata'
 								 else null
-							end as 'Attivit√†',
+							end as 'Attivit‡',
 
 							epupbkind.title as 'Tipo UPB',
 							case when upb.flagkind&3=  1 then 'Didattica'
@@ -301,7 +303,7 @@ Begin
 								 when upb.flagactivity = 2 then 'Commerciale'
 								 when upb.flagactivity = 4 then 'Qualsiasi\Non specificata'
 								 else null
-							end as 'Attivit√†',
+							end as 'Attivit‡',
 
 							epupbkind.title as 'Tipo UPB',
 							case when upb.flagkind&3=  1 then 'Didattica'
@@ -375,7 +377,7 @@ Begin
 							 when upb.flagactivity = 2 then 'Commerciale'
 							 when upb.flagactivity = 4 then 'Qualsiasi\Non specificata'
 							 else null
-						end as 'Attivit√†',
+						end as 'Attivit‡',
 
 						epupbkind.title as 'Tipo UPB',
 						case when upb.flagkind&3=  1 then 'Didattica'
@@ -455,7 +457,7 @@ Begin
 							 when upb.flagactivity = 2 then 'Commerciale'
 							 when upb.flagactivity = 4 then 'Qualsiasi\Non specificata'
 							 else null
-						end as 'Attivit√†',
+						end as 'Attivit‡',
 
 						epupbkind.title as 'Tipo UPB',
 						case when upb.flagkind&3=  1 then 'Didattica'
@@ -502,4 +504,3 @@ GO
  
  --exec exp_contoeconomico_dm2012_dett '2018', {d '2018-01-01'}, {d '2018-10-19'}, '1', null, '7115', 'S', null, null, 'S', '%', 'N', 'N'
  
-	

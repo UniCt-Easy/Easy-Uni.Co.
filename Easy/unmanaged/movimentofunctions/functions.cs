@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -45,7 +47,7 @@ namespace movimentofunctions {
 		DataAccess Conn;
 		MetaDataDispatcher Disp;
 		bool viewMainMov;
-		AutomatismiGenerati dsAuto = new AutomatismiGenerati();
+		public AutomatismiGenerati dsAuto = new AutomatismiGenerati();
         CQueryHelper QHC;
         QueryHelper QHS;
 
@@ -510,7 +512,7 @@ namespace movimentofunctions {
                     }
                     DataRow[] MainRows = T.Select(filter);
                     if (MainRows.Length == 0) {
-                        MessageBox.Show("Errore, riga non trovata in GeneraRigheVarMovimento");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore, riga non trovata in GeneraRigheVarMovimento");
                         return false;
                     }
                     DataRow MainRow = MainRows[0];
@@ -676,7 +678,7 @@ namespace movimentofunctions {
 							object codicecreddeb = R["idreg"];
                             DataRow ModPagam = GetModPagamDefault(codicecreddeb);
 							if (ModPagam==null) {
-								MessageBox.Show(
+								MetaFactory.factory.getSingleton<IMessageShower>().Show(
 									"E' necessario che sia definita almeno una modalità di pagamento per il percipiente "+
 									"\""+R["registry"].ToString()+"\"\n\n"+
 									"Dati non salvati", "Errore", MessageBoxButtons.OK);
@@ -894,7 +896,7 @@ expenseflagseparatemanager 16
 			DataRow[] cassiere = Cassiere.Select(QHC.CmpEq("flagdefault","S"));
             if (cassiere == null || cassiere.Length == 0) cassiere = Cassiere.Select();
 			if ((cassiere==null)||(cassiere.Length!=1)){
-                MessageBox.Show(
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "Non è stato possibile generare le reversali poiché non c'è un istituto cassiere predefinito.");
                 return;
 			}
@@ -1043,7 +1045,7 @@ expenseflagseparatemanager 16
             DataRow[] cassiere = Cassiere.Select(QHC.CmpEq("flagdefault", "S"));
             if (cassiere == null || cassiere.Length == 0) cassiere = Cassiere.Select();
 			if (cassiere.Length!=1){
-				MessageBox.Show(
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(
 					"Non è stato possibile generare i mandati poiché non c'è un tesoriere predefinito.");
 				return;
 			}
@@ -2105,7 +2107,7 @@ expenseflagseparatemanager 16
 									);
 				}
 				catch (Exception E) {
-					MessageBox.Show(E.Message);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
 					return;
 				}
 				if ((OutDS==null) ||(OutDS.Tables.Count==0)) return; //no autoclass
@@ -2535,7 +2537,7 @@ expenseflagseparatemanager 16
 								);
 			}
 			catch (Exception E) {
-				MessageBox.Show(E.Message);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
 				return;
 			}
 			if ((OutDS==null)||(OutDS.Tables.Count==0)) return; //no autoclass
@@ -2766,7 +2768,7 @@ expenseflagseparatemanager 16
 
                 string filter= QHC.CmpEq("idsorkind", idsorkind);
                 if (AllTipoClassMov.Select(filter).Length == 0) {
-                    //MessageBox.Show($"Tipo classificazione {idsorkind} non trovato o non utilizzabile", "Errore");
+                    //MetaFactory.factory.getSingleton<IMessageShower>().Show($"Tipo classificazione {idsorkind} non trovato o non utilizzabile", "Errore");
                     continue;                    
                 }
                 DataRow TipoR = AllTipoClassMov.Select(filter)[0];
@@ -3398,7 +3400,7 @@ expenseflagseparatemanager 16
 									);
 				}
 				catch (Exception E) {
-					MessageBox.Show(E.Message);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
 					continue;
 				}
 				if ((OutDS==null)||(OutDS.Tables.Count==0)) continue; //no autoclass
@@ -3534,7 +3536,7 @@ expenseflagseparatemanager 16
         private bool aggiungiTabelle(DataSet dsSource) {
 			foreach(DataTable t in dsSource.Tables) {
                 // Controllo se la tabella è stata modificata
-                if (!hasChanges(t)) {
+                if (!hasChanges(t) && t.TableName!="estimate" && t.TableName!="mandate") {
                     continue;
                 }
                     // Controllo sull'esistenza della tabella nel dataset di destinazione

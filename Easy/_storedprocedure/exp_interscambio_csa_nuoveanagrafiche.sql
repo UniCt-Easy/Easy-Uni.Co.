@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_interscambio_csa_nuoveanagrafiche]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_interscambio_csa_nuoveanagrafiche]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_interscambio_csa_nuoveanagrafiche]
 GO
  
@@ -30,8 +32,8 @@ CREATE PROCEDURE exp_interscambio_csa_nuoveanagrafiche
 AS
 
 --Le anagrafiche interessate da questa procedura dovranno rispettare congiuntamente le seguenti condizioni:
---1)    L‚Äôanagrafica di Easy non dovr√† avere il numero di matricola e dovr√† avere la valorizzazione del codice fiscale.
---2)    L‚Äôanagrafica di Easy √® stata utilizzata nel form Banca Data Incarichi con opzione su ‚ÄúDipendenti di altri Enti Pubblici‚Äù o ‚ÄúDipendenti dello stesso Ente‚Äù.
+--1)    Líanagrafica di Easy non dovr‡ avere il numero di matricola e dovr‡ avere la valorizzazione del codice fiscale.
+--2)    Líanagrafica di Easy Ë stata utilizzata nel form Banca Data Incarichi con opzione su ìDipendenti di altri Enti Pubbliciî o ìDipendenti dello stesso Enteî.
 --3)    Nella vista Easy_Anagrafiche non esiste il codice fiscale delle anagrafiche che rispettano le condizioni 1) e 2).
 --4)    La condizione 3) viene sostituita da una condizione sulla nuova vista Easy_Anagrafiche_8000 allo scopo di poter verificare la presenza
 -- dell'anagrafica in una delle due procedure CSA attualmente in uso
@@ -72,7 +74,7 @@ AND R.cf IS NOT NULL
 AND S.employkind in ('A', 'D')
 ORDER BY R.cf, S.employkind
 
--- Ciclo per determinare se le anagrafiche ottenute sono censite in Easy. Se sono gi√† censite, le escludo dalla presente importazione
+-- Ciclo per determinare se le anagrafiche ottenute sono censite in Easy. Se sono gi‡ censite, le escludo dalla presente importazione
 CREATE TABLE #count_cf_in_csa (count_cf int)
 DECLARE         @cf varchar(20)
 DECLARE         @employkind char(1)
@@ -159,7 +161,7 @@ DECLARE @NOSTAND int
 SELECT @NOSTAND = idaddress FROM address WHERE codeaddress = @codenostand
 
 DECLARE @dateindi datetime
-SET @dateindi = @datagenerazione -- data generazione del flusso, data validit√† dell'indirizzo considerato
+SET @dateindi = @datagenerazione -- data generazione del flusso, data validit‡ dell'indirizzo considerato
 
 
 CREATE TABLE #address
@@ -292,21 +294,21 @@ BEGIN
     RETURN
 END
 
--- IMP: I dati all‚Äôinterno dello stesso tipo record devono essere ordinati per matricola.    00
+-- IMP: I dati allíinterno dello stesso tipo record devono essere ordinati per matricola.    00
 -- CODICE ATENEO 70049
 --000000@I@@0@00@000000@0@0000@000000@70049@15/04/2014@10.10.12@0@1@1@
---000001@I@¬ß@72@01@000000@0@0000@057377@ROSSI@Antonio@C@@M@22/09/1972@AFRAGOLA@A064@I;@Via Monti, n. 6@80021@000;A064@@I;IT@@00000@000;0000@@0000@057377@@NP@@@Antonio.ROSSI¬ßunina2.it@12/09/1995@07/07/2011@ADMINSYS@000000@000000@0@0@0@0@0815667023@00@@@@000@00@0@@00@@@0@@@@I@PF@@@0@@000@@@@@@@
+--000001@I@ß@72@01@000000@0@0000@057377@ROSSI@Antonio@C@@M@22/09/1972@AFRAGOLA@A064@I;@Via Monti, n. 6@80021@000;A064@@I;IT@@00000@000;0000@@0000@057377@@NP@@@Antonio.ROSSIßunina2.it@12/09/1995@07/07/2011@ADMINSYS@000000@000000@0@0@0@0@0815667023@00@@@@000@00@0@@00@@@0@@@@I@PF@@@0@@000@@@@@@@
 --000002@I@@18@02@000000@0@0000@057377@01/01/1990@02/02/2222@RSSNTN72P22A064T@VIA Trento, 6 @80021@000;A064@01/01/2011@@CINECA@
 
 -- Record 00
 CREATE TABLE #RecordTesta(
 -- parte comune a tutti i record
-    ProgrGen    varchar(6),        -- Progressivo generale del record all‚Äôinterno del file. Viene incrementato ad ogni riga del file dati. Il record di testata ha progrGen='000000'
-    TipoOperazione    char(1),    -- Tipo operazione da fare sul record    ‚ÄòI‚Äô:  inserimento;‚ÄôM‚Äô:modifica;'C': cancellazione. Assume valore 0 nel record di testa
-    SeparatoreChr    char(1),    -- Variabile (0, 1)    Nel caso in cui nei dati da caricare in questa riga sia presente almeno un carattere '@'(separatore) √® necessario sostituire '@' con '¬ß'.
-    TotCampi    int ,            -- Per ogni riga, indica il numero totale dei campi contenuti. Tale numero corrisponde esattamente al numero totale dei caratteri ‚Äò@‚Äô.
+    ProgrGen    varchar(6),        -- Progressivo generale del record allíinterno del file. Viene incrementato ad ogni riga del file dati. Il record di testata ha progrGen='000000'
+    TipoOperazione    char(1),    -- Tipo operazione da fare sul record    ëIí:  inserimento;íMí:modifica;'C': cancellazione. Assume valore 0 nel record di testa
+    SeparatoreChr    char(1),    -- Variabile (0, 1)    Nel caso in cui nei dati da caricare in questa riga sia presente almeno un carattere '@'(separatore) Ë necessario sostituire '@' con 'ß'.
+    TotCampi    int ,            -- Per ogni riga, indica il numero totale dei campi contenuti. Tale numero corrisponde esattamente al numero totale dei caratteri ë@í.
     TipoRecord    varchar(2),        -- Tipo record (00-08; 90, 91, 92)
-    ProgrTipoRec varchar(6),    -- Il progressivo all‚Äôinterno del tipo record. Viene incrementato ad ogni riga all‚Äôinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
+    ProgrTipoRec varchar(6),    -- Il progressivo allíinterno del tipo record. Viene incrementato ad ogni riga allíinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
                                 -- Si azzera comunque al cambio di ogni matricola.    Inizia da 000000 fino a 999999
     Comparto char(1),            -- Il comparto del dipendente. Nerl record di testa vale 0
     Ruolo    varchar (4),        -- Variabile (2..4)    Il ruolo del dipendente. Nel rcord di testa assume valore  '0000'
@@ -316,9 +318,9 @@ CREATE TABLE #RecordTesta(
     Ateneo    varchar(5),            -- Codice ateneo di origine   
     Data    datetime ,            -- Data generazione record    GG/MM/AAAA
     Ora        datetime,--(8),        -- Ora generazione record    HH.MM.SS
-    CodFile    char(1),            -- Solo se trattasi di un file prodotto con la funzione di CSA ‚ÄúEstrazione dati dipendente Trasferito‚Äù si riporta ‚ÄòT‚Äô.
-                                -- CodFile= '0' va usato in tutti i casi in cui il file viene utilizzato per caricamenti ‚Äúbatch.    0
-    InvioMatricola    char(1),    -- Indica se la matricola viene avvalorata nei vari record  oppure la si lascia al valore ‚Äò000000‚Äô. Nel nostro caso deve valere 1
+    CodFile    char(1),            -- Solo se trattasi di un file prodotto con la funzione di CSA ìEstrazione dati dipendente Trasferitoî si riporta ëTí.
+                                -- CodFile= '0' va usato in tutti i casi in cui il file viene utilizzato per caricamenti ìbatch.    0
+    InvioMatricola    char(1),    -- Indica se la matricola viene avvalorata nei vari record  oppure la si lascia al valore ë000000í. Nel nostro caso deve valere 1
     InvioDatiAnagrafici    char(1) -- invioDatiAnagrafici. Nel nostro caso deve valere 1
 )
 
@@ -326,7 +328,7 @@ INSERT INTO #RecordTesta(
 -- parte comune a tutti i record
     TipoOperazione,
     TipoRecord,            -- Tipo record (00-08; 90, 91, 92)
-    ProgrTipoRec,        -- Il progressivo all‚Äôinterno del tipo record. Viene incrementato ad ogni riga all‚Äôinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
+    ProgrTipoRec,        -- Il progressivo allíinterno del tipo record. Viene incrementato ad ogni riga allíinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
                         -- Si azzera comunque al cambio di ogni matricola.    Inizia da 000000 fino a 999999
     Comparto,            -- Nel record di testa vale 0
     Ruolo,                -- Nel rcord di testa assume valore  '0000'
@@ -336,7 +338,7 @@ INSERT INTO #RecordTesta(
     Data ,                    -- Data generazione record    GG/MM/AAAA
     --Ora    ,                -- Ora generazione record    HH.MM.SS
     CodFile,           
-    InvioMatricola,            -- Indica se la matricola viene avvalorata nei vari record  oppure la si lascia al valore ‚Äò000000‚Äô. Nel nostro caso deve valere 1
+    InvioMatricola,            -- Indica se la matricola viene avvalorata nei vari record  oppure la si lascia al valore ë000000í. Nel nostro caso deve valere 1
     InvioDatiAnagrafici        -- invioDatiAnagrafici. Nel nostro caso deve valere 1
 )
 SELECT
@@ -347,7 +349,7 @@ SELECT
     REPLICATE('0',4),    -- Ruolo
     REPLICATE('0',6),    -- Matricola
     SUBSTRING(REPLICATE('0',5),1,5 - DATALENGTH(SUBSTRING(convert(varchar(5),@ateneo),1,5))) + SUBSTRING(convert(varchar(5),@ateneo),1,5),       
-    -- CONVERT(varchar(10),@datagenerazione,103)    -- data, sar√† formattata dopo secondo le specifiche
+    -- CONVERT(varchar(10),@datagenerazione,103)    -- data, sar‡ formattata dopo secondo le specifiche
     @datagenerazione,
     '0',        -- CodFile
     '1',        -- InvioMatricola, vale 1, anche se le matricole sono nuove
@@ -356,14 +358,14 @@ SELECT
 --Esempio record di testata:
 --000000@I@@15@00@000000@0@0000@000000@70002@09/11/2001@11.00.00@0@1@0@
 -- Esempio di record 01 dati anagrafici
---000001@I@¬ß@72@01@000000@0@0000@057377@ROSSI@Antonio@C@@M@22/09/1972@AFRAGOLA@A064@I;@Via Monti, n. 6@80021@000;A064@@I;IT@@00000@000;0000@@0000@057377@@NP@@@Antonio.ROSSI¬ßunina2.it@12/09/1995@07/07/2011@ADMINSYS@000000@000000@0@0@0@0@0815667023@00@@@@000@00@0@@00@@@0@@@@I@PF@@@0@@000@@@@@@@
+--000001@I@ß@72@01@000000@0@0000@057377@ROSSI@Antonio@C@@M@22/09/1972@AFRAGOLA@A064@I;@Via Monti, n. 6@80021@000;A064@@I;IT@@00000@000;0000@@0000@057377@@NP@@@Antonio.ROSSIßunina2.it@12/09/1995@07/07/2011@ADMINSYS@000000@000000@0@0@0@0@0815667023@00@@@@000@00@0@@00@@@0@@@@I@PF@@@0@@000@@@@@@@
 CREATE TABLE #Record01( -- Dati anagrafici
     -- parte comune a tutti i record
-    TipoOperazione    char(1),    -- Tipo operazione da fare sul record    ‚ÄòI‚Äô:  inserimento;‚ÄôM‚Äô:modifica;'C': cancellazione. Assume valore 0 nel record di testa
-    SeparatoreChr    char(1),     -- Variabile (0, 1)    Nel caso in cui nei dati da caricare in questa riga sia presente almeno un carattere '@'(separatore) √® necessario sostituire '@' con '¬ß'.
-    TotCampi    int ,             -- Per ogni riga, indica il numero totale dei campi contenuti. Tale numero corrisponde esattamente al numero totale dei caratteri ‚Äò@‚Äô.
+    TipoOperazione    char(1),    -- Tipo operazione da fare sul record    ëIí:  inserimento;íMí:modifica;'C': cancellazione. Assume valore 0 nel record di testa
+    SeparatoreChr    char(1),     -- Variabile (0, 1)    Nel caso in cui nei dati da caricare in questa riga sia presente almeno un carattere '@'(separatore) Ë necessario sostituire '@' con 'ß'.
+    TotCampi    int ,             -- Per ogni riga, indica il numero totale dei campi contenuti. Tale numero corrisponde esattamente al numero totale dei caratteri ë@í.
     TipoRecord    varchar(2),     -- Tipo record (00-08; 90, 91, 92)
-    ProgrTipoRec varchar(6),      -- Il progressivo all‚Äôinterno del tipo record. Viene incrementato ad ogni riga all‚Äôinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
+    ProgrTipoRec varchar(6),      -- Il progressivo allíinterno del tipo record. Viene incrementato ad ogni riga allíinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
                                   -- Si azzera comunque al cambio di ogni matricola.    Inizia da 000000 fino a 999999
     Comparto char(1),             -- Il comparto del dipendente. Nerl record di testa vale 0
     Ruolo    varchar (4),         -- Variabile (2..4)    Il ruolo del dipendente. Nel rcord di testa assume valore  '0000'
@@ -414,17 +416,17 @@ CREATE TABLE #Record01( -- Dati anagrafici
     Cat_Protetta_F_Assunzione    char(1),	--  51
     Cat_Protetta_Dal datetime,				--	52 D(10)
     Ordine_Professionale_Regione  varchar(2),	--  53  C(2) Non valorizzato se dati estratti da U-Gov (vedi record 53)
-    Ordine_Professionale_Num varchar(8),		--	54  C(8) numero di iscrizione all‚Äôordine professionale Non valorizzato se dati estratti da U-Gov (vedi record 53)
-    Ordine_Professionale_Data datetime,			--	55 D(10) data di iscrizione all‚Äôordine professionale Non valorizzato se dati estratti da U-Gov (vedi record 53)
+    Ordine_Professionale_Num varchar(8),		--	54  C(8) numero di iscrizione allíordine professionale Non valorizzato se dati estratti da U-Gov (vedi record 53)
+    Ordine_Professionale_Data datetime,			--	55 D(10) data di iscrizione allíordine professionale Non valorizzato se dati estratti da U-Gov (vedi record 53)
     Addetto_Divieto_Fumo char(1),				--	56 C(1)
     Fax varchar(25),							--	57   C(25)  Non valorizzato se dati estratti da U-Gov (vedi record 52)
     Url varchar(150),							--  58 C(150) Non valorizzato se dati estratti da U-Gov (vedi record 52)
     E_Mail_Privata varchar(100),				--	59 C(100) Non valorizzato se dati estratti da U-Gov (vedi record 52)
     Lingua char(1),								--	C(1)60  Lingua per cedolino/matricolare I = Italiano / T = Tedesco
-    Tipo_Anagrafica varchar(10),				--  61 C(10) Di norma usare sempre ‚ÄòPF‚Äô PF persona fisica DI ditta individuale SC soggetto collettivo
-    Part_Iva varchar(11),						--	62 C(11) indicare se TIPO_ANAGRAFICA <> ‚ÄòPF‚Äô
-    Denominazione varchar(255),					--	63   indicare se TIPO_ANAGRAFICA <> ‚ÄòPF‚Äô 
-    Permesso_Soggiorno_Stato    char(1),		--  64    C(1) Se non significativo indicare ‚Äò0‚Äô
+    Tipo_Anagrafica varchar(10),				--  61 C(10) Di norma usare sempre ëPFí PF persona fisica DI ditta individuale SC soggetto collettivo
+    Part_Iva varchar(11),						--	62 C(11) indicare se TIPO_ANAGRAFICA <> ëPFí
+    Denominazione varchar(255),					--	63   indicare se TIPO_ANAGRAFICA <> ëPFí 
+    Permesso_Soggiorno_Stato    char(1),		--  64    C(1) Se non significativo indicare ë0í
     Permesso_Soggiorno_Num_Doc    varchar(15),	--	65 C(15)
     Permesso_Soggiorno_Motivo    varchar(10),	--	66 C(10)   Se non significativo indicare @@
     Permesso_Soggiorno_Data_In datetime,		--	67 D(10)
@@ -434,7 +436,7 @@ CREATE TABLE #Record01( -- Dati anagrafici
     Permesso_Soggiorno_Questura varchar(5),		--	71 C(5)   Se non significativoindicare @@
     Ordine_Professionale_Data_Fin datetime		--	72 D(10) (AC01_PER_ORDPROF.DT_FINE_ALBO in ambiente UGov) Non valorizzato se dati estratti da U-Gov (vedi record 53)
 )
---000001@I@¬ß@72@01@000000@0@0000@057377@ROSSI@Antonio@C@@M@22/09/1972@AFRAGOLA@A064@I;@Via Monti, n. 6@80021@000;A064@@I;IT@@00000@000;0000@@0000@057377@@NP@@@Antonio.ROSSI¬ßunina2.it@12/09/1995@07/07/2011@ADMINSYS@000000@000000@0@0@0@0@0815667023@00@@@@000@00@0@@00@@@0@@@@I@PF@@@0@@000@@@@@@@
+--000001@I@ß@72@01@000000@0@0000@057377@ROSSI@Antonio@C@@M@22/09/1972@AFRAGOLA@A064@I;@Via Monti, n. 6@80021@000;A064@@I;IT@@00000@000;0000@@0000@057377@@NP@@@Antonio.ROSSIßunina2.it@12/09/1995@07/07/2011@ADMINSYS@000000@000000@0@0@0@0@0815667023@00@@@@000@00@0@@00@@@0@@@@I@PF@@@0@@000@@@@@@@
 
 DECLARE @data_infinito   datetime
 SET @data_infinito = '02/02/2222'
@@ -444,10 +446,10 @@ INSERT INTO #Record01
 (
 -- parte comune a tutti i record
    TipoOperazione,
-   SeparatoreChr,     -- Variabile (0, 1)    Nel caso in cui nei dati da caricare in questa riga sia presente almeno un carattere '@'(separatore) √® necessario sostituire '@' con '¬ß'.
+   SeparatoreChr,     -- Variabile (0, 1)    Nel caso in cui nei dati da caricare in questa riga sia presente almeno un carattere '@'(separatore) Ë necessario sostituire '@' con 'ß'.
    TotCampi      ,  
    TipoRecord,            -- Tipo record (00-08; 90, 91, 92)
-   ProgrTipoRec,        -- Il progressivo all‚Äôinterno del tipo record. Viene incrementato ad ogni riga all‚Äôinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
+   ProgrTipoRec,        -- Il progressivo allíinterno del tipo record. Viene incrementato ad ogni riga allíinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
                         -- Si azzera comunque al cambio di ogni matricola.    Inizia da 000000 fino a 999999
     Comparto,            -- Nel record di testa vale 0
     Ruolo,                -- Nel rcord di testa assume valore  '0000'
@@ -498,17 +500,17 @@ INSERT INTO #Record01
     Cat_Protetta_F_Assunzione , --51
     Cat_Protetta_Dal,            --52 D(10)
     Ordine_Professionale_Regione, -- 53  C(2) Non valorizzato se dati estratti da U-Gov (vedi record 53)
-    Ordine_Professionale_Num ,      --54  C(8) numero di iscrizione all‚Äôordine professionale Non valorizzato se dati estratti da U-Gov (vedi record 53)
-    Ordine_Professionale_Data,      --55 D(10) data di iscrizione all‚Äôordine professionale Non valorizzato se dati estratti da U-Gov (vedi record 53)
+    Ordine_Professionale_Num ,      --54  C(8) numero di iscrizione allíordine professionale Non valorizzato se dati estratti da U-Gov (vedi record 53)
+    Ordine_Professionale_Data,      --55 D(10) data di iscrizione allíordine professionale Non valorizzato se dati estratti da U-Gov (vedi record 53)
     Addetto_Divieto_Fumo,          --56 C(1)
     Fax,                          --57  Non valorizzato se dati estratti da U-Gov (vedi record 52)
     Url,                          --58 C(150) Non valorizzato se dati estratti da U-Gov (vedi record 52)
     E_Mail_Privata,                  --59 C(100) Non valorizzato se dati estratti da U-Gov (vedi record 52)
     Lingua,                          --C(1)60  Lingua per cedolino/matricolare I = Italiano / T = Tedesco
-    Tipo_Anagrafica,              --61 C(10) Di norma usare sempre ‚ÄòPF‚Äô PF persona fisica DI ditta individuale SC soggetto collettivo
-    Part_Iva,                      --62 C(11) indicare se TIPO_ANAGRAFICA <> ‚ÄòPF‚Äô
-    Denominazione,                  --63   indicare se TIPO_ANAGRAFICA <> ‚ÄòPF‚Äô 
-    Permesso_Soggiorno_Stato,      --64    C(1) Se non significativo indicare ‚Äò0‚Äô
+    Tipo_Anagrafica,              --61 C(10) Di norma usare sempre ëPFí PF persona fisica DI ditta individuale SC soggetto collettivo
+    Part_Iva,                      --62 C(11) indicare se TIPO_ANAGRAFICA <> ëPFí
+    Denominazione,                  --63   indicare se TIPO_ANAGRAFICA <> ëPFí 
+    Permesso_Soggiorno_Stato,      --64    C(1) Se non significativo indicare ë0í
     Permesso_Soggiorno_Num_Doc,      --65  C(15)
     Permesso_Soggiorno_Motivo,    --66   C(10)   Se non significativo indicare @@
     Permesso_Soggiorno_Data_In,   --67 D(10)
@@ -520,7 +522,7 @@ INSERT INTO #Record01
 )
 SELECT    
     'I',        -- Tipo Operazione
-	'¬ß',		-- Separatore
+	'ß',		-- Separatore
 	'72',       -- TotCampi
     '01',       -- TipoRec
     A.ind-1,      -- ProgrTipoRec
@@ -552,7 +554,7 @@ SELECT
     G1.value, -- -- codice catastale del comune di residenza ma deve essere preceduto da un progressivo CAP di CSA che ignoriamo
     SUBSTRING(REF.phonenumber,1,25),
 	'I;' +ISNULL(N1.value,'IT'),	-- C(3) Codice nazione CSA ;  Codice ISO nazione *3* *4*
-    SUBSTRING(I1.address,1,100),    -- 19 C(100) Indirizzo di riferimento (pu√≤ essere solo in Italia)
+    SUBSTRING(I1.address,1,100),    -- 19 C(100) Indirizzo di riferimento (puÚ essere solo in Italia)
     SUBSTRING(ISNULL(I1.cap,ISNULL(CAP2.CAP,'00000')), 1, 5),        -- 20 C(5)  ma deve essere seguito da un progressivo CAP di CSA che ignoriamo
     ISNULL(CAP2.CAP_PROGR,'000'),
     ISNULL(G2.value,'0000'), -- -- codice catastale del comune di riferimento
@@ -563,7 +565,7 @@ SELECT
     'NP',---- CODICE CATEGORIA PROTETTA, CAMPO CODIFICATO AVENTE LUNGHEZZA 2  METTO NP COME DEFAULT
     SUBSTRING(CONVERT(VARCHAR,R.txt),1,250), -- NOTE
     null,
-    REPLACE(SUBSTRING(REF.email,1,100),'@','¬ß'), -- email
+    REPLACE(SUBSTRING(REF.email,1,100),'@','ß'), -- email
     @datagenerazione, -- data_ins
     null, -- data_mod
     'ImportAnag', -- operatore
@@ -584,26 +586,26 @@ SELECT
     null, -- CAT_PROTETTA_DAL D(10)
     '00', -- OBBLIGATORIO ORDINE_PROFESSIONALE_REGIONE C(2)  *4*
     null, -- ORDINE_PROFESSIONALE_NUM
-    null, -- Ordine_Professionale_Data,    --55 D(10) data di iscrizione all‚Äôordine professionale Non valorizzato se dati estratti da U-Gov (vedi record 53)
+    null, -- Ordine_Professionale_Data,    --55 D(10) data di iscrizione allíordine professionale Non valorizzato se dati estratti da U-Gov (vedi record 53)
     null, -- Addetto_Divieto_Fumo,         --56 C(1)
     SUBSTRING(REF.faxnumber,1,25),         --57  Non valorizzato se dati estratti da U-Gov (vedi record 52)
     null, --Url                  --58 C(150) Non valorizzato se dati estratti da U-Gov (vedi record 52)
     null, --E_Mail_Privata,                  --59 C(100) Non valorizzato se dati estratti da U-Gov (vedi record 52)
     'I', --Lingua,                          --C(1)60  Lingua per cedolino/matricolare I = Italiano / T = Tedesco
-    CASE R.idregistryclass  ---- Tipo_Anagrafica --61 C(10) Di norma usare sempre ‚ÄòPF‚Äô PF persona fisica DI ditta individuale SC soggetto collettivo
+    CASE R.idregistryclass  ---- Tipo_Anagrafica --61 C(10) Di norma usare sempre ëPFí PF persona fisica DI ditta individuale SC soggetto collettivo
          WHEN 22 THEN 'PF'
-         WHEN 21 THEN 'DI' -- ??, verificare perch√® le ditte non sono individuali
+         WHEN 21 THEN 'DI' -- ??, verificare perchË le ditte non sono individuali
          WHEN 23 THEN 'SC' -- chiedere a cosa corrispondono
     END,                            
-    CASE  R.idregistryclass   -- Part_Iva --62 C(11) indicare se TIPO_ANAGRAFICA <> ‚ÄòPF‚Äô
+    CASE  R.idregistryclass   -- Part_Iva --62 C(11) indicare se TIPO_ANAGRAFICA <> ëPFí
         WHEN '22' THEN  NULL
         ELSE SUBSTRING(R.p_iva,1,11)
     END,                   
-    CASE  R.idregistryclass      -- Part_Iva --62 C(11) indicare se TIPO_ANAGRAFICA <> ‚ÄòPF‚Äô
-        WHEN '22' THEN NULL   -- Denominazione     --63   indicare se TIPO_ANAGRAFICA <> ‚ÄòPF‚Äô 
+    CASE  R.idregistryclass      -- Part_Iva --62 C(11) indicare se TIPO_ANAGRAFICA <> ëPFí
+        WHEN '22' THEN NULL   -- Denominazione     --63   indicare se TIPO_ANAGRAFICA <> ëPFí 
 		ELSE R.title 
 	END,
-    '0',    --Permesso_Soggiorno_Stato,      --64    C(1) Se non significativo indicare ‚Äò0‚Äô
+    '0',    --Permesso_Soggiorno_Stato,      --64    C(1) Se non significativo indicare ë0í
     null,   --Permesso_Soggiorno_Num_Doc,      --65  C(15)
     null,   --Permesso_Soggiorno_Motivo,      --66   C(10)   Se non significativo indicare @@
     null,    --Permesso_Soggiorno_Data_In,      --67 D(10)
@@ -640,7 +642,7 @@ LEFT OUTER JOIN geo_nation_agency N1 -- eventuale nazione di residenza, se ester
     AND N1.stop IS NULL
 LEFT OUTER JOIN registryreference REF
     ON REF.idreg = R.idreg AND REF.flagdefault = 'S' -- contatto predefinito
-LEFT OUTER JOIN #address I1 -- indirizzo  predefinito ma pu√≤ essere solo in Italia
+LEFT OUTER JOIN #address I1 -- indirizzo  predefinito ma puÚ essere solo in Italia
     ON I1.idreg = A.idreg
 	AND I.idaddresskind = @stand 
     AND I1.rif_address = 'S'
@@ -668,12 +670,12 @@ LEFT OUTER JOIN title  T
 -- Record 02
 CREATE TABLE #Record02( -- Dati fiscali
 -- parte comune a tutti i record
-    ProgrGen    varchar(6),        -- Progressivo generale del record all‚Äôinterno del file. Viene incrementato ad ogni riga del file dati. Il record di testata ha progrGen='000000'
-    TipoOperazione    char(1),     -- Tipo operazione da fare sul record    ‚ÄòI‚Äô:  inserimento;‚ÄôM‚Äô:modifica;'C': cancellazione. Assume valore 0 nel record di testa
-    SeparatoreChr    char(1),      -- Variabile (0, 1)    Nel caso in cui nei dati da caricare in questa riga sia presente almeno un carattere '@'(separatore) √® necessario sostituire '@' con '¬ß'.
-    TotCampi    int ,              -- Per ogni riga, indica il numero totale dei campi contenuti. Tale numero corrisponde esattamente al numero totale dei caratteri ‚Äò@‚Äô.
+    ProgrGen    varchar(6),        -- Progressivo generale del record allíinterno del file. Viene incrementato ad ogni riga del file dati. Il record di testata ha progrGen='000000'
+    TipoOperazione    char(1),     -- Tipo operazione da fare sul record    ëIí:  inserimento;íMí:modifica;'C': cancellazione. Assume valore 0 nel record di testa
+    SeparatoreChr    char(1),      -- Variabile (0, 1)    Nel caso in cui nei dati da caricare in questa riga sia presente almeno un carattere '@'(separatore) Ë necessario sostituire '@' con 'ß'.
+    TotCampi    int ,              -- Per ogni riga, indica il numero totale dei campi contenuti. Tale numero corrisponde esattamente al numero totale dei caratteri ë@í.
     TipoRecord    varchar(2),      -- Tipo record (00-08; 90, 91, 92)
-    ProgrTipoRec varchar(6),       -- Il progressivo all‚Äôinterno del tipo record. Viene incrementato ad ogni riga all‚Äôinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
+    ProgrTipoRec varchar(6),       -- Il progressivo allíinterno del tipo record. Viene incrementato ad ogni riga allíinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
                                    -- Si azzera comunque al cambio di ogni matricola.    Inizia da 000000 fino a 999999
     Comparto char(1),              -- Il comparto del dipendente. Nerl record di testa vale 0
     Ruolo    varchar (4),          -- Variabile (2..4)    Il ruolo del dipendente. Nel rcord di testa assume valore  '0000'
@@ -694,7 +696,7 @@ INSERT INTO #Record02
 -- parte comune a tutti i record
     TipoOperazione,
     TipoRecord,          -- Tipo record (00-08; 90, 91, 92)
-    ProgrTipoRec,        -- Il progressivo all‚Äôinterno del tipo record. Viene incrementato ad ogni riga all‚Äôinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
+    ProgrTipoRec,        -- Il progressivo allíinterno del tipo record. Viene incrementato ad ogni riga allíinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
                         -- Si azzera comunque al cambio di ogni matricola.    Inizia da 000000 fino a 999999
     Comparto,            -- Nel record di testa vale 0
     Ruolo,                -- Nel rcord di testa assume valore  '0000'
@@ -766,7 +768,7 @@ SELECT
     ProgrTipoRec,   
     Matricola,
     '@'+ TipoOperazione 
-    +'@'+ --> SeparatoreChr    char(1) Non mettiamo nulla, √® come se avesse lunghezza 0
+    +'@'+ --> SeparatoreChr    char(1) Non mettiamo nulla, Ë come se avesse lunghezza 0
     +'@'+ convert (varchar(2),15)-- Tot. Campi
     +'@'+ TipoRecord
     +'@'+ ProgrTipoRec
@@ -774,7 +776,7 @@ SELECT
     +'@'+ Ruolo   
     +'@'+ Matricola   
 -- parte del Record di Testa
-    +'@'+ Ateneo --> Al momento √® posto come parametro di input DA FARE!!!
+    +'@'+ Ateneo --> Al momento Ë posto come parametro di input DA FARE!!!
     -- Data generazione record    GG/MM/AAAA
     +'@'+ SUBSTRING('00',1,2 - DATALENGTH(CONVERT(varchar(2),DAY(data)))) +
         CONVERT(varchar(2),DAY(data)) + '/'+
@@ -966,7 +968,7 @@ SELECT
 
 -- parte comune a tutti i record
     '@'+ TipoOperazione
-    +'@'+ --> SeparatoreChr    char(1) Non mettiamo nulla, √® come se avesse lunghezza 0
+    +'@'+ --> SeparatoreChr    char(1) Non mettiamo nulla, Ë come se avesse lunghezza 0
     +'@'+ '18' +  -- TotCampi   
     +'@'+ TipoRecord
     +'@'+ SUBSTRING(REPLICATE('0',6),1,6 - DATALENGTH(SUBSTRING(convert(varchar(6),ProgrTipoRec),1,6))) + SUBSTRING(convert(varchar(6),ProgrTipoRec),1,6)
@@ -1100,4 +1102,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

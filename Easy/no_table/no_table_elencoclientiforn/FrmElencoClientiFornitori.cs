@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -57,7 +59,7 @@ namespace no_table_elencoclientiforn {
                     if (valore == DBNull.Value) return "00000000";
                     return ((DateTime)valore).ToString("ddMMyyyy");
                 default:
-                    MessageBox.Show(this, "Formato " + formato + " sconosciuto!");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Formato " + formato + " sconosciuto!");
                     return null;
             }
         }
@@ -92,7 +94,7 @@ namespace no_table_elencoclientiforn {
         private DataTable chiamaSP(string sp, object[] parametri) {
             DataSet ds = Meta.Conn.CallSP(sp, parametri);
             if ((ds == null) || (ds.Tables.Count==0)) {
-                MessageBox.Show(this, "Errore nella chiamata " + sp);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella chiamata " + sp);
                 return null;
             }
             return ds.Tables[0];
@@ -114,7 +116,7 @@ namespace no_table_elencoclientiforn {
                     s = campo + r[campo].ToString().PadLeft(16, '0');
                     break;
                 default:
-                    MessageBox.Show(this, "Formato " + formato + " sconosciuto!");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Formato " + formato + " sconosciuto!");
                     break;
             }
             if (sb.Length == 0) {
@@ -128,7 +130,7 @@ namespace no_table_elencoclientiforn {
 
         private void btnScriviElenco_Click(object sender, EventArgs e) {
             if (txtFile.Text=="") {
-                MessageBox.Show(this, "Specificare il percorso del file da creare!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Specificare il percorso del file da creare!");
                 return;
             }
             DataTable tRecordTestaECoda = chiamaSP("exp_elencoclientifornit_intestazione", new object[] {});
@@ -204,7 +206,7 @@ namespace no_table_elencoclientiforn {
             sw.WriteLine("A".PadLeft(1341));
             scriviRecordDiTestaODiCoda(9, sw, tRecordTestaECoda.Rows[0]);
             sw.Close();
-            MessageBox.Show(this, "Elenco clienti/fornitori salvato in " + txtFile.Text);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Elenco clienti/fornitori salvato in " + txtFile.Text);
         }
 
         public void MetaData_AfterLink() {
@@ -220,7 +222,7 @@ namespace no_table_elencoclientiforn {
         private void btnClienti_Click(object sender, EventArgs e) {
             DataTable t = chiamaSP("exp_elencoclienti", new object[] { Meta.GetSys("esercizio") });
             if (t.Rows.Count == 0) {
-                MessageBox.Show(this, "Nessun cliente trovato");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nessun cliente trovato");
             }
             exportclass.DataTableToExcel(t, true);
         }
@@ -228,7 +230,7 @@ namespace no_table_elencoclientiforn {
         private void btnFornitori_Click(object sender, EventArgs e) {
             DataTable t = chiamaSP("exp_elencofornitori", new object[] { Meta.GetSys("esercizio") });
             if (t.Rows.Count == 0) {
-                MessageBox.Show(this, "Nessun fornitore trovato");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nessun fornitore trovato");
             }
             exportclass.DataTableToExcel(t, true);
         }
@@ -236,12 +238,12 @@ namespace no_table_elencoclientiforn {
         private void btnCheck_Click(object sender, EventArgs e) {
             object idcity = Meta.Conn.DO_READ_VALUE("license", null, "idcity");
             if (idcity == DBNull.Value) {
-                MessageBox.Show(this, "Andare in 'Configurazione'/'Informazioni Ente' ed inserire il comune");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Andare in 'Configurazione'/'Informazioni Ente' ed inserire il comune");
             }
             DataTable t = chiamaSP("exp_check_clientifornitori", new object[] { Meta.GetSys("esercizio") });
             if (t.Rows.Count == 0) {
                 if (idcity != DBNull.Value) {
-                    MessageBox.Show(this, "Nessun problema riscontrato");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nessun problema riscontrato");
                 }
             }
             exportclass.DataTableToExcel(t, true);

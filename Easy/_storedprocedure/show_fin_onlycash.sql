@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[show_fin_onlycash]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[show_fin_onlycash]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [show_fin_onlycash]
 GO
 
@@ -32,9 +34,9 @@ AS
 BEGIN
 DECLARE	@ayear int
 SELECT @ayear = YEAR(@date)
--- Verifica se l'avanzo di amministrazione non Ã¨ totalizzato e viene attribuito in previsione ad una voce  
+-- Verifica se l'avanzo di amministrazione non è totalizzato e viene attribuito in previsione ad una voce  
 -- di bilancio in entrata -
-DECLARE @flagincomesurplus char(1) -- Flag indicante se l'avanzo di amministrazione ÃƒÂ Ã‚Â¨ attribuito in previsione ad un capitolo di entrata o no --M. Smaldino
+DECLARE @flagincomesurplus char(1) -- Flag indicante se l'avanzo di amministrazione Ã Â¨ attribuito in previsione ad un capitolo di entrata o no --M. Smaldino
 IF EXISTS (SELECT *  FROM fin  WHERE ayear = @ayear AND ((flag & 16) <>0) )
 	         SET @flagincomesurplus = 'S'
 	        ELSE  SET @flagincomesurplus = 'N'
@@ -434,8 +436,8 @@ DECLARE @tot_mov decimal(19,2)
 DECLARE @tot_var decimal(19,2)
 DECLARE	@nphase tinyint
 DECLARE	@desc_phase varchar(50)
-DECLARE @lbl_avail_ass varchar(150) -- Etichetta sulla disponibilitÃ  ad accertate
-DECLARE @lbl_avail_app varchar(150) -- Etichetta sulla disponibilitÃ  ad impegnare
+DECLARE @lbl_avail_ass varchar(150) -- Etichetta sulla disponibilità ad accertate
+DECLARE @lbl_avail_app varchar(150) -- Etichetta sulla disponibilità ad impegnare
 DECLARE @next_phase decimal(19,2) -- Calcolo della fase successiva in c/competenza
 IF @finpart = 'E'
 BEGIN
@@ -456,7 +458,7 @@ BEGIN
 		INSERT INTO #situation	VALUES('2) Variazioni movimenti ('+ @desc_phase	+ ')', @tot_var, '')
 		INSERT INTO #situation VALUES('3) Totale Movimenti (' + @desc_phase + ')',
 			ISNULL(@tot_mov,0) + ISNULL(@tot_var,0),'')
-		SELECT @lbl_avail_ass = 'DisponibilitÃ  per ' + '"' + @desc_phase + '"'+' (Prev. Attuale - 3'
+		SELECT @lbl_avail_ass = 'Disponibilità per ' + '"' + @desc_phase + '"'+' (Prev. Attuale - 3'
 		IF (@nphase = @nphase_ass_app)
 		BEGIN
 			IF (@finpart = 'E' AND (@nlevel is null ) AND @flagincomesurplus = 'N')-- Significa che stiamo sul titolo
@@ -481,12 +483,12 @@ BEGIN
 				ISNULL(@tot_assessment,0) - ISNULL(@tot_mov,0) - ISNULL(@tot_var,0),'S')
 			IF (@finpart = 'E' AND (@nlevel is null ) AND @flagincomesurplus = 'N')-- Significa che stiamo sul titolo
 			  Begin
-				INSERT INTO #situation	VALUES('DisponibilitÃ  ad incassare (Reversali)', 
+				INSERT INTO #situation	VALUES('Disponibilità ad incassare (Reversali)', 
 				ISNULL(@prev_curr_M, 0) - ISNULL(@tot_proceeds,0)- ISNULL(@floatfund,0), 'S')
 			  End
 			Else
 			  Begin
-				INSERT INTO #situation	VALUES('DisponibilitÃ  ad incassare (Reversali)', 
+				INSERT INTO #situation	VALUES('Disponibilità ad incassare (Reversali)', 
 				ISNULL(@prev_curr_M, 0) - ISNULL(@tot_proceeds,0), 'S')
 			  End
 		END
@@ -564,7 +566,7 @@ BEGIN
 		INSERT INTO #situation VALUES('2) Variazioni movimenti (' + @desc_phase + ')', @tot_var, '')
 		INSERT INTO #situation VALUES('3) Totale Movimenti (' + @desc_phase + ')',
 			ISNULL(@tot_mov,0) + ISNULL(@tot_var,0),'')
-		SELECT @lbl_avail_app = 'DisponibilitÃ  per ' + '"' + @desc_phase + '"' + ' (Prev. Attuale - 3'
+		SELECT @lbl_avail_app = 'Disponibilità per ' + '"' + @desc_phase + '"' + ' (Prev. Attuale - 3'
 		IF (@tot_pettycashop > 0)
 		BEGIN
 			INSERT INTO #situation	VALUES(
@@ -613,12 +615,12 @@ BEGIN
 			
 			IF ISNULL(@tot_pettycashop,0)>0 
 			BEGIN
-				INSERT INTO #situation VALUES('DisponibilitÃ  a pagare (Prev. Attuale - Mandati - Tot. op. fondo economale attribuite non reintegrate)',
+				INSERT INTO #situation VALUES('Disponibilità a pagare (Prev. Attuale - Mandati - Tot. op. fondo economale attribuite non reintegrate)',
 				ISNULL(@prev_curr_M, 0) - ISNULL(@tot_payment,0) - ISNULL(@tot_pettycashop,0) ,'S')
 			END
 			ELSE
 			BEGIN
-				INSERT INTO #situation VALUES('DisponibilitÃ  a pagare (Prev. Attuale - Mandati)',
+				INSERT INTO #situation VALUES('Disponibilità a pagare (Prev. Attuale - Mandati)',
 				ISNULL(@prev_curr_M, 0) - ISNULL(@tot_payment,0) ,'S')
 			END
 			IF (@proceeds ='S')
@@ -699,4 +701,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø  if exists (select * from dbo.sysobjects where id = object_id(N'[exp_tipi_registro_iva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+  if exists (select * from dbo.sysobjects where id = object_id(N'[exp_tipi_registro_iva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_tipi_registro_iva]
 GO
 
@@ -32,7 +34,7 @@ SELECT DISTINCT
 --codtiporegistroiva	0	20	Stringa		 Codice Tipo Registro IVA
 --descrtiporegistroiva	20	50	Stringa		Descrizione Tipo Registro IVA
 --tipoprotocollo	70	1	Codificato	A|V|P	Acquisto/Vendita/Protocollo Generale(A/V/P)
---attivita	71	1	Codificato	1|2|3|4	Tipo Attivit√† Istituzionale / Commerciale / Promiscua / Qualsiasi (S/N)
+--attivita	71	1	Codificato	1|2|3|4	Tipo Attivit‡ Istituzionale / Commerciale / Promiscua / Qualsiasi (S/N)
 --registrocorrispettivi	72	1	Codificato	S|N	Compensazione(S/N)
 --codicecass	73	20	Stringa		Codice Cassiere collegato
 	  CASE UPPER(FATTURA.TIPO_FATTURA)
@@ -190,4 +192,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

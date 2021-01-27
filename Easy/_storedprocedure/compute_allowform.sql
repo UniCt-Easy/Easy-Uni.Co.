@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿SET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -1256,7 +1258,7 @@ BEGIN
 	FROM menu M (nolock) 
 	JOIN menu M2 (nolock) 
 		ON M.idmenu = M2.paridmenu
-	WHERE M.menucode IN ('codcreddeb', 'codtabelle')
+	WHERE M.menucode IN ('codcreddeb', 'codtabelle','codlisteanag')
 	AND M2.metadata IS NOT NULL
 	--AND NOT EXISTS	(SELECT * FROM #outtable O	WHERE O.tablename = M2.metadata)
 
@@ -1267,7 +1269,7 @@ BEGIN
 		ON M.idmenu = M2.paridmenu
 	JOIN menu M3 (nolock) 
 		ON M2.idmenu = M3.paridmenu
-	WHERE M.menucode IN ('codcreddeb', 'codtabelle')
+	WHERE M.menucode IN ('codcreddeb', 'codtabelle','codlisteanag')
 	AND M3.metadata IS NOT NULL
 	--AND NOT EXISTS 	(SELECT * FROM #outtable O	WHERE O.tablename = M3.metadata)
 
@@ -1365,4 +1367,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_ivakind_sorting]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_ivakind_sorting]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_ivakind_sorting]
 GO
 
@@ -28,15 +30,15 @@ BEGIN
 	SELECT 	
 	ivakind.codeivakind as 'Codice',
     ivakind.description as 'Descrizione',
-    ivakind.unabatabilitypercentage*100 as '% Indetraibilit√†',
+    ivakind.unabatabilitypercentage*100 as '% Indetraibilit‡',
     ivakind.rate*100 as '% Aliquota',
-	case when (flag & 1<>0) then 'S'else 'N' end as 'Attivit√† IST.',
-	case when (flag & 2<>0) then 'S'else 'N' end as 'Attivit√† COMM.',
-	case when (flag & 4<>0) then 'S'else 'N' end as 'Attivit√† PROM.',
+	case when (flag & 1<>0) then 'S'else 'N' end as 'Attivit‡ IST.',
+	case when (flag & 2<>0) then 'S'else 'N' end as 'Attivit‡ COMM.',
+	case when (flag & 4<>0) then 'S'else 'N' end as 'Attivit‡ PROM.',
 
-	case when (flag & 64<>0) then 'S'else 'N' end as 'Applicabilit√† Italia',
-	case when (flag & 128<>0) then 'S'else 'N' end as 'Applicabilit√† Intra-UE',
-	case when (flag & 256<>0) then 'S'else 'N' end as 'Applicabilit√† Extra-UE',
+	case when (flag & 64<>0) then 'S'else 'N' end as 'Applicabilit‡ Italia',
+	case when (flag & 128<>0) then 'S'else 'N' end as 'Applicabilit‡ Intra-UE',
+	case when (flag & 256<>0) then 'S'else 'N' end as 'Applicabilit‡ Extra-UE',
 	sorting.sortcode as 'Cod.Classificazione',
 	sorting.description as 'Descrizione Class.',
 	ivakind.annotations as 'Annotazioni',
@@ -61,4 +63,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

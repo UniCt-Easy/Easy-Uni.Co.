@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_interscambio_dalia_dati_economici]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_interscambio_dalia_dati_economici]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure exp_interscambio_dalia_dati_economici
 GO
  
@@ -31,21 +33,35 @@ CREATE PROCEDURE exp_interscambio_dalia_dati_economici
 
 AS
 -- Esportazione di dati economici dei dipendenti su piattaforma Dalia
---exec exp_interscambio_dalia_dati_economici 2016, {ts '2016-01-01 01:02:03'},  {ts '2016-12-31 01:02:03'} 
+--exec exp_interscambio_dalia_dati_economici 2019, {ts '2019-01-01 01:00:03'},  {ts '2019-12-31 01:02:03'} 
 --Le anagrafiche interessate da questa procedura dovranno rispettare congiuntamente le seguenti condizioni:
---1)    L‚Äôanagrafica di Easy sar√† stata associata a una prestazione mappata per l'estrazione Dalia
---2)    La prestazione sar√† stata liquidata nel periodo di riferimento
+--1)    Líanagrafica di Easy sar‡ stata associata a una prestazione mappata per l'estrazione Dalia
+--2)    La prestazione sar‡ stata liquidata nel periodo di riferimento
+
 /*
-Il tipo di campo pu√≤ essere:
-‚Ä¢numerico: i dati devono essere allineati a destra, riempiendo di zeri le cifre non significative; relativamente ai campi contenenti importi, deve essere fornito il segno nel primo carattere a sinistra del campo; 
-‚Ä¢alfanumerico: i dati devono essere allineati a sinistra, con riempimento a spazi dei caratteri non significativi; relativamente al campo "codice fiscale del dipendente", lungo 16 caratteri, se il codice fiscale √® di 11 cifre va allineato a sinistra e vanno riempiti a spazi i rimanenti 5 caratteri.
+201901A015+000546.54+000000.00+000000.00
+201902A015+000546.54+000000.00+000000.00
+201904A015+000546.54+000000.00+000000.00
+201905A015+001093.08+000000.00+000000.00
+201906A015+000546.54+000000.00+000000.00
+201907A015+000546.54+000000.00+000000.00
+201908A015+000546.54+000000.00+000000.00
+201909A015+000546.54+000000.00+000000.00
+201910A015+000546.54+000000.00+000000.00
+201911A015+000546.54+000000.00+000000.00
+201912A015+000546.54+000000.00+000000.00
+
+Il tipo di campo puÚ essere:
+ïnumerico: i dati devono essere allineati a destra, riempiendo di zeri le cifre non significative; relativamente ai campi contenenti importi, deve essere fornito il segno nel primo carattere a sinistra del campo; 
+ïalfanumerico: i dati devono essere allineati a sinistra, con riempimento a spazi dei caratteri non significativi; relativamente al campo "codice fiscale del dipendente", lungo 16 caratteri, se il codice fiscale Ë di 11 cifre va allineato a sinistra e vanno riempiti a spazi i rimanenti 5 caratteri.
 I valori di inizializzazione dei campi sono:
-‚Ä¢zero, per i campi numerici;
-‚Ä¢spazio, per i campi alfanumerici.
+ïzero, per i campi numerici;
+ïspazio, per i campi alfanumerici.
 */
 /*
 setuser 'amministrazione'
-exec exp_interscambio_dalia_dati_economici 2018, {ts '2018-09-01 01:02:03'},  {ts '2018-09-30 01:02:03'} 
+exec exp_interscambio_dalia_dati_economici 2019, {ts '2019-01-01 01:02:03'},  {ts '2019-12-31 01:02:03'} 
+select * from registry where cf='BSCLRT83P65F499T'
 */
 BEGIN
  
@@ -599,7 +615,7 @@ DECLARE @NOSTAND int
 SELECT @NOSTAND = idaddress FROM address WHERE codeaddress = @codenostand
 
 --DECLARE @dateindi datetime
---SET @dateindi = @datagenerazione -- data generazione del flusso, data validit√† dell'indirizzo considerato
+--SET @dateindi = @datagenerazione -- data generazione del flusso, data validit‡ dell'indirizzo considerato
 
 
 CREATE TABLE #address
@@ -732,7 +748,7 @@ END
 
 	DECLARE @2cf varchar(16)
 	DECLARE @p_iva varchar(11)
-	DECLARE @agencyname varchar(60) -- 60 √® limite imposto per la compilazione del 770
+	DECLARE @agencyname varchar(60) -- 60 Ë limite imposto per la compilazione del 770
 	DECLARE @phonenumber varchar(20)
 	DECLARE @fax varchar(20)
 	DECLARE @email varchar(100)
@@ -790,7 +806,7 @@ END
 
 --SELECT * FROM #CONTRATTI
 -- In #tot_contratti totalizzo i dati dei contratti su idreg, codice qualifica dalia (potendo essere diversi per ogni compenso), 
--- voce competenza economica (classificazione voci spesa dalia) e anche mensilit√† di competenza
+-- voce competenza economica (classificazione voci spesa dalia) e anche mensilit‡ di competenza
 -- il codice qualifica dalia lo prendo o dal compenso oppure dall'anagrafica se manca nel compenso
 CREATE TABLE #tot_contratti
 (idreg int , amount decimal(19,2), pettycashamount decimal(19,2), classdalia varchar(20), mese int, codedaliaposition varchar(10))
@@ -798,13 +814,15 @@ INSERT INTO #tot_contratti
 (idreg, amount, pettycashamount, classdalia, mese, codedaliaposition)
 SELECT idreg, sum(amount), sum(pettycashamount), classdalia, month(transmissiondate),  codedaliaposition_contract 
 FROM #contratti
+WHERE transmissiondate is not null
 GROUP BY idreg, classdalia, month(transmissiondate),  codedaliaposition_contract 
+having isnull(sum(amount),0)<>0  OR isnull(sum(pettycashamount),0)<>0
 
 
 -------------------------------------------------------------------------------------------------------------------------
 -- In #tot_ritenute totalizzo i dati delle ritenute applicate ai contratti sui campi idreg, codice qualifica dalia  ----- 
 -- (potendo essere diversi per ogni compenso), codice ente previdenziale (valorizzato su alcune ritenute non fiscali) ---
--- e anche mensilit√† di competenza. Il codice qualifica dalia (codeposition) √® stato preso dal compenso -----------------
+-- e anche mensilit‡ di competenza. Il codice qualifica dalia (codeposition) Ë stato preso dal compenso -----------------
 ------------------ oppure lo prendo dall'anagrafica se manca nel compenso -----------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------
 
@@ -828,7 +846,7 @@ having sum(employtax) <> 0 or sum(admintax) <> 0
 
 ---------------------------------------------------------------------------------------------------------------------------------
 -- In #tot_anagrafiche totalizzo i dati di compensi e relative ritenute sui seguenti campi : idreg, codeposition ----------------
--- perch√® per la stessa anagrafica potremmo avere anche qualifiche DALIA diverse e devo ripartire i dati (imponibili, ritenute) -
+-- perchË per la stessa anagrafica potremmo avere anche qualifiche DALIA diverse e devo ripartire i dati (imponibili, ritenute) -
 ---------------------------------- anche in base alle differenti qualifiche -----------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -854,7 +872,7 @@ SELECT DISTINCT #tot_contratti.idreg, #tot_contratti.codedaliaposition, 0 FROM
 
 --------------------------------------------------------------------------------------------------------------------------------------
  -- Valorizzo i contatori dei compensi e delle ritenute non previdenziali che ho ottenuto per ogni coppia (idreg, codedaliaposition) -
- -- mi servir√† dopo per effettuare il riempimento delle relative stringhe nella scrittura nel record ---------------------------------
+ -- mi servir‡ dopo per effettuare il riempimento delle relative stringhe nella scrittura nel record ---------------------------------
  -- con opportune sequenze di caratteri fino al raggiungimento -----------------------------------------------------------------------
  -- del numero massimo di occorrenze previste dal tracciato (lunghezza fissa) ovvero 25 per la stringa compensi ----------------------
  -- e 15 per la stringa ritenute non previdenziali -----------------------------------------------------------------------------------
@@ -869,9 +887,9 @@ SELECT DISTINCT #tot_contratti.idreg, #tot_contratti.codedaliaposition, 0 FROM
         #anagrafiche_ruolo_dalia.codedaliaposition = #tot_ritenute.codedaliaposition and 
 		#tot_ritenute.tiporitenuta <> 'fiscale')
 
- -- sar√† necessario aggiungere un record aggiuntivo per l'anagrafica e il ruolo dalia secondo i limiti previsti dal tracciato
+ -- sar‡ necessario aggiungere un record aggiuntivo per l'anagrafica e il ruolo dalia secondo i limiti previsti dal tracciato
  UPDATE #anagrafiche_ruolo_dalia  set record_aggiuntivi = 1  WHERE count_compensi > 25 OR count_ritenute_non_fiscali > 15
-  -- sar√† necessario aggiungere due record aggiuntivi per l'anagrafica e il ruolo dalia secondo i limiti previsti dal tracciato
+  -- sar‡ necessario aggiungere due record aggiuntivi per l'anagrafica e il ruolo dalia secondo i limiti previsti dal tracciato
  UPDATE #anagrafiche_ruolo_dalia  set record_aggiuntivi = 2  WHERE count_compensi > 50 OR count_ritenute_non_fiscali > 30
 
 ---------------------------------------------------------------------------------------------------------------------------------
@@ -886,9 +904,9 @@ SET @stringa_ritenute_fiscali_vuota =
 			'+' +  [dbo].GetDecimal_19_2(0,9)
 
 DECLARE @stringa_compensi_vuota varchar(1000) ---40 * 25
-SET @stringa_compensi_vuota = REPLACE (REPLICATE('*', 25),'*', [dbo].[GetStringFormatted_r] ('',10) +	
-							'+' +  [dbo].GetDecimal_19_2(0,9) + '+' +  [dbo].GetDecimal_19_2(0,9) +	'+' + [dbo].GetDecimal_19_2(0,9))
-
+SET @stringa_compensi_vuota =   REPLICATE(
+		 '          ' +	'+' +  [dbo].GetDecimal_19_2(0,9) + '+' +  [dbo].GetDecimal_19_2(0,9) +	'+' + [dbo].GetDecimal_19_2(0,9) , 25)
+--select REPLICATE(	 '          ' +	'+' +  [dbo].GetDecimal_19_2(0,9) + '+' +  [dbo].GetDecimal_19_2(0,9) +	'+' + [dbo].GetDecimal_19_2(0,9) , 25)
 DECLARE @stringa_ritenute_non_fiscali_vuota varchar(585) -- 39 * 15
 SET 	@stringa_ritenute_non_fiscali_vuota = REPLACE (REPLICATE('*', 15),'*', 
 							[dbo].[GetStringFormatted_r] ('',9) +
@@ -896,19 +914,21 @@ SET 	@stringa_ritenute_non_fiscali_vuota = REPLACE (REPLICATE('*', 15),'*',
 							'+' +  [dbo].GetDecimal_19_2(0,9) +	
 							'+' + [dbo].GetDecimal_19_2(0,9))
 
- 
+
+  
 ---------------------------------------------------------------------------------------------------------------------------------
 -- Valorizzo la stringa dei compensi (voci economiche) effettuati per la coppia (idreg, codepositiondalia)-----------------------
--- √® la concatenazione delle righe una tabella i cui valori sono ----------------------------------------------------------------
--- distinti per i vari mesi del periodo di riferimento (mensilit√† di competenza) ------------------------------------------------
+-- Ë la concatenazione delle righe una tabella i cui valori sono ----------------------------------------------------------------
+-- distinti per i vari mesi del periodo di riferimento (mensilit‡ di competenza) ------------------------------------------------
 -- e per tipologia di compenso (classificazione dalia) --------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO #tot_anagrafiche  (idreg, codedaliaposition,stringacompensi,record_aggiuntivi)
 SELECT DISTINCT  #anagrafiche_ruolo_dalia.idreg, #anagrafiche_ruolo_dalia.codedaliaposition,
-(SELECT CONVERT(VARCHAR(4), @ayear) + [dbo].GetInt(mese,2) +  [dbo].[GetStringFormatted_r](classdalia,4) +
+(SELECT CONVERT(VARCHAR(4), @ayear) + [dbo].GetInt(isnull(mese,0),2) +  [dbo].[GetStringFormatted_r](isnull(classdalia,'????'),4) +
 	CASE 
-		WHEN (ISNULL(amount,0) + ISNULL(pettycashamount,0)  >= 0)  THEN '+' +  [dbo].GetDecimal_19_2(ISNULL(amount,0) + ISNULL(pettycashamount,0),9) 
-		ELSE  '-'+ [dbo].GetDecimal_19_2(ISNULL(amount,0) + ISNULL(pettycashamount,0),9) 		
+		WHEN (ISNULL(amount,0) + ISNULL(pettycashamount,0)  >= 0)  
+			THEN '+' +  [dbo].GetDecimal_19_2(ISNULL(amount,0) + ISNULL(pettycashamount,0),9) 
+			ELSE '-'+  [dbo].GetDecimal_19_2(ISNULL(amount,0) + ISNULL(pettycashamount,0),9) 		
 	END +
 	+ 
 	'+' +  [dbo].GetDecimal_19_2(0,9) 
@@ -916,22 +936,23 @@ SELECT DISTINCT  #anagrafiche_ruolo_dalia.idreg, #anagrafiche_ruolo_dalia.codeda
 	'+' +  [dbo].GetDecimal_19_2(0,9)  AS [text()]
 
 FROM #tot_contratti T1 
-WHERE T1.idreg =  #anagrafiche_ruolo_dalia.idreg 
-AND   T1.codedaliaposition =  #anagrafiche_ruolo_dalia.codedaliaposition
+WHERE T1.idreg =  #anagrafiche_ruolo_dalia.idreg AND   T1.codedaliaposition =  #anagrafiche_ruolo_dalia.codedaliaposition
 FOR XML PATH ('')
 ),
 #anagrafiche_ruolo_dalia.record_aggiuntivi
 FROM #anagrafiche_ruolo_dalia  
 
 
+--select * from #tot_anagrafiche where idreg=256
+
 -- valorizzo la stringa delle ritenute fiscali ( IRPEF) che a differenza delle altre ritenute 
--- non √® una tabella con valori distinti e  un massimo numero di occorrenze ma una stringa con i soli totali per il periodo considerato
+-- non Ë una tabella con valori distinti e  un massimo numero di occorrenze ma una stringa con i soli totali per il periodo considerato
 UPDATE #tot_anagrafiche  SET stringaritenutefiscali = 
 (SELECT 
 	
 	CASE 
-		WHEN (sum(isnull(T1.employtax,0) + isnull(T1.admintax,0))  >= 0)  THEN '+' +  [dbo].GetDecimal_19_2(sum(isnull(T1.employtax,0) + isnull(T1.admintax,0)) ,9) 	
-		ELSE  '-' +  [dbo].GetDecimal_19_2(-sum(isnull(T1.employtax,0) + isnull(T1.admintax,0)) ,9) 	
+		WHEN (isnull(sum(isnull(T1.employtax,0) + isnull(T1.admintax,0)),0)  >= 0)  THEN '+' +  [dbo].GetDecimal_19_2(isnull(sum(isnull(T1.employtax,0) + isnull(T1.admintax,0)),0) ,9) 	
+		ELSE  '-' +  [dbo].GetDecimal_19_2(-isnull(sum(isnull(T1.employtax,0) + isnull(T1.admintax,0)),0) ,9) 	
 	END 
 	+
     '+' +  [dbo].GetDecimal_19_2(0,9) +
@@ -939,16 +960,15 @@ UPDATE #tot_anagrafiche  SET stringaritenutefiscali =
 	   AS [text()]
 
 FROM #tot_ritenute T1 
-WHERE  T1.idreg =  #tot_anagrafiche.idreg 
-AND   T1.codedaliaposition =  #tot_anagrafiche.codedaliaposition
+WHERE  T1.idreg =  #tot_anagrafiche.idreg AND   T1.codedaliaposition =  #tot_anagrafiche.codedaliaposition
 AND   T1.tiporitenuta = 'fiscale'
 FOR XML PATH (''))
 
 -- Valorizzo la stringa delle ritenute previdenziali e assistenziali che a differenza delle   ritenute fiscali
---  √® la concatenazione delle righe una tabella con valori distinti per ritenuta e  un massimo numero di occorrenze (15).  
+--  Ë la concatenazione delle righe una tabella con valori distinti per ritenuta e  un massimo numero di occorrenze (15).  
 UPDATE #tot_anagrafiche  SET stringaritenutenonfiscali  = 
  (SELECT 
-	CONVERT(VARCHAR(4), @ayear) + [dbo].GetInt(T1.mese,2) + [dbo].[GetStringFormatted_r](T1.insuranceagencycode,3) +
+	CONVERT(VARCHAR(4), @ayear) + [dbo].GetInt(isnull(T1.mese,0),2) + [dbo].[GetStringFormatted_r](T1.insuranceagencycode,3) +
 	+ 
 	CASE 
 		WHEN (isnull(T1.taxablenet,0) >= 0)  THEN '+' +  [dbo].GetDecimal_19_2(isnull(T1.taxablenet,0),9) 
@@ -966,8 +986,7 @@ UPDATE #tot_anagrafiche  SET stringaritenutenonfiscali  =
 	END   AS [text()]
 	
 FROM #tot_ritenute T1 
-WHERE  T1.idreg =  #tot_anagrafiche.idreg 
-AND   T1.codedaliaposition =  #tot_anagrafiche.codedaliaposition
+WHERE  T1.idreg =  #tot_anagrafiche.idreg AND   T1.codedaliaposition =  #tot_anagrafiche.codedaliaposition
 AND   T1.tiporitenuta <> 'fiscale'
 FOR XML PATH (''))
 
@@ -975,19 +994,19 @@ FOR XML PATH (''))
 
 ---------------------------------------------------------------------------------------------------------------------------
 -- SE il numero massimo stabilito dal tracciato per i il record 3 per i compensi (25) -------------------------------------
--- e per le ritenute previdenziali (15) √® stato superat siamo costretti a SCINDERE la stringa compensi --------------------
--- (o la stringa ritenute previdenziali) in pi√π tranches con la trasmissione  ---------------------------------------------
+-- e per le ritenute previdenziali (15) Ë stato superat siamo costretti a SCINDERE la stringa compensi --------------------
+-- (o la stringa ritenute previdenziali) in pi˘ tranches con la trasmissione  ---------------------------------------------
 -- finalizzate alla trasmissione di almeno un record aggiuntivo per quell'anagrafica -------------------------------------- 
 ---------------------------------------------------------------------------------------------------------------------------
 
  UPDATE #tot_anagrafiche SET stringacompensi_2_tranche = 
-							SUBSTRING(ISNULL(stringacompensi,'') , (40 * 25) + 1 , 2* (40 * 25) )  
+							SUBSTRING(ISNULL(stringacompensi,'') , (40 * 25) + 1 ,  (40 * 25) )  
 FROM #anagrafiche_ruolo_dalia  
 WHERE  #tot_anagrafiche.idreg =  #anagrafiche_ruolo_dalia.idreg and #anagrafiche_ruolo_dalia.count_compensi > 25
 AND   #tot_anagrafiche.codedaliaposition =  #anagrafiche_ruolo_dalia.codedaliaposition
 
  UPDATE #tot_anagrafiche SET stringacompensi_3_tranche = 
-							SUBSTRING(ISNULL(stringacompensi,'') , 2* (40 * 25) + 1 , 3 * (40 * 25)  )  
+							SUBSTRING(ISNULL(stringacompensi,'') , 2* (40 * 25) + 1 ,  3*(40 * 25)  )  
 FROM #anagrafiche_ruolo_dalia  
 WHERE  #tot_anagrafiche.idreg =  #anagrafiche_ruolo_dalia.idreg and #anagrafiche_ruolo_dalia.count_compensi > 50
 AND   #tot_anagrafiche.codedaliaposition =  #anagrafiche_ruolo_dalia.codedaliaposition
@@ -999,15 +1018,17 @@ WHERE  #tot_anagrafiche.idreg =  #anagrafiche_ruolo_dalia.idreg and #anagrafiche
 AND   #tot_anagrafiche.codedaliaposition =  #anagrafiche_ruolo_dalia.codedaliaposition
 
 
+
+
  UPDATE #tot_anagrafiche SET stringaritenutenonfiscali_2_tranche = 
-							SUBSTRING(ISNULL(stringaritenutenonfiscali ,'') , (39 * 15) + 1 ,  2* (39 * 15) )  
+							SUBSTRING(ISNULL(stringaritenutenonfiscali ,'') , (39 * 15) + 1 ,  (39 * 15) )  
 FROM #anagrafiche_ruolo_dalia  
-WHERE  #tot_anagrafiche.idreg =  #anagrafiche_ruolo_dalia.idreg and #anagrafiche_ruolo_dalia.count_ritenute_non_fiscali > 15
+WHERE  #tot_anagrafiche.idreg =  #anagrafiche_ruolo_dalia.idreg and #anagrafiche_ruolo_dalia.count_ritenute_non_fiscali > 15 
 AND   #tot_anagrafiche.codedaliaposition =  #anagrafiche_ruolo_dalia.codedaliaposition
 
 
  UPDATE #tot_anagrafiche SET stringaritenutenonfiscali_3_tranche = 
-							SUBSTRING(ISNULL(stringaritenutenonfiscali ,'') , 2* (39 * 15) + 1 , 3 * (39 * 15) )  
+							SUBSTRING(ISNULL(stringaritenutenonfiscali ,'') , 2* (39 * 15) + 1 ,  3*(39 * 15) )  
 FROM #anagrafiche_ruolo_dalia  
 WHERE  #tot_anagrafiche.idreg =  #anagrafiche_ruolo_dalia.idreg and #anagrafiche_ruolo_dalia.count_ritenute_non_fiscali > 30
 AND   #tot_anagrafiche.codedaliaposition =  #anagrafiche_ruolo_dalia.codedaliaposition
@@ -1027,8 +1048,9 @@ AND   #tot_anagrafiche.codedaliaposition =  #anagrafiche_ruolo_dalia.codedaliapo
 
 UPDATE #tot_anagrafiche SET stringacompensi = 
 							ISNULL(stringacompensi,'') +
-							REPLACE (REPLICATE('*',25 - count_compensi),'*', [dbo].[GetStringFormatted_r] ('',10) +	
-							'+' +  [dbo].GetDecimal_19_2(0,9) + '+' +  [dbo].GetDecimal_19_2(0,9) +	'+' + [dbo].GetDecimal_19_2(0,9))
+							REPLICATE(
+								[dbo].[GetStringFormatted_r] ('',10) +	'+' +  [dbo].GetDecimal_19_2(0,9) + '+' +  [dbo].GetDecimal_19_2(0,9) +	'+' + [dbo].GetDecimal_19_2(0,9),
+								25 - count_compensi)
 FROM #anagrafiche_ruolo_dalia  
 WHERE  #tot_anagrafiche.idreg =  #anagrafiche_ruolo_dalia.idreg  and #anagrafiche_ruolo_dalia.count_compensi <= 25
 AND   #tot_anagrafiche.codedaliaposition =  #anagrafiche_ruolo_dalia.codedaliaposition
@@ -1047,46 +1069,46 @@ AND   #tot_anagrafiche.codedaliaposition =  #anagrafiche_ruolo_dalia.codedaliapo
 
 UPDATE #tot_anagrafiche SET stringacompensi_2_tranche = 
 							ISNULL(stringacompensi_2_tranche,'') +
-							REPLACE (REPLICATE('*', 25 - count_compensi  % 25),'*', [dbo].[GetStringFormatted_r] ('',10) +	
-							'+' +  [dbo].GetDecimal_19_2(0,9) + '+' +  [dbo].GetDecimal_19_2(0,9) +	'+' + [dbo].GetDecimal_19_2(0,9))
+							REPLACE (REPLICATE('*', 25 - (count_compensi  % 25)),'*', 
+								[dbo].[GetStringFormatted_r] ('',10) +'+' +  [dbo].GetDecimal_19_2(0,9) + '+' +  [dbo].GetDecimal_19_2(0,9) +	'+' + [dbo].GetDecimal_19_2(0,9))
 FROM #anagrafiche_ruolo_dalia  
-WHERE  #tot_anagrafiche.idreg =  #anagrafiche_ruolo_dalia.idreg  and #anagrafiche_ruolo_dalia.count_compensi > 25
-	and count_compensi  % 25 >0
+WHERE  #tot_anagrafiche.idreg =  #anagrafiche_ruolo_dalia.idreg  and #anagrafiche_ruolo_dalia.count_compensi > 25 and #anagrafiche_ruolo_dalia.count_compensi <50
+	--and count_compensi  % 25 >0
 	AND   #tot_anagrafiche.codedaliaposition =  #anagrafiche_ruolo_dalia.codedaliaposition
 
 UPDATE #tot_anagrafiche SET stringacompensi_3_tranche = 
 							ISNULL(stringacompensi_3_tranche,'') +
-							REPLACE (REPLICATE('*', 25 - count_compensi  % 50),'*', [dbo].[GetStringFormatted_r] ('',10) +	
+							REPLACE (REPLICATE('*', 25 - (count_compensi  % 25)),'*', [dbo].[GetStringFormatted_r] ('',10) +	
 							'+' +  [dbo].GetDecimal_19_2(0,9) + '+' +  [dbo].GetDecimal_19_2(0,9) +	'+' + [dbo].GetDecimal_19_2(0,9))
 FROM #anagrafiche_ruolo_dalia  
 WHERE  #tot_anagrafiche.idreg =  #anagrafiche_ruolo_dalia.idreg  and #anagrafiche_ruolo_dalia.count_compensi > 50
-	and count_compensi  % 50 >0
+	--and count_compensi  % 50 >0
 	AND   #tot_anagrafiche.codedaliaposition =  #anagrafiche_ruolo_dalia.codedaliaposition
 
 UPDATE #tot_anagrafiche SET stringaritenutenonfiscali_2_tranche = 
 							ISNULL(stringaritenutenonfiscali_2_tranche,'') +
-							REPLACE (REPLICATE('*', 15 - count_ritenute_non_fiscali%15),'*', 
+							REPLICATE(
 							[dbo].[GetStringFormatted_r] ('',9) +
 							'+' +  [dbo].GetDecimal_19_2(0,9) + 
 							'+' +  [dbo].GetDecimal_19_2(0,9) +	
-							'+' + [dbo].GetDecimal_19_2(0,9))
+							'+' + [dbo].GetDecimal_19_2(0,9),15 - (count_ritenute_non_fiscali%15))
 
-FROM #anagrafiche_ruolo_dalia  
-WHERE  #tot_anagrafiche.idreg =  #anagrafiche_ruolo_dalia.idreg and #anagrafiche_ruolo_dalia.count_ritenute_non_fiscali > 15
-	and  #anagrafiche_ruolo_dalia.count_ritenute_non_fiscali%15 >0
+FROM #anagrafiche_ruolo_dalia   
+WHERE  #tot_anagrafiche.idreg =  #anagrafiche_ruolo_dalia.idreg and #anagrafiche_ruolo_dalia.count_ritenute_non_fiscali > 15  and #anagrafiche_ruolo_dalia.count_ritenute_non_fiscali < 30
+	--and  #anagrafiche_ruolo_dalia.count_ritenute_non_fiscali%15 >0
 	AND   #tot_anagrafiche.codedaliaposition =  #anagrafiche_ruolo_dalia.codedaliaposition
 
 UPDATE #tot_anagrafiche SET stringaritenutenonfiscali_3_tranche = 
 							ISNULL(stringaritenutenonfiscali_3_tranche,'') +
-							REPLACE (REPLICATE('*', 15 - count_ritenute_non_fiscali%30),'*', 
+							REPLICATE(
 							[dbo].[GetStringFormatted_r] ('',9) +
 							'+' +  [dbo].GetDecimal_19_2(0,9) + 
 							'+' +  [dbo].GetDecimal_19_2(0,9) +	
-							'+' + [dbo].GetDecimal_19_2(0,9))
+							'+' + [dbo].GetDecimal_19_2(0,9),15 - (count_ritenute_non_fiscali%15))
 
 FROM #anagrafiche_ruolo_dalia  
 WHERE  #tot_anagrafiche.idreg =  #anagrafiche_ruolo_dalia.idreg and #anagrafiche_ruolo_dalia.count_ritenute_non_fiscali > 30
-	and  #anagrafiche_ruolo_dalia.count_ritenute_non_fiscali%30 >0
+	--and  #anagrafiche_ruolo_dalia.count_ritenute_non_fiscali%15 >0
 	AND   #tot_anagrafiche.codedaliaposition =  #anagrafiche_ruolo_dalia.codedaliaposition
 
 ------------------------------------------------------------------------------------------------------
@@ -1122,7 +1144,7 @@ WHERE   stringaritenutenonfiscali_3_tranche is null
 -- Record 1
 -- 180029030568UNIVERSITA' DEGLI STUDI DELLA TUSCIA                        Via Santa Maria in Gradi n. 4 01100M082VT                                                                                A                                                                                                          
 CREATE TABLE #RecordTesta(
-	 TIPOREC		char(1),	    -- PIC X      Indicatore del tipo record. Valori ammessi: ‚Äò1‚Äô = record di testa.
+	 TIPOREC		char(1),	    -- PIC X      Indicatore del tipo record. Valori ammessi: ë1í = record di testa.
 	 CODENTEFONTE	varchar(11),    -- PIC X(11)  Codice fiscale dell'ente fonte (ente preposto all'invio dei dati).
 	 DENOMENTE      varchar(60),    -- PIC X(60)  Denominazione dell'ente fonte.
 	 INDIRIZZO      varchar(30),	-- PICX(30)   Indirizzo dell'ente fonte
@@ -1136,7 +1158,7 @@ CREATE TABLE #RecordTesta(
 	 PERSONARIF		varchar(30),    -- PIC X(30)  Persona responsabile dei dati inviati. 
 	 DESCRQUA		varchar(20),    -- PIC X(20)  Descrizione della qualifica della persona di riferimento.
 	 TIPOCODIFICA	 char(1),       -- PIC X.     Indicatore del tipo di codifica utilizzato per la predisposizione del supporto magnetico.
-									--			  Valori ammessi: ‚ÄòE‚Äô = codifica EBCDIC; ‚ÄòA‚Äô = codifica ASCII
+									--			  Valori ammessi: ëEí = codifica EBCDIC; ëAí = codifica ASCII
 	 FILLER			 varchar(106)   -- PIC X(106)
 )
 
@@ -1179,25 +1201,25 @@ SELECT
 -- Esempio record:
 -- 2800290305680000000000UNIVERSITA' DEGLI STUDI DELLA TUSCIA                        Via Santa Maria in Gradi n. 4 01100M082VT                              201510201510F                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 CREATE TABLE #Record2( -- "RECORD DI ISTITUZIONE/ENTE/SEZIONE"
- TIPOREC			char(1),     -- PIC X.		Indicatore del tipo record. Valori ammessi: ‚Äò2‚Äô = record di istituzione/ente/sezione;
+ TIPOREC			char(1),     -- PIC X.		Indicatore del tipo record. Valori ammessi: ë2í = record di istituzione/ente/sezione;
  CODISTITENTE		varchar(11), -- PIC X(11)   Codice fiscale dell'istituzione/ente cui si riferiscono i dati inviati.
  CODUNIORG          int,	-- PIC 9(10)	Codice che individua la Struttura Organizzativa all'interno dell'istituzione/ente. 
 								 -- Se i dati di dettaglio riportati nella successiva sezione sono noti solo a livello 
 								 -- di istituzione/ente, tale campo non deve essere valorizzato.
- DENOMENTE          varchar(60), -- Denominazione della Struttura Organizzativa, se valorizzata, altrimenti Denominazione dell‚Äôistituzione/ente. 
- INDIRIZZO			varchar(30), -- Indirizzo della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente.
- CAP				varchar(5),  -- C.A.P. della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente.
- CODCITT√Ä 			varchar(4),	 -- Codice catastale del comune della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente.
- PROVENTE			varchar(2),	 -- Sigla della provincia della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente.
- PREFTELEFONO		varchar(5),	 -- Numero del prefisso telefonico della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente.
- NUMTELEFONO		varchar(10), -- Numero di telefono della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente..
- PREFFAX 			varchar(5),	 -- Numero del prefisso del fax della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente.
- NUMFAX 			varchar(10), -- Numero di fax della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente.
+ DENOMENTE          varchar(60), -- Denominazione della Struttura Organizzativa, se valorizzata, altrimenti Denominazione dellíistituzione/ente. 
+ INDIRIZZO			varchar(30), -- Indirizzo della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente.
+ CAP				varchar(5),  -- C.A.P. della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente.
+ CODCITT¿ 			varchar(4),	 -- Codice catastale del comune della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente.
+ PROVENTE			varchar(2),	 -- Sigla della provincia della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente.
+ PREFTELEFONO		varchar(5),	 -- Numero del prefisso telefonico della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente.
+ NUMTELEFONO		varchar(10), -- Numero di telefono della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente..
+ PREFFAX 			varchar(5),	 -- Numero del prefisso del fax della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente.
+ NUMFAX 			varchar(10), -- Numero di fax della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente.
  INIPERRIF 		    datetime,	 -- Data di inizio del periodo cui si riferiscono i dati (formato: AAAAMM).
  FINPERRIF		    datetime,	 -- PIC 9(06).Data di fine del periodo cui si riferiscono i dati (formato: AAAAMM).
  SEZIONE			char(1),     -- PIC X.Sezione cui si riferiscono i dati. Valori ammessi: o	Significato: Sezione (tipologia dei dati economici) cui si riferiscono i dati.
-								 -- o	Valori ammessi: ‚ÄòF‚Äô = competenze fisse, eventualmente comprensive di compensi accessori se liquidati con lo stesso cedolino e nello stesso capitolo di bilancio;
-								 -- ‚ÄòC‚Äô = compensi accessori, liquidati con cedolini diversi da quelli relativi alle competenze fisse.
+								 -- o	Valori ammessi: ëFí = competenze fisse, eventualmente comprensive di compensi accessori se liquidati con lo stesso cedolino e nello stesso capitolo di bilancio;
+								 -- ëCí = compensi accessori, liquidati con cedolini diversi da quelli relativi alle competenze fisse.
 								 -- o	Obbligatorio: Si.
  FILLER				varchar(1635) -- PIC X(1635).
    )
@@ -1211,7 +1233,7 @@ INSERT INTO #Record2
  DENOMENTE          ,  
  INDIRIZZO			,  
  CAP				,  
- CODCITT√Ä 			, 
+ CODCITT¿ 			, 
  PROVENTE			,  
  PREFTELEFONO		,  
  NUMTELEFONO		,  
@@ -1237,55 +1259,55 @@ SELECT
 	SUBSTRING(@fax,1,10),				--NUMFAX 			,
 	@start,				--INIPERRIF 	    ,  
 	@stop,				--FINPERRIF			,  
-	'F',				--SEZIONE		    ,    --- ‚ÄòF‚Äô = competenze fisse, eventualmente comprensive di compensi accessori se liquidati con lo stesso cedolino e nello stesso capitolo di bilancio;
+	'F',				--SEZIONE		    ,    --- ëFí = competenze fisse, eventualmente comprensive di compensi accessori se liquidati con lo stesso cedolino e nello stesso capitolo di bilancio;
 	null				--FILLER				 
  
  --3F800290305680000000000201510201510GVEFRC84B60F499E08000AR240   UNIVMVT00000000      201510I532+001613.94+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.00+000000.00+000000.00          +000000.0/*
  /*
 STP-CAP
-‚óæSignificato: Numero dello stato di previsione dell‚Äôamministrazione nella Legge di bilancio dello Stato per l‚Äôesercizio finanziario.
+?Significato: Numero dello stato di previsione dellíamministrazione nella Legge di bilancio dello Stato per líesercizio finanziario.
 Valori ammessi: spazi.
 
 APP-CAP
-‚óæSignificato: Appendice dello stato di previsione dell‚Äôamministrazione nella Legge di bilancio dello Stato per l‚Äôesercizio finanziario.
-‚óæValori ammessi: spazio.
+?Significato: Appendice dello stato di previsione dellíamministrazione nella Legge di bilancio dello Stato per líesercizio finanziario.
+?Valori ammessi: spazio.
 
 NUM-CAP
-‚óæValori ammessi: 
+?Valori ammessi: 
  -----------------UNIV = MIUR - finanziamento ordinario Universita';
  OSSE = MIUR - finanziamento ordinario Osservatori;
  OSPE = Ospedaliere;
  ENTI = finanziamento da altri enti pubblici o privati;
- ---------------- RICF - Ricerca finanziata (Montalcini, PRIN, FIRB, ‚ÄúFuturo e Ricerca‚Äù , ERC-VII PQ, SIR);
+ ---------------- RICF - Ricerca finanziata (Montalcini, PRIN, FIRB, ìFuturo e Ricercaî , ERC-VII PQ, SIR);
  FUAT - Fondo unico d'ateneo (Nota MIUR Prot. 8312 del 05/04/2013);
  spazi = negli altri casi. 
-‚óæN.B. Se il dipendente ha ricevuto nel periodo emolumenti riferibili a valori diversi di questo campo, 
+?N.B. Se il dipendente ha ricevuto nel periodo emolumenti riferibili a valori diversi di questo campo, 
 devono essere prodotti records diversi. 
 
 TIPO-PAG
-‚óæSignificato: Indicatore delle modalit√† di emissione della spesa per il pagamento delle competenze.
-‚óæValori ammessi: ‚ÄòM‚Äô = mandato;
- ‚ÄòR‚Äô = ruolo di spesa fissa;
- ‚ÄòO‚Äô= ordine di accreditamento;
- ‚ÄòS‚Äô = contabilit√† speciale.
-‚óæObbligatorio: Si.
+?Significato: Indicatore delle modalit‡ di emissione della spesa per il pagamento delle competenze.
+?Valori ammessi: ëMí = mandato;
+ ëRí = ruolo di spesa fissa;
+ ëOí= ordine di accreditamento;
+ ëSí = contabilit‡ speciale.
+?Obbligatorio: Si.
 
 PROV-SERV
-‚óæSignificato: Sigla della provincia di servizio del dipendente.
-‚óæObbligatorio: Si.
+?Significato: Sigla della provincia di servizio del dipendente.
+?Obbligatorio: Si.
 
 CLASSE
-‚óæSignificato: Numero classi di stipendio maturate dal dipendente all'interno della qualifica di appartenenza.
+?Significato: Numero classi di stipendio maturate dal dipendente all'interno della qualifica di appartenenza.
 
 SCATTI
-‚óæSignificato: Numero scatti di stipendio maturati dal dipendente all'interno della qualifica di appartenenza.
+?Significato: Numero scatti di stipendio maturati dal dipendente all'interno della qualifica di appartenenza.
  
 POS-STIP 
-‚óæSignificato: Posizione stipendiale (solo per il personale della scuola).
+?Significato: Posizione stipendiale (solo per il personale della scuola).
 
 TAB-VOCI-ECONOMICHE 
-‚óæSignificato: Tabella contenente i dati relativi alle voci economiche che compongono il cedolino; comprendono:
- - competenze erogate (voci del trattamento economico fondamentale; indennit√†; compensi accessori);
+?Significato: Tabella contenente i dati relativi alle voci economiche che compongono il cedolino; comprendono:
+ - competenze erogate (voci del trattamento economico fondamentale; indennit‡; compensi accessori);
  - ritenute varie (riscatti, fitti, conguaglio fiscale, etc..); 
  -------------------------------------------------------------------------------------------------------------------------------------------
  ------------------------------------------------------- IMPORTANTE ------------------------------------------------------------------------
@@ -1294,93 +1316,93 @@ TAB-VOCI-ECONOMICHE
  -------------------------------------------------------------------------------------------------------------------------------------------
 
 La tabella contiene al massimo 25 elementi. Nel caso di superamento di tale limite si deve predisporre un ulteriore record per il dipendente. 
- Ogni elemento della tabella √® costituito dai sottocampi che seguono.
+ Ogni elemento della tabella Ë costituito dai sottocampi che seguono.
 
-------------------------TAB-VOCI-MENS-COMPET  -- Utilizzare la mensilit√† della liquidazione
-‚óæSignificato: Mensilit√† di competenza della voce economica (Anno/mese). Se non valorizzata, si intende uguale alla mensilit√† di liquidazione.
+------------------------TAB-VOCI-MENS-COMPET  -- Utilizzare la mensilit‡ della liquidazione
+?Significato: Mensilit‡ di competenza della voce economica (Anno/mese). Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione.
  N.B. La mensilita' di competenza diversa da quella di liquidazione e' da utilizzare solo in casi particolari per evidenziare una cifra importante (es. stipendio) che viene pagata per intero con mesi di ritardo. I normali arretrati, anche di anni precedenti, vanno dichiarati come per il passato nel mese in cui vengono pagati, nel campo arretrati corrispondente. 
  
 TAB-VOCI-ECO-COD -- E' stata creata la classificazione
-‚óæSignificato: Codice della voce economica. (VOCI DI SPESA PER COMPETENZE FISSE; INDENNIT√Ä; VOCI DI SPESA PER COMPETENZE ACCESSORIE).
-‚óæCongruenze: Diverso da spazi se uno degli importi relativi √® diverso da zero.
+?Significato: Codice della voce economica. (VOCI DI SPESA PER COMPETENZE FISSE; INDENNIT¿; VOCI DI SPESA PER COMPETENZE ACCESSORIE).
+?Congruenze: Diverso da spazi se uno degli importi relativi Ë diverso da zero.
 
 ----------------------TAB-VOCI-ECO-IMP-BASE
-‚óæSignificato: Importo della voce economica. Per le competenze va riportata la sola voce base.
+?Significato: Importo della voce economica. Per le competenze va riportata la sola voce base.
 
 TAB-VOCI-ECO-ARR-CORR
-‚óæSignificato: Importo degli arretrati della voce economica relativi all‚Äôanno corrente. Da impostare solo per le competenze.
+?Significato: Importo degli arretrati della voce economica relativi allíanno corrente. Da impostare solo per le competenze.
 
 TAB-VOCI-ECO-ARR-PREC
-‚óæSignificato: Importo degli arretrati della voce economica relativi ad anni precedenti. Da impostare solo per le competenze.
+?Significato: Importo degli arretrati della voce economica relativi ad anni precedenti. Da impostare solo per le competenze.
 
 -------------------------IRPEF-CORRENTE
-‚óæSignificato: Ritenuta fiscale effettuata sulle competenze base.
+?Significato: Ritenuta fiscale effettuata sulle competenze base.
 
 IRPEF-ARR-CORR
-‚óæSignificato: Ritenuta fiscale effettuata sugli arretrati relativi all'anno corrente.
+?Significato: Ritenuta fiscale effettuata sugli arretrati relativi all'anno corrente.
 
 IRPEF-ARR-PREC
-‚óæSignificato: Ritenuta fiscale effettuata sugli arretrati relativi ad anni precedenti.
+?Significato: Ritenuta fiscale effettuata sugli arretrati relativi ad anni precedenti.
 
 TAB-SINDACATO
-‚óæSignificato: Tabella contenente i dati relativi alle ritenute sindacali.
+?Significato: Tabella contenente i dati relativi alle ritenute sindacali.
  La tabella contiene al massimo 3 elementi costituiti ciascuno dai sottocampi che seguono.
 
 TAB-SINDACATO-MENS-COMPET
-‚óæSignificato: Mensilit√† di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. 
+?Significato: Mensilit‡ di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. 
  
 TAB-SINDACATO-COD
-‚óæSignificato: Codice fiscale dell‚Äôorganizzazione sindacale.
-‚óæCongruenze: Diverso da spazi se il relativo importo risulta diverso da zero.
+?Significato: Codice fiscale dellíorganizzazione sindacale.
+?Congruenze: Diverso da spazi se il relativo importo risulta diverso da zero.
 
 TAB-SINDACATO-IMP
-‚óæSignificato: Importo versato all‚Äôorganizzazione sindacale.
+?Significato: Importo versato allíorganizzazione sindacale.
 
 TAB-TRATT-RAP
-‚óæSignificato: Tabella contenente i dati relativi alle contribuzioni previdenziali e assistenziali. 
+?Significato: Tabella contenente i dati relativi alle contribuzioni previdenziali e assistenziali. 
  La tabella contiene al massimo 15 elementi. Nel caso di superamento di tale limite si deve predisporre un ulteriore record per il dipendente. 
- Ogni elemento √® costituito dai sottocampi che seguono.
+ Ogni elemento Ë costituito dai sottocampi che seguono.
 
 TAB-TRATT-RAP-MENS-COMPET 
-‚óæSignificato: Mensilit√† di competenza (Anno/mese) della voce. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. 
-Se valorizzato solo l‚Äôanno, come mensilit√† si intende dicembre. L‚Äôanno di competenza pu√≤ assumere valori minori 
-dell‚Äôanno di liquidazione solo per contribuzioni relative a Fondo pensioni, Opera di Previdenza e Fondo Credito; 
+?Significato: Mensilit‡ di competenza (Anno/mese) della voce. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. 
+Se valorizzato solo líanno, come mensilit‡ si intende dicembre. Líanno di competenza puÚ assumere valori minori 
+dellíanno di liquidazione solo per contribuzioni relative a Fondo pensioni, Opera di Previdenza e Fondo Credito; 
 in tali casi, le contribuzioni relative ad anni anteriori al 1996 dovranno essere comunicate 
 con anno di competenza uguale a 1995. Per tutti gli altri tipi di contribuzione previdenziale e assistenziale 
-l‚Äôanno di competenza √® sempre uguale all‚Äôanno di liquidazione.
+líanno di competenza Ë sempre uguale allíanno di liquidazione.
  
 TAB-TRATT-RAP-COD
-‚óæSignificato: Codice del contributo previdenziale/assistenziale .
-‚óæCongruenze: Diverso da spazi se il relativo importo √® diverso da zero.
+?Significato: Codice del contributo previdenziale/assistenziale .
+?Congruenze: Diverso da spazi se il relativo importo Ë diverso da zero.
 
 TAB-TRATT-RAP-IMP
-‚óæSignificato: Imponibile del contributo previdenziale/assistenziale.
+?Significato: Imponibile del contributo previdenziale/assistenziale.
 
 TAB-TRATT-RAP-DIP
-‚óæSignificato: Importo delle trattenute a carico del dipendente.
+?Significato: Importo delle trattenute a carico del dipendente.
 
 TAB-TRATT-RAP-AMM
-‚óæSignificato: Importo dei contributi a carico dell'amministrazione.
+?Significato: Importo dei contributi a carico dell'amministrazione.
 
 FAM-ASS
-‚óæSignificato: Numero dei familiari ai fini dell'assegno.
+?Significato: Numero dei familiari ai fini dell'assegno.
 
 FAM-DETR
-‚óæSignificato: Numero dei familiari ai fini delle detrazioni.
-‚óæObbligatorio: Si.
+?Significato: Numero dei familiari ai fini delle detrazioni.
+?Obbligatorio: Si.
 
 DETRAZ
-‚óæSignificato: Importo totale delle detrazioni d'imposta operate.
+?Significato: Importo totale delle detrazioni d'imposta operate.
 
 GG-PRES
-‚óæSignificato: Numero giorni effettivamente lavorati nel periodo di riferimento (dato valorizzato solo per i dipendenti della Pubblica Istruzione).
+?Significato: Numero giorni effettivamente lavorati nel periodo di riferimento (dato valorizzato solo per i dipendenti della Pubblica Istruzione).
 
 ULT-REC
- ‚óæSignificato: Indica se sono presenti pi√π record per lo stesso dipendente
-‚óæValori ammessi: '0' = il record √® unico, oppure √® l‚Äôultimo record nel caso di pi√π record per il dipendente;
+ ?Significato: Indica se sono presenti pi˘ record per lo stesso dipendente
+?Valori ammessi: '0' = il record Ë unico, oppure Ë líultimo record nel caso di pi˘ record per il dipendente;
  '1' = sono presenti ulteriori successivi record per il dipendente.
-‚óæObbligatorio: Si.
-‚óæCongruenze: Nel caso di pi√π record per il dipendente, per superamento del limite previsto per le occorrenze della tabella TAB-VOCI-ECONOMICHE e/o della tabella TAB-TRATT-RAP, in ciascun record successivo al primo vanno sempre impostati i seguenti campi:
+?Obbligatorio: Si.
+?Congruenze: Nel caso di pi˘ record per il dipendente, per superamento del limite previsto per le occorrenze della tabella TAB-VOCI-ECONOMICHE e/o della tabella TAB-TRATT-RAP, in ciascun record successivo al primo vanno sempre impostati i seguenti campi:
  - TIPO-REC
  - CODFISC-DIP
  - COD-COMP
@@ -1402,7 +1424,7 @@ CREATE TABLE #Record3
 (
 	idreg			int,
 	TIPOREC			char(1),		-- PIC X.Indicatore del tipo record. Valori ammessi: '3' = record di dettaglio.
-	SEZIONE			char(1),		-- PIC X.Il valore ammesso √® ‚ÄòG‚Äô (anagrafico-giuridica).
+	SEZIONE			char(1),		-- PIC X.Il valore ammesso Ë ëGí (anagrafico-giuridica).
 	CODISTITENTE    varchar(11),	-- PIC X(11).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
 	CODUNIORG		int,			-- 9(10).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
 	INIPERRIF		datetime,		-- 9(06).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
@@ -1414,9 +1436,9 @@ CREATE TABLE #Record3
 	CODRUOLO		char(1),		-- PIC X. 
 	CODPROFILO		varchar(03),	-- PIC X(03).
 	CODPOSECON		varchar(2),		-- PIC X(02).
-	STPCAP			varchar(2),		-- PIC X(02). Numero dello stato di previsione dell‚Äôamministrazione nella Legge 
-					-- di bilancio dello Stato per l‚Äôesercizio finanziario.Valori ammessi: spazi.
-	APPCAP			char(1),		-- PIC X(01).Appendice dello stato di previsione dell‚Äôamministrazione nella Legge di bilancio dello Stato per l‚Äôesercizio finanziario.
+	STPCAP			varchar(2),		-- PIC X(02). Numero dello stato di previsione dellíamministrazione nella Legge 
+					-- di bilancio dello Stato per líesercizio finanziario.Valori ammessi: spazi.
+	APPCAP			char(1),		-- PIC X(01).Appendice dello stato di previsione dellíamministrazione nella Legge di bilancio dello Stato per líesercizio finanziario.
 					-- Valori ammessi: spazio.
 	NUMCAP			varchar(4),		-- PIC X(04).
 	-- Valori ammessi: 
@@ -1424,33 +1446,33 @@ CREATE TABLE #Record3
 	-- OSSE = MIUR - finanziamento ordinario Osservatori;
 	-- OSPE = Ospedaliere;
 	-- ENTI = finanziamento da altri enti pubblici o privati;
-	-- RICF - Ricerca finanziata (Montalcini, PRIN, FIRB, ‚ÄúFuturo e Ricerca‚Äù , ERC-VII PQ, SIR);
+	-- RICF - Ricerca finanziata (Montalcini, PRIN, FIRB, ìFuturo e Ricercaî , ERC-VII PQ, SIR);
 	-- FUAT - Fondo unico d'ateneo (Nota MIUR Prot. 8312 del 05/04/2013);
 	-- spazi = negli altri casi. 
 	--N.B. Se il dipendente ha ricevuto nel periodo emolumenti riferibili a valori diversi di questo campo, devono essere prodotti records diversi. 
 	TIPOPAG			char(1), -- PIC X.
-		--Significato: Indicatore delle modalit√† di emissione della spesa per il pagamento delle competenze.
-		--Valori ammessi: ‚ÄòM‚Äô = mandato;
-		-- ‚ÄòR‚Äô = ruolo di spesa fissa;
-		-- ‚ÄòO‚Äô= ordine di accreditamento;
-		-- ‚ÄòS‚Äô = contabilit√† speciale.
+		--Significato: Indicatore delle modalit‡ di emissione della spesa per il pagamento delle competenze.
+		--Valori ammessi: ëMí = mandato;
+		-- ëRí = ruolo di spesa fissa;
+		-- ëOí= ordine di accreditamento;
+		-- ëSí = contabilit‡ speciale.
 	PROVSERV		varchar(2), -- PIC X(02). Sigla della provincia di servizio del dipendente.
 	CLASSE			int, -- PIC 9(04).Numero classi di stipendio maturate dal dipendente all'interno della qualifica di appartenenza.
 	SCATTI			int, -- PIC 9(04).Numero scatti di stipendio maturati dal dipendente all'interno della qualifica di appartenenza.
 	POSSTIP			varchar(6), -- PIC X(06).Posizione stipendiale (solo per il personale della scuola).
-	-- TABVOCIECONOMICHE OCCURS 25. ‚ó¶Significato: Tabella contenente i dati relativi alle voci economiche che compongono il cedolino; comprendono:
-	-- competenze erogate (voci del trattamento economico fondamentale; indennit√†; compensi accessori);
+	-- TABVOCIECONOMICHE OCCURS 25. ?Significato: Tabella contenente i dati relativi alle voci economiche che compongono il cedolino; comprendono:
+	-- competenze erogate (voci del trattamento economico fondamentale; indennit‡; compensi accessori);
 	-- ritenute varie (riscatti, fitti, conguaglio fiscale, etc..); ad eccezione delle ritenute sindacali, previdenziali, assistenziali ed erariali che vengono comunicate in altri campi descritti nel seguito.
 
 	-- La tabella contiene al massimo 25 elementi. Nel caso di superamento di tale limite si deve predisporre un ulteriore record per il dipendente. 
-	-- Ogni elemento della tabella √® costituito dai sottocampi che seguono.
+	-- Ogni elemento della tabella Ë costituito dai sottocampi che seguono.
 
-	TABVOCIMENSCOMPET varchar(6), -- PIC X(6). Mensilit√† di competenza della voce economica (Anno/mese). Se non valorizzata, si intende uguale alla mensilit√† di liquidazione.
+	TABVOCIMENSCOMPET varchar(6), -- PIC X(6). Mensilit‡ di competenza della voce economica (Anno/mese). Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione.
 					   -- N.B. La mensilita' di competenza diversa da quella di liquidazione e' da utilizzare solo in casi particolari per evidenziare una cifra importante (es. stipendio) che viene pagata per intero con mesi di ritardo. I normali arretrati, anche di anni precedenti, vanno dichiarati come per il passato nel mese in cui vengono pagati, nel campo arretrati corrispondente. 
-	TABVOCIECOCOD    varchar(4), -- PIC X(4). Codice della voce economica. (VOCI DI SPESA PER COMPETENZE FISSE; INDENNIT√Ä; VOCI DI SPESA PER COMPETENZE ACCESSORIE).
-				   -- Diverso da spazi se uno degli importi relativi √® diverso da zero.
+	TABVOCIECOCOD    varchar(4), -- PIC X(4). Codice della voce economica. (VOCI DI SPESA PER COMPETENZE FISSE; INDENNIT¿; VOCI DI SPESA PER COMPETENZE ACCESSORIE).
+				   -- Diverso da spazi se uno degli importi relativi Ë diverso da zero.
 	TABVOCIECOIMPBASE	decimal(19,2), -- PIC +999999.99. Importo della voce economica. Per le competenze va riportata la sola voce base.
-	TABVOCIECOARRCORR	decimal(19,2), -- PIC +999999.99. Importo degli arretrati della voce economica relativi all‚Äôanno corrente. Da impostare solo per le competenze.
+	TABVOCIECOARRCORR	decimal(19,2), -- PIC +999999.99. Importo degli arretrati della voce economica relativi allíanno corrente. Da impostare solo per le competenze.
 	TABVOCIECOARRPREC	decimal(19,2), -- PIC +999999.99. Importo degli arretrati della voce economica relativi ad anni precedenti. Da impostare solo per le competenze.
 	IRPEFCORRENTE		decimal(19,2), -- PIC +999999.99. Ritenuta fiscale effettuata sulle competenze base.
 	IRPEFARRCORR		decimal(19,2), -- PIC +999999.99. Ritenuta fiscale effettuata sugli arretrati relativi all'anno corrente.
@@ -1460,18 +1482,18 @@ CREATE TABLE #Record3
 	-- Tabella contenente i dati relativi alle ritenute sindacali.
 	-- La tabella contiene al massimo 3 elementi costituiti ciascuno dai sottocampi che seguono.
 
-	TABSINDACATOMENSCOMPET varchar(6), -- PIC X(6). Mensilit√† di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. 
-	TABSINDACATOCOD			varchar(11), -- PIC X(11). Codice fiscale dell‚Äôorganizzazione sindacale.
+	TABSINDACATOMENSCOMPET varchar(6), -- PIC X(6). Mensilit‡ di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. 
+	TABSINDACATOCOD			varchar(11), -- PIC X(11). Codice fiscale dellíorganizzazione sindacale.
 					 -- Diverso da spazi se il relativo importo risulta diverso da zero.
-	TABSINDACATOIMP		decimal(19,2), -- PIC +999999.99.Importo versato all‚Äôorganizzazione sindacale.
+	TABSINDACATOIMP		decimal(19,2), -- PIC +999999.99.Importo versato allíorganizzazione sindacale.
 	--TABTRATTRAP, -- OCCURS 15. 
 	--Tabella contenente i dati relativi alle contribuzioni previdenziali e assistenziali. 
 	--La tabella contiene al massimo 15 elementi. Nel caso di superamento di tale limite si deve predisporre un ulteriore record per il dipendente. 
-	--Ogni elemento √® costituito dai sottocampi che seguono.
+	--Ogni elemento Ë costituito dai sottocampi che seguono.
 
-	TABTRATTRAPMENSCOMPET varchar(6), -- PIC X(6). --Mensilit√† di competenza (Anno/mese) della voce. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. Se valorizzato solo l‚Äôanno, come mensilit√† si intende dicembre. L‚Äôanno di competenza pu√≤ assumere valori minori dell‚Äôanno di liquidazione solo per contribuzioni relative a Fondo pensioni, Opera di Previdenza e Fondo Credito; in tali casi, le contribuzioni relative ad anni anteriori al 1996 dovranno essere comunicate con anno di competenza uguale a 1995. Per tutti gli altri tipi di contribuzione previdenziale e assistenziale l‚Äôanno di competenza √® sempre uguale all‚Äôanno di liquidazione.
+	TABTRATTRAPMENSCOMPET varchar(6), -- PIC X(6). --Mensilit‡ di competenza (Anno/mese) della voce. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. Se valorizzato solo líanno, come mensilit‡ si intende dicembre. Líanno di competenza puÚ assumere valori minori dellíanno di liquidazione solo per contribuzioni relative a Fondo pensioni, Opera di Previdenza e Fondo Credito; in tali casi, le contribuzioni relative ad anni anteriori al 1996 dovranno essere comunicate con anno di competenza uguale a 1995. Per tutti gli altri tipi di contribuzione previdenziale e assistenziale líanno di competenza Ë sempre uguale allíanno di liquidazione.
 	TABTRATTRAPCOD		varchar(3), -- PIC X(3).Codice del contributo previdenziale/assistenziale .
-									-- Diverso da spazi se il relativo importo √® diverso da zero.
+									-- Diverso da spazi se il relativo importo Ë diverso da zero.
 	TABTRATTRAPIMP		decimal(19,2), -- PIC +999999.99. Imponibile del contributo previdenziale/assistenziale.
 	TABTRATTRAPDIP		decimal(19,2), -- PIC +999999.99. Importo delle trattenute a carico del dipendente.
 	TABTRATTRAPAMM		decimal(19,2), -- PIC +999999.99. Importo dei contributi a carico dell'amministrazione.
@@ -1479,10 +1501,10 @@ CREATE TABLE #Record3
 	FAMDETR				int, -- PIC 9(02).Numero dei familiari ai fini delle detrazioni.
 	DETRAZ				decimal(19,2), -- PIC +999999.99.Importo totale delle detrazioni d'imposta operate.
 	GGPRES				int, -- PIC 9(03).Numero giorni effettivamente lavorati nel periodo di riferimento (dato valorizzato solo per i dipendenti della Pubblica Istruzione).
-	ULTREC				char(1), -- PIC X. Indica se sono presenti pi√π record per lo stesso dipendente
-						-- Valori ammessi: '0' = il record √® unico, oppure √® l‚Äôultimo record nel caso di pi√π record per il dipendente;
+	ULTREC				char(1), -- PIC X. Indica se sono presenti pi˘ record per lo stesso dipendente
+						-- Valori ammessi: '0' = il record Ë unico, oppure Ë líultimo record nel caso di pi˘ record per il dipendente;
 						-- '1' = sono presenti ulteriori successivi record per il dipendente.
-						-- Nel caso di pi√π record per il dipendente, per superamento del limite previsto per le occorrenze della tabella TAB-VOCI-ECONOMICHE e/o della tabella TAB-TRATT-RAP, in ciascun record successivo al primo vanno sempre impostati i seguenti campi:
+						-- Nel caso di pi˘ record per il dipendente, per superamento del limite previsto per le occorrenze della tabella TAB-VOCI-ECONOMICHE e/o della tabella TAB-TRATT-RAP, in ciascun record successivo al primo vanno sempre impostati i seguenti campi:
 						-- - TIPO-REC
 						-- - CODFISC-DIP
 						-- - COD-COMP
@@ -1508,7 +1530,7 @@ INSERT INTO #Record3
 (
 	idreg			,
 	TIPOREC			,   -- PIC X.Indicatore del tipo record. Valori ammessi: '3' = record di dettaglio.
-	SEZIONE			,   -- PIC X.Il valore ammesso √® ‚ÄòE‚Äô (anagrafico-giuridica).
+	SEZIONE			,   -- PIC X.Il valore ammesso Ë ëEí (anagrafico-giuridica).
 	CODISTITENTE    ,   -- PIC X(11).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
 	CODUNIORG		,   -- 9(10).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
 	INIPERRIF		,   -- 9(06).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
@@ -1520,9 +1542,9 @@ INSERT INTO #Record3
 	CODRUOLO		,	--PIC X. 
 	CODPROFILO		,	--PIC X(03).
 	CODPOSECON		,   --PIC X(02).
-	STPCAP			,	--PIC X(02). Numero dello stato di previsione dell‚Äôamministrazione nella Legge 
-			-- di bilancio dello Stato per l‚Äôesercizio finanziario.Valori ammessi: spazi.
-	APPCAP			, -- PIC X(01).Appendice dello stato di previsione dell‚Äôamministrazione nella Legge di bilancio dello Stato per l‚Äôesercizio finanziario.
+	STPCAP			,	--PIC X(02). Numero dello stato di previsione dellíamministrazione nella Legge 
+			-- di bilancio dello Stato per líesercizio finanziario.Valori ammessi: spazi.
+	APPCAP			, -- PIC X(01).Appendice dello stato di previsione dellíamministrazione nella Legge di bilancio dello Stato per líesercizio finanziario.
 			-- Valori ammessi: spazio.
 	NUMCAP			, -- PIC X(04).
 				
@@ -1531,34 +1553,34 @@ INSERT INTO #Record3
 	-- OSSE = MIUR - finanziamento ordinario Osservatori;
 	-- OSPE = Ospedaliere;
 	-- ENTI = finanziamento da altri enti pubblici o privati;
-	-- RICF - Ricerca finanziata (Montalcini, PRIN, FIRB, ‚ÄúFuturo e Ricerca‚Äù , ERC-VII PQ, SIR);
+	-- RICF - Ricerca finanziata (Montalcini, PRIN, FIRB, ìFuturo e Ricercaî , ERC-VII PQ, SIR);
 	-- FUAT - Fondo unico d'ateneo (Nota MIUR Prot. 8312 del 05/04/2013);
 	-- spazi = negli altri casi. 
 	--N.B. Se il dipendente ha ricevuto nel periodo emolumenti riferibili a valori diversi di questo campo, devono essere prodotti records diversi. 
 
 	TIPOPAG			, -- PIC X.
-		--Significato: Indicatore delle modalit√† di emissione della spesa per il pagamento delle competenze.
-		--Valori ammessi: ‚ÄòM‚Äô = mandato;
-		-- ‚ÄòR‚Äô = ruolo di spesa fissa;
-		-- ‚ÄòO‚Äô= ordine di accreditamento;
-		-- ‚ÄòS‚Äô = contabilit√† speciale.
+		--Significato: Indicatore delle modalit‡ di emissione della spesa per il pagamento delle competenze.
+		--Valori ammessi: ëMí = mandato;
+		-- ëRí = ruolo di spesa fissa;
+		-- ëOí= ordine di accreditamento;
+		-- ëSí = contabilit‡ speciale.
 	PROVSERV		, -- PIC X(02). Sigla della provincia di servizio del dipendente.
 	CLASSE			, -- PIC 9(04).Numero classi di stipendio maturate dal dipendente all'interno della qualifica di appartenenza.
 	SCATTI			, -- PIC 9(04).Numero scatti di stipendio maturati dal dipendente all'interno della qualifica di appartenenza.
 	POSSTIP			, -- PIC X(06).Posizione stipendiale (solo per il personale della scuola).
-	-- TABVOCIECONOMICHE OCCURS 25. ‚ó¶Significato: Tabella contenente i dati relativi alle voci economiche che compongono il cedolino; comprendono:
-	-- competenze erogate (voci del trattamento economico fondamentale; indennit√†; compensi accessori);
+	-- TABVOCIECONOMICHE OCCURS 25. ?Significato: Tabella contenente i dati relativi alle voci economiche che compongono il cedolino; comprendono:
+	-- competenze erogate (voci del trattamento economico fondamentale; indennit‡; compensi accessori);
 	-- ritenute varie (riscatti, fitti, conguaglio fiscale, etc..); ad eccezione delle ritenute sindacali, previdenziali, assistenziali ed erariali che vengono comunicate in altri campi descritti nel seguito.
 
 	-- La tabella contiene al massimo 25 elementi. Nel caso di superamento di tale limite si deve predisporre un ulteriore record per il dipendente. 
-	-- Ogni elemento della tabella √® costituito dai sottocampi che seguono.
+	-- Ogni elemento della tabella Ë costituito dai sottocampi che seguono.
 
-	TABVOCIMENSCOMPET	, -- PIC X(6). Mensilit√† di competenza della voce economica (Anno/mese). Se non valorizzata, si intende uguale alla mensilit√† di liquidazione.
+	TABVOCIMENSCOMPET	, -- PIC X(6). Mensilit‡ di competenza della voce economica (Anno/mese). Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione.
 					   -- N.B. La mensilita' di competenza diversa da quella di liquidazione e' da utilizzare solo in casi particolari per evidenziare una cifra importante (es. stipendio) che viene pagata per intero con mesi di ritardo. I normali arretrati, anche di anni precedenti, vanno dichiarati come per il passato nel mese in cui vengono pagati, nel campo arretrati corrispondente. 
-	TABVOCIECOCOD		, -- PIC X(4). Codice della voce economica. (VOCI DI SPESA PER COMPETENZE FISSE; INDENNIT√Ä; VOCI DI SPESA PER COMPETENZE ACCESSORIE).
-				   -- Diverso da spazi se uno degli importi relativi √® diverso da zero.
+	TABVOCIECOCOD		, -- PIC X(4). Codice della voce economica. (VOCI DI SPESA PER COMPETENZE FISSE; INDENNIT¿; VOCI DI SPESA PER COMPETENZE ACCESSORIE).
+				   -- Diverso da spazi se uno degli importi relativi Ë diverso da zero.
 	TABVOCIECOIMPBASE	, -- PIC +999999.99. Importo della voce economica. Per le competenze va riportata la sola voce base.
-	TABVOCIECOARRCORR	, -- PIC +999999.99. Importo degli arretrati della voce economica relativi all‚Äôanno corrente. Da impostare solo per le competenze.
+	TABVOCIECOARRCORR	, -- PIC +999999.99. Importo degli arretrati della voce economica relativi allíanno corrente. Da impostare solo per le competenze.
 	TABVOCIECOARRPREC	, -- PIC +999999.99. Importo degli arretrati della voce economica relativi ad anni precedenti. Da impostare solo per le competenze.
 	IRPEFCORRENTE		,	-- PIC +999999.99. Ritenuta fiscale effettuata sulle competenze base.
 	IRPEFARRCORR		, -- PIC +999999.99. Ritenuta fiscale effettuata sugli arretrati relativi all'anno corrente.
@@ -1568,18 +1590,18 @@ INSERT INTO #Record3
 	-- Tabella contenente i dati relativi alle ritenute sindacali.
 	-- La tabella contiene al massimo 3 elementi costituiti ciascuno dai sottocampi che seguono.
 
-	TABSINDACATOMENSCOMPET	, -- PIC X(6). Mensilit√† di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. 
-	TABSINDACATOCOD		, -- PIC X(11). Codice fiscale dell‚Äôorganizzazione sindacale.
+	TABSINDACATOMENSCOMPET	, -- PIC X(6). Mensilit‡ di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. 
+	TABSINDACATOCOD		, -- PIC X(11). Codice fiscale dellíorganizzazione sindacale.
 					 -- Diverso da spazi se il relativo importo risulta diverso da zero.
-	TABSINDACATOIMP		, -- PIC +999999.99.Importo versato all‚Äôorganizzazione sindacale.
+	TABSINDACATOIMP		, -- PIC +999999.99.Importo versato allíorganizzazione sindacale.
 	--TABTRATTRAP, -- OCCURS 15. 
 	--Tabella contenente i dati relativi alle contribuzioni previdenziali e assistenziali. 
 	--La tabella contiene al massimo 15 elementi. Nel caso di superamento di tale limite si deve predisporre un ulteriore record per il dipendente. 
-	--Ogni elemento √® costituito dai sottocampi che seguono.
+	--Ogni elemento Ë costituito dai sottocampi che seguono.
 
-	TABTRATTRAPMENSCOMPET	, -- PIC X(6). --Mensilit√† di competenza (Anno/mese) della voce. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. Se valorizzato solo l‚Äôanno, come mensilit√† si intende dicembre. L‚Äôanno di competenza pu√≤ assumere valori minori dell‚Äôanno di liquidazione solo per contribuzioni relative a Fondo pensioni, Opera di Previdenza e Fondo Credito; in tali casi, le contribuzioni relative ad anni anteriori al 1996 dovranno essere comunicate con anno di competenza uguale a 1995. Per tutti gli altri tipi di contribuzione previdenziale e assistenziale l‚Äôanno di competenza √® sempre uguale all‚Äôanno di liquidazione.
+	TABTRATTRAPMENSCOMPET	, -- PIC X(6). --Mensilit‡ di competenza (Anno/mese) della voce. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. Se valorizzato solo líanno, come mensilit‡ si intende dicembre. Líanno di competenza puÚ assumere valori minori dellíanno di liquidazione solo per contribuzioni relative a Fondo pensioni, Opera di Previdenza e Fondo Credito; in tali casi, le contribuzioni relative ad anni anteriori al 1996 dovranno essere comunicate con anno di competenza uguale a 1995. Per tutti gli altri tipi di contribuzione previdenziale e assistenziale líanno di competenza Ë sempre uguale allíanno di liquidazione.
 	TABTRATTRAPCOD			, -- PIC X(3).Codice del contributo previdenziale/assistenziale .
-					-- Diverso da spazi se il relativo importo √® diverso da zero.
+					-- Diverso da spazi se il relativo importo Ë diverso da zero.
 	TABTRATTRAPIMP	, -- PIC +999999.99. Imponibile del contributo previdenziale/assistenziale.
 	TABTRATTRAPDIP	, -- PIC +999999.99. Importo delle trattenute a carico del dipendente.
 	TABTRATTRAPAMM	, -- PIC +999999.99. Importo dei contributi a carico dell'amministrazione.
@@ -1587,10 +1609,10 @@ INSERT INTO #Record3
 	FAMDETR		 , -- PIC 9(02).Numero dei familiari ai fini delle detrazioni.
 	DETRAZ	, -- PIC +999999.99.Importo totale delle detrazioni d'imposta operate.
 	GGPRES	, -- PIC 9(03).Numero giorni effettivamente lavorati nel periodo di riferimento (dato valorizzato solo per i dipendenti della Pubblica Istruzione).
-	ULTREC	, -- PIC X. Indica se sono presenti pi√π record per lo stesso dipendente
-			-- Valori ammessi: '0' = il record √® unico, oppure √® l‚Äôultimo record nel caso di pi√π record per il dipendente;
+	ULTREC	, -- PIC X. Indica se sono presenti pi˘ record per lo stesso dipendente
+			-- Valori ammessi: '0' = il record Ë unico, oppure Ë líultimo record nel caso di pi˘ record per il dipendente;
 			-- '1' = sono presenti ulteriori successivi record per il dipendente.
-			--Nel caso di pi√π record per il dipendente, per superamento del limite previsto per le occorrenze della tabella TAB-VOCI-ECONOMICHE e/o della tabella TAB-TRATT-RAP, in ciascun record successivo al primo vanno sempre impostati i seguenti campi:
+			--Nel caso di pi˘ record per il dipendente, per superamento del limite previsto per le occorrenze della tabella TAB-VOCI-ECONOMICHE e/o della tabella TAB-TRATT-RAP, in ciascun record successivo al primo vanno sempre impostati i seguenti campi:
 			-- - TIPO-REC
 			-- - CODFISC-DIP
 			-- - COD-COMP
@@ -1611,7 +1633,7 @@ INSERT INTO #Record3
 SELECT DISTINCT
 	R.idreg,
 	'3',					--TIPOREC			,     PIC X.Indicatore del tipo record. Valori ammessi: '3' = record di dettaglio.
-	'F',					--SEZIONE			,     PIC X.Il valore ammesso √® ‚ÄòG‚Äô (anagrafico-giuridica).
+	'F',					--SEZIONE			,     PIC X.Il valore ammesso Ë ëGí (anagrafico-giuridica).
 	ISNULL(@2cf,@p_iva),	--CODISTITENTE		,     PIC X(11).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
 	0,						--CODUNIORG			,	  9(10).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
 	@start,		   		    --INIPERRIF			,	  9(06).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
@@ -1620,13 +1642,13 @@ SELECT DISTINCT
 	'08',					--CODCOMP  			,     X(02).Codice del comparto di contrattazione collettiva cui appartiene il dipendente. Valori ammessi: 08.
 	'00',					--CODSCOMP  		,     X(02).Codice del contratto di appartenenza del dipendente. Valori ammessi: 00.
 							--COD-QUA				  Codice della qualifica del dipendente. Cfr. ELENCO CODICI. 
-													  --tabella qualifiche per il comparto universit√† (codice a sei cifre)
+													  --tabella qualifiche per il comparto universit‡ (codice a sei cifre)
 	SUBSTRING(#tot_anagrafiche.codedaliaposition,1,1),			  --CODRUOLO		,	  PIC X. 
 	SUBSTRING(#tot_anagrafiche.codedaliaposition,2,3),			  --CODPROFILO		,	  PIC X(03).
 	SUBSTRING(#tot_anagrafiche.codedaliaposition,5,2),			  --CODPOSECON		,     PIC X(02).
-	null,					-- STPCAP			,	  PIC X(02). Numero dello stato di previsione dell‚Äôamministrazione nella Legge 
-	null,					--						  di bilancio dello Stato per l‚Äôesercizio finanziario.Valori ammessi: spazi.
-							-- APPCAP			,	  PIC X(01).Appendice dello stato di previsione dell‚Äôamministrazione nella Legge di bilancio dello Stato per l‚Äôesercizio finanziario.
+	null,					-- STPCAP			,	  PIC X(02). Numero dello stato di previsione dellíamministrazione nella Legge 
+	null,					--						  di bilancio dello Stato per líesercizio finanziario.Valori ammessi: spazi.
+							-- APPCAP			,	  PIC X(01).Appendice dello stato di previsione dellíamministrazione nella Legge di bilancio dello Stato per líesercizio finanziario.
 	'UNIV',					--						  -- Valori ammessi: spazio.
 							-- NUMCAP, -- PIC X(04).		
 							---- Valori ammessi: 
@@ -1634,34 +1656,34 @@ SELECT DISTINCT
 							---- OSSE = MIUR - finanziamento ordinario Osservatori;
 							---- OSPE = Ospedaliere;
 							---- ENTI = finanziamento da altri enti pubblici o privati;
-							---- RICF - Ricerca finanziata (Montalcini, PRIN, FIRB, ‚ÄúFuturo e Ricerca‚Äù , ERC-VII PQ, SIR);
+							---- RICF - Ricerca finanziata (Montalcini, PRIN, FIRB, ìFuturo e Ricercaî , ERC-VII PQ, SIR);
 							---- FUAT - Fondo unico d'ateneo (Nota MIUR Prot. 8312 del 05/04/2013);
 							---- spazi = negli altri casi. 
 							---- N.B. Se il dipendente ha ricevuto nel periodo emolumenti riferibili a valori diversi di questo campo, devono essere prodotti records diversi. 
 
 	'M',						--TIPOPAG, -- PIC X.
-							--	--Significato: Indicatore delle modalit√† di emissione della spesa per il pagamento delle competenze.
-							--	--Valori ammessi: ‚ÄòM‚Äô = mandato;
-							--	-- ‚ÄòR‚Äô = ruolo di spesa fissa;
-							--	-- ‚ÄòO‚Äô= ordine di accreditamento;
-							--	-- ‚ÄòS‚Äô = contabilit√† speciale.
+							--	--Significato: Indicatore delle modalit‡ di emissione della spesa per il pagamento delle competenze.
+							--	--Valori ammessi: ëMí = mandato;
+							--	-- ëRí = ruolo di spesa fissa;
+							--	-- ëOí= ordine di accreditamento;
+							--	-- ëSí = contabilit‡ speciale.
 	@country,				-- PROVSERV, -- PIC X(02). Sigla della provincia di servizio del dipendente.
 	0,					-- CLASSE,   -- PIC 9(04).Numero classi di stipendio maturate dal dipendente all'interno della qualifica di appartenenza.
 	0,					-- SCATTI,   -- PIC 9(04).Numero scatti di stipendio maturati dal dipendente all'interno della qualifica di appartenenza.
 	null,					-- POSSTIP,  -- PIC X(06).Posizione stipendiale (solo per il personale della scuola).
-	--codice classificazione()	---- TABVOCIECONOMICHE OCCURS 25. ‚ó¶Significato: Tabella contenente i dati relativi alle voci economiche che compongono il cedolino; comprendono:
-							---- competenze erogate (voci del trattamento economico fondamentale; indennit√†; compensi accessori);
+	--codice classificazione()	---- TABVOCIECONOMICHE OCCURS 25. ?Significato: Tabella contenente i dati relativi alle voci economiche che compongono il cedolino; comprendono:
+							---- competenze erogate (voci del trattamento economico fondamentale; indennit‡; compensi accessori);
 							---- ritenute varie (riscatti, fitti, conguaglio fiscale, etc..); ad eccezione delle ritenute sindacali, previdenziali, assistenziali ed erariali che vengono comunicate in altri campi descritti nel seguito.
 
 							---- La tabella contiene al massimo 25 elementi. Nel caso di superamento di tale limite si deve predisporre un ulteriore record per il dipendente. 
-							---- Ogni elemento della tabella √® costituito dai sottocampi che seguono.
+							---- Ogni elemento della tabella Ë costituito dai sottocampi che seguono.
 
-	null,					-- TABVOCIMENSCOMPET, -- PIC X(6). Mensilit√† di competenza della voce economica (Anno/mese). Se non valorizzata, si intende uguale alla mensilit√† di liquidazione.
+	null,					-- TABVOCIMENSCOMPET, -- PIC X(6). Mensilit‡ di competenza della voce economica (Anno/mese). Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione.
 	null,					--				   -- N.B. La mensilita' di competenza diversa da quella di liquidazione e' da utilizzare solo in casi particolari per evidenziare una cifra importante (es. stipendio) che viene pagata per intero con mesi di ritardo. I normali arretrati, anche di anni precedenti, vanno dichiarati come per il passato nel mese in cui vengono pagati, nel campo arretrati corrispondente. 
-	null,					-- TABVOCIECOCOD, -- PIC X(4). Codice della voce economica. (VOCI DI SPESA PER COMPETENZE FISSE; INDENNIT√Ä; VOCI DI SPESA PER COMPETENZE ACCESSORIE).
-	null,					-- Diverso da spazi se uno degli importi relativi √® diverso da zero.
+	null,					-- TABVOCIECOCOD, -- PIC X(4). Codice della voce economica. (VOCI DI SPESA PER COMPETENZE FISSE; INDENNIT¿; VOCI DI SPESA PER COMPETENZE ACCESSORIE).
+	null,					-- Diverso da spazi se uno degli importi relativi Ë diverso da zero.
 	null,					-- TABVOCIECOIMPBASE, -- PIC +999999.99. Importo della voce economica. Per le competenze va riportata la sola voce base.
-							-- TABVOCIECOARRCORR, -- PIC +999999.99. Importo degli arretrati della voce economica relativi all‚Äôanno corrente. Da impostare solo per le competenze.
+							-- TABVOCIECOARRCORR, -- PIC +999999.99. Importo degli arretrati della voce economica relativi allíanno corrente. Da impostare solo per le competenze.
 							-- TABVOCIECOARRPREC, -- PIC +999999.99. Importo degli arretrati della voce economica relativi ad anni precedenti. Da impostare solo per le competenze.
 	null,					-- IRPEFCORRENTE, -- PIC +999999.99. Ritenuta fiscale effettuata sulle competenze base.
 	null,					-- IRPEFARRCORR, -- PIC +999999.99. Ritenuta fiscale effettuata sugli arretrati relativi all'anno corrente.
@@ -1671,18 +1693,18 @@ SELECT DISTINCT
 							---- Tabella contenente i dati relativi alle ritenute sindacali.
 							---- La tabella contiene al massimo 3 elementi costituiti ciascuno dai sottocampi che seguono.
 
-	null,					-- TABSINDACATOMENSCOMPET, -- PIC X(6). Mensilit√† di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. 
-	null,					-- TABSINDACATOCOD, -- PIC X(11). Codice fiscale dell‚Äôorganizzazione sindacale.
+	null,					-- TABSINDACATOMENSCOMPET, -- PIC X(6). Mensilit‡ di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. 
+	null,					-- TABSINDACATOCOD, -- PIC X(11). Codice fiscale dellíorganizzazione sindacale.
 							--				 -- Diverso da spazi se il relativo importo risulta diverso da zero.
-	null,					-- TABSINDACATOIMP, -- PIC +999999.99.Importo versato all‚Äôorganizzazione sindacale.
+	null,					-- TABSINDACATOIMP, -- PIC +999999.99.Importo versato allíorganizzazione sindacale.
 							---- TABTRATTRAP, -- OCCURS 15. 
 							----Tabella contenente i dati relativi alle contribuzioni previdenziali e assistenziali. 
 							----La tabella contiene al massimo 15 elementi. Nel caso di superamento di tale limite si deve predisporre un ulteriore record per il dipendente. 
-							----Ogni elemento √® costituito dai sottocampi che seguono.
+							----Ogni elemento Ë costituito dai sottocampi che seguono.
 
-	null,					-- TABTRATTRAPMENSCOMPET, -- PIC X(6). --Mensilit√† di competenza (Anno/mese) della voce. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. Se valorizzato solo l‚Äôanno, come mensilit√† si intende dicembre. L‚Äôanno di competenza pu√≤ assumere valori minori dell‚Äôanno di liquidazione solo per contribuzioni relative a Fondo pensioni, Opera di Previdenza e Fondo Credito; in tali casi, le contribuzioni relative ad anni anteriori al 1996 dovranno essere comunicate con anno di competenza uguale a 1995. Per tutti gli altri tipi di contribuzione previdenziale e assistenziale l‚Äôanno di competenza √® sempre uguale all‚Äôanno di liquidazione.
+	null,					-- TABTRATTRAPMENSCOMPET, -- PIC X(6). --Mensilit‡ di competenza (Anno/mese) della voce. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. Se valorizzato solo líanno, come mensilit‡ si intende dicembre. Líanno di competenza puÚ assumere valori minori dellíanno di liquidazione solo per contribuzioni relative a Fondo pensioni, Opera di Previdenza e Fondo Credito; in tali casi, le contribuzioni relative ad anni anteriori al 1996 dovranno essere comunicate con anno di competenza uguale a 1995. Per tutti gli altri tipi di contribuzione previdenziale e assistenziale líanno di competenza Ë sempre uguale allíanno di liquidazione.
 	null,					-- TABTRATTRAPCOD, -- PIC X(3).Codice del contributo previdenziale/assistenziale .
-							--				-- Diverso da spazi se il relativo importo √® diverso da zero.
+							--				-- Diverso da spazi se il relativo importo Ë diverso da zero.
 	REPLICATE('0',9),					-- TABTRATTRAPIMP, -- PIC +999999.99. Imponibile del contributo previdenziale/assistenziale.
 	REPLICATE('0',9),					-- TABTRATTRAPDIP, -- PIC +999999.99. Importo delle trattenute a carico del dipendente.
 	REPLICATE('0',9),					-- TABTRATTRAPAMM, -- PIC +999999.99. Importo dei contributi a carico dell'amministrazione.
@@ -1690,10 +1712,10 @@ SELECT DISTINCT
 	0,					-- FAMDETR, -- PIC 9(02).Numero dei familiari ai fini delle detrazioni.
 	null,					-- DETRAZ, -- PIC +999999.99.Importo totale delle detrazioni d'imposta operate.
 	0 ,					-- GGPRES, -- PIC 9(03).Numero giorni effettivamente lavorati nel periodo di riferimento (dato valorizzato solo per i dipendenti della Pubblica Istruzione).
-	'0',					-- ULTREC, -- PIC X. Indica se sono presenti pi√π record per lo stesso dipendente
-							--		-- Valori ammessi: '0' = il record √® unico, oppure √® l‚Äôultimo record nel caso di pi√π record per il dipendente;
+	'0',					-- ULTREC, -- PIC X. Indica se sono presenti pi˘ record per lo stesso dipendente
+							--		-- Valori ammessi: '0' = il record Ë unico, oppure Ë líultimo record nel caso di pi˘ record per il dipendente;
 							--		-- '1' = sono presenti ulteriori successivi record per il dipendente.
-							--		-- Nel caso di pi√π record per il dipendente, per superamento del limite previsto per le occorrenze della tabella TAB-VOCI-ECONOMICHE e/o della tabella TAB-TRATT-RAP, in ciascun record successivo al primo vanno sempre impostati i seguenti campi:
+							--		-- Nel caso di pi˘ record per il dipendente, per superamento del limite previsto per le occorrenze della tabella TAB-VOCI-ECONOMICHE e/o della tabella TAB-TRATT-RAP, in ciascun record successivo al primo vanno sempre impostati i seguenti campi:
 							--		-- - TIPO-REC
 							--		-- - CODFISC-DIP
 							--		-- - COD-COMP
@@ -1763,7 +1785,7 @@ INSERT INTO #tracciato
 SELECT
     TIPOREC,
     --ProgrTipoRec,   
-     [dbo].[GetStringFormatted_r](TIPOREC,1)			+	-- PIC X      Indicatore del tipo record. Valori ammessi: ‚Äò1‚Äô = record di testa.
+     [dbo].[GetStringFormatted_r](TIPOREC,1)			+	-- PIC X      Indicatore del tipo record. Valori ammessi: ë1í = record di testa.
 	 [dbo].[GetStringFormatted_r](CODENTEFONTE,11)		+	-- varchar(11),    -- PIC X(11)  Codice fiscale dell'ente fonte (ente preposto all'invio dei dati).
 	 [dbo].[GetStringFormatted_r](DENOMENTE,60)			+	-- varchar(60),    -- PIC X(60)  Denominazione dell'ente fonte.
 	 [dbo].[GetStringFormatted_r](INDIRIZZO,30)			+	-- varchar(30),	-- PICX(30)   Indirizzo dell'ente fonte
@@ -1777,7 +1799,7 @@ SELECT
 	 [dbo].[GetStringFormatted_r](PERSONARIF,30)		+	-- varchar(30),    -- PIC X(30)  Persona responsabile dei dati inviati. 
 	 [dbo].[GetStringFormatted_r](DESCRQUA,20)			+	-- varchar(20),    -- PIC X(20)  Descrizione della qualifica della persona di riferimento.
 	 [dbo].[GetStringFormatted_r](TIPOCODIFICA,1)		+	-- char(1),       -- PIC X.     Indicatore del tipo di codifica utilizzato per la predisposizione del supporto magnetico.
-															-- Valori ammessi: ‚ÄòE‚Äô = codifica EBCDIC; ‚ÄòA‚Äô = codifica ASCII
+															-- Valori ammessi: ëEí = codifica EBCDIC; ëAí = codifica ASCII
 	 [dbo].[GetStringFormatted_r](FILLER,1607)				-- varchar(1607)   -- PIC X(1607)
 FROM #RecordTesta
 
@@ -1791,23 +1813,23 @@ INSERT INTO #tracciato
 SELECT
     TIPOREC,
     --ProgrTipoRec,   
-	[dbo].[GetStringFormatted_r](TIPOREC,1)			+		-- char(1),     -- PIC X.		Indicatore del tipo record. Valori ammessi: ‚Äò2‚Äô = record di istituzione/ente/sezione;
+	[dbo].[GetStringFormatted_r](TIPOREC,1)			+		-- char(1),     -- PIC X.		Indicatore del tipo record. Valori ammessi: ë2í = record di istituzione/ente/sezione;
 	[dbo].[GetStringFormatted_r](CODISTITENTE,11)	+	 	-- varchar(11), -- PIC X(11)   Codice fiscale dell'istituzione/ente cui si riferiscono i dati inviati.
 	[dbo].[GetInt](CODUNIORG,10)					+	 	-- varchar(10), -- PIC 9(10)	Codice che individua la Struttura Organizzativa all'interno dell'istituzione/ente. 
 															-- Se i dati di dettaglio riportati nella successiva sezione sono noti solo a livello 
 															-- di istituzione/ente, tale campo non deve essere valorizzato.
-	[dbo].[GetStringFormatted_r](DENOMENTE,60)		+       -- varchar(60), -- Denominazione della Struttura Organizzativa, se valorizzata, altrimenti Denominazione dell‚Äôistituzione/ente. 
-	[dbo].[GetStringFormatted_r](INDIRIZZO,30)		+       -- varchar(30), -- Indirizzo della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente.
-	[dbo].[GetStringFormatted_r](CAP,5)				+		-- varchar(5),  -- C.A.P. della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente.
-	[dbo].[GetStringFormatted_r](CODCITT√Ä,4)		+		-- varchar(4),	-- Codice catastale del comune della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente.
-	[dbo].[GetStringFormatted_r](PROVENTE,2)		+       -- varchar(2),	-- Sigla della provincia della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente.
-	[dbo].[GetStringFormatted_r](PREFTELEFONO,5)	+       -- varchar(5),	-- Numero del prefisso telefonico della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente.
-	[dbo].[GetStringFormatted_r](NUMTELEFONO,10)	+       -- varchar(10), -- Numero di telefono della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente..
-	[dbo].[GetStringFormatted_r](PREFFAX ,5)		+       -- varchar(5),	-- Numero del prefisso del fax della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente.
-	[dbo].[GetStringFormatted_r](NUMFAX ,10)		+       -- varchar(10), -- Numero di fax della Struttura Organizzativa, se valorizzata, altrimenti dell‚Äôistituzione/ente.
+	[dbo].[GetStringFormatted_r](DENOMENTE,60)		+       -- varchar(60), -- Denominazione della Struttura Organizzativa, se valorizzata, altrimenti Denominazione dellíistituzione/ente. 
+	[dbo].[GetStringFormatted_r](INDIRIZZO,30)		+       -- varchar(30), -- Indirizzo della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente.
+	[dbo].[GetStringFormatted_r](CAP,5)				+		-- varchar(5),  -- C.A.P. della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente.
+	[dbo].[GetStringFormatted_r](CODCITT¿,4)		+		-- varchar(4),	-- Codice catastale del comune della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente.
+	[dbo].[GetStringFormatted_r](PROVENTE,2)		+       -- varchar(2),	-- Sigla della provincia della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente.
+	[dbo].[GetStringFormatted_r](PREFTELEFONO,5)	+       -- varchar(5),	-- Numero del prefisso telefonico della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente.
+	[dbo].[GetStringFormatted_r](NUMTELEFONO,10)	+       -- varchar(10), -- Numero di telefono della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente..
+	[dbo].[GetStringFormatted_r](PREFFAX ,5)		+       -- varchar(5),	-- Numero del prefisso del fax della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente.
+	[dbo].[GetStringFormatted_r](NUMFAX ,10)		+       -- varchar(10), -- Numero di fax della Struttura Organizzativa, se valorizzata, altrimenti dellíistituzione/ente.
 	[dbo].[GetStringFormatted_r](YEAR(INIPERRIF),4) + [dbo].[Getint](MONTH(INIPERRIF),2) +       -- datetime,	-- Data di inizio del periodo cui si riferiscono i dati (formato: AAAAMM).
 	[dbo].[GetStringFormatted_r](YEAR(FINPERRIF),4) + [dbo].[Getint](MONTH(FINPERRIF),2) +       -- datetime,	-- PIC 9(06).Data di fine del periodo cui si riferiscono i dati (formato: AAAAMM).
-	[dbo].[GetStringFormatted_r](SEZIONE,1)			+       -- char(1),     -- PIC X.Sezione cui si riferiscono i dati. Valori ammessi: ‚ÄòG‚Äô = anagrafico-giuridica;
+	[dbo].[GetStringFormatted_r](SEZIONE,1)			+       -- char(1),     -- PIC X.Sezione cui si riferiscono i dati. Valori ammessi: ëGí = anagrafico-giuridica;
 	[dbo].[GetStringFormatted_r](FILLER	,1635)		       -- varchar(1635) -- PIC X(1635).
 FROM #Record2
 
@@ -1825,7 +1847,7 @@ INSERT INTO #tracciato
 SELECT
     TIPOREC,
 	[dbo].[GetStringFormatted_r](TIPOREC,1)			+ --   PIC X.Indicatore del tipo record. Valori ammessi: '3' = record di dettaglio.
-	[dbo].[GetStringFormatted_r](SEZIONE,1)			+ --   PIC X.Il valore ammesso √® ‚ÄòE‚Äô (anagrafico-giuridica).
+	[dbo].[GetStringFormatted_r](SEZIONE,1)			+ --   PIC X.Il valore ammesso Ë ëEí (anagrafico-giuridica).
 	[dbo].[GetStringFormatted_r](CODISTITENTE,11)	+ --   PIC X(11).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
 	[dbo].[GetInt](CODUNIORG,10)					+ --   9(10).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
 	[dbo].[GetStringFormatted_r](YEAR(INIPERRIF),4) + [dbo].[Getint](MONTH(INIPERRIF),2) + 	--   9(06).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
@@ -1846,9 +1868,9 @@ SELECT
 		THEN [dbo].[GetStringFormatted_r](CODPOSECON,2)   --   PIC X(02).
 		ELSE [dbo].[GetStringFormatted_r](SUBSTRING(#tot_anagrafiche.codedaliaposition,5,2),2)
 	END +
-	[dbo].[GetStringFormatted_r](STPCAP,2) +  --   PIC X(02). Numero dello stato di previsione dell‚Äôamministrazione nella Legge 
-			-- di bilancio dello Stato per l‚Äôesercizio finanziario.Valori ammessi: spazi.
-	[dbo].[GetStringFormatted_r](APPCAP,1) +  --    PIC X(01).Appendice dello stato di previsione dell‚Äôamministrazione nella Legge di bilancio dello Stato per l‚Äôesercizio finanziario.
+	[dbo].[GetStringFormatted_r](STPCAP,2) +  --   PIC X(02). Numero dello stato di previsione dellíamministrazione nella Legge 
+			-- di bilancio dello Stato per líesercizio finanziario.Valori ammessi: spazi.
+	[dbo].[GetStringFormatted_r](APPCAP,1) +  --    PIC X(01).Appendice dello stato di previsione dellíamministrazione nella Legge di bilancio dello Stato per líesercizio finanziario.
 			-- Valori ammessi: spazio.
 	[dbo].[GetStringFormatted_r](NUMCAP,4) +  --   PIC X(04).
 				
@@ -1857,35 +1879,35 @@ SELECT
 	-- OSSE = MIUR - finanziamento ordinario Osservatori;
 	-- OSPE = Ospedaliere;
 	-- ENTI = finanziamento da altri enti pubblici o privati;
-	-- RICF - Ricerca finanziata (Montalcini, PRIN, FIRB, ‚ÄúFuturo e Ricerca‚Äù , ERC-VII PQ, SIR);
+	-- RICF - Ricerca finanziata (Montalcini, PRIN, FIRB, ìFuturo e Ricercaî , ERC-VII PQ, SIR);
 	-- FUAT - Fondo unico d'ateneo (Nota MIUR Prot. 8312 del 05/04/2013);
 	-- spazi = negli altri casi. 
 	-- N.B. Se il dipendente ha ricevuto nel periodo emolumenti riferibili a valori diversi di questo campo, devono essere prodotti records diversi. 
 
 	[dbo].[GetStringFormatted_r](TIPOPAG,1) +  --    PIC X.
-		-- Significato: Indicatore delle modalit√† di emissione della spesa per il pagamento delle competenze.
-		-- Valori ammessi: ‚ÄòM‚Äô = mandato;
-		-- ‚ÄòR‚Äô = ruolo di spesa fissa;
-		-- ‚ÄòO‚Äô= ordine di accreditamento;
-		-- ‚ÄòS‚Äô = contabilit√† speciale.
+		-- Significato: Indicatore delle modalit‡ di emissione della spesa per il pagamento delle competenze.
+		-- Valori ammessi: ëMí = mandato;
+		-- ëRí = ruolo di spesa fissa;
+		-- ëOí= ordine di accreditamento;
+		-- ëSí = contabilit‡ speciale.
 	[dbo].[GetStringFormatted_r](PROVSERV,2) + -- PIC X(02). Sigla della provincia di servizio del dipendente.
 	[dbo].[GetInt](CLASSE,4)   + -- PIC 9(04).Numero classi di stipendio maturate dal dipendente all'interno della qualifica di appartenenza.
 	[dbo].[GetInt](SCATTI,4)   + -- PIC 9(04).Numero scatti di stipendio maturati dal dipendente all'interno della qualifica di appartenenza.
 	[dbo].[GetStringFormatted_r](POSSTIP,6)  + -- PIC X(06).Posizione stipendiale (solo per il personale della scuola).
-	-- TABVOCIECONOMICHE OCCURS 25. ‚ó¶Significato: Tabella contenente i dati relativi alle voci economiche che compongono il cedolino; comprendono:
-	-- competenze erogate (voci del trattamento economico fondamentale; indennit√†; compensi accessori);
+	-- TABVOCIECONOMICHE OCCURS 25. ?Significato: Tabella contenente i dati relativi alle voci economiche che compongono il cedolino; comprendono:
+	-- competenze erogate (voci del trattamento economico fondamentale; indennit‡; compensi accessori);
 	-- ritenute varie (riscatti, fitti, conguaglio fiscale, etc..); ad eccezione delle ritenute sindacali, previdenziali, assistenziali ed erariali che vengono comunicate in altri campi descritti nel seguito.
 
 	-- La tabella contiene al massimo 25 elementi. Nel caso di superamento di tale limite si deve predisporre un ulteriore record per il dipendente. 
-	-- Ogni elemento della tabella √® costituito dai sottocampi che seguono.
-	--[dbo].[GetStringFormatted_r](TABVOCIMENSCOMPET,6) + -- PIC X(6). Mensilit√† di competenza della voce economica (Anno/mese). Se non valorizzata, si intende uguale alla mensilit√† di liquidazione.
+	-- Ogni elemento della tabella Ë costituito dai sottocampi che seguono.
+	--[dbo].[GetStringFormatted_r](TABVOCIMENSCOMPET,6) + -- PIC X(6). Mensilit‡ di competenza della voce economica (Anno/mese). Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione.
 	--				   -- N.B. La mensilita' di competenza diversa da quella di liquidazione e' da utilizzare solo in casi particolari per evidenziare una cifra importante (es. stipendio) che viene pagata per intero con mesi di ritardo. I normali arretrati, anche di anni precedenti, vanno dichiarati come per il passato nel mese in cui vengono pagati, nel campo arretrati corrispondente. 
-	--[dbo].[GetStringFormatted_r](TABVOCIECOCOD,4) +-- PIC X(4). Codice della voce economica. (VOCI DI SPESA PER COMPETENZE FISSE; INDENNIT√Ä; VOCI DI SPESA PER COMPETENZE ACCESSORIE).
-	--			   -- Diverso da spazi se uno degli importi relativi √® diverso da zero.
+	--[dbo].[GetStringFormatted_r](TABVOCIECOCOD,4) +-- PIC X(4). Codice della voce economica. (VOCI DI SPESA PER COMPETENZE FISSE; INDENNIT¿; VOCI DI SPESA PER COMPETENZE ACCESSORIE).
+	--			   -- Diverso da spazi se uno degli importi relativi Ë diverso da zero.
+	--[dbo].[GetStringFormatted_r](TABVOCIECOIMPBASE,10) +-- PIC +999999.99. Importo della voce economica. Per le competenze va riportata la sola voce base.
+	--[dbo].[GetStringFormatted_r](TABVOCIECOARRCORR,10) +-- PIC +999999.99. Importo degli arretrati della voce economica relativi allíanno corrente. Da impostare solo per le competenze.
+	--[dbo].[GetStringFormatted_r](TABVOCIECOARRPREC,10) +-- PIC +999999.99. Importo degli arretrati della voce economica relativi ad anni precedenti. Da impostare solo per le competenze.
 	 #tot_anagrafiche.stringacompensi +
-	--[dbo].[GetStringFormatted_r](TABVOCIECOIMPBASE,1) +-- PIC +999999.99. Importo della voce economica. Per le competenze va riportata la sola voce base.
-	--[dbo].[GetStringFormatted_r](TABVOCIECOARRCORR,1) +-- PIC +999999.99. Importo degli arretrati della voce economica relativi all‚Äôanno corrente. Da impostare solo per le competenze.
-	--[dbo].[GetStringFormatted_r](TABVOCIECOARRPREC,1) +-- PIC +999999.99. Importo degli arretrati della voce economica relativi ad anni precedenti. Da impostare solo per le competenze.
 	
 	--[dbo].[GetStringFormatted_r](IRPEFCORRENTE,10)	  +-- PIC +999999.99. Ritenuta fiscale effettuata sulle competenze base.
 	--[dbo].[GetStringFormatted_r](IRPEFARRCORR,10)	  +-- PIC +999999.99. Ritenuta fiscale effettuata sugli arretrati relativi all'anno corrente.
@@ -1895,30 +1917,30 @@ SELECT
 	-- Tabella contenente i dati relativi alle ritenute sindacali.
 	-- La tabella contiene al massimo 3 elementi costituiti ciascuno dai sottocampi che seguono.
 
-	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit√† di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. 
-	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dell‚Äôorganizzazione sindacale.
+	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit‡ di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. 
+	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dellíorganizzazione sindacale.
 					 -- Diverso da spazi se il relativo importo risulta diverso da zero.
-	'+' +  [dbo].GetDecimal_19_2(0,9) +  + -- PIC +999999.99.Importo versato all‚Äôorganizzazione sindacale.
+	'+' +  [dbo].GetDecimal_19_2(0,9) +  + -- PIC +999999.99.Importo versato allíorganizzazione sindacale.
 	
-	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit√† di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. 
-	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dell‚Äôorganizzazione sindacale.
+	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit‡ di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. 
+	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dellíorganizzazione sindacale.
 					 -- Diverso da spazi se il relativo importo risulta diverso da zero.
-	'+' +  [dbo].GetDecimal_19_2(0,9) +  -- PIC +999999.99.Importo versato all‚Äôorganizzazione sindacale.
+	'+' +  [dbo].GetDecimal_19_2(0,9) +  -- PIC +999999.99.Importo versato allíorganizzazione sindacale.
 
 
-	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit√† di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. 
-	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dell‚Äôorganizzazione sindacale.
+	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit‡ di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. 
+	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dellíorganizzazione sindacale.
 					 -- Diverso da spazi se il relativo importo risulta diverso da zero.
-	'+' +  [dbo].GetDecimal_19_2(0,9) + -- PIC +999999.99.Importo versato all‚Äôorganizzazione sindacale.
+	'+' +  [dbo].GetDecimal_19_2(0,9) + -- PIC +999999.99.Importo versato allíorganizzazione sindacale.
 
 
 	--TABTRATTRAP, -- OCCURS 15. 
 	--Tabella contenente i dati relativi alle contribuzioni previdenziali e assistenziali. 
 	--La tabella contiene al massimo 15 elementi. Nel caso di superamento di tale limite si deve predisporre un ulteriore record per il dipendente. 
-	--Ogni elemento √® costituito dai sottocampi che seguono.
-	--[dbo].[GetStringFormatted_r](TABTRATTRAPMENSCOMPET,6) + -- PIC X(6). --Mensilit√† di competenza (Anno/mese) della voce. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. Se valorizzato solo l‚Äôanno, come mensilit√† si intende dicembre. L‚Äôanno di competenza pu√≤ assumere valori minori dell‚Äôanno di liquidazione solo per contribuzioni relative a Fondo pensioni, Opera di Previdenza e Fondo Credito; in tali casi, le contribuzioni relative ad anni anteriori al 1996 dovranno essere comunicate con anno di competenza uguale a 1995. Per tutti gli altri tipi di contribuzione previdenziale e assistenziale l‚Äôanno di competenza √® sempre uguale all‚Äôanno di liquidazione.
+	--Ogni elemento Ë costituito dai sottocampi che seguono.
+	--[dbo].[GetStringFormatted_r](TABTRATTRAPMENSCOMPET,6) + -- PIC X(6). --Mensilit‡ di competenza (Anno/mese) della voce. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. Se valorizzato solo líanno, come mensilit‡ si intende dicembre. Líanno di competenza puÚ assumere valori minori dellíanno di liquidazione solo per contribuzioni relative a Fondo pensioni, Opera di Previdenza e Fondo Credito; in tali casi, le contribuzioni relative ad anni anteriori al 1996 dovranno essere comunicate con anno di competenza uguale a 1995. Per tutti gli altri tipi di contribuzione previdenziale e assistenziale líanno di competenza Ë sempre uguale allíanno di liquidazione.
 	--[dbo].[GetStringFormatted_r](TABTRATTRAPCOD,3) + -- PIC X(3).Codice del contributo previdenziale/assistenziale .
-	-- Diverso da spazi se il relativo importo √® diverso da zero.
+	-- Diverso da spazi se il relativo importo Ë diverso da zero.
 	--[dbo].[GetStringFormatted_r](TABTRATTRAPIMP,1) +-- PIC +999999.99. Imponibile del contributo previdenziale/assistenziale.
 	--[dbo].[GetStringFormatted_r](TABTRATTRAPDIP,1) +-- PIC +999999.99. Importo delle trattenute a carico del dipendente.
 	--[dbo].[GetStringFormatted_r](TABTRATTRAPAMM,1) +-- PIC +999999.99. Importo dei contributi a carico dell'amministrazione.
@@ -1932,10 +1954,10 @@ SELECT
 		 THEN [dbo].[GetStringFormatted_r](0,1)  --- E' L'ULTIMO RECORD PER QUELL'ANAGRAFICA
 	     ELSE [dbo].[GetStringFormatted_r](1,1)  --  SEGUONO ULTERIORI RECORD 
 	END 
-	+-- PIC X. Indica se sono presenti pi√π record per lo stesso dipendente
-			-- Valori ammessi: '0' = il record √® unico, oppure √® l‚Äôultimo record nel caso di pi√π record per il dipendente;
+	+-- PIC X. Indica se sono presenti pi˘ record per lo stesso dipendente
+			-- Valori ammessi: '0' = il record Ë unico, oppure Ë líultimo record nel caso di pi˘ record per il dipendente;
 			-- '1' = sono presenti ulteriori successivi record per il dipendente.
-			-- Nel caso di pi√π record per il dipendente, per superamento del limite previsto per le occorrenze della tabella TAB-VOCI-ECONOMICHE e/o della tabella TAB-TRATT-RAP, in ciascun record successivo al primo vanno sempre impostati i seguenti campi:
+			-- Nel caso di pi˘ record per il dipendente, per superamento del limite previsto per le occorrenze della tabella TAB-VOCI-ECONOMICHE e/o della tabella TAB-TRATT-RAP, in ciascun record successivo al primo vanno sempre impostati i seguenti campi:
 			-- - TIPO-REC
 			-- - CODFISC-DIP
 			-- - COD-COMP
@@ -1982,7 +2004,7 @@ INSERT INTO #tracciato
 SELECT
     TIPOREC,
 	[dbo].[GetStringFormatted_r](TIPOREC,1)			+ --   PIC X.Indicatore del tipo record. Valori ammessi: '3' = record di dettaglio.
-	[dbo].[GetStringFormatted_r](SEZIONE,1)			+ --   PIC X.Il valore ammesso √® ‚ÄòE‚Äô (anagrafico-giuridica).
+	[dbo].[GetStringFormatted_r](SEZIONE,1)			+ --   PIC X.Il valore ammesso Ë ëEí (anagrafico-giuridica).
 	[dbo].[GetStringFormatted_r](CODISTITENTE,11)	+ --   PIC X(11).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
 	[dbo].[GetInt](CODUNIORG,10)					+ --   9(10).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
 	[dbo].[GetStringFormatted_r](YEAR(INIPERRIF),4) + [dbo].[Getint](MONTH(INIPERRIF),2) + 	--   9(06).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
@@ -2003,9 +2025,9 @@ SELECT
 		THEN [dbo].[GetStringFormatted_r](CODPOSECON,2)   --   PIC X(02).
 		ELSE [dbo].[GetStringFormatted_r](SUBSTRING(#tot_anagrafiche.codedaliaposition,5,2),2)
 	END +
-	[dbo].[GetStringFormatted_r](STPCAP,2) +  --   PIC X(02). Numero dello stato di previsione dell‚Äôamministrazione nella Legge 
-			-- di bilancio dello Stato per l‚Äôesercizio finanziario.Valori ammessi: spazi.
-	[dbo].[GetStringFormatted_r](APPCAP,1) +  --    PIC X(01).Appendice dello stato di previsione dell‚Äôamministrazione nella Legge di bilancio dello Stato per l‚Äôesercizio finanziario.
+	[dbo].[GetStringFormatted_r](STPCAP,2) +  --   PIC X(02). Numero dello stato di previsione dellíamministrazione nella Legge 
+			-- di bilancio dello Stato per líesercizio finanziario.Valori ammessi: spazi.
+	[dbo].[GetStringFormatted_r](APPCAP,1) +  --    PIC X(01).Appendice dello stato di previsione dellíamministrazione nella Legge di bilancio dello Stato per líesercizio finanziario.
 			-- Valori ammessi: spazio.
 	[dbo].[GetStringFormatted_r](NUMCAP,4) +  --   PIC X(04).
 				
@@ -2014,34 +2036,34 @@ SELECT
 	-- OSSE = MIUR - finanziamento ordinario Osservatori;
 	-- OSPE = Ospedaliere;
 	-- ENTI = finanziamento da altri enti pubblici o privati;
-	-- RICF - Ricerca finanziata (Montalcini, PRIN, FIRB, ‚ÄúFuturo e Ricerca‚Äù , ERC-VII PQ, SIR);
+	-- RICF - Ricerca finanziata (Montalcini, PRIN, FIRB, ìFuturo e Ricercaî , ERC-VII PQ, SIR);
 	-- FUAT - Fondo unico d'ateneo (Nota MIUR Prot. 8312 del 05/04/2013);
 	-- spazi = negli altri casi. 
 	-- N.B. Se il dipendente ha ricevuto nel periodo emolumenti riferibili a valori diversi di questo campo, devono essere prodotti records diversi. 
 
 	[dbo].[GetStringFormatted_r](TIPOPAG,1) +  --    PIC X.
-		-- Significato: Indicatore delle modalit√† di emissione della spesa per il pagamento delle competenze.
-		-- Valori ammessi: ‚ÄòM‚Äô = mandato;
-		-- ‚ÄòR‚Äô = ruolo di spesa fissa;
-		-- ‚ÄòO‚Äô= ordine di accreditamento;
-		-- ‚ÄòS‚Äô = contabilit√† speciale.
+		-- Significato: Indicatore delle modalit‡ di emissione della spesa per il pagamento delle competenze.
+		-- Valori ammessi: ëMí = mandato;
+		-- ëRí = ruolo di spesa fissa;
+		-- ëOí= ordine di accreditamento;
+		-- ëSí = contabilit‡ speciale.
 	[dbo].[GetStringFormatted_r](PROVSERV,2) + -- PIC X(02). Sigla della provincia di servizio del dipendente.
 	[dbo].[GetInt](CLASSE,4)   + -- PIC 9(04).Numero classi di stipendio maturate dal dipendente all'interno della qualifica di appartenenza.
 	[dbo].[GetInt](SCATTI,4)   + -- PIC 9(04).Numero scatti di stipendio maturati dal dipendente all'interno della qualifica di appartenenza.
 	[dbo].[GetStringFormatted_r](POSSTIP,6)  + -- PIC X(06).Posizione stipendiale (solo per il personale della scuola).
-	-- TABVOCIECONOMICHE OCCURS 25. ‚ó¶Significato: Tabella contenente i dati relativi alle voci economiche che compongono il cedolino; comprendono:
-	-- competenze erogate (voci del trattamento economico fondamentale; indennit√†; compensi accessori);
+	-- TABVOCIECONOMICHE OCCURS 25. ?Significato: Tabella contenente i dati relativi alle voci economiche che compongono il cedolino; comprendono:
+	-- competenze erogate (voci del trattamento economico fondamentale; indennit‡; compensi accessori);
 	-- ritenute varie (riscatti, fitti, conguaglio fiscale, etc..); ad eccezione delle ritenute sindacali, previdenziali, assistenziali ed erariali che vengono comunicate in altri campi descritti nel seguito.
 
 	-- La tabella contiene al massimo 25 elementi. Nel caso di superamento di tale limite si deve predisporre un ulteriore record per il dipendente. 
-	-- Ogni elemento della tabella √® costituito dai sottocampi che seguono.
-	--[dbo].[GetStringFormatted_r](TABVOCIMENSCOMPET,6) + -- PIC X(6). Mensilit√† di competenza della voce economica (Anno/mese). Se non valorizzata, si intende uguale alla mensilit√† di liquidazione.
+	-- Ogni elemento della tabella Ë costituito dai sottocampi che seguono.
+	--[dbo].[GetStringFormatted_r](TABVOCIMENSCOMPET,6) + -- PIC X(6). Mensilit‡ di competenza della voce economica (Anno/mese). Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione.
 	--				   -- N.B. La mensilita' di competenza diversa da quella di liquidazione e' da utilizzare solo in casi particolari per evidenziare una cifra importante (es. stipendio) che viene pagata per intero con mesi di ritardo. I normali arretrati, anche di anni precedenti, vanno dichiarati come per il passato nel mese in cui vengono pagati, nel campo arretrati corrispondente. 
-	--[dbo].[GetStringFormatted_r](TABVOCIECOCOD,4) +-- PIC X(4). Codice della voce economica. (VOCI DI SPESA PER COMPETENZE FISSE; INDENNIT√Ä; VOCI DI SPESA PER COMPETENZE ACCESSORIE).
-	--			   -- Diverso da spazi se uno degli importi relativi √® diverso da zero.
+	--[dbo].[GetStringFormatted_r](TABVOCIECOCOD,4) +-- PIC X(4). Codice della voce economica. (VOCI DI SPESA PER COMPETENZE FISSE; INDENNIT¿; VOCI DI SPESA PER COMPETENZE ACCESSORIE).
+	--			   -- Diverso da spazi se uno degli importi relativi Ë diverso da zero.
 	#tot_anagrafiche.stringacompensi_2_tranche +
 	--[dbo].[GetStringFormatted_r](TABVOCIECOIMPBASE,1) +-- PIC +999999.99. Importo della voce economica. Per le competenze va riportata la sola voce base.
-	--[dbo].[GetStringFormatted_r](TABVOCIECOARRCORR,1) +-- PIC +999999.99. Importo degli arretrati della voce economica relativi all‚Äôanno corrente. Da impostare solo per le competenze.
+	--[dbo].[GetStringFormatted_r](TABVOCIECOARRCORR,1) +-- PIC +999999.99. Importo degli arretrati della voce economica relativi allíanno corrente. Da impostare solo per le competenze.
 	--[dbo].[GetStringFormatted_r](TABVOCIECOARRPREC,1) +-- PIC +999999.99. Importo degli arretrati della voce economica relativi ad anni precedenti. Da impostare solo per le competenze.
 	
 	--[dbo].[GetStringFormatted_r](IRPEFCORRENTE,10)	  +-- PIC +999999.99. Ritenuta fiscale effettuata sulle competenze base.
@@ -2052,30 +2074,30 @@ SELECT
 	-- Tabella contenente i dati relativi alle ritenute sindacali.
 	-- La tabella contiene al massimo 3 elementi costituiti ciascuno dai sottocampi che seguono.
 
-	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit√† di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. 
-	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dell‚Äôorganizzazione sindacale.
+	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit‡ di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. 
+	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dellíorganizzazione sindacale.
 					 -- Diverso da spazi se il relativo importo risulta diverso da zero.
-	'+' +  [dbo].GetDecimal_19_2(0,9) +  + -- PIC +999999.99.Importo versato all‚Äôorganizzazione sindacale.
+	'+' +  [dbo].GetDecimal_19_2(0,9) +  + -- PIC +999999.99.Importo versato allíorganizzazione sindacale.
 	
-	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit√† di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. 
-	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dell‚Äôorganizzazione sindacale.
+	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit‡ di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. 
+	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dellíorganizzazione sindacale.
 					 -- Diverso da spazi se il relativo importo risulta diverso da zero.
-	'+' +  [dbo].GetDecimal_19_2(0,9) +  -- PIC +999999.99.Importo versato all‚Äôorganizzazione sindacale.
+	'+' +  [dbo].GetDecimal_19_2(0,9) +  -- PIC +999999.99.Importo versato allíorganizzazione sindacale.
 
 
-	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit√† di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. 
-	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dell‚Äôorganizzazione sindacale.
+	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit‡ di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. 
+	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dellíorganizzazione sindacale.
 					 -- Diverso da spazi se il relativo importo risulta diverso da zero.
-	'+' +  [dbo].GetDecimal_19_2(0,9) + -- PIC +999999.99.Importo versato all‚Äôorganizzazione sindacale.
+	'+' +  [dbo].GetDecimal_19_2(0,9) + -- PIC +999999.99.Importo versato allíorganizzazione sindacale.
 
 
 	--TABTRATTRAP, -- OCCURS 15. 
 	--Tabella contenente i dati relativi alle contribuzioni previdenziali e assistenziali. 
 	--La tabella contiene al massimo 15 elementi. Nel caso di superamento di tale limite si deve predisporre un ulteriore record per il dipendente. 
-	--Ogni elemento √® costituito dai sottocampi che seguono.
-	--[dbo].[GetStringFormatted_r](TABTRATTRAPMENSCOMPET,6) + -- PIC X(6). --Mensilit√† di competenza (Anno/mese) della voce. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. Se valorizzato solo l‚Äôanno, come mensilit√† si intende dicembre. L‚Äôanno di competenza pu√≤ assumere valori minori dell‚Äôanno di liquidazione solo per contribuzioni relative a Fondo pensioni, Opera di Previdenza e Fondo Credito; in tali casi, le contribuzioni relative ad anni anteriori al 1996 dovranno essere comunicate con anno di competenza uguale a 1995. Per tutti gli altri tipi di contribuzione previdenziale e assistenziale l‚Äôanno di competenza √® sempre uguale all‚Äôanno di liquidazione.
+	--Ogni elemento Ë costituito dai sottocampi che seguono.
+	--[dbo].[GetStringFormatted_r](TABTRATTRAPMENSCOMPET,6) + -- PIC X(6). --Mensilit‡ di competenza (Anno/mese) della voce. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. Se valorizzato solo líanno, come mensilit‡ si intende dicembre. Líanno di competenza puÚ assumere valori minori dellíanno di liquidazione solo per contribuzioni relative a Fondo pensioni, Opera di Previdenza e Fondo Credito; in tali casi, le contribuzioni relative ad anni anteriori al 1996 dovranno essere comunicate con anno di competenza uguale a 1995. Per tutti gli altri tipi di contribuzione previdenziale e assistenziale líanno di competenza Ë sempre uguale allíanno di liquidazione.
 	--[dbo].[GetStringFormatted_r](TABTRATTRAPCOD,3) + -- PIC X(3).Codice del contributo previdenziale/assistenziale .
-	-- Diverso da spazi se il relativo importo √® diverso da zero.
+	-- Diverso da spazi se il relativo importo Ë diverso da zero.
 	--[dbo].[GetStringFormatted_r](TABTRATTRAPIMP,1) +-- PIC +999999.99. Imponibile del contributo previdenziale/assistenziale.
 	--[dbo].[GetStringFormatted_r](TABTRATTRAPDIP,1) +-- PIC +999999.99. Importo delle trattenute a carico del dipendente.
 	--[dbo].[GetStringFormatted_r](TABTRATTRAPAMM,1) +-- PIC +999999.99. Importo dei contributi a carico dell'amministrazione.
@@ -2089,10 +2111,10 @@ SELECT
 		 THEN [dbo].[GetStringFormatted_r](0,1)  --- E' L'ULTIMO RECORD PER QUELL'ANAGRAFICA
 	     ELSE [dbo].[GetStringFormatted_r](1,1)  --  SEGUONO ULTERIORI RECORD 
 	END 
-	 +-- PIC X. Indica se sono presenti pi√π record per lo stesso dipendente
-			-- Valori ammessi: '0' = il record √® unico, oppure √® l‚Äôultimo record nel caso di pi√π record per il dipendente;
+	 +-- PIC X. Indica se sono presenti pi˘ record per lo stesso dipendente
+			-- Valori ammessi: '0' = il record Ë unico, oppure Ë líultimo record nel caso di pi˘ record per il dipendente;
 			-- '1' = sono presenti ulteriori successivi record per il dipendente.
-			-- Nel caso di pi√π record per il dipendente, per superamento del limite previsto per le occorrenze della tabella TAB-VOCI-ECONOMICHE e/o della tabella TAB-TRATT-RAP, in ciascun record successivo al primo vanno sempre impostati i seguenti campi:
+			-- Nel caso di pi˘ record per il dipendente, per superamento del limite previsto per le occorrenze della tabella TAB-VOCI-ECONOMICHE e/o della tabella TAB-TRATT-RAP, in ciascun record successivo al primo vanno sempre impostati i seguenti campi:
 			-- - TIPO-REC
 			-- - CODFISC-DIP
 			-- - COD-COMP
@@ -2113,7 +2135,7 @@ AND SUBSTRING(#tot_anagrafiche.codedaliaposition,1,1) =	#Record3.CODRUOLO		 --	 
 AND SUBSTRING(#tot_anagrafiche.codedaliaposition,2,3) = #Record3.CODPROFILO		 --   PIC X(03).
 AND SUBSTRING(#tot_anagrafiche.codedaliaposition,5,2) =	#Record3.CODPOSECON		 --   PIC X(02).
 JOIN registry R ON #tot_anagrafiche.idreg = R.idreg
-WHERE   #tot_anagrafiche.record_aggiuntivi = 1
+WHERE   #tot_anagrafiche.record_aggiuntivi >= 1
 
 -----------------------------------------------------------------------------------------------------------------
 ------------------------- SCRITTURA DEL SECONDO RECORD AGGIUNTVO SE NECESSARIO ---------------------------------- 
@@ -2127,7 +2149,7 @@ INSERT INTO #tracciato
 SELECT
     TIPOREC,
 	[dbo].[GetStringFormatted_r](TIPOREC,1)			+ --   PIC X.Indicatore del tipo record. Valori ammessi: '3' = record di dettaglio.
-	[dbo].[GetStringFormatted_r](SEZIONE,1)			+ --   PIC X.Il valore ammesso √® ‚ÄòE‚Äô (anagrafico-giuridica).
+	[dbo].[GetStringFormatted_r](SEZIONE,1)			+ --   PIC X.Il valore ammesso Ë ëEí (anagrafico-giuridica).
 	[dbo].[GetStringFormatted_r](CODISTITENTE,11)	+ --   PIC X(11).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
 	[dbo].[GetInt](CODUNIORG,10)					+ --   9(10).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
 	[dbo].[GetStringFormatted_r](YEAR(INIPERRIF),4) + [dbo].[Getint](MONTH(INIPERRIF),2) + 	--   9(06).cfr. "RECORD DI ISTITUZIONE/ENTE/SEZIONE" , paragrafo 3.1.4.
@@ -2148,9 +2170,9 @@ SELECT
 		THEN [dbo].[GetStringFormatted_r](CODPOSECON,2)   --   PIC X(02).
 		ELSE [dbo].[GetStringFormatted_r](SUBSTRING(#tot_anagrafiche.codedaliaposition,5,2),2)
 	END +
-	[dbo].[GetStringFormatted_r](STPCAP,2) +  --   PIC X(02). Numero dello stato di previsione dell‚Äôamministrazione nella Legge 
-			-- di bilancio dello Stato per l‚Äôesercizio finanziario.Valori ammessi: spazi.
-	[dbo].[GetStringFormatted_r](APPCAP,1) +  --    PIC X(01).Appendice dello stato di previsione dell‚Äôamministrazione nella Legge di bilancio dello Stato per l‚Äôesercizio finanziario.
+	[dbo].[GetStringFormatted_r](STPCAP,2) +  --   PIC X(02). Numero dello stato di previsione dellíamministrazione nella Legge 
+			-- di bilancio dello Stato per líesercizio finanziario.Valori ammessi: spazi.
+	[dbo].[GetStringFormatted_r](APPCAP,1) +  --    PIC X(01).Appendice dello stato di previsione dellíamministrazione nella Legge di bilancio dello Stato per líesercizio finanziario.
 			-- Valori ammessi: spazio.
 	[dbo].[GetStringFormatted_r](NUMCAP,4) +  --   PIC X(04).
 				
@@ -2159,68 +2181,68 @@ SELECT
 	-- OSSE = MIUR - finanziamento ordinario Osservatori;
 	-- OSPE = Ospedaliere;
 	-- ENTI = finanziamento da altri enti pubblici o privati;
-	-- RICF - Ricerca finanziata (Montalcini, PRIN, FIRB, ‚ÄúFuturo e Ricerca‚Äù , ERC-VII PQ, SIR);
+	-- RICF - Ricerca finanziata (Montalcini, PRIN, FIRB, ìFuturo e Ricercaî , ERC-VII PQ, SIR);
 	-- FUAT - Fondo unico d'ateneo (Nota MIUR Prot. 8312 del 05/04/2013);
 	-- spazi = negli altri casi. 
 	-- N.B. Se il dipendente ha ricevuto nel periodo emolumenti riferibili a valori diversi di questo campo, devono essere prodotti records diversi. 
 
 	[dbo].[GetStringFormatted_r](TIPOPAG,1) +  --    PIC X.
-		-- Significato: Indicatore delle modalit√† di emissione della spesa per il pagamento delle competenze.
-		-- Valori ammessi: ‚ÄòM‚Äô = mandato;
-		-- ‚ÄòR‚Äô = ruolo di spesa fissa;
-		-- ‚ÄòO‚Äô= ordine di accreditamento;
-		-- ‚ÄòS‚Äô = contabilit√† speciale.
+		-- Significato: Indicatore delle modalit‡ di emissione della spesa per il pagamento delle competenze.
+		-- Valori ammessi: ëMí = mandato;
+		-- ëRí = ruolo di spesa fissa;
+		-- ëOí= ordine di accreditamento;
+		-- ëSí = contabilit‡ speciale.
 	[dbo].[GetStringFormatted_r](PROVSERV,2) + -- PIC X(02). Sigla della provincia di servizio del dipendente.
 	[dbo].[GetInt](CLASSE,4)   + -- PIC 9(04).Numero classi di stipendio maturate dal dipendente all'interno della qualifica di appartenenza.
 	[dbo].[GetInt](SCATTI,4)   + -- PIC 9(04).Numero scatti di stipendio maturati dal dipendente all'interno della qualifica di appartenenza.
 	[dbo].[GetStringFormatted_r](POSSTIP,6)  + -- PIC X(06).Posizione stipendiale (solo per il personale della scuola).
-	-- TABVOCIECONOMICHE OCCURS 25. ‚ó¶Significato: Tabella contenente i dati relativi alle voci economiche che compongono il cedolino; comprendono:
-	-- competenze erogate (voci del trattamento economico fondamentale; indennit√†; compensi accessori);
+	-- TABVOCIECONOMICHE OCCURS 25. ?Significato: Tabella contenente i dati relativi alle voci economiche che compongono il cedolino; comprendono:
+	-- competenze erogate (voci del trattamento economico fondamentale; indennit‡; compensi accessori);
 	-- ritenute varie (riscatti, fitti, conguaglio fiscale, etc..); ad eccezione delle ritenute sindacali, previdenziali, assistenziali ed erariali che vengono comunicate in altri campi descritti nel seguito.
 
 	-- La tabella contiene al massimo 25 elementi. Nel caso di superamento di tale limite si deve predisporre un ulteriore record per il dipendente. 
-	-- Ogni elemento della tabella √® costituito dai sottocampi che seguono.
-	--[dbo].[GetStringFormatted_r](TABVOCIMENSCOMPET,6) + -- PIC X(6). Mensilit√† di competenza della voce economica (Anno/mese). Se non valorizzata, si intende uguale alla mensilit√† di liquidazione.
+	-- Ogni elemento della tabella Ë costituito dai sottocampi che seguono.
+	--[dbo].[GetStringFormatted_r](TABVOCIMENSCOMPET,6) + -- PIC X(6). Mensilit‡ di competenza della voce economica (Anno/mese). Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione.
 	--				   -- N.B. La mensilita' di competenza diversa da quella di liquidazione e' da utilizzare solo in casi particolari per evidenziare una cifra importante (es. stipendio) che viene pagata per intero con mesi di ritardo. I normali arretrati, anche di anni precedenti, vanno dichiarati come per il passato nel mese in cui vengono pagati, nel campo arretrati corrispondente. 
-	--[dbo].[GetStringFormatted_r](TABVOCIECOCOD,4) +-- PIC X(4). Codice della voce economica. (VOCI DI SPESA PER COMPETENZE FISSE; INDENNIT√Ä; VOCI DI SPESA PER COMPETENZE ACCESSORIE).
-	--			   -- Diverso da spazi se uno degli importi relativi √® diverso da zero.
-	[dbo].[GetStringFormatted_r](#tot_anagrafiche.stringacompensi_3_tranche,1000) +
+	--[dbo].[GetStringFormatted_r](TABVOCIECOCOD,4) +-- PIC X(4). Codice della voce economica. (VOCI DI SPESA PER COMPETENZE FISSE; INDENNIT¿; VOCI DI SPESA PER COMPETENZE ACCESSORIE).
+	--			   -- Diverso da spazi se uno degli importi relativi Ë diverso da zero.
+	 #tot_anagrafiche.stringacompensi_3_tranche +
 	--[dbo].[GetStringFormatted_r](TABVOCIECOIMPBASE,1) +-- PIC +999999.99. Importo della voce economica. Per le competenze va riportata la sola voce base.
-	--[dbo].[GetStringFormatted_r](TABVOCIECOARRCORR,1) +-- PIC +999999.99. Importo degli arretrati della voce economica relativi all‚Äôanno corrente. Da impostare solo per le competenze.
+	--[dbo].[GetStringFormatted_r](TABVOCIECOARRCORR,1) +-- PIC +999999.99. Importo degli arretrati della voce economica relativi allíanno corrente. Da impostare solo per le competenze.
 	--[dbo].[GetStringFormatted_r](TABVOCIECOARRPREC,1) +-- PIC +999999.99. Importo degli arretrati della voce economica relativi ad anni precedenti. Da impostare solo per le competenze.
 	
 	--[dbo].[GetStringFormatted_r](IRPEFCORRENTE,10)	  +-- PIC +999999.99. Ritenuta fiscale effettuata sulle competenze base.
 	--[dbo].[GetStringFormatted_r](IRPEFARRCORR,10)	  +-- PIC +999999.99. Ritenuta fiscale effettuata sugli arretrati relativi all'anno corrente.
 	--[dbo].[GetStringFormatted_r](IRPEFARRPREC,10)	  +-- PIC +999999.99. Ritenuta fiscale effettuata sugli arretrati relativi ad anni precedenti.
-	[dbo].[GetStringFormatted_r](#tot_anagrafiche.stringaritenutefiscali_tranche_successive,30)	  +
+	#tot_anagrafiche.stringaritenutefiscali_tranche_successive	  +
 	--TABSINDACATO, -- OCCURS 3.
 	-- Tabella contenente i dati relativi alle ritenute sindacali.
 	-- La tabella contiene al massimo 3 elementi costituiti ciascuno dai sottocampi che seguono.
 
-	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit√† di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. 
-	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dell‚Äôorganizzazione sindacale.
+	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit‡ di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. 
+	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dellíorganizzazione sindacale.
 					 -- Diverso da spazi se il relativo importo risulta diverso da zero.
-	'+' +  [dbo].GetDecimal_19_2(0,9) +  + -- PIC +999999.99.Importo versato all‚Äôorganizzazione sindacale.
+	'+' +  [dbo].GetDecimal_19_2(0,9) +  + -- PIC +999999.99.Importo versato allíorganizzazione sindacale.
 	
-	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit√† di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. 
-	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dell‚Äôorganizzazione sindacale.
+	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit‡ di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. 
+	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dellíorganizzazione sindacale.
 					 -- Diverso da spazi se il relativo importo risulta diverso da zero.
-	'+' +  [dbo].GetDecimal_19_2(0,9) +  -- PIC +999999.99.Importo versato all‚Äôorganizzazione sindacale.
+	'+' +  [dbo].GetDecimal_19_2(0,9) +  -- PIC +999999.99.Importo versato allíorganizzazione sindacale.
 
 
-	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit√† di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. 
-	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dell‚Äôorganizzazione sindacale.
+	[dbo].[GetStringFormatted_r](TABSINDACATOMENSCOMPET,6) +-- PIC X(6). Mensilit‡ di competenza della voce sindacale. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. 
+	[dbo].[GetStringFormatted_r](TABSINDACATOCOD,11) +-- PIC X(11). Codice fiscale dellíorganizzazione sindacale.
 					 -- Diverso da spazi se il relativo importo risulta diverso da zero.
-	'+' +  [dbo].GetDecimal_19_2(0,9) + -- PIC +999999.99.Importo versato all‚Äôorganizzazione sindacale.
+	'+' +  [dbo].GetDecimal_19_2(0,9) + -- PIC +999999.99.Importo versato allíorganizzazione sindacale.
 
 
 	--TABTRATTRAP, -- OCCURS 15. 
 	--Tabella contenente i dati relativi alle contribuzioni previdenziali e assistenziali. 
 	--La tabella contiene al massimo 15 elementi. Nel caso di superamento di tale limite si deve predisporre un ulteriore record per il dipendente. 
-	--Ogni elemento √® costituito dai sottocampi che seguono.
-	--[dbo].[GetStringFormatted_r](TABTRATTRAPMENSCOMPET,6) + -- PIC X(6). --Mensilit√† di competenza (Anno/mese) della voce. Se non valorizzata, si intende uguale alla mensilit√† di liquidazione. Se valorizzato solo l‚Äôanno, come mensilit√† si intende dicembre. L‚Äôanno di competenza pu√≤ assumere valori minori dell‚Äôanno di liquidazione solo per contribuzioni relative a Fondo pensioni, Opera di Previdenza e Fondo Credito; in tali casi, le contribuzioni relative ad anni anteriori al 1996 dovranno essere comunicate con anno di competenza uguale a 1995. Per tutti gli altri tipi di contribuzione previdenziale e assistenziale l‚Äôanno di competenza √® sempre uguale all‚Äôanno di liquidazione.
+	--Ogni elemento Ë costituito dai sottocampi che seguono.
+	--[dbo].[GetStringFormatted_r](TABTRATTRAPMENSCOMPET,6) + -- PIC X(6). --Mensilit‡ di competenza (Anno/mese) della voce. Se non valorizzata, si intende uguale alla mensilit‡ di liquidazione. Se valorizzato solo líanno, come mensilit‡ si intende dicembre. Líanno di competenza puÚ assumere valori minori dellíanno di liquidazione solo per contribuzioni relative a Fondo pensioni, Opera di Previdenza e Fondo Credito; in tali casi, le contribuzioni relative ad anni anteriori al 1996 dovranno essere comunicate con anno di competenza uguale a 1995. Per tutti gli altri tipi di contribuzione previdenziale e assistenziale líanno di competenza Ë sempre uguale allíanno di liquidazione.
 	--[dbo].[GetStringFormatted_r](TABTRATTRAPCOD,3) + -- PIC X(3).Codice del contributo previdenziale/assistenziale .
-	-- Diverso da spazi se il relativo importo √® diverso da zero.
+	-- Diverso da spazi se il relativo importo Ë diverso da zero.
 	--[dbo].[GetStringFormatted_r](TABTRATTRAPIMP,1) +-- PIC +999999.99. Imponibile del contributo previdenziale/assistenziale.
 	--[dbo].[GetStringFormatted_r](TABTRATTRAPDIP,1) +-- PIC +999999.99. Importo delle trattenute a carico del dipendente.
 	--[dbo].[GetStringFormatted_r](TABTRATTRAPAMM,1) +-- PIC +999999.99. Importo dei contributi a carico dell'amministrazione.
@@ -2234,10 +2256,10 @@ SELECT
 		 THEN [dbo].[GetStringFormatted_r](0,1)  --- E' L'ULTIMO RECORD PER QUELL'ANAGRAFICA
 	     ELSE [dbo].[GetStringFormatted_r](1,1)  --  SEGUONO ULTERIORI RECORD MA NON DOVREBE VERIFICARSI
 	END 
-	+-- PIC X. Indica se sono presenti pi√π record per lo stesso dipendente
-			-- Valori ammessi: '0' = il record √® unico, oppure √® l‚Äôultimo record nel caso di pi√π record per il dipendente;
+	+-- PIC X. Indica se sono presenti pi˘ record per lo stesso dipendente
+			-- Valori ammessi: '0' = il record Ë unico, oppure Ë líultimo record nel caso di pi˘ record per il dipendente;
 			-- '1' = sono presenti ulteriori successivi record per il dipendente.
-			-- Nel caso di pi√π record per il dipendente, per superamento del limite previsto per le occorrenze della tabella TAB-VOCI-ECONOMICHE e/o della tabella TAB-TRATT-RAP, in ciascun record successivo al primo vanno sempre impostati i seguenti campi:
+			-- Nel caso di pi˘ record per il dipendente, per superamento del limite previsto per le occorrenze della tabella TAB-VOCI-ECONOMICHE e/o della tabella TAB-TRATT-RAP, in ciascun record successivo al primo vanno sempre impostati i seguenti campi:
 			-- - TIPO-REC
 			-- - CODFISC-DIP
 			-- - COD-COMP
@@ -2287,4 +2309,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

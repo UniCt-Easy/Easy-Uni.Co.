@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_unified_va3type]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_unified_va3type]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_unified_va3type]
 GO
 
@@ -53,9 +55,9 @@ AS BEGIN
 
 /*
 ivaregisterkind.flagactivity (valori)
-1 - attivit√† istituzionale
-2 - attivit√† commerciale
-3 - attivit√† promiscuo
+1 - attivit‡ istituzionale
+2 - attivit‡ commerciale
+3 - attivit‡ promiscuo
 */
 
 /*
@@ -88,14 +90,14 @@ while @@fetch_status=0 begin
 	
 	/*
 	@flagva3 = S >>> Tipo documento commerciale (associato a registro iva commerciale o promiscuo) avente
-					Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)  e  tipo imposizione  idivataxablekind diverso da  "5 Fuori Campo" e "6 Escluse art.15" 
+					Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)  e  tipo imposizione  idivataxablekind diverso da  "5 Fuori Campo" e "6 Escluse art.15" 
 	@flagva3=N >>> Non gestito
 	*/
 	
 	IF (@flagva3 = 'S')
 	BEGIN
 		SET @currCommDifferita = ''
-		-- Attivit√† Commerciale	
+		-- Attivit‡ Commerciale	
 		SET @currCommDifferita = 'SELECT  ' +  '''' + @iddbdepartment + '''' +  ',  va3type, ' + 
 		' CONVERT(DECIMAL(19,2), ' + 
 				' ISNULL(SUM(ROUND(IDT.taxable * IDT.npackage * ' +
@@ -134,14 +136,14 @@ while @@fetch_status=0 begin
 		'		and YEAR(PE1.competencydate)  = ' + CONVERT(VARCHAR(4),@year) +
 		' 		and ITK.idivataxablekind not in (5,6) '+
 		'		AND IRK.registerclass = ''A'' ' + 
-		'		AND IRK.flagactivity  = ''2'' ' +      --> 2 - attivit√† commerciale
-		'		AND ((ISNULL(IVK.flag,0)&6) <> 0) ' +	-->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)	
+		'		AND IRK.flagactivity  = ''2'' ' +      --> 2 - attivit‡ commerciale
+		'		AND ((ISNULL(IVK.flag,0)&6) <> 0) ' +	-->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)	
 		'		AND (datepart(month,IP.dateivapay)) >= '+ 	 CONVERT(VARCHAR(4),@startmonth) + 
 		'       AND (datepart(month,IP.dateivapay)) <= '+ 	 CONVERT(VARCHAR(4),@stopmonth) + 
 		' group by va3type '
 		--print @currCommDifferita
 		SET @currCommImmediata = ''
-		-- Attivit√† Commerciale	
+		-- Attivit‡ Commerciale	
 		SET @currCommImmediata = 'SELECT  ' +  '''' + @iddbdepartment + '''' +  ',  va3type, ' + 
 		' CONVERT(DECIMAL(19,2), ' + 
 				' ISNULL(SUM(ROUND(IDT.taxable * IDT.npackage * ' +
@@ -171,8 +173,8 @@ while @@fetch_status=0 begin
 		'		and YEAR(I.adate)  = ' + CONVERT(VARCHAR(4),@year) +
 		' 		and ITK.idivataxablekind not in (5,6) '+
 		'		AND IRK.registerclass = ''A'' ' + 
-		'		AND IRK.flagactivity  = ''2'' ' +      --> 2 - attivit√† commerciale
-		'		AND ((ISNULL(IVK.flag,0)&6) <> 0) ' +	-->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)
+		'		AND IRK.flagactivity  = ''2'' ' +      --> 2 - attivit‡ commerciale
+		'		AND ((ISNULL(IVK.flag,0)&6) <> 0) ' +	-->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)
 		'		AND (datepart(month,I.adate)) >= '+ 	 CONVERT(VARCHAR(4),@startmonth) + 
 		'       AND (datepart(month,I.adate)) <= '+ 	 CONVERT(VARCHAR(4),@stopmonth) + 
 		' group by va3type '
@@ -193,7 +195,7 @@ while @@fetch_status=0 begin
 		exec sp_executesql @currCommImmediata
 	end
 		
--- Attivit√† Promiscua
+-- Attivit‡ Promiscua
 	IF (@flagva3 = 'S')
 	BEGIN
 		SET @currPromDifferita = ''
@@ -236,8 +238,8 @@ while @@fetch_status=0 begin
 		'		and YEAR(PE1.competencydate)  = ' + CONVERT(VARCHAR(4),@year) +
 		' 		and ITK.idivataxablekind not in (5,6) '+
 		'		AND IRK.registerclass = ''A'' ' + 
-		'		AND IRK.flagactivity  = ''3'' ' +   --> 3 - attivit√† promiscuo
-		'		AND ((ISNULL(IVK.flag,0)&6) <> 0) ' +	-->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)
+		'		AND IRK.flagactivity  = ''3'' ' +   --> 3 - attivit‡ promiscuo
+		'		AND ((ISNULL(IVK.flag,0)&6) <> 0) ' +	-->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)
 		'		AND (datepart(month,IP.dateivapay)) >= '+ 	 CONVERT(VARCHAR(4),@startmonth) + 
 		'       AND (datepart(month,IP.dateivapay)) <= '+ 	 CONVERT(VARCHAR(4),@stopmonth) + 
 		' group by va3type '
@@ -275,8 +277,8 @@ while @@fetch_status=0 begin
 		'		and YEAR(I.adate)  = ' + CONVERT(VARCHAR(4),@year) +	
 		' 		and ITK.idivataxablekind not in (5,6) '+
 		'		AND IRK.registerclass = ''A'' ' + 
-		'		AND IRK.flagactivity  = ''3'' ' +   --> 3 - attivit√† promiscuo
-		'		AND ((ISNULL(IVK.flag,0)&6) <> 0) ' +	-->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)
+		'		AND IRK.flagactivity  = ''3'' ' +   --> 3 - attivit‡ promiscuo
+		'		AND ((ISNULL(IVK.flag,0)&6) <> 0) ' +	-->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)
 		'		AND (datepart(month,I.adate)) >= '+ 	 CONVERT(VARCHAR(4),@startmonth) + 
 		'       AND (datepart(month,I.adate)) <= '+ 	 CONVERT(VARCHAR(4),@stopmonth) + 
 		' group by va3type '
@@ -335,4 +337,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

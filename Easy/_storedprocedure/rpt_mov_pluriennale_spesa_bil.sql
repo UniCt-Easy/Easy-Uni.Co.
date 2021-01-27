@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_mov_pluriennale_spesa_bil]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_mov_pluriennale_spesa_bil]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_mov_pluriennale_spesa_bil]
 GO
 
@@ -73,9 +75,9 @@ SELECT  @phasecassa = description FROM expensephase WHERE nphase = @maxexpenseph
 DECLARE @secondphase varchar(50)
 DECLARE @thirdphase varchar(50)
 DECLARE @second tinyint
--- la seconda fase √® quella successiva alla prima MA non deve essere quella del pagamento
+-- la seconda fase Ë quella successiva alla prima MA non deve essere quella del pagamento
 SELECT  @secondphase = description, @second = nphase FROM expensephase WHERE nphase = @finphase+1 and nphase < @maxexpensephase
--- la terza fase √® quella successiva alla seconda MA non deve essere quella del pagamento
+-- la terza fase Ë quella successiva alla seconda MA non deve essere quella del pagamento
 SELECT  @thirdphase = description FROM expensephase  WHERE nphase =  @second + 1 and nphase < @maxexpensephase
 
 DECLARE @level_input tinyint
@@ -89,7 +91,7 @@ END
 IF (@codefin is not null)
 SET @codefin = @codefin + '%'
 -- con i livelli @nlevel e @level_input saranno gestiti le stampe a seconda della selezione del livello di input
--- ossia se scegliamo di fare una stampa x articolo, vedremo gli articoli laddove il cap. non √® articolato vedremo il capitolo
+-- ossia se scegliamo di fare una stampa x articolo, vedremo gli articoli laddove il cap. non Ë articolato vedremo il capitolo
 -- se scelgiamo come livello articolo e selezioniamo un capitolo vedremo tutti gli articoli di quel capitolo
 
 DECLARE @level varchar(50)
@@ -682,4 +684,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

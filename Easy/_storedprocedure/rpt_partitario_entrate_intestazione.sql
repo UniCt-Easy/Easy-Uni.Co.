@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_entrate_intestazione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_entrate_intestazione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_partitario_entrate_intestazione]
 GO
 
@@ -1034,13 +1036,13 @@ Begin
 	END
 End
 -- cancello le righe dei figli di @idupboriginal aventi idassessment = NULL
--- Se ho scelto l'upb ne cancello i figli perch√® li ho totalizzati tramite la nuova UPDATE
+-- Se ho scelto l'upb ne cancello i figli perchË li ho totalizzati tramite la nuova UPDATE
 IF (@showupb <>'S') and (@idupboriginal <> '%' ) AND (@showchildupb = 'S')
 		DELETE FROM #income WHERE idassessment is null 
 						AND substring(idupb,1,len(@idupboriginal))= @idupboriginal 	
 						AND idupb <>@idupboriginal
 -- cancello solo le righe che sono upb-figli aventi idassessment = NULL
--- Se non ho scelto alcun upb cancello solo gli upb-figli perch√® li ho totalizzati tramite la nuova UPDATE
+-- Se non ho scelto alcun upb cancello solo gli upb-figli perchË li ho totalizzati tramite la nuova UPDATE
 IF (@showupb <>'S') 
 		DELETE FROM #income WHERE idassessment IS NULL 
 			AND EXISTS (SELECT * FROM #income  R 
@@ -1070,7 +1072,7 @@ IF (@showupb <>'S')
 
 update #income set proceed_amount = 0 where nphase <> @maxincomephase
 
-if (@suppressifblank = 'S') and @codelevel>2	--> se la stampa √® x un livello sottostante la categoria cancella le righe
+if (@suppressifblank = 'S') and @codelevel>2	--> se la stampa Ë x un livello sottostante la categoria cancella le righe
 	BEGIN
 		DELETE FROM  #income   
 		WHERE  
@@ -1252,4 +1254,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

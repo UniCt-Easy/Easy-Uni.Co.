@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_budgeteconomicoufficiale_automatic_curr]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_budgeteconomicoufficiale_automatic_curr]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_budgeteconomicoufficiale_automatic_curr]
 GO
 
@@ -30,7 +32,7 @@ CREATE      PROCEDURE [rpt_budgeteconomicoufficiale_automatic_curr](
 	@ayear int,--> anno del bilancio di previsione
 	@idupb varchar(36)='%',
 	@showchildupb char(1)='S',
-	@adate datetime, -- Data da usare perch√® deve calcolare la previsione corrente
+	@adate datetime, -- Data da usare perchË deve calcolare la previsione corrente
 	@idsor01 int=null,
 	@idsor02 int=null,
 	@idsor03 int=null,
@@ -128,47 +130,43 @@ update #spbudget set amount = isnull(amount,0) + isnull(initialprevision,0)
 declare @A_I1_ProventiPerLaDidattica decimal(19,2)
 set @A_I1_ProventiPerLaDidattica = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1101%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1101%'),0)
 
 declare @A_I2_ProventiDaRicercheCommissionate decimal(19,2)
 set @A_I2_ProventiDaRicercheCommissionate = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1102%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1102%'),0)
 
 declare @A_I3_ProventiDaRicercheConFinanziamento decimal(19,2)
 set @A_I3_ProventiDaRicercheConFinanziamento = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1103%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1103%'),0)
 
 declare @A_I_ProventiPropri decimal(19,2)
 set @A_I_ProventiPropri = @A_I1_ProventiPerLaDidattica + @A_I2_ProventiDaRicercheCommissionate + @A_I3_ProventiDaRicercheConFinanziamento
@@ -179,114 +177,114 @@ set @A_I_ProventiPropri = @A_I1_ProventiPerLaDidattica + @A_I2_ProventiDaRicerch
 	2)Contributi Regioni e Province autonome
 	3)Contributi altre Amministrazioni locali
 	4)Contributi Unione Europea e altri Organismi Internazionali
-	5)Contributi da Universit√†
+	5)Contributi da Universit‡
 	6)Contributi da altri (pubblici)
 	7)Contributi da altri (privati)
 */
 declare @A_II1_ContributiMIUR decimal(19,2)
 set @A_II1_ContributiMIUR = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1201%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1201%'),0)
 
 declare @A_II2_ContributiRegioni decimal(19,2)
 set @A_II2_ContributiRegioni = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1202%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1202%'),0)
 
 declare @A_II3_ContributiAltreAmministrazioni decimal(19,2)
 set @A_II3_ContributiAltreAmministrazioni = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1203%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1203%'),0)
 
 declare @A_II4_ContributiUE decimal(19,2)
 set @A_II4_ContributiUE = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1204%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1204%'),0)
 
 declare @A_II5_ContributiUniversita decimal(19,2)
 set @A_II5_ContributiUniversita = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1205%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1205%'),0)
 
 declare @A_II6_ContributiAltriPubblici decimal(19,2)
 set @A_II6_ContributiAltriPubblici = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1206%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1206%'),0)
 
 declare @A_II7_ContributiAltriPrivati decimal(19,2)
 set @A_II7_ContributiAltriPrivati = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1207%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1207%'),0)
 
 declare @A_II_Contributi decimal(19,2)
 set @A_II_Contributi = @A_II1_ContributiMIUR + @A_II2_ContributiRegioni + @A_II3_ContributiAltreAmministrazioni 
@@ -295,66 +293,66 @@ set @A_II_Contributi = @A_II1_ContributiMIUR + @A_II2_ContributiRegioni + @A_II3
 declare @A_III_ProventiPerAttivitaAssistenziale decimal(19,2)
 set @A_III_ProventiPerAttivitaAssistenziale = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1301%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1301%'),0)
 
 -- IV. PROVENTI PER GESTIONE DIRETTA INTERVENTI PER IL DIRITTO ALLO STUDIO
 declare @A_IV_ProventiPerGestioneDiretta decimal(19,2)
 set @A_IV_ProventiPerGestioneDiretta = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1401%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1401%'),0)
 
 -- V.ALTRI PROVENTI E RICAVI DIVERSI
--- 1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilit√† finanziaria
+-- 1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilit‡ finanziaria
 -- 2) Altri Proventi e Ricavi Diversi
 declare @A_V1_UtilizzoRiservePatrimonioNetto decimal(19,2)
 set @A_V1_UtilizzoRiservePatrimonioNetto = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1501%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1501%'),0)
 		
 declare @A_V2_AltriProventi decimal(19,2)
 set @A_V2_AltriProventi = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1502%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1502%'),0)
 		
 declare @A_V_UtilizzoRiservePatrimonioNetto decimal(19,2)
 set @A_V_UtilizzoRiservePatrimonioNetto = @A_V1_UtilizzoRiservePatrimonioNetto + @A_V2_AltriProventi
@@ -362,34 +360,34 @@ set @A_V_UtilizzoRiservePatrimonioNetto = @A_V1_UtilizzoRiservePatrimonioNetto +
 declare @A_VI_VariazioniRimanenze decimal(19,2)
 set @A_VI_VariazioniRimanenze = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1601%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1601%'),0)
 
 
 -- Incremento delle Immobilizzazioni per Lavori Interni
 declare @A_VII_IncrementoImmobilizzazioni decimal(19,2)
 set @A_VII_IncrementoImmobilizzazioni = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1701%'),0)
+		AND A.sortcode_economicbudget LIKE 'EA1701%'),0)
 /*
  B)	COSTI OPERATIVI
 VIII.COSTI DEL PERSONALE
@@ -405,92 +403,92 @@ VIII.COSTI DEL PERSONALE
 declare @B_VIII1a_CostiDocentiRicercatori decimal(19,2)
 set @B_VIII1a_CostiDocentiRicercatori = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB1101%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB1101%'),0)
 
 declare @B_VIII1b_CollaborazioniScientifiche decimal(19,2)
 set @B_VIII1b_CollaborazioniScientifiche = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB1102%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB1102%'),0)
 
 declare @B_VIII1c_DocentiAContratto  decimal(19,2)
 set @B_VIII1c_DocentiAContratto = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB1103%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB1103%'),0)
 
 declare @B_VIII1d_EspertiLinguistici decimal(19,2)
 set @B_VIII1d_EspertiLinguistici = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB1104%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB1104%'),0)
 
 declare @B_VIII1e_AltroPersonale decimal(19,2)
 set @B_VIII1e_AltroPersonale = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB1105%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB1105%'),0)
 
 declare @B_VIII2_CostiPersonaleDirigente decimal(19,2)
 set @B_VIII2_CostiPersonaleDirigente = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB1201%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB1201%'),0)
 
 declare @B_VIII_CostiPersonale decimal(19,2)
 set @B_VIII_CostiPersonale = @B_VIII1a_CostiDocentiRicercatori + @B_VIII1b_CollaborazioniScientifiche + @B_VIII1c_DocentiAContratto + @B_VIII1d_EspertiLinguistici + @B_VIII1e_AltroPersonale + @B_VIII2_CostiPersonaleDirigente
@@ -499,7 +497,7 @@ set @B_VIII_CostiPersonale = @B_VIII1a_CostiDocentiRicercatori + @B_VIII1b_Colla
 	IX.COSTI DELLA GESTIONE CORRENTE
 	1)Costi per sostegno agli studenti
 	2)Costi per il diritto allo studio
-	3)Costi per la ricerca e l'attivit√† editoriale
+	3)Costi per la ricerca e l'attivit‡ editoriale
 	4)Trasferimenti a partner di progetti coordinati
 	5)Acquisto materiale consumo per laboratori
 	6)Variazione rimanenze di materiale di consumo per laboratori
@@ -513,182 +511,182 @@ set @B_VIII_CostiPersonale = @B_VIII1a_CostiDocentiRicercatori + @B_VIII1b_Colla
 declare @B_IX1_CostiSostegnoStudenti decimal(19,2)
 set @B_IX1_CostiSostegnoStudenti = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB2101%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB2101%'),0)
 
 declare @B_IX2_CostiDirittoStudio decimal(19,2)
 set @B_IX2_CostiDirittoStudio = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB2102%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB2102%'),0)
 
 declare @B_IX3_CostiRicercaAttivitaEditoriale decimal(19,2)
 set @B_IX3_CostiRicercaAttivitaEditoriale = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB2103%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB2103%'),0)
 
 declare @B_IX4_TrasferimentiPartner decimal(19,2)
 set @B_IX4_TrasferimentiPartner = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB2104%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB2104%'),0)
 
 declare @B_IX5_AcquistoMaterialeConsumo  decimal(19,2)
 set @B_IX5_AcquistoMaterialeConsumo = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB2105%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB2105%'),0)
 
 declare @B_IX6_VariazioneRimanenze decimal(19,2)
 set @B_IX6_VariazioneRimanenze = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB2106%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB2106%'),0)
 
 declare @B_IX7_AcquistoLibri decimal(19,2)
 set @B_IX7_AcquistoLibri = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB2107%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB2107%'),0)
 
 declare @B_IX8_AcquistoServizi decimal(19,2)
 set @B_IX8_AcquistoServizi = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB2108%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB2108%'),0)
 
 declare @B_IX9_AcquistoAltriMateriali decimal(19,2)
 set @B_IX9_AcquistoAltriMateriali = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB2109%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB2109%'),0)
 
 declare @B_IX10_VariazioneRimanenze decimal(19,2)
 set @B_IX10_VariazioneRimanenze = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB2110%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB2110%'),0)
 
 declare @B_IX11_CostiGodimento decimal(19,2)
 set @B_IX11_CostiGodimento = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB2111%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB2111%'),0)
 
 declare @B_IX12_AltriCosti  decimal(19,2)
 set @B_IX12_AltriCosti = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB2112%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB2112%'),0)
 
 declare @IX_CostiGestione decimal(19,2)
 set @IX_CostiGestione = @B_IX1_CostiSostegnoStudenti + @B_IX2_CostiDirittoStudio + @B_IX3_CostiRicercaAttivitaEditoriale  
@@ -700,67 +698,67 @@ set @IX_CostiGestione = @B_IX1_CostiSostegnoStudenti + @B_IX2_CostiDirittoStudio
 		1) Ammortamenti immobilizzazioni immateriali
 		2) Ammortamenti immobilizzazioni materiali
 		3) Svalutazioni immobilizzazioni
-		4) Svalutazioni dei crediti compresi nell'attivo circolante e nelle disponibilit√† liquide
+		4) Svalutazioni dei crediti compresi nell'attivo circolante e nelle disponibilit‡ liquide
 */
 declare @B_X1_AmmortamentiImmobImmateriali decimal(19,2)
 set @B_X1_AmmortamentiImmobImmateriali = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB3101%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB3101%'),0)
 
 declare @B_X2_AmmortamentiImmobMateriali decimal(19,2)
 set @B_X2_AmmortamentiImmobMateriali = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB3102%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB3102%'),0)
 
 declare @B_X3_SvalutazioniImmobilizzazioni decimal(19,2)
 set @B_X3_SvalutazioniImmobilizzazioni = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB3103%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB3103%'),0)
 
 declare @B_X4_SvalutazioniCrediti decimal(19,2)
 set @B_X4_SvalutazioniCrediti = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB3104%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB3104%'),0)
 
 declare @X_AmmortamentiSvalutazioni decimal(19,2)
 set @X_AmmortamentiSvalutazioni = @B_X1_AmmortamentiImmobImmateriali + @B_X2_AmmortamentiImmobMateriali + @B_X3_SvalutazioniImmobilizzazioni + @B_X4_SvalutazioniCrediti 
@@ -768,32 +766,32 @@ set @X_AmmortamentiSvalutazioni = @B_X1_AmmortamentiImmobImmateriali + @B_X2_Amm
 declare @B_XI_AccantonamentiRischiOneri decimal(19,2)
 set @B_XI_AccantonamentiRischiOneri = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB4101%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB4101%'),0)
 
 declare @B_XII_OneriDversiGestione decimal(19,2)
 set @B_XII_OneriDversiGestione = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EB5101%'),0)
+		AND A.sortcode_economicbudget LIKE 'EB5101%'),0)
 /*
 	C) PROVENTI ED ONERI FINANZIARI
 	1) Proventi finanziari
@@ -804,72 +802,72 @@ set @B_XII_OneriDversiGestione = ISNULL(( SELECT SUM(D.amount*A.economicbudget_s
 declare @C_1ProventiFinanziari decimal(19,2)
 set @C_1ProventiFinanziari = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EC1101%'),0)
+		AND A.sortcode_economicbudget LIKE 'EC1101%'),0)
 
 /*
-  - l‚Äôimporto della voce ‚ÄúC 2) Interessi ed altri oneri finanziari‚Äù deve essere visualizzato con importo positivo 
+  - líimporto della voce ìC 2) Interessi ed altri oneri finanziariî deve essere visualizzato con importo positivo 
   sebbene poi debba essere sottratto per ottenere il RISULTATO ECONOMICO;
   */
 declare @C_2Interessi_orig decimal(19,2)
 declare @C_2Interessi  decimal(19,2)
 set @C_2Interessi_orig = ISNULL(( SELECT  SUM(D.amount)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EC1102%'),0)
+		AND A.sortcode_economicbudget LIKE 'EC1102%'),0)
 
 if (@C_2Interessi_orig < 0) set @C_2Interessi = -@C_2Interessi_orig else set @C_2Interessi = @C_2Interessi_orig
 /*
-  - l‚Äôimporto della voce "C) 3) Utili e Perdite su cambi", deve avere il segno positivo nel caso gli Utili fossero maggiori 
+  - líimporto della voce "C) 3) Utili e Perdite su cambi", deve avere il segno positivo nel caso gli Utili fossero maggiori 
   rispetto alle Perdite, viceversa il valore tra parentesi nel caso in cui le Perdite fossero maggiori rispetto agli Utili;
 */
 declare @C_3Utili decimal(19,2)
 set @C_3Utili = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EC1103%'),0)
+		AND A.sortcode_economicbudget LIKE 'EC1103%'),0)
 
 declare @C_3Perdite decimal(19,2)
 set @C_3Perdite = ISNULL(( SELECT - SUM(D.amount)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EC1104%'),0)
+		AND A.sortcode_economicbudget LIKE 'EC1104%'),0)
 
 declare @C_ProventiOneri decimal(19,2)
 declare @C_ProventiOneri_orig decimal(19,2)
@@ -878,42 +876,42 @@ if (@C_ProventiOneri_orig < 0) SET @C_ProventiOneri = - @C_ProventiOneri_orig el
 
 /*
 	D) RETTIFICHE DI VALORE DI ATTIVITA' FINANZIARIE
-		1) Rivalutazioni di attivit√† finanziarie
-		2) Svalutazioni di attivit√† finanziarie
+		1) Rivalutazioni di attivit‡ finanziarie
+		2) Svalutazioni di attivit‡ finanziarie
 */
 declare @D_1Rivalutazioni decimal(19,2)
 set @D_1Rivalutazioni = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'ED1101%'),0)
+		AND A.sortcode_economicbudget LIKE 'ED1101%'),0)
 /*
-  - l‚Äôimporto della voce ‚ÄúD 2) Svalutazioni‚Äù deve essere visualizzato con importo positivo sebbene poi debba essere sottratto 
+  - líimporto della voce ìD 2) Svalutazioniî deve essere visualizzato con importo positivo sebbene poi debba essere sottratto 
   per ottenere il risultato economico;
 */
 declare @D_2Svalutazioni_orig decimal(19,2)
 declare @D_2Svalutazioni decimal(19,2)
 set @D_2Svalutazioni_orig = ISNULL(( SELECT - SUM(D.amount)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'ED1102%'),0)
+		AND A.sortcode_economicbudget LIKE 'ED1102%'),0)
 
 if (@D_2Svalutazioni_orig < 0) set @D_2Svalutazioni = -@D_2Svalutazioni_orig else  set @D_2Svalutazioni = @D_2Svalutazioni_orig
 
@@ -933,19 +931,19 @@ if (@D_Rettifiche_orig < 0) SET @D_Rettifiche = - @D_Rettifiche_orig else set @D
 declare @E_1ProventiStraordinari  decimal(19,2)
 set @E_1ProventiStraordinari = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EE1101%'),0)
+		AND A.sortcode_economicbudget LIKE 'EE1101%'),0)
 
-/* - l‚Äôimporto della voce ‚ÄúE 2) Oneri‚Äù deve essere visualizzato con importo positivo sebbene poi debba essere sottratto 
+/* - líimporto della voce ìE 2) Oneriî deve essere visualizzato con importo positivo sebbene poi debba essere sottratto 
 per ottenere il risultato economico;
 */
 
@@ -953,17 +951,17 @@ declare @E_2OneriStraordinari_orig  decimal(19,2)
 declare @E_2OneriStraordinari  decimal(19,2)
 set @E_2OneriStraordinari_orig = ISNULL(( SELECT  SUM(D.amount)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EE1102%'),0)
+		AND A.sortcode_economicbudget LIKE 'EE1102%'),0)
 
 if (@E_2OneriStraordinari_orig < 0)  set @E_2OneriStraordinari = -@E_2OneriStraordinari_orig else set @E_2OneriStraordinari = @E_2OneriStraordinari_orig
 
@@ -977,7 +975,7 @@ if (@E_ProventiOneriStraordinari_orig < 0)  SET @E_ProventiOneriStraordinari = -
 F) Imposte sul reddito dell'esercizio correnti, differite, anticipate
 */
 /* 
-  - l‚Äôimporto della riga F) IMPOSTE SUL REDDITO DELL'ESERCIZIO CORRENTI, DIFFERITE, ANTICIPATE, 
+  - líimporto della riga F) IMPOSTE SUL REDDITO DELL'ESERCIZIO CORRENTI, DIFFERITE, ANTICIPATE, 
   deve essere visualizzato sempre in positivo sebbene poi per ottenere il RISULTATO ECONOMICO (fine stampa), debba essere sottratto;
 */
 
@@ -985,38 +983,38 @@ F) Imposte sul reddito dell'esercizio correnti, differite, anticipate
 declare @F_Imposte  decimal(19,2)
 set @F_Imposte = ISNULL(( SELECT - SUM(D.amount)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EF1101%'),0)
+		AND A.sortcode_economicbudget LIKE 'EF1101%'),0)
 
 if (@F_Imposte < 0) set @F_Imposte = -@F_Imposte 
 
 
 /*
-	G) Utilizzo di riservedi Patrimonio Netto derivanti dalla contabilit√† economico-patrimoniale
+	G) Utilizzo di riservedi Patrimonio Netto derivanti dalla contabilit‡ economico-patrimoniale
 */
 declare @G_UtilizzoDiRiserve  decimal(19,2)
 set @G_UtilizzoDiRiserve = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 	FROM #spbudget D 
-	join accountview A
+	join accountsortingbudgetview A
 		on D.idacc = A.idacc
 	JOIN upb U
 		ON D.idupb = U.idupb
-	join sorting S
-		on S.idsor = A.idsor_economicbudget
+	
+		
 	WHERE A.ayear = @ayear 
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EG1101%'),0)
+		AND A.sortcode_economicbudget LIKE 'EG1101%'),0)
 
 DECLARE @TOTRICAVI decimal(19,2)
 /*SET @TOTRICAVI = @A_I_ProventiPropri + @A_II_Contributi + @A_III_ProventiPerAttivitaAssistenziale + @A_IV_ProventiPerGestioneDiretta +
@@ -1031,7 +1029,7 @@ DECLARE @TOTCOSTI decimal(19,2)
 				   + @D_2Svalutazioni
 				   - @E_2OneriStraordinari
 				   + @F_Imposte 
-				   -->  Interessi, Oneri straordinari sono col segno meno, perch√® vengono letti col segno -, ma in questo contesto vanno sommati.
+				   -->  Interessi, Oneri straordinari sono col segno meno, perchË vengono letti col segno -, ma in questo contesto vanno sommati.
 */
 declare @RisultatoEconomicoPresunto decimal(19,2)
 ---set @RisultatoEconomicoPresunto = @TOTRICAVI - @TOTCOSTI
@@ -1138,4 +1136,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

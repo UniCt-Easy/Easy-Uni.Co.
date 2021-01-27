@@ -6,7 +6,7 @@
     <DataSource Name="DataSourceConsuntivoE">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=ufficio1.temposrl.it;Initial Catalog=unirc_easy</ConnectString>
+        <ConnectString>Data Source=SERVER;Initial Catalog=unirc_easy</ConnectString>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>7d9c7cd5-1147-45ad-968b-f2ce65e37aa7</rd:DataSourceID>
@@ -410,7 +410,7 @@ FROM            amministrazione.generalreportparameter</CommandText>
         </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="DenominazioneUniversità">
+    <DataSet Name="DenominazioneUniversitÃ ">
       <Query>
         <DataSourceName>DataSourceConsuntivoE</DataSourceName>
         <CommandText>SELECT        paramvalue
@@ -11414,7 +11414,7 @@ IIf (IsNothing(First(Fields!upb.Value, "bilancioConsuntivo")),"U.P.B.: "+(First(
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=First(Fields!paramvalue.Value, "DenominazioneUniversità")</Value>
+                              <Value>=First(Fields!paramvalue.Value, "DenominazioneUniversitÃ ")</Value>
                               <Style>
                                 <FontSize>14pt</FontSize>
                                 <FontWeight>Bold</FontWeight>

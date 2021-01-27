@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="DataSource1">
   <ConnectionProperties>
     <Extension>SQL</Extension>
-    <ConnectString>Data Source=192.168.10.122;Initial Catalog=unirc_easy</ConnectString>
+    <ConnectString>Data Source=10.10.10.122;Initial Catalog=unirc_easy</ConnectString>
     <Prompt>Specify a user name and password for data source DataSource1:</Prompt>
   </ConnectionProperties>
   <DataSourceID>25c5c7f6-b899-4a4e-bf1a-a25b95a80c7c</DataSourceID>

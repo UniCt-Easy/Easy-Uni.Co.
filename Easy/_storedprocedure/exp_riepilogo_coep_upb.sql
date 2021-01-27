@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_riepilogo_coep_upb]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_riepilogo_coep_upb]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_riepilogo_coep_upb]
 GO
 
@@ -23,7 +25,7 @@ GO
 SET ANSI_NULLS ON 
 GO
 --setuser 'amm'
---exp_riepilogo_coep_upb  2017, {ts '2017-01-01 00:00:00'},{ts '2017-12-31 00:00:00'},'%','S','N'
+--exp_riepilogo_coep_upb  2017, {ts '2017-01-01 00:00:00'},{ts '2017-12-31 00:00:00'},'%','S','N',null
 
 CREATE  PROCEDURE [exp_riepilogo_coep_upb]
 (
@@ -203,6 +205,21 @@ end
 SELECT   
 	upb.codeupb as 'Cod. Upb',
 	upb.title as 'Upb',
+	epupbkind.title as 'Tipo upb',
+	case when epupbkindyear.adjustmentkind='C' then 'Commessa completata'
+		 when epupbkindyear.adjustmentkind='P' then 'Perc. completamento'
+		 else null
+	end as 'Tipo assestamento',
+	upb.stop as 'Data Fine',
+
+	capofila.codeupb as 'Cod.Upb capogruppo',
+	KindCapofila.title as 'Tipo upb Capogruppo',
+	case when KindyearCapofila.adjustmentkind='C' then 'Commessa completata'
+		 when KindyearCapofila.adjustmentkind='P' then 'Perc. completamento'
+		 else null
+	end as 'Tipo assestamento Capogruppo',
+	capofila.stop as 'Data Fine Capogruppo',
+
 	treasurer.description as 'Cassiere',
 	case 
 		when upb.flagactivity = 1 then 'Istituzionale'
@@ -210,8 +227,8 @@ SELECT
 		when  upb.flagactivity = 4 then 'Qualsiasi\Non specificata'
 		else null
 		end as 'Tipo Attività',
-	upb.start as 'Data Inizio',
-	upb.stop as 'Data Fine',
+	upb.start as 'Data Inizio Upb',
+	
 	(isnull(sum(avere_ricavi),0)-isnull(sum(dare_ricavi),0))-(isnull(sum(dare_costi),0)-isnull(sum(avere_costi),0)) - isnull(sum(dare_ammortamento),0) 	+ isnull(sum(avere_ammortamento),0) 	as 'Utile',
 	isnull(sum(dare_costi),0) as 'Dare(Costi)',
 	isnull(sum(avere_costi),0) as 'Avere(Costi)',
@@ -253,21 +270,23 @@ SELECT
 	isnull(sum(avere_ex_riserve_cofi),0) as 'Avere(Ex Riserve COFI)', 
 	manager.title as 'Respons.',
 	upb.printingorder as 'Ord. Stampa',
-	#data.idupb as '#idupb',
-	epupbkind.title as 'Tipo upb',
-	case when epupbkindyear.adjustmentkind='C' then 'Commessa completata'
-		 when epupbkindyear.adjustmentkind='P' then 'Perc. completamento'
-		 else null
-	end as 'tipo assestamento'
+	#data.idupb as '#idupb'
 FROM #data
 left outer JOIN upb on #data.idupb = upb.idupb 
+left outer JOIN upb capofila on isnull(upb.idupb_capofila,upb.idupb) = capofila.idupb
 left outer JOIN treasurer  on upb.idtreasurer = treasurer.idtreasurer
 LEFT OUTER JOIN manager 	 ON manager.idman = upb.idman 
 LEFT OUTER JOIN epupbkind ON epupbkind.idepupbkind = upb.idepupbkind
 LEFT OUTER JOIN epupbkindyear ON epupbkindyear.idepupbkind = upb.idepupbkind and epupbkindyear.ayear=@ayear
+
+LEFT OUTER JOIN epupbkind KindCapofila ON KindCapofila.idepupbkind = capofila.idepupbkind
+LEFT OUTER JOIN epupbkindyear KindyearCapofila ON KindyearCapofila.idepupbkind = capofila.idepupbkind and KindyearCapofila.ayear=@ayear
+
 GROUP BY #data.idupb,	upb.codeupb,	upb.title,upb.start,upb.stop,
 	upb.printingorder ,treasurer.description,
-	manager.title,epupbkind.title, upb.flagactivity,epupbkindyear.adjustmentkind
+	manager.title,epupbkind.title, upb.flagactivity,epupbkindyear.adjustmentkind,
+	capofila.codeupb,	KindCapofila.title,	KindyearCapofila.adjustmentkind,	capofila.stop
+	
 ORDER BY upb.printingorder 
  
 
@@ -276,4 +295,3 @@ ORDER BY upb.printingorder
 END
 GO
 
-	

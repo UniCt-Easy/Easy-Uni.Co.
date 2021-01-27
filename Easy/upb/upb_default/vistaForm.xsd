@@ -137,6 +137,7 @@
               <xs:element name="flag" type="xs:int" minOccurs="0" />
               <xs:element name="uesiopecode" type="xs:string" minOccurs="0" />
               <xs:element name="cofogmpcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb_capofila" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -688,6 +689,7 @@
               <xs:element name="nvar" type="xs:int" />
               <xs:element name="rownum" type="xs:int" />
               <xs:element name="variationdescription" type="xs:string" />
+              <xs:element name="idenactment" type="xs:int" minOccurs="0" />
               <xs:element name="enactment" type="xs:string" minOccurs="0" />
               <xs:element name="nenactment" type="xs:string" minOccurs="0" />
               <xs:element name="enactmentdate" type="xs:dateTime" minOccurs="0" />
@@ -976,65 +978,43 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="upbyearview">
+        <xs:element name="upb_capofila">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idupb" type="xs:string" />
-              <xs:element name="codeupb" type="xs:string" />
-              <xs:element name="upb" type="xs:string" />
-              <xs:element name="idman" type="xs:int" minOccurs="0" />
-              <xs:element name="manager" type="xs:string" minOccurs="0" />
-              <xs:element name="iddivision" type="xs:int" minOccurs="0" />
-              <xs:element name="codedivision" type="xs:string" minOccurs="0" />
-              <xs:element name="division" type="xs:string" minOccurs="0" />
-              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
-              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
-              <xs:element name="assured" type="xs:string" minOccurs="0" />
-              <xs:element name="ayear" type="xs:short" />
-              <xs:element name="initialprevision" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="incomeinitialprevision" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="currentprevision" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="incomecurrentprevision" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="initialsecondaryprev" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="incomeinitialsecondaryprev" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="currentsecondaryprev" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="incomecurrentsecondaryprev" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="incomeprevavailable" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="expenseprevavailable" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="appropriation" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="assessment" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="payment" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="proceeds" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
-              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
               <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
               <xs:element name="idsor01" type="xs:int" minOccurs="0" />
               <xs:element name="idsor02" type="xs:int" minOccurs="0" />
               <xs:element name="idsor03" type="xs:int" minOccurs="0" />
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="flagactivity" type="xs:short" minOccurs="0" />
-              <xs:element name="activity" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
               <xs:element name="flagkind" type="xs:unsignedByte" minOccurs="0" />
-              <xs:element name="kindd" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
-              <xs:element name="kindr" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="newcodeupb" type="xs:string" minOccurs="0" />
               <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
-              <xs:element name="treasurer" type="xs:string" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cigcode" type="xs:string" minOccurs="0" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="uesiopecode" type="xs:string" minOccurs="0" />
-              <xs:element name="cofogmpcode" type="xs:string" minOccurs="0" />
               <xs:element name="idepupbkind" type="xs:int" minOccurs="0" />
-              <xs:element name="epupbkind" type="xs:string" minOccurs="0" />
-              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="revenueprevision" type="xs:decimal" minOccurs="0" />
-              <xs:element name="costprevision" type="xs:decimal" minOccurs="0" />
-              <xs:element name="newcodeupb" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1166,15 +1146,13 @@
       <xs:field xpath="mstns:idupb" />
       <xs:field xpath="mstns:ayear" />
     </xs:unique>
-    <xs:unique name="upbyearview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:upbyearview" />
+    <xs:unique name="upb_capofila_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb_capofila" />
       <xs:field xpath="mstns:idupb" />
-      <xs:field xpath="mstns:ayear" />
     </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_upb_upbyear" msdata:parent="upb" msdata:child="upbyear" msdata:parentkey="idupb" msdata:childkey="idupb" />
       <msdata:Relationship name="upb_upbattachment" msdata:parent="upb" msdata:child="upbattachment" msdata:parentkey="idupb" msdata:childkey="idupb" />
       <msdata:Relationship name="upb_dest_upbprofitpartition" msdata:parent="upb_dest" msdata:child="upbprofitpartition" msdata:parentkey="idupb" msdata:childkey="idupb_dest" />
       <msdata:Relationship name="upb_upbprofitpartition" msdata:parent="upb" msdata:child="upbprofitpartition" msdata:parentkey="idupb" msdata:childkey="idupb" />
@@ -1206,6 +1184,8 @@
       <msdata:Relationship name="epupbkind_upb" msdata:parent="epupbkind" msdata:child="upb" msdata:parentkey="idepupbkind" msdata:childkey="idepupbkind" />
       <msdata:Relationship name="FK_sortingview_upbsorting" msdata:parent="sortingview" msdata:child="upbsorting" msdata:parentkey="idsor" msdata:childkey="idsor" />
       <msdata:Relationship name="upbupbsorting" msdata:parent="upb" msdata:child="upbsorting" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="FK_upb_upbyear" msdata:parent="upb" msdata:child="upbyear" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="upb_capofila_upb" msdata:parent="upb_capofila" msdata:child="upb" msdata:parentkey="idupb" msdata:childkey="idupb_capofila" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

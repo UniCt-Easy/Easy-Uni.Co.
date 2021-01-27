@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -114,13 +116,13 @@ namespace csa_contract_default
         private Button button9;
         private Button button10;
         private DataGrid dataGrid3;
-        private GroupBox groupBox1;
+        private GroupBox gboxCsaContractKind;
         private TextBox txtNumeroregGenerale;
         private Label label4;
         private Label label8;
         private TextBox txtCodiceRegGenerale;
         private TextBox txtRegolaGenerale;
-        private Button button11;
+        private Button btnCsaContractKind;
         private RadioButton rdbCompetenza;
         private RadioButton rdbResidui;
         DataAccess Conn;
@@ -346,7 +348,7 @@ namespace csa_contract_default
 			this.label1 = new System.Windows.Forms.Label();
 			this.chkFlagRecreate = new System.Windows.Forms.CheckBox();
 			this.ckbAttivo = new System.Windows.Forms.CheckBox();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.gboxCsaContractKind = new System.Windows.Forms.GroupBox();
 			this.rdbCompetenza = new System.Windows.Forms.RadioButton();
 			this.rdbResidui = new System.Windows.Forms.RadioButton();
 			this.txtNumeroregGenerale = new System.Windows.Forms.TextBox();
@@ -354,7 +356,7 @@ namespace csa_contract_default
 			this.label8 = new System.Windows.Forms.Label();
 			this.txtCodiceRegGenerale = new System.Windows.Forms.TextBox();
 			this.txtRegolaGenerale = new System.Windows.Forms.TextBox();
-			this.button11 = new System.Windows.Forms.Button();
+			this.btnCsaContractKind = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPageRipUnica.SuspendLayout();
@@ -381,7 +383,7 @@ namespace csa_contract_default
 			this.tabPageEP.SuspendLayout();
 			this.gboxConto.SuspendLayout();
 			this.gboxImponibile.SuspendLayout();
-			this.groupBox1.SuspendLayout();
+			this.gboxCsaContractKind.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// images
@@ -1302,23 +1304,23 @@ namespace csa_contract_default
 			this.ckbAttivo.Tag = "csa_contract.active:S:N";
 			this.ckbAttivo.Text = "Attivo";
 			// 
-			// groupBox1
+			// gboxCsaContractKind
 			// 
-			this.groupBox1.Controls.Add(this.rdbCompetenza);
-			this.groupBox1.Controls.Add(this.rdbResidui);
-			this.groupBox1.Controls.Add(this.txtNumeroregGenerale);
-			this.groupBox1.Controls.Add(this.label4);
-			this.groupBox1.Controls.Add(this.label8);
-			this.groupBox1.Controls.Add(this.txtCodiceRegGenerale);
-			this.groupBox1.Controls.Add(this.txtRegolaGenerale);
-			this.groupBox1.Controls.Add(this.button11);
-			this.groupBox1.Location = new System.Drawing.Point(10, 93);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(683, 72);
-			this.groupBox1.TabIndex = 6;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Tag = "AutoChoose.txtRegolaGenerale.default.(active = \'S\')";
-			this.groupBox1.Text = "Regola generale CSA";
+			this.gboxCsaContractKind.Controls.Add(this.rdbCompetenza);
+			this.gboxCsaContractKind.Controls.Add(this.rdbResidui);
+			this.gboxCsaContractKind.Controls.Add(this.txtNumeroregGenerale);
+			this.gboxCsaContractKind.Controls.Add(this.label4);
+			this.gboxCsaContractKind.Controls.Add(this.label8);
+			this.gboxCsaContractKind.Controls.Add(this.txtCodiceRegGenerale);
+			this.gboxCsaContractKind.Controls.Add(this.txtRegolaGenerale);
+			this.gboxCsaContractKind.Controls.Add(this.btnCsaContractKind);
+			this.gboxCsaContractKind.Location = new System.Drawing.Point(10, 93);
+			this.gboxCsaContractKind.Name = "gboxCsaContractKind";
+			this.gboxCsaContractKind.Size = new System.Drawing.Size(683, 72);
+			this.gboxCsaContractKind.TabIndex = 6;
+			this.gboxCsaContractKind.TabStop = false;
+			this.gboxCsaContractKind.Tag = "AutoChoose.txtRegolaGenerale.default.(active = \'S\')";
+			this.gboxCsaContractKind.Text = "Regola generale CSA";
 			// 
 			// rdbCompetenza
 			// 
@@ -1373,7 +1375,8 @@ namespace csa_contract_default
 			this.txtCodiceRegGenerale.Name = "txtCodiceRegGenerale";
 			this.txtCodiceRegGenerale.Size = new System.Drawing.Size(236, 20);
 			this.txtCodiceRegGenerale.TabIndex = 2;
-			this.txtCodiceRegGenerale.Tag = "csa_contractkind.contractkindcode?csa_contractview.csa_contractkindcode";
+			this.txtCodiceRegGenerale.Tag = "csa_contractkind.contractkindcode";
+			this.txtCodiceRegGenerale.Leave += new System.EventHandler(this.txtCodiceRegGenerale_Leave);
 			// 
 			// txtRegolaGenerale
 			// 
@@ -1383,22 +1386,22 @@ namespace csa_contract_default
 			this.txtRegolaGenerale.TabIndex = 1;
 			this.txtRegolaGenerale.Tag = "csa_contractkind.description?csa_contractview.csa_contractkind";
 			// 
-			// button11
+			// btnCsaContractKind
 			// 
-			this.button11.Location = new System.Drawing.Point(6, 15);
-			this.button11.Name = "button11";
-			this.button11.Size = new System.Drawing.Size(150, 25);
-			this.button11.TabIndex = 0;
-			this.button11.Tag = "choose.csa_contractkind.default";
-			this.button11.Text = "Regola generale associata";
-			this.button11.UseVisualStyleBackColor = true;
+			this.btnCsaContractKind.Location = new System.Drawing.Point(6, 15);
+			this.btnCsaContractKind.Name = "btnCsaContractKind";
+			this.btnCsaContractKind.Size = new System.Drawing.Size(150, 25);
+			this.btnCsaContractKind.TabIndex = 0;
+			this.btnCsaContractKind.Tag = "choose.csa_contractkind.default";
+			this.btnCsaContractKind.Text = "Regola generale associata";
+			this.btnCsaContractKind.UseVisualStyleBackColor = true;
 			// 
 			// Frm_csa_contract_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.AutoScroll = true;
 			this.ClientSize = new System.Drawing.Size(896, 626);
-			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.gboxCsaContractKind);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.ckbAttivo);
 			this.Controls.Add(this.textBox2);
@@ -1447,8 +1450,8 @@ namespace csa_contract_default
 			this.gboxConto.PerformLayout();
 			this.gboxImponibile.ResumeLayout(false);
 			this.gboxImponibile.PerformLayout();
-			this.groupBox1.ResumeLayout(false);
-			this.groupBox1.PerformLayout();
+			this.gboxCsaContractKind.ResumeLayout(false);
+			this.gboxCsaContractKind.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1996,5 +1999,20 @@ namespace csa_contract_default
         private void textBox5_TextChanged(object sender, EventArgs e) {
 
         }
-    }
+
+		private void txtCodiceRegGenerale_Leave(object sender, EventArgs e) {
+			IFormController f = this.getInstance<IFormController>();
+			if (txtCodiceRegGenerale.Text.Trim() == "") {
+				btnCsaContractKind.Tag = "choose.csa_contractkind.default";
+				f.GetAutoInfo("txtRegolaGenerale").startfilter = null;
+			}
+			else {
+				string code = txtCodiceRegGenerale.Text.Trim();
+				string filter = QHS.CmpEq("contractkindcode", code);
+				btnCsaContractKind.Tag = "choose.csa_contractkind.default."+filter;
+				f.GetAutoInfo("txtRegolaGenerale").startfilter = filter;
+			}
+			
+		}
+	}
 }

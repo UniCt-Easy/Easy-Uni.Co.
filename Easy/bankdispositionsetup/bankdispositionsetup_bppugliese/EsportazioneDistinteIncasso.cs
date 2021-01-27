@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -49,7 +51,7 @@ namespace bankdispositionsetup_bppugliese {
                     QHS.AppAnd(QHS.CmpEq("yproceedstransmission", yproceedstransmission),
                                 QHS.CmpEq("nproceedstransmission", nproceedstransmission)), null, false);
             if (P == null || P.Rows.Count == 0) {
-                MessageBox.Show("Non ho trovato la distinta n." + nproceedstransmission + " del " + yproceedstransmission,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ho trovato la distinta n." + nproceedstransmission + " del " + yproceedstransmission,
                                 "Errore");
                 return null;
             }
@@ -57,7 +59,7 @@ namespace bankdispositionsetup_bppugliese {
             object spexportinc = Conn.DO_READ_VALUE("treasurer", QHS.CmpEq("idtreasurer", R["idtreasurer"]), "spexportinc");
             if (spexportinc == null || spexportinc == DBNull.Value)
             {
-                MessageBox.Show("Il cassiere relativo alla distinta n." + nproceedstransmission +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Il cassiere relativo alla distinta n." + nproceedstransmission +
                             " del " + yproceedstransmission + " non Ë ben configurato per l'esportazione elettronica", "Errore");
                 return null;
             }
@@ -66,7 +68,7 @@ namespace bankdispositionsetup_bppugliese {
             if (D == null || D.Tables.Count == 0) return null;
             DataTable T = D.Tables[0];
             if (T.Rows.Count == 0) {
-                MessageBox.Show("L'esportazione Ë stata eseguita ma non ha restituito alcun risultato", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("L'esportazione Ë stata eseguita ma non ha restituito alcun risultato", "Errore");
                 return null;
             }
 
@@ -105,7 +107,7 @@ namespace bankdispositionsetup_bppugliese {
             string selettore = "(kind='TESTATA')";
             DataRow[] RR = T.Select(selettore);
             if (RR.Length == 0) {
-                MessageBox.Show("Riga flusso_ordinativi non trovata, filtro utilizzato = " + selettore,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Riga flusso_ordinativi non trovata, filtro utilizzato = " + selettore,
                                         "Errore");
                 return false;
             }
@@ -123,13 +125,13 @@ namespace bankdispositionsetup_bppugliese {
             string selettore = "(kind='REVERSALE')";
             DataRow[] RR = T.Select(selettore);
             if (RR.Length == 0) {
-                MessageBox.Show("Nessuna reversale trovata.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna reversale trovata.");
                 return false;
             }
             foreach (DataRow R in RR) {
                 XmlElement Rreversale = XmlHelper.CreaRigaChild(E, schema.reversale, R, null);
                 if (Rreversale == null) {
-                    MessageBox.Show("Saltata reversale n." + R["ndoc"].ToString() + " per errore di dati");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Saltata reversale n." + R["ndoc"].ToString() + " per errore di dati");
                     return false;
                 }
                 if (!Aggiungi_informazioni_versante(Rreversale, T, R)) return false;
@@ -148,14 +150,14 @@ namespace bankdispositionsetup_bppugliese {
                               );
             DataRow[] RR = T.Select(selettore);
             if (RR.Length == 0) {
-                MessageBox.Show("Informazioni sul versante non trovate per la reversale n." +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Informazioni sul versante non trovate per la reversale n." +
                                     Rreversale["ndoc"].ToString(), "Errore");
                 return false;
             }
             foreach (DataRow R in RR) {
                 XmlElement Rinformazioni_versante = XmlHelper.CreaRigaChild(E, schema.informazioni_versante, R, null);
                 if (Rinformazioni_versante == null) {
-                    MessageBox.Show("Informazioni sul versante non trovate per la reversale n." +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Informazioni sul versante non trovate per la reversale n." +
                                     R["ndoc"].ToString(), "Errore");
                     return false;
                 }

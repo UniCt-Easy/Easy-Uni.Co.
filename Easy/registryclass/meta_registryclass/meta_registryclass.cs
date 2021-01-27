@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Data;
 using metadatalibrary;
 using metaeasylibrary;
@@ -74,7 +76,7 @@ namespace meta_registryclass
 	        SetDefault(T,"flagresidence_forced","N");
 	        SetDefault(T,"flagfiscalresidence","S");
 	        SetDefault(T,"flagfiscalresidence_forced","N");
-	        //solo visibilit√†
+	        //solo visibilit‡
 	        SetDefault(T,"flagcfbutton","S");
 	        SetDefault(T,"flaginfofromcfbutton","S");
 	        //non utilizzati
@@ -130,10 +132,10 @@ namespace meta_registryclass
 						DescribeAColumn(T, "flagp_iva_forced", "Partita iva obbligatoria", nPos++);
 						DescribeAColumn(T, "flagqualification", "campo \"Titolo\" visibile", nPos++);
 						DescribeAColumn(T, "flagqualification_forced", "campo \"Titolo\" obbligatorio", nPos++);
-						DescribeAColumn(T, "flagresidence", "Usato congiuntamente a flagresidence_forced per stabilire se l'indirizzo di residenza √® obbligatorio, Da solo non ha un gran significato poich√© non esiste un campo indirizzo di residenza", nPos++);
+						DescribeAColumn(T, "flagresidence", "Usato congiuntamente a flagresidence_forced per stabilire se l'indirizzo di residenza Ë obbligatorio, Da solo non ha un gran significato poichÈ non esiste un campo indirizzo di residenza", nPos++);
 						DescribeAColumn(T, "flagresidence_forced", "Informazioni sulla residenza obbligatorie", nPos++);
 						DescribeAColumn(T, "flagtitle", "Campo Denominazione diverso da cognome+nome, inserito manualmente", nPos++);
-						DescribeAColumn(T, "flagtitle_forced", "Non usato, il campo denominazione  √® sempre obbligatorio in un modo o nell'altro", nPos++);
+						DescribeAColumn(T, "flagtitle_forced", "Non usato, il campo denominazione  Ë sempre obbligatorio in un modo o nell'altro", nPos++);
 						break;
 					}
 				case "persone": {

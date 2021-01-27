@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªønamespace Creport.Report.Rdl {
+
+namespace Creport.Report.Rdl {
     public class TablixCell :ParentOf<CellContents> {
         public TablixCell(CellContents item)
             : base(item) {
@@ -24,7 +26,7 @@
         }
 
         /// <summary>
-        /// Crea una cella da inserire in una row in una tablix. Element = campo da visualizzare, subtotal = indica se √® subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo
+        /// Crea una cella da inserire in una row in una tablix. Element = campo da visualizzare, subtotal = indica se Ë subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo
         /// </summary>
         /// <param name="Element">ElementProperty.Name</param>
         /// <param name="subtotal">false</param>
@@ -53,7 +55,7 @@
 
 
         /// <summary>
-        /// Crea una cella con drilldown da inserire in una row in una tablix. Element = campo da visualizzare, subtotal = indica se √® subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo, visibility = espressione di visibilit√†, ToggleItem oggetto del drilldown
+        /// Crea una cella con drilldown da inserire in una row in una tablix. Element = campo da visualizzare, subtotal = indica se Ë subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo, visibility = espressione di visibilit‡, ToggleItem oggetto del drilldown
         /// </summary>
         /// <param name="Element">ElementProperty.Name</param>
         /// <param name="subtotal">false</param>
@@ -114,7 +116,7 @@
 
 
         /// <summary>
-        /// Crea una cella con drilldown da inserire in una row in una tablix. Element = campi da visualizzare, operand = operando,subtotal = indica se √® subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo, visibility = espressione di visibilit√†, ToggleItem oggetto del drilldown
+        /// Crea una cella con drilldown da inserire in una row in una tablix. Element = campi da visualizzare, operand = operando,subtotal = indica se Ë subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo, visibility = espressione di visibilit‡, ToggleItem oggetto del drilldown
         /// </summary>
         /// <param name="Element">new string[]{ ElementProperty.Id1, ElementProperty.Id2 }</param>
         /// <param name="operand">"+"</param>
@@ -148,7 +150,7 @@
 
 
         /// <summary>
-        /// Crea una cella con drilldown da inserire in una row in una tablix. Element = campo da visualizzare, subtotal = indica se √® subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo, hidde = true nascondi, ToggleItem oggetto del drilldown
+        /// Crea una cella con drilldown da inserire in una row in una tablix. Element = campo da visualizzare, subtotal = indica se Ë subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo, hidde = true nascondi, ToggleItem oggetto del drilldown
         /// </summary>
         /// <param name="Element">ElementProperty.Name</param>
         /// <param name="subtotal">false</param>

@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -46,7 +48,7 @@ namespace meta_expenselast {
             //    string messaggio = "Attenzione!, impostando il flag 'Regolarizza disposizione di pagamento già effettuata' " +
             //        " il movimento sarà nascosto nella stampa della distinta di trasmissione a meno che non venga impostato " +
             //        " il parametro MostraMovGiaTrasmessi a S, dal bottone Altri Parametri, in tal caso il movimento verrà visualizzato su sfondo grigio";
-            //    DialogResult RES = MessageBox.Show(messaggio, "ATTENZIONE", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            //    DialogResult RES = MetaFactory.factory.getSingleton<IMessageShower>().Show(messaggio, "ATTENZIONE", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
             //    if (RES == DialogResult.Cancel) {
             //        errmess = "";
             //        errfield = "flag";
@@ -55,6 +57,13 @@ namespace meta_expenselast {
             //}
 
             //Check CIN
+            if (R.Table.Columns.Contains("pagopanoticenum")) {
+	            if (R["pagopanoticenum"] != DBNull.Value && R["pagopanoticenum"].ToString().Length != 18) {
+		            errmess = "Il codice avviso pagoPA deve essere di 18 caratteri";
+		            errfield = "pagopanoticenum";
+		            return false;
+	            }
+            }
             if (R.Table.DataSet.Tables["expense"] != null) {
                 byte fasefine = CfgFn.GetNoNullByte(R.Table.DataSet.Tables["expense"].ExtendedProperties["fasefine"]);
 
@@ -170,7 +179,7 @@ namespace meta_expenselast {
                                 R["idbank"].ToString().Trim() != "" &&
                                 R["cc"].ToString() != "" &&
                                 R["cc"].ToString().Length != 12) {
-                                DialogResult RES = MessageBox.Show("Il CC risulta ERRATO in quanto dovrebbe essere completato con degli zeri iniziali. Procedo comunque?", "Dati incoerenti", MessageBoxButtons.OKCancel);
+                                DialogResult RES = MetaFactory.factory.getSingleton<IMessageShower>().Show("Il CC risulta ERRATO in quanto dovrebbe essere completato con degli zeri iniziali. Procedo comunque?", "Dati incoerenti", MessageBoxButtons.OKCancel);
                                 if (RES == DialogResult.Cancel) {
                                     errfield = "cc";
                                     return false;
@@ -182,7 +191,7 @@ namespace meta_expenselast {
                                 R["idbank"].ToString().Trim() != ""
                                 // ||R["cc"].ToString() != ""   omesso poiché per i cc postali si mette il cc ma non il cin
                                 ) {
-                                DialogResult RES = MessageBox.Show("Non è stato inserito il CIN. E' normalmente necessario inserire ABI,CAB,CC,CIN per non incorrere in sanzioni bancarie. Procedo comunque?", "Dati incoerenti", MessageBoxButtons.OKCancel);
+                                DialogResult RES = MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stato inserito il CIN. E' normalmente necessario inserire ABI,CAB,CC,CIN per non incorrere in sanzioni bancarie. Procedo comunque?", "Dati incoerenti", MessageBoxButtons.OKCancel);
                                 if (RES == DialogResult.Cancel) {
                                     errfield = "cin";
                                     return false;

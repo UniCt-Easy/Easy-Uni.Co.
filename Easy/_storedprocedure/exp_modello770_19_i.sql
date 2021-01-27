@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_modello770_19_i]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_modello770_19_i]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_modello770_19_i]
 GO
  
@@ -408,7 +410,7 @@ DEALLOCATE cursoreexpense
 	--2016	SY016	003	Sesso	AN
 	--2016	SY016	004	Data di Nascita	DT
 	--2016	SY016	005	Codice di identificazione  fiscale estero	AN
-	--2016	SY016	006	Localit√† di residenza estera	AN
+	--2016	SY016	006	Localit‡ di residenza estera	AN
 	--2016	SY016	007	Via e numero civico	AN
 	--2016	SY016	008	Codice stato estero	N3
 	--2016	SY016	009	Causale	AN
@@ -434,7 +436,7 @@ DEALLOCATE cursoreexpense
 		exemptionquota_applied decimal(19,2)
 	)
 
--- Il quadro H √® per il lavoro autonomo
+-- Il quadro H Ë per il lavoro autonomo
 	CREATE TABLE #recI_StranieriNonArrot
 	(
 		progr int,
@@ -506,7 +508,7 @@ DEALLOCATE cursoreexpense
 			+ ISNULL(
 				(SELECT SUM(amount) FROM expensevar
 				WHERE expensevar.idexp = expense.idexp
-				-- AND expensevar.yvar <= @annoredditi  superfluo poich√© expense di ultima fase
+				-- AND expensevar.yvar <= @annoredditi  superfluo poichÈ expense di ultima fase
 				AND ISNULL(autokind,0) <> 4)
 			,0)) > 0
 			and (select count(*) from expensetaxofficial 
@@ -580,7 +582,7 @@ DEALLOCATE cursoreexpense
 				select @idcitynascita=newcity from geo_city where idcity=@idcitynascita 
 			END
 
-			--sezione di impostazione vecchio comune poich√© quello del 770 non √® aggiornato, DA RIMUOVERE nel 2010!!
+			--sezione di impostazione vecchio comune poichÈ quello del 770 non Ë aggiornato, DA RIMUOVERE nel 2010!!
 			SELECT
 				@birthplace = geo_city.title,
 				@birthprovince =  geo_country.province 
@@ -727,7 +729,7 @@ DEALLOCATE cursoreexpense
 		INSERT INTO #recI_StranieriNonArrot (progr, quadro, riga, colonna, data)    VALUES(@progrPercStraniero, 'SY016', 1, '004', @birthdate)
 	--SY016	005	Codice di identificazione  fiscale estero	AN
 		INSERT INTO #recI_StranieriNonArrot (progr, quadro, riga, colonna, stringa)    VALUES(@progrPercStraniero, 'SY016', 1, '005', @foreigncf)
-	--SY016	006	Localit√† di residenza estera	AN
+	--SY016	006	Localit‡ di residenza estera	AN
 		INSERT INTO #recI_StranieriNonArrot (progr, quadro, riga, colonna, stringa) VALUES(@progrPercStraniero, 'SY016', 1, '006', @locationestera)
 	--SY016	007	Via e numero civico	AN
 		INSERT INTO #recI_StranieriNonArrot (progr, quadro, riga, colonna, stringa) VALUES(@progrPercStraniero, 'SY016', 1, '007', @addressestero)
@@ -997,7 +999,7 @@ DEALLOCATE cursoreexpense
 	set @AltreSommeNonSoggetteARitenuta=0
 	SET @AltreSommeNonSoggetteARitenuta = 
 					@ammontarelordocorrisposto
-					- ISNULL((SELECT SUM(taxablenet) --somma imponibili netti ove la rit fiscale non √® zero esclusi stranieri conv.
+					- ISNULL((SELECT SUM(taxablenet) --somma imponibili netti ove la rit fiscale non Ë zero esclusi stranieri conv.
 							FROM expensetaxofficial
 				              		join tax
 								ON tax.taxcode = expensetaxofficial.taxcode
@@ -1008,7 +1010,7 @@ DEALLOCATE cursoreexpense
 							AND taxref <>'07_IRPEF_FC'
 							AND expensetaxofficial.stop is null
 					),0)
-					-- RITENUTA IPREF STRANIERI IN CONVENZIONE, √® necessario prenderle a parte poich√© per esse la ritenuta √® zero
+					-- RITENUTA IPREF STRANIERI IN CONVENZIONE, Ë necessario prenderle a parte poichÈ per esse la ritenuta Ë zero
 					- @SommeNonSoggetteARitenutaPerRegimeConvenzionale
 					
 
@@ -1063,7 +1065,7 @@ DEALLOCATE cursoreexpense
 	--2016	SY016	003	Sesso	AN
 	--2016	SY016	004	Data di Nascita	DT
 	--2016	SY016	005	Codice di identificazione  fiscale estero	AN
-	--2016	SY016	006	Localit√† di residenza estera	AN
+	--2016	SY016	006	Localit‡ di residenza estera	AN
 	--2016	SY016	007	Via e numero civico	AN
 	--2016	SY016	008	Codice stato estero	N3
 	--2016	SY016	009	Causale	AN
@@ -1165,4 +1167,3 @@ GO
 
 
  
-	

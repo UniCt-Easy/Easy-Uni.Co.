@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -264,2431 +266,2431 @@ namespace fin_default {//bilancio//
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_fin_default));
-			this.MetaDataDetail = new System.Windows.Forms.TabControl();
-			this.tabGeneralita = new System.Windows.Forms.TabPage();
-			this.gboxResponsabile = new System.Windows.Forms.GroupBox();
-			this.txtResponsabile = new System.Windows.Forms.TextBox();
-			this.label5 = new System.Windows.Forms.Label();
-			this.SubEntity_cup = new System.Windows.Forms.TextBox();
-			this.chkES = new System.Windows.Forms.CheckBox();
-			this.btnCreaPrevisioni = new System.Windows.Forms.Button();
-			this.btnSuddivisioni = new System.Windows.Forms.Button();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.GrpboxPrevisione = new System.Windows.Forms.GroupBox();
-			this.groupBox4 = new System.Windows.Forms.GroupBox();
-			this.SubEntity_txtprevision5 = new System.Windows.Forms.TextBox();
-			this.SubEntity_txtprevision4 = new System.Windows.Forms.TextBox();
-			this.SubEntity_txtprevision3 = new System.Windows.Forms.TextBox();
-			this.SubEntity_txtprevision2 = new System.Windows.Forms.TextBox();
-			this.lblPrevisione5 = new System.Windows.Forms.Label();
-			this.lblPrevisione4 = new System.Windows.Forms.Label();
-			this.lblPrevisione3 = new System.Windows.Forms.Label();
-			this.lblPrevisione2 = new System.Windows.Forms.Label();
-			this.gboxPrimaPrevisione = new System.Windows.Forms.GroupBox();
-			this.SubEntity_txtprevesercizioprec = new System.Windows.Forms.TextBox();
-			this.lblEsPrecPrima = new System.Windows.Forms.Label();
-			this.SubEntity_txtpreveserciziocorr = new System.Windows.Forms.TextBox();
-			this.lblEsCorrentePrima = new System.Windows.Forms.Label();
-			this.gboxSecondaPrevisione = new System.Windows.Forms.GroupBox();
-			this.SubEntity_txtprevsecesercizioprec = new System.Windows.Forms.TextBox();
-			this.lblEsPrecSeconda = new System.Windows.Forms.Label();
-			this.SubEntity_txtprevseceserciziocorr = new System.Windows.Forms.TextBox();
-			this.lblEsCorrSeconda = new System.Windows.Forms.Label();
-			this.gboxRipartizione = new System.Windows.Forms.GroupBox();
-			this.SubEntity_txtripartizioneprec = new System.Windows.Forms.TextBox();
-			this.lblRipPrecedente = new System.Windows.Forms.Label();
-			this.SubEntity_txtripartizionecorr = new System.Windows.Forms.TextBox();
-			this.lblRipCorrente = new System.Windows.Forms.Label();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.chkNoContab = new System.Windows.Forms.CheckBox();
-			this.chkAvanzoUscita = new System.Windows.Forms.CheckBox();
-			this.chkAvanzoEntrata = new System.Windows.Forms.CheckBox();
-			this.chkMovProtetta = new System.Windows.Forms.CheckBox();
-			this.chbPartiteGiro = new System.Windows.Forms.CheckBox();
-			this.chbTrasferimenti = new System.Windows.Forms.CheckBox();
-			this.grpParte = new System.Windows.Forms.GroupBox();
-			this.rdbSpesa = new System.Windows.Forms.RadioButton();
-			this.rdbEntrata = new System.Windows.Forms.RadioButton();
-			this.SubEntity_txtScadenza = new System.Windows.Forms.TextBox();
-			this.lblScadenza = new System.Windows.Forms.Label();
-			this.txtOrdineStampa = new System.Windows.Forms.TextBox();
-			this.lblOrdineStampa = new System.Windows.Forms.Label();
-			this.txtDenominazione = new System.Windows.Forms.TextBox();
-			this.lblDenominazione = new System.Windows.Forms.Label();
-			this.txtCodice = new System.Windows.Forms.TextBox();
-			this.lblCodice = new System.Windows.Forms.Label();
-			this.lblLivello = new System.Windows.Forms.Label();
-			this.cmbLivello = new System.Windows.Forms.ComboBox();
-			this.DS = new fin_default.vistaForm();
-			this.btnNewSituazione = new System.Windows.Forms.Button();
-			this.tabPrevisione = new System.Windows.Forms.TabPage();
-			this.dgPrevisione = new System.Windows.Forms.DataGrid();
-			this.btnInsPrevisione = new System.Windows.Forms.Button();
-			this.btnEditPrevisione = new System.Windows.Forms.Button();
-			this.btnDelPrevisione = new System.Windows.Forms.Button();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.dgVariazioni = new System.Windows.Forms.DataGrid();
-			this.tabClassSupp = new System.Windows.Forms.TabPage();
-			this.gBoxCausalePartiteGiro = new System.Windows.Forms.GroupBox();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.txtCodiceCausaleDeb = new System.Windows.Forms.TextBox();
-			this.button6 = new System.Windows.Forms.Button();
-			this.gboxConto = new System.Windows.Forms.GroupBox();
-			this.txtDenominazioneConto = new System.Windows.Forms.TextBox();
-			this.txtCodiceConto = new System.Windows.Forms.TextBox();
-			this.button1 = new System.Windows.Forms.Button();
-			this.dGridClassSup = new System.Windows.Forms.DataGrid();
-			this.btnElimina = new System.Windows.Forms.Button();
-			this.btnModifica = new System.Windows.Forms.Button();
-			this.btnInserisci = new System.Windows.Forms.Button();
-			this.TabClassAutoSpese = new System.Windows.Forms.TabPage();
-			this.groupBox6 = new System.Windows.Forms.GroupBox();
-			this.dGridFilterClassExp = new System.Windows.Forms.DataGrid();
-			this.btnEliminaFilterS = new System.Windows.Forms.Button();
-			this.btnModificaFilterS = new System.Windows.Forms.Button();
-			this.btnInserisciFilterS = new System.Windows.Forms.Button();
-			this.groupBox7 = new System.Windows.Forms.GroupBox();
-			this.dGridClassAutoExp = new System.Windows.Forms.DataGrid();
-			this.btnEliminaClassS = new System.Windows.Forms.Button();
-			this.btnModificaClassS = new System.Windows.Forms.Button();
-			this.btnInserisciClassS = new System.Windows.Forms.Button();
-			this.TabClassAutoEntrate = new System.Windows.Forms.TabPage();
-			this.groupBox8 = new System.Windows.Forms.GroupBox();
-			this.dGridFilterClassInc = new System.Windows.Forms.DataGrid();
-			this.btnEliminaFilterE = new System.Windows.Forms.Button();
-			this.btnModificaFilterE = new System.Windows.Forms.Button();
-			this.btnInserisciFilterE = new System.Windows.Forms.Button();
-			this.groupBox9 = new System.Windows.Forms.GroupBox();
-			this.dGridClassAutoInc = new System.Windows.Forms.DataGrid();
-			this.btnEliminaClassE = new System.Windows.Forms.Button();
-			this.btnModificaClassE = new System.Windows.Forms.Button();
-			this.btnInserisciClassE = new System.Windows.Forms.Button();
-			this.tabRiepilogo = new System.Windows.Forms.TabPage();
-			this.tabControlRiepilogo = new System.Windows.Forms.TabControl();
-			this.tabCompetenza = new System.Windows.Forms.TabPage();
-			this.grpPrevCompetenza = new System.Windows.Forms.GroupBox();
-			this.label7 = new System.Windows.Forms.Label();
-			this.label6 = new System.Windows.Forms.Label();
-			this.txtPrevAttualeCompetenza = new System.Windows.Forms.TextBox();
-			this.btnPiccoleSpeseImp = new System.Windows.Forms.Button();
-			this.lblPiccoleSpeseImp = new System.Windows.Forms.Label();
-			this.txtPiccoleSpeseImp = new System.Windows.Forms.TextBox();
-			this.btnAccertamentiCompetenza = new System.Windows.Forms.Button();
-			this.lblAccertamentiCompetenza = new System.Windows.Forms.Label();
-			this.txtAccertamentiCompetenza = new System.Windows.Forms.TextBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.btnVarPrevCompetenza = new System.Windows.Forms.Button();
-			this.lblVarPrevCompetenza = new System.Windows.Forms.Label();
-			this.txtVarPrevCompetenza = new System.Windows.Forms.TextBox();
-			this.lblPrevDispCompetenza = new System.Windows.Forms.Label();
-			this.txtPrevDispCompetenza = new System.Windows.Forms.TextBox();
-			this.btnImpegniCompetenza = new System.Windows.Forms.Button();
-			this.lblImpegniCompetenza = new System.Windows.Forms.Label();
-			this.txtImpegniCompetenza = new System.Windows.Forms.TextBox();
-			this.btnPrevInizialeCompetenza = new System.Windows.Forms.Button();
-			this.lblPrevInizialeCompetenza = new System.Windows.Forms.Label();
-			this.txtPrevInizialeCompetenza = new System.Windows.Forms.TextBox();
-			this.tabCassa = new System.Windows.Forms.TabPage();
-			this.grpPrevCassa = new System.Windows.Forms.GroupBox();
-			this.txtPrevDispCassaPerImpegniAccertamenti = new System.Windows.Forms.TextBox();
-			this.label10 = new System.Windows.Forms.Label();
-			this.lblPrevDispCassaImpegniAccertamenti = new System.Windows.Forms.Label();
-			this.btnAccertamentiAll = new System.Windows.Forms.Button();
-			this.lblAccertamentiAll = new System.Windows.Forms.Label();
-			this.txtAccertamentiAll = new System.Windows.Forms.TextBox();
-			this.btnImpegniAll = new System.Windows.Forms.Button();
-			this.lblImpegniAll = new System.Windows.Forms.Label();
-			this.txtImpegniAll = new System.Windows.Forms.TextBox();
-			this.label8 = new System.Windows.Forms.Label();
-			this.label9 = new System.Windows.Forms.Label();
-			this.txtPrevAttualeCassa = new System.Windows.Forms.TextBox();
-			this.txtPrevDispCassaPerPagInc = new System.Windows.Forms.TextBox();
-			this.btnPiccoleSpesePagamenti = new System.Windows.Forms.Button();
-			this.lblPiccoleSpesePagamenti = new System.Windows.Forms.Label();
-			this.txtPiccoleSpesePagamenti = new System.Windows.Forms.TextBox();
-			this.btnIncassi = new System.Windows.Forms.Button();
-			this.lblIncassi = new System.Windows.Forms.Label();
-			this.txtIncassi = new System.Windows.Forms.TextBox();
-			this.label2 = new System.Windows.Forms.Label();
-			this.btnVarPrevisioneCassa = new System.Windows.Forms.Button();
-			this.lblVarPrevisioneCassa = new System.Windows.Forms.Label();
-			this.txtVarPrevisioneCassa = new System.Windows.Forms.TextBox();
-			this.lblPrevDispCassaPagInc = new System.Windows.Forms.Label();
-			this.btnPagamenti = new System.Windows.Forms.Button();
-			this.lblPagamenti = new System.Windows.Forms.Label();
-			this.txtPagamenti = new System.Windows.Forms.TextBox();
-			this.btnPrevInizialeCassa = new System.Windows.Forms.Button();
-			this.lblPrevInizialeCassa = new System.Windows.Forms.Label();
-			this.txtPrevInizialeCassa = new System.Windows.Forms.TextBox();
-			this.tabCrediti = new System.Windows.Forms.TabPage();
-			this.grpCrediti = new System.Windows.Forms.GroupBox();
-			this.label11 = new System.Windows.Forms.Label();
-			this.labelTotaleCrediti = new System.Windows.Forms.Label();
-			this.txtTotaleCrediti = new System.Windows.Forms.TextBox();
-			this.btnVarDotazioneCrediti = new System.Windows.Forms.Button();
-			this.txtVarDotazioneCrediti = new System.Windows.Forms.TextBox();
-			this.lblVarDotazioneCrediti = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.btnDotazioneCrediti = new System.Windows.Forms.Button();
-			this.lblDotazioneCrediti = new System.Windows.Forms.Label();
-			this.txtDotazioneCrediti = new System.Windows.Forms.TextBox();
-			this.lblCreditiResidui = new System.Windows.Forms.Label();
-			this.txtCreditiResidui = new System.Windows.Forms.TextBox();
-			this.btnCreditiAssegnati = new System.Windows.Forms.Button();
-			this.lblCreditiAssegnati = new System.Windows.Forms.Label();
-			this.txtCreditiAssegnati = new System.Windows.Forms.TextBox();
-			this.tabAssCassa = new System.Windows.Forms.TabPage();
-			this.grpCassa = new System.Windows.Forms.GroupBox();
-			this.label12 = new System.Windows.Forms.Label();
-			this.labelTotaleCassa = new System.Windows.Forms.Label();
-			this.txtTotaleCassa = new System.Windows.Forms.TextBox();
-			this.btnPiccoleSpesePagamenti1 = new System.Windows.Forms.Button();
-			this.lblPiccoleSpesePagamenti1 = new System.Windows.Forms.Label();
-			this.txtPiccoleSpesePagamenti1 = new System.Windows.Forms.TextBox();
-			this.btnPagamenti1 = new System.Windows.Forms.Button();
-			this.lblPagamenti1 = new System.Windows.Forms.Label();
-			this.txtPagamenti1 = new System.Windows.Forms.TextBox();
-			this.btnVarDotazioneCassa = new System.Windows.Forms.Button();
-			this.txtVarDotazioneCassa = new System.Windows.Forms.TextBox();
-			this.lblVarDotazioneCassa = new System.Windows.Forms.Label();
-			this.label4 = new System.Windows.Forms.Label();
-			this.btnDotazioneCassa = new System.Windows.Forms.Button();
-			this.lblDotazioneCassa = new System.Windows.Forms.Label();
-			this.txtDotazioneCassa = new System.Windows.Forms.TextBox();
-			this.lblCassaResidua = new System.Windows.Forms.Label();
-			this.txtCassaResidua = new System.Windows.Forms.TextBox();
-			this.btnAssegnazioniCassa = new System.Windows.Forms.Button();
-			this.lblAssegnazioniCassa = new System.Windows.Forms.Label();
-			this.txtAssegnazioniCassa = new System.Windows.Forms.TextBox();
-			this.btnCalcolaTotali = new System.Windows.Forms.Button();
-			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-			this.treeView1 = new System.Windows.Forms.TreeView();
-			this.icons = new System.Windows.Forms.ImageList(this.components);
-			this.splitter1 = new System.Windows.Forms.Splitter();
-			this.MetaDataDetail.SuspendLayout();
-			this.tabGeneralita.SuspendLayout();
-			this.gboxResponsabile.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-			this.GrpboxPrevisione.SuspendLayout();
-			this.groupBox4.SuspendLayout();
-			this.gboxPrimaPrevisione.SuspendLayout();
-			this.gboxSecondaPrevisione.SuspendLayout();
-			this.gboxRipartizione.SuspendLayout();
-			this.groupBox1.SuspendLayout();
-			this.grpParte.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-			this.tabPrevisione.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dgPrevisione)).BeginInit();
-			this.groupBox2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dgVariazioni)).BeginInit();
-			this.tabClassSupp.SuspendLayout();
-			this.gBoxCausalePartiteGiro.SuspendLayout();
-			this.gboxConto.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dGridClassSup)).BeginInit();
-			this.TabClassAutoSpese.SuspendLayout();
-			this.groupBox6.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dGridFilterClassExp)).BeginInit();
-			this.groupBox7.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dGridClassAutoExp)).BeginInit();
-			this.TabClassAutoEntrate.SuspendLayout();
-			this.groupBox8.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dGridFilterClassInc)).BeginInit();
-			this.groupBox9.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dGridClassAutoInc)).BeginInit();
-			this.tabRiepilogo.SuspendLayout();
-			this.tabControlRiepilogo.SuspendLayout();
-			this.tabCompetenza.SuspendLayout();
-			this.grpPrevCompetenza.SuspendLayout();
-			this.tabCassa.SuspendLayout();
-			this.grpPrevCassa.SuspendLayout();
-			this.tabCrediti.SuspendLayout();
-			this.grpCrediti.SuspendLayout();
-			this.tabAssCassa.SuspendLayout();
-			this.grpCassa.SuspendLayout();
-			this.SuspendLayout();
-			// 
-			// MetaDataDetail
-			// 
-			this.MetaDataDetail.Controls.Add(this.tabGeneralita);
-			this.MetaDataDetail.Controls.Add(this.tabPrevisione);
-			this.MetaDataDetail.Controls.Add(this.tabClassSupp);
-			this.MetaDataDetail.Controls.Add(this.TabClassAutoSpese);
-			this.MetaDataDetail.Controls.Add(this.TabClassAutoEntrate);
-			this.MetaDataDetail.Controls.Add(this.tabRiepilogo);
-			this.MetaDataDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.MetaDataDetail.HotTrack = true;
-			this.MetaDataDetail.ImageList = this.imageList1;
-			this.MetaDataDetail.Location = new System.Drawing.Point(331, 0);
-			this.MetaDataDetail.Multiline = true;
-			this.MetaDataDetail.Name = "MetaDataDetail";
-			this.MetaDataDetail.SelectedIndex = 0;
-			this.MetaDataDetail.Size = new System.Drawing.Size(586, 530);
-			this.MetaDataDetail.TabIndex = 3;
-			// 
-			// tabGeneralita
-			// 
-			this.tabGeneralita.Controls.Add(this.gboxResponsabile);
-			this.tabGeneralita.Controls.Add(this.label5);
-			this.tabGeneralita.Controls.Add(this.SubEntity_cup);
-			this.tabGeneralita.Controls.Add(this.chkES);
-			this.tabGeneralita.Controls.Add(this.btnCreaPrevisioni);
-			this.tabGeneralita.Controls.Add(this.btnSuddivisioni);
-			this.tabGeneralita.Controls.Add(this.pictureBox1);
-			this.tabGeneralita.Controls.Add(this.GrpboxPrevisione);
-			this.tabGeneralita.Controls.Add(this.groupBox1);
-			this.tabGeneralita.Controls.Add(this.grpParte);
-			this.tabGeneralita.Controls.Add(this.SubEntity_txtScadenza);
-			this.tabGeneralita.Controls.Add(this.lblScadenza);
-			this.tabGeneralita.Controls.Add(this.txtOrdineStampa);
-			this.tabGeneralita.Controls.Add(this.lblOrdineStampa);
-			this.tabGeneralita.Controls.Add(this.txtDenominazione);
-			this.tabGeneralita.Controls.Add(this.lblDenominazione);
-			this.tabGeneralita.Controls.Add(this.txtCodice);
-			this.tabGeneralita.Controls.Add(this.lblCodice);
-			this.tabGeneralita.Controls.Add(this.lblLivello);
-			this.tabGeneralita.Controls.Add(this.cmbLivello);
-			this.tabGeneralita.Controls.Add(this.btnNewSituazione);
-			this.tabGeneralita.Location = new System.Drawing.Point(4, 23);
-			this.tabGeneralita.Name = "tabGeneralita";
-			this.tabGeneralita.Size = new System.Drawing.Size(578, 503);
-			this.tabGeneralita.TabIndex = 0;
-			this.tabGeneralita.Text = "Principale";
-			this.tabGeneralita.UseVisualStyleBackColor = true;
-			// 
-			// gboxResponsabile
-			// 
-			this.gboxResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_fin_default));
+            this.MetaDataDetail = new System.Windows.Forms.TabControl();
+            this.tabGeneralita = new System.Windows.Forms.TabPage();
+            this.gboxResponsabile = new System.Windows.Forms.GroupBox();
+            this.txtResponsabile = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.SubEntity_cup = new System.Windows.Forms.TextBox();
+            this.chkES = new System.Windows.Forms.CheckBox();
+            this.btnCreaPrevisioni = new System.Windows.Forms.Button();
+            this.btnSuddivisioni = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.GrpboxPrevisione = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.SubEntity_txtprevision5 = new System.Windows.Forms.TextBox();
+            this.SubEntity_txtprevision4 = new System.Windows.Forms.TextBox();
+            this.SubEntity_txtprevision3 = new System.Windows.Forms.TextBox();
+            this.SubEntity_txtprevision2 = new System.Windows.Forms.TextBox();
+            this.lblPrevisione5 = new System.Windows.Forms.Label();
+            this.lblPrevisione4 = new System.Windows.Forms.Label();
+            this.lblPrevisione3 = new System.Windows.Forms.Label();
+            this.lblPrevisione2 = new System.Windows.Forms.Label();
+            this.gboxPrimaPrevisione = new System.Windows.Forms.GroupBox();
+            this.SubEntity_txtprevesercizioprec = new System.Windows.Forms.TextBox();
+            this.lblEsPrecPrima = new System.Windows.Forms.Label();
+            this.SubEntity_txtpreveserciziocorr = new System.Windows.Forms.TextBox();
+            this.lblEsCorrentePrima = new System.Windows.Forms.Label();
+            this.gboxSecondaPrevisione = new System.Windows.Forms.GroupBox();
+            this.SubEntity_txtprevsecesercizioprec = new System.Windows.Forms.TextBox();
+            this.lblEsPrecSeconda = new System.Windows.Forms.Label();
+            this.SubEntity_txtprevseceserciziocorr = new System.Windows.Forms.TextBox();
+            this.lblEsCorrSeconda = new System.Windows.Forms.Label();
+            this.gboxRipartizione = new System.Windows.Forms.GroupBox();
+            this.SubEntity_txtripartizioneprec = new System.Windows.Forms.TextBox();
+            this.lblRipPrecedente = new System.Windows.Forms.Label();
+            this.SubEntity_txtripartizionecorr = new System.Windows.Forms.TextBox();
+            this.lblRipCorrente = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkNoContab = new System.Windows.Forms.CheckBox();
+            this.chkAvanzoUscita = new System.Windows.Forms.CheckBox();
+            this.chkAvanzoEntrata = new System.Windows.Forms.CheckBox();
+            this.chkMovProtetta = new System.Windows.Forms.CheckBox();
+            this.chbPartiteGiro = new System.Windows.Forms.CheckBox();
+            this.chbTrasferimenti = new System.Windows.Forms.CheckBox();
+            this.grpParte = new System.Windows.Forms.GroupBox();
+            this.rdbSpesa = new System.Windows.Forms.RadioButton();
+            this.rdbEntrata = new System.Windows.Forms.RadioButton();
+            this.SubEntity_txtScadenza = new System.Windows.Forms.TextBox();
+            this.lblScadenza = new System.Windows.Forms.Label();
+            this.txtOrdineStampa = new System.Windows.Forms.TextBox();
+            this.lblOrdineStampa = new System.Windows.Forms.Label();
+            this.txtDenominazione = new System.Windows.Forms.TextBox();
+            this.lblDenominazione = new System.Windows.Forms.Label();
+            this.txtCodice = new System.Windows.Forms.TextBox();
+            this.lblCodice = new System.Windows.Forms.Label();
+            this.lblLivello = new System.Windows.Forms.Label();
+            this.cmbLivello = new System.Windows.Forms.ComboBox();
+            this.DS = new fin_default.vistaForm();
+            this.btnNewSituazione = new System.Windows.Forms.Button();
+            this.tabPrevisione = new System.Windows.Forms.TabPage();
+            this.dgPrevisione = new System.Windows.Forms.DataGrid();
+            this.btnInsPrevisione = new System.Windows.Forms.Button();
+            this.btnEditPrevisione = new System.Windows.Forms.Button();
+            this.btnDelPrevisione = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dgVariazioni = new System.Windows.Forms.DataGrid();
+            this.tabClassSupp = new System.Windows.Forms.TabPage();
+            this.gBoxCausalePartiteGiro = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtCodiceCausaleDeb = new System.Windows.Forms.TextBox();
+            this.button6 = new System.Windows.Forms.Button();
+            this.gboxConto = new System.Windows.Forms.GroupBox();
+            this.txtDenominazioneConto = new System.Windows.Forms.TextBox();
+            this.txtCodiceConto = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.dGridClassSup = new System.Windows.Forms.DataGrid();
+            this.btnElimina = new System.Windows.Forms.Button();
+            this.btnModifica = new System.Windows.Forms.Button();
+            this.btnInserisci = new System.Windows.Forms.Button();
+            this.TabClassAutoSpese = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.dGridFilterClassExp = new System.Windows.Forms.DataGrid();
+            this.btnEliminaFilterS = new System.Windows.Forms.Button();
+            this.btnModificaFilterS = new System.Windows.Forms.Button();
+            this.btnInserisciFilterS = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.dGridClassAutoExp = new System.Windows.Forms.DataGrid();
+            this.btnEliminaClassS = new System.Windows.Forms.Button();
+            this.btnModificaClassS = new System.Windows.Forms.Button();
+            this.btnInserisciClassS = new System.Windows.Forms.Button();
+            this.TabClassAutoEntrate = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.dGridFilterClassInc = new System.Windows.Forms.DataGrid();
+            this.btnEliminaFilterE = new System.Windows.Forms.Button();
+            this.btnModificaFilterE = new System.Windows.Forms.Button();
+            this.btnInserisciFilterE = new System.Windows.Forms.Button();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.dGridClassAutoInc = new System.Windows.Forms.DataGrid();
+            this.btnEliminaClassE = new System.Windows.Forms.Button();
+            this.btnModificaClassE = new System.Windows.Forms.Button();
+            this.btnInserisciClassE = new System.Windows.Forms.Button();
+            this.tabRiepilogo = new System.Windows.Forms.TabPage();
+            this.tabControlRiepilogo = new System.Windows.Forms.TabControl();
+            this.tabCompetenza = new System.Windows.Forms.TabPage();
+            this.grpPrevCompetenza = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtPrevAttualeCompetenza = new System.Windows.Forms.TextBox();
+            this.btnPiccoleSpeseImp = new System.Windows.Forms.Button();
+            this.lblPiccoleSpeseImp = new System.Windows.Forms.Label();
+            this.txtPiccoleSpeseImp = new System.Windows.Forms.TextBox();
+            this.btnAccertamentiCompetenza = new System.Windows.Forms.Button();
+            this.lblAccertamentiCompetenza = new System.Windows.Forms.Label();
+            this.txtAccertamentiCompetenza = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnVarPrevCompetenza = new System.Windows.Forms.Button();
+            this.lblVarPrevCompetenza = new System.Windows.Forms.Label();
+            this.txtVarPrevCompetenza = new System.Windows.Forms.TextBox();
+            this.lblPrevDispCompetenza = new System.Windows.Forms.Label();
+            this.txtPrevDispCompetenza = new System.Windows.Forms.TextBox();
+            this.btnImpegniCompetenza = new System.Windows.Forms.Button();
+            this.lblImpegniCompetenza = new System.Windows.Forms.Label();
+            this.txtImpegniCompetenza = new System.Windows.Forms.TextBox();
+            this.btnPrevInizialeCompetenza = new System.Windows.Forms.Button();
+            this.lblPrevInizialeCompetenza = new System.Windows.Forms.Label();
+            this.txtPrevInizialeCompetenza = new System.Windows.Forms.TextBox();
+            this.tabCassa = new System.Windows.Forms.TabPage();
+            this.grpPrevCassa = new System.Windows.Forms.GroupBox();
+            this.txtPrevDispCassaPerImpegniAccertamenti = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lblPrevDispCassaImpegniAccertamenti = new System.Windows.Forms.Label();
+            this.btnAccertamentiAll = new System.Windows.Forms.Button();
+            this.lblAccertamentiAll = new System.Windows.Forms.Label();
+            this.txtAccertamentiAll = new System.Windows.Forms.TextBox();
+            this.btnImpegniAll = new System.Windows.Forms.Button();
+            this.lblImpegniAll = new System.Windows.Forms.Label();
+            this.txtImpegniAll = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtPrevAttualeCassa = new System.Windows.Forms.TextBox();
+            this.txtPrevDispCassaPerPagInc = new System.Windows.Forms.TextBox();
+            this.btnPiccoleSpesePagamenti = new System.Windows.Forms.Button();
+            this.lblPiccoleSpesePagamenti = new System.Windows.Forms.Label();
+            this.txtPiccoleSpesePagamenti = new System.Windows.Forms.TextBox();
+            this.btnIncassi = new System.Windows.Forms.Button();
+            this.lblIncassi = new System.Windows.Forms.Label();
+            this.txtIncassi = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnVarPrevisioneCassa = new System.Windows.Forms.Button();
+            this.lblVarPrevisioneCassa = new System.Windows.Forms.Label();
+            this.txtVarPrevisioneCassa = new System.Windows.Forms.TextBox();
+            this.lblPrevDispCassaPagInc = new System.Windows.Forms.Label();
+            this.btnPagamenti = new System.Windows.Forms.Button();
+            this.lblPagamenti = new System.Windows.Forms.Label();
+            this.txtPagamenti = new System.Windows.Forms.TextBox();
+            this.btnPrevInizialeCassa = new System.Windows.Forms.Button();
+            this.lblPrevInizialeCassa = new System.Windows.Forms.Label();
+            this.txtPrevInizialeCassa = new System.Windows.Forms.TextBox();
+            this.tabCrediti = new System.Windows.Forms.TabPage();
+            this.grpCrediti = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.labelTotaleCrediti = new System.Windows.Forms.Label();
+            this.txtTotaleCrediti = new System.Windows.Forms.TextBox();
+            this.btnVarDotazioneCrediti = new System.Windows.Forms.Button();
+            this.txtVarDotazioneCrediti = new System.Windows.Forms.TextBox();
+            this.lblVarDotazioneCrediti = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnDotazioneCrediti = new System.Windows.Forms.Button();
+            this.lblDotazioneCrediti = new System.Windows.Forms.Label();
+            this.txtDotazioneCrediti = new System.Windows.Forms.TextBox();
+            this.lblCreditiResidui = new System.Windows.Forms.Label();
+            this.txtCreditiResidui = new System.Windows.Forms.TextBox();
+            this.btnCreditiAssegnati = new System.Windows.Forms.Button();
+            this.lblCreditiAssegnati = new System.Windows.Forms.Label();
+            this.txtCreditiAssegnati = new System.Windows.Forms.TextBox();
+            this.tabAssCassa = new System.Windows.Forms.TabPage();
+            this.grpCassa = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.labelTotaleCassa = new System.Windows.Forms.Label();
+            this.txtTotaleCassa = new System.Windows.Forms.TextBox();
+            this.btnPiccoleSpesePagamenti1 = new System.Windows.Forms.Button();
+            this.lblPiccoleSpesePagamenti1 = new System.Windows.Forms.Label();
+            this.txtPiccoleSpesePagamenti1 = new System.Windows.Forms.TextBox();
+            this.btnPagamenti1 = new System.Windows.Forms.Button();
+            this.lblPagamenti1 = new System.Windows.Forms.Label();
+            this.txtPagamenti1 = new System.Windows.Forms.TextBox();
+            this.btnVarDotazioneCassa = new System.Windows.Forms.Button();
+            this.txtVarDotazioneCassa = new System.Windows.Forms.TextBox();
+            this.lblVarDotazioneCassa = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnDotazioneCassa = new System.Windows.Forms.Button();
+            this.lblDotazioneCassa = new System.Windows.Forms.Label();
+            this.txtDotazioneCassa = new System.Windows.Forms.TextBox();
+            this.lblCassaResidua = new System.Windows.Forms.Label();
+            this.txtCassaResidua = new System.Windows.Forms.TextBox();
+            this.btnAssegnazioniCassa = new System.Windows.Forms.Button();
+            this.lblAssegnazioniCassa = new System.Windows.Forms.Label();
+            this.txtAssegnazioniCassa = new System.Windows.Forms.TextBox();
+            this.btnCalcolaTotali = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.icons = new System.Windows.Forms.ImageList(this.components);
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.MetaDataDetail.SuspendLayout();
+            this.tabGeneralita.SuspendLayout();
+            this.gboxResponsabile.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.GrpboxPrevisione.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.gboxPrimaPrevisione.SuspendLayout();
+            this.gboxSecondaPrevisione.SuspendLayout();
+            this.gboxRipartizione.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.grpParte.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+            this.tabPrevisione.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgPrevisione)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgVariazioni)).BeginInit();
+            this.tabClassSupp.SuspendLayout();
+            this.gBoxCausalePartiteGiro.SuspendLayout();
+            this.gboxConto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGridClassSup)).BeginInit();
+            this.TabClassAutoSpese.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGridFilterClassExp)).BeginInit();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGridClassAutoExp)).BeginInit();
+            this.TabClassAutoEntrate.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGridFilterClassInc)).BeginInit();
+            this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGridClassAutoInc)).BeginInit();
+            this.tabRiepilogo.SuspendLayout();
+            this.tabControlRiepilogo.SuspendLayout();
+            this.tabCompetenza.SuspendLayout();
+            this.grpPrevCompetenza.SuspendLayout();
+            this.tabCassa.SuspendLayout();
+            this.grpPrevCassa.SuspendLayout();
+            this.tabCrediti.SuspendLayout();
+            this.grpCrediti.SuspendLayout();
+            this.tabAssCassa.SuspendLayout();
+            this.grpCassa.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // MetaDataDetail
+            // 
+            this.MetaDataDetail.Controls.Add(this.tabGeneralita);
+            this.MetaDataDetail.Controls.Add(this.tabPrevisione);
+            this.MetaDataDetail.Controls.Add(this.tabClassSupp);
+            this.MetaDataDetail.Controls.Add(this.TabClassAutoSpese);
+            this.MetaDataDetail.Controls.Add(this.TabClassAutoEntrate);
+            this.MetaDataDetail.Controls.Add(this.tabRiepilogo);
+            this.MetaDataDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MetaDataDetail.HotTrack = true;
+            this.MetaDataDetail.ImageList = this.imageList1;
+            this.MetaDataDetail.Location = new System.Drawing.Point(397, 0);
+            this.MetaDataDetail.Multiline = true;
+            this.MetaDataDetail.Name = "MetaDataDetail";
+            this.MetaDataDetail.SelectedIndex = 0;
+            this.MetaDataDetail.Size = new System.Drawing.Size(520, 530);
+            this.MetaDataDetail.TabIndex = 3;
+            // 
+            // tabGeneralita
+            // 
+            this.tabGeneralita.Controls.Add(this.gboxResponsabile);
+            this.tabGeneralita.Controls.Add(this.label5);
+            this.tabGeneralita.Controls.Add(this.SubEntity_cup);
+            this.tabGeneralita.Controls.Add(this.chkES);
+            this.tabGeneralita.Controls.Add(this.btnCreaPrevisioni);
+            this.tabGeneralita.Controls.Add(this.btnSuddivisioni);
+            this.tabGeneralita.Controls.Add(this.pictureBox1);
+            this.tabGeneralita.Controls.Add(this.GrpboxPrevisione);
+            this.tabGeneralita.Controls.Add(this.groupBox1);
+            this.tabGeneralita.Controls.Add(this.grpParte);
+            this.tabGeneralita.Controls.Add(this.SubEntity_txtScadenza);
+            this.tabGeneralita.Controls.Add(this.lblScadenza);
+            this.tabGeneralita.Controls.Add(this.txtOrdineStampa);
+            this.tabGeneralita.Controls.Add(this.lblOrdineStampa);
+            this.tabGeneralita.Controls.Add(this.txtDenominazione);
+            this.tabGeneralita.Controls.Add(this.lblDenominazione);
+            this.tabGeneralita.Controls.Add(this.txtCodice);
+            this.tabGeneralita.Controls.Add(this.lblCodice);
+            this.tabGeneralita.Controls.Add(this.lblLivello);
+            this.tabGeneralita.Controls.Add(this.cmbLivello);
+            this.tabGeneralita.Controls.Add(this.btnNewSituazione);
+            this.tabGeneralita.Location = new System.Drawing.Point(4, 46);
+            this.tabGeneralita.Name = "tabGeneralita";
+            this.tabGeneralita.Size = new System.Drawing.Size(512, 480);
+            this.tabGeneralita.TabIndex = 0;
+            this.tabGeneralita.Text = "Principale";
+            this.tabGeneralita.UseVisualStyleBackColor = true;
+            // 
+            // gboxResponsabile
+            // 
+            this.gboxResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.gboxResponsabile.Controls.Add(this.txtResponsabile);
-			this.gboxResponsabile.Location = new System.Drawing.Point(11, 172);
-			this.gboxResponsabile.Name = "gboxResponsabile";
-			this.gboxResponsabile.Size = new System.Drawing.Size(396, 42);
-			this.gboxResponsabile.TabIndex = 7;
-			this.gboxResponsabile.TabStop = false;
-			this.gboxResponsabile.Tag = "AutoChoose.txtResponsabile.default.(financeactive=\'S\')";
-			this.gboxResponsabile.Text = "Responsabile";
-			// 
-			// txtResponsabile
-			// 
-			this.txtResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.gboxResponsabile.Controls.Add(this.txtResponsabile);
+            this.gboxResponsabile.Location = new System.Drawing.Point(13, 198);
+            this.gboxResponsabile.Name = "gboxResponsabile";
+            this.gboxResponsabile.Size = new System.Drawing.Size(292, 49);
+            this.gboxResponsabile.TabIndex = 7;
+            this.gboxResponsabile.TabStop = false;
+            this.gboxResponsabile.Tag = "AutoChoose.txtResponsabile.default.(financeactive=\'S\')";
+            this.gboxResponsabile.Text = "Responsabile";
+            // 
+            // txtResponsabile
+            // 
+            this.txtResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtResponsabile.Location = new System.Drawing.Point(6, 16);
-			this.txtResponsabile.Name = "txtResponsabile";
-			this.txtResponsabile.Size = new System.Drawing.Size(384, 20);
-			this.txtResponsabile.TabIndex = 0;
-			this.txtResponsabile.Tag = "manager.title?x";
-			// 
-			// label5
-			// 
-			this.label5.Location = new System.Drawing.Point(13, 217);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(173, 17);
-			this.label5.TabIndex = 43;
-			this.label5.Tag = "";
-			this.label5.Text = "Codice Unico di Progetto (CUP)";
-			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// SubEntity_cup
-			// 
-			this.SubEntity_cup.Location = new System.Drawing.Point(13, 235);
-			this.SubEntity_cup.Name = "SubEntity_cup";
-			this.SubEntity_cup.Size = new System.Drawing.Size(173, 20);
-			this.SubEntity_cup.TabIndex = 8;
-			this.SubEntity_cup.Tag = "finlast.cupcode?finunified.cupcode";
-			// 
-			// chkES
-			// 
-			this.chkES.AutoSize = true;
-			this.chkES.Location = new System.Drawing.Point(327, 217);
-			this.chkES.Name = "chkES";
-			this.chkES.Size = new System.Drawing.Size(56, 17);
-			this.chkES.TabIndex = 2;
-			this.chkES.TabStop = false;
-			this.chkES.Tag = "fin.flag:0";
-			this.chkES.Text = "Spesa";
-			this.chkES.UseVisualStyleBackColor = true;
-			this.chkES.Visible = false;
-			this.chkES.CheckStateChanged += new System.EventHandler(this.chkES_CheckedChanged);
-			// 
-			// btnCreaPrevisioni
-			// 
-			this.btnCreaPrevisioni.Location = new System.Drawing.Point(458, 232);
-			this.btnCreaPrevisioni.Name = "btnCreaPrevisioni";
-			this.btnCreaPrevisioni.Size = new System.Drawing.Size(110, 23);
-			this.btnCreaPrevisioni.TabIndex = 10;
-			this.btnCreaPrevisioni.TabStop = false;
-			this.btnCreaPrevisioni.Text = "Crea Previsioni";
-			this.btnCreaPrevisioni.Visible = false;
-			this.btnCreaPrevisioni.Click += new System.EventHandler(this.btnCreaPrevisioni_Click);
-			// 
-			// btnSuddivisioni
-			// 
-			this.btnSuddivisioni.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSuddivisioni.Location = new System.Drawing.Point(420, 188);
-			this.btnSuddivisioni.Name = "btnSuddivisioni";
-			this.btnSuddivisioni.Size = new System.Drawing.Size(152, 23);
-			this.btnSuddivisioni.TabIndex = 14;
-			this.btnSuddivisioni.TabStop = false;
-			this.btnSuddivisioni.Text = "Visualizza le suddivisioni";
-			this.btnSuddivisioni.Click += new System.EventHandler(this.btnSuddivisioni_Click);
-			// 
-			// pictureBox1
-			// 
-			this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-			this.pictureBox1.Location = new System.Drawing.Point(387, 39);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(56, 40);
-			this.pictureBox1.TabIndex = 13;
-			this.pictureBox1.TabStop = false;
-			// 
-			// GrpboxPrevisione
-			// 
-			this.GrpboxPrevisione.Controls.Add(this.groupBox4);
-			this.GrpboxPrevisione.Controls.Add(this.gboxPrimaPrevisione);
-			this.GrpboxPrevisione.Controls.Add(this.gboxSecondaPrevisione);
-			this.GrpboxPrevisione.Controls.Add(this.gboxRipartizione);
-			this.GrpboxPrevisione.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.GrpboxPrevisione.Location = new System.Drawing.Point(4, 266);
-			this.GrpboxPrevisione.Name = "GrpboxPrevisione";
-			this.GrpboxPrevisione.Size = new System.Drawing.Size(572, 224);
-			this.GrpboxPrevisione.TabIndex = 11;
-			this.GrpboxPrevisione.TabStop = false;
-			this.GrpboxPrevisione.Text = "Bilancio di Previsione ";
-			// 
-			// groupBox4
-			// 
-			this.groupBox4.Controls.Add(this.SubEntity_txtprevision5);
-			this.groupBox4.Controls.Add(this.SubEntity_txtprevision4);
-			this.groupBox4.Controls.Add(this.SubEntity_txtprevision3);
-			this.groupBox4.Controls.Add(this.SubEntity_txtprevision2);
-			this.groupBox4.Controls.Add(this.lblPrevisione5);
-			this.groupBox4.Controls.Add(this.lblPrevisione4);
-			this.groupBox4.Controls.Add(this.lblPrevisione3);
-			this.groupBox4.Controls.Add(this.lblPrevisione2);
-			this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.groupBox4.Location = new System.Drawing.Point(8, 144);
-			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(558, 72);
-			this.groupBox4.TabIndex = 4;
-			this.groupBox4.TabStop = false;
-			this.groupBox4.Text = "Previsione Esercizi Futuri";
-			// 
-			// SubEntity_txtprevision5
-			// 
-			this.SubEntity_txtprevision5.Location = new System.Drawing.Point(344, 48);
-			this.SubEntity_txtprevision5.Name = "SubEntity_txtprevision5";
-			this.SubEntity_txtprevision5.Size = new System.Drawing.Size(104, 20);
-			this.SubEntity_txtprevision5.TabIndex = 7;
-			this.SubEntity_txtprevision5.Tag = "";
-			this.SubEntity_txtprevision5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// SubEntity_txtprevision4
-			// 
-			this.SubEntity_txtprevision4.Location = new System.Drawing.Point(112, 48);
-			this.SubEntity_txtprevision4.Name = "SubEntity_txtprevision4";
-			this.SubEntity_txtprevision4.Size = new System.Drawing.Size(112, 20);
-			this.SubEntity_txtprevision4.TabIndex = 6;
-			this.SubEntity_txtprevision4.Tag = "";
-			this.SubEntity_txtprevision4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// SubEntity_txtprevision3
-			// 
-			this.SubEntity_txtprevision3.Location = new System.Drawing.Point(344, 16);
-			this.SubEntity_txtprevision3.Name = "SubEntity_txtprevision3";
-			this.SubEntity_txtprevision3.Size = new System.Drawing.Size(104, 20);
-			this.SubEntity_txtprevision3.TabIndex = 5;
-			this.SubEntity_txtprevision3.Tag = "";
-			this.SubEntity_txtprevision3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// SubEntity_txtprevision2
-			// 
-			this.SubEntity_txtprevision2.Location = new System.Drawing.Point(112, 16);
-			this.SubEntity_txtprevision2.Name = "SubEntity_txtprevision2";
-			this.SubEntity_txtprevision2.Size = new System.Drawing.Size(112, 20);
-			this.SubEntity_txtprevision2.TabIndex = 4;
-			this.SubEntity_txtprevision2.Tag = "";
-			this.SubEntity_txtprevision2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// lblPrevisione5
-			// 
-			this.lblPrevisione5.Location = new System.Drawing.Point(240, 48);
-			this.lblPrevisione5.Name = "lblPrevisione5";
-			this.lblPrevisione5.Size = new System.Drawing.Size(96, 16);
-			this.lblPrevisione5.TabIndex = 3;
-			this.lblPrevisione5.Text = "n+4";
-			this.lblPrevisione5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// lblPrevisione4
-			// 
-			this.lblPrevisione4.Location = new System.Drawing.Point(8, 48);
-			this.lblPrevisione4.Name = "lblPrevisione4";
-			this.lblPrevisione4.Size = new System.Drawing.Size(96, 16);
-			this.lblPrevisione4.TabIndex = 2;
-			this.lblPrevisione4.Text = "n+3";
-			this.lblPrevisione4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// lblPrevisione3
-			// 
-			this.lblPrevisione3.Location = new System.Drawing.Point(240, 16);
-			this.lblPrevisione3.Name = "lblPrevisione3";
-			this.lblPrevisione3.Size = new System.Drawing.Size(96, 16);
-			this.lblPrevisione3.TabIndex = 1;
-			this.lblPrevisione3.Text = "n+2";
-			this.lblPrevisione3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// lblPrevisione2
-			// 
-			this.lblPrevisione2.Location = new System.Drawing.Point(8, 16);
-			this.lblPrevisione2.Name = "lblPrevisione2";
-			this.lblPrevisione2.Size = new System.Drawing.Size(96, 16);
-			this.lblPrevisione2.TabIndex = 0;
-			this.lblPrevisione2.Text = "n+1";
-			this.lblPrevisione2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// gboxPrimaPrevisione
-			// 
-			this.gboxPrimaPrevisione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtResponsabile.Location = new System.Drawing.Point(7, 18);
+            this.txtResponsabile.Name = "txtResponsabile";
+            this.txtResponsabile.Size = new System.Drawing.Size(278, 22);
+            this.txtResponsabile.TabIndex = 0;
+            this.txtResponsabile.Tag = "manager.title?x";
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(16, 250);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(207, 20);
+            this.label5.TabIndex = 43;
+            this.label5.Tag = "";
+            this.label5.Text = "Codice Unico di Progetto (CUP)";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // SubEntity_cup
+            // 
+            this.SubEntity_cup.Location = new System.Drawing.Point(16, 271);
+            this.SubEntity_cup.Name = "SubEntity_cup";
+            this.SubEntity_cup.Size = new System.Drawing.Size(207, 22);
+            this.SubEntity_cup.TabIndex = 8;
+            this.SubEntity_cup.Tag = "finlast.cupcode?finunified.cupcode";
+            // 
+            // chkES
+            // 
+            this.chkES.AutoSize = true;
+            this.chkES.Location = new System.Drawing.Point(392, 250);
+            this.chkES.Name = "chkES";
+            this.chkES.Size = new System.Drawing.Size(70, 21);
+            this.chkES.TabIndex = 2;
+            this.chkES.TabStop = false;
+            this.chkES.Tag = "fin.flag:0";
+            this.chkES.Text = "Spesa";
+            this.chkES.UseVisualStyleBackColor = true;
+            this.chkES.Visible = false;
+            this.chkES.CheckStateChanged += new System.EventHandler(this.chkES_CheckedChanged);
+            // 
+            // btnCreaPrevisioni
+            // 
+            this.btnCreaPrevisioni.Location = new System.Drawing.Point(550, 268);
+            this.btnCreaPrevisioni.Name = "btnCreaPrevisioni";
+            this.btnCreaPrevisioni.Size = new System.Drawing.Size(132, 26);
+            this.btnCreaPrevisioni.TabIndex = 10;
+            this.btnCreaPrevisioni.TabStop = false;
+            this.btnCreaPrevisioni.Text = "Crea Previsioni";
+            this.btnCreaPrevisioni.Visible = false;
+            this.btnCreaPrevisioni.Click += new System.EventHandler(this.btnCreaPrevisioni_Click);
+            // 
+            // btnSuddivisioni
+            // 
+            this.btnSuddivisioni.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSuddivisioni.Location = new System.Drawing.Point(321, 217);
+            this.btnSuddivisioni.Name = "btnSuddivisioni";
+            this.btnSuddivisioni.Size = new System.Drawing.Size(182, 26);
+            this.btnSuddivisioni.TabIndex = 14;
+            this.btnSuddivisioni.TabStop = false;
+            this.btnSuddivisioni.Text = "Visualizza le suddivisioni";
+            this.btnSuddivisioni.Click += new System.EventHandler(this.btnSuddivisioni_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(464, 45);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(68, 46);
+            this.pictureBox1.TabIndex = 13;
+            this.pictureBox1.TabStop = false;
+            // 
+            // GrpboxPrevisione
+            // 
+            this.GrpboxPrevisione.Controls.Add(this.groupBox4);
+            this.GrpboxPrevisione.Controls.Add(this.gboxPrimaPrevisione);
+            this.GrpboxPrevisione.Controls.Add(this.gboxSecondaPrevisione);
+            this.GrpboxPrevisione.Controls.Add(this.gboxRipartizione);
+            this.GrpboxPrevisione.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GrpboxPrevisione.Location = new System.Drawing.Point(5, 307);
+            this.GrpboxPrevisione.Name = "GrpboxPrevisione";
+            this.GrpboxPrevisione.Size = new System.Drawing.Size(686, 258);
+            this.GrpboxPrevisione.TabIndex = 11;
+            this.GrpboxPrevisione.TabStop = false;
+            this.GrpboxPrevisione.Text = "Bilancio di Previsione ";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.SubEntity_txtprevision5);
+            this.groupBox4.Controls.Add(this.SubEntity_txtprevision4);
+            this.groupBox4.Controls.Add(this.SubEntity_txtprevision3);
+            this.groupBox4.Controls.Add(this.SubEntity_txtprevision2);
+            this.groupBox4.Controls.Add(this.lblPrevisione5);
+            this.groupBox4.Controls.Add(this.lblPrevisione4);
+            this.groupBox4.Controls.Add(this.lblPrevisione3);
+            this.groupBox4.Controls.Add(this.lblPrevisione2);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(10, 166);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(669, 83);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Previsione Esercizi Futuri";
+            // 
+            // SubEntity_txtprevision5
+            // 
+            this.SubEntity_txtprevision5.Location = new System.Drawing.Point(413, 55);
+            this.SubEntity_txtprevision5.Name = "SubEntity_txtprevision5";
+            this.SubEntity_txtprevision5.Size = new System.Drawing.Size(125, 23);
+            this.SubEntity_txtprevision5.TabIndex = 7;
+            this.SubEntity_txtprevision5.Tag = "";
+            this.SubEntity_txtprevision5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // SubEntity_txtprevision4
+            // 
+            this.SubEntity_txtprevision4.Location = new System.Drawing.Point(134, 55);
+            this.SubEntity_txtprevision4.Name = "SubEntity_txtprevision4";
+            this.SubEntity_txtprevision4.Size = new System.Drawing.Size(135, 23);
+            this.SubEntity_txtprevision4.TabIndex = 6;
+            this.SubEntity_txtprevision4.Tag = "";
+            this.SubEntity_txtprevision4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // SubEntity_txtprevision3
+            // 
+            this.SubEntity_txtprevision3.Location = new System.Drawing.Point(413, 18);
+            this.SubEntity_txtprevision3.Name = "SubEntity_txtprevision3";
+            this.SubEntity_txtprevision3.Size = new System.Drawing.Size(125, 23);
+            this.SubEntity_txtprevision3.TabIndex = 5;
+            this.SubEntity_txtprevision3.Tag = "";
+            this.SubEntity_txtprevision3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // SubEntity_txtprevision2
+            // 
+            this.SubEntity_txtprevision2.Location = new System.Drawing.Point(134, 18);
+            this.SubEntity_txtprevision2.Name = "SubEntity_txtprevision2";
+            this.SubEntity_txtprevision2.Size = new System.Drawing.Size(135, 23);
+            this.SubEntity_txtprevision2.TabIndex = 4;
+            this.SubEntity_txtprevision2.Tag = "";
+            this.SubEntity_txtprevision2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblPrevisione5
+            // 
+            this.lblPrevisione5.Location = new System.Drawing.Point(288, 55);
+            this.lblPrevisione5.Name = "lblPrevisione5";
+            this.lblPrevisione5.Size = new System.Drawing.Size(115, 19);
+            this.lblPrevisione5.TabIndex = 3;
+            this.lblPrevisione5.Text = "n+4";
+            this.lblPrevisione5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblPrevisione4
+            // 
+            this.lblPrevisione4.Location = new System.Drawing.Point(10, 55);
+            this.lblPrevisione4.Name = "lblPrevisione4";
+            this.lblPrevisione4.Size = new System.Drawing.Size(115, 19);
+            this.lblPrevisione4.TabIndex = 2;
+            this.lblPrevisione4.Text = "n+3";
+            this.lblPrevisione4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblPrevisione3
+            // 
+            this.lblPrevisione3.Location = new System.Drawing.Point(288, 18);
+            this.lblPrevisione3.Name = "lblPrevisione3";
+            this.lblPrevisione3.Size = new System.Drawing.Size(115, 19);
+            this.lblPrevisione3.TabIndex = 1;
+            this.lblPrevisione3.Text = "n+2";
+            this.lblPrevisione3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblPrevisione2
+            // 
+            this.lblPrevisione2.Location = new System.Drawing.Point(10, 18);
+            this.lblPrevisione2.Name = "lblPrevisione2";
+            this.lblPrevisione2.Size = new System.Drawing.Size(115, 19);
+            this.lblPrevisione2.TabIndex = 0;
+            this.lblPrevisione2.Text = "n+1";
+            this.lblPrevisione2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // gboxPrimaPrevisione
+            // 
+            this.gboxPrimaPrevisione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.gboxPrimaPrevisione.Controls.Add(this.SubEntity_txtprevesercizioprec);
-			this.gboxPrimaPrevisione.Controls.Add(this.lblEsPrecPrima);
-			this.gboxPrimaPrevisione.Controls.Add(this.SubEntity_txtpreveserciziocorr);
-			this.gboxPrimaPrevisione.Controls.Add(this.lblEsCorrentePrima);
-			this.gboxPrimaPrevisione.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.gboxPrimaPrevisione.Location = new System.Drawing.Point(8, 16);
-			this.gboxPrimaPrevisione.Name = "gboxPrimaPrevisione";
-			this.gboxPrimaPrevisione.Size = new System.Drawing.Size(556, 40);
-			this.gboxPrimaPrevisione.TabIndex = 1;
-			this.gboxPrimaPrevisione.TabStop = false;
-			this.gboxPrimaPrevisione.Text = "Previsione di competenza";
-			// 
-			// SubEntity_txtprevesercizioprec
-			// 
-			this.SubEntity_txtprevesercizioprec.Location = new System.Drawing.Point(448, 16);
-			this.SubEntity_txtprevesercizioprec.Name = "SubEntity_txtprevesercizioprec";
-			this.SubEntity_txtprevesercizioprec.Size = new System.Drawing.Size(104, 20);
-			this.SubEntity_txtprevesercizioprec.TabIndex = 2;
-			this.SubEntity_txtprevesercizioprec.Tag = "";
-			this.SubEntity_txtprevesercizioprec.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// lblEsPrecPrima
-			// 
-			this.lblEsPrecPrima.Location = new System.Drawing.Point(344, 16);
-			this.lblEsPrecPrima.Name = "lblEsPrecPrima";
-			this.lblEsPrecPrima.Size = new System.Drawing.Size(96, 16);
-			this.lblEsPrecPrima.TabIndex = 2;
-			this.lblEsPrecPrima.Text = "Es. precedente:";
-			this.lblEsPrecPrima.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// SubEntity_txtpreveserciziocorr
-			// 
-			this.SubEntity_txtpreveserciziocorr.Location = new System.Drawing.Point(112, 16);
-			this.SubEntity_txtpreveserciziocorr.Name = "SubEntity_txtpreveserciziocorr";
-			this.SubEntity_txtpreveserciziocorr.Size = new System.Drawing.Size(112, 20);
-			this.SubEntity_txtpreveserciziocorr.TabIndex = 1;
-			this.SubEntity_txtpreveserciziocorr.Tag = "";
-			this.SubEntity_txtpreveserciziocorr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// lblEsCorrentePrima
-			// 
-			this.lblEsCorrentePrima.Location = new System.Drawing.Point(8, 16);
-			this.lblEsCorrentePrima.Name = "lblEsCorrentePrima";
-			this.lblEsCorrentePrima.Size = new System.Drawing.Size(96, 16);
-			this.lblEsCorrentePrima.TabIndex = 0;
-			this.lblEsCorrentePrima.Text = "Es. corrente:";
-			this.lblEsCorrentePrima.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// gboxSecondaPrevisione
-			// 
-			this.gboxSecondaPrevisione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.gboxPrimaPrevisione.Controls.Add(this.SubEntity_txtprevesercizioprec);
+            this.gboxPrimaPrevisione.Controls.Add(this.lblEsPrecPrima);
+            this.gboxPrimaPrevisione.Controls.Add(this.SubEntity_txtpreveserciziocorr);
+            this.gboxPrimaPrevisione.Controls.Add(this.lblEsCorrentePrima);
+            this.gboxPrimaPrevisione.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gboxPrimaPrevisione.Location = new System.Drawing.Point(10, 18);
+            this.gboxPrimaPrevisione.Name = "gboxPrimaPrevisione";
+            this.gboxPrimaPrevisione.Size = new System.Drawing.Size(667, 47);
+            this.gboxPrimaPrevisione.TabIndex = 1;
+            this.gboxPrimaPrevisione.TabStop = false;
+            this.gboxPrimaPrevisione.Text = "Previsione di competenza";
+            // 
+            // SubEntity_txtprevesercizioprec
+            // 
+            this.SubEntity_txtprevesercizioprec.Location = new System.Drawing.Point(538, 18);
+            this.SubEntity_txtprevesercizioprec.Name = "SubEntity_txtprevesercizioprec";
+            this.SubEntity_txtprevesercizioprec.Size = new System.Drawing.Size(124, 23);
+            this.SubEntity_txtprevesercizioprec.TabIndex = 2;
+            this.SubEntity_txtprevesercizioprec.Tag = "";
+            this.SubEntity_txtprevesercizioprec.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblEsPrecPrima
+            // 
+            this.lblEsPrecPrima.Location = new System.Drawing.Point(413, 18);
+            this.lblEsPrecPrima.Name = "lblEsPrecPrima";
+            this.lblEsPrecPrima.Size = new System.Drawing.Size(115, 19);
+            this.lblEsPrecPrima.TabIndex = 2;
+            this.lblEsPrecPrima.Text = "Es. precedente:";
+            this.lblEsPrecPrima.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // SubEntity_txtpreveserciziocorr
+            // 
+            this.SubEntity_txtpreveserciziocorr.Location = new System.Drawing.Point(134, 18);
+            this.SubEntity_txtpreveserciziocorr.Name = "SubEntity_txtpreveserciziocorr";
+            this.SubEntity_txtpreveserciziocorr.Size = new System.Drawing.Size(135, 23);
+            this.SubEntity_txtpreveserciziocorr.TabIndex = 1;
+            this.SubEntity_txtpreveserciziocorr.Tag = "";
+            this.SubEntity_txtpreveserciziocorr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblEsCorrentePrima
+            // 
+            this.lblEsCorrentePrima.Location = new System.Drawing.Point(10, 18);
+            this.lblEsCorrentePrima.Name = "lblEsCorrentePrima";
+            this.lblEsCorrentePrima.Size = new System.Drawing.Size(115, 19);
+            this.lblEsCorrentePrima.TabIndex = 0;
+            this.lblEsCorrentePrima.Text = "Es. corrente:";
+            this.lblEsCorrentePrima.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // gboxSecondaPrevisione
+            // 
+            this.gboxSecondaPrevisione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.gboxSecondaPrevisione.Controls.Add(this.SubEntity_txtprevsecesercizioprec);
-			this.gboxSecondaPrevisione.Controls.Add(this.lblEsPrecSeconda);
-			this.gboxSecondaPrevisione.Controls.Add(this.SubEntity_txtprevseceserciziocorr);
-			this.gboxSecondaPrevisione.Controls.Add(this.lblEsCorrSeconda);
-			this.gboxSecondaPrevisione.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.gboxSecondaPrevisione.Location = new System.Drawing.Point(8, 56);
-			this.gboxSecondaPrevisione.Name = "gboxSecondaPrevisione";
-			this.gboxSecondaPrevisione.Size = new System.Drawing.Size(556, 40);
-			this.gboxSecondaPrevisione.TabIndex = 2;
-			this.gboxSecondaPrevisione.TabStop = false;
-			this.gboxSecondaPrevisione.Text = "Previsione di cassa";
-			this.gboxSecondaPrevisione.Enter += new System.EventHandler(this.gboxSecondaPrevisione_Enter);
-			// 
-			// SubEntity_txtprevsecesercizioprec
-			// 
-			this.SubEntity_txtprevsecesercizioprec.Location = new System.Drawing.Point(445, 16);
-			this.SubEntity_txtprevsecesercizioprec.Name = "SubEntity_txtprevsecesercizioprec";
-			this.SubEntity_txtprevsecesercizioprec.Size = new System.Drawing.Size(104, 20);
-			this.SubEntity_txtprevsecesercizioprec.TabIndex = 2;
-			this.SubEntity_txtprevsecesercizioprec.Tag = "";
-			this.SubEntity_txtprevsecesercizioprec.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// lblEsPrecSeconda
-			// 
-			this.lblEsPrecSeconda.Location = new System.Drawing.Point(341, 16);
-			this.lblEsPrecSeconda.Name = "lblEsPrecSeconda";
-			this.lblEsPrecSeconda.Size = new System.Drawing.Size(96, 16);
-			this.lblEsPrecSeconda.TabIndex = 2;
-			this.lblEsPrecSeconda.Text = "Es. precedente:";
-			this.lblEsPrecSeconda.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// SubEntity_txtprevseceserciziocorr
-			// 
-			this.SubEntity_txtprevseceserciziocorr.Location = new System.Drawing.Point(112, 16);
-			this.SubEntity_txtprevseceserciziocorr.Name = "SubEntity_txtprevseceserciziocorr";
-			this.SubEntity_txtprevseceserciziocorr.Size = new System.Drawing.Size(112, 20);
-			this.SubEntity_txtprevseceserciziocorr.TabIndex = 1;
-			this.SubEntity_txtprevseceserciziocorr.Tag = "";
-			this.SubEntity_txtprevseceserciziocorr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// lblEsCorrSeconda
-			// 
-			this.lblEsCorrSeconda.Location = new System.Drawing.Point(8, 16);
-			this.lblEsCorrSeconda.Name = "lblEsCorrSeconda";
-			this.lblEsCorrSeconda.Size = new System.Drawing.Size(96, 16);
-			this.lblEsCorrSeconda.TabIndex = 0;
-			this.lblEsCorrSeconda.Text = "Es. corrente:";
-			this.lblEsCorrSeconda.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// gboxRipartizione
-			// 
-			this.gboxRipartizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.gboxSecondaPrevisione.Controls.Add(this.SubEntity_txtprevsecesercizioprec);
+            this.gboxSecondaPrevisione.Controls.Add(this.lblEsPrecSeconda);
+            this.gboxSecondaPrevisione.Controls.Add(this.SubEntity_txtprevseceserciziocorr);
+            this.gboxSecondaPrevisione.Controls.Add(this.lblEsCorrSeconda);
+            this.gboxSecondaPrevisione.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gboxSecondaPrevisione.Location = new System.Drawing.Point(10, 65);
+            this.gboxSecondaPrevisione.Name = "gboxSecondaPrevisione";
+            this.gboxSecondaPrevisione.Size = new System.Drawing.Size(667, 46);
+            this.gboxSecondaPrevisione.TabIndex = 2;
+            this.gboxSecondaPrevisione.TabStop = false;
+            this.gboxSecondaPrevisione.Text = "Previsione di cassa";
+            this.gboxSecondaPrevisione.Enter += new System.EventHandler(this.gboxSecondaPrevisione_Enter);
+            // 
+            // SubEntity_txtprevsecesercizioprec
+            // 
+            this.SubEntity_txtprevsecesercizioprec.Location = new System.Drawing.Point(534, 18);
+            this.SubEntity_txtprevsecesercizioprec.Name = "SubEntity_txtprevsecesercizioprec";
+            this.SubEntity_txtprevsecesercizioprec.Size = new System.Drawing.Size(125, 23);
+            this.SubEntity_txtprevsecesercizioprec.TabIndex = 2;
+            this.SubEntity_txtprevsecesercizioprec.Tag = "";
+            this.SubEntity_txtprevsecesercizioprec.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblEsPrecSeconda
+            // 
+            this.lblEsPrecSeconda.Location = new System.Drawing.Point(409, 18);
+            this.lblEsPrecSeconda.Name = "lblEsPrecSeconda";
+            this.lblEsPrecSeconda.Size = new System.Drawing.Size(115, 19);
+            this.lblEsPrecSeconda.TabIndex = 2;
+            this.lblEsPrecSeconda.Text = "Es. precedente:";
+            this.lblEsPrecSeconda.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // SubEntity_txtprevseceserciziocorr
+            // 
+            this.SubEntity_txtprevseceserciziocorr.Location = new System.Drawing.Point(134, 18);
+            this.SubEntity_txtprevseceserciziocorr.Name = "SubEntity_txtprevseceserciziocorr";
+            this.SubEntity_txtprevseceserciziocorr.Size = new System.Drawing.Size(135, 23);
+            this.SubEntity_txtprevseceserciziocorr.TabIndex = 1;
+            this.SubEntity_txtprevseceserciziocorr.Tag = "";
+            this.SubEntity_txtprevseceserciziocorr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblEsCorrSeconda
+            // 
+            this.lblEsCorrSeconda.Location = new System.Drawing.Point(10, 18);
+            this.lblEsCorrSeconda.Name = "lblEsCorrSeconda";
+            this.lblEsCorrSeconda.Size = new System.Drawing.Size(115, 19);
+            this.lblEsCorrSeconda.TabIndex = 0;
+            this.lblEsCorrSeconda.Text = "Es. corrente:";
+            this.lblEsCorrSeconda.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // gboxRipartizione
+            // 
+            this.gboxRipartizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.gboxRipartizione.Controls.Add(this.SubEntity_txtripartizioneprec);
-			this.gboxRipartizione.Controls.Add(this.lblRipPrecedente);
-			this.gboxRipartizione.Controls.Add(this.SubEntity_txtripartizionecorr);
-			this.gboxRipartizione.Controls.Add(this.lblRipCorrente);
-			this.gboxRipartizione.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.gboxRipartizione.Location = new System.Drawing.Point(8, 96);
-			this.gboxRipartizione.Name = "gboxRipartizione";
-			this.gboxRipartizione.Size = new System.Drawing.Size(556, 48);
-			this.gboxRipartizione.TabIndex = 3;
-			this.gboxRipartizione.TabStop = false;
-			this.gboxRipartizione.Text = "Residui dell\'anno precedente";
-			// 
-			// SubEntity_txtripartizioneprec
-			// 
-			this.SubEntity_txtripartizioneprec.Location = new System.Drawing.Point(448, 13);
-			this.SubEntity_txtripartizioneprec.Name = "SubEntity_txtripartizioneprec";
-			this.SubEntity_txtripartizioneprec.Size = new System.Drawing.Size(104, 20);
-			this.SubEntity_txtripartizioneprec.TabIndex = 2;
-			this.SubEntity_txtripartizioneprec.Tag = "";
-			this.SubEntity_txtripartizioneprec.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// lblRipPrecedente
-			// 
-			this.lblRipPrecedente.Location = new System.Drawing.Point(344, 15);
-			this.lblRipPrecedente.Name = "lblRipPrecedente";
-			this.lblRipPrecedente.Size = new System.Drawing.Size(96, 16);
-			this.lblRipPrecedente.TabIndex = 2;
-			this.lblRipPrecedente.Text = "Es. precedente:";
-			this.lblRipPrecedente.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// SubEntity_txtripartizionecorr
-			// 
-			this.SubEntity_txtripartizionecorr.Location = new System.Drawing.Point(112, 14);
-			this.SubEntity_txtripartizionecorr.Name = "SubEntity_txtripartizionecorr";
-			this.SubEntity_txtripartizionecorr.Size = new System.Drawing.Size(112, 20);
-			this.SubEntity_txtripartizionecorr.TabIndex = 1;
-			this.SubEntity_txtripartizionecorr.Tag = "";
-			this.SubEntity_txtripartizionecorr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// lblRipCorrente
-			// 
-			this.lblRipCorrente.Location = new System.Drawing.Point(8, 16);
-			this.lblRipCorrente.Name = "lblRipCorrente";
-			this.lblRipCorrente.Size = new System.Drawing.Size(96, 16);
-			this.lblRipCorrente.TabIndex = 0;
-			this.lblRipCorrente.Text = "Es. corrente:";
-			this.lblRipCorrente.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// groupBox1
-			// 
-			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox1.Controls.Add(this.chkNoContab);
-			this.groupBox1.Controls.Add(this.chkAvanzoUscita);
-			this.groupBox1.Controls.Add(this.chkAvanzoEntrata);
-			this.groupBox1.Controls.Add(this.chkMovProtetta);
-			this.groupBox1.Controls.Add(this.chbPartiteGiro);
-			this.groupBox1.Controls.Add(this.chbTrasferimenti);
-			this.groupBox1.Location = new System.Drawing.Point(450, 3);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(120, 163);
-			this.groupBox1.TabIndex = 5;
-			this.groupBox1.TabStop = false;
-			// 
-			// chkNoContab
-			// 
-			this.chkNoContab.Location = new System.Drawing.Point(6, 102);
-			this.chkNoContab.Name = "chkNoContab";
-			this.chkNoContab.Size = new System.Drawing.Size(108, 55);
-			this.chkNoContab.TabIndex = 15;
-			this.chkNoContab.Tag = "fin.flag:6";
-			this.chkNoContab.Text = "Permetti movim. non legata a contabilizzazione";
-			this.chkNoContab.ThreeState = true;
-			// 
-			// chkAvanzoUscita
-			// 
-			this.chkAvanzoUscita.Location = new System.Drawing.Point(6, 85);
-			this.chkAvanzoUscita.Name = "chkAvanzoUscita";
-			this.chkAvanzoUscita.Size = new System.Drawing.Size(108, 19);
-			this.chkAvanzoUscita.TabIndex = 14;
-			this.chkAvanzoUscita.Tag = "fin.flag:5";
-			this.chkAvanzoUscita.Text = "Avanzo (spese)";
-			this.chkAvanzoUscita.ThreeState = true;
-			this.chkAvanzoUscita.Click += new System.EventHandler(this.chbAvanzo_Click);
-			// 
-			// chkAvanzoEntrata
-			// 
-			this.chkAvanzoEntrata.Location = new System.Drawing.Point(6, 66);
-			this.chkAvanzoEntrata.Name = "chkAvanzoEntrata";
-			this.chkAvanzoEntrata.Size = new System.Drawing.Size(108, 19);
-			this.chkAvanzoEntrata.TabIndex = 13;
-			this.chkAvanzoEntrata.Tag = "fin.flag:4";
-			this.chkAvanzoEntrata.Text = "Avanzo (entrate)";
-			this.chkAvanzoEntrata.ThreeState = true;
-			this.chkAvanzoEntrata.Click += new System.EventHandler(this.chbAvanzo_Click);
-			// 
-			// chkMovProtetta
-			// 
-			this.chkMovProtetta.Location = new System.Drawing.Point(6, 47);
-			this.chkMovProtetta.Name = "chkMovProtetta";
-			this.chkMovProtetta.Size = new System.Drawing.Size(108, 19);
-			this.chkMovProtetta.TabIndex = 12;
-			this.chkMovProtetta.Tag = "fin.flag:3";
-			this.chkMovProtetta.Text = "Movim. protetta";
-			this.chkMovProtetta.ThreeState = true;
-			this.chkMovProtetta.Click += new System.EventHandler(this.chbAvanzo_Click);
-			// 
-			// chbPartiteGiro
-			// 
-			this.chbPartiteGiro.Location = new System.Drawing.Point(6, 9);
-			this.chbPartiteGiro.Name = "chbPartiteGiro";
-			this.chbPartiteGiro.Size = new System.Drawing.Size(96, 21);
-			this.chbPartiteGiro.TabIndex = 10;
-			this.chbPartiteGiro.Tag = "fin.flag:1";
-			this.chbPartiteGiro.Text = "Partite di giro";
-			this.chbPartiteGiro.ThreeState = true;
-			this.chbPartiteGiro.Click += new System.EventHandler(this.chbAvanzo_Click);
-			// 
-			// chbTrasferimenti
-			// 
-			this.chbTrasferimenti.Location = new System.Drawing.Point(6, 26);
-			this.chbTrasferimenti.Name = "chbTrasferimenti";
-			this.chbTrasferimenti.Size = new System.Drawing.Size(100, 23);
-			this.chbTrasferimenti.TabIndex = 11;
-			this.chbTrasferimenti.Tag = "fin.flag:2";
-			this.chbTrasferimenti.Text = "Trasf. interni";
-			this.chbTrasferimenti.ThreeState = true;
-			this.chbTrasferimenti.Click += new System.EventHandler(this.chbAvanzo_Click);
-			// 
-			// grpParte
-			// 
-			this.grpParte.Controls.Add(this.rdbSpesa);
-			this.grpParte.Controls.Add(this.rdbEntrata);
-			this.grpParte.Location = new System.Drawing.Point(180, 3);
-			this.grpParte.Name = "grpParte";
-			this.grpParte.Size = new System.Drawing.Size(157, 38);
-			this.grpParte.TabIndex = 2;
-			this.grpParte.TabStop = false;
-			this.grpParte.Text = "Parte";
-			// 
-			// rdbSpesa
-			// 
-			this.rdbSpesa.Location = new System.Drawing.Point(78, 14);
-			this.rdbSpesa.Name = "rdbSpesa";
-			this.rdbSpesa.Size = new System.Drawing.Size(56, 16);
-			this.rdbSpesa.TabIndex = 1;
-			this.rdbSpesa.Tag = "";
-			this.rdbSpesa.Text = "Spesa";
-			this.rdbSpesa.CheckedChanged += new System.EventHandler(this.rdbSpesa_CheckedChanged);
-			// 
-			// rdbEntrata
-			// 
-			this.rdbEntrata.Location = new System.Drawing.Point(8, 14);
-			this.rdbEntrata.Name = "rdbEntrata";
-			this.rdbEntrata.Size = new System.Drawing.Size(64, 16);
-			this.rdbEntrata.TabIndex = 0;
-			this.rdbEntrata.Tag = "";
-			this.rdbEntrata.Text = "Entrata";
-			this.rdbEntrata.CheckedChanged += new System.EventHandler(this.rdbEntrata_CheckedChanged);
-			// 
-			// SubEntity_txtScadenza
-			// 
-			this.SubEntity_txtScadenza.Location = new System.Drawing.Point(207, 236);
-			this.SubEntity_txtScadenza.Name = "SubEntity_txtScadenza";
-			this.SubEntity_txtScadenza.Size = new System.Drawing.Size(96, 20);
-			this.SubEntity_txtScadenza.TabIndex = 9;
-			this.SubEntity_txtScadenza.Tag = "finlast.expiration?finunified.expiration";
-			// 
-			// lblScadenza
-			// 
-			this.lblScadenza.Location = new System.Drawing.Point(207, 220);
-			this.lblScadenza.Name = "lblScadenza";
-			this.lblScadenza.Size = new System.Drawing.Size(88, 16);
-			this.lblScadenza.TabIndex = 12;
-			this.lblScadenza.Text = "Data Scadenza:";
-			this.lblScadenza.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// txtOrdineStampa
-			// 
-			this.txtOrdineStampa.Location = new System.Drawing.Point(177, 69);
-			this.txtOrdineStampa.Name = "txtOrdineStampa";
-			this.txtOrdineStampa.Size = new System.Drawing.Size(160, 20);
-			this.txtOrdineStampa.TabIndex = 4;
-			this.txtOrdineStampa.Tag = "fin.printingorder";
-			// 
-			// lblOrdineStampa
-			// 
-			this.lblOrdineStampa.Location = new System.Drawing.Point(177, 50);
-			this.lblOrdineStampa.Name = "lblOrdineStampa";
-			this.lblOrdineStampa.Size = new System.Drawing.Size(96, 16);
-			this.lblOrdineStampa.TabIndex = 8;
-			this.lblOrdineStampa.Text = "Ordine di stampa:";
-			this.lblOrdineStampa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// txtDenominazione
-			// 
-			this.txtDenominazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.gboxRipartizione.Controls.Add(this.SubEntity_txtripartizioneprec);
+            this.gboxRipartizione.Controls.Add(this.lblRipPrecedente);
+            this.gboxRipartizione.Controls.Add(this.SubEntity_txtripartizionecorr);
+            this.gboxRipartizione.Controls.Add(this.lblRipCorrente);
+            this.gboxRipartizione.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gboxRipartizione.Location = new System.Drawing.Point(10, 111);
+            this.gboxRipartizione.Name = "gboxRipartizione";
+            this.gboxRipartizione.Size = new System.Drawing.Size(667, 55);
+            this.gboxRipartizione.TabIndex = 3;
+            this.gboxRipartizione.TabStop = false;
+            this.gboxRipartizione.Text = "Residui dell\'anno precedente";
+            // 
+            // SubEntity_txtripartizioneprec
+            // 
+            this.SubEntity_txtripartizioneprec.Location = new System.Drawing.Point(538, 15);
+            this.SubEntity_txtripartizioneprec.Name = "SubEntity_txtripartizioneprec";
+            this.SubEntity_txtripartizioneprec.Size = new System.Drawing.Size(124, 23);
+            this.SubEntity_txtripartizioneprec.TabIndex = 2;
+            this.SubEntity_txtripartizioneprec.Tag = "";
+            this.SubEntity_txtripartizioneprec.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblRipPrecedente
+            // 
+            this.lblRipPrecedente.Location = new System.Drawing.Point(413, 17);
+            this.lblRipPrecedente.Name = "lblRipPrecedente";
+            this.lblRipPrecedente.Size = new System.Drawing.Size(115, 19);
+            this.lblRipPrecedente.TabIndex = 2;
+            this.lblRipPrecedente.Text = "Es. precedente:";
+            this.lblRipPrecedente.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // SubEntity_txtripartizionecorr
+            // 
+            this.SubEntity_txtripartizionecorr.Location = new System.Drawing.Point(134, 16);
+            this.SubEntity_txtripartizionecorr.Name = "SubEntity_txtripartizionecorr";
+            this.SubEntity_txtripartizionecorr.Size = new System.Drawing.Size(135, 23);
+            this.SubEntity_txtripartizionecorr.TabIndex = 1;
+            this.SubEntity_txtripartizionecorr.Tag = "";
+            this.SubEntity_txtripartizionecorr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblRipCorrente
+            // 
+            this.lblRipCorrente.Location = new System.Drawing.Point(10, 18);
+            this.lblRipCorrente.Name = "lblRipCorrente";
+            this.lblRipCorrente.Size = new System.Drawing.Size(115, 19);
+            this.lblRipCorrente.TabIndex = 0;
+            this.lblRipCorrente.Text = "Es. corrente:";
+            this.lblRipCorrente.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.chkNoContab);
+            this.groupBox1.Controls.Add(this.chkAvanzoUscita);
+            this.groupBox1.Controls.Add(this.chkAvanzoEntrata);
+            this.groupBox1.Controls.Add(this.chkMovProtetta);
+            this.groupBox1.Controls.Add(this.chbPartiteGiro);
+            this.groupBox1.Controls.Add(this.chbTrasferimenti);
+            this.groupBox1.Location = new System.Drawing.Point(357, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(144, 189);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            // 
+            // chkNoContab
+            // 
+            this.chkNoContab.Location = new System.Drawing.Point(7, 118);
+            this.chkNoContab.Name = "chkNoContab";
+            this.chkNoContab.Size = new System.Drawing.Size(130, 63);
+            this.chkNoContab.TabIndex = 15;
+            this.chkNoContab.Tag = "fin.flag:6";
+            this.chkNoContab.Text = "Permetti movim. non legata a contabilizzazione";
+            this.chkNoContab.ThreeState = true;
+            // 
+            // chkAvanzoUscita
+            // 
+            this.chkAvanzoUscita.Location = new System.Drawing.Point(7, 98);
+            this.chkAvanzoUscita.Name = "chkAvanzoUscita";
+            this.chkAvanzoUscita.Size = new System.Drawing.Size(130, 22);
+            this.chkAvanzoUscita.TabIndex = 14;
+            this.chkAvanzoUscita.Tag = "fin.flag:5";
+            this.chkAvanzoUscita.Text = "Avanzo (spese)";
+            this.chkAvanzoUscita.ThreeState = true;
+            this.chkAvanzoUscita.Click += new System.EventHandler(this.chbAvanzo_Click);
+            // 
+            // chkAvanzoEntrata
+            // 
+            this.chkAvanzoEntrata.Location = new System.Drawing.Point(7, 76);
+            this.chkAvanzoEntrata.Name = "chkAvanzoEntrata";
+            this.chkAvanzoEntrata.Size = new System.Drawing.Size(130, 22);
+            this.chkAvanzoEntrata.TabIndex = 13;
+            this.chkAvanzoEntrata.Tag = "fin.flag:4";
+            this.chkAvanzoEntrata.Text = "Avanzo (entrate)";
+            this.chkAvanzoEntrata.ThreeState = true;
+            this.chkAvanzoEntrata.Click += new System.EventHandler(this.chbAvanzo_Click);
+            // 
+            // chkMovProtetta
+            // 
+            this.chkMovProtetta.Location = new System.Drawing.Point(7, 54);
+            this.chkMovProtetta.Name = "chkMovProtetta";
+            this.chkMovProtetta.Size = new System.Drawing.Size(130, 22);
+            this.chkMovProtetta.TabIndex = 12;
+            this.chkMovProtetta.Tag = "fin.flag:3";
+            this.chkMovProtetta.Text = "Movim. protetta";
+            this.chkMovProtetta.ThreeState = true;
+            this.chkMovProtetta.Click += new System.EventHandler(this.chbAvanzo_Click);
+            // 
+            // chbPartiteGiro
+            // 
+            this.chbPartiteGiro.Location = new System.Drawing.Point(7, 10);
+            this.chbPartiteGiro.Name = "chbPartiteGiro";
+            this.chbPartiteGiro.Size = new System.Drawing.Size(115, 25);
+            this.chbPartiteGiro.TabIndex = 10;
+            this.chbPartiteGiro.Tag = "fin.flag:1";
+            this.chbPartiteGiro.Text = "Partite di giro";
+            this.chbPartiteGiro.ThreeState = true;
+            this.chbPartiteGiro.Click += new System.EventHandler(this.chbAvanzo_Click);
+            // 
+            // chbTrasferimenti
+            // 
+            this.chbTrasferimenti.Location = new System.Drawing.Point(7, 30);
+            this.chbTrasferimenti.Name = "chbTrasferimenti";
+            this.chbTrasferimenti.Size = new System.Drawing.Size(120, 27);
+            this.chbTrasferimenti.TabIndex = 11;
+            this.chbTrasferimenti.Tag = "fin.flag:2";
+            this.chbTrasferimenti.Text = "Trasf. interni";
+            this.chbTrasferimenti.ThreeState = true;
+            this.chbTrasferimenti.Click += new System.EventHandler(this.chbAvanzo_Click);
+            // 
+            // grpParte
+            // 
+            this.grpParte.Controls.Add(this.rdbSpesa);
+            this.grpParte.Controls.Add(this.rdbEntrata);
+            this.grpParte.Location = new System.Drawing.Point(216, 3);
+            this.grpParte.Name = "grpParte";
+            this.grpParte.Size = new System.Drawing.Size(188, 44);
+            this.grpParte.TabIndex = 2;
+            this.grpParte.TabStop = false;
+            this.grpParte.Text = "Parte";
+            // 
+            // rdbSpesa
+            // 
+            this.rdbSpesa.Location = new System.Drawing.Point(94, 16);
+            this.rdbSpesa.Name = "rdbSpesa";
+            this.rdbSpesa.Size = new System.Drawing.Size(67, 19);
+            this.rdbSpesa.TabIndex = 1;
+            this.rdbSpesa.Tag = "";
+            this.rdbSpesa.Text = "Spesa";
+            this.rdbSpesa.CheckedChanged += new System.EventHandler(this.rdbSpesa_CheckedChanged);
+            // 
+            // rdbEntrata
+            // 
+            this.rdbEntrata.Location = new System.Drawing.Point(10, 16);
+            this.rdbEntrata.Name = "rdbEntrata";
+            this.rdbEntrata.Size = new System.Drawing.Size(76, 19);
+            this.rdbEntrata.TabIndex = 0;
+            this.rdbEntrata.Tag = "";
+            this.rdbEntrata.Text = "Entrata";
+            this.rdbEntrata.CheckedChanged += new System.EventHandler(this.rdbEntrata_CheckedChanged);
+            // 
+            // SubEntity_txtScadenza
+            // 
+            this.SubEntity_txtScadenza.Location = new System.Drawing.Point(248, 272);
+            this.SubEntity_txtScadenza.Name = "SubEntity_txtScadenza";
+            this.SubEntity_txtScadenza.Size = new System.Drawing.Size(116, 22);
+            this.SubEntity_txtScadenza.TabIndex = 9;
+            this.SubEntity_txtScadenza.Tag = "finlast.expiration?finunified.expiration";
+            // 
+            // lblScadenza
+            // 
+            this.lblScadenza.Location = new System.Drawing.Point(248, 254);
+            this.lblScadenza.Name = "lblScadenza";
+            this.lblScadenza.Size = new System.Drawing.Size(106, 18);
+            this.lblScadenza.TabIndex = 12;
+            this.lblScadenza.Text = "Data Scadenza:";
+            this.lblScadenza.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtOrdineStampa
+            // 
+            this.txtOrdineStampa.Location = new System.Drawing.Point(212, 80);
+            this.txtOrdineStampa.Name = "txtOrdineStampa";
+            this.txtOrdineStampa.Size = new System.Drawing.Size(192, 22);
+            this.txtOrdineStampa.TabIndex = 4;
+            this.txtOrdineStampa.Tag = "fin.printingorder";
+            // 
+            // lblOrdineStampa
+            // 
+            this.lblOrdineStampa.Location = new System.Drawing.Point(212, 58);
+            this.lblOrdineStampa.Name = "lblOrdineStampa";
+            this.lblOrdineStampa.Size = new System.Drawing.Size(116, 18);
+            this.lblOrdineStampa.TabIndex = 8;
+            this.lblOrdineStampa.Text = "Ordine di stampa:";
+            this.lblOrdineStampa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtDenominazione
+            // 
+            this.txtDenominazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDenominazione.Location = new System.Drawing.Point(11, 110);
-			this.txtDenominazione.Multiline = true;
-			this.txtDenominazione.Name = "txtDenominazione";
-			this.txtDenominazione.Size = new System.Drawing.Size(430, 55);
-			this.txtDenominazione.TabIndex = 6;
-			this.txtDenominazione.Tag = "fin.title";
-			// 
-			// lblDenominazione
-			// 
-			this.lblDenominazione.Location = new System.Drawing.Point(11, 91);
-			this.lblDenominazione.Name = "lblDenominazione";
-			this.lblDenominazione.Size = new System.Drawing.Size(88, 16);
-			this.lblDenominazione.TabIndex = 6;
-			this.lblDenominazione.Text = "Descrizione:";
-			this.lblDenominazione.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// txtCodice
-			// 
-			this.txtCodice.Location = new System.Drawing.Point(11, 68);
-			this.txtCodice.Name = "txtCodice";
-			this.txtCodice.Size = new System.Drawing.Size(160, 20);
-			this.txtCodice.TabIndex = 3;
-			this.txtCodice.Tag = "fin.codefin";
-			// 
-			// lblCodice
-			// 
-			this.lblCodice.Location = new System.Drawing.Point(8, 50);
-			this.lblCodice.Name = "lblCodice";
-			this.lblCodice.Size = new System.Drawing.Size(88, 16);
-			this.lblCodice.TabIndex = 4;
-			this.lblCodice.Text = "Codice:";
-			this.lblCodice.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// lblLivello
-			// 
-			this.lblLivello.Location = new System.Drawing.Point(8, 3);
-			this.lblLivello.Name = "lblLivello";
-			this.lblLivello.Size = new System.Drawing.Size(104, 14);
-			this.lblLivello.TabIndex = 3;
-			this.lblLivello.Text = "Livello gerarchico:";
-			this.lblLivello.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// cmbLivello
-			// 
-			this.cmbLivello.DataSource = this.DS.finlevel;
-			this.cmbLivello.DisplayMember = "description";
-			this.cmbLivello.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbLivello.Location = new System.Drawing.Point(8, 20);
-			this.cmbLivello.Name = "cmbLivello";
-			this.cmbLivello.Size = new System.Drawing.Size(160, 21);
-			this.cmbLivello.TabIndex = 1;
-			this.cmbLivello.Tag = "fin.nlevel?finunified.nlevel";
-			this.cmbLivello.ValueMember = "nlevel";
-			// 
-			// DS
-			// 
-			this.DS.DataSetName = "vistaForm";
-			this.DS.EnforceConstraints = false;
-			// 
-			// btnNewSituazione
-			// 
-			this.btnNewSituazione.Location = new System.Drawing.Point(355, 10);
-			this.btnNewSituazione.Name = "btnNewSituazione";
-			this.btnNewSituazione.Size = new System.Drawing.Size(88, 23);
-			this.btnNewSituazione.TabIndex = 2;
-			this.btnNewSituazione.TabStop = false;
-			this.btnNewSituazione.Text = "Situazione";
-			this.btnNewSituazione.Visible = false;
-			this.btnNewSituazione.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// tabPrevisione
-			// 
-			this.tabPrevisione.Controls.Add(this.dgPrevisione);
-			this.tabPrevisione.Controls.Add(this.btnInsPrevisione);
-			this.tabPrevisione.Controls.Add(this.btnEditPrevisione);
-			this.tabPrevisione.Controls.Add(this.btnDelPrevisione);
-			this.tabPrevisione.Controls.Add(this.groupBox2);
-			this.tabPrevisione.Location = new System.Drawing.Point(4, 23);
-			this.tabPrevisione.Name = "tabPrevisione";
-			this.tabPrevisione.Size = new System.Drawing.Size(578, 503);
-			this.tabPrevisione.TabIndex = 2;
-			this.tabPrevisione.Text = "Previsione";
-			this.tabPrevisione.UseVisualStyleBackColor = true;
-			// 
-			// dgPrevisione
-			// 
-			this.dgPrevisione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtDenominazione.Location = new System.Drawing.Point(13, 127);
+            this.txtDenominazione.Multiline = true;
+            this.txtDenominazione.Name = "txtDenominazione";
+            this.txtDenominazione.Size = new System.Drawing.Size(333, 63);
+            this.txtDenominazione.TabIndex = 6;
+            this.txtDenominazione.Tag = "fin.title";
+            // 
+            // lblDenominazione
+            // 
+            this.lblDenominazione.Location = new System.Drawing.Point(13, 105);
+            this.lblDenominazione.Name = "lblDenominazione";
+            this.lblDenominazione.Size = new System.Drawing.Size(106, 18);
+            this.lblDenominazione.TabIndex = 6;
+            this.lblDenominazione.Text = "Descrizione:";
+            this.lblDenominazione.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtCodice
+            // 
+            this.txtCodice.Location = new System.Drawing.Point(13, 78);
+            this.txtCodice.Name = "txtCodice";
+            this.txtCodice.Size = new System.Drawing.Size(192, 22);
+            this.txtCodice.TabIndex = 3;
+            this.txtCodice.Tag = "fin.codefin";
+            // 
+            // lblCodice
+            // 
+            this.lblCodice.Location = new System.Drawing.Point(10, 58);
+            this.lblCodice.Name = "lblCodice";
+            this.lblCodice.Size = new System.Drawing.Size(105, 18);
+            this.lblCodice.TabIndex = 4;
+            this.lblCodice.Text = "Codice:";
+            this.lblCodice.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblLivello
+            // 
+            this.lblLivello.Location = new System.Drawing.Point(10, 3);
+            this.lblLivello.Name = "lblLivello";
+            this.lblLivello.Size = new System.Drawing.Size(124, 17);
+            this.lblLivello.TabIndex = 3;
+            this.lblLivello.Text = "Livello gerarchico:";
+            this.lblLivello.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbLivello
+            // 
+            this.cmbLivello.DataSource = this.DS.finlevel;
+            this.cmbLivello.DisplayMember = "description";
+            this.cmbLivello.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbLivello.Location = new System.Drawing.Point(10, 23);
+            this.cmbLivello.Name = "cmbLivello";
+            this.cmbLivello.Size = new System.Drawing.Size(192, 24);
+            this.cmbLivello.TabIndex = 1;
+            this.cmbLivello.Tag = "fin.nlevel?finunified.nlevel";
+            this.cmbLivello.ValueMember = "nlevel";
+            // 
+            // DS
+            // 
+            this.DS.DataSetName = "vistaForm";
+            this.DS.EnforceConstraints = false;
+            // 
+            // btnNewSituazione
+            // 
+            this.btnNewSituazione.Location = new System.Drawing.Point(426, 12);
+            this.btnNewSituazione.Name = "btnNewSituazione";
+            this.btnNewSituazione.Size = new System.Drawing.Size(106, 26);
+            this.btnNewSituazione.TabIndex = 2;
+            this.btnNewSituazione.TabStop = false;
+            this.btnNewSituazione.Text = "Situazione";
+            this.btnNewSituazione.Visible = false;
+            this.btnNewSituazione.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // tabPrevisione
+            // 
+            this.tabPrevisione.Controls.Add(this.dgPrevisione);
+            this.tabPrevisione.Controls.Add(this.btnInsPrevisione);
+            this.tabPrevisione.Controls.Add(this.btnEditPrevisione);
+            this.tabPrevisione.Controls.Add(this.btnDelPrevisione);
+            this.tabPrevisione.Controls.Add(this.groupBox2);
+            this.tabPrevisione.Location = new System.Drawing.Point(4, 46);
+            this.tabPrevisione.Name = "tabPrevisione";
+            this.tabPrevisione.Size = new System.Drawing.Size(695, 562);
+            this.tabPrevisione.TabIndex = 2;
+            this.tabPrevisione.Text = "Previsione";
+            this.tabPrevisione.UseVisualStyleBackColor = true;
+            // 
+            // dgPrevisione
+            // 
+            this.dgPrevisione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.dgPrevisione.DataMember = "";
-			this.dgPrevisione.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dgPrevisione.Location = new System.Drawing.Point(95, 5);
-			this.dgPrevisione.Name = "dgPrevisione";
-			this.dgPrevisione.Size = new System.Drawing.Size(475, 312);
-			this.dgPrevisione.TabIndex = 18;
-			this.dgPrevisione.Tag = "finyearview.previsionupb.previsionupb";
-			// 
-			// btnInsPrevisione
-			// 
-			this.btnInsPrevisione.Location = new System.Drawing.Point(3, 5);
-			this.btnInsPrevisione.Name = "btnInsPrevisione";
-			this.btnInsPrevisione.Size = new System.Drawing.Size(86, 26);
-			this.btnInsPrevisione.TabIndex = 15;
-			this.btnInsPrevisione.Tag = "insert.previsionupb";
-			this.btnInsPrevisione.Text = "Inserisci";
-			// 
-			// btnEditPrevisione
-			// 
-			this.btnEditPrevisione.Location = new System.Drawing.Point(3, 37);
-			this.btnEditPrevisione.Name = "btnEditPrevisione";
-			this.btnEditPrevisione.Size = new System.Drawing.Size(86, 26);
-			this.btnEditPrevisione.TabIndex = 16;
-			this.btnEditPrevisione.Tag = "edit.previsionupb";
-			this.btnEditPrevisione.Text = "Modifica";
-			// 
-			// btnDelPrevisione
-			// 
-			this.btnDelPrevisione.Location = new System.Drawing.Point(3, 69);
-			this.btnDelPrevisione.Name = "btnDelPrevisione";
-			this.btnDelPrevisione.Size = new System.Drawing.Size(86, 26);
-			this.btnDelPrevisione.TabIndex = 17;
-			this.btnDelPrevisione.Tag = "delete";
-			this.btnDelPrevisione.Text = "Elimina";
-			// 
-			// groupBox2
-			// 
-			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgPrevisione.DataMember = "";
+            this.dgPrevisione.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+            this.dgPrevisione.Location = new System.Drawing.Point(114, 6);
+            this.dgPrevisione.Name = "dgPrevisione";
+            this.dgPrevisione.Size = new System.Drawing.Size(570, 360);
+            this.dgPrevisione.TabIndex = 18;
+            this.dgPrevisione.Tag = "finyearview.previsionupb.previsionupb";
+            // 
+            // btnInsPrevisione
+            // 
+            this.btnInsPrevisione.Location = new System.Drawing.Point(4, 6);
+            this.btnInsPrevisione.Name = "btnInsPrevisione";
+            this.btnInsPrevisione.Size = new System.Drawing.Size(103, 30);
+            this.btnInsPrevisione.TabIndex = 15;
+            this.btnInsPrevisione.Tag = "insert.previsionupb";
+            this.btnInsPrevisione.Text = "Inserisci";
+            // 
+            // btnEditPrevisione
+            // 
+            this.btnEditPrevisione.Location = new System.Drawing.Point(4, 43);
+            this.btnEditPrevisione.Name = "btnEditPrevisione";
+            this.btnEditPrevisione.Size = new System.Drawing.Size(103, 30);
+            this.btnEditPrevisione.TabIndex = 16;
+            this.btnEditPrevisione.Tag = "edit.previsionupb";
+            this.btnEditPrevisione.Text = "Modifica";
+            // 
+            // btnDelPrevisione
+            // 
+            this.btnDelPrevisione.Location = new System.Drawing.Point(4, 80);
+            this.btnDelPrevisione.Name = "btnDelPrevisione";
+            this.btnDelPrevisione.Size = new System.Drawing.Size(103, 30);
+            this.btnDelPrevisione.TabIndex = 17;
+            this.btnDelPrevisione.Tag = "delete";
+            this.btnDelPrevisione.Text = "Elimina";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox2.Controls.Add(this.dgVariazioni);
-			this.groupBox2.Location = new System.Drawing.Point(10, 323);
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(565, 172);
-			this.groupBox2.TabIndex = 20;
-			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "Variazioni Bilancio";
-			// 
-			// dgVariazioni
-			// 
-			this.dgVariazioni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBox2.Controls.Add(this.dgVariazioni);
+            this.groupBox2.Location = new System.Drawing.Point(12, 373);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(678, 172);
+            this.groupBox2.TabIndex = 20;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Variazioni Bilancio";
+            // 
+            // dgVariazioni
+            // 
+            this.dgVariazioni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.dgVariazioni.DataMember = "";
-			this.dgVariazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dgVariazioni.Location = new System.Drawing.Point(6, 19);
-			this.dgVariazioni.Name = "dgVariazioni";
-			this.dgVariazioni.Size = new System.Drawing.Size(553, 143);
-			this.dgVariazioni.TabIndex = 20;
-			this.dgVariazioni.Tag = "finvardetailview.bilancio";
-			// 
-			// tabClassSupp
-			// 
-			this.tabClassSupp.Controls.Add(this.gBoxCausalePartiteGiro);
-			this.tabClassSupp.Controls.Add(this.gboxConto);
-			this.tabClassSupp.Controls.Add(this.dGridClassSup);
-			this.tabClassSupp.Controls.Add(this.btnElimina);
-			this.tabClassSupp.Controls.Add(this.btnModifica);
-			this.tabClassSupp.Controls.Add(this.btnInserisci);
-			this.tabClassSupp.ImageIndex = 0;
-			this.tabClassSupp.Location = new System.Drawing.Point(4, 23);
-			this.tabClassSupp.Name = "tabClassSupp";
-			this.tabClassSupp.Size = new System.Drawing.Size(578, 503);
-			this.tabClassSupp.TabIndex = 1;
-			this.tabClassSupp.Text = "Classificazione";
-			this.tabClassSupp.UseVisualStyleBackColor = true;
-			this.tabClassSupp.Visible = false;
-			// 
-			// gBoxCausalePartiteGiro
-			// 
-			this.gBoxCausalePartiteGiro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.gBoxCausalePartiteGiro.Controls.Add(this.textBox1);
-			this.gBoxCausalePartiteGiro.Controls.Add(this.txtCodiceCausaleDeb);
-			this.gBoxCausalePartiteGiro.Controls.Add(this.button6);
-			this.gBoxCausalePartiteGiro.Location = new System.Drawing.Point(11, 405);
-			this.gBoxCausalePartiteGiro.Name = "gBoxCausalePartiteGiro";
-			this.gBoxCausalePartiteGiro.Size = new System.Drawing.Size(367, 80);
-			this.gBoxCausalePartiteGiro.TabIndex = 47;
-			this.gBoxCausalePartiteGiro.TabStop = false;
-			this.gBoxCausalePartiteGiro.Tag = "AutoManage.txtCodiceCausaleDeb.tree.(in_use = \'S\')";
-			this.gBoxCausalePartiteGiro.Text = "Causale EP partite di Giro";
-			this.gBoxCausalePartiteGiro.UseCompatibleTextRendering = true;
-			// 
-			// textBox1
-			// 
-			this.textBox1.Location = new System.Drawing.Point(161, 12);
-			this.textBox1.Multiline = true;
-			this.textBox1.Name = "textBox1";
-			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(200, 56);
-			this.textBox1.TabIndex = 2;
-			this.textBox1.TabStop = false;
-			this.textBox1.Tag = "accmotiveapplied.motive";
-			// 
-			// txtCodiceCausaleDeb
-			// 
-			this.txtCodiceCausaleDeb.Location = new System.Drawing.Point(10, 48);
-			this.txtCodiceCausaleDeb.Name = "txtCodiceCausaleDeb";
-			this.txtCodiceCausaleDeb.Size = new System.Drawing.Size(145, 20);
-			this.txtCodiceCausaleDeb.TabIndex = 1;
-			this.txtCodiceCausaleDeb.Tag = "accmotiveapplied.codemotive?finview.codemotive";
-			// 
-			// button6
-			// 
-			this.button6.Location = new System.Drawing.Point(8, 16);
-			this.button6.Name = "button6";
-			this.button6.Size = new System.Drawing.Size(104, 23);
-			this.button6.TabIndex = 0;
-			this.button6.TabStop = false;
-			this.button6.Tag = "manage.accmotiveapplied.tree";
-			this.button6.Text = "Causale";
-			// 
-			// gboxConto
-			// 
-			this.gboxConto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.gboxConto.Controls.Add(this.txtDenominazioneConto);
-			this.gboxConto.Controls.Add(this.txtCodiceConto);
-			this.gboxConto.Controls.Add(this.button1);
-			this.gboxConto.Location = new System.Drawing.Point(8, 291);
-			this.gboxConto.Name = "gboxConto";
-			this.gboxConto.Size = new System.Drawing.Size(370, 108);
-			this.gboxConto.TabIndex = 46;
-			this.gboxConto.TabStop = false;
-			this.gboxConto.Tag = "AutoManage.txtCodiceConto.tree";
-			this.gboxConto.Text = "Conto EP per la stampa degli OPI";
-			// 
-			// txtDenominazioneConto
-			// 
-			this.txtDenominazioneConto.Location = new System.Drawing.Point(139, 16);
-			this.txtDenominazioneConto.Multiline = true;
-			this.txtDenominazioneConto.Name = "txtDenominazioneConto";
-			this.txtDenominazioneConto.ReadOnly = true;
-			this.txtDenominazioneConto.Size = new System.Drawing.Size(223, 52);
-			this.txtDenominazioneConto.TabIndex = 2;
-			this.txtDenominazioneConto.TabStop = false;
-			this.txtDenominazioneConto.Tag = "account.title";
-			// 
-			// txtCodiceConto
-			// 
-			this.txtCodiceConto.Location = new System.Drawing.Point(9, 76);
-			this.txtCodiceConto.Name = "txtCodiceConto";
-			this.txtCodiceConto.Size = new System.Drawing.Size(353, 20);
-			this.txtCodiceConto.TabIndex = 1;
-			this.txtCodiceConto.Tag = "account.codeacc?entrydetailview.codeacc";
-			// 
-			// button1
-			// 
-			this.button1.Location = new System.Drawing.Point(8, 47);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(80, 23);
-			this.button1.TabIndex = 0;
-			this.button1.TabStop = false;
-			this.button1.Tag = "manage.account.tree";
-			this.button1.Text = "Conto";
-			// 
-			// dGridClassSup
-			// 
-			this.dGridClassSup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgVariazioni.DataMember = "";
+            this.dgVariazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+            this.dgVariazioni.Location = new System.Drawing.Point(7, 22);
+            this.dgVariazioni.Name = "dgVariazioni";
+            this.dgVariazioni.Size = new System.Drawing.Size(664, 138);
+            this.dgVariazioni.TabIndex = 20;
+            this.dgVariazioni.Tag = "finvardetailview.bilancio";
+            // 
+            // tabClassSupp
+            // 
+            this.tabClassSupp.Controls.Add(this.gBoxCausalePartiteGiro);
+            this.tabClassSupp.Controls.Add(this.gboxConto);
+            this.tabClassSupp.Controls.Add(this.dGridClassSup);
+            this.tabClassSupp.Controls.Add(this.btnElimina);
+            this.tabClassSupp.Controls.Add(this.btnModifica);
+            this.tabClassSupp.Controls.Add(this.btnInserisci);
+            this.tabClassSupp.ImageIndex = 0;
+            this.tabClassSupp.Location = new System.Drawing.Point(4, 46);
+            this.tabClassSupp.Name = "tabClassSupp";
+            this.tabClassSupp.Size = new System.Drawing.Size(695, 562);
+            this.tabClassSupp.TabIndex = 1;
+            this.tabClassSupp.Text = "Classificazione";
+            this.tabClassSupp.UseVisualStyleBackColor = true;
+            this.tabClassSupp.Visible = false;
+            // 
+            // gBoxCausalePartiteGiro
+            // 
+            this.gBoxCausalePartiteGiro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.gBoxCausalePartiteGiro.Controls.Add(this.textBox1);
+            this.gBoxCausalePartiteGiro.Controls.Add(this.txtCodiceCausaleDeb);
+            this.gBoxCausalePartiteGiro.Controls.Add(this.button6);
+            this.gBoxCausalePartiteGiro.Location = new System.Drawing.Point(13, 441);
+            this.gBoxCausalePartiteGiro.Name = "gBoxCausalePartiteGiro";
+            this.gBoxCausalePartiteGiro.Size = new System.Drawing.Size(441, 92);
+            this.gBoxCausalePartiteGiro.TabIndex = 47;
+            this.gBoxCausalePartiteGiro.TabStop = false;
+            this.gBoxCausalePartiteGiro.Tag = "AutoManage.txtCodiceCausaleDeb.tree.(in_use = \'S\')";
+            this.gBoxCausalePartiteGiro.Text = "Causale EP partite di Giro";
+            this.gBoxCausalePartiteGiro.UseCompatibleTextRendering = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(193, 14);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(240, 64);
+            this.textBox1.TabIndex = 2;
+            this.textBox1.TabStop = false;
+            this.textBox1.Tag = "accmotiveapplied.motive";
+            // 
+            // txtCodiceCausaleDeb
+            // 
+            this.txtCodiceCausaleDeb.Location = new System.Drawing.Point(12, 55);
+            this.txtCodiceCausaleDeb.Name = "txtCodiceCausaleDeb";
+            this.txtCodiceCausaleDeb.Size = new System.Drawing.Size(174, 22);
+            this.txtCodiceCausaleDeb.TabIndex = 1;
+            this.txtCodiceCausaleDeb.Tag = "accmotiveapplied.codemotive?finview.codemotive";
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(10, 18);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(124, 27);
+            this.button6.TabIndex = 0;
+            this.button6.TabStop = false;
+            this.button6.Tag = "manage.accmotiveapplied.tree";
+            this.button6.Text = "Causale";
+            // 
+            // gboxConto
+            // 
+            this.gboxConto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.gboxConto.Controls.Add(this.txtDenominazioneConto);
+            this.gboxConto.Controls.Add(this.txtCodiceConto);
+            this.gboxConto.Controls.Add(this.button1);
+            this.gboxConto.Location = new System.Drawing.Point(10, 309);
+            this.gboxConto.Name = "gboxConto";
+            this.gboxConto.Size = new System.Drawing.Size(444, 125);
+            this.gboxConto.TabIndex = 46;
+            this.gboxConto.TabStop = false;
+            this.gboxConto.Tag = "AutoManage.txtCodiceConto.tree";
+            this.gboxConto.Text = "Conto EP per la stampa degli OPI";
+            // 
+            // txtDenominazioneConto
+            // 
+            this.txtDenominazioneConto.Location = new System.Drawing.Point(167, 18);
+            this.txtDenominazioneConto.Multiline = true;
+            this.txtDenominazioneConto.Name = "txtDenominazioneConto";
+            this.txtDenominazioneConto.ReadOnly = true;
+            this.txtDenominazioneConto.Size = new System.Drawing.Size(267, 60);
+            this.txtDenominazioneConto.TabIndex = 2;
+            this.txtDenominazioneConto.TabStop = false;
+            this.txtDenominazioneConto.Tag = "account.title";
+            // 
+            // txtCodiceConto
+            // 
+            this.txtCodiceConto.Location = new System.Drawing.Point(11, 88);
+            this.txtCodiceConto.Name = "txtCodiceConto";
+            this.txtCodiceConto.Size = new System.Drawing.Size(423, 22);
+            this.txtCodiceConto.TabIndex = 1;
+            this.txtCodiceConto.Tag = "account.codeacc?entrydetailview.codeacc";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(10, 54);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(96, 27);
+            this.button1.TabIndex = 0;
+            this.button1.TabStop = false;
+            this.button1.Tag = "manage.account.tree";
+            this.button1.Text = "Conto";
+            // 
+            // dGridClassSup
+            // 
+            this.dGridClassSup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.dGridClassSup.DataMember = "";
-			this.dGridClassSup.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dGridClassSup.Location = new System.Drawing.Point(88, 8);
-			this.dGridClassSup.Name = "dGridClassSup";
-			this.dGridClassSup.Size = new System.Drawing.Size(482, 260);
-			this.dGridClassSup.TabIndex = 14;
-			this.dGridClassSup.Tag = "finsorting.default.single";
-			// 
-			// btnElimina
-			// 
-			this.btnElimina.Location = new System.Drawing.Point(8, 72);
-			this.btnElimina.Name = "btnElimina";
-			this.btnElimina.Size = new System.Drawing.Size(72, 24);
-			this.btnElimina.TabIndex = 13;
-			this.btnElimina.Tag = "delete";
-			this.btnElimina.Text = "Elimina";
-			// 
-			// btnModifica
-			// 
-			this.btnModifica.Location = new System.Drawing.Point(8, 40);
-			this.btnModifica.Name = "btnModifica";
-			this.btnModifica.Size = new System.Drawing.Size(72, 24);
-			this.btnModifica.TabIndex = 12;
-			this.btnModifica.Tag = "edit.single";
-			this.btnModifica.Text = "Modifica";
-			// 
-			// btnInserisci
-			// 
-			this.btnInserisci.Location = new System.Drawing.Point(8, 8);
-			this.btnInserisci.Name = "btnInserisci";
-			this.btnInserisci.Size = new System.Drawing.Size(72, 24);
-			this.btnInserisci.TabIndex = 11;
-			this.btnInserisci.Tag = "insert.single";
-			this.btnInserisci.Text = "Inserisci";
-			// 
-			// TabClassAutoSpese
-			// 
-			this.TabClassAutoSpese.Controls.Add(this.groupBox6);
-			this.TabClassAutoSpese.Controls.Add(this.groupBox7);
-			this.TabClassAutoSpese.Location = new System.Drawing.Point(4, 23);
-			this.TabClassAutoSpese.Name = "TabClassAutoSpese";
-			this.TabClassAutoSpese.Size = new System.Drawing.Size(578, 503);
-			this.TabClassAutoSpese.TabIndex = 4;
-			this.TabClassAutoSpese.Text = "Class. Autom. Spese";
-			this.TabClassAutoSpese.UseVisualStyleBackColor = true;
-			// 
-			// groupBox6
-			// 
-			this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dGridClassSup.DataMember = "";
+            this.dGridClassSup.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+            this.dGridClassSup.Location = new System.Drawing.Point(106, 9);
+            this.dGridClassSup.Name = "dGridClassSup";
+            this.dGridClassSup.Size = new System.Drawing.Size(578, 274);
+            this.dGridClassSup.TabIndex = 14;
+            this.dGridClassSup.Tag = "finsorting.default.single";
+            // 
+            // btnElimina
+            // 
+            this.btnElimina.Location = new System.Drawing.Point(10, 83);
+            this.btnElimina.Name = "btnElimina";
+            this.btnElimina.Size = new System.Drawing.Size(86, 28);
+            this.btnElimina.TabIndex = 13;
+            this.btnElimina.Tag = "delete";
+            this.btnElimina.Text = "Elimina";
+            // 
+            // btnModifica
+            // 
+            this.btnModifica.Location = new System.Drawing.Point(10, 46);
+            this.btnModifica.Name = "btnModifica";
+            this.btnModifica.Size = new System.Drawing.Size(86, 28);
+            this.btnModifica.TabIndex = 12;
+            this.btnModifica.Tag = "edit.single";
+            this.btnModifica.Text = "Modifica";
+            // 
+            // btnInserisci
+            // 
+            this.btnInserisci.Location = new System.Drawing.Point(10, 9);
+            this.btnInserisci.Name = "btnInserisci";
+            this.btnInserisci.Size = new System.Drawing.Size(86, 28);
+            this.btnInserisci.TabIndex = 11;
+            this.btnInserisci.Tag = "insert.single";
+            this.btnInserisci.Text = "Inserisci";
+            // 
+            // TabClassAutoSpese
+            // 
+            this.TabClassAutoSpese.Controls.Add(this.groupBox6);
+            this.TabClassAutoSpese.Controls.Add(this.groupBox7);
+            this.TabClassAutoSpese.Location = new System.Drawing.Point(4, 46);
+            this.TabClassAutoSpese.Name = "TabClassAutoSpese";
+            this.TabClassAutoSpese.Size = new System.Drawing.Size(695, 562);
+            this.TabClassAutoSpese.TabIndex = 4;
+            this.TabClassAutoSpese.Text = "Class. Autom. Spese";
+            this.TabClassAutoSpese.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox6.Controls.Add(this.dGridFilterClassExp);
-			this.groupBox6.Controls.Add(this.btnEliminaFilterS);
-			this.groupBox6.Controls.Add(this.btnModificaFilterS);
-			this.groupBox6.Controls.Add(this.btnInserisciFilterS);
-			this.groupBox6.Location = new System.Drawing.Point(7, 240);
-			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(565, 255);
-			this.groupBox6.TabIndex = 3;
-			this.groupBox6.TabStop = false;
-			this.groupBox6.Text = "Filtri Classificazione Automatica delle Spese";
-			// 
-			// dGridFilterClassExp
-			// 
-			this.dGridFilterClassExp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBox6.Controls.Add(this.dGridFilterClassExp);
+            this.groupBox6.Controls.Add(this.btnEliminaFilterS);
+            this.groupBox6.Controls.Add(this.btnModificaFilterS);
+            this.groupBox6.Controls.Add(this.btnInserisciFilterS);
+            this.groupBox6.Location = new System.Drawing.Point(8, 277);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(678, 268);
+            this.groupBox6.TabIndex = 3;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Filtri Classificazione Automatica delle Spese";
+            // 
+            // dGridFilterClassExp
+            // 
+            this.dGridFilterClassExp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.dGridFilterClassExp.DataMember = "";
-			this.dGridFilterClassExp.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dGridFilterClassExp.Location = new System.Drawing.Point(84, 19);
-			this.dGridFilterClassExp.Name = "dGridFilterClassExp";
-			this.dGridFilterClassExp.Size = new System.Drawing.Size(478, 230);
-			this.dGridFilterClassExp.TabIndex = 24;
-			this.dGridFilterClassExp.Tag = "sortingexpensefilter.fin.single";
-			// 
-			// btnEliminaFilterS
-			// 
-			this.btnEliminaFilterS.Location = new System.Drawing.Point(6, 83);
-			this.btnEliminaFilterS.Name = "btnEliminaFilterS";
-			this.btnEliminaFilterS.Size = new System.Drawing.Size(72, 24);
-			this.btnEliminaFilterS.TabIndex = 23;
-			this.btnEliminaFilterS.Tag = "delete";
-			this.btnEliminaFilterS.Text = "Elimina";
-			// 
-			// btnModificaFilterS
-			// 
-			this.btnModificaFilterS.Location = new System.Drawing.Point(6, 51);
-			this.btnModificaFilterS.Name = "btnModificaFilterS";
-			this.btnModificaFilterS.Size = new System.Drawing.Size(72, 24);
-			this.btnModificaFilterS.TabIndex = 22;
-			this.btnModificaFilterS.Tag = "edit.single";
-			this.btnModificaFilterS.Text = "Modifica";
-			// 
-			// btnInserisciFilterS
-			// 
-			this.btnInserisciFilterS.Location = new System.Drawing.Point(6, 19);
-			this.btnInserisciFilterS.Name = "btnInserisciFilterS";
-			this.btnInserisciFilterS.Size = new System.Drawing.Size(72, 24);
-			this.btnInserisciFilterS.TabIndex = 21;
-			this.btnInserisciFilterS.Tag = "insert.single";
-			this.btnInserisciFilterS.Text = "Inserisci";
-			// 
-			// groupBox7
-			// 
-			this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dGridFilterClassExp.DataMember = "";
+            this.dGridFilterClassExp.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+            this.dGridFilterClassExp.Location = new System.Drawing.Point(101, 22);
+            this.dGridFilterClassExp.Name = "dGridFilterClassExp";
+            this.dGridFilterClassExp.Size = new System.Drawing.Size(573, 239);
+            this.dGridFilterClassExp.TabIndex = 24;
+            this.dGridFilterClassExp.Tag = "sortingexpensefilter.fin.single";
+            // 
+            // btnEliminaFilterS
+            // 
+            this.btnEliminaFilterS.Location = new System.Drawing.Point(7, 96);
+            this.btnEliminaFilterS.Name = "btnEliminaFilterS";
+            this.btnEliminaFilterS.Size = new System.Drawing.Size(87, 27);
+            this.btnEliminaFilterS.TabIndex = 23;
+            this.btnEliminaFilterS.Tag = "delete";
+            this.btnEliminaFilterS.Text = "Elimina";
+            // 
+            // btnModificaFilterS
+            // 
+            this.btnModificaFilterS.Location = new System.Drawing.Point(7, 59);
+            this.btnModificaFilterS.Name = "btnModificaFilterS";
+            this.btnModificaFilterS.Size = new System.Drawing.Size(87, 28);
+            this.btnModificaFilterS.TabIndex = 22;
+            this.btnModificaFilterS.Tag = "edit.single";
+            this.btnModificaFilterS.Text = "Modifica";
+            // 
+            // btnInserisciFilterS
+            // 
+            this.btnInserisciFilterS.Location = new System.Drawing.Point(7, 22);
+            this.btnInserisciFilterS.Name = "btnInserisciFilterS";
+            this.btnInserisciFilterS.Size = new System.Drawing.Size(87, 28);
+            this.btnInserisciFilterS.TabIndex = 21;
+            this.btnInserisciFilterS.Tag = "insert.single";
+            this.btnInserisciFilterS.Text = "Inserisci";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox7.Controls.Add(this.dGridClassAutoExp);
-			this.groupBox7.Controls.Add(this.btnEliminaClassS);
-			this.groupBox7.Controls.Add(this.btnModificaClassS);
-			this.groupBox7.Controls.Add(this.btnInserisciClassS);
-			this.groupBox7.Location = new System.Drawing.Point(6, 9);
-			this.groupBox7.Name = "groupBox7";
-			this.groupBox7.Size = new System.Drawing.Size(565, 221);
-			this.groupBox7.TabIndex = 2;
-			this.groupBox7.TabStop = false;
-			this.groupBox7.Text = "Configurazione Classificazione Automatica delle Spese";
-			// 
-			// dGridClassAutoExp
-			// 
-			this.dGridClassAutoExp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBox7.Controls.Add(this.dGridClassAutoExp);
+            this.groupBox7.Controls.Add(this.btnEliminaClassS);
+            this.groupBox7.Controls.Add(this.btnModificaClassS);
+            this.groupBox7.Controls.Add(this.btnInserisciClassS);
+            this.groupBox7.Location = new System.Drawing.Point(7, 10);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(678, 255);
+            this.groupBox7.TabIndex = 2;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Configurazione Classificazione Automatica delle Spese";
+            // 
+            // dGridClassAutoExp
+            // 
+            this.dGridClassAutoExp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.dGridClassAutoExp.DataMember = "";
-			this.dGridClassAutoExp.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dGridClassAutoExp.Location = new System.Drawing.Point(81, 19);
-			this.dGridClassAutoExp.Name = "dGridClassAutoExp";
-			this.dGridClassAutoExp.Size = new System.Drawing.Size(478, 196);
-			this.dGridClassAutoExp.TabIndex = 21;
-			this.dGridClassAutoExp.Tag = "autoexpensesorting.fin.single";
-			// 
-			// btnEliminaClassS
-			// 
-			this.btnEliminaClassS.Location = new System.Drawing.Point(4, 81);
-			this.btnEliminaClassS.Name = "btnEliminaClassS";
-			this.btnEliminaClassS.Size = new System.Drawing.Size(72, 24);
-			this.btnEliminaClassS.TabIndex = 20;
-			this.btnEliminaClassS.Tag = "delete";
-			this.btnEliminaClassS.Text = "Elimina";
-			// 
-			// btnModificaClassS
-			// 
-			this.btnModificaClassS.Location = new System.Drawing.Point(4, 49);
-			this.btnModificaClassS.Name = "btnModificaClassS";
-			this.btnModificaClassS.Size = new System.Drawing.Size(72, 24);
-			this.btnModificaClassS.TabIndex = 19;
-			this.btnModificaClassS.Tag = "edit.single";
-			this.btnModificaClassS.Text = "Modifica";
-			// 
-			// btnInserisciClassS
-			// 
-			this.btnInserisciClassS.Location = new System.Drawing.Point(4, 17);
-			this.btnInserisciClassS.Name = "btnInserisciClassS";
-			this.btnInserisciClassS.Size = new System.Drawing.Size(72, 24);
-			this.btnInserisciClassS.TabIndex = 18;
-			this.btnInserisciClassS.Tag = "insert.single";
-			this.btnInserisciClassS.Text = "Inserisci";
-			// 
-			// TabClassAutoEntrate
-			// 
-			this.TabClassAutoEntrate.Controls.Add(this.groupBox8);
-			this.TabClassAutoEntrate.Controls.Add(this.groupBox9);
-			this.TabClassAutoEntrate.Location = new System.Drawing.Point(4, 23);
-			this.TabClassAutoEntrate.Name = "TabClassAutoEntrate";
-			this.TabClassAutoEntrate.Size = new System.Drawing.Size(578, 503);
-			this.TabClassAutoEntrate.TabIndex = 5;
-			this.TabClassAutoEntrate.Text = "Class. Autom. Entrate";
-			this.TabClassAutoEntrate.UseVisualStyleBackColor = true;
-			// 
-			// groupBox8
-			// 
-			this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dGridClassAutoExp.DataMember = "";
+            this.dGridClassAutoExp.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+            this.dGridClassAutoExp.Location = new System.Drawing.Point(97, 22);
+            this.dGridClassAutoExp.Name = "dGridClassAutoExp";
+            this.dGridClassAutoExp.Size = new System.Drawing.Size(574, 226);
+            this.dGridClassAutoExp.TabIndex = 21;
+            this.dGridClassAutoExp.Tag = "autoexpensesorting.fin.single";
+            // 
+            // btnEliminaClassS
+            // 
+            this.btnEliminaClassS.Location = new System.Drawing.Point(5, 93);
+            this.btnEliminaClassS.Name = "btnEliminaClassS";
+            this.btnEliminaClassS.Size = new System.Drawing.Size(86, 28);
+            this.btnEliminaClassS.TabIndex = 20;
+            this.btnEliminaClassS.Tag = "delete";
+            this.btnEliminaClassS.Text = "Elimina";
+            // 
+            // btnModificaClassS
+            // 
+            this.btnModificaClassS.Location = new System.Drawing.Point(5, 57);
+            this.btnModificaClassS.Name = "btnModificaClassS";
+            this.btnModificaClassS.Size = new System.Drawing.Size(86, 27);
+            this.btnModificaClassS.TabIndex = 19;
+            this.btnModificaClassS.Tag = "edit.single";
+            this.btnModificaClassS.Text = "Modifica";
+            // 
+            // btnInserisciClassS
+            // 
+            this.btnInserisciClassS.Location = new System.Drawing.Point(5, 20);
+            this.btnInserisciClassS.Name = "btnInserisciClassS";
+            this.btnInserisciClassS.Size = new System.Drawing.Size(86, 27);
+            this.btnInserisciClassS.TabIndex = 18;
+            this.btnInserisciClassS.Tag = "insert.single";
+            this.btnInserisciClassS.Text = "Inserisci";
+            // 
+            // TabClassAutoEntrate
+            // 
+            this.TabClassAutoEntrate.Controls.Add(this.groupBox8);
+            this.TabClassAutoEntrate.Controls.Add(this.groupBox9);
+            this.TabClassAutoEntrate.Location = new System.Drawing.Point(4, 46);
+            this.TabClassAutoEntrate.Name = "TabClassAutoEntrate";
+            this.TabClassAutoEntrate.Size = new System.Drawing.Size(695, 562);
+            this.TabClassAutoEntrate.TabIndex = 5;
+            this.TabClassAutoEntrate.Text = "Class. Autom. Entrate";
+            this.TabClassAutoEntrate.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox8.Controls.Add(this.dGridFilterClassInc);
-			this.groupBox8.Controls.Add(this.btnEliminaFilterE);
-			this.groupBox8.Controls.Add(this.btnModificaFilterE);
-			this.groupBox8.Controls.Add(this.btnInserisciFilterE);
-			this.groupBox8.Location = new System.Drawing.Point(8, 240);
-			this.groupBox8.Name = "groupBox8";
-			this.groupBox8.Size = new System.Drawing.Size(565, 255);
-			this.groupBox8.TabIndex = 5;
-			this.groupBox8.TabStop = false;
-			this.groupBox8.Text = "Filtri Classificazione Automatica delle Entrate";
-			// 
-			// dGridFilterClassInc
-			// 
-			this.dGridFilterClassInc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBox8.Controls.Add(this.dGridFilterClassInc);
+            this.groupBox8.Controls.Add(this.btnEliminaFilterE);
+            this.groupBox8.Controls.Add(this.btnModificaFilterE);
+            this.groupBox8.Controls.Add(this.btnInserisciFilterE);
+            this.groupBox8.Location = new System.Drawing.Point(10, 277);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(678, 268);
+            this.groupBox8.TabIndex = 5;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Filtri Classificazione Automatica delle Entrate";
+            // 
+            // dGridFilterClassInc
+            // 
+            this.dGridFilterClassInc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.dGridFilterClassInc.DataMember = "";
-			this.dGridFilterClassInc.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dGridFilterClassInc.Location = new System.Drawing.Point(84, 19);
-			this.dGridFilterClassInc.Name = "dGridFilterClassInc";
-			this.dGridFilterClassInc.Size = new System.Drawing.Size(478, 230);
-			this.dGridFilterClassInc.TabIndex = 24;
-			this.dGridFilterClassInc.Tag = "sortingincomefilter.fin.single";
-			// 
-			// btnEliminaFilterE
-			// 
-			this.btnEliminaFilterE.Location = new System.Drawing.Point(6, 83);
-			this.btnEliminaFilterE.Name = "btnEliminaFilterE";
-			this.btnEliminaFilterE.Size = new System.Drawing.Size(72, 24);
-			this.btnEliminaFilterE.TabIndex = 23;
-			this.btnEliminaFilterE.Tag = "delete";
-			this.btnEliminaFilterE.Text = "Elimina";
-			// 
-			// btnModificaFilterE
-			// 
-			this.btnModificaFilterE.Location = new System.Drawing.Point(6, 51);
-			this.btnModificaFilterE.Name = "btnModificaFilterE";
-			this.btnModificaFilterE.Size = new System.Drawing.Size(72, 24);
-			this.btnModificaFilterE.TabIndex = 22;
-			this.btnModificaFilterE.Tag = "edit.single";
-			this.btnModificaFilterE.Text = "Modifica";
-			// 
-			// btnInserisciFilterE
-			// 
-			this.btnInserisciFilterE.Location = new System.Drawing.Point(6, 19);
-			this.btnInserisciFilterE.Name = "btnInserisciFilterE";
-			this.btnInserisciFilterE.Size = new System.Drawing.Size(72, 24);
-			this.btnInserisciFilterE.TabIndex = 21;
-			this.btnInserisciFilterE.Tag = "insert.single";
-			this.btnInserisciFilterE.Text = "Inserisci";
-			// 
-			// groupBox9
-			// 
-			this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dGridFilterClassInc.DataMember = "";
+            this.dGridFilterClassInc.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+            this.dGridFilterClassInc.Location = new System.Drawing.Point(101, 22);
+            this.dGridFilterClassInc.Name = "dGridFilterClassInc";
+            this.dGridFilterClassInc.Size = new System.Drawing.Size(573, 239);
+            this.dGridFilterClassInc.TabIndex = 24;
+            this.dGridFilterClassInc.Tag = "sortingincomefilter.fin.single";
+            // 
+            // btnEliminaFilterE
+            // 
+            this.btnEliminaFilterE.Location = new System.Drawing.Point(7, 96);
+            this.btnEliminaFilterE.Name = "btnEliminaFilterE";
+            this.btnEliminaFilterE.Size = new System.Drawing.Size(87, 27);
+            this.btnEliminaFilterE.TabIndex = 23;
+            this.btnEliminaFilterE.Tag = "delete";
+            this.btnEliminaFilterE.Text = "Elimina";
+            // 
+            // btnModificaFilterE
+            // 
+            this.btnModificaFilterE.Location = new System.Drawing.Point(7, 59);
+            this.btnModificaFilterE.Name = "btnModificaFilterE";
+            this.btnModificaFilterE.Size = new System.Drawing.Size(87, 28);
+            this.btnModificaFilterE.TabIndex = 22;
+            this.btnModificaFilterE.Tag = "edit.single";
+            this.btnModificaFilterE.Text = "Modifica";
+            // 
+            // btnInserisciFilterE
+            // 
+            this.btnInserisciFilterE.Location = new System.Drawing.Point(7, 22);
+            this.btnInserisciFilterE.Name = "btnInserisciFilterE";
+            this.btnInserisciFilterE.Size = new System.Drawing.Size(87, 28);
+            this.btnInserisciFilterE.TabIndex = 21;
+            this.btnInserisciFilterE.Tag = "insert.single";
+            this.btnInserisciFilterE.Text = "Inserisci";
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox9.Controls.Add(this.dGridClassAutoInc);
-			this.groupBox9.Controls.Add(this.btnEliminaClassE);
-			this.groupBox9.Controls.Add(this.btnModificaClassE);
-			this.groupBox9.Controls.Add(this.btnInserisciClassE);
-			this.groupBox9.Location = new System.Drawing.Point(6, 9);
-			this.groupBox9.Name = "groupBox9";
-			this.groupBox9.Size = new System.Drawing.Size(565, 221);
-			this.groupBox9.TabIndex = 4;
-			this.groupBox9.TabStop = false;
-			this.groupBox9.Text = "Configurazione Classificazione Automatica delle Entrate";
-			// 
-			// dGridClassAutoInc
-			// 
-			this.dGridClassAutoInc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBox9.Controls.Add(this.dGridClassAutoInc);
+            this.groupBox9.Controls.Add(this.btnEliminaClassE);
+            this.groupBox9.Controls.Add(this.btnModificaClassE);
+            this.groupBox9.Controls.Add(this.btnInserisciClassE);
+            this.groupBox9.Location = new System.Drawing.Point(7, 10);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(678, 255);
+            this.groupBox9.TabIndex = 4;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Configurazione Classificazione Automatica delle Entrate";
+            // 
+            // dGridClassAutoInc
+            // 
+            this.dGridClassAutoInc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.dGridClassAutoInc.DataMember = "";
-			this.dGridClassAutoInc.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dGridClassAutoInc.Location = new System.Drawing.Point(81, 19);
-			this.dGridClassAutoInc.Name = "dGridClassAutoInc";
-			this.dGridClassAutoInc.Size = new System.Drawing.Size(478, 196);
-			this.dGridClassAutoInc.TabIndex = 21;
-			this.dGridClassAutoInc.Tag = "autoincomesorting.fin.single";
-			// 
-			// btnEliminaClassE
-			// 
-			this.btnEliminaClassE.Location = new System.Drawing.Point(4, 81);
-			this.btnEliminaClassE.Name = "btnEliminaClassE";
-			this.btnEliminaClassE.Size = new System.Drawing.Size(72, 24);
-			this.btnEliminaClassE.TabIndex = 20;
-			this.btnEliminaClassE.Tag = "delete";
-			this.btnEliminaClassE.Text = "Elimina";
-			// 
-			// btnModificaClassE
-			// 
-			this.btnModificaClassE.Location = new System.Drawing.Point(4, 49);
-			this.btnModificaClassE.Name = "btnModificaClassE";
-			this.btnModificaClassE.Size = new System.Drawing.Size(72, 24);
-			this.btnModificaClassE.TabIndex = 19;
-			this.btnModificaClassE.Tag = "edit.single";
-			this.btnModificaClassE.Text = "Modifica";
-			// 
-			// btnInserisciClassE
-			// 
-			this.btnInserisciClassE.Location = new System.Drawing.Point(4, 17);
-			this.btnInserisciClassE.Name = "btnInserisciClassE";
-			this.btnInserisciClassE.Size = new System.Drawing.Size(72, 24);
-			this.btnInserisciClassE.TabIndex = 18;
-			this.btnInserisciClassE.Tag = "insert.single";
-			this.btnInserisciClassE.Text = "Inserisci";
-			// 
-			// tabRiepilogo
-			// 
-			this.tabRiepilogo.Controls.Add(this.tabControlRiepilogo);
-			this.tabRiepilogo.Controls.Add(this.btnCalcolaTotali);
-			this.tabRiepilogo.Location = new System.Drawing.Point(4, 23);
-			this.tabRiepilogo.Name = "tabRiepilogo";
-			this.tabRiepilogo.Padding = new System.Windows.Forms.Padding(3);
-			this.tabRiepilogo.Size = new System.Drawing.Size(578, 503);
-			this.tabRiepilogo.TabIndex = 3;
-			this.tabRiepilogo.Text = "Riepilogo";
-			this.tabRiepilogo.UseVisualStyleBackColor = true;
-			// 
-			// tabControlRiepilogo
-			// 
-			this.tabControlRiepilogo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dGridClassAutoInc.DataMember = "";
+            this.dGridClassAutoInc.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+            this.dGridClassAutoInc.Location = new System.Drawing.Point(97, 22);
+            this.dGridClassAutoInc.Name = "dGridClassAutoInc";
+            this.dGridClassAutoInc.Size = new System.Drawing.Size(574, 226);
+            this.dGridClassAutoInc.TabIndex = 21;
+            this.dGridClassAutoInc.Tag = "autoincomesorting.fin.single";
+            // 
+            // btnEliminaClassE
+            // 
+            this.btnEliminaClassE.Location = new System.Drawing.Point(5, 93);
+            this.btnEliminaClassE.Name = "btnEliminaClassE";
+            this.btnEliminaClassE.Size = new System.Drawing.Size(86, 28);
+            this.btnEliminaClassE.TabIndex = 20;
+            this.btnEliminaClassE.Tag = "delete";
+            this.btnEliminaClassE.Text = "Elimina";
+            // 
+            // btnModificaClassE
+            // 
+            this.btnModificaClassE.Location = new System.Drawing.Point(5, 57);
+            this.btnModificaClassE.Name = "btnModificaClassE";
+            this.btnModificaClassE.Size = new System.Drawing.Size(86, 27);
+            this.btnModificaClassE.TabIndex = 19;
+            this.btnModificaClassE.Tag = "edit.single";
+            this.btnModificaClassE.Text = "Modifica";
+            // 
+            // btnInserisciClassE
+            // 
+            this.btnInserisciClassE.Location = new System.Drawing.Point(5, 20);
+            this.btnInserisciClassE.Name = "btnInserisciClassE";
+            this.btnInserisciClassE.Size = new System.Drawing.Size(86, 27);
+            this.btnInserisciClassE.TabIndex = 18;
+            this.btnInserisciClassE.Tag = "insert.single";
+            this.btnInserisciClassE.Text = "Inserisci";
+            // 
+            // tabRiepilogo
+            // 
+            this.tabRiepilogo.Controls.Add(this.tabControlRiepilogo);
+            this.tabRiepilogo.Controls.Add(this.btnCalcolaTotali);
+            this.tabRiepilogo.Location = new System.Drawing.Point(4, 46);
+            this.tabRiepilogo.Name = "tabRiepilogo";
+            this.tabRiepilogo.Padding = new System.Windows.Forms.Padding(3);
+            this.tabRiepilogo.Size = new System.Drawing.Size(695, 562);
+            this.tabRiepilogo.TabIndex = 3;
+            this.tabRiepilogo.Text = "Riepilogo";
+            this.tabRiepilogo.UseVisualStyleBackColor = true;
+            // 
+            // tabControlRiepilogo
+            // 
+            this.tabControlRiepilogo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tabControlRiepilogo.Controls.Add(this.tabCompetenza);
-			this.tabControlRiepilogo.Controls.Add(this.tabCassa);
-			this.tabControlRiepilogo.Controls.Add(this.tabCrediti);
-			this.tabControlRiepilogo.Controls.Add(this.tabAssCassa);
-			this.tabControlRiepilogo.Location = new System.Drawing.Point(6, 37);
-			this.tabControlRiepilogo.Name = "tabControlRiepilogo";
-			this.tabControlRiepilogo.SelectedIndex = 0;
-			this.tabControlRiepilogo.Size = new System.Drawing.Size(564, 461);
-			this.tabControlRiepilogo.TabIndex = 57;
-			// 
-			// tabCompetenza
-			// 
-			this.tabCompetenza.Controls.Add(this.grpPrevCompetenza);
-			this.tabCompetenza.Location = new System.Drawing.Point(4, 22);
-			this.tabCompetenza.Name = "tabCompetenza";
-			this.tabCompetenza.Padding = new System.Windows.Forms.Padding(3);
-			this.tabCompetenza.Size = new System.Drawing.Size(556, 435);
-			this.tabCompetenza.TabIndex = 0;
-			this.tabCompetenza.Text = "Previsione di competenza";
-			this.tabCompetenza.UseVisualStyleBackColor = true;
-			// 
-			// grpPrevCompetenza
-			// 
-			this.grpPrevCompetenza.Controls.Add(this.label7);
-			this.grpPrevCompetenza.Controls.Add(this.label6);
-			this.grpPrevCompetenza.Controls.Add(this.txtPrevAttualeCompetenza);
-			this.grpPrevCompetenza.Controls.Add(this.btnPiccoleSpeseImp);
-			this.grpPrevCompetenza.Controls.Add(this.lblPiccoleSpeseImp);
-			this.grpPrevCompetenza.Controls.Add(this.txtPiccoleSpeseImp);
-			this.grpPrevCompetenza.Controls.Add(this.btnAccertamentiCompetenza);
-			this.grpPrevCompetenza.Controls.Add(this.lblAccertamentiCompetenza);
-			this.grpPrevCompetenza.Controls.Add(this.txtAccertamentiCompetenza);
-			this.grpPrevCompetenza.Controls.Add(this.label1);
-			this.grpPrevCompetenza.Controls.Add(this.btnVarPrevCompetenza);
-			this.grpPrevCompetenza.Controls.Add(this.lblVarPrevCompetenza);
-			this.grpPrevCompetenza.Controls.Add(this.txtVarPrevCompetenza);
-			this.grpPrevCompetenza.Controls.Add(this.lblPrevDispCompetenza);
-			this.grpPrevCompetenza.Controls.Add(this.txtPrevDispCompetenza);
-			this.grpPrevCompetenza.Controls.Add(this.btnImpegniCompetenza);
-			this.grpPrevCompetenza.Controls.Add(this.lblImpegniCompetenza);
-			this.grpPrevCompetenza.Controls.Add(this.txtImpegniCompetenza);
-			this.grpPrevCompetenza.Controls.Add(this.btnPrevInizialeCompetenza);
-			this.grpPrevCompetenza.Controls.Add(this.lblPrevInizialeCompetenza);
-			this.grpPrevCompetenza.Controls.Add(this.txtPrevInizialeCompetenza);
-			this.grpPrevCompetenza.Location = new System.Drawing.Point(6, 6);
-			this.grpPrevCompetenza.Name = "grpPrevCompetenza";
-			this.grpPrevCompetenza.Size = new System.Drawing.Size(485, 284);
-			this.grpPrevCompetenza.TabIndex = 56;
-			this.grpPrevCompetenza.TabStop = false;
-			// 
-			// label7
-			// 
-			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(347, 80);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(42, 13);
-			this.label7.TabIndex = 15;
-			this.label7.Text = "= A + B";
-			// 
-			// label6
-			// 
-			this.label6.Location = new System.Drawing.Point(16, 79);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(198, 13);
-			this.label6.TabIndex = 13;
-			this.label6.Text = "Previsione  attuale di Competenza";
-			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtPrevAttualeCompetenza
-			// 
-			this.txtPrevAttualeCompetenza.Location = new System.Drawing.Point(220, 77);
-			this.txtPrevAttualeCompetenza.Name = "txtPrevAttualeCompetenza";
-			this.txtPrevAttualeCompetenza.ReadOnly = true;
-			this.txtPrevAttualeCompetenza.Size = new System.Drawing.Size(121, 20);
-			this.txtPrevAttualeCompetenza.TabIndex = 14;
-			this.txtPrevAttualeCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// btnPiccoleSpeseImp
-			// 
-			this.btnPiccoleSpeseImp.Location = new System.Drawing.Point(347, 165);
-			this.btnPiccoleSpeseImp.Name = "btnPiccoleSpeseImp";
-			this.btnPiccoleSpeseImp.Size = new System.Drawing.Size(75, 20);
-			this.btnPiccoleSpeseImp.TabIndex = 12;
-			this.btnPiccoleSpeseImp.Text = "D ";
-			this.btnPiccoleSpeseImp.UseVisualStyleBackColor = true;
-			this.btnPiccoleSpeseImp.Click += new System.EventHandler(this.btnPiccoleSpeseImp_Click);
-			// 
-			// lblPiccoleSpeseImp
-			// 
-			this.lblPiccoleSpeseImp.Location = new System.Drawing.Point(16, 168);
-			this.lblPiccoleSpeseImp.Name = "lblPiccoleSpeseImp";
-			this.lblPiccoleSpeseImp.Size = new System.Drawing.Size(198, 13);
-			this.lblPiccoleSpeseImp.TabIndex = 10;
-			this.lblPiccoleSpeseImp.Text = "Piccole spese non reintegrate";
-			this.lblPiccoleSpeseImp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtPiccoleSpeseImp
-			// 
-			this.txtPiccoleSpeseImp.Location = new System.Drawing.Point(220, 166);
-			this.txtPiccoleSpeseImp.Name = "txtPiccoleSpeseImp";
-			this.txtPiccoleSpeseImp.ReadOnly = true;
-			this.txtPiccoleSpeseImp.Size = new System.Drawing.Size(121, 20);
-			this.txtPiccoleSpeseImp.TabIndex = 11;
-			this.txtPiccoleSpeseImp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// btnAccertamentiCompetenza
-			// 
-			this.btnAccertamentiCompetenza.Location = new System.Drawing.Point(347, 138);
-			this.btnAccertamentiCompetenza.Name = "btnAccertamentiCompetenza";
-			this.btnAccertamentiCompetenza.Size = new System.Drawing.Size(75, 20);
-			this.btnAccertamentiCompetenza.TabIndex = 7;
-			this.btnAccertamentiCompetenza.Text = "C";
-			this.btnAccertamentiCompetenza.UseVisualStyleBackColor = true;
-			this.btnAccertamentiCompetenza.Click += new System.EventHandler(this.btnAccertamentiCompetenza_Click);
-			// 
-			// lblAccertamentiCompetenza
-			// 
-			this.lblAccertamentiCompetenza.Location = new System.Drawing.Point(16, 139);
-			this.lblAccertamentiCompetenza.Name = "lblAccertamentiCompetenza";
-			this.lblAccertamentiCompetenza.Size = new System.Drawing.Size(198, 13);
-			this.lblAccertamentiCompetenza.TabIndex = 0;
-			this.lblAccertamentiCompetenza.Text = "Accertamenti  di Competenza";
-			this.lblAccertamentiCompetenza.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtAccertamentiCompetenza
-			// 
-			this.txtAccertamentiCompetenza.Location = new System.Drawing.Point(220, 137);
-			this.txtAccertamentiCompetenza.Name = "txtAccertamentiCompetenza";
-			this.txtAccertamentiCompetenza.ReadOnly = true;
-			this.txtAccertamentiCompetenza.Size = new System.Drawing.Size(121, 20);
-			this.txtAccertamentiCompetenza.TabIndex = 6;
-			this.txtAccertamentiCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(344, 199);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(85, 13);
-			this.label1.TabIndex = 9;
-			this.label1.Text = "E = A + B - C - D";
-			// 
-			// btnVarPrevCompetenza
-			// 
-			this.btnVarPrevCompetenza.Location = new System.Drawing.Point(347, 43);
-			this.btnVarPrevCompetenza.Name = "btnVarPrevCompetenza";
-			this.btnVarPrevCompetenza.Size = new System.Drawing.Size(75, 20);
-			this.btnVarPrevCompetenza.TabIndex = 3;
-			this.btnVarPrevCompetenza.Text = "B";
-			this.btnVarPrevCompetenza.UseVisualStyleBackColor = true;
-			this.btnVarPrevCompetenza.Click += new System.EventHandler(this.btnVarPrevCompetenza_Click);
-			// 
-			// lblVarPrevCompetenza
-			// 
-			this.lblVarPrevCompetenza.Location = new System.Drawing.Point(16, 45);
-			this.lblVarPrevCompetenza.Name = "lblVarPrevCompetenza";
-			this.lblVarPrevCompetenza.Size = new System.Drawing.Size(198, 13);
-			this.lblVarPrevCompetenza.TabIndex = 0;
-			this.lblVarPrevCompetenza.Text = "Variazione Previsione  di Competenza";
-			this.lblVarPrevCompetenza.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtVarPrevCompetenza
-			// 
-			this.txtVarPrevCompetenza.Location = new System.Drawing.Point(220, 43);
-			this.txtVarPrevCompetenza.Name = "txtVarPrevCompetenza";
-			this.txtVarPrevCompetenza.ReadOnly = true;
-			this.txtVarPrevCompetenza.Size = new System.Drawing.Size(121, 20);
-			this.txtVarPrevCompetenza.TabIndex = 2;
-			this.txtVarPrevCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// lblPrevDispCompetenza
-			// 
-			this.lblPrevDispCompetenza.Location = new System.Drawing.Point(16, 197);
-			this.lblPrevDispCompetenza.Name = "lblPrevDispCompetenza";
-			this.lblPrevDispCompetenza.Size = new System.Drawing.Size(198, 13);
-			this.lblPrevDispCompetenza.TabIndex = 0;
-			this.lblPrevDispCompetenza.Text = "Previsione Disponibile di Competenza";
-			this.lblPrevDispCompetenza.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtPrevDispCompetenza
-			// 
-			this.txtPrevDispCompetenza.Location = new System.Drawing.Point(220, 195);
-			this.txtPrevDispCompetenza.Name = "txtPrevDispCompetenza";
-			this.txtPrevDispCompetenza.ReadOnly = true;
-			this.txtPrevDispCompetenza.Size = new System.Drawing.Size(121, 20);
-			this.txtPrevDispCompetenza.TabIndex = 8;
-			this.txtPrevDispCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// btnImpegniCompetenza
-			// 
-			this.btnImpegniCompetenza.Location = new System.Drawing.Point(347, 112);
-			this.btnImpegniCompetenza.Name = "btnImpegniCompetenza";
-			this.btnImpegniCompetenza.Size = new System.Drawing.Size(75, 20);
-			this.btnImpegniCompetenza.TabIndex = 5;
-			this.btnImpegniCompetenza.Text = "C";
-			this.btnImpegniCompetenza.UseVisualStyleBackColor = true;
-			this.btnImpegniCompetenza.Click += new System.EventHandler(this.btnImpegniCompetenza_Click);
-			// 
-			// lblImpegniCompetenza
-			// 
-			this.lblImpegniCompetenza.Location = new System.Drawing.Point(16, 113);
-			this.lblImpegniCompetenza.Name = "lblImpegniCompetenza";
-			this.lblImpegniCompetenza.Size = new System.Drawing.Size(198, 13);
-			this.lblImpegniCompetenza.TabIndex = 0;
-			this.lblImpegniCompetenza.Text = "Impegni di Competenza";
-			this.lblImpegniCompetenza.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtImpegniCompetenza
-			// 
-			this.txtImpegniCompetenza.Location = new System.Drawing.Point(220, 111);
-			this.txtImpegniCompetenza.Name = "txtImpegniCompetenza";
-			this.txtImpegniCompetenza.ReadOnly = true;
-			this.txtImpegniCompetenza.Size = new System.Drawing.Size(121, 20);
-			this.txtImpegniCompetenza.TabIndex = 4;
-			this.txtImpegniCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// btnPrevInizialeCompetenza
-			// 
-			this.btnPrevInizialeCompetenza.Location = new System.Drawing.Point(347, 13);
-			this.btnPrevInizialeCompetenza.Name = "btnPrevInizialeCompetenza";
-			this.btnPrevInizialeCompetenza.Size = new System.Drawing.Size(75, 20);
-			this.btnPrevInizialeCompetenza.TabIndex = 1;
-			this.btnPrevInizialeCompetenza.Text = "A";
-			this.btnPrevInizialeCompetenza.UseVisualStyleBackColor = true;
-			this.btnPrevInizialeCompetenza.Click += new System.EventHandler(this.btnPrevInizialeCompetenza_Click);
-			// 
-			// lblPrevInizialeCompetenza
-			// 
-			this.lblPrevInizialeCompetenza.Location = new System.Drawing.Point(16, 16);
-			this.lblPrevInizialeCompetenza.Name = "lblPrevInizialeCompetenza";
-			this.lblPrevInizialeCompetenza.Size = new System.Drawing.Size(198, 13);
-			this.lblPrevInizialeCompetenza.TabIndex = 0;
-			this.lblPrevInizialeCompetenza.Text = "Previsione Iniziale di Competenza";
-			this.lblPrevInizialeCompetenza.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtPrevInizialeCompetenza
-			// 
-			this.txtPrevInizialeCompetenza.Location = new System.Drawing.Point(220, 14);
-			this.txtPrevInizialeCompetenza.Name = "txtPrevInizialeCompetenza";
-			this.txtPrevInizialeCompetenza.ReadOnly = true;
-			this.txtPrevInizialeCompetenza.Size = new System.Drawing.Size(121, 20);
-			this.txtPrevInizialeCompetenza.TabIndex = 0;
-			this.txtPrevInizialeCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// tabCassa
-			// 
-			this.tabCassa.Controls.Add(this.grpPrevCassa);
-			this.tabCassa.Location = new System.Drawing.Point(4, 22);
-			this.tabCassa.Name = "tabCassa";
-			this.tabCassa.Padding = new System.Windows.Forms.Padding(3);
-			this.tabCassa.Size = new System.Drawing.Size(556, 435);
-			this.tabCassa.TabIndex = 1;
-			this.tabCassa.Text = "Previsione di cassa";
-			this.tabCassa.UseVisualStyleBackColor = true;
-			// 
-			// grpPrevCassa
-			// 
-			this.grpPrevCassa.Controls.Add(this.txtPrevDispCassaPerImpegniAccertamenti);
-			this.grpPrevCassa.Controls.Add(this.label10);
-			this.grpPrevCassa.Controls.Add(this.lblPrevDispCassaImpegniAccertamenti);
-			this.grpPrevCassa.Controls.Add(this.btnAccertamentiAll);
-			this.grpPrevCassa.Controls.Add(this.lblAccertamentiAll);
-			this.grpPrevCassa.Controls.Add(this.txtAccertamentiAll);
-			this.grpPrevCassa.Controls.Add(this.btnImpegniAll);
-			this.grpPrevCassa.Controls.Add(this.lblImpegniAll);
-			this.grpPrevCassa.Controls.Add(this.txtImpegniAll);
-			this.grpPrevCassa.Controls.Add(this.label8);
-			this.grpPrevCassa.Controls.Add(this.label9);
-			this.grpPrevCassa.Controls.Add(this.txtPrevAttualeCassa);
-			this.grpPrevCassa.Controls.Add(this.txtPrevDispCassaPerPagInc);
-			this.grpPrevCassa.Controls.Add(this.btnPiccoleSpesePagamenti);
-			this.grpPrevCassa.Controls.Add(this.lblPiccoleSpesePagamenti);
-			this.grpPrevCassa.Controls.Add(this.txtPiccoleSpesePagamenti);
-			this.grpPrevCassa.Controls.Add(this.btnIncassi);
-			this.grpPrevCassa.Controls.Add(this.lblIncassi);
-			this.grpPrevCassa.Controls.Add(this.txtIncassi);
-			this.grpPrevCassa.Controls.Add(this.label2);
-			this.grpPrevCassa.Controls.Add(this.btnVarPrevisioneCassa);
-			this.grpPrevCassa.Controls.Add(this.lblVarPrevisioneCassa);
-			this.grpPrevCassa.Controls.Add(this.txtVarPrevisioneCassa);
-			this.grpPrevCassa.Controls.Add(this.lblPrevDispCassaPagInc);
-			this.grpPrevCassa.Controls.Add(this.btnPagamenti);
-			this.grpPrevCassa.Controls.Add(this.lblPagamenti);
-			this.grpPrevCassa.Controls.Add(this.txtPagamenti);
-			this.grpPrevCassa.Controls.Add(this.btnPrevInizialeCassa);
-			this.grpPrevCassa.Controls.Add(this.lblPrevInizialeCassa);
-			this.grpPrevCassa.Controls.Add(this.txtPrevInizialeCassa);
-			this.grpPrevCassa.Location = new System.Drawing.Point(6, 6);
-			this.grpPrevCassa.Name = "grpPrevCassa";
-			this.grpPrevCassa.Size = new System.Drawing.Size(533, 374);
-			this.grpPrevCassa.TabIndex = 0;
-			this.grpPrevCassa.TabStop = false;
-			// 
-			// txtPrevDispCassaPerImpegniAccertamenti
-			// 
-			this.txtPrevDispCassaPerImpegniAccertamenti.Location = new System.Drawing.Point(292, 257);
-			this.txtPrevDispCassaPerImpegniAccertamenti.Name = "txtPrevDispCassaPerImpegniAccertamenti";
-			this.txtPrevDispCassaPerImpegniAccertamenti.ReadOnly = true;
-			this.txtPrevDispCassaPerImpegniAccertamenti.Size = new System.Drawing.Size(122, 20);
-			this.txtPrevDispCassaPerImpegniAccertamenti.TabIndex = 61;
-			this.txtPrevDispCassaPerImpegniAccertamenti.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label10
-			// 
-			this.label10.AutoSize = true;
-			this.label10.Location = new System.Drawing.Point(424, 261);
-			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(83, 13);
-			this.label10.TabIndex = 60;
-			this.label10.Text = "L = F + G - H - L";
-			// 
-			// lblPrevDispCassaImpegniAccertamenti
-			// 
-			this.lblPrevDispCassaImpegniAccertamenti.Location = new System.Drawing.Point(6, 250);
-			this.lblPrevDispCassaImpegniAccertamenti.Name = "lblPrevDispCassaImpegniAccertamenti";
-			this.lblPrevDispCassaImpegniAccertamenti.Size = new System.Drawing.Size(280, 32);
-			this.lblPrevDispCassaImpegniAccertamenti.TabIndex = 59;
-			this.lblPrevDispCassaImpegniAccertamenti.Text = "Previsione Disponibile di Cassa per Impegni/Accertamenti";
-			this.lblPrevDispCassaImpegniAccertamenti.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// btnAccertamentiAll
-			// 
-			this.btnAccertamentiAll.Location = new System.Drawing.Point(428, 131);
-			this.btnAccertamentiAll.Name = "btnAccertamentiAll";
-			this.btnAccertamentiAll.Size = new System.Drawing.Size(75, 20);
-			this.btnAccertamentiAll.TabIndex = 58;
-			this.btnAccertamentiAll.Text = "H";
-			this.btnAccertamentiAll.UseVisualStyleBackColor = true;
-			this.btnAccertamentiAll.Click += new System.EventHandler(this.btnAccertamentiAll_Click);
-			// 
-			// lblAccertamentiAll
-			// 
-			this.lblAccertamentiAll.Location = new System.Drawing.Point(90, 132);
-			this.lblAccertamentiAll.Name = "lblAccertamentiAll";
-			this.lblAccertamentiAll.Size = new System.Drawing.Size(196, 18);
-			this.lblAccertamentiAll.TabIndex = 53;
-			this.lblAccertamentiAll.Text = "Accertamenti";
-			this.lblAccertamentiAll.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtAccertamentiAll
-			// 
-			this.txtAccertamentiAll.Location = new System.Drawing.Point(293, 130);
-			this.txtAccertamentiAll.Name = "txtAccertamentiAll";
-			this.txtAccertamentiAll.ReadOnly = true;
-			this.txtAccertamentiAll.Size = new System.Drawing.Size(121, 20);
-			this.txtAccertamentiAll.TabIndex = 57;
-			this.txtAccertamentiAll.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// btnImpegniAll
-			// 
-			this.btnImpegniAll.Location = new System.Drawing.Point(428, 105);
-			this.btnImpegniAll.Name = "btnImpegniAll";
-			this.btnImpegniAll.Size = new System.Drawing.Size(75, 20);
-			this.btnImpegniAll.TabIndex = 56;
-			this.btnImpegniAll.Text = "H";
-			this.btnImpegniAll.UseVisualStyleBackColor = true;
-			this.btnImpegniAll.Click += new System.EventHandler(this.btnImpegniAll_Click);
-			// 
-			// lblImpegniAll
-			// 
-			this.lblImpegniAll.Location = new System.Drawing.Point(70, 106);
-			this.lblImpegniAll.Name = "lblImpegniAll";
-			this.lblImpegniAll.Size = new System.Drawing.Size(216, 18);
-			this.lblImpegniAll.TabIndex = 54;
-			this.lblImpegniAll.Text = "Impegni";
-			this.lblImpegniAll.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtImpegniAll
-			// 
-			this.txtImpegniAll.Location = new System.Drawing.Point(293, 104);
-			this.txtImpegniAll.Name = "txtImpegniAll";
-			this.txtImpegniAll.ReadOnly = true;
-			this.txtImpegniAll.Size = new System.Drawing.Size(121, 20);
-			this.txtImpegniAll.TabIndex = 55;
-			this.txtImpegniAll.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label8
-			// 
-			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(434, 68);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(42, 13);
-			this.label8.TabIndex = 20;
-			this.label8.Text = "= F + G";
-			// 
-			// label9
-			// 
-			this.label9.Location = new System.Drawing.Point(32, 68);
-			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(247, 13);
-			this.label9.TabIndex = 18;
-			this.label9.Text = "Previsione  attuale di Cassa";
-			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtPrevAttualeCassa
-			// 
-			this.txtPrevAttualeCassa.Location = new System.Drawing.Point(292, 65);
-			this.txtPrevAttualeCassa.Name = "txtPrevAttualeCassa";
-			this.txtPrevAttualeCassa.ReadOnly = true;
-			this.txtPrevAttualeCassa.Size = new System.Drawing.Size(122, 20);
-			this.txtPrevAttualeCassa.TabIndex = 19;
-			this.txtPrevAttualeCassa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// txtPrevDispCassaPerPagInc
-			// 
-			this.txtPrevDispCassaPerPagInc.Location = new System.Drawing.Point(293, 299);
-			this.txtPrevDispCassaPerPagInc.Name = "txtPrevDispCassaPerPagInc";
-			this.txtPrevDispCassaPerPagInc.ReadOnly = true;
-			this.txtPrevDispCassaPerPagInc.Size = new System.Drawing.Size(122, 20);
-			this.txtPrevDispCassaPerPagInc.TabIndex = 17;
-			this.txtPrevDispCassaPerPagInc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// btnPiccoleSpesePagamenti
-			// 
-			this.btnPiccoleSpesePagamenti.Location = new System.Drawing.Point(428, 218);
-			this.btnPiccoleSpesePagamenti.Name = "btnPiccoleSpesePagamenti";
-			this.btnPiccoleSpesePagamenti.Size = new System.Drawing.Size(75, 20);
-			this.btnPiccoleSpesePagamenti.TabIndex = 15;
-			this.btnPiccoleSpesePagamenti.Text = " L";
-			this.btnPiccoleSpesePagamenti.UseVisualStyleBackColor = true;
-			this.btnPiccoleSpesePagamenti.Click += new System.EventHandler(this.btnPiccoleSpesePag_Click);
-			// 
-			// lblPiccoleSpesePagamenti
-			// 
-			this.lblPiccoleSpesePagamenti.Location = new System.Drawing.Point(36, 220);
-			this.lblPiccoleSpesePagamenti.Name = "lblPiccoleSpesePagamenti";
-			this.lblPiccoleSpesePagamenti.Size = new System.Drawing.Size(243, 13);
-			this.lblPiccoleSpesePagamenti.TabIndex = 13;
-			this.lblPiccoleSpesePagamenti.Text = "Piccole spese non reintegrate";
-			this.lblPiccoleSpesePagamenti.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtPiccoleSpesePagamenti
-			// 
-			this.txtPiccoleSpesePagamenti.Location = new System.Drawing.Point(293, 217);
-			this.txtPiccoleSpesePagamenti.Name = "txtPiccoleSpesePagamenti";
-			this.txtPiccoleSpesePagamenti.ReadOnly = true;
-			this.txtPiccoleSpesePagamenti.Size = new System.Drawing.Size(121, 20);
-			this.txtPiccoleSpesePagamenti.TabIndex = 14;
-			this.txtPiccoleSpesePagamenti.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// btnIncassi
-			// 
-			this.btnIncassi.Location = new System.Drawing.Point(428, 191);
-			this.btnIncassi.Name = "btnIncassi";
-			this.btnIncassi.Size = new System.Drawing.Size(75, 20);
-			this.btnIncassi.TabIndex = 7;
-			this.btnIncassi.Text = "I";
-			this.btnIncassi.UseVisualStyleBackColor = true;
-			this.btnIncassi.Click += new System.EventHandler(this.btnIncassi_Click);
-			// 
-			// lblIncassi
-			// 
-			this.lblIncassi.Location = new System.Drawing.Point(38, 193);
-			this.lblIncassi.Name = "lblIncassi";
-			this.lblIncassi.Size = new System.Drawing.Size(243, 13);
-			this.lblIncassi.TabIndex = 0;
-			this.lblIncassi.Text = "Incassi";
-			this.lblIncassi.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtIncassi
-			// 
-			this.txtIncassi.Location = new System.Drawing.Point(293, 190);
-			this.txtIncassi.Name = "txtIncassi";
-			this.txtIncassi.ReadOnly = true;
-			this.txtIncassi.Size = new System.Drawing.Size(121, 20);
-			this.txtIncassi.TabIndex = 6;
-			this.txtIncassi.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(425, 303);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(78, 13);
-			this.label2.TabIndex = 9;
-			this.label2.Text = "L = F + G - I - L";
-			// 
-			// btnVarPrevisioneCassa
-			// 
-			this.btnVarPrevisioneCassa.Location = new System.Drawing.Point(428, 35);
-			this.btnVarPrevisioneCassa.Name = "btnVarPrevisioneCassa";
-			this.btnVarPrevisioneCassa.Size = new System.Drawing.Size(75, 20);
-			this.btnVarPrevisioneCassa.TabIndex = 3;
-			this.btnVarPrevisioneCassa.Text = "G";
-			this.btnVarPrevisioneCassa.UseVisualStyleBackColor = true;
-			this.btnVarPrevisioneCassa.Click += new System.EventHandler(this.btnVarPrevisioneCassa_Click);
-			// 
-			// lblVarPrevisioneCassa
-			// 
-			this.lblVarPrevisioneCassa.Location = new System.Drawing.Point(36, 37);
-			this.lblVarPrevisioneCassa.Name = "lblVarPrevisioneCassa";
-			this.lblVarPrevisioneCassa.Size = new System.Drawing.Size(243, 13);
-			this.lblVarPrevisioneCassa.TabIndex = 0;
-			this.lblVarPrevisioneCassa.Text = "Variazione Previsione  di Cassa";
-			this.lblVarPrevisioneCassa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtVarPrevisioneCassa
-			// 
-			this.txtVarPrevisioneCassa.Location = new System.Drawing.Point(293, 34);
-			this.txtVarPrevisioneCassa.Name = "txtVarPrevisioneCassa";
-			this.txtVarPrevisioneCassa.ReadOnly = true;
-			this.txtVarPrevisioneCassa.Size = new System.Drawing.Size(121, 20);
-			this.txtVarPrevisioneCassa.TabIndex = 2;
-			this.txtVarPrevisioneCassa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// lblPrevDispCassaPagInc
-			// 
-			this.lblPrevDispCassaPagInc.Location = new System.Drawing.Point(6, 290);
-			this.lblPrevDispCassaPagInc.Name = "lblPrevDispCassaPagInc";
-			this.lblPrevDispCassaPagInc.Size = new System.Drawing.Size(280, 32);
-			this.lblPrevDispCassaPagInc.TabIndex = 0;
-			this.lblPrevDispCassaPagInc.Text = "Previsione Disponibile di Cassa per Pagamenti/Incassi";
-			this.lblPrevDispCassaPagInc.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// btnPagamenti
-			// 
-			this.btnPagamenti.Location = new System.Drawing.Point(428, 166);
-			this.btnPagamenti.Name = "btnPagamenti";
-			this.btnPagamenti.Size = new System.Drawing.Size(75, 20);
-			this.btnPagamenti.TabIndex = 5;
-			this.btnPagamenti.Text = "I";
-			this.btnPagamenti.UseVisualStyleBackColor = true;
-			this.btnPagamenti.Click += new System.EventHandler(this.btnPagamenti_Click);
-			// 
-			// lblPagamenti
-			// 
-			this.lblPagamenti.Location = new System.Drawing.Point(38, 168);
-			this.lblPagamenti.Name = "lblPagamenti";
-			this.lblPagamenti.Size = new System.Drawing.Size(243, 13);
-			this.lblPagamenti.TabIndex = 0;
-			this.lblPagamenti.Text = "Pagamenti";
-			this.lblPagamenti.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtPagamenti
-			// 
-			this.txtPagamenti.Location = new System.Drawing.Point(293, 164);
-			this.txtPagamenti.Name = "txtPagamenti";
-			this.txtPagamenti.ReadOnly = true;
-			this.txtPagamenti.Size = new System.Drawing.Size(121, 20);
-			this.txtPagamenti.TabIndex = 4;
-			this.txtPagamenti.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// btnPrevInizialeCassa
-			// 
-			this.btnPrevInizialeCassa.Location = new System.Drawing.Point(428, 9);
-			this.btnPrevInizialeCassa.Name = "btnPrevInizialeCassa";
-			this.btnPrevInizialeCassa.Size = new System.Drawing.Size(75, 20);
-			this.btnPrevInizialeCassa.TabIndex = 1;
-			this.btnPrevInizialeCassa.Text = "F";
-			this.btnPrevInizialeCassa.UseVisualStyleBackColor = true;
-			this.btnPrevInizialeCassa.Click += new System.EventHandler(this.btnPrevInizialeCassa_Click);
-			// 
-			// lblPrevInizialeCassa
-			// 
-			this.lblPrevInizialeCassa.Location = new System.Drawing.Point(36, 11);
-			this.lblPrevInizialeCassa.Name = "lblPrevInizialeCassa";
-			this.lblPrevInizialeCassa.Size = new System.Drawing.Size(243, 13);
-			this.lblPrevInizialeCassa.TabIndex = 0;
-			this.lblPrevInizialeCassa.Text = "Previsione Iniziale di Cassa";
-			this.lblPrevInizialeCassa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtPrevInizialeCassa
-			// 
-			this.txtPrevInizialeCassa.Location = new System.Drawing.Point(293, 8);
-			this.txtPrevInizialeCassa.Name = "txtPrevInizialeCassa";
-			this.txtPrevInizialeCassa.ReadOnly = true;
-			this.txtPrevInizialeCassa.Size = new System.Drawing.Size(121, 20);
-			this.txtPrevInizialeCassa.TabIndex = 0;
-			this.txtPrevInizialeCassa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// tabCrediti
-			// 
-			this.tabCrediti.Controls.Add(this.grpCrediti);
-			this.tabCrediti.Location = new System.Drawing.Point(4, 22);
-			this.tabCrediti.Name = "tabCrediti";
-			this.tabCrediti.Size = new System.Drawing.Size(556, 435);
-			this.tabCrediti.TabIndex = 2;
-			this.tabCrediti.Text = "Assegnazione crediti";
-			this.tabCrediti.UseVisualStyleBackColor = true;
-			// 
-			// grpCrediti
-			// 
-			this.grpCrediti.Controls.Add(this.label11);
-			this.grpCrediti.Controls.Add(this.labelTotaleCrediti);
-			this.grpCrediti.Controls.Add(this.txtTotaleCrediti);
-			this.grpCrediti.Controls.Add(this.btnVarDotazioneCrediti);
-			this.grpCrediti.Controls.Add(this.txtVarDotazioneCrediti);
-			this.grpCrediti.Controls.Add(this.lblVarDotazioneCrediti);
-			this.grpCrediti.Controls.Add(this.label3);
-			this.grpCrediti.Controls.Add(this.btnDotazioneCrediti);
-			this.grpCrediti.Controls.Add(this.lblDotazioneCrediti);
-			this.grpCrediti.Controls.Add(this.txtDotazioneCrediti);
-			this.grpCrediti.Controls.Add(this.lblCreditiResidui);
-			this.grpCrediti.Controls.Add(this.txtCreditiResidui);
-			this.grpCrediti.Controls.Add(this.btnCreditiAssegnati);
-			this.grpCrediti.Controls.Add(this.lblCreditiAssegnati);
-			this.grpCrediti.Controls.Add(this.txtCreditiAssegnati);
-			this.grpCrediti.Location = new System.Drawing.Point(11, 3);
-			this.grpCrediti.Name = "grpCrediti";
-			this.grpCrediti.Size = new System.Drawing.Size(480, 203);
-			this.grpCrediti.TabIndex = 0;
-			this.grpCrediti.TabStop = false;
-			// 
-			// label11
-			// 
-			this.label11.AutoSize = true;
-			this.label11.Location = new System.Drawing.Point(349, 109);
-			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(65, 13);
-			this.label11.TabIndex = 21;
-			this.label11.Text = "= M + N + O";
-			// 
-			// labelTotaleCrediti
-			// 
-			this.labelTotaleCrediti.Location = new System.Drawing.Point(19, 105);
-			this.labelTotaleCrediti.Name = "labelTotaleCrediti";
-			this.labelTotaleCrediti.Size = new System.Drawing.Size(148, 13);
-			this.labelTotaleCrediti.TabIndex = 9;
-			this.labelTotaleCrediti.Text = "Totale Crediti";
-			this.labelTotaleCrediti.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtTotaleCrediti
-			// 
-			this.txtTotaleCrediti.Location = new System.Drawing.Point(188, 102);
-			this.txtTotaleCrediti.Name = "txtTotaleCrediti";
-			this.txtTotaleCrediti.ReadOnly = true;
-			this.txtTotaleCrediti.Size = new System.Drawing.Size(149, 20);
-			this.txtTotaleCrediti.TabIndex = 10;
-			this.txtTotaleCrediti.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// btnVarDotazioneCrediti
-			// 
-			this.btnVarDotazioneCrediti.Location = new System.Drawing.Point(349, 42);
-			this.btnVarDotazioneCrediti.Name = "btnVarDotazioneCrediti";
-			this.btnVarDotazioneCrediti.Size = new System.Drawing.Size(78, 20);
-			this.btnVarDotazioneCrediti.TabIndex = 8;
-			this.btnVarDotazioneCrediti.Text = "N";
-			this.btnVarDotazioneCrediti.UseVisualStyleBackColor = true;
-			this.btnVarDotazioneCrediti.Click += new System.EventHandler(this.btnVarDotazioneCrediti_Click);
-			// 
-			// txtVarDotazioneCrediti
-			// 
-			this.txtVarDotazioneCrediti.Location = new System.Drawing.Point(188, 42);
-			this.txtVarDotazioneCrediti.Name = "txtVarDotazioneCrediti";
-			this.txtVarDotazioneCrediti.ReadOnly = true;
-			this.txtVarDotazioneCrediti.Size = new System.Drawing.Size(149, 20);
-			this.txtVarDotazioneCrediti.TabIndex = 7;
-			this.txtVarDotazioneCrediti.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// lblVarDotazioneCrediti
-			// 
-			this.lblVarDotazioneCrediti.Location = new System.Drawing.Point(19, 45);
-			this.lblVarDotazioneCrediti.Name = "lblVarDotazioneCrediti";
-			this.lblVarDotazioneCrediti.Size = new System.Drawing.Size(148, 13);
-			this.lblVarDotazioneCrediti.TabIndex = 6;
-			this.lblVarDotazioneCrediti.Text = "Var. Dotazione Crediti";
-			this.lblVarDotazioneCrediti.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(349, 147);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(108, 13);
-			this.label3.TabIndex = 5;
-			this.label3.Text = "P = M + N + O - C - D";
-			// 
-			// btnDotazioneCrediti
-			// 
-			this.btnDotazioneCrediti.Location = new System.Drawing.Point(349, 13);
-			this.btnDotazioneCrediti.Name = "btnDotazioneCrediti";
-			this.btnDotazioneCrediti.Size = new System.Drawing.Size(78, 20);
-			this.btnDotazioneCrediti.TabIndex = 1;
-			this.btnDotazioneCrediti.Text = "M";
-			this.btnDotazioneCrediti.UseVisualStyleBackColor = true;
-			this.btnDotazioneCrediti.Click += new System.EventHandler(this.btnDotazioneCrediti_Click);
-			// 
-			// lblDotazioneCrediti
-			// 
-			this.lblDotazioneCrediti.Location = new System.Drawing.Point(19, 16);
-			this.lblDotazioneCrediti.Name = "lblDotazioneCrediti";
-			this.lblDotazioneCrediti.Size = new System.Drawing.Size(148, 13);
-			this.lblDotazioneCrediti.TabIndex = 0;
-			this.lblDotazioneCrediti.Text = "Dotazione Iniziale Crediti";
-			this.lblDotazioneCrediti.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtDotazioneCrediti
-			// 
-			this.txtDotazioneCrediti.Location = new System.Drawing.Point(188, 13);
-			this.txtDotazioneCrediti.Name = "txtDotazioneCrediti";
-			this.txtDotazioneCrediti.ReadOnly = true;
-			this.txtDotazioneCrediti.Size = new System.Drawing.Size(149, 20);
-			this.txtDotazioneCrediti.TabIndex = 0;
-			this.txtDotazioneCrediti.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// lblCreditiResidui
-			// 
-			this.lblCreditiResidui.Location = new System.Drawing.Point(19, 146);
-			this.lblCreditiResidui.Name = "lblCreditiResidui";
-			this.lblCreditiResidui.Size = new System.Drawing.Size(148, 13);
-			this.lblCreditiResidui.TabIndex = 0;
-			this.lblCreditiResidui.Text = "Crediti Residui";
-			this.lblCreditiResidui.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtCreditiResidui
-			// 
-			this.txtCreditiResidui.Location = new System.Drawing.Point(188, 143);
-			this.txtCreditiResidui.Name = "txtCreditiResidui";
-			this.txtCreditiResidui.ReadOnly = true;
-			this.txtCreditiResidui.Size = new System.Drawing.Size(149, 20);
-			this.txtCreditiResidui.TabIndex = 4;
-			this.txtCreditiResidui.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// btnCreditiAssegnati
-			// 
-			this.btnCreditiAssegnati.Location = new System.Drawing.Point(349, 70);
-			this.btnCreditiAssegnati.Name = "btnCreditiAssegnati";
-			this.btnCreditiAssegnati.Size = new System.Drawing.Size(78, 20);
-			this.btnCreditiAssegnati.TabIndex = 3;
-			this.btnCreditiAssegnati.Text = "O";
-			this.btnCreditiAssegnati.UseVisualStyleBackColor = true;
-			this.btnCreditiAssegnati.Click += new System.EventHandler(this.btnCreditiAssegnati_Click);
-			// 
-			// lblCreditiAssegnati
-			// 
-			this.lblCreditiAssegnati.Location = new System.Drawing.Point(19, 72);
-			this.lblCreditiAssegnati.Name = "lblCreditiAssegnati";
-			this.lblCreditiAssegnati.Size = new System.Drawing.Size(148, 13);
-			this.lblCreditiAssegnati.TabIndex = 0;
-			this.lblCreditiAssegnati.Text = "Totale Assegnazioni di Crediti";
-			this.lblCreditiAssegnati.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtCreditiAssegnati
-			// 
-			this.txtCreditiAssegnati.Location = new System.Drawing.Point(188, 69);
-			this.txtCreditiAssegnati.Name = "txtCreditiAssegnati";
-			this.txtCreditiAssegnati.ReadOnly = true;
-			this.txtCreditiAssegnati.Size = new System.Drawing.Size(149, 20);
-			this.txtCreditiAssegnati.TabIndex = 2;
-			this.txtCreditiAssegnati.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// tabAssCassa
-			// 
-			this.tabAssCassa.Controls.Add(this.grpCassa);
-			this.tabAssCassa.Location = new System.Drawing.Point(4, 22);
-			this.tabAssCassa.Name = "tabAssCassa";
-			this.tabAssCassa.Size = new System.Drawing.Size(556, 435);
-			this.tabAssCassa.TabIndex = 3;
-			this.tabAssCassa.Text = "Assegnazioni di cassa";
-			this.tabAssCassa.UseVisualStyleBackColor = true;
-			// 
-			// grpCassa
-			// 
-			this.grpCassa.Controls.Add(this.label12);
-			this.grpCassa.Controls.Add(this.labelTotaleCassa);
-			this.grpCassa.Controls.Add(this.txtTotaleCassa);
-			this.grpCassa.Controls.Add(this.btnPiccoleSpesePagamenti1);
-			this.grpCassa.Controls.Add(this.lblPiccoleSpesePagamenti1);
-			this.grpCassa.Controls.Add(this.txtPiccoleSpesePagamenti1);
-			this.grpCassa.Controls.Add(this.btnPagamenti1);
-			this.grpCassa.Controls.Add(this.lblPagamenti1);
-			this.grpCassa.Controls.Add(this.txtPagamenti1);
-			this.grpCassa.Controls.Add(this.btnVarDotazioneCassa);
-			this.grpCassa.Controls.Add(this.txtVarDotazioneCassa);
-			this.grpCassa.Controls.Add(this.lblVarDotazioneCassa);
-			this.grpCassa.Controls.Add(this.label4);
-			this.grpCassa.Controls.Add(this.btnDotazioneCassa);
-			this.grpCassa.Controls.Add(this.lblDotazioneCassa);
-			this.grpCassa.Controls.Add(this.txtDotazioneCassa);
-			this.grpCassa.Controls.Add(this.lblCassaResidua);
-			this.grpCassa.Controls.Add(this.txtCassaResidua);
-			this.grpCassa.Controls.Add(this.btnAssegnazioniCassa);
-			this.grpCassa.Controls.Add(this.lblAssegnazioniCassa);
-			this.grpCassa.Controls.Add(this.txtAssegnazioniCassa);
-			this.grpCassa.Location = new System.Drawing.Point(3, 3);
-			this.grpCassa.Name = "grpCassa";
-			this.grpCassa.Size = new System.Drawing.Size(488, 252);
-			this.grpCassa.TabIndex = 3;
-			this.grpCassa.TabStop = false;
-			// 
-			// label12
-			// 
-			this.label12.AutoSize = true;
-			this.label12.Location = new System.Drawing.Point(365, 105);
-			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(63, 13);
-			this.label12.TabIndex = 24;
-			this.label12.Text = "= Q + R + S";
-			// 
-			// labelTotaleCassa
-			// 
-			this.labelTotaleCassa.Location = new System.Drawing.Point(50, 101);
-			this.labelTotaleCassa.Name = "labelTotaleCassa";
-			this.labelTotaleCassa.Size = new System.Drawing.Size(148, 13);
-			this.labelTotaleCassa.TabIndex = 22;
-			this.labelTotaleCassa.Text = "Totale Cassa";
-			this.labelTotaleCassa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtTotaleCassa
-			// 
-			this.txtTotaleCassa.Location = new System.Drawing.Point(204, 98);
-			this.txtTotaleCassa.Name = "txtTotaleCassa";
-			this.txtTotaleCassa.ReadOnly = true;
-			this.txtTotaleCassa.Size = new System.Drawing.Size(149, 20);
-			this.txtTotaleCassa.TabIndex = 23;
-			this.txtTotaleCassa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// btnPiccoleSpesePagamenti1
-			// 
-			this.btnPiccoleSpesePagamenti1.Location = new System.Drawing.Point(359, 168);
-			this.btnPiccoleSpesePagamenti1.Name = "btnPiccoleSpesePagamenti1";
-			this.btnPiccoleSpesePagamenti1.Size = new System.Drawing.Size(75, 20);
-			this.btnPiccoleSpesePagamenti1.TabIndex = 18;
-			this.btnPiccoleSpesePagamenti1.Text = "U";
-			this.btnPiccoleSpesePagamenti1.UseVisualStyleBackColor = true;
-			this.btnPiccoleSpesePagamenti1.Click += new System.EventHandler(this.btnPiccoleSpesePagIncassi_Click);
-			// 
-			// lblPiccoleSpesePagamenti1
-			// 
-			this.lblPiccoleSpesePagamenti1.Location = new System.Drawing.Point(6, 164);
-			this.lblPiccoleSpesePagamenti1.Name = "lblPiccoleSpesePagamenti1";
-			this.lblPiccoleSpesePagamenti1.Size = new System.Drawing.Size(192, 13);
-			this.lblPiccoleSpesePagamenti1.TabIndex = 16;
-			this.lblPiccoleSpesePagamenti1.Text = "Piccole spese non reintegrate";
-			this.lblPiccoleSpesePagamenti1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtPiccoleSpesePagamenti1
-			// 
-			this.txtPiccoleSpesePagamenti1.Location = new System.Drawing.Point(204, 168);
-			this.txtPiccoleSpesePagamenti1.Name = "txtPiccoleSpesePagamenti1";
-			this.txtPiccoleSpesePagamenti1.ReadOnly = true;
-			this.txtPiccoleSpesePagamenti1.Size = new System.Drawing.Size(149, 20);
-			this.txtPiccoleSpesePagamenti1.TabIndex = 17;
-			this.txtPiccoleSpesePagamenti1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// btnPagamenti1
-			// 
-			this.btnPagamenti1.Location = new System.Drawing.Point(359, 138);
-			this.btnPagamenti1.Name = "btnPagamenti1";
-			this.btnPagamenti1.Size = new System.Drawing.Size(75, 20);
-			this.btnPagamenti1.TabIndex = 12;
-			this.btnPagamenti1.Text = "T";
-			this.btnPagamenti1.UseVisualStyleBackColor = true;
-			this.btnPagamenti1.Click += new System.EventHandler(this.btnPagamenti_Click);
-			// 
-			// lblPagamenti1
-			// 
-			this.lblPagamenti1.Location = new System.Drawing.Point(6, 138);
-			this.lblPagamenti1.Name = "lblPagamenti1";
-			this.lblPagamenti1.Size = new System.Drawing.Size(192, 13);
-			this.lblPagamenti1.TabIndex = 10;
-			this.lblPagamenti1.Text = "Pagamenti";
-			this.lblPagamenti1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtPagamenti1
-			// 
-			this.txtPagamenti1.Location = new System.Drawing.Point(204, 138);
-			this.txtPagamenti1.Name = "txtPagamenti1";
-			this.txtPagamenti1.ReadOnly = true;
-			this.txtPagamenti1.Size = new System.Drawing.Size(149, 20);
-			this.txtPagamenti1.TabIndex = 11;
-			this.txtPagamenti1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// btnVarDotazioneCassa
-			// 
-			this.btnVarDotazioneCassa.Location = new System.Drawing.Point(359, 38);
-			this.btnVarDotazioneCassa.Name = "btnVarDotazioneCassa";
-			this.btnVarDotazioneCassa.Size = new System.Drawing.Size(75, 20);
-			this.btnVarDotazioneCassa.TabIndex = 9;
-			this.btnVarDotazioneCassa.Text = "R";
-			this.btnVarDotazioneCassa.UseVisualStyleBackColor = true;
-			this.btnVarDotazioneCassa.Click += new System.EventHandler(this.btnVarDotazioneCassa_Click);
-			// 
-			// txtVarDotazioneCassa
-			// 
-			this.txtVarDotazioneCassa.Location = new System.Drawing.Point(204, 37);
-			this.txtVarDotazioneCassa.Name = "txtVarDotazioneCassa";
-			this.txtVarDotazioneCassa.ReadOnly = true;
-			this.txtVarDotazioneCassa.Size = new System.Drawing.Size(149, 20);
-			this.txtVarDotazioneCassa.TabIndex = 8;
-			this.txtVarDotazioneCassa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// lblVarDotazioneCassa
-			// 
-			this.lblVarDotazioneCassa.Location = new System.Drawing.Point(6, 40);
-			this.lblVarDotazioneCassa.Name = "lblVarDotazioneCassa";
-			this.lblVarDotazioneCassa.Size = new System.Drawing.Size(192, 13);
-			this.lblVarDotazioneCassa.TabIndex = 7;
-			this.lblVarDotazioneCassa.Text = "Var. Dotazione Cassa";
-			this.lblVarDotazioneCassa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(356, 202);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(106, 13);
-			this.label4.TabIndex = 5;
-			this.label4.Text = "V = Q + R + S - T - U";
-			// 
-			// btnDotazioneCassa
-			// 
-			this.btnDotazioneCassa.Location = new System.Drawing.Point(359, 13);
-			this.btnDotazioneCassa.Name = "btnDotazioneCassa";
-			this.btnDotazioneCassa.Size = new System.Drawing.Size(75, 20);
-			this.btnDotazioneCassa.TabIndex = 1;
-			this.btnDotazioneCassa.Text = "Q";
-			this.btnDotazioneCassa.UseVisualStyleBackColor = true;
-			this.btnDotazioneCassa.Click += new System.EventHandler(this.btnDotazioneCassa_Click);
-			// 
-			// lblDotazioneCassa
-			// 
-			this.lblDotazioneCassa.Location = new System.Drawing.Point(6, 16);
-			this.lblDotazioneCassa.Name = "lblDotazioneCassa";
-			this.lblDotazioneCassa.Size = new System.Drawing.Size(192, 13);
-			this.lblDotazioneCassa.TabIndex = 0;
-			this.lblDotazioneCassa.Text = "Dotazione Iniziale Cassa";
-			this.lblDotazioneCassa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtDotazioneCassa
-			// 
-			this.txtDotazioneCassa.Location = new System.Drawing.Point(204, 13);
-			this.txtDotazioneCassa.Name = "txtDotazioneCassa";
-			this.txtDotazioneCassa.ReadOnly = true;
-			this.txtDotazioneCassa.Size = new System.Drawing.Size(149, 20);
-			this.txtDotazioneCassa.TabIndex = 0;
-			this.txtDotazioneCassa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// lblCassaResidua
-			// 
-			this.lblCassaResidua.Location = new System.Drawing.Point(6, 197);
-			this.lblCassaResidua.Name = "lblCassaResidua";
-			this.lblCassaResidua.Size = new System.Drawing.Size(192, 13);
-			this.lblCassaResidua.TabIndex = 0;
-			this.lblCassaResidua.Text = "Assegnazioni di Cassa Residue";
-			this.lblCassaResidua.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtCassaResidua
-			// 
-			this.txtCassaResidua.Location = new System.Drawing.Point(204, 195);
-			this.txtCassaResidua.Name = "txtCassaResidua";
-			this.txtCassaResidua.ReadOnly = true;
-			this.txtCassaResidua.Size = new System.Drawing.Size(149, 20);
-			this.txtCassaResidua.TabIndex = 4;
-			this.txtCassaResidua.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// btnAssegnazioniCassa
-			// 
-			this.btnAssegnazioniCassa.Location = new System.Drawing.Point(359, 64);
-			this.btnAssegnazioniCassa.Name = "btnAssegnazioniCassa";
-			this.btnAssegnazioniCassa.Size = new System.Drawing.Size(75, 20);
-			this.btnAssegnazioniCassa.TabIndex = 3;
-			this.btnAssegnazioniCassa.Text = "S";
-			this.btnAssegnazioniCassa.UseVisualStyleBackColor = true;
-			this.btnAssegnazioniCassa.Click += new System.EventHandler(this.btnAssegnazioniCassa_Click);
-			// 
-			// lblAssegnazioniCassa
-			// 
-			this.lblAssegnazioniCassa.Location = new System.Drawing.Point(6, 66);
-			this.lblAssegnazioniCassa.Name = "lblAssegnazioniCassa";
-			this.lblAssegnazioniCassa.Size = new System.Drawing.Size(192, 13);
-			this.lblAssegnazioniCassa.TabIndex = 0;
-			this.lblAssegnazioniCassa.Text = "Totale Assegnazioni di Cassa";
-			this.lblAssegnazioniCassa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtAssegnazioniCassa
-			// 
-			this.txtAssegnazioniCassa.Location = new System.Drawing.Point(204, 63);
-			this.txtAssegnazioniCassa.Name = "txtAssegnazioniCassa";
-			this.txtAssegnazioniCassa.ReadOnly = true;
-			this.txtAssegnazioniCassa.Size = new System.Drawing.Size(149, 20);
-			this.txtAssegnazioniCassa.TabIndex = 2;
-			this.txtAssegnazioniCassa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// btnCalcolaTotali
-			// 
-			this.btnCalcolaTotali.Location = new System.Drawing.Point(12, 6);
-			this.btnCalcolaTotali.Name = "btnCalcolaTotali";
-			this.btnCalcolaTotali.Size = new System.Drawing.Size(105, 25);
-			this.btnCalcolaTotali.TabIndex = 1;
-			this.btnCalcolaTotali.Text = "Calcola totali";
-			this.btnCalcolaTotali.UseVisualStyleBackColor = true;
-			this.btnCalcolaTotali.Click += new System.EventHandler(this.btnCalcolaTotali_Click);
-			// 
-			// imageList1
-			// 
-			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-			this.imageList1.Images.SetKeyName(0, "");
-			// 
-			// treeView1
-			// 
-			this.treeView1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.treeView1.HideSelection = false;
-			this.treeView1.ImageIndex = 1;
-			this.treeView1.ImageList = this.icons;
-			this.treeView1.Location = new System.Drawing.Point(0, 0);
-			this.treeView1.Name = "treeView1";
-			this.treeView1.SelectedImageIndex = 0;
-			this.treeView1.ShowPlusMinus = false;
-			this.treeView1.Size = new System.Drawing.Size(331, 530);
-			this.treeView1.TabIndex = 2;
-			this.treeView1.Tag = "fin.treeES";
-			this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
-			// 
-			// icons
-			// 
-			this.icons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("icons.ImageStream")));
-			this.icons.TransparentColor = System.Drawing.Color.Transparent;
-			this.icons.Images.SetKeyName(0, "");
-			this.icons.Images.SetKeyName(1, "");
-			// 
-			// splitter1
-			// 
-			this.splitter1.Location = new System.Drawing.Point(331, 0);
-			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(1, 530);
-			this.splitter1.TabIndex = 4;
-			this.splitter1.TabStop = false;
-			// 
-			// Frm_fin_default
-			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(917, 530);
-			this.Controls.Add(this.splitter1);
-			this.Controls.Add(this.MetaDataDetail);
-			this.Controls.Add(this.treeView1);
-			this.Name = "Frm_fin_default";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.MetaDataDetail.ResumeLayout(false);
-			this.tabGeneralita.ResumeLayout(false);
-			this.tabGeneralita.PerformLayout();
-			this.gboxResponsabile.ResumeLayout(false);
-			this.gboxResponsabile.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-			this.GrpboxPrevisione.ResumeLayout(false);
-			this.groupBox4.ResumeLayout(false);
-			this.groupBox4.PerformLayout();
-			this.gboxPrimaPrevisione.ResumeLayout(false);
-			this.gboxPrimaPrevisione.PerformLayout();
-			this.gboxSecondaPrevisione.ResumeLayout(false);
-			this.gboxSecondaPrevisione.PerformLayout();
-			this.gboxRipartizione.ResumeLayout(false);
-			this.gboxRipartizione.PerformLayout();
-			this.groupBox1.ResumeLayout(false);
-			this.grpParte.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-			this.tabPrevisione.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dgPrevisione)).EndInit();
-			this.groupBox2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dgVariazioni)).EndInit();
-			this.tabClassSupp.ResumeLayout(false);
-			this.gBoxCausalePartiteGiro.ResumeLayout(false);
-			this.gBoxCausalePartiteGiro.PerformLayout();
-			this.gboxConto.ResumeLayout(false);
-			this.gboxConto.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dGridClassSup)).EndInit();
-			this.TabClassAutoSpese.ResumeLayout(false);
-			this.groupBox6.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dGridFilterClassExp)).EndInit();
-			this.groupBox7.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dGridClassAutoExp)).EndInit();
-			this.TabClassAutoEntrate.ResumeLayout(false);
-			this.groupBox8.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dGridFilterClassInc)).EndInit();
-			this.groupBox9.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dGridClassAutoInc)).EndInit();
-			this.tabRiepilogo.ResumeLayout(false);
-			this.tabControlRiepilogo.ResumeLayout(false);
-			this.tabCompetenza.ResumeLayout(false);
-			this.grpPrevCompetenza.ResumeLayout(false);
-			this.grpPrevCompetenza.PerformLayout();
-			this.tabCassa.ResumeLayout(false);
-			this.grpPrevCassa.ResumeLayout(false);
-			this.grpPrevCassa.PerformLayout();
-			this.tabCrediti.ResumeLayout(false);
-			this.grpCrediti.ResumeLayout(false);
-			this.grpCrediti.PerformLayout();
-			this.tabAssCassa.ResumeLayout(false);
-			this.grpCassa.ResumeLayout(false);
-			this.grpCassa.PerformLayout();
-			this.ResumeLayout(false);
+            this.tabControlRiepilogo.Controls.Add(this.tabCompetenza);
+            this.tabControlRiepilogo.Controls.Add(this.tabCassa);
+            this.tabControlRiepilogo.Controls.Add(this.tabCrediti);
+            this.tabControlRiepilogo.Controls.Add(this.tabAssCassa);
+            this.tabControlRiepilogo.Location = new System.Drawing.Point(7, 43);
+            this.tabControlRiepilogo.Name = "tabControlRiepilogo";
+            this.tabControlRiepilogo.SelectedIndex = 0;
+            this.tabControlRiepilogo.Size = new System.Drawing.Size(677, 532);
+            this.tabControlRiepilogo.TabIndex = 57;
+            // 
+            // tabCompetenza
+            // 
+            this.tabCompetenza.Controls.Add(this.grpPrevCompetenza);
+            this.tabCompetenza.Location = new System.Drawing.Point(4, 25);
+            this.tabCompetenza.Name = "tabCompetenza";
+            this.tabCompetenza.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCompetenza.Size = new System.Drawing.Size(669, 503);
+            this.tabCompetenza.TabIndex = 0;
+            this.tabCompetenza.Text = "Previsione di competenza";
+            this.tabCompetenza.UseVisualStyleBackColor = true;
+            // 
+            // grpPrevCompetenza
+            // 
+            this.grpPrevCompetenza.Controls.Add(this.label7);
+            this.grpPrevCompetenza.Controls.Add(this.label6);
+            this.grpPrevCompetenza.Controls.Add(this.txtPrevAttualeCompetenza);
+            this.grpPrevCompetenza.Controls.Add(this.btnPiccoleSpeseImp);
+            this.grpPrevCompetenza.Controls.Add(this.lblPiccoleSpeseImp);
+            this.grpPrevCompetenza.Controls.Add(this.txtPiccoleSpeseImp);
+            this.grpPrevCompetenza.Controls.Add(this.btnAccertamentiCompetenza);
+            this.grpPrevCompetenza.Controls.Add(this.lblAccertamentiCompetenza);
+            this.grpPrevCompetenza.Controls.Add(this.txtAccertamentiCompetenza);
+            this.grpPrevCompetenza.Controls.Add(this.label1);
+            this.grpPrevCompetenza.Controls.Add(this.btnVarPrevCompetenza);
+            this.grpPrevCompetenza.Controls.Add(this.lblVarPrevCompetenza);
+            this.grpPrevCompetenza.Controls.Add(this.txtVarPrevCompetenza);
+            this.grpPrevCompetenza.Controls.Add(this.lblPrevDispCompetenza);
+            this.grpPrevCompetenza.Controls.Add(this.txtPrevDispCompetenza);
+            this.grpPrevCompetenza.Controls.Add(this.btnImpegniCompetenza);
+            this.grpPrevCompetenza.Controls.Add(this.lblImpegniCompetenza);
+            this.grpPrevCompetenza.Controls.Add(this.txtImpegniCompetenza);
+            this.grpPrevCompetenza.Controls.Add(this.btnPrevInizialeCompetenza);
+            this.grpPrevCompetenza.Controls.Add(this.lblPrevInizialeCompetenza);
+            this.grpPrevCompetenza.Controls.Add(this.txtPrevInizialeCompetenza);
+            this.grpPrevCompetenza.Location = new System.Drawing.Point(7, 7);
+            this.grpPrevCompetenza.Name = "grpPrevCompetenza";
+            this.grpPrevCompetenza.Size = new System.Drawing.Size(582, 328);
+            this.grpPrevCompetenza.TabIndex = 56;
+            this.grpPrevCompetenza.TabStop = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(416, 92);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(54, 17);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "= A + B";
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(19, 91);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(238, 15);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Previsione  attuale di Competenza";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtPrevAttualeCompetenza
+            // 
+            this.txtPrevAttualeCompetenza.Location = new System.Drawing.Point(264, 89);
+            this.txtPrevAttualeCompetenza.Name = "txtPrevAttualeCompetenza";
+            this.txtPrevAttualeCompetenza.ReadOnly = true;
+            this.txtPrevAttualeCompetenza.Size = new System.Drawing.Size(145, 22);
+            this.txtPrevAttualeCompetenza.TabIndex = 14;
+            this.txtPrevAttualeCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnPiccoleSpeseImp
+            // 
+            this.btnPiccoleSpeseImp.Location = new System.Drawing.Point(416, 190);
+            this.btnPiccoleSpeseImp.Name = "btnPiccoleSpeseImp";
+            this.btnPiccoleSpeseImp.Size = new System.Drawing.Size(90, 23);
+            this.btnPiccoleSpeseImp.TabIndex = 12;
+            this.btnPiccoleSpeseImp.Text = "D ";
+            this.btnPiccoleSpeseImp.UseVisualStyleBackColor = true;
+            this.btnPiccoleSpeseImp.Click += new System.EventHandler(this.btnPiccoleSpeseImp_Click);
+            // 
+            // lblPiccoleSpeseImp
+            // 
+            this.lblPiccoleSpeseImp.Location = new System.Drawing.Point(19, 194);
+            this.lblPiccoleSpeseImp.Name = "lblPiccoleSpeseImp";
+            this.lblPiccoleSpeseImp.Size = new System.Drawing.Size(238, 15);
+            this.lblPiccoleSpeseImp.TabIndex = 10;
+            this.lblPiccoleSpeseImp.Text = "Piccole spese non reintegrate";
+            this.lblPiccoleSpeseImp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtPiccoleSpeseImp
+            // 
+            this.txtPiccoleSpeseImp.Location = new System.Drawing.Point(264, 192);
+            this.txtPiccoleSpeseImp.Name = "txtPiccoleSpeseImp";
+            this.txtPiccoleSpeseImp.ReadOnly = true;
+            this.txtPiccoleSpeseImp.Size = new System.Drawing.Size(145, 22);
+            this.txtPiccoleSpeseImp.TabIndex = 11;
+            this.txtPiccoleSpeseImp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnAccertamentiCompetenza
+            // 
+            this.btnAccertamentiCompetenza.Location = new System.Drawing.Point(416, 159);
+            this.btnAccertamentiCompetenza.Name = "btnAccertamentiCompetenza";
+            this.btnAccertamentiCompetenza.Size = new System.Drawing.Size(90, 23);
+            this.btnAccertamentiCompetenza.TabIndex = 7;
+            this.btnAccertamentiCompetenza.Text = "C";
+            this.btnAccertamentiCompetenza.UseVisualStyleBackColor = true;
+            this.btnAccertamentiCompetenza.Click += new System.EventHandler(this.btnAccertamentiCompetenza_Click);
+            // 
+            // lblAccertamentiCompetenza
+            // 
+            this.lblAccertamentiCompetenza.Location = new System.Drawing.Point(19, 160);
+            this.lblAccertamentiCompetenza.Name = "lblAccertamentiCompetenza";
+            this.lblAccertamentiCompetenza.Size = new System.Drawing.Size(238, 15);
+            this.lblAccertamentiCompetenza.TabIndex = 0;
+            this.lblAccertamentiCompetenza.Text = "Accertamenti  di Competenza";
+            this.lblAccertamentiCompetenza.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtAccertamentiCompetenza
+            // 
+            this.txtAccertamentiCompetenza.Location = new System.Drawing.Point(264, 158);
+            this.txtAccertamentiCompetenza.Name = "txtAccertamentiCompetenza";
+            this.txtAccertamentiCompetenza.ReadOnly = true;
+            this.txtAccertamentiCompetenza.Size = new System.Drawing.Size(145, 22);
+            this.txtAccertamentiCompetenza.TabIndex = 6;
+            this.txtAccertamentiCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(413, 230);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(112, 17);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "E = A + B - C - D";
+            // 
+            // btnVarPrevCompetenza
+            // 
+            this.btnVarPrevCompetenza.Location = new System.Drawing.Point(416, 50);
+            this.btnVarPrevCompetenza.Name = "btnVarPrevCompetenza";
+            this.btnVarPrevCompetenza.Size = new System.Drawing.Size(90, 23);
+            this.btnVarPrevCompetenza.TabIndex = 3;
+            this.btnVarPrevCompetenza.Text = "B";
+            this.btnVarPrevCompetenza.UseVisualStyleBackColor = true;
+            this.btnVarPrevCompetenza.Click += new System.EventHandler(this.btnVarPrevCompetenza_Click);
+            // 
+            // lblVarPrevCompetenza
+            // 
+            this.lblVarPrevCompetenza.Location = new System.Drawing.Point(19, 52);
+            this.lblVarPrevCompetenza.Name = "lblVarPrevCompetenza";
+            this.lblVarPrevCompetenza.Size = new System.Drawing.Size(238, 15);
+            this.lblVarPrevCompetenza.TabIndex = 0;
+            this.lblVarPrevCompetenza.Text = "Variazione Previsione  di Competenza";
+            this.lblVarPrevCompetenza.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtVarPrevCompetenza
+            // 
+            this.txtVarPrevCompetenza.Location = new System.Drawing.Point(264, 50);
+            this.txtVarPrevCompetenza.Name = "txtVarPrevCompetenza";
+            this.txtVarPrevCompetenza.ReadOnly = true;
+            this.txtVarPrevCompetenza.Size = new System.Drawing.Size(145, 22);
+            this.txtVarPrevCompetenza.TabIndex = 2;
+            this.txtVarPrevCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblPrevDispCompetenza
+            // 
+            this.lblPrevDispCompetenza.Location = new System.Drawing.Point(19, 227);
+            this.lblPrevDispCompetenza.Name = "lblPrevDispCompetenza";
+            this.lblPrevDispCompetenza.Size = new System.Drawing.Size(238, 15);
+            this.lblPrevDispCompetenza.TabIndex = 0;
+            this.lblPrevDispCompetenza.Text = "Previsione Disponibile di Competenza";
+            this.lblPrevDispCompetenza.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtPrevDispCompetenza
+            // 
+            this.txtPrevDispCompetenza.Location = new System.Drawing.Point(264, 225);
+            this.txtPrevDispCompetenza.Name = "txtPrevDispCompetenza";
+            this.txtPrevDispCompetenza.ReadOnly = true;
+            this.txtPrevDispCompetenza.Size = new System.Drawing.Size(145, 22);
+            this.txtPrevDispCompetenza.TabIndex = 8;
+            this.txtPrevDispCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnImpegniCompetenza
+            // 
+            this.btnImpegniCompetenza.Location = new System.Drawing.Point(416, 129);
+            this.btnImpegniCompetenza.Name = "btnImpegniCompetenza";
+            this.btnImpegniCompetenza.Size = new System.Drawing.Size(90, 23);
+            this.btnImpegniCompetenza.TabIndex = 5;
+            this.btnImpegniCompetenza.Text = "C";
+            this.btnImpegniCompetenza.UseVisualStyleBackColor = true;
+            this.btnImpegniCompetenza.Click += new System.EventHandler(this.btnImpegniCompetenza_Click);
+            // 
+            // lblImpegniCompetenza
+            // 
+            this.lblImpegniCompetenza.Location = new System.Drawing.Point(19, 130);
+            this.lblImpegniCompetenza.Name = "lblImpegniCompetenza";
+            this.lblImpegniCompetenza.Size = new System.Drawing.Size(238, 15);
+            this.lblImpegniCompetenza.TabIndex = 0;
+            this.lblImpegniCompetenza.Text = "Impegni di Competenza";
+            this.lblImpegniCompetenza.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtImpegniCompetenza
+            // 
+            this.txtImpegniCompetenza.Location = new System.Drawing.Point(264, 128);
+            this.txtImpegniCompetenza.Name = "txtImpegniCompetenza";
+            this.txtImpegniCompetenza.ReadOnly = true;
+            this.txtImpegniCompetenza.Size = new System.Drawing.Size(145, 22);
+            this.txtImpegniCompetenza.TabIndex = 4;
+            this.txtImpegniCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnPrevInizialeCompetenza
+            // 
+            this.btnPrevInizialeCompetenza.Location = new System.Drawing.Point(416, 15);
+            this.btnPrevInizialeCompetenza.Name = "btnPrevInizialeCompetenza";
+            this.btnPrevInizialeCompetenza.Size = new System.Drawing.Size(90, 23);
+            this.btnPrevInizialeCompetenza.TabIndex = 1;
+            this.btnPrevInizialeCompetenza.Text = "A";
+            this.btnPrevInizialeCompetenza.UseVisualStyleBackColor = true;
+            this.btnPrevInizialeCompetenza.Click += new System.EventHandler(this.btnPrevInizialeCompetenza_Click);
+            // 
+            // lblPrevInizialeCompetenza
+            // 
+            this.lblPrevInizialeCompetenza.Location = new System.Drawing.Point(19, 18);
+            this.lblPrevInizialeCompetenza.Name = "lblPrevInizialeCompetenza";
+            this.lblPrevInizialeCompetenza.Size = new System.Drawing.Size(238, 15);
+            this.lblPrevInizialeCompetenza.TabIndex = 0;
+            this.lblPrevInizialeCompetenza.Text = "Previsione Iniziale di Competenza";
+            this.lblPrevInizialeCompetenza.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtPrevInizialeCompetenza
+            // 
+            this.txtPrevInizialeCompetenza.Location = new System.Drawing.Point(264, 16);
+            this.txtPrevInizialeCompetenza.Name = "txtPrevInizialeCompetenza";
+            this.txtPrevInizialeCompetenza.ReadOnly = true;
+            this.txtPrevInizialeCompetenza.Size = new System.Drawing.Size(145, 22);
+            this.txtPrevInizialeCompetenza.TabIndex = 0;
+            this.txtPrevInizialeCompetenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // tabCassa
+            // 
+            this.tabCassa.Controls.Add(this.grpPrevCassa);
+            this.tabCassa.Location = new System.Drawing.Point(4, 25);
+            this.tabCassa.Name = "tabCassa";
+            this.tabCassa.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCassa.Size = new System.Drawing.Size(669, 503);
+            this.tabCassa.TabIndex = 1;
+            this.tabCassa.Text = "Previsione di cassa";
+            this.tabCassa.UseVisualStyleBackColor = true;
+            // 
+            // grpPrevCassa
+            // 
+            this.grpPrevCassa.Controls.Add(this.txtPrevDispCassaPerImpegniAccertamenti);
+            this.grpPrevCassa.Controls.Add(this.label10);
+            this.grpPrevCassa.Controls.Add(this.lblPrevDispCassaImpegniAccertamenti);
+            this.grpPrevCassa.Controls.Add(this.btnAccertamentiAll);
+            this.grpPrevCassa.Controls.Add(this.lblAccertamentiAll);
+            this.grpPrevCassa.Controls.Add(this.txtAccertamentiAll);
+            this.grpPrevCassa.Controls.Add(this.btnImpegniAll);
+            this.grpPrevCassa.Controls.Add(this.lblImpegniAll);
+            this.grpPrevCassa.Controls.Add(this.txtImpegniAll);
+            this.grpPrevCassa.Controls.Add(this.label8);
+            this.grpPrevCassa.Controls.Add(this.label9);
+            this.grpPrevCassa.Controls.Add(this.txtPrevAttualeCassa);
+            this.grpPrevCassa.Controls.Add(this.txtPrevDispCassaPerPagInc);
+            this.grpPrevCassa.Controls.Add(this.btnPiccoleSpesePagamenti);
+            this.grpPrevCassa.Controls.Add(this.lblPiccoleSpesePagamenti);
+            this.grpPrevCassa.Controls.Add(this.txtPiccoleSpesePagamenti);
+            this.grpPrevCassa.Controls.Add(this.btnIncassi);
+            this.grpPrevCassa.Controls.Add(this.lblIncassi);
+            this.grpPrevCassa.Controls.Add(this.txtIncassi);
+            this.grpPrevCassa.Controls.Add(this.label2);
+            this.grpPrevCassa.Controls.Add(this.btnVarPrevisioneCassa);
+            this.grpPrevCassa.Controls.Add(this.lblVarPrevisioneCassa);
+            this.grpPrevCassa.Controls.Add(this.txtVarPrevisioneCassa);
+            this.grpPrevCassa.Controls.Add(this.lblPrevDispCassaPagInc);
+            this.grpPrevCassa.Controls.Add(this.btnPagamenti);
+            this.grpPrevCassa.Controls.Add(this.lblPagamenti);
+            this.grpPrevCassa.Controls.Add(this.txtPagamenti);
+            this.grpPrevCassa.Controls.Add(this.btnPrevInizialeCassa);
+            this.grpPrevCassa.Controls.Add(this.lblPrevInizialeCassa);
+            this.grpPrevCassa.Controls.Add(this.txtPrevInizialeCassa);
+            this.grpPrevCassa.Location = new System.Drawing.Point(7, 7);
+            this.grpPrevCassa.Name = "grpPrevCassa";
+            this.grpPrevCassa.Size = new System.Drawing.Size(640, 431);
+            this.grpPrevCassa.TabIndex = 0;
+            this.grpPrevCassa.TabStop = false;
+            // 
+            // txtPrevDispCassaPerImpegniAccertamenti
+            // 
+            this.txtPrevDispCassaPerImpegniAccertamenti.Location = new System.Drawing.Point(350, 297);
+            this.txtPrevDispCassaPerImpegniAccertamenti.Name = "txtPrevDispCassaPerImpegniAccertamenti";
+            this.txtPrevDispCassaPerImpegniAccertamenti.ReadOnly = true;
+            this.txtPrevDispCassaPerImpegniAccertamenti.Size = new System.Drawing.Size(147, 22);
+            this.txtPrevDispCassaPerImpegniAccertamenti.TabIndex = 61;
+            this.txtPrevDispCassaPerImpegniAccertamenti.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(509, 301);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(111, 17);
+            this.label10.TabIndex = 60;
+            this.label10.Text = "L = F + G - H - L";
+            // 
+            // lblPrevDispCassaImpegniAccertamenti
+            // 
+            this.lblPrevDispCassaImpegniAccertamenti.Location = new System.Drawing.Point(7, 288);
+            this.lblPrevDispCassaImpegniAccertamenti.Name = "lblPrevDispCassaImpegniAccertamenti";
+            this.lblPrevDispCassaImpegniAccertamenti.Size = new System.Drawing.Size(336, 37);
+            this.lblPrevDispCassaImpegniAccertamenti.TabIndex = 59;
+            this.lblPrevDispCassaImpegniAccertamenti.Text = "Previsione Disponibile di Cassa per Impegni/Accertamenti";
+            this.lblPrevDispCassaImpegniAccertamenti.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnAccertamentiAll
+            // 
+            this.btnAccertamentiAll.Location = new System.Drawing.Point(514, 151);
+            this.btnAccertamentiAll.Name = "btnAccertamentiAll";
+            this.btnAccertamentiAll.Size = new System.Drawing.Size(90, 23);
+            this.btnAccertamentiAll.TabIndex = 58;
+            this.btnAccertamentiAll.Text = "H";
+            this.btnAccertamentiAll.UseVisualStyleBackColor = true;
+            this.btnAccertamentiAll.Click += new System.EventHandler(this.btnAccertamentiAll_Click);
+            // 
+            // lblAccertamentiAll
+            // 
+            this.lblAccertamentiAll.Location = new System.Drawing.Point(108, 152);
+            this.lblAccertamentiAll.Name = "lblAccertamentiAll";
+            this.lblAccertamentiAll.Size = new System.Drawing.Size(235, 21);
+            this.lblAccertamentiAll.TabIndex = 53;
+            this.lblAccertamentiAll.Text = "Accertamenti";
+            this.lblAccertamentiAll.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtAccertamentiAll
+            // 
+            this.txtAccertamentiAll.Location = new System.Drawing.Point(352, 150);
+            this.txtAccertamentiAll.Name = "txtAccertamentiAll";
+            this.txtAccertamentiAll.ReadOnly = true;
+            this.txtAccertamentiAll.Size = new System.Drawing.Size(145, 22);
+            this.txtAccertamentiAll.TabIndex = 57;
+            this.txtAccertamentiAll.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnImpegniAll
+            // 
+            this.btnImpegniAll.Location = new System.Drawing.Point(514, 121);
+            this.btnImpegniAll.Name = "btnImpegniAll";
+            this.btnImpegniAll.Size = new System.Drawing.Size(90, 23);
+            this.btnImpegniAll.TabIndex = 56;
+            this.btnImpegniAll.Text = "H";
+            this.btnImpegniAll.UseVisualStyleBackColor = true;
+            this.btnImpegniAll.Click += new System.EventHandler(this.btnImpegniAll_Click);
+            // 
+            // lblImpegniAll
+            // 
+            this.lblImpegniAll.Location = new System.Drawing.Point(84, 122);
+            this.lblImpegniAll.Name = "lblImpegniAll";
+            this.lblImpegniAll.Size = new System.Drawing.Size(259, 21);
+            this.lblImpegniAll.TabIndex = 54;
+            this.lblImpegniAll.Text = "Impegni";
+            this.lblImpegniAll.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtImpegniAll
+            // 
+            this.txtImpegniAll.Location = new System.Drawing.Point(352, 120);
+            this.txtImpegniAll.Name = "txtImpegniAll";
+            this.txtImpegniAll.ReadOnly = true;
+            this.txtImpegniAll.Size = new System.Drawing.Size(145, 22);
+            this.txtImpegniAll.TabIndex = 55;
+            this.txtImpegniAll.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(521, 78);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(55, 17);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "= F + G";
+            // 
+            // label9
+            // 
+            this.label9.Location = new System.Drawing.Point(38, 78);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(297, 15);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "Previsione  attuale di Cassa";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtPrevAttualeCassa
+            // 
+            this.txtPrevAttualeCassa.Location = new System.Drawing.Point(350, 75);
+            this.txtPrevAttualeCassa.Name = "txtPrevAttualeCassa";
+            this.txtPrevAttualeCassa.ReadOnly = true;
+            this.txtPrevAttualeCassa.Size = new System.Drawing.Size(147, 22);
+            this.txtPrevAttualeCassa.TabIndex = 19;
+            this.txtPrevAttualeCassa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtPrevDispCassaPerPagInc
+            // 
+            this.txtPrevDispCassaPerPagInc.Location = new System.Drawing.Point(352, 345);
+            this.txtPrevDispCassaPerPagInc.Name = "txtPrevDispCassaPerPagInc";
+            this.txtPrevDispCassaPerPagInc.ReadOnly = true;
+            this.txtPrevDispCassaPerPagInc.Size = new System.Drawing.Size(146, 22);
+            this.txtPrevDispCassaPerPagInc.TabIndex = 17;
+            this.txtPrevDispCassaPerPagInc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnPiccoleSpesePagamenti
+            // 
+            this.btnPiccoleSpesePagamenti.Location = new System.Drawing.Point(514, 252);
+            this.btnPiccoleSpesePagamenti.Name = "btnPiccoleSpesePagamenti";
+            this.btnPiccoleSpesePagamenti.Size = new System.Drawing.Size(90, 23);
+            this.btnPiccoleSpesePagamenti.TabIndex = 15;
+            this.btnPiccoleSpesePagamenti.Text = " L";
+            this.btnPiccoleSpesePagamenti.UseVisualStyleBackColor = true;
+            this.btnPiccoleSpesePagamenti.Click += new System.EventHandler(this.btnPiccoleSpesePag_Click);
+            // 
+            // lblPiccoleSpesePagamenti
+            // 
+            this.lblPiccoleSpesePagamenti.Location = new System.Drawing.Point(43, 254);
+            this.lblPiccoleSpesePagamenti.Name = "lblPiccoleSpesePagamenti";
+            this.lblPiccoleSpesePagamenti.Size = new System.Drawing.Size(292, 15);
+            this.lblPiccoleSpesePagamenti.TabIndex = 13;
+            this.lblPiccoleSpesePagamenti.Text = "Piccole spese non reintegrate";
+            this.lblPiccoleSpesePagamenti.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtPiccoleSpesePagamenti
+            // 
+            this.txtPiccoleSpesePagamenti.Location = new System.Drawing.Point(352, 250);
+            this.txtPiccoleSpesePagamenti.Name = "txtPiccoleSpesePagamenti";
+            this.txtPiccoleSpesePagamenti.ReadOnly = true;
+            this.txtPiccoleSpesePagamenti.Size = new System.Drawing.Size(145, 22);
+            this.txtPiccoleSpesePagamenti.TabIndex = 14;
+            this.txtPiccoleSpesePagamenti.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnIncassi
+            // 
+            this.btnIncassi.Location = new System.Drawing.Point(514, 220);
+            this.btnIncassi.Name = "btnIncassi";
+            this.btnIncassi.Size = new System.Drawing.Size(90, 23);
+            this.btnIncassi.TabIndex = 7;
+            this.btnIncassi.Text = "I";
+            this.btnIncassi.UseVisualStyleBackColor = true;
+            this.btnIncassi.Click += new System.EventHandler(this.btnIncassi_Click);
+            // 
+            // lblIncassi
+            // 
+            this.lblIncassi.Location = new System.Drawing.Point(46, 223);
+            this.lblIncassi.Name = "lblIncassi";
+            this.lblIncassi.Size = new System.Drawing.Size(291, 15);
+            this.lblIncassi.TabIndex = 0;
+            this.lblIncassi.Text = "Incassi";
+            this.lblIncassi.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtIncassi
+            // 
+            this.txtIncassi.Location = new System.Drawing.Point(352, 219);
+            this.txtIncassi.Name = "txtIncassi";
+            this.txtIncassi.ReadOnly = true;
+            this.txtIncassi.Size = new System.Drawing.Size(145, 22);
+            this.txtIncassi.TabIndex = 6;
+            this.txtIncassi.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(510, 350);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(104, 17);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "L = F + G - I - L";
+            // 
+            // btnVarPrevisioneCassa
+            // 
+            this.btnVarPrevisioneCassa.Location = new System.Drawing.Point(514, 40);
+            this.btnVarPrevisioneCassa.Name = "btnVarPrevisioneCassa";
+            this.btnVarPrevisioneCassa.Size = new System.Drawing.Size(90, 23);
+            this.btnVarPrevisioneCassa.TabIndex = 3;
+            this.btnVarPrevisioneCassa.Text = "G";
+            this.btnVarPrevisioneCassa.UseVisualStyleBackColor = true;
+            this.btnVarPrevisioneCassa.Click += new System.EventHandler(this.btnVarPrevisioneCassa_Click);
+            // 
+            // lblVarPrevisioneCassa
+            // 
+            this.lblVarPrevisioneCassa.Location = new System.Drawing.Point(43, 43);
+            this.lblVarPrevisioneCassa.Name = "lblVarPrevisioneCassa";
+            this.lblVarPrevisioneCassa.Size = new System.Drawing.Size(292, 15);
+            this.lblVarPrevisioneCassa.TabIndex = 0;
+            this.lblVarPrevisioneCassa.Text = "Variazione Previsione  di Cassa";
+            this.lblVarPrevisioneCassa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtVarPrevisioneCassa
+            // 
+            this.txtVarPrevisioneCassa.Location = new System.Drawing.Point(352, 39);
+            this.txtVarPrevisioneCassa.Name = "txtVarPrevisioneCassa";
+            this.txtVarPrevisioneCassa.ReadOnly = true;
+            this.txtVarPrevisioneCassa.Size = new System.Drawing.Size(145, 22);
+            this.txtVarPrevisioneCassa.TabIndex = 2;
+            this.txtVarPrevisioneCassa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblPrevDispCassaPagInc
+            // 
+            this.lblPrevDispCassaPagInc.Location = new System.Drawing.Point(7, 335);
+            this.lblPrevDispCassaPagInc.Name = "lblPrevDispCassaPagInc";
+            this.lblPrevDispCassaPagInc.Size = new System.Drawing.Size(336, 37);
+            this.lblPrevDispCassaPagInc.TabIndex = 0;
+            this.lblPrevDispCassaPagInc.Text = "Previsione Disponibile di Cassa per Pagamenti/Incassi";
+            this.lblPrevDispCassaPagInc.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnPagamenti
+            // 
+            this.btnPagamenti.Location = new System.Drawing.Point(514, 192);
+            this.btnPagamenti.Name = "btnPagamenti";
+            this.btnPagamenti.Size = new System.Drawing.Size(90, 23);
+            this.btnPagamenti.TabIndex = 5;
+            this.btnPagamenti.Text = "I";
+            this.btnPagamenti.UseVisualStyleBackColor = true;
+            this.btnPagamenti.Click += new System.EventHandler(this.btnPagamenti_Click);
+            // 
+            // lblPagamenti
+            // 
+            this.lblPagamenti.Location = new System.Drawing.Point(46, 194);
+            this.lblPagamenti.Name = "lblPagamenti";
+            this.lblPagamenti.Size = new System.Drawing.Size(291, 15);
+            this.lblPagamenti.TabIndex = 0;
+            this.lblPagamenti.Text = "Pagamenti";
+            this.lblPagamenti.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtPagamenti
+            // 
+            this.txtPagamenti.Location = new System.Drawing.Point(352, 189);
+            this.txtPagamenti.Name = "txtPagamenti";
+            this.txtPagamenti.ReadOnly = true;
+            this.txtPagamenti.Size = new System.Drawing.Size(145, 22);
+            this.txtPagamenti.TabIndex = 4;
+            this.txtPagamenti.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnPrevInizialeCassa
+            // 
+            this.btnPrevInizialeCassa.Location = new System.Drawing.Point(514, 10);
+            this.btnPrevInizialeCassa.Name = "btnPrevInizialeCassa";
+            this.btnPrevInizialeCassa.Size = new System.Drawing.Size(90, 23);
+            this.btnPrevInizialeCassa.TabIndex = 1;
+            this.btnPrevInizialeCassa.Text = "F";
+            this.btnPrevInizialeCassa.UseVisualStyleBackColor = true;
+            this.btnPrevInizialeCassa.Click += new System.EventHandler(this.btnPrevInizialeCassa_Click);
+            // 
+            // lblPrevInizialeCassa
+            // 
+            this.lblPrevInizialeCassa.Location = new System.Drawing.Point(43, 13);
+            this.lblPrevInizialeCassa.Name = "lblPrevInizialeCassa";
+            this.lblPrevInizialeCassa.Size = new System.Drawing.Size(292, 15);
+            this.lblPrevInizialeCassa.TabIndex = 0;
+            this.lblPrevInizialeCassa.Text = "Previsione Iniziale di Cassa";
+            this.lblPrevInizialeCassa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtPrevInizialeCassa
+            // 
+            this.txtPrevInizialeCassa.Location = new System.Drawing.Point(352, 9);
+            this.txtPrevInizialeCassa.Name = "txtPrevInizialeCassa";
+            this.txtPrevInizialeCassa.ReadOnly = true;
+            this.txtPrevInizialeCassa.Size = new System.Drawing.Size(145, 22);
+            this.txtPrevInizialeCassa.TabIndex = 0;
+            this.txtPrevInizialeCassa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // tabCrediti
+            // 
+            this.tabCrediti.Controls.Add(this.grpCrediti);
+            this.tabCrediti.Location = new System.Drawing.Point(4, 25);
+            this.tabCrediti.Name = "tabCrediti";
+            this.tabCrediti.Size = new System.Drawing.Size(669, 503);
+            this.tabCrediti.TabIndex = 2;
+            this.tabCrediti.Text = "Assegnazione crediti";
+            this.tabCrediti.UseVisualStyleBackColor = true;
+            // 
+            // grpCrediti
+            // 
+            this.grpCrediti.Controls.Add(this.label11);
+            this.grpCrediti.Controls.Add(this.labelTotaleCrediti);
+            this.grpCrediti.Controls.Add(this.txtTotaleCrediti);
+            this.grpCrediti.Controls.Add(this.btnVarDotazioneCrediti);
+            this.grpCrediti.Controls.Add(this.txtVarDotazioneCrediti);
+            this.grpCrediti.Controls.Add(this.lblVarDotazioneCrediti);
+            this.grpCrediti.Controls.Add(this.label3);
+            this.grpCrediti.Controls.Add(this.btnDotazioneCrediti);
+            this.grpCrediti.Controls.Add(this.lblDotazioneCrediti);
+            this.grpCrediti.Controls.Add(this.txtDotazioneCrediti);
+            this.grpCrediti.Controls.Add(this.lblCreditiResidui);
+            this.grpCrediti.Controls.Add(this.txtCreditiResidui);
+            this.grpCrediti.Controls.Add(this.btnCreditiAssegnati);
+            this.grpCrediti.Controls.Add(this.lblCreditiAssegnati);
+            this.grpCrediti.Controls.Add(this.txtCreditiAssegnati);
+            this.grpCrediti.Location = new System.Drawing.Point(13, 3);
+            this.grpCrediti.Name = "grpCrediti";
+            this.grpCrediti.Size = new System.Drawing.Size(576, 235);
+            this.grpCrediti.TabIndex = 0;
+            this.grpCrediti.TabStop = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(419, 126);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(84, 17);
+            this.label11.TabIndex = 21;
+            this.label11.Text = "= M + N + O";
+            // 
+            // labelTotaleCrediti
+            // 
+            this.labelTotaleCrediti.Location = new System.Drawing.Point(23, 121);
+            this.labelTotaleCrediti.Name = "labelTotaleCrediti";
+            this.labelTotaleCrediti.Size = new System.Drawing.Size(177, 15);
+            this.labelTotaleCrediti.TabIndex = 9;
+            this.labelTotaleCrediti.Text = "Totale Crediti";
+            this.labelTotaleCrediti.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtTotaleCrediti
+            // 
+            this.txtTotaleCrediti.Location = new System.Drawing.Point(226, 118);
+            this.txtTotaleCrediti.Name = "txtTotaleCrediti";
+            this.txtTotaleCrediti.ReadOnly = true;
+            this.txtTotaleCrediti.Size = new System.Drawing.Size(178, 22);
+            this.txtTotaleCrediti.TabIndex = 10;
+            this.txtTotaleCrediti.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnVarDotazioneCrediti
+            // 
+            this.btnVarDotazioneCrediti.Location = new System.Drawing.Point(419, 48);
+            this.btnVarDotazioneCrediti.Name = "btnVarDotazioneCrediti";
+            this.btnVarDotazioneCrediti.Size = new System.Drawing.Size(93, 24);
+            this.btnVarDotazioneCrediti.TabIndex = 8;
+            this.btnVarDotazioneCrediti.Text = "N";
+            this.btnVarDotazioneCrediti.UseVisualStyleBackColor = true;
+            this.btnVarDotazioneCrediti.Click += new System.EventHandler(this.btnVarDotazioneCrediti_Click);
+            // 
+            // txtVarDotazioneCrediti
+            // 
+            this.txtVarDotazioneCrediti.Location = new System.Drawing.Point(226, 48);
+            this.txtVarDotazioneCrediti.Name = "txtVarDotazioneCrediti";
+            this.txtVarDotazioneCrediti.ReadOnly = true;
+            this.txtVarDotazioneCrediti.Size = new System.Drawing.Size(178, 22);
+            this.txtVarDotazioneCrediti.TabIndex = 7;
+            this.txtVarDotazioneCrediti.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblVarDotazioneCrediti
+            // 
+            this.lblVarDotazioneCrediti.Location = new System.Drawing.Point(23, 52);
+            this.lblVarDotazioneCrediti.Name = "lblVarDotazioneCrediti";
+            this.lblVarDotazioneCrediti.Size = new System.Drawing.Size(177, 15);
+            this.lblVarDotazioneCrediti.TabIndex = 6;
+            this.lblVarDotazioneCrediti.Text = "Var. Dotazione Crediti";
+            this.lblVarDotazioneCrediti.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(419, 170);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(142, 17);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "P = M + N + O - C - D";
+            // 
+            // btnDotazioneCrediti
+            // 
+            this.btnDotazioneCrediti.Location = new System.Drawing.Point(419, 15);
+            this.btnDotazioneCrediti.Name = "btnDotazioneCrediti";
+            this.btnDotazioneCrediti.Size = new System.Drawing.Size(93, 23);
+            this.btnDotazioneCrediti.TabIndex = 1;
+            this.btnDotazioneCrediti.Text = "M";
+            this.btnDotazioneCrediti.UseVisualStyleBackColor = true;
+            this.btnDotazioneCrediti.Click += new System.EventHandler(this.btnDotazioneCrediti_Click);
+            // 
+            // lblDotazioneCrediti
+            // 
+            this.lblDotazioneCrediti.Location = new System.Drawing.Point(23, 18);
+            this.lblDotazioneCrediti.Name = "lblDotazioneCrediti";
+            this.lblDotazioneCrediti.Size = new System.Drawing.Size(177, 15);
+            this.lblDotazioneCrediti.TabIndex = 0;
+            this.lblDotazioneCrediti.Text = "Dotazione Iniziale Crediti";
+            this.lblDotazioneCrediti.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtDotazioneCrediti
+            // 
+            this.txtDotazioneCrediti.Location = new System.Drawing.Point(226, 15);
+            this.txtDotazioneCrediti.Name = "txtDotazioneCrediti";
+            this.txtDotazioneCrediti.ReadOnly = true;
+            this.txtDotazioneCrediti.Size = new System.Drawing.Size(178, 22);
+            this.txtDotazioneCrediti.TabIndex = 0;
+            this.txtDotazioneCrediti.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblCreditiResidui
+            // 
+            this.lblCreditiResidui.Location = new System.Drawing.Point(23, 168);
+            this.lblCreditiResidui.Name = "lblCreditiResidui";
+            this.lblCreditiResidui.Size = new System.Drawing.Size(177, 15);
+            this.lblCreditiResidui.TabIndex = 0;
+            this.lblCreditiResidui.Text = "Crediti Residui";
+            this.lblCreditiResidui.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtCreditiResidui
+            // 
+            this.txtCreditiResidui.Location = new System.Drawing.Point(226, 165);
+            this.txtCreditiResidui.Name = "txtCreditiResidui";
+            this.txtCreditiResidui.ReadOnly = true;
+            this.txtCreditiResidui.Size = new System.Drawing.Size(178, 22);
+            this.txtCreditiResidui.TabIndex = 4;
+            this.txtCreditiResidui.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnCreditiAssegnati
+            // 
+            this.btnCreditiAssegnati.Location = new System.Drawing.Point(419, 81);
+            this.btnCreditiAssegnati.Name = "btnCreditiAssegnati";
+            this.btnCreditiAssegnati.Size = new System.Drawing.Size(93, 23);
+            this.btnCreditiAssegnati.TabIndex = 3;
+            this.btnCreditiAssegnati.Text = "O";
+            this.btnCreditiAssegnati.UseVisualStyleBackColor = true;
+            this.btnCreditiAssegnati.Click += new System.EventHandler(this.btnCreditiAssegnati_Click);
+            // 
+            // lblCreditiAssegnati
+            // 
+            this.lblCreditiAssegnati.Location = new System.Drawing.Point(23, 83);
+            this.lblCreditiAssegnati.Name = "lblCreditiAssegnati";
+            this.lblCreditiAssegnati.Size = new System.Drawing.Size(177, 15);
+            this.lblCreditiAssegnati.TabIndex = 0;
+            this.lblCreditiAssegnati.Text = "Totale Assegnazioni di Crediti";
+            this.lblCreditiAssegnati.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtCreditiAssegnati
+            // 
+            this.txtCreditiAssegnati.Location = new System.Drawing.Point(226, 80);
+            this.txtCreditiAssegnati.Name = "txtCreditiAssegnati";
+            this.txtCreditiAssegnati.ReadOnly = true;
+            this.txtCreditiAssegnati.Size = new System.Drawing.Size(178, 22);
+            this.txtCreditiAssegnati.TabIndex = 2;
+            this.txtCreditiAssegnati.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // tabAssCassa
+            // 
+            this.tabAssCassa.Controls.Add(this.grpCassa);
+            this.tabAssCassa.Location = new System.Drawing.Point(4, 25);
+            this.tabAssCassa.Name = "tabAssCassa";
+            this.tabAssCassa.Size = new System.Drawing.Size(669, 503);
+            this.tabAssCassa.TabIndex = 3;
+            this.tabAssCassa.Text = "Assegnazioni di cassa";
+            this.tabAssCassa.UseVisualStyleBackColor = true;
+            // 
+            // grpCassa
+            // 
+            this.grpCassa.Controls.Add(this.label12);
+            this.grpCassa.Controls.Add(this.labelTotaleCassa);
+            this.grpCassa.Controls.Add(this.txtTotaleCassa);
+            this.grpCassa.Controls.Add(this.btnPiccoleSpesePagamenti1);
+            this.grpCassa.Controls.Add(this.lblPiccoleSpesePagamenti1);
+            this.grpCassa.Controls.Add(this.txtPiccoleSpesePagamenti1);
+            this.grpCassa.Controls.Add(this.btnPagamenti1);
+            this.grpCassa.Controls.Add(this.lblPagamenti1);
+            this.grpCassa.Controls.Add(this.txtPagamenti1);
+            this.grpCassa.Controls.Add(this.btnVarDotazioneCassa);
+            this.grpCassa.Controls.Add(this.txtVarDotazioneCassa);
+            this.grpCassa.Controls.Add(this.lblVarDotazioneCassa);
+            this.grpCassa.Controls.Add(this.label4);
+            this.grpCassa.Controls.Add(this.btnDotazioneCassa);
+            this.grpCassa.Controls.Add(this.lblDotazioneCassa);
+            this.grpCassa.Controls.Add(this.txtDotazioneCassa);
+            this.grpCassa.Controls.Add(this.lblCassaResidua);
+            this.grpCassa.Controls.Add(this.txtCassaResidua);
+            this.grpCassa.Controls.Add(this.btnAssegnazioniCassa);
+            this.grpCassa.Controls.Add(this.lblAssegnazioniCassa);
+            this.grpCassa.Controls.Add(this.txtAssegnazioniCassa);
+            this.grpCassa.Location = new System.Drawing.Point(4, 3);
+            this.grpCassa.Name = "grpCassa";
+            this.grpCassa.Size = new System.Drawing.Size(585, 291);
+            this.grpCassa.TabIndex = 3;
+            this.grpCassa.TabStop = false;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(438, 121);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(82, 17);
+            this.label12.TabIndex = 24;
+            this.label12.Text = "= Q + R + S";
+            // 
+            // labelTotaleCassa
+            // 
+            this.labelTotaleCassa.Location = new System.Drawing.Point(60, 117);
+            this.labelTotaleCassa.Name = "labelTotaleCassa";
+            this.labelTotaleCassa.Size = new System.Drawing.Size(178, 15);
+            this.labelTotaleCassa.TabIndex = 22;
+            this.labelTotaleCassa.Text = "Totale Cassa";
+            this.labelTotaleCassa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtTotaleCassa
+            // 
+            this.txtTotaleCassa.Location = new System.Drawing.Point(245, 113);
+            this.txtTotaleCassa.Name = "txtTotaleCassa";
+            this.txtTotaleCassa.ReadOnly = true;
+            this.txtTotaleCassa.Size = new System.Drawing.Size(179, 22);
+            this.txtTotaleCassa.TabIndex = 23;
+            this.txtTotaleCassa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnPiccoleSpesePagamenti1
+            // 
+            this.btnPiccoleSpesePagamenti1.Location = new System.Drawing.Point(431, 194);
+            this.btnPiccoleSpesePagamenti1.Name = "btnPiccoleSpesePagamenti1";
+            this.btnPiccoleSpesePagamenti1.Size = new System.Drawing.Size(90, 23);
+            this.btnPiccoleSpesePagamenti1.TabIndex = 18;
+            this.btnPiccoleSpesePagamenti1.Text = "U";
+            this.btnPiccoleSpesePagamenti1.UseVisualStyleBackColor = true;
+            this.btnPiccoleSpesePagamenti1.Click += new System.EventHandler(this.btnPiccoleSpesePagIncassi_Click);
+            // 
+            // lblPiccoleSpesePagamenti1
+            // 
+            this.lblPiccoleSpesePagamenti1.Location = new System.Drawing.Point(7, 189);
+            this.lblPiccoleSpesePagamenti1.Name = "lblPiccoleSpesePagamenti1";
+            this.lblPiccoleSpesePagamenti1.Size = new System.Drawing.Size(231, 15);
+            this.lblPiccoleSpesePagamenti1.TabIndex = 16;
+            this.lblPiccoleSpesePagamenti1.Text = "Piccole spese non reintegrate";
+            this.lblPiccoleSpesePagamenti1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtPiccoleSpesePagamenti1
+            // 
+            this.txtPiccoleSpesePagamenti1.Location = new System.Drawing.Point(245, 194);
+            this.txtPiccoleSpesePagamenti1.Name = "txtPiccoleSpesePagamenti1";
+            this.txtPiccoleSpesePagamenti1.ReadOnly = true;
+            this.txtPiccoleSpesePagamenti1.Size = new System.Drawing.Size(179, 22);
+            this.txtPiccoleSpesePagamenti1.TabIndex = 17;
+            this.txtPiccoleSpesePagamenti1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnPagamenti1
+            // 
+            this.btnPagamenti1.Location = new System.Drawing.Point(431, 159);
+            this.btnPagamenti1.Name = "btnPagamenti1";
+            this.btnPagamenti1.Size = new System.Drawing.Size(90, 23);
+            this.btnPagamenti1.TabIndex = 12;
+            this.btnPagamenti1.Text = "T";
+            this.btnPagamenti1.UseVisualStyleBackColor = true;
+            this.btnPagamenti1.Click += new System.EventHandler(this.btnPagamenti_Click);
+            // 
+            // lblPagamenti1
+            // 
+            this.lblPagamenti1.Location = new System.Drawing.Point(7, 159);
+            this.lblPagamenti1.Name = "lblPagamenti1";
+            this.lblPagamenti1.Size = new System.Drawing.Size(231, 15);
+            this.lblPagamenti1.TabIndex = 10;
+            this.lblPagamenti1.Text = "Pagamenti";
+            this.lblPagamenti1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtPagamenti1
+            // 
+            this.txtPagamenti1.Location = new System.Drawing.Point(245, 159);
+            this.txtPagamenti1.Name = "txtPagamenti1";
+            this.txtPagamenti1.ReadOnly = true;
+            this.txtPagamenti1.Size = new System.Drawing.Size(179, 22);
+            this.txtPagamenti1.TabIndex = 11;
+            this.txtPagamenti1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnVarDotazioneCassa
+            // 
+            this.btnVarDotazioneCassa.Location = new System.Drawing.Point(431, 44);
+            this.btnVarDotazioneCassa.Name = "btnVarDotazioneCassa";
+            this.btnVarDotazioneCassa.Size = new System.Drawing.Size(90, 23);
+            this.btnVarDotazioneCassa.TabIndex = 9;
+            this.btnVarDotazioneCassa.Text = "R";
+            this.btnVarDotazioneCassa.UseVisualStyleBackColor = true;
+            this.btnVarDotazioneCassa.Click += new System.EventHandler(this.btnVarDotazioneCassa_Click);
+            // 
+            // txtVarDotazioneCassa
+            // 
+            this.txtVarDotazioneCassa.Location = new System.Drawing.Point(245, 43);
+            this.txtVarDotazioneCassa.Name = "txtVarDotazioneCassa";
+            this.txtVarDotazioneCassa.ReadOnly = true;
+            this.txtVarDotazioneCassa.Size = new System.Drawing.Size(179, 22);
+            this.txtVarDotazioneCassa.TabIndex = 8;
+            this.txtVarDotazioneCassa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblVarDotazioneCassa
+            // 
+            this.lblVarDotazioneCassa.Location = new System.Drawing.Point(7, 46);
+            this.lblVarDotazioneCassa.Name = "lblVarDotazioneCassa";
+            this.lblVarDotazioneCassa.Size = new System.Drawing.Size(231, 15);
+            this.lblVarDotazioneCassa.TabIndex = 7;
+            this.lblVarDotazioneCassa.Text = "Var. Dotazione Cassa";
+            this.lblVarDotazioneCassa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(427, 233);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(140, 17);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "V = Q + R + S - T - U";
+            // 
+            // btnDotazioneCassa
+            // 
+            this.btnDotazioneCassa.Location = new System.Drawing.Point(431, 15);
+            this.btnDotazioneCassa.Name = "btnDotazioneCassa";
+            this.btnDotazioneCassa.Size = new System.Drawing.Size(90, 23);
+            this.btnDotazioneCassa.TabIndex = 1;
+            this.btnDotazioneCassa.Text = "Q";
+            this.btnDotazioneCassa.UseVisualStyleBackColor = true;
+            this.btnDotazioneCassa.Click += new System.EventHandler(this.btnDotazioneCassa_Click);
+            // 
+            // lblDotazioneCassa
+            // 
+            this.lblDotazioneCassa.Location = new System.Drawing.Point(7, 18);
+            this.lblDotazioneCassa.Name = "lblDotazioneCassa";
+            this.lblDotazioneCassa.Size = new System.Drawing.Size(231, 15);
+            this.lblDotazioneCassa.TabIndex = 0;
+            this.lblDotazioneCassa.Text = "Dotazione Iniziale Cassa";
+            this.lblDotazioneCassa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtDotazioneCassa
+            // 
+            this.txtDotazioneCassa.Location = new System.Drawing.Point(245, 15);
+            this.txtDotazioneCassa.Name = "txtDotazioneCassa";
+            this.txtDotazioneCassa.ReadOnly = true;
+            this.txtDotazioneCassa.Size = new System.Drawing.Size(179, 22);
+            this.txtDotazioneCassa.TabIndex = 0;
+            this.txtDotazioneCassa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblCassaResidua
+            // 
+            this.lblCassaResidua.Location = new System.Drawing.Point(7, 227);
+            this.lblCassaResidua.Name = "lblCassaResidua";
+            this.lblCassaResidua.Size = new System.Drawing.Size(231, 15);
+            this.lblCassaResidua.TabIndex = 0;
+            this.lblCassaResidua.Text = "Assegnazioni di Cassa Residue";
+            this.lblCassaResidua.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtCassaResidua
+            // 
+            this.txtCassaResidua.Location = new System.Drawing.Point(245, 225);
+            this.txtCassaResidua.Name = "txtCassaResidua";
+            this.txtCassaResidua.ReadOnly = true;
+            this.txtCassaResidua.Size = new System.Drawing.Size(179, 22);
+            this.txtCassaResidua.TabIndex = 4;
+            this.txtCassaResidua.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnAssegnazioniCassa
+            // 
+            this.btnAssegnazioniCassa.Location = new System.Drawing.Point(431, 74);
+            this.btnAssegnazioniCassa.Name = "btnAssegnazioniCassa";
+            this.btnAssegnazioniCassa.Size = new System.Drawing.Size(90, 23);
+            this.btnAssegnazioniCassa.TabIndex = 3;
+            this.btnAssegnazioniCassa.Text = "S";
+            this.btnAssegnazioniCassa.UseVisualStyleBackColor = true;
+            this.btnAssegnazioniCassa.Click += new System.EventHandler(this.btnAssegnazioniCassa_Click);
+            // 
+            // lblAssegnazioniCassa
+            // 
+            this.lblAssegnazioniCassa.Location = new System.Drawing.Point(7, 76);
+            this.lblAssegnazioniCassa.Name = "lblAssegnazioniCassa";
+            this.lblAssegnazioniCassa.Size = new System.Drawing.Size(231, 15);
+            this.lblAssegnazioniCassa.TabIndex = 0;
+            this.lblAssegnazioniCassa.Text = "Totale Assegnazioni di Cassa";
+            this.lblAssegnazioniCassa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtAssegnazioniCassa
+            // 
+            this.txtAssegnazioniCassa.Location = new System.Drawing.Point(245, 73);
+            this.txtAssegnazioniCassa.Name = "txtAssegnazioniCassa";
+            this.txtAssegnazioniCassa.ReadOnly = true;
+            this.txtAssegnazioniCassa.Size = new System.Drawing.Size(179, 22);
+            this.txtAssegnazioniCassa.TabIndex = 2;
+            this.txtAssegnazioniCassa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnCalcolaTotali
+            // 
+            this.btnCalcolaTotali.Location = new System.Drawing.Point(14, 7);
+            this.btnCalcolaTotali.Name = "btnCalcolaTotali";
+            this.btnCalcolaTotali.Size = new System.Drawing.Size(126, 29);
+            this.btnCalcolaTotali.TabIndex = 1;
+            this.btnCalcolaTotali.Text = "Calcola totali";
+            this.btnCalcolaTotali.UseVisualStyleBackColor = true;
+            this.btnCalcolaTotali.Click += new System.EventHandler(this.btnCalcolaTotali_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "");
+            // 
+            // treeView1
+            // 
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.treeView1.HideSelection = false;
+            this.treeView1.ImageIndex = 1;
+            this.treeView1.ImageList = this.icons;
+            this.treeView1.Location = new System.Drawing.Point(0, 0);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.SelectedImageIndex = 0;
+            this.treeView1.ShowPlusMinus = false;
+            this.treeView1.Size = new System.Drawing.Size(397, 530);
+            this.treeView1.TabIndex = 2;
+            this.treeView1.Tag = "fin.treeES";
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            // 
+            // icons
+            // 
+            this.icons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("icons.ImageStream")));
+            this.icons.TransparentColor = System.Drawing.Color.Transparent;
+            this.icons.Images.SetKeyName(0, "");
+            this.icons.Images.SetKeyName(1, "");
+            // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(397, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(1, 530);
+            this.splitter1.TabIndex = 4;
+            this.splitter1.TabStop = false;
+            // 
+            // Frm_fin_default
+            // 
+            this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
+            this.ClientSize = new System.Drawing.Size(917, 530);
+            this.Controls.Add(this.splitter1);
+            this.Controls.Add(this.MetaDataDetail);
+            this.Controls.Add(this.treeView1);
+            this.Name = "Frm_fin_default";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.MetaDataDetail.ResumeLayout(false);
+            this.tabGeneralita.ResumeLayout(false);
+            this.tabGeneralita.PerformLayout();
+            this.gboxResponsabile.ResumeLayout(false);
+            this.gboxResponsabile.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.GrpboxPrevisione.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.gboxPrimaPrevisione.ResumeLayout(false);
+            this.gboxPrimaPrevisione.PerformLayout();
+            this.gboxSecondaPrevisione.ResumeLayout(false);
+            this.gboxSecondaPrevisione.PerformLayout();
+            this.gboxRipartizione.ResumeLayout(false);
+            this.gboxRipartizione.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.grpParte.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+            this.tabPrevisione.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgPrevisione)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgVariazioni)).EndInit();
+            this.tabClassSupp.ResumeLayout(false);
+            this.gBoxCausalePartiteGiro.ResumeLayout(false);
+            this.gBoxCausalePartiteGiro.PerformLayout();
+            this.gboxConto.ResumeLayout(false);
+            this.gboxConto.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGridClassSup)).EndInit();
+            this.TabClassAutoSpese.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dGridFilterClassExp)).EndInit();
+            this.groupBox7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dGridClassAutoExp)).EndInit();
+            this.TabClassAutoEntrate.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dGridFilterClassInc)).EndInit();
+            this.groupBox9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dGridClassAutoInc)).EndInit();
+            this.tabRiepilogo.ResumeLayout(false);
+            this.tabControlRiepilogo.ResumeLayout(false);
+            this.tabCompetenza.ResumeLayout(false);
+            this.grpPrevCompetenza.ResumeLayout(false);
+            this.grpPrevCompetenza.PerformLayout();
+            this.tabCassa.ResumeLayout(false);
+            this.grpPrevCassa.ResumeLayout(false);
+            this.grpPrevCassa.PerformLayout();
+            this.tabCrediti.ResumeLayout(false);
+            this.grpCrediti.ResumeLayout(false);
+            this.grpCrediti.PerformLayout();
+            this.tabAssCassa.ResumeLayout(false);
+            this.grpCassa.ResumeLayout(false);
+            this.grpCassa.PerformLayout();
+            this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -2752,14 +2754,14 @@ namespace fin_default {//bilancio//
                 //lblPrevDispCassaPagInc.Text = "Previsione Disponibile di cassa su " + pagamento.ToString().ToLower();
             }
             else {
-                MessageBox.Show("Non Ë stata definita la fase di pagamento (ultima fase di spesa)", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stata definita la fase di pagamento (ultima fase di spesa)", "Avviso");
             }
             if (incasso != null) {
                 lblIncassi.Text = "Tot. fase " + incasso.ToString().ToLower();
                 //lblPrevDispCassaPagInc.Text = "Previsione Disponibile di cassa su " + incasso.ToString().ToLower();
             }
             else {
-                MessageBox.Show("Non Ë stata definita la fase di incasso (ultima fase di entrata)", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stata definita la fase di incasso (ultima fase di entrata)", "Avviso");
             }
 
             if (impegno != null) {
@@ -2768,7 +2770,7 @@ namespace fin_default {//bilancio//
                 //lblPrevDispCassaImpegniAccertamenti.Text = "Previsione Disponibile di cassa su " + impegno.ToString().ToLower();
             }
             else {
-                MessageBox.Show("Non Ë stata definita la fase di impegno (prima fase di spesa)", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stata definita la fase di impegno (prima fase di spesa)", "Avviso");
             }
 
             
@@ -2778,7 +2780,7 @@ namespace fin_default {//bilancio//
                 //lblPrevDispCassaImpegniAccertamenti.Text = "Previsione Disponibile di cassa su " + accertamento.ToString().ToLower();
             }
             else {
-                MessageBox.Show("Non Ë stata definita la fase di accertamento (prima fase di entrata)", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stata definita la fase di accertamento (prima fase di entrata)", "Avviso");
             }
 
         }
@@ -3690,7 +3692,7 @@ namespace fin_default {//bilancio//
 			grpParte.Enabled=false;
 			if (Operativo(R)){
                 EnableControls(true, true); //Enable, SolaLettura
-				//MessageBox.Show(txtCodice.Text);
+				//MetaFactory.factory.getSingleton<IMessageShower>().Show(txtCodice.Text);
 				object livello = R["nlevel"];
 				txtCodice.ReadOnly=!(ModoInsert && !TipoNumerico(livello));
 				txtOrdineStampa.ReadOnly=TipoNumerico(livello);

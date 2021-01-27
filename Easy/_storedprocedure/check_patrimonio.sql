@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[check_patrimonio]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[check_patrimonio]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [check_patrimonio]
 GO
 
@@ -56,7 +58,7 @@ CREATE TABLE #check (
 declare @err varchar(400)
 declare @sol varchar(400)
 
-if (substring(@codicesol,1,1)<>'¬ß')
+if (substring(@codicesol,1,1)<>'ß')
  set @codicesol=null
 else 
  set @codicesol=substring(@codicesol,2,20)
@@ -659,12 +661,12 @@ Begin
 End
 
 --cespiti/accessori in carico con un valore di ammortamento non corretto (complessivamente, non anno per anno)
---devo calcolare, per ogni class.inventariale e per ogni et√†, la somma degli ammortamenti che sarebbero dovuti essere applicati in 
--- base all'et√† 
+--devo calcolare, per ogni class.inventariale e per ogni et‡, la somma degli ammortamenti che sarebbero dovuti essere applicati in 
+-- base all'et‡ 
 --poi per ogni bene il valore attuale ed il valore teorico che avrebbe dovuto avere con un piano di ammortamento corretto
 -- ed infine segnalare i beni che hanno un valore teorico diverso da quello attuale
 
---calcola per ogni class.inventariale e per ogni et√† il totale ammortamenti da applicare in base a quell'et√†
+--calcola per ogni class.inventariale e per ogni et‡ il totale ammortamenti da applicare in base a quell'et‡
 -- se per un class.inventariale ci sono ammortamenti "per anno", non sono valutati ammortamenti "senza anno"
 
 
@@ -716,14 +718,14 @@ Begin
 
 
 
-		--attenzione: se √® tutto null potrebbe stare bene, perch√© si potrebbero usare gli ammortamenti senza et√†
+		--attenzione: se Ë tutto null potrebbe stare bene, perchÈ si potrebbero usare gli ammortamenti senza et‡
 
 
 
 		if(@check_group in ('I','*'))
 		Begin
 			--classificazioni aventi dei buchi nel piano degli ammortamenti
-			--Attenzione: non scatta se tutto null, perch√© potrebbero voler ammortizzare "senza et√†", √® una cosa VOLUTA
+			--Attenzione: non scatta se tutto null, perchÈ potrebbero voler ammortizzare "senza et‡", Ë una cosa VOLUTA
 			set @err='classificazioni aventi dei buchi TEMPORALI nel piano degli ammortamenti'
 			set @sol='correggere il piano degli ammortamenti'
 			insert into #check(codeinv , err,sol)
@@ -772,7 +774,7 @@ Begin
 					
 
 			--classificazioni aventi sovrapposizioni nel piano degli ammortamenti
-			--Attenzione: non scatta se tutto null, perch√© potrebbero voler ammortizzare "senza et√†", √® una cosa VOLUTA
+			--Attenzione: non scatta se tutto null, perchÈ potrebbero voler ammortizzare "senza et‡", Ë una cosa VOLUTA
 			set @err='classificazioni sovrapposizioni nel piano degli ammortamenti'
 			set @sol='correggere il piano degli ammortamenti'
 			insert into #check(codeinv , err,sol)
@@ -880,7 +882,7 @@ Begin
 
 
 
-			--Attenzione: non scatta se √® tutto null visto che la somma restituisce null. E' una cosa VOLUTA.
+			--Attenzione: non scatta se Ë tutto null visto che la somma restituisce null. E' una cosa VOLUTA.
 			set @err='classificazioni aventi una somma di ammortamenti negli anni minore del 100%'
 			set @sol='correggere il piano degli ammortamenti'
 			insert into #check(codeinv ,err,sol)
@@ -1038,4 +1040,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

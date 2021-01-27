@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿-- CREAZIONE VISTA totestimatedetailview
+
+-- CREAZIONE VISTA totestimatedetailview
 IF EXISTS(select * from sysobjects where id = object_id(N'[totestimatedetailview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [totestimatedetailview]
 GO
@@ -33,7 +35,7 @@ CREATE                           VIEW [totestimatedetailview]
 	estimatedetail.nestim,
 -- Aggiunto il comando CONVERT davanti ai campi FLOAT per non perdere informazione in fase di
 -- prodotto. La perdita causa un errato arrotondamento
--- Il controllo non dovrebbe piÃ¹ servire se si cambia il tipo di campo a decimal(19,6) da float
+-- Il controllo non dovrebbe più servire se si cambia il tipo di campo a decimal(19,6) da float
 	CONVERT(DECIMAL(19,2),
 		ISNULL(SUM(
 		    CASE 
@@ -111,4 +113,3 @@ INSERT INTO customobject (objectname, isreal) values('totestimatedetailview', 'N
 GO
 -- FINE GENERAZIONE SCRIPT --
 
-	

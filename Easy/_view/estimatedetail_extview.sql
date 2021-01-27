@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿-- CREAZIONE VISTA estimatedetail_extview
+
+-- CREAZIONE VISTA estimatedetail_extview
 IF EXISTS(select * from sysobjects where id = object_id(N'[estimatedetail_extview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [estimatedetail_extview]
 GO
@@ -50,9 +52,8 @@ CREATE  VIEW [estimatedetail_extview]
 	taxable_euro,
 	iva_euro,
 	rowtotal,
-	idupb,
-	codeupb,
-	upb,
+	idupb,	codeupb,	upb,
+	idupb_iva,	codeupb_iva,	upb_iva,
 		idman,	manager,
 	cu,
 	ct,
@@ -95,7 +96,7 @@ CREATE  VIEW [estimatedetail_extview]
 	yinciva,
 	ninciva,
 	idsor_siope,
-	intcode,idlist
+	intcode,idlist,list
 )
 	AS SELECT
 	estimatedetail.idestimkind,
@@ -130,6 +131,7 @@ CREATE  VIEW [estimatedetail_extview]
 		)+
 	ROUND(estimatedetail.tax ,2),
 	estimatedetail.idupb,	upb.codeupb,	upb.title,
+	estimatedetail.idupb_iva, upb_iva.codeupb,	upb_iva.title,
 	estimate.idman,	manager.title,
 	estimatedetail.cu,
 	estimatedetail.ct,
@@ -194,7 +196,8 @@ CREATE  VIEW [estimatedetail_extview]
 	iiva.nmov,
 	estimatedetail.idsor_siope,
 	list.intcode,
-	list.idlist
+	list.idlist,
+	list.description
 FROM estimatedetail
 JOIN estimatekind WITH (NOLOCK)				ON estimatekind.idestimkind = estimatedetail.idestimkind
 JOIN estimate WITH (NOLOCK)					ON estimate.yestim = estimatedetail.yestim
@@ -204,6 +207,7 @@ left outer JOIN ivakind WITH (NOLOCK)					ON ivakind.idivakind = estimatedetail.
 LEFT OUTER JOIN manager with (nolock)		ON manager.idman = estimate.idman
 LEFT OUTER JOIN registry WITH (NOLOCK)		ON registry.idreg = estimatedetail.idreg
 LEFT OUTER JOIN upb WITH (NOLOCK)			ON upb.idupb = estimatedetail.idupb
+LEFT OUTER JOIN upb upb_iva WITH (NOLOCK)			ON upb_iva.idupb = estimatedetail.idupb_iva
 LEFT OUTER JOIN accmotive WITH (NOLOCK)		ON accmotive.idaccmotive = estimatedetail.idaccmotive
 LEFT OUTER JOIN accmotive accmotiveannulment WITH (NOLOCK)	ON accmotiveannulment.idaccmotive = estimatedetail.idaccmotiveannulment
 LEFT OUTER JOIN sorting sorting1 WITH (NOLOCK)				ON sorting1.idsor = estimatedetail.idsor1
@@ -221,4 +225,3 @@ LEFT OUTER JOIN  list		WITH (NOLOCK)					ON list.idlist = estimatedetail.idlist
 GO
  
   
-	

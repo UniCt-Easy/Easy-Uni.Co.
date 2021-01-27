@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -876,7 +878,7 @@ namespace generaSQL {//GeneraSQL//
 
             Conn.RUN_SELECT_INTO_TABLE(TSorKind, null, filter, null, true);
             if ((TSorKind == null) || (TSorKind.Rows.Count == 0)) {
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filter);
                 return false;
             }
             StreamWriter writer = new StreamWriter(SqlOutputFile, false, System.Text.Encoding.Default);
@@ -1035,7 +1037,7 @@ namespace generaSQL {//GeneraSQL//
                             }
                             else {
                                 if (ParID[Sor["paridsor"].ToString()]==null){
-                                    MessageBox.Show("Riga parent di " + Sor["idsor"].ToString() +
+                                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Riga parent di " + Sor["idsor"].ToString() +
                                         " non trovata in sorting.");
                                     writer.Close();
                                     return false;
@@ -1080,7 +1082,7 @@ namespace generaSQL {//GeneraSQL//
 
             Conn.RUN_SELECT_INTO_TABLE(tStart, null, filter, null, true);
             if ((tStart == null) || (tStart.Rows.Count == 0)) {
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filter);
                 return false;
             }
 
@@ -1212,7 +1214,7 @@ namespace generaSQL {//GeneraSQL//
 
             Conn.RUN_SELECT_INTO_TABLE(tStart, null, filter, null, true);
             if ((tStart == null) || (tStart.Rows.Count == 0)) {
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filter);
                 return false;
             }
 
@@ -1337,7 +1339,7 @@ namespace generaSQL {//GeneraSQL//
 
             DataAccess.RUN_SELECT_INTO_TABLE(Conn, TInvTree, null, filter, null, true);
             if ((TInvTree == null) || (TInvTree.Rows.Count == 0)) {
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filter);
                 return false;
             }
             StreamWriter writer = new StreamWriter(SqlOutputFile, false, System.Text.Encoding.Default);
@@ -1438,7 +1440,7 @@ namespace generaSQL {//GeneraSQL//
 
             DataAccess.RUN_SELECT_INTO_TABLE(Conn, TABI, null, filter, null, true);
             if ((TABI == null) || (TABI.Rows.Count == 0)) {
-                MessageBox.Show("Nessuna banca trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna banca trovata con il filtro " + filter);
                 return false;
             }
             StreamWriter writer = new StreamWriter(SqlOutputFile, false, System.Text.Encoding.Default);
@@ -1563,7 +1565,7 @@ namespace generaSQL {//GeneraSQL//
             DataTable tcurrency = DataAccess.CreateTableByName(Conn, "currency", "*");
             DataAccess.RUN_SELECT_INTO_TABLE(Conn, tcurrency, null, filter, null, true);
             if ((tcurrency == null) || (tcurrency.Rows.Count == 0)) {
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filter);
                 return false;
             }
             DataSet DS = new DataSet();
@@ -1630,7 +1632,7 @@ namespace generaSQL {//GeneraSQL//
 
             DataAccess.RUN_SELECT_INTO_TABLE(Conn, tservice, null, filter, null, true);
             if ((tservice == null) || (tservice.Rows.Count == 0)) {
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filter);
                 return false;
             }
 
@@ -1801,7 +1803,7 @@ namespace generaSQL {//GeneraSQL//
 
             DataTable Sample = Conn.RUN_SELECT("sortingtranslation", "*", null, filter, null, false);
             if (Sample.Rows.Count==0){
-                MessageBox.Show("La query non ha restituito alcuna riga");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La query non ha restituito alcuna riga");
                 return false;
             }
             DataRow RSample=Sample.Rows[0];            
@@ -2033,7 +2035,7 @@ namespace generaSQL {//GeneraSQL//
 
             DataAccess.RUN_SELECT_INTO_TABLE(Conn, TSorKind, null, filterKind, null, true);
             if ((TSorKind == null) || (TSorKind.Rows.Count == 0)){
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filterKind);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filterKind);
                 return false;
             }
             StreamWriter writer = new StreamWriter(SqlOutputFile, false, System.Text.Encoding.Default);
@@ -2106,7 +2108,7 @@ namespace generaSQL {//GeneraSQL//
             Conn.RUN_SELECT_INTO_TABLE(tStart, null, filter, null, true);
             if ((tStart == null) || (tStart.Rows.Count == 0))
             {
-                MessageBox.Show("Nessuna riga trovata con il filtro " + filter);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna riga trovata con il filtro " + filter);
                 return false;
             }
 

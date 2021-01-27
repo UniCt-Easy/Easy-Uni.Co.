@@ -216,6 +216,9 @@
               <xs:element name="fiscalbonusapplied" type="xs:decimal" minOccurs="0" />
               <xs:element name="flagbonusaccredited" type="xs:int" minOccurs="0" />
               <xs:element name="idlinkedcon" type="xs:int" minOccurs="0" />
+              <xs:element name="fiscalbonusapplied2020" type="xs:decimal" minOccurs="0" />
+              <xs:element name="fiscalbonusnotapplied2020" type="xs:decimal" minOccurs="0" />
+              <xs:element name="earnings_based_abatements2020" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_expense_opisiopeplus_ins]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_expense_opisiopeplus_ins]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_expense_opisiopeplus_ins]
 GO
 
@@ -64,8 +66,8 @@ SELECT @classSIOPE = idsorkind FROM sortingkind WHERE codesorkind = @codeclassSI
 (*1) 
 tipo_debito_siope :  per le Fatture di tipo FE, scriviamo COMMERCIALE
 per i pagamenti liquidazione iva, scriviamo IVA,
-per le altre fature scriviamo NON COMMERCIALE perch√® 
-visto che le fatture cartacee di regola non esistono pi√π, tranne le estere
+per le altre fature scriviamo NON COMMERCIALE perchË 
+visto che le fatture cartacee di regola non esistono pi˘, tranne le estere
 e le estere non le abbiamo mai inviate in PCC (e non sappiamo nemmeno se si possono trasmettere )
 quindi dicemo per evitare incongruenze, non le trasmettiamo come commerciali
 
@@ -124,7 +126,7 @@ Else
 Begin
 	SELECT @idtreasurer =  idtreasurer
 	FROM treasurer
-	where flagdefault='S'	 ---Se sta lavorando col movimento, prendiamo il cassiere predefinito come riferimento perch√® ci serve valorizzare alcune info al fine della misurazione del file, che altrimenti sarebbero null
+	where flagdefault='S'	 ---Se sta lavorando col movimento, prendiamo il cassiere predefinito come riferimento perchË ci serve valorizzare alcune info al fine della misurazione del file, che altrimenti sarebbero null
 End
 
 DECLARE @len_desc_dept int
@@ -159,8 +161,8 @@ FROM    chargehandling WHERE   ((chargehandling.flag & 2) <> 0)
 
 
 DECLARE @opkind varchar(20) 
---Pu√≤ assumere i valori 
---INSERIMENTO‚Äì Inserimento  Ordinativo 
+--PuÚ assumere i valori 
+--INSERIMENTOñ Inserimento  Ordinativo 
 --VARIAZIONE- Variazione Ordinativo
 --ANNNULLO- Annullo Ordinativo
 --SOSTITUZIONE- Sostituzione Ordinativo
@@ -180,26 +182,26 @@ SET @len_agencycode = 7
 ------- MAPPATURA MODALITA' DI PAGAMENTO --------------
 -------------------------------------------------------
 
-1 ‚ÄúCASSA‚Äù
-2 ‚ÄúSEPA CREDIT TRANSFER‚Äù - EX ‚ÄúBONIFICO BANCARIO E POSTALE‚Äù
-3 ‚ÄúSEPA CREDIT TRANSFER‚Äù
-4 ‚ÄúASSEGNO BANCARIO E POSTALE‚Äù
-5 ‚ÄúASSEGNO CIRCOLARE‚Äù
-6 ‚ÄúACCREDITO CONTO CORRENTE POSTALE‚Äù
-7 ‚ÄúACCREDITO TESORERIA PROVINCIALE STATO PER TAB A‚Äù   GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE
-8 ‚ÄúACCREDITO TESORERIA PROVINCIALE STATO PER TAB B‚Äù   GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE
-9 ‚ÄúF24EP‚Äù (7)										  GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE 1777
-10 ‚ÄúVAGLIA POSTALE‚Äù
-11 ‚ÄúVAGLIA TESORO‚Äù
+1 ìCASSAî
+2 ìSEPA CREDIT TRANSFERî - EX ìBONIFICO BANCARIO E POSTALEî
+3 ìSEPA CREDIT TRANSFERî
+4 ìASSEGNO BANCARIO E POSTALEî
+5 ìASSEGNO CIRCOLAREî
+6 ìACCREDITO CONTO CORRENTE POSTALEî
+7 ìACCREDITO TESORERIA PROVINCIALE STATO PER TAB Aî   GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE
+8 ìACCREDITO TESORERIA PROVINCIALE STATO PER TAB Bî   GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE
+9 ìF24EPî (7)										  GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE 1777
+10 ìVAGLIA POSTALEî
+11 ìVAGLIA TESOROî
 
-‚ÄúREGOLARIZZAZIONE‚Äù
-‚ÄúREGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A‚Äù
-‚ÄúREGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B‚Äù
+ìREGOLARIZZAZIONEî
+ìREGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB Aî
+ìREGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB Bî
 
-12 ‚ÄúADDEBITO PREAUTORIZZATO‚Äù
-13 ‚ÄúDISPOSIZIONE DOCUMENTO ESTERNO‚Äù
-14 ‚ÄúCOMPENSAZIONE‚Äù
-15 ‚ÄúBONIFICO ESTERO EURO‚Äù
+12 ìADDEBITO PREAUTORIZZATOî
+13 ìDISPOSIZIONE DOCUMENTO ESTERNOî
+14 ìCOMPENSAZIONEî
+15 ìBONIFICO ESTERO EUROî
 */
 
 /*
@@ -207,10 +209,10 @@ SET @len_agencycode = 7
 ----- MODALITA' DI TRATTAMENTO BOLLO --------
 -------------------------------------------------------
 
-pu√≤ assumere i valori
-1 ‚ÄúESENTE BOLLO‚Äù
-2 ‚ÄúASSOGGETTATO BOLLO A CARICO ENTE‚Äù
-3 ‚ÄúASSOGGETTATO BOLLO A CARICO BENEFICIARIO‚Äù
+puÚ assumere i valori
+1 ìESENTE BOLLOî
+2 ìASSOGGETTATO BOLLO A CARICO ENTEî
+3 ìASSOGGETTATO BOLLO A CARICO BENEFICIARIOî
 */
 
 /*
@@ -218,7 +220,7 @@ pu√≤ assumere i valori
 ----- MODALITA' DI TRATTAMENTO SPESE --------
 -------------------------------------------------------
 
-pu√≤ assumere i valori
+puÚ assumere i valori
 1 "A CARICO ENTE"
 2 "A CARICO BENEFICIARIO"
 3 "ESENTE"
@@ -241,13 +243,16 @@ DECLARE @CodiceStruttura varchar(16)
 
 DECLARE @codice_tramite_BT VARCHAR(20) --(NEW) -- TODO: aggiungere alla tabella treasurer FATTO
 declare @codice_tramite_ente  VARCHAR(20) --(NEW) -- TODO: aggiungere alla tabella treasurer FATTO
-DECLARE @codice_istat_ente	varchar(20)--(new)-- Codice ISTAT dell'ente.contiene il codice ente SIOPE in corso di validit√†.  TODO: aggiungere alla tabella treasurer. FATTO
+DECLARE @codice_istat_ente	varchar(20)--(new)-- Codice ISTAT dell'ente.contiene il codice ente SIOPE in corso di validit‡.  TODO: aggiungere alla tabella treasurer. FATTO
 SELECT  @codice_tramite_BT = ISNULL(RTRIM(tramite_bt_code),''),
 	@codice_tramite_ente =  ISNULL(RTRIM(tramite_agency_code),''),
 	@codice_istat_ente = ISNULL(RTRIM(agency_istat_code),''),
 	@CodiceStruttura = ISNULL(billcode,'')  
 FROM treasurer WHERE idtreasurer = @idtreasurer
 
+-- anagrafica cumulativa stipendi
+declare @idreg_csa int
+select  @idreg_csa = idreg_csa from config where ayear=@y
 CREATE TABLE #error (message varchar(400))
 
 -- Inizio Sezione Controlli
@@ -260,7 +265,7 @@ Begin
 				BEGIN
 					INSERT INTO #error
 					VALUES('La distinta di trasmissione ' + CONVERT(varchar(4),@y) + '/'
-					+ CONVERT(varchar(6),@n) + ' √® vuota')
+					+ CONVERT(varchar(6),@n) + ' Ë vuota')
 				END
 
 				IF(
@@ -298,10 +303,10 @@ Begin
 				END
 
 
-				-- CONTROLLO N. 2. Movimento di Spesa senza Modalit√† di Pagamento
+				-- CONTROLLO N. 2. Movimento di Spesa senza Modalit‡ di Pagamento
 				INSERT INTO #error (message)
 				(SELECT 'Per il movimento n.' + CONVERT(varchar(6),nmov) 
-				+ '/' + CONVERT(varchar(4),ymov) + ' non √® stata scelta una modalit√† di pagamento'
+				+ '/' + CONVERT(varchar(4),ymov) + ' non Ë stata scelta una modalit‡ di pagamento'
 				FROM paymentcommunicated
 				WHERE ypaymenttransmission = @y
 					AND npaymenttransmission = @n
@@ -312,10 +317,10 @@ Begin
 					)
 
 
-				-- CONTROLLO N. 3. Movimento di Spesa con Modalit√† di Pagamento non configurata
+				-- CONTROLLO N. 3. Movimento di Spesa con Modalit‡ di Pagamento non configurata
 				INSERT INTO #error (message)
 				(SELECT 'Nel movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-				+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit√† di pagamento scelta non √® configurata, Andare in Configurazione - Anagrafica - Modalit√† di Pagamento'
+				+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit‡ di pagamento scelta non Ë configurata, Andare in Configurazione - Anagrafica - Modalit‡ di Pagamento'
 				FROM paymentcommunicated
 				JOIN paymethod
 					ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -324,12 +329,12 @@ Begin
 					AND (paymethod.abi_label IS NULL OR REPLACE(paymethod.abi_label,' ','') = '')
 				)
 
-				-- CONTROLLO N. 4. Codice IBAN o ABI o CAB devono essere valorizzati nel caso di modalit√† di pagamento '02'
+				-- CONTROLLO N. 4. Codice IBAN o ABI o CAB devono essere valorizzati nel caso di modalit‡ di pagamento '02'
 				--- ABI, CAB, CIN, NUMERO CONTO obbligatori in caso di BONIFICI
 				--- NUMERO CONTO obbligatorio in caso di BOLLETTINO CCP
 				--INSERT INTO #error (message)
 				--(SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-				--+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit√† di pagamento scelta non √® stato assegnato il codice ABI / CAB.'
+				--+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit‡ di pagamento scelta non Ë stato assegnato il codice ABI / CAB.'
 				--FROM paymentcommunicated
 				--	JOIN paymethod
 				--	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -343,7 +348,7 @@ Begin
 				--	AND ((paymentcommunicated.flag & 1) = 0)   -- non a copertura
 				--)
 
-				-- CONTROLLO N. 7. Conto Corrente valorizzato e di lunghezza massima 12 caratteri nel caso di modalit√† di pagamento 2
+				-- CONTROLLO N. 7. Conto Corrente valorizzato e di lunghezza massima 12 caratteri nel caso di modalit‡ di pagamento 2
 				-- BONIFICO BANCARIO E POSTALE
 				IF EXISTS
 				(SELECT * FROM paymentcommunicated
@@ -365,7 +370,7 @@ Begin
 					INSERT INTO #error (message)
 					(SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
 					+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov)
-					+ ' nella modalit√† di pagamento non √® stato valorizzato il C/C o la lunghezza del C/C eccede i '
+					+ ' nella modalit‡ di pagamento non Ë stato valorizzato il C/C o la lunghezza del C/C eccede i '
 					+ CONVERT(varchar(2),@len_cc) + ' caratteri'
 					FROM paymentcommunicated
 					JOIN paymethod
@@ -395,10 +400,10 @@ Begin
 					AND P.kpaymenttransmission = @kpaymenttransmission
 
 
-				-- CONTROLLO N. 10. Uso di modlait√† di pagamento NON ammesse dalla banca-  vedi Specifiche tracciato
+				-- CONTROLLO N. 10. Uso di modlait‡ di pagamento NON ammesse dalla banca-  vedi Specifiche tracciato
 				INSERT INTO #error (message)
 				(SELECT 'Nel movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-				+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' non √® stata specificato il tipo pagamento SIOPE+.'
+				+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' non Ë stata specificato il tipo pagamento SIOPE+.'
 				FROM paymentcommunicated
 				JOIN paymethod
 					ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -410,7 +415,7 @@ Begin
 				-- CONTROLLO N. 12. Bollettino postale (cod. pag. 02)i codici ABI e CAB non devono essere valorizzati, lo deve essere solo il numero del C/C-- 
 				INSERT INTO #error (message)
 				(SELECT 'Nel movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-				+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' √® stata usata la modalit√† di pagamento Bollettino Postale  ma il codice ABI  e CAB non devono essere valorizzati'
+				+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' Ë stata usata la modalit‡ di pagamento Bollettino Postale  ma il codice ABI  e CAB non devono essere valorizzati'
 				FROM paymentcommunicated
 				JOIN paymethod
 					ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -427,13 +432,13 @@ Begin
 
 				-- CONTROLLO N. 14. Presenza trattamento bollo
 				INSERT INTO #error (message)
-				SELECT 'Il trattamento bollo deve essere obbligatoriamente impostato per il mandato n¬∞ ' + CONVERT(varchar(6),P.npay) 
+				SELECT 'Il trattamento bollo deve essere obbligatoriamente impostato per il mandato n∞ ' + CONVERT(varchar(6),P.npay) 
 				FROM payment P
 				WHERE P.idstamphandling IS NULL
 					  AND P.kpaymenttransmission = @kpaymenttransmission
 
 
-				-- CONTROLLO N. 14. codice contabilita speciale errato o mancante, controllare regole su codice contabilit√† speciale girofondi
+				-- CONTROLLO N. 14. codice contabilita speciale errato o mancante, controllare regole su codice contabilit‡ speciale girofondi
 				IF EXISTS
 				(SELECT * FROM paymentcommunicated
 						join expenselast			        ON paymentcommunicated.idexp = expenselast.idexp
@@ -443,7 +448,7 @@ Begin
 								and registrypaymethod.idregistrypaymethod = expenselast.idregistrypaymethod
 						JOIN paymethod	     				ON expenselast.idpaymethod = paymethod.idpaymethod
 				WHERE paymentcommunicated.kpaymenttransmission = @kpaymenttransmission					
-					AND ((expenselast.paymethod_flag & (256+512) )<>0 )  -- modalit√† di pagamento girofondo, valutare il girofondo A F24EP
+					AND ((expenselast.paymethod_flag & (256+512) )<>0 )  -- modalit‡ di pagamento girofondo, valutare il girofondo A F24EP
 					AND (ISNULL(expenselast.extracode,registrypaymethod.extracode) IS NULL
 						OR REPLACE(ISNULL(expenselast.extracode,registrypaymethod.extracode),' ','') = ''
 						OR DATALENGTH(ISNULL(
@@ -456,7 +461,7 @@ Begin
 					INSERT INTO #error (message)
 						(SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
 						+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov)
-						+ ' nella modalit√† di pagamento non √® stato inserito il Codice contabilit√† speciale o la sua lunghezza supera i '
+						+ ' nella modalit‡ di pagamento non Ë stato inserito il Codice contabilit‡ speciale o la sua lunghezza supera i '
 						+ CONVERT(varchar(7),@lencodicecontabilitaspeciale) + ' caratteri'
 						FROM paymentcommunicated
 						join expenselast		ON paymentcommunicated.idexp = expenselast.idexp
@@ -466,7 +471,7 @@ Begin
 													and registrypaymethod.idregistrypaymethod = expenselast.idregistrypaymethod
 						JOIN paymethod			ON expenselast.idpaymethod = paymethod.idpaymethod
 						WHERE paymentcommunicated.kpaymenttransmission = @kpaymenttransmission
-							AND	(expenselast.paymethod_flag & (256+512) )<>0     -- modalit√† di pagamento girofondo, valutare il girofondo A F24EP
+							AND	(expenselast.paymethod_flag & (256+512) )<>0     -- modalit‡ di pagamento girofondo, valutare il girofondo A F24EP
 							AND (ISNULL(expenselast.extracode,registrypaymethod.extracode) IS NULL 
 								OR REPLACE(ISNULL(expenselast.extracode,registrypaymethod.extracode),' ','') = ''
 								OR DATALENGTH(ISNULL(ISNULL(expenselast.extracode,registrypaymethod.extracode),'')) > @lencodicecontabilitaspeciale)
@@ -485,7 +490,7 @@ Begin
 				-- CONTROLLO N. 16. Avviso PagoPa con Creditore senza CF  
 				INSERT INTO #error (message)
 				(SELECT 'Nel movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-				+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' √® stata usata la modalit√† di pagamento Avviso PagoPA ma l''anagrafica non ha codice fiscale '
+				+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' Ë stata usata la modalit‡ di pagamento Avviso PagoPA ma l''anagrafica non ha codice fiscale '
 				FROM paymentcommunicated
 				join expenselast		ON paymentcommunicated.idexp = expenselast.idexp
 				join expense			on expenselast.idexp = expense.idexp 
@@ -505,7 +510,7 @@ Begin
 				END
 End
 -- Attenzione! Altri controlli sono presenti nel testo della SP in quanto non era possibile calcolarli a priori
--- I controlli vengono riconosciuti in quanto il prefisso adoperato come linea di commento sar√† CONTROLLO N. x.
+-- I controlli vengono riconosciuti in quanto il prefisso adoperato come linea di commento sar‡ CONTROLLO N. x.
 -- Fine Sezione Controlli
  
 DECLARE @expenseregphase	tinyint
@@ -565,7 +570,7 @@ CREATE TABLE #payment
 	deny_bank_details char(1),
 	extracode varchar(7),
 	paymentdescr varchar(370),
-	txt varchar(200), 
+	--txt varchar(200), 
 	expenselast_paymentdescr varchar(150),
 	fulfilled char(1),
 	chargehandling varchar(50),
@@ -731,7 +736,7 @@ Begin
 			idpaydisposition,iddetail,codeupb, upbtitle,
 			codefin, fintitle, 
 			nlevel,finlevel,
-			cupcodefin,cupcodeupb,cupcodeexpense, cigcodeexpense, txt,
+			cupcodefin,cupcodeupb,cupcodeexpense, cigcodeexpense, --txt,
 			cupcodedetail, cigcodemandate,
 			chargehandling,
 			exemption_charge_payment_kind,
@@ -764,7 +769,7 @@ Begin
 				WHEN ((el.paymethod_flag & 2048) <> 0) THEN 'VINCOLATA' --(girofondi vincolati TABELLA B) 
 				ELSE 'LIBERA'
 			END,*/
-			@destinazione, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perch√® l'Ente √® in regime TU
+			@destinazione, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchË l'Ente Ë in regime TU
 			CASE
 				when (el.paymethod_flag & (64+256+512+1024+2048))  = 0 THEN NULL
 				WHEN (el.paymethod_flag & (64+256+512+1024+2048))  <> 0  AND ((el.paymethod_flag & 4096) = 0) THEN 'INFRUTTIFERA'  
@@ -830,7 +835,7 @@ Begin
 				   ((el.paymethod_flag & 512) <> 0)  OR 
 				   ((el.paymethod_flag & 1024) <> 0) OR 
 				   ((el.paymethod_flag & 2048) <> 0) 
-				   )   THEN 'S'
+				   )   THEN 'S'		--girofondo
 				ELSE 'N'
 			END,
 			CASE
@@ -857,7 +862,7 @@ Begin
 			ltrim(rtrim(u.cupcode)),
 			ltrim(rtrim(RegPhase.cupcode)),
 			ltrim(rtrim(RegPhase.cigcode)), 
-			ltrim(rtrim(substring(s.txt, 1, 200))),
+			--ltrim(rtrim(substring(s.txt, 1, 200))),
 			null,null,
 			CASE WHEN chargehandling.idchargehandling IS NULL THEN @handlingbankcode_default ELSE  chargehandling.handlingbankcode END,
 			CASE WHEN chargehandling.idchargehandling IS NULL THEN @payment_kind_default ELSE chargehandling.payment_kind END,
@@ -914,7 +919,7 @@ Begin
 			idpaydisposition,iddetail,codeupb, upbtitle,
 			codefin, fintitle, 
 			nlevel,finlevel,
-			cupcodefin,cupcodeupb,cupcodeexpense, cigcodeexpense, txt,
+			cupcodefin,cupcodeupb,cupcodeexpense, cigcodeexpense, --txt,
 			cupcodedetail, cigcodemandate,
 			chargehandling,
 			exemption_charge_payment_kind,
@@ -945,10 +950,10 @@ Begin
 				WHEN ((el.paymethod_flag & 2048) <> 0) THEN 'VINCOLATA' --(girofondi vincolati TABELLA B) 
 				ELSE 'LIBERA'
 			END,*/
-			'LIBERA', -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perch√® l'Ente √® in regime TU
+			'LIBERA', -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchË l'Ente Ë in regime TU
 			NULL, -- informazioni obbligatorie solo per i girofondi in BI
-			--- Considero la seguente mappatura tra la modalit√† di pagamento della disposizione
-			--  e la modalit√† di pagamento ABI 
+			--- Considero la seguente mappatura tra la modalit‡ di pagamento della disposizione
+			--  e la modalit‡ di pagamento ABI 
 			CASE
 				WHEN (pd.iban IS NOT NULL) THEN 'SEPACREDITTRANSFER' -- bonifico  -- paymethodcode = 1
 				WHEN ((pd.paymethodcode = 2) AND (pd.iban IS NULL)) THEN  'CASSA' -- cassa
@@ -977,7 +982,7 @@ Begin
 			substring(pd.iban,1,2),
 			substring(bancadisposition.description,1,@len_bank),
 			ISNULL(pd.iban,''),
-			null,-- al momento non abbiamo la possibilit√† di indicare il bic /swift sulle disposizioni di pagamento-ISNULL(el.biccode,''),
+			null,-- al momento non abbiamo la possibilit‡ di indicare il bic /swift sulle disposizioni di pagamento-ISNULL(el.biccode,''),
 			null,
 			null,
 			null,
@@ -999,17 +1004,17 @@ Begin
 			---- paymentdescr:
 			COALESCE(pd.motive, p.motive,ISNULL(s.doc,'') + ISNULL(CONVERT(varchar(12),s.docdate),'') + ISNULL(s.description,'')),
 			el.paymentdescr,
-			'N', -- non pu√≤ essere a regolarizzazione  
+			'N', -- non puÚ essere a regolarizzazione  
 			CASE
 				WHEN (( el.flag & 8)<>0) then 'S' --uncharged
 				ELSE 'N'
 			END, 
-			'N', -- non pu√≤ essere girofondo 
+			'N', -- non puÚ essere girofondo 
 			'N', --deny_bank_details -- vieta  coordinate bancarie
-			SPACE(@lencodicecontabilitaspeciale), -- codice contabilit√† speciale, vale solo per i girofondi
+			SPACE(@lencodicecontabilitaspeciale), -- codice contabilit‡ speciale, vale solo per i girofondi
 			null, -- non ammette delegato
 			ISNULL(el.refexternaldoc,''),
-			null, -- numero bolletta, non pu√≤ essere a regolarizzazione
+			null, -- numero bolletta, non puÚ essere a regolarizzazione
 			el.idpay,
 			pd.idpaydisposition,pd.iddetail,
 			upb.codeupb, upb.title,
@@ -1019,7 +1024,7 @@ Begin
 			ltrim(rtrim(u.cupcode)),
 			ltrim(rtrim(RegPhase.cupcode)),
 			ltrim(rtrim(RegPhase.cigcode)), 
-			ltrim(rtrim(substring(s.txt, 1, 200))),
+			--ltrim(rtrim(substring(s.txt, 1, 200))),
 			null,null,
 			CASE WHEN chargehandling.idchargehandling IS NULL THEN @handlingbankcode_default ELSE  chargehandling.handlingbankcode END,
 			CASE WHEN chargehandling.idchargehandling IS NULL THEN @payment_kind_default ELSE chargehandling.payment_kind END,
@@ -1074,7 +1079,7 @@ Begin
 			idpaydisposition,iddetail,codeupb, upbtitle,
 			codefin, fintitle, 
 			nlevel,finlevel,
-			cupcodefin,cupcodeupb,cupcodeexpense, cigcodeexpense, txt,
+			cupcodefin,cupcodeupb,cupcodeexpense, cigcodeexpense,-- txt,
 			cupcodedetail, cigcodemandate,
 			chargehandling,
 			exemption_charge_payment_kind,
@@ -1114,7 +1119,7 @@ Begin
 				WHEN ((el.paymethod_flag & 2048) <> 0) THEN 'VINCOLATA' --(girofondi vincolati TABELLA B) 
 				ELSE 'LIBERA'
 			END, */
-			@destinazione, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perch√® l'Ente √® in regime TU
+			@destinazione, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchË l'Ente Ë in regime TU
 			CASE
 				WHEN (((el.paymethod_flag & 64) = 0) AND ((el.paymethod_flag & 256) = 0) AND ((el.paymethod_flag & 512) = 0)  AND ((el.paymethod_flag & 1024) = 0) AND ((el.paymethod_flag & 2048) = 0)) THEN 'INFRUTTIFERA'  
 				WHEN (((el.paymethod_flag & 64) <> 0) OR ((el.paymethod_flag & 256) <> 0) OR ((el.paymethod_flag & 512) <> 0)  OR ((el.paymethod_flag & 1024) <> 0) OR ((el.paymethod_flag & 2048) <> 0)) 
@@ -1209,7 +1214,7 @@ Begin
 			ltrim(rtrim(u.cupcode)),
 			ltrim(rtrim(RegPhase.cupcode)),
 			ltrim(rtrim(RegPhase.cigcode)), 
-			ltrim(rtrim(substring(s.txt, 1, 200))),
+			--ltrim(rtrim(substring(s.txt, 1, 200))),
 			null,null,
 			CASE WHEN chargehandling.idchargehandling IS NULL THEN @handlingbankcode_default ELSE  chargehandling.handlingbankcode END,
 			CASE WHEN chargehandling.idchargehandling IS NULL THEN @payment_kind_default ELSE chargehandling.payment_kind END,
@@ -1265,7 +1270,7 @@ Begin
 			idpaydisposition,iddetail,codeupb, upbtitle,
 			codefin, fintitle, 
 			nlevel,finlevel,
-			cupcodefin,cupcodeupb,cupcodeexpense, cigcodeexpense, txt,
+			cupcodefin,cupcodeupb,cupcodeexpense, cigcodeexpense, --txt,
 			cupcodedetail, cigcodemandate,
 			chargehandling,
 			exemption_charge_payment_kind,
@@ -1293,7 +1298,7 @@ Begin
 			--esenzione bollo
 			'N',
 			'12345678901234567890', --ISNULL(tb.handlingbankcode,''), -- causale esenzione bollo
-			'LIBERA', -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perch√® l'Ente √® in regime TU
+			'LIBERA', -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchË l'Ente Ë in regime TU
 		    NULL, -- informazioni obbligatorie solo per i girofondi in BI
 			CASE
 				WHEN (pd.iban IS NOT NULL) THEN 'SEPACREDITTRANSFER' -- bonifico  -- paymethodcode = 1
@@ -1345,17 +1350,17 @@ Begin
 			---- paymentdescr:
 			ISNULL(s.doc,'') + ISNULL(CONVERT(varchar(12),s.docdate),'') + ISNULL(s.description,''),
 			el.paymentdescr,
-			'N', -- non pu√≤ essere a regolarizzazione 
+			'N', -- non puÚ essere a regolarizzazione 
 			CASE
 				WHEN (( el.flag & 8)<>0) then 'S' --uncharged
 				ELSE 'N'
 			END, 
-			'N', -- non pu√≤ essere girofondo 
+			'N', -- non puÚ essere girofondo 
 			'N', --deny_bank_details -- vieta  coordinate bancarie
-			SPACE(@lencodicecontabilitaspeciale), -- codice contabilit√† speciale, vale solo per i girofondi
+			SPACE(@lencodicecontabilitaspeciale), -- codice contabilit‡ speciale, vale solo per i girofondi
 			null, -- non ammette delegato
 			null, -- riferimento documento esterno
-			null, -- numero bolletta, non pu√≤ essere a regolarizzazione
+			null, -- numero bolletta, non puÚ essere a regolarizzazione
 			ROW_NUMBER() over (order by s.ymov asc)+1000, --6 
 			pd.idpaydisposition,pd.iddetail,
 			upb.codeupb, upb.title,
@@ -1365,7 +1370,7 @@ Begin
 			ltrim(rtrim(u.cupcode)),
 			ltrim(rtrim(RegPhase.cupcode)),
 			ltrim(rtrim(RegPhase.cigcode)), 
-			ltrim(rtrim(substring(s.txt, 1, 200))),
+			--ltrim(rtrim(substring(s.txt, 1, 200))),
 			null,null,
 			CASE WHEN chargehandling.idchargehandling IS NULL THEN @handlingbankcode_default ELSE  chargehandling.handlingbankcode END,
 			CASE WHEN chargehandling.idchargehandling IS NULL THEN @payment_kind_default ELSE chargehandling.payment_kind END,
@@ -1417,19 +1422,15 @@ UPDATE #payment SET cupcodedetail =
 
 -- Valorizza il codice CGI eventualmente presente del contratto passivo
 UPDATE #payment SET cigcodemandate = 
-	   (SELECT MAX(ltrim(rtrim(mandate.cigcode)) )
-			FROM mandate
-			JOIN mandatedetail
-				ON	mandate.idmankind = mandatedetail.idmankind 
-				AND mandate.yman = mandatedetail.yman 
-				AND mandate.nman = mandatedetail.nman
-		 WHERE (mandatedetail.idexp_taxable IN (SELECT idparent 
-									FROM expenselink 
-								   WHERE idchild = #payment.idexp and nlevel=@fasecontrattopassivo) 
-			OR mandatedetail.idexp_iva IN (SELECT idparent 
-							   FROM expenselink 
-							  WHERE idchild = #payment.idexp and nlevel=@fasecontrattopassivo))
-		 )
+	   (SELECT ltrim(rtrim(mandate.cigcode))
+			FROM mandate 
+				JOIN expensemandate ON expensemandate.idmankind = mandate.idmankind AND 
+					 expensemandate.yman = mandate.yman AND
+					expensemandate.nman = mandate.nman
+		 WHERE (expensemandate.idexp  = (SELECT idparent 
+									       FROM expenselink 
+								          WHERE idchild = #payment.idexp and nlevel=@fasecontrattopassivo) 
+		 ))
 		where cigcodeexpense is null
 
 -- Valorizza il codice CIG eventualmente presente nella fattura
@@ -1468,7 +1469,10 @@ CASE
 UPDATE #payment SET id_end_to_end =SUBSTRING(CONVERT(VARCHAR(4),ydoc) + '_'+ CONVERT(VARCHAR(8),ndoc) +'_'+ CONVERT(VARCHAR(6),idpay),1,35)
 WHERE (abi_label in('SEPACREDITTRANSFER') AND (fulfilled = 'N')) 
 
- UPDATE #payment SET  abi_label = 'DISPOSIZIONEDOCUMENTOESTERNO' WHERE idpaydisposition IS NOT NULL  and iddetail is null
+UPDATE #payment SET  abi_label = 'DISPOSIZIONEDOCUMENTOESTERNO' WHERE idpaydisposition IS NOT NULL  and iddetail is null
+
+
+
 ----------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------
 
@@ -1494,7 +1498,7 @@ Begin
 			INSERT INTO #error (message)
 			SELECT 'Il movimento di entrata ' + CONVERT(varchar(6),I.nmov) + '/' + CONVERT(varchar(4),I.ymov)
 			+ ' associato al movimento di spesa ' + CONVERT(varchar(6),E.nmov) + '/' + CONVERT(varchar(4),E.nmov)
-			+ ' non √® stato inserito in una distinta di trasmissione'
+			+ ' non Ë stato inserito in una distinta di trasmissione'
 			FROM #payment P
 			JOIN income I					ON I.idpayment = P.idexp	
 			JOIN expense E					ON P.idexp = E.idexp
@@ -1503,8 +1507,11 @@ Begin
 			LEFT OUTER JOIN proceeds S		ON S.kpro = IL.kpro
 			LEFT OUTER JOIN proceedstransmission T				ON S.kproceedstransmission = T.kproceedstransmission
 			WHERE I.nphase = @maxincomephase
-				AND ((I.autokind = 6) /* <--Recupero*/	OR (I.autokind = 14) /*<--automatismo generico*/OR (I.autokind = 4 AND I.idreg = P.idreg)/*<--Ritenuta*/
-				OR (I.autokind in (20,21,30,31) AND I.idreg = P.idreg))
+				AND ( -- (I.autokind = 6) /* <--Recupero*/	
+						--OR (I.autokind = 14) /*<--automatismo generico*/
+						--OR (I.autokind = 4 AND I.idreg = P.idreg)/*<--Ritenuta*/
+					    (I.autokind in (4,6,7,14,20,21,30,31)) )
+				AND I.idreg = P.idreg
 				AND IT.ayear = @y
 				AND T.yproceedstransmission IS NULL
 
@@ -1538,12 +1545,13 @@ AND (p.idpaydisposition IS  NULL AND -- i mandati stipendi ad anagrafiche cumula
 	 (p.girofondo <> 'S') 
 	 ) 
 	
-AND ( (e.autokind = 14) --automatismo generico
-	OR (e.autokind = 4 AND e.idreg = p.idreg)) -- Ritenuta
-	OR (e.autokind in (20,21,30,31) AND e.idreg = p.idreg) -- AUTOMATISMI DA CSA
+AND  --((e.autokind = 14) --automatismo generico
+		--OR (e.autokind = 4 AND e.idreg = p.idreg)) -- Ritenuta
+		 (e.autokind in (4,7,14,20,21,30,31) ) -- AUTOMATISMI DA CSA
+	AND ((e.idreg = p.idreg) or (e.autokind = 14) /*automatismo generico, non Ë richiesta la stessa anagrafica*/) 
 	AND ie.ayear = @y
 
-AND (@n is null OR di.kproceedstransmission is not null)--Se @n √® null prende tutto, altrimenti prende solo le rit. inserte in una distinta
+AND (@n is null OR di.kproceedstransmission is not null)--Se @n Ë null prende tutto, altrimenti prende solo le rit. inserte in una distinta
 
 -- Inserisce solo i recuperi
 INSERT INTO #tax
@@ -1566,7 +1574,7 @@ WHERE e.nphase = @maxincomephase
  AND (e.autokind = 6) -- Recupero
  AND ie.ayear = @y
 
-AND (@n is null OR di.kproceedstransmission is not null)--Se @n √® null prende tutto, altrimenti prende solo le rit. inserte in una distinta
+AND (@n is null OR di.kproceedstransmission is not null)--Se @n Ë null prende tutto, altrimenti prende solo le rit. inserte in una distinta
 
 
 -- Leggo configurazione dell'applicazione dei contributi 
@@ -1603,12 +1611,44 @@ AND (p.idpaydisposition IS  NULL AND -- i mandati stipendi ad anagrafiche cumula
 	AND ie.ayear = @y
 	AND @admintaxkind = 2 -- movimento di spesa sul capitolo di spesa o sul capitolo di liquidazione del contributo
 	-- e movimento di entrata su partita di giro
-AND (@n is null OR di.kproceedstransmission is not null)--Se @n √® null prende tutto, altrimenti prende solo le rit. inserte in una distinta
+AND (@n is null OR di.kproceedstransmission is not null)--Se @n Ë null prende tutto, altrimenti prende solo le rit. inserte in una distinta
 
 
 update #payment set saldo = curramount - isnull((select sum(curramount) from #admintax where #admintax.idexp = #payment.idexp),0)
 update #payment set saldo = saldo - isnull((select sum(curramount)  from #tax where #tax.idexp = #payment.idexp),0)
 update #payment set abi_label = 'COMPENSAZIONE' /*compensazione*/ where saldo = 0 -- pagamenti di pari importo con incassi
+
+
+UPDATE #payment SET  code = 'SALA' WHERE abi_label <> 'COMPENSAZIONE' and autokind  = 30  /*lordi stipendi*/ /*and idreg = @idreg_csa*/
+
+UPDATE #payment SET  code = 'SALA' WHERE abi_label <> 'COMPENSAZIONE' and autokind = 31   /*recuperi e ritenute negative stipendi generati nella fase lordi*/ /*and idreg = @idreg_csa*/
+AND EXISTS (SELECT * FROM csa_importver_partition_expense where csa_importver_partition_expense.idexp =  #payment.idexp and csa_importver_partition_expense.movkind in (8,16))
+
+-- fare in modo che nell'OPI dei pagamenti degli stipendi generati dalla fase Lordi ad anagrafica DIVERSI e che 
+-- hanno come modalit‡ di pagamento COMPENSAZIONE (e quindi hanno Importo Netto = zero), gli elementi <importo_mandato> e <importo_beneficiario> coincidano,
+-- equivale a chiedere che siano mandati singoli.
+
+
+-- CONTROLLO   In caso di pagamenti a compensazione intestati ad anagrafiche cumulative, essi dovranno essere inseriti in mandati singoli
+IF (@n is not null)
+begin
+	INSERT INTO #error (message)
+	(SELECT 'Il movimento n.' + CONVERT(varchar(6),P.nmov) 
+	+ '/' + CONVERT(varchar(4),P.ymov) + ' a compensazione intestato ad anagrafica cumulativa (ad es. DIVERSI/STIPENDI), deve essere inserito in un mandato singolo'
+	FROM expenselast EL 
+	JOIN #payment P					ON P.idexp = EL.idexp
+	WHERE /* P.kpaymenttransmission = @kpaymenttransmission
+	and*/ P.idreg = @idreg_csa and P.abi_label = 'COMPENSAZIONE'
+	and  (select count(*) from expenselast EL1 where EL.kpay = EL1.kpay)>1
+)
+end
+--select * from #address where idreg in (select iddeputy from #deputy)
+IF (SELECT COUNT(*) FROM #error) > 0
+BEGIN
+	SELECT * FROM #error
+	return -- TODO rimuovere il commento
+END
+
 
 -- Riempimento della tabella del delegato
 INSERT INTO #deputy (iddeputy, title_deputy, p_iva_deputy, cf_deputy)
@@ -1820,6 +1860,18 @@ BEGIN
 		(SELECT DISTINCT idreg FROM #address ind WHERE idnation IS NULL)
 	)
 END
+
+-- CONTROLLO N.15. Numero di bollette associati ad un pagamento maggiore di 1000
+INSERT INTO #error (message)
+(SELECT 'Il movimento n.' + CONVERT(varchar(6),nmov) 
++ '/' + CONVERT(varchar(4),ymov) + ' ha pi˘ di 1000 bollette collegate'
+FROM expense I
+JOIN expenselast IL				ON I.idexp = IL.idexp
+JOIN payment P					ON P.kpay = IL.kpay
+WHERE P.kpaymenttransmission = @kpaymenttransmission
+and (select count(*) from expensebill B where B.idexp = I.idexp)	>1000
+)
+
 --select * from #address where idreg in (select iddeputy from #deputy)
 IF (SELECT COUNT(*) FROM #error) > 0
 BEGIN
@@ -1829,9 +1881,9 @@ END
 
 
 -- Unificazione descrizioni di pagamento per movimenti di spesa che sono stati accorpati
--- L'unificazione della descrizione √® necessaria in quanto nella group by finale viene inserita anche la descrizione
+-- L'unificazione della descrizione Ë necessaria in quanto nella group by finale viene inserita anche la descrizione
 UPDATE #payment
-SET paymentdescr = 'ACCORPAMENTO PAGAMENTI' -- + SPACE(348) La formattazione l'ho postata alla fine, perch√® deve scrivere anche il CUP e CIG, ponendoli come prima info del campo 'casuale pagamento'
+SET paymentdescr = 'ACCORPAMENTO PAGAMENTI' -- + SPACE(348) La formattazione l'ho postata alla fine, perchË deve scrivere anche il CUP e CIG, ponendoli come prima info del campo 'casuale pagamento'
 WHERE
 	(SELECT COUNT(*)
 	FROM #payment p2
@@ -2017,7 +2069,7 @@ CREATE TABLE #DocContabilizzato(
 	flagnc char(1),
 	importo_siope decimal(19,2),
 	natura_spesa_siope varchar(10),-- CORRENTE o CAPITALE
-	utilizzo_nota_di_credito varchar(30), --Contiene il tipo di utilizzo della nota di credito. Pu√≤  assumere i seguenti valori: ‚ÄúINCASSO/COMPENSAZIONE‚Äù - ‚ÄúSPLIT PAYMENT‚Äù
+	utilizzo_nota_di_credito varchar(30), --Contiene il tipo di utilizzo della nota di credito. PuÚ  assumere i seguenti valori: ìINCASSO/COMPENSAZIONEî - ìSPLIT PAYMENTî
 	data_scadenza_pagam_siope datetime,
 	motivo_scadenza_siope varchar(50),
 	var_present char(1),
@@ -2117,7 +2169,7 @@ CREATE TABLE #DocContabilizzato(
 			else null
 			end,
 			-- motivo scadenza siope
-			case when  D.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL') then 'SOSP_DECORRENZA_TERMINI'
+			case when  exists (select * from invoicedetail D2 where D2.idinvkind = D.idinvkind and D2.yinv = D.yinv and D2.ninv = D.ninv and D2.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL')) then 'SOSP_DECORRENZA_TERMINI'
 				when I.idexpirationkind is not null then 'CORRETTA_SCAD_FATTURA'
 			else null
 			end,
@@ -2215,7 +2267,7 @@ CREATE TABLE #DocContabilizzato(
 				when (I.idexpirationkind = 6 AND isnull(I.paymentexpiring,0)=0) then I.protocoldate
 			else null
 			end,
-			case when  D.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL') then 'SOSP_DECORRENZA_TERMINI'
+			case when  exists (select * from invoicedetail D2 where D2.idinvkind = D.idinvkind and D2.yinv = D.yinv and D2.ninv = D.ninv and D2.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL')) then 'SOSP_DECORRENZA_TERMINI'
 				when I.idexpirationkind is not null then 'CORRETTA_SCAD_FATTURA'
 			else null
 			end,
@@ -2308,7 +2360,7 @@ CREATE TABLE #DocContabilizzato(
 				when (I.idexpirationkind = 6 AND isnull(I.paymentexpiring,0)=0) then I.protocoldate
 			else null
 			end,
-			case when  D.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL') then 'SOSP_DECORRENZA_TERMINI'
+			case when  exists (select * from invoicedetail D2 where D2.idinvkind = D.idinvkind and D2.yinv = D.yinv and D2.ninv = D.ninv and D2.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL')) then 'SOSP_DECORRENZA_TERMINI'
 				when I.idexpirationkind is not null then 'CORRETTA_SCAD_FATTURA'
 			else null
 			end,
@@ -2366,7 +2418,7 @@ CREATE TABLE #DocContabilizzatoRigheDiverse(
 	flagnc char(1),
 	importo_siope decimal(19,2),
 	natura_spesa_siope varchar(10),-- CORRENTE o CAPITALE
-	utilizzo_nota_di_credito varchar(30), --Contiene il tipo di utilizzo della nota di credito. Pu√≤  assumere i seguenti valori: ‚ÄúINCASSO/COMPENSAZIONE‚Äù - ‚ÄúSPLIT PAYMENT‚Äù
+	utilizzo_nota_di_credito varchar(30), --Contiene il tipo di utilizzo della nota di credito. PuÚ  assumere i seguenti valori: ìINCASSO/COMPENSAZIONEî - ìSPLIT PAYMENTî
 	data_scadenza_pagam_siope datetime,
 	motivo_scadenza_siope varchar(50),
 	var_present char(1),
@@ -2443,6 +2495,7 @@ CREATE TABLE #DocContabilizzatoRigheDiverse(
 			data_scadenza_pagam_siope,
 			motivo_scadenza_siope,
 			var_present,contarigheDettaglioDistinte
+			having sum(importo_siope)<>0
 
 
 --update  #DocContabilizzato set contarigheDettaglioDistinte = (select count( distinct motivo_scadenza_siope)
@@ -2475,7 +2528,7 @@ CREATE TABLE #DocContabilizzatoSommaSiope(
 	flagnc char(1),
 	importo_siope decimal(19,2),
 	natura_spesa_siope varchar(10),-- CORRENTE o CAPITALE
-	utilizzo_nota_di_credito varchar(30), --Contiene il tipo di utilizzo della nota di credito. Pu√≤  assumere i seguenti valori: ‚ÄúINCASSO/COMPENSAZIONE‚Äù - ‚ÄúSPLIT PAYMENT‚Äù
+	utilizzo_nota_di_credito varchar(30), --Contiene il tipo di utilizzo della nota di credito. PuÚ  assumere i seguenti valori: ìINCASSO/COMPENSAZIONEî - ìSPLIT PAYMENTî
 	data_scadenza_pagam_siope datetime,
 	motivo_scadenza_siope varchar(50),
 	var_present char(1),
@@ -2638,7 +2691,7 @@ FROM #payment
 join #DocContabilizzatoRigheDiverse doc		on DOC.idexp = #payment.idexp
 JOIN #expensesorted_sum							ON #payment.idexp = #expensesorted_sum.idexp 
 JOIN sorting								ON sorting.idsor = #expensesorted_sum.idsor
-WHERE #payment.nClassSiope=1			--vale sia con 1 o pi√π gruppi di dettagli siope
+WHERE #payment.nClassSiope=1			--vale sia con 1 o pi˘ gruppi di dettagli siope
 
 --select 1, * from #siope
 
@@ -2866,7 +2919,7 @@ and not exists (select * from expenseinvoice where idexp = #payment.idexp )
 ----HAVING SUM(expensesorted.amount) <> 0
 
 -- Calcolo del progressivo SIOPE
--- Anche la classificazione ha un suo progressivo che √® pari al numero di codici classificazione distinti precedente al corrente,
+-- Anche la classificazione ha un suo progressivo che Ë pari al numero di codici classificazione distinti precedente al corrente,
 -- legati allo stesso progressivo percipiente.
 UPDATE #siope
 SET progressive = 1 +
@@ -2940,7 +2993,7 @@ JOIN expensesorted
 JOIN sorting
 	ON sorting.idsor = expensesorted.idsor
 WHERE sorting.idsorkind = @classSIOPE
-	and isnull(expensesorted.valueS2,'') <>''--Solo se il COFOG √® stato indicato
+	and isnull(expensesorted.valueS2,'') <>''--Solo se il COFOG Ë stato indicato
 GROUP BY #payment.ypaymenttransmission, #payment.npaymenttransmission, #payment.ydoc,	#payment.ndoc, 
 	#payment.idpay,expensesorted.idsor,  sorting.sortcode,
 	#payment.idexp ,expensesorted.valueS1,expensesorted.values2
@@ -2954,7 +3007,7 @@ Begin
 				-- CONTROLLO N. 18 Controllo che sia valorizzato il CIG
 				INSERT INTO #error (message)
 				SELECT 'Il movimento di spesa Es.' + CONVERT(varchar(6),E.ymov) + ' N.' + CONVERT(varchar(10), E.nmov)
-				+ ' non ha un CIG, e non √® presente un motivo di esclusione CIG nella fattura contabilizzata.'
+				+ ' non ha un CIG, e non Ë presente un motivo di esclusione CIG nella fattura contabilizzata.'
 				FROM #siope S
 				join expense E
 				on S.idexp = E.idexp
@@ -3102,7 +3155,7 @@ set @codice_ente = ( select ipa_fe from ipa where useforopi ='S')
 DECLARE @descrizione_ente varchar(150)
 set @descrizione_ente = @desc_dept
 
-DECLARE @codice_ente_BT  varchar(9) -- Codice univoco interno, attribuito dalla banca, per mezzo del quale l'ente √® riconosciuto dalla banca medesima
+DECLARE @codice_ente_BT  varchar(9) -- Codice univoco interno, attribuito dalla banca, per mezzo del quale l'ente Ë riconosciuto dalla banca medesima
 SET @codice_ente_BT = @cod_department
 
 
@@ -3148,7 +3201,7 @@ CREATE TABLE #trace
 	
 	--------------------------------------------------------------------------------------------------------------------------------------
 	----------------------------------------------------INIZIO TIPO RIGA MANDATO----------------------------------------------------------
-    --- contiene le informazioni relative all'intero mandato. L'identificativo √® dato da ndoc (corrisponde a npay nella tabella payment)-- 
+    --- contiene le informazioni relative all'intero mandato. L'identificativo Ë dato da ndoc (corrisponde a npay nella tabella payment)-- 
 	--- KIND : MANDATO, TIPO RIGA PADRE: TESTATA, CHIAVE: ndoc----------------------------------------------------------------------------
 	--------------------------------------------------------------------------------------------------------------------------------------
 
@@ -3313,7 +3366,7 @@ CREATE TABLE #trace
 	numero_fattura_siope varchar(20), 
 	importo_siope  decimal(19,2),
 	natura_spesa_siope varchar(10), -- CORRENTE o CAPITALE
-	utilizzo_nota_di_credito varchar(20), --Contiene il tipo di utilizzo della nota di credito. Pu√≤  assumere i seguenti valori: ‚ÄúINCASSO/COMPENSAZIONE‚Äù - ‚ÄúSPLIT PAYMENT‚Äù
+	utilizzo_nota_di_credito varchar(20), --Contiene il tipo di utilizzo della nota di credito. PuÚ  assumere i seguenti valori: ìINCASSO/COMPENSAZIONEî - ìSPLIT PAYMENTî
 	data_scadenza_pagam_siope varchar(20),
 	motivo_scadenza_siope varchar(50),
 	codice_missione_siope	varchar(50),
@@ -3331,8 +3384,8 @@ CREATE TABLE #trace
 	
 	----------------------------------------------------INIZIO TIPO RIGA RITENUTE -------------------------------------------------------- 
     -- contiene le informazioni relative alle ritenute associate alla riga di mandato (sub del mandato), che nella -----------------------
-    -- terminologia del tracciato BPS si chiama beneficiario. Infatti ogni riga di mandato pu√≤ essere associata a pi√π righe di reversale -
-    -- (versanti di reversali nella terminologia BPS). Il progressivo_versante  √® valorizzato con idpro della riga di reversale-----------
+    -- terminologia del tracciato BPS si chiama beneficiario. Infatti ogni riga di mandato puÚ essere associata a pi˘ righe di reversale -
+    -- (versanti di reversali nella terminologia BPS). Il progressivo_versante  Ë valorizzato con idpro della riga di reversale-----------
 	-- KIND : RITENUTE,   TIPO RIGA PADRE: INFO_BENEFICIARIO, SELETTORI: ndoc (sarebbe npay, riferimento al mandato) e idpay --------------
 	-- CHIAVE: numero_reversale, progressivo_reversale -------------------------------------------------------------------------------------
 	----------------------------------------------------------------------------------------------------------------------------------------
@@ -3385,7 +3438,7 @@ INSERT INTO #trace(kind,
 				   'mandati_'+ convert(varchar(4),@y) + '_' +convert(varchar(4),@n),
 				   @data_ora_creazione_flusso,
 				   'UFAUDA',
-				   'Universit√† del Salento - Amministrazione Centrale',
+				   'Universit‡ del Salento - Amministrazione Centrale',
 				   '000705784',
 					'00646640755',
 					'A2A-80647560',
@@ -3580,7 +3633,7 @@ SELECT
 						WHEN ( #payment.iddeputy is not null ) THEN  #deputy.cap_deputy
 						ELSE cap_ben
 					END	,
-				   -- Localit√† Beneficiario
+				   -- Localit‡ Beneficiario
 				    CASE 
 						WHEN ( #payment.iddeputy is not null )  and (abi_label = 'SEPACREDITTRANSFER')THEN  SUBSTRING(#deputy.location_deputy,1,30)
 						ELSE  SUBSTRING(location_ben,1,30)
@@ -3698,10 +3751,7 @@ SELECT
 						WHEN ((abi_label = 'SEPACREDITTRANSFER') AND (fulfilled = 'N')) THEN  id_end_to_end
 						ELSE NULL
 				   END,
-				   CASE 
-						WHEN ((abi_label = 'SEPACREDITTRANSFER')  AND (fulfilled = 'N')) THEN  code
-						ELSE NULL
-				   END,
+				   code,
 				   CASE 
 						WHEN ((abi_label = 'SEPACREDITTRANSFER') AND (fulfilled = 'N')) THEN  proprietary
 						ELSE NULL
@@ -3712,7 +3762,9 @@ SELECT
   				   -- SOSPESO -- 
   				   null,
 				   -- Riferimento Documento Esterno  
-				   case when ((abi_label IN ('DISPOSIZIONEDOCUMENTOESTERNO','BONIFICOESTEROEURO'))   AND (fulfilled = 'N') AND autokind IN (20,21,30,31)) then 'STIPENDI TX' else  SUBSTRING(isnull(expenselast_paymentdescr,'') + ' '+ isnull(#payment.txt,''),1,400) end,
+				   case when ((abi_label IN ('DISPOSIZIONEDOCUMENTOESTERNO','BONIFICOESTEROEURO'))   AND (fulfilled = 'N') AND autokind IN (20,21,30,31) AND (code <> 'SALA') ) 
+								then 'STIPENDI TX' 
+								else  SUBSTRING(isnull(expenselast_paymentdescr,''),1,400)  end,	 --+ ' '+ isnull(#payment.txt,'')
 				   --avviso_pagopa
 				   pagopanoticenum,
 				   -- Informazioni Tesoriere
@@ -3729,7 +3781,7 @@ LEFT JOIN #deputy
 		#deputy.province_deputy,#deputy.nation_deputy,  #deputy.cf_deputy,#deputy.p_iva_deputy,
 		ABI, CAB, cc, cin_iban, cin,codice_paese, bank, iban,biccode,id_end_to_end,code, proprietary,
 		paymentdescr, stamphandling, stamp_charge, exemption_stamp_motive, 
-		refexternaldoc,expenselast_paymentdescr, #payment.txt,	chargehandling,exemption_charge_payment_kind,
+		refexternaldoc,expenselast_paymentdescr, chargehandling,exemption_charge_payment_kind,
 		exemption_charge_motive, expiration, bank_charges_exempt,#payment.iddeputy,pagopanoticenum
 		 --,#payment.autokind
 ORDER BY #payment.ndoc, #payment.idpay,#payment.idexp
@@ -3840,8 +3892,7 @@ INSERT INTO #trace(
 					--data_scadenza_pagam_siope,
 					--motivo_scadenza_siope
 				   )
-SELECT				
-				   'CLASSIFICAZIONI',
+SELECT		       'CLASSIFICAZIONI',
 				   ndoc,
 				   idpay, idexp, 
 				   sortcode,
@@ -3976,4 +4027,3 @@ GO
 
 --exec  trasmele_expense_opisiopeplus_ins 2019, 6
 --exec  trasmele_expense_opisiopeplus_ins 2019, 1263, 'N'
-	

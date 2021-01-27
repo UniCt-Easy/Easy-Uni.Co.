@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -38,7 +40,8 @@ namespace no_table_f24ep {
         MetaData Meta;
         DataAccess Conn;
         CultureInfo cultureInfo = CultureInfo.GetCultureInfo(0x0410);
-   
+
+
         public Frmf24ep() {
             InitializeComponent();
             string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "f24ep/prog/temp");
@@ -77,6 +80,7 @@ namespace no_table_f24ep {
             txtDataDiVersamento.Text = ((DateTime)Meta.GetSys("datacontabile")).ToShortDateString();
             addColumnDati(mData);
             fillTributi(tributi);
+            btnFileInput.ContextMenu = CMenu;
         }
 
 
@@ -393,7 +397,7 @@ namespace no_table_f24ep {
             DialogResult dr = openInputFileDlg.ShowDialog();
             if (dr != DialogResult.OK)
             {
-                MessageBox.Show("Non è stato scelto alcun file");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stato scelto alcun file");
                 txtInputFile.Text = "";
                 return false;
             }
@@ -412,7 +416,7 @@ namespace no_table_f24ep {
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
                     return false;
                 }
             }
@@ -497,10 +501,10 @@ namespace no_table_f24ep {
 
 
             if (ok)
-                MessageBox.Show(this, "Il File " + fileName + " è stato importato. Si può procedere con la generazione del modello F24EP");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il File " + fileName + " è stato importato. Si può procedere con la generazione del modello F24EP");
             else
             {
-                MessageBox.Show(this, "L'esame del file " + fileName + " ha fatto rilevare degli errori");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'esame del file " + fileName + " ha fatto rilevare degli errori");
                 mData.Clear();
             }
         }
@@ -541,27 +545,42 @@ namespace no_table_f24ep {
             int pos = 0;
             DataTable T = new DataTable("t");
             T.Columns.Add("nome", typeof(string));
-            T.Columns.Add("posizione", typeof(int));
-            T.Columns.Add("lunghezza", typeof(string));
+                        T.Columns.Add("Descrizione", typeof(string));
+            //T.Columns.Add("posizione", typeof(int));
+            //T.Columns.Add("lunghezza", typeof(string));
             T.Columns.Add("tipo", typeof(string));
-            T.Columns.Add("codifica", typeof(string));
-            T.Columns.Add("Descrizione", typeof(string));
+            //T.Columns.Add("codifica", typeof(string));
+
 
             foreach (string t in tracciato) {
                 DataRow r = T.NewRow();
                 string[] ss = t.Split(';');
                 r["nome"] = ss[0];
-                r["posizione"] = pos;
-                r["lunghezza"] = CfgFn.GetNoNullInt32(ss[3]);
                 r["tipo"] = ss[2];
-                if (ss.Length == 5) r["codifica"] = ss[4];
+     
                 r["Descrizione"] = ss[1];
-                pos += CfgFn.GetNoNullInt32(ss[3]);
                 T.Rows.Add(r);
             }
             return T;
         }
       
+
+       private void MenuEnterPwd_Click(object sender, EventArgs e) {
+			if (sender == null) return;
+			if (!(typeof(MenuItem).IsAssignableFrom(sender.GetType()))) return;
+			object mysender = ((MenuItem) sender).Parent.GetContextMenu().SourceControl;
+			string[] tracciato = tracciato_f24;
+			DataTable TableTracciato = null;
+ 
+			TableTracciato = GetTableTracciato(tracciato_f24);
+		
+			FrmShowTracciato FT = new FrmShowTracciato("tracciato_f24", TableTracciato, "struttura");
+			FT.ShowDialog();
+
+		}
+
+	 
+
         string ExcelColumnFromNumber(int column)
         {
             try {
@@ -763,7 +782,7 @@ namespace no_table_f24ep {
 
                 cod_tributo = cod_tributo.ToUpper();
 				if ( (cod_tributo!= "127E")  && (cod_tributo!= "128E")
-				  && (cod_tributo!= "384E") &&  (cod_tributo!= "385E")
+				  && (cod_tributo!= "384E") &&  (cod_tributo!= "385E") &&  (cod_tributo!= "381E")
 				  && (cod_tributo!= "126E") &&  (cod_tributo!= "154E") && (cod_tributo!= "161E")
 				  && (cod_tributo!= "601E") &&  (cod_tributo!= "602E") && (cod_tributo!= "603E")
 				  && (cod_tributo!= "604E") &&  (cod_tributo!= "605E") && (cod_tributo!= "606E")
@@ -920,7 +939,7 @@ namespace no_table_f24ep {
                 }
                 nrigacorrente++;
             }
-            if (ok) MessageBox.Show(this, "Elaborate " + nrigacorrente.ToString() + " righe.");
+            if (ok) MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Elaborate " + nrigacorrente.ToString() + " righe.");
             return ok;
         }
 
@@ -1045,7 +1064,7 @@ namespace no_table_f24ep {
             catch (Exception ex)
             {
                 obj = null;
-                MessageBox.Show("Exception Occured while releasing object " + ex.ToString());
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Exception Occured while releasing object " + ex.ToString());
             }
             finally
             {
@@ -1057,7 +1076,7 @@ namespace no_table_f24ep {
         {
             if (mData.Rows.Count == 0)
             {
-                MessageBox.Show(this, "Non ci sono dati da elaborare");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono dati da elaborare");
                 return;
             }
 
@@ -1065,7 +1084,7 @@ namespace no_table_f24ep {
                 typeof(DateTime), txtDataDiVersamento.Text, txtDataDiVersamento.Tag.ToString());
             if (dataDiVersamento < DateTime.Now.Date)
             {
-                MessageBox.Show("Data di addebito: il valore immesso non può essere inferiore alla data corrente");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Data di addebito: il valore immesso non può essere inferiore alla data corrente");
                 HelpForm.FocusControl(txtDataDiVersamento);
                 return;
             }
@@ -1079,7 +1098,7 @@ namespace no_table_f24ep {
             }
             else
             {
-                MessageBox.Show(this, "Non è stato selezionato il percorso in cui memorizzare il file dell'F24");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non è stato selezionato il percorso in cui memorizzare il file dell'F24");
                 return;
             }
            
@@ -1097,7 +1116,7 @@ namespace no_table_f24ep {
 
             txtDataGenerazione.Text = HelpForm.StringValue(Meta.GetSys("datacontabile"),
                 txtDataGenerazione.Tag.ToString());
-            MessageBox.Show(this, "Elaborazione completata");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Elaborazione completata");
         }
 
         private void txtDataDiVersamento_Leave(object sender, EventArgs e)

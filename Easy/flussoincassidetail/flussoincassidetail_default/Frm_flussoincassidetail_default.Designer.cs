@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿namespace flussoincassidetail_default {
+
+namespace flussoincassidetail_default {
     partial class Frm_flussoincassidetail_default {
         /// <summary>
         /// Required designer variable.
@@ -101,7 +103,7 @@
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(56, 24);
 			this.label9.TabIndex = 140;
-			this.label9.Text = "NÂ° bolletta";
+			this.label9.Text = "N° bolletta";
 			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtBill
@@ -122,7 +124,7 @@
 			this.txtImportoTotale.Name = "txtImportoTotale";
 			this.txtImportoTotale.Size = new System.Drawing.Size(88, 20);
 			this.txtImportoTotale.TabIndex = 146;
-			this.txtImportoTotale.Tag = "flussoincassi.importo";
+			this.txtImportoTotale.Tag = "flussoincassi.importo?flussoincassidetailview.importotale";
 			this.txtImportoTotale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// labelImporto
@@ -152,7 +154,7 @@
 			this.txtEsercizio.Name = "txtEsercizio";
 			this.txtEsercizio.Size = new System.Drawing.Size(87, 20);
 			this.txtEsercizio.TabIndex = 143;
-			this.txtEsercizio.Tag = "flussoincassi.ayear";
+			this.txtEsercizio.Tag = "flussoincassi.ayear?flussoincassidetailview.ayear";
 			this.txtEsercizio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label7
@@ -172,7 +174,7 @@
 			this.txtDataIncasso.Name = "txtDataIncasso";
 			this.txtDataIncasso.Size = new System.Drawing.Size(121, 20);
 			this.txtDataIncasso.TabIndex = 142;
-			this.txtDataIncasso.Tag = "flussoincassi.dataincasso";
+			this.txtDataIncasso.Tag = "flussoincassi.dataincasso?flussoincassidetailview.dataincasso";
 			this.txtDataIncasso.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// chbElaborato
@@ -182,7 +184,7 @@
 			this.chbElaborato.Name = "chbElaborato";
 			this.chbElaborato.Size = new System.Drawing.Size(88, 25);
 			this.chbElaborato.TabIndex = 140;
-			this.chbElaborato.Tag = "flussoincassi.elaborato:S:N";
+			this.chbElaborato.Tag = "flussoincassi.elaborato:S:N?flussoincassidetailview.elaborato:S:N";
 			this.chbElaborato.Text = "Elaborato";
 			// 
 			// txtTRN
@@ -191,7 +193,7 @@
 			this.txtTRN.Name = "txtTRN";
 			this.txtTRN.Size = new System.Drawing.Size(267, 20);
 			this.txtTRN.TabIndex = 138;
-			this.txtTRN.Tag = "flussoincassi.trn";
+			this.txtTRN.Tag = "flussoincassi.trn?flussoincassidetailview.trn";
 			// 
 			// label1
 			// 
@@ -209,7 +211,7 @@
 			this.chbAttivo.Name = "chbAttivo";
 			this.chbAttivo.Size = new System.Drawing.Size(66, 25);
 			this.chbAttivo.TabIndex = 137;
-			this.chbAttivo.Tag = "flussoincassi.active:S:N";
+			this.chbAttivo.Tag = "flussoincassi.active:S:N?flussoincassidetailview.active:S:N";
 			this.chbAttivo.Text = "Attivo";
 			// 
 			// txtCausale
@@ -221,7 +223,7 @@
 			this.txtCausale.Name = "txtCausale";
 			this.txtCausale.Size = new System.Drawing.Size(697, 42);
 			this.txtCausale.TabIndex = 134;
-			this.txtCausale.Tag = "flussoincassi.causale";
+			this.txtCausale.Tag = "flussoincassi.causale?flussoincassidetailview.causale";
 			// 
 			// lblCausale
 			// 
@@ -240,7 +242,7 @@
 			this.txtCodice.Name = "txtCodice";
 			this.txtCodice.Size = new System.Drawing.Size(474, 20);
 			this.txtCodice.TabIndex = 133;
-			this.txtCodice.Tag = "flussoincassi.codiceflusso";
+			this.txtCodice.Tag = "flussoincassi.codiceflusso?flussoincassidetailview.codiceflusso";
 			// 
 			// lblCodiceFlusso
 			// 

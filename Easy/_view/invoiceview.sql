@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- CREAZIONE VISTA invoiceview
+
+-- CREAZIONE VISTA invoiceview
 IF EXISTS(select * from sysobjects where id = object_id(N'[invoiceview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [invoiceview]
 GO
@@ -165,7 +167,8 @@ CREATE  VIEW [invoiceview]
 	p_iva_sostituto,
 	flaghuman_sostituto,
 	cc_dedicato,visura_camerale,durc,
-	flag_ddt
+	flag_ddt,
+	idnocigmotive
 	)
 	AS SELECT
 	invoice.idinvkind,
@@ -376,7 +379,7 @@ CREATE  VIEW [invoiceview]
 	case when sdi_vendita.flag_unseen&4<>0 then 'Ricevuta di consegna' else null end, --RC
 	case when sdi_vendita.flag_unseen&8<>0 then 'Notifica esito cedente / prestatore' else null end, -- NE
 	-- case when sdi_vendita.flag_unseen&16<>0 then 'Notifica decorrenza termini' else null end, -- DT
-	case when sdi_vendita.flag_unseen&32<>0 then 'Attestazione di avvenuta trasmissione con impossibilit√† di recapito' else null end, -- AT
+	case when sdi_vendita.flag_unseen&32<>0 then 'Attestazione di avvenuta trasmissione con impossibilit‡ di recapito' else null end, -- AT
 	
 	-- Acquisto e vendita
 	CASE
@@ -435,7 +438,9 @@ CREATE  VIEW [invoiceview]
 	case when invoice.requested_doc & 1 <> 0 then 'S' else 'N' end,
 	case when invoice.requested_doc & 2 <> 0 then 'S' else 'N' end,
 	case when invoice.requested_doc & 4 <> 0 then 'S' else 'N' end,
-	invoice.flag_ddt
+	invoice.flag_ddt,
+	invoice.idnocigmotive
+
 	
 FROM invoice WITH (NOLOCK)
 JOIN invoicekind WITH (NOLOCK)										ON invoicekind.idinvkind = invoice.idinvkind
@@ -468,4 +473,3 @@ GO
 
 
  
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿
+
+
 -- CREAZIONE VISTA upbcommessaview
 IF EXISTS(select * from sysobjects where id = object_id(N'[upbcommessaview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [upbcommessaview]
@@ -134,7 +136,7 @@ AS SELECT
 	-(select sum(case when A.flagaccountusage & 64 <> 0 then ED.amount else 0 end)  
 		from entrydetail ed (nolock)
 			join entry e (nolock) on e.yentry=ed.yentry and e.nentry=ed.nentry 
-			join upb  U (nolock) on U.idupb=upbcommessa.idupb
+			join upb  U (nolock) on isnull(U.idupb_capofila,U.idupb)=upbcommessa.idupb
 			join epupbkindyear EU (nolock)  on EU.idepupbkind = U.idepupbkind
 			join account A (nolock) on A.idacc = ed.idacc
 			where   ( U.start is null or year(U.start)<= upbcommessa.ayear) and
@@ -148,7 +150,7 @@ AS SELECT
 	(select sum(case when A.flagaccountusage & 8 <> 0 then ED.amount else 0 end)  
 		from entrydetail ed (nolock)
 			join entry e (nolock) on e.yentry=ed.yentry and e.nentry=ed.nentry 
-			join upb  U (nolock) on U.idupb=upbcommessa.idupb
+			join upb  U (nolock) on isnull(U.idupb_capofila,U.idupb)=upbcommessa.idupb
 			join epupbkindyear EU (nolock)  on EU.idepupbkind = U.idepupbkind
 			join account A (nolock) on A.idacc = ed.idacc
 			where   ( U.start is null or year(U.start)<= upbcommessa.ayear) and
@@ -163,7 +165,7 @@ AS SELECT
 	-(select sum(case when A.idacc = EU.idacc_accruals then ED.amount else 0 end)  
 		from entrydetail ed (nolock)
 			join entry e (nolock) on e.yentry=ed.yentry and e.nentry=ed.nentry 
-			join upb  U (nolock) on U.idupb=upbcommessa.idupb
+			join upb  U (nolock) on  isnull(U.idupb_capofila,U.idupb)=upbcommessa.idupb
 			join epupbkindyear EU (nolock)  on EU.idepupbkind = U.idepupbkind
 			join account A (nolock) on A.idacc = ed.idacc
 			where   ( U.start is null or year(U.start)<= upbcommessa.ayear) and
@@ -193,4 +195,3 @@ left outer join account account_accruals on upbcommessa.idacc_accruals=account_a
 left outer join account account_deferredcost on upbcommessa.idacc_deferredcost=account_deferredcost.idacc
 
 
-	

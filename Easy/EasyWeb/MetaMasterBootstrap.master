@@ -15,18 +15,23 @@
     <link type="text/css" href="css/custom-theme/jquery-ui-1.11.4.custom.min.css" rel="stylesheet" />
     <link type="text/css" href="css/jquery.pgrid.default.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.4.5.0.min.css?v=1">
 
     <link type="text/css" href="css/sm-core-css.css" rel="stylesheet" />
     <link type="text/css" href="css/sm-blue.css" rel="stylesheet" />
 
+    <link type="text/css" href="css/custom.css?v=54" rel="stylesheet" />
+
     <!--link type="text/css" href="css/bootstrap.min.css" rel="stylesheet" / !-->
     <!--link type="text/css" href="css/jquery-impromptu.css" rel="stylesheet" / !-->
     <!--link type="text/css" href="css/menustyle.css" rel="stylesheet" / !-->
-    <link type="text/css" href="css/masterbootstrap.css" rel="stylesheet" />
+    <link type="text/css" href="css/masterbootstrap.css?v=2" rel="stylesheet" />
 
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-
+    
+    <script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.11.4.js"></script>
 </head>
 <!--Commentare la riga che segue per abilitare il menù contestuale su tutte le pagine-->
 <!--Decommentare la successiva in caso di debug o si necessiti di visualizzare il sorgente HTML-->
@@ -111,7 +116,7 @@
             </asp:ContentPlaceHolder>
         </div>
         <asp:TextBox ID="TxSavedFocus" CssClass="savefocus" runat="server" Style="display: none;"  TabIndex ="-1" ></asp:TextBox>
-        <div  id="Div_CHPList" runat="server" style="display: inline-block; width: 800px;" >
+        <div  id="Div_CHPList" runat="server" style="display: inline-block; position: absolute; width: 80%; left: 10%;  top:10%" >
             <asp:ContentPlaceHolder ID="CHP_List" runat="server">
 
 
@@ -151,8 +156,6 @@
     </form>
     
 
-    <script type="text/javascript" src="js/jquery-2.1.0.js"></script>
-    <script type="text/javascript" src="js/jquery-ui-1.11.4.js"></script>
     
      <script type="text/javascript">
          var MetaMasterUsingBootstrap = true;
@@ -176,7 +179,7 @@
    
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src ="js/jquery.smartmenus.js" type="text/javascript"></script>
-        <script type="text/javascript" src="js/allmine.js"></script>
+        <script type="text/javascript" src="js/allmine.js?v=1"></script>
 
     <!--script src="js/bootstrap.js"></script !-->
     <!--script src="js/bootstrap.min.js"></script !-->
@@ -193,6 +196,15 @@
         </script>
 
     </asp:ContentPlaceHolder>
+
+    <script>
+        $("input[name*='txtData']").datepicker();
+        $(".accordion").accordion({
+            collapsible: true,
+            active: false
+        });
+    </script>
+
     
         
       

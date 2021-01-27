@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_check_liq_iva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_check_liq_iva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_check_liq_iva]
 GO
  
@@ -103,7 +105,7 @@ DECLARE @mesefine int
 		--WHEN flagdeferred = 'S' AND (IK.flag & 1)=0 and I.yinv = @esercizio THEN 'Acquisto anno corr. non ancora detraibili'
 		--WHEN flagdeferred = 'S' AND (IK.flag & 1)<>0 and I.yinv = @esercizio THEN 'Vendita  anno corr. non ancora esigibili'
 		ELSE 'Differita'
-	END as 'Esigibilit√†/Detraibilit√†',
+	END as 'Esigibilit‡/Detraibilit‡',
 	IK.description as 'Tipo Fattura', 
 	CASE
 		WHEN ((IK.flag&4)=0) THEN 'N'--flagvariation
@@ -183,7 +185,7 @@ DECLARE @mesefine int
 				WHEN 1 THEN 'Istituzionale'
 				WHEN 2 THEN 'Commerciale'
 				WHEN 3 THEN 'Promiscua'
-			END as 'Attivit√†',
+			END as 'Attivit‡',
 				CASE I.flagintracom 
 			WHEN 'S' THEN 'Intra-UE'
 			WHEN 'N' THEN 'Italia'
@@ -198,8 +200,8 @@ DECLARE @mesefine int
 		CASE IDET.intrastatoperationkind
 			WHEN 'S' THEN (select description from intrastatpaymethod where idintrastatpaymethod = I.idintrastatpaymethod)
 			ELSE NULL 
-		END as 'Modalit√† pagamento/incasso',		
-	(select description from intrastatsupplymethod where idintrastatsupplymethod = IDET.idintrastatsupplymethod) as 'Modalit√† erogazione',	
+		END as 'Modalit‡ pagamento/incasso',		
+	(select description from intrastatsupplymethod where idintrastatsupplymethod = IDET.idintrastatsupplymethod) as 'Modalit‡ erogazione',	
 		CASE IDET.intrastatoperationkind
 			WHEN 'S' THEN (select description from intrastatnation where idintrastatnation = I.iso_payment)
 		ELSE NULL 
@@ -337,4 +339,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

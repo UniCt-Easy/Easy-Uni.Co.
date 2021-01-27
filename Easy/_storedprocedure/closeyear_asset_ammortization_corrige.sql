@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø 
+
+ 
 if exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_asset_ammortization_corrige]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [closeyear_asset_ammortization_corrige]
 GO
@@ -56,7 +58,7 @@ select @idinventoryamortization = MAX(idinventoryamortization) from inventoryamo
 					
 BEGIN /* Creazione ALL_AMM   con le aliquote di ammortamento di tutta la class.inventariale 
 			sono considerate solo quelle con aliquota<0, ufficiali, attive
-			le et√† sono prese pari pari dalla configurazione
+			le et‡ sono prese pari pari dalla configurazione
 		*/
 
 create table #all_amm (
@@ -106,14 +108,14 @@ END
 		
 		
 BEGIN 	/* Creazione #SUM_AMM ed EVERY_AMM
-				#SUM_AMM		somma degli ammortamenti da applicare dall'inizio esistenza sino a quell'et√†
-				#EVERY_AMM		aliquote di ammortamento per tutte le voci di classificazione per tutte le et√†
+				#SUM_AMM		somma degli ammortamenti da applicare dall'inizio esistenza sino a quell'et‡
+				#EVERY_AMM		aliquote di ammortamento per tutte le voci di classificazione per tutte le et‡
 		*/
 
 
 create table #sum_amm (
 	idinv int,
-	sum_quota float, --somma degli ammortamenti da applicare dall'inizio esistenza sino a quell'et√†
+	sum_quota float, --somma degli ammortamenti da applicare dall'inizio esistenza sino a quell'et‡
 	valuemin decimal(19,2),
 	valuemax decimal(19,2),
 	eta int
@@ -175,7 +177,7 @@ select * from #every_amm where (select count(*) from #sum_amm S where S.idinv=#e
 */
 
 
---cancella da every_amm tutti gli ammortamenti su eta ove il bene dovrebbe essere gi√† stato ammortizzato completamente negli anni prec.
+--cancella da every_amm tutti gli ammortamenti su eta ove il bene dovrebbe essere gi‡ stato ammortizzato completamente negli anni prec.
 delete from #every_amm where isnull((select sum_quota from #sum_amm S where S.idinv=#every_amm.idinv and
 									isnull(S.valuemin,-1) = isnull(#every_amm.valuemin,-1) 
 									AND isnull(S.valuemax,-1) = isnull(#every_amm.valuemax,-1) 
@@ -185,7 +187,7 @@ delete from #every_amm where isnull((select sum_quota from #sum_amm S where S.id
 --a questo punto #every_amm contiene gli ammortamenti da fare, anno per anno, ossia non cumulativo
 
 --corregge l'aliquota in #EVERY_AMM per l'ultimo anno. Ad esempio se si ammortizza il 15% l'anno, l'ultimo anno si 
---  deve ammortizzare la quota residua che √® il 10% e non il 15%
+--  deve ammortizzare la quota residua che Ë il 10% e non il 15%
 with CRG (idinv,valuemin,valuemax,eta,ammquota) as (
 select S1.idinv,S1.valuemin,S1.valuemax, S1.eta,S1.sum_quota-S2.sum_quota 
 		from #sum_amm S1 
@@ -207,9 +209,9 @@ update #every_amm set ammquota=  CRG.ammquota
 END
 
 
---la stored procedure GetAssetValue √® usata per valutare l'importo corrente dei cespiti
---la stored procedure get_originalassetvalue √® usata per valutare l'importo iniziale dei cespiti, su cui calcolare l'ammortamento
--- se l'ammortamento calcolato √® tale da rendere il valore corrente negativo viene considerata una base per l'ammortamento opportunamente ridotta
+--la stored procedure GetAssetValue Ë usata per valutare l'importo corrente dei cespiti
+--la stored procedure get_originalassetvalue Ë usata per valutare l'importo iniziale dei cespiti, su cui calcolare l'ammortamento
+-- se l'ammortamento calcolato Ë tale da rendere il valore corrente negativo viene considerata una base per l'ammortamento opportunamente ridotta
 --   in modo da far si che l'aliquota di ammortamento per la base di ammortamento vada ad azzerare il valore residuo del cespite
 
 DECLARE @namortization int
@@ -308,12 +310,12 @@ JOIN assetload						ON assetload.idassetload = c.idassetload
 LEFT OUTER JOIN assetunload AU		ON AU.idassetunload = B.idassetunload    	
 WHERE   
 	B.amortizationquota is null -- >>> Agisce solo sui cespiti che non hanno una aliquota di ammortamento sul cespite stesso
-		--cespiti il cui anno di inizio esistenza √® <= @ayear
+		--cespiti il cui anno di inizio esistenza Ë <= @ayear
 	AND		YEAR(b.lifestart) <= @ayear  --AND YEAR(AL.ratificationdate)<=@ayear
 
 		AND ( (inventorykind.flag&2)=0) --nuovo flag in tipoinventario
 
-		-- prende come et√† cumulativa quella del cespite, volendo prendere un anno di meno forse si potrebbe togliere il +1 
+		-- prende come et‡ cumulativa quella del cespite, volendo prendere un anno di meno forse si potrebbe togliere il +1 
 		AND S.eta = (@ayear - YEAR(b.lifestart)) + 1
 		AND	((S.valuemin is null or S.valuemin<ISNULL(C.historicalvalue,AC.start) ) and (S.valuemax is null or S.valuemax>=ISNULL(C.historicalvalue,AC.start)))
 		-- solo cespiti di cui esiste un piano di ammortamento
@@ -322,11 +324,11 @@ WHERE
 		-- prende solo cespiti in carico
 		AND AC.is_loaded = 'S'		
 
-		-- non scaricati o scaricati dopo l'anno considerato. Si pu√≤ cambiarla in (AU.adate is null) se si vogliono saltare i cespiti scaricati
+		-- non scaricati o scaricati dopo l'anno considerato. Si puÚ cambiarla in (AU.adate is null) se si vogliono saltare i cespiti scaricati
 		AND (AU.adate is null OR YEAR(AU.adate)>@ayear )  --AND AC.is_unloaded='N'
 
 		AND 
-		(	--la somma degli ammortamenti caricati √® diversa dalla somma degli ammortamenti che sarebbero dovuti essere applicati
+		(	--la somma degli ammortamenti caricati Ë diversa dalla somma degli ammortamenti che sarebbero dovuti essere applicati
 			-- considerando il valore storico ove presente
 			-- @totamortization <> @totamortizationquota_expected 	* 	ISNULL(C.historicalvalue,AC.start)	
 			 (	/*isnull ( (SELECT SUM(CONVERT(DECIMAL(19,2),
@@ -361,7 +363,7 @@ WHERE
 			from  asset A_1	
 				  JOIN assetacquire B_1	on B_1.nassetacquire = A_1.nassetacquire
 					JOIN assetunload AU_1		ON A_1.idassetunload = AU_1.idassetunload				
-			where A_1.idasset = B.idasset and B.idpiece=1			-- √® accessorio del cespite principale in questione B 
+			where A_1.idasset = B.idasset and B.idpiece=1			-- Ë accessorio del cespite principale in questione B 
 					and   A_1.idpiece >1
 					and  ((B_1.flag & 1 = 0) AND (B_1.flag & 2 <> 0)) --accessorio posseduto da non includere in buono carico
 					AND (year(AU_1.adate) <= @ayear)			--accessorio scaricato 
@@ -391,7 +393,7 @@ BEGIN
 					+' subtractions:'+ convert(varchar(30), @subtractions)
 	end
 
-	--@val_iniziale √® il valore iniziale gi√† decurtato del valore INIZIALE degli accessori posseduti
+	--@val_iniziale Ë il valore iniziale gi‡ decurtato del valore INIZIALE degli accessori posseduti
 	 set @totamortization_expected= convert(decimal(19,2),
 			round(@totamortizationquota_expected* @val_iniziale ,2))
 
@@ -441,7 +443,7 @@ drop table #all_amm
 drop table #sum_amm
 
 
--- La sequente query √® uguale a quella precedente MA agisce solo sui cespiti che hanno valorizzata l'aliquota di ammortamento sul cespite stesso
+-- La sequente query Ë uguale a quella precedente MA agisce solo sui cespiti che hanno valorizzata l'aliquota di ammortamento sul cespite stesso
 -- Caso in cui il cespite ha data di inizio esistenza NOT NULL
 -- Applico tutte le rivalutazioni UFFICIALI che nell'anno sono associate alla classificazione del cespite e che hanno ETA NULL
 DECLARE amt_crs INSENSITIVE CURSOR FOR
@@ -479,7 +481,7 @@ JOIN assetload						ON assetload.idassetload = c.idassetload
 LEFT OUTER JOIN assetunload AU		ON AU.idassetunload = B.idassetunload    	
 WHERE   
 		B.amortizationquota is NOT null
-		--cespiti il cui anno di inizio esistenza √® <= @ayear
+		--cespiti il cui anno di inizio esistenza Ë <= @ayear
 		AND YEAR(b.lifestart) <= @ayear  --- SARA: E SE FOSSE NULL?
 
 		AND ( (inventorykind.flag&2)=0) --nuovo flag in tipoinventario
@@ -492,7 +494,7 @@ WHERE
 		
 
 		AND 
-		(	--la somma degli ammortamenti caricati √® diversa dalla somma degli ammortamenti che sarebbero dovuti essere applicati
+		(	--la somma degli ammortamenti caricati Ë diversa dalla somma degli ammortamenti che sarebbero dovuti essere applicati
 			-- considerando il valore storico ove presente
 			-- @totamortization <> @totamortizationquota_expected 	* 	ISNULL(C.historicalvalue,AC.start)	
 			 (	
@@ -511,7 +513,7 @@ WHERE
 			from  asset A_1	
 				  JOIN assetacquire B_1	on B_1.nassetacquire = A_1.nassetacquire
 					JOIN assetunload AU_1		ON A_1.idassetunload = AU_1.idassetunload				
-			where A_1.idasset = B.idasset and B.idpiece=1			-- √® accessorio del cespite principale in questione B 
+			where A_1.idasset = B.idasset and B.idpiece=1			-- Ë accessorio del cespite principale in questione B 
 					and   A_1.idpiece >1
 					and  ((B_1.flag & 1 = 0) AND (B_1.flag & 2 <> 0)) --accessorio posseduto da non includere in buono carico
 					AND (year(AU_1.adate) <= @ayear)			--accessorio scaricato 
@@ -541,7 +543,7 @@ BEGIN
 					+' subtractions:'+ convert(varchar(30), @subtractions)
 	end
 
-	--@val_iniziale √® il valore iniziale gi√† decurtato del valore INIZIALE degli accessori posseduti
+	--@val_iniziale Ë il valore iniziale gi‡ decurtato del valore INIZIALE degli accessori posseduti
 	 set @totamortization_expected= convert(decimal(19,2),
 			round(@totamortizationquota_expected* @val_iniziale ,2))
 
@@ -622,4 +624,3 @@ idasset:255 idpiece:1 expected:-800.00 found:-128.00
 iniz.800 revals 800 rev.pending 24 current 1600 total 960
 valore iniziale:800.00 attuale:696.00 amm.attesi:-800.00 amm.trovati:-128.00
 */
-	

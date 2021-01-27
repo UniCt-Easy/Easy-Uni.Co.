@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Data;
 using metaeasylibrary;
 using metadatalibrary;
@@ -277,17 +279,17 @@ namespace meta_viterbo_finvardetail
         public override bool IsValid(DataRow R, out string errmess, out string errfield) {
             if (!base.IsValid(R, out errmess, out errfield)) return false;
             if (R["amount"] == DBNull.Value) {
-                errmess = "Attenzione! L'importo non pu√≤ essere nullo.";
+                errmess = "Attenzione! L'importo non puÚ essere nullo.";
                 errfield = "amount";
                 return false;
             }
             if (CfgFn.GetNoNullInt32(R["idfin"]) == 0) {
-                errmess = "Attenzione! La voce di bilancio non pu√≤ essere nulla.";
+                errmess = "Attenzione! La voce di bilancio non puÚ essere nulla.";
                 errfield = "finview.codefin";
                 return false;
             }
             if (CfgFn.GetNoNullDecimal(R["limit"]) < 0) {
-                errmess = "Il limite non pu√≤ essere negativo.";
+                errmess = "Il limite non puÚ essere negativo.";
                 errfield = "limit";
                 return false;
             }

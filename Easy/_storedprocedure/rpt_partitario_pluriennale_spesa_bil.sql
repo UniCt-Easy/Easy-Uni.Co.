@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_pluriennale_spesa_bil]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_pluriennale_spesa_bil]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_partitario_pluriennale_spesa_bil]
 GO
 
@@ -73,9 +75,9 @@ SELECT  @phasecassa = description FROM expensephase WHERE nphase = @maxexpenseph
 DECLARE @secondphase varchar(50)
 DECLARE @thirdphase varchar(50)
 DECLARE @second tinyint
--- la seconda fase √® quella successiva alla prima MA non deve essere quella del pagamento
+-- la seconda fase Ë quella successiva alla prima MA non deve essere quella del pagamento
 SELECT  @secondphase = description, @second = nphase FROM expensephase WHERE nphase = @finphase+1 and nphase < @maxexpensephase
--- la terza fase √® quella successiva alla seconda MA non deve essere quella del pagamento
+-- la terza fase Ë quella successiva alla seconda MA non deve essere quella del pagamento
 SELECT  @thirdphase = description FROM expensephase  WHERE nphase =  @second + 1 and nphase < @maxexpensephase
 
 DECLARE @level_input tinyint
@@ -89,7 +91,7 @@ END
 IF (@codefin is not null)
 SET @codefin = @codefin + '%'
 -- con i livelli @nlevel e @level_input saranno gestiti le stampe a seconda della selezione del livello di input
--- ossia se scegliamo di fare una stampa x articolo, vedremo gli articoli laddove il cap. non √® articolato vedremo il capitolo
+-- ossia se scegliamo di fare una stampa x articolo, vedremo gli articoli laddove il cap. non Ë articolato vedremo il capitolo
 -- se scelgiamo come livello articolo e selezioniamo un capitolo vedremo tutti gli articoli di quel capitolo
 
 DECLARE @level varchar(50)
@@ -141,12 +143,12 @@ WHERE   ayear = @ayearstop
 /*
 Per le VARIAZIONI DI PREVISIONE 
 vanno prese SOLO quelle che incidono sulla previsione finale. 
-Quindi, vanno ESCLUSE quelle che ribaltano la prev. disponibile al 31/12 in prev. iniziale al 01/01 perch√® non incidono sulla previsione dell'UPB, 
+Quindi, vanno ESCLUSE quelle che ribaltano la prev. disponibile al 31/12 in prev. iniziale al 01/01 perchË non incidono sulla previsione dell'UPB, 
 vanno INCLUSE le var. di prev. insite nella previsione, calcolate come la prev.di finyear + var. di assestamento e 
 SOTTRAENDO il disponibile dell'anno prec. con i dovuti finlookup. 
 */
 
---Ora sta prendendo quelle che deve elencare: sta escludendo SIA quelle di assestamento e ripartizione, perch√® saranno sommate 
+--Ora sta prendendo quelle che deve elencare: sta escludendo SIA quelle di assestamento e ripartizione, perchË saranno sommate 
 -- a quelle insite alla prev, CHE quelle fatte per ribaltare la prev di fine anno.
 	INSERT INTO #expense
 		(
@@ -263,8 +265,8 @@ WHERE 	((fin.flag&1)<>0)
 		   )
 		)
 	AND (@codefin IS NULL OR fin.codefin like @codefin )
---> Le var insite le deve calcolare dal 2¬∞ anno in poi, nel primo anno 
--- non vanno calcolate, per il 1¬∞ anno sar√† presa la var. iniziale e poi le variaizoni che fa l'utente N e S
+--> Le var insite le deve calcolare dal 2∞ anno in poi, nel primo anno 
+-- non vanno calcolate, per il 1∞ anno sar‡ presa la var. iniziale e poi le variaizoni che fa l'utente N e S
 	AND finyear.ayear > (select min(birtyear.ayear) from finyear birtyear 
 				JOIN fin F2
 					ON birtyear.idfin = F2.idfin
@@ -315,8 +317,8 @@ INSERT INTO #previous
 				--AND FDV.idfin = finyear.idfin 
 				AND F.codefin like fin.codefin + '%')
 			,0),
--- se √® un bilancio di competenza/cassa o solo competenza legge la fase di bilancio ai fini di calcolarsi il disp. a impegnare dell'anno prec
--- se √® un bilancio di sola cassa la fase di pagamento ai fini di calcolarsi il disp. a pagare dell'anno prec.
+-- se Ë un bilancio di competenza/cassa o solo competenza legge la fase di bilancio ai fini di calcolarsi il disp. a impegnare dell'anno prec
+-- se Ë un bilancio di sola cassa la fase di pagamento ai fini di calcolarsi il disp. a pagare dell'anno prec.
 CASE @previsionkind 
 		WHEN 'C' 
 		THEN
@@ -343,7 +345,7 @@ CASE @previsionkind
 				AND expense.nphase = @finphase 
 				--AND ISNULL(expensevar.adate,{d '1900-01-01'})<= @stop
 		),0)
-		+ 	-- Ho separato le var. perch√® le var le deve prendere anche in anni deiversi da quello di creazione della spesa.
+		+ 	-- Ho separato le var. perchË le var le deve prendere anche in anni deiversi da quello di creazione della spesa.
 			-- Se per esempio devo diminuire un impegno residuo.
 		ISNULL((
 			SELECT SUM(ISNULL(expensevar.amount, 0))
@@ -432,7 +434,7 @@ RETURN
 		hierarchy,
 		I.idman -- dovrebbe essere uguale a P.idman 
 		)
--- I LEFT OUTER JOIN sono stati introdotti perch√® pu√≤ capitare che un capitolo del 2002 confluisca in un capitolo del 2003 nuovo, ossia creato nel 2003
+-- I LEFT OUTER JOIN sono stati introdotti perchË puÚ capitare che un capitolo del 2002 confluisca in un capitolo del 2003 nuovo, ossia creato nel 2003
 	SELECT 
 		I.ayear,
 		I.idfin,
@@ -455,7 +457,7 @@ RETURN
 		ON P.idfin = F.oldidfin
 	JOIN finyear FY_P
 		ON FY_P.idfin = P.idfin
-	WHERE ISNULL(P.ayear,I.ayear - 1) = I.ayear - 1 -- Altri filtri sui parametri @... non servono perch√® sono stati usati nelle tab. Temporanee
+	WHERE ISNULL(P.ayear,I.ayear - 1) = I.ayear - 1 -- Altri filtri sui parametri @... non servono perchË sono stati usati nelle tab. Temporanee
 	AND (
 		(SELECT codefin FROM fin WHERE idfin = F.oldidfin)=(SELECT codefin FROM fin WHERE idfin = F.newidfin)
 		OR 
@@ -1033,7 +1035,7 @@ BEGIN
 	JOIN finlevel fl
 		ON fin.nlevel = fl.nlevel 
 		AND fin.ayear = fl.ayear
--- non posso fare il JOIN stretto perch√® se faccio la stampa x capitolo, per i capitoli articolati 
+-- non posso fare il JOIN stretto perchË se faccio la stampa x capitolo, per i capitoli articolati 
 -- il JOIN stretto mi prendeerebbe gli articoli
 	LEFT OUTER JOIN finlast
 		ON fin.idfin = finlast.idfin
@@ -1058,7 +1060,7 @@ END
 -- se ho scelto di nascondere le voci di bilancio non utilizzate:
 -- cancello le righe che hanno valori pari a zero 
 -- per cui non esistono variazioni di previsioni (rowkind=2) o movimenti di entrata (rowkind >= 3 )  
-IF (@suppressifblank = 'S') AND @nlevel>2	--> se la stampa √® x un livello sottostante la categoria cancella le righe
+IF (@suppressifblank = 'S') AND @nlevel>2	--> se la stampa Ë x un livello sottostante la categoria cancella le righe
 BEGIN
 	DELETE FROM #expense WHERE 
 		ISNULL(initialprevision,0)=0 AND 
@@ -1138,4 +1140,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'exp_certificazioneunica_h_pign_16') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'exp_certificazioneunica_h_pign_16') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure exp_certificazioneunica_h_pign_16
 GO
  
@@ -50,7 +52,7 @@ AS BEGIN
 	--AU001072 Casi particolari operazioni straordinarie - Codice Fiscale sezione 
 	--pignoramento presso terzi CF
 
-	--Pu√≤ essere presente solo √® compilata la sezione Somme
+	--PuÚ essere presente solo Ë compilata la sezione Somme
 	--liquidate a seguito di pignoramento presso terzi (campi da AU001101 a AU001108).
 	
 	--Somme liquidate a seguito di pignoramento verso terzi - Riservato al soggetto erogante delle somme
@@ -359,4 +361,3 @@ GO
 
  
  
-	

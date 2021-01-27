@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[f_compute_csa_versamenti_partition]') and OBJECTPROPERTY(id, N'IsTableFunction') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[f_compute_csa_versamenti_partition]') and OBJECTPROPERTY(id, N'IsTableFunction') = 1)
 drop function [f_compute_csa_versamenti_partition]
 GO
  
@@ -106,7 +108,7 @@ DECLARE  @automov AS TABLE
 
 	
 		-- generazione dei movimenti finanziari di spesa per il versamento di CONTRIBUTI   positivi
-		-- A LIQUIDAZIONE DIRETTA	movkind 4		(la liq. Ã¨ sempre diretta)
+		-- A LIQUIDAZIONE DIRETTA	movkind 4		(la liq. è sempre diretta)
 		INSERT INTO @automov
 		(	idcsa_import,kind, idver,ndetail, parentidexp, 	idreg,	idfin, idsor_siope,	idupb,
 			amount,	movkind,	description,
@@ -114,15 +116,15 @@ DECLARE  @automov AS TABLE
 			idcsa_contractkind,idcsa_contract,	idunderwriting,		vocecsa
 		)
 		SELECT P.idcsa_import,'S',P.idver,P.ndetail,P.idexp,
-			idreg_agency,  -- modalitÃ  pagamento configurata per l'ente CSA di versamento
+			idreg_agency,  -- modalità pagamento configurata per l'ente CSA di versamento
 			P.idfin,	P.idsor_siope,
 			P.idupb, -- CONFIGURATO NELLA SCHEDA CONTRIBUTI DEL CONTRATTO O NEL TIPO CONTRATTO
 			P.amount,			4,
  
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Versamento Contributi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + CONVERT(varchar(10),csa_import.nimport) + '/' + 
+				WHEN 'S' THEN SUBSTRING('Versamenti Contributi(pos.)'+ vocecsa +   ' Import. Stipendi  n° ' + CONVERT(varchar(10),csa_import.nimport) + '/' + 
 										CONVERT(varchar(10),csa_import.yimport)+ '.'+csa_import.description,1,150)
-				ELSE SUBSTRING('Versamento Contributi ' +   ' Import. Stipendi  nÂ° ' + CONVERT(varchar(10),csa_import.nimport)  + '/' + 
+				ELSE SUBSTRING('Versamenti Contributi(pos.)' +   ' Import. Stipendi  n° ' + CONVERT(varchar(10),csa_import.nimport)  + '/' + 
 					 CONVERT(varchar(10),csa_import.yimport)+ '.'+csa_import.description,1,150)
 			END,
 			idacc_expense, -- debito verso erario
@@ -149,14 +151,14 @@ DECLARE  @automov AS TABLE
 	INSERT INTO @automov
 		(idcsa_import,kind, idver,ndetail, idreg,idfin,idsor_siope,idupb,amount,movkind,description,idacc,idcsa_agency,idcsa_agencypaymethod,idcsa_contractkind,idcsa_contract,vocecsa)
 		SELECT P.idcsa_import,'S',P.idver,P.ndetail,
-			idreg_agency,  -- prenderÃ² la modalitÃ  di pagamento configurata per l'ente CSA di versamento
+			idreg_agency,  -- prenderò la modalità di pagamento configurata per l'ente CSA di versamento
 			idfin_expense,	idsor_siope_expense,
 			'0001', --SEMPRE PER PARTITE DI GIRO
 			P.amount,		4,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Versamento Ritenute '+ vocecsa +   ' Import. Stipendi  nÂ° ' + CONVERT(varchar(10),csa_import.nimport) + '/' + 
+				WHEN 'S' THEN SUBSTRING('Versamenti Ritenute(pos.)'+ vocecsa +   ' Import. Stipendi  n° ' + CONVERT(varchar(10),csa_import.nimport) + '/' + 
 										CONVERT(varchar(10),csa_import.yimport)+ '.'+csa_import.description,1,150)
-				ELSE SUBSTRING('Versamento Ritenute ' +   ' Import. Stipendi  nÂ° ' + CONVERT(varchar(10),csa_import.nimport)  + '/' + 
+				ELSE SUBSTRING('Versamenti Ritenute(pos.)' +   ' Import. Stipendi  n° ' + CONVERT(varchar(10),csa_import.nimport)  + '/' + 
 					 CONVERT(varchar(10),csa_import.yimport)+ '.'+csa_import.description,1,150)
 			END,
 			idacc_expense, -- debito verso erario
@@ -186,9 +188,9 @@ DECLARE  @automov AS TABLE
 			idfin_incomeclawback, 	idsor_siope_incomeclawback,
 			P.idupb, 		-P.amount,			10,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Contributo negativo '+ vocecsa +   ' Import. Stipendi  nÂ° ' + CONVERT(varchar(10),csa_import.nimport) + '/' + 
+				WHEN 'S' THEN SUBSTRING('Contributo(neg.) '+ vocecsa +   ' Import. Stipendi  n° ' + CONVERT(varchar(10),csa_import.nimport) + '/' + 
 										CONVERT(varchar(10),csa_import.yimport)+ '.'+csa_import.description,1,150)
-				ELSE SUBSTRING('Contributo negativo ' +   ' Import. Stipendi  nÂ° ' + CONVERT(varchar(10),csa_import.nimport)  + '/' + 
+				ELSE SUBSTRING('Contributo(neg.)' +   ' Import. Stipendi  n° ' + CONVERT(varchar(10),csa_import.nimport)  + '/' + 
 					 CONVERT(varchar(10),csa_import.yimport)+ '.'+csa_import.description,1,150)
 			END,
 
@@ -221,9 +223,9 @@ SELECT P.idcsa_import,'E',P.idver,P.ndetail,
 	'0001',	-P.amount,	9,
  
 	CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Ritenute negative '+ vocecsa +   ' Import. Stipendi  nÂ° ' + CONVERT(varchar(10),csa_import.nimport) + '/' + 
+				WHEN 'S' THEN SUBSTRING('Ritenute(neg.) '+ vocecsa +   ' Import. Stipendi  n° ' + CONVERT(varchar(10),csa_import.nimport) + '/' + 
 										CONVERT(varchar(10),csa_import.yimport)+ '.'+csa_import.description,1,150)
-				ELSE SUBSTRING('Ritenute negative ' +   ' Import. Stipendi  nÂ° ' + CONVERT(varchar(10),csa_import.nimport)  + '/' + 
+				ELSE SUBSTRING('Ritenute(neg.)' +   ' Import. Stipendi  n° ' + CONVERT(varchar(10),csa_import.nimport)  + '/' + 
 					 CONVERT(varchar(10),csa_import.yimport)+ '.'+csa_import.description,1,150)
 			END,
 	idacc_agency_credit, --credito verso erario
@@ -300,4 +302,3 @@ END
 GO
 
 
-	

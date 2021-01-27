@@ -2,10 +2,10 @@ MIME-Version: 1.0
 Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--RX3PSKLL478Q1JIOG503DB4S7"
+  boundary="---------blocknote.net--1II688BITI0OVJ0UD8G1JNJHSI"
 
 
------------blocknote.net--RX3PSKLL478Q1JIOG503DB4S7
+-----------blocknote.net--1II688BITI0OVJ0UD8G1JNJHSI
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -17,6 +17,8 @@ Content-Transfer-Encoding: quoted-printable
     <META name=3D"GENERATOR" content=3D"BLOCKNOTE.NET">
     <META name=3D"source" content=3D"file:///C:/Users/Utente/Desktop/ANNU=
 LLANENTO MANDATO DI PAGAMENTO FATTURA SPLIT.docx">
+    <META name=3D"source" content=3D"mhtml:file://C:\Program Files (x86)\=
+Tempo Srl\Easy\bin\epexp_default.mht">
     <BASEFONT face=3D"Times New Roman" size=3D"3">
     <TITLE></TITLE><STYLE>BODY { FONT-FAMILY:Times New Roman; FONT-SIZE:1=
 2pt }
@@ -26,69 +28,96 @@ TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
 </STYLE>
   </HEAD>
 <BODY>
-<P align=3D"center"><STRONG><FONT color=3D#0066ff>ANNULLANENTO MANDATO DI=
- PAGAMENTO FATTURA SPLIT</FONT></STRONG></P>
-<P>Il mandato relativo al pagamento di una Fattura di acquisto pu=C3=B2 e=
-ssere annullato solo se non risulta inserito in una Distinta di trasmissi=
-one e se anche gli eventuali automatismi di entrata non risultano inserit=
-i in una Distinta di Trasmissione.</P>
-<P>Se questa condizione =C3=A8 verificata, si potr=C3=A0 procedere all'<S=
-TRONG><FONT color=3D#0066ff>annullamento</FONT></STRONG> del <STRONG><FON=
-T color=3D#0066ff>mandato</FONT></STRONG> relativo al pagamento di una Fa=
-ttura di acquisto, seguendo i passaggi di seguito elencati.</P>
-<P><STRONG>NB</STRONG>! Qualora non vengano seguiti tutti i passaggi desc=
-ritti di seguito, si potranno generare errori e incoerenze anche gravi. L=
-e operazioni sotto descritte dovranno essere eseguite esattamente nell=E2=
-=80=99ordine indicato. In caso contrario, infatti, potrebbero scattare de=
-lle regole bloccanti tali da impedire l=E2=80=99operazione in oggetto.</P=
->
+<H2 align=3D"center"><FONT size=3D"6">ANNULLAMENTO MANDATO DI PAGAMENTO F=
+ATTURA SPLIT</FONT></H2><DIV align=3D"right">
+<TABLE border=3D"1" cellspacing=3D"1" width=3D"20%">
+  <TR>
+    <TD valign=3D"middle">v. 1.0</TD>
+    <TD valign=3D"middle">Creazione</TD>
+    <TD>24/01/2018</TD>
+  </TR>
+  <TR>
+    <TD>v. 1.1</TD>
+    <TD valign=3D"middle">Revisione</TD>
+    <TD>06/08/2020</TD>
+  </TR>
+</TABLE>
+</DIV><HR>
+<H2 align=3D"justify"></STRONG><FONT size=3D"4">Link guide correlate:</FO=
+NT></FONT></H2>
+<DIV align=3D"justify"><A href=3D"payment_docmultiplo.mht"><FONT size=3D"=
+4">Mandato di pagamento</A></FONT></DIV>
+<DIV align=3D"justify"><A href=3D"proceeds_reversalemultipla.mht"><FONT s=
+ize=3D"4">Reversale di incasso</A></FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV><HR>
+<P align=3D"justify">I<FONT size=3D"4">l mandato relativo al pagamento di=
+ una Fattura di acquisto pu=C3=B2 essere annullato solo <U>se non risulta=
+ inserito in una distinta di trasmissione</U> e se anche gli eventuali au=
+tomatismi di entrata non risultano inseriti in una Distinta di Trasmissio=
+ne.</FONT></P>
+<P><FONT size=3D"4">Se questa condizione =C3=A8 verificata, si potr=C3=A0=
+ procedere all'annullamento del mandato relativo al pagamento di una Fatt=
+ura di acquisto, seguendo i passaggi di seguito elencati.</FONT></P>
+<P align=3D"justify"><STRONG><FONT size=3D"4">NB</STRONG>! Qualora non ve=
+ngano seguiti tutti i passaggi descritti di seguito, si potranno generare=
+ errori e incoerenze anche gravi. Le operazioni sotto descritte dovranno =
+essere eseguite esattamente nell=E2=80=99ordine indicato. In caso contrar=
+io, infatti, potrebbero scattare delle regole bloccanti tali da impedire =
+l=E2=80=99operazione in oggetto.</FONT></P>
+<P align=3D"justify">&nbsp;</P>
+<P align=3D"justify"><FONT size=3D"4">Le operazioni da effettuare sono le=
+ seguenti:</FONT></P>
+<BLOCKQUOTE>
+<P><FONT size=3D"4">1.<STRONG> Annullare la Reversale relativa all=E2=80=99=
+iva split</STRONG> inserendo la &quot;Data annullamento&quot; sulla rever=
+sale nella scheda Principale.</FONT></P>
+<P><FONT size=3D"4">Per verificare qual =C3=A8 il numero della reversale =
+da annullare, occorre posizionarsi sulla scheda &quot;<STRONG><EM>Recuper=
+i</EM></STRONG>&quot; del pagamento che si intende annullare e cliccare s=
+ul pulsante<STRONG> </STRONG>=E2=80=9CVisualizza automatismi=E2=80=9D<STR=
+ONG> </STRONG>presente in basso a destra (Figura 1)<STRONG>.</FONT></STRO=
+NG></P></BLOCKQUOTE>
+
 <P>&nbsp;</P>
-<P>1. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>annullare la Reversale relati=
-va all=E2=80=99iva split</STRONG> inserendo la data di annullamento sulla=
- Reversale.</P>
-<P>Per verificare qual =C3=A8 il numero della Reversale da annullare, occ=
-orre posizionarsi sulla scheda &quot;<STRONG><EM>Recuperi</EM></STRONG>&q=
-uot; del pagamento che si intende annullare e cliccare sul pulsante<STRON=
-G> </STRONG>=E2=80=9CVisualizza automatismi=E2=80=9D<STRONG> </STRONG>pre=
-sente in basso a destra (Figura 1)<STRONG>.</STRONG></P>
-<P>&nbsp;</P>
-<P align=3D"center"><IMG src=3D"cid:1QT8R9RICN0UI105KPMIAQCTWY" width=3D"=
-642" height=3D"478"></P>
-<P align=3D"center">Figura 1</P>
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:14NPJHIIMQ2NK19VV25Y=
+XEZ4DY" width=3D"642" height=3D"478"></FONT></P>
+<P align=3D"center"><FONT size=3D"4">Figura 1</FONT></P>
 <P align=3D"center">&nbsp;</P>
-<P>2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>azzerare tutte le fasi di ent=
-rata precedenti all=E2=80=99incasso</STRONG> inserendo alternativamente o=
- una variazione in diminuzione nella scheda &quot;<STRONG><EM>Variazioni<=
-/EM></STRONG>&quot; dell'incasso<STRONG> </STRONG>o apponendo il flag in =
-corrispondenza del campo =E2=80=9C<STRONG><EM>Azzerare il disponibile di =
-tutti i mov. fin. precedenti</EM></STRONG>=E2=80=9D presente su quest=E2=80=
-=99ultimo (in tal'ultimo caso si otterr=C3=A0 l=E2=80=99annullamento di <=
-U>tutte</U> le fasi precedenti);</P>
-<P>3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>cancellare il recupero</STRON=
-G> dalla liquidazione accedendo alla scheda =E2=80=9C<STRONG><EM>Recuperi=
-</EM></STRONG>=E2=80=9De cliccando sul pulsante Cancella. Salvare il paga=
-mento (Figura 2);</P>
+<BLOCKQUOTE>
+<P><FONT size=3D"4">2.<STRONG> azzerare tutte le fasi di entrata preceden=
+ti all=E2=80=99incasso</STRONG> inserendo alternativamente o una variazio=
+ne in diminuzione nella scheda &quot;<STRONG><EM>Variazioni</EM></STRONG>=
+&quot; dell'incasso<STRONG> </STRONG>o apponendo il flag in corrispondenz=
+a del campo =E2=80=9C<STRONG><EM>Azzerare il disponibile di tutti i mov. =
+fin. precedenti</EM></STRONG>=E2=80=9D presente su quest=E2=80=99ultimo (=
+in tal'ultimo caso si otterr=C3=A0 l=E2=80=99annullamento di <U>tutte</U>=
+ le fasi precedenti);</FONT></P>
+<P><FONT size=3D"4">3.<STRONG> cancellare il recupero</STRONG> dalla liqu=
+idazione accedendo alla scheda =E2=80=9C<STRONG><EM>Recuperi</EM></STRONG=
+>=E2=80=9De cliccando sul pulsante Cancella. Salvare il pagamento (Figura=
+ 2);</FONT></P></BLOCKQUOTE>
+
 <P>&nbsp;</P>
-<P align=3D"center"><IMG src=3D"cid:1B4SKZULTB5O31MVEIDSA0CJS9" width=3D"=
-520" height=3D"281"></P>
-<P align=3D"center">Fugura 2</P>
-<P>&nbsp;</P>
-<P>4. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>annullare il mandato principa=
-le</STRONG>, inserendo la data di annullamento all=E2=80=99interno dello =
-stesso con contestuale generazione di una variazione in diminuzione a liv=
-ello di liquidazione;</P>
-<P>&nbsp;</P>
-<P>5. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG>decontabilizzare la fattura</=
-STRONG> scollegandola dal pagamento collegato, accedendo al men=C3=B9: <S=
-TRONG>Spese &gt; Rimuovi contabilizzazione</STRONG> e selezionando il num=
-ero del pagamento di riferimento.</P>
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:1KG6J29JXTQCGDMC29X1=
+IKGGVY" width=3D"520" height=3D"281"></FONT></P>
+<P align=3D"center"><FONT size=3D"4">Figura 2</FONT></P>
+<BLOCKQUOTE>
+<P><FONT size=3D"4">4<STRONG>. annullare il mandato principale</STRONG>, =
+inserendo la data di annullamento all=E2=80=99interno. All'atto del salva=
+taggio dell'annullo sar=C3=A0 inserita una variazione in diminuzione sull=
+a fase del pagamento/liquidazione;</FONT></P>
+<P><FONT size=3D"4">5.<STRONG> decontabilizzare la fattura</STRONG> scoll=
+egandola dal pagamento collegato, accedendo al men=C3=B9: <STRONG>Spese &=
+gt; Rimuovi contabilizzazione</STRONG> e selezionando il numero del pagam=
+ento di riferimento.</FONT></P></BLOCKQUOTE>
+
 <DIV>&nbsp;</DIV>
 </BODY>
 </HTML>
 
------------blocknote.net--RX3PSKLL478Q1JIOG503DB4S7
+-----------blocknote.net--1II688BITI0OVJ0UD8G1JNJHSI
 Content-Type: image/jpeg
-Content-Id: <1QT8R9RICN0UI105KPMIAQCTWY>
+Content-Id: <14NPJHIIMQ2NK19VV25YXEZ4DY>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg
 
@@ -893,9 +922,9 @@ j7rVyth/qlrvrWws7FXFnaw24f7wijC5+uK4OxX9yv0rVSUrteX4KxMYuO/n+Zox
 9KkpidKfTKCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/2Q==
 =
 
------------blocknote.net--RX3PSKLL478Q1JIOG503DB4S7
+-----------blocknote.net--1II688BITI0OVJ0UD8G1JNJHSI
 Content-Type: image/x-png
-Content-Id: <1B4SKZULTB5O31MVEIDSA0CJS9>
+Content-Id: <1KG6J29JXTQCGDMC29X1IKGGVY>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Utente/AppData/Local/Temp/msohtmlclip1/01/clip_image003.png
 
@@ -1241,4 +1270,4 @@ ztPr9M/FY4/sNnpUnyuMKAwCIAACiUMgDIHB9Cl1dp6XF/G5ePyj+uSn+Entis3n
 xOni8AQEQMApATxEzykxD+TxED0PIEIFCICAbwRCsWLwzXsoBgEQAAEQ0BH4P00W
 AisnAmhxAAAAAElFTkSuQmCC=
 
------------blocknote.net--RX3PSKLL478Q1JIOG503DB4S7--
+-----------blocknote.net--1II688BITI0OVJ0UD8G1JNJHSI--

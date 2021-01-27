@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -218,7 +220,7 @@ namespace funzioni_configurazione {
         private bool getFileSimple(string remotedirectory, string remoteFilename, string localFilename) {
             EnsureLogged();
             if (!myFtp.Connected) {
-                errors.Add("Connessione al sito ftp non riuscita. La ricezione del file " + localFilename + " √® stata annullata");
+                errors.Add("Connessione al sito ftp non riuscita. La ricezione del file " + localFilename + " Ë stata annullata");
                 return false;
             }
             int retry = nMaxRetry;
@@ -332,7 +334,7 @@ namespace funzioni_configurazione {
             string targetFolder = cleanRootPath(folder.Replace('\\', myFtp.ServerFolderSeparator));
             //myFtp.ChangeCurrentFolder(targetFolder);
 
-            //Risale tante volte quante sin quando non √® alla radice oppure folder √® sottoramo di currentfolder
+            //Risale tante volte quante sin quando non Ë alla radice oppure folder Ë sottoramo di currentfolder
             while (cleanRootPath(currFolder) != cleanRootPath(rootPath) && !cleanRootPath(targetFolder).StartsWith(cleanRootPath(currFolder))) {
                 myFtp.ChangeToParentFolder();
                 currFolder = myFtp.GetCurrentFolder();
@@ -358,7 +360,7 @@ namespace funzioni_configurazione {
             if (!myFtp.Connected) {
                 errors.Add("Connessione al sito ftp non riuscita. L'invio del file " + localFilename +
                            " alla directory remota " + remotedirectory +
-                           " √® stata annullato");
+                           " Ë stata annullato");
                 return false;
             }
             int retry = nMaxRetry;

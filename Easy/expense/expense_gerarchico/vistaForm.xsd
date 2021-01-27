@@ -32,7 +32,7 @@
               <xs:element name="cupcode" type="xs:string" minOccurs="0" />
               <xs:element name="cigcode" type="xs:string" minOccurs="0" />
               <xs:element name="external_reference" type="xs:string" minOccurs="0" />
-              <xs:element name="idinc_linked" type="xs:string" minOccurs="0" />
+              <xs:element name="idinc_linked" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -2513,6 +2513,7 @@
       <msdata:Relationship name="expense_invoicedetail_taxable_nc" msdata:parent="expense" msdata:child="invoicedetail_taxable_nc" msdata:parentkey="idexp" msdata:childkey="idexp_taxable" />
       <msdata:Relationship name="expensevar_invoicedetail_taxable_nc" msdata:parent="expensevar" msdata:child="invoicedetail_taxable_nc" msdata:parentkey="ninv idexp yinv idinvkind" msdata:childkey="ninv idexp_taxable yinv idinvkind" />
       <msdata:Relationship name="expense_invoicedetail_taxable_nc1" msdata:parent="expense" msdata:child="invoicedetail_taxable_nc" msdata:parentkey="idexp" msdata:childkey="idexp_iva" />
+      <msdata:Relationship name="income_linked_expense" msdata:parent="income_linked" msdata:child="expense" msdata:parentkey="idinc" msdata:childkey="idinc_linked" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

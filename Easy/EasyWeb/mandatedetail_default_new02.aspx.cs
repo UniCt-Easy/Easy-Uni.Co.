@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -100,8 +102,8 @@ public partial class mandatedetail_default_new02 : MetaPage {
 
         if (firsttime) {
 
-            //Filtriamo gli upb con lo stesso tipo attivit√† del Tipo contratto passivo.
-            //Le upb con tipoattivit√† 'qualsiasi' verranno sempre mostrate
+            //Filtriamo gli upb con lo stesso tipo attivit‡ del Tipo contratto passivo.
+            //Le upb con tipoattivit‡ 'qualsiasi' verranno sempre mostrate
             //Filtriamo anche i tipi Aliquota Iva
             int flagactivity = 0;
             if (MandateKind.Rows.Count > 0) {
@@ -330,7 +332,7 @@ public partial class mandatedetail_default_new02 : MetaPage {
 
         if ((Curr["flagactivity"].ToString() != flagactivityUPB.ToString())
             && (flagactivityUPB.ToString() == "1" || flagactivityUPB.ToString() == "2")) {
-                bool do_update = ShowClientMessage("Cambio il Tipo attivit√† in base all'UPB selezionato?", "Attenzione", System.Windows.Forms.MessageBoxButtons.OKCancel);
+                bool do_update = ShowClientMessage("Cambio il Tipo attivit‡ in base all'UPB selezionato?", "Attenzione", System.Windows.Forms.MessageBoxButtons.OKCancel);
                 if (!do_update)
                     return;
 
@@ -486,11 +488,11 @@ public partial class mandatedetail_default_new02 : MetaPage {
         if (rdbQualsiasi.Checked)
             return basefilteriva; //nessun filtro
         if (rdbCommerciale.Checked)
-            return QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 1));  //tipo attivit√† commerciale 
+            return QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 1));  //tipo attivit‡ commerciale 
         if (rdbIstituzionale.Checked)
-            return QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 0));  //tipo attivit√† istituzionale
+            return QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 0));  //tipo attivit‡ istituzionale
         if (rdbPromiscua.Checked)
-            return QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 2));  //tipo attivit√† promiscua/altro
+            return QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 2));  //tipo attivit‡ promiscua/altro
         return basefilteriva;
     }
 
@@ -498,11 +500,11 @@ public partial class mandatedetail_default_new02 : MetaPage {
         if (rdbQualsiasi.Checked)
             return 4; //nessun filtro
         if (rdbCommerciale.Checked)
-            return 2;  //tipo attivit√† commerciale 
+            return 2;  //tipo attivit‡ commerciale 
         if (rdbIstituzionale.Checked)
-            return 1;  //tipo attivit√† istituzionale
+            return 1;  //tipo attivit‡ istituzionale
         if (rdbPromiscua.Checked)
-            return 3;  //tipo attivit√† promiscua/altro
+            return 3;  //tipo attivit‡ promiscua/altro
         return 4;
     }
 
@@ -527,8 +529,8 @@ public partial class mandatedetail_default_new02 : MetaPage {
         taxabletotal.FunctionName = "CalcTaxableTotal(" + HelpMetaWeb.JscriptString(tassocambio()) + ");";
         taxabletotal.DependsOn(taxabletotval);
 
-        taxabletotal.AddPostFormatEvent();////necessaria perch√©  taxabletotal non ha tag
-        taxabletotval.AddPostFormatEvent();////necessaria perch√©  taxabletotval non ha tag
+        taxabletotal.AddPostFormatEvent();////necessaria perchÈ  taxabletotal non ha tag
+        taxabletotval.AddPostFormatEvent();////necessaria perchÈ  taxabletotval non ha tag
 
         //rimane da fare: double impindeducEUR = CfgFn.RoundValuta(ivaEUR * percindeduc);
 
@@ -682,4 +684,3 @@ public partial class mandatedetail_default_new02 : MetaPage {
 
     }
 }
-

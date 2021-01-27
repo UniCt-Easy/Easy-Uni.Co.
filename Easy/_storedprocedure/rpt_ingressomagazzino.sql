@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_ingressomagazzino]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_ingressomagazzino]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_ingressomagazzino]
 GO
 
@@ -59,14 +61,14 @@ SELECT
 	D.idlist,
 	D.idstore,
 	D.idstock,
-	D.number, -- Richiesta = Q.t√† prenotata
-	D.number - isnull(T.number,0), -- Scaricata = Evase = q.t√† prenotata - quanto mi resta da scaricare
+	D.number, -- Richiesta = Q.t‡ prenotata
+	D.number - isnull(T.number,0), -- Scaricata = Evase = q.t‡ prenotata - quanto mi resta da scaricare
 	isnull(T.number,0),-- Da scaricare = non evasa
 	isnull(T.allocated,0)
 FROM booking B
 JOIN bookingdetail D
 	ON B.idbooking = D.idbooking
-LEFT OUTER JOIN booktotal T -- c'√® il LEFT perch√® quando la prenotazione viene scaricata completamente la riga verr√† cancellata
+LEFT OUTER JOIN booktotal T -- c'Ë il LEFT perchË quando la prenotazione viene scaricata completamente la riga verr‡ cancellata
 	ON D.idbooking = T.idbooking	
 	AND D.idlist = T.idlist
 	AND D.idstore = T.idstore
@@ -105,7 +107,7 @@ WHILE @@fetch_status=0 begin
 end
 deallocate crsbooking
 
--- Se NON usano prenotare con disponibilit√†, ossia se config.booking_on_invoice = 'N'
+-- Se NON usano prenotare con disponibilit‡, ossia se config.booking_on_invoice = 'N'
 -- forniamo l'ubicazione di uno stock qualsiasi(con giacenza) di pari idlist.
 DECLARE @booking_on_invoice char
 SELECT @booking_on_invoice = isnull(booking_on_invoice,'N') from config WHERE ayear = @ayear
@@ -183,4 +185,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

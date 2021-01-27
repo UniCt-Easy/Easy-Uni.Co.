@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[calc_csaimport]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[calc_csaimport]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [calc_csaimport]
 GO
  -- setuser'amministrazione'
@@ -44,7 +46,7 @@ if exists(select * from csa_contract_partition where ayear=@ayear) set @nuovages
 if exists(select * from csa_importver where ayear=@ayear and idcsa_contractkind is not null and idcsa_import=@idcsa_import)
 	or exists(select * from csa_importriep where ayear=@ayear and idcsa_contractkind is not null and idcsa_import=@idcsa_import)
 	 begin
-   --ci sono righe gi√† elaborate, ossia siamo nel pregresso, allora ci accertiamo di non cambiare elaborazioni vecchie
+   --ci sono righe gi‡ elaborate, ossia siamo nel pregresso, allora ci accertiamo di non cambiare elaborazioni vecchie
    if not exists(select * from csa_importver_partition where idcsa_import=@idcsa_import) AND
 		not exists(select * from csa_importriep_partition where idcsa_import=@idcsa_import) 
 	SET @nuovagestione='N'	
@@ -222,7 +224,7 @@ JOIN csa_contractkind	 ON   csa_contractkind.idcsa_contractkind = csa_importver.
 UPDATE csa_importver SET flagclawback = 'N' where flagclawback is null 	AND idcsa_import = @idcsa_import
 
 
---NOTA: per i recuperi "DIRETTI" (ove manca cap. di spesa) questo passo potrebbe non trovare la modalit√† o trovarne una fittizia			  
+--NOTA: per i recuperi "DIRETTI" (ove manca cap. di spesa) questo passo potrebbe non trovare la modalit‡ o trovarne una fittizia			  
 if (@nuovagestione='N') begin
 		--caso CONTRIBUTI/RECUPERI - A : valorizzo idfin_cost, idacc_cost, idexp_cost,idepexp da csa_contract se trovo corrispondenza con vocecsa e idcsa_contract e anno
 		--vecchia gestione (da csa_contracttax)
@@ -373,19 +375,19 @@ END
 
  
 -- RECUPERO, valorizzo il campo idupb, sulla base della scheda conf. incassi CSA individuata
--- Se si tratta di un recupero su partita di giro. L'upb sar√† usato per il
+-- Se si tratta di un recupero su partita di giro. L'upb sar‡ usato per il
 -- movimento finanziario di entrata post-versamento
--- Se si tratta di un recupero diretto, allora sar√† usato per l'incasso diretto (fase lordi)
+-- Se si tratta di un recupero diretto, allora sar‡ usato per l'incasso diretto (fase lordi)
 DECLARE @flagdirectcsaclawback char(1)  -- configurazione gestione recupero CSA
 
--- IN PRIMA ISTANZA SI CONSIDERA IL FLAG SPECIFICO DI csa_incomesetup, SE NON √® VALORIZZATO SI PRENDE
+-- IN PRIMA ISTANZA SI CONSIDERA IL FLAG SPECIFICO DI csa_incomesetup, SE NON Ë VALORIZZATO SI PRENDE
 -- IL FLAG DI CONFIG, SE E' NULL SI CONSIDERA N
 SELECT 
 		@flagdirectcsaclawback = flagdirectcsaclawback
 FROM config
 WHERE ayear = @ayear
 
-if (@nuovagestione='N') begin --se =S l'ha gi√† fatto poco sopra
+if (@nuovagestione='N') begin --se =S l'ha gi‡ fatto poco sopra
 	UPDATE csa_importver SET 
 		   idupb = csa_incomesetup.idupb
 	FROM   csa_incomesetup
@@ -405,7 +407,7 @@ AND	   ISNULL(csa_importver.flagclawback,'N') = 'S'
 AND    csa_importver.idcsa_import = @idcsa_import
 
 -- IN CASO DI CONTRIBUTI FIGURATIVI, EVENTUALMENTE ASSOCIATI A ENTE INTERNO  CONTROLLO idcsa_incomesetup, 
--- SE NON √® VALORIZZATO LA RIGA NON DEVE ESSERE TRATTATA  COME RECUPERO IN QUANTO NON ESISTE 
+-- SE NON Ë VALORIZZATO LA RIGA NON DEVE ESSERE TRATTATA  COME RECUPERO IN QUANTO NON ESISTE 
 -- LA RELATIVA SCHEDA CONFIGURAZIONE INCASSI
  
 UPDATE csa_importver 
@@ -417,7 +419,7 @@ AND idcsa_incomesetup IS NULL
 
 -- caso CONTRIBUTI/RITENUTE  - C : valorizzo idupb  
 -- da csa_contract (le voci principali del  contratto) , 
--- in mancanza dell'upb in una di scheda contributi pi√π specifica 
+-- in mancanza dell'upb in una di scheda contributi pi˘ specifica 
 if (@nuovagestione='N') begin 
 		UPDATE csa_importver SET 
 			idupb      = csa_contract.idupb
@@ -467,7 +469,7 @@ END
 
 if (@nuovagestione='S') begin 
 print  'ritenute'
--- per le ritenute l'UPB da movimentare √® sempre quello di Ateneo
+-- per le ritenute l'UPB da movimentare Ë sempre quello di Ateneo
 	insert into csa_importver_partition 
 			(idcsa_import,idver,ndetail,amount,ct,cu,lt,lu,idexp,idupb,idacc,idfin,idepexp)
 		select @idcsa_import,CV.idver, 1,CV.importo, getdate(),'calc_csa_import',getdate(),'calc_csa_import',
@@ -485,7 +487,7 @@ END
 
 -- caso CONTRIBUTI/RITENUTE - D : valorizzo idupb  
 -- da csa_contractkindyear (le voci principali del tipo contratto) , 
--- in mancanza dell'upb in una di scheda contributi pi√π specifica 
+-- in mancanza dell'upb in una di scheda contributi pi˘ specifica 
 if (@nuovagestione='N') begin 
 		update csa_importver		SET 	idupb      = csa_contractkindyear.idupb
 			from csa_importver
@@ -824,4 +826,3 @@ SET ANSI_NULLS ON
 GO
 
  
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -60,10 +62,10 @@ namespace meta_upbcommessaview {
         }
 
         public override DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
-            //RowChange.SetMySelector(T.Columns["nupbcommessaview"], "nphase", 0);  //campo nphase  √® selettore per calcolo di nupbcommessaview
-            //RowChange.SetMySelector(T.Columns["nupbcommessaview"], "yupbcommessaview", 0);//campo yupbcommessaview  √® selettore per calcolo di nupbcommessaview
-            //RowChange.MarkAsAutoincrement(T.Columns["nupbcommessaview"], null, null, 0);  //nupbcommessaview √® campo ad autoincremento
-            //RowChange.MarkAsAutoincrement(T.Columns["idupbcommessaview"], null, null, 0);  //idupbcommessaview √® campo ad autoincremento
+            //RowChange.SetMySelector(T.Columns["nupbcommessaview"], "nphase", 0);  //campo nphase  Ë selettore per calcolo di nupbcommessaview
+            //RowChange.SetMySelector(T.Columns["nupbcommessaview"], "yupbcommessaview", 0);//campo yupbcommessaview  Ë selettore per calcolo di nupbcommessaview
+            //RowChange.MarkAsAutoincrement(T.Columns["nupbcommessaview"], null, null, 0);  //nupbcommessaview Ë campo ad autoincremento
+            //RowChange.MarkAsAutoincrement(T.Columns["idupbcommessaview"], null, null, 0);  //idupbcommessaview Ë campo ad autoincremento
 
             //RowChange.setMinimumTempValue(T.Columns["idupbcommessaview"], 999900000);     //Da impostare  in caso di pericolo di conflitto
             DataRow R = base.Get_New_Row(ParentRow, T);

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿IF  EXISTS(select * from sysobjects where id = object_id(N'[lookup_fattura]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+
+IF  EXISTS(select * from sysobjects where id = object_id(N'[lookup_fattura]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 BEGIN
 	DROP TABLE lookup_fattura
 END
@@ -83,7 +85,7 @@ select distinct
 	'N',
 	'A'
 from fattura
-WHERE LEN (sezionale) = 3 -- IN ALTRI CASI IL SEZIONALE HA LUNGHEZZA 3 MA IL NUMERO FATTURA Ã¨ SEMPRE COSTITUITO DA 10 CIFRE
+WHERE LEN (sezionale) = 3 -- IN ALTRI CASI IL SEZIONALE HA LUNGHEZZA 3 MA IL NUMERO FATTURA è SEMPRE COSTITUITO DA 10 CIFRE
 AND NOTA_CREDITO_DEBITO = 'F'  
  
 
@@ -145,4 +147,3 @@ join fattura_att_dettaglio d
 GO
 
 
-	

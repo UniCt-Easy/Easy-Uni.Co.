@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿SET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -33,11 +35,11 @@ BEGIN
 Questa sp serve per disattivare le anagrafiche non utilizzate nell'anno @esercizio.
 Ho preso preso spunto da: 
 compute_list_unusable_registry
-dove lui prende quelle NON attive, perchÃ¨ Ã¨ il wizard di cancellazione delle anagrafiche Non attive.
+dove lui prende quelle NON attive, perchè è il wizard di cancellazione delle anagrafiche Non attive.
 Invece con la:
 compute_list_unusable_registry_ayear
 prendo quelle attive, e disattivo se NON utilizzate.
-Il primo IF elabora 'expense' e 'income', usando le viste, perchÃ¨ le anagrafiche a cui sono imputati dei movimenti residui devono restare attive, NON vanno disattivate
+Il primo IF elabora 'expense' e 'income', usando le viste, perchè le anagrafiche a cui sono imputati dei movimenti residui devono restare attive, NON vanno disattivate
 */
 CREATE TABLE #reg(idreg int, usable char(1))
 
@@ -237,4 +239,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaCudPresentato.xsd" xmlns:mstns="http://tempuri.org/VistaCudPresentato.xsd" xmlns="http://tempuri.org/VistaCudPresentato.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
-  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="false">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="exhibitedcud">
@@ -36,62 +36,14 @@
               <xs:element name="idfiscaltaxregion" type="xs:string" minOccurs="0" />
               <xs:element name="idlinkeddbdepartment" type="xs:string" minOccurs="0" />
               <xs:element name="irpefgross" type="xs:decimal" minOccurs="0" />
+              <xs:element name="earnings_based_abatements2020" type="xs:decimal" minOccurs="0" />
               <xs:element name="earnings_based_abatements" type="xs:decimal" minOccurs="0" />
               <xs:element name="fiscalbonusnotapplied" type="xs:decimal" minOccurs="0" />
               <xs:element name="fiscalbonusapplied" type="xs:decimal" minOccurs="0" />
               <xs:element name="flagbonusaccredited" type="xs:int" minOccurs="0" />
+              <xs:element name="fiscalbonusnotapplied2020" type="xs:decimal" minOccurs="0" />
+              <xs:element name="fiscalbonusapplied2020" type="xs:decimal" minOccurs="0" />
               <xs:element name="totabatements" type="xs:decimal" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="exhibitedcudview">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idcon" type="xs:string" />
-              <xs:element name="ycon" type="xs:int" />
-              <xs:element name="ncon" type="xs:string" />
-              <xs:element name="idexhibitedcud" type="xs:int" />
-              <xs:element name="cfotherdeputy" type="xs:string" minOccurs="0" />
-              <xs:element name="citytax_account" type="xs:decimal" minOccurs="0" />
-              <xs:element name="citytaxapplied" type="xs:decimal" minOccurs="0" />
-              <xs:element name="fiscalyear" type="xs:int" />
-              <xs:element name="flagignoreprevcud" type="xs:string" />
-              <xs:element name="inpsowed" type="xs:decimal" minOccurs="0" />
-              <xs:element name="inpsretained" type="xs:decimal" minOccurs="0" />
-              <xs:element name="irpefapplied" type="xs:decimal" minOccurs="0" />
-              <xs:element name="irpefsuspended" type="xs:decimal" minOccurs="0" />
-              <xs:element name="ndays" type="xs:int" minOccurs="0" />
-              <xs:element name="nmonths" type="xs:int" />
-              <xs:element name="regionaltaxapplied" type="xs:decimal" minOccurs="0" />
-              <xs:element name="start" type="xs:dateTime" />
-              <xs:element name="stop" type="xs:dateTime" />
-              <xs:element name="suspendedcitytax" type="xs:decimal" minOccurs="0" />
-              <xs:element name="suspendedregionaltax" type="xs:decimal" minOccurs="0" />
-              <xs:element name="taxablegross" type="xs:decimal" minOccurs="0" />
-              <xs:element name="taxablenet" type="xs:decimal" minOccurs="0" />
-              <xs:element name="taxablepension" type="xs:decimal" />
-              <xs:element name="transfermotive" type="xs:string" minOccurs="0" />
-              <xs:element name="idlinkedcon" type="xs:string" minOccurs="0" />
-              <xs:element name="ylinkedcon" type="xs:int" minOccurs="0" />
-              <xs:element name="nlinkedcon" type="xs:string" minOccurs="0" />
-              <xs:element name="idcity0101" type="xs:int" minOccurs="0" />
-              <xs:element name="city0101" type="xs:string" minOccurs="0" />
-              <xs:element name="idcity3112" type="xs:int" minOccurs="0" />
-              <xs:element name="city3112" type="xs:string" minOccurs="0" />
-              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="lu" type="xs:string" minOccurs="0" />
-              <xs:element name="provincecode0101" type="xs:string" minOccurs="0" />
-              <xs:element name="region0101" type="xs:string" minOccurs="0" />
-              <xs:element name="provincecode3112" type="xs:string" minOccurs="0" />
-              <xs:element name="region3112" type="xs:string" minOccurs="0" />
-              <xs:element name="irpefgross" type="xs:decimal" minOccurs="0" />
-              <xs:element name="earnings_based_abatements" type="xs:decimal" minOccurs="0" />
-              <xs:element name="fiscalbonusapplied" type="xs:decimal" minOccurs="0" />
-              <xs:element name="totabatements" type="xs:decimal" minOccurs="0" />
-              <xs:element name="fiscalbonusnotapplied" type="xs:string" minOccurs="0" />
-              <xs:element name="flagbonusaccredited" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -144,11 +96,6 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:exhibitedcud" />
-      <xs:field xpath="mstns:idcon" />
-      <xs:field xpath="mstns:idexhibitedcud" />
-    </xs:unique>
-    <xs:unique name="exhibitedcudview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:exhibitedcudview" />
       <xs:field xpath="mstns:idcon" />
       <xs:field xpath="mstns:idexhibitedcud" />
     </xs:unique>

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[check_detrazioni_reddito]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[check_detrazioni_reddito]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [check_detrazioni_reddito]
 GO
 
@@ -95,13 +97,13 @@ BEGIN
 		applicaritprevidenziali char(1),
 		flagbonusappliance char(1),
 		exemptioncode INT,
-		flagsummarybalance char(1) -- questo flag indica se il cedolino di conguaglio √® fittizio
+		flagsummarybalance char(1) -- questo flag indica se il cedolino di conguaglio Ë fittizio
 	)
 
 	-- Si inseriscono i contratti del percipiente corrente.
 	-- per la Certificazione Unica
 	-- Vengono presi tutti i contratti di un fissato percipiente per i quali esiste almeno un cedolino che sia stato trasmesso
-	-- nell'anno dei redditi. Inoltre la prestazione del contratto al quale il cedolino √® associato deve essere associata
+	-- nell'anno dei redditi. Inoltre la prestazione del contratto al quale il cedolino Ë associato deve essere associata
 	-- al quadro G del 770 (rec770kind = 'G'). Altri dati ricavati sono l'imponibile previdenziale, l'INPS e INAIL trattenuti
 	-- le deduzioni, l'imponibile fiscale lordo del contratto e l'id e la data di fine del cedolino di conguaglio.
  
@@ -143,7 +145,7 @@ BEGIN
 	-- Contratto 10
 	-- Contratto 11
 	-- CUD inserito nel contratto 11 riferito al contratto 10
-	-- Il contratto 10 avr√† come padre il contratto 11
+	-- Il contratto 10 avr‡ come padre il contratto 11
 	UPDATE #contratti	SET padre = exhibitedcud.idcon
 	FROM exhibitedcud
 	WHERE exhibitedcud.idlinkedcon = #contratti.idcon
@@ -151,15 +153,15 @@ BEGIN
 
 
 		-- Si definisce un contratto capofila per il percipiente
-	-- Un contratto capofila √® da considerarsi come radice dell'albero dei contratti
-	-- Se esiste un solo contratto con il campo PADRE non valorizzato sar√† questo contratto
+	-- Un contratto capofila Ë da considerarsi come radice dell'albero dei contratti
+	-- Se esiste un solo contratto con il campo PADRE non valorizzato sar‡ questo contratto
 	-- ad essere individuato come capofila
 	-- altrimenti si sceglie come capofila un contratto tra tutti quelli senza padre.
-	-- N.B. Per le prestazioni Co.Co.Co. per cui la certificazione associata √® il CUD
-	-- ove ci siano pi√π contratti c'√® sempre un capofila, mentre per prestazioni tipo
-	-- assegnisti di ricerca accade che ci siano pi√π contratti non legati tra loro in quanto
+	-- N.B. Per le prestazioni Co.Co.Co. per cui la certificazione associata Ë il CUD
+	-- ove ci siano pi˘ contratti c'Ë sempre un capofila, mentre per prestazioni tipo
+	-- assegnisti di ricerca accade che ci siano pi˘ contratti non legati tra loro in quanto
 	-- non esiste il concetto di trasformare un contratto pregresso in CUD per uno nuovo
-	-- in quanto non vi √® l'esigenza di effettuare un conguaglio fiscale.
+	-- in quanto non vi Ë l'esigenza di effettuare un conguaglio fiscale.
 	IF (SELECT COUNT(*) FROM #contratti WHERE padre IS NULL) = 1
 	BEGIN
 		UPDATE #contratti		SET capofila = 'S'		WHERE #contratti.padre IS NULL
@@ -222,12 +224,12 @@ BEGIN
 
 
 	-- Calcolo dei redditi ai quali si possono applicare le deduzioni art. 11 e imposta lorda
-	-- Esso √® pari alla somma degli imponibili lordi delle ritenute fiscali nazionali associate ai
+	-- Esso Ë pari alla somma degli imponibili lordi delle ritenute fiscali nazionali associate ai
 	-- contratti del percipiente. I contratti da considerare sono solo quelli associati alla certificazione
 	-- CUD che non sono diventati a loro volta CUD per altri contratti. Si scartano le ritenute con codice
 	-- 08_IRPEF_FOC e 07_IRPEF_FO in quanto sono ritenute applicate a stranieri che non rientrano in questo calcolo
-	-- L'imposta lorda √® pari alla somma delle ritenute (il filtro √® quello descritto precedentemente), tant'√® che la
-	-- query √® la medesima
+	-- L'imposta lorda Ë pari alla somma delle ritenute (il filtro Ë quello descritto precedentemente), tant'Ë che la
+	-- query Ë la medesima
 	DECLARE @taxablegross	DECIMAL(19,2)
 	DECLARE @employtaxgross DECIMAL(19,2)
 	DECLARE @deduzioni		DECIMAL(19,2)
@@ -248,7 +250,7 @@ BEGIN
 	set @taxablegross = isnull(@taxablegross,0)
 
 	-- Calcolo della detrazione per reddito
-	-- Essa √® pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
+	-- Essa Ë pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
 	-- non divenuti CUD per altri e la cui prestazione ricade nella cetificazione CUD
 	-- Si considera ovviamente la sola detrazione con codice 29 che si riferisce al reddito
 	DECLARE @detrazioni_per_reddito DECIMAL(19,2)
@@ -275,7 +277,7 @@ BEGIN
 	 SET @detrazioni_per_reddito = ISNULL(@detrazioni_per_reddito,0)
 
 	 -- Calcolo della detrazione per oneri
-	-- Essa √® pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
+	-- Essa Ë pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
 	-- non divenuti CUD per altri e la cui prestazione ricade nella cetificazione CUD
 	-- Si considerano tutte le detrazioni che sono marcate come oneri detraibili (flagabatableexpense = 'S')
 	DECLARE @detrazioni_per_oneri DECIMAL(19,2)
@@ -303,7 +305,7 @@ BEGIN
 	SELECT @workingdays = count(*) from #workdays where worked='S'
 
 	-- Se i giorni lavorati superano l'anno si pongono pari al numero di giorni dell'anno
-	-- non √® contemplato, a quanto pare, l'anno bisestile
+	-- non Ë contemplato, a quanto pare, l'anno bisestile
 	IF @workingdays>@giorni_anno 
 	BEGIN
 		SET @workingdays=@giorni_anno
@@ -329,7 +331,7 @@ BEGIN
 	declare @maxdetrazione decimal(19,2)
 	set @maxdetrazione = 0
 
-	-- Per la prima fascia la minima detrazione non √® 690 ma 1380 perch√© sono lavoratori a tempo determinato
+	-- Per la prima fascia la minima detrazione non Ë 690 ma 1380 perchÈ sono lavoratori a tempo determinato
     declare @min_detrazione decimal
 	set @min_detrazione = 1380 
 
@@ -408,4 +410,3 @@ GO
 --declare @res int
 --exec check_detrazioni_reddito 5960,2015, @res out
 --select @res
-	

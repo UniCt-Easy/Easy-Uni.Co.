@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø
+
+
 --File C:\Documents and Settings\m.smaldino\Desktop\sp scaglione 6\esportazione_transazione_bancaria.sql
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[esportazione_transazione_bancaria]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -166,7 +168,7 @@ BEGIN
 	VALUES('I crediti degli accertamenti di competenza non sono stati del tutto assegnati')
 	INSERT INTO #errors
 	SELECT '- Il credito dell''accertamento n. ' + CONVERT(varchar(6),income.nmov) + ' del ' + CONVERT(varchar(4),income.ymov) +
-	' non √® stato assegnato per ' + CONVERT(varchar(22),(ISNULL(incometotal.curramount,0) - SUM(ISNULL(creditpart.amount,0))))
+	' non Ë stato assegnato per ' + CONVERT(varchar(22),(ISNULL(incometotal.curramount,0) - SUM(ISNULL(creditpart.amount,0))))
 	FROM incometotal
 	JOIN creditpart
 		ON incometotal.idinc = creditpart.idinc
@@ -179,7 +181,7 @@ BEGIN
 
 	INSERT INTO #errors
 	SELECT '- All''accertamento n. ' + CONVERT(varchar(6),income.nmov) + ' del ' + CONVERT(varchar(4),income.ymov) +
-	' non √® associata alcuna assegnazione crediti'
+	' non Ë associata alcuna assegnazione crediti'
 	FROM incometotal I
 	JOIN income 
 		ON I.idinc = income.idinc
@@ -212,7 +214,7 @@ BEGIN
 	VALUES('Gli incassi trasmessi prima della data di redazione del bilancio di previsione non sono stati del tutto assegnati')
 	INSERT INTO #errors
 	SELECT '- L''incasso dell''incasso n. ' + CONVERT(varchar(6),income.nmov) + ' del ' + CONVERT(varchar(4),income.ymov) +
-	' non √® stato assegnato per ' + CONVERT(varchar(22),(ISNULL(proceedscommunicated.curramount,0) - SUM(ISNULL(proceedspart.amount,0))))
+	' non Ë stato assegnato per ' + CONVERT(varchar(22),(ISNULL(proceedscommunicated.curramount,0) - SUM(ISNULL(proceedspart.amount,0))))
 	FROM proceedscommunicated
 	JOIN proceedspart
 		ON proceedscommunicated.idinc = proceedspart.idinc
@@ -227,7 +229,7 @@ BEGIN
 -- Controllo che agli incassi trasmessi sia associata una assegnazione incassi
 	INSERT INTO #errors
 	SELECT '- All''incasso trasmesso n. ' + CONVERT(varchar(6),income.nmov) + ' del ' + CONVERT(varchar(4),income.ymov) +
-	' non √® associata alcuna assegnazione incassi'
+	' non Ë associata alcuna assegnazione incassi'
 	FROM proceedscommunicated I
 	JOIN income
 		ON I.idinc = income.idinc
@@ -265,7 +267,7 @@ BEGIN
 	VALUES('Gli incassi trasmessi dopo la data di redazione del bilancio di previsione o non ancora trasmessi non sono stati del tutto assegnati')
 	INSERT INTO #errors
 	SELECT '- L''incasso dell''incasso n. ' + CONVERT(varchar(6),income.nmov) + ' del ' + CONVERT(varchar(4),income.ymov) +
-	' non √® stato assegnato per ' + CONVERT(varchar(22),(ISNULL(incometotal.curramount,0) - SUM(ISNULL(proceedspart.amount,0))))
+	' non Ë stato assegnato per ' + CONVERT(varchar(22),(ISNULL(incometotal.curramount,0) - SUM(ISNULL(proceedspart.amount,0))))
 	FROM incometotal
 	JOIN proceedspart
 		ON incometotal.idinc = proceedspart.idinc
@@ -284,7 +286,7 @@ BEGIN
 -- Controllo che agli incassi che non rientrano tra i trasmessi sia assegnata una assegnazione incassi
 	INSERT INTO #errors
 	SELECT '- All''incasso n. ' + CONVERT(varchar(6),I.nmov) + ' del ' + CONVERT(varchar(4),I.ymov) +
-	' non √® associata alcuna assegnazione incassi'
+	' non Ë associata alcuna assegnazione incassi'
 	FROM income I
 	JOIN incometotal IT 
 		on I.idinc = IT.idinc
@@ -304,7 +306,7 @@ BEGIN
 	INSERT INTO #errors VALUES('')
 END
 -- ATTENZIONE: Questo controllo ha senso solo nel caso in cui si gestiscano i crediti
--- Infatti pu√≤ accadere che nonostante un bilancio di competenza non venga effettuata l'assegnazione al credito
+-- Infatti puÚ accadere che nonostante un bilancio di competenza non venga effettuata l'assegnazione al credito
 CREATE TABLE #creditpart (ayear int, idinc varchar(40), idupb varchar(36), idfin varchar(31), amount decimal(19,2))
 CREATE TABLE #proceedspart (ayear int,idinc varchar(40), idupb varchar(36), idfin varchar(31), amount decimal(19,2))
 
@@ -427,36 +429,36 @@ DECLARE @registryphase varchar(20)
 IF (@finpart = 'E')
 BEGIN
 	-- ricerca la fase equivalente all'accertamento
-	-- se √® stata inserita nella tabella di configurazione del bilancio
+	-- se Ë stata inserita nella tabella di configurazione del bilancio
 	SELECT @finphase = assessmentphasecode FROM config WHERE ayear = @ayear
 	IF @finphase IS NULL
 	BEGIN
-		-- se non √® stata inserita nella tabella di configurazione
+		-- se non Ë stata inserita nella tabella di configurazione
 		-- ipotizza che si tratti della fase dove viene identificata
 		-- la voce di bilancio
 		SELECT @finphase = incomefinphase FROM uniconfig
 	END
 	
 	SELECT @registryphase = incomeregphase FROM uniconfig
-	-- la fase di cassa √® sempre l'ultima fase della procedura
+	-- la fase di cassa Ë sempre l'ultima fase della procedura
 	-- di entrata
 	SELECT @maxphase = MAX(nphase) FROM incomephase
 END
 IF (@finpart = 'S')
 BEGIN
 	-- ricerca la fase equivalente all'impegno
-	-- se √® stata inserita nella tabella di configurazione
+	-- se Ë stata inserita nella tabella di configurazione
 	-- del bilancio
 	SELECT @finphase = appropriationphasecode FROM config WHERE ayear = @ayear
 	IF @finphase IS NULL
 	BEGIN
-		-- se non √® stata inserita nella tabella di configurazione
+		-- se non Ë stata inserita nella tabella di configurazione
 		-- ipotizza che si tratti della fase dove viene identificata
 		-- la voce di bilancio
 		SELECT @finphase = expensefinphase FROM uniconfig
 	END
 	SELECT @registryphase = expenseregphase FROM uniconfig
-	-- la fase di cassa √® sempre l'ultima fase della procedura di spesa
+	-- la fase di cassa Ë sempre l'ultima fase della procedura di spesa
 	SELECT @maxphase = MAX(nphase) FROM expensephase
 END
 DECLARE @supposed_ff_jan01 decimal(19,2)
@@ -1585,33 +1587,33 @@ SET @idavanzoamm = -2
 IF (@finpart = 'E')
 BEGIN
 	-- ricerca la fase equivalente all'accertamento
-	-- se √® stata inserita nella tabella di configurazione del bilancio
+	-- se Ë stata inserita nella tabella di configurazione del bilancio
 	SELECT @finphase = assessmentphasecode FROM config WHERE ayear = @ayear
 	IF @finphase IS NULL
 	BEGIN
-		-- se non √® stata inserita nella tabella di configurazione
+		-- se non Ë stata inserita nella tabella di configurazione
 		-- ipotizza che si tratti della fase dove viene identificata
 		-- la voce di bilancio
 		SELECT @finphase = incomefinphase FROM uniconfig
 	END
-	-- la fase di cassa √® sempre l'ultima fase della procedura
+	-- la fase di cassa Ë sempre l'ultima fase della procedura
 	-- di entrata
 	SELECT @maxphase = MAX(nphase) FROM incomephase
 END
 IF (@finpart = 'S')
 BEGIN
 	-- ricerca la fase equivalente all'impegno
-	-- se √® stata inserita nella tabella di configurazione
+	-- se Ë stata inserita nella tabella di configurazione
 	-- del bilancio
 	SELECT @finphase = appropriationphasecode FROM config WHERE ayear = @ayear
 	IF @finphase IS NULL
 	BEGIN
-		-- se non √® stata inserita nella tabella di configurazione
+		-- se non Ë stata inserita nella tabella di configurazione
 		-- ipotizza che si tratti della fase dove viene identificata
 		-- la voce di bilancio
 		SELECT @finphase = expensefinphase FROM uniconfig
 	END
-	-- la fase di cassa √® sempre l'ultima fase della procedura di spesa
+	-- la fase di cassa Ë sempre l'ultima fase della procedura di spesa
 	SELECT @maxphase = MAX(nphase) FROM expensephase
 END
 DECLARE @supposed_ff_jan01 decimal(19,2)
@@ -1619,7 +1621,7 @@ DECLARE @supposed_aa_jan01 decimal(19,2)
 DECLARE @ff_jan01 decimal(19,2)
 DECLARE @aa_jan01 decimal(19,2)
 
-DECLARE @idfinincomesurplus int -- Flag indicante se l'avanzo di amministrazione √® attribuito in previsione ad un capitolo di entrata o no
+DECLARE @idfinincomesurplus int -- Flag indicante se l'avanzo di amministrazione Ë attribuito in previsione ad un capitolo di entrata o no
 SELECT  @idfinincomesurplus = isnull(idfinincomesurplus,0) 
 	FROM config
 	WHERE ayear = @ayear
@@ -2822,7 +2824,7 @@ BEGIN
 	SET @idupb = @idupb + '%' 
 END
 		
-/*DECLARE @idfinincomesurplus int -- Flag indicante se l'avanzo di amministrazione √® attribuito in previsione ad un capitolo di entrata o no 
+/*DECLARE @idfinincomesurplus int -- Flag indicante se l'avanzo di amministrazione Ë attribuito in previsione ad un capitolo di entrata o no 
 SELECT @idfinincomesurplus = isnull(idfinincomesurplus,0) 
 	FROM config
 	WHERE ayear = @ayear
@@ -2883,7 +2885,7 @@ WHERE reportname = 'consentr' AND paramname = 'MostraAvanzo'
 DECLARE @cashvaliditykind tinyint
 SELECT  @cashvaliditykind = cashvaliditykind FROM config WHERE ayear = @ayear
 -- ricerca la fase equivalente all'impegno
--- se √® stata inserita nella tabella di configurazione
+-- se Ë stata inserita nella tabella di configurazione
 -- del bilancio
 
 DECLARE @finphase tinyint
@@ -2891,7 +2893,7 @@ SELECT  @finphase = appropriationphasecode
 FROM 	config
 WHERE 	ayear = @ayear
 
--- Se non √® stata inserita nella tabella di configurazione ipotizza che si tratti della fase dove viene identificata
+-- Se non Ë stata inserita nella tabella di configurazione ipotizza che si tratti della fase dove viene identificata
 -- la voce di bilancio
 IF @finphase IS NULL
 BEGIN
@@ -2899,15 +2901,15 @@ BEGIN
 	FROM uniconfig
 END
 
--- La fase di cassa √® sempre l'ultima fase della procedura  di spesa
+-- La fase di cassa Ë sempre l'ultima fase della procedura  di spesa
 DECLARE @maxexpensephase tinyint
 SELECT 	@maxexpensephase = MAX(nphase) FROM expensephase
 
 DECLARE @maxincomephase  tinyint
 SELECT 	@maxincomephase = MAX(nphase) FROM incomephase
 
--- Se @cassa_competenza = 'C' ==> √® stata personalizzata una  previsione principale di tipo "competenza", se @cassa_competenza = 'S'
--- ==> √® stata personalizzata una previsione principale di tipo "cassa", se  @cassa_competenza = 'A' ==> √® stata personalizzata una
+-- Se @cassa_competenza = 'C' ==> Ë stata personalizzata una  previsione principale di tipo "competenza", se @cassa_competenza = 'S'
+-- ==> Ë stata personalizzata una previsione principale di tipo "cassa", se  @cassa_competenza = 'A' ==> Ë stata personalizzata una
 -- previsione principale di tipo "altra previsione". 
 DECLARE @fin_kind tinyint
 SELECT  @fin_kind = fin_kind  FROM config WHERE ayear = @ayear
@@ -4948,7 +4950,7 @@ AS
 BEGIN
 -- Attenzione! le transazioni bancarie considerate sono tutte quelle legate a documenti trasmessi entro la data @date
 -- se invece si vuole vedere tutte le transazioni senza transactiondate bisogna eliminare tale filtro e, contestualmente
--- anche il parametro @date che non servirebbe pi√π
+-- anche il parametro @date che non servirebbe pi˘
 SELECT
 	B.yban AS 'Esercizio Transazione',
 	B.nban AS 'Numero Transazione',
@@ -5636,11 +5638,11 @@ AS BEGIN
 	DECLARE	@ayear int -- Esercizio
 	SELECT @ayear = YEAR(@date)
 
-	DECLARE @lbl_dispacc varchar(150) -- Etichetta sulla disponibilit√† ad accertate
+	DECLARE @lbl_dispacc varchar(150) -- Etichetta sulla disponibilit‡ ad accertate
 	DECLARE @lbl_dispcash_e varchar(150) -- Etichetta sulla prev. disponibile di cassa
-	DECLARE @lbl_dispimp varchar(150) -- Etichetta sulla disponibilit√† ad impegnare che varia in base alla presenza delle operazioni del fondo economale
+	DECLARE @lbl_dispimp varchar(150) -- Etichetta sulla disponibilit‡ ad impegnare che varia in base alla presenza delle operazioni del fondo economale
 	DECLARE @lbl_dispcash_s varchar(150) -- Etichetta sulla prev. disponibile di cassa che varia in base alla presenza delle operazioni del fondo economale
-	DECLARE @lbl_disp_firstphase varchar(150) -- Etichetta sulla disponibilit√† calcolata sulla prima fase di entrata
+	DECLARE @lbl_disp_firstphase varchar(150) -- Etichetta sulla disponibilit‡ calcolata sulla prima fase di entrata
 
 	DECLARE	@mainprev_var_AUM decimal(19,2) -- Totale delle variazioni di previsione principale in aumento
 	DECLARE	@mainprev_var_DIM decimal(19,2) -- Totale delle variazioni di previsione principale in diminuzione
@@ -5659,9 +5661,9 @@ AS BEGIN
 
 	
 	--------------------------------------------------------------------------------------------------------
-        -- Verifica se l'avanzo di amministrazione non √® totalizzato e viene attribuito in previsione ad una voce  
+        -- Verifica se l'avanzo di amministrazione non Ë totalizzato e viene attribuito in previsione ad una voce  
 	-- di bilancio in entrata
-	/*DECLARE @flagincomesurplus char(1)      -- Flag indicante se l'avanzo di amministrazione √® attribuito in previsione ad un capitolo di entrata o no
+	/*DECLARE @flagincomesurplus char(1)      -- Flag indicante se l'avanzo di amministrazione Ë attribuito in previsione ad un capitolo di entrata o no
 	SELECT @flagincomesurplus = 
 	CASE 
 		when ( idfinincomesurplus is null) then 'N'
@@ -6125,12 +6127,12 @@ if @finpart='S' set @finpart_bit = 1
 						FROM #tot_var_c
 						WHERE nphase = @nphase
 ---------------------------------------------------------------------------------------------------------------------------------------------
--- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui √® imputata
+-- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui Ë imputata
 -- la voce di bilancio  prendere in considerazione anche la previsione disponibile calcolata su questa fase 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 					IF (@nphase = @finphase and @finphase < @competencyphase )
 					    BEGIN
-						SELECT @lbl_disp_firstphase = '   Disponibilit√† per ulteriore ' + '"' + @phasetitle + '"'
+						SELECT @lbl_disp_firstphase = '   Disponibilit‡ per ulteriore ' + '"' + @phasetitle + '"'
 						INSERT INTO #situation VALUES(@lbl_disp_firstphase,
 							ISNULL(@currmainprev, 0) -
 							ISNULL(@totcompetency, 0) -
@@ -6146,7 +6148,7 @@ if @finpart='S' set @finpart_bit = 1
 						+@phasetitle	+ ')',
 						ISNULL(@totcompetency,0) +
 						ISNULL(@totcompetencyvar,0),'')
-						SELECT @lbl_dispacc = 'Disponibilit√† per ' + '"' + @phasetitle + '"' + ' (Prev. Attuale - 3';
+						SELECT @lbl_dispacc = 'Disponibilit‡ per ' + '"' + @phasetitle + '"' + ' (Prev. Attuale - 3';
 				  		
 						IF (@nphase = @competencyphase)
 							BEGIN
@@ -6165,7 +6167,7 @@ if @finpart='S' set @finpart_bit = 1
 								ISNULL(@totincome,0) -
 								ISNULL(@totcompetency,0) -
 								ISNULL(@totcompetencyvar,0),'S')
-								INSERT INTO #situation	VALUES('Disponibilit√† ad incassare (Reversali)', 
+								INSERT INTO #situation	VALUES('Disponibilit‡ ad incassare (Reversali)', 
 								ISNULL(@currmainprev, 0) -
 								ISNULL(@totcompetency, 0) -
 								ISNULL(@totcompetencyvar, 0), 'S')
@@ -6248,12 +6250,12 @@ if @finpart='S' set @finpart_bit = 1
 						FROM #tot_var_c
 						WHERE nphase = @nphase
 ---------------------------------------------------------------------------------------------------------------------------------------------
--- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui √® imputata
+-- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui Ë imputata
 -- la voce di bilancio occorre prendere in considerazione la previsione disponibile calcolata su questa fase 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 					IF (@nphase = @finphase and @finphase < @competencyphase )
 					    BEGIN
-						SELECT @lbl_disp_firstphase = '   Disponibilit√† per ulteriore ' + '"' + @phasetitle + '"'
+						SELECT @lbl_disp_firstphase = '   Disponibilit‡ per ulteriore ' + '"' + @phasetitle + '"'
 						INSERT INTO #situation VALUES(@lbl_disp_firstphase,
 							ISNULL(@currmainprev, 0) -
 							ISNULL(@totcompetency,0) -
@@ -6271,7 +6273,7 @@ if @finpart='S' set @finpart_bit = 1
 						+ @phasetitle	+ ')',
 						ISNULL(@totcompetency,0) +
 						ISNULL(@totcompetencyvar,0),'')
-						SELECT @lbl_dispimp = 'Disponibilit√† per ' + '"' + @phasetitle + '"' +' (Prev. Attuale - 3'
+						SELECT @lbl_dispimp = 'Disponibilit‡ per ' + '"' + @phasetitle + '"' +' (Prev. Attuale - 3'
 						IF (@totpettycashop > 0)
 							BEGIN
 								INSERT INTO #situation	VALUES(
@@ -6325,7 +6327,7 @@ if @finpart='S' set @finpart_bit = 1
 									ISNULL(@totpettycashop,	0),'S')		
 								End	
 								-----------------------------------------------------------------------------------------
-								INSERT INTO #situation VALUES('Disponibilit√† a pagare (Mandati)',
+								INSERT INTO #situation VALUES('Disponibilit‡ a pagare (Mandati)',
 								ISNULL(@currmainprev, 0) -
 								ISNULL(@totpayment,0) -
 								ISNULL(@totpettycashop,0)
@@ -6442,9 +6444,9 @@ BEGIN
 /* Versione 1.0.1 del 27/11/2007 ultima modifica: MARIA */
 DECLARE	@ayear int
 SELECT @ayear = YEAR(@date)
--- Verifica se l'avanzo di amministrazione non √® totalizzato e viene attribuito in previsione ad una voce  
+-- Verifica se l'avanzo di amministrazione non Ë totalizzato e viene attribuito in previsione ad una voce  
 -- di bilancio in entrata -- M. Smaldino
-DECLARE @flagincomesurplus char(1) -- Flag indicante se l'avanzo di amministrazione √É¬†√Ç¬® attribuito in previsione ad un capitolo di entrata o no --M. Smaldino
+DECLARE @flagincomesurplus char(1) -- Flag indicante se l'avanzo di amministrazione √†¬® attribuito in previsione ad un capitolo di entrata o no --M. Smaldino
 SELECT @flagincomesurplus = 
 	CASE 
 		when ( idfinincomesurplus is null) then 'N'
@@ -6833,8 +6835,8 @@ DECLARE @tot_mov decimal(19,2)
 DECLARE @tot_var decimal(19,2)
 DECLARE	@nphase tinyint
 DECLARE	@desc_phase varchar(50)
-DECLARE @lbl_avail_ass varchar(150) -- Etichetta sulla disponibilit√† ad accertate
-DECLARE @lbl_avail_app varchar(150) -- Etichetta sulla disponibilit√† ad impegnare
+DECLARE @lbl_avail_ass varchar(150) -- Etichetta sulla disponibilit‡ ad accertate
+DECLARE @lbl_avail_app varchar(150) -- Etichetta sulla disponibilit‡ ad impegnare
 DECLARE @next_phase decimal(19,2) -- Calcolo della fase successiva in c/competenza
 IF @finpart = 'E'
 BEGIN
@@ -6855,7 +6857,7 @@ BEGIN
 		INSERT INTO #situation	VALUES('2) Variazioni movimenti ('+ @desc_phase	+ ')', @tot_var, '')
 		INSERT INTO #situation VALUES('3) Totale Movimenti (' + @desc_phase + ')',
 			ISNULL(@tot_mov,0) + ISNULL(@tot_var,0),'')
-		SELECT @lbl_avail_ass = 'Disponibilit√† per ' + '"' + @desc_phase + '"'+' (Prev. Attuale - 3'
+		SELECT @lbl_avail_ass = 'Disponibilit‡ per ' + '"' + @desc_phase + '"'+' (Prev. Attuale - 3'
 		IF (@nphase = @nphase_ass_app)
 		BEGIN
 			SELECT @lbl_avail_ass = @lbl_avail_ass + ')'
@@ -6873,7 +6875,7 @@ BEGIN
 			INSERT INTO #situation VALUES('Accertato da incassare',
 				ISNULL(@tot_assessment,0) -
 				ISNULL(@tot_mov,0) - ISNULL(@tot_var,0),'S')
-			INSERT INTO #situation	VALUES('Disponibilit√† ad incassare (Reversali)', 
+			INSERT INTO #situation	VALUES('Disponibilit‡ ad incassare (Reversali)', 
 			ISNULL(@prev_curr_M, 0) - ISNULL(@tot_proceeds,0), 'S')
 		END
 		FETCH NEXT FROM	phase_crs1 INTO @nphase, @desc_phase
@@ -6939,7 +6941,7 @@ BEGIN
 		INSERT INTO #situation VALUES('2) Variazioni movimenti (' + @desc_phase + ')', @tot_var, '')
 		INSERT INTO #situation VALUES('3) Totale Movimenti (' + @desc_phase + ')',
 			ISNULL(@tot_mov,0) + ISNULL(@tot_var,0),'')
-		SELECT @lbl_avail_app = 'Disponibilit√† per ' + '"' + @desc_phase + '"' + ' (Prev. Attuale - 3'
+		SELECT @lbl_avail_app = 'Disponibilit‡ per ' + '"' + @desc_phase + '"' + ' (Prev. Attuale - 3'
 		IF (@tot_pettycashop > 0)
 		BEGIN
 			INSERT INTO #situation	VALUES(
@@ -6995,12 +6997,12 @@ BEGIN
 			
 			IF ISNULL(@tot_pettycashop,0)>0 
 			BEGIN
-				INSERT INTO #situation VALUES('Disponibilit√† a pagare (Prev. Attuale - Mandati - Tot. op. fondo economale attribuite non reintegrate)',
+				INSERT INTO #situation VALUES('Disponibilit‡ a pagare (Prev. Attuale - Mandati - Tot. op. fondo economale attribuite non reintegrate)',
 				ISNULL(@prev_curr_M, 0) - ISNULL(@tot_payment,0) - ISNULL(@tot_pettycashop,0) ,'S')
 			END
 			ELSE
 			BEGIN
-				INSERT INTO #situation VALUES('Disponibilit√† a pagare (Prev. Attuale - Mandati)',
+				INSERT INTO #situation VALUES('Disponibilit‡ a pagare (Prev. Attuale - Mandati)',
 				ISNULL(@prev_curr_M, 0) - ISNULL(@tot_payment,0) ,'S')
 			END
 			
@@ -7967,4 +7969,3 @@ GO
 
 
 
-	

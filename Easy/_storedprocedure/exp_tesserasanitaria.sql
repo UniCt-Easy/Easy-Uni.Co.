@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_tesserasanitaria]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_tesserasanitaria]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_tesserasanitaria]
 GO
 
@@ -32,21 +34,21 @@ CREATE procedure exp_tesserasanitaria(
 	@idsor05 int=null
 ) as
 -- exec exp_tesserasanitaria 2016
--- ove @ayear √® l'anno della dichiarazione, e non l'anno dei redditi (@ayear-1)
+-- ove @ayear Ë l'anno della dichiarazione, e non l'anno dei redditi (@ayear-1)
 set @ayear = @ayear - 1
 begin
 	--DECLARE @pIva varchar(11)
 	--SELECT	@pIva = p_iva FROM license
 
---Per il momento non filtro uno specifico tipo registro, poich√® non l'hanno usato
+--Per il momento non filtro uno specifico tipo registro, poichË non l'hanno usato
 --DECLARE @idivaregisterkind_ssn int
 --SELECT  @idivaregisterkind_ssn = idivaregisterkind FROM ivaregisterkind WHERE codeivaregisterkind = '16TESSERASANITARIA'
 
 --SEZIONE PROPRIETARIO
 -- <proprietario>
---		codiceRegione[Obb.]: codice regione della struttura che emette il doc. fiscale(cos√¨ come riportato nella lettera di assegnazione credenziali)
---		codiceAsl[Obb.]: codice ASL della struttura che emette il doc. fiscale(cos√¨ come riporttao nella lettera di assegnazione credenziali)
---		codiceSSA[Obb.]: codice struttura che emette il doc. fiscale (cos√¨ come riporttao nella lettera di assegnazione credenziali)
+--		codiceRegione[Obb.]: codice regione della struttura che emette il doc. fiscale(cosÏ come riportato nella lettera di assegnazione credenziali)
+--		codiceAsl[Obb.]: codice ASL della struttura che emette il doc. fiscale(cosÏ come riporttao nella lettera di assegnazione credenziali)
+--		codiceSSA[Obb.]: codice struttura che emette il doc. fiscale (cosÏ come riporttao nella lettera di assegnazione credenziali)
 --		cfProprietario : CF del soggetto di riferimanto della struttura(Campo cifrato)
 -- </proprietario>
 
@@ -62,7 +64,7 @@ create table #dati(
 	idreg int,	
 	idfin int,--li usiamo solo per la piccola spesa
 	idupb varchar(36),--li usiamo solo per la piccola spesa
-	descrizione varchar(100),	--> da usare quando il doc. non √® contabilizzati
+	descrizione varchar(100),	--> da usare quando il doc. non Ë contabilizzati
 	idincimpegno int,
 -- PAGAMENTO
 	importopagato decimal(19,2),
@@ -246,7 +248,7 @@ SELECT
 -- cfcittadino
 	R.cf,
 	I.ssntipospesa,-- tipospesa
-	CASE I.ssnflagtipospesa --flagTipoSpesa: ‚Äú1‚Äù con tipo TK (ticket di pronto soccorso); ‚Äú2‚Äù con tipo SR (visita in intramoenia). ESSENDO FACOLTTIVO, LO SALTIAMO
+	CASE I.ssnflagtipospesa --flagTipoSpesa: ì1î con tipo TK (ticket di pronto soccorso); ì2î con tipo SR (visita in intramoenia). ESSENDO FACOLTTIVO, LO SALTIAMO
 		WHEN 'T' THEN '1'
 		WHEN 'V' THEN '2'
 		ELSE null
@@ -283,4 +285,3 @@ GO
 
 
  
-	

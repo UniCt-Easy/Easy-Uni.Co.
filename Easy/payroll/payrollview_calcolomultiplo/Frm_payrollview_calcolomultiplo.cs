@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -389,7 +391,7 @@ namespace payrollview_calcolomultiplo //cedolino_calcolomultiplo//
                     }
                 }
                 catch (FormatException) {
-                    MessageBox.Show(this,
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                         "Errore nella selezione desiderata: " + valore +
                         "\nImmettere i numeri di cedolino e/o gli intervalli di cedolino separati da virgole.");
                     return;
@@ -466,7 +468,7 @@ namespace payrollview_calcolomultiplo //cedolino_calcolomultiplo//
             CurrencyManager cm = (CurrencyManager) dgCedolini.BindingContext[DS, dataMember];
             DataView view = cm.List as DataView;
             if (view == null) {
-                MessageBox.Show(this, "Lista vuota!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Lista vuota!");
                 return;
             }
             ArrayList cedolini = new ArrayList();
@@ -484,7 +486,7 @@ namespace payrollview_calcolomultiplo //cedolino_calcolomultiplo//
                 }
             }
             if (cedolini.Count == 0) {
-                MessageBox.Show(this, "Nessun cedolino selezionato!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nessun cedolino selezionato!");
                 return;
             }
             filtroContratti = filtroContratti.Substring(1);

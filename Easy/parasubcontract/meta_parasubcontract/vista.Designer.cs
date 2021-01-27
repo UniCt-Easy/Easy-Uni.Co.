@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -30,15 +32,15 @@ public class parasubcontractRow: MetaRow  {
 	///ID contratto
 	///</summary>
 	public String idcon{ 
-		get {if (this["idcon"]==DBNull.Value)return null; return  (String)this["idcon"];}
-		set {if (value==null) this["idcon"]= DBNull.Value; else this["idcon"]= value;}
+		get {return  (String)this["idcon"];}
+		set {this["idcon"]= value;}
 	}
 	public object idconValue { 
 		get{ return this["idcon"];}
-		set {if (value==null|| value==DBNull.Value) this["idcon"]= DBNull.Value; else this["idcon"]= value;}
+		set {this["idcon"]= value;}
 	}
 	public String idconOriginal { 
-		get {if (this["idcon",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idcon",DataRowVersion.Original];}
+		get {return  (String)this["idcon",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data creazione
@@ -88,15 +90,15 @@ public class parasubcontractRow: MetaRow  {
 	///	 S: In Forza
 	///</summary>
 	public String employed{ 
-		get {if (this["employed"]==DBNull.Value)return null; return  (String)this["employed"];}
-		set {if (value==null) this["employed"]= DBNull.Value; else this["employed"]= value;}
+		get {return  (String)this["employed"];}
+		set {this["employed"]= value;}
 	}
 	public object employedValue { 
 		get{ return this["employed"];}
-		set {if (value==null|| value==DBNull.Value) this["employed"]= DBNull.Value; else this["employed"]= value;}
+		set {this["employed"]= value;}
 	}
 	public String employedOriginal { 
-		get {if (this["employed",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["employed",DataRowVersion.Original];}
+		get {return  (String)this["employed",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Non usato
@@ -115,16 +117,16 @@ public class parasubcontractRow: MetaRow  {
 	///<summary>
 	///Lordo al beneficiario 
 	///</summary>
-	public Decimal? grossamount{ 
-		get {if (this["grossamount"]==DBNull.Value)return null; return  (Decimal?)this["grossamount"];}
-		set {if (value==null) this["grossamount"]= DBNull.Value; else this["grossamount"]= value;}
+	public Decimal grossamount{ 
+		get {return  (Decimal)this["grossamount"];}
+		set {this["grossamount"]= value;}
 	}
 	public object grossamountValue { 
 		get{ return this["grossamount"];}
-		set {if (value==null|| value==DBNull.Value) this["grossamount"]= DBNull.Value; else this["grossamount"]= value;}
+		set {this["grossamount"]= value;}
 	}
-	public Decimal? grossamountOriginal { 
-		get {if (this["grossamount",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["grossamount",DataRowVersion.Original];}
+	public Decimal grossamountOriginal { 
+		get {return  (Decimal)this["grossamount",DataRowVersion.Original];}
 	}
 	///<summary>
 	///id causale (tabella acccmotive)
@@ -185,16 +187,16 @@ public class parasubcontractRow: MetaRow  {
 	///<summary>
 	///id anagrafica (tabella registry)
 	///</summary>
-	public Int32? idreg{ 
-		get {if (this["idreg"]==DBNull.Value)return null; return  (Int32?)this["idreg"];}
-		set {if (value==null) this["idreg"]= DBNull.Value; else this["idreg"]= value;}
+	public Int32 idreg{ 
+		get {return  (Int32)this["idreg"];}
+		set {this["idreg"]= value;}
 	}
 	public object idregValue { 
 		get{ return this["idreg"];}
-		set {if (value==null|| value==DBNull.Value) this["idreg"]= DBNull.Value; else this["idreg"]= value;}
+		set {this["idreg"]= value;}
 	}
-	public Int32? idregOriginal { 
-		get {if (this["idreg",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idreg",DataRowVersion.Original];}
+	public Int32 idregOriginal { 
+		get {return  (Int32)this["idreg",DataRowVersion.Original];}
 	}
 	///<summary>
 	///id voce upb (tabella upb)
@@ -255,44 +257,44 @@ public class parasubcontractRow: MetaRow  {
 	///<summary>
 	///Durata (Mesi)
 	///</summary>
-	public Int32? monthlen{ 
-		get {if (this["monthlen"]==DBNull.Value)return null; return  (Int32?)this["monthlen"];}
-		set {if (value==null) this["monthlen"]= DBNull.Value; else this["monthlen"]= value;}
+	public Int32 monthlen{ 
+		get {return  (Int32)this["monthlen"];}
+		set {this["monthlen"]= value;}
 	}
 	public object monthlenValue { 
 		get{ return this["monthlen"];}
-		set {if (value==null|| value==DBNull.Value) this["monthlen"]= DBNull.Value; else this["monthlen"]= value;}
+		set {this["monthlen"]= value;}
 	}
-	public Int32? monthlenOriginal { 
-		get {if (this["monthlen",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["monthlen",DataRowVersion.Original];}
+	public Int32 monthlenOriginal { 
+		get {return  (Int32)this["monthlen",DataRowVersion.Original];}
 	}
 	///<summary>
 	///N. contratto
 	///</summary>
 	public String ncon{ 
-		get {if (this["ncon"]==DBNull.Value)return null; return  (String)this["ncon"];}
-		set {if (value==null) this["ncon"]= DBNull.Value; else this["ncon"]= value;}
+		get {return  (String)this["ncon"];}
+		set {this["ncon"]= value;}
 	}
 	public object nconValue { 
 		get{ return this["ncon"];}
-		set {if (value==null|| value==DBNull.Value) this["ncon"]= DBNull.Value; else this["ncon"]= value;}
+		set {this["ncon"]= value;}
 	}
 	public String nconOriginal { 
-		get {if (this["ncon",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["ncon",DataRowVersion.Original];}
+		get {return  (String)this["ncon",DataRowVersion.Original];}
 	}
 	///<summary>
 	///CC su Cedolino
 	///</summary>
 	public String payrollccinfo{ 
-		get {if (this["payrollccinfo"]==DBNull.Value)return null; return  (String)this["payrollccinfo"];}
-		set {if (value==null) this["payrollccinfo"]= DBNull.Value; else this["payrollccinfo"]= value;}
+		get {return  (String)this["payrollccinfo"];}
+		set {this["payrollccinfo"]= value;}
 	}
 	public object payrollccinfoValue { 
 		get{ return this["payrollccinfo"];}
-		set {if (value==null|| value==DBNull.Value) this["payrollccinfo"]= DBNull.Value; else this["payrollccinfo"]= value;}
+		set {this["payrollccinfo"]= value;}
 	}
 	public String payrollccinfoOriginal { 
-		get {if (this["payrollccinfo",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["payrollccinfo",DataRowVersion.Original];}
+		get {return  (String)this["payrollccinfo",DataRowVersion.Original];}
 	}
 	///<summary>
 	///allegati
@@ -311,30 +313,30 @@ public class parasubcontractRow: MetaRow  {
 	///<summary>
 	///data inizio
 	///</summary>
-	public DateTime? start{ 
-		get {if (this["start"]==DBNull.Value)return null; return  (DateTime?)this["start"];}
-		set {if (value==null) this["start"]= DBNull.Value; else this["start"]= value;}
+	public DateTime start{ 
+		get {return  (DateTime)this["start"];}
+		set {this["start"]= value;}
 	}
 	public object startValue { 
 		get{ return this["start"];}
-		set {if (value==null|| value==DBNull.Value) this["start"]= DBNull.Value; else this["start"]= value;}
+		set {this["start"]= value;}
 	}
-	public DateTime? startOriginal { 
-		get {if (this["start",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["start",DataRowVersion.Original];}
+	public DateTime startOriginal { 
+		get {return  (DateTime)this["start",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data fine
 	///</summary>
-	public DateTime? stop{ 
-		get {if (this["stop"]==DBNull.Value)return null; return  (DateTime?)this["stop"];}
-		set {if (value==null) this["stop"]= DBNull.Value; else this["stop"]= value;}
+	public DateTime stop{ 
+		get {return  (DateTime)this["stop"];}
+		set {this["stop"]= value;}
 	}
 	public object stopValue { 
 		get{ return this["stop"];}
-		set {if (value==null|| value==DBNull.Value) this["stop"]= DBNull.Value; else this["stop"]= value;}
+		set {this["stop"]= value;}
 	}
-	public DateTime? stopOriginal { 
-		get {if (this["stop",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["stop",DataRowVersion.Original];}
+	public DateTime stopOriginal { 
+		get {return  (DateTime)this["stop",DataRowVersion.Original];}
 	}
 	///<summary>
 	///note testuali
@@ -353,30 +355,30 @@ public class parasubcontractRow: MetaRow  {
 	///<summary>
 	///Anno contratto
 	///</summary>
-	public Int32? ycon{ 
-		get {if (this["ycon"]==DBNull.Value)return null; return  (Int32?)this["ycon"];}
-		set {if (value==null) this["ycon"]= DBNull.Value; else this["ycon"]= value;}
+	public Int32 ycon{ 
+		get {return  (Int32)this["ycon"];}
+		set {this["ycon"]= value;}
 	}
 	public object yconValue { 
 		get{ return this["ycon"];}
-		set {if (value==null|| value==DBNull.Value) this["ycon"]= DBNull.Value; else this["ycon"]= value;}
+		set {this["ycon"]= value;}
 	}
-	public Int32? yconOriginal { 
-		get {if (this["ycon",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["ycon",DataRowVersion.Original];}
+	public Int32 yconOriginal { 
+		get {return  (Int32)this["ycon",DataRowVersion.Original];}
 	}
 	///<summary>
 	///chiave prestazione (tabella service)
 	///</summary>
-	public Int32? idser{ 
-		get {if (this["idser"]==DBNull.Value)return null; return  (Int32?)this["idser"];}
-		set {if (value==null) this["idser"]= DBNull.Value; else this["idser"]= value;}
+	public Int32 idser{ 
+		get {return  (Int32)this["idser"];}
+		set {this["idser"]= value;}
 	}
 	public object idserValue { 
 		get{ return this["idser"];}
-		set {if (value==null|| value==DBNull.Value) this["idser"]= DBNull.Value; else this["idser"]= value;}
+		set {this["idser"]= value;}
 	}
-	public Int32? idserOriginal { 
-		get {if (this["idser",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idser",DataRowVersion.Original];}
+	public Int32 idserOriginal { 
+		get {return  (Int32)this["idser",DataRowVersion.Original];}
 	}
 	///<summary>
 	///id voce analitica 1(tabella sorting)
@@ -599,6 +601,28 @@ public class parasubcontractRow: MetaRow  {
 	public Int32? iddaliarecruitmentmotiveOriginal { 
 		get {if (this["iddaliarecruitmentmotive",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["iddaliarecruitmentmotive",DataRowVersion.Original];}
 	}
+	public Int32? iddalia_funzionale{ 
+		get {if (this["iddalia_funzionale"]==DBNull.Value)return null; return  (Int32?)this["iddalia_funzionale"];}
+		set {if (value==null) this["iddalia_funzionale"]= DBNull.Value; else this["iddalia_funzionale"]= value;}
+	}
+	public object iddalia_funzionaleValue { 
+		get{ return this["iddalia_funzionale"];}
+		set {if (value==null|| value==DBNull.Value) this["iddalia_funzionale"]= DBNull.Value; else this["iddalia_funzionale"]= value;}
+	}
+	public Int32? iddalia_funzionaleOriginal { 
+		get {if (this["iddalia_funzionale",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["iddalia_funzionale",DataRowVersion.Original];}
+	}
+	public Int32? iddalia_dipartimento{ 
+		get {if (this["iddalia_dipartimento"]==DBNull.Value)return null; return  (Int32?)this["iddalia_dipartimento"];}
+		set {if (value==null) this["iddalia_dipartimento"]= DBNull.Value; else this["iddalia_dipartimento"]= value;}
+	}
+	public object iddalia_dipartimentoValue { 
+		get{ return this["iddalia_dipartimento"];}
+		set {if (value==null|| value==DBNull.Value) this["iddalia_dipartimento"]= DBNull.Value; else this["iddalia_dipartimento"]= value;}
+	}
+	public Int32? iddalia_dipartimentoOriginal { 
+		get {if (this["iddalia_dipartimento",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["iddalia_dipartimento",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -649,6 +673,8 @@ public class parasubcontractTable : MetaTableBase<parasubcontractRow> {
 			{"idsor_siope",createColumn("idsor_siope",typeof(int),true,false)},
 			{"requested_doc",createColumn("requested_doc",typeof(int),true,false)},
 			{"iddaliarecruitmentmotive",createColumn("iddaliarecruitmentmotive",typeof(int),true,false)},
+			{"iddalia_funzionale",createColumn("iddalia_funzionale",typeof(int),true,false)},
+			{"iddalia_dipartimento",createColumn("iddalia_dipartimento",typeof(int),true,false)},
 		};
 	}
 }

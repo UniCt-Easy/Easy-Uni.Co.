@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_spese_5f_resp_generale]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_spese_5f_resp_generale]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_partitario_spese_5f_resp_generale]
 GO
 
@@ -57,7 +59,7 @@ from config
 where ayear=@ayear
 
 /*
- L'ipotesi di questa stampa a 5 fasi √® che 
+ L'ipotesi di questa stampa a 5 fasi Ë che 
 ( @residualphase < @nsecondphase) AND (@nsecondphase<@nthirdphase) AND (@nthirdphase<@nfourthphase) AND (@nfourthphase<@maxphase)
 
 */
@@ -285,22 +287,22 @@ SELECT
 		+')'	
 	end,
 	expense.idreg,	
-	E1.idexp, --IMPEGNO (in realt√† √® la prima fase, ossia lo stanziamento)
+	E1.idexp, --IMPEGNO (in realt‡ Ë la prima fase, ossia lo stanziamento)
 	E1.ymov,
 	E1.nmov,  
 	expenseyear.amount,
 
-	E2.idexp, --questa √® la seconda fase
+	E2.idexp, --questa Ë la seconda fase
 	E2.ymov,
 	E2.nmov,  
 	expenseyear.amount,
 
-	E3.idexp, --questa √® la terza fase 
+	E3.idexp, --questa Ë la terza fase 
 	E3.ymov,
 	E3.nmov,  
 	expenseyear.amount,
 
-	E4.idexp, --questa √® la quarta fase 
+	E4.idexp, --questa Ë la quarta fase 
 	E4.ymov,
 	E4.nmov,  
 	expenseyear.amount,
@@ -373,7 +375,7 @@ WHERE (@idfin IS NULL OR  isnull(FL1.idparent, expenseyear.idfin) = @idfin)
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 
 
-/* prendo tutte la fasi, dopo vedr√≤ se nphase= finphase , secondphase, regphase or maxphase*/
+/* prendo tutte la fasi, dopo vedrÚ se nphase= finphase , secondphase, regphase or maxphase*/
 
 --- Inserimento delle variazioni dei movimenti
 INSERT INTO #expense
@@ -441,28 +443,28 @@ SELECT
 		+')'	
 		end,
 	expense.idreg,	
-	E1.idexp, --IMPEGNO, in relat√† √® la prima fase, quindi lo stanziamento
+	E1.idexp, --IMPEGNO, in relat‡ Ë la prima fase, quindi lo stanziamento
 	E1.ymov,
 	E1.nmov,  
 	expensevar.yvar,
 	expensevar.nvar,
 	expensevar.amount,
 
-	E2.idexp, --Questa √® la seconda fase
+	E2.idexp, --Questa Ë la seconda fase
 	E2.ymov,
 	E2.nmov,  
 	expensevar.yvar, -- EV_2
 	expensevar.nvar, -- EV_2
 	expensevar.amount,--EV_2
 
-	E3.idexp, --Questa √® la terza fase
+	E3.idexp, --Questa Ë la terza fase
 	E3.ymov,
 	E3.nmov,  
 	expensevar.yvar,  -- EV_3
 	expensevar.nvar,  -- EV_3
 	expensevar.amount,-- EV_3
 
-	E4.idexp, --Questa √® la quarta fase
+	E4.idexp, --Questa Ë la quarta fase
 	E4.ymov,
 	E4.nmov,  
 	expensevar.yvar,  -- EV_4
@@ -527,7 +529,7 @@ WHERE	(@idfin IS NULL OR  isnull(FL1.idparent, expenseyear.idfin) = @idfin)
 	AND (@idsor03 IS NULL OR upb.idsor03 = @idsor03)
 	AND (@idsor04 IS NULL OR upb.idsor04 = @idsor04)
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
--- -L'update √® stato introdotto perch√® dobbiamo considerare con Responsabile quello della prima fase
+-- -L'update Ë stato introdotto perchË dobbiamo considerare con Responsabile quello della prima fase
 UPDATE #expense SET idman = ( select ee.idman FROM #expense ee  -- posso avere 2 righe se ho la fase 1 e la var.
                         WHERE ee.nappropriation = #expense.nappropriation 
                                 AND ee.nphase = @nfinphase
@@ -843,7 +845,7 @@ END
 --         ON expenselink.idchild = expense.idexp and expenselink.nlevel = @nfinphase
 -- LEFT OUTER JOIN expense E1
 --         ON E1.idexp = expenselink.idparent 
--- E' stato fatto perch√® come responsabile dobbiamo considerare quello della prima fase
+-- E' stato fatto perchË come responsabile dobbiamo considerare quello della prima fase
 
 CREATE TABLE #appropriation_C
     (
@@ -1995,7 +1997,7 @@ CREATE TABLE #expenseprec
 	appropriation decimal(19,2),
 	var_appropriation decimal(19,2)
 )
--- questi calcoli li fa solo se vuoi vedere l'upb,perch√® sono info relative ad essso
+-- questi calcoli li fa solo se vuoi vedere l'upb,perchË sono info relative ad essso
 -- IF parametto mostra info = S  and mostra upb = S
 
 DECLARE @InfoAnniPrec char
@@ -2168,7 +2170,7 @@ END
 		
 
 
-if (@suppressifblank = 'S') and @codelevel>2	--> se la stampa √® x un livello sottostante la categoria cancella le righe
+if (@suppressifblank = 'S') and @codelevel>2	--> se la stampa Ë x un livello sottostante la categoria cancella le righe
 	BEGIN
 		DELETE FROM  #expense   
 		WHERE  
@@ -2409,4 +2411,3 @@ GO
 
 
 
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- CREAZIONE VISTA underwritingyearview
+
+-- CREAZIONE VISTA underwritingyearview
 IF EXISTS(select * from sysobjects where id = object_id(N'[underwritingyearview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [underwritingyearview]
 GO
@@ -29,7 +31,7 @@ CREATE  VIEW [underwritingyearview]
 	ayear,
 	doc,
 	docdate,
-	prevision,-- √® una previsione puramente indicativa, √® extra-contabile
+	prevision,-- Ë una previsione puramente indicativa, Ë extra-contabile
 	initialprevision,
 	currentprevision,
 	initialsecondaryprev,
@@ -300,7 +302,7 @@ AS SELECT
 		AND     fin.ayear = underwritingyear.ayear
 		GROUP BY underwritingincometotal.idunderwriting)
 	,0),
-	-- toassess, cio√® da accertare. = prevision - assesment
+	-- toassess, cioË da accertare. = prevision - assesment
 	ISNULL(underwritingyear.prevision,0)
 		- ISNULL(
 		(SELECT
@@ -378,4 +380,3 @@ LEFT OUTER JOIN underwriter
 GO
 
 
-	

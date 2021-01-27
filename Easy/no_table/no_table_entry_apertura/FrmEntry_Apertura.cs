@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -87,7 +89,7 @@ namespace no_table_entry_apertura {
         private void btnApertura_Click(object sender, EventArgs e) {
             if (Meta.edit_type == "apertura") {
                 if (!doApertura()) {
-                    MessageBox.Show(this, "Errore nel processo di apertura dei conti", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel processo di apertura dei conti", "Errore");
                 }
             }
             if (Meta.edit_type == "riparto") {
@@ -102,7 +104,7 @@ namespace no_table_entry_apertura {
             int num = Conn.RUN_SELECT_COUNT("entry", filter, false);
             
             if (num>0) {
-                if (MessageBox.Show("Le scritture di Apertura relative all''esercizio corrente risultano gi‡ generate. Si desidera proseguire comunque?", "Avviso",
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Le scritture di Apertura relative all''esercizio corrente risultano gi‡ generate. Si desidera proseguire comunque?", "Avviso",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return false;
             }
@@ -117,7 +119,7 @@ namespace no_table_entry_apertura {
             int num = Conn.RUN_SELECT_COUNT("entry", filter, false);
 
             if (num > 0) {
-                if (MessageBox.Show("Le scritture di ribaltamento relative all''esercizio corrente risultano gi‡ generate. Si desidera proseguire comunque?", "Avviso",
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Le scritture di ribaltamento relative all''esercizio corrente risultano gi‡ generate. Si desidera proseguire comunque?", "Avviso",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return false;
             }
@@ -175,19 +177,19 @@ namespace no_table_entry_apertura {
             DataTable tSaldo = Meta.Conn.SQLRunner(query);
              
             if (tSaldo == null) {
-                MessageBox.Show(this, "Errore nella query che estrae i conti da aprire", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella query che estrae i conti da aprire", "Errore");
                 return false;
             }
 
             if (tSaldo.Rows.Count == 0) {
-                MessageBox.Show(this, "La tabella dei saldi risulta vuota, procedura di apertura non eseguita", "Avvertimento");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La tabella dei saldi risulta vuota, procedura di apertura non eseguita", "Avvertimento");
                 return true;
             }
 
             DataRow rEntry = fillEntryApertura(tEntry);
 
             if (rEntry == null) {
-                MessageBox.Show(this, "Errore nella creazione della scrittura", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella creazione della scrittura", "Errore");
                 return false;
             }
 
@@ -198,7 +200,7 @@ namespace no_table_entry_apertura {
             object idaccPat = Meta.Conn.DO_READ_VALUE("config", f, "idacc_patrimony");
 
             if ((idaccPat == null) || (idaccPat == DBNull.Value)) {
-                MessageBox.Show(this, "Non Ë stato selezionato il conto che pareggia l'epilogo dei conti patrimoniali", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stato selezionato il conto che pareggia l'epilogo dei conti patrimoniali", "Errore");
                 return false;
             }
 
@@ -216,7 +218,7 @@ namespace no_table_entry_apertura {
             FrmEntryPreSave frm = new FrmEntryPreSave(ds.Tables["entrydetail"], Meta.Conn, tSaldo);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "Operazione Annullata!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Operazione Annullata!");
                 return true;
             }
 
@@ -229,10 +231,10 @@ namespace no_table_entry_apertura {
             if (Post.DO_POST()) {
                 DataRow rEntryPosted = tEntry.Rows[0];
                 EditEntry(rEntryPosted);
-                MessageBox.Show(this, "Apertura dei conti effettuata");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Apertura dei conti effettuata");
             }
             else {
-                MessageBox.Show(this, "Errore nel salvataggio della scrittura di apertura!", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio della scrittura di apertura!", "Errore");
                 return false;
             }
 
@@ -289,7 +291,7 @@ namespace no_table_entry_apertura {
 
             //object nEntry = Meta.Conn.DO_READ_VALUE("entry", filter, "MAX(nentry)");
             //if (nEntry == null) {
-            //    MessageBox.Show(this, "Errore nel calcolo dell'ultima scrittura", "Errore");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel calcolo dell'ultima scrittura", "Errore");
             //    return null;
             //}
             //int freeN = 1 + CfgFn.GetNoNullInt32(nEntry);
@@ -316,7 +318,9 @@ namespace no_table_entry_apertura {
             decimal amount = CfgFn.GetNoNullDecimal(rSaldo["amount"]);
             decimal reverseAmount = -amount ;
             if ((newidAcc == null)|| (newidAcc == DBNull.Value)) {
-                MessageBox.Show(this, "Errore nell'attualizzazione del conto " + rSaldo["olcodeacc"].ToString() + " nell'esercizio corrente", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nell'attualizzazione del conto " + rSaldo["olcodeacc"].ToString() + " nell'esercizio corrente.\n" + 
+                    "Inserire la configurazione nell'esercizio precedente da Opzioni - Chiusura - Converti voci del piano dei conti annuale, " + 
+                    "per poter generare la scrittura di apertura", "Errore");
                 return false;
             }
             object idaccmotive = DBNull.Value;
@@ -426,18 +430,18 @@ namespace no_table_entry_apertura {
             DataTable t = Conn.SQLRunner(query);
 
             if (t == null) {
-                MessageBox.Show(this, "Errore nella query che estrae i risultati da ripartire", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella query che estrae i risultati da ripartire", "Errore");
                 return false;
             }
 
             if (t.Rows.Count == 0) {
-                MessageBox.Show(this, "Nessun risultato economico da ripartire", "Avvertimento");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nessun risultato economico da ripartire", "Avvertimento");
                 return true;
             }
 
             DataRow rEntry = getEntryRibaltamento(tEntry);
             if (rEntry == null) {
-                MessageBox.Show(this, "Errore nella creazione della scrittura", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella creazione della scrittura", "Errore");
                 return false;
             }
 
@@ -451,7 +455,7 @@ namespace no_table_entry_apertura {
             FrmEntryPreSave frm = new FrmEntryPreSave(ds.Tables["entrydetail"], Meta.Conn, t);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "Operazione Annullata!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Operazione Annullata!");
                 return true;
             }
 
@@ -462,10 +466,10 @@ namespace no_table_entry_apertura {
             if (post.DO_POST()) {
                 DataRow rEntryPosted = tEntry.Rows[0];
                 EditEntry(rEntryPosted);
-                MessageBox.Show(this, "Ripartimento del risultato economico completato con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Ripartimento del risultato economico completato con successo!");
             }
             else {
-                MessageBox.Show(this, "Errore nel salvataggio della scrittura di ripartimento", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio della scrittura di ripartimento", "Errore");
                 return false;
             }
             return true;

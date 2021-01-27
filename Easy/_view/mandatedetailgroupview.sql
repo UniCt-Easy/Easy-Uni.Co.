@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- CREAZIONE VISTA mandatedetailgroupview
+
+-- CREAZIONE VISTA mandatedetailgroupview
 IF EXISTS(select * from sysobjects where id = object_id(N'[mandatedetailgroupview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [mandatedetailgroupview]
 GO
@@ -96,7 +98,7 @@ CREATE VIEW [mandatedetailgroupview]
 	mandatedetail.assetkind,
 	mandatedetail.start,
 	mandatedetail.stop,
-	/* Prima facendo  Round(somma * x*y*z ) sbagliava gli arrotondamenti xk√® avvenivano dettaglio x dettaglio 
+	/* Prima facendo  Round(somma * x*y*z ) sbagliava gli arrotondamenti xkË avvenivano dettaglio x dettaglio 
 	   adesso calcola   Round(somma) * x*y*z  prima si calcola il taxable poi fa le moltiplicazioni.
 	isnull(sum(
  	    ROUND(mandatedetail.taxable * mandatedetail.number * 
@@ -195,4 +197,3 @@ GROUP BY
 
 
 GO
-	

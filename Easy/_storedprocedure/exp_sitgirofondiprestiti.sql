@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_sitgirofondiprestiti]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_sitgirofondiprestiti]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_sitgirofondiprestiti]
 GO
 
@@ -79,7 +81,7 @@ Begin
 		isnull(T1.header, T1.description) as 'Cassiere Principale',
 		sum(D.amountprestato) as 'Importo Erogato',
 		-(sum(D.amountricevuto)) as 'Importo Ricevuto',
-		case when ( sum(isnull(D.amountprestato,0) + isnull(D.amountricevuto,0)) )>0  --> Il segno Ã¨ +, perchÃ¨ il campo Ã¨ memorizzato col -.
+		case when ( sum(isnull(D.amountprestato,0) + isnull(D.amountricevuto,0)) )>0  --> Il segno è +, perchè il campo è memorizzato col -.
 			then sum(isnull(D.amountprestato,0) + isnull(D.amountricevuto,0))
 			else null 
 		end  as 'Girofondi da ricevere',
@@ -106,5 +108,4 @@ SET ANSI_NULLS ON
 GO
 
 
-	
 	

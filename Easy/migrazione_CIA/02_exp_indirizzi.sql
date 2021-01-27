@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_indirizzi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_indirizzi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_indirizzi]
 GO
 
@@ -28,7 +30,7 @@ GO
 CREATE PROCEDURE [exp_indirizzi]
 
 AS BEGIN
--- Leggiamo solo da ANAGRAFICO, perch√® la tabell DIPEDENTI contiene i campi indirizzo_residenza, cap_residenza...indirizzo_fisclae, cap_fiscale, etc
+-- Leggiamo solo da ANAGRAFICO, perchË la tabell DIPEDENTI contiene i campi indirizzo_residenza, cap_residenza...indirizzo_fisclae, cap_fiscale, etc
 -- quindi per i dipendenti importeremo gli indirizzi con l'importazione dell'anagrafica.
 
 --string[] tracciato_indirizzi =
@@ -36,13 +38,13 @@ AS BEGIN
 --                "codice;Codice anagrafica;Intero;10",
 --                "codicetipoind;Codice tipo indirizzo;Stringa;20",
 --                "descrtipoind;Descrizione tipo indirizzo;Stringa;60",
---                "datastart;Data inizio validit√†;Data;8",
---                "datastop;Data fine validit√†;Data;8",
+--                "datastart;Data inizio validit‡;Data;8",
+--                "datastop;Data fine validit‡;Data;8",
 --                "indirizzo;Indirizzo;Stringa;100",
 --                "cap;CAP;Stringa;5",
 --                "ufficio;Ufficio predefinito;Stringa;50",
 --                "catastale_res;Codice catastale del comune o stato estero;Stringa;4",
---                "localita_res;Localit√†;Stringa;50",
+--                "localita_res;Localit‡;Stringa;50",
 --                "nazione;Nazione estera (deve essere uguale ad una del programma se presente);Stringa;65",
 --                "annotazioni;Annotazioni;Stringa;400",
 --                "enteprovenienza;Ente provenienza (per anagrafe prestazioni);Stringa;50",
@@ -53,7 +55,7 @@ declare @len_indirizzo int
 set @len_indirizzo = 100
 declare @localita_res int
 set @localita_res = 50
-SELECT distinct -- in INDIRIZZI c'√® anche il campo telefono, quindi per una stessa anagrafica potrebero esserci due righe, con lo stesso indirizzo che differiscono solo per il telefono.
+SELECT distinct -- in INDIRIZZI c'Ë anche il campo telefono, quindi per una stessa anagrafica potrebero esserci due righe, con lo stesso indirizzo che differiscono solo per il telefono.
 	LKA.idreg as 'codice',
 	case 
 		when I.NUMERO_INDIRIZZO = 1 then '07_SW_DEF'
@@ -166,4 +168,3 @@ GO
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
-	

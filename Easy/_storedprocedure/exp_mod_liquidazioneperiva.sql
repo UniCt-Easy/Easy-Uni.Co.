@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø
+
+
 --setuser'amm'
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_liquidazioneperiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_liquidazioneperiva]
@@ -97,12 +99,12 @@ END
 /*
 1   <Fornitura>											<1.1>	
 	1.1   <Intestazione>								Blocco obbligatorio		<1.1>	
-		1.1.1   <CodiceFornitura>						xs:string	L'elemento √® obbligatorio e contiene il codice della fornitura	"Valori ammessi:[ IVP17]"	<1.1>	5
+		1.1.1   <CodiceFornitura>						xs:string	L'elemento Ë obbligatorio e contiene il codice della fornitura	"Valori ammessi:[ IVP17]"	<1.1>	5
 		1.1.2   <CodiceFiscaleDichiarante>				xs:string	"Codice fiscale del soggetto obbligato alla trasmissione della comunicazione IVA quando non coincide con il soggetto passivo al quale i dati si riferiscono (p.e. tutore, curatore fallimentare etc.). Deve essere valorizzato tranne nei casi in cui il soggetto che appone la firma elettronica sul file:
 														- coincide  con il soggetto IVA al quale i dati si riferiscono;
-														- √® un incaricato del soggetto IVA registrato presso i servizi telematici dell‚ÄôAgenzia delle Entrate ed autorizzato attraverso le specifiche funzionalit√† di profilazione riservate ai ‚Äúgestori incaricati‚Äù;
-														- √® un intermediario (art. 3, commi 2 bis e 3 del DPR 322/1978)"	formato alfanumerico	<0.1>	16
-		1.1.3   <CodiceCarica>							xs:string	Codice riferibile al soggetto che invia la comunicazione IVA in relazione alla carica rivestita	"Valori ammessi: vedi tabella generale dei codici di carica disponibile nelle istruzioni del modello IVA annuale"	<0.1>	1 ‚Ä¶ 2
+														- Ë un incaricato del soggetto IVA registrato presso i servizi telematici dellíAgenzia delle Entrate ed autorizzato attraverso le specifiche funzionalit‡ di profilazione riservate ai ìgestori incaricatiî;
+														- Ë un intermediario (art. 3, commi 2 bis e 3 del DPR 322/1978)"	formato alfanumerico	<0.1>	16
+		1.1.3   <CodiceCarica>							xs:string	Codice riferibile al soggetto che invia la comunicazione IVA in relazione alla carica rivestita	"Valori ammessi: vedi tabella generale dei codici di carica disponibile nelle istruzioni del modello IVA annuale"	<0.1>	1 Ö 2
 		1.1.4   <IdSistema>						        xs:string	Campo riservato al Sistema: da NON valorizzare	formato alfanumerico	<0.1>	11 _16
 */
 DECLARE @CodiceFornitura varchar(5)
@@ -149,22 +151,22 @@ SELECT
 
 /*	1.2   <Comunicazione>								Blocco contenente i dati della comunicazione trimestrale IVA		<1.1>	
 		1.2.1   <Frontespizio>							Blocco contenente i dati del fronterspizio della comunicazione trimestrale IVA		<1.1>	
-			1.2.1.1   <CodiceFiscale>					xs:string	Codice fiscale del soggetto cui si riferisce la comunicazione trimestrale IVA	formato alfanumerico	<1.1>	11 ‚Ä¶ 16
+			1.2.1.1   <CodiceFiscale>					xs:string	Codice fiscale del soggetto cui si riferisce la comunicazione trimestrale IVA	formato alfanumerico	<1.1>	11 Ö 16
 			1.2.1.2   <AnnoImposta>					    xs:string	Anno di imposta  cui si riferisce la comunicazione	formato numerico	<1.1>	4
 			1.2.1.3   <PartitaIVA>					    xs:string	Partita IVA del soggetto cui si riferisce la comunicazione trimestrale IVA	formato alfanumerico	<1.1>	11
-			1.2.1.4   <PIVAControllante>			    xs:string	Partita IVA dell'ente o societ√† controllante  nel caso di liquidazione di gruppo ultimo comma dell‚Äôart. 73,	formato alfanumerico	<0.1>	11
-			1.2.1.5   <UltimoMese>					    xs:string	Ultime mese di controllo nel caso di interruzione della liquidazione di gruppo ultimo comma dell‚Äôart.73.	"Valori ammessi: [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [13] [99]"	<0.1>	1 ‚Ä¶ 2
-			1.2.1.6   <LiquidazioneGruppo>			    xs:string	Indica se la comunicazione si riferisce alla liquidazione di gruppo dell‚Äôultimo comma dell‚Äôart. 73,	"Valori ammessi:[0] [1]"	<0.1>	1
+			1.2.1.4   <PIVAControllante>			    xs:string	Partita IVA dell'ente o societ‡ controllante  nel caso di liquidazione di gruppo ultimo comma dellíart. 73,	formato alfanumerico	<0.1>	11
+			1.2.1.5   <UltimoMese>					    xs:string	Ultime mese di controllo nel caso di interruzione della liquidazione di gruppo ultimo comma dellíart.73.	"Valori ammessi: [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [13] [99]"	<0.1>	1 Ö 2
+			1.2.1.6   <LiquidazioneGruppo>			    xs:string	Indica se la comunicazione si riferisce alla liquidazione di gruppo dellíultimo comma dellíart. 73,	"Valori ammessi:[0] [1]"	<0.1>	1
 			1.2.1.7   <CFDichiarante>					xs:string	Codice fiscale del dichiarante persona fisica che sottoscrive la Comunicazione	formato alfanumerico	<0.1>	16
-			1.2.1.8   <CodiceCaricaDichiarante>			xs:string	Codice di carica del dichiarante	formato numerico	<0.1>	1 ‚Ä¶ 2
-			1.2.1.9   <CodiceFiscaleSocieta>			xs:string	Codice fiscale della societ√† dichiarante 	formato alfanumerico	<0.1>	11
+			1.2.1.8   <CodiceCaricaDichiarante>			xs:string	Codice di carica del dichiarante	formato numerico	<0.1>	1 Ö 2
+			1.2.1.9   <CodiceFiscaleSocieta>			xs:string	Codice fiscale della societ‡ dichiarante 	formato alfanumerico	<0.1>	11
 			1.2.1.10  <FirmaDichiarazione>			    xs:string	Indica la presenza della firma del contribuente o di chi ne ha la rappresentanza legale o negoziale	"Valori ammessi:[0] [1]"	<1.1>	1
 			1.2.1.11  <CFIntermediario>					xs:string	Codice fiscale dell'incaricato alla trasmissione	formato alfanumerico	<0.1>	16
-			1.2.1.12  <ImpegnoPresentazione>			xs:string	Tipo di impegno a trasmettere; vale 1 se la comunicazione √® stata predisposta dal contribuente, o   2  se √® stata predisposta da chi effettua l'invio	"Valori ammessi:[1] [2]"	<0.1>	1
-			1.2.1.13   <DataImpegno>					xs:string	Data (giorno, mese e anno) di assunzione dell‚Äôimpegno a trasmettere	formato ggmmaaaa	<0.1>	8
+			1.2.1.12  <ImpegnoPresentazione>			xs:string	Tipo di impegno a trasmettere; vale 1 se la comunicazione Ë stata predisposta dal contribuente, o   2  se Ë stata predisposta da chi effettua l'invio	"Valori ammessi:[1] [2]"	<0.1>	1
+			1.2.1.13   <DataImpegno>					xs:string	Data (giorno, mese e anno) di assunzione dellíimpegno a trasmettere	formato ggmmaaaa	<0.1>	8
 			1.2.1.14   <FirmaIntermediario>				xs:string	Indica la presenza della firma da parte dell'intermediario	"Valori ammessi:[0] [1]"	<0.1>	1
 			1.2.1.15   <FlagConferma>					xs:string	Flag , la cui  valorizzazione a 1 indica presenza di anomalie nella comunicazione	"Valori ammessi:[0] [1]"	<0.1>	1
-			1.2.1.16   <IdentificativoProdSoftware>		xs:string	Elemento a disposizione dei produttori di software	formato alfanumerico	<0.1>	1 ‚Ä¶ *
+			1.2.1.16   <IdentificativoProdSoftware>		xs:string	Elemento a disposizione dei produttori di software	formato alfanumerico	<0.1>	1 Ö *
 */
 
 
@@ -196,25 +198,25 @@ SELECT
 /*
 		1.2.2   <DatiContabili>							Blocco relativo ai dati contabili della comunicazione IVA		<1.1>	
 				1.2.2.1   <Modulo>						Blocco contenente i dati dei moduli della comunicazione trimestrale IVA. E' obbligatoria la presenza di almeno un modulo fino ad un massimo di cinque 		<1.5>	
-				1.2.2.1.1   <Mese>				xs:string	Mese di riferimento della liquidazione IVA	"Valori ammessi:[1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12]"	<0.1>	1 ‚Ä¶ 2
+				1.2.2.1.1   <Mese>				xs:string	Mese di riferimento della liquidazione IVA	"Valori ammessi:[1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12]"	<0.1>	1 Ö 2
 				1.2.2.1.2   <Trimestre>				xs:string	Trimestre di riferimento della liquidazione IVA	"Valori ammessi:[1] [2] [3] [4] [5]"	<0.1>	1
-				1.2.2.1.3   <Subfornitura>				xs:string	Indica se il contribuente si √® avvalso delle agevolazioni previste dall‚Äôart. 74, comma 5	"Valori ammessi:[0] [1]"	<0.1>	1
-				1.2.2.1.4   <EventiEccezionali>				xs:string	Riservato ai soggetti chehanno fruito per il periodo di riferimento, agli effetti dell‚ÄôIVA,delle agevolazioni fiscali	"Valori ammessi:[1] [9]"	<0.1>	1
-				1.2.2.1.5   <TotaleOperazioniAttive>				xs:decimal	Ammontare complessivo delle cessioni/prestazioni al netto dell'IVA effettuate nel periodo di riferimento	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.6   <TotaleOperazioniPassive>				xs:decimal	Ammontare complessivo degli acquisti al netto dell'IVA effettuati nel periodo di riferimento	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.7   <IvaEsigibile>				xs:decimal	Ammontare IVA a debito relativo alle operazioni attive del periodo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.8   <IvaDetratta>				xs:decimal	Ammontare IVA da portare in detrazione del periodo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.9   <IvaDovuta>				xs:decimal	Vale  (IvaEsigibile - IvaDetratta) se positiva 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.10  <IvaCredito>				xs:decimal	Vale  (IvaDetratta - IvaEsigibile) se positiva 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.11  <DebitoPrecedente>				xs:decimal	Importo a debito non versato nel periodo precedente in quanto non superiore a 25,82 euro	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.12  <CreditoPeriodoPrecedente>				xs:decimal	Ammontare IVA a credito computata in detrazione, risultante dalle liquidazioni precedenti	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.13  <CreditoAnnoPrecedente>				xs:decimal	Ammontare IVA a credito compensabile che viene portato in detrazione e risultante dalla dichiarazione annuale dell'anno precedente	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.14  <VersamentiAutoUE>				xs:decimal	Ammontare complessivo dei versamenti relativi all'imposta dovuta per la prima cessione interna di autoveicoli	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.15  <CreditiImposta>				xs:decimal	Ammontare dei particolari crediti di imposta utilizzati nel periodo di riferimento a scomputo del versamento	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.16  <InteressiDovuti>				xs:decimal	Ammontare degli interessi dovuti relativamente alla liquidazione del trimestre	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.17  <Acconto>						xs:decimal	Amontare dell'acconto dovuto anche se non effettivamente versato 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.18  <ImportoDaVersare>				xs:decimal	Vale (IvaDovuta - IvaCredito +  DebitoPrecedente + InteressiDovuti ‚Äì CreditiImposta ‚Äì CreditoPeriodoPrecedente ‚Äì CreditoAnnoPrecedente - VersamentiAutoUE - Acconto)  se positivo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-				1.2.2.1.19  <ImportoACredito>				xs:decimal	Vale  (IvaDovuta - IvaCredito +  DebitoPrecedente + InteressiDovuti ‚Äì CreditiImposta ‚Äì CreditoPeriodoPrecedente ‚Äì CreditoAnnoPrecedente - VersamentiAautoUE - Acconto) se negativo senza segno	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
+				1.2.2.1.3   <Subfornitura>				xs:string	Indica se il contribuente si Ë avvalso delle agevolazioni previste dallíart. 74, comma 5	"Valori ammessi:[0] [1]"	<0.1>	1
+				1.2.2.1.4   <EventiEccezionali>				xs:string	Riservato ai soggetti chehanno fruito per il periodo di riferimento, agli effetti dellíIVA,delle agevolazioni fiscali	"Valori ammessi:[1] [9]"	<0.1>	1
+				1.2.2.1.5   <TotaleOperazioniAttive>				xs:decimal	Ammontare complessivo delle cessioni/prestazioni al netto dell'IVA effettuate nel periodo di riferimento	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.6   <TotaleOperazioniPassive>				xs:decimal	Ammontare complessivo degli acquisti al netto dell'IVA effettuati nel periodo di riferimento	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.7   <IvaEsigibile>				xs:decimal	Ammontare IVA a debito relativo alle operazioni attive del periodo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.8   <IvaDetratta>				xs:decimal	Ammontare IVA da portare in detrazione del periodo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.9   <IvaDovuta>				xs:decimal	Vale  (IvaEsigibile - IvaDetratta) se positiva 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.10  <IvaCredito>				xs:decimal	Vale  (IvaDetratta - IvaEsigibile) se positiva 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.11  <DebitoPrecedente>				xs:decimal	Importo a debito non versato nel periodo precedente in quanto non superiore a 25,82 euro	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.12  <CreditoPeriodoPrecedente>				xs:decimal	Ammontare IVA a credito computata in detrazione, risultante dalle liquidazioni precedenti	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.13  <CreditoAnnoPrecedente>				xs:decimal	Ammontare IVA a credito compensabile che viene portato in detrazione e risultante dalla dichiarazione annuale dell'anno precedente	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.14  <VersamentiAutoUE>				xs:decimal	Ammontare complessivo dei versamenti relativi all'imposta dovuta per la prima cessione interna di autoveicoli	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.15  <CreditiImposta>				xs:decimal	Ammontare dei particolari crediti di imposta utilizzati nel periodo di riferimento a scomputo del versamento	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.16  <InteressiDovuti>				xs:decimal	Ammontare degli interessi dovuti relativamente alla liquidazione del trimestre	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.17  <Acconto>						xs:decimal	Amontare dell'acconto dovuto anche se non effettivamente versato 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.18  <ImportoDaVersare>				xs:decimal	Vale (IvaDovuta - IvaCredito +  DebitoPrecedente + InteressiDovuti ñ CreditiImposta ñ CreditoPeriodoPrecedente ñ CreditoAnnoPrecedente - VersamentiAutoUE - Acconto)  se positivo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+				1.2.2.1.19  <ImportoACredito>				xs:decimal	Vale  (IvaDovuta - IvaCredito +  DebitoPrecedente + InteressiDovuti ñ CreditiImposta ñ CreditoPeriodoPrecedente ñ CreditoAnnoPrecedente - VersamentiAautoUE - Acconto) se negativo senza segno	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
 				*/
 
 
@@ -310,12 +312,12 @@ DECLARE @TotaleOperazioniAttive decimal(19,2)  --- imponibile
    imponibili sia ad iva immediata che ad iva differita (indipendentemente se incassate o no) incluse le operazioni in split payment.
    non imponibili/esenti/non soggette
    INFO: Visto che vanno ricomprese solo ed esclusivamente le operazioni 
-   COMMERCIALI (ad esclusione di quelle istituzionali. le operazioni promiscue non le utilizza pi√π nessuno) 
-   e in Easy i tipi documento iva non hanno indicazione del tipo attivit√†, 
-   ci si dovrebbe basare sui registri iva (sui quali √® definito il tipo attivit√†).
+   COMMERCIALI (ad esclusione di quelle istituzionali. le operazioni promiscue non le utilizza pi˘ nessuno) 
+   e in Easy i tipi documento iva non hanno indicazione del tipo attivit‡, 
+   ci si dovrebbe basare sui registri iva (sui quali Ë definito il tipo attivit‡).
    Quindi va ricompreso nel quadro VP2 l'ammontare delle operazioni attive (imponibile della fattura di vendita) 
    relative ai tipi documento con flag contabilizzazione "movimenti di entrata"* associati ai registri iva (opzioni > iva > registri iva) 
-   con flag su tipo di attivit√† COMMERCIALE e tipo di protocollo VENDITE
+   con flag su tipo di attivit‡ COMMERCIALE e tipo di protocollo VENDITE
 */
 
 DECLARE @TotaleOperazioniPassive decimal(19,2)
@@ -325,12 +327,12 @@ DECLARE @TotaleOperazioniPassive decimal(19,2)
    incluse le operazioni in split payment.
    non imponibili/esenti/non soggette
    INFO: Visto che vanno ricomprese solo ed esclusivamente le operazioni COMMERCIALI 
-   (ad esclusione di quelle istituzionali. le operazioni promiscue non le utilizza pi√π nessuno) 
-   e in Easy i tipi documento iva non hanno indicazione del tipo attivit√†, 
-   ci si dovrebbe basare sui registri iva (sui quali √® definito il tipo attivit√†)
+   (ad esclusione di quelle istituzionali. le operazioni promiscue non le utilizza pi˘ nessuno) 
+   e in Easy i tipi documento iva non hanno indicazione del tipo attivit‡, 
+   ci si dovrebbe basare sui registri iva (sui quali Ë definito il tipo attivit‡)
    Quindi va ricompreso nel quadro VP3 l'ammontare delle operazioni passive (imponibile della fattura di acquisto) 
    relative ai tipi documento con flag contabilizzazione "movimenti di spesa"*  
-   associati ai registri iva (opzioni > iva > registri iva) con flag su tipo di attivit√† COMMERCIALE e tipo di protocollo ACQUISTO
+   associati ai registri iva (opzioni > iva > registri iva) con flag su tipo di attivit‡ COMMERCIALE e tipo di protocollo ACQUISTO
    Escludiamo talune tipologie di aliquote iva esenti che corrispondono ai seguenti tipi imposizione
    -/*Fuori campo*/
    - /*Escluse Articolo 15*/ 
@@ -367,50 +369,50 @@ AND Idivataxablekind NOT IN (5, /*Fuori campo*/ 6  /*Escluse Articolo 15*/ )
  
 
 
-DECLARE @IvaEsigibile decimal(19,2) -- Ammontare IVA a debito relativo alle operazioni attive del periodo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
+DECLARE @IvaEsigibile decimal(19,2) -- Ammontare IVA a debito relativo alle operazioni attive del periodo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
 /*
 - VP4 "Iva esigibile" indicare l'ammontare dell'iva a debito (da versare) quindi immediata + divenuta esigibile(*) per operazioni annotate in precedenza
 va inclusa anche l'iva derivante dalla doppia annotazione per gli acquisti intracomunitari.  
 Il dato deve corrispondere al valore nel campo "Totale iva a debito" della liquidazione iva mensile MA solo relativa ai registri Commerciali, 
 protocollo Vendite, associati ai tipi documento con contabilizzazione "movimento di entrata". 
-Questo perch√® non tutti i clienti calcolano le liquidazioni iva in forma singola con flag su Commerciale 
+Questo perchË non tutti i clienti calcolano le liquidazioni iva in forma singola con flag su Commerciale 
 ma molti calcolano la liquidazione includendo tutte le opzioni (Commerciale, Iva Istituzionale Intra 12 e Iva Split Istituzionale)   
-(*) SOLO IVA, in quanto il relativo imponibile √® stato indicato nel VP2 del relativo periodo
+(*) SOLO IVA, in quanto il relativo imponibile Ë stato indicato nel VP2 del relativo periodo
 */
 --- totaldebit di ivapay
 SET @IvaEsigibile = @totaldebit
-DECLARE @IvaDetratta  decimal(19,2) -- Ammontare IVA da portare in detrazione del periodo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
+DECLARE @IvaDetratta  decimal(19,2) -- Ammontare IVA da portare in detrazione del periodo	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
 /*
 - VP5 "Iva detratta" indicare l'ammontare dell'iva detraibile quindi immediata + divenuta detraibile(*) per operazioni annotate in precedenza.  
- Il dato deve corrispondere al valore nel campo "Totale iva a credito" della liquidazione iva mensile MA solo relativa ai registri Commerciali, protocollo Acquisti, associati a tipi documento con contabilizzazione "movimento di spesa". Questo perch√® non tutti i clienti calcolano le liquidazioni iva in forma singola con flag su Commerciale ma molti calcolano la liquidazione includendo tutte le opzioni (Commerciale, Iva Istituzionale Intra 12 e Iva Split Istituzionale) 
-(*) SOLO IVA, in quanto il relativo imponibile √® stato indicato nel VP2 del relativo periodo
+ Il dato deve corrispondere al valore nel campo "Totale iva a credito" della liquidazione iva mensile MA solo relativa ai registri Commerciali, protocollo Acquisti, associati a tipi documento con contabilizzazione "movimento di spesa". Questo perchË non tutti i clienti calcolano le liquidazioni iva in forma singola con flag su Commerciale ma molti calcolano la liquidazione includendo tutte le opzioni (Commerciale, Iva Istituzionale Intra 12 e Iva Split Istituzionale) 
+(*) SOLO IVA, in quanto il relativo imponibile Ë stato indicato nel VP2 del relativo periodo
 */
 ---totalcredit di ivapay
 SET @IvaDetratta = @totalcredit
 
-DECLARE @IvaDovuta 	  decimal(19,2) -- Vale  (IvaEsigibile - IvaDetratta) se positiva 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
+DECLARE @IvaDovuta 	  decimal(19,2) -- Vale  (IvaEsigibile - IvaDetratta) se positiva 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
 if (@totaldebit - @totalcredit) > 0 SET @IvaDovuta =  (@totaldebit - @totalcredit) else SET @IvaDovuta = 0
 
-DECLARE @IvaCredito   decimal(19,2) -- Vale  (IvaDetratta - IvaEsigibile) se positiva 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
+DECLARE @IvaCredito   decimal(19,2) -- Vale  (IvaDetratta - IvaEsigibile) se positiva 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
 /*
 - VP6 "Iva dovuta"  se VP4 > VP5 riportare l'importo nel campo VP6.1     
                     se VP4 < VP5 riportare l'importo in valore assoluto nel campo VP6.2  (iva a credito)
 */
 --if (totalcredit - totaldebit) > 0 then (totalcredit - totaldebit) else 0
 if (@totalcredit - @totaldebit ) > 0 SET @IvaCredito =  (@totalcredit - @totaldebit ) else SET @IvaCredito = 0
-DECLARE @DebitoPrecedente decimal(19,2) -- Importo a debito non versato nel periodo precedente in quanto non superiore a 25,82 euro	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
+DECLARE @DebitoPrecedente decimal(19,2) -- Importo a debito non versato nel periodo precedente in quanto non superiore a 25,82 euro	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
 /*
-- VP7 "Debito periodo precendente non superiore a 25,82 euro" riportare l'importo a debito non versato se nella precedente comunicazione il campo VP6.1 √® < 25,82 euro
-Nota di Commento: In questo caso la norma dice che per una liquidazione IVA non si supera una soglia (attualmente di 25,82) il versamento pu√≤ non essere effettuato e riportato a debito nella liquidazione periodica successiva.
-Il caso √® abbastanza raro nelle universit√† per√≤ deve essere comunque contemplato.
+- VP7 "Debito periodo precendente non superiore a 25,82 euro" riportare l'importo a debito non versato se nella precedente comunicazione il campo VP6.1 Ë < 25,82 euro
+Nota di Commento: In questo caso la norma dice che per una liquidazione IVA non si supera una soglia (attualmente di 25,82) il versamento puÚ non essere effettuato e riportato a debito nella liquidazione periodica successiva.
+Il caso Ë abbastanza raro nelle universit‡ perÚ deve essere comunque contemplato.
 In Easy abbiamo la conifgurazione del limite minimo del versamento per l'VA. Per un importo inferiore il programma non genera movimentazione finanziaria e riporta il debito nel periodo precedente. Petanto il riporto viene gestito in EASY deve essere verificato come possiamo individuare questo riporto nella liquidazione periodica. 
-L'importo del debito del periodo precedente riportato in questo campo deve essere solo quello non pagato perch√® superiore a 25,82 euro e non quello a debito non pagato per inadempimento.
+L'importo del debito del periodo precedente riportato in questo campo deve essere solo quello non pagato perchË superiore a 25,82 euro e non quello a debito non pagato per inadempimento.
 */
 -- saldo precedente al netto del credito iva anno precedente. Se negativo va nel "debito precedente", se positivo va a finire nel "credito periodo precedente"
 if (@prev_debit) > 0  SET @DebitoPrecedente = @prev_debit  ELSE SET @DebitoPrecedente = 0
 
 declare @advancecomputemethod varchar(10) -- Metodo usato per il calcolo dell'Acconto
-DECLARE @Acconto		  decimal(19,2)	-- Ammontare dell'acconto dovuto anche se non effettivamente versato 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
+DECLARE @Acconto		  decimal(19,2)	-- Ammontare dell'acconto dovuto anche se non effettivamente versato 	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
 IF ( @month = 12 )   
 Begin
 	SET @Acconto = @TotalCreditAcconto 
@@ -428,11 +430,11 @@ Begin
 End
 /*
 - VP13 "Acconto dovuto" A CURA DELL'UTENTE (prevedere un campo nel form di generazione della comunicazione)
-il valore √® inseribile nel solo modulo relativo al mese di dicembre e deve essere preso dalla liquidazione iva "acconto" (da test software SOGEI)
+il valore Ë inseribile nel solo modulo relativo al mese di dicembre e deve essere preso dalla liquidazione iva "acconto" (da test software SOGEI)
 In Easy corrisponde al campo "nuovo saldo" della liquidazione iva di tipo "Acconto"
 */
 
-DECLARE @CreditoPeriodoPrecedente decimal(19,2) --Ammontare IVA a credito computata in detrazione, risultante dalle liquidazioni precedenti	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16CreditoAnnoPrecedente>	decimal(19,2) --Ammontare IVA a credito compensabile che viene portato in detrazione e risultante dalla dichiarazione annuale dell'anno precedente	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
+DECLARE @CreditoPeriodoPrecedente decimal(19,2) --Ammontare IVA a credito computata in detrazione, risultante dalle liquidazioni precedenti	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16CreditoAnnoPrecedente>	decimal(19,2) --Ammontare IVA a credito compensabile che viene portato in detrazione e risultante dalla dichiarazione annuale dell'anno precedente	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
 -- solitamente si usa non a gennaio ,a febbraio
 
 if (-@prev_debit - @startcredit_applied -@Acconto) >= 0 --- credito periodo precedente, al netto del credito anno precedente
@@ -450,8 +452,8 @@ SET @CreditoAnnoPrecedente = @startcredit_applied
 
 
 
-DECLARE @ImportoDaVersare decimal(19,2)	-- Vale (IvaDovuta - IvaCredito +  DebitoPrecedente + InteressiDovuti ‚Äì CreditiImposta ‚Äì CreditoPeriodoPrecedente ‚Äì CreditoAnnoPrecedente - VersamentiAutoUE - Acconto)  se positivo formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
-DECLARE @ImportoACredito  decimal(19,2)	-- Vale (IvaDovuta - IvaCredito +  DebitoPrecedente + InteressiDovuti ‚Äì CreditiImposta ‚Äì CreditoPeriodoPrecedente ‚Äì CreditoAnnoPrecedente - VersamentiAautoUE - Acconto) se negativo senza segno	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 ‚Ä¶ 16
+DECLARE @ImportoDaVersare decimal(19,2)	-- Vale (IvaDovuta - IvaCredito +  DebitoPrecedente + InteressiDovuti ñ CreditiImposta ñ CreditoPeriodoPrecedente ñ CreditoAnnoPrecedente - VersamentiAutoUE - Acconto)  se positivo formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
+DECLARE @ImportoACredito  decimal(19,2)	-- Vale (IvaDovuta - IvaCredito +  DebitoPrecedente + InteressiDovuti ñ CreditiImposta ñ CreditoPeriodoPrecedente ñ CreditoAnnoPrecedente - VersamentiAautoUE - Acconto) se negativo senza segno	formato numerico; i decimali vanno separati dall'intero con il carattere  ',' (virgola)	<0.1>	4 Ö 16
 DECLARE @ImportoFinale decimal (19,2)
 
 SET @ImportoFinale = ISNULL(@IvaDovuta ,0)- ISNULL(@IvaCredito,0) + ISNULL(@DebitoPrecedente,0) - ISNULL(@CreditoPeriodoPrecedente,0) - ISNULL(@CreditoAnnoPrecedente,0) - ISNULL(@Acconto,0)
@@ -470,12 +472,12 @@ END
 /*
 - VP14 "Iva da versare o a credito"  indicare nel VP14.1 il saldo se > 0  di:   (VP6.1 +VP7 + VP12) - (VP6.2 + VP8 + VP9 + VP10 + VP11 + VP13)
                                               nel VP14.2 il saldo se > 0  di:   (VP6.2 + VP8 + VP9 + VP10 + VP11 + VP13) - (VP6.1 +VP7 + VP12)
-IvaDovuta - IvaCredito +  DebitoPrecedente  ‚Äì CreditoPeriodoPrecedente ‚Äì CreditoAnnoPrecedente - Acconto se > 0
+IvaDovuta - IvaCredito +  DebitoPrecedente  ñ CreditoPeriodoPrecedente ñ CreditoAnnoPrecedente - Acconto se > 0
 -IvaDovuta + IvaCredito -  DebitoPrecedente  + CreditoPeriodoPrecedente + CreditoAnnoPrecedente + Acconto  se > 0
 */
 
 
---- in questo caso vado a sommare gli automatismi di spesa e di entrata per l'iva commerciale (filtrando cio√® autokind 12)
+--- in questo caso vado a sommare gli automatismi di spesa e di entrata per l'iva commerciale (filtrando cioË autokind 12)
 
 
 DECLARE @ivapayexpense decimal(19,2)
@@ -608,4 +610,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

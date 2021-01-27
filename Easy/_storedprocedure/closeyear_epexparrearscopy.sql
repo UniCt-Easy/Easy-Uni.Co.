@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_epexparrearscopy]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_epexparrearscopy]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [closeyear_epexparrearscopy]
 GO
 
@@ -52,10 +54,10 @@ DECLARE @nextayearstr varchar(4)
 SET @nextayearstr = CONVERT(varchar(4),@nextayear)
 	
 	
---fase 1 dove c'√® residuo
+--fase 1 dove c'Ë residuo
 INSERT INTO epexpyear	(idepexp, ayear, idacc, idupb, amount, amount2, amount3, amount4,amount5,  cu, ct, lu, lt)
 SELECT EY.idepexp,@nextayear, AL.newidacc, EY.idupb,
-			isnull((SELECT SUM(	case when isnull(E3.flagvariation,'N')='N' then ED.amount else -ED.amount end ) /*Se l'impegno √® una Nota di var.,il conto di costo viene movimentato in Avere*/
+			isnull((SELECT SUM(	case when isnull(E3.flagvariation,'N')='N' then ED.amount else -ED.amount end ) /*Se l'impegno Ë una Nota di var.,il conto di costo viene movimentato in Avere*/
 				FROM entrydetail ED
 					join account A2		on ED.idacc = A2.idacc
 					join epexpyear EY3		on EY3.idepexp = ED.idepexp and EY3.ayear = ED.yentry
@@ -82,10 +84,10 @@ from epexpyear EY
  )
  
 print 'fase 1 ' 	
---fase 2 dove c'√® residuo
+--fase 2 dove c'Ë residuo
 INSERT INTO epexpyear	(idepexp, ayear, idacc, idupb, amount, amount2, amount3, amount4,amount5,  cu, ct, lu, lt)
 SELECT EY.idepexp,@nextayear, AL.newidacc, EY.idupb,
-			isnull(( SELECT SUM(case when isnull(E2.flagvariation,'N')='N' then ED.amount else -ED.amount end )	 /*Se l'impegno √® una Nota di var.,il conto di costo viene movimentato in Avere*/
+			isnull(( SELECT SUM(case when isnull(E2.flagvariation,'N')='N' then ED.amount else -ED.amount end )	 /*Se l'impegno Ë una Nota di var.,il conto di costo viene movimentato in Avere*/
 					FROM entrydetail ED
 					join account A2		on ED.idacc = A2.idacc
 					JOIN epexp E2			ON E2.idepexp = ED.idepexp
@@ -99,7 +101,7 @@ from epexpyear EY
  left outer join epexpyear EY2 on EY2.idepexp=EY.idepexp and EY2.ayear=@nextayear
  where EY.ayear=@ayear and EY2.idepexp is null and E.nphase=2
   and
-	(isnull(( SELECT SUM(case when isnull(E2.flagvariation,'N')='N' then ED.amount else -ED.amount end )	 /*Se l'impegno √® una Nota di var.,il conto di costo viene movimentato in Avere*/
+	(isnull(( SELECT SUM(case when isnull(E2.flagvariation,'N')='N' then ED.amount else -ED.amount end )	 /*Se l'impegno Ë una Nota di var.,il conto di costo viene movimentato in Avere*/
 					FROM entrydetail ED
 					join account A2		on ED.idacc = A2.idacc
 					JOIN epexp E2			ON E2.idepexp = ED.idepexp
@@ -180,4 +182,3 @@ GO
 SET ANSI_NULLS ON 
 GO
  
-	

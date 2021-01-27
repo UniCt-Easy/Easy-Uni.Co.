@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_split_clawback_errors]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_split_clawback_errors]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure exp_split_clawback_errors
 GO 
  
@@ -35,9 +37,9 @@ SELECT IRK.description as 'Tipo Registro',
 				WHEN 2 THEN 'Commerciale'
 				WHEN 3 THEN 'Promiscua'
 				WHEN 4 THEN 'Altro'
-		   END as 'Tipo attivitÃ ',
+		   END as 'Tipo attività',
 		   IRK.registerclass as 'Classe registro',
-		   I.invoicekind + ' nÂ°' + CONVERT(varchar(10), I.ninv) +'/' + CONVERT( varchar(4),I.yinv)  as 'Fattura',
+		   I.invoicekind + ' n°' + CONVERT(varchar(10), I.ninv) +'/' + CONVERT( varchar(4),I.yinv)  as 'Fattura',
 		   CASE I.flagintracom
 				WHEN 'S' THEN 'Intra - UE'
 				WHEN 'N' THEN 'Italia'
@@ -60,7 +62,7 @@ SELECT IRK.description as 'Tipo Registro',
 		   expenselastview.npay as 'Num. Mandato',
 		   expenselastview.paymentadate as  'Emesso il', 
 		   paymenttransmission.ypaymenttransmission as 'Elenco Trasm. Eserc.',
-		   paymenttransmission.npaymenttransmission as 'Elenco Trasm. nÂ°', 
+		   paymenttransmission.npaymenttransmission as 'Elenco Trasm. n°', 
 		   paymenttransmission.transmissiondate as 'Trasmissione del',
 		   incomelastview.curramount as 'Importo Iva Split Payment',
 	       incomelastview.phase as 'Fase',
@@ -70,7 +72,7 @@ SELECT IRK.description as 'Tipo Registro',
 		   proceeds.ypro  as 'Eserc. Reversale Split',
 		   proceeds.npro  as 'Num. Reversale Split',
 		   proceedstransmission.yproceedstransmission  as 'Elenco Trasm. Split Eserc.',
-		   proceedstransmission.nproceedstransmission  as 'Elenco Trasm. NÂ° Split', 
+		   proceedstransmission.nproceedstransmission  as 'Elenco Trasm. N° Split', 
 		   proceedstransmission.transmissiondate	   as 'Trasmissione Split del'
 	 FROM  expenseinvoiceview IE
 	 JOIN  invoiceview  I
@@ -156,9 +158,9 @@ SELECT IRK.description as 'Tipo Registro',
 				WHEN 2 THEN 'Commerciale'
 				WHEN 3 THEN 'Promiscua'
 				WHEN 4 THEN 'Altro'
-		   END as 'Tipo attivitÃ ',
+		   END as 'Tipo attività',
 		   IRK.registerclass as 'Classe registro',
-		   I.invoicekind + ' nÂ°' + CONVERT(varchar(10), I.ninv) +'/' + CONVERT( varchar(4),I.yinv)  as 'Fattura',
+		   I.invoicekind + ' n°' + CONVERT(varchar(10), I.ninv) +'/' + CONVERT( varchar(4),I.yinv)  as 'Fattura',
 		   CASE I.flagintracom
 				WHEN 'S' THEN 'Intra - UE'
 				WHEN 'N' THEN 'Italia'
@@ -178,7 +180,7 @@ SELECT IRK.description as 'Tipo Registro',
 		   expenselastview.npay as 'Num. Mandato',
 		   expenselastview.paymentadate as  'Emesso il', 
 		   paymenttransmission.ypaymenttransmission as 'Elenco Trasm. Eserc.',
-		   paymenttransmission.npaymenttransmission as 'Elenco Trasm. nÂ°', 
+		   paymenttransmission.npaymenttransmission as 'Elenco Trasm. n°', 
 		   paymenttransmission.transmissiondate as 'Trasmissione del',
 		   incomelastview.curramount as 'Importo Iva Split Payment',
 	       incomelastview.phase as 'Fase',
@@ -187,7 +189,7 @@ SELECT IRK.description as 'Tipo Registro',
 		   proceeds.ypro  as 'Eserc. Reversale Split',
 		   proceeds.npro  as 'Num. Reversale Split',
 		   proceedstransmission.yproceedstransmission  as 'Elenco Trasm. Split Eserc.',
-		   proceedstransmission.nproceedstransmission  as 'Elenco Trasm. NÂ° Split', 
+		   proceedstransmission.nproceedstransmission  as 'Elenco Trasm. N° Split', 
 		   proceedstransmission.transmissiondate	   as 'Trasmissione Split del'
 	 FROM  invoiceview  I  
 	 JOIN  expenseinvoiceview IE  
@@ -229,4 +231,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

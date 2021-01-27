@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø
+
+
 --compute_casualcontract 2009,2009,154
 if exists (select * from dbo.sysobjects where id = object_id(N'[compute_casualcontract]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_casualcontract]
@@ -239,7 +241,7 @@ BEGIN
 END
 
 
--- determino il tipo di deducibilit√† delle spese inserite per il contratto
+-- determino il tipo di deducibilit‡ delle spese inserite per il contratto
 -- calcolo in base all'imponibile previdenziale, il totale delle spese deducibili
 -- dall'imponibile, per il presente contratto
 
@@ -299,7 +301,7 @@ BEGIN
 			- ISNULL((SELECT SUM(payedrefund_P)  FROM #annualpayedrefund T WHERE T.ayear < #annualpayedrefund.ayear),0)
 	WHERE  #annualpayedrefund.ayear = @existingayear
 			
-	--se il totale pagato di quest'anno √® minore delle spese allora considera il totale pagato altrimenti le spese
+	--se il totale pagato di quest'anno Ë minore delle spese allora considera il totale pagato altrimenti le spese
 	--ossia considera il minimo tra importo pagato e spese da dedurre
 	UPDATE #annualpayedrefund
 	SET    payedrefund_F = CASE 
@@ -445,4 +447,3 @@ END
 
 
 GO
-	

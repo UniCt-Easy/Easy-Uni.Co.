@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_budgeteconomico_pz]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_budgeteconomico_pz]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_budgeteconomico_pz]
 GO
 
@@ -126,7 +128,7 @@ declare @TOT_RICAVI_Proventi_Propri decimal(19,2)
 
 --CONTRIBUTI	ERC
 
---Miur (Universit√†)	ERC1
+--Miur (Universit‡)	ERC1
 declare @ERC1_Miur decimal(19,2)
 set @ERC1_Miur = ISNULL(( SELECT SUM(budgetprevision.prevision)
 FROM budgetprevision 
@@ -433,7 +435,7 @@ select
 @TOT_RICAVI_Proventi_Propri  as 'TOT_RICAVI_Proventi_Propri',
 
 --CONTRIBUTI	ERC
---Miur (Universit√†)	ERC1
+--Miur (Universit‡)	ERC1
 @ERC1_Miur as 'ERC1_Miur',
 
 --Altri Enti Pubblici	ERC2
@@ -506,4 +508,3 @@ select
 END
 
 
-	

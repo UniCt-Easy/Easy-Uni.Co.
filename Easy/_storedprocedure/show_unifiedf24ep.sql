@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[show_unifiedf24ep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[show_unifiedf24ep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [show_unifiedf24ep]
 GO
 
@@ -43,7 +45,7 @@ begin
 	insert into #tributi values ('893E','Sanzioni per ravvedimento Addizionale regionale Irpef', 'RR',  null)
 	insert into #tributi values ('100E','Ritenute sui redditi da lavoro dipendente ed assimilati', null,'00MM')
 	insert into #tributi values ('104E','Ritenute sui redditi da lavoro autonomo', null,'00MM')
-	insert into #tributi values ('105E','Ritenute sulle indennitÃ  di esproprio, occupazione', null,'00MM')
+	insert into #tributi values ('105E','Ritenute sulle indennità di esproprio, occupazione', null,'00MM')
 	insert into #tributi values ('106E','Ritenute sui contributi corrisposti alle imprese', null,'00MM') 
 	insert into #tributi values ('107E','Altre ritenute alla fonte', null,'00MM')
 	insert into #tributi values ('890E','Sanzioni per ravvedimento su ritenute erariali', null,  null) 
@@ -65,9 +67,9 @@ begin
 											 A SEGUITO DI ASSISTENZA FISCALE - ART. 15, COMMA1,
 											 LETT.A)D.LGS. N. 175/2014', null, 'AAAA') --SOMME A TITOLO DI ADDIZIONALE REGIONALE ALL''IRPEF RIMBORSATE DAL SOSTITUTO D''IMPOSTA A SEGUITO DI ASSISTENZA FISCALE - ART. 15, COMMA1,LETT.A)D.LGS. N. 175/2014
 	insert into #tributi values ('127E', 'ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA 
-											 DAL SOSTITUTO D''IMPOSTA MOD. 730- ACCONTO â€“ ', '00MM','AAAA') --ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA MOD. 730- ACCONTO â€“
+											 DAL SOSTITUTO D''IMPOSTA MOD. 730- ACCONTO – ', '00MM','AAAA') --ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA MOD. 730- ACCONTO –
 	insert into #tributi values ('128E', 'ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA 
-											 DAL SOSTITUTO D''IMPOSTA MOD. 730-', '00MM','AAAA') --ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA MOD. 730- ACCONTO â€“
+											 DAL SOSTITUTO D''IMPOSTA MOD. 730-', '00MM','AAAA') --ADDIZIONALE COMUNALE ALL''IRPEF TRATTENUTA DAL SOSTITUTO D''IMPOSTA MOD. 730- ACCONTO –
 	insert into #tributi values ('154E', 'SOMME A TITOLO DI ADDIZIONALE 
 											  COMUNALE ALL''IRPEF RIMBORSATE DAL SOSTITUTO 
 											  D''IMPOSTA A SEGUITO DI ASSISTENZA 
@@ -79,8 +81,8 @@ begin
 	
  
 		
-	insert into #tributi values ( '161E', 'Addizionale comunale Irpef trattenuta dai sostituti dâ€™imposta -saldo','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti dâ€™imposta -saldo  
-	insert into #tributi values ( '160E', 'Addizionale regionale Irpef trattenuta dai sostituti dâ€™imposta', '00MM','AAAA') -- Addizionale regionale Irpef trattenuta dai sostituti dâ€™imposta  
+	insert into #tributi values ( '161E', 'Addizionale comunale Irpef trattenuta dai sostituti d’imposta -saldo','00MM','AAAA') -- Addizionale comunale Irpef trattenuta dai sostituti d’imposta -saldo  
+	insert into #tributi values ( '160E', 'Addizionale regionale Irpef trattenuta dai sostituti d’imposta', '00MM','AAAA') -- Addizionale regionale Irpef trattenuta dai sostituti d’imposta  
 	insert into #tributi values ( '156E', 'Ritenute sui redditi da lavoro autonomo', '00MM','AAAA') -- Ritenute sui redditi da lavoro autonomo  	
 	insert into #tributi values ( '155E', 'Ritenute sui redditi da lavoro dipendente ed assimilati', '00MM','AAAA') -- Ritenute sui redditi da lavoro dipendente ed assimilati  
 	insert into #tributi values ( '165E', 'Bonus fiscale', '00MM','AAAA') -- Bonus fiscale 
@@ -306,4 +308,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

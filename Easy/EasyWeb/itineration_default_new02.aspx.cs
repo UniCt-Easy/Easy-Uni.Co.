@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -246,7 +248,7 @@ public partial class itineration_default_new02 : MetaPage {
         */
         EnableDisableControls(btnitinerationhistory, true);
         switch (status) {
-            case 1: //bozza. Da bozza pu√≤ diventare una richiesta (attesa di autorizzazione se direct_auth)
+            case 1: //bozza. Da bozza puÚ diventare una richiesta (attesa di autorizzazione se direct_auth)
                 Meta.CanSave = true;
                 if (!PState.InsertMode) {
                     if (DirectAuth) {
@@ -284,7 +286,7 @@ public partial class itineration_default_new02 : MetaPage {
                 }
 
                 break;
-            case 2: //richiesta, pu√≤ essere riportata a bozza 
+            case 2: //richiesta, puÚ essere riportata a bozza 
                 btnStatus.Text = "Modifica";
                 LockUnLockControls(true);
                 btnStatus.Visible = true;
@@ -296,7 +298,7 @@ public partial class itineration_default_new02 : MetaPage {
                 Meta.CanCancel = true;
 
                 break;
-            case 3://da correggere, pu√≤ passare a richiesta o Autorizzazione
+            case 3://da correggere, puÚ passare a richiesta o Autorizzazione
                 btnStatus.Visible = true;
                 if (DirectAuth) {
                     btnStatus.Text = "Ufficializza";
@@ -334,7 +336,7 @@ public partial class itineration_default_new02 : MetaPage {
                 Meta.CanSave = true;
                 Meta.CanCancel = true;
                 break;
-            case 5: //Da autorizzazione pu√≤ passare a bozza solo se DirectAuth
+            case 5: //Da autorizzazione puÚ passare a bozza solo se DirectAuth
             case 8:
                 LockUnLockControls(true);
                 EnableDisableControls(btnStatus, false);
@@ -356,7 +358,7 @@ public partial class itineration_default_new02 : MetaPage {
 
                 break;
 
-            case 4: //Inserita , √® tutto bloccato 
+            case 4: //Inserita , Ë tutto bloccato 
                 // Blocca tutto
                 btnStatus.Visible = false;
                 LockUnLockControls(true);
@@ -698,7 +700,7 @@ public partial class itineration_default_new02 : MetaPage {
         bool faseanticipo = getFaseAnticipoMissione();
         bool dativalidi = DataMissioneValida() && cmbAuthModel.SelectedIndex > 0;
 
-        //in bozza ed in "da rivedere" √® possibile inserire le spese (rendiconto o anticipo a seconda dello stato)
+        //in bozza ed in "da rivedere" Ë possibile inserire le spese (rendiconto o anticipo a seconda dello stato)
         if (currentstatus == 1 || currentstatus == 3) {
             btnInsertSpesa.Visible = faseanticipo && dativalidi;
             btnEditSpesa.Visible = dativalidi;
@@ -1583,7 +1585,7 @@ public partial class itineration_default_new02 : MetaPage {
         if (PState.IsEmpty) return false;
         bool phase = false;
 
-        // non pi√π data contabile ma data di sistema
+        // non pi˘ data contabile ma data di sistema
         //DateTime datacontabile = (DateTime)Meta.GetSys("datacontabile");
 
         object datainizio;
@@ -1765,7 +1767,7 @@ public partial class itineration_default_new02 : MetaPage {
             "start, italianexemption,foreignexemption",
             sorting, filter, "1", false);
         if (Generalita.Rows.Count == 0) {
-            //MessageBox.Show("In Generalit√† Missioni non √® stata trovata alcuna informazione", "Avviso");
+            //MessageBox.Show("In Generalit‡ Missioni non Ë stata trovata alcuna informazione", "Avviso");
             MyCfg.italianexemption = 0;
             MyCfg.foreignexemption = 0;
             MyCfg.foreignhours = 0;
@@ -1846,7 +1848,7 @@ public partial class itineration_default_new02 : MetaPage {
             "start, italianexemption,foreignexemption",
             sorting, filter, "1", false);
         if (Generalita.Rows.Count == 0) {
-            //MessageBox.Show("In Generalit√† Missioni non √® stata trovata alcuna informazione", "Avviso");
+            //MessageBox.Show("In Generalit‡ Missioni non Ë stata trovata alcuna informazione", "Avviso");
             return;
         }
         DataRow RowGen = Generalita.Rows[0];
@@ -1934,7 +1936,7 @@ public partial class itineration_default_new02 : MetaPage {
             int status = CfgFn.GetNoNullInt32(CurrentRow["iditinerationstatus"]);
 
             switch (status) {
-                case 1://se √® in bozza o da correggere passa in richiesta o stato di autorizzazione a seconda del tipo di gestione
+                case 1://se Ë in bozza o da correggere passa in richiesta o stato di autorizzazione a seconda del tipo di gestione
                 case 3:
                     if (DirectAuth) {
                         PoniInAutorizzazione();
@@ -1947,14 +1949,14 @@ public partial class itineration_default_new02 : MetaPage {
                         CommFun.DoMainCommand("mainsave");
                     }
                     break;
-                case 2:// se √® in richiesta passa in bozza
+                case 2:// se Ë in richiesta passa in bozza
                     CurrentRow["iditinerationstatus"] = 1;
                     managingstatus = true;
                     CommFun.FreshPage(false, false);
                     managingstatus = false;
                     CommFun.DoMainCommand("mainsave");
                     break;
-                case 6:// se √® approvata passa in bozza
+                case 6:// se Ë approvata passa in bozza
                     CurrentRow["iditinerationstatus"] = 1;
                     managingstatus = true;
                     CommFun.FreshPage(false, false);
@@ -2257,7 +2259,7 @@ public partial class itineration_default_new02 : MetaPage {
             GeneraAutorizzazioni();
 
         if ((DS.itinerationauthagency.Select().Length == 0) ||  //non ci sono agenti autorizzativi
-            (DS.itinerationauthagency.Select(QHC.CmpNe("flagstatus", "S")).Length == 0)) { // missione gi√† approvata devo inserire il saldo
+            (DS.itinerationauthagency.Select(QHC.CmpNe("flagstatus", "S")).Length == 0)) { // missione gi‡ approvata devo inserire il saldo
             curr["iditinerationstatus"] = 6;
             if (getFaseAnticipoMissione() == false)
                 curr["completed"] = "S";
@@ -2399,4 +2401,3 @@ public partial class itineration_default_new02 : MetaPage {
 
     }
 }
-

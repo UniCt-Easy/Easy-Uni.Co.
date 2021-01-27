@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universitร  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universitเ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-๏ปฟif exists (select * from dbo.sysobjects where id = object_id(N'[exp_relazioneMovCogeCofi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_relazioneMovCogeCofi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_relazioneMovCogeCofi]
 GO
 SET ANSI_NULLS ON
@@ -22,7 +24,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 --- setuser 'amministrazione'
 -- exec [exp_relazioneMovCogeCofi] 2016, 'Z'
--- sp_help 'mandatekind'   invยง395ยง2016ยง3ยง1
+-- sp_help 'mandatekind'   invง395ง2016ง3ง1
 CREATE     PROCEDURE [exp_relazioneMovCogeCofi]
 	@ayear int ,
 	@tipo  varchar(1) -- A Fatture Acquisto; V Fatture Vendita
@@ -45,7 +47,7 @@ IF @tipo = 'Z'
 			ED.idrelateddetail ,
 			ED.idepacc
 	from  entrydetailview ED 
-	LEFT OUTER JOIN income E3 ON E3.idinc = SUBSTRING(SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)))-1)  
+	LEFT OUTER JOIN income E3 ON E3.idinc = SUBSTRING(SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)))-1)  
 	JOIN invoicedetailview ID ON ID.idinc_taxable = E3.idinc AND ID.yinv < @ayear
 	WHERE (ED.idrelateddetail like 'income%' OR ED.idrelateddetail  is null)
 	UNION
@@ -58,7 +60,7 @@ IF @tipo = 'Z'
 			ED.idrelateddetail ,
 			ED.idepacc
 	from  entrydetailview ED 
-	LEFT OUTER JOIN income E3 ON E3.idinc = SUBSTRING(SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)))-1)  
+	LEFT OUTER JOIN income E3 ON E3.idinc = SUBSTRING(SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)))-1)  
 	JOIN invoicedetailview ID ON ID.idinc_iva = E3.idinc AND ID.yinv < @ayear AND ID.idinc_iva<>ID.idinc_taxable
 	WHERE (ED.idrelateddetail like 'income%' OR ED.idrelateddetail  is null)
 		UNION
@@ -72,7 +74,7 @@ IF @tipo = 'Z'
 			ED.idrelateddetail ,
 			ED.idepacc
 	from  entrydetailview ED 
-	LEFT OUTER JOIN income E3 ON E3.idinc = SUBSTRING(SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)))-1)  
+	LEFT OUTER JOIN income E3 ON E3.idinc = SUBSTRING(SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)))-1)  
 	JOIN income E2 ON E2.idinc = E3.parentidinc
 	JOIN estimatedetailview ID ON ID.idinc_taxable = E2.idinc AND ID.yestim < @ayear
 	JOIN estimatekind ON estimatekind.idestimkind = ID.idestimkind
@@ -92,7 +94,7 @@ IF @tipo = 'Y'
 			ED.idrelateddetail ,
 			ED.idepexp
 	from  entrydetailview ED 
-	LEFT OUTER JOIN EXPENSE E3 ON E3.idexp = SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1)  
+	LEFT OUTER JOIN EXPENSE E3 ON E3.idexp = SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1)  
 	JOIN invoicedetailview ID ON ID.idexp_taxable = E3.idexp AND ID.yinv < @ayear
 	WHERE (ED.idrelateddetail like 'expense%' OR ED.idrelateddetail  is null)
 	UNION
@@ -105,7 +107,7 @@ IF @tipo = 'Y'
 			ED.idrelateddetail ,
 			ED.idepexp
 	from  entrydetailview ED 
-	LEFT OUTER JOIN EXPENSE E3 ON E3.idexp = SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1)  
+	LEFT OUTER JOIN EXPENSE E3 ON E3.idexp = SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1)  
 	JOIN invoicedetailview ID ON ID.idexp_iva = E3.idexp AND ID.yinv < @ayear AND ID.idexp_iva<>ID.idexp_taxable
 	WHERE (ED.idrelateddetail like 'expense%' OR ED.idrelateddetail  is null)
 	UNION
@@ -119,7 +121,7 @@ IF @tipo = 'Y'
 			ED.idrelateddetail ,
 			ED.idepexp
 	from  entrydetailview ED 
-	LEFT OUTER JOIN EXPENSE E3 ON E3.idexp = SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1)  
+	LEFT OUTER JOIN EXPENSE E3 ON E3.idexp = SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1)  
 	JOIN expense E2 ON E2.idexp = E3.parentidexp
 	JOIN mandatedetailview ID ON ID.idexp_taxable = E2.idexp AND ID.yman < @ayear
 	JOIN mandatekind ON mandatekind.idmankind = ID.idmankind
@@ -132,10 +134,10 @@ IF @tipo = 'E'
 	BEGIN
 	INSERT INTO #Lunghezze
 	select  yentry,nentry,ndetail,idrelateddetail, 
-	CHARINDEX('ยง',idrelateddetail) as Pos1,  
-	CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) +1)  as Pos2,
-	CHARINDEX('ยง',idrelateddetail, CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) +1)+1 ) as Pos3,
-	CHARINDEX('ยง',idrelateddetail, CHARINDEX('ยง',idrelateddetail, CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) +1)+1 )  +1) as Pos4,
+	CHARINDEX('ง',idrelateddetail) as Pos1,  
+	CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) +1)  as Pos2,
+	CHARINDEX('ง',idrelateddetail, CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) +1)+1 ) as Pos3,
+	CHARINDEX('ง',idrelateddetail, CHARINDEX('ง',idrelateddetail, CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) +1)+1 )  +1) as Pos4,
 	idepacc, idacc, CONVERT( decimal(19,2),amount)
 	from entrydetailview
 	where idrelateddetail like 'estim%' and yentry = @ayear ;
@@ -198,10 +200,10 @@ IF @tipo = 'E'
 			(SELECT MIN(VoceBil) FROM #Scritture WHERE #Scritture.idepexp= ED.idepacc and #Scritture.idepexp is not null)			as 'Voce finanziaria',
 			ED.idrelateddetail ,
 			ED.idepacc, 
-			--SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',ED.idrelateddetail)-2) 
-			SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1) 
+			--SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',ED.idrelateddetail)-2) 
+			SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1) 
 	from  entrydetailview ED -- ON ED.idepexp = #Scritture.idepexp and ED.amount =  -#Scritture.amount--and ED.codeacc = #Scritture.CodConto and ED.amount =  -#Scritture.amount
-	LEFT OUTER JOIN income E3 ON E3.idinc = SUBSTRING(SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)))-1)  
+	LEFT OUTER JOIN income E3 ON E3.idinc = SUBSTRING(SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)))-1)  
 	WHERE (ED.idrelateddetail like 'income%' OR ED.idrelateddetail  is null)
 	AND ED.idepacc IN (SELECT distinct idepexp from #Scritture Where idepexp is not null)
 
@@ -235,10 +237,10 @@ IF @tipo = 'V'
 	BEGIN
 	INSERT INTO #Lunghezze
 	select  yentry,nentry,ndetail,idrelateddetail, 
-	CHARINDEX('ยง',idrelateddetail) as Pos1,  
-	CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) +1)  as Pos2,
-	CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) + CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) +1) )  as Pos3,
-	CHARINDEX('ยง',idrelateddetail, CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) + CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) +1) ) +1) as Pos4,
+	CHARINDEX('ง',idrelateddetail) as Pos1,  
+	CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) +1)  as Pos2,
+	CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) + CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) +1) )  as Pos3,
+	CHARINDEX('ง',idrelateddetail, CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) + CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) +1) ) +1) as Pos4,
 	idepacc, idacc, CONVERT( decimal(19,2),amount)
 	from entrydetailview
 	where idrelateddetail like 'inv%' and yentry = @ayear ;
@@ -302,10 +304,10 @@ IF @tipo = 'V'
 			(SELECT MIN(VoceBil) FROM #Scritture WHERE #Scritture.idepexp= ED.idepacc and #Scritture.idepexp is not null)			as 'Voce finanziaria',
 			ED.idrelateddetail ,
 			ED.idepacc, 
-			--SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',ED.idrelateddetail)-2) 
-			SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1) 
+			--SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',ED.idrelateddetail)-2) 
+			SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1) 
 	from  entrydetailview ED -- ON ED.idepexp = #Scritture.idepexp and ED.amount =  -#Scritture.amount--and ED.codeacc = #Scritture.CodConto and ED.amount =  -#Scritture.amount
-	LEFT OUTER JOIN income E3 ON E3.idinc = SUBSTRING(SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)))-1)  
+	LEFT OUTER JOIN income E3 ON E3.idinc = SUBSTRING(SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 8,LEN(ED.idrelateddetail)))-1)  
 	WHERE (ED.idrelateddetail like 'income%' OR ED.idrelateddetail  is null)
 	AND ED.idepacc IN (SELECT distinct idepexp from #Scritture Where idepexp is not null)
 
@@ -338,10 +340,10 @@ IF @tipo = 'A'
 	BEGIN
 	INSERT INTO #Lunghezze
 	select  yentry,nentry,ndetail,idrelateddetail, 
-	CHARINDEX('ยง',idrelateddetail) as Pos1,  
-	CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) +1)  as Pos2,
-	CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) + CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) +1) )  as Pos3,
-	CHARINDEX('ยง',idrelateddetail, CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) + CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) +1) ) +1) as Pos4,
+	CHARINDEX('ง',idrelateddetail) as Pos1,  
+	CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) +1)  as Pos2,
+	CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) + CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) +1) )  as Pos3,
+	CHARINDEX('ง',idrelateddetail, CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) + CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) +1) ) +1) as Pos4,
 	idepexp, idacc, CONVERT( decimal(19,2),amount)
 	from entrydetailview
 	where idrelateddetail like 'inv%' and yentry = @ayear ;
@@ -404,10 +406,10 @@ IF @tipo = 'A'
 			(SELECT MIN(VoceBil) FROM #Scritture WHERE #Scritture.idepexp= ED.idepexp and #Scritture.idepexp is not null)			as 'Voce finanziaria',
 			ED.idrelateddetail ,
 			ED.idepexp, 
-			--SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',ED.idrelateddetail)-2) 
-			SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1) 
+			--SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',ED.idrelateddetail)-2) 
+			SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1) 
 	from  entrydetailview ED -- ON ED.idepexp = #Scritture.idepexp and ED.amount =  -#Scritture.amount--and ED.codeacc = #Scritture.CodConto and ED.amount =  -#Scritture.amount
-	LEFT OUTER JOIN EXPENSE E3 ON E3.idexp = SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1)  
+	LEFT OUTER JOIN EXPENSE E3 ON E3.idexp = SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1)  
 	WHERE (ED.idrelateddetail like 'expense%' OR ED.idrelateddetail  is null)
 	AND ED.idepexp IN (SELECT distinct idepexp from #Scritture Where idepexp is not null)
 
@@ -440,10 +442,10 @@ IF @tipo = 'M'
 	BEGIN
 	INSERT INTO #Lunghezze
 	select  yentry,nentry,ndetail,idrelateddetail, 
-	CHARINDEX('ยง',idrelateddetail) as Pos1,  
-	CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) +1)  as Pos2,
-	CHARINDEX('ยง',idrelateddetail, CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) +1)+1 ) as Pos3,
-	CHARINDEX('ยง',idrelateddetail, CHARINDEX('ยง',idrelateddetail, CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) +1)+1 )  +1) as Pos4,
+	CHARINDEX('ง',idrelateddetail) as Pos1,  
+	CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) +1)  as Pos2,
+	CHARINDEX('ง',idrelateddetail, CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) +1)+1 ) as Pos3,
+	CHARINDEX('ง',idrelateddetail, CHARINDEX('ง',idrelateddetail, CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) +1)+1 )  +1) as Pos4,
 	idepexp, idacc, CONVERT( decimal(19,2),amount)
 	from entrydetailview
 	where idrelateddetail like 'man%' and yentry = @ayear ;
@@ -506,10 +508,10 @@ IF @tipo = 'M'
 			(SELECT MIN(VoceBil) FROM #Scritture WHERE #Scritture.idepexp= ED.idepexp and #Scritture.idepexp is not null)			as 'Voce finanziaria',
 			ED.idrelateddetail ,
 			ED.idepexp, 
-			--SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',ED.idrelateddetail)-2) 
-			SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1) 
+			--SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',ED.idrelateddetail)-2) 
+			SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1) 
 	from  entrydetailview ED -- ON ED.idepexp = #Scritture.idepexp and ED.amount =  -#Scritture.amount--and ED.codeacc = #Scritture.CodConto and ED.amount =  -#Scritture.amount
-	LEFT OUTER JOIN expense E3 ON E3.idexp = SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1)  
+	LEFT OUTER JOIN expense E3 ON E3.idexp = SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1)  
 	WHERE (ED.idrelateddetail like 'expense%' OR ED.idrelateddetail  is null)
 	AND ED.idepexp IN (SELECT distinct idepexp from #Scritture Where idepexp is not null)
 
@@ -542,10 +544,10 @@ IF @tipo = 'C'
 	BEGIN
 	INSERT INTO #Lunghezze
 	select  yentry,nentry,ndetail,idrelateddetail, 
-	CHARINDEX('ยง',idrelateddetail) as Pos1,  
-	CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) +1)  as Pos2,
-	CHARINDEX('ยง',idrelateddetail, CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) +1)+1 ) as Pos3,
-	CHARINDEX('ยง',idrelateddetail, CHARINDEX('ยง',idrelateddetail, CHARINDEX('ยง',idrelateddetail,CHARINDEX('ยง',idrelateddetail) +1)+1 )  +1) as Pos4,
+	CHARINDEX('ง',idrelateddetail) as Pos1,  
+	CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) +1)  as Pos2,
+	CHARINDEX('ง',idrelateddetail, CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) +1)+1 ) as Pos3,
+	CHARINDEX('ง',idrelateddetail, CHARINDEX('ง',idrelateddetail, CHARINDEX('ง',idrelateddetail,CHARINDEX('ง',idrelateddetail) +1)+1 )  +1) as Pos4,
 	idepexp, idacc, CONVERT( decimal(19,2),amount)
 	from entrydetailview
 	where idrelateddetail like 'cascon%' and yentry = @ayear ;
@@ -640,10 +642,10 @@ IF @tipo = 'C'
 			(SELECT MIN(VoceBil) FROM #Scritture WHERE #Scritture.idepexp= ED.idepexp and #Scritture.idepexp is not null)			as 'Voce finanziaria',
 			ED.idrelateddetail ,
 			ED.idepexp, 
-			--SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',ED.idrelateddetail)-2) 
-			SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1) 
+			--SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',ED.idrelateddetail)-2) 
+			SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1) 
 	from  entrydetailview ED -- ON ED.idepexp = #Scritture.idepexp and ED.amount =  -#Scritture.amount--and ED.codeacc = #Scritture.CodConto and ED.amount =  -#Scritture.amount
-	LEFT OUTER JOIN expense E3 ON E3.idexp = SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ยง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1)  
+	LEFT OUTER JOIN expense E3 ON E3.idexp = SUBSTRING(SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)),1, CHARINDEX('ง',SUBSTRING(ED.idrelateddetail, 9,LEN(ED.idrelateddetail)))-1)  
 	WHERE (ED.idrelateddetail like 'expense%' OR ED.idrelateddetail  is null)
 	AND ED.idepexp IN (SELECT distinct idepexp from #Scritture Where idepexp is not null)
 
@@ -685,4 +687,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

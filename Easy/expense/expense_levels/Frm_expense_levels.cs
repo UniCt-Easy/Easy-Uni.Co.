@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -516,6 +518,7 @@ namespace expense_levels { //spesemovimenti//
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_expense_levels));
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.lblImportoDisponibile = new System.Windows.Forms.Label();
@@ -539,7 +542,7 @@ namespace expense_levels { //spesemovimenti//
 			this.txtDescrizione = new System.Windows.Forms.TextBox();
 			this.gboxResponsabile = new System.Windows.Forms.GroupBox();
 			this.txtResponsabile = new System.Windows.Forms.TextBox();
-			this.imageList1 = new System.Windows.Forms.ImageList();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.groupCredDeb = new System.Windows.Forms.GroupBox();
 			this.txtCredDeb = new System.Windows.Forms.TextBox();
 			this.chbAzzeramento = new System.Windows.Forms.CheckBox();
@@ -803,7 +806,7 @@ namespace expense_levels { //spesemovimenti//
 			this.btnEditVar = new System.Windows.Forms.Button();
 			this.btnInsertVar = new System.Windows.Forms.Button();
 			this.gridVariazioni = new System.Windows.Forms.DataGrid();
-			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon();
+			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
 			this.groupBox1.SuspendLayout();
 			this.groupBox20.SuspendLayout();
 			this.groupBox19.SuspendLayout();
@@ -3173,12 +3176,12 @@ namespace expense_levels { //spesemovimenti//
 			// 
 			// label38
 			// 
-			this.label38.Location = new System.Drawing.Point(270, 135);
+			this.label38.Location = new System.Drawing.Point(27, 135);
 			this.label38.Name = "label38";
-			this.label38.Size = new System.Drawing.Size(96, 20);
+			this.label38.Size = new System.Drawing.Size(339, 20);
 			this.label38.TabIndex = 47;
 			this.label38.Tag = "";
-			this.label38.Text = "Descrizione:";
+			this.label38.Text = "Note per il Tesoriere-Rif.doc.esterno:";
 			this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// SubEntity_txtDescrModPagamento
@@ -6545,6 +6548,7 @@ namespace expense_levels { //spesemovimenti//
             if (InChiusura) return;
             if (!Meta.DrawStateIsDone) return;
             if (txtNumeroFasePrecedente.ReadOnly) return;
+            HelpForm.ExtLeaveIntTextBox(txtNumeroFasePrecedente,null);
             CalcolaStartFilter(null);
 
             if (!Meta.InsertMode) return;

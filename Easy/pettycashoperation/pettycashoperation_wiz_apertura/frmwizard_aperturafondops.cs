@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -492,7 +494,7 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
 			}
 			
 			if (!CheckChiusuraFondo(cmbFondoPS.SelectedValue)) {
-				DialogResult res = MessageBox.Show(this, Messaggi["warn_fondochiuso"].ToString()+"\nContinuare?", 
+				DialogResult res = MetaFactory.factory.getSingleton<IMessageShower>().Show(this, Messaggi["warn_fondochiuso"].ToString()+"\nContinuare?", 
 					"Avvertimento", MessageBoxButtons.YesNo);
 				if (res!=DialogResult.Yes) {
 					lblMessaggi.Text=Messaggi["err_fondochiuso"].ToString();
@@ -756,7 +758,7 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
                         object codicecreddeb = R["idreg"];
                         DataRow ModPagam = CfgFn.ModalitaPagamentoDefault(Meta.Conn, codicecreddeb);
                         if (ModPagam == null) {
-                            MessageBox.Show(this,
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                 "E' necessario che sia definita almeno una modalit‡ di pagamento per il percipiente " +
                                 "\"" + R["registry"].ToString() + "\"\n\n" +
                                 "Dati non salvati", "Errore", MessageBoxButtons.OK);
@@ -902,11 +904,11 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
 
                 res = ga.GeneraAutomatismiAfterPost(true);
                 if (!res) {
-                    MessageBox.Show(this, "Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
                     return;
                 }
                 //if (Meta.Conn.RUN_SELECT_COUNT("sortingtranslation", null, false) > 0 && autoClassify != "S") {
-                //    if (MessageBox.Show(this, "Calcolo le classificazioni indirette a partire da quelle presenti?", "Conferma",
+                //    if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Calcolo le classificazioni indirette a partire da quelle presenti?", "Conferma",
                 //            MessageBoxButtons.YesNo) ==
                 //        DialogResult.Yes) {
                 //        //GeneraClassificazioniIndiretteMov(DS, "expense");
@@ -923,7 +925,7 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
                 Easy_PostData MyPostData = new Easy_PostData();
                 MyPostData.InitClass(DS.Copy(), Conn);
                 if (MyPostData.DO_POST()) {
-                    MessageBox.Show("Salvataggio effettuato correttamente");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Salvataggio effettuato correttamente");
                 }
             }
         }
@@ -1040,7 +1042,7 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
 			string rowfilter;
 			int maxfase = GetMaxFaseForSelection(RigheSelezionate, "expense");
 			if (maxfase<1){
-				MessageBox.Show("Non Ë possibile collegare tutte le righe selezionate ad uno stesso movimento.\n"+
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë possibile collegare tutte le righe selezionate ad uno stesso movimento.\n"+
 					"Le informazioni di bilancio, percipiente e UPB sono "+
 					"troppo diverse tra loro.","Errore");
 				return;

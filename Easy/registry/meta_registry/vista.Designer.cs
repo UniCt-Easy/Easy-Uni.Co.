@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -664,6 +666,17 @@ public class registryRow: MetaRow  {
 	public String email_feOriginal { 
 		get {if (this["email_fe",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["email_fe",DataRowVersion.Original];}
 	}
+	public String ipa_perlapa{ 
+		get {if (this["ipa_perlapa"]==DBNull.Value)return null; return  (String)this["ipa_perlapa"];}
+		set {if (value==null) this["ipa_perlapa"]= DBNull.Value; else this["ipa_perlapa"]= value;}
+	}
+	public object ipa_perlapaValue { 
+		get{ return this["ipa_perlapa"];}
+		set {if (value==null|| value==DBNull.Value) this["ipa_perlapa"]= DBNull.Value; else this["ipa_perlapa"]= value;}
+	}
+	public String ipa_perlapaOriginal { 
+		get {if (this["ipa_perlapa",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["ipa_perlapa",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -718,6 +731,7 @@ public class registryTable : MetaTableBase<registryRow> {
 			{"pec_fe",createColumn("pec_fe",typeof(string),true,false)},
 			{"extension",createColumn("extension",typeof(string),true,false)},
 			{"email_fe",createColumn("email_fe",typeof(string),true,false)},
+			{"ipa_perlapa",createColumn("ipa_perlapa",typeof(string),true,false)},
 		};
 	}
 }

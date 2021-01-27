@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_sitpatrim_generale_dettaglio_con_immobilizzazione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_sitpatrim_generale_dettaglio_con_immobilizzazione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_sitpatrim_generale_dettaglio_con_immobilizzazione]
 GO
 
@@ -76,7 +78,7 @@ CREATE TABLE #patrimonio
 	ammortization_pre_in_carico decimal(19,2),  
 
 
-	-- Rivalutazioni Positive e Negative ufficiali  (di BENI E DI ACCESSORI) sino all'anno scorso purch� RISULTINO SCARICATI IN QUEST'ANNO
+	-- Rivalutazioni Positive e Negative ufficiali  (di BENI E DI ACCESSORI) sino all'anno scorso purch? RISULTINO SCARICATI IN QUEST'ANNO
 	-- COLONNA 6 "Ammortamenti pregressi di cespiti scaricati nel " 
 	ammortization_pre_scaricati decimal(19,2),
 	
@@ -579,4 +581,3 @@ END
 END
 
 
-	

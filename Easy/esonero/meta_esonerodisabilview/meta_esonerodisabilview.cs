@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Data;
 using metadatalibrary;
 using metaeasylibrary;
@@ -26,7 +28,7 @@ namespace meta_esonerodisabilview
 	{
         public Meta_esonerodisabilview(DataAccess Conn, MetaDataDispatcher Dispatcher) :
             base(Conn, Dispatcher, "esonerodisabilview") {
-				Name = "Definizione degli esoneri di invalidit√†";
+				Name = "Definizione degli esoneri di invalidit‡";
 			EditTypes.Add("disabil");
 			ListingTypes.Add("disabil");
 			//$EditTypes$
@@ -54,7 +56,7 @@ namespace meta_esonerodisabilview
 					
 			switch (ListingType) {
 				case "disabil": {
-						DescribeAColumn(T, "esonero_aa", "Anno accademico", nPos++);
+						DescribeAColumn(T, "aa", "Anno accademico", nPos++);
 						DescribeAColumn(T, "title", "Denominazione", nPos++);
 						DescribeAColumn(T, "esonero_description", "Descrizione", nPos++);
 						DescribeAColumn(T, "esonero_applunavolta", "Applicabile una sola volta", nPos++);

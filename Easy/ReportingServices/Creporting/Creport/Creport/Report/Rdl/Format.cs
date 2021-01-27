@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 
 namespace Creport.Report.Rdl {
     /// <summary>
@@ -27,11 +29,11 @@ namespace Creport.Report.Rdl {
         /// </summary>
         public static String Data { get { return "d"; } }
         /// <summary>
-        /// luned√¨ 31 gennaio 2000
+        /// lunedÏ 31 gennaio 2000
         /// </summary>
         public static String Data1 { get { return "D"; } }
         /// <summary>
-        /// luned√¨ 31 gennaio 2000 13:30
+        /// lunedÏ 31 gennaio 2000 13:30
         /// </summary>
         public static String Data2 { get { return "f"; } }
         /// <summary>
@@ -45,39 +47,39 @@ namespace Creport.Report.Rdl {
 
 
         /// <summary>
-        /// "'‚Ç¨'0.00;('‚Ç¨'0.00)"
+        /// "'Ä'0.00;('Ä'0.00)"
         /// </summary>
-        public static String Valuta { get { return "'‚Ç¨'0.00;('‚Ç¨'0.00)"; } }
+        public static String Valuta { get { return "'Ä'0.00;('Ä'0.00)"; } }
         /// <summary>
-        /// "'‚Ç¨'0.00"
+        /// "'Ä'0.00"
         /// </summary>
-        public static String Valuta2 { get { return "'‚Ç¨'0.00"; } }
+        public static String Valuta2 { get { return "'Ä'0.00"; } }
         /// <summary>
-        /// "'‚Ç¨'0.00;'‚Ç¨'-0.00"
+        /// "'Ä'0.00;'Ä'-0.00"
         /// </summary>
-        public static String Valuta3 { get { return "'‚Ç¨'0.00;'‚Ç¨'-0.00"; } }
+        public static String Valuta3 { get { return "'Ä'0.00;'Ä'-0.00"; } }
         /// <summary>
-        /// "'‚Ç¨'0.00;'‚Ç¨'0.00-"
+        /// "'Ä'0.00;'Ä'0.00-"
         /// </summary>
-        public static String Valuta4 { get { return "'‚Ç¨'0.00;'‚Ç¨'0.00-"; } }
+        public static String Valuta4 { get { return "'Ä'0.00;'Ä'0.00-"; } }
         /// <summary>
-        /// '‚Ç¨'#,0.00;('‚Ç¨'#,0.00)
+        /// 'Ä'#,0.00;('Ä'#,0.00)
         /// </summary>
-        public static String Valuta5 { get { return "'‚Ç¨'#,0.00;('‚Ç¨'#,0.00)"; } }
+        public static String Valuta5 { get { return "'Ä'#,0.00;('Ä'#,0.00)"; } }
         /// <summary>
-        /// '‚Ç¨'#,0.00
+        /// 'Ä'#,0.00
         /// </summary>
-        public static String Valuta6 { get { return "'‚Ç¨'#,0.00"; } }
+        public static String Valuta6 { get { return "'Ä'#,0.00"; } }
         /// <summary>
-        /// '‚Ç¨'#,0.00;-'‚Ç¨'#,0.00;'' mostra gli zeri come blank
+        /// 'Ä'#,0.00;-'Ä'#,0.00;'' mostra gli zeri come blank
         /// </summary>
-        public static String Valuta7 { get { return "'‚Ç¨'#,0.00;-'‚Ç¨'#,0.00;''"; } }
+        public static String Valuta7 { get { return "'Ä'#,0.00;-'Ä'#,0.00;''"; } }
         /// <summary>
-        /// '‚Ç¨'#,0.00;-'‚Ç¨'#,0.00;'-' mostra gli zeri come -
+        /// 'Ä'#,0.00;-'Ä'#,0.00;'-' mostra gli zeri come -
         /// </summary>
-        public static String Valuta8 { get { return "'‚Ç¨'#,0.00;-'‚Ç¨'#,0.00;'-'"; } }
+        public static String Valuta8 { get { return "'Ä'#,0.00;-'Ä'#,0.00;'-'"; } }
         /// <summary>
-        /// '‚Ç¨'#,0.X;-'‚Ç¨'#,0.X; mostra zero come Y 
+        /// 'Ä'#,0.X;-'Ä'#,0.X; mostra zero come Y 
         /// </summary>
         /// <param name="X"></param>
         /// <param name="Y"></param>
@@ -88,7 +90,7 @@ namespace Creport.Report.Rdl {
                 for (int i = 0; i < precisione; i++) {
                     nzeri = nzeri + "0";
                 }
-                return "'‚Ç¨'#,0."+ nzeri + ";-'‚Ç¨'#,0."+ nzeri + ";'"+zero+"'";
+                return "'Ä'#,0."+ nzeri + ";-'Ä'#,0."+ nzeri + ";'"+zero+"'";
             }
         }
 

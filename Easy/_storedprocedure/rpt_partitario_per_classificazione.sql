@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_per_classificazione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_per_classificazione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_partitario_per_classificazione]
 GO
 
@@ -169,10 +171,10 @@ SELECT
 		WHEN ((expensetotal.flag&1)=0) THEN 'C'
 		WHEN ((expensetotal.flag&1)=1) THEN 'R'
 	END, 
-	E2.idexp, --IMPEGNO (in realt√† √® la prima fase)
+	E2.idexp, --IMPEGNO (in realt‡ Ë la prima fase)
 	E2.ymov,
 	E2.nmov,  
-	expensesorted.amount,  ---Sta gi√† prendendo il valore classificato e non il valore originale dell'impegno quindi non deve sottrarre
+	expensesorted.amount,  ---Sta gi‡ prendendo il valore classificato e non il valore originale dell'impegno quindi non deve sottrarre
 
 	E3.idexp, --PAGAMENTO
 	E3.ymov,
@@ -278,7 +280,7 @@ SELECT
 	expensevar.description, 
 	expense.idreg,	
 
-	E2.idexp, --IMPEGNO, in relat√† √® la prima fase
+	E2.idexp, --IMPEGNO, in relat‡ Ë la prima fase
 	E2.ymov,
 	E2.nmov,  
 	expensevar.yvar,
@@ -739,4 +741,3 @@ GO
 
 
 
-	

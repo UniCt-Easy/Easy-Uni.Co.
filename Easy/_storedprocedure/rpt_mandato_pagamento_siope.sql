@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿SET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -355,7 +357,7 @@ DECLARE cursore CURSOR FORWARD_ONLY for
 	WHILE (@@fetch_status=0) BEGIN
 	
 	UPDATE 	#payment set
-	  multibill = isnull(multibill,'') + 'N.'+isnull(convert(varchar(10),@nbill),'') +  ' Importo â‚¬ '+ isnull(convert(varchar(20),@amountbill),'')+'. '
+	  multibill = isnull(multibill,'') + 'N.'+isnull(convert(varchar(10),@nbill),'') +  ' Importo € '+ isnull(convert(varchar(20),@amountbill),'')+'. '
 	 WHERE idexp = @idexpbill and nbill is null
 		FETCH NEXT FROM cursore 
 		INTO @idexpbill,  @nbill, @amountbill
@@ -722,7 +724,7 @@ INSERT INTO #payment
 		ON incomelast.kpro = proceeds.kpro
 	WHERE expense.ymov = @ayear
 		AND expenseyear.ayear = @ayear
-		AND income.autokind in (14,20,21,30,31) -- automatismi generici (14) e CSA (20) --ricavo lordi
+		AND income.autokind in (7,14,20,21,30,31) -- automatismi generici (14) e CSA (20) --ricavo lordi
 		--AND income.autocode is null		
 		and (incomelast.flag & 32 = 0 )-- Incasso con spese accessorie
 		and payment.ypay=@ayear and payment.idtreasurer=@idtreasurer
@@ -1050,7 +1052,7 @@ SELECT
 	#payment.cf, #payment.p_iva, 
 	CONVERT(datetime, #payment.birthdate)  as birthdate, #payment.birthplace, #payment.birthprovince, #payment.birthnation,
 	#payment.flaghuman, registrypaymethod.regmodcode,
-	ISNULL(#payment.extracode,registrypaymethod.extracode) as extracode, -- codice contabilitÃ  speciale, girofondo in banca d'Italia
+	ISNULL(#payment.extracode,registrypaymethod.extracode) as extracode, -- codice contabilità speciale, girofondo in banca d'Italia
 	#payment.paymethod,
 	#payment.cin, #payment.idbank, #payment.bank, #payment.idcab, #payment.cab, #payment.cc,
 	#payment.iban,#payment.biccode,
@@ -1073,7 +1075,7 @@ SELECT
 				THEN 'EP:' + account.codeacc + '/'+account.title + CHAR(13) + 'CE: '+placcount.codeplaccount + '/'+placcount.title
 		ELSE #payment.codefin 
 	END +REPLICATE(' ',500) as codefin,
-	#payment.fintitle as fintitle,-- nn Ã¨ piÃ¹ usato nel report 
+	#payment.fintitle as fintitle,-- nn è più usato nel report 
 	#payment.nlevel,
 	isnull(#payment.curramount,#payment.amount) as amount,
 	--#payment.decrtemp,
@@ -1150,4 +1152,3 @@ SET ANSI_NULLS ON
 GO
 
  	
-	

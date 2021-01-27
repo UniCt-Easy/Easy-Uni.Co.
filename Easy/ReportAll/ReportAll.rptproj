@@ -12,7 +12,7 @@
     <TargetDatasetFolder>Set di dati</TargetDatasetFolder>
     <TargetDatasourceFolder>Origine dati</TargetDatasourceFolder>
     <TargetReportPartFolder>Parti del report</TargetReportPartFolder>
-    <TargetServerURL>http://192.168.10.122:8085/reportserver</TargetServerURL>
+    <TargetServerURL>http://10.10.10.122:8085/reportserver</TargetServerURL>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'DebugLocal' ">
     <FullPath>DebugLocal</FullPath>

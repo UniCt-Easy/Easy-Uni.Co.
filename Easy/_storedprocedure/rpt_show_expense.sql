@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_show_expense]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_show_expense]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_show_expense]
 GO
 
@@ -125,7 +127,7 @@ declare @idsorkind int
 declare @idacc varchar(38)
 declare @codeacc varchar(50)
 declare @account varchar(150)
--- Se la voce di bilancio Ã¨ associata al un solo codice di classificazione associata al Piano dei Conti
+-- Se la voce di bilancio è associata al un solo codice di classificazione associata al Piano dei Conti
 if (select count(finsorting.idsor) from finsorting 
 	join sorting
 		on finsorting.idsor = sorting.idsor
@@ -239,7 +241,7 @@ select @MostraContoEP = paramvalue from reportadditionalparam where paramname = 
 
 --INSERT INTO #situation VALUES (@departmentname, NULL, 'H')
 INSERT INTO #situation VALUES ('Situazione al ' + CONVERT(char(8), @date, 3), NULL, 'H',null)
-INSERT INTO #situation VALUES (@phase + ' nÂ° '  + CONVERT(char(10), @nmovoriginal) +  ' del ' + CONVERT(char(4), @ymovoriginal) +' Data contabile ' + CONVERT(char(8),@adate,3)
+INSERT INTO #situation VALUES (@phase + ' n° '  + CONVERT(char(10), @nmovoriginal) +  ' del ' + CONVERT(char(4), @ymovoriginal) +' Data contabile ' + CONVERT(char(8),@adate,3)
 	, NULL, 'H',null)
 --INSERT INTO #situation VALUES ('Data contabile ' + CONVERT(char(8),@adate,3) , NULL, 'N')
 INSERT INTO #situation VALUES ('Esercizio finanziario ' + CONVERT(char(4), @ayear), NULL, 'H',null)
@@ -429,4 +431,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 UniversitÃ  degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using metadatalibrary;
@@ -68,16 +70,16 @@ namespace EasyWebReport {
             }
             DataSet DS = GetConfigDataSet(P);
             if (DS.Tables[0].Rows.Count == 0) {
-                error = "Il file di config. � errato";
+                error = "Il file di config. Ã¨ errato";
                 return null;
             }
             //////////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////////
             //Da ripristinare al termine dello sviluppo:
-            //string _Server = "192.168.1.72";
+            //string _Server = "10.10.1.72";
             //string _Database = "webreport";
             //string _User = "sa";
-            //string _Password = "afrodite";
+            //string _Password = "**********";
             //string _Password = GetVars.CryptPassword("afrofite");
 
             DataAccess Conn = new DataAccess("myDsn",
@@ -377,4 +379,3 @@ namespace EasyWebReport {
 		}
 	}
 }
-
