@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistaistitutocassiere.xsd" xmlns:mstns="http://tempuri.org/Vistaistitutocassiere.xsd" xmlns="http://tempuri.org/Vistaistitutocassiere.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="MandatiXML">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" type="xs:int" />
+              <xs:element name="XMLColumn" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MandatoTestataFlusso">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codice_ABI_BT" type="xs:int" />
+              <xs:element name="identificativo_flusso" type="xs:string" />
+              <xs:element name="data_ora_creazione_flusso" type="xs:dateTime" />
+              <xs:element name="codice_ente" type="xs:string" />
+              <xs:element name="descrizione_ente" type="xs:string" />
+              <xs:element name="codice_istat_ente" type="xs:string" />
+              <xs:element name="codice_fiscale_ente" type="xs:string" />
+              <xs:element name="codice_tramite_ente" type="xs:string" />
+              <xs:element name="codice_tramite_BT" type="xs:string" />
+              <xs:element name="codice_ente_BT" type="xs:string" />
+              <xs:element name="riferimento_ente" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Mandato">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativo_flusso" type="xs:string" />
+              <xs:element name="tipo_operazione" type="xs:string" />
+              <xs:element name="numero_mandato" type="xs:int" />
+              <xs:element name="data_mandato" type="xs:dateTime" />
+              <xs:element name="importo_mandato" type="xs:decimal" />
+              <xs:element name="conto_evidenza" type="xs:string" minOccurs="0" />
+              <xs:element name="estremi_provvedimento_autorizzativo" type="xs:string" minOccurs="0" />
+              <xs:element name="responsabile_provvedimento" type="xs:string" minOccurs="0" />
+              <xs:element name="ufficio_responsabile" type="xs:string" minOccurs="0" />
+              <xs:element name="codice_struttura" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MandatoAvvisoPagoPA">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativo_flusso" type="xs:string" />
+              <xs:element name="tipo_operazione" type="xs:string" />
+              <xs:element name="numero_mandato" type="xs:int" />
+              <xs:element name="progressivo_beneficiario" type="xs:int" />
+              <xs:element name="riferimento_documento_esterno" type="xs:string" minOccurs="0" />
+              <xs:element name="codice_identificativo_ente" type="xs:string" minOccurs="0" />
+              <xs:element name="numero_avviso" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MandatoBollo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativo_flusso" type="xs:string" />
+              <xs:element name="tipo_operazione" type="xs:string" />
+              <xs:element name="numero_mandato" type="xs:int" />
+              <xs:element name="progressivo_beneficiario" type="xs:int" />
+              <xs:element name="assoggettamento_bollo" type="xs:string" />
+              <xs:element name="causale_esenzione_bollo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MandatoClassificazione">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativo_flusso" type="xs:string" />
+              <xs:element name="tipo_operazione" type="xs:string" />
+              <xs:element name="numero_mandato" type="xs:int" />
+              <xs:element name="progressivo_beneficiario" type="xs:int" />
+              <xs:element name="codice_cgu" type="xs:string" minOccurs="0" />
+              <xs:element name="codice_cup" type="xs:string" minOccurs="0" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MandatoClassificazioneDatiSiopeUscite">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativo_flusso" type="xs:string" />
+              <xs:element name="tipo_operazione" type="xs:string" />
+              <xs:element name="numero_mandato" type="xs:int" />
+              <xs:element name="progressivo_beneficiario" type="xs:int" />
+              <xs:element name="codice_cgu" type="xs:string" minOccurs="0" />
+              <xs:element name="tipo_debito_siope_c" type="xs:string" minOccurs="0" />
+              <xs:element name="codice_cig_siope" type="xs:string" minOccurs="0" />
+              <xs:element name="motivo_esclusione_cig_siope" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MandatoDatiADisposizioneEnteBeneficiario">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativo_flusso" type="xs:string" />
+              <xs:element name="tipo_operazione" type="xs:string" />
+              <xs:element name="numero_mandato" type="xs:int" />
+              <xs:element name="progressivo_beneficiario" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MandatoDatiFatturaSiope">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativo_flusso" type="xs:string" />
+              <xs:element name="tipo_operazione" type="xs:string" />
+              <xs:element name="numero_mandato" type="xs:int" />
+              <xs:element name="progressivo_beneficiario" type="xs:int" />
+              <xs:element name="codice_cgu" type="xs:string" minOccurs="0" />
+              <xs:element name="tipo_debito_siope_c" type="xs:string" minOccurs="0" />
+              <xs:element name="codice_cig_siope" type="xs:string" minOccurs="0" />
+              <xs:element name="codice_ipa_ente_siope" type="xs:string" minOccurs="0" />
+              <xs:element name="tipo_documento_siope_e" type="xs:string" minOccurs="0" />
+              <xs:element name="identificativo_lotto_sdi_siope" type="xs:string" minOccurs="0" />
+              <xs:element name="numero_fattura_siope" type="xs:string" minOccurs="0" />
+              <xs:element name="importo_siope" type="xs:decimal" minOccurs="0" />
+              <xs:element name="data_scadenza_pagam_siope" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="motivo_scadenza_siope" type="xs:string" minOccurs="0" />
+              <xs:element name="natura_spesa_siope" type="xs:string" minOccurs="0" />
+              <xs:element name="utilizzo_nota_di_credito" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MandatoFatturaSiope">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativo_flusso" type="xs:string" />
+              <xs:element name="tipo_operazione" type="xs:string" />
+              <xs:element name="numero_mandato" type="xs:int" />
+              <xs:element name="progressivo_beneficiario" type="xs:int" />
+              <xs:element name="codice_cgu" type="xs:string" minOccurs="0" />
+              <xs:element name="tipo_debito_siope_c" type="xs:string" minOccurs="0" />
+              <xs:element name="codice_cig_siope" type="xs:string" minOccurs="0" />
+              <xs:element name="codice_ipa_ente_siope" type="xs:string" minOccurs="0" />
+              <xs:element name="tipo_documento_siope_e" type="xs:string" minOccurs="0" />
+              <xs:element name="identificativo_lotto_sdi_siope" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MandatoInformazioniAggiuntive">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativo_flusso" type="xs:string" />
+              <xs:element name="tipo_operazione" type="xs:string" />
+              <xs:element name="numero_mandato" type="xs:int" />
+              <xs:element name="progressivo_beneficiario" type="xs:int" />
+              <xs:element name="lingua" type="xs:string" minOccurs="0" />
+              <xs:element name="riferimento_documento_esterno" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MandatoInformazioniBeneficiario">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativo_flusso" type="xs:string" />
+              <xs:element name="tipo_operazione" type="xs:string" />
+              <xs:element name="numero_mandato" type="xs:int" />
+              <xs:element name="progressivo_beneficiario" type="xs:int" />
+              <xs:element name="importo_beneficiario" type="xs:decimal" />
+              <xs:element name="tipo_pagamento" type="xs:string" />
+              <xs:element name="data_esecuzione_pagamento" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="data_scadenza_pagamento" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="destinazione" type="xs:string" minOccurs="0" />
+              <xs:element name="numero_conto_banca_italia_ente_ricevente" type="xs:string" minOccurs="0" />
+              <xs:element name="tipo_contabilita_ente_ricevente" type="xs:string" minOccurs="0" />
+              <xs:element name="causale" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MandatoRitenute">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativo_flusso" type="xs:string" />
+              <xs:element name="tipo_operazione" type="xs:string" />
+              <xs:element name="numero_mandato" type="xs:int" />
+              <xs:element name="progressivo_beneficiario" type="xs:int" />
+              <xs:element name="importo_ritenute" type="xs:decimal" minOccurs="0" />
+              <xs:element name="numero_reversale" type="xs:int" minOccurs="0" />
+              <xs:element name="progressivo_versante" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MandatoSepaCreditTransfer">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativo_flusso" type="xs:string" />
+              <xs:element name="tipo_operazione" type="xs:string" />
+              <xs:element name="numero_mandato" type="xs:int" />
+              <xs:element name="progressivo_beneficiario" type="xs:int" />
+              <xs:element name="iban" type="xs:string" minOccurs="0" />
+              <xs:element name="bic" type="xs:string" minOccurs="0" />
+              <xs:element name="identificativo_end_to_end" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MandatoSpese">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="identificativo_flusso" type="xs:string" />
+              <xs:element name="tipo_operazione" type="xs:string" />
+              <xs:element name="numero_mandato" type="xs:int" />
+              <xs:element name="progressivo_beneficiario" type="xs:int" />
+              <xs:element name="soggetto_destinatario_delle_spese" type="xs:string" />
+              <xs:element name="natura_pagamento" type="xs:string" minOccurs="0" />
+              <xs:element name="causale_esenzione_spese" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MandatoTestataFlusso" />
+      <xs:field xpath="mstns:codice_ABI_BT" />
+      <xs:field xpath="mstns:identificativo_flusso" />
+      <xs:field xpath="mstns:data_ora_creazione_flusso" />
+    </xs:unique>
+    <xs:unique name="Mandato_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Mandato" />
+      <xs:field xpath="mstns:identificativo_flusso" />
+      <xs:field xpath="mstns:tipo_operazione" />
+      <xs:field xpath="mstns:numero_mandato" />
+    </xs:unique>
+    <xs:unique name="MandatoAvvisoPagoPA_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MandatoAvvisoPagoPA" />
+      <xs:field xpath="mstns:identificativo_flusso" />
+      <xs:field xpath="mstns:tipo_operazione" />
+      <xs:field xpath="mstns:numero_mandato" />
+      <xs:field xpath="mstns:progressivo_beneficiario" />
+    </xs:unique>
+    <xs:unique name="MandatoBollo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MandatoBollo" />
+      <xs:field xpath="mstns:identificativo_flusso" />
+      <xs:field xpath="mstns:tipo_operazione" />
+      <xs:field xpath="mstns:numero_mandato" />
+      <xs:field xpath="mstns:progressivo_beneficiario" />
+    </xs:unique>
+    <xs:unique name="MandatoClassificazione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MandatoClassificazione" />
+      <xs:field xpath="mstns:identificativo_flusso" />
+      <xs:field xpath="mstns:tipo_operazione" />
+      <xs:field xpath="mstns:numero_mandato" />
+      <xs:field xpath="mstns:progressivo_beneficiario" />
+    </xs:unique>
+    <xs:unique name="MandatoClassificazioneDatiSiopeUscite_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MandatoClassificazioneDatiSiopeUscite" />
+      <xs:field xpath="mstns:identificativo_flusso" />
+      <xs:field xpath="mstns:tipo_operazione" />
+      <xs:field xpath="mstns:numero_mandato" />
+      <xs:field xpath="mstns:progressivo_beneficiario" />
+    </xs:unique>
+    <xs:unique name="MandatoDatiADisposizioneEnteBeneficiario_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MandatoDatiADisposizioneEnteBeneficiario" />
+      <xs:field xpath="mstns:identificativo_flusso" />
+      <xs:field xpath="mstns:tipo_operazione" />
+      <xs:field xpath="mstns:numero_mandato" />
+      <xs:field xpath="mstns:progressivo_beneficiario" />
+    </xs:unique>
+    <xs:unique name="MandatoDatiFatturaSiope_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MandatoDatiFatturaSiope" />
+      <xs:field xpath="mstns:identificativo_flusso" />
+      <xs:field xpath="mstns:tipo_operazione" />
+      <xs:field xpath="mstns:numero_mandato" />
+      <xs:field xpath="mstns:progressivo_beneficiario" />
+    </xs:unique>
+    <xs:unique name="MandatoFatturaSiope_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MandatoFatturaSiope" />
+      <xs:field xpath="mstns:identificativo_flusso" />
+      <xs:field xpath="mstns:tipo_operazione" />
+      <xs:field xpath="mstns:numero_mandato" />
+      <xs:field xpath="mstns:progressivo_beneficiario" />
+    </xs:unique>
+    <xs:unique name="MandatoInformazioniAggiuntive_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MandatoInformazioniAggiuntive" />
+      <xs:field xpath="mstns:identificativo_flusso" />
+      <xs:field xpath="mstns:tipo_operazione" />
+      <xs:field xpath="mstns:numero_mandato" />
+      <xs:field xpath="mstns:progressivo_beneficiario" />
+    </xs:unique>
+    <xs:unique name="MandatoInformazioniBeneficiario_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MandatoInformazioniBeneficiario" />
+      <xs:field xpath="mstns:identificativo_flusso" />
+      <xs:field xpath="mstns:tipo_operazione" />
+      <xs:field xpath="mstns:numero_mandato" />
+      <xs:field xpath="mstns:progressivo_beneficiario" />
+    </xs:unique>
+    <xs:unique name="MandatoRitenute_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MandatoRitenute" />
+      <xs:field xpath="mstns:identificativo_flusso" />
+      <xs:field xpath="mstns:tipo_operazione" />
+      <xs:field xpath="mstns:numero_mandato" />
+      <xs:field xpath="mstns:progressivo_beneficiario" />
+    </xs:unique>
+    <xs:unique name="MandatoSepaCreditTransfer_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MandatoSepaCreditTransfer" />
+      <xs:field xpath="mstns:identificativo_flusso" />
+      <xs:field xpath="mstns:tipo_operazione" />
+      <xs:field xpath="mstns:numero_mandato" />
+      <xs:field xpath="mstns:progressivo_beneficiario" />
+    </xs:unique>
+    <xs:unique name="MandatoSpese_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MandatoSpese" />
+      <xs:field xpath="mstns:identificativo_flusso" />
+      <xs:field xpath="mstns:tipo_operazione" />
+      <xs:field xpath="mstns:numero_mandato" />
+      <xs:field xpath="mstns:progressivo_beneficiario" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

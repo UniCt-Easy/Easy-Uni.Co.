@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[sort_setup_conflict_income]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[sort_setup_conflict_income]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [sort_setup_conflict_income]
 GO
 
@@ -78,7 +80,7 @@ WHERE (A.idsor < B.idsor)
 	     ((A.idsorreg IS NULL) or (B.idsorreg IS NULL) or (B.idsorreg = SA.idchild) or (A.idsorreg = SB.idchild))
 	   )
 	)
---Estrae i sottoinsiemi effettivi ricalcolando le prime coordinate prendendo la pi√π restrittiva tra la 1a e la 2a coordinata. Ossia
+--Estrae i sottoinsiemi effettivi ricalcolando le prime coordinate prendendo la pi˘ restrittiva tra la 1a e la 2a coordinata. Ossia
 --  null -- null -------> null
 --  A   --  null -------> A
 --  null --  A   -------> A
@@ -104,10 +106,10 @@ WHERE T.idsorkindreg1=T.idsorkindreg2
 
 UPDATE #tmp SET idsorreg1= idsorreg2 WHERE (idsorkindreg1=idsorkindreg2) AND (idsorreg1 IS NULL) 
 		
---Ora che ha tutti i sottoinsiemi, deve eliminare i sottoinsiemi che sono gi√† presenti cos√¨ come sono stati ricalcolati. Es.
+--Ora che ha tutti i sottoinsiemi, deve eliminare i sottoinsiemi che sono gi‡ presenti cosÏ come sono stati ricalcolati. Es.
 -- A    null   B
 -- null  C    null 
---- risultato A C B che √® gi√† (per esempio) presente come terna  ---> lo elimino
+--- risultato A C B che Ë gi‡ (per esempio) presente come terna  ---> lo elimino
 DELETE FROM #tmp
 WHERE (
 	SELECT COUNT(*)
@@ -148,4 +150,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_h_19]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_h_19]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_certificazioneunica_h_19]
 GO
  
@@ -57,7 +59,7 @@ AS BEGIN
 		exemptionquota_applied decimal(19,2)
 	)
 
--- Il quadro H √® per il lavoro autonomo
+-- Il quadro H Ë per il lavoro autonomo
 	CREATE TABLE #recHNonArrot
 	(
 		progr int,
@@ -124,7 +126,7 @@ AS BEGIN
 			+ ISNULL(
 				(SELECT SUM(amount) FROM expensevar
 				WHERE expensevar.idexp = expense.idexp
-				-- AND expensevar.yvar <= @annoredditi  superfluo poich√© expense di ultima fase
+				-- AND expensevar.yvar <= @annoredditi  superfluo poichÈ expense di ultima fase
 				AND ISNULL(autokind,0) <> 4)
 			,0)) > 0
 			and (select count(*) from expensetaxofficial 
@@ -403,7 +405,7 @@ AS BEGIN
 	set @au07_AltreSommeNonSoggetteARitenuta=0
 	SET @au07_AltreSommeNonSoggetteARitenuta = 
 					@au04_ammontarelordocorrisposto
-					- ISNULL((SELECT SUM(taxablenet) --somma imponibili netti ove la rit fiscale non √® zero esclusi stranieri conv.
+					- ISNULL((SELECT SUM(taxablenet) --somma imponibili netti ove la rit fiscale non Ë zero esclusi stranieri conv.
 							FROM expensetaxofficial
 				              		join tax
 								ON tax.taxcode = expensetaxofficial.taxcode
@@ -414,7 +416,7 @@ AS BEGIN
 							AND taxref <>'07_IRPEF_FC'
 							AND expensetaxofficial.stop is null
 					),0)
-					-- RITENUTA IPREF STRANIERI IN CONVENZIONE, √® necessario prenderle a parte poich√© per esse la ritenuta √® zero
+					-- RITENUTA IPREF STRANIERI IN CONVENZIONE, Ë necessario prenderle a parte poichÈ per esse la ritenuta Ë zero
 					- @au05_SommeNonSoggetteARitenutaPerRegimeConvenzionale
 					
 	-- 7 - nel caso di erogazione di altri redditi non soggetti a ritenuta ovvero esenti.
@@ -457,21 +459,21 @@ AS BEGIN
 	INSERT INTO #recHNonArrot (progr,  modulo,quadro, riga, colonna, decimfisc,causale, socialseccode) 
 	VALUES(@progrCom,@contaPrestazioni,'AU', 1, @colonna, @au09_10ritIRPEF,@au01_causale,@au33_socialseccode)
 	
-	--CAMPO 29 (Codice fiscale Ente Previdenziale) CAMPO NUOVO ‚Äúindicare il codice fiscale dell‚ÄôEnte previdenziale‚Äù. Pertanto deve essere inserito un valore costante pari a "80078750587‚Äù quando la certificazione prevede l'applicazione delle ritenute previdenziali.
-	--CAMPO 30 (Denominazione Ente Previdenziale) CAMPO NUOVO. Pertanto deve essere inserito un valore costante pari a ‚ÄúIstituto Nazionale Previdenza Sociale‚Äù quando la certificazione prevede l'applicazione delle ritenute previdenziali.
-	--CAMPO 31 Ente Previdenziale CAMPO NUOVO (l‚Äôunica casistica che verr√† gestita, √® la lettera ‚ÄúA‚Äù (ALTRO) quando la certificazione prevede l'applicazione delle ritenute previdenziali.
+	--CAMPO 29 (Codice fiscale Ente Previdenziale) CAMPO NUOVO ìindicare il codice fiscale dellíEnte previdenzialeî. Pertanto deve essere inserito un valore costante pari a "80078750587î quando la certificazione prevede l'applicazione delle ritenute previdenziali.
+	--CAMPO 30 (Denominazione Ente Previdenziale) CAMPO NUOVO. Pertanto deve essere inserito un valore costante pari a ìIstituto Nazionale Previdenza Socialeî quando la certificazione prevede l'applicazione delle ritenute previdenziali.
+	--CAMPO 31 Ente Previdenziale CAMPO NUOVO (líunica casistica che verr‡ gestita, Ë la lettera ìAî (ALTRO) quando la certificazione prevede l'applicazione delle ritenute previdenziali.
 	--CAMPO 32 (Codice Azienda)- NON VALORIZZARLO
 	--CAMPO 33 (Categoria) - NON VALORIZZARLO
 
-	--CAMPO 34 (Contributi previdenziali a carico del soggetto erogante)  √® il vecchio CAMPO 20 del precedente modello fiscale (CU 2017)
-	--CAMPO 35 (Contributi previdenziali a carico del percipiente) √® il vecchio CAMPO 21 del precedente modello fiscale (CU 2017)
-	--CAMPO 38 (Contributi dovuti) CAMPO NUOVO (che sar√† dato dalla somma dei campi 34 e 35)
-	--CAMPO 39 (Contributi versati) CAMPO NUOVO (il campo 39 prender√† valore uguale al campo 38)
+	--CAMPO 34 (Contributi previdenziali a carico del soggetto erogante)  Ë il vecchio CAMPO 20 del precedente modello fiscale (CU 2017)
+	--CAMPO 35 (Contributi previdenziali a carico del percipiente) Ë il vecchio CAMPO 21 del precedente modello fiscale (CU 2017)
+	--CAMPO 38 (Contributi dovuti) CAMPO NUOVO (che sar‡ dato dalla somma dei campi 34 e 35)
+	--CAMPO 39 (Contributi versati) CAMPO NUOVO (il campo 39 prender‡ valore uguale al campo 38)
 	print @au34_ritprevidenzialeamm
 	print @au35_ritprevidenzialedip
 	IF ((ISNULL(@au34_ritprevidenzialeamm,0) <> 0) OR (ISNULL(@au35_ritprevidenzialedip,0) <> 0) )
 	BEGIN
-		----- la causale M2, indica le prestazioni ENPAPI che √® un istituto previdenziale diverso da INPS
+		----- la causale M2, indica le prestazioni ENPAPI che Ë un istituto previdenziale diverso da INPS
 		--	  @cfenteprev = '97151870587'/*ENPAPI*/ ELSE SET @cfenteprev = '80078750587' -- INPS
 		--    IF  (@au01_causale = 'M2') SET @denomenteprev = 'E.N.P.A.P.I.' 
 		--	  ELSE SET @denomenteprev = 'Istituto Nazionale Previdenza Sociale'
@@ -717,4 +719,3 @@ GO
  
  --declare @newProg int
  --exec exp_certificazioneunica_h_19 1126,3, 'N', @newProg out
-	

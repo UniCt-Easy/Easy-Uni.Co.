@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -46,7 +48,9 @@ namespace notable_importazione {
 
 		public FrmNotable_Importazione() {
 			InitializeComponent();
-
+		
+			tabControl1.HideTabsMode =
+			Crownwood.Magic.Controls.TabControl.HideTabsModes.ShowAlways;
 			txtIntro.Text =
 				"Questa procedura consente di importare dati da un'applicazione esterna. E' possibile importare " +
 				"informazioni inerenti l'anagrafica, il patrimonio, il bilancio, i movimenti finanziari.\n" +
@@ -183,7 +187,8 @@ namespace notable_importazione {
 					"76"),
                 new ImportButton(btnFlussiStudenti, ImportCorsoLaurea, tracciato_corsolaurea, "77"),
                 new ImportButton(btnAssociaTassaFlussiStudenti, ImportStipDecodifica, tracciato_stipdecodifica, "78"),
-				new ImportButton(btnContributiContrattiCSAnuovaversione, ImportaContributiContrattoCSA_nuovagestione, tracciato_contributicontrattocsa_nuovaversione, "79")
+				new ImportButton(btnContributiContrattiCSAnuovaversione, ImportaContributiContrattoCSA_nuovagestione, tracciato_contributicontrattocsa_nuovaversione, "79"),
+				new ImportButton(btnAssociazioniGomp, ImportaStipGomp, tracciato_stipgomp, "80"),
 			};
 
 			foreach (ImportButton IB in AllButton) {
@@ -8850,7 +8855,19 @@ namespace notable_importazione {
 				object ndettaglio = Reader.getCurrField("ndettaglio");
 				NewCsa_ContractExpense["ndetail"] = ndettaglio;
 				object quota = Reader.getCurrField("quota");
-				NewCsa_ContractExpense["quota"] = quota;
+
+				
+				if (quota == null || quota == DBNull.Value || CfgFn.GetNoNullDecimal(quota)<=0) {
+					SpeedSaver.AddError("La quota " + quota + " deve essere maggiore di zero ");
+					Reader.GetNext();
+					continue;
+				}
+				else {
+					NewCsa_ContractExpense["quota"] = quota;
+				}
+
+
+				
 
 				Reader.GetNext();
 
@@ -8940,7 +8957,16 @@ namespace notable_importazione {
 				object ndettaglio = Reader.getCurrField("ndettaglio");
 				NewCsa_ContractEpExp["ndetail"] = ndettaglio;
 				object quota = Reader.getCurrField("quota");
-				NewCsa_ContractEpExp["quota"] = quota;
+
+				if (quota == null || quota == DBNull.Value || CfgFn.GetNoNullDecimal(quota)<=0) {
+					SpeedSaver.AddError("La quota " + quota + " deve essere maggiore di zero ");
+					Reader.GetNext();
+					continue;
+				}
+				else {
+					NewCsa_ContractEpExp["quota"] = quota;
+				}
+
 
 				Reader.GetNext();
 
@@ -8954,8 +8980,8 @@ namespace notable_importazione {
 		}
 
 		bool ImportaRipUnicaContrattiCSA() {
-			/*
-           -- DEFINIZIONE DEL TRACCIATO   --RIPARTIZIONE REGOLA SPECIFICA
+			 /*
+            // DEFINIZIONE DEL TRACCIATO   --RIPARTIZIONE REGOLA SPECIFICA
 			string[] tracciato_ripunicacontrattocsa = new string[] {
             "esercizio;Esercizio Imputazione Contratto;Intero;4",
             "eserccompetenzacontratto;Esercizio Competenza Contratto;Intero;4",
@@ -9163,7 +9189,17 @@ namespace notable_importazione {
 
 				NewCsa_ContractPartition["ndetail"] = ndettaglio;
 				object quota = Reader.getCurrField("quota");
-				NewCsa_ContractPartition["quota"] = quota;
+
+				
+				if (quota == null || quota == DBNull.Value || CfgFn.GetNoNullDecimal(quota)<=0) {
+					SpeedSaver.AddError("La quota " + quota + " deve essere maggiore di zero ");
+					Reader.GetNext();
+					continue;
+				}
+				else {
+					NewCsa_ContractPartition["quota"] = quota;
+				}
+
 
 				Reader.GetNext();
 
@@ -9285,7 +9321,15 @@ namespace notable_importazione {
 				object ndettaglio = Reader.getCurrField("ndettaglio");
 				NewCsa_ContractTaxExpense["ndetail"] = ndettaglio;
 				object quota = Reader.getCurrField("quota");
-				NewCsa_ContractTaxExpense["quota"] = quota;
+				if (quota == null || quota == DBNull.Value || CfgFn.GetNoNullDecimal(quota)<=0){
+						SpeedSaver.AddError("La quota " + quota + " deve essere maggiore di zero ");
+						Reader.GetNext();
+						continue;
+					}
+					else {
+						NewCsa_ContractTaxExpense["quota"] = quota;
+					}
+ 
 
 				Reader.GetNext();
 
@@ -9409,7 +9453,16 @@ namespace notable_importazione {
 				object ndettaglio = Reader.getCurrField("ndettaglio");
 				NewCsa_ContractTaxEpExp["ndetail"] = ndettaglio;
 				object quota = Reader.getCurrField("quota");
-				NewCsa_ContractTaxEpExp["quota"] = quota;
+
+				if (quota == null || quota == DBNull.Value || CfgFn.GetNoNullDecimal(quota)<=0) {
+					SpeedSaver.AddError("La quota " + quota + " deve essere maggiore di zero ");
+					Reader.GetNext();
+					continue;
+				}
+				else {
+					NewCsa_ContractTaxEpExp["quota"] = quota;
+				}
+
 
 				Reader.GetNext();
 
@@ -9679,7 +9732,16 @@ namespace notable_importazione {
 
 				NewCsa_ContractTax_Partition["ndetail"] = ndettaglio;
 				object quota = Reader.getCurrField("quota");
-				NewCsa_ContractTax_Partition["quota"] = quota;
+
+				if (quota == null || quota == DBNull.Value || CfgFn.GetNoNullDecimal(quota)<=0) {
+					SpeedSaver.AddError("La quota " + quota + " deve essere maggiore di zero ");
+					Reader.GetNext();
+					continue;
+				}
+				else {
+					NewCsa_ContractTax_Partition["quota"] = quota;
+				}
+
 
 				Reader.GetNext();
 
@@ -12951,6 +13013,7 @@ namespace notable_importazione {
 				DataRow FinSor = MetaFinSorting.Get_New_Row(null, FinSorting);
 				FinSor["quota"] = Reader.getCurrField("quota");
 
+
 				Reader.GetNext();
 			} //while (Reader.DataPresent()) 
 
@@ -15278,6 +15341,7 @@ namespace notable_importazione {
 		DataAccess GetDataAccess(string user, string pwd, string dep) {
 			string errore;
 			string dettaglio;
+			if (Meta?.Conn == null) return null;
 			Easy_DataAccess Dest = Easy_DataAccess.getEasyDataAccess("Source DB",
 				/* server*/ Meta.Conn.GetSys("server").ToString(),
 				/* database */ Meta.Conn.GetSys("database").ToString(),
@@ -18256,7 +18320,7 @@ namespace notable_importazione {
 
 			bool LastRes = SaveData(D, true);
 			foreach (DataRow r in D.Tables["assetsubmanager"].Rows) {
-				var sql = @"update asset set idcurrsubman = (select top 1 idman from assetsubmanager 
+				var sql = @"update asset set idcurrsubman = (select top 1 idmanager from assetsubmanager 
                                 where assetsubmanager.idasset = asset.idasset 
                                 order by isnull(start,'1900-01-01') desc),
                                 lt = GetDate(), lu = 'upd_currsubman_import'
@@ -19316,6 +19380,315 @@ namespace notable_importazione {
 
 		private void btnContributiContrattiCSAnuovaversione_Click(object sender, EventArgs e) {
 			ImportaContributiContrattoCSA_nuovagestione();
+		}
+
+		private void btnAssociazioniGomp_Click(object sender, EventArgs e) {
+			ImportaStipGomp();
+		}
+
+		string[] tracciato_stipgomp = new string[] {
+			"idstip_gomp;ID riga (solo in modifica);Intero;10",
+			"annoregolamento;Anno regolamento;Intero;4",
+			"fuoricorso;Fuori corso (S/N);Codificato;1;S|N",
+			"codicecausale;Codice Causale;Stringa;100",
+			"tipologiacorso;Tipologia corso;Stringa;100",
+			"descrizione;Descrizione;Stringa;100",
+			"causalericavo;Codice causale ricavo; Stringa;50",
+			"causalecredito;Codice causale di credito; Stringa;50",
+			"causalebilancioentrata;Codice causale bilancio di entrata;Stringa;50",
+			"causaleannulloentroanno; Codice causale di annullo entro l'anno di emissione; Stringa;50",
+			"causaleannullooltreanno; Codice causale di annullo oltre l'anno di emissione; Stringa;50",
+			"causaledebito;Codice causale debito; Stringa;50",
+			"causalecosto;Codice causale di costo; Stringa;50",
+			"tipocontratto;Tipo contratto attivo; Stringa;20"
+		};
+
+		bool ImportaStipGomp() {
+			    LeggiFile Reader = GetReader(tracciato_stipgomp);
+
+            if (Reader == null)
+                return false;
+
+            ClearAllNonDBOHash();
+            var dataset = new vistaGomp();
+
+            var StipGomp = dataset.stip_gomp;
+            MetaData MetaStipGomp = Meta.Dispatcher.Get("stip_gomp");
+            MetaStipGomp.SetDefaults(StipGomp);
+
+         
+            List<string> dictEstimate = new List<string>();
+            Dictionary<String, String> dictAccmotive = new Dictionary<string, string>();
+            Dictionary<String, String> dictFinmotive = new Dictionary<string, string>();
+
+            List<string> tosync = new List<string>();
+            InitSpeedSaver(Conn, tosync);
+
+            DataRow[] stipRow = null;
+            q filter;
+
+            Reader.GetNext();
+
+            while (Reader.DataPresent()) {
+                if (Reader.getCurrField("codicecausale").ToString() == "") {
+                    SpeedSaver.AddError($"codicecausale non presente, riga:{Reader.GetCurrRowNumber()}");
+                    Reader.GetNext();
+
+                    continue;
+                }
+
+                if (Reader.getCurrField("annoregolamento").ToString() == "") {
+                    SpeedSaver.AddError($"annoregolamento non presente, riga:{Reader.GetCurrRowNumber()}");
+                    Reader.GetNext();
+
+                    continue;
+                }
+                if (Reader.getCurrField("fuoricorso").ToString() == "") {
+	                SpeedSaver.AddError($"fuoricorso non presente, riga:{Reader.GetCurrRowNumber()}");
+	                Reader.GetNext();
+
+	                continue;
+                }
+                if (Reader.getCurrField("tipologiacorso").ToString() == "") {
+	                SpeedSaver.AddError($"tipologiacorso non presente, riga:{Reader.GetCurrRowNumber()}");
+	                Reader.GetNext();
+
+	                continue;
+                }
+
+                if (Reader.getCurrField("idstip_gomp").ToString() != "") {
+                    stipRow = StipGomp._get(Conn, q.eq("idstip_gomp", Reader.getCurrField("idstip_gomp")));
+
+                    if (stipRow.Length == 0) {
+                        SpeedSaver.AddError($"idstip_gomp {Reader.getCurrField("idstip_gomp").ToString()} non presente, riga:{Reader.GetCurrRowNumber()}");
+                        Reader.GetNext();
+
+                        continue;
+                    }
+                }
+
+                else {
+                       filter = q.eq("codicecausale", Reader.getCurrField("codicecausale"));
+	                string message = "codicecausale " + Reader.getCurrField("codicecausale").ToString();
+
+	                filter &= q.eq("annoregolamento", Reader.getCurrField("annoregolamento"));
+	                message += ", annoregolamento " + Reader.getCurrField("annoregolamento").ToString();
+
+	                filter &= q.eq("fuoricorso", Reader.getCurrField("fuoricorso"));
+	                message += ", fuoricorso " + Reader.getCurrField("fuoricorso").ToString();
+
+	             
+	                filter &= q.eq("tipologiacorso", Reader.getCurrField("tipologiacorso"));
+	                message += ", tipologiacorso " + Reader.getCurrField("tipologiacorso").ToString();
+
+	                
+	                stipRow = StipGomp._get(Conn, filter);
+
+	                if (stipRow.Length != 0 && stipRow.Length > 1) {
+		                SpeedSaver.AddWarning($"La riga con filtro {message} è stata ignorata perchè ambigua, riga:{Reader.GetCurrRowNumber()}");
+		                Reader.GetNext();
+		                continue;
+	                }
+	                if(stipRow.Length == 0) {
+		                stipRow = new DataRow[] { MetaStipGomp.Get_New_Row(null, StipGomp) };
+		                stipRow[0]["codicecausale"] = Reader.getCurrField("codicecausale");
+		                stipRow[0]["annoregolamento"] = Reader.getCurrField("annoregolamento");
+		                stipRow[0]["fuoricorso"] = Reader.getCurrField("fuoricorso");
+		                stipRow[0]["tipologiacorso"] = Reader.getCurrField("tipologiacorso");
+		                
+	                }
+                }
+
+                DataRow stip_gomp = stipRow[0];
+
+
+                // idfinmotive
+                stip_gomp["idfinmotive"] = DBNull.Value;
+                string causalebilancioentrata = Reader.getCurrField("causalebilancioentrata").ToString();
+                if (causalebilancioentrata != "") {
+                    if (!dictFinmotive.ContainsKey(causalebilancioentrata)) {
+                        object idfinmotive = Conn.readValue("finmotive", q.eq("codemotive", causalebilancioentrata), "idfinmotive");
+
+                        if (idfinmotive == DBNull.Value || idfinmotive == null) {
+                            SpeedSaver.AddError($"La Causale di bilancio entrata con codice {causalebilancioentrata} non è stata trovata, riga:{Reader.GetCurrRowNumber()}");
+                            Reader.GetNext();
+
+                            continue;
+                        }
+
+                        stip_gomp["idfinmotive"] = idfinmotive;
+                        dictFinmotive.Add(causalebilancioentrata, idfinmotive.ToString());
+                    }
+                    else {
+	                    stip_gomp["idfinmotive"] = dictFinmotive[causalebilancioentrata];
+                    }
+                }
+
+                // idaccmotiverevenue
+                stip_gomp["idaccmotiverevenue"] = DBNull.Value;
+                string causalericavo = Reader.getCurrField("causalericavo").ToString();
+                if (causalericavo != "") {
+                    if (!dictAccmotive.ContainsKey(causalericavo)) {
+                        object idaccmotiverevenue = Conn.readValue("accmotive", q.eq("codemotive", causalericavo), "idaccmotive");
+
+                        if (idaccmotiverevenue == DBNull.Value || idaccmotiverevenue == null) {
+                            SpeedSaver.AddError($"La Causale di ricavo con codice {causalericavo} non è stata trovata, riga:{Reader.GetCurrRowNumber()}");
+                            Reader.GetNext();
+
+                            continue;
+                        }
+
+                        stip_gomp["idaccmotiverevenue"] = idaccmotiverevenue;
+                        dictAccmotive.Add(causalericavo, idaccmotiverevenue.ToString());
+                    }
+                    else {
+	                    stip_gomp["idaccmotiverevenue"] = dictAccmotive[causalericavo];
+                    }
+                }
+
+                // idaccmotivecredit
+                stip_gomp["idaccmotivecredit"] = DBNull.Value;
+                string causalecredito = Reader.getCurrField("causalecredito").ToString();
+                if (causalecredito != "") {
+                    if (!dictAccmotive.ContainsKey(causalecredito)) {
+                        object idaccmotivecredit = Conn.readValue("accmotive", q.eq("codemotive", causalecredito), "idaccmotive");
+
+                        if (idaccmotivecredit == DBNull.Value || idaccmotivecredit == null) {
+                            SpeedSaver.AddError($"La Causale di credito con codice {causalecredito} non è stata trovata, riga:{Reader.GetCurrRowNumber()}");
+                            Reader.GetNext();
+
+                            continue;
+                        }
+
+                        stip_gomp["idaccmotivecredit"] = idaccmotivecredit;
+                        dictAccmotive.Add(causalecredito, idaccmotivecredit.ToString());
+                    }
+                    else {
+	                    stip_gomp["idaccmotivecredit"] = dictAccmotive[causalecredito];
+                    }
+                }
+
+                // idaccmotiveundotax
+                stip_gomp["idaccmotiveundotax"] = DBNull.Value;
+                string causaleannulloentroanno = Reader.getCurrField("causaleannulloentroanno").ToString();
+                if (causaleannulloentroanno != "") {
+                    if (!dictAccmotive.ContainsKey(causaleannulloentroanno)) {
+                        object idaccmotiveundotax = Conn.readValue("accmotive", q.eq("codemotive", causaleannulloentroanno), "idaccmotive");
+
+                        if (idaccmotiveundotax == DBNull.Value || idaccmotiveundotax == null) {
+                            SpeedSaver.AddError($"La Causale di annullo entro l'anno con codice {causaleannulloentroanno} non è stata trovata, riga:{Reader.GetCurrRowNumber()}");
+                            Reader.GetNext();
+
+                            continue;
+                        }
+
+                        stip_gomp["idaccmotiveundotax"] = idaccmotiveundotax;
+                        dictAccmotive.Add(causaleannulloentroanno, idaccmotiveundotax.ToString());
+                    }
+                    else {
+	                    stip_gomp["idaccmotiveundotax"] = dictAccmotive[causaleannulloentroanno];
+                    }
+                }
+
+                // idaccmotiveundotaxpost
+                stip_gomp["idaccmotiveundotaxpost"] = DBNull.Value;
+                string causaleannullooltreanno = Reader.getCurrField("causaleannullooltreanno").ToString();
+                if (causaleannullooltreanno != "") {
+                    if (!dictAccmotive.ContainsKey(causaleannullooltreanno)) {
+                        object idaccmotiveundotaxpost = Conn.readValue("accmotive", q.eq("codemotive", causaleannullooltreanno), "idaccmotive");
+
+                        if (idaccmotiveundotaxpost == DBNull.Value || idaccmotiveundotaxpost == null) {
+                            SpeedSaver.AddError($"La Causale di annullo oltre l'anno con codice {causaleannullooltreanno} non è stata trovata, riga:{Reader.GetCurrRowNumber()}");
+                            Reader.GetNext();
+
+                            continue;
+                        }
+
+                        stip_gomp["idaccmotiveundotaxpost"] = idaccmotiveundotaxpost;
+                        dictAccmotive.Add(causaleannullooltreanno, idaccmotiveundotaxpost.ToString());
+                    }
+                    else {
+	                    stip_gomp["idaccmotiveundotaxpost"] = dictAccmotive[causaleannullooltreanno];
+                    }
+                }
+
+
+				// idaccmotivedebit
+                stip_gomp["idaccmotivedebit"] = DBNull.Value;
+                string causaleDebito = Reader.getCurrField("causaledebito").ToString();
+                if (causaleDebito != "") {
+	                if (!dictAccmotive.ContainsKey(causaleDebito)) {
+		                object idaccmotivedebito = Conn.readValue("accmotive", q.eq("codemotive", causaleDebito), "idaccmotive");
+
+		                if (idaccmotivedebito == DBNull.Value || idaccmotivedebito == null) {
+			                SpeedSaver.AddError($"La Causale di annullo oltre l'anno con codice {causaleDebito} non è stata trovata, riga:{Reader.GetCurrRowNumber()}");
+			                Reader.GetNext();
+
+			                continue;
+		                }
+
+		                stip_gomp["idaccmotivedebit"] = idaccmotivedebito;
+		                dictAccmotive.Add(causaleDebito, idaccmotivedebito.ToString());
+	                }
+	                else {
+		                stip_gomp["idaccmotivedebit"] = dictAccmotive[causaleDebito];
+	                }
+                }
+
+				// idaccmotivecost
+                stip_gomp["idaccmotivecost"] = DBNull.Value;
+                string causaleCosto = Reader.getCurrField("causalecosto").ToString();
+                if (causaleCosto != "") {
+	                if (!dictAccmotive.ContainsKey(causaleCosto)) {
+		                object idaccmotivecosto = Conn.readValue("accmotive", q.eq("codemotive", causaleCosto), "idaccmotive");
+
+		                if (idaccmotivecosto == DBNull.Value || idaccmotivecosto == null) {
+			                SpeedSaver.AddError($"La Causale di annullo oltre l'anno con codice {causaleCosto} non è stata trovata, riga:{Reader.GetCurrRowNumber()}");
+			                Reader.GetNext();
+
+			                continue;
+		                }
+
+		                stip_gomp["idaccmotivecost"] = idaccmotivecosto;
+		                dictAccmotive.Add(causaleCosto, idaccmotivecosto.ToString());
+	                }
+	                else {
+		                stip_gomp["idaccmotivecost"] = dictAccmotive[causaleCosto];
+	                }
+                }
+
+
+
+                // idestimkind
+                stip_gomp["idestimkind"] = DBNull.Value;
+                string tipocontratto = Reader.getCurrField("tipocontratto").ToString();
+                if (tipocontratto != "") {
+                    if (!dictEstimate.Contains(tipocontratto)) {
+                        object idestimkind = Conn.readValue("estimatekind", q.eq("idestimkind", tipocontratto), "idestimkind");
+
+                        if (idestimkind == DBNull.Value || idestimkind == null) {
+                            SpeedSaver.AddError($"Il tipo contratto attivo con codice {tipocontratto} non è stato trovato, riga:{Reader.GetCurrRowNumber()}");
+                            Reader.GetNext();
+
+                            continue;
+                        }
+
+                        stip_gomp["idestimkind"] = idestimkind;
+                        dictEstimate.Add(idestimkind.ToString());
+                    }
+                    else {
+	                    stip_gomp["idestimkind"] = tipocontratto;
+                    }
+                }
+
+                Reader.GetNext();
+            }
+
+            Reader.Close();
+            bool result = SaveData(dataset, true);
+            dataset.Clear();
+
+            return result;
 		}
 	}
 

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[compute_ivaadjustment]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[compute_ivaadjustment]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_ivaadjustment]
 GO
 
@@ -53,7 +55,7 @@ AS BEGIN
 		flagmixed char(1),
 		flagdeferred char(1),
 		flagvariation char(1),
-		currivagrosspayed decimal(19,2),   -- viene messo in ivatotalpayed di invoicedeferred - √® poi da applicare il segno
+		currivagrosspayed decimal(19,2),   -- viene messo in ivatotalpayed di invoicedeferred - Ë poi da applicare il segno
 		currivaunabatable decimal(19,2), --unabatable corrente, applicare segno
 		idreg int,
 		idivaregisterkind int,
@@ -70,8 +72,8 @@ AS BEGIN
 		indetraibile_singolo decimal(19,2)
 
 	)
-	-- il segno √® da cambiare se flagdeferred oppure se kind<>registerclass
-	-- inoltre per le fatture non intracom con la doppia presenza A/V √® da cancellare la riga in vendita
+	-- il segno Ë da cambiare se flagdeferred oppure se kind<>registerclass
+	-- inoltre per le fatture non intracom con la doppia presenza A/V Ë da cancellare la riga in vendita
 	
 
 
@@ -131,7 +133,7 @@ AS BEGIN
 	  
 	-- Sezione 2.1 IVA Differita a DEBITO (fatt.vendita) - DATA REVERSALE
 	-- Vengono inseriti tutti i dettagli delle fatture di vendita  (incluse note di variazione)
-	-- 	la cui REVERSALE associata √® stata EMESSA nel range di date fornito in input alla SP
+	-- 	la cui REVERSALE associata Ë stata EMESSA nel range di date fornito in input alla SP
 	--		e aventi data competenza del dettaglio NULL
 	INSERT INTO #invoice
 	(
@@ -245,7 +247,7 @@ AS BEGIN
 
 	-- Sezione 2.2 IVA Differita  - DATA MANDATO
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato √® stato trasmesso nel range di date fornito in input alla SP
+	-- il cui mandato associato Ë stato trasmesso nel range di date fornito in input alla SP
 	INSERT INTO #invoice
 	(
 		idinvkind, yinv, ninv,rownum, flagdeferred, 
@@ -592,7 +594,7 @@ AS BEGIN
 	update #invoice set imposta=currivagrosspayed;
 	update #invoice set indetraibile=currivaunabatable;
     
-	update #invoice set indetraibile=imposta where istituzionale='S'  --superfluo ma tant'√®, nel c# lo fa
+	update #invoice set indetraibile=imposta where istituzionale='S'  --superfluo ma tant'Ë, nel c# lo fa
 	
 	--acquisto promiscuo
 	update #invoice set   detraibile = round((imposta - indetraibile) * @perc_promiscuo * @perc_prorata, 2)
@@ -750,4 +752,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

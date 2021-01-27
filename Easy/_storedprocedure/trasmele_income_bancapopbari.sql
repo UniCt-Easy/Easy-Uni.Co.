@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_bancapopbari]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_bancapopbari]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_income_bancapopbari]
 GO
 
@@ -170,7 +172,7 @@ DECLARE @lenCAB int -- Lunghezza del codice CAB
 DECLARE @lendescrizione int -- Lunghezza della descrizione del mandato
 DECLARE @lencreditore int -- Lunghezza della denominazione del creditore
 DECLARE @lenindirizzo int -- Lunghezza dell'indirizzo
-DECLARE @lenlocalita int -- Lunghezza della localit√†
+DECLARE @lenlocalita int -- Lunghezza della localit‡
 DECLARE @lencodicepostale int -- Lunghezza del Codice Postale
 DECLARE @lenprovincia int -- Lunghezza della sigla della provincia
 DECLARE @lencodeSIOPE int -- Lunghezza del codice SIOPE
@@ -205,7 +207,7 @@ IF PATINDEX('%.%',  @numeroconto) > 0
 IF PATINDEX('%/%',  @numeroconto) > 0
 	SELECT @numeroconto = SUBSTRING(@numeroconto,1,PATINDEX('%/%', @numeroconto)-1)
 
--- Se il cc √® di 12 cifre ed inizia con 4 zeri vengono tolti i 4 zeri
+-- Se il cc Ë di 12 cifre ed inizia con 4 zeri vengono tolti i 4 zeri
 IF (LEN(@numeroconto) = 12) AND (SUBSTRING(@numeroconto,1,4) = '0000')
 BEGIN
 	SET @numeroconto = SUBSTRING(@numeroconto, 5,LEN(@numeroconto))
@@ -545,7 +547,7 @@ DECLARE @numdocold int
 DECLARE @codicecreddebold int
 SELECT @numsubmov = 0
 DECLARE #esercizio_cursor1 INSENSITIVE CURSOR FOR
--- Si definisce il cursore sulla tabella totale (dove i pagamenti sono stati gi√† raggruppati)
+-- Si definisce il cursore sulla tabella totale (dove i pagamenti sono stati gi‡ raggruppati)
 SELECT ndoc, idreg FROM #totale
 
 OPEN #esercizio_cursor1
@@ -555,7 +557,7 @@ SELECT @numdoc1 = @numdoc
 	
 WHILE (@@FETCH_STATUS = 0)
 BEGIN		
-	-- Finch√® il numdoc1 √® uguale a numdoc si incrementa il submovimento
+	-- FinchË il numdoc1 Ë uguale a numdoc si incrementa il submovimento
 	WHILE (@numdoc1 = @numdoc) AND (@@FETCH_STATUS = 0)
 	BEGIN
 		SELECT @numsubmov = @numsubmov + 1
@@ -569,7 +571,7 @@ BEGIN
 		FETCH NEXT FROM #esercizio_cursor1 INTO @numdoc, @codicecreddeb	
 	END 
 
-	-- Se il submovimento √® pari a 1 viene reimpostato a zero (sono disposizioni della banca)
+	-- Se il submovimento Ë pari a 1 viene reimpostato a zero (sono disposizioni della banca)
 	IF @numsubmov = 1 
 	BEGIN
 		UPDATE #totale SET nsub = 0
@@ -740,7 +742,7 @@ SELECT	DISTINCT
 	@numeroconto +
 -- CIN
 	@cino +
--- Contabilit√† Ordinaria
+-- Contabilit‡ Ordinaria
 	'O' +
 -- Infruttifero
 	#incasso.accountkind +		
@@ -920,12 +922,12 @@ REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(
 stri,
-'√á','c'),'√ß','c'),'‚Ç¨','e'),'|',' '),'\',' '),'¬£',' '),'¬ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'√ô','u'),
-'√ñ','o'),'√ú','u'),'√ë','n'),'√ê','d'),'√ä','e'),'√ã','e'),'√é','i'),'√è','i'),'√î','o'),'√ï','o'),'√õ','u'),'√ù','y'),
-']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'√º','u'),'√¢','a'),'√§','a'),'√•','a'),'√™','e'),'√´','e'),'√Ø','i'),
-'√Æ','i'),'√Ñ','a'),'√Ö','a'),'√¥','o'),'√∂','o'),'√ª','u'),'√ø','y'),'√±','n'),'√Ç','a'),'¬•','y'),'√£','a'),'√É','a'),
-'√µ','o'),'√Ω','y'),'√©','e'),'√†','a'),'√®','e'),'√¨','i'),'√≤','o'),'√π','u'),'√°','a'),'√≠','i'),'√≥','o'),'√â','e'),
-'√Å','a'),'√Ä','a'),'√à','e'),'√ç','i'),'√å','i'),'√ì','o'),'√í','o'),'√ö','u'),
+'«','c'),'Á','c'),'Ä','e'),'|',' '),'\',' '),'£',' '),'ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'Ÿ','u'),
+'÷','o'),'‹','u'),'—','n'),'–','d'),' ','e'),'À','e'),'Œ','i'),'œ','i'),'‘','o'),'’','o'),'€','u'),'›','y'),
+']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'¸','u'),'‚','a'),'‰','a'),'Â','a'),'Í','e'),'Î','e'),'Ô','i'),
+'Ó','i'),'ƒ','a'),'≈','a'),'Ù','o'),'ˆ','o'),'˚','u'),'ˇ','y'),'Ò','n'),'¬','a'),'•','y'),'„','a'),'√','a'),
+'ı','o'),'˝','y'),'È','e'),'‡','a'),'Ë','e'),'Ï','i'),'Ú','o'),'˘','u'),'·','a'),'Ì','i'),'Û','o'),'…','e'),
+'¡','a'),'¿','a'),'»','e'),'Õ','i'),'Ã','i'),'”','o'),'“','o'),'⁄','u'),
 CHAR(9),' '),CHAR(10),' '),CHAR(13),' ')
 	
 SELECT SUBSTRING(stri , 1, 350)  as out_str FROM #temp
@@ -948,4 +950,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

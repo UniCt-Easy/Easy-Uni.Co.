@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_spesometro_SE_dati_unified]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_spesometro_SE_dati_unified]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_spesometro_SE_dati_unified]
 GO
 
@@ -91,14 +93,14 @@ WHERE trasmissionmanager.idtrasmissiondocument = @idtrasmissiondocument AND ayea
 	
 CREATE TABLE #RECORD_D(
 	idreg int,
-	ProgressivoModulo int , -- Impostare ad 1 per il primo modulo di ogni quadro compilato, incrementando tale valore di una unit√† per ogni ulteriore modulo
+	ProgressivoModulo int , -- Impostare ad 1 per il primo modulo di ogni quadro compilato, incrementando tale valore di una unit‡ per ogni ulteriore modulo
 -->> QUADRO SE - Acquisti da operatori di San Marino
 	SE001012_dataemissionefattura datetime,
 	SE001013_dataregistrazionefattura datetime,--la data deve essere inclusa nell'anno di riferimento
 	SE001014_numfattura  varchar(35),
 	SE001015_imponibile int,
 	SE001016_imposta  int,
-	SE001017_confermaimporto int-- dato obbligatorio se l'importo √® maggiore di 999999
+	SE001017_confermaimporto int-- dato obbligatorio se l'importo Ë maggiore di 999999
 )
 
 
@@ -139,7 +141,7 @@ CREATE TABLE #RECORD_D_UNIFIED(
 	SE001014_numfattura  varchar(35),
 	SE001015_imponibile int,
 	SE001016_imposta  int,
-	SE001017_confermaimporto int-- dato obbligatorio se l'importo √® maggiore di 999999
+	SE001017_confermaimporto int-- dato obbligatorio se l'importo Ë maggiore di 999999
 )
 
 
@@ -176,7 +178,7 @@ CREATE TABLE #ANAGRAFICHE(
 	SE001005_provincia varchar(2),
 	SE001006_codicestatoestero int,
 	SE001007_denominazione varchar(100),
-	SE001008_citt√†estera varchar(65),
+	SE001008_citt‡estera varchar(65),
 	SE001009_codicestatoestero varchar(20), 
 	SE001010_indirizzoestero varchar(100),
 	SE001011_CodIVA varchar(20)
@@ -192,7 +194,7 @@ INSERT INTO #ANAGRAFICHE(idreg,
 	SE001006_codicestatoestero,	--Persona Fisica
 
 	SE001007_denominazione,		-- Persona NON Fisica
-	SE001008_citt√†estera,		-- Persona NON Fisica
+	SE001008_citt‡estera,		-- Persona NON Fisica
 	SE001009_codicestatoestero, -- Persona NON Fisica
 	SE001010_indirizzoestero,	-- Persona NON Fisica
 	SE001011_CodIVA
@@ -223,7 +225,7 @@ SELECT distinct R.idreg,
 	END,
 	CASE 
 			WHEN idregistryclass = 22 and RA.flagforeign='S'
-			then 'EE'-->La Provincia estera di nascita √® rappresentata dalla sigla 'EE'
+			then 'EE'-->La Provincia estera di nascita Ë rappresentata dalla sigla 'EE'
 			WHEN idregistryclass = 22 and RA.flagforeign='N' 
 			THEN CITY_BIRTH.provincecode
 	ELSE null
@@ -238,7 +240,7 @@ SELECT distinct R.idreg,
 		THEN R.title
 		ELSE null
 	END,
-	-- SE001008_citt√†estera: Citt√† estera delle Sede legale
+	-- SE001008_citt‡estera: Citt‡ estera delle Sede legale
 	CASE 
 		WHEN idregistryclass <> 22 and (NATION_ADDRESS.title IS NOT NULL )
 		THEN NATION_ADDRESS.title
@@ -288,7 +290,7 @@ WHERE  A.codeaddress = '07_SW_DEF'
 SELECT
  @codfiscEnte as 'CF ente',
  @PivaEnte as 'P.iva',
- @cudactivitycode as 'Codice attivit√† ATECO',
+ @cudactivitycode as 'Codice attivit‡ ATECO',
  @TelEnte as 'Tel.',
  @FaxEnte as 'FAX ',
  @EmailEnte as 'e-mail',
@@ -312,7 +314,7 @@ SELECT
  CASE when (A.SE001001_cognome is not null) then  SE001005_provincia else''  end  as 'SE001005',
  CASE when (A.SE001001_cognome is not null) then  convert(varchar(4),SE001006_codicestatoestero) else''  end as 'SE001006',
  case when (A.SE001007_denominazione is not null) then SE001007_denominazione else''  end as 'SE001007',
- case when (A.SE001007_denominazione is not null) then SE001008_citt√†estera else''  end as 'SE001008',
+ case when (A.SE001007_denominazione is not null) then SE001008_citt‡estera else''  end as 'SE001008',
  case when (A.SE001007_denominazione is not null) then convert(varchar(4),SE001009_codicestatoestero) else''  end as 'SE001009',
  case when (A.SE001007_denominazione is not null) then SE001010_indirizzoestero else''  end as 'SE001010',
  case when SE001011_CodIVA is not null then  SE001011_CodIVA else''  end as 'SE001011',
@@ -347,4 +349,3 @@ GO
 
 exec exp_mod_spesometro_SE_dati_unified 2013,10
 
-	

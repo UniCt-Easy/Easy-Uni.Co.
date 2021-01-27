@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_contrattopassivo_non_pagato]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_contrattopassivo_non_pagato]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_contrattopassivo_non_pagato]
 GO
 
@@ -21,11 +23,11 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
-
+-- exp_contrattopassivo_non_pagato 2016
 CREATE                PROCEDURE [exp_contrattopassivo_non_pagato]
 (
 	@ayear int,
-	@idmankind varchar(20)
+	@idmankind varchar(20)=null
 )
 
 AS BEGIN
@@ -64,35 +66,22 @@ SELECT distinct MD.idmankind, MD.nman, MD.yman,MD.rownum, M.adate,  MD.detaildes
 	EX.ymov,
 	EX.nmov	
 	FROM mandatedetail MD
-	JOIN mandate M
-		ON MD.idmankind= M.idmankind 
-		AND MD.nman = M.nman
-		AND MD.yman = M.yman
-	LEFT OUTER JOIN manager MG
-		ON M.idman = MG.idman
-	LEFT OUTER JOIN  registry RG
-		ON ISNULL(M.idreg,MD.idreg) = RG.idreg 
-	LEFT OUTER JOIN expensemandate EM
-		ON MD.idmankind=EM.idmankind
-		AND MD.nman=EM.nman
-		AND MD.yman=EM.yman
-		AND MD.idexp_taxable=EM.idexp
-	LEFT OUTER JOIN expense EX
-		ON EM.idexp=EX.idexp
-WHERE MD.yman = @ayear
-AND ( MD.idmankind=@idmankind or @idmankind is null)
-AND stop IS NULL
-AND NOT EXISTS (SELECT * FROM expenselink EL
-			JOIN expenselink EL2
-				ON EL2.idparent = EL.idchild
-				AND EL2.nlevel = @maxlevel
-		WHERE EL.idparent =  EM.idexp
-		AND EL.nlevel = @expenselevel)
+	JOIN mandate M					ON MD.idmankind= M.idmankind AND MD.nman = M.nman AND MD.yman = M.yman
+	LEFT OUTER JOIN manager MG		ON M.idman = MG.idman
+	LEFT OUTER JOIN  registry RG	ON ISNULL(M.idreg,MD.idreg) = RG.idreg 	
+	LEFT OUTER JOIN expense EX			ON MD.idexp_taxable=EX.idexp
+WHERE MD.yman = @ayear	AND ( MD.idmankind=@idmankind or @idmankind is null)
+AND stop IS NULL  AND
+		(  MD.idexp_taxable is null OR
+			 NOT EXISTS (SELECT * FROM expenselink EL
+						JOIN expenselast elast on elast.idexp=el.idchild 
+						WHERE EL.idparent =  MD.idexp_taxable)
+		)
 	
 
 
 SELECT mandatekind.description AS 'Tipo Contratto', yman AS 'Esercizio', nman AS 'N.ordine', rownum AS 'N.dettaglio', adate AS 'Data contabile',
-	 manager AS 'Nome responsabile', registry AS 'Nome fornitore',detaildescription AS 'Descrizione detaglio', npackage AS 'Quantit√†', 
+	 manager AS 'Nome responsabile', registry AS 'Nome fornitore',detaildescription AS 'Descrizione detaglio', npackage AS 'Quantit‡', 
 	imponibile AS 'Imponibile', taxrate AS 'Iva %', discount AS 'Sconto',total AS 'Totale', ymov AS 'Eserc. Impegno', nmov AS 'Num. Impegno'
 FROM #mandate_detail 
 JOIN mandatekind
@@ -115,4 +104,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

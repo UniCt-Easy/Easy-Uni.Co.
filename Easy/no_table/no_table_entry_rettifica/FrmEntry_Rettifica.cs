@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -93,41 +95,41 @@ namespace no_table_entry_rettifica {
                 AnnoCommerciale = chkCommerciale.Checked;
 
                 if (!doRettifica(tEntryDetail)) {
-                    MessageBox.Show(this, "Errore nel processo di rettifica dei risconti", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel processo di rettifica dei risconti", "Errore");
                 }
             }
             if (Meta.edit_type == "rettifica_pluriennale") {        
                 //      Assestamento Commessa Completata
                 DataTable tEntryDetail = ottieniDettagliAssestamentoCommessaCompletata();
                 if (tEntryDetail == null) {
-                    MessageBox.Show(this, "Errore nel calcolo scritture pluriennali aperti di tipo Commessa Completata","Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel calcolo scritture pluriennali aperti di tipo Commessa Completata","Errore");
                 }
                 else {
                     string noRows = "Progetti pluriennali ancora aperti: nessun importo da rettificare";
                     if (tEntryDetail.Rows.Count == 0) {
-                        MessageBox.Show(this, noRows,
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, noRows,
                             "Avvertimento");
                     }
                     else {
                         labelFase.Text = "Elaborazione progetti pluriennali ancora aperti";
                         if (!DoAssestamentoCommessaCompletata(tEntryDetail, noRows,false)) {
-                            MessageBox.Show(this, "Errore nel processo di rettifica per i progetti pluriennali ancora aperti", "Errore");
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel processo di rettifica per i progetti pluriennali ancora aperti", "Errore");
                         }
                     }
                 }
                 tEntryDetail = ottieniRateiApertiProgettiInChiusura();
                 if (tEntryDetail == null) {
-                    MessageBox.Show(this, "Errore nel calcolo scritture pluriennali aperti", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel calcolo scritture pluriennali aperti", "Errore");
                 }
                 else {
                     string noRows = "Progetti pluriennali in chiusura: nessun importo da rettificare";
                     if (tEntryDetail.Rows.Count == 0) {
-                        MessageBox.Show(this, noRows, "Avvertimento");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, noRows, "Avvertimento");
                     }
                     else {
                         labelFase.Text = "Elaborazione progetti pluriennali in chiusura";
                         if (!DoAssestamentoCommessaCompletata(tEntryDetail, noRows,true)) {
-                            MessageBox.Show(this,
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                 "Errore nel processo di rettifica per i progetti pluriennali in chiusura", "Errore");
                         }
                     }
@@ -140,16 +142,16 @@ namespace no_table_entry_rettifica {
                 DataTable tEntryDetail = ottieniDettagliScritturaProgettiPluriennaliPercentuale();
                 string noRows = "Progetti pluriennali ancora aperti: nessun importo da rettificare";
                 if (tEntryDetail == null) {
-                    MessageBox.Show(this, "Errore nel calcolo scritture pluriennali aperti a percentuale di completamento",
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel calcolo scritture pluriennali aperti a percentuale di completamento",
                         "Errore");
                 }
                 else {
                     if (tEntryDetail.Rows.Count == 0) {
-                        MessageBox.Show(this, noRows,"Avvertimento");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, noRows,"Avvertimento");
                     }
                     else {
                         if (!doRettificaPluriennalePercentuale(tEntryDetail,noRows)) {
-                            MessageBox.Show(this,
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                 "Errore nel processo di rettifica per i progetti pluriennali ancora aperti", "Errore");
                         }
                     }
@@ -181,7 +183,7 @@ namespace no_table_entry_rettifica {
 
             DataTable tEntryDetail = DataAccess.SQLRunner(Conn, queryED,false,600);
             if (tEntryDetail == null) {
-                MessageBox.Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
                 return null;
             }
 
@@ -200,7 +202,7 @@ namespace no_table_entry_rettifica {
 
             DataTable T = Conn.SQLRunner(sqlCmd,false,600);
             if ((T != null) && (T.Rows.Count > 0)) {
-                if (MessageBox.Show("Le scritture di Rettifica relative all''esercizio corrente risultano gi‡ generate. Si desidera proseguire comunque?", "Avviso",
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Le scritture di Rettifica relative all''esercizio corrente risultano gi‡ generate. Si desidera proseguire comunque?", "Avviso",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return false;
             }
@@ -209,12 +211,12 @@ namespace no_table_entry_rettifica {
 
         private bool doRettifica(DataTable tEntryDetailSource) {
             if (tEntryDetailSource == null) {
-                MessageBox.Show(this, "La tabella dei dettagli scritture non Ë definita", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La tabella dei dettagli scritture non Ë definita", "Errore");
                 return false;
             }
 
             if (tEntryDetailSource.Rows.Count == 0) {
-                MessageBox.Show(this, "Nessun risconto da effettuare", "Avvertimento");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nessun risconto da effettuare", "Avvertimento");
                 return true;
             }
 
@@ -259,13 +261,13 @@ namespace no_table_entry_rettifica {
 
             object idacc_riscontoA = Conn.DO_READ_VALUE("config", QHS.CmpEq("ayear", currYear), campoRiscontoAttivo);
             if ((idacc_riscontoA == null) || (idacc_riscontoA == DBNull.Value)) {
-                MessageBox.Show(this, "Attenzione non Ë stato specificato il conto del risconto attivo", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Attenzione non Ë stato specificato il conto del risconto attivo", "Errore");
                 return false;
             }
 
             object idacc_riscontoP = Conn.DO_READ_VALUE("config", QHS.CmpEq("ayear", currYear), campoRiscontoPassivo);
             if ((idacc_riscontoP == null) || (idacc_riscontoP == DBNull.Value)) {
-                MessageBox.Show(this, "Attenzione non Ë stato specificato il conto del risconto passivo", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Attenzione non Ë stato specificato il conto del risconto passivo", "Errore");
                 return false;
             }
 
@@ -370,14 +372,14 @@ namespace no_table_entry_rettifica {
             }
 
             if (ds.Tables["entrydetail"].Rows.Count == 0) {
-                MessageBox.Show(this, "Nessun risconto da effettuare", "Avvertimento");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nessun risconto da effettuare", "Avvertimento");
                 return true;
             }
 
             FrmEntryPreSave frm = new FrmEntryPreSave(ds.Tables["entrydetail"], Meta.Conn, AnnoCommerciale,tEntryDetailSource);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "Operazione Annullata!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Operazione Annullata!");
                 return true;
             }
             PostData Post = MEntry.Get_PostData();
@@ -386,10 +388,10 @@ namespace no_table_entry_rettifica {
             if (Post.DO_POST()) {
                 DataRow rEntryPosted = ds.Tables["entry"].Rows[0];
                 EditRelatedEntryByKey(rEntryPosted);
-                MessageBox.Show(this, "Integrazione dei residui completata con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Integrazione dei residui completata con successo!");
             }
             else {
-                MessageBox.Show(this, "Errore nel salvataggio della scrittura di integrazione!", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio della scrittura di integrazione!", "Errore");
             }
 
             return true;
@@ -539,13 +541,14 @@ namespace no_table_entry_rettifica {
             int currAyear = (int)Meta.GetSys("esercizio");
             string strYear = QHS.quote(currAyear);
 
-            string query = "select  -sum(ed.amount) as accruals ,year(U.stop) as yearstop, year(U.start) as yearstart,ed.idupb,ed.idacc as idacc_accruals,  " +
+            string query = "select  U.idupb, -sum(ed.amount) as accruals ,year(U.stop) as yearstop, year(U.start) as yearstart,ed.idacc as idacc_accruals,  " +
                 "EU.idacc_deferredcost, 	EU.idaccmotive_deferredcost, EU.idacc_revenue,EU.idaccmotive_revenue,U.idepupbkind,U.title,U.codeupb ," +
                 "EU.idacc_cost,EU.idaccmotive_cost,EU.idacc_accruals, EU.idaccmotive_accruals " +//, ed.idepacced.idepexp, commentato con task 11624
                     " from entrydetail ed " +
                     " join entry e (nolock) on e.yentry=ed.yentry and e.nentry=ed.nentry "+
                     " join account A on ED.idacc=A.idacc " +
-                    " join UPB U on ED.idupb=U.idupb " +
+                    " join UPB UPB_associati on ED.idupb = UPB_associati.idupb " +
+                    " join UPB U on U.idupb=ISNULL(UPB_associati.idupb_capofila,UPB_associati.idupb) " +
                     " join epupbkindyear EU on EU.idepupbkind = U.idepupbkind " +
                     " WHERE " +
                     " ED.yentry= " + strYear +  //scritture di quest'anno
@@ -554,7 +557,7 @@ namespace no_table_entry_rettifica {
                     " and EU.ayear =" + strYear+    // prende la configurazione tipo UPB di quest'anno
                     " AND year(U.stop) = " + strYear + // UPB in scadenza quest'anno
                     " AND EU.adjustmentkind='C'  "+        
-                    " group by ed.idupb, ed.idacc, EU.idacc_cost,EU.idaccmotive_cost,"+
+                    " group by U.idupb, ed.idacc, EU.idacc_cost,EU.idaccmotive_cost,"+
                      "EU.idacc_deferredcost, 	EU.idaccmotive_deferredcost, EU.idacc_revenue,EU.idaccmotive_revenue," +
                     " EU.idacc_accruals, EU.idacc_deferredcost,EU.idaccmotive_accruals,year(U.stop),year(U.start),U.idepupbkind,U.title,U.codeupb   "; // ed.idepacc,ed.idepexp,
             DataTable t = Conn.SQLRunner(query, false,600);
@@ -574,7 +577,8 @@ namespace no_table_entry_rettifica {
                 "year(U.stop) as yearstop, year(U.start) as yearstart,   EU.adjustmentkind,U.idepupbkind,U.codeupb,U.title " +
                 "from entrydetail ed (nolock) " +
                 " join entry e (nolock) on e.yentry=ed.yentry and e.nentry=ed.nentry "+
-                "join upb u (nolock) on ed.idupb = u.idupb " +
+                " join UPB UPB_associati (nolock)  on ed.idupb = UPB_associati.idupb " +
+                " join UPB U (nolock)  on U.idupb=ISNULL(UPB_associati.idupb_capofila,UPB_associati.idupb) " +
                 "join epupbkindyear EU (nolock)  on EU.idepupbkind = U.idepupbkind " +
                 "join account A (nolock) on A.idacc = ed.idacc " +
                 " where " +
@@ -643,8 +647,6 @@ namespace no_table_entry_rettifica {
             tEntryDetail.Columns.Add("!rateoattivo", typeof(decimal));            
             tEntryDetail.Columns.Add("!scadenza", typeof(int));
 
-         
-
             Dictionary<string, DataRow> hCommessa = new Dictionary<string, DataRow>();
             foreach (DataRow r in tCommessaCompletata.Rows) hCommessa[r["idupb"].ToString()] = r;
             DataSet ds = new DataSet();
@@ -691,7 +693,7 @@ namespace no_table_entry_rettifica {
             RowChange.ClearMaxCache(ds.Tables["entry"]);
             RowChange.SetOptimized(ds.Tables["entrydetail"], true);
             RowChange.ClearMaxCache(ds.Tables["entrydetail"]);
-
+           
 
             MetaData MEntryDetail = MetaData.GetMetaData(this, "entrydetail");
             MEntryDetail.SetDefaults(ds.Tables["entrydetail"]);
@@ -703,6 +705,7 @@ namespace no_table_entry_rettifica {
                 progBar.Update();
                 Application.DoEvents();
                 string idupb = Curr["idupb"].ToString();
+                
                 DataRow rCommessa;
                 if (hCommessa.ContainsKey(idupb)) {
                     rCommessa = hCommessa[idupb];
@@ -710,8 +713,6 @@ namespace no_table_entry_rettifica {
                 else {
                     MetaData.SetDefault(ds.Tables["upbcommessa"], "idupb", idupb);
                     rCommessa = MUpbCommessa.Get_New_Row(null, ds.Tables["upbcommessa"]);
-           
-
                     hCommessa[idupb] = rCommessa;
                 }
                          
@@ -758,7 +759,7 @@ namespace no_table_entry_rettifica {
                         string codeupb = "(non trovato)";
                         object c = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", Curr["idupb"]), "codeupb");
                         if (c != null) codeupb = c.ToString();
-                        MessageBox.Show(this, "Campo Costo non trovato per upb " + codeupb, "Errore");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Campo Costo non trovato per upb " + codeupb, "Errore");
                         return false;
                     }
 
@@ -766,7 +767,7 @@ namespace no_table_entry_rettifica {
                         string codeupb = "(non trovato)";
                         object c = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", Curr["idupb"]), "codeupb");
                         if (c != null) codeupb = c.ToString();
-                        MessageBox.Show(this, "Campo Rateo Attivo non trovato per upb " + codeupb, "Errore");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Campo Rateo Attivo non trovato per upb " + codeupb, "Errore");
                         return false; 
                     }
 
@@ -840,14 +841,14 @@ namespace no_table_entry_rettifica {
                         //foreach (DataRow r in tCosti.Select()) {
 
                             var idacc = Curr[campoRateoAttivo]; // r["idacc"];
-                            var amount = importoRateo; //CfgFn.GetNoNullDecimal(r["amount"]);
+                            var amount = importoRateo;// CfgFn.GetNoNullDecimal(r["amount"]);
                             var idreg = DBNull.Value; // r["idreg"];
 
                             if (Curr[campoRicavo] == DBNull.Value) {
                                 string codeupb = "(non trovato)";
                                 object c = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", Curr["idupb"]), "codeupb");
                                 if (c != null) codeupb = c.ToString();
-                                MessageBox.Show(this, "Campo Ricavo non trovato per upb " + codeupb, "Errore");
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Campo Ricavo non trovato per upb " + codeupb, "Errore");
                                 return false;
                             }
 
@@ -855,7 +856,7 @@ namespace no_table_entry_rettifica {
                                 string codeupb = "(non trovato)";
                                 object c = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", Curr["idupb"]), "codeupb");
                                 if (c != null) codeupb = c.ToString();
-                                MessageBox.Show(this, "Campo Rateo Attivo non trovato per upb " + codeupb, "Errore");
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Campo Rateo Attivo non trovato per upb " + codeupb, "Errore");
                                 return false;
                             }
 
@@ -893,7 +894,7 @@ namespace no_table_entry_rettifica {
                             //rEntryDetailCR["idaccmotive"] = Curr["idaccmotive"];
                             rDetail["competencystart"] = DBNull.Value;
                             rDetail["competencystop"] = DBNull.Value;
-                        //}
+                       // }
                     }
                     else {
                         //se i costi sono inferiori ai ricavi
@@ -908,21 +909,22 @@ namespace no_table_entry_rettifica {
                         //  Ossia detto RIS = somma ricavi dell'anno - somma costi dell'anno, ed Rt la somma dei ricavi dell'anno,
                         //    i vari importi da riscontare ripartiti per ricavo saranno pari a RIS *(ricavo / Rt)
 
-                        //DataTable tRicavi = ottieniRicaviUPB(Curr["idupb"], false,false); //amount / idacc / idreg
-                        //ripartisciSommaInBaseARicavi(importo_risconto, tRicavi);
-                        //foreach (DataRow r in tRicavi.Select()) {
-
-                        var idacc = Curr[campoRicavo]; // r["idacc"];
-                        var idaccmotive = Curr[causaleRicavo]; //r["idaccmotive"];
-                        var amount = importo_risconto; //CfgFn.GetNoNullDecimal(r["amount"]);
-                            var idreg = DBNull.Value; // r["idreg"];
+                        // Ho ripristinato questa parte [task 15184] che era stata commentata con la versione SVN 15362.
+                        DataTable tRicavi = ottieniRicaviUPB(Curr["idupb"], false,false); //amount / idacc / idreg
+                        ripartisciSommaInBaseARicavi(importo_risconto, tRicavi);
+                        foreach (DataRow r in tRicavi.Select()) {
+                                                       
+                            var idacc =  r["idacc"]; //Curr[campoRicavo]; 
+                            var idaccmotive = r["idaccmotive"];//Curr[causaleRicavo]; 
+                            var amount = CfgFn.GetNoNullDecimal(r["amount"]);//importo_risconto; 
+                            var idreg = r["idreg"]; //DBNull.Value; 
                             if (amount == 0) continue;
 
                             if (idacc == DBNull.Value) {
                                 string codeupb = "(non trovato)";
                                 object c = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", Curr["idupb"]), "codeupb");
                                 if (c != null) codeupb = c.ToString();
-                                MessageBox.Show(this, "Campo Ricavo non trovato per upb " + codeupb, "Errore");
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Campo Ricavo non trovato per upb " + codeupb, "Errore");
                                 return false;
                             }
 
@@ -930,7 +932,7 @@ namespace no_table_entry_rettifica {
                                 string codeupb = "(non trovato)";
                                 object c = Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", Curr["idupb"]), "codeupb");
                                 if (c != null) codeupb = c.ToString();
-                                MessageBox.Show(this, "Campo Risconto Passivo non trovato per upb " + codeupb, "Errore");
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Campo Risconto Passivo non trovato per upb " + codeupb, "Errore");
                                 return false;
                             }
 
@@ -966,7 +968,7 @@ namespace no_table_entry_rettifica {
                             rDetail["competencystart"] = DBNull.Value;
                             rDetail["competencystop"] = DBNull.Value;
 
-                        //}
+                        }
                     }
 
                     #endregion
@@ -976,13 +978,13 @@ namespace no_table_entry_rettifica {
             }
 
             if (ds.Tables["entrydetail"].Rows.Count == 0 && tCommessaCompletata.Rows.Count==0) {
-                MessageBox.Show(this, messageNoRows,@"Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messageNoRows,@"Avviso");
                 return true;
             }
             FrmEntryPreSavePluriennale frm = new FrmEntryPreSavePluriennale(ds.Tables["entrydetail"], Meta.Conn);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, @"Operazione Annullata!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, @"Operazione Annullata!");
                 return true;
             }
             tEntryDetail.Clear();
@@ -991,19 +993,22 @@ namespace no_table_entry_rettifica {
             PostData Post = MUpbCommessa.Get_PostData();
             Post.InitClass(ds, Meta.Conn);
             if (Post.DO_POST()) {
-                MessageBox.Show(this, "Dati di assestamento salvati.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Dati di assestamento salvati.");
             }
             else {
-                MessageBox.Show(this, "Errore nel salvataggio della scrittura di assestamento!", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio della scrittura di assestamento!", "Errore");
             }
 
             int n = tCommessaCompletata.Rows.Count;
             progBar.Maximum = n;
             progBar.Value = 0;
             bool anyError = false;
-            foreach (DataRow r in tCommessaCompletata.Rows) {               
+            foreach (DataRow r in tCommessaCompletata.Rows) {
+	            string idupb = r["idupb"].ToString();
                 txtCurrent.Text = $@"UPB {r["codeupb"]} {r["title"]}";
-                if (!rigeneraScrittura(r)) anyError=true;
+                if (hCommessa.ContainsKey(idupb)) {
+	                if (!rigeneraScrittura(r)) anyError=true;
+                }
                 progBar.Increment(1);
                 progBar.Update();
                 Application.DoEvents();
@@ -1012,10 +1017,10 @@ namespace no_table_entry_rettifica {
             progBar.Value = 0;
             progBar.Update();
             if (anyError) {
-	            MessageBox.Show(this, "Generazione scritture completata con ERRORI.");
+	            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Generazione scritture completata con ERRORI.");
             }
             else {
-	            MessageBox.Show(this, "Generazione scritture completata.");
+	            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Generazione scritture completata.");
             }
             
             return true;
@@ -1238,13 +1243,13 @@ namespace no_table_entry_rettifica {
             }
 
             if (ds.Tables["entrydetail"].Rows.Count == 0) {
-                MessageBox.Show(this, messageNoRows, "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messageNoRows, "Avviso");
                 return true;
             }
             FrmEntryPreSavePluriennale frm = new FrmEntryPreSavePluriennale(ds.Tables["entrydetail"], Meta.Conn);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "Operazione Annullata!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Operazione Annullata!");
                 return true;
             }
             PostData Post = MEntry.Get_PostData();
@@ -1253,10 +1258,10 @@ namespace no_table_entry_rettifica {
             if (Post.DO_POST()) {
                 DataRow rEntryPosted = ds.Tables["entry"].Rows[0];
                 EditRelatedEntryByKey(rEntryPosted);
-                MessageBox.Show(this, "Assestamento completato con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Assestamento completato con successo!");
             }
             else {
-                MessageBox.Show(this, "Errore nel salvataggio della scrittura di assestamento!", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio della scrittura di assestamento!", "Errore");
             }
 
             return true;

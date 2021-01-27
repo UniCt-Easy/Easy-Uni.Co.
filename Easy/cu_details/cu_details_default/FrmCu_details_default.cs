@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -815,7 +817,7 @@ namespace cu_details_default {
                 case "CB": //P-N
                     return "".PadLeft(lunghezza, '0');
             }
-            MessageBox.Show(this, "Impossibile creare la stringa vuota per il formato '" + formato + "'");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Impossibile creare la stringa vuota per il formato '" + formato + "'");
             return "".PadLeft(lunghezza);
         }
 
@@ -846,7 +848,7 @@ namespace cu_details_default {
             case "N5":
                     return getInt(r, out valore).ToString().PadLeft(5, '0');
             }
-            MessageBox.Show(this,
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                 "Formato Errato " + rFormato["format"] + " nella Colonna" + r["colonna"] + " del quadro " + r["quadro"]);
             return null;
         }
@@ -904,58 +906,58 @@ namespace cu_details_default {
                 case "VN": //P-N
                     return typeof(decimal);
             }
-            MessageBox.Show("Formato sconosciuto nel quadro " + rFormato["frame"] + " colonna " + rFormato["colnumber"]);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("Formato sconosciuto nel quadro " + rFormato["frame"] + " colonna " + rFormato["colnumber"]);
             return null;
         }
 
         private string getString(DataRow r, out object valore) {
             if (r["intero"] != DBNull.Value) {
-                MessageBox.Show(this, "Intero e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Intero e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["data"] != DBNull.Value) {
-                MessageBox.Show(this, "Data e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Data e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["decimale"] != DBNull.Value) {
-                MessageBox.Show(this, "Decimale e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Decimale e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             return (string) (valore = r["stringa"]);
         }
 
         private int getInt(DataRow r, out object valore) {
             if (r["stringa"] != DBNull.Value) {
-                MessageBox.Show(this, "Stringa e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Stringa e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["data"] != DBNull.Value) {
-                MessageBox.Show(this, "Data e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Data e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["decimale"] != DBNull.Value) {
-                MessageBox.Show(this, "Decimale e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Decimale e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             return (int) (valore = r["intero"]);
         }
 
         private decimal getDecimal(DataRow r, out object valore) {
             if (r["stringa"] != DBNull.Value) {
-                MessageBox.Show(this, "Stringa e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Stringa e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["data"] != DBNull.Value) {
-                MessageBox.Show(this, "Data e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Data e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["intero"] != DBNull.Value) {
-                MessageBox.Show(this, "Intero e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Intero e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             return (decimal) (valore = r["decimale"]);
         }
 
         private DateTime getDateTime(DataRow r, out object valore) {
             if (r["stringa"] != DBNull.Value) {
-                MessageBox.Show(this, "Stringa e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Stringa e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["intero"] != DBNull.Value) {
-                MessageBox.Show(this, "Intero e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Intero e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["decimale"] != DBNull.Value) {
-                MessageBox.Show(this, "Decimale e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Decimale e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             return (DateTime) (valore = r["data"]);
         }
@@ -1032,7 +1034,7 @@ namespace cu_details_default {
                 case "VN": //P-N
                     return new string[] {campoCodice + getDecimal(r, out valore).ToString().PadLeft(16)};
                 default:
-                    MessageBox.Show("FCNP: Formato sconosciuto nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("FCNP: Formato sconosciuto nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
                     valore = null;
                     return null;
             }
@@ -1055,7 +1057,7 @@ namespace cu_details_default {
 
                 DataRow[] r770 = t.Select(filtro2);
                 if (r770.Length > 1) {
-                    MessageBox.Show(this,
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                         "Errore interno: trovate " + r770.Length + " righe con questo filtro\n" + filtro2);
                 }
                 if (r770.Length == 0) {
@@ -1203,12 +1205,12 @@ namespace cu_details_default {
             tw.Close();
 
             if (recordH)
-                MessageBox.Show(this, "Modello Certificazione Unica salvato nel file: " + saveFileDialog1.FileName
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Modello Certificazione Unica salvato nel file: " + saveFileDialog1.FileName
                                       + "\nComunicazioni Lavoro Autonomo:   " + rD.Length + "  (" + nRecordH +
                                       " record di tipo \"H\")" +
                                       "Creazione dichiarazione terminata");
             else
-                MessageBox.Show(this, "Modello Certificazione Unica salvato nel file: " + saveFileDialog1.FileName
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Modello Certificazione Unica salvato nel file: " + saveFileDialog1.FileName
                                       + "\n\nComunicazioni Lavoro Dipendente: " + rD.Length + "  (" + nRecordG +
                                       " record di tipo \"G\")" +
                                       "Creazione dichiarazione terminata");
@@ -1243,7 +1245,7 @@ namespace cu_details_default {
                 errore += "\n\npoichè in tali contratti ci sono cedolini non pagati,"
                           + "tali cedolini vanno trasferiti nella competenza dell'esercizio attuale."
                           + "\nL'operazione è stata annullata.";
-                MessageBox.Show(this, errore);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore);
                 return false;
             }
             return true;
@@ -1302,7 +1304,7 @@ namespace cu_details_default {
                     errore += "\nn° " + r["ncon"] + " del " + r["ycon"] + "-" + r["description"];
                 }
                 errore += "\nL'operazione è stata annullata.";
-                MessageBox.Show(this, errore);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore);
                 return false;
             }
             return true;
@@ -1341,7 +1343,7 @@ namespace cu_details_default {
                     errore += "\nPercipiente" + r["title"];
                 }
                 errore += "\nL'operazione è stata annullata.";
-                MessageBox.Show(this, errore);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore);
                 return false;
             }
             return true;
@@ -1377,7 +1379,7 @@ namespace cu_details_default {
                 foreach (DataRow r in t.Rows) {
                     errore += "\nNominativo: " + r["title"] + " - Codice Fiscale " + " - " + r["cf"];
                 }
-                MessageBox.Show(this, errore);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore);
                 return false;
             }
 
@@ -1420,7 +1422,7 @@ namespace cu_details_default {
                     errore += "\nCodice: " + r["codeser"] + " - descrizione " + " - " + r["description"];
                 }
                 errore += "\nL'operazione è stata annullata.";
-                MessageBox.Show(this, errore);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore);
                 return false;
             }
             return true;
@@ -1455,7 +1457,7 @@ namespace cu_details_default {
                     errore += "\nn° " + r["ncon"] + " del " + r["ycon"] + "-" + r["description"];
                 }
                 errore += "\nL'operazione è stata annullata.";
-                MessageBox.Show(this, errore);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore);
                 return false;
             }
             return true;
@@ -1531,13 +1533,13 @@ namespace cu_details_default {
             DataTable tMod770 = calcolaCertificazioneUnica(((record == "H") || (record == "DH") || (record == "B")),false);
             // simuliamo la generazione del record H
             if (tMod770 == null) {
-                MessageBox.Show(this, "Errore nella letture dei dati per il record " + record);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella letture dei dati per il record " + record);
                 return;
             }
 
             DataRow[] righe770 = tMod770.Select(filtroQuadro, "progr,modulo");
             if (righe770.Length == 0) {
-                MessageBox.Show(this, "Non ci sono dati per il record " + record);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono dati per il record " + record);
                 return;
             }
             Object valore;
@@ -1548,7 +1550,7 @@ namespace cu_details_default {
                     (r["quadro"].ToString() == "FIR")) continue;
                 DataRow[] rr = DS.cu_details.Select(filtro);
                 if (rr.Length != 1) {
-                    MessageBox.Show(this, "Ho trovato " + rr.Length + " righe con questo filtro:\n" + filtro);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Ho trovato " + rr.Length + " righe con questo filtro:\n" + filtro);
                 }
                 formattaCampoNonPosizionale(r, out valore, false);
                 Colonna c = new Colonna(rr[0], (int) r["riga"], valore.GetType());
@@ -1594,7 +1596,7 @@ namespace cu_details_default {
                 string campoCodice = getNomeColonnaExcel(lColonne, r["quadro"], r["riga"], r["colonna"]);
 
                 if (riga[campoCodice] != DBNull.Value) {
-                    MessageBox.Show(this, "Il campo " + campoCodice + " è stato assegnato due volte (modulo:" + modulo +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il campo " + campoCodice + " è stato assegnato due volte (modulo:" + modulo +
                                           ", progr." + progr);
                 }
 
@@ -2211,7 +2213,7 @@ namespace cu_details_default {
         private void buttonIncoerenze_Click(object sender, EventArgs e) {
             DataTable z = controlloCompleto();
             if (z.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono problemi di configurazione delle prestazioni");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono problemi di configurazione delle prestazioni");
             }
             exportclass.DataTableToExcel(z, true);
         }
@@ -2219,7 +2221,7 @@ namespace cu_details_default {
         private void buttonProblemiH_Click(object sender, EventArgs e) {
             DataTable z = controllaRecordH();
             if (z.Rows.Count == 0) {
-                MessageBox.Show(this,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                     @"Non ci sono problemi di configurazione delle prestazioni per quanto riguarda il record H");
             }
             exportclass.DataTableToExcel(z, true);
@@ -2264,7 +2266,7 @@ namespace cu_details_default {
             DataSet ds_RecordA = Meta.Conn.CallSP("exp_certificazioneunica_a_" + esercizio, parametriA, 60*60,
                 out errMsg);
             if (ds_RecordA == null) {
-                MessageBox.Show(this,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                     "Si è verificato il seguente errore nel calcolo del Record A della  certificazione unica:"
                     + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                 Cursor = null;
@@ -2294,7 +2296,7 @@ namespace cu_details_default {
                         60 * 60,
                         out errMsg);
                     if (ds1 == null) {
-                        MessageBox.Show(this,
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                             "Si è verificato il seguente errore nel calcolo dei percipienti della  certificazione unica record H:"
                             + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                         Cursor = null;
@@ -2315,14 +2317,14 @@ namespace cu_details_default {
                             new object[] { s }, 60 * 60,
                             out errMsg);
                         if (ds1 == null) {
-                            MessageBox.Show(this,
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + "  della  certificazione unica record H:"
                                 + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
                             return null;
                         }
                         if (ds1.Tables[0].Rows.Count == 0) {
-                            MessageBox.Show(this,
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + " della  certificazione unica record H:"
                                 + "\n" + " non sono estratti dati " + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
@@ -2348,14 +2350,14 @@ namespace cu_details_default {
                             new object[] {s}, 60*60,
                             out errMsg);
                         if (ds1 == null) {
-                            MessageBox.Show(this,
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + "  della  certificazione unica sostitutiva record H:"
                                 + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
                             return null;
                         }
                         if (ds1.Tables[0].Rows.Count == 0) {
-                            MessageBox.Show(this,
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + " della  certificazione unica sostitutiva record H:"
                                 + "\n" + " non sono estratti dati " + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
@@ -2399,7 +2401,7 @@ namespace cu_details_default {
                     newProgrCom = CfgFn.GetNoNullInt32(paramvalues[3]);
 
                     if (ds2 == null) {
-                        MessageBox.Show(this,
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                             "Si è verificato il seguente errore nel calcolo del Record D-H della  certificazione unica:"
                             + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                         Cursor = null;
@@ -2410,7 +2412,7 @@ namespace cu_details_default {
                     DataRow[] ccf =
                         tPercipienteRecordH.Select(QHC.AppAnd(QHC.CmpEq("quadro", "HRH"), QHC.CmpEq("colonna", "04")));
                     if (ccf.Length == 0) {
-                        MessageBox.Show("Il creditore di codice " + r["idreg"] + " non ha codice fiscale.", "Errore");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Il creditore di codice " + r["idreg"] + " non ha codice fiscale.", "Errore");
                         continue;
                     }
 
@@ -2424,7 +2426,7 @@ namespace cu_details_default {
                             DataSet dsD = Meta.Conn.CallSP("exp_certificazioneunica_d_" + esercizio, paramvaluesD, 60*60,
                                 out errMsg);
                             if (dsD == null) {
-                                MessageBox.Show(this,
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                     "Si è verificato il seguente errore nel calcolo della  certificazione sostitutiva unica Record D-H:"
                                     + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                                 Cursor = null;
@@ -2454,7 +2456,7 @@ namespace cu_details_default {
                         60*60,
                         out errMsg);
                     if (ds3 == null) {
-                        MessageBox.Show(this,
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                             "Si è verificato il seguente errore nel calcolo dei percipienti della  certificazione unica Record G:"
                             + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                         Cursor = null;
@@ -2475,7 +2477,7 @@ namespace cu_details_default {
                             new object[] { s }, 60 * 60,
                             out errMsg);
                         if (ds3 == null) {
-                            MessageBox.Show(this,
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + "  della certificazione unica sostitutiva record G:"
                                 + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
@@ -2483,7 +2485,7 @@ namespace cu_details_default {
                         }
 
                         if (ds3.Tables[0].Rows.Count == 0) {
-                            MessageBox.Show(this,
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + " della  certificazione unica sostitutiva record G:"
                                 + "\n" + " non sono stati estratti dati " + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
@@ -2507,7 +2509,7 @@ namespace cu_details_default {
                             new object[] {s}, 60*60,
                             out errMsg);
                         if (ds3 == null) {
-                            MessageBox.Show(this,
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + "  della certificazione unica sostitutiva record G:"
                                 + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
@@ -2515,7 +2517,7 @@ namespace cu_details_default {
                         }
 
                         if (ds3.Tables[0].Rows.Count == 0) {
-                            MessageBox.Show(this,
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                 "Si è verificato il seguente errore nel calcolo del percipiente CF: " + s + " della  certificazione unica sostitutiva record G:"
                                 + "\n" + " non sono stati estratti dati " + "\nRiprovare o chiamare l'ASSISTENZA");
                             Cursor = null;
@@ -2538,7 +2540,7 @@ namespace cu_details_default {
                     DataSet ds2 = Meta.Conn.CallSP("exp_certificazioneunica_g_" + esercizio, paramvalues, 60*60,
                         out errMsg);
                     if (ds2 == null) {
-                        MessageBox.Show(this,
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                             "Si è verificato il seguente errore nel calcolo della  certificazione unica Record D-G:"
                             + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                         Cursor = null;
@@ -2558,7 +2560,7 @@ namespace cu_details_default {
                             DataSet dsD = Meta.Conn.CallSP("exp_certificazioneunica_d_" + esercizio, paramvaluesD, 60*60,
                                 out errMsg);
                             if (dsD == null) {
-                                MessageBox.Show(this,
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                     "Si è verificato il seguente errore nel calcolo della  certificazione unica sostitutiva Record D-G:"
                                     + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                                 Cursor = null;
@@ -2591,7 +2593,7 @@ namespace cu_details_default {
             DataSet ds_RecordB = Meta.Conn.CallSP("exp_certificazioneunica_b_" + esercizio, parametriGH, 60*60,
                 out errMsg);
             if (ds_RecordB == null) {
-                MessageBox.Show(this,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                     "Si è verificato il seguente errore nel calcolo del Record B della  certificazione unica:"
                     + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                 Cursor = null;
@@ -2661,7 +2663,7 @@ namespace cu_details_default {
 
                 DataRow[] rFormato = DS.cu_details.Select(filtro);
                 if (rFormato.Length != 1) {
-                    MessageBox.Show(this, "Formato sconosciuto: " + filtro);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Formato sconosciuto: " + filtro);
                     Cursor = null;
                     return null;
                 }
@@ -2719,7 +2721,7 @@ namespace cu_details_default {
             }
             else {
                 if (progressiviHRD06.Count > 0) {
-                    MessageBox.Show(
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
                         "Il codice fiscale " + currentCF + " non è stato trovato nello schema importato",
                         "Errore");
                 }
@@ -2746,7 +2748,7 @@ namespace cu_details_default {
         private void btnNonResidG_Click(object sender, EventArgs e) {
             DataTable z = controllaNonResidentiRecordG();
             if (z.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono non residenti con domicilio fiscale non valido (G)");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono non residenti con domicilio fiscale non valido (G)");
             }
             exportclass.DataTableToExcel(z, true);
         }
@@ -2754,7 +2756,7 @@ namespace cu_details_default {
         private void btnNonResidH_Click(object sender, EventArgs e) {
             DataTable z = controllaNonResidentiRecordH();
             if (z.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono non residenti con domicilio fiscale non valido (H)");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono non residenti con domicilio fiscale non valido (H)");
             }
             exportclass.DataTableToExcel(z, true);
         }
@@ -2876,7 +2878,7 @@ namespace cu_details_default {
             if (arrCognome.Length>0) cognome = arrCognome[0]["stringa"].ToString();  //cognome o denominazione
             if (arrNome.Length > 0) nome = arrNome[0]["stringa"].ToString();  //nome se presente
             if (nome == "") nome = null;
-            //MessageBox.Show(filterAll + cf  + progr);
+            //MetaFactory.factory.getSingleton<IMessageShower>().Show(filterAll + cf  + progr);
             foreach (DataRow rRecordG in tMod770.Select(filterAll)) {
                   string campo = rRecordG["quadro"].ToString() + rRecordG["colonna"];
  
@@ -2889,7 +2891,7 @@ namespace cu_details_default {
                 //}
                 if (CfgFn.GetNoNullInt32(rRecordG["modulo"]) != modulo) continue;
                 ht["num_modello"] = modulo.ToString().PadLeft(2, '0'); //salva il progressivo per valorizzare Mod.N.
-                //MessageBox.Show(ht["num_modello"] + " " + cognome + " " + nome);
+                //MetaFactory.factory.getSingleton<IMessageShower>().Show(ht["num_modello"] + " " + cognome + " " + nome);
                 switch (campo) {
                     case "DC001036": {
                         salvaColonnaDC001036(ht, rRecordG["stringa"].ToString());
@@ -3044,17 +3046,17 @@ namespace cu_details_default {
             QHS = Meta.Conn.GetQueryHelper();
             //Rimosso perchè consentiamo la generazione in tutti gli esercizi consentiti, ossia dal 2015 ad oggi
             //if (!Meta.GetSys("esercizio").Equals(2019)) {
-            //    MessageBox.Show(this, "Questa procedura produce solo modelli cud per l'anno 2019", "Errore");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Questa procedura produce solo modelli cud per l'anno 2019", "Errore");
             //    return false;
             //}
             if ((CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) <2015 )|| (CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"))>2020)) {
-                MessageBox.Show(this, "Procedura non eseguibile nell'esercizio corrente.", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Procedura non eseguibile nell'esercizio corrente.", "Errore");
                 return false;
             }
             if (txtPercorso.Text == "") {
                 getFolder();
                 if (txtPercorso.Text == "") {
-                    MessageBox.Show(this,
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                         "Occorre specificare la cartella in cui creare i modelli Certificazione Unica " + EsercStr + "", "errore");
                     return false;
                 }
@@ -3065,7 +3067,7 @@ namespace cu_details_default {
            
             string[] fnames = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, nomeModello);
             if (fnames.Length == 0) {
-                MessageBox.Show(
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "File " + nomeModello + " non trovato nella cartella " + AppDomain.CurrentDomain.BaseDirectory,
                     "Errore");
                 return false;
@@ -3190,7 +3192,7 @@ namespace cu_details_default {
             }
             Cursor.Current = Cursors.Default;
             pBarAvanzamento.Value = 0;
-            MessageBox.Show(this,
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                 "Sono stati generati " + collaboratori.Count + " modelli Certificazione Unica (.pdf) nella cartella:\n"
                 + txtPercorso.Text,
                 "Salvataggio effettuato");
@@ -3213,12 +3215,12 @@ namespace cu_details_default {
         private bool inviaMailCollaboratori(bool recordH, DataTable tMod770) {
             QHS = Meta.Conn.GetQueryHelper(); QHS = Meta.Conn.GetQueryHelper();
             //if (!Meta.GetSys("esercizio").Equals(2019)) {
-            //    MessageBox.Show(this, "Questa procedura produce solo modelli cud per l'anno 2019", "Errore");
+            //    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Questa procedura produce solo modelli cud per l'anno 2019", "Errore");
             //    // return;
             //}
 
             if ((CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) < 2015) || (CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) > 2020)) {
-                MessageBox.Show(this, "Procedura non eseguibile nell'esercizio corrente.", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Procedura non eseguibile nell'esercizio corrente.", "Errore");
             }
 
             Application.DoEvents();
@@ -3227,7 +3229,7 @@ namespace cu_details_default {
 
             string[] fnames = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, nomeModello);
             if (fnames.Length == 0) {
-                MessageBox.Show(
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "File " + nomeModello + " non trovato nella cartella " + AppDomain.CurrentDomain.BaseDirectory,
                     "Errore");
                 return false;
@@ -3389,7 +3391,7 @@ namespace cu_details_default {
                         //sm.Send();
                         if (!sm.Send()) {
                             if (sm.ErrorMessage.Trim() != "")
-                                MessageBox.Show(sm.ErrorMessage.Trim());
+                                MetaFactory.factory.getSingleton<IMessageShower>().Show(sm.ErrorMessage.Trim());
                         }
                         Thread.Sleep(5000);
                     }
@@ -3415,7 +3417,7 @@ namespace cu_details_default {
                 f.Show();
             }
             else {
-                MessageBox.Show(this,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                "Sono stati generati " + collaboratori.Count + " modelli Certificazione Unica",
                "Invio effettuato");
             }
@@ -3608,7 +3610,7 @@ namespace cu_details_default {
                     else {
                         if (!vecchio.Equals(parte[i])) {
                             ht.Remove(tag);
-                            //MessageBox.Show(this, "Campo: " + tag + "\r\n" + vecchio + "\r\n" + getValore(rRecordG), "ERRORE");
+                            //MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Campo: " + tag + "\r\n" + vecchio + "\r\n" + getValore(rRecordG), "ERRORE");
                         }
                     }
                 }
@@ -3628,7 +3630,7 @@ namespace cu_details_default {
                 else {
                     if (!old.Equals(getValore(rRecordG))) {
                         ht.Remove(campo);
-                        //MessageBox.Show(this, "Campo: " + campo + "\r\n" + old + "\r\n" + getValore(rRecordG), "ERRORE");
+                        //MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Campo: " + campo + "\r\n" + old + "\r\n" + getValore(rRecordG), "ERRORE");
                     }
                 }
             }
@@ -3661,7 +3663,7 @@ namespace cu_details_default {
         //        }
         //    }
         //    catch (Exception ex) {
-        //        MessageBox.Show(this, ex.Message);
+        //        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, ex.Message);
         //    }
         //    // pulizia nomi colonne da eventuali spazi
         //    foreach (DataColumn C in mData.Columns) {
@@ -3690,12 +3692,12 @@ namespace cu_details_default {
                 txtInputFile.Text = fileName;
             }
             catch (Exception ex) {
-                MessageBox.Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
                 return false;
             }
 
             if (!verificaValiditaFileExcel()) {
-                MessageBox.Show(this, "Il file selezionato non è valido", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il file selezionato non è valido", "Errore");
                 return false;
 
             }
@@ -3719,7 +3721,7 @@ namespace cu_details_default {
             progressiviHRD07.Clear();
             progressiviHRD09.Clear();
             if (mData.Select().Length ==0) {
-                MessageBox.Show(this, "Il file selezionato non è stato importato, controllare che siano presenti le intestazioni delle colonne e che contenga dati", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il file selezionato non è stato importato, controllare che siano presenti le intestazioni delle colonne e che contenga dati", "Errore");
                 return false;
             }
             foreach (DataRow rFile in mData.Select()) {
@@ -3729,14 +3731,14 @@ namespace cu_details_default {
                 sostituisci_o_annulla = rFile["sostituisci_o_annulla"].ToString().Trim().ToUpper();
 
                 if  ((CF== "")||(identificativo == "")|| (progressivo == "")|| (sostituisci_o_annulla == "")) {
-                    MessageBox.Show(this, "Il file selezionato contiene dati non validi, controllare che siano presenti le intestazioni delle colonne.", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il file selezionato contiene dati non validi, controllare che siano presenti le intestazioni delle colonne.", "Errore");
                     return false;
                 }
                 progressiviHRD06[CF] = rFile["identificativo"].ToString().Trim();
                 progressiviHRD07[CF] = rFile["progressivo"].ToString().Trim();
                 progressiviHRD09[CF] = rFile["sostituisci_o_annulla"].ToString().Trim().ToUpper();
             }
-            MessageBox.Show(this, "Il file selezionato è stato importato. Si può procedere con la generazione della dichiarazione.", "Avviso");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il file selezionato è stato importato. Si può procedere con la generazione della dichiarazione.", "Avviso");
             return true;
         }
 
@@ -3744,19 +3746,19 @@ namespace cu_details_default {
         private bool fillTableCF(DataTable mDataCF) {
             string CF;
             if (mDataCF.Select().Length == 0) {
-                MessageBox.Show(this, "Il file selezionato non è stato importato, controllare che siano presenti le intestazioni delle colonne e che contenga dati", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il file selezionato non è stato importato, controllare che siano presenti le intestazioni delle colonne e che contenga dati", "Errore");
                 return false;
             }
             foreach (DataRow rFile in mDataCF.Select()) {
                 CF = rFile["cf"].ToString().Trim();
 
                 if (CF == ""){
-                    MessageBox.Show(this, "Il file selezionato contiene dati non validi, controllare che siano presenti le intestazioni delle colonne.", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il file selezionato contiene dati non validi, controllare che siano presenti le intestazioni delle colonne.", "Errore");
                     return false;
                 }
                 ListaCF.Add(CF);
             }
-            MessageBox.Show(this, "Il file selezionato è stato importato. Si può procedere con la generazione della dichiarazione.", "Avviso");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il file selezionato è stato importato. Si può procedere con la generazione della dichiarazione.", "Avviso");
             return true;
         }
         private object TrimString(object value, bool toglichiocciola) {
@@ -3785,7 +3787,7 @@ namespace cu_details_default {
             elencoColonne.Add("sostituisci_o_annulla");
             foreach (string col in elencoColonne) {
                 if (!mData.Columns.Contains(col)) {
-                    MessageBox.Show(this, "Nel file " + MyOpenFile.FileName + " non esiste la colonna " + col, "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nel file " + MyOpenFile.FileName + " non esiste la colonna " + col, "Errore");
                     return false;
                 }
             }
@@ -3816,7 +3818,7 @@ namespace cu_details_default {
             //elencoColonne.Add("cf");
             //foreach (string col in elencoColonne) {
             //    if (!mDataCF.Columns.Contains(col)) {
-            //        MessageBox.Show(this, "Nel file " + MyOpenFile.FileName + " non esiste la colonna " + col, "Errore");
+            //        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nel file " + MyOpenFile.FileName + " non esiste la colonna " + col, "Errore");
             //        return false;
             //    }
             //}
@@ -3982,12 +3984,12 @@ namespace cu_details_default {
             bool errore = false;
             errore = !controlliGenerazioneG(radH.Checked);
             if (errore)
-                if (MessageBox.Show(" Si desidera proseguire l''elaborazione del record G nonostante  gli errori?", "Errore",
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show(" Si desidera proseguire l''elaborazione del record G nonostante  gli errori?", "Errore",
                       MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) return;
             errore = false;
             errore = !controlliGenerazioneH(radH.Checked);
             if (errore)
-                if (MessageBox.Show(" Si desidera proseguire l''elaborazione del record H nonostante  gli errori?", "Errore",
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show(" Si desidera proseguire l''elaborazione del record H nonostante  gli errori?", "Errore",
                       MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) return;
             generaCertificazioneUnica(radH.Checked, getTipoGenerazioneSelezionato());
         }
@@ -4037,13 +4039,13 @@ namespace cu_details_default {
                 txtInputFileSetCF.Text = fileName;
             }
             catch (Exception ex) {
-                MessageBox.Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
                 return false;
             }
             if (t == null) return false;
 
             if (!verificaValiditaFileExcel_soloCF()) {
-                MessageBox.Show(this, "Il file selezionato non è valido", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il file selezionato non è valido", "Errore");
                 return false;
             }
             fillTableCF(t);

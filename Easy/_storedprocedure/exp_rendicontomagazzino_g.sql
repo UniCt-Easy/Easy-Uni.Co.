@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_rendicontomagazzino_g]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_rendicontomagazzino_g]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_rendicontomagazzino_g]
 GO
 
@@ -59,7 +61,7 @@ CREATE TABLE #INVENTARIO(
 
 --  Rendiconto di fine esercizio che riporti per ogni articolo la consistenza iniziale, i carichi, gli scarichi e la consistenza finale.
 
--- La CONSISTENZA INIZIALE √® data da tutti i carichi fatti alla data Inizio meno tutti gli scarichi fatti alla data Inizio
+-- La CONSISTENZA INIZIALE Ë data da tutti i carichi fatti alla data Inizio meno tutti gli scarichi fatti alla data Inizio
 INSERT INTO #INVENTARIO(
 	idlist,
 	idstore ,
@@ -188,7 +190,7 @@ IF(@carico_scarico not in ('U','I') or @carico_scarico is null)   /*ESPORTA SIA 
 			CASE
 				when I.carico is null then isnull(CAST(I.scarico as INT), 0)
 				when I.scarico is null then isnull(CAST(I.carico as INT), 0) 
-			End [Quantit√†],
+			End [Quantit‡],
 			I.data [Data],	-- Data Arrivo / Data Scarico
 			I.descScarico [Richiesta],
 			isnull(CAST(I.giacenza as INT), 0) [Giacenza],
@@ -233,7 +235,7 @@ ELSE IF(@carico_scarico = 'U')   /*ESPORTA SOLO LE USCITE*/
 			CASE
 				when I.carico is null then isnull(CAST(I.scarico as INT), 0)
 				when I.scarico is null then isnull(CAST(I.carico as INT), 0) 
-			End [Quantit√†],
+			End [Quantit‡],
 			I.data [Data],	-- Data Arrivo / Data Scarico
 			I.descScarico [Richiesta],
 			isnull(CAST(I.giacenza as INT), 0) [Giacenza]
@@ -279,7 +281,7 @@ ELSE IF(@carico_scarico = 'I')   /*ESPORTA SOLO I CARICHI*/
 			CASE
 				when I.carico is null then isnull(CAST(I.scarico as INT), 0)
 				when I.scarico is null then isnull(CAST(I.carico as INT), 0) 
-			End [Quantit√†],
+			End [Quantit‡],
 			I.data [Data],	-- Data Arrivo / Data Scarico
 			--I.descScarico [Richiesta],
 			MK.description + '/'+ CAST(I.yman as varchar) + '/' + CAST(I.nman as varchar) + '/'+ CAST(I.man_idgroup as varchar) [Ordine],
@@ -311,4 +313,3 @@ END
 
 
 GO
-	

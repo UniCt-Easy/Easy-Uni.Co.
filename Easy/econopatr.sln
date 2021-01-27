@@ -37,6 +37,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "entrydetail_single", "entrydetail\entrydetail_single\entrydetail_single.csproj", "{D2DF828C-2019-481B-9717-743AF2B3E758}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "account_tree", "account\account_tree\account_tree.csproj", "{E24FB4BB-3872-4E0E-858C-D2B4194379F6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD} = {C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meta_accmotive", "accmotive\meta_accmotive\meta_accmotive.csproj", "{E9C307E9-CAFF-4CB7-8A48-2DFDDAF399DF}"
 EndProject

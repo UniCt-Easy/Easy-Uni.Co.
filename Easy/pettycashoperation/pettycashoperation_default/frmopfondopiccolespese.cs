@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -2552,7 +2554,7 @@ namespace pettycashoperation_default {//opfondopiccolespese//
         void ManageBollettaChange(DataRow Bolletta) {
             if (Meta.IsEmpty) return;
             if (txtDescrizione.Text != "") {
-                if (MessageBox.Show("Aggiorno il campo descrizione in base alla Bolletta selezionata?",
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Aggiorno il campo descrizione in base alla Bolletta selezionata?",
                     "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     txtDescrizione.Text = Bolletta["motive"].ToString();
             }
@@ -2610,7 +2612,7 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 						)
 						) {
 						if ((getman==DBNull.Value)||
-							MessageBox.Show("Cambio il responsabile in base alla voce di bilancio selezionata?",
+							MetaFactory.factory.getSingleton<IMessageShower>().Show("Cambio il responsabile in base alla voce di bilancio selezionata?",
 							"Conferma",MessageBoxButtons.OKCancel)==DialogResult.OK) {
                             Meta.SetAutoField(R["idman"], txtResponsabile);
 						}
@@ -3111,13 +3113,13 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 			DataRow Curr=DS.pettycashoperation.Rows[0];
             object idpettycash = Curr["idpettycash"];
             if (idpettycash.ToString() == "0") {
-                MessageBox.Show("Selezionare prima il fondo economale.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Selezionare prima il fondo economale.");
                 return;
             }
             string filterpcash = QHC.CmpEq("idpettycash", idpettycash);
             DataRow[] PettyCash = DS.pettycashsetup.Select(filterpcash);
             if (PettyCash.Length == 0) {
-                MessageBox.Show("Non Ë stata inserita la configuraz. del fondo economale per quest'anno");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stata inserita la configuraz. del fondo economale per quest'anno");
                 return;
             }
             
@@ -3208,7 +3210,7 @@ namespace pettycashoperation_default {//opfondopiccolespese//
             object NuovoDataDocumento = Choosen["docdate"];
             object NuovoDescrDocumento = Choosen["description"];
             if (oldIdExp != newIdExp) {
-                if (MessageBox.Show(this, "Aggiorno i campi descrizione, documento e data documento dell'operazione " +
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Aggiorno i campi descrizione, documento e data documento dell'operazione " +
                          "in base al movimento di spesa selezionato?", "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) {
                     if ((NuovoDescrDocumento != null)) {
                         Curr["description"] = NuovoDescrDocumento;
@@ -3360,7 +3362,7 @@ namespace pettycashoperation_default {//opfondopiccolespese//
             DataTable F = Conn.RUN_SELECT("upbunderwritingyearview", "*", fieldtouse + " asc",
                         QHS.AppAnd(QHS.CmpEq("idfin", idfin), QHS.CmpEq("idupb", idupb), QHS.CmpGt(fieldtouse, 0)), null, false);
             if (F == null || F.Rows.Count == 0) {
-                //MessageBox.Show(this, "Non ci sono finanziamenti per questa coppia progetto-voce di bilancio",
+                //MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono finanziamenti per questa coppia progetto-voce di bilancio",
                 //    "Informazione");
                 return;
             }
@@ -3541,7 +3543,7 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 					(R["idupb"]!=DBNull.Value) ||
 					getman!=DBNull.Value )
 					{
-					if (MessageBox.Show("Per abilitare la selezione del movimento di spesa Ë necessario annullare le altre "+
+					if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Per abilitare la selezione del movimento di spesa Ë necessario annullare le altre "+
 						"attribuzioni su questa operazione. Proseguo?","Conferma",
 						MessageBoxButtons.OKCancel)!=DialogResult.OK) {
 						chkSpesa.Checked=false;
@@ -3566,7 +3568,7 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 			DataRow RR= DS.pettycashoperation.Rows[0];
 
 			if ( RR["idexp"]!=DBNull.Value){
-				if (MessageBox.Show("Per abilitare la selezione delle attribuzioni normali su questa operazione Ë necessario annullare il collegamento al movimento di spesa "+
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Per abilitare la selezione delle attribuzioni normali su questa operazione Ë necessario annullare il collegamento al movimento di spesa "+
 					". Proseguo?","Conferma",
 					MessageBoxButtons.OKCancel)!=DialogResult.OK) {
 					chkSpesa.Checked=true;
@@ -3934,7 +3936,7 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 			if (CurrDR==null) return;
 
 			
-			if (MessageBox.Show(
+			if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
 				"Cancello la classificazione selezionata?",
 				"Richiesta di conferma", 
 				MessageBoxButtons.YesNo)!=DialogResult.Yes) return;
@@ -5637,7 +5639,7 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 			decimal importo=occasionalenetto-contabilizzatooccasionale;
             if(importo < 0) {
                 importo = 0;
-                MessageBox.Show("Di questa prestazione Ë stato gi‡ contabilizzato l'importo netto");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Di questa prestazione Ë stato gi‡ contabilizzato l'importo netto");
             }
 
 			SetImporto(importo);
@@ -6057,7 +6059,7 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 				importo= totprofnetto-assigned_profgen;
 			}
             if(importo < 0) {
-                MessageBox.Show("E' stato gi‡ contabilizzato il netto di questo contratto");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' stato gi‡ contabilizzato il netto di questo contratto");
                 importo = 0;
             }
 
@@ -6888,7 +6890,7 @@ namespace pettycashoperation_default {//opfondopiccolespese//
             if (Meta.IsEmpty) return;
             Meta.GetFormData(true);
             if (DS.pettycashoperationsorted.Select().Length > 0) {
-                if (MessageBox.Show("Cancello le classificazioni esistenti?",
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Cancello le classificazioni esistenti?",
                     "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) {
                     foreach (DataRow R in DS.pettycashoperationsorted.Select()) {
                         R.Delete();

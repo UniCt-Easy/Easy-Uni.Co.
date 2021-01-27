@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Data;
 using metadatalibrary;
 using metaeasylibrary;
@@ -86,10 +88,10 @@ namespace meta_registryclassdefaultview
 						DescribeAColumn(T, "registryclass_flagp_iva_forced", "Partita iva obbligatoria", nPos++);
 						DescribeAColumn(T, "registryclass_flagqualification", "campo \"Titolo\" visibile", nPos++);
 						DescribeAColumn(T, "registryclass_flagqualification_forced", "campo \"Titolo\" obbligatorio", nPos++);
-						DescribeAColumn(T, "registryclass_flagresidence", "Usato congiuntamente a flagresidence_forced per stabilire se l'indirizzo di residenza √® obbligatorio, Da solo non ha un gran significato poich√© non esiste un campo indirizzo di residenza", nPos++);
+						DescribeAColumn(T, "registryclass_flagresidence", "Usato congiuntamente a flagresidence_forced per stabilire se l'indirizzo di residenza Ë obbligatorio, Da solo non ha un gran significato poichÈ non esiste un campo indirizzo di residenza", nPos++);
 						DescribeAColumn(T, "registryclass_flagresidence_forced", "Informazioni sulla residenza obbligatorie", nPos++);
 						DescribeAColumn(T, "registryclass_flagtitle", "Campo Denominazione diverso da cognome+nome, inserito manualmente", nPos++);
-						DescribeAColumn(T, "registryclass_flagtitle_forced", "Non usato, il campo denominazione  √® sempre obbligatorio in un modo o nell'altro", nPos++);
+						DescribeAColumn(T, "registryclass_flagtitle_forced", "Non usato, il campo denominazione  Ë sempre obbligatorio in un modo o nell'altro", nPos++);
 						break;
 					}
 					//$DescribeAColumn$

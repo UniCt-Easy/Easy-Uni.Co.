@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -161,7 +163,7 @@ namespace accountingyear_default//esercizio_creazione//
             if (!EsercizioChiuso(prevesercizio)) {
                 string msg = "Non sarà possibile creare un nuovo esercizio (il " + nextesercizio.ToString() +
 					") in quanto l'esercizio precedente (il "+prevesercizio.ToString()+") non è ancora chiuso.";
-				MessageBox.Show(msg, "Chiusura corrente",
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Chiusura corrente",
 					MessageBoxButtons.OK,MessageBoxIcon.Information);
 				this.Focus();
 				return;
@@ -169,7 +171,7 @@ namespace accountingyear_default//esercizio_creazione//
 
 			if (EsercizioChiuso(esercizio)) {
 				string msg="Questo esercizio (il "+esercizio.ToString()+") è stato chiuso e non è più modificabile.";
-				MessageBox.Show(msg, "Chiusura corrente",
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, "Chiusura corrente",
 					MessageBoxButtons.OK,MessageBoxIcon.Information);
 				this.Focus();
                 if (!EsercizioConTrasferimenti(esercizio + 1)) {
@@ -1203,7 +1205,7 @@ namespace accountingyear_default//esercizio_creazione//
 				return true;
 			}
 			catch (Exception E) {
-				MessageBox.Show("Errore: "+E.Message+"\r\rDettaglio: "+Conn.LastError,Titolo[FASE],
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore: "+E.Message+"\r\rDettaglio: "+Conn.LastError,Titolo[FASE],
 					MessageBoxButtons.OK,MessageBoxIcon.Error);
 				return false;
 			}
@@ -1226,7 +1228,7 @@ namespace accountingyear_default//esercizio_creazione//
                     }
 				case 5:
 					if (DateTime.Now.Year <= esercizio) {
-						MessageBox.Show("Attendere l'anno successivo per proseguire con le fasi di chiusura.");
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Attendere l'anno successivo per proseguire con le fasi di chiusura.");
 						return false;
 					}
 					return ExecuteFase("closeyear_incomearrearscopy",list);
@@ -1239,7 +1241,7 @@ namespace accountingyear_default//esercizio_creazione//
 		private bool CanExecuteFase() {
 			DataTable T=GetGridTable();
 			if (T.Rows.Count>0) {
-				MessageBox.Show("Non è possibile procedere poiché ci sono "+
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è possibile procedere poiché ci sono "+
 					"degli impedimenti.", "Attenzione",
 					MessageBoxButtons.OK,MessageBoxIcon.Information);
 				return false;
@@ -1273,7 +1275,7 @@ namespace accountingyear_default//esercizio_creazione//
                 if (isOk) {
                     string res = Conn.Commit();
                     if (res != null) {
-                        MessageBox.Show("Errore nel salvataggio dei dati.\r\n" + res, "Errore");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nel salvataggio dei dati.\r\n" + res, "Errore");
                         return false;
                     }
                 }
@@ -1414,12 +1416,12 @@ namespace accountingyear_default//esercizio_creazione//
 		private void ChiusuraEsercizio() {
 			string msg="Questa operazione chiude l'esercizio corrente. "+
 				"Non sarà più possibile modificare alcun dato dell'esercizio. Confermi? ";
-			if (MessageBox.Show(msg,Titolo[FASE],
+			if (MetaFactory.factory.getSingleton<IMessageShower>().Show(msg,Titolo[FASE],
 				MessageBoxButtons.YesNo,MessageBoxIcon.Question)!=DialogResult.Yes)
 				return;
 			object[] list = new object[1]{esercizio};
 			if (ExecuteFase("closeyear_closeayear", list)) {
-				MessageBox.Show("Chiusura dell'esercizio " + esercizio,Titolo[FASE]+" effettuata.",
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Chiusura dell'esercizio " + esercizio,Titolo[FASE]+" effettuata.",
 					MessageBoxButtons.OK,MessageBoxIcon.Information);
 			}
 			Close();
@@ -1428,12 +1430,12 @@ namespace accountingyear_default//esercizio_creazione//
         private void RiaperturaEsercizio(string kind) {
             string msg = "Questa operazione riapre l'esercizio corrente. " +
                 "I dati saranno resi nuovamente modificabili nell'esercizio in corso. Confermi? ";
-            if (MessageBox.Show(msg, Titolo[FASE],
+            if (MetaFactory.factory.getSingleton<IMessageShower>().Show(msg, Titolo[FASE],
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                 return;
             object[] list = new object[2] { esercizio, kind };
             if (ExecuteFase("closeyear_reopenayear", list)) {
-                MessageBox.Show("Apertura dell'esercizio " + esercizio, Titolo[FASE] + " effettuata.",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Apertura dell'esercizio " + esercizio, Titolo[FASE] + " effettuata.",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             Close();
@@ -1480,7 +1482,7 @@ namespace accountingyear_default//esercizio_creazione//
 		private void btnSave_Click(object sender, System.EventArgs e) {
             DataTable T = GetGridTable();
             if (T == null) {
-                MessageBox.Show(this, "Nulla da salvare", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nulla da salvare", "Avviso");
                 return;
             }
 
@@ -1523,7 +1525,7 @@ namespace accountingyear_default//esercizio_creazione//
             AskDate frm = new AskDate(t, Meta.Conn);
             DialogResult dr = frm.ShowDialog();
             if ((dr != DialogResult.OK) || (frm.txtData.Text == "")){
-                MessageBox.Show(this, "Non è stata impostata la data su cui calcolare il bilancio di previsione",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non è stata impostata la data su cui calcolare il bilancio di previsione",
                     "Operazione Interrotta");
                 return;
             }
@@ -1533,7 +1535,7 @@ namespace accountingyear_default//esercizio_creazione//
 
             DataSet ds = Conn.CallSP("exp_not_spread_prevision", new object[] {Meta.GetSys("esercizio")}, 600, out errMess);
             if (errMess != null) {
-                MessageBox.Show(this, "Errore nella chiamata della procedura che controlla le previsioni non spalmate " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella chiamata della procedura che controlla le previsioni non spalmate " +
                     "\r\rContattare il servizio assistenza"
                     + "\r\rDettaglio dell'errore :\r\r" + errMess, "Errore");
                 Conn.RollBack();
@@ -1546,14 +1548,14 @@ namespace accountingyear_default//esercizio_creazione//
                 FrmError fErr = new FrmError(title, tResult);
                 DialogResult drErr = fErr.ShowDialog();
                 if (drErr != DialogResult.OK) {
-                    MessageBox.Show(this, "Si è deciso di interrompere la procedura");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si è deciso di interrompere la procedura");
                     Conn.RollBack();
                     return;
                 }
             }
             object dataPrevisione = HelpForm.GetObjectFromString(typeof(DateTime), frm.txtData.Text, "x.y");
             if ((dataPrevisione == null) || (dataPrevisione == DBNull.Value)){
-                MessageBox.Show(this, "La data immessa non è valida, procedura interrotta", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La data immessa non è valida, procedura interrotta", "Errore");
                 Conn.RollBack();
                 return;
             }
@@ -1561,13 +1563,13 @@ namespace accountingyear_default//esercizio_creazione//
                 new object[] { Meta.GetSys("esercizio"), dataPrevisione },
                 600, out errMess);
             if (errMess != null) {
-                MessageBox.Show(this, "Errore nella chiamata della procedura che trasferisce le previsioni " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella chiamata della procedura che trasferisce le previsioni " +
                      "nell'anno successivo la transazione è stata interrotta\r\rContattare il servizio assistenza"
                     + "\r\rDettaglio dell'errore :\r\r" + errMess, "Errore");
                 Conn.RollBack();
                 return;
             }
-            MessageBox.Show(this, "Previsioni Trasferite", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Previsioni Trasferite", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Conn.Commit();
 
         }
@@ -1577,7 +1579,7 @@ namespace accountingyear_default//esercizio_creazione//
             AskDate frm = new AskDate(t, Meta.Conn);
             DialogResult dr = frm.ShowDialog();
             if ((dr != DialogResult.OK) || (frm.txtData.Text == "")) {
-                MessageBox.Show(this, "Non è stata impostata la data su cui calcolare il bilancio di previsione",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non è stata impostata la data su cui calcolare il bilancio di previsione",
                     "Operazione Interrotta");
                 return;
             }
@@ -1587,7 +1589,7 @@ namespace accountingyear_default//esercizio_creazione//
 
             DataSet dsE = Conn.CallSP("exp_prevavailable_upb_fin", new object[] { Meta.GetSys("esercizio"), "E" }, 600, out errMess);
             if (errMess != null) {
-                MessageBox.Show(this, "Errore nella chiamata della procedura che controlla le previsioni disponibili " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella chiamata della procedura che controlla le previsioni disponibili " +
                     "\r\rContattare il servizio assistenza"
                     + "\r\rDettaglio dell'errore :\r\r" + errMess, "Errore");
                 Conn.RollBack();
@@ -1599,7 +1601,7 @@ namespace accountingyear_default//esercizio_creazione//
                 FrmError fErr = new FrmError(title, dsE.Tables[0]);
                 DialogResult drErr = fErr.ShowDialog();
                 if (drErr != DialogResult.OK) {
-                    MessageBox.Show(this, "Si è deciso di interrompere la procedura");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si è deciso di interrompere la procedura");
                     Conn.RollBack();
                     return;
                 }
@@ -1608,7 +1610,7 @@ namespace accountingyear_default//esercizio_creazione//
 
             DataSet dsS = Conn.CallSP("exp_prevavailable_upb_fin", new object[] { Meta.GetSys("esercizio"), "S" }, 600, out errMess);
             if (errMess != null) {
-                MessageBox.Show(this, "Errore nella chiamata della procedura che controlla le previsioni disponibili " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella chiamata della procedura che controlla le previsioni disponibili " +
                     "\r\rContattare il servizio assistenza"
                     + "\r\rDettaglio dell'errore :\r\r" + errMess, "Errore");
                 Conn.RollBack();
@@ -1620,7 +1622,7 @@ namespace accountingyear_default//esercizio_creazione//
                 FrmError fErr = new FrmError(title, dsS.Tables[0]);
                 DialogResult drErr = fErr.ShowDialog();
                 if (drErr != DialogResult.OK) {
-                    MessageBox.Show(this, "Si è deciso di interrompere la procedura");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si è deciso di interrompere la procedura");
                     Conn.RollBack();
                     return;
                 }
@@ -1628,14 +1630,14 @@ namespace accountingyear_default//esercizio_creazione//
             }
 
             if (nRow == 0) {
-                MessageBox.Show(this, "Non ci sono previsioni da stornare");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono previsioni da stornare");
                 Conn.RollBack();
                 return;
             }
 
             object dataPrevisione = HelpForm.GetObjectFromString(typeof(DateTime), frm.txtData.Text, "x.y");
             if ((dataPrevisione == null) || (dataPrevisione == DBNull.Value)) {
-                MessageBox.Show(this, "La data immessa non è valida, procedura interrotta", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La data immessa non è valida, procedura interrotta", "Errore");
                 Conn.RollBack();
                 return;
             }
@@ -1644,20 +1646,20 @@ namespace accountingyear_default//esercizio_creazione//
                 new object[] { Meta.GetSys("esercizio"), dataPrevisione },
                 600, out errMess);
             if (errMess != null) {
-                MessageBox.Show(this, "Errore nella chiamata della procedura che effettua gli storni di previsione " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella chiamata della procedura che effettua gli storni di previsione " +
                      "nell'anno successivo la transazione è stata interrotta\r\rContattare il servizio assistenza"
                     + "\r\rDettaglio dell'errore :\r\r" + errMess, "Errore");
                 Conn.RollBack();
                 return;
             }
-            MessageBox.Show(this, "Previsioni Stornate", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Previsioni Stornate", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Conn.Commit();
 
         }
 
         private void btnCopiavariniziali_Click(object sender, EventArgs e){
             if (!CanTransferInitialPrev(esercizio)) {
-                MessageBox.Show("Il Bilancio di previsione " + esercizio + " è stata redatto, tuttavia sarà possibile procedere con l'operazione.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Il Bilancio di previsione " + esercizio + " è stata redatto, tuttavia sarà possibile procedere con l'operazione.");
             }
 
             string t = "Data alla quale considerare le variazioni iniziali di previsione:";
@@ -1665,7 +1667,7 @@ namespace accountingyear_default//esercizio_creazione//
             DialogResult dr = frm.ShowDialog();
             if ((dr != DialogResult.OK) || (frm.txtData.Text == ""))
             {
-                MessageBox.Show(this, "Non è stata impostata la data alla quale considerare le variazioni iniziali di previsione",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non è stata impostata la data alla quale considerare le variazioni iniziali di previsione",
                     "Operazione Interrotta");
                 return;
             }
@@ -1677,7 +1679,7 @@ namespace accountingyear_default//esercizio_creazione//
             if ((datadiriferimento == null) || (datadiriferimento == DBNull.Value))
             {
                 Conn.RollBack();
-                MessageBox.Show(this, "La data immessa non è valida, procedura interrotta", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La data immessa non è valida, procedura interrotta", "Errore");
                 return;
             }
             object CopiaPrevPrecente = frm.CopiaPrevPrecente;
@@ -1687,7 +1689,7 @@ namespace accountingyear_default//esercizio_creazione//
             if (errMess != null)
             {
                 Conn.RollBack();
-                MessageBox.Show(this, "Errore nella chiamata della procedura che copia le variazioni iniziali di previsione " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella chiamata della procedura che copia le variazioni iniziali di previsione " +
                      " nella previsione iniziale. La transazione è stata interrotta\r\rContattare il servizio assistenza"
                     + "\r\rDettaglio dell'errore :\r\r" + errMess, "Errore");
                 return;
@@ -1708,7 +1710,7 @@ namespace accountingyear_default//esercizio_creazione//
             if ((T == null) || (T.Rows.Count == 0))
             {
                 Conn.Commit();
-                MessageBox.Show(this, "Previsioni Copiate.", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Previsioni Copiate.", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -1718,7 +1720,7 @@ namespace accountingyear_default//esercizio_creazione//
                 FrmError fErr = new FrmError(title, T);
                 DialogResult drErr = fErr.ShowDialog();
           
-                MessageBox.Show(this, "Previsioni Non Copiate.", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Previsioni Non Copiate.", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -1747,7 +1749,7 @@ namespace accountingyear_default//esercizio_creazione//
                 " END ";
 
                 Meta.Conn.DO_SYS_CMD(script, false);
-                MessageBox.Show("Copia eseguita per il cassiere: " + R["description"].ToString());
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Copia eseguita per il cassiere: " + R["description"].ToString());
             }
           
 

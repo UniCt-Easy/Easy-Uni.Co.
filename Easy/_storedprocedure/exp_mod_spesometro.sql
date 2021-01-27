@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_spesometro]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_spesometro]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_spesometro]
 GO
 
@@ -28,7 +30,7 @@ GO
 CREATE       PROCEDURE [exp_mod_spesometro](
 	@ayear int,
 	@kind char(1), --F: op.esposte in fattura, B:op.da blacklist e va indicato anche il trimestre di riferimento
-	@trimestre int, -- Per B √® possibile specificare o il trimestre o il mese
+	@trimestre int, -- Per B Ë possibile specificare o il trimestre o il mese
 	@mese int
 )
 AS BEGIN
@@ -99,7 +101,7 @@ where YEAR(I.adate) = @ayear
 -- RECORD "C" - parte comune
 CREATE TABLE #REC_C(
 	idreg int,
-	ProgressivoModulo int, -- Impostare ad 1 per il primo modulo di ogni quadro compilato, incrementando tale valore di una unit√† per ogni ulteriore modulo
+	ProgressivoModulo int, -- Impostare ad 1 per il primo modulo di ogni quadro compilato, incrementando tale valore di una unit‡ per ogni ulteriore modulo
 -->> QUADRO FA - Operazioni documentate da fattura esposte in forma aggregata
 	FA001004_num_op_attive_aggregate int,
 	FA001005_num_op_passive_aggregate int,
@@ -116,7 +118,7 @@ CREATE TABLE #REC_C(
 	FA001016_var_credito_imposta_acqu  int,
 
 -->>	QUADRO BL
---	 OPERAZIONI CON SOGGETTI AVENTI SEDE, RESIDENZA O DOMICILIO IN PAESI CON FISCALIT√Ä PRIVILEGIATA
+--	 OPERAZIONI CON SOGGETTI AVENTI SEDE, RESIDENZA O DOMICILIO IN PAESI CON FISCALIT¿ PRIVILEGIATA
 --	 OPERAZIONI CON SOGGETTI NON RESIDENTI IN FORMA AGGREGATA
 --	 ACQUISTI DI SERVIZI DA NON RESIDENTI IN FORMA AGGREGATA
 -- BL002
@@ -125,22 +127,22 @@ CREATE TABLE #REC_C(
 	BL002003_NonResident int,
 	BL002004_Acqu_NonResidenti int,
 -- Operazioni ATTIVE
--- BL003 - Operazioni imponibili, non imponibili ed esenti. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata" o "Operazioni con soggetti non residenti" 
+-- BL003 - Operazioni imponibili, non imponibili ed esenti. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata" o "Operazioni con soggetti non residenti" 
 	BL003001_importocomplessivo int,
 	BL003002_imposta int,
--- BL004 - Operazioni non soggette ad IVA. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata"
+-- BL004 - Operazioni non soggette ad IVA. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata"
 	BL004001_cessionebeni int,
 	BL004002_servizi int,
---BL005 - Note di variazione. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata" (caselle BL002002) 
+--BL005 - Note di variazione. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata" (caselle BL002002) 
 	BL005001_importocomplessivo int,
 	BL005002_imposta int,
 -- Operazioni PASSIVE
---BL006 - Operazioni imponibili, non imponibili ed esenti. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata" o "Operazioni con soggetti non residenti" 
+--BL006 - Operazioni imponibili, non imponibili ed esenti. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata" o "Operazioni con soggetti non residenti" 
 	BL006001_importocomplessivo int,
 	BL006002_imposta int,
--- BL007 - Operazioni non soggette ad IVA. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata" 
+-- BL007 - Operazioni non soggette ad IVA. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata" 
 	BL007001_importocomplessivo int,
--- BL008 - Note di variazione. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata" 
+-- BL008 - Note di variazione. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata" 
 	BL008001_importocomplessivo int,
 	BL008002_imposta int
 )
@@ -865,4 +867,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

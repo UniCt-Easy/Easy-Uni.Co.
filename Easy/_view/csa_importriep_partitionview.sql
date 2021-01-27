@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- CREAZIONE VISTA csa_importriep_partitionview
+
+-- CREAZIONE VISTA csa_importriep_partitionview
 IF EXISTS(select * from sysobjects where id = object_id(N'[csa_importriep_partitionview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [csa_importriep_partitionview]
 GO
@@ -115,7 +117,7 @@ AS SELECT
 		 		when (( A.flagaccountusage & 1024) <> 0)  then 'Avanzo vincolato'
 		 		when (( A.flagaccountusage & 2048) <> 0)  then 'Riserva'
 		 		when (( A.flagaccountusage & 4096) <> 0)  then 'Accantonamento'
-		 		when (( A.flagaccountusage & 8192) <> 0)  then 'Disponibilit√† liquide'
+		 		when (( A.flagaccountusage & 8192) <> 0)  then 'Disponibilit‡ liquide'
 		 		when (( A.flagaccountusage & 32768) <> 0) then 'Fondi ammortamento'
 		 		when (( A.flagaccountusage & 131072) <> 0)  then 'Ammortamento'
 		else null
@@ -151,4 +153,3 @@ GO
 --clear_table_info 'csa_importriep_partitionview'
 --select * from csa_importriep_partitionview
  
-	

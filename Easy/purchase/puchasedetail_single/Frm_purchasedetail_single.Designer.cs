@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªønamespace purchasedetail_single {
+
+namespace purchasedetail_single {
     partial class Frm_purchasedetail_single {
         /// <summary>
         /// Required designer variable.
@@ -46,8 +48,8 @@
             this.txtCodiceListino = new System.Windows.Forms.TextBox();
             this.DS = new purchasedetail_single.vistaForm();
             this.gbxInfo = new System.Windows.Forms.GroupBox();
-            this.txtQuantit√† = new System.Windows.Forms.TextBox();
-            this.lblQuantit√† = new System.Windows.Forms.Label();
+            this.txtQuantit‡ = new System.Windows.Forms.TextBox();
+            this.lblQuantit‡ = new System.Windows.Forms.Label();
             this.txtImposta = new System.Windows.Forms.TextBox();
             this.lblImposta = new System.Windows.Forms.Label();
             this.txtImponibile = new System.Windows.Forms.TextBox();
@@ -139,8 +141,8 @@
             // 
             // gbxInfo
             // 
-            this.gbxInfo.Controls.Add(this.txtQuantit√†);
-            this.gbxInfo.Controls.Add(this.lblQuantit√†);
+            this.gbxInfo.Controls.Add(this.txtQuantit‡);
+            this.gbxInfo.Controls.Add(this.lblQuantit‡);
             this.gbxInfo.Controls.Add(this.txtImposta);
             this.gbxInfo.Controls.Add(this.lblImposta);
             this.gbxInfo.Controls.Add(this.txtImponibile);
@@ -151,23 +153,23 @@
             this.gbxInfo.TabIndex = 0;
             this.gbxInfo.TabStop = false;
             // 
-            // txtQuantit√†
+            // txtQuantit‡
             // 
-            this.txtQuantit√†.Location = new System.Drawing.Point(388, 19);
-            this.txtQuantit√†.Name = "txtQuantit√†";
-            this.txtQuantit√†.Size = new System.Drawing.Size(55, 20);
-            this.txtQuantit√†.TabIndex = 5;
-            this.txtQuantit√†.Tag = "purchasedetail.quantity";
+            this.txtQuantit‡.Location = new System.Drawing.Point(388, 19);
+            this.txtQuantit‡.Name = "txtQuantit‡";
+            this.txtQuantit‡.Size = new System.Drawing.Size(55, 20);
+            this.txtQuantit‡.TabIndex = 5;
+            this.txtQuantit‡.Tag = "purchasedetail.quantity";
             // 
-            // lblQuantit√†
+            // lblQuantit‡
             // 
-            this.lblQuantit√†.AutoSize = true;
-            this.lblQuantit√†.Location = new System.Drawing.Point(335, 22);
-            this.lblQuantit√†.Name = "lblQuantit√†";
-            this.lblQuantit√†.Size = new System.Drawing.Size(47, 13);
-            this.lblQuantit√†.TabIndex = 4;
-            this.lblQuantit√†.Text = "Quantit√†";
-            this.lblQuantit√†.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblQuantit‡.AutoSize = true;
+            this.lblQuantit‡.Location = new System.Drawing.Point(335, 22);
+            this.lblQuantit‡.Name = "lblQuantit‡";
+            this.lblQuantit‡.Size = new System.Drawing.Size(47, 13);
+            this.lblQuantit‡.TabIndex = 4;
+            this.lblQuantit‡.Text = "Quantit‡";
+            this.lblQuantit‡.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtImposta
             // 
@@ -256,8 +258,8 @@
         private System.Windows.Forms.TextBox txtCodiceListino;
         public vistaForm DS;
         private System.Windows.Forms.GroupBox gbxInfo;
-        private System.Windows.Forms.TextBox txtQuantit√†;
-        private System.Windows.Forms.Label lblQuantit√†;
+        private System.Windows.Forms.TextBox txtQuantit‡;
+        private System.Windows.Forms.Label lblQuantit‡;
         private System.Windows.Forms.TextBox txtImposta;
         private System.Windows.Forms.Label lblImposta;
         private System.Windows.Forms.TextBox txtImponibile;

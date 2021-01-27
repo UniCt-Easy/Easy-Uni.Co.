@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_buono_scarico_rc]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_buono_scarico_rc]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_buono_scarico_rc]
 GO
 
@@ -36,7 +38,7 @@ CREATE  PROCEDURE [rpt_buono_scarico_rc]
 AS
 BEGIN
 -- Update che permette di ricavare il corretto numero iniziale di un bene, inquanto con lo stesso numiniziale possono esserci dei beni con denominazioni diverse
--- Update che permette di calcolare le quantità dei beni presenti
+-- Update che permette di calcolare le quantit�dei beni presenti
 -- Eliminazione nella select distinct finale dei campi ninventory,idasset,numcaricoinventario che contraddistinguono beni singoli.
 	
 DECLARE @flagdiscount float   
@@ -516,7 +518,7 @@ UPDATE #asset_unload
 WHERE kind = 'Scarico Bene'
 
 --select 'ammortamenti prima accorpamento cespiti',* from #asset_unload
---Questa update imposta come numero iniziale il minore fra i beni con stesse proprietà 
+--Questa update imposta come numero iniziale il minore fra i beni con stesse propriet�
 UPDATE #asset_unload SET
 startnumber = isnull((select max(b.ninventory) from #asset_unload b where
 		#asset_unload.idassetunloadkind 	= b.idassetunloadkind 
@@ -563,7 +565,7 @@ startnumber = isnull((select max(b.ninventory) from #asset_unload b where
 		#asset_unload.idinv 			= i.idinv and
 		isnull(#asset_unload.assetdescription,'') = isnull(i.assetdescription,'') and
 		#asset_unload.valoreunitario 		= i.valoreunitario and
-		#asset_unload.number			= i.number and	--	<-- quantità 
+		#asset_unload.number			= i.number and	--	<-- quantit�
 		isnull(#asset_unload.idreg,0)		= isnull(i.idreg,0) and
 		isnull(#asset_unload.idlocation,0)	= isnull(i.idlocation,0) and
 		isnull(#asset_unload.idman,0)		= isnull(i.idman ,0)
@@ -1119,4 +1121,3 @@ SET ANSI_NULLS ON
 GO
 
 --rpt_buono_scarico_rc 2014,'I',6,1,2,{d '2014-01-31'},'N'
-	

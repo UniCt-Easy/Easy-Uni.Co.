@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -26,6 +28,8 @@ using funzioni_configurazione;
 using movimentofunctions;
 using System.Globalization;
 using AskInfo;
+using ep_functions;
+using q = metadatalibrary.MetaExpression;
 
 namespace income_wizardestimatedetail {
     /// <summary>
@@ -1418,7 +1422,7 @@ namespace income_wizardestimatedetail {
             if ((newTab < 0) || (newTab > tabController.TabPages.Count)) return;
             if (!CustomChangeTab(oldTab, newTab)) return;
             if (newTab == tabController.TabPages.Count) {
-                if (MessageBox.Show(this, "Si desidera eseguire ancora la procedura",
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si desidera eseguire ancora la procedura",
                     "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     newTab = 1;
                     ResetWizard();
@@ -1456,7 +1460,7 @@ namespace income_wizardestimatedetail {
             if ((oldTab == 1) && (newTab == 2)) {
                 DataRow[] Selected = GetGridSelectedRows(gridDetails);
                 if ((Selected == null) || (GetGridSelectedRows(gridDetails).Length == 0)) {
-                    MessageBox.Show("Non è stato selezionato alcun dettaglio.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stato selezionato alcun dettaglio.");
                     return false;
                 }
                 // Verifico se devo abilitare o meno la digitazione dell'importo
@@ -1507,7 +1511,7 @@ namespace income_wizardestimatedetail {
             if ((oldTab == 3) && (newTab == 4)) {
                 if ((radioNewCont.Checked == false) && (radioNewLinkedMov.Checked == false)
                     && (radioAddCont.Checked == false)) {
-                    MessageBox.Show("Non sarà possibile contabilizzare i dettagli selezionati.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non sarà possibile contabilizzare i dettagli selezionati.");
                     return false;
                 }
                 if (!CheckInfoFin()) return false;
@@ -1515,7 +1519,7 @@ namespace income_wizardestimatedetail {
             }
             if ((oldTab == 4) && (newTab == 5)) {
                 if (!SelezioneMovimentiEffettuata) {
-                    MessageBox.Show("Non è stato selezionato il movimento.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stato selezionato il movimento.");
                     return false;
                 }
                 RecalcDettagliSelezionati();
@@ -1586,7 +1590,7 @@ namespace income_wizardestimatedetail {
             }
 
             if ((FiltraRows(SelectedRows, filter).Count > 0) && (upb1.Length > 2)) {
-                MessageBox.Show(
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     " Ad alcuni dettagli tra quelli selezionati non è stato attribuito l'UPB, ad altri si." +
                     " Selezionare dettagli coerenti");
                 stop = true;
@@ -1607,7 +1611,7 @@ namespace income_wizardestimatedetail {
             if (idreg != DBNull.Value)
                 filteridreg1 = QHC.CmpEq("idreg", idreg);
             else {
-                MessageBox.Show(" Il cliente non è correttamente impostato." +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(" Il cliente non è correttamente impostato." +
                                 " Pertanto non sarà possibile contabilizzare il contratto.");
                 stop = true;
             }
@@ -1679,7 +1683,7 @@ namespace income_wizardestimatedetail {
             GetData.CacheTable(DS.estimatekind, null, "description", true);
             fasecontratto = CfgFn.GetNoNullInt32(Meta.GetSys("estimatephase"));
             if (fasecontratto == 0) {
-                MessageBox.Show("La configurazione della fase di contabilizzazione in entrata " +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La configurazione della fase di contabilizzazione in entrata " +
                                 "non è stata definita per l'esercizio corrente! Non sarà possibile utilizzare questa procedura ",
                     "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 SalvataggioEnabled = false;
@@ -2188,7 +2192,7 @@ namespace income_wizardestimatedetail {
             if (currcausale == 1) {
                 foreach (DataRow r in SelectedRows) {
                     if (r["idupb_iva"].ToString() != r["idupb"].ToString()) {
-                        MessageBox.Show("La contabilizzazione totale non può essere usata su dettagli con upb diverse",
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("La contabilizzazione totale non può essere usata su dettagli con upb diverse",
                             "Avviso");
                         return false;
                     }
@@ -2259,13 +2263,13 @@ namespace income_wizardestimatedetail {
                 radioAddCont.Checked = true;
 
                 if (registry.Length > 1) {
-                    MessageBox.Show(
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
                         "Per aggiungere la contabilizzazione i dettagli selezionati devono avere lo stesso creditore");
                     return false;
                 }
 
                 if (upb.Length > 1) {
-                    MessageBox.Show(
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
                         "Per aggiungere la contabilizzazione i dettagli selezionati devono avere lo stesso UPB");
                     return false;
                 }
@@ -2274,7 +2278,7 @@ namespace income_wizardestimatedetail {
                 // 1. Non esiste un movimento con capienza sufficiente per i dettagli selezionati
                 if (ContabilizzazioniDisponibili.Rows.Count == 0) {
                     //string DescrUpb= Conn.DO_READ_VALUE("upb",filterupb,"title").ToString();
-                    MessageBox.Show("Non esiste un movimento con capienza sufficiente per i dettagli selezionati");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non esiste un movimento con capienza sufficiente per i dettagli selezionati");
                     //" (UPB "+DescrUpb+")"); 
                     AbilitaDisabilitaSelezioneMovimento(false);
                     //DS.Estimatedetail.RejectChanges();
@@ -2286,7 +2290,7 @@ namespace income_wizardestimatedetail {
                 // 2. Sono stati individuati più movimenti per contabilizzare i dettagli selezionati
                 // abilito il tasto di selezione 
                 if (ContabilizzazioniDisponibili.Rows.Count > 1) {
-                    MessageBox.Show(
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
                         "Esistono più movimenti con capienza sufficiente per i dettagli selezionati. selezionare il movimento");
                     //DS.Estimatedetail.RejectChanges();
                     //ClearMovimento();
@@ -2300,7 +2304,7 @@ namespace income_wizardestimatedetail {
                 // 3. E' stato individuato un solo movimento per aggiungere la contabilizzazione,
                 // esso viene collegato automaticamente
                 if (ContabilizzazioniDisponibili.Rows.Count == 1) {
-                    MessageBox.Show("Il movimento è stato determinato automaticamente");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Il movimento è stato determinato automaticamente");
                     AbilitaDisabilitaSelezioneMovimento(false);
                     //DS.Estimatedetail.RejectChanges();
                     //ClearMovimento();
@@ -2716,7 +2720,7 @@ namespace income_wizardestimatedetail {
             }
 
             if (DS.estimate.Rows.Count == 0) {
-                MessageBox.Show("Nessun contratto selezionato", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessun contratto selezionato", "Errore");
                 return false;
             }
             DataRow CurrEstimate = DS.estimate.Rows[0];
@@ -2901,17 +2905,26 @@ namespace income_wizardestimatedetail {
 
         bool doSave() {
             DataSet DSP = DS.Copy();
+            DSP.Tables["estimatedetail"]._safeMergeFromDb(Conn, q.keyCmp(DS.Tables["estimate"].Rows[0]));
             int faseentratamax = CfgFn.GetNoNullInt32(Meta.GetSys("maxincomephase"));
             GestioneAutomatismi ga = new GestioneAutomatismi(this, Meta.Conn, Meta.Dispatcher,
                 DSP, faseentratamax, faseentratamax, "income", true);
             ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
+            
             //ga.GeneraClassificazioniIndirette(ga.DSP, true); lo fa già GeneraClassificazioniAutomatiche
             bool res = ga.GeneraAutomatismiAfterPost(true);
             if (!res) {
-                MessageBox.Show(this,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                     "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
                 return false;
             }
+
+            var metaEstim = Meta.Dispatcher.Get("estimate");
+            metaEstim.DS = ga.dsAuto;
+
+            var EPM = new EP_Manager(metaEstim, null, null, null, null,null, null, null, null, "estimate");
+
+            EPM.beforePost();
             res = ga.doPost(Meta.Dispatcher);
             if (res) ViewAutomatismi(ga.DSP);
             if (!res) {
@@ -3311,7 +3324,7 @@ namespace income_wizardestimatedetail {
             decimal valore = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof (Decimal),
                 T.Text, "x.y.c"));
             if (valore < 0) {
-                MessageBox.Show("Valore non valido");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Valore non valido");
                 T.Focus();
                 return;
             }
@@ -3338,7 +3351,7 @@ namespace income_wizardestimatedetail {
             txtDaIncassare.Text = ImportoDaIncassare.ToString("c");
             
             if (ImportoDaIncassare > ImportoMax) {
-                MessageBox.Show("L'importo da incassare è superiore al totale dei dettagli selezionati");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("L'importo da incassare è superiore al totale dei dettagli selezionati");
                 txtDaIncassare.Text = "";
                 return;
             }
@@ -3659,7 +3672,7 @@ namespace income_wizardestimatedetail {
                     NumberStyles.Number,
                     NumberFormatInfo.CurrentInfo);
                 if ((percent < 0) || (percent > percentmax)) {
-                    MessageBox.Show(errmsg, "Avviso");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(errmsg, "Avviso");
                     T.Focus();
                     OK = false;
                 }
@@ -3668,7 +3681,7 @@ namespace income_wizardestimatedetail {
                 }
             }
             catch {
-                MessageBox.Show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Exclamation);
                 return false;
             }

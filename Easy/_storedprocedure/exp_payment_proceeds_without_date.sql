@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_payment_proceeds_without_date]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_payment_proceeds_without_date]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_payment_proceeds_without_date]
 GO
 
@@ -32,7 +34,7 @@ AS
 BEGIN
 -- Attenzione! le transazioni bancarie considerate sono tutte quelle legate a documenti trasmessi entro la data @date
 -- se invece si vuole vedere tutte le transazioni senza transactiondate bisogna eliminare tale filtro e, contestualmente
--- anche il parametro @date che non servirebbe piÃ¹
+-- anche il parametro @date che non servirebbe più
 SELECT
 	B.yban AS 'Esercizio Transazione',
 	B.nban AS 'Numero Transazione',
@@ -78,4 +80,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

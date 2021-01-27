@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[emens_datiPosContributiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[emens_datiPosContributiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [emens_datiPosContributiva]
 GO 
 
@@ -259,13 +261,13 @@ UPDATE #employ SET surname =
 	REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 	REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 	surname,
-	'√á','c'),'√ß','c'),'‚Ç¨','e'),'|',' '),'\',' '),'¬£',' '),'¬ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'$',' '),
-	'√ñ','o'),'√ú','u'),'√ë','n'),'√ê','d'),'√ä','e'),'√ã','e'),'√é','i'),'√è','i'),'√î','o'),'√ï','o'),'√õ','u'),'√ù','y'),
+	'«','c'),'Á','c'),'Ä','e'),'|',' '),'\',' '),'£',' '),'ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'$',' '),
+	'÷','o'),'‹','u'),'—','n'),'–','d'),' ','e'),'À','e'),'Œ','i'),'œ','i'),'‘','o'),'’','o'),'€','u'),'›','y'),
 	':',' '),';',' '),'<',' '),'=',' '),'>',' '),'?',' '),']',' '),'_',' '),'`',' '),'{',' '),'}',' '),'~',' '),
-	'√º','u'),'√¢','a'),'√§','a'),'√•','a'),'√™','e'),'√´','e'),'√Ø','i'),'√Æ','i'),'√Ñ','a'),'√Ö','a'),'√¥','o'),'√∂','o'),
-	'√ª','u'),'√ø','y'),'√±','n'),'√Ç','a'),'¬•','y'),'√£','a'),'√É','a'),'√µ','o'),'√Ω','y'),
-	'√©','e'''),'√†','a'''),'√®','e'''),'√¨','i'''),'√≤','o'''),'√π','u'''),'√°','a'''),'√≠','i'''),'√≥','o'''),'√â','e'''),
-	'√Å','a'''),'√Ä','a'''),'√à','e'''),'√ç','i'''),'√å','i'''),'√ì','o'''),'√í','o'''),'√ö','u'''),'√ô','u'''),
+	'¸','u'),'‚','a'),'‰','a'),'Â','a'),'Í','e'),'Î','e'),'Ô','i'),'Ó','i'),'ƒ','a'),'≈','a'),'Ù','o'),'ˆ','o'),
+	'˚','u'),'ˇ','y'),'Ò','n'),'¬','a'),'•','y'),'„','a'),'√','a'),'ı','o'),'˝','y'),
+	'È','e'''),'‡','a'''),'Ë','e'''),'Ï','i'''),'Ú','o'''),'˘','u'''),'·','a'''),'Ì','i'''),'Û','o'''),'…','e'''),
+	'¡','a'''),'¿','a'''),'»','e'''),'Õ','i'''),'Ã','i'''),'”','o'''),'“','o'''),'⁄','u'''),'Ÿ','u'''),
 	1,@maxlensurname),
 	firstname = 
 	SUBSTRING(
@@ -277,13 +279,13 @@ UPDATE #employ SET surname =
 	REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 	REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 	firstname,
-	'√á','c'),'√ß','c'),'‚Ç¨','e'),'|',' '),'\',' '),'¬£',' '),'¬ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'$',' '),
-	'√ñ','o'),'√ú','u'),'√ë','n'),'√ê','d'),'√ä','e'),'√ã','e'),'√é','i'),'√è','i'),'√î','o'),'√ï','o'),'√õ','u'),'√ù','y'),
+	'«','c'),'Á','c'),'Ä','e'),'|',' '),'\',' '),'£',' '),'ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'$',' '),
+	'÷','o'),'‹','u'),'—','n'),'–','d'),' ','e'),'À','e'),'Œ','i'),'œ','i'),'‘','o'),'’','o'),'€','u'),'›','y'),
 	':',' '),';',' '),'<',' '),'=',' '),'>',' '),'?',' '),']',' '),'_',' '),'`',' '),'{',' '),'}',' '),'~',' '),
-	'√º','u'),'√¢','a'),'√§','a'),'√•','a'),'√™','e'),'√´','e'),'√Ø','i'),'√Æ','i'),'√Ñ','a'),'√Ö','a'),'√¥','o'),'√∂','o'),
-	'√ª','u'),'√ø','y'),'√±','n'),'√Ç','a'),'¬•','y'),'√£','a'),'√É','a'),'√µ','o'),'√Ω','y'),
-	'√©','e'''),'√†','a'''),'√®','e'''),'√¨','i'''),'√≤','o'''),'√π','u'''),'√°','a'''),'√≠','i'''),'√≥','o'''),'√â','e'''),
-	'√Å','a'''),'√Ä','a'''),'√à','e'''),'√ç','i'''),'√å','i'''),'√ì','o'''),'√í','o'''),'√ö','u'''),'√ô','u'''),
+	'¸','u'),'‚','a'),'‰','a'),'Â','a'),'Í','e'),'Î','e'),'Ô','i'),'Ó','i'),'ƒ','a'),'≈','a'),'Ù','o'),'ˆ','o'),
+	'˚','u'),'ˇ','y'),'Ò','n'),'¬','a'),'•','y'),'„','a'),'√','a'),'ı','o'),'˝','y'),
+	'È','e'''),'‡','a'''),'Ë','e'''),'Ï','i'''),'Ú','o'''),'˘','u'''),'·','a'''),'Ì','i'''),'Û','o'''),'…','e'''),
+	'¡','a'''),'¿','a'''),'»','e'''),'Õ','i'''),'Ã','i'''),'”','o'''),'“','o'''),'⁄','u'''),'Ÿ','u'''),
 	1,@maxlenfirstname)
 
 IF @parentsp = 'E'
@@ -340,4 +342,3 @@ GO
 
   --exec emens_datiPosContributiva 2016, 3, 3,'E',{ts '2016-03-31 00:00:00'}
   --exec emens_datiPosContributiva 2015, 1, 12,'E',{ts '2015-12-31 00:00:00'}
-	

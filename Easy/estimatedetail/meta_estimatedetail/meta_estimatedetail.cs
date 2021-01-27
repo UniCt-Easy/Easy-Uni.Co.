@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -30,6 +32,7 @@ namespace meta_estimatedetail {
             EditTypes.Add("single");
             EditTypes.Add("default");
             ListingTypes.Add("lista");
+            ListingTypes.Add("listacollegati");
             ListingTypes.Add("default");
             ListingTypes.Add("dettaglio");
             ListingTypes.Add("contabilizza");
@@ -38,6 +41,7 @@ namespace meta_estimatedetail {
         public override DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
             RowChange.SetSelector(T, "yestim");
             RowChange.SetSelector(T, "nestim");
+            RowChange.setMinimumTempValue(T.Columns["nestim"],999000);
             RowChange.SetSelector(T, "idestimkind");
             RowChange.MarkAsAutoincrement(T.Columns["rownum"], null, null, 6);
             RowChange.MarkAsAutoincrement(T.Columns["idgroup"], null, null, 6); //sa
@@ -69,9 +73,27 @@ namespace meta_estimatedetail {
             return null;
         }
 
+        public override bool FilterRow(DataRow R, string list_type){
+            if (list_type == "lista"){
+                if (R["rownum_main"] != DBNull.Value) return false;
+                return true;
+            }
+            if (list_type == "listacollegati"){
+                if (R["rownum_main"] == DBNull.Value) return false;
+                //Consente di visualizzare i dettagli annullati collegati, nel grid di sotto.
+                object MainRownum = R.Table.ExtendedProperties["rownum"];
+                if (MainRownum != null){
+                    if (R["rownum_main"].ToString() != MainRownum.ToString()) return false;
+                }
+                return true;
+            }
+
+            return true;
+        }
+
         public override void DescribeColumns(DataTable T, string listtype) {
             base.DescribeColumns(T, listtype);
-            if (listtype == "lista") {
+            if ((listtype == "lista")|| (listtype == "listacollegati")) {
                 foreach (DataColumn C in T.Columns)
                     DescribeAColumn(T, C.ColumnName, "", -1);
                 int nPos = 1;
@@ -100,6 +122,7 @@ namespace meta_estimatedetail {
                 DescribeAColumn(T, "!registry", "Fornitore", "registry.title", nPos++);
                 DescribeAColumn(T, "epkind", ".Tipo EP", nPos++);
                 ComputeRowsAs(T, listtype);
+                FilterRows(T);
             }
 
             if (listtype == "default") {
@@ -137,6 +160,7 @@ namespace meta_estimatedetail {
                     DescribeAColumn(T, C.ColumnName, "", -1);
                 int nPos = 1;
                 DescribeAColumn(T, "idestimkind", ".idestimkind", nPos++);
+                DescribeAColumn(T, "!estimkind", "Tipo Contratto", nPos++);
                 DescribeAColumn(T, "yestim", "Esercizio", nPos++);
                 DescribeAColumn(T, "nestim", "Numero", nPos++);
                 DescribeAColumn(T, "rownum", ".rownum", nPos++);

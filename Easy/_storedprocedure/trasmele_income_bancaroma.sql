@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ÔªøSET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -124,7 +126,7 @@ AND npro = @n) = 0)
 BEGIN
 	INSERT INTO #error
 	VALUES('La distinta di trasmissione ' + CONVERT(varchar(4),@y) + '/'
-	+ CONVERT(varchar(6),@n) + ' √® vuota')
+	+ CONVERT(varchar(6),@n) + ' Ë vuota')
 END
 
 -- CONTROLLO N. 1. Presenza dei dati dell'ente
@@ -153,14 +155,14 @@ END
 IF (DATALENGTH(@cod_department) > @len_agencycode)
 BEGIN
 	INSERT INTO #error
-	VALUES ('Il codice Ente inserito √® superiore alla lunghezza massima fissata a '
+	VALUES ('Il codice Ente inserito Ë superiore alla lunghezza massima fissata a '
 	+ CONVERT(varchar(2),@len_agencycode))
 END
 
 IF (DATALENGTH(@cod_filiale) > @len_codfiliale)
 BEGIN
 	INSERT INTO #error
-	VALUES ('Il codice Filiale inserito √® superiore alla lunghezza massima fissata a '
+	VALUES ('Il codice Filiale inserito Ë superiore alla lunghezza massima fissata a '
 	+ CONVERT(varchar(2),@len_codfiliale))
 END
 
@@ -326,7 +328,7 @@ END
 
 INSERT INTO #error (message)
 SELECT 'Il movimento di spesa n. ' + CONVERT(varchar(6), expense.nmov) + '/' + CONVERT(varchar(4), expense.ymov) +
-' non √® correttamente classificato'
+' non Ë correttamente classificato'
 FROM expense
 JOIN #allexpense
 	ON #allexpense.idexp = expense.idexp
@@ -342,7 +344,7 @@ ISNULL(
 
 INSERT INTO #error (message)
 SELECT 'Il movimento di entrata n. ' + CONVERT(varchar(6), income.nmov) + '/' + CONVERT(varchar(4), income.ymov) +
-' non √® correttamente classificato'
+' non Ë correttamente classificato'
 FROM income
 JOIN #allincome
 	ON #allincome.idinc = income.idinc
@@ -705,7 +707,7 @@ CASE
 	ELSE 'C'
 END
 
--- Inizio Controllo aggiunto su richiesta della Bca Roma anche se nelle specifiche non √® specificato con l'avallo di francesco
+-- Inizio Controllo aggiunto su richiesta della Bca Roma anche se nelle specifiche non Ë specificato con l'avallo di francesco
 DECLARE @cfente varchar(16)
 SELECT @cfente = 
 CASE
@@ -725,7 +727,7 @@ SET @limitcfnull = 5164.57
 
 INSERT INTO #error
 SELECT 'Nella reversale ' + CONVERT(varchar(6), ndoc) + ' i movimenti imputati al versante ' + ISNULL(registry.title,'XXX') + 
-' non possono essere trasmessi in quanto bisogna specificare il C.F. (P. IVA) in quanto l''importo degli stessi √® superiore a '
+' non possono essere trasmessi in quanto bisogna specificare il C.F. (P. IVA) in quanto l''importo degli stessi Ë superiore a '
 + CONVERT (varchar(20), @limitcfnull) + '. Impostare il c.f./p. iva'
 FROM #final
 LEFT OUTER JOIN registry
@@ -943,7 +945,7 @@ SELECT
 		WHEN fulfilled = 'S' THEN SPACE(@len_address)
 		ELSE address_ver
 	END +
-	-- Localit√† Debitore
+	-- Localit‡ Debitore
 	CASE
 		WHEN fulfilled = 'S' THEN SPACE(@len_location)
 		ELSE location_ver
@@ -953,7 +955,7 @@ SELECT
 		WHEN fulfilled = 'S' THEN SPACE(@len_province)
 		ELSE province_ver
 	END +
-	-- Localit√† Nascita Debitore
+	-- Localit‡ Nascita Debitore
 	CASE
 		WHEN fulfilled = 'S' THEN SPACE(@len_location)
 		ELSE birthplace_ver
@@ -968,7 +970,7 @@ SELECT
 		WHEN fulfilled = 'S' THEN SPACE(@len_cap)
 		ELSE cap_ver
 	END + 
-	-- Modalit√† Incasso
+	-- Modalit‡ Incasso
 	'01' +
 	-- Importo Debitore
 	REPLICATE('0',1 + @len_amount - 
@@ -1016,12 +1018,12 @@ REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(
 out_str,
-'√á','c'),'√ß','c'),'‚Ç¨','e'),'|',' '),'\',' '),'¬£',' '),'¬ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'√ô','u'),
-'√ñ','o'),'√ú','u'),'√ë','n'),'√ê','d'),'√ä','e'),'√ã','e'),'√é','i'),'√è','i'),'√î','o'),'√ï','o'),'√õ','u'),'√ù','y'),
-']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'√º','u'),'√¢','a'),'√§','a'),'√•','a'),'√™','e'),'√´','e'),'√Ø','i'),
-'√Æ','i'),'√Ñ','a'),'√Ö','a'),'√¥','o'),'√∂','o'),'√ª','u'),'√ø','y'),'√±','n'),'√Ç','a'),'¬•','y'),'√£','a'),'√É','a'),
-'√µ','o'),'√Ω','y'),'√©','e'),'√†','a'),'√®','e'),'√¨','i'),'√≤','o'),'√π','u'),'√°','a'),'√≠','i'),'√≥','o'),'√â','e'),
-'√Å','a'),'√Ä','a'),'√à','e'),'√ç','i'),'√å','i'),'√ì','o'),'√í','o'),'√ö','u'),
+'«','c'),'Á','c'),'Ä','e'),'|',' '),'\',' '),'£',' '),'ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'Ÿ','u'),
+'÷','o'),'‹','u'),'—','n'),'–','d'),' ','e'),'À','e'),'Œ','i'),'œ','i'),'‘','o'),'’','o'),'€','u'),'›','y'),
+']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'¸','u'),'‚','a'),'‰','a'),'Â','a'),'Í','e'),'Î','e'),'Ô','i'),
+'Ó','i'),'ƒ','a'),'≈','a'),'Ù','o'),'ˆ','o'),'˚','u'),'ˇ','y'),'Ò','n'),'¬','a'),'•','y'),'„','a'),'√','a'),
+'ı','o'),'˝','y'),'È','e'),'‡','a'),'Ë','e'),'Ï','i'),'Ú','o'),'˘','u'),'·','a'),'Ì','i'),'Û','o'),'…','e'),
+'¡','a'),'¿','a'),'»','e'),'Õ','i'),'Ã','i'),'”','o'),'“','o'),'⁄','u'),
 CHAR(9),' '),CHAR(10),' '),CHAR(13),' ')
 
 SELECT out_str FROM #trace
@@ -1036,4 +1038,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

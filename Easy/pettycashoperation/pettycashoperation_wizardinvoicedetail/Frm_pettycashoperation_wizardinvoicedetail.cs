@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -151,7 +153,7 @@ namespace pettycashoperation_wizardinvoicedetail{
                 // Sono sempre tutti selezionati
                 if ((Selected == null) || (Selected.Length == 0))
                 {
-                    MessageBox.Show("Selezionare la fattura da elaborare.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Selezionare la fattura da elaborare.");
                     return false;
                 }
                 SetGridAndInfo();
@@ -475,7 +477,7 @@ namespace pettycashoperation_wizardinvoicedetail{
                 DataRow[] IvaKind = DS.ivakind.Select(QHC.CmpEq("idivakind", Curr["idivakind"]));
                 if (IvaKind.Length == 0)
                 {
-                    MessageBox.Show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
                     return;
                 }
                 double imponibile = CfgFn.GetNoNullDouble(Curr["taxable"]);
@@ -650,7 +652,7 @@ namespace pettycashoperation_wizardinvoicedetail{
                     btnInserisciClassificazioni.Visible = false;
                 }
                 else{
-                    MessageBox.Show(this, "Procedere con l'inserimento delle Classificazioni.","Avviso");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Procedere con l'inserimento delle Classificazioni.","Avviso");
                     btnInserisciClassificazioni.Visible = true ;
                 }
             }
@@ -717,7 +719,7 @@ namespace pettycashoperation_wizardinvoicedetail{
 
             Post.InitClass(DS, Meta.Conn);
             if (!Post.DO_POST()){
-                MessageBox.Show(this, "Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
                 return false;
             }
             else{
@@ -739,7 +741,7 @@ namespace pettycashoperation_wizardinvoicedetail{
                 string filterpcash = "(idpettycash=" + QueryCreator.quotedstrvalue(idpettycash, false) + ")";
                 DataRow[] PettyCash = DS.pettycashsetup.Select(filterpcash);
                 if (PettyCash.Length == 0){
-                    MessageBox.Show("Non Ë stata inserita la configuraz. del fondo economale per quest'anno");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stata inserita la configuraz. del fondo economale per quest'anno");
                     return;
                 }
                 DataRow rPettyCash = PettyCash[0];
@@ -755,12 +757,12 @@ namespace pettycashoperation_wizardinvoicedetail{
                 object idacc_registry = EP.GetSupplierAccountForRegistry(null, idreg);
 
                 if (idacc_registry == null || idacc_registry.ToString() == ""){
-                    MessageBox.Show("Non Ë stato configurato il conto di debito/credito opportuno");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stato configurato il conto di debito/credito opportuno");
                     return;
                 }
 
                 if (idaccmot_debit == DBNull.Value){
-                    MessageBox.Show("Non Ë stata impostata la causale di debito. Sar‡ usata una causale di debito standard.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stata impostata la causale di debito. Sar‡ usata una causale di debito standard.");
                 }
 
                 foreach (DataRow Curr in DS.pettycashoperation.Rows){
@@ -817,14 +819,14 @@ namespace pettycashoperation_wizardinvoicedetail{
          private void btnModificaInfo_Click(object sender, EventArgs e){
             DataRow RigaSelezionata = GetGridSelectedRow(gridInfo);
             if (RigaSelezionata == null) {
-                MessageBox.Show("Selezionare un dettaglio.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Selezionare un dettaglio.");
                 return;
             }
 
             object idpettycash = cmbFondoPS.SelectedValue;
 
             if (idpettycash == null) {
-                MessageBox.Show("Selezionare il fondo");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Selezionare il fondo");
                 return;
             }
             decimal importo = CfgFn.GetNoNullDecimal(RigaSelezionata["amount"]);
@@ -900,7 +902,7 @@ namespace pettycashoperation_wizardinvoicedetail{
 
             object idpettycash = cmbFondoPS.SelectedValue;
             if (idpettycash == null) {
-                MessageBox.Show("Selezionare il fondo");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Selezionare il fondo");
                 return;
             }
             decimal importoRimasto = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal), txtRimasto.Text, "x.y.c"));
@@ -950,7 +952,7 @@ namespace pettycashoperation_wizardinvoicedetail{
             DataRow RigaSelezionata = GetGridSelectedRow(gridInfo);
             
             if (RigaSelezionata == null)     {
-                MessageBox.Show("Selezionare un dettaglio.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Selezionare un dettaglio.");
                 return;
             }
             RigaSelezionata.Delete();
@@ -959,17 +961,17 @@ namespace pettycashoperation_wizardinvoicedetail{
 
         bool InfoComplete(){
             if (cmbFondoPS.SelectedIndex < 0){
-                MessageBox.Show(this, "Scegliere un Fondo Economale", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Scegliere un Fondo Economale", "Errore");
                 return false;
             }
             if (txtDescrizione.Text.Trim() == ""){
-                MessageBox.Show(this, "Inserire una Descrizione", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire una Descrizione", "Errore");
                 return false;
             }
 
             decimal importoRimasto = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal), txtRimasto.Text, "x.y.c"));
             if (importoRimasto > 0){
-                MessageBox.Show(this, "L'importo della fattura non Ë stato completamente attribuito. E' presente un importo residuo.", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'importo della fattura non Ë stato completamente attribuito. E' presente un importo residuo.", "Errore");
                 return false;
             }
 
@@ -990,7 +992,7 @@ namespace pettycashoperation_wizardinvoicedetail{
         bool LimiteImportoRaggiunto() {
             decimal rimasto = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal), txtRimasto.Text, "x.y.c"));
             if (rimasto == 0){
-                MessageBox.Show("Non Ë possibile aggiungere ulteriori dettagli. La somma dei dettagli inseriti Ë pari al Totale Fattura");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë possibile aggiungere ulteriori dettagli. La somma dei dettagli inseriti Ë pari al Totale Fattura");
                 return true;
             }
             return false;

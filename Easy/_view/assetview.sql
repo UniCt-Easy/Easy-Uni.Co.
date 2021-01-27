@@ -1,25 +1,27 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- CREAZIONE VISTA assetview
+
+-- CREAZIONE VISTA assetview
 IF EXISTS(select * from sysobjects where id = object_id(N'[assetview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [assetview]
 GO
  
 -- E vanno RIMOSSI dalla vista i campi relativi al manager/submanager/ubicaz. INIZIALE ossia quelli con la join alle righe con start null
---vanno invece lasciati i campi sui dati "correnti", usando i nuovi campi di ASSET  e non pi√π le subquery
+--vanno invece lasciati i campi sui dati "correnti", usando i nuovi campi di ASSET  e non pi˘ le subquery
 --vanno aggiunti poi degli indici sui 3 nuovi campi di asset
 
 --setuser 'amm'
@@ -354,7 +356,7 @@ AS SELECT
 				)
 		,0)
 	------------------------------------------------------------------------------------------
-	-- Sottrae gli accessori scaricati caricati come posseduti e gi√† inclusi nel cespite -----
+	-- Sottrae gli accessori scaricati caricati come posseduti e gi‡ inclusi nel cespite -----
 	------------------------------------------------------------------------------------------	
 	-
 	CASE	WHEN asset.idpiece=1 THEN
@@ -488,4 +490,3 @@ GO
 
 
  
-	

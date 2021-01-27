@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_sit_residui_impgiur_per_anno]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_sit_residui_impgiur_per_anno]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_sit_residui_impgiur_per_anno]
 GO
 
@@ -28,7 +30,7 @@ CREATE  PROCEDURE [rpt_sit_residui_impgiur_per_anno]
 	@showchildupb 	char(1)
 AS
 BEGIN
--- Questa stampa √® sviluppata SOLO per l'amministrazione di BARI
+-- Questa stampa Ë sviluppata SOLO per l'amministrazione di BARI
 DECLARE @finphase		tinyint
 DECLARE @cash_phase		tinyint
 DECLARE @idupboriginal 		varchar(36)
@@ -77,7 +79,7 @@ WHERE 	ayear = @ayear
 
 DECLARE @finallocation tinyint
 SELECT @finallocation = 1
-SELECT @finphase = 3 --	<<<<<<	Questa √® l'ipotesi fondamentale di questa stampa
+SELECT @finphase = 3 --	<<<<<<	Questa Ë l'ipotesi fondamentale di questa stampa
 SELECT @cash_phase = MAX(nphase)
 FROM expensephase
 
@@ -631,4 +633,3 @@ END
 
 GO
 
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_asset_RM2]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_asset_RM2]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_asset_RM2]
 GO
 
@@ -184,7 +186,7 @@ SELECT
 	'C',	-- Tipo buono
 	assetload.adate ,
 	assetacquire.description,
-	'A',	--'P',   Tipo operazione: carico accessorio. Per Roma √® stato messo A
+	'A',	--'P',   Tipo operazione: carico accessorio. Per Roma Ë stato messo A
 	codeinv,
 	-- valore attuale
 		ROUND(ISNULL(assetacquire.taxable, 0)
@@ -350,7 +352,7 @@ SELECT
 	'S',	-- Tipo buono
 	assetunload.adate ,
 	assetacquire.description,
-	'D',	--'P',	Tipo operazione:scarico accessorio. Per Roma √® stato messo D
+	'D',	--'P',	Tipo operazione:scarico accessorio. Per Roma Ë stato messo D
 	codeinv,
 	ROUND(ISNULL(assetacquire.taxable, 0)
 	  * (1 - CONVERT(decimal(19,3),ISNULL(assetacquire.discount,0))),2)
@@ -690,4 +692,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

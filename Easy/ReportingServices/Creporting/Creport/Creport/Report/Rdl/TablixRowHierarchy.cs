@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªønamespace Creport.Report.Rdl {
+
+namespace Creport.Report.Rdl {
     public class TablixRowHierarchy :ParentOf<TablixMembers> {
         public TablixRowHierarchy(TablixMembers item)
             : base(item) {
@@ -170,7 +172,7 @@
 
 
         /// <summary>
-        /// Genera una gerarchia sulle righe in base all'elemento passato Con funzione di visiblit√†. inch = distanza tra le righe. Personalizzabile il valore da visualizzare font = dimensione del font, ,fontweight = spessore, color = colore, format = formato, hide = true nascondi
+        /// Genera una gerarchia sulle righe in base all'elemento passato Con funzione di visiblit‡. inch = distanza tra le righe. Personalizzabile il valore da visualizzare font = dimensione del font, ,fontweight = spessore, color = colore, format = formato, hide = true nascondi
         /// </summary>
         /// <param name="GroupByElement">ElementProperty.Id1 or null</param>
         /// <param name="SortByElement">ElementProperty.Id1 or null</param>
@@ -299,7 +301,7 @@
 
 
         /// <summary>
-        /// Genera una gerarchia sulle righe in base all'elemento passato Con funzione di drilldown. inch = distanza tra le colonne. Personalizzabile il valore da visualizzare,inch distanza tra le righe font = dimensione del font, ,fontweight = spessore, color = colore, format = formato, visibility = espressione di visibilit√†, itemtoggle = oggetto del drilltown
+        /// Genera una gerarchia sulle righe in base all'elemento passato Con funzione di drilldown. inch = distanza tra le colonne. Personalizzabile il valore da visualizzare,inch distanza tra le righe font = dimensione del font, ,fontweight = spessore, color = colore, format = formato, visibility = espressione di visibilit‡, itemtoggle = oggetto del drilltown
         /// </summary>
         /// <param name="GroupByElement">ElementProperty.Id1 or null</param>
         /// <param name="SortByElement">ElementProperty.Id1 or null</param>

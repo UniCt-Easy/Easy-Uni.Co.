@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_bancodinapoli_var]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_bancodinapoli_var]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_income_bancodinapoli_var]
 GO
 
@@ -117,8 +119,8 @@ BEGIN
 	SELECT @idtreasurer = MAX(idtreasurer) FROM treasurer
 END
 
-DECLARE @opkind char(2) -- Pu√≤ assumere i valori I, A, S, N (vedere specifiche tracciato)
-SET @opkind = 'I ' -- Attualmente pu√≤ assumere solamente valore ' I'
+DECLARE @opkind char(2) -- PuÚ assumere i valori I, A, S, N (vedere specifiche tracciato)
+SET @opkind = 'I ' -- Attualmente puÚ assumere solamente valore ' I'
 
 
 DECLARE @len_desc_proceeds int
@@ -198,7 +200,7 @@ WHERE kproceedstransmission = @k) = 0)
 BEGIN
 	INSERT INTO #error
 	VALUES('La distinta di trasmissione ' + CONVERT(varchar(4),@y) + '/'
-	+ CONVERT(varchar(6),@n) + ' √® vuota')
+	+ CONVERT(varchar(6),@n) + ' Ë vuota')
 END
 
 -- CONTROLLO N. 1. Presenza dei dati dell'ente
@@ -226,7 +228,7 @@ END
 IF (DATALENGTH(@cod_department) > @len_agencycode)
 BEGIN
 	INSERT INTO #error
-	VALUES ('Il codice Ente inserito √® superiore alla lunghezza massima fissata a '
+	VALUES ('Il codice Ente inserito Ë superiore alla lunghezza massima fissata a '
 	+ CONVERT(varchar(2),@len_agencycode))
 END
 
@@ -267,7 +269,7 @@ CREATE TABLE #trace
 -- Tabella degli incassi
 CREATE TABLE #proceeds
 (
-	opkind char(2), -- Pu√≤ assumere i valori A o VB
+	opkind char(2), -- PuÚ assumere i valori A o VB
 	yproceedstransmission int,
 	nproceedstransmission int,
 	ydoc int,
@@ -310,8 +312,8 @@ CREATE TABLE #proceeds
 -- ATTENZIONE! Bisogna importare tutti i mov. di spesa associati ai mandati associati alle reversali
 -- che stiamo processando in quanto bisogna assegnare il progressivo del beneficiario che deve necessariamente
 -- corrispondere a quello calcolato nella SP inerente i pagamenti. Diversamente si ha che i riferimenti verrebbero
--- ricalcolati in modo differente. C'√® un problema, nel caso in cui si decida di inserire successivamente
--- dei mov. di spesa nel mandato, in tal caso probabilmente il progressivo beneficiario pu√≤ cambiare.
+-- ricalcolati in modo differente. C'Ë un problema, nel caso in cui si decida di inserire successivamente
+-- dei mov. di spesa nel mandato, in tal caso probabilmente il progressivo beneficiario puÚ cambiare.
 CREATE TABLE #payment
 (
 	ydoc int,
@@ -437,8 +439,8 @@ SELECT
 	END,
 	CASE
 		WHEN ctc.flaghuman = 'N' AND c.p_iva IS NOT NULL AND ASCII(SUBSTRING(c.p_iva,1,1)) NOT BETWEEN 48 AND 57
-		-- Se √® straniera la copiamo tale e quale. Se √® straniera non dobbiamo manipolarla aggiungendo zeri iniziali.
-		-- Quando verrr√† inserita nel Record PR verr√† interrogata nuovamente.		
+		-- Se Ë straniera la copiamo tale e quale. Se Ë straniera non dobbiamo manipolarla aggiungendo zeri iniziali.
+		-- Quando verrr‡ inserita nel Record PR verr‡ interrogata nuovamente.		
 		THEN c.p_iva 
 		WHEN ctc.flaghuman = 'N' AND c.p_iva IS NOT NULL
 		THEN SUBSTRING(REPLICATE('0',@len_pi),1,@len_pi - 
@@ -522,13 +524,13 @@ WHERE d.kpro IN (SELECT kpro FROM #proceedsvar) --> Solo le reversali variati di
 		-- Per gli annulli prendiamo solo i SUB non esitati
 		( (select count(*) FROM #proceedsvar where varsiope = 'N')>=1 AND ISNULL((SELECT SUM(amount) FROM banktransaction WHERE yban = @y AND idinc = il.idinc),0) = 0 )
 		OR
-		-- Per le var siope tutti i SUB esitati e non, purch√® abbiano subito della var. Siope
+		-- Per le var siope tutti i SUB esitati e non, purchË abbiano subito della var. Siope
 		(select count(*) FROM #proceedsvar where varsiope = 'S')>=1 AND il.idinc in (select idinc FROM #proceedsvar)
 		)
 
 ---INSERISCO GLI INCASSI VIRTUALI OTTENUTI DAGLI INCASSI A REGOLARIZZAZIONE DI SOSPESI 
--- L'incasso reale sar√† suddiviso in due tranches, uno di importo parti al sospeso e non collegato alla spesa
--- l'altro sar√† un incasso virtuale  collegato alla spesa (in modo da ottenere complessivamente saldo zero ) e con idpro
+-- L'incasso reale sar‡ suddiviso in due tranches, uno di importo parti al sospeso e non collegato alla spesa
+-- l'altro sar‡ un incasso virtuale  collegato alla spesa (in modo da ottenere complessivamente saldo zero ) e con idpro
 -- fittizio pari a 2 (obblighiamo a fare le reversali singole in tali casi)
 INSERT INTO #proceeds
 (
@@ -568,7 +570,7 @@ SELECT
 -- Partita Iva estera
 	CASE
 		WHEN ctc.flaghuman = 'N' AND c.p_iva IS NOT NULL AND ASCII(SUBSTRING(c.p_iva,1,1)) NOT BETWEEN 48 AND 57
-		-- Se √® straniera la copiamo tale e quale. Quando verrr√† inserita nel Record MP verr√† interrogata nuovamente.		
+		-- Se Ë straniera la copiamo tale e quale. Quando verrr‡ inserita nel Record MP verr‡ interrogata nuovamente.		
 		THEN c.p_iva
 		ELSE NULL
 	END,
@@ -647,7 +649,7 @@ AND  d.kpro IN (SELECT kpro FROM #proceedsvar) --> Solo le reversali variati di 
 		-- Per gli annulli prendiamo solo i SUB non esitati
 		( (select count(*) FROM #proceedsvar where varsiope = 'N')>=1 AND ISNULL((SELECT SUM(amount) FROM banktransaction WHERE yban = @y AND idinc = il.idinc),0) = 0 )
 		OR
-		-- Per le var siope tutti i SUB esitati e non, purch√® abbiano subito della var. Siope
+		-- Per le var siope tutti i SUB esitati e non, purchË abbiano subito della var. Siope
 		(select count(*) FROM #proceedsvar where varsiope = 'S')>=1 AND il.idinc in (select idinc FROM #proceedsvar)
 		)
 
@@ -663,7 +665,7 @@ DECLARE @max_count_idpro int
 SET @max_count_idpro   = 500
 
 INSERT INTO #error (message)
-SELECT 'La reversale d''incasso n¬∞ ' + CONVERT(varchar(6),p.ndoc) + '/' + CONVERT(varchar(4),p.ydoc) 
+SELECT 'La reversale d''incasso n∞ ' + CONVERT(varchar(6),p.ndoc) + '/' + CONVERT(varchar(4),p.ydoc) 
 + ' contiene un numero di versanti superiore a ' + CONVERT(varchar(4),@max_count_idpro)
 + ' Si consiglia di controllare gli incassi contenuti nella reversale.'
 FROM #proceeds p
@@ -720,7 +722,7 @@ UPDATE #proceeds SET CUP = ISNULL(cupcodeincome,  ISNULL(cupcodeupb, ISNULL(cupc
 --  Controllo sui  CUP 
  
 INSERT INTO #error (message)
-SELECT DISTINCT 'La reversale di incasso n¬∞ ' + CONVERT(varchar(6),p.ndoc) + '/' + CONVERT(varchar(4),p.ydoc) 
+SELECT DISTINCT 'La reversale di incasso n∞ ' + CONVERT(varchar(6),p.ndoc) + '/' + CONVERT(varchar(4),p.ydoc) 
 + ' contiene l''incasso ' 
 + CONVERT(varchar(6),i.nmov) + '/' + CONVERT(varchar(4),i.ymov)  + ' raggruppato con altri ' 
 + ' che tuttavia sono ora distinguibili per il CUP. ' 
@@ -890,7 +892,7 @@ WHERE #proceeds.province_ver IS NULL
 
 -- Unificazione descrizioni di incasso per movimenti di entrata che sono stati accorpati
 UPDATE #proceeds
-SET proceedsdescr = 'ACCORPAMENTO INCASSI' -- + SPACE(350)--La formattazione l'ho postata alla fine, perch√® deve scrivere anche il CUP, ponendolo come prima info del campo 'casuale riscossione'
+SET proceedsdescr = 'ACCORPAMENTO INCASSI' -- + SPACE(350)--La formattazione l'ho postata alla fine, perchË deve scrivere anche il CUP, ponendolo come prima info del campo 'casuale riscossione'
 WHERE
 	(SELECT COUNT(*)
 	FROM #proceeds i2
@@ -978,7 +980,7 @@ WHERE #siope.flagpendingincome  = 'S' and #siope.idpro = 1
 UPDATE #siope SET amount= isnull(#siope.amount,0) * (isnull(#siope.amount_expense,0)/isnull(#siope.curramount,0))
 WHERE #siope.flagpendingincome  = 'S' and #siope.idpro = 2
 
--- L'incasso virtuale viene modificato per quanto attiene il flag a copertura, in quanto non pu√≤ essere agganciato al sospeso,
+-- L'incasso virtuale viene modificato per quanto attiene il flag a copertura, in quanto non puÚ essere agganciato al sospeso,
 -- solo la porzione di importo corrente - spesa accessoria deve figurare a regolarizzazione (idpro 1)
 UPDATE #proceeds SET fulfilled = 'N'
 WHERE #proceeds.flagpendingincome  = 'S' and #proceeds.idpro = 2
@@ -990,13 +992,13 @@ WHERE #proceeds.flagpendingincome  = 'S' and #proceeds.idpro = 1
 UPDATE #proceeds SET curramount= isnull(#proceeds.curramount_expense,0)
 WHERE #proceeds.flagpendingincome  = 'S' and #proceeds.idpro = 2
 
--- CONTROLLO N. 4 Il numero di classificazioni non pu√≤ superare il limite massimo per ogni beneficiario
+-- CONTROLLO N. 4 Il numero di classificazioni non puÚ superare il limite massimo per ogni beneficiario
 --DECLARE @max_sort_number int
 --SET @max_sort_number = 15
 
 --INSERT INTO #error (message)
 --(SELECT 'La reversale n. ' + CONVERT(varchar(6),ndoc) + '/' + CONVERT(varchar(4),ydoc)
---+ ' contiene pi√π di ' + CONVERT(varchar(2),@max_sort_number) + ' classificazioni SIOPE'
+--+ ' contiene pi˘ di ' + CONVERT(varchar(2),@max_sort_number) + ' classificazioni SIOPE'
 --FROM #siope WHERE
 --	(SELECT COUNT(*) FROM #siope s2
 --	WHERE s2.yproceedstransmission = #siope.yproceedstransmission
@@ -1218,7 +1220,7 @@ SELECT
 	DATALENGTH(CONVERT(varchar(15),SUM(curramount)))-3) +
 	SUBSTRING(CONVERT(varchar(15),SUM(curramount)),
 	DATALENGTH(CONVERT(varchar(15),SUM(curramount)))-1,2) +
-	-- Tipo Contabilit√†
+	-- Tipo Contabilit‡
 	'O' +
 	-- Tipo Entrata
 	accountkind +
@@ -1245,7 +1247,7 @@ SELECT
 	@desc_dept +
 	-- address Ente
 	@address_dept +
-	-- Localit√† Ente
+	-- Localit‡ Ente
 	@location_dept +
 	-- Codice Ente
 	@cod_department +
@@ -1284,12 +1286,12 @@ SELECT
 	address_ver +
 	-- C.A.P. Beneficiario
 	cap_ver + 
-	-- Localit√† Beneficiario
+	-- Localit‡ Beneficiario
 	location_ver +
 	-- province Beneficiario
 	province_ver +
-	-- Partita IVA (Se la Partita IVA √® estera valorizzare il campo con 11 nove e contestualmente valorizzare
-	pi_ver + -->  SE Italiana sar√† gi√† stata valorizzata bene nella SELECT iniziale, SE Estera sar√† stata valorizzata con 11 nove. Quindi la leggiamo e basta.
+	-- Partita IVA (Se la Partita IVA Ë estera valorizzare il campo con 11 nove e contestualmente valorizzare
+	pi_ver + -->  SE Italiana sar‡ gi‡ stata valorizzata bene nella SELECT iniziale, SE Estera sar‡ stata valorizzata con 11 nove. Quindi la leggiamo e basta.
 	-- Codice Fiscale
 	cf_ver +
 	-- Flag Incasso Condizionato
@@ -1526,12 +1528,12 @@ REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(
 out_str,
-'√á','c'),'√ß','c'),'‚Ç¨','e'),'|',' '),'\',' '),'¬£',' '),'¬ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'√ô','u'),
-'√ñ','o'),'√ú','u'),'√ë','n'),'√ê','d'),'√ä','e'),'√ã','e'),'√é','i'),'√è','i'),'√î','o'),'√ï','o'),'√õ','u'),'√ù','y'),
-']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'√º','u'),'√¢','a'),'√§','a'),'√•','a'),'√™','e'),'√´','e'),'√Ø','i'),
-'√Æ','i'),'√Ñ','a'),'√Ö','a'),'√¥','o'),'√∂','o'),'√ª','u'),'√ø','y'),'√±','n'),'√Ç','a'),'¬•','y'),'√£','a'),'√É','a'),
-'√µ','o'),'√Ω','y'),'√©','e'),'√†','a'),'√®','e'),'√¨','i'),'√≤','o'),'√π','u'),'√°','a'),'√≠','i'),'√≥','o'),'√â','e'),
-'√Å','a'),'√Ä','a'),'√à','e'),'√ç','i'),'√å','i'),'√ì','o'),'√í','o'),'√ö','u'),'¬∞',' '),
+'«','c'),'Á','c'),'Ä','e'),'|',' '),'\',' '),'£',' '),'ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'Ÿ','u'),
+'÷','o'),'‹','u'),'—','n'),'–','d'),' ','e'),'À','e'),'Œ','i'),'œ','i'),'‘','o'),'’','o'),'€','u'),'›','y'),
+']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'¸','u'),'‚','a'),'‰','a'),'Â','a'),'Í','e'),'Î','e'),'Ô','i'),
+'Ó','i'),'ƒ','a'),'≈','a'),'Ù','o'),'ˆ','o'),'˚','u'),'ˇ','y'),'Ò','n'),'¬','a'),'•','y'),'„','a'),'√','a'),
+'ı','o'),'˝','y'),'È','e'),'‡','a'),'Ë','e'),'Ï','i'),'Ú','o'),'˘','u'),'·','a'),'Ì','i'),'Û','o'),'…','e'),
+'¡','a'),'¿','a'),'»','e'),'Õ','i'),'Ã','i'),'”','o'),'“','o'),'⁄','u'),'∞',' '),
 CHAR(9),' '),CHAR(10),' '),CHAR(13),' ')
 
 SELECT out_str FROM #trace
@@ -1546,4 +1548,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªønamespace no_table_wiz_cfpiva_duplicata {
+
+namespace no_table_wiz_cfpiva_duplicata {
     partial class frmUnisciInformazioni {
         /// <summary>
         /// Variabile di progettazione necessaria.
@@ -124,7 +126,7 @@
             this.tabModPag.Padding = new System.Windows.Forms.Padding(3);
             this.tabModPag.Size = new System.Drawing.Size(1020, 502);
             this.tabModPag.TabIndex = 0;
-            this.tabModPag.Text = "Modalit√† di pagamento";
+            this.tabModPag.Text = "Modalit‡ di pagamento";
             this.tabModPag.UseVisualStyleBackColor = true;
             // 
             // btnChangeRegModeCode
@@ -134,7 +136,7 @@
             this.btnChangeRegModeCode.Name = "btnChangeRegModeCode";
             this.btnChangeRegModeCode.Size = new System.Drawing.Size(157, 23);
             this.btnChangeRegModeCode.TabIndex = 69;
-            this.btnChangeRegModeCode.Text = "Cambia nome modalit√†";
+            this.btnChangeRegModeCode.Text = "Cambia nome modalit‡";
             this.btnChangeRegModeCode.UseVisualStyleBackColor = true;
             this.btnChangeRegModeCode.Click += new System.EventHandler(this.btnChangeRegModeCode_Click);
             // 
@@ -145,7 +147,7 @@
             this.btnImpostaModPagamento.Name = "btnImpostaModPagamento";
             this.btnImpostaModPagamento.Size = new System.Drawing.Size(316, 61);
             this.btnImpostaModPagamento.TabIndex = 68;
-            this.btnImpostaModPagamento.Text = "Imposta per l\'anagrafica scelta le modalit√† selezionate (cancellando eventualment" +
+            this.btnImpostaModPagamento.Text = "Imposta per l\'anagrafica scelta le modalit‡ selezionate (cancellando eventualment" +
     "e quelle esistenti)";
             this.btnImpostaModPagamento.UseVisualStyleBackColor = true;
             this.btnImpostaModPagamento.Click += new System.EventHandler(this.btnImpostaModPagamento_Click);
@@ -360,7 +362,7 @@
             this.btnPIva.Name = "btnPIva";
             this.btnPIva.Size = new System.Drawing.Size(316, 61);
             this.btnPIva.TabIndex = 69;
-            this.btnPIva.Text = "Imposta per l\'anagrafica scelta le modalit√† selezionate (cancellando eventualment" +
+            this.btnPIva.Text = "Imposta per l\'anagrafica scelta le modalit‡ selezionate (cancellando eventualment" +
     "e quelle esistenti)";
             this.btnPIva.UseVisualStyleBackColor = true;
             this.btnPIva.Click += new System.EventHandler(this.btnPIva_Click);

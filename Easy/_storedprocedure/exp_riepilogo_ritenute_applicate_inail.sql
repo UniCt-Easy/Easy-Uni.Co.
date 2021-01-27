@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø--setuser 'amministrazione'
+
+--setuser 'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_riepilogo_ritenute_applicate_inail]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_riepilogo_ritenute_applicate_inail]
 GO
@@ -40,7 +42,7 @@ CREATE  PROCEDURE [exp_riepilogo_ritenute_applicate_inail]
 
 ---------------------------------------------------------------------------------------------------------
 -- IMPORTANTE: 
--- @show_department @show_month gestisce la visualizzazione del Dip. e del mese sar√† 'S' SOLO PER ROMA!!!
+-- @show_department @show_month gestisce la visualizzazione del Dip. e del mese sar‡ 'S' SOLO PER ROMA!!!
 ---------------------------------------------------------------------------------------------------------
 
 
@@ -224,7 +226,7 @@ CREATE TABLE #tax
         monthtaxpay int
 )
 
---        1) Prendere le righe che hanno Data Inizio Validit√† NULL
+--        1) Prendere le righe che hanno Data Inizio Validit‡ NULL
 -- Applica nel periodo
  
 INSERT INTO #tax
@@ -278,13 +280,13 @@ GROUP BY E.idexp,S.nmov, S.ymov, S.npay,S.codefin, S.codeupb,S.idreg,E.taxcode, 
 
 
 
-/*        2) Prendere le righe che hanno Data Inizio Validit√† compresa nel range di date di input        */
+/*        2) Prendere le righe che hanno Data Inizio Validit‡ compresa nel range di date di input        */
 -- Correzioni fatte nel periodo
 
 
  
 
---        3) Prendere le righe che hanno Data Fine Validit√† compresa nel range di date di input;
+--        3) Prendere le righe che hanno Data Fine Validit‡ compresa nel range di date di input;
 -- Annullamenti fatti nel periodo
 
 INSERT INTO #tax(	
@@ -601,8 +603,8 @@ ORDER BY idreg,rowkind,taxcode
 			#spesa.patdescription as 'PAT',
 			#spesa.adminrate as 'AliquotaApplicata', 
 			--#spesa.employrate as 'Aliquota Dip.', 
-			--#spesa.validitystart as 'Inizio Validit√† PAT',
-			--#spesa.validitystop		as 'Inizio Validit√† PAT'
+			--#spesa.validitystart as 'Inizio Validit‡ PAT',
+			--#spesa.validitystop		as 'Inizio Validit‡ PAT'
 			--R.p_iva as 'P.iva',
 			--R.birthdate as 'data Nascita', GC.title as 'Luogo Nascita',
 			--GP.province as 'Prov.Nascita', ISNULL(GN.title,'ITALIA') as 'Stato Nascita',
@@ -611,7 +613,7 @@ ORDER BY idreg,rowkind,taxcode
 			--#output.servicestart as 'Inizio Pres.',
 			--#output.servicestop as 'Fine Prest',
 			--#output.address as 'Indirizzo',
-			--#output.location as 'Localit√†',
+			--#output.location as 'Localit‡',
 			--#output.province as 'Provincia',
 			--#output.nation as 'Stato',
 			--#output.cap as 'CAP',
@@ -668,8 +670,8 @@ ORDER BY idreg,rowkind,taxcode
 			#spesa.patdescription as 'PAT',
 			#spesa.adminrate as 'AliquotaApplicata', 
 			--#spesa.employrate as 'Aliquota Dip.', 
-			--#spesa.validitystart as 'Inizio Validit√† PAT',
-			--#spesa.validitystop		as 'Inizio Validit√† PAT'
+			--#spesa.validitystart as 'Inizio Validit‡ PAT',
+			--#spesa.validitystop		as 'Inizio Validit‡ PAT'
 			--R.p_iva as 'P.iva',
 			--R.birthdate as 'data Nascita', GC.title as 'Luogo Nascita',
 			--GP.province as 'Prov.Nascita', ISNULL(GN.title,'ITALIA') as 'Stato Nascita',
@@ -678,7 +680,7 @@ ORDER BY idreg,rowkind,taxcode
 			--#output.servicestart as 'Inizio Pres.',
 			--#output.servicestop as 'Fine Prest',
 			--#output.address as 'Indirizzo',
-			--#output.location as 'Localit√†',
+			--#output.location as 'Localit‡',
 			--#output.province as 'Provincia',
 			--#output.nation as 'Stato',
 			--#output.cap as 'CAP',
@@ -718,4 +720,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

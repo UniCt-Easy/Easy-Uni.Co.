@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø--setuser 'amministrazione'
+
+--setuser 'amministrazione'
 ---------------------------------------
 ------- NUOVA VERSIONE ----------------
 ---------------------------------------
@@ -93,7 +95,7 @@ INSERT INTO #dati  SELECT 1,'3) Proventi da Ricerche con finanziamenti competiti
 	2)Contributi Regioni e Province autonome
 	3)Contributi altre Amministrazioni locali
 	4)Contributi Unione Europea e altri Organismi Internazionali
-	5)Contributi da Universit√†
+	5)Contributi da Universit‡
 	6)Contributi da altri (pubblici)
 	7)Contributi da altri (privati)
 */
@@ -108,19 +110,19 @@ else
 	SET @label_1 = '4) Contributi Unione Europea e Resto del Mondo'
 
 INSERT INTO #dati  SELECT 1,@label_1, 'EA1204%',  0,0,0,0,0,0,0,0, 'R','II. CONTRIBUTI',1 
-INSERT INTO #dati  SELECT 1,'5) Contributi da Universit√†', 'EA1205%', 0,0,0,0,0,0,0,0, 'R' ,'II. CONTRIBUTI',1
+INSERT INTO #dati  SELECT 1,'5) Contributi da Universit‡', 'EA1205%', 0,0,0,0,0,0,0,0, 'R' ,'II. CONTRIBUTI',1
 INSERT INTO #dati  SELECT 1,'6) Contributi da altri enti (pubblici)', 'EA1206%',  0,0,0,0,0,0,0,0, 'R' ,'II. CONTRIBUTI',1
 INSERT INTO #dati  SELECT 1,'7) Contributi da altri enti (privati)', 'EA1207%', 0,0,0,0,0,0,0,0, 'R' ,'II. CONTRIBUTI',1 
 
 -------------- PROVENTI PER ATTIVITA' ASSISTENZIALE ---------------------------------- 
-INSERT INTO #dati  SELECT 2,'III. PROVENTI PER ATTIVITA‚Äô ASSISTENZIALE', 'EA1301%',  0,0,0,0,0,0,0,0, 'R',  null,1 
+INSERT INTO #dati  SELECT 2,'III. PROVENTI PER ATTIVITAí ASSISTENZIALE', 'EA1301%',  0,0,0,0,0,0,0,0, 'R',  null,1 
 -------------- PROVENTI PER GESTIONE DIRETTA ---------------------------------- 
 INSERT INTO #dati  SELECT 2,'IV. PROVENTI PER LA GESTIONE DIRETTA INTERVENTI PER IL DIRITTO ALLO STUDIO', 'EA1401%',  0,0,0,0,0,0,0,0, 'R', null,1
 -- V.ALTRI PROVENTI E RICAVI DIVERSI
--- 1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilit√† finanziaria
+-- 1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilit‡ finanziaria
 -- 2) Altri Proventi e Ricavi Diversi
 INSERT INTO #dati  SELECT 2,'V. ALTRI PROVENTI  E RICAVI DIVERSI',null,  0,0,0,0,0,0,0,0, 'R' ,  null,1
-INSERT INTO #dati  SELECT 1,'1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilit√† finanziaria', 'EA1501%', 0,0,0,0,0,0,0,0, 'R' ,  'V. ALTRI PROVENTI  E RICAVI DIVERSI',1
+INSERT INTO #dati  SELECT 1,'1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilit‡ finanziaria', 'EA1501%', 0,0,0,0,0,0,0,0, 'R' ,  'V. ALTRI PROVENTI  E RICAVI DIVERSI',1
 INSERT INTO #dati  SELECT 1,'2) Altri Proventi e Ricavi Diversi', 'EA1502%', 0,0,0,0,0,0,0,0, 'R' ,'V. ALTRI PROVENTI  E RICAVI DIVERSI',1 
 -------------- Variazioni Rimanenze  ---------------------------------- 
 INSERT INTO #dati  SELECT 2,'VI. VARIAZIONE RIMANENZE', 'EA1601%', 0,0,0,0,0,0,0,0, 'R',  null,1 
@@ -156,7 +158,7 @@ INSERT INTO #dati  SELECT 1,'2) Costi del personale dirigente e tecnico-amminist
 IX.COSTI DELLA GESTIONE CORRENTE
 1)Costi per sostegno agli studenti
 2)Costi per il diritto allo studio
-3)Costi per la ricerca e l'attivit√† editoriale
+3)Costi per la ricerca e l'attivit‡ editoriale
 4)Trasferimenti a partner di progetti coordinati
 5)Acquisto materiale consumo per laboratori
 6)Variazione rimanenze di materiale di consumo per laboratori
@@ -171,9 +173,9 @@ INSERT INTO #dati  SELECT 2,'IX. COSTI DELLA GESTIONE CORRENTE', null, 0,0,0,0,0
 INSERT INTO #dati  SELECT 1,'1) Costi per sostegno agli studenti', 'EB2101%', 0,0,0,0,0,0,0,0, 'C', 'IX. COSTI DELLA GESTIONE CORRENTE',1   
 INSERT INTO #dati  SELECT 1,'2) Costi per il diritto allo studio', 'EB2102%', 0,0,0,0,0,0,0,0, 'C'  , 'IX. COSTI DELLA GESTIONE CORRENTE',1  
 IF (@ayear<=2017)  
-	SET @label_1 = '3) Costi per la ricerca e l''attivit√† editoriale'
+	SET @label_1 = '3) Costi per la ricerca e l''attivit‡ editoriale'
 else 
-	SET @label_1 = '3) Costi per l''attivit√† editoriale'
+	SET @label_1 = '3) Costi per l''attivit‡ editoriale'
 
 INSERT INTO #dati  SELECT 1,@label_1, 'EB2103%', 0,0,0,0,0,0,0,0, 'C', 'IX. COSTI DELLA GESTIONE CORRENTE',1  
 INSERT INTO #dati  SELECT 1,'4) Trasferimenti a partner di progetti coordinati', 'EB2104%',0,0,0,0,0,0,0,0, 'C' , 'IX. COSTI DELLA GESTIONE CORRENTE',1  
@@ -190,13 +192,13 @@ INSERT INTO #dati  SELECT 1,'12) Altri costi', 'EB2112%', 0,0,0,0,0,0,0,0, 'C', 
 		1) Ammortamenti immobilizzazioni immateriali
 		2) Ammortamenti immobilizzazioni materiali
 		3) Svalutazioni immobilizzazioni
-		4) Svalutazioni dei crediti compresi nell'attivo circolante e nelle disponibilit√† liquide
+		4) Svalutazioni dei crediti compresi nell'attivo circolante e nelle disponibilit‡ liquide
 */
 INSERT INTO #dati  SELECT 2,'X. AMMORTAMENTI E SVALUTAZIONI', null,0,0,0,0,0,0,0,0, 'C' ,null,1
 INSERT INTO #dati  SELECT 1,'1) Ammortamenti immobilizzazioni immateriali', 'EB3101%',0,0,0,0,0,0,0,0, 'C','X. AMMORTAMENTI E SVALUTAZIONI',1
 INSERT INTO #dati  SELECT 1,'2) Ammortamenti immobilizzazioni materiali', 'EB3102%', 0,0,0,0,0,0,0,0, 'C','X. AMMORTAMENTI E SVALUTAZIONI',1 
 INSERT INTO #dati  SELECT 1,'3) Svalutazioni immobilizzazioni', 'EB3103%',0,0,0,0,0,0,0,0, 'C','X. AMMORTAMENTI E SVALUTAZIONI',1 
-INSERT INTO #dati  SELECT 1,'4) Svalutazioni dei crediti compresi nell‚Äôattivo circolante e nelle disponibilit√† liquide', 'EB3104%', 0,0,0,0,0,0,0,0, 'C' ,'X. AMMORTAMENTI E SVALUTAZIONI',1
+INSERT INTO #dati  SELECT 1,'4) Svalutazioni dei crediti compresi nellíattivo circolante e nelle disponibilit‡ liquide', 'EB3104%', 0,0,0,0,0,0,0,0, 'C' ,'X. AMMORTAMENTI E SVALUTAZIONI',1
 INSERT INTO #dati  SELECT 2,'XI. ACCANTONAMENTI PER RISCHI E ONERI', 'EB4101%', 0,0,0,0,0,0,0,0, 'C', null, 1 
 INSERT INTO #dati  SELECT 2,'XII. ONERI DIVERSI DI GESTIONE','EB5101%',0,0,0,0,0,0,0,0, 'C' , null, 1
 INSERT INTO #dati  SELECT 0,'TOTALE COSTI  (B)', null, 0,0,0,0,0,0,0,0, 'C' ,null,null 
@@ -216,8 +218,8 @@ INSERT INTO #dati  SELECT 1,' Utili', 'EC1103%',0,0,0,0,0,0,0,0, 'R' , '3) Utili
 INSERT INTO #dati  SELECT 1,' Perdite', 'EC1104%',0,0,0,0,0,0,0,0, 'C' ,'3) Utili e Perdite su cambi',-1
 /*
 	D) RETTIFICHE DI VALORE DI ATTIVITA' FINANZIARIE
-		1) Rivalutazioni di attivit√† finanziarie
-		2) Svalutazioni di attivit√† finanziarie
+		1) Rivalutazioni di attivit‡ finanziarie
+		2) Svalutazioni di attivit‡ finanziarie
 */
 INSERT INTO #dati  SELECT 2,'D) RETTIFICHE DI VALORE DI ATTIVITA'' FINANZIARIE', null, 0,0,0,0,0,0,0,0, 'A', null,1   --,'S' 
 INSERT INTO #dati  SELECT 1,'1) Rivalutazioni', 'ED1101%',0,0,0,0,0,0,0,0, 'R', 'D) RETTIFICHE DI VALORE DI ATTIVITA'' FINANZIARIE',1 
@@ -235,7 +237,7 @@ INSERT INTO #dati  SELECT 1,'2) Oneri',  'EE1102%', 0,0,0,0,0,0,0,0, 'C','E) PRO
 */
 INSERT INTO #dati  SELECT 1,'F) IMPOSTE SUL REDDITO DELL''ESERCIZIO CORRENTI, DIFFERITE, ANTICIPATE', 'EF1101%',0,0,0,0,0,0,0,0, 'C', null, -1
 /*
-	G) Utilizzo di riservedi Patrimonio Netto derivanti dalla contabilit√† economico-patrimoniale
+	G) Utilizzo di riservedi Patrimonio Netto derivanti dalla contabilit‡ economico-patrimoniale
 */
 -------------Tot Ricavi  ------------------------------------------------------------   
 INSERT INTO #dati  SELECT 3,'TotRicavi', null,0,0,0,0,0,0,0,0, 'TOTR', 'RISULTATO ECONOMICO', 1 
@@ -282,8 +284,6 @@ INSERT INTO #spbudget(
 exec calcola_integrazione_previsione @ayear, @adate,10,'S'/*prevcorrente*/,'N'/*creavar*/
 -- exec calcola_integrazione_previsione 2018, {d'2018-12-31'}
 
-update #spbudget set amount = isnull(amount,0) + isnull(initialprevision,0)
-
 -- Insertiamo le variazioni Approvate di Tipo: normali / assestamento / storno
 INSERT INTO #spbudget(
 	idacc,
@@ -303,7 +303,9 @@ select
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 	group by D.yvar, D.nvar,D.idacc, D.idupb
-
+ 
+ update #spbudget set amount = isnull(amount,0) + isnull(initialprevision,0)
+ 
  DECLARE @label varchar(300)
  DECLARE @sortcode varchar(10)
  DECLARE @kind char(1)
@@ -328,33 +330,31 @@ select
 		   declare @_entry   decimal(19,2)
 		   declare @_nonrealizzato   decimal(19,2)
 
-		   SET  @_initprev = ISNULL(( SELECT SUM(D.amount)
+		   SET  @_initprev = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 			FROM accountvardetail D  
 			join accountvar V	ON V.yvar = D.yvar	AND V.nvar = D.nvar 
-			join account A		on D.idacc = A.idacc
+			join accountsortingbudgetview A		on D.idacc = A.idacc
 			JOIN upb U			ON D.idupb = U.idupb
-			join sorting S		on S.idsor = A.idsor_economicbudget
 			WHERE V.yvar = @ayear and V.variationkind =6 and idaccountvarstatus = 4  
 			AND U.idupb like @idupb
 			--AND A.nlevel = @nlevel
 			AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
 			AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 			AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-			AND S.sortcode LIKE @sortcode),0)
+			AND A.sortcode_economicbudget LIKE @sortcode),0)
 
 
-			SET @_prevcorr = ISNULL(( SELECT SUM(D.amount)
+			SET @_prevcorr = ISNULL(( SELECT SUM(D.amount*A.economicbudget_sign_value)
 			FROM #spbudget D  
-			join account A		on D.idacc = A.idacc
+			join accountsortingbudgetview A		on D.idacc = A.idacc
 			JOIN upb U			ON D.idupb = U.idupb
-			join sorting S		on S.idsor = A.idsor_economicbudget
 			WHERE A.ayear = @ayear 
 			AND U.idupb like @idupb
 			--AND A.nlevel = @nlevel
 			AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
 			AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 			AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-			AND S.sortcode LIKE @sortcode),0)
+			AND A.sortcode_economicbudget LIKE @sortcode),0)
 
 		    /*SET  @_var = ISNULL(( SELECT SUM(D.amount)
 			FROM accountvardetail D  join accountvar V	ON V.yvar = D.yvar	AND V.nvar = D.nvar 
@@ -377,10 +377,8 @@ select
 		 (ISNULL(( SELECT SUM(CASE E.flagvariation WHEN 'N' THEN EY.amount ELSE - EY.amount END) 
 				FROM epexpyear EY
 				JOIN epexp E				ON E.idepexp = EY.idepexp
-				JOIN account A				ON EY.idacc = A.idacc
-				JOIN account PARENT 		ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+				JOIN accountsortingbudgetview A		on EY.idacc = A.idacc
 				JOIN upb U					ON EY.idupb = U.idupb
-				JOIN sorting S				ON S.idsor = PARENT.idsor_economicbudget
 				WHERE E.nphase = 1 AND EY.ayear = @ayear AND E.adate<= @adate 
 				AND U.idupb like @idupb
 				AND A.flagaccountusage & 64 <> 0
@@ -390,16 +388,15 @@ select
 				AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 				AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
 				AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-				AND S.sortcode LIKE @sortcode),0))
+				AND A.sortcode_economicbudget LIKE @sortcode),0))
 				+
 				(ISNULL((SELECT SUM(CASE E.flagvariation WHEN 'N' THEN EV.amount ELSE - EV.amount END) 
 				FROM epexpvar EV 
 				JOIN epexpyear EY			ON EV.idepexp = EY.idepexp 
 				JOIN epexp E				ON E.idepexp = EY.idepexp
-				JOIN account A				ON EY.idacc = A.idacc
-				JOIN account PARENT 		ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+				JOIN accountsortingbudgetview A		on EY.idacc = A.idacc
 				JOIN upb U					ON EY.idupb = U.idupb
-				JOIN sorting S				ON S.idsor = PARENT.idsor_economicbudget
+
 				WHERE E.nphase = 1 AND EY.ayear = @ayear AND E.adate<= @adate and EV.adate <= @adate and EV.yvar = @ayear
 				AND U.idupb like @idupb
 				AND A.flagaccountusage & 64 <> 0
@@ -409,16 +406,14 @@ select
 				AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 				AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
 				AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-				AND S.sortcode LIKE @sortcode),0))
+				AND A.sortcode_economicbudget LIKE @sortcode),0))
 
   
 				SET @_preacc = ISNULL(( SELECT SUM(AY.amount) 
 				from epaccyear AY
 				JOIN epacc AC			ON AC.idepacc = AY.idepacc
-				JOIN account A			ON AY.idacc = A.idacc
-				JOIN account PARENT 	ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+				JOIN accountsortingbudgetview A		on AY.idacc = A.idacc
 				JOIN upb U				ON AY.idupb = U.idupb
-				JOIN sorting S			ON S.idsor = PARENT.idsor_economicbudget
 				WHERE AC.nphase = 1 AND AY.ayear = @ayear AND AC.adate<= @adate and AC.yepacc = @ayear
 				AND U.idupb like @idupb
 				AND A.flagaccountusage & 128 <> 0
@@ -428,16 +423,14 @@ select
 				AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 				AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
 				AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-				AND S.sortcode LIKE @sortcode),0)
+				AND A.sortcode_economicbudget LIKE @sortcode),0)
 				+
 				ISNULL(( SELECT SUM(AV.amount) 
 				FROM epaccvar AV
 				JOIN epaccyear AY		ON AY.idepacc = AV.idepacc
 				JOIN epacc AC			ON AC.idepacc = AY.idepacc
-				JOIN account A			ON AY.idacc = A.idacc
-				JOIN account PARENT 	ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+				JOIN accountsortingbudgetview A		on AY.idacc = A.idacc
 				JOIN upb U				ON AY.idupb = U.idupb
-				JOIN sorting S			ON S.idsor = PARENT.idsor_economicbudget
 				WHERE AC.nphase = 1  AND AC.adate<= @adate and AV.adate <= @adate AND AY.ayear = @ayear and AV.yvar = @ayear
 				AND U.idupb like @idupb
 				AND A.flagaccountusage & 128 <> 0
@@ -447,7 +440,7 @@ select
 				AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
 				AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 				--AND A.nlevel = @maxnlevel
-				AND S.sortcode LIKE @sortcode),0)
+				AND A.sortcode_economicbudget LIKE @sortcode),0)
 
 	 
 		SET @_entry = ISNULL(( SELECT SUM(entrydetail.amount)
@@ -455,12 +448,7 @@ select
 					JOIN entry
 						ON entry.yentry = entrydetail.yentry
 						AND entry.nentry = entrydetail.nentry
-					JOIN account A
-						ON A.idacc = entrydetail.idacc
-					JOIN account PARENT 
-						ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
-					JOIN sorting S
-						on S.idsor = PARENT.idsor_economicbudget
+					JOIN accountsortingbudgetview A		on entrydetail.idacc = A.idacc
 					JOIN upb U	ON entrydetail.idupb = U.idupb
 					WHERE entry.yentry = @ayear AND entry.identrykind not in (6,11,12) -- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
 						AND adate <= @adate
@@ -473,7 +461,7 @@ select
 						OR
 						(( A.flagaccountusage & 128) <> 0)   -- Ricavi
 						)
-						AND S.sortcode LIKE @sortcode),0)
+						AND A.sortcode_economicbudget LIKE @sortcode),0)
 								  
 		   if (@kind = 'C') 	SET @_entry  = - @_entry  --- cambio di segno per i costi
 		   	
@@ -798,4 +786,3 @@ GO
 
  
   --  exec rpt_consuntivobudgeteconomicoufficiale_automatic 2019, {d'2019-10-16'},'%','N',null,null,null,null,null
-	

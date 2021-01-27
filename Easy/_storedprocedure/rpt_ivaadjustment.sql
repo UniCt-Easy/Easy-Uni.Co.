@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_ivaadjustment]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_ivaadjustment]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_ivaadjustment]
 GO
 
@@ -45,8 +47,8 @@ AS BEGIN
 	declare @saldo_iniziale decimal (19,2)
 	select  @saldo_iniziale = isnull(-startivabalance,0) from config where ayear = @ayear
 	
-	-- il segno √® da cambiare se flagdeferred oppure se kind<>registerclass
-	-- inoltre per le fatture non intracom con la doppia presenza A/V √® da cancellare la riga in vendita
+	-- il segno Ë da cambiare se flagdeferred oppure se kind<>registerclass
+	-- inoltre per le fatture non intracom con la doppia presenza A/V Ë da cancellare la riga in vendita
 	
 	-- Tabella di output dove confluiscono tutte le fatture e note di credito partecipanti alla liquidazione
 	CREATE TABLE #invoicedet
@@ -76,8 +78,8 @@ AS BEGIN
 	
 
 
-	-- il segno √® da cambiare se flagdeferred oppure se kind<>registerclass
-	-- inoltre per le fatture  intracom con la doppia presenza A/V √® da cancellare la riga in vendita
+	-- il segno Ë da cambiare se flagdeferred oppure se kind<>registerclass
+	-- inoltre per le fatture  intracom con la doppia presenza A/V Ë da cancellare la riga in vendita
 
 	--1) tutte le fatture non istituzionali non promiscue
 	INSERT INTO #invoicedet
@@ -134,7 +136,7 @@ AS BEGIN
 	-- 2)
 	-- Sezione 2.1 IVA Differita  - DATA REVERSALE
 	-- Vengono inseriti tutti i dettagli delle fatture di vendita  
-	-- 	la cui REVERSALE associata √® stata EMESSA nel range di date fornito in input alla SP
+	-- 	la cui REVERSALE associata Ë stata EMESSA nel range di date fornito in input alla SP
 	--		e aventi data competenza del dettaglio NULL
 	-- Stessa insert di prima, ma per le fatture NON INTRACOM
 
@@ -196,7 +198,7 @@ AS BEGIN
 	--3)
 	-- Sezione 2.1 IVA Differita  - DATA REVERSALE
 	-- Vengono inseriti tutti i dettagli delle fatture di vendita  
-	-- 	la cui REVERSALE associata √® stata EMESSA nel range di date fornito in input alla SP
+	-- 	la cui REVERSALE associata Ë stata EMESSA nel range di date fornito in input alla SP
 	--		e aventi data competenza del dettaglio NULL
 	-- Stessa insert di prima, ma per le fatture INTRACOM
 	INSERT INTO #invoicedet
@@ -380,7 +382,7 @@ AS BEGIN
 --6)
 -- Sezione 2.2 IVA Differita  - DATA MANDATO 
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (escluse  note di variazione)
-	-- il cui mandato associato √® stato trasmesso nel range di date fornito in input alla SP
+	-- il cui mandato associato Ë stato trasmesso nel range di date fornito in input alla SP
 	-- Valuta solo le fatture NON intracom
 	INSERT INTO #invoicedet
 	(
@@ -436,7 +438,7 @@ AS BEGIN
 	--7) 
 	-- Sezione 2.2 IVA Differita  - DATA MANDATO 
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato √® stato trasmesso nel range di date fornito in input alla SP
+	-- il cui mandato associato Ë stato trasmesso nel range di date fornito in input alla SP
 	-- Stessa insert di prima ma solo per le fatture INTRACOM
 	INSERT INTO #invoicedet
 	(
@@ -492,7 +494,7 @@ AS BEGIN
 	--8) 
 	-- Sezione 2.2 IVA Differita  VARIAZIONI - DATA MANDATO 
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato √® stato trasmesso nel range di date fornito in input alla SP
+	-- il cui mandato associato Ë stato trasmesso nel range di date fornito in input alla SP
 	-- Valuta solo le fatture non intracom
 	INSERT INTO #invoicedet
 	(
@@ -553,7 +555,7 @@ AS BEGIN
 	--9)
 	-- Sezione 2.2 IVA Differita  VARIAZIONI - DATA MANDATO 
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato √® stato trasmesso nel range di date fornito in input alla SP
+	-- il cui mandato associato Ë stato trasmesso nel range di date fornito in input alla SP
 	-- Stessa insert di prima, ma solo per le fatture INTRACOM
 	INSERT INTO #invoicedet
 	(
@@ -779,7 +781,7 @@ SET @mixedrate= isnull(@mixedrate,1)
 DECLARE @flagivapaybyrow char(1)
 SELECT @flagivapaybyrow= flagivapaybyrow from config WHERE ayear = @ayear
 
---Per chi scegli di applicare il calcolo sul totale, anche il promiscuo sar√† applicato sul totale.
+--Per chi scegli di applicare il calcolo sul totale, anche il promiscuo sar‡ applicato sul totale.
 IF (@flagivapaybyrow='N') 
 BEGIN
 	SET @proratarate=1 --non applica il prorata in questo caso
@@ -976,7 +978,7 @@ WHERE flagvariation='S'
 
 
 IF ((select count(*) from #ivakind)=0)
--- Se il diparimento non usa l'IVA ossia la #output √® vuota deve restituire una riga vuota col nome del Dipartimento
+-- Se il diparimento non usa l'IVA ossia la #output Ë vuota deve restituire una riga vuota col nome del Dipartimento
 BEGIN
         SELECT
         @departmentname as departmentname,
@@ -1084,4 +1086,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

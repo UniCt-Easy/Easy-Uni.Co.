@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -2853,7 +2855,7 @@ namespace serviceregistry_default
 			}
             //Vale solo per i Dipendenti
 			if(Curr["authorizationdate"]==DBNull.Value) {
-                MessageBox.Show("Non Ë stata inserita la data Conferimento/Autorizzazione. Questo causer‡ lo scarto dell'incarico nella pubblicazione sul sito Web Istituzionale"
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stata inserita la data Conferimento/Autorizzazione. Questo causer‡ lo scarto dell'incarico nella pubblicazione sul sito Web Istituzionale"
                 + " e nel file di trasmissione a PerlaPA.", "Avviso");
 			}
         }
@@ -3221,7 +3223,7 @@ namespace serviceregistry_default
                     DateTime dataRiferimento = (DateTime)riferimento;
                     int Anno = dataRiferimento.Year;
                     if (Anno != Esercizio) {
-                        MessageBox.Show(this, "L'anno di Affidamento deve essere uguale all'esercizio incarico.");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'anno di Affidamento deve essere uguale all'esercizio incarico.");
                     }
                 }
             }
@@ -3232,7 +3234,7 @@ namespace serviceregistry_default
                     DateTime dataRiferimento = (DateTime)riferimento;
                     int Anno = dataRiferimento.Year;
                     if (Anno != Esercizio) {
-                        MessageBox.Show(this, "L'anno di Conferimento/Autorizzazione deve essere uguale all'esercizio incarico.");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "L'anno di Conferimento/Autorizzazione deve essere uguale all'esercizio incarico.");
                     }
                 }
             }
@@ -3335,7 +3337,7 @@ namespace serviceregistry_default
                 expectedamount = expectedamount - CfgFn.GetNoNullDecimal(P["payedamount"]);
                 }
             if (expectedamount == 0) {
-                if (MessageBox.Show("Aggiorno il campo Incarico Saldato ponendolo uguale a SÏ?",
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Aggiorno il campo Incarico Saldato ponendolo uguale a SÏ?",
                   "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) {
                     rdbSaldatoSi.Checked = true;
                     Curr["is_changed"] = "S";
@@ -3370,7 +3372,7 @@ namespace serviceregistry_default
             if (maxreferencedate == DBNull.Value) {
                 lblStatoCV.Text = "Per l'incaricato indicato non Ë stato inserito alcun Curriculum Vitae nella relativa scheda Anagrafica";
                 if (CVObbligatorio) {
-                    MessageBox.Show("La Tipologia Incarico scelta, prevede la presenza del CV dell'incaricato. Inserirlo nella scheda Anagrafica.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("La Tipologia Incarico scelta, prevede la presenza del CV dell'incaricato. Inserirlo nella scheda Anagrafica.");
                 }
             }
             else{
@@ -3558,7 +3560,7 @@ namespace serviceregistry_default
 					}
 			}
 			else{
-				MessageBox.Show("Il Comune Sede selezionato non Ë valido");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Il Comune Sede selezionato non Ë valido");
 				txtGeoComune.Text="";
 				if ((!MetaData.Empty(this))){
 					DS.serviceregistry.Rows[0]["idcity"]=DBNull.Value;
@@ -3590,7 +3592,7 @@ namespace serviceregistry_default
                 }
             }
             else {
-                MessageBox.Show("Il Comune Sede selezionato non Ë valido");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Il Comune Sede selezionato non Ë valido");
                 txtGeoComune.Text = "";
                 if ((!MetaData.Empty(this))) {
                     DS.serviceregistry.Rows[0]["conferring_idcity"] = DBNull.Value;
@@ -4803,7 +4805,7 @@ Componenti variabili del compenso(componentsvariable)
 			DataRow Curr = DS.serviceregistry.Rows[0];
 
 			if (Curr[certification] == DBNull.Value) {
-				MessageBox.Show("Nessun dato da visualizzare", "Avviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessun dato da visualizzare", "Avviso");
 				return;
 			}
 

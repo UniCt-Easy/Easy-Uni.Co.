@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_riepilogoiva_dett]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_riepilogoiva_dett]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_riepilogoiva_dett]
 GO
 --exp_riepilogoiva_dett null,null,2017,1,12,'N','N',4,'N','null','A'
@@ -50,7 +52,7 @@ AS  BEGIN
 		idivaregisterkindunified int
 	)
 
-	if( @idivaregisterkind is null and @codeivaregisterkind is null)	--> Vuol dire che non si √® specificato il Registro, e si desidera vederli tutti.
+	if( @idivaregisterkind is null and @codeivaregisterkind is null)	--> Vuol dire che non si Ë specificato il Registro, e si desidera vederli tutti.
 	Begin
 			insert into #ivaregisterkind (idivaregisterkind, flagactivity, registerclass,description,idivaregisterkindunified)
 			select idivaregisterkind, flagactivity, registerclass,description,idivaregisterkindunified from ivaregisterkind
@@ -164,8 +166,8 @@ AS  BEGIN
 		,foreigncf varchar(40)		
 		
 	)
-	-- il segno √® da cambiare se flagdeferred oppure se kind<>registerclass
-	-- inoltre per le fatture non intracom con la doppia presenza A/V √® da cancellare la riga in vendita
+	-- il segno Ë da cambiare se flagdeferred oppure se kind<>registerclass
+	-- inoltre per le fatture non intracom con la doppia presenza A/V Ë da cancellare la riga in vendita
 
 
 	INSERT INTO #invoicedet
@@ -280,7 +282,7 @@ AS  BEGIN
 
 	-- Sezione 2.1 IVA Differita  - DATA REVERSALE
 	-- Vengono inseriti tutti i dettagli delle fatture di vendita  
-	-- la cui REVERSALE associata √® stata EMESSA nel range di date fornito in input alla SP
+	-- la cui REVERSALE associata Ë stata EMESSA nel range di date fornito in input alla SP
 	-- e aventi data competenza del dettaglio NULL
 	-- Valuta solo le fatture NON intracom
 	INSERT INTO #invoicedet
@@ -399,7 +401,7 @@ AS  BEGIN
 
 	-- Sezione 2.1 IVA Differita  - DATA REVERSALE
 	-- Vengono inseriti tutti i dettagli delle fatture di vendita  
-	-- la cui REVERSALE associata √® stata EMESSA nel range di date fornito in input alla SP
+	-- la cui REVERSALE associata Ë stata EMESSA nel range di date fornito in input alla SP
 	-- e aventi data competenza del dettaglio NULL
 	-- Stessa insert di prima, ma per le fatture INTRACOM
 	INSERT INTO #invoicedet
@@ -746,7 +748,7 @@ AS  BEGIN
 
 	-- Sezione 2.2 IVA Differita  - DATA MANDATO 
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato √® stato trasmesso nel range di date fornito in input alla SP
+	-- il cui mandato associato Ë stato trasmesso nel range di date fornito in input alla SP
 	-- Valuta solo le fatture NON intracom
 	INSERT INTO #invoicedet
 	(
@@ -859,7 +861,7 @@ AS  BEGIN
 
 	-- Sezione 2.2 IVA Differita  - DATA MANDATO 
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato √® stato trasmesso nel range di date fornito in input alla SP
+	-- il cui mandato associato Ë stato trasmesso nel range di date fornito in input alla SP
 	-- Stessa insert di prima ma solo per le fatture INTRACOM
 	INSERT INTO #invoicedet
 	(
@@ -973,7 +975,7 @@ AS  BEGIN
 
 	-- Sezione 2.2 IVA Differita  VARIAZIONI - DATA MANDATO 
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato √® stato trasmesso nel range di date fornito in input alla SP
+	-- il cui mandato associato Ë stato trasmesso nel range di date fornito in input alla SP
 	-- Valuta solo le fatture non intracom
 	INSERT INTO #invoicedet
 	(
@@ -1091,7 +1093,7 @@ AS  BEGIN
 
 	-- Sezione 2.2 IVA Differita  VARIAZIONI - DATA MANDATO 
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato √® stato trasmesso nel range di date fornito in input alla SP
+	-- il cui mandato associato Ë stato trasmesso nel range di date fornito in input alla SP
 	-- Stessa insert di prima, ma solo per le fatture INTRACOM
 	INSERT INTO #invoicedet
 	(
@@ -1463,7 +1465,7 @@ AS  BEGIN
 	DECLARE @flagivapaybyrow char(1)
 	SELECT @flagivapaybyrow= flagivapaybyrow from config WHERE ayear = @year
 
-	--Per chi scegli di applicare il calcolo sul totale, anche il promiscuo sar√† applicato sul totale.
+	--Per chi scegli di applicare il calcolo sul totale, anche il promiscuo sar‡ applicato sul totale.
 	if (@flagivapaybyrow='N') 
 	Begin
 		SET @proratarate=1 --non applica il prorata in questo caso
@@ -1566,7 +1568,7 @@ SET  @departmentname  = ISNULL( (SELECT top 1 paramvalue from
 			#ivaregisterkind.idivaregisterkindunified as '#Cod. consolidamento',
 			--@departmentname as 'Dipartimento', 
 			sor01.description as 'Attributo1',
-			#invoicedet.label as 'Esigibilit√†/Detraibilit√†', 
+			#invoicedet.label as 'Esigibilit‡/Detraibilit‡', 
 			#invoicedet.invoicekind as 'Tipo Fattura', 
 			#invoicedet.yinv as 'Eserc. Fattura', 
 			#invoicedet.ninv as 'Num. Fattura', 
@@ -1590,7 +1592,7 @@ SET  @departmentname  = ISNULL( (SELECT top 1 paramvalue from
 				WHEN 1 THEN 'Istituzionale'
 				WHEN 2 THEN 'Commerciale'
 				WHEN 3 THEN 'Promiscua'
-			END as 'Attivit√†',
+			END as 'Attivit‡',
 				CASE #invoicedet.flagintracom 
 			WHEN 'S' THEN 'Intra-UE'
 			WHEN 'N' THEN 'Italia'
@@ -1605,8 +1607,8 @@ SET  @departmentname  = ISNULL( (SELECT top 1 paramvalue from
 		CASE #invoicedet.intrastatoperationkind
 			WHEN 'S' THEN P.description
 			ELSE NULL 
-		END as 'Modalit√† pagamento/incasso',		
-		E.description as 'Modalit√† erogazione',		
+		END as 'Modalit‡ pagamento/incasso',		
+		E.description as 'Modalit‡ erogazione',		
 		CASE #invoicedet.intrastatoperationkind
 			WHEN 'S' THEN Pag.description 
 		ELSE NULL 
@@ -1738,7 +1740,7 @@ SET  @departmentname  = ISNULL( (SELECT top 1 paramvalue from
 			#ivaregisterkind.description as 'Registro', 
 			#ivaregisterkind.idivaregisterkindunified as '#Cod. consolidamento',
 			@departmentname as 'Dipartimento', 
-			#invoicedet.label as 'Esigibilit√†/Detraibilit√†', 
+			#invoicedet.label as 'Esigibilit‡/Detraibilit‡', 
 			NULL as 'Tipo Fattura', --invoicekind as 'Tipo Fattura', 
 			#invoicedet.yinv as 'Eserc. Fattura', 
 			NULL as 'Num. Fattura',--ninv as 'Num. Fattura', 
@@ -1801,7 +1803,7 @@ SET  @departmentname  = ISNULL( (SELECT top 1 paramvalue from
 			#ivaregisterkind.description as 'Registro', 
 			#ivaregisterkind.idivaregisterkindunified as '#Cod. consolidamento',
 			@departmentname as 'Dipartimento', 
-			#invoicedet.label as 'Esigibilit√†/Detraibilit√†',
+			#invoicedet.label as 'Esigibilit‡/Detraibilit‡',
 			#invoicedet.invoicekind as 'Tipo Fattura',
 			#invoicedet.yinv as 'Eserc. Fattura', 
 			NULL as 'Num. Fattura',--ninv as 'Num. Fattura', 
@@ -1850,7 +1852,7 @@ SET  @departmentname  = ISNULL( (SELECT top 1 paramvalue from
 			#ivaregisterkind.description as 'Registro', 
 			#ivaregisterkind.idivaregisterkindunified as '#Cod. consolidamento',
 			@departmentname as 'Dipartimento', 
-			#invoicedet.label as 'Esigibilit√†/Detraibilit√†', 
+			#invoicedet.label as 'Esigibilit‡/Detraibilit‡', 
 			#invoicedet.invoicekind as 'Tipo Fattura', 
 			#invoicedet.yinv as 'Eserc. Fattura', 
 			NULL as 'Num. Fattura',--ninv as 'Num. Fattura', 
@@ -1900,7 +1902,7 @@ SET  @departmentname  = ISNULL( (SELECT top 1 paramvalue from
 --			#ivaregisterkind.description as 'Registro', 
 --			#ivaregisterkind.idivaregisterkindunified as '#Cod. consolidamento',
 --			@departmentname as 'Dipartimento', 
---			#invoicedet.label as 'Esigibilit√†/Detraibilit√†', 
+--			#invoicedet.label as 'Esigibilit‡/Detraibilit‡', 
 --			NULL as 'Tipo Fattura',--#invoicedet.invoicekind as 'Tipo Fattura', 
 --			#invoicedet.yinv as 'Eserc. Fattura', 
 --			NULL as 'Num. Fattura',--ninv as 'Num. Fattura', 
@@ -1942,4 +1944,3 @@ GO
  
 
  
-	

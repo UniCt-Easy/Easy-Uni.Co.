@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_spesa_4fasi_residui]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_spesa_4fasi_residui]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_partitario_spesa_4fasi_residui]
 GO
 
@@ -370,9 +372,9 @@ BEGIN
 -- non solo i finphase_amount e i max_phase_amount ma anche i totali dei sub_impegni e delle liquidazioni
 -- precedenti a quella data
 /*
-non server perch√® se metti come data inizio x lui non elenca gli impegni, subimpegni e liquidazioni
-ma solo i pagamento perch√® il residui ha data contabile 2003,2005 quindi per discriminarli non 
-si pu√≤ usare la data inizio.
+non server perchË se metti come data inizio x lui non elenca gli impegni, subimpegni e liquidazioni
+ma solo i pagamento perchË il residui ha data contabile 2003,2005 quindi per discriminarli non 
+si puÚ usare la data inizio.
 		UPDATE #previousexpense
 		SET prec_secondphase =
 			ISNULL((
@@ -1140,7 +1142,7 @@ IF (@showupb <>'S') and (@idupboriginal = '%')
 -- se ho scelto di nascondere le voci di bilancio non utilizzate:
 -- cancello le righe che hanno valori pari a zero 
 -- per cui non esistono variazioni di previzioni (rowkind=2) o movimenti di entrata (rowkind >= 3 )  
-IF (@suppressifblank = 'S') AND @nlevel>2	--> se la stampa √® x un livello sottostante la categoria cancella le righe
+IF (@suppressifblank = 'S') AND @nlevel>2	--> se la stampa Ë x un livello sottostante la categoria cancella le righe
 BEGIN
 	DELETE FROM #expense WHERE 
 		ISNULL(initialprevision,0)=0 AND 
@@ -1250,4 +1252,3 @@ GO
 
 
 
-	

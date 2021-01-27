@@ -1,0 +1,1066 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://easybridge.eu/bridge/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://easybridge.eu/bridge/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://easybridge.eu/bridge/">
+      <s:element name="pdpGeneraIUV">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="idTributo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpGeneraIUVResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpGeneraIUVResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Output">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="pdpCaricaPagamentoInAttesa">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpCaricaPagamentoInAttesaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpCaricaPagamentoInAttesaResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpCancellaPagamentoInAttesa">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpCancellaPagamentoInAttesaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpCancellaPagamentoInAttesaResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpGeneraRPT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpGeneraRPTResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpGeneraRPTResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpInviaRPT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpInviaRPTResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpInviaRPTResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpChiediStatoRPT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpChiediStatoRPTResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpChiediStatoRPTResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpRecuperaRPT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpRecuperaRPTResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpRecuperaRPTResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpRecuperaRT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpRecuperaRTResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpRecuperaRTResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpRichiediStornoRT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpRichiediStornoRTResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpRichiediStornoRTResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpChiediSceltaWISP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpChiediSceltaWISPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpChiediSceltaWISPResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpVerificaMarcaDaBolloDigitale">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpVerificaMarcaDaBolloDigitaleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpVerificaMarcaDaBolloDigitaleResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="dpVerificaPagamentoInAttesa">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="dpVerificaPagamentoInAttesaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dpVerificaPagamentoInAttesaResult" type="tns:OutputVerificaPagamentoInAttesa" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OutputVerificaPagamentoInAttesa">
+        <s:sequence>
+          <s:element name="identificativoBU" type="s:string" />
+          <s:element name="param" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="dpInviaEsitoPagamento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="dpInviaEsitoPagamentoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dpInviaEsitoPagamentoResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpChiediFlussoRendicontazione">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpChiediFlussoRendicontazioneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpChiediFlussoRendicontazioneResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpChiediElencoFlussiRendicontazione">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpChiediElencoFlussiRendicontazioneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpChiediElencoFlussiRendicontazioneResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpEsitiRT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpEsitiRTResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpEsitiRTResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpAttivaRpt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpAttivaRptResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpAttivaRptResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpRichiediAvviso">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpRichiediAvvisoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdpRichiediAvvisoResult" type="tns:Output" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpCheckServizioAttivo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoDominio">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="35" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="identificativoBU">
+              <s:simpleType>
+                <s:restriction base="s:string">
+                  <s:minLength value="1" />
+                  <s:maxLength value="16" />
+                </s:restriction>
+              </s:simpleType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pdpCheckServizioAttivoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pdpCheckServizioAttivoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="pdpGeneraIUVSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpGeneraIUV" />
+  </wsdl:message>
+  <wsdl:message name="pdpGeneraIUVSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpGeneraIUVResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpCaricaPagamentoInAttesaSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpCaricaPagamentoInAttesa" />
+  </wsdl:message>
+  <wsdl:message name="pdpCaricaPagamentoInAttesaSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpCaricaPagamentoInAttesaResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpCancellaPagamentoInAttesaSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpCancellaPagamentoInAttesa" />
+  </wsdl:message>
+  <wsdl:message name="pdpCancellaPagamentoInAttesaSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpCancellaPagamentoInAttesaResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpGeneraRPTSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpGeneraRPT" />
+  </wsdl:message>
+  <wsdl:message name="pdpGeneraRPTSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpGeneraRPTResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpInviaRPTSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpInviaRPT" />
+  </wsdl:message>
+  <wsdl:message name="pdpInviaRPTSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpInviaRPTResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpChiediStatoRPTSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpChiediStatoRPT" />
+  </wsdl:message>
+  <wsdl:message name="pdpChiediStatoRPTSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpChiediStatoRPTResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpRecuperaRPTSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpRecuperaRPT" />
+  </wsdl:message>
+  <wsdl:message name="pdpRecuperaRPTSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpRecuperaRPTResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpRecuperaRTSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpRecuperaRT" />
+  </wsdl:message>
+  <wsdl:message name="pdpRecuperaRTSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpRecuperaRTResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpRichiediStornoRTSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpRichiediStornoRT" />
+  </wsdl:message>
+  <wsdl:message name="pdpRichiediStornoRTSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpRichiediStornoRTResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpChiediSceltaWISPSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpChiediSceltaWISP" />
+  </wsdl:message>
+  <wsdl:message name="pdpChiediSceltaWISPSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpChiediSceltaWISPResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpVerificaMarcaDaBolloDigitaleSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpVerificaMarcaDaBolloDigitale" />
+  </wsdl:message>
+  <wsdl:message name="pdpVerificaMarcaDaBolloDigitaleSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpVerificaMarcaDaBolloDigitaleResponse" />
+  </wsdl:message>
+  <wsdl:message name="dpVerificaPagamentoInAttesaSoapIn">
+    <wsdl:part name="parameters" element="tns:dpVerificaPagamentoInAttesa" />
+  </wsdl:message>
+  <wsdl:message name="dpVerificaPagamentoInAttesaSoapOut">
+    <wsdl:part name="parameters" element="tns:dpVerificaPagamentoInAttesaResponse" />
+  </wsdl:message>
+  <wsdl:message name="dpInviaEsitoPagamentoSoapIn">
+    <wsdl:part name="parameters" element="tns:dpInviaEsitoPagamento" />
+  </wsdl:message>
+  <wsdl:message name="dpInviaEsitoPagamentoSoapOut">
+    <wsdl:part name="parameters" element="tns:dpInviaEsitoPagamentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpChiediFlussoRendicontazioneSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpChiediFlussoRendicontazione" />
+  </wsdl:message>
+  <wsdl:message name="pdpChiediFlussoRendicontazioneSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpChiediFlussoRendicontazioneResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpChiediElencoFlussiRendicontazioneSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpChiediElencoFlussiRendicontazione" />
+  </wsdl:message>
+  <wsdl:message name="pdpChiediElencoFlussiRendicontazioneSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpChiediElencoFlussiRendicontazioneResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpEsitiRTSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpEsitiRT" />
+  </wsdl:message>
+  <wsdl:message name="pdpEsitiRTSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpEsitiRTResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpAttivaRptSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpAttivaRpt" />
+  </wsdl:message>
+  <wsdl:message name="pdpAttivaRptSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpAttivaRptResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpRichiediAvvisoSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpRichiediAvviso" />
+  </wsdl:message>
+  <wsdl:message name="pdpRichiediAvvisoSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpRichiediAvvisoResponse" />
+  </wsdl:message>
+  <wsdl:message name="pdpCheckServizioAttivoSoapIn">
+    <wsdl:part name="parameters" element="tns:pdpCheckServizioAttivo" />
+  </wsdl:message>
+  <wsdl:message name="pdpCheckServizioAttivoSoapOut">
+    <wsdl:part name="parameters" element="tns:pdpCheckServizioAttivoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WEBS_DataProviderInterfacePort">
+    <wsdl:operation name="pdpGeneraIUV">
+      <wsdl:input message="tns:pdpGeneraIUVSoapIn" />
+      <wsdl:output message="tns:pdpGeneraIUVSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpCaricaPagamentoInAttesa">
+      <wsdl:input message="tns:pdpCaricaPagamentoInAttesaSoapIn" />
+      <wsdl:output message="tns:pdpCaricaPagamentoInAttesaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpCancellaPagamentoInAttesa">
+      <wsdl:input message="tns:pdpCancellaPagamentoInAttesaSoapIn" />
+      <wsdl:output message="tns:pdpCancellaPagamentoInAttesaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpGeneraRPT">
+      <wsdl:input message="tns:pdpGeneraRPTSoapIn" />
+      <wsdl:output message="tns:pdpGeneraRPTSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpInviaRPT">
+      <wsdl:input message="tns:pdpInviaRPTSoapIn" />
+      <wsdl:output message="tns:pdpInviaRPTSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpChiediStatoRPT">
+      <wsdl:input message="tns:pdpChiediStatoRPTSoapIn" />
+      <wsdl:output message="tns:pdpChiediStatoRPTSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpRecuperaRPT">
+      <wsdl:input message="tns:pdpRecuperaRPTSoapIn" />
+      <wsdl:output message="tns:pdpRecuperaRPTSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpRecuperaRT">
+      <wsdl:input message="tns:pdpRecuperaRTSoapIn" />
+      <wsdl:output message="tns:pdpRecuperaRTSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpRichiediStornoRT">
+      <wsdl:input message="tns:pdpRichiediStornoRTSoapIn" />
+      <wsdl:output message="tns:pdpRichiediStornoRTSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpChiediSceltaWISP">
+      <wsdl:input message="tns:pdpChiediSceltaWISPSoapIn" />
+      <wsdl:output message="tns:pdpChiediSceltaWISPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpVerificaMarcaDaBolloDigitale">
+      <wsdl:input message="tns:pdpVerificaMarcaDaBolloDigitaleSoapIn" />
+      <wsdl:output message="tns:pdpVerificaMarcaDaBolloDigitaleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="dpVerificaPagamentoInAttesa">
+      <wsdl:input message="tns:dpVerificaPagamentoInAttesaSoapIn" />
+      <wsdl:output message="tns:dpVerificaPagamentoInAttesaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="dpInviaEsitoPagamento">
+      <wsdl:input message="tns:dpInviaEsitoPagamentoSoapIn" />
+      <wsdl:output message="tns:dpInviaEsitoPagamentoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpChiediFlussoRendicontazione">
+      <wsdl:input message="tns:pdpChiediFlussoRendicontazioneSoapIn" />
+      <wsdl:output message="tns:pdpChiediFlussoRendicontazioneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpChiediElencoFlussiRendicontazione">
+      <wsdl:input message="tns:pdpChiediElencoFlussiRendicontazioneSoapIn" />
+      <wsdl:output message="tns:pdpChiediElencoFlussiRendicontazioneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpEsitiRT">
+      <wsdl:input message="tns:pdpEsitiRTSoapIn" />
+      <wsdl:output message="tns:pdpEsitiRTSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpAttivaRpt">
+      <wsdl:input message="tns:pdpAttivaRptSoapIn" />
+      <wsdl:output message="tns:pdpAttivaRptSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpRichiediAvviso">
+      <wsdl:input message="tns:pdpRichiediAvvisoSoapIn" />
+      <wsdl:output message="tns:pdpRichiediAvvisoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pdpCheckServizioAttivo">
+      <wsdl:input message="tns:pdpCheckServizioAttivoSoapIn" />
+      <wsdl:output message="tns:pdpCheckServizioAttivoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WEBS_DataProviderInterfacePort" type="tns:WEBS_DataProviderInterfacePort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="pdpGeneraIUV">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpGeneraIUV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpCaricaPagamentoInAttesa">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpCaricaPagamentoInAttesa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpCancellaPagamentoInAttesa">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpCancellaPagamentoInAttesa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpGeneraRPT">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpGeneraRPT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpInviaRPT">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpInviaRPT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpChiediStatoRPT">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpChiediStatoRPT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpRecuperaRPT">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpRecuperaRPT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpRecuperaRT">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpRecuperaRT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpRichiediStornoRT">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpRichiediStornoRT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpChiediSceltaWISP">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpChiediSceltaWISP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpVerificaMarcaDaBolloDigitale">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpVerificaMarcaDaBolloDigitale" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dpVerificaPagamentoInAttesa">
+      <soap:operation soapAction="http://easybridge.eu/bridge/dpVerificaPagamentoInAttesa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dpInviaEsitoPagamento">
+      <soap:operation soapAction="http://easybridge.eu/bridge/dpInviaEsitoPagamento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpChiediFlussoRendicontazione">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.pagoparl.infogroup.it/pdpChiediFlussoRendicontazione" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpChiediElencoFlussiRendicontazione">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.pagoparl.infogroup.it/pdpChiediElencoFlussiRendicontazione" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpEsitiRT">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.pagoparl.infogroup.it/pdpEsitiRT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpAttivaRpt">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.pagoparl.infogroup.it/pdpAttivaRpt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpRichiediAvviso">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpRichiediAvviso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpCheckServizioAttivo">
+      <soap:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpCheckServizioAttivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WEBS_DataProviderInterfacePort12" type="tns:WEBS_DataProviderInterfacePort">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="pdpGeneraIUV">
+      <soap12:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpGeneraIUV" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpCaricaPagamentoInAttesa">
+      <soap12:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpCaricaPagamentoInAttesa" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpCancellaPagamentoInAttesa">
+      <soap12:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpCancellaPagamentoInAttesa" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpGeneraRPT">
+      <soap12:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpGeneraRPT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpInviaRPT">
+      <soap12:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpInviaRPT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpChiediStatoRPT">
+      <soap12:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpChiediStatoRPT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpRecuperaRPT">
+      <soap12:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpRecuperaRPT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpRecuperaRT">
+      <soap12:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpRecuperaRT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpRichiediStornoRT">
+      <soap12:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpRichiediStornoRT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpChiediSceltaWISP">
+      <soap12:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpChiediSceltaWISP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpVerificaMarcaDaBolloDigitale">
+      <soap12:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpVerificaMarcaDaBolloDigitale" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dpVerificaPagamentoInAttesa">
+      <soap12:operation soapAction="http://easybridge.eu/bridge/dpVerificaPagamentoInAttesa" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dpInviaEsitoPagamento">
+      <soap12:operation soapAction="http://easybridge.eu/bridge/dpInviaEsitoPagamento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pdpCheckServizioAttivo">
+      <soap12:operation soapAction="http://generatedsource.dp.webservice.intermediariopa.infogroup.it/pdpCheckServizioAttivo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WEBS_DataProviderInterface">
+    <wsdl:port name="WEBS_DataProviderInterfacePort" binding="tns:WEBS_DataProviderInterfacePort">
+      <soap:address location="http://localhost:8080/IntermediarioPAWebService/IntermediarioPAService" />
+    </wsdl:port>
+    <wsdl:port name="WEBS_DataProviderInterfacePort12" binding="tns:WEBS_DataProviderInterfacePort12">
+      <soap12:address location="http://localhost:8080/IntermediarioPAWebService/IntermediarioPAService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

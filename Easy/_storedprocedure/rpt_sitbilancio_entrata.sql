@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_sitbilancio_entrata]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_sitbilancio_entrata]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_sitbilancio_entrata]
 GO
 
@@ -247,7 +249,7 @@ BEGIN
 			AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)
 			AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)
 			AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-			--AND ((incometotal.flag & 1) = 1) -- Residuo --Task.5063: in entrata √® consentito sforare la prev. quindi 
+			--AND ((incometotal.flag & 1) = 1) -- Residuo --Task.5063: in entrata Ë consentito sforare la prev. quindi 
 			-- dobbiamo includere anche i mov. di comp. la cui coppia upb/bilancio non ha previsione.
 
 
@@ -840,7 +842,7 @@ IF (@showupb <>'S') and (@idupboriginal = '%')
 		upbprintingorder = null,
 		upb =  null,
 		codeupb = null
-IF (@suppressifblank = 'S') AND @nlevel>=2	--> se la stampa √® x un livello uguale o sottostante la categoria cancella le righe
+IF (@suppressifblank = 'S') AND @nlevel>=2	--> se la stampa Ë x un livello uguale o sottostante la categoria cancella le righe
 BEGIN
 	DELETE FROM #fin_residual 
 	WHERE 
@@ -957,4 +959,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

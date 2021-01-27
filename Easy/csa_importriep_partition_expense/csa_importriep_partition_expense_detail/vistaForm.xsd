@@ -127,6 +127,7 @@
     <xs:unique name="expenseview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:expenseview" />
       <xs:field xpath="mstns:idexp" />
+      <xs:field xpath="mstns:ayear" />
     </xs:unique>
     <xs:unique name="csa_importriep_partition_expense_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:csa_importriep_partition_expense" />

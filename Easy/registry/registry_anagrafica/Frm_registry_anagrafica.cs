@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -163,7 +165,6 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
         private Button btnEditAtt;
         private Button btnInsAtt;
         private TextBox textBox3;
-        private RichTextBox richTextBox1;
         private CheckBox chhEntePubblico;
         private TabPage tabMod770;
         private DataGrid dataGrid4;
@@ -183,6 +184,9 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 		private Label label13;
 		private TextBox txtIndirizzoEmail;
 		private Label label10;
+		private Label label12;
+		private TextBox textBox6;
+		private Label label14;
 		private object idgeo=DBNull.Value;
 
 		public Frm_registry_anagrafica() {
@@ -269,6 +273,8 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.btnIndModifica = new System.Windows.Forms.Button();
 			this.btnIndInserisci = new System.Windows.Forms.Button();
 			this.tabAltriDati = new System.Windows.Forms.TabPage();
+			this.label12 = new System.Windows.Forms.Label();
+			this.textBox6 = new System.Windows.Forms.TextBox();
 			this.groupBox7 = new System.Windows.Forms.GroupBox();
 			this.textBox5 = new System.Windows.Forms.TextBox();
 			this.label13 = new System.Windows.Forms.Label();
@@ -278,7 +284,6 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.label11 = new System.Windows.Forms.Label();
 			this.chkRifAmm = new System.Windows.Forms.CheckBox();
 			this.chhEntePubblico = new System.Windows.Forms.CheckBox();
-			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
 			this.textBox3 = new System.Windows.Forms.TextBox();
 			this.chkBankItaliaProceeds = new System.Windows.Forms.CheckBox();
 			this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -363,6 +368,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.button17 = new System.Windows.Forms.Button();
 			this.button18 = new System.Windows.Forms.Button();
 			this.button19 = new System.Windows.Forms.Button();
+			this.label14 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabGeneralita.SuspendLayout();
@@ -1032,9 +1038,11 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			// 
 			// tabAltriDati
 			// 
+			this.tabAltriDati.Controls.Add(this.label14);
+			this.tabAltriDati.Controls.Add(this.label12);
+			this.tabAltriDati.Controls.Add(this.textBox6);
 			this.tabAltriDati.Controls.Add(this.groupBox7);
 			this.tabAltriDati.Controls.Add(this.chhEntePubblico);
-			this.tabAltriDati.Controls.Add(this.richTextBox1);
 			this.tabAltriDati.Controls.Add(this.textBox3);
 			this.tabAltriDati.Controls.Add(this.chkBankItaliaProceeds);
 			this.tabAltriDati.Controls.Add(this.groupBox6);
@@ -1051,6 +1059,23 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabAltriDati.TabIndex = 9;
 			this.tabAltriDati.Text = "Altri Dati";
 			this.tabAltriDati.UseVisualStyleBackColor = true;
+			// 
+			// label12
+			// 
+			this.label12.Location = new System.Drawing.Point(333, 287);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(216, 17);
+			this.label12.TabIndex = 71;
+			this.label12.Text = "Codice IPA soggetto conferente PerlaPA";
+			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox6
+			// 
+			this.textBox6.Location = new System.Drawing.Point(563, 288);
+			this.textBox6.Name = "textBox6";
+			this.textBox6.Size = new System.Drawing.Size(83, 20);
+			this.textBox6.TabIndex = 65;
+			this.textBox6.Tag = "registry.ipa_perlapa";
 			// 
 			// groupBox7
 			// 
@@ -1145,22 +1170,11 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.chhEntePubblico.Tag = "registry.flag_pa:S:N";
 			this.chhEntePubblico.Text = "Applica lo split payment  (per le fatture di vendita)";
 			// 
-			// richTextBox1
-			// 
-			this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.richTextBox1.Location = new System.Drawing.Point(333, 264);
-			this.richTextBox1.Name = "richTextBox1";
-			this.richTextBox1.ReadOnly = true;
-			this.richTextBox1.Size = new System.Drawing.Size(216, 20);
-			this.richTextBox1.TabIndex = 62;
-			this.richTextBox1.Text = "Codice IPA/Codice destinatario per la FE";
-			this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
-			// 
 			// textBox3
 			// 
 			this.textBox3.Location = new System.Drawing.Point(563, 264);
 			this.textBox3.Name = "textBox3";
-			this.textBox3.Size = new System.Drawing.Size(73, 20);
+			this.textBox3.Size = new System.Drawing.Size(83, 20);
 			this.textBox3.TabIndex = 54;
 			this.textBox3.Tag = "registry.ipa_fe";
 			// 
@@ -1451,17 +1465,17 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.txtDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescrizione.Location = new System.Drawing.Point(90, 290);
+			this.txtDescrizione.Location = new System.Drawing.Point(90, 314);
 			this.txtDescrizione.Multiline = true;
 			this.txtDescrizione.Name = "txtDescrizione";
 			this.txtDescrizione.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtDescrizione.Size = new System.Drawing.Size(658, 63);
+			this.txtDescrizione.Size = new System.Drawing.Size(658, 39);
 			this.txtDescrizione.TabIndex = 4;
 			this.txtDescrizione.Tag = "registry.annotation";
 			// 
 			// label6
 			// 
-			this.label6.Location = new System.Drawing.Point(11, 289);
+			this.label6.Location = new System.Drawing.Point(11, 313);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(72, 19);
 			this.label6.TabIndex = 46;
@@ -2078,6 +2092,15 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.button19.Tag = "insert.anagraficadetail";
 			this.button19.Text = "Inserisci...";
 			// 
+			// label14
+			// 
+			this.label14.Location = new System.Drawing.Point(333, 265);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(216, 17);
+			this.label14.TabIndex = 72;
+			this.label14.Text = "Codice IPA/Codice destinatario per la FE";
+			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
 			// Frm_registry_anagrafica
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -2149,7 +2172,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
             QHS = Meta.Conn.GetQueryHelper();
 			object MDVer = Meta.Conn.GetSys("MetaDataVersion");
 			if (MDVer.ToString().CompareTo("1.30.75.0")<0){
-				MessageBox.Show("Per poter eseguire il form richiesto Ë necessario attendere "+
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Per poter eseguire il form richiesto Ë necessario attendere "+
 					"il completamento del live-update del software, poi chiudere e riaprire il programma.");
 				Meta.CanSave=false;
 				Meta.SearchEnabled=false;
@@ -2430,7 +2453,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			if (IsValid) 
 				txtCodiceFiscale.Text=codice;
 			else
-				MessageBox.Show("Sono stati riscontrati i seguenti errori "+
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Sono stati riscontrati i seguenti errori "+
 					"durante il calcolo del codice fiscale:\r\r"+errori,"Calcolo Codice Fiscale",
 					MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 		}
@@ -2442,7 +2465,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			string codicefiscale=R["cf"].ToString().ToUpper();
 			if (codicefiscale.Length!=16) 
 			{
-				MessageBox.Show(this, "Il codice fiscale deve essere composto da 16 caratteri!", "Elaborazione del codice fiscale",
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il codice fiscale deve essere composto da 16 caratteri!", "Elaborazione del codice fiscale",
 					MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 				return;
 			}
@@ -2450,7 +2473,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			char lastChar =  CalcolaCodiceFiscale.GetLastChar(codicefiscale.Substring(0,15), out IsValid);
 			if ((!IsValid)||(codicefiscale[15] != lastChar)) 
 			{
-				MessageBox.Show(this, "Il codice fiscale Ë errato!", "Verifica dell'ultimo carattere del codice fiscale '"+lastChar+"'",
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il codice fiscale Ë errato!", "Verifica dell'ultimo carattere del codice fiscale '"+lastChar+"'",
 					MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 				return;
 			}
@@ -2470,7 +2493,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 				} 
 				else 
 				{
-					MessageBox.Show(this, "Impossibile ricavare il comune dal codice '"+codicefiscale.Substring(11,4)+"'", "Elaborazione del codice fiscale",
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Impossibile ricavare il comune dal codice '"+codicefiscale.Substring(11,4)+"'", "Elaborazione del codice fiscale",
 						MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 				}
 			} 
@@ -2484,7 +2507,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 				} 
 				else 
 				{
-					MessageBox.Show(this, "Impossibile ricavare lo stato estero dal codice '"+codicefiscale.Substring(11,4)+"'", "Elaborazione del codice fiscale",
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Impossibile ricavare lo stato estero dal codice '"+codicefiscale.Substring(11,4)+"'", "Elaborazione del codice fiscale",
 						MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 				}
 			}
@@ -2625,9 +2648,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
             if (Meta != null && Meta.DrawStateIsDone)  aggiornaDenominazione();
 		}
 
-        private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e) {
-            System.Diagnostics.Process.Start(e.LinkText);
-        }
+        
 
 	}
 }

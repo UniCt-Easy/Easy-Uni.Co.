@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using metadatalibrary;
@@ -546,7 +548,7 @@ namespace gestioneclassificazioni
 									  });
 				}
 				catch (Exception E) {
-					MessageBox.Show(E.Message);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
 				}
 				if ((OutDS!=null)&&(OutDS.Tables.Count>0)) {
                     if (TipoClassAllowed == null) {
@@ -914,7 +916,7 @@ namespace gestioneclassificazioni
 									  });
             }
             catch (Exception E) {
-                MessageBox.Show(E.Message);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
             }
             if ((OutDS != null) && (OutDS.Tables.Count > 0)) {
                 if (TipoClassAllowed == null) {
@@ -1002,7 +1004,7 @@ namespace gestioneclassificazioni
 								});
             }
             catch (Exception E) {
-                MessageBox.Show(E.Message);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
                 return;
             }
             if ((OutDS == null) || (OutDS.Tables.Count == 0)) return; //no autoclass
@@ -1105,7 +1107,7 @@ namespace gestioneclassificazioni
 								});
 			}
 			catch (Exception E) {
-				MessageBox.Show(E.Message);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
 				return;
 			}
 			if ((OutDS==null)||(OutDS.Tables.Count==0)) return; //no autoclass
@@ -1176,15 +1178,16 @@ namespace gestioneclassificazioni
                 decimal rowtotalDec = Convert.ToDecimal(rowtotal);
                 AggiornaImporti(htAmountClass, idsor_siope, rowtotalDec);
             }
-            AggiungiClass(htAmountClass, null, rPettycashoperation);//R di pettycash
+            AggiungiClassRow(htAmountClass,  rPettycashoperation);//R di pettycash
         }
         /// <summary>
         /// Metodo che classifica le Operazioni della piccola spesa e i mov. di Apertura/Chiusura
         /// </summary>
-        /// <param name="R"></param>
+        /// <param name="Rop"></param>
         /// <param name="Rconfig"></param>
-        /// <param name="Curr_idexpidinc"></param>
-        public void AggiungiClassDa_PettyCashOp(DataRow Rop, DataRow Rconfig, object Curr_idexpidinc) {
+        /// <param name="idmov"></param>
+        public void AggiungiClassDa_PettyCashOp(DataRow Rop, DataRow Rconfig, object idmov) {
+
             Hashtable htAmountClass = new Hashtable();
             byte flag = (byte)Rop["flag"];
             bool isSpesa = (flag & 8) != 0;
@@ -1196,14 +1199,15 @@ namespace gestioneclassificazioni
                 decimal amount = GetNoNullDecimal(Rconfig["amount"]);
                 int idsor_siope = GetNoNullInt32(Rconfig["idsor_siopeexp"]);
                 AggiornaImporti(htAmountClass, idsor_siope, amount);
-                AggiungiClass(htAmountClass, Curr_idexpidinc, null);//R di pettycash
+                AggiungiClass(htAmountClass, idmov);//R di pettycash
             }
             // chiusura
             if (isChiusura) {
-                decimal amount = GetNoNullDecimal(Rconfig["amount"]);
+	            DataSet d = Rop.Table.DataSet;
+	            decimal amount = CfgFn.GetNoNullDecimal( d.Tables["incomeyear"].Select(QHC.CmpEq("idinc", idmov))[0]["amount"] );
                 int idsor_siope = GetNoNullInt32(Rconfig["idsor_siopeinc"]);
                 AggiornaImporti(htAmountClass, idsor_siope, amount);
-                AggiungiClass(htAmountClass, Curr_idexpidinc, null);//R di pettycash
+                AggiungiClass(htAmountClass, idmov);//R di pettycash
             }
             if (isSpesa) {
                 //Sta classificando le piccole spese. Poi in fase di reintegro, copia le class. delle operazioni sui pagamenti generati dal reintegro
@@ -1211,7 +1215,7 @@ namespace gestioneclassificazioni
                     int idsor_siope = GetNoNullInt32(Rop["idsor_siope"]);
                     decimal amount = GetNoNullDecimal(Rop["amount"]);
                     AggiornaImporti(htAmountClass, idsor_siope, amount);
-                    AggiungiClass(htAmountClass, null, Rop);//R di pettycash
+                    AggiungiClassRow(htAmountClass,  Rop);//R di pettycash
                     return;
                 }
             }
@@ -1222,7 +1226,7 @@ namespace gestioneclassificazioni
             decimal curramount = GetNoNullDecimal(rPettycashoperation["amount"]);
             Hashtable htAmountClass = new Hashtable();
             AggiornaImporti(htAmountClass, idsor_siope, curramount);
-            AggiungiClass(htAmountClass, null,  rPettycashoperation);
+            AggiungiClassRow(htAmountClass,   rPettycashoperation);
         }
         // - add row to impclassspesa
         //Hashtable htAmountClassInv = new Hashtable();
@@ -1319,9 +1323,13 @@ namespace gestioneclassificazioni
                     //Movimento di chiusura
                     DataRow rPettycashoperation = DSsource.Tables["pettycashoperation"].Rows[0];
                     DataRow[] Conf = DSsource.Tables["pettycashsetup"].Select(QHC.AppAnd(QHC.CmpEq("ayear", Meta.GetSys("esercizio")), QHC.CmpEq("idpettycash", rPettycashoperation["idpettycash"])));
-                    DataRow Rincomemax = Movimento.Select(QHC.CmpEq("nphase", GetNoNullInt32(Meta.GetSys("maxincomephase"))))[0];
-                    Curr_idexpidinc = Rincomemax[idmovimento];
-                    AggiungiClassDa_PettyCashOp(rPettycashoperation, Conf[0], Curr_idexpidinc);
+                    
+                    foreach (DataRow Rincomemax in Movimento.Select(QHC.CmpEq("nphase",
+	                    GetNoNullInt32(Meta.GetSys("maxincomephase"))))) {
+	                    Curr_idexpidinc = Rincomemax[idmovimento];
+	                    AggiungiClassDa_PettyCashOp(rPettycashoperation, Conf[0], Curr_idexpidinc);
+                    }
+                    
                     return;
                 }
                 //Cerca contabilizzazioni di Fatture col Fondo Economale
@@ -1413,14 +1421,14 @@ namespace gestioneclassificazioni
                         if (DS_toclassify.Tables.Contains("invoicedetail") &&
                             (DS_toclassify.Tables["invoicedetail"].Rows.Count > 0)) {
                             AggiungiClassDa_DettaglioFattura(htAmountClassInv, Curr_idexpidinc, "invoicedetail", "invoicedetail", movkind,DS_toclassify,"idexp");
-                            AggiungiClass(htAmountClassInv, Curr_idexpidinc, null);
+                            AggiungiClass(htAmountClassInv, Curr_idexpidinc);
                             continue;
                         }
                         if (DS_toclassify.Tables.Contains("invoicedetailview") &&
                             (DS_toclassify.Tables["invoicedetailview"].Rows.Count > 0)) {
                             AggiungiClassDa_DettaglioFattura(htAmountClassInv,Curr_idexpidinc, "invoicedetailview", "invoicedetailview",
                                 movkind, DS_toclassify, "idexp");
-                            AggiungiClass(htAmountClassInv, Curr_idexpidinc, null);
+                            AggiungiClass(htAmountClassInv, Curr_idexpidinc);
                             continue;
                         }
 
@@ -1434,7 +1442,7 @@ namespace gestioneclassificazioni
                                 AggiungiClassDa_DettaglioFattura(htAmountClassInv,Curr_idexpidinc, "invoicedetail_taxable_nc",
                                     "invoicedetail_iva_nc", movkind, DS_toclassify, "idexp");
                             }
-                            AggiungiClass(htAmountClassInv, Curr_idexpidinc, null);
+                            AggiungiClass(htAmountClassInv, Curr_idexpidinc);
                             continue;
                         }
 
@@ -1443,7 +1451,7 @@ namespace gestioneclassificazioni
                             (DSsource.Tables["invoicedetail"].Rows.Count > 0)) {
                             AggiungiClassDa_DettaglioFattura(htAmountClassInv,Curr_idexpidinc, "invoicedetail", "invoicedetail", movkind,
                                 DSsource, "idexp");
-                            AggiungiClass(htAmountClassInv, Curr_idexpidinc, null);
+                            AggiungiClass(htAmountClassInv, Curr_idexpidinc);
                             continue;
                         }
 
@@ -1451,14 +1459,14 @@ namespace gestioneclassificazioni
                             (DSsource.Tables["invoicedetailview"].Rows.Count > 0)) {
                             AggiungiClassDa_DettaglioFattura(htAmountClassInv,Curr_idexpidinc, "invoicedetailview", "invoicedetailview",
                                 movkind, DSsource, "idexp");
-                            AggiungiClass(htAmountClassInv, Curr_idexpidinc, null);
+                            AggiungiClass(htAmountClassInv, Curr_idexpidinc);
                             continue;
                         }
                         if (DSsource != null && DSsource.Tables.Contains("invoicedetail_taxable") &&
                             (DSsource.Tables.Contains("invoicedetail_iva"))) {
                             AggiungiClassDa_DettaglioFattura(htAmountClassInv,Curr_idexpidinc, "invoicedetail_taxable",
                                 "invoicedetail_iva", movkind, DSsource, "idexp");
-                            AggiungiClass(htAmountClassInv, Curr_idexpidinc, null);
+                            AggiungiClass(htAmountClassInv, Curr_idexpidinc);
                             continue;
                         }
                     }
@@ -1727,28 +1735,28 @@ namespace gestioneclassificazioni
                             (DS_toclassify.Tables["invoicedetail"].Rows.Count > 0)) {
                             AggiungiClassDa_DettaglioFattura(htAmountClassInv, Curr_idexpidinc, "invoicedetail", "invoicedetail", movkind,
                                 DS_toclassify,"idinc");
-                            AggiungiClass(htAmountClassInv, Curr_idexpidinc, null);
+                            AggiungiClass(htAmountClassInv, Curr_idexpidinc);
                             continue;
                         }
                         if (DS_toclassify.Tables.Contains("invoicedetailview") &&
                             (DS_toclassify.Tables["invoicedetailview"].Rows.Count > 0)) {
                             AggiungiClassDa_DettaglioFattura(htAmountClassInv, Curr_idexpidinc, "invoicedetailview", "invoicedetailview",
                                 movkind, DS_toclassify, "idinc");
-                            AggiungiClass(htAmountClassInv, Curr_idexpidinc, null);
+                            AggiungiClass(htAmountClassInv, Curr_idexpidinc);
                             continue;
                         }
                         if (DS_toclassify.Tables.Contains("invoicedetail_taxable") &&
                             (DS_toclassify.Tables.Contains("invoicedetail_iva"))) {
                             AggiungiClassDa_DettaglioFattura(htAmountClassInv, Curr_idexpidinc, "invoicedetail_taxable",
                                 "invoicedetail_iva", movkind, DS_toclassify, "idinc");
-                            AggiungiClass(htAmountClassInv, Curr_idexpidinc, null);
+                            AggiungiClass(htAmountClassInv, Curr_idexpidinc);
                             continue;
                         }
                         if (DSsource != null && DSsource.Tables.Contains("invoicedetail") &&
                             (DSsource.Tables["invoicedetail"].Rows.Count > 0)) {
                             AggiungiClassDa_DettaglioFattura(htAmountClassInv, Curr_idexpidinc, "invoicedetail", "invoicedetail", movkind,
                                 DSsource, "idinc");
-                            AggiungiClass(htAmountClassInv, Curr_idexpidinc, null);
+                            AggiungiClass(htAmountClassInv, Curr_idexpidinc);
                             continue;
                         }
 
@@ -1756,14 +1764,14 @@ namespace gestioneclassificazioni
                             (DSsource.Tables["invoicedetailview"].Rows.Count > 0)) {
                             AggiungiClassDa_DettaglioFattura(htAmountClassInv, Curr_idexpidinc, "invoicedetailview", "invoicedetailview",
                                 movkind, DSsource, "idinc");
-                            AggiungiClass(htAmountClassInv, Curr_idexpidinc, null);
+                            AggiungiClass(htAmountClassInv, Curr_idexpidinc);
                             continue;
                         }
                         if (DSsource != null && DSsource.Tables.Contains("invoicedetail_taxable") &&
                             (DSsource.Tables.Contains("invoicedetail_iva"))) {
                             AggiungiClassDa_DettaglioFattura(htAmountClassInv, Curr_idexpidinc, "invoicedetail_taxable",
                                 "invoicedetail_iva", movkind, DSsource, "idinc");
-                            AggiungiClass(htAmountClassInv, Curr_idexpidinc, null);
+                            AggiungiClass(htAmountClassInv, Curr_idexpidinc);
                             continue;
                         }
                     }
@@ -2042,7 +2050,7 @@ namespace gestioneclassificazioni
             int idsor_siope = GetNoNullInt32(rDett["idsor_siope"]);
             Hashtable htAmountClass = new Hashtable();
             AggiornaImporti(htAmountClass, idsor_siope, curramount);
-            AggiungiClass(htAmountClass, Curr_idexpidinc, null);
+            AggiungiClass(htAmountClass, Curr_idexpidinc);
         }
 
         public void AggiornaImporti(Hashtable ht, int idsor_siope, decimal amount) {
@@ -2100,7 +2108,7 @@ namespace gestioneclassificazioni
                     foreach (object idsorSiope in htAmountClass.Keys)idsiope=idsorSiope;
                     htAmountClass[idsiope] = currAmount;
                 }
-                AggiungiClass(htAmountClass, Curr_idexpidinc, null);
+                AggiungiClass(htAmountClass, Curr_idexpidinc);
                 return;
             }
             if ((mandatedetail_taxable != null) && (mandatedetail_iva != null)){
@@ -2137,7 +2145,7 @@ namespace gestioneclassificazioni
                     htAmountClass[idsiope] = currAmount;
                 }
                 
-                AggiungiClass(htAmountClass, Curr_idexpidinc, null);
+                AggiungiClass(htAmountClass, Curr_idexpidinc);
             }
 
         }
@@ -2175,32 +2183,37 @@ namespace gestioneclassificazioni
 
 
         /// <summary>
-        /// Aggiunge impitazione classificazione
+        /// Aggiunge imputazione classificazione
         /// </summary>
-        /// <param name="htAmountClass"></param> hashtable con le class. e importi
-        /// <param name="Curr_idexpidinc"></param>idexp del movimento, valorizzato per il finanziario
-        /// <param name="rPettycashoperation"></param> op. della piccola spesa, valorizzata nella piccola spesa
-        public void AggiungiClass(Hashtable htAmountClass, object Curr_idexpidinc, DataRow rPettycashoperation) {
-            if (Curr_idexpidinc != null) {
-                foreach (DictionaryEntry item in htAmountClass) {
-                    if (item.Key == DBNull.Value) continue;
-                    DataRow MyDR = ImpClass.NewRow();
-                    MyDR["amount"] = item.Value;
-                    MyDR["idsor"] = item.Key;
-                    siopeClassUsed[GetNoNullInt32(item.Key)] = true;
-                    MyDR["ayear"] = Meta.GetSys("esercizio");
-                    MyDR["tobecontinued"] = "N";
-                    MyDR["flagnodate"] = "S";
-                    MyDR[idmovimento] = Curr_idexpidinc;
-                    RowChange.CalcTemporaryID(MyDR);
-                    DataRow Found = FindOriginal(ImpClass, MyDR);
-                    if (Found == null)
-                        ImpClass.Rows.Add(MyDR);
-                    else
-                        MyDR = Found;
-                }
-            }
-            if (rPettycashoperation != null) {
+        /// <param name="htAmountClass">hashtable con le class. e importi</param> 
+        /// <param name="idmov">idexp del movimento, valorizzato per il finanziario</param>
+        public void AggiungiClass(Hashtable htAmountClass, object idmov) {
+		        foreach (DictionaryEntry item in htAmountClass) {
+			        if (item.Key == DBNull.Value) continue;
+			        DataRow MyDR = ImpClass.NewRow();
+			        MyDR["amount"] = item.Value;
+			        MyDR["idsor"] = item.Key;
+			        siopeClassUsed[GetNoNullInt32(item.Key)] = true;
+			        MyDR["ayear"] = Meta.GetSys("esercizio");
+			        MyDR["tobecontinued"] = "N";
+			        MyDR["flagnodate"] = "S";
+			        MyDR[idmovimento] = idmov;
+			        RowChange.CalcTemporaryID(MyDR);
+			        DataRow Found = FindOriginal(ImpClass, MyDR);
+			        if (Found == null)
+				        ImpClass.Rows.Add(MyDR);
+			        else
+				        MyDR = Found;
+		        }
+        }
+
+        /// <summary>
+        /// Aggiunge imputazione classificazione
+        /// </summary>
+        /// <param name="htAmountClass">hashtable con le class. e importi</param> 
+        /// <param name="rPettycashoperation">Piccola spesa</param>
+        public void AggiungiClassRow(Hashtable htAmountClass,  DataRow rPettycashoperation) {
+            
                 foreach (DictionaryEntry item in htAmountClass) {
                     if (item.Key == DBNull.Value) continue;
                     DataRow MyDR = ImpClass.NewRow();
@@ -2218,7 +2231,7 @@ namespace gestioneclassificazioni
                     else
                         MyDR = Found;
                 }
-            }
+            
         }
 	    static decimal RoundValuta(decimal valuta) {
 	        if (valuta == Decimal.Truncate(valuta)) return valuta;
@@ -2334,7 +2347,7 @@ namespace gestioneclassificazioni
 			if (Meta.IsEmpty) return;
 			Meta.GetFormData(true);
 			if(ImpClass.Select().Length>0){
-				if(MessageBox.Show("Cancello le classificazioni esistenti?",
+				if(MetaFactory.factory.getSingleton<IMessageShower>().Show("Cancello le classificazioni esistenti?",
 					"Conferma",MessageBoxButtons.OKCancel)==DialogResult.OK){
 					foreach (DataRow R in ImpClass.Select()){
 						R.Delete();
@@ -2368,7 +2381,7 @@ namespace gestioneclassificazioni
 								});
 			}
 			catch (Exception E) {
-				MessageBox.Show(E.Message);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
 				return;
 			}
 			if ((OutDS==null) ||(OutDS.Tables.Count==0)) return; //no autoclass
@@ -2633,7 +2646,7 @@ namespace gestioneclassificazioni
 					});
 				}
 				catch (Exception E) {
-					MessageBox.Show(E.Message);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
 				}
 				if ((OutDS!=null)&&(OutDS.Tables.Count>0)) {
 					if (ClassMovimentiAllowed==null) ClassMovimentiAllowed= OutDS.Tables[0];
@@ -2741,7 +2754,7 @@ namespace gestioneclassificazioni
 									  });
 				}
 				catch (Exception E) {
-					MessageBox.Show(E.Message);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
 				}
 				if ((OutDS!=null)&&(OutDS.Tables.Count>0)) {
 					if (ClassMovimentiAllowed==null) ClassMovimentiAllowed= OutDS.Tables[0];
@@ -2773,13 +2786,13 @@ namespace gestioneclassificazioni
 			if (CurrDR==null) return;
 
 			if (ImpClassChilds(CurrDR).Length>0) {
-				if (MessageBox.Show(
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
 					"Cancello la classificazione selezionata e le relative subordinate?",
 					"Richiesta di conferma", 
 					MessageBoxButtons.YesNo)!=DialogResult.Yes) return;
 			}
 			else {
-				if (MessageBox.Show(
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
 					"Cancello la classificazione selezionata?",
 					"Richiesta di conferma", 
 					MessageBoxButtons.YesNo)!=DialogResult.Yes) return;
@@ -2827,7 +2840,7 @@ namespace gestioneclassificazioni
 			if (CurrDR==null) return;
 
 			if (ImpClassChilds(CurrDR).Length>0) {
-				MessageBox.Show(
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(
 					"La classificazione selezionata non può essere modificata poiché ci sono classificazioni "
 					+" subordinate ad essa. Per cambiarne i dati sarà necessario rimuoverla."
 					,

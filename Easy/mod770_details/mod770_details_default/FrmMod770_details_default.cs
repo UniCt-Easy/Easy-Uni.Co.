@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -92,236 +94,237 @@ namespace mod770_details_default
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMod770_details_default));
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.txtPercorso = new System.Windows.Forms.TextBox();
-            this.btnSalvaIn = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.DS = new mod770_details_default.vistaForm();
-            this.buttonGenera770 = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.buttonLegendaI = new System.Windows.Forms.Button();
-            this.buttonRecordI = new System.Windows.Forms.Button();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.btnDatiB = new System.Windows.Forms.Button();
-            this.btnLegendaB = new System.Windows.Forms.Button();
-            this.btnDatiA = new System.Windows.Forms.Button();
-            this.btnLegendaA = new System.Windows.Forms.Button();
-            this.grpVerifiche = new System.Windows.Forms.GroupBox();
-            this.dgrVerifiche = new System.Windows.Forms.DataGrid();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnRiepilogoRitenute = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.grpVerifiche.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgrVerifiche)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMod770_details_default));
+			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+			this.txtPercorso = new System.Windows.Forms.TextBox();
+			this.btnSalvaIn = new System.Windows.Forms.Button();
+			this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+			this.DS = new mod770_details_default.vistaForm();
+			this.buttonGenera770 = new System.Windows.Forms.Button();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.buttonLegendaI = new System.Windows.Forms.Button();
+			this.buttonRecordI = new System.Windows.Forms.Button();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.btnDatiB = new System.Windows.Forms.Button();
+			this.btnLegendaB = new System.Windows.Forms.Button();
+			this.btnDatiA = new System.Windows.Forms.Button();
+			this.btnLegendaA = new System.Windows.Forms.Button();
+			this.grpVerifiche = new System.Windows.Forms.GroupBox();
+			this.dgrVerifiche = new System.Windows.Forms.DataGrid();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.btnRiepilogoRitenute = new System.Windows.Forms.Button();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.groupBox4.SuspendLayout();
+			this.groupBox5.SuspendLayout();
+			this.grpVerifiche.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgrVerifiche)).BeginInit();
+			this.groupBox1.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// richTextBox1
+			// 
+			this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox1.Location = new System.Drawing.Point(16, 92);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(868, 73);
-            this.richTextBox1.TabIndex = 8;
-            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
-            this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
-            // 
-            // txtPercorso
-            // 
-            this.txtPercorso.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.richTextBox1.Location = new System.Drawing.Point(16, 92);
+			this.richTextBox1.Name = "richTextBox1";
+			this.richTextBox1.Size = new System.Drawing.Size(868, 73);
+			this.richTextBox1.TabIndex = 8;
+			this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
+			this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
+			// 
+			// txtPercorso
+			// 
+			this.txtPercorso.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPercorso.Location = new System.Drawing.Point(146, 66);
-            this.txtPercorso.Name = "txtPercorso";
-            this.txtPercorso.ReadOnly = true;
-            this.txtPercorso.Size = new System.Drawing.Size(738, 20);
-            this.txtPercorso.TabIndex = 6;
-            // 
-            // btnSalvaIn
-            // 
-            this.btnSalvaIn.AutoSize = true;
-            this.btnSalvaIn.Location = new System.Drawing.Point(16, 64);
-            this.btnSalvaIn.Name = "btnSalvaIn";
-            this.btnSalvaIn.Size = new System.Drawing.Size(124, 23);
-            this.btnSalvaIn.TabIndex = 5;
-            this.btnSalvaIn.Text = "Percorso in cui salvare";
-            this.btnSalvaIn.Click += new System.EventHandler(this.btnSalva_Click);
-            // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.DefaultExt = "77s";
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            this.DS.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // buttonGenera770
-            // 
-            this.buttonGenera770.Location = new System.Drawing.Point(15, 12);
-            this.buttonGenera770.Name = "buttonGenera770";
-            this.buttonGenera770.Size = new System.Drawing.Size(212, 38);
-            this.buttonGenera770.TabIndex = 15;
-            this.buttonGenera770.Text = "Genera modello 770 (record I)";
-            this.buttonGenera770.UseVisualStyleBackColor = true;
-            this.buttonGenera770.Click += new System.EventHandler(this.buttonGenera770_Click);
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.buttonLegendaI);
-            this.groupBox4.Controls.Add(this.buttonRecordI);
-            this.groupBox4.Location = new System.Drawing.Point(16, 221);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(682, 51);
-            this.groupBox4.TabIndex = 16;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "RECORD DI TIPO \"I\": Procedure di pignoramento presso terzi e lavoratori autonomi " +
+			this.txtPercorso.Location = new System.Drawing.Point(146, 66);
+			this.txtPercorso.Name = "txtPercorso";
+			this.txtPercorso.ReadOnly = true;
+			this.txtPercorso.Size = new System.Drawing.Size(738, 20);
+			this.txtPercorso.TabIndex = 6;
+			// 
+			// btnSalvaIn
+			// 
+			this.btnSalvaIn.AutoSize = true;
+			this.btnSalvaIn.Location = new System.Drawing.Point(16, 64);
+			this.btnSalvaIn.Name = "btnSalvaIn";
+			this.btnSalvaIn.Size = new System.Drawing.Size(124, 23);
+			this.btnSalvaIn.TabIndex = 5;
+			this.btnSalvaIn.Text = "Percorso in cui salvare";
+			this.btnSalvaIn.Click += new System.EventHandler(this.btnSalva_Click);
+			// 
+			// saveFileDialog1
+			// 
+			this.saveFileDialog1.DefaultExt = "77s";
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			this.DS.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+			// 
+			// buttonGenera770
+			// 
+			this.buttonGenera770.Location = new System.Drawing.Point(15, 12);
+			this.buttonGenera770.Name = "buttonGenera770";
+			this.buttonGenera770.Size = new System.Drawing.Size(212, 38);
+			this.buttonGenera770.TabIndex = 15;
+			this.buttonGenera770.Text = "Genera modello 770 (record I)";
+			this.buttonGenera770.UseVisualStyleBackColor = true;
+			this.buttonGenera770.Click += new System.EventHandler(this.buttonGenera770_Click);
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Controls.Add(this.buttonLegendaI);
+			this.groupBox4.Controls.Add(this.buttonRecordI);
+			this.groupBox4.Location = new System.Drawing.Point(16, 221);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(682, 51);
+			this.groupBox4.TabIndex = 16;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "RECORD DI TIPO \"I\": Procedure di pignoramento presso terzi e lavoratori autonomi " +
     "stranieri privi di codice fiscale italiano";
-            // 
-            // buttonLegendaI
-            // 
-            this.buttonLegendaI.Location = new System.Drawing.Point(81, 20);
-            this.buttonLegendaI.Name = "buttonLegendaI";
-            this.buttonLegendaI.Size = new System.Drawing.Size(84, 23);
-            this.buttonLegendaI.TabIndex = 11;
-            this.buttonLegendaI.Text = "Legenda \"I\"";
-            this.buttonLegendaI.UseVisualStyleBackColor = true;
-            this.buttonLegendaI.Click += new System.EventHandler(this.buttonLegendaI_Click);
-            // 
-            // buttonRecordI
-            // 
-            this.buttonRecordI.Location = new System.Drawing.Point(175, 20);
-            this.buttonRecordI.Name = "buttonRecordI";
-            this.buttonRecordI.Size = new System.Drawing.Size(84, 23);
-            this.buttonRecordI.TabIndex = 10;
-            this.buttonRecordI.Text = "Dati \"I\"";
-            this.buttonRecordI.UseVisualStyleBackColor = true;
-            this.buttonRecordI.Click += new System.EventHandler(this.buttonRecordI_Click);
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.btnDatiB);
-            this.groupBox5.Controls.Add(this.btnLegendaB);
-            this.groupBox5.Controls.Add(this.btnDatiA);
-            this.groupBox5.Controls.Add(this.btnLegendaA);
-            this.groupBox5.Location = new System.Drawing.Point(16, 171);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(420, 43);
-            this.groupBox5.TabIndex = 17;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "RECORD DI TIPO A  e di tipo B:";
-            // 
-            // btnDatiB
-            // 
-            this.btnDatiB.Location = new System.Drawing.Point(319, 14);
-            this.btnDatiB.Name = "btnDatiB";
-            this.btnDatiB.Size = new System.Drawing.Size(84, 23);
-            this.btnDatiB.TabIndex = 15;
-            this.btnDatiB.Text = "Dati \"B\"";
-            this.btnDatiB.UseVisualStyleBackColor = true;
-            this.btnDatiB.Click += new System.EventHandler(this.btnDatiB_Click);
-            // 
-            // btnLegendaB
-            // 
-            this.btnLegendaB.Location = new System.Drawing.Point(229, 14);
-            this.btnLegendaB.Name = "btnLegendaB";
-            this.btnLegendaB.Size = new System.Drawing.Size(84, 23);
-            this.btnLegendaB.TabIndex = 14;
-            this.btnLegendaB.Text = "Legenda \"B\"";
-            this.btnLegendaB.UseVisualStyleBackColor = true;
-            this.btnLegendaB.Click += new System.EventHandler(this.btnLegendaB_Click);
-            // 
-            // btnDatiA
-            // 
-            this.btnDatiA.Location = new System.Drawing.Point(96, 14);
-            this.btnDatiA.Name = "btnDatiA";
-            this.btnDatiA.Size = new System.Drawing.Size(84, 23);
-            this.btnDatiA.TabIndex = 13;
-            this.btnDatiA.Text = "Dati \"A\"";
-            this.btnDatiA.UseVisualStyleBackColor = true;
-            this.btnDatiA.Click += new System.EventHandler(this.btnDatiA_Click);
-            // 
-            // btnLegendaA
-            // 
-            this.btnLegendaA.Location = new System.Drawing.Point(6, 14);
-            this.btnLegendaA.Name = "btnLegendaA";
-            this.btnLegendaA.Size = new System.Drawing.Size(84, 23);
-            this.btnLegendaA.TabIndex = 12;
-            this.btnLegendaA.Text = "Legenda \"A\"";
-            this.btnLegendaA.UseVisualStyleBackColor = true;
-            this.btnLegendaA.Click += new System.EventHandler(this.btnLegendaA_Click);
-            // 
-            // grpVerifiche
-            // 
-            this.grpVerifiche.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpVerifiche.Controls.Add(this.dgrVerifiche);
-            this.grpVerifiche.Location = new System.Drawing.Point(16, 278);
-            this.grpVerifiche.Name = "grpVerifiche";
-            this.grpVerifiche.Size = new System.Drawing.Size(871, 117);
-            this.grpVerifiche.TabIndex = 19;
-            this.grpVerifiche.TabStop = false;
-            // 
-            // dgrVerifiche
-            // 
-            this.dgrVerifiche.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			// 
+			// buttonLegendaI
+			// 
+			this.buttonLegendaI.Location = new System.Drawing.Point(81, 20);
+			this.buttonLegendaI.Name = "buttonLegendaI";
+			this.buttonLegendaI.Size = new System.Drawing.Size(84, 23);
+			this.buttonLegendaI.TabIndex = 11;
+			this.buttonLegendaI.Text = "Legenda \"I\"";
+			this.buttonLegendaI.UseVisualStyleBackColor = true;
+			this.buttonLegendaI.Click += new System.EventHandler(this.buttonLegendaI_Click);
+			// 
+			// buttonRecordI
+			// 
+			this.buttonRecordI.Location = new System.Drawing.Point(175, 20);
+			this.buttonRecordI.Name = "buttonRecordI";
+			this.buttonRecordI.Size = new System.Drawing.Size(84, 23);
+			this.buttonRecordI.TabIndex = 10;
+			this.buttonRecordI.Text = "Dati \"I\"";
+			this.buttonRecordI.UseVisualStyleBackColor = true;
+			this.buttonRecordI.Click += new System.EventHandler(this.buttonRecordI_Click);
+			// 
+			// groupBox5
+			// 
+			this.groupBox5.Controls.Add(this.btnDatiB);
+			this.groupBox5.Controls.Add(this.btnLegendaB);
+			this.groupBox5.Controls.Add(this.btnDatiA);
+			this.groupBox5.Controls.Add(this.btnLegendaA);
+			this.groupBox5.Location = new System.Drawing.Point(16, 171);
+			this.groupBox5.Name = "groupBox5";
+			this.groupBox5.Size = new System.Drawing.Size(420, 43);
+			this.groupBox5.TabIndex = 17;
+			this.groupBox5.TabStop = false;
+			this.groupBox5.Text = "RECORD DI TIPO A  e di tipo B:";
+			// 
+			// btnDatiB
+			// 
+			this.btnDatiB.Location = new System.Drawing.Point(319, 14);
+			this.btnDatiB.Name = "btnDatiB";
+			this.btnDatiB.Size = new System.Drawing.Size(84, 23);
+			this.btnDatiB.TabIndex = 15;
+			this.btnDatiB.Text = "Dati \"B\"";
+			this.btnDatiB.UseVisualStyleBackColor = true;
+			this.btnDatiB.Click += new System.EventHandler(this.btnDatiB_Click);
+			// 
+			// btnLegendaB
+			// 
+			this.btnLegendaB.Location = new System.Drawing.Point(229, 14);
+			this.btnLegendaB.Name = "btnLegendaB";
+			this.btnLegendaB.Size = new System.Drawing.Size(84, 23);
+			this.btnLegendaB.TabIndex = 14;
+			this.btnLegendaB.Text = "Legenda \"B\"";
+			this.btnLegendaB.UseVisualStyleBackColor = true;
+			this.btnLegendaB.Click += new System.EventHandler(this.btnLegendaB_Click);
+			// 
+			// btnDatiA
+			// 
+			this.btnDatiA.Location = new System.Drawing.Point(96, 14);
+			this.btnDatiA.Name = "btnDatiA";
+			this.btnDatiA.Size = new System.Drawing.Size(84, 23);
+			this.btnDatiA.TabIndex = 13;
+			this.btnDatiA.Text = "Dati \"A\"";
+			this.btnDatiA.UseVisualStyleBackColor = true;
+			this.btnDatiA.Click += new System.EventHandler(this.btnDatiA_Click);
+			// 
+			// btnLegendaA
+			// 
+			this.btnLegendaA.Location = new System.Drawing.Point(6, 14);
+			this.btnLegendaA.Name = "btnLegendaA";
+			this.btnLegendaA.Size = new System.Drawing.Size(84, 23);
+			this.btnLegendaA.TabIndex = 12;
+			this.btnLegendaA.Text = "Legenda \"A\"";
+			this.btnLegendaA.UseVisualStyleBackColor = true;
+			this.btnLegendaA.Click += new System.EventHandler(this.btnLegendaA_Click);
+			// 
+			// grpVerifiche
+			// 
+			this.grpVerifiche.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgrVerifiche.DataMember = "";
-            this.dgrVerifiche.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgrVerifiche.Location = new System.Drawing.Point(6, 19);
-            this.dgrVerifiche.Name = "dgrVerifiche";
-            this.dgrVerifiche.Size = new System.Drawing.Size(859, 92);
-            this.dgrVerifiche.TabIndex = 3;
-            this.dgrVerifiche.Tag = " ";
-            this.dgrVerifiche.DoubleClick += new System.EventHandler(this.dgrVerifiche_DoubleClick);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btnRiepilogoRitenute);
-            this.groupBox1.Location = new System.Drawing.Point(443, 171);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(420, 43);
-            this.groupBox1.TabIndex = 20;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Riepilogo Ritenute di tipo Fiscale e Arretrati";
-            // 
-            // btnRiepilogoRitenute
-            // 
-            this.btnRiepilogoRitenute.Location = new System.Drawing.Point(67, 14);
-            this.btnRiepilogoRitenute.Name = "btnRiepilogoRitenute";
-            this.btnRiepilogoRitenute.Size = new System.Drawing.Size(275, 23);
-            this.btnRiepilogoRitenute.TabIndex = 15;
-            this.btnRiepilogoRitenute.Text = "Riepilogo Ritenute di tipo Fiscale e Arretrati";
-            this.btnRiepilogoRitenute.UseVisualStyleBackColor = true;
-            this.btnRiepilogoRitenute.Click += new System.EventHandler(this.btnRiepilogoRitenute_Click);
-            // 
-            // FrmMod770_details_default
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(892, 406);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.grpVerifiche);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.buttonGenera770);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.txtPercorso);
-            this.Controls.Add(this.btnSalvaIn);
-            this.Name = "FrmMod770_details_default";
-            this.Text = "FrmMod770_details_default";
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.grpVerifiche.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgrVerifiche)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+			this.grpVerifiche.Controls.Add(this.dgrVerifiche);
+			this.grpVerifiche.Location = new System.Drawing.Point(16, 278);
+			this.grpVerifiche.Name = "grpVerifiche";
+			this.grpVerifiche.Size = new System.Drawing.Size(871, 117);
+			this.grpVerifiche.TabIndex = 19;
+			this.grpVerifiche.TabStop = false;
+			// 
+			// dgrVerifiche
+			// 
+			this.dgrVerifiche.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgrVerifiche.DataMember = "";
+			this.dgrVerifiche.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgrVerifiche.Location = new System.Drawing.Point(6, 19);
+			this.dgrVerifiche.Name = "dgrVerifiche";
+			this.dgrVerifiche.Size = new System.Drawing.Size(859, 92);
+			this.dgrVerifiche.TabIndex = 3;
+			this.dgrVerifiche.Tag = " ";
+			this.dgrVerifiche.DoubleClick += new System.EventHandler(this.dgrVerifiche_DoubleClick);
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.btnRiepilogoRitenute);
+			this.groupBox1.Location = new System.Drawing.Point(443, 171);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(420, 43);
+			this.groupBox1.TabIndex = 20;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Riepilogo Ritenute di tipo Fiscale e Arretrati";
+			// 
+			// btnRiepilogoRitenute
+			// 
+			this.btnRiepilogoRitenute.Location = new System.Drawing.Point(67, 14);
+			this.btnRiepilogoRitenute.Name = "btnRiepilogoRitenute";
+			this.btnRiepilogoRitenute.Size = new System.Drawing.Size(275, 23);
+			this.btnRiepilogoRitenute.TabIndex = 15;
+			this.btnRiepilogoRitenute.Text = "Riepilogo Ritenute di tipo Fiscale e Arretrati";
+			this.btnRiepilogoRitenute.UseVisualStyleBackColor = true;
+			this.btnRiepilogoRitenute.Click += new System.EventHandler(this.btnRiepilogoRitenute_Click);
+			// 
+			// FrmMod770_details_default
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(892, 406);
+			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.grpVerifiche);
+			this.Controls.Add(this.groupBox5);
+			this.Controls.Add(this.groupBox4);
+			this.Controls.Add(this.buttonGenera770);
+			this.Controls.Add(this.richTextBox1);
+			this.Controls.Add(this.txtPercorso);
+			this.Controls.Add(this.btnSalvaIn);
+			this.Name = "FrmMod770_details_default";
+			this.Text = "FrmMod770_details_default";
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.groupBox4.ResumeLayout(false);
+			this.groupBox5.ResumeLayout(false);
+			this.grpVerifiche.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgrVerifiche)).EndInit();
+			this.groupBox1.ResumeLayout(false);
+			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 		#endregion
@@ -396,7 +399,7 @@ namespace mod770_details_default
 				case "CB"://P-N
 					return "".PadLeft(lunghezza, '0');
 			}
-            MessageBox.Show(this, "Impossibile creare la stringa vuota per il formato '" + formato+"'");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Impossibile creare la stringa vuota per il formato '" + formato+"'");
 			return "".PadLeft(lunghezza);
 		}
 
@@ -429,7 +432,7 @@ namespace mod770_details_default
                 case "N3":
                     return getInt(r, out valore).ToString().PadLeft(3, '0');
 			}
-			MessageBox.Show(this, "Formato Errato " + rFormato["format"] + " nella Colonna" + r["colonna"]+" del quadro "+r["quadro"]);
+			MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Formato Errato " + rFormato["format"] + " nella Colonna" + r["colonna"]+" del quadro "+r["quadro"]);
 			return null;
 		}
 
@@ -486,20 +489,20 @@ namespace mod770_details_default
                 case "VN"://P-N
                     return typeof(decimal);
             }
-            MessageBox.Show("Formato sconosciuto nel quadro " + rFormato["frame"] + " colonna " + rFormato["colnumber"]);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("Formato sconosciuto nel quadro " + rFormato["frame"] + " colonna " + rFormato["colnumber"]);
             return null;
         }
 
 		private string getString(DataRow r, out object valore) {
             if (r["intero"] != DBNull.Value) {
-                MessageBox.Show(this,"Intero e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Intero e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["data"] != DBNull.Value) {
-                MessageBox.Show(this,"Data e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Data e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["decimale"] != DBNull.Value)
             {
-                MessageBox.Show(this, "Decimale e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Decimale e non stringa nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
 
             return  (string) (valore = aggiustaStringa(r["stringa"].ToString()));
@@ -507,14 +510,14 @@ namespace mod770_details_default
 
         private int getInt(DataRow r, out object valore) {
             if (r["stringa"] != DBNull.Value) {
-                MessageBox.Show(this,"Stringa e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Stringa e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["data"] != DBNull.Value) {
-                MessageBox.Show(this,"Data e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Data e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["decimale"] != DBNull.Value)
             {
-                MessageBox.Show(this, "Decimale e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Decimale e non intero nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             return (int) (valore = r["intero"]);
         }
@@ -523,29 +526,29 @@ namespace mod770_details_default
         {
             if (r["stringa"] != DBNull.Value)
             {
-                MessageBox.Show(this, "Stringa e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Stringa e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["data"] != DBNull.Value)
             {
-                MessageBox.Show(this, "Data e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Data e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["intero"] != DBNull.Value)
             {
-                MessageBox.Show(this, "Intero e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Intero e non decimal nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             return (decimal)(valore = r["decimale"]);
         }
 
         private DateTime getDateTime(DataRow r, out object valore) {
             if (r["stringa"] != DBNull.Value) {
-                MessageBox.Show(this,"Stringa e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Stringa e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["intero"] != DBNull.Value) {
-                MessageBox.Show(this,"Intero e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Intero e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             if (r["decimale"] != DBNull.Value)
             {
-                MessageBox.Show(this, "Decimale e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Decimale e non data nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
             }
             return (DateTime) (valore = r["data"]);
 		}
@@ -597,7 +600,7 @@ namespace mod770_details_default
                 case "VP"://N
                 case "VN"://P-N
                     return new string[] { campoCodice + getDecimal(r, out valore).ToString().PadLeft(16) };
-                default: MessageBox.Show("FCNP: Formato sconosciuto nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
+                default: MetaFactory.factory.getSingleton<IMessageShower>().Show("FCNP: Formato sconosciuto nel quadro " + r["quadro"] + " colonna " + r["colonna"]);
                     valore = null;
                     return null;
 			}
@@ -614,7 +617,7 @@ namespace mod770_details_default
 					+ ") and (colonna='" + r["colnumber"] + "')";
 				DataRow[] r770 = t.Select(filtro2);
                 if (r770.Length > 1) {
-                    MessageBox.Show(this, "Errore interno: trovate " + r770.Length + " righe con questo filtro\n" + filtro2);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore interno: trovate " + r770.Length + " righe con questo filtro\n" + filtro2);
                 }
 				if (r770.Length==0) {
 					sb.Append(vuoto(formato, lunghezza));
@@ -679,7 +682,7 @@ namespace mod770_details_default
 					errore += "\n"+r["idser"].ToString().PadRight(10)+"\t"+r["description"];
 				}
 				errore += "\n\nSi prega di contattare l'assistenza.";
-				MessageBox.Show(this, errore, "Errore");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore, "Errore");
 				return false;
 			}
 
@@ -701,7 +704,7 @@ namespace mod770_details_default
 					errore += "\n"+r["idser"].ToString().PadRight(10)+"\t"+r["description"];
 				}
 				errore += "\n\nSi prega di contattare l'assistenza.";
-				MessageBox.Show(this, errore, "Errore");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore, "Errore");
 				return false;
 			}
 
@@ -718,7 +721,7 @@ namespace mod770_details_default
 					errore += "\n"+r["taxcode"].ToString().PadRight(10)+"\t"+r["description"];
 				}
 				errore += "\n\nSi prega di contattare l'assistenza.";
-				MessageBox.Show(this, errore, "Errore");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore, "Errore");
 				return false;
 			}
 			return true;
@@ -728,7 +731,7 @@ namespace mod770_details_default
 			string errMsg;
 			DataSet ds = Meta.Conn.CallSP("check_modello770", new object[] {2005},-1, out errMsg);
 			if (errMsg != null) {
-				MessageBox.Show(this, "Si è verificato il seguente errore nel calcolo del 770:"
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si è verificato il seguente errore nel calcolo del 770:"
 					+"\n"+errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
 				return false;
 			}
@@ -769,22 +772,22 @@ namespace mod770_details_default
                  string recordZ = "Z".PadRight(15)//Tipo record + Filler 
                 + "1".PadLeft(9, '0')//Numero record di tipo ‘B’ 
                 + "0".PadLeft(9, '0')//Numero record di tipo ‘D’ 
+                + "0".PadLeft(9, '0')//Numero record di tipo ‘E’ 
                 + nRecordI.ToString().PadLeft(9, '0')//Numero record di tipo ‘I’ 
-                //Questo tipo rec. non è presente nelle specifiche tecniche del 2009,2008,2007,2006
-                //+ "0".PadLeft(9, '0')//Numero record di tipo ‘O’ 
-                + "A".PadLeft(1856);//1898-15-9*3 = 1855
+                + "0".PadLeft(9, '0')//Numero record di tipo ‘J’ 
+                + "A".PadLeft(1838);//1898-15-9*3 = 1855
 
 			tw.WriteLine(recordZ);
 
 			tw.Close();
 
             if (soloRecordH) {
-                MessageBox.Show(this, "Modello 770 salvato nel file: " + saveFileDialog1.FileName
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Modello 770 salvato nel file: " + saveFileDialog1.FileName
                     + "\nComunicazioni Somme liquidate a seguito di procedure di pignoramento presso terzi e lavoratori autonomi stranieri privi di codice fiscale italiano:   " + nRI + "  (" + nRecordI + " record di tipo \"I\")",
                     "Creazione 770 terminata");
             }
             else {
-                MessageBox.Show(this, "Modello 770 salvato nel file: " + saveFileDialog1.FileName
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Modello 770 salvato nel file: " + saveFileDialog1.FileName
                     + "\n\nComunicazioni Lavoro Dipendente: " + nRG + "  (" + nRecordG + " record di tipo \"G\")",
                     "Creazione 770 terminata");
             }
@@ -862,7 +865,7 @@ namespace mod770_details_default
             DataSet ds_check = Meta.Conn.CallSP("check_mod_770", new object[] { esercizioRedditi, recordKind }, 600, out errMess);
             if (errMess != null)
             {
-                MessageBox.Show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
                 return false;
             }
             DataTable tResult = ds_check.Tables[0];
@@ -883,7 +886,7 @@ namespace mod770_details_default
                     if (!isAdmin)
                         return false;
                     else
-                        if (MessageBox.Show(" Si desidera proseguire l''elaborazione nonostante  gli errori?", "Errore",
+                        if (MetaFactory.factory.getSingleton<IMessageShower>().Show(" Si desidera proseguire l''elaborazione nonostante  gli errori?", "Errore",
                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             return true;
                         else
@@ -901,7 +904,7 @@ namespace mod770_details_default
         {
             if (T.Rows.Count == 0)
             {
-                MessageBox.Show("Nessun elemento trovato");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessun elemento trovato");
                 return;
             }
             exportclass.DataTableToExcel(T, true);
@@ -1212,7 +1215,7 @@ namespace mod770_details_default
             
             DataRow [] righe770 = tMod770.Select(filtroQuadro, "progr");
             if (righe770.Length == 0) {
-                MessageBox.Show(this, "Non ci sono dati per il record " + record);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono dati per il record " + record);
                 Cursor = null;
                 return;
             }
@@ -1222,7 +1225,7 @@ namespace mod770_details_default
                 string filtro = "frame='" + r["quadro"] + "' and colnumber='" + r["colonna"]+"'";
                 DataRow[] rr = DS.mod770_details.Select(filtro);
                 if (rr.Length != 1) {
-                    MessageBox.Show(this, "Ho trovato " + rr.Length + " righe con questo filtro:\n" + filtro);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Ho trovato " + rr.Length + " righe con questo filtro:\n" + filtro);
                 }
                 formattaCampoNonPosizionale(r, out valore);
                 Colonna c = new Colonna(rr[0], (int)r["riga"], valore.GetType());
@@ -1249,7 +1252,7 @@ namespace mod770_details_default
                 formattaCampoNonPosizionale(r, out valore);
                 if (!t.Columns.Contains(campoCodice)) continue;
                 if (riga[campoCodice] != DBNull.Value) {
-                    MessageBox.Show(this, "Il campo "+campoCodice+" è stato assegnato due volte");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Il campo "+campoCodice+" è stato assegnato due volte");
                 }
                 riga[campoCodice] = valore;
             }
@@ -1597,7 +1600,7 @@ namespace mod770_details_default
             DataSet ds_RecordA = Meta.Conn.CallSP("exp_modello770_" + esercizio + "_a", parametriA, 60 * 60, out errMsg);
             if (ds_RecordA == null)
             {
-                MessageBox.Show(this, "Si è verificato il seguente errore nel calcolo del Record A del modello 770:"
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si è verificato il seguente errore nel calcolo del Record A del modello 770:"
                     + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                 Cursor = null;
                 return;
@@ -1612,7 +1615,7 @@ namespace mod770_details_default
             DataSet ds_RecordI = Meta.Conn.CallSP("exp_modello770_" + esercizio + "_i", parametriI, 60 * 60, out errMsg);
             if (ds_RecordI == null)
             {
-                MessageBox.Show(this, "Si è verificato il seguente errore nel calcolo del Record I del modello 770:"
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si è verificato il seguente errore nel calcolo del Record I del modello 770:"
                     + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                 Cursor = null;
                 return;
@@ -1637,7 +1640,7 @@ namespace mod770_details_default
             DataSet ds_RecordB = Meta.Conn.CallSP("exp_modello770_" + esercizio + "_b", parametriGH, 60 * 60, out errMsg);
             if (ds_RecordB == null)
             {
-                MessageBox.Show(this, "Si è verificato il seguente errore nel calcolo del Record B del modello 770:"
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Si è verificato il seguente errore nel calcolo del Record B del modello 770:"
                     + "\n" + errMsg + "\nRiprovare o chiamare l'ASSISTENZA");
                 Cursor = null;
                 return;
@@ -1652,7 +1655,7 @@ namespace mod770_details_default
                 string filtro = "frame='" + r["quadro"] + "' and colnumber='" + r["colonna"] + "'";
                 DataRow[] rFormato = DS.mod770_details.Select(filtro);
                 if (rFormato.Length != 1) {
-                    MessageBox.Show(this, "Formato sconosciuto: " + filtro);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Formato sconosciuto: " + filtro);
                     Cursor = null;
                     return;
                 }

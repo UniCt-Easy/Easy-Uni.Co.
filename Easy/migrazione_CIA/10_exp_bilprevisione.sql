@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿DROP  PROCEDURE exp_bilprevisione
+
+DROP  PROCEDURE exp_bilprevisione
 GO
 SET ANSI_NULLS ON
 GO
@@ -41,7 +43,7 @@ BEGIN
             "prevanno_5;previsione principale anno + 4;Numero;22"
             
             
-	Il bilancio di previsione Ã¨ esportato a partire dalla tabella preventivo_ripartizione prendendo le versioni 0
+	Il bilancio di previsione è esportato a partire dalla tabella preventivo_ripartizione prendendo le versioni 0
 	ma solo nel caso in cui lo stesso importo ci sia anche nella tabella preventivo nella versione 0
 	
 	
@@ -71,4 +73,3 @@ BEGIN
 		group by PP.esercizio,LB.codefin,LB.finpart,LU.codeupb
 END
 GO
-	

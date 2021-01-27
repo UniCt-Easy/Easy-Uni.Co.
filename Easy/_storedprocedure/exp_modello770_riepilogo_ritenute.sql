@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_modello770_riepilogo_ritenute]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_modello770_riepilogo_ritenute]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_modello770_riepilogo_ritenute]
 GO
 
@@ -114,7 +116,7 @@ CREATE TABLE #tax
 	transmissiondate datetime
 )
 
-       -- 1) Prendere le righe che hanno Data Inizio Validit√† NULL
+       -- 1) Prendere le righe che hanno Data Inizio Validit‡ NULL
  --Applica nel periodo
  INSERT INTO #tax
 (
@@ -174,10 +176,10 @@ JOIN registry R ON R.idreg =  S.idreg
 WHERE tax.taxkind IN (1,5)
 AND   isnull(E.employtax,0) <> 0
 
--- 2) Prendere le righe che hanno Data Inizio Validit√† nell'esercizio  di input       
+-- 2) Prendere le righe che hanno Data Inizio Validit‡ nell'esercizio  di input       
 -- Correzioni fatte nel periodo
 
--- 3) Prendere le righe che hanno Data Fine Validit√† nell'esercizio di input;
+-- 3) Prendere le righe che hanno Data Fine Validit‡ nell'esercizio di input;
 -- Annullamenti fatti nel periodo
 
 --AND ( E.start IS NULL AND E.stop IS NULL )  OR (year(E.start ) = @annoredditi) OR year(E.stop ) = @annoredditi 
@@ -240,10 +242,10 @@ JOIN registry R ON R.idreg =  S.idreg
 WHERE tax.taxkind IN (1,5)
 AND         isnull(E.employamount,0) <> 0
 
--- 2) Prendere le righe che hanno Data Inizio Validit√† nell'esercizio  di input       
+-- 2) Prendere le righe che hanno Data Inizio Validit‡ nell'esercizio  di input       
 -- Correzioni fatte nel periodo
 
--- 3) Prendere le righe che hanno Data Fine Validit√† nell'esercizio di input;
+-- 3) Prendere le righe che hanno Data Fine Validit‡ nell'esercizio di input;
 -- Annullamenti fatti nel periodo
 
 AND   (year(E.adate ) = @annoredditi)  
@@ -454,4 +456,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

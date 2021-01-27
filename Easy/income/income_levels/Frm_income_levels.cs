@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -2927,7 +2929,7 @@ namespace income_levels//entratamovimenti//
             fasespesamax = CfgFn.GetNoNullInt32(Meta.GetSys("maxexpensephase"));
 
 			if ((fasespesamax==0)||(faseentratamax==0)) {
-				MessageBox.Show("Non è presente la configurazione delle entrate o delle spese");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è presente la configurazione delle entrate o delle spese");
 				fasedefault=200;
 				MustClose=true;
 				return;
@@ -3237,8 +3239,9 @@ namespace income_levels//entratamovimenti//
 		private void txtNumeroFasePrecedente_Leave(object sender, System.EventArgs e) {
 			if (InChiusura) return;
 			if (txtNumeroFasePrecedente.ReadOnly)return;
+			HelpForm.ExtLeaveIntTextBox(txtNumeroFasePrecedente,null);
 			CalcolaStartFilter(null);
-
+			
 			///TODO: Deve effettuare un controllo sull'esistenza del movimento precedente
 			///e poi fare un impostazione del supid, o un clear, o un autochoose
 			///
@@ -3954,7 +3957,7 @@ namespace income_levels//entratamovimenti//
 						)
 						) {
 						if ((getman==DBNull.Value)||
-							MessageBox.Show("Cambio il responsabile in base alla voce di bilancio selezionata?",
+							MetaFactory.factory.getSingleton<IMessageShower>().Show("Cambio il responsabile in base alla voce di bilancio selezionata?",
 							"Conferma",MessageBoxButtons.OKCancel )==DialogResult.OK) {
                             SetResponsabile(R["idman"]);
 						}
@@ -3988,7 +3991,7 @@ namespace income_levels//entratamovimenti//
 	        if (Bolletta?.RowState == DataRowState.Detached) return;
             if (Meta.IsEmpty) return;
             if (txtDescrizione.Text != "") {
-                if (MessageBox.Show("Aggiorno il campo descrizione in base alla Bolletta selezionata?",
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Aggiorno il campo descrizione in base alla Bolletta selezionata?",
                     "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     txtDescrizione.Text = Bolletta["motive"].ToString();
             }
@@ -4011,7 +4014,7 @@ namespace income_levels//entratamovimenti//
                 SetImporto(importo);
                 SubEntity_txtImportoMovimento.Text = importo.ToString("c");
                 if (avvisare) {
-                    MessageBox.Show("L'importo del movimento è stato impostato al valore della bolletta", "Avviso");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("L'importo del movimento è stato impostato al valore della bolletta", "Avviso");
                 }
             }
             //}
@@ -4427,7 +4430,7 @@ namespace income_levels//entratamovimenti//
 
 		        }
 		        if (DS.incometotal.Rows.Count == 0) {
-		            MessageBox.Show(
+		            MetaFactory.factory.getSingleton<IMessageShower>().Show(
 		                "Attenzione, c'è un problema nei totalizzatori di entrata, contattare il servizio assistenza ("+identrata+")",
 		                "Errore");
 		            Meta.LogError("problema nei totalizzatori di entrata");
@@ -5393,7 +5396,7 @@ namespace income_levels//entratamovimenti//
 
 					int NEXP=Meta.Conn.RUN_SELECT_COUNT("incomeview",filterprec,false);
 					if (NEXP==0){
-						MessageBox.Show("Non è stato trovato un movimento di entrata a cui agganciare questo incasso,"+
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stato trovato un movimento di entrata a cui agganciare questo incasso,"+
 							" ai fini di una corretta associazione contratto attivo - fattura.");
 						break;
 					}
@@ -5401,7 +5404,7 @@ namespace income_levels//entratamovimenti//
 					DataRow MyDR2 = null;
 			
 					while (MyDR2==null) {
-						if (NEXP>1) MessageBox.Show("E' ora necessario scegliere il mov. di entrata a cui agganciare questo incasso,"+
+						if (NEXP>1) MetaFactory.factory.getSingleton<IMessageShower>().Show("E' ora necessario scegliere il mov. di entrata a cui agganciare questo incasso,"+
 										" ai fini di una corretta associazione contratto attivo - fattura.");
 						MyDR2 =	MFase.SelectOne("elencofaseprec",filterprec,null,null);					
 					}
@@ -5734,7 +5737,7 @@ namespace income_levels//entratamovimenti//
 
 			if (MetaData.Empty(this)) return;
 			if (IvaLinked==null){
-				MessageBox.Show("E' necessario selezionare prima la fattura");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima la fattura");
 				return;
 			}
 			MetaData.GetFormData(this,true);
@@ -5748,7 +5751,7 @@ namespace income_levels//entratamovimenti//
 				tablename="invoicedetail_iva";
 			}
             if (tablename == "") {
-                MessageBox.Show("E' necessario selezionare prima una causale", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima una causale", "Avviso");
                 return;
             }
             string command = "choose."+tablename+".listaentrata." + MyFilter;
@@ -5766,7 +5769,7 @@ namespace income_levels//entratamovimenti//
 			
 			if (Meta.IsEmpty) return;
 			if (IvaLinked==null){
-				MessageBox.Show("E' necessario selezionare prima la fattura");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima la fattura");
 				return;
 			}
 			Meta.GetFormData(true);
@@ -5780,7 +5783,7 @@ namespace income_levels//entratamovimenti//
                 Meta.MarkTableAsNotEntityChild(DS.invoicedetail_iva, "incomeinvoicedetail_iva");
 			}
             if (ToLink == null) {
-                MessageBox.Show("E' necessario selezionare prima la causale");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima la causale");
                 return;
             }
             string MyFilter = CalculateFilterForInvoiceDetailLinking(false);
@@ -5801,7 +5804,7 @@ namespace income_levels//entratamovimenti//
 		private void btnScollegaDettInvoice_Click(object sender, System.EventArgs e) {
 			if (Meta.IsEmpty) return;
 			if (IvaLinked==null){
-				MessageBox.Show("E' necessario selezionare prima la fattura");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima la fattura");
 				return;
 			}
 			Meta.GetFormData(true);
@@ -5918,7 +5921,7 @@ namespace income_levels//entratamovimenti//
 
 			CalcolaImportoInBaseADettagliFattura();
             if ((DS.invoicedetail_iva.Rows.Count == 0) && (DS.invoicedetail_taxable.Rows.Count == 0)){
-                MessageBox.Show("Non sono stati trovati dettagli coerenti con UPB e Causale selezionati.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non sono stati trovati dettagli coerenti con UPB e Causale selezionati.");
                 return;
             }
 
@@ -6092,7 +6095,7 @@ namespace income_levels//entratamovimenti//
 			}*/
 
 			if ((currphase>1)&& (importo> DisponibileDaFasePrecedente)) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione di importo inferiore poiché la "+
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Sarà effettuata una contabilizzazione di importo inferiore poiché la "+
 					"disponibilità del movimento selezionato è inferiore a "+importo.ToString());
 				importo=DisponibileDaFasePrecedente;				
 			}
@@ -6586,7 +6589,7 @@ namespace income_levels//entratamovimenti//
 
 	        if (MetaData.Empty(this)) return;
 	        if (EstimateLinked == null) {
-	            MessageBox.Show("E' necessario selezionare prima il contratto attivo");
+	            MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima il contratto attivo");
 	            return;
 	        }
 	        MetaData.GetFormData(this, true);
@@ -6600,7 +6603,7 @@ namespace income_levels//entratamovimenti//
 	            tablename = "estimatedetail_iva";
 	        }
 	        if (tablename == "") {
-	            MessageBox.Show("E' necessario selezionare prima una causale", "Avviso");
+	            MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima una causale", "Avviso");
 	            return;
 	        }
 
@@ -6619,7 +6622,7 @@ namespace income_levels//entratamovimenti//
 			
 			if (Meta.IsEmpty) return;
 			if (EstimateLinked==null){
-				MessageBox.Show("E' necessario selezionare prima il contratto attivo");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima il contratto attivo");
 				return;
 			}
 			Meta.GetFormData(true);
@@ -6633,7 +6636,7 @@ namespace income_levels//entratamovimenti//
                 Meta.MarkTableAsNotEntityChild(DS.estimatedetail_iva, "incomeestimatedetail_iva");
 			}
 	        if (ToLink == null) {
-                MessageBox.Show("E' necessario selezionare prima la causale");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima la causale");
                 return;
             }
 			string MyFilter = CalculateFilterForEstimateDetailLinking(false);
@@ -6654,7 +6657,7 @@ namespace income_levels//entratamovimenti//
 		private void btnScollegaDettContratto_Click(object sender, System.EventArgs e) {
 			if (Meta.IsEmpty) return;
 			if (EstimateLinked==null){
-				MessageBox.Show("E' necessario selezionare prima il contratto attivo");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima il contratto attivo");
 				return;
 			}
 			Meta.GetFormData(true);
@@ -6904,7 +6907,7 @@ namespace income_levels//entratamovimenti//
 			}*/
 
 			if ((currphase>1)&& (importo> DisponibileDaFasePrecedente)) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione di importo inferiore poiché la "+
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Sarà effettuata una contabilizzazione di importo inferiore poiché la "+
 					"disponibilità del movimento selezionato è inferiore a "+importo.ToString());
 				importo=DisponibileDaFasePrecedente;				
 			}
@@ -7262,7 +7265,7 @@ namespace income_levels//entratamovimenti//
             if (!Meta.EditMode) return;
             PostData.RemoveFalseUpdates(DS);
             if (DS.HasChanges()) {
-                MessageBox.Show("Ci sono modifiche non salvate, salvare prima e poi riprovare.", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono modifiche non salvate, salvare prima e poi riprovare.", "Avviso");
                 return;
             }
 
@@ -7281,12 +7284,12 @@ namespace income_levels//entratamovimenti//
             foreach (string s_nbill in allbill) {
                 int nbill = CfgFn.GetNoNullInt32(s_nbill.Trim());
                 if (nbill == 0) {
-                    MessageBox.Show(s_nbill + " non è un numero valido, bolletta saltata", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(s_nbill + " non è un numero valido, bolletta saltata", "Errore");
                     continue;
                 }
                 int nexists = Meta.Conn.RUN_SELECT_COUNT("billview", QHS.AppAnd(filter, QHS.CmpEq("nbill", nbill)), false);
                 if (nexists == 0) {
-                    MessageBox.Show(s_nbill + "La bolletta n. " + s_nbill + " non esiste o non ha disponibilità, bolletta saltata", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(s_nbill + "La bolletta n. " + s_nbill + " non esiste o non ha disponibilità, bolletta saltata", "Errore");
                     continue;
                 }
                 decimal total = CfgFn.GetNoNullDecimal(T.Select(QHC.CmpEq("nbill", nbill))[0]["total"]);
@@ -7303,10 +7306,10 @@ namespace income_levels//entratamovimenti//
                 Meta.SaveFormData();
                 if (DS.HasChanges()) {
                     if (elaborate == "") {
-                        MessageBox.Show("Operazione interrotta, non ho potuto associare alcuna bolletta.", "Avviso");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Operazione interrotta, non ho potuto associare alcuna bolletta.", "Avviso");
                     }
                     else {
-                        MessageBox.Show("Operazione interrotta, ho associato le bollette:" + elaborate, "Avviso");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Operazione interrotta, ho associato le bollette:" + elaborate, "Avviso");
                     }
                     return;
                 }

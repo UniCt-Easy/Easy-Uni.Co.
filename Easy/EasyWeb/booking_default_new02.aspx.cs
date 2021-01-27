@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -68,7 +70,7 @@ public partial class booking_default_new02 : MetaPage {
     public override void AfterFill() {
         // A seconda dell'edittype,
         // Configurare il filtro in maniera diversa.
-        // Se l'edittype √® myteam, devo poter vedere tutte le prenotazioni delle quali sono responsabile;
+        // Se l'edittype Ë myteam, devo poter vedere tutte le prenotazioni delle quali sono responsabile;
         // altrimenti devo poter vedere tutte le mie prenotazioni
 
         btnvetrina.Visible = true;
@@ -349,7 +351,7 @@ public partial class booking_default_new02 : MetaPage {
     }
 
     /// <summary>
-    /// Viene chiamata dal BeforeFill quando la vetrina √® aperta a partire da QUESTA pagina
+    /// Viene chiamata dal BeforeFill quando la vetrina Ë aperta a partire da QUESTA pagina
     /// </summary>
     public void AlignDSWithSession() {
         bool IsManager = (Session["CodiceResponsabile"] != null ? true : false);
@@ -365,7 +367,8 @@ public partial class booking_default_new02 : MetaPage {
         QHS = Conn.GetQueryHelper();
 
         MetaData MD = Meta.Dispatcher.Get("bookingdetail");
-        string ErrMsg = "Alcuni articoli prenotati sono stati scartati perch√© gi√† presenti nella prenotazione";
+        MD.SetDefaults(DS.bookingdetail);
+        string ErrMsg = "Alcuni articoli prenotati sono stati scartati perchÈ gi‡ presenti nella prenotazione";
         bool dispmessage = false;
         for (int i = 0; i < AR.Count; i++) {
             CI = (cartitem)AR[i];
@@ -481,7 +484,7 @@ public partial class booking_default_new02 : MetaPage {
 
         QHS = Conn.GetQueryHelper();
         MetaData MD = Meta.Dispatcher.Get("bookingdetail");
-        string message = "Alcuni articoli prenotati sono stati scartati perch√© gi√† presenti nella prenotazione";
+        string message = "Alcuni articoli prenotati sono stati scartati perchÈ gi‡ presenti nella prenotazione";
         bool dispmessage = false;
 
         for (int i = 0; i < AR.Count; i++) {
@@ -551,4 +554,3 @@ public partial class booking_default_new02 : MetaPage {
     }
 
 }
-

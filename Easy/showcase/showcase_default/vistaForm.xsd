@@ -65,18 +65,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="showcaseview">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idshowcase" type="xs:int" />
-              <xs:element name="showcasetitle" type="xs:string" />
-              <xs:element name="showcasedescription" type="xs:string" />
-              <xs:element name="idstore" type="xs:int" />
-              <xs:element name="storedescription" type="xs:string" />
-              <xs:element name="deliveryaddress" type="xs:string" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="listview">
           <xs:complexType>
             <xs:sequence>
@@ -264,10 +252,6 @@
     <xs:unique name="store_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:store" />
       <xs:field xpath="mstns:idstore" />
-    </xs:unique>
-    <xs:unique name="showcaseview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:showcaseview" />
-      <xs:field xpath="mstns:idshowcase" />
     </xs:unique>
     <xs:unique name="listview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:listview" />

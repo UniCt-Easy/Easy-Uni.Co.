@@ -288,6 +288,92 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="epaccview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idepacc" type="xs:int" />
+              <xs:element name="yepacc" type="xs:short" />
+              <xs:element name="nepacc" type="xs:int" />
+              <xs:element name="nphase" type="xs:short" />
+              <xs:element name="phase" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="flagvariation" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="amount2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amountwithsign" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amountwithsign2" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amountwithsign3" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amountwithsign4" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amountwithsign5" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totamount" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="curramount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="curramount2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="curramount3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="curramount4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="curramount5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totcurramount" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="available" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="available2" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="available3" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="available4" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="available5" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totavailable" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalrevenue" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="revenueavailable" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalcredit" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="idacc" type="xs:string" />
+              <xs:element name="codeacc" type="xs:string" />
+              <xs:element name="account" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="upb" type="xs:string" />
+              <xs:element name="paridepacc" type="xs:int" minOccurs="0" />
+              <xs:element name="parentyepacc" type="xs:short" minOccurs="0" />
+              <xs:element name="parentnepacc" type="xs:int" minOccurs="0" />
+              <xs:element name="yliv1" msdata:ReadOnly="true" type="xs:short" minOccurs="0" />
+              <xs:element name="nliv1" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="registry" type="xs:string" minOccurs="0" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="manager" type="xs:string" minOccurs="0" />
+              <xs:element name="idrelated" type="xs:string" minOccurs="0" />
+              <xs:element name="flagaccountusage" type="xs:int" minOccurs="0" />
+              <xs:element name="rateiattivi" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="rateipassivi" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="riscontiattivi" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="riscontipassivi" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="debit" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="credit" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="cost" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="revenue" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="fixedassets" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="freeusesurplus" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="captiveusesurplus" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="reserve" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="provision" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -356,6 +442,7 @@
       <msdata:Relationship name="epacc_epacc" msdata:parent="epacc" msdata:child="epacc" msdata:parentkey="idepacc" msdata:childkey="paridepacc" />
       <msdata:Relationship name="registry_epacc" msdata:parent="registry" msdata:child="epacc" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="manager_epacc" msdata:parent="manager" msdata:child="epacc" msdata:parentkey="idman" msdata:childkey="idman" />
+      <msdata:Relationship name="epacc_epaccview" msdata:parent="epacc" msdata:child="epaccview" msdata:parentkey="idepacc" msdata:childkey="idepacc" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

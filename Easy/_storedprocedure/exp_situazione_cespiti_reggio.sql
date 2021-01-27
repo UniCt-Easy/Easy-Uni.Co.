@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_situazione_cespiti_reggio]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_situazione_cespiti_reggio]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_situazione_cespiti_reggio]
 GO
 
@@ -115,7 +117,7 @@ WHERE
 			( (AC.flag & 1) <> 0 and  datepart(year,AL.ratificationdate)<=@ayear )	
 		)
 	AND 
-		(  (A.flag & 1 <> 0) and (AU.ratificationdate IS NULL OR datepart(year,AU.ratificationdate)>@ayear ) ) -- non √® scaricato
+		(  (A.flag & 1 <> 0) and (AU.ratificationdate IS NULL OR datepart(year,AU.ratificationdate)>@ayear ) ) -- non Ë scaricato
 
 	
 print 'A'
@@ -143,7 +145,7 @@ SELECT
 	ISNULL(SUBSTRING(inventorytree.codeinv,@codelen1 + 1,@codelen2),'') as 'gruppo',
 	ISNULL(SUBSTRING(inventorytree.codeinv,@codelen1 + @codelen2 + 1,@codelen3),'') as 'sotto_gruppo',
 	#assettotal.description AS 'descrizione bene',
-	1 AS 'quantit√†',
+	1 AS 'quantit‡',
 	ISNULL(AC.currentvalue,0) AS 'valore_unitario' ,
 	ISNULL(AC.currentvalue,0) AS 'valore_totale' ,	
 	ISNULL(AC.currentvalue,0) AS 'valore iniziale' ,
@@ -173,4 +175,3 @@ ORDER BY #assettotal.ninventory
 	
 END
 
-	

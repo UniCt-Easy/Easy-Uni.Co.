@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿GO
+
+GO
 -- CREAZIONE VISTA sdi_acquistoiparifammview
 IF EXISTS(select * from sysobjects where id = object_id(N'[sdi_acquistoiparifammview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [sdi_acquistoiparifammview]
@@ -63,7 +65,8 @@ CREATE VIEW sdi_acquistoiparifammview
 	utente_rifiutata,
 	data_rifiutata,
 	tipodocumento,
-	notcreacontabilita
+	notcreacontabilita,
+	data_ricezione
 )
 AS SELECT
 	sdi_acquisto.idsdi_acquisto,
@@ -105,7 +108,8 @@ AS SELECT
 	sdi_acquisto.utente_rifiutata,
 	sdi_acquisto.data_rifiutata,
 	sdi_acquisto.tipodocumento,
-	sdi_acquisto.notcreacontabilita
+	sdi_acquisto.notcreacontabilita,
+	sdi_acquisto.data_ricezione
 FROM sdi_acquisto
 JOIN sdi_rifamm
 	on sdi_acquisto.riferimento_amministrazione = sdi_rifamm.idsdi_rifamm
@@ -118,4 +122,3 @@ GO
 
 
 
-	

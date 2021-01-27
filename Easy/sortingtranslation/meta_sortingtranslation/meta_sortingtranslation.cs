@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using metaeasylibrary;
@@ -96,11 +98,11 @@ namespace meta_sortingtranslation//meta_traduzioneclassificazioni//
 
 			if (sommaDen == 0) 
 			{
-				MessageBox.Show("Impossibile controllare la somma delle frazioni.\r\nCorreggere i dati esistenti!");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Impossibile controllare la somma delle frazioni.\r\nCorreggere i dati esistenti!");
 			} 
 			else if (sommaNum <= 0) 
 			{
-				MessageBox.Show("La somma delle frazioni supera 1.\r\nCorreggere i dati esistenti!");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("La somma delle frazioni supera 1.\r\nCorreggere i dati esistenti!");
 			} 
 			else if (sommaNum * denominatore < sommaDen * numeratore)
 			{

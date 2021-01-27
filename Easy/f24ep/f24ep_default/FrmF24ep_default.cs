@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -277,7 +279,7 @@ namespace f24ep_default {
 
             if ((DS.taxpayview.Rows.Count == 0) && (DS.expenseclawbackview.Rows.Count==0) && (DS.ivapay.Rows.Count==0))
             {
-                MessageBox.Show(this, "Non ci sono liquidazioni!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono liquidazioni!");
                 return;
             }
 
@@ -285,7 +287,7 @@ namespace f24ep_default {
             PostData.RemoveFalseUpdates(DS);
             if (DS.HasChanges())
             {
-                MessageBox.Show(this, "Per generare il file del modello f24 occorre prima SALVARE");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per generare il file del modello f24 occorre prima SALVARE");
                 return;
             }
             DataRow Curr = DS.f24ep.Rows[0];
@@ -293,7 +295,7 @@ namespace f24ep_default {
                 typeof(DateTime), txtDataDiVersamento.Text, txtDataDiVersamento.Tag.ToString());
             if (dataDiVersamento < DateTime.Now.Date)
             {
-                MessageBox.Show("Data di addebito: il valore immesso non può essere inferiore alla data corrente");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Data di addebito: il valore immesso non può essere inferiore alla data corrente");
                 HelpForm.FocusControl(txtDataDiVersamento);
                 return;
             }
@@ -313,7 +315,7 @@ namespace f24ep_default {
                 }
                 else
                 {
-                    MessageBox.Show(this, "Non è stato selezionato il percorso in cui memorizzare il file dell'F24");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non è stato selezionato il percorso in cui memorizzare il file dell'F24");
                     return;
                 }
                 Stream stream = saveFileDialog1.OpenFile();
@@ -542,14 +544,14 @@ namespace f24ep_default {
              return;
             }
             if ((DS.taxpayview.Rows.Count == 0) && (DS.expenseclawbackview.Rows.Count == 0)) {
-                MessageBox.Show(this, "Non ci sono liquidazioni!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono liquidazioni!");
                 return;
             }
 
             if (!Meta.GetFormData(false)) return;
             PostData.RemoveFalseUpdates(DS);
             if (DS.HasChanges()) {
-                MessageBox.Show(this, "Per generare il file del modello f24 occorre prima SALVARE");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per generare il file del modello f24 occorre prima SALVARE");
                 return;
             }
 

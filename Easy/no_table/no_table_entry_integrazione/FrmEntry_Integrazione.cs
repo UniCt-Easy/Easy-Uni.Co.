@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -70,7 +72,7 @@ namespace no_table_entry_integrazione {
             if (tEntryDetail == null) return;
 
             if (!doIntegrazione(tEntryDetail)) {
-                MessageBox.Show(this, "Errore nel processo di integrazione dei risconti", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel processo di integrazione dei risconti", "Errore");
             }
         }
         private bool doVerify () {
@@ -80,7 +82,7 @@ namespace no_table_entry_integrazione {
             int nrows = Meta.Conn.RUN_SELECT_COUNT("entry", filter, false);
             
             if (nrows>0) {
-                if (MessageBox.Show("Le scritture di Integrazione relative all''esercizio corrente risultano gi‡ generate. Si desidera proseguire comunque?", "Avviso",
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Le scritture di Integrazione relative all''esercizio corrente risultano gi‡ generate. Si desidera proseguire comunque?", "Avviso",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return false;
             }
@@ -89,12 +91,12 @@ namespace no_table_entry_integrazione {
 
         private bool doIntegrazione(DataTable tEntryDetailSource) {
             if (tEntryDetailSource == null) {
-                MessageBox.Show(this, "La tabella dei dettagli scritture non Ë definita", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La tabella dei dettagli scritture non Ë definita", "Errore");
                 return false;
             }
 
             if (tEntryDetailSource.Rows.Count == 0) {
-                MessageBox.Show(this, "La tabella dei dettagli scritture risulta vuota", "Avvertimento");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La tabella dei dettagli scritture risulta vuota", "Avvertimento");
                 return true;
             }
 
@@ -158,13 +160,13 @@ namespace no_table_entry_integrazione {
 
             object idacc_riscontoA = Meta.Conn.DO_READ_VALUE("config", QHS.CmpEq("ayear", currYear), campoRiscontoAttivo);
             if ((idacc_riscontoA == null) || (idacc_riscontoA == DBNull.Value)) {
-                MessageBox.Show(this, "Attenzione non Ë stato specificato il conto del risconto attivo", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Attenzione non Ë stato specificato il conto del risconto attivo", "Errore");
                 return false;
             }
 
             object idacc_riscontoP = Meta.Conn.DO_READ_VALUE("config", QHS.CmpEq("ayear", currYear), campoRiscontoPassivo);
             if ((idacc_riscontoP == null) || (idacc_riscontoP == DBNull.Value)) {
-                MessageBox.Show(this, "Attenzione non Ë stato specificato il conto del risconto passivo", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Attenzione non Ë stato specificato il conto del risconto passivo", "Errore");
                 return false;
             }
 
@@ -180,7 +182,7 @@ namespace no_table_entry_integrazione {
                 object idAcc = curr["idacc"];
                 object newIdAcc = attualizzaAccount(idAcc);
                 if (newIdAcc == DBNull.Value || newIdAcc == null) {
-                    MessageBox.Show("Non sono riuscito ad attualizzare il conto di codice " +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non sono riuscito ad attualizzare il conto di codice " +
                                     conn.DO_READ_VALUE("account", QHS.CmpEq("idacc", idAcc), "codeacc"), "Errore");
                     continue;
                 }
@@ -203,7 +205,7 @@ namespace no_table_entry_integrazione {
                 object idAcc = curr["idacc"];
                 object newIdAcc = attualizzaAccount(idAcc);
                 if (newIdAcc == DBNull.Value||newIdAcc==null) {
-                    MessageBox.Show("Non sono riuscito ad attualizzare il conto di codice " +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non sono riuscito ad attualizzare il conto di codice " +
                                     conn.DO_READ_VALUE("account", QHS.CmpEq("idacc", idAcc), "codeacc"), "Errore");
                     continue;
                 }
@@ -231,7 +233,7 @@ namespace no_table_entry_integrazione {
                 //if (idRateoAttivo == DBNull.Value || idRateoAttivo == null) {
                 //    //string codiceUpb =
                 //    //    conn.DO_READ_VALUE("upb", "codeupb", QHS.CmpEq("idupb", Curr["idupb"])).ToString();
-                //    //MessageBox.Show("Conto di rateo attivo non configurato per l'UPB di codice " + codiceUpb,
+                //    //MetaFactory.factory.getSingleton<IMessageShower>().Show("Conto di rateo attivo non configurato per l'UPB di codice " + codiceUpb,
                 //    //    "Errore");
                 //    continue;
                 //}
@@ -255,7 +257,7 @@ namespace no_table_entry_integrazione {
                 
                 if ((identrykind == 13) && (placcpart == "C")) {
                     string codeacc = conn.DO_READ_VALUE("account", QHS.CmpEq("idacc", idAcc), "codeacc").ToString();
-                    MessageBox.Show("Il conto di codice " +codeacc +
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Il conto di codice " +codeacc +
                                     " non Ë un conto di ricavo ma Ë presente in una scrittura di tipo:\n\r"+
                                     "Assestamento Percentuale di Completamento"
                                    , "Errore");
@@ -312,13 +314,13 @@ namespace no_table_entry_integrazione {
                 }
             }
             if (ds.Tables["entry"].Rows.Count == 0) {
-                MessageBox.Show(this, "Nessuna operazione da integrare.", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nessuna operazione da integrare.", "Avviso");
                 return true;
             }
             FrmEntryPreSave frm = new FrmEntryPreSave(ds.Tables["entrydetail"], Meta.Conn,tEntryDetailSource);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
-                MessageBox.Show(this, "Operazione Annullata!","Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Operazione Annullata!","Avviso");
                 return true;
             }
 
@@ -328,10 +330,10 @@ namespace no_table_entry_integrazione {
             if (Post.DO_POST()) {
                 DataRow rEntryPosted = ds.Tables["entry"].Rows[0];
                 EditRelatedEntryByKey(rEntryPosted);
-                MessageBox.Show(this, "Integrazione dei residui completata con successo!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Integrazione dei residui completata con successo!");
             }
             else {
-                MessageBox.Show(this, "Errore nel salvataggio della scrittura di integrazione!", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio della scrittura di integrazione!", "Errore");
             }
             return true;
         }
@@ -389,7 +391,7 @@ namespace no_table_entry_integrazione {
 
             DataTable tEntryDetail = DataAccess.SQLRunner(Meta.Conn, queryED);
             if (tEntryDetail == null) {
-                MessageBox.Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
                 return null;
             }
 

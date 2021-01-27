@@ -45,6 +45,7 @@
               <xs:element name="notcreacontabilita" type="xs:string" minOccurs="0" />
               <xs:element name="notcreacontabilitareason" type="xs:string" minOccurs="0" />
               <xs:element name="signedxml" type="xs:string" minOccurs="0" />
+              <xs:element name="data_ricezione" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

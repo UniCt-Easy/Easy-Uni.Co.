@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø--setuser 'amministrazione'
+
+--setuser 'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_registroiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_registroiva]
 GO
@@ -97,8 +99,8 @@ CREATE TABLE #invoice
 		idivakind int,
 		flagintracom char(1)			
 	)
-	-- il segno √® da cambiare se flagdeferred oppure se kind<>registerclass
-	-- inoltre per le fatture non intracom con la doppia presenza A/V √® da cancellare la riga in vendita
+	-- il segno Ë da cambiare se flagdeferred oppure se kind<>registerclass
+	-- inoltre per le fatture non intracom con la doppia presenza A/V Ë da cancellare la riga in vendita
 	
 
 
@@ -192,7 +194,7 @@ CREATE TABLE #invoice
 
 	DECLARE @flagivapaybyrow char(1)
 	SELECT @flagivapaybyrow= flagivapaybyrow from config WHERE ayear = @year
-	--Per chi scegli di applicare il calcolo sul totale, anche il promiscuo sar√† applicato sul totale.
+	--Per chi scegli di applicare il calcolo sul totale, anche il promiscuo sar‡ applicato sul totale.
 	if (@flagivapaybyrow='N') 
 	Begin
 		SET @proratarate=1 --non applica il prorata in questo caso
@@ -318,7 +320,7 @@ Begin
 		case
 			-- se fattura di acquito, legge il valore
 			when (invoicekind.flag & 1)=0 then #invoice.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((invoicekind.flag & 1)<>0 and	isnull(invoice.flag_enable_split_payment,'N')='S') then 'N' 
 			else #invoice.flagdeferred
 		end as flagdeferred,
@@ -368,4 +370,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

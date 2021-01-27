@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_check_financialprevision]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_check_financialprevision]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_check_financialprevision]
 GO
 
@@ -92,7 +94,7 @@ BEGIN
 	VALUES('I crediti degli accertamenti di competenza non sono stati del tutto assegnati')
 	INSERT INTO #errors
 	SELECT '- Il credito dell''accertamento n. ' + CONVERT(varchar(6),income.nmov) + ' del ' + CONVERT(varchar(4),income.ymov) +
-	' non √® stato assegnato per ' + CONVERT(varchar(22),(ISNULL(incometotal.curramount,0) - SUM(ISNULL(creditpart.amount,0))))
+	' non Ë stato assegnato per ' + CONVERT(varchar(22),(ISNULL(incometotal.curramount,0) - SUM(ISNULL(creditpart.amount,0))))
 	FROM incometotal
 	JOIN creditpart
 		ON incometotal.idinc = creditpart.idinc
@@ -105,7 +107,7 @@ BEGIN
 
 	INSERT INTO #errors
 	SELECT '- All''accertamento n. ' + CONVERT(varchar(6),income.nmov) + ' del ' + CONVERT(varchar(4),income.ymov) +
-	' non √® associata alcuna assegnazione crediti'
+	' non Ë associata alcuna assegnazione crediti'
 	FROM incometotal I
 	JOIN income 
 		ON I.idinc = income.idinc
@@ -138,7 +140,7 @@ BEGIN
 	VALUES('Gli incassi trasmessi prima della data di redazione del bilancio di previsione non sono stati del tutto assegnati')
 	INSERT INTO #errors
 	SELECT '- L''incasso dell''incasso n. ' + CONVERT(varchar(6),income.nmov) + ' del ' + CONVERT(varchar(4),income.ymov) +
-	' non √® stato assegnato per ' + CONVERT(varchar(22),(ISNULL(proceedscommunicated.curramount,0) - SUM(ISNULL(proceedspart.amount,0))))
+	' non Ë stato assegnato per ' + CONVERT(varchar(22),(ISNULL(proceedscommunicated.curramount,0) - SUM(ISNULL(proceedspart.amount,0))))
 	FROM proceedscommunicated
 	JOIN proceedspart
 		ON proceedscommunicated.idinc = proceedspart.idinc
@@ -153,7 +155,7 @@ BEGIN
 -- Controllo che agli incassi trasmessi sia associata una assegnazione incassi
 	INSERT INTO #errors
 	SELECT '- All''incasso trasmesso n. ' + CONVERT(varchar(6),income.nmov) + ' del ' + CONVERT(varchar(4),income.ymov) +
-	' non √® associata alcuna assegnazione incassi'
+	' non Ë associata alcuna assegnazione incassi'
 	FROM proceedscommunicated I
 	JOIN income
 		ON I.idinc = income.idinc
@@ -189,7 +191,7 @@ BEGIN
 	VALUES('Gli incassi trasmessi dopo la data di redazione del bilancio di previsione o non ancora trasmessi non sono stati del tutto assegnati')
 	INSERT INTO #errors
 	SELECT '- L''incasso dell''incasso n. ' + CONVERT(varchar(6),income.nmov) + ' del ' + CONVERT(varchar(4),income.ymov) +
-	' non √® stato assegnato per ' + CONVERT(varchar(22),(ISNULL(incometotal.curramount,0) - SUM(ISNULL(proceedspart.amount,0))))
+	' non Ë stato assegnato per ' + CONVERT(varchar(22),(ISNULL(incometotal.curramount,0) - SUM(ISNULL(proceedspart.amount,0))))
 	FROM incometotal
 	JOIN proceedspart
 		ON incometotal.idinc = proceedspart.idinc
@@ -208,7 +210,7 @@ BEGIN
 -- Controllo che agli incassi che non rientrano tra i trasmessi sia assegnata una assegnazione incassi
 	INSERT INTO #errors
 	SELECT '- All''incasso n. ' + CONVERT(varchar(6),I.nmov) + ' del ' + CONVERT(varchar(4),I.ymov) +
-	' non √® associata alcuna assegnazione incassi'
+	' non Ë associata alcuna assegnazione incassi'
 	FROM income I
 	JOIN incometotal IT 
 		on I.idinc = IT.idinc
@@ -227,7 +229,7 @@ BEGIN
 	INSERT INTO #errors VALUES('')
 END
 -- ATTENZIONE: Questo controllo ha senso solo nel caso in cui si gestiscano i crediti
--- Infatti pu√≤ accadere che nonostante un bilancio di competenza non venga effettuata l'assegnazione al credito
+-- Infatti puÚ accadere che nonostante un bilancio di competenza non venga effettuata l'assegnazione al credito
 CREATE TABLE #proceedspart (ayear int,  idinc_credit int ,  idfin_proceeds int, amount_proceeds decimal(19,2), amount_credit decimal(19,2)  )
 
 IF EXISTS(SELECT * FROM creditpart WHERE ycreditpart = @ayear)	
@@ -274,4 +276,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

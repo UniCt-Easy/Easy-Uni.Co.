@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[compute_initialvar]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[compute_initialvar]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_initialvar]
 GO
 
@@ -61,19 +63,19 @@ DECLARE @maxincomephase int
 SELECT 	@maxincomephase = MAX(nphase) FROM incomephase
 
 
--- Ricerca la fase equivalente all'impegno se √® stata inserita nella tabella di configurazione  del bilancio
+-- Ricerca la fase equivalente all'impegno se Ë stata inserita nella tabella di configurazione  del bilancio
 DECLARE @phasebilancio tinyint
 SELECT 	@phasebilancio = appropriationphasecode
 FROM config
 WHERE ayear = @ayear
--- Se non √® stata inserita nella tabella di configurazione  ipotizza che si tratti della fase dove viene identificata  la voce di bilancio
+-- Se non Ë stata inserita nella tabella di configurazione  ipotizza che si tratti della fase dove viene identificata  la voce di bilancio
 IF (@phasebilancio IS NULL)
 BEGIN
 	SELECT 	@phasebilancio = expensefinphase FROM uniconfig 
 END
 
--- Se @fin_kind = 1 ==> √® stata personalizzata una previsione principale di tipo "competenza", se @fin_kind = 2
--- ==> √® stata personalizzata una previsione principale di tipo "cassa", se  @fin_kind = 3 ==>comp. e cassa
+-- Se @fin_kind = 1 ==> Ë stata personalizzata una previsione principale di tipo "competenza", se @fin_kind = 2
+-- ==> Ë stata personalizzata una previsione principale di tipo "cassa", se  @fin_kind = 3 ==>comp. e cassa
 DECLARE @cashvaliditykind int
 SELECT  @cashvaliditykind = cashvaliditykind FROM config WHERE ayear = @ayear
 
@@ -91,9 +93,9 @@ SELECT @minlivop = isnull(MIN(nlevel),1) FROM finlevel WHERE flag&2 <> 0 AND aye
 SELECT @maxlivop = MAX(nlevel) FROM finlevel WHERE ayear = @nextayear
 
 -- Alla stregua della compute_transf_prevision, quando:
--- 1)capitolo 2008 √® articolato 
--- 2)capitolo 2009 non √® articolato
--- si pu√≤ spezzare il legame capitolo 2008-2009 in #finlookup
+-- 1)capitolo 2008 Ë articolato 
+-- 2)capitolo 2009 non Ë articolato
+-- si puÚ spezzare il legame capitolo 2008-2009 in #finlookup
 
 CREATE TABLE #finlookup(
         oldidfin	int,-- ayear
@@ -106,8 +108,8 @@ JOIN fin
         ON finlookup.oldidfin = fin.idfin
 WHERE fin.ayear = @ayear
 -- Cancella il capitolo articolato nel 2008, e dearticolato nel 2009.
-DELETE FROM #finlookup WHERE EXISTS ( select * from fin where fin.paridfin = #finlookup.oldidfin )--√® parent nel  2008
-                                AND NOT EXISTS ( select * from fin where fin.paridfin = #finlookup.newidfin )-- non √® parent nel 2009
+DELETE FROM #finlookup WHERE EXISTS ( select * from fin where fin.paridfin = #finlookup.oldidfin )--Ë parent nel  2008
+                                AND NOT EXISTS ( select * from fin where fin.paridfin = #finlookup.newidfin )-- non Ë parent nel 2009
 
 BEGIN  --#@bilprevision_all: previsione iniziale, attuale etc.
 	DECLARE @bilprevision_all TABLE 
@@ -902,4 +904,3 @@ if (@generatevar='S') BEGIN
 END --if (@generatevar='S')
 
 END
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø--setuser 'amm' 
+
+--setuser 'amm' 
 if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_expense_mps]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_expense_mps]
 GO
@@ -192,7 +194,7 @@ AND paymenttransmission.npaymenttransmission = @n) = 0)
 BEGIN
 	INSERT INTO #error
 	VALUES('La distinta di trasmissione ' + CONVERT(varchar(4),@y) + '/'
-	+ CONVERT(varchar(6),@n) + ' √® vuota')
+	+ CONVERT(varchar(6),@n) + ' Ë vuota')
 END
 
 -- CONTROLLO N. 1. Presenza dei dati dell'ente
@@ -223,14 +225,14 @@ END
 -- CONTROLLO N. 2. Lunghezza del codice ente
 IF (DATALENGTH(@codiceente)>@lencodiceente)
 BEGIN
-	INSERT INTO #error VALUES( 'Il codice Ente inserito √® superiore alla lunghezza massima fissata a '
+	INSERT INTO #error VALUES( 'Il codice Ente inserito Ë superiore alla lunghezza massima fissata a '
 	+ CONVERT(varchar(2),@lencodiceente))
 END
 
 -- CONTROLLO N. 3. Lunghezza del codice filiale
 IF (DATALENGTH(@codicefiliale)>@lencodicefiliale)
 BEGIN
-	INSERT INTO #error VALUES ( 'Il codice Filiale inserito √® superiore alla lunghezza massima fissata a '
+	INSERT INTO #error VALUES ( 'Il codice Filiale inserito Ë superiore alla lunghezza massima fissata a '
 	+ CONVERT(varchar(2),@lencodicefiliale))
 END
 
@@ -239,7 +241,7 @@ SELECT @kpaymenttransmission = kpaymenttransmission FROM paymenttransmission
 WHERE ypaymenttransmission = @y
 	AND npaymenttransmission = @n
 
--- CONTROLLO N. 4. Movimento di Spesa senza Modalit√† di Pagamento
+-- CONTROLLO N. 4. Movimento di Spesa senza Modalit‡ di Pagamento
 IF EXISTS
 (SELECT * FROM paymentcommunicated
 WHERE ypaymenttransmission = @y
@@ -248,12 +250,12 @@ AND idpaymethod IS NULL)
 BEGIN
 	INSERT INTO #error (message)
 	 (SELECT 'Il movimento n.' + CONVERT(varchar(6),nmov) 
-		+ '/' + CONVERT(varchar(4),ymov) + ' non √® stata scelta una modalit√† di pagamento'
+		+ '/' + CONVERT(varchar(4),ymov) + ' non Ë stata scelta una modalit‡ di pagamento'
 		FROM paymentcommunicated 
 		WHERE kpaymenttransmission = @kpaymenttransmission
 		AND idpaymethod IS NULL)
 END
--- CONTROLLO N. 5. Movimento di Spesa con Modalit√† di Pagamento non configurata
+-- CONTROLLO N. 5. Movimento di Spesa con Modalit‡ di Pagamento non configurata
 IF EXISTS
 (SELECT * FROM paymentcommunicated
 JOIN paymethod
@@ -264,7 +266,7 @@ AND (paymethod.methodbankcode IS NULL OR REPLACE(paymethod.methodbankcode,' ',''
 BEGIN
 	INSERT INTO #error (message)
 		(SELECT 'Il movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-		+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit√† di pagamento scelta non √® configurata, Andare in Configurazione - Anagrafica - Modalit√† di Pagamento'
+		+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit‡ di pagamento scelta non Ë configurata, Andare in Configurazione - Anagrafica - Modalit‡ di Pagamento'
 		FROM paymentcommunicated
 		JOIN paymethod
 		ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -286,7 +288,7 @@ WHERE payment.kpaymenttransmission = @kpaymenttransmission
 BEGIN
 	INSERT INTO #error (message)
 	(SELECT 'Nel mandato n.' + CONVERT(varchar(6),payment.ypay) 
-	+ '/' + CONVERT(varchar(4),payment.npay) + ' il trattamento bollo scelto non √® configurato, Andare in Configurazione - Anagrafica - Trattamento del Bollo'
+	+ '/' + CONVERT(varchar(4),payment.npay) + ' il trattamento bollo scelto non Ë configurato, Andare in Configurazione - Anagrafica - Trattamento del Bollo'
 	FROM expenselast
 	JOIN payment
 		ON payment.kpay = expenselast.kpay
@@ -321,7 +323,7 @@ BEGIN
 		AND DATALENGTH(ISNULL(stamphandling.handlingbankcode,'')) > @lencodicetrattamento
 	)
 END
--- CONTROLLO N. 8. Codice ABI e CAB devono essere valorizzati nel caso di modalit√† di pagamento 53 e 63
+-- CONTROLLO N. 8. Codice ABI e CAB devono essere valorizzati nel caso di modalit‡ di pagamento 53 e 63
 IF EXISTS
 (SELECT * FROM paymentcommunicated
 JOIN paymethod
@@ -337,7 +339,7 @@ WHERE paymentcommunicated.kpaymenttransmission = @kpaymenttransmission
 BEGIN
 	INSERT INTO #error (message)
 		(SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-		+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit√† di pagamento scelta non √® stato assegnato il codice ABI / CAB / IBAN.'
+		+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit‡ di pagamento scelta non Ë stato assegnato il codice ABI / CAB / IBAN.'
 		FROM paymentcommunicated
 		JOIN paymethod
 			ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -351,7 +353,7 @@ BEGIN
 		)
 END
 
--- CONTROLLO N. 9. Il codice ABI e CAB non devono eccedere la lunghezza massima nel caso di modalit√† di pagamento 53 e 63
+-- CONTROLLO N. 9. Il codice ABI e CAB non devono eccedere la lunghezza massima nel caso di modalit‡ di pagamento 53 e 63
 IF EXISTS
 (SELECT * FROM paymentcommunicated
 JOIN paymethod
@@ -366,7 +368,7 @@ WHERE paymentcommunicated.kpaymenttransmission = @kpaymenttransmission
 BEGIN
 	INSERT INTO #error (message)
 		(SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-		+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit√† di pagamento il codice ABI eccede la lunghezza di '
+		+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit‡ di pagamento il codice ABI eccede la lunghezza di '
 		+ CONVERT(varchar(3),@lencodiceabi) + ' caratteri e/o il codice CAB eccede la lunghezza di '
 		+ CONVERT(varchar(3),@lencodicecab) + ' caratteri'
 		FROM paymentcommunicated
@@ -380,7 +382,7 @@ BEGIN
 				)
 		)
 END
--- CONTROLLO N. 10. Conto Corrente valorizzato e di lunghezza massima 12 caratteri nel caso di modalit√† di pagamento 52, 53 e 63
+-- CONTROLLO N. 10. Conto Corrente valorizzato e di lunghezza massima 12 caratteri nel caso di modalit‡ di pagamento 52, 53 e 63
 IF EXISTS
 (SELECT * FROM paymentcommunicated
 JOIN paymethod
@@ -399,7 +401,7 @@ BEGIN
 	INSERT INTO #error (message)
 		(SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
 		+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov)
-		+ ' nella modalit√† di pagamento non √® stato inserito il C/C o la lunghezza del C/C eccede i '
+		+ ' nella modalit‡ di pagamento non Ë stato inserito il C/C o la lunghezza del C/C eccede i '
 		+ CONVERT(varchar(2),@lencc) + ' caratteri'
 		FROM paymentcommunicated
 		JOIN paymethod
@@ -428,7 +430,7 @@ BEGIN
 	SELECT * FROM #error
 	RETURN
 END
-	-- CONTROLLO N. 11. Conto Corrente Postale valorizzato e di lunghezza massima 10 caratteri nel caso di modalit√† di pagamento O,P,Q
+	-- CONTROLLO N. 11. Conto Corrente Postale valorizzato e di lunghezza massima 10 caratteri nel caso di modalit‡ di pagamento O,P,Q
 	IF EXISTS
 	(SELECT * FROM paymentcommunicated
 	JOIN paymethod
@@ -447,7 +449,7 @@ END
 		INSERT INTO #error (message)
 			(SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
 			+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov)
-			+ ' nella modalit√† di pagamento non √® stato inserito il C/CP o la lunghezza del C/CP eccede i '
+			+ ' nella modalit‡ di pagamento non Ë stato inserito il C/CP o la lunghezza del C/CP eccede i '
 			+ CONVERT(varchar(2),@lenccp) + ' caratteri'
 			FROM paymentcommunicated
 			JOIN paymethod
@@ -487,7 +489,7 @@ BEGIN
 	INSERT INTO #error (message)
 		(SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
 		+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov)
-		+ ' nella modalit√† di pagamento non √® stato inserito il Codice contabilit√† speciale o la sua lunghezza supera i '
+		+ ' nella modalit‡ di pagamento non Ë stato inserito il Codice contabilit‡ speciale o la sua lunghezza supera i '
 		+ CONVERT(varchar(7),@lencodicecontabilitaspeciale) + ' caratteri'
 		FROM paymentcommunicated
                 JOIN paymethod
@@ -523,7 +525,7 @@ BEGIN
 	RETURN 
 END
 -- Attenzione! Altri controlli sono presenti nel testo della SP in quanto non era possibile calcolarli a priori
--- I controlli vengono riconosciuti in quanto il prefisso adoperato come linea di commento sar√† CONTROLLO N. x.
+-- I controlli vengono riconosciuti in quanto il prefisso adoperato come linea di commento sar‡ CONTROLLO N. x.
 -- Fine Sezione Controlli
 SET @codiceente = SUBSTRING(REPLICATE('0',@lencodiceente),1,@lencodiceente - DATALENGTH(@codiceente)) + @codiceente
 SET @codicefiliale = SUBSTRING(REPLICATE('0',@lencodicefiliale),1,@lencodicefiliale - DATALENGTH(@codicefiliale)) + @codicefiliale
@@ -708,7 +710,7 @@ CREATE TABLE #rptindirizzoavpag
 )
 
 -- Inserimento dei pagamenti presenti nella distinta di trasmissione che si vuole trasmettere
--- Si cerca di reperire pi√π informazioni possibile all'interno di questa insert formattando gi√† i dati.
+-- Si cerca di reperire pi˘ informazioni possibile all'interno di questa insert formattando gi‡ i dati.
 INSERT INTO #pagamento (y, n, kpay, ydoc, ndoc, idexp, idpaydisposition, iddetail, curramount,
 idreg, expense_adate, payment_adate, transmissiondate,freestamp,
 idpaymethodTRS,idpaymethodflag,iban, nbill, paymethod_descr, abi, cab, cc, cin, checkdigit, countrycode,
@@ -988,7 +990,7 @@ SET ndocformatted =
 SUBSTRING(REPLICATE('0',@lennumdoc),1,@lennumdoc - DATALENGTH(CONVERT(varchar(7),ndoc))) +
 CONVERT(varchar(7),ndoc)
 
--- Cambio la modalit√† di pagamento in R (Regolarizzazione) se √® valorizzato il numero bolletta
+-- Cambio la modalit‡ di pagamento in R (Regolarizzazione) se Ë valorizzato il numero bolletta
 UPDATE #pagamento
 SET    idpaymethodTRS = 'R'
 WHERE  nbill <>  REPLICATE('0',7)
@@ -1049,7 +1051,7 @@ SELECT @faseentratamax = MAX(nphase) FROM incomephase
 INSERT INTO #error (message)
 SELECT 'Il movimento di entrata ' + CONVERT(varchar(6),I.nmov) + '/' + CONVERT(varchar(4),I.ymov)
 + ' associato al movimento di spesa ' + CONVERT(varchar(6),E.nmov) + '/' + CONVERT(varchar(4),E.nmov)
-+ ' non √® stato inserito in una distinta di trasmissione'
++ ' non Ë stato inserito in una distinta di trasmissione'
 
 FROM #pagamento P
 JOIN income I
@@ -1084,8 +1086,8 @@ END
 
 -- Riempimento della tabella delle trattenute.
 -- Vengono considerati tutti i movimenti di entrata derivanti da ritenute c/dipendente (autokind = 4) o da recuperi (autokind = 6).
--- Una ritenuta √® c/dipendente se autokind = 4 e il versante del movimento di entrata √® il medesimo del movimento principale di spesa,
--- invece quando il versante √® diverso siamo di fronte ad un contributo e quindi non dobbiamo considerarlo.
+-- Una ritenuta Ë c/dipendente se autokind = 4 e il versante del movimento di entrata Ë il medesimo del movimento principale di spesa,
+-- invece quando il versante Ë diverso siamo di fronte ad un contributo e quindi non dobbiamo considerarlo.
 INSERT INTO #ritenute (y, n, ydoc, ndoc, ndocformatted, registry_prog,
 idexp, idinc, ypro, npro, curramount, idreg,
 obb_cf, obb_p_iva, obb_title,
@@ -1169,9 +1171,9 @@ SET netamount = ISNULL(curramount,0) - ISNULL(taxamount,0)
 -- bisogna generare un record per il netto con un suo progressivo beneficiario e poi altri record delle trattenute
 -- con progressivi beneficiario successivi
 
--- Quindi la logica adottata nel calcolo √® la seguente:
--- Il progressivo beneficiario √® pari al numero di movimenti di spesa (distinti) presenti nella tabella #pagamento appartenenti allo stesso
--- mandato e con idexp inferiore al corrente, pi√π il numero di trattenute associate ai movimenti di spesa precedenti al corrente.
+-- Quindi la logica adottata nel calcolo Ë la seguente:
+-- Il progressivo beneficiario Ë pari al numero di movimenti di spesa (distinti) presenti nella tabella #pagamento appartenenti allo stesso
+-- mandato e con idexp inferiore al corrente, pi˘ il numero di trattenute associate ai movimenti di spesa precedenti al corrente.
 -- In modo da avere una situazione del genere:
 -- Supponendo di avere 2 movimenti di spesa (A e B) appartenenti allo stesso mandato, con A che ha 2 trattenute associate
 -- Mov. Spesa A (idexp = 2) Progr. 1
@@ -1219,10 +1221,10 @@ CONVERT(varchar(7),npro)
 -- Tratt. ad A ritenuta Y Progr. 3
 -- Mov. Spesa B (idexp = 3) Progr. 4
 -- La prima trattenuta, alla quale abbiamo associato il progressivo 2 ha preso il progressivo del movimento di spesa principale che vale 1,
--- ha cercato se c'erano altre trattenute precedenti ad essa, associate allo stesso movimento di spesa, quindi il risultato √® stato 0, quindi 
--- il suo offset √® 1 + 0 = 1. A questo offset si somma 1 per indicare il primo progressivo libero, quindi le assegneremo come valore 2.
--- Per la seconda trattenuta il concetto √® analogo, quindi prenderemo 1 perch√© √® il progressivo del movimento di spesa collegato ed 1 perch√© c'√®
--- una trattenuta precedente. Quindi l'offset sar√† 1 + 1 = 2 al quale sommiamo 1 per indicare il primo progressivo disponibile e quindi avremo 3.
+-- ha cercato se c'erano altre trattenute precedenti ad essa, associate allo stesso movimento di spesa, quindi il risultato Ë stato 0, quindi 
+-- il suo offset Ë 1 + 0 = 1. A questo offset si somma 1 per indicare il primo progressivo libero, quindi le assegneremo come valore 2.
+-- Per la seconda trattenuta il concetto Ë analogo, quindi prenderemo 1 perchÈ Ë il progressivo del movimento di spesa collegato ed 1 perchÈ c'Ë
+-- una trattenuta precedente. Quindi l'offset sar‡ 1 + 1 = 2 al quale sommiamo 1 per indicare il primo progressivo disponibile e quindi avremo 3.
 UPDATE #ritenute
 SET registry_prog = 1 + 
 ISNULL(
@@ -1244,17 +1246,17 @@ ISNULL(
 
 -- Calcolo del progressivo debitore
 -- M.P.S. vuole che ogni riga delle ritenute debba avere una sua numerazione progressiva all'interno del flusso dei dati
--- Questa numerazione √® interna alla reversale che contiene queste trattenute, questo progressivo non √® da 
+-- Questa numerazione Ë interna alla reversale che contiene queste trattenute, questo progressivo non Ë da 
 -- confondere col progressivo beneficiario calcolato poco sopra
--- Il progressivo debitore sar√† quindi calcolato contando il numero di percipienti distinti precedenti al corrente
+-- Il progressivo debitore sar‡ quindi calcolato contando il numero di percipienti distinti precedenti al corrente
 -- presenti nella medesima reversale
 -- Scriviamo, anche in questo caso, un esempio chiarificatore:
 -- Tratt. X con percipiente XX in reversale A 1
 -- Tratt. Y con percipiente YY in reversale A 2
 -- Tratt. Z con percipiente ZZ in reversale B 1
--- La Tratt. X avr√† progressivo 1; la Tratt. Y avr√† progressivo 2 (1 derivante dal fatto che la Tratt. X ha percipiente precedente
--- ed √® presente nella stessa reversale, +1 per il primo progressivo libero)
--- La Tratt. Z avr√† progressivo 1 perch√© non ci sono altre trattenute nella sua reversale.
+-- La Tratt. X avr‡ progressivo 1; la Tratt. Y avr‡ progressivo 2 (1 derivante dal fatto che la Tratt. X ha percipiente precedente
+-- ed Ë presente nella stessa reversale, +1 per il primo progressivo libero)
+-- La Tratt. Z avr‡ progressivo 1 perchÈ non ci sono altre trattenute nella sua reversale.
 --UPDATE #ritenute
 --SET proceeds_prog = 1 +
 --ISNULL(
@@ -1380,10 +1382,10 @@ CONVERT(varchar(7),npro)
 -- Tratt. ad A ritenuta Y Progr. 3
 -- Mov. Spesa B (idexp = 3) Progr. 4
 -- La prima trattenuta, alla quale abbiamo associato il progressivo 2 ha preso il progressivo del movimento di spesa principale che vale 1,
--- ha cercato se c'erano altre trattenute precedenti ad essa, associate allo stesso movimento di spesa, quindi il risultato √® stato 0, quindi 
--- il suo offset √® 1 + 0 = 1. A questo offset si somma 1 per indicare il primo progressivo libero, quindi le assegneremo come valore 2.
--- Per la seconda trattenuta il concetto √® analogo, quindi prenderemo 1 perch√© √® il progressivo del movimento di spesa collegato ed 1 perch√© c'√®
--- una trattenuta precedente. Quindi l'offset sar√† 1 + 1 = 2 al quale sommiamo 1 per indicare il primo progressivo disponibile e quindi avremo 3.
+-- ha cercato se c'erano altre trattenute precedenti ad essa, associate allo stesso movimento di spesa, quindi il risultato Ë stato 0, quindi 
+-- il suo offset Ë 1 + 0 = 1. A questo offset si somma 1 per indicare il primo progressivo libero, quindi le assegneremo come valore 2.
+-- Per la seconda trattenuta il concetto Ë analogo, quindi prenderemo 1 perchÈ Ë il progressivo del movimento di spesa collegato ed 1 perchÈ c'Ë
+-- una trattenuta precedente. Quindi l'offset sar‡ 1 + 1 = 2 al quale sommiamo 1 per indicare il primo progressivo disponibile e quindi avremo 3.
 UPDATE #pagamento
 SET registry_prog = 1 +
 ISNULL(
@@ -1426,17 +1428,17 @@ ISNULL(
 
 -- Calcolo del progressivo debitore
 -- M.P.S. vuole che ogni riga delle ritenute debba avere una sua numerazione progressiva all'interno del flusso dei dati
--- Questa numerazione √® interna alla reversale che contiene queste trattenute, questo progressivo non √® da 
+-- Questa numerazione Ë interna alla reversale che contiene queste trattenute, questo progressivo non Ë da 
 -- confondere col progressivo beneficiario calcolato poco sopra
--- Il progressivo debitore sar√† quindi calcolato contando il numero di percipienti distinti precedenti al corrente
+-- Il progressivo debitore sar‡ quindi calcolato contando il numero di percipienti distinti precedenti al corrente
 -- presenti nella medesima reversale
 -- Scriviamo, anche in questo caso, un esempio chiarificatore:
 -- Tratt. X con percipiente XX in reversale A 1
 -- Tratt. Y con percipiente YY in reversale A 2
 -- Tratt. Z con percipiente ZZ in reversale B 1
--- La Tratt. X avr√† progressivo 1; la Tratt. Y avr√† progressivo 2 (1 derivante dal fatto che la Tratt. X ha percipiente precedente
--- ed √® presente nella stessa reversale, +1 per il primo progressivo libero)
--- La Tratt. Z avr√† progressivo 1 perch√© non ci sono altre trattenute nella sua reversale.
+-- La Tratt. X avr‡ progressivo 1; la Tratt. Y avr‡ progressivo 2 (1 derivante dal fatto che la Tratt. X ha percipiente precedente
+-- ed Ë presente nella stessa reversale, +1 per il primo progressivo libero)
+-- La Tratt. Z avr‡ progressivo 1 perchÈ non ci sono altre trattenute nella sua reversale.
 --UPDATE #admintax
 --SET idpro = 1 +
 --ISNULL(
@@ -1634,11 +1636,11 @@ BEGIN
 END
 
 -- Unificazione descrizioni di pagamento per movimenti di spesa che sono stati accorpati
--- Questo pezzo di codice √® stato scritto inizialmente quando si pensava di emulare il comportamento di Unicredit
+-- Questo pezzo di codice Ë stato scritto inizialmente quando si pensava di emulare il comportamento di Unicredit
 -- per come oggi viene calcolato il registry_prog l'accorpamento non dovrebbe mai avvenire, viene
 -- comunque lasciato per maggiore sicurezza
 UPDATE #pagamento
-SET paymentdescr = 'ACCORPAMENTO PAGAMENTI' -- + SPACE(@lendescpagamento - DATALENGTH('ACCORPAMENTO PAGAMENTI')) La formattazione l'ho postata alla fine, perch√® deve scrivere anche il CUP e CIG, ponendoli come prima info del campo 'casuale pagamento'
+SET paymentdescr = 'ACCORPAMENTO PAGAMENTI' -- + SPACE(@lendescpagamento - DATALENGTH('ACCORPAMENTO PAGAMENTI')) La formattazione l'ho postata alla fine, perchË deve scrivere anche il CUP e CIG, ponendoli come prima info del campo 'casuale pagamento'
 WHERE
 	(SELECT COUNT(*)
 	FROM #pagamento p2
@@ -1841,8 +1843,8 @@ ISNULL(
 -- Le banche, purtroppo, non tenendo conto che il SIOPE si occupa di classificare il movimento di spesa al lordo
 -- vogliono sempre che il movimento di spesa venga classificato al netto e che la parte delle trattenute venga associata
 -- la parte restante della classificazione.
--- Dopo accordi con i singoli istituti, si √® arrivati alla conclusione che, ove richiesto, il movimento di spesa venga classificato al netto
--- ma le trattenute nella trasmissione dei mandati vengano classificate mediante i codici SIOPE di spesa, sar√† poi compito della trasmissione
+-- Dopo accordi con i singoli istituti, si Ë arrivati alla conclusione che, ove richiesto, il movimento di spesa venga classificato al netto
+-- ma le trattenute nella trasmissione dei mandati vengano classificate mediante i codici SIOPE di spesa, sar‡ poi compito della trasmissione
 -- delle reversali comunicare la classificazione di entrata delle trattenute.
 -- Detto questo, nel caso, quindi ci siano movimenti di spesa con trattenute, si classificano prima le trattenute con i codici SIOPE
 -- applicando la quota parte della classificazione rispetto al loro importo e poi per differenza si procede a classificare il movimento principale
@@ -1859,7 +1861,7 @@ Riga 2 80 con codice B associata alla ritenuta
 Riga 3 480 con codice A associata al movimento di spesa
 Riga 4 320 con codice B associata al movimento di spesa
 
-Nella trasmissione delle reversali la trattenuta sar√† classificata per 200 con codice C
+Nella trasmissione delle reversali la trattenuta sar‡ classificata per 200 con codice C
 */
 
 DECLARE @npos int
@@ -2005,7 +2007,7 @@ GROUP BY #pagamento.y, #pagamento.n, #pagamento.ydoc,
 
 
 -- Calcolo del progressivo SIOPE
--- Anche la classificazione ha un suo progressivo che √® pari al numero di codici classificazione distinti precedente al corrente,
+-- Anche la classificazione ha un suo progressivo che Ë pari al numero di codici classificazione distinti precedente al corrente,
 -- legati allo stesso progressivo percipiente.
 UPDATE #siope
 SET progressive = 1 +
@@ -2024,7 +2026,7 @@ ISNULL(
  WHERE #siope.rowkind = 'P'
  
 -- Calcolo del progressivo SIOPE sulle trattenute
--- Anche sulle trattenute si calcola il progressivo SIOPE che √® pari al progressivo del movimento principale pi√π 1
+-- Anche sulle trattenute si calcola il progressivo SIOPE che Ë pari al progressivo del movimento principale pi˘ 1
 DECLARE @currprog int
 DECLARE @y_siope int
 DECLARE @n_siope int
@@ -2077,7 +2079,7 @@ CASE
 	ELSE SUBSTRING(CONVERT(varchar(3),progressive),1,@lenprogressivo)
 END
 	
--- CONTROLLO N. 13 Il numero di classificazioni non pu√≤ superare il limite massimo per ogni beneficiario
+-- CONTROLLO N. 13 Il numero di classificazioni non puÚ superare il limite massimo per ogni beneficiario
 DECLARE @limiteclassificazioni int
 SET @limiteclassificazioni = 15
 IF EXISTS(
@@ -2087,7 +2089,7 @@ IF EXISTS(
 BEGIN
 	INSERT INTO #error (message)
 	(SELECT 'Il mandato n. ' + CONVERT(varchar(6),ndoc) + '/' + CONVERT(varchar(4),ydoc)
-	+ ' contiene pi√π di ' + CONVERT(varchar(2),@limiteclassificazioni) + ' classificazioni SIOPE'
+	+ ' contiene pi˘ di ' + CONVERT(varchar(2),@limiteclassificazioni) + ' classificazioni SIOPE'
 	FROM #siope WHERE
 		(SELECT COUNT(*) FROM #siope s2
 		WHERE s2.y = #siope.y
@@ -2162,7 +2164,7 @@ SUBSTRING('00',1,2 - DATALENGTH(CONVERT(varchar(2),DAY(payment_adate)))) +
 CONVERT(varchar(2),DAY(payment_adate)) +
 -- Capitolo e Articolo di Bilancio
 REPLICATE('0',10) +
--- Competenza - Residui (Valorizzo sempre a ZERO perch√© √® un dato facoltativo)
+-- Competenza - Residui (Valorizzo sempre a ZERO perchÈ Ë un dato facoltativo)
 '0' +
 -- Fruttifero - Infruttfero (per le spese vale sempre ZERO)
 '0' +
@@ -2217,7 +2219,7 @@ REPLICATE('0',8) +
 reg_title +
 -- Indirizzo Beneficiario
 reg_address +
--- Localit√† Beneficiario
+-- Localit‡ Beneficiario
 reg_location +
 -- CAP Beneficiario
 reg_cap +
@@ -2245,16 +2247,16 @@ END +
 			THEN 'CIG:'+isnull(CIG,'') + '; '+
 					+ substring(ISNULL(paymentdescr,''),1,@lendescpagamento -6 -DATALENGTH(isnull(CIG,'')))
 
-	-- DESCRIZIONE e basta, perch√® il CIG √® null
+	-- DESCRIZIONE e basta, perchË il CIG Ë null
 			ELSE ISNULL(paymentdescr, '') 
 					+ SUBSTRING(SPACE(@lendescpagamento),1,	@lendescpagamento - DATALENGTH(ISNULL(paymentdescr,'')))
 	END +
 	------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- Modalit√† di Esecuzione
+-- Modalit‡ di Esecuzione
 idpaymethodTRS +
--- Parte di RIDEFINIZIONE in base alla Modalit√† di Pagamento adoperata
--- Attenzione per la modalit√† di pagamento B chiedere a MPS che cosa √® precisamente il codice versante (10 caratteri)
+-- Parte di RIDEFINIZIONE in base alla Modalit‡ di Pagamento adoperata
+-- Attenzione per la modalit‡ di pagamento B chiedere a MPS che cosa Ë precisamente il codice versante (10 caratteri)
 CASE 
 	WHEN idpaymethodTRS = 'B'
 	THEN abi + cab + cc + checkdigit + cin + countrycode + SPACE(23)
@@ -2272,7 +2274,7 @@ CASE
 END +
 -- Dati riservati all'ente
 SPACE(7) +
--- Conto Corrente di Riferimento (L'universit√† ha sempre un solo CC, tuttavia ha dei sottoconti 
+-- Conto Corrente di Riferimento (L'universit‡ ha sempre un solo CC, tuttavia ha dei sottoconti 
 -- corrispondenti ai vari dipartimenti in caso di gestione con Bilancio Unico)
 @cc_vincolato + 
 -- Esenzione del bollo
@@ -2340,7 +2342,7 @@ REPLICATE('0',8) +
 reg_title +
 -- Indirizzo Beneficiario
 reg_address +
--- Localit√† Beneficiario
+-- Localit‡ Beneficiario
 reg_location +
 -- CAP Beneficiario
 reg_cap +
@@ -2352,10 +2354,10 @@ CASE
 END +
 -- Descrizione Pagamento
 paymentdescr +
--- Modalit√† di Esecuzione
+-- Modalit‡ di Esecuzione
 idpaymethodTRS +
--- Parte di RIDEFINIZIONE in base alla Modalit√† di Pagamento adoperata
--- Attenzione per la modalit√† di pagamento B chiedere a MPS che cosa √® precisamente il codice versante (10 caratteri)
+-- Parte di RIDEFINIZIONE in base alla Modalit‡ di Pagamento adoperata
+-- Attenzione per la modalit‡ di pagamento B chiedere a MPS che cosa Ë precisamente il codice versante (10 caratteri)
 CASE 
 	WHEN idpaymethodTRS = 'B'
 	THEN abi + cab + cc + checkdigit + cin + countrycode + SPACE(23)
@@ -2373,7 +2375,7 @@ CASE
 END +
 -- Dati riservati all'ente
 SPACE(7) +
--- Conto Corrente di Riferimento (L'universit√† ha sempre un solo CC)
+-- Conto Corrente di Riferimento (L'universit‡ ha sempre un solo CC)
 REPLICATE('0',7) +
 -- Esenzione del bollo
 freestamp +
@@ -2441,7 +2443,7 @@ REPLICATE('0',8) +
 obb_title +
 -- Indirizzo
 obb_address +
--- Localit√†
+-- Localit‡
 obb_location +
 -- CAP
 obb_cap +
@@ -2453,13 +2455,13 @@ CASE
 END +
 -- Descrizione Incasso
 proceedsdescr + 
--- Modalit√† di Esecuzione
+-- Modalit‡ di Esecuzione
 'T' + 
 -- Ridefizioni
 SPACE(50) +
 -- Dati riservati all'ente
 SPACE(7) +
--- Conto Corrente di Riferimento (L'universit√† ha sempre un solo CC, possono esserci i sottoconti vincolati
+-- Conto Corrente di Riferimento (L'universit‡ ha sempre un solo CC, possono esserci i sottoconti vincolati
 --relativi  ai dipartimenti in caso di Gestione Bilancio Unico)
 @cc_vincolato + 
 -- Esenzione del bollo
@@ -2518,7 +2520,7 @@ REPLICATE('0',8) +
 obb_title +
 -- Indirizzo
 obb_address +
--- Localit√†
+-- Localit‡
 obb_location +
 -- CAP
 obb_cap +
@@ -2530,13 +2532,13 @@ CASE
 END +
 -- Descrizione Incasso
 proceedsdescr + 
--- Modalit√† di Esecuzione
+-- Modalit‡ di Esecuzione
 'T' + 
 -- Ridefizioni
 SPACE(50) +
 -- Dati riservati all'ente
 SPACE(7) +
--- Conto Corrente di Riferimento (L'universit√† ha sempre un solo CC, possono esserci i sottoconti vincolati
+-- Conto Corrente di Riferimento (L'universit‡ ha sempre un solo CC, possono esserci i sottoconti vincolati
 --relativi  ai dipartimenti in caso di Gestione Bilancio Unico)
 @cc_vincolato + 
 -- Esenzione del bollo
@@ -2686,7 +2688,7 @@ SET @nummandati = (SELECT COUNT(*) FROM #tracciato WHERE stringa LIKE '02%')
 DECLARE @limitedatioperativi int
 SET @limitedatioperativi = 255
 
--- Record '10' Informazioni aggiuntive per modalit√† DESCRITTIVA - D
+-- Record '10' Informazioni aggiuntive per modalit‡ DESCRITTIVA - D
 INSERT INTO #tracciato (y, n, ndoc, progr_submovimento, rownum, stringa)
 SELECT y, n, ndoc,registry_prog, 10,
 '10' + '00000' + ndocformatted +
@@ -2717,7 +2719,7 @@ INSERT INTO #tracciato (y, n, ndoc,progr_submovimento, rownum, stringa)
 SELECT ypaymenttransmission, npaymenttransmission,999999, 999999, 19,
 '09' + '00000' + @dataformattata + '0'
 + @codicefiliale + @codiceente +
--- Numero Reversali (Le reversali sono trasmesse da un'altra procedura, ci√≤ che qui trasmetto sono le trattenute)
+-- Numero Reversali (Le reversali sono trasmesse da un'altra procedura, ciÚ che qui trasmetto sono le trattenute)
 REPLICATE('0',5) +
 -- Totale Entrate (Sempre ZERO)
 REPLICATE('0',@lenimporto) +
@@ -2782,12 +2784,12 @@ REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(
 stringa,
-'√á','c'),'√ß','c'),'‚Ç¨','e'),'|',' '),'\',' '),'¬£',' '),'¬ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'√ô','u'),
-'√ñ','o'),'√ú','u'),'√ë','n'),'√ê','d'),'√ä','e'),'√ã','e'),'√é','i'),'√è','i'),'√î','o'),'√ï','o'),'√õ','u'),'√ù','y'),
-']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'√º','u'),'√¢','a'),'√§','a'),'√•','a'),'√™','e'),'√´','e'),'√Ø','i'),
-'√Æ','i'),'√Ñ','a'),'√Ö','a'),'√¥','o'),'√∂','o'),'√ª','u'),'√ø','y'),'√±','n'),'√Ç','a'),'¬•','y'),'√£','a'),'√É','a'),
-'√µ','o'),'√Ω','y'),'√©','e'),'√†','a'),'√®','e'),'√¨','i'),'√≤','o'),'√π','u'),'√°','a'),'√≠','i'),'√≥','o'),'√â','e'),
-'√Å','a'),'√Ä','a'),'√à','e'),'√ç','i'),'√å','i'),'√ì','o'),'√í','o'),'√ö','u'),
+'«','c'),'Á','c'),'Ä','e'),'|',' '),'\',' '),'£',' '),'ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'Ÿ','u'),
+'÷','o'),'‹','u'),'—','n'),'–','d'),' ','e'),'À','e'),'Œ','i'),'œ','i'),'‘','o'),'’','o'),'€','u'),'›','y'),
+']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'¸','u'),'‚','a'),'‰','a'),'Â','a'),'Í','e'),'Î','e'),'Ô','i'),
+'Ó','i'),'ƒ','a'),'≈','a'),'Ù','o'),'ˆ','o'),'˚','u'),'ˇ','y'),'Ò','n'),'¬','a'),'•','y'),'„','a'),'√','a'),
+'ı','o'),'˝','y'),'È','e'),'‡','a'),'Ë','e'),'Ï','i'),'Ú','o'),'˘','u'),'·','a'),'Ì','i'),'Û','o'),'…','e'),
+'¡','a'),'¿','a'),'»','e'),'Õ','i'),'Ã','i'),'”','o'),'“','o'),'⁄','u'),
 CHAR(9),' '),CHAR(10),' '),CHAR(13),' ')
 )
 
@@ -2832,4 +2834,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

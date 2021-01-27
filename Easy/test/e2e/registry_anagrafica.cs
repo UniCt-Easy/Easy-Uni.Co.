@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using metadatalibrary;
 using System.Data;
@@ -73,7 +75,7 @@ namespace e2e {
             testF.ctrl.DontWarnOnInsertCancel = false;
             testF.ctrl.DoMainCommand("maindelete");
             Assert.AreEqual(1,listMsg.Count,"One message at end");
-            Assert.AreEqual("Annullo l'inserimento dell'oggetto Anagrafica nella tabella registry",listMsg[0]);
+            Assert.AreEqual("Annullo l'inserimento dell'oggetto Cliente/Fornitore nella tabella registry",listMsg[0]);
             testF.closeForm();
         }
 
@@ -112,7 +114,7 @@ namespace e2e {
             TextBox tSurName = testF.findByTag("registry.surname") as TextBox;
             Assert.IsTrue(tSurName.Visible, "Surname visible for anagrafica complementare");
             Assert.IsNotNull(ctrlTipologia, "Esiste un controllo che indica il tipo anagrafica");
-            Assert.IsInstanceOfType(ctrlTipologia, typeof(ComboBox), "Tipologia √® un combo");
+            Assert.IsInstanceOfType(ctrlTipologia, typeof(ComboBox), "Tipologia Ë un combo");
             ComboBox cbTipologia = ctrlTipologia as ComboBox;
             Assert.IsTrue(cbTipologia.Visible, "combo tipologia visibile");
             Assert.IsTrue(cbTipologia.Enabled, "combo tipologia abilitato");
@@ -199,7 +201,7 @@ namespace e2e {
             Assert.IsNotNull(ctrlTipologiaSpese, "Esiste un controllo che indica il tipo anagrafica");
             Assert.IsTrue(ctrlTipologiaSpese.Visible, "Tipologia Spese visible for anagrafica complementare");
 		
-            Assert.IsInstanceOfType(ctrlTipologiaSpese, typeof(ComboBox), "Tipologia √® un combo");
+            Assert.IsInstanceOfType(ctrlTipologiaSpese, typeof(ComboBox), "Tipologia Ë un combo");
             ComboBox cbTipologia = ctrlTipologiaSpese as ComboBox;
             Assert.IsTrue(cbTipologia.Visible, "combo tipologia trattamento spese visibile");
             Assert.IsTrue(cbTipologia.Enabled, "combo tipologia trattamento spese abilitato");

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_riclassificatosiope]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_riclassificatosiope]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_riclassificatosiope]
 GO
 
@@ -70,7 +72,7 @@ CREATE TABLE #CLASSIFICATO(
 	previsioneCapitolo decimal(19,2),
 	nlevelclass tinyint
 )
--- Leggiamo il minimo livello operativo, di solito √® il Capitolo.
+-- Leggiamo il minimo livello operativo, di solito Ë il Capitolo.
 DECLARE @minoplevel tinyint
 SELECT @minoplevel = min(nlevel)
 FROM finlevel
@@ -107,19 +109,19 @@ BEGIN
 
 	IF(@fin_kind = 2) 
 	Begin 
-		-- il bilancio √® di Cassa
+		-- il bilancio Ë di Cassa
 		SET @supposed_jan01 = @supposed_ff_jan01;
 	End
 	Else
 	Begin	
-		-- il bilancio √® di Competenza
+		-- il bilancio Ë di Competenza
 		SET @supposed_jan01 = @supposed_aa_jan01;
 	End	
 END
 
 
--- Nella tabella ci metto tutto ci√≤ che √® classificato dal titolo al capitolo, articolo. Tutto senza differenze.
--- Poi far√≤ una seconda INSERT in cui ci metto tutti i capitoli che non hanno una classificazione propria ma assumono
+-- Nella tabella ci metto tutto ciÚ che Ë classificato dal titolo al capitolo, articolo. Tutto senza differenze.
+-- Poi farÚ una seconda INSERT in cui ci metto tutti i capitoli che non hanno una classificazione propria ma assumono
 -- implicitamente quella della categoria o titolo.
 -- Per questi capitoli metteremo la propria previsione, la quota vincolata, la quota libera. Quest'ultime saranno copiate dalla categoria/titolo
 -- di apprtenenza
@@ -271,8 +273,8 @@ Begin
         AND S.idsorkind = @iSIOPE
 End
 
--- Inserisco i capitoli, che non ho inserito prima perch√® non classificati. 
--- Prender√≤ questi capitoli NON classificati, per cui √® stata classificata direttamente la categoria, o titolo.
+-- Inserisco i capitoli, che non ho inserito prima perchË non classificati. 
+-- PrenderÚ questi capitoli NON classificati, per cui Ë stata classificata direttamente la categoria, o titolo.
 -- Queste categorie/titoli saranno presenti nella tab #Classificato.
 
 INSERT INTO #CLASSIFICATO(
@@ -282,7 +284,7 @@ INSERT INTO #CLASSIFICATO(
 	quotaVincolata,
 	idsor,
 	previsioneCapitolo,
-	nlevelclass	-- Indica il lievello a cui √® stata attribuita la class, se al titolo, alla categoria, al capitolo...
+	nlevelclass	-- Indica il lievello a cui Ë stata attribuita la class, se al titolo, alla categoria, al capitolo...
 )
 SELECT 
 	F.idfin,	
@@ -320,12 +322,12 @@ DELETE FROM #CLASSIFICATO WHERE nlevel <> @minoplevel
 
 -- Se ho classificato un titolo con una classificazione, per indicare che tutte le relative categorie avranno quella classificazione.
 -- E poi per una di queste categorie ho inserito una classiicazione diversa da quella del titolo
--- In #Classificato avr√≤ sia il titolo che la categoria
--- Nella INSERT precedente, avr√≤ inserito tutti quei capitoli non classificati per cui, per√≤, esiste un livello padre classificato.
--- Nella situazione descritta, in #classificato avr√≤ due padri del capitolo, quindi lui inserir√† due volte lo stesso capitolo:
+-- In #Classificato avrÚ sia il titolo che la categoria
+-- Nella INSERT precedente, avrÚ inserito tutti quei capitoli non classificati per cui, perÚ, esiste un livello padre classificato.
+-- Nella situazione descritta, in #classificato avrÚ due padri del capitolo, quindi lui inserir‡ due volte lo stesso capitolo:
 -- una volta come figlio del titolo, una volta come figlio della categoria.
 -- Con la seguente DELETE vogliamo cancellare quelle classificazioni che provengono dai titoli, laddove vi sia una classificazione che proviene
--- dalla categoria. Pertanto useremo "nlevelclass" che denota, appunto, il lievello a cui √® stata attribuita la class, se al titolo, alla categoria, al capitolo...
+-- dalla categoria. Pertanto useremo "nlevelclass" che denota, appunto, il lievello a cui Ë stata attribuita la class, se al titolo, alla categoria, al capitolo...
 
 DELETE FROM #CLASSIFICATO
 WHERE nlevelclass <  ( select min(nlevelclass) from #CLASSIFICATO C2 
@@ -333,7 +335,7 @@ WHERE nlevelclass <  ( select min(nlevelclass) from #CLASSIFICATO C2
 								and C2.nlevelclass > #CLASSIFICATO.nlevelclass )
 
 -- Inserisco nella tabella di #OUTPUT le righe, prendendo come codice di classificazione il livello precedente a quello attuale, 
--- depurando il codice da suffisso aggiunto da noi, cosicch√© 123@L e 123@V diventino una sola riga con codice 123. In particale in #CLASSIFICATO abbiamo: 
+-- depurando il codice da suffisso aggiunto da noi, cosicchÈ 123@L e 123@V diventino una sola riga con codice 123. In particale in #CLASSIFICATO abbiamo: 
 -- COD:123@L con PrevisioneLibera = 80		PrevisioneVincolata = 0
 -- COD:123@V con PrevisioneLibera = 0		PrevisioneVincolata = 20
 -- In #OUTPUT avremo:
@@ -352,7 +354,7 @@ CREATE TABLE #OUTPUT(
 
 IF ((@viewfin = 'S'))
 Begin
- -- Ho decido di vedere anche il Capitolo a cui √® stata attribuita la classificazione.
+ -- Ho decido di vedere anche il Capitolo a cui Ë stata attribuita la classificazione.
 	INSERT INTO #OUTPUT(
 		Bilancio,
 		PrintingOrder,
@@ -371,9 +373,9 @@ Begin
 		SUM(C.previsioneVincolata),
 		SUM(ISNULL(C.previsioneLibera,0) + ISNULL(C.previsioneVincolata,0)) 
 	from #CLASSIFICATO C
-	join sorting S			------> √® la foglia 123@L
+	join sorting S			------> Ë la foglia 123@L
 		on S.idsor = C.idsor
-	JOIN sorting S_parent	------> √® il nodo precedente 123
+	JOIN sorting S_parent	------> Ë il nodo precedente 123
 		ON S_Parent.idsor = S.paridsor
 	JOIN fin F
 		ON F.idfin = C.idfin
@@ -400,9 +402,9 @@ Begin
 		SUM(C.previsioneVincolata),
 		SUM(ISNULL(C.previsioneLibera,0) + ISNULL(C.previsioneVincolata,0)) 
 	from #CLASSIFICATO C
-	join sorting S			------> √® la foglia 123@L
+	join sorting S			------> Ë la foglia 123@L
 		on S.idsor = C.idsor
-	JOIN sorting S_parent	------> √® il nodo precedente 123
+	JOIN sorting S_parent	------> Ë il nodo precedente 123
 		ON S_Parent.idsor = S.paridsor
 	GROUP BY S_Parent.sortcode,	S_Parent.printingorder, S_Parent.idsor,	S_Parent.description
 End
@@ -414,7 +416,7 @@ Begin
 End
 
 -- Aggiungo tutti i codici di Classificazione che non sono stati usati, ossia quei codici che non sono stati attribuiti ad alcuna voce di bilancio.
--- Escludo il Titolo "Z". Escludo solo, perch√® i figli (Partite di giro, etc...) mi serviranno dopo per calcolare i Totale Complessivo.
+-- Escludo il Titolo "Z". Escludo solo, perchË i figli (Partite di giro, etc...) mi serviranno dopo per calcolare i Totale Complessivo.
 
 INSERT INTO #OUTPUT(
 	PrintingOrder, 
@@ -576,4 +578,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿SET QUOTED_IDENTIFIER OFF 
+
+SET QUOTED_IDENTIFIER OFF 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -157,7 +159,7 @@ BEGIN
 END
 
 -- Se ho scelto un livello sottostante del livello operativo utilizzo quello, 
--- altrimenti userÃ² il I liv.operativo
+-- altrimenti userò il I liv.operativo
 
 /*DECLARE @levelusable varchar(20)
 SELECT @levelusable = MIN(nlevel)
@@ -197,8 +199,8 @@ END
 DECLARE @lenlab int
 DECLARE @lenlabdetail int
 DECLARE @leneserc int
-SET @lenlab = 5  -- Indica la posizione del campo idinvkind all'interno di idrelated nel caso di fattura : INVÂ§1
-SET @lenlabdetail = 15  -- Indica la posizione del campo idinvkind all'interno di idrelated nel caso di DETTAGLIO CONTRATTO PASSIVO : MANDATEDETAILÂ§1
+SET @lenlab = 5  -- Indica la posizione del campo idinvkind all'interno di idrelated nel caso di fattura : INV§1
+SET @lenlabdetail = 15  -- Indica la posizione del campo idinvkind all'interno di idrelated nel caso di DETTAGLIO CONTRATTO PASSIVO : MANDATEDETAIL§1
 
 SET @leneserc = 4 -- Viene applicato come len(esercizio) + 1 per calcolare la posizione del numero dell afattura all'interno del campo idrelated
 	
@@ -317,14 +319,14 @@ Begin
 			WHEN SUBSTRING(entry.idrelated,1,3) = 'INV' THEN
 				(SELECT 'Fatt. ' + ink.codeinvkind + ' ' 
 						+ SUBSTRING(entry.idrelated, (@lenlab + 
-									PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,len(entry.idrelated) - @lenlab))),@leneserc
+									PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,len(entry.idrelated) - @lenlab))),@leneserc
 						  ) 
 						+ '/' 
 						+ SUBSTRING(entry.idrelated,(@lenlab + 
-													 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab) ) + (@leneserc + 1)
+													 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab) ) + (@leneserc + 1)
 													),
 									len(entry.idrelated)-(@lenlab + 
-														  PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab  )) 
+														  PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab  )) 
 									+ @leneserc )
 						  )  --Creazione della stringa Doc nel caso in cui si stia stampando una fattura
 				 FROM invoice inv
@@ -332,20 +334,20 @@ Begin
 						ON inv.idinvkind = ink.idinvkind
 				 WHERE ink.idinvkind= CONVERT(int,
 										SUBSTRING(entry.idrelated,@lenlab,
-												  PATINDEX('%Â§%',SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+												  PATINDEX('%§%',SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 													-1)
 									  )
 				 AND inv.yinv = CONVERT(int,
 										SUBSTRING(entry.idrelated, (@lenlab + 
-												  PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+												  PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 										),@leneserc)
 								)
 				AND inv.ninv = CONVERT(int,				
 									   SUBSTRING(entry.idrelated,(@lenlab + 
-												 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+												 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 												 + (@leneserc + 1) ),
 												 len(entry.idrelated)-(@lenlab + 
-													 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+													 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 													  + @leneserc  ) 
 												 ) 
 										)					
@@ -355,32 +357,32 @@ Begin
 		
 				(SELECT 'Ord. ' + man.idmankind + ' ' 
 						+ SUBSTRING(entry.idrelated, (@lenlab + 
-									PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))),@leneserc
+									PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))),@leneserc
 						  ) 
 						+ '/' 
 						+ SUBSTRING(entry.idrelated,(@lenlab + 
-													 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab) ) + (@leneserc + 1)
+													 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab) ) + (@leneserc + 1)
 													),
 									len(entry.idrelated)-(@lenlab + 
-														  PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab  )) 
+														  PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab  )) 
 									+ @leneserc )
 						  )  --Creazione della stringa Doc nel caso in cui si stia stampando un Contratto Passivo
 				 FROM mandate man
 
 				 WHERE man.idmankind=	SUBSTRING(entry.idrelated,@lenlab,
-												  PATINDEX('%Â§%',SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+												  PATINDEX('%§%',SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 													-1)
 				 AND man.yman = CONVERT(int,
 										SUBSTRING(entry.idrelated, (@lenlab + 
-												  PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+												  PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 										),@leneserc)
 								)
 				 AND man.nman = CONVERT(int,				
 									   SUBSTRING(entry.idrelated,(@lenlab + 
-												 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+												 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 												 + (@leneserc + 1) ),
 												 len(entry.idrelated)-(@lenlab + 
-													 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+													 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 													  + @leneserc  ) 
 												 ) 
 										)					
@@ -390,32 +392,32 @@ Begin
 		
 				(SELECT 'Dett. Ord. ' + man.idmankind + ' ' 
 						+ SUBSTRING(entry.idrelated, (@lenlabdetail + 
-									PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))),@leneserc
+									PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))),@leneserc
 						  ) 
 						+ '/' 
 						+ SUBSTRING(entry.idrelated,(@lenlabdetail + 
-													 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail) ) + (@leneserc + 1)
+													 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail) ) + (@leneserc + 1)
 													),
 									len(entry.idrelated)-(@lenlabdetail + 
-														  PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail  )) 
+														  PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail  )) 
 									+ @leneserc )
 						  )  --Creazione della stringa Doc nel caso in cui si stia stampando un Contratto Passivo
 				 FROM mandate man
 
 				 WHERE man.idmankind=	SUBSTRING(entry.idrelated,@lenlabdetail,
-												  PATINDEX('%Â§%',SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
+												  PATINDEX('%§%',SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
 													-1)
 				 AND man.yman = CONVERT(int,
 										SUBSTRING(entry.idrelated, (@lenlabdetail + 
-												  PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
+												  PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
 										),@leneserc)
 								)
 				 AND man.nman = CONVERT(int,				
 									   SUBSTRING(entry.idrelated,(@lenlabdetail + 
-												 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
+												 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
 												 + (@leneserc + 1) ),
 												 len(entry.idrelated)-(@lenlabdetail + 
-													 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
+													 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
 													  + @leneserc  ) 
 												 ) 
 										)					
@@ -484,14 +486,14 @@ Begin
 			WHEN SUBSTRING(entry.idrelated,1,3) = 'INV' THEN
 				(SELECT 'Fatt. ' + ink.codeinvkind + ' ' 
 						+ SUBSTRING(entry.idrelated, (@lenlab + 
-									PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,len(entry.idrelated) - @lenlab))),@leneserc
+									PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,len(entry.idrelated) - @lenlab))),@leneserc
 						  ) 
 						+ '/' 
 						+ SUBSTRING(entry.idrelated,(@lenlab + 
-													 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab) ) + (@leneserc + 1)
+													 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab) ) + (@leneserc + 1)
 													),
 									len(entry.idrelated)-(@lenlab + 
-														  PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab  )) 
+														  PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab  )) 
 									+ @leneserc )
 						  )  --Creazione della stringa Doc nel caso in cui si stia stampando una fattura
 				 FROM invoice inv
@@ -499,20 +501,20 @@ Begin
 						ON inv.idinvkind = ink.idinvkind
 				 WHERE ink.idinvkind= CONVERT(int,
 										SUBSTRING(entry.idrelated,@lenlab,
-												  PATINDEX('%Â§%',SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+												  PATINDEX('%§%',SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 													-1)
 									  )
 				 AND inv.yinv = CONVERT(int,
 										SUBSTRING(entry.idrelated, (@lenlab + 
-												  PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+												  PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 										),@leneserc)
 								)
 				AND inv.ninv = CONVERT(int,				
 									   SUBSTRING(entry.idrelated,(@lenlab + 
-												 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+												 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 												 + (@leneserc + 1) ),
 												 len(entry.idrelated)-(@lenlab + 
-													 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+													 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 													  + @leneserc  ) 
 												 ) 
 										)					
@@ -522,32 +524,32 @@ Begin
 		
 				(SELECT 'Ord. ' + man.idmankind + ' ' 
 						+ SUBSTRING(entry.idrelated, (@lenlab + 
-									PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))),@leneserc
+									PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))),@leneserc
 						  ) 
 						+ '/' 
 						+ SUBSTRING(entry.idrelated,(@lenlab + 
-													 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab) ) + (@leneserc + 1)
+													 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab) ) + (@leneserc + 1)
 													),
 									len(entry.idrelated)-(@lenlab + 
-														  PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab  )) 
+														  PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab  )) 
 									+ @leneserc )
 						  )  --Creazione della stringa Doc nel caso in cui si stia stampando un Contratto Passivo
 				 FROM mandate man
 
 				 WHERE man.idmankind=	SUBSTRING(entry.idrelated,@lenlab,
-												  PATINDEX('%Â§%',SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+												  PATINDEX('%§%',SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 													-1)
 				 AND man.yman = CONVERT(int,
 										SUBSTRING(entry.idrelated, (@lenlab + 
-												  PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+												  PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 										),@leneserc)
 								)
 				 AND man.nman = CONVERT(int,				
 									   SUBSTRING(entry.idrelated,(@lenlab + 
-												 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+												 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 												 + (@leneserc + 1) ),
 												 len(entry.idrelated)-(@lenlab + 
-													 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
+													 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlab,LEN(entry.idrelated) - @lenlab))
 													  + @leneserc  ) 
 												 ) 
 										)					
@@ -557,32 +559,32 @@ Begin
 		
 				(SELECT 'Dett. Ord. ' + man.idmankind + ' ' 
 						+ SUBSTRING(entry.idrelated, (@lenlabdetail + 
-									PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))),@leneserc
+									PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))),@leneserc
 						  ) 
 						+ '/' 
 						+ SUBSTRING(entry.idrelated,(@lenlabdetail + 
-													 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail) ) + (@leneserc + 1)
+													 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail) ) + (@leneserc + 1)
 													),
 									len(entry.idrelated)-(@lenlabdetail + 
-														  PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail  )) 
+														  PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail  )) 
 									+ @leneserc )
 						  )  --Creazione della stringa Doc nel caso in cui si stia stampando un Contratto Passivo
 				 FROM mandate man
 
 				 WHERE man.idmankind=	SUBSTRING(entry.idrelated,@lenlabdetail,
-												  PATINDEX('%Â§%',SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
+												  PATINDEX('%§%',SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
 													-1)
 				 AND man.yman = CONVERT(int,
 										SUBSTRING(entry.idrelated, (@lenlabdetail + 
-												  PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
+												  PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
 										),@leneserc)
 								)
 				 AND man.nman = CONVERT(int,				
 									   SUBSTRING(entry.idrelated,(@lenlabdetail + 
-												 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
+												 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
 												 + (@leneserc + 1) ),
 												 len(entry.idrelated)-(@lenlabdetail + 
-													 PATINDEX('%Â§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
+													 PATINDEX('%§%', SUBSTRING(entry.idrelated,@lenlabdetail,LEN(entry.idrelated) - @lenlabdetail))
 													  + @leneserc  ) 
 												 ) 
 										)					
@@ -791,4 +793,3 @@ SET ANSI_NULLS ON
 GO
 
 -- exec rpt_mastrino 2019, {ts '2019-01-01 00:00:00'}, {ts '2019-11-19 00:00:00'}, NULL, 'S', NULL, 'S', NULL, 'S', NULL, 'E020205090', '%', 'N', 'N', 'S', 'S'
-	

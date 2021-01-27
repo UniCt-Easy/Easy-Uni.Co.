@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[check_trasmele_income_opisiopeplus]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[check_trasmele_income_opisiopeplus]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [check_trasmele_income_opisiopeplus]
 GO
 
@@ -39,7 +41,7 @@ WHERE yproceedstransmission = @y AND nproceedstransmission = @n
 if	((SELECT COUNT(*) FROM   proceedstransmission  WHERE  nproceedstransmission = @n 
 			AND    yproceedstransmission = @y ) = 0)
 		BEGIN
-			--  La distinta di trasmissione √® vuota'
+			--  La distinta di trasmissione Ë vuota'
 			return
 		END
 
@@ -107,7 +109,7 @@ END
 							and T2.tipo_operazione IN( 'INSERIMENTO' ,'VARIAZIONE') )
 
 	insert into #errors(error)
-	select 'Documento elettronico privo dell''Identificativo del Lotto SDI con cui √® stata trasmessa la FE. Numero reversale : '+ convert(varchar(10),numero_reversale) + '. Incasso n.' + convert(varchar(10), E.nmov)
+	select 'Documento elettronico privo dell''Identificativo del Lotto SDI con cui Ë stata trasmessa la FE. Numero reversale : '+ convert(varchar(10),numero_reversale) + '. Incasso n.' + convert(varchar(10), E.nmov)
 	from 	#checktrace T1
 		join income E on T1.idinc = E.idinc
 	where kind='CLASSIFICAZIONI_FATTURASIOPE'
@@ -174,4 +176,3 @@ GO
 SET ANSI_NULLS ON 
 
 GO
-	

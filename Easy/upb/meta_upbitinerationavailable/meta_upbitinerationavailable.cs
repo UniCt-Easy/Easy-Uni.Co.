@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Data;
 using System.Windows.Forms;
 using metaeasylibrary;
@@ -44,18 +46,18 @@ namespace meta_upbitinerationavailable {
                     DescribeAColumn(T, C.ColumnName, "", -1);
 
                 //Denominazione della UPB
-                //Disponibilit√† Impegni Provvisori(1)  --Intesa come la somma delle disponibilit√† delle fasi 2
+                //Disponibilit‡ Impegni Provvisori(1)  --Intesa come la somma delle disponibilit‡ delle fasi 2
                 //Missioni non contabilizzate(2)-- Intesa come la somma del lordo delle missioni imputate sulla UPB non ancora contabilizzate
-                //Differenza Disponibilit√†(1 - 2) -Intesa come la differenza tra la disponibilit√† delle fasi 1  e l'importo delle missioni ancora da contabilizzare
+                //Differenza Disponibilit‡(1 - 2) -Intesa come la differenza tra la disponibilit‡ delle fasi 1  e l'importo delle missioni ancora da contabilizzare
                 //scadenza della UPB
 
                 int nPos = 1;
                 DescribeAColumn(T, "codeupb", "UPB", nPos++);
                 DescribeAColumn(T, "title", "Denominazione della UPB", nPos++);
                 //DescribeAColumn(T, "previsionedisponibile_impegni", "Prev.disponibile per Imp.Provv.", nPos++);
-                DescribeAColumn(T, "disponibilita_impegni", "Disponibilit√† Impegni Provvisori(1)", nPos++);// Colonna B
+                DescribeAColumn(T, "disponibilita_impegni", "Disponibilit‡ Impegni Provvisori(1)", nPos++);// Colonna B
                 DescribeAColumn(T, "missioniupbnoncontabilizzate", "Missioni non contabilizzate(2)", nPos++); // Colonna C
-                DescribeAColumn(T, "differenzadisponibilita", "Differenza Disponibilit√†(1-2)", nPos++); // B-C
+                DescribeAColumn(T, "differenzadisponibilita", "Differenza Disponibilit‡(1-2)", nPos++); // B-C
                 DescribeAColumn(T, "expiration", "Scadenza della uPB", nPos++);
             }
         }

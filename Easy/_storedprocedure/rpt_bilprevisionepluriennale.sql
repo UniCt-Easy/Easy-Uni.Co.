@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilprevisionepluriennale]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilprevisionepluriennale]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_bilprevisionepluriennale]
 GO
 
@@ -370,18 +372,18 @@ BEGIN
 		ISNULL(vardiminuzione1,0) = 0)
 
 -- Se ho deciso di NON vedere gli upb, upb vale NULL, e potrei avere per la stessa voce di bilancio
--- una riga con tosuppress a S perch√® i valori sono tutti zero
--- e una seconda riga con tosuppress a N perch√® i valori NON sono zero
--- questo perch√® la voce di bilancio su un upb aveva previsione, sugli altri no.
+-- una riga con tosuppress a S perchË i valori sono tutti zero
+-- e una seconda riga con tosuppress a N perchË i valori NON sono zero
+-- questo perchË la voce di bilancio su un upb aveva previsione, sugli altri no.
 -- Quindi in questo caso nella SELECT finale la sp fornsice al report 2 righe per lo stesso capitolo,
 --  di cui una ha valori tutti a zero e suppress a S,
 -- l'altra con valori diversi da zero e suppress a N. 
--- Nel report, tra i vari raggruppamenti ve n'√® uno sul capitolo, il raggruppamento √® nascosto se suppress = N, 
+-- Nel report, tra i vari raggruppamenti ve n'Ë uno sul capitolo, il raggruppamento Ë nascosto se suppress = N, 
 -- quindi se al report arrivano due righe dello stesso capitolo la prima con suppress a S e la seconda a N,
 -- ha effetto la prima e quindi il capitolo non viene mostrato.
 -- La seguente DELETE serve a cancellare quelle righe con suppress a S, e quindi di quei capitoli che hanno importi a zero, ma per
 -- cui esiste una riga con importi diversi da zero. In questo modo
--- nella SELETC SUM finale, della sp, la GROUP BY dar√† in OUT una sola riga ossia quella con importi diversi da zero
+-- nella SELETC SUM finale, della sp, la GROUP BY dar‡ in OUT una sola riga ossia quella con importi diversi da zero
 
 
 	DELETE FROM #budget	WHERE  
@@ -607,4 +609,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

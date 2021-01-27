@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (SELECT * from dbo.sysobjects where id = object_id(N'[exp_modello770_pat_18]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (SELECT * from dbo.sysobjects where id = object_id(N'[exp_modello770_pat_18]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_modello770_pat_18]
 GO
  
@@ -75,7 +77,7 @@ AS BEGIN
 	WHERE  ayear = @annodichiarazione
 	
 	-- Fine Sezione dichiarativa
-	-- La tabella #modulocococo ha dentro di se solamente il riferimento al percipiente, perch√© la certificazione deve essere prodotta a livello
+	-- La tabella #modulocococo ha dentro di se solamente il riferimento al percipiente, perchÈ la certificazione deve essere prodotta a livello
 	-- di percipiente.
 	--------------------------------------------------------------------------------
 	-------------------------- Estrazione dei Percipienti --------------------------
@@ -84,20 +86,20 @@ AS BEGIN
 
 	/*
 		Inserisco per il momento solo i dati relativi alle rit. fiscali dei soli CEDOLINI di CONGUAGLIO
-		perch√® ho bisogno di prendere i dati conguagliati. C'√® un problema derivante dal conguaglio in presenza
-		di un cud presentato: Non c'√® modo di capire se il cud presentato √® un precedente contratto o altro
+		perchË ho bisogno di prendere i dati conguagliati. C'Ë un problema derivante dal conguaglio in presenza
+		di un cud presentato: Non c'Ë modo di capire se il cud presentato Ë un precedente contratto o altro
 		Questo implica che gli imponibili (LE RITENUTE SONO OK) non possono essere tenuti in considerazione
-		per la sommatoria che si far√† in seguito per calcolare i redditi
+		per la sommatoria che si far‡ in seguito per calcolare i redditi
 	*/
 
 	-- Riempimento della tabella dei percipienti coinvolti nella certificazione.
 	-- per Modello 770
 	-- Vengono presi tutti i percipienti associati a cedolini di conguaglio con anno di competenza quello della dichiarazione
-	-- e trasmessi, inoltre la prestazione del contratto al quale il cedolino √® associato deve essere associata
+	-- e trasmessi, inoltre la prestazione del contratto al quale il cedolino Ë associato deve essere associata
 	-- al quadro G del 770 (rec770kind = 'G') e di cui almeno un cedolino dell'anno corrente sia stato trasmesso
 	-- per CUD
 	-- Vengono presi tutti i percipienti associati a cedolini di conguaglio con anno di competenza quello della dichiarazione
-	-- e trasmessi, inoltre la prestazione del contratto al quale il cedolino √® associato deve essere associata
+	-- e trasmessi, inoltre la prestazione del contratto al quale il cedolino Ë associato deve essere associata
 	-- alla certificazione CUD (certificatekind = 'U') e di cui almeno un cedolino dell'anno corrente sia stato trasmesso
 	INSERT INTO #modulocococo (idreg,cf) 
 	SELECT DISTINCT co.idreg, registry.cf       
@@ -119,7 +121,7 @@ AS BEGIN
 		AND service.rec770kind='G'
 		AND ce.disbursementdate is not null
 		--------------------------------------------------------------------------------
-		----- da rimuovere non appena sar√† corretto l'errore dal software SOGEI --------
+		----- da rimuovere non appena sar‡ corretto l'errore dal software SOGEI --------
 		--------------------------------------------------------------------------------
 		AND (registry.cf IS NOT NULL) 
 		--AND (registry.cf = @cf OR @cf IS NULL) -- decidere se fare la dichiarazione ad personam su specifici percipienti
@@ -372,4 +374,3 @@ SET ANSI_NULLS ON
 GO
  
  
-	

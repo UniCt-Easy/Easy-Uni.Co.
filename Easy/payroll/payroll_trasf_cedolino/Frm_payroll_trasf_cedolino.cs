@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -820,7 +822,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             foreach (DataRow r in dsCedolino.payroll.Rows) {
                 DataRow rContratto = r.GetParentRow("parasubcontractpayroll");
                 if (rContratto == null) {
-                    MessageBox.Show(this,"Contratto di chiave " + r["idcon"] + " non trovato.", "Avviso");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Contratto di chiave " + r["idcon"] + " non trovato.", "Avviso");
                     MetaData.mainLogError(Meta, Meta.Conn,
                         "Errore in impostaCampiCalcolatiCedolino\r\n"+
                         "Contratto "+ r["idcon"]+" non trovato per riga " + r["idpayroll"], null);
@@ -828,7 +830,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 }
                 DataRow rService = rContratto.GetParentRow("service_parasubcontract");
                 if (rService == null) {
-                    MessageBox.Show(this,"Prestazione " + rContratto["idser"] + " non trovata per riga " + r["idpayroll"], "Avviso");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Prestazione " + rContratto["idser"] + " non trovata per riga " + r["idpayroll"], "Avviso");
                     MetaData.mainLogError(Meta, Meta.Conn,
                         "Errore in impostaCampiCalcolatiCedolino\r\n" +
                         "Prestazione "+ rContratto["idser"]+" non trovata per riga " + r["idpayroll"], null);
@@ -1021,7 +1023,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             if (cm == null) return;
             DataView view = cm.List as DataView;
             if (view == null) {
-                MessageBox.Show(this, "Lista vuota!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Lista vuota!");
                 return;
             }
 
@@ -1072,7 +1074,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 + "\nI cedolini interessati sono i seguenti:\n\n"
                 + primiCedoliniNonErogati
                 + "\nSi intende ugualmente trasferirli?";
-                DialogResult dr = MessageBox.Show(this, messaggio, "Trasferimento di cedolini di conguaglio",
+                DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio, "Trasferimento di cedolini di conguaglio",
                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (dr != DialogResult.Yes) {
                     return;
@@ -1091,17 +1093,17 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 if (chkConguaglioRiepilogativo.Checked) {
                 //In presenza di cedolini a importo zero, Ë prevista una interruzione della procedura. Tuttavia se Ë spuntato il check Riepilogo, la procedura continua.8199
                     avviso = avviso + "\nAvendo scelto di calcolare un Cedolino di Riepilogo, il tarsferimento sar‡ comunque eseguito.";
-                    MessageBox.Show(this, avviso, "Cedolini a importo lordo pari a 0");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, avviso, "Cedolini a importo lordo pari a 0");
                 }
                 else{
-                    MessageBox.Show(this, avviso, "Cedolini a importo lordo pari a 0");                   
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, avviso, "Cedolini a importo lordo pari a 0");                   
                     return;
                 }
             }
             
             // Caso in cui non sia stato selezionato alcun cedolino
             if (cedolini.Count == 0) {
-                MessageBox.Show(this, "Nessun cedolino selezionato!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nessun cedolino selezionato!");
                 return;
             }
 
@@ -1208,7 +1210,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 PostData pd = Meta.Get_PostData();
                 pd.InitClass(dsCedolino, Meta.Conn);
                 if (!pd.DO_POST()) {
-                    MessageBox.Show("Il cedolino non Ë stato trasferito - Problemi durante il salvataggio");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Il cedolino non Ë stato trasferito - Problemi durante il salvataggio");
                 }
                 else {
                     eseguiOperazioniPostSalvataggio();
@@ -1216,7 +1218,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 }
             }
             if (errori != "") {
-                MessageBox.Show(this, "I seguenti cedolini non sono stati trasferiti:\n" + errori);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "I seguenti cedolini non sono stati trasferiti:\n" + errori);
             }
             if (occorreAggiornare) {
                 aggiornaDataGrid();
@@ -1286,7 +1288,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 
                     Post.InitClass(EP.D, Meta.Conn);
                     if (!Post.DO_POST()) {
-                        MessageBox.Show(this, "Errore nel salvataggio delle scritture in PD");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio delle scritture in PD");
                         return;
                     }
                     elencoRelatedCedolini.Remove(idrelated);
@@ -1314,7 +1316,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 
                     Post.InitClass(EP.D, Meta.Conn);
                     if (!Post.DO_POST()) {
-                        MessageBox.Show(this, "Errore nel salvataggio delle scritture in PD");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio delle scritture in PD");
                         return;
                     }
                     elencoRelatedCedolini.Remove(idrelated);
@@ -1365,7 +1367,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 
             Post2.InitClass(dsApp, Meta.Conn);
             if (!Post2.DO_POST()) {
-                MessageBox.Show(this, "Errore nella cancellazione delle scritture in PD");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella cancellazione delle scritture in PD");
             }
         }
 
@@ -1404,7 +1406,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 
                     Post.InitClass(BF.D, Meta.Conn);
                     if (!Post.DO_POST()) {
-                        MessageBox.Show(this, "Errore nel salvataggio degli impegni di budget");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio degli impegni di budget");
                         return;
                     }
                     elencoRelatedBudgetCedolini.Remove(idrelated);
@@ -1434,7 +1436,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 
                     Post.InitClass(BF.D, Meta.Conn);
                     if (!Post.DO_POST()) {
-                        MessageBox.Show(this, "Errore nel salvataggio degli impegni di budget");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel salvataggio degli impegni di budget");
                         return;
                     }
                     elencoRelatedBudgetCedolini.Remove(idrelated);
@@ -1461,7 +1463,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 
                 Post2.InitClass(BF.D, Meta.Conn);
                 if (!Post2.DO_POST()) {
-                    MessageBox.Show(this, "Errore nella cancellazione degli impegni di budget");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella cancellazione degli impegni di budget");
                 }
             }
             elencoRelatedBudgetCedolini.Clear();
@@ -2034,7 +2036,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                     }
                 }
                 catch (FormatException) {
-                    MessageBox.Show(this, "Errore nella selezione desiderata: " + valore + "\nImmettere i numeri di cedolino e/o gli intervalli di cedolino separati da virgole.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella selezione desiderata: " + valore + "\nImmettere i numeri di cedolino e/o gli intervalli di cedolino separati da virgole.");
                     return;
                 }
             }

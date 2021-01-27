@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_electronicinvoicecheck]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_electronicinvoicecheck]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_electronicinvoicecheck]
 GO
 
@@ -48,7 +50,7 @@ join registry R
 where E.nelectronicinvoice = @nelectronicinvoice and E.yelectronicinvoice = @yelectronicinvoice
 	and R.ipa_fe is null and R.email_fe is null and R.pec_fe is null
 
--- Se l'aliquota √® 0, va trasmessa la natura dell'operazione se non rientra tra quelle imponibili (il campo 2.2.1.12 deve essere valorizzato a zero)
+-- Se l'aliquota Ë 0, va trasmessa la natura dell'operazione se non rientra tra quelle imponibili (il campo 2.2.1.12 deve essere valorizzato a zero)
 INSERT INTO #error(message)
 select 'Specificare la Natura dell''aliquota: '+  convert(varchar(50), ivakind.description)+', utilizzata nel dettaglio fattura ' +
 	 convert(varchar(50), ID.invoicekind) + convert(varchar(10),ID.yinv)
@@ -61,7 +63,7 @@ and isnull(ID.rate,0) = 0 and ivakind.idfenature is null
 
 
 
--- Se l'aliquota √® 0, va trasmesso anche il Riferimento normativo
+-- Se l'aliquota Ë 0, va trasmesso anche il Riferimento normativo
 INSERT INTO #error(message)
 select 'Specificare il Riferimento Normativo nel dettaglio fattura ' + convert(varchar(50), ID.invoicekind) + convert(varchar(10),ID.yinv)
 		+ ' N.'+convert(varchar(10),ID.ninv)+' dett.'+convert(varchar(10),ID.rownum) +'.'
@@ -139,7 +141,7 @@ and E.doc is null and ID.cigcode is not null
 
 
 INSERT INTO #error(message)
-select 'Per l''anagrafica: '+ R.title+' Il primo carattere della Partita IVA √® numerico. I primi due caratteri dovrebbero rappresentano il paese ( IT, DE, ES ‚Ä¶..) ed i restanti (fino ad un massimo di 28) il codice vero e proprio.'
+select 'Per l''anagrafica: '+ R.title+' Il primo carattere della Partita IVA Ë numerico. I primi due caratteri dovrebbero rappresentano il paese ( IT, DE, ES Ö..) ed i restanti (fino ad un massimo di 28) il codice vero e proprio.'
 from electronicinvoice E 
 join registry R		on E.idreg = R.idreg
 join residence RR	on RR.idresidence = R.residence
@@ -147,7 +149,7 @@ where E.nelectronicinvoice = @nelectronicinvoice and E.yelectronicinvoice = @yel
 	and RR.coderesidence = 'J' and ASCII(SUBSTRING(R.p_iva,1,1)) BETWEEN 48 AND 57 -- 0..9
 	
 INSERT INTO #error(message)
-select 'Per l''anagrafica: '+ R.title+' Il primo carattere del CF estero/Passaporto √® numerico. I primi due caratteri dovrebbero rappresentano il paese ( IT, DE, ES ‚Ä¶..) ed i restanti (fino ad un massimo di 28) il codice vero e proprio.'
+select 'Per l''anagrafica: '+ R.title+' Il primo carattere del CF estero/Passaporto Ë numerico. I primi due caratteri dovrebbero rappresentano il paese ( IT, DE, ES Ö..) ed i restanti (fino ad un massimo di 28) il codice vero e proprio.'
 from electronicinvoice E 
 join registry R		on E.idreg = R.idreg
 join residence RR	on RR.idresidence = R.residence
@@ -156,7 +158,7 @@ where E.nelectronicinvoice = @nelectronicinvoice and E.yelectronicinvoice = @yel
 
 
 INSERT INTO #error(message)
-select 'Per l''anagrafica: '+ R.title+' non √® stato specificato n√® Codice Fiscale n√® Partita IVA.'
+select 'Per l''anagrafica: '+ R.title+' non Ë stato specificato nË Codice Fiscale nË Partita IVA.'
 from electronicinvoice E 
 join registry R		on E.idreg = R.idreg
 join residence RR	on RR.idresidence = R.residence
@@ -202,8 +204,8 @@ SELECT
 	idreg, 
 	substring(address,1,60),
 	SUBSTRING(isnull(geo_city.title, registryaddress.location), 1, 60),
-	registryaddress.cap,
-	geo_country.province,
+	case when geo_city.idcity is null then '00000' else registryaddress.cap end,
+	case when geo_nation_agency.value is null then geo_country.province else 'EE' end,
 	ISNULL(geo_nation_agency.value,'IT')
 FROM registryaddress
 LEFT OUTER JOIN geo_city				ON geo_city.idcity = registryaddress.idcity
@@ -247,31 +249,31 @@ DELETE #SedeCliente
 if(select count(*) from #SedeCliente where address is null)>0
 Begin
 	INSERT INTO #error(message)
-	select 'Per l''anagrafica: '+ @registry +' non √® stato specificato un Indirizzo valido.'
+	select 'Per l''anagrafica: '+ @registry +' non Ë stato specificato un Indirizzo valido.'
 End
 
 if(select count(*) from #SedeCliente where location is null)>0
 Begin
 	INSERT INTO #error(message)
-	select 'Per l''anagrafica: '+ @registry +' non √® stato specificato un Comune valido.'
+	select 'Per l''anagrafica: '+ @registry +' non Ë stato specificato un Comune valido.'
 End
 
 if(select count(*) from #SedeCliente where cap is null and province is null)>0
 Begin
 	INSERT INTO #error(message)
-	select 'Per l''anagrafica: '+ @registry +' non √® stato specificato un CAP valido.'
+	select 'Per l''anagrafica: '+ @registry +' non Ë stato specificato un CAP valido.'
 End
 
 if(select count(*) from #SedeCliente where nation is null)>0
 Begin
 	INSERT INTO #error(message)
-	select 'Per l''anagrafica: '+ @registry +' non √® stata specificata una Nazione valida.'
+	select 'Per l''anagrafica: '+ @registry +' non Ë stata specificata una Nazione valida.'
 End
 
 if(select count(*) from #SedeCliente)=0
 Begin
 	INSERT INTO #error(message)
-	select 'Per l''anagrafica: '+ @registry +' non √® stato indicato alcun Indirizzo.'
+	select 'Per l''anagrafica: '+ @registry +' non Ë stato indicato alcun Indirizzo.'
 End
 
 select * from #error
@@ -286,4 +288,3 @@ SET ANSI_NULLS ON
 GO
  
  
-	

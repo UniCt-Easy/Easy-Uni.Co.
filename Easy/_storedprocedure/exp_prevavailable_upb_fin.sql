@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_prevavailable_upb_fin]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_prevavailable_upb_fin]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_prevavailable_upb_fin]
 GO
 
@@ -340,7 +342,7 @@ END
 			FL.description AS 'Livello',
 			F.codefin AS 'Cod. Bilancio',
 			F.title AS 'Bilancio',
-			sum(P.expenseprevavailable_comp) AS 'Disponibilit√† ad Impegnare',
+			sum(P.expenseprevavailable_comp) AS 'Disponibilit‡ ad Impegnare',
 			sum(( isnull(P.varprevprinc,0)+ isnull(P.expenseprevavailable_comp,0))) AS 'Disp.ad Impegnare Non Approvato'
 			FROM #previsionupbfin P
 			join upb U on P.idupb = U.idupb
@@ -363,7 +365,7 @@ END
 			FL.description AS 'Livello',
 			F.codefin AS 'Cod. Bilancio',
 			F.title AS 'Bilancio',			
-			sum(P.expenseprevavailable_cash) AS 'Disponibilit√† a Pagare',
+			sum(P.expenseprevavailable_cash) AS 'Disponibilit‡ a Pagare',
 			sum(isnull(P.varprevprinc,0)+ isnull(P.expenseprevavailable_cash,0)) as 'Disp.a Pagare Non Approvato'
 			FROM #previsionupbfin P
 			join upb U on P.idupb = U.idupb
@@ -386,9 +388,9 @@ END
 			FL.description AS 'Livello',
 			F.codefin AS 'Cod. Bilancio',
 			F.title AS 'Bilancio',			
-			sum(P.expenseprevavailable_comp) AS 'Disponibilit√† ad Impegnare',
+			sum(P.expenseprevavailable_comp) AS 'Disponibilit‡ ad Impegnare',
 			sum(( isnull(P.varprevprinc,0)+ isnull(P.expenseprevavailable_comp,0)) ) AS 'Disp.ad Impegnare Non Approvato',
-			sum(P.expenseprevavailable_cash) AS 'Disponibilit√† a Pagare',
+			sum(P.expenseprevavailable_cash) AS 'Disponibilit‡ a Pagare',
 			sum(isnull(P.varprevsec,0)+ isnull(P.expenseprevavailable_cash,0)) as 'Disp.a Pagare Non Approvato'
 			FROM #previsionupbfin P
 			join upb U on P.idupb = U.idupb
@@ -415,7 +417,7 @@ END
 			FL.description AS 'Livello',
 			F.codefin AS 'Cod. Bilancio',
 			F.title AS 'Bilancio',
-			sum(P.incomeprevavailable_comp) AS 'Disponibilit√† ad Accertare',
+			sum(P.incomeprevavailable_comp) AS 'Disponibilit‡ ad Accertare',
 			sum(( isnull(P.varprevprinc,0)+ isnull(P.incomeprevavailable_comp,0))) AS 'Disp.ad Accertare Non Approvato'
 			FROM #previsionupbfin P
 			join upb U on P.idupb = U.idupb
@@ -438,7 +440,7 @@ END
 			FL.description AS 'Livello',
 			F.codefin AS 'Cod. Bilancio',
 			F.title AS 'Bilancio',			
-			sum(P.incomeprevavailable_cash) AS 'Disponibilit√† ad Incassare',
+			sum(P.incomeprevavailable_cash) AS 'Disponibilit‡ ad Incassare',
 			sum(isnull(P.varprevprinc,0)+ isnull(P.incomeprevavailable_cash,0)) as 'Disp.ad Incassare Non Approvato'
 			FROM #previsionupbfin P
 			join upb U on P.idupb = U.idupb
@@ -462,9 +464,9 @@ END
 			FL.description AS 'Livello',
 			F.codefin AS 'Cod. Bilancio',
 			F.title AS 'Bilancio',			
-			sum(P.incomeprevavailable_comp) AS 'Disponibilit√† ad Accertare',
+			sum(P.incomeprevavailable_comp) AS 'Disponibilit‡ ad Accertare',
 			sum(( isnull(P.varprevprinc,0)+ isnull(P.incomeprevavailable_comp,0)) ) AS 'Disp.ad Accertare Non Approvato',
-			sum(P.incomeprevavailable_cash) AS 'Disponibilit√† ad Incassare',
+			sum(P.incomeprevavailable_cash) AS 'Disponibilit‡ ad Incassare',
 			sum(isnull(P.varprevsec,0)+ isnull(P.incomeprevavailable_cash,0)) as 'Disp.ad Incassare Non Approvato'
 			FROM #previsionupbfin P
 			join upb U on P.idupb = U.idupb
@@ -484,4 +486,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

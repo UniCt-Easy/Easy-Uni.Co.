@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[count_idfin_table_multifield]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[count_idfin_table_multifield]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [count_idfin_table_multifield]
 GO
 
@@ -25,8 +27,8 @@ GO
 CREATE   procedure count_idfin_table_multifield (
 @tablenames varchar(800),
 @idfinname varchar(50),@idfinvalue int,
-@equal char(2),-- se vale 1 √® '=' se vale 0 √® '<>'
-@andor char(3),-- se vale 1 √® 'and' se vale 0 √® 'or'
+@equal char(2),-- se vale 1 Ë '=' se vale 0 Ë '<>'
+@andor char(3),-- se vale 1 Ë 'and' se vale 0 Ë 'or'
 @fieldname1 varchar(50),
 @fieldname2 varchar(50),
 @fieldname3 varchar(50),
@@ -78,7 +80,7 @@ DECLARE @currstmt nvarchar(1000)
 declare @currtablename varchar(40)
 CREATE table #mytable (nrows int)
 
---Se sto eseguendo questa sp vuol dire che il livello di @idfinvalue √® <= di  unifiedfinlevel, quindi devo cercare in tutti i dipartimenti, 
+--Se sto eseguendo questa sp vuol dire che il livello di @idfinvalue Ë <= di  unifiedfinlevel, quindi devo cercare in tutti i dipartimenti, 
 -- in base a AYEAR/CODEFIN/fla&1
 DECLARE @cursore cursor
 SET @cursore = cursor for select  iddbdepartment from dbdepartment
@@ -180,4 +182,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

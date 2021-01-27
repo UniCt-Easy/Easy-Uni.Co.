@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -161,7 +163,7 @@ namespace estimate_default
 
         }
 
-        public frmAskInfo(DataRow RigaSelezionata,MetaData Meta,MetaDataDispatcher Disp)
+        public frmAskInfo(DataRow Contratto, DataRow RigaSelezionata,MetaData Meta,MetaDataDispatcher Disp)
 		{
 			//
 			// Required for Windows Form Designer support
@@ -181,9 +183,12 @@ namespace estimate_default
 			this.importoIva = CfgFn.GetNoNullDecimal(RigaSelezionata["tax"]);
 			this.Disp = Disp;
 			this.Dettaglio=RigaSelezionata;
-			DataRow Contratto = RigaSelezionata.GetParentRow("estimateestimatedetail");
-			// Calcola il totale Riga
-			decimal discount   =  CfgFn.GetNoNullDecimal(RigaSelezionata["discount"]);
+            //string filterKey = QHC.CmpKey(RigaSelezionata);
+            //DataSet DS2 = RigaSelezionata.Table.DataSet;
+
+            //DataRow Contratto = RigaSelezionata.GetParentRow("estimateestimatedetail");
+            // Calcola il totale Riga
+            decimal discount   =  CfgFn.GetNoNullDecimal(RigaSelezionata["discount"]);
 			decimal number     =  CfgFn.GetNoNullDecimal(RigaSelezionata["number"]);
 			exchangerate		 =  CfgFn.GetNoNullDecimal(Contratto["exchangerate"]);  
 			string codecurrency = Meta.Conn.DO_READ_VALUE("currency", QHS.CmpEq("idcurrency", Contratto["idcurrency"]), "codecurrency").ToString();
@@ -219,7 +224,7 @@ namespace estimate_default
             txtQuantita.Text = RigaSelezionata["number"].ToString();
 		}
 
-        public frmAskInfo(DataRow[] listaSplit, MetaData Meta, MetaDataDispatcher Disp) {
+        public frmAskInfo(DataRow Ordine, DataRow[] listaSplit, MetaData Meta, MetaDataDispatcher Disp) {
             InitializeComponent();
             
             this.Conn = Meta.Conn;
@@ -241,7 +246,7 @@ namespace estimate_default
             DataRow RigaSelezionata = listaSplit[0];
 
             this.Dettaglio = RigaSelezionata;
-            DataRow Ordine = RigaSelezionata.GetParentRow("estimateestimatedetail");
+            //DataRow Ordine = RigaSelezionata.GetParentRow("estimateestimatedetail");
             // Calcola il totale Riga
             decimal discount = CfgFn.GetNoNullDecimal(RigaSelezionata["discount"]);
             decimal number = CfgFn.GetNoNullDecimal(RigaSelezionata["number"]);
@@ -1790,7 +1795,7 @@ namespace estimate_default
 				totale1=CfgFn.RoundValuta(imponibile_try * number * (1-discount)* exchangerate);
 				totale2=CfgFn.RoundValuta(imponibilecomplementare_try * number * (1-discount)* exchangerate);
 				if (totale1+totale2 == TotaleImponibile) {
-					if (!silent) MessageBox.Show("L'imponibile Ë stato portato da "+
+					if (!silent) MetaFactory.factory.getSingleton<IMessageShower>().Show("L'imponibile Ë stato portato da "+
                         ImpoStr(imponibiletest)+
 						" a "+ImpoStr(imponibile_try)+
                         " per evitare problemi di incoerenza dei totali.");
@@ -1801,7 +1806,7 @@ namespace estimate_default
 				totale1=CfgFn.RoundValuta(imponibile_try * number * (1-discount)* exchangerate);
 				totale2=CfgFn.RoundValuta(imponibilecomplementare_try * number * (1-discount)* exchangerate);
 				if (totale1+totale2 == TotaleImponibile) {
-					if (!silent) MessageBox.Show("L'imponibile Ë stato portato da "+
+					if (!silent) MetaFactory.factory.getSingleton<IMessageShower>().Show("L'imponibile Ë stato portato da "+
                                  ImpoStr(imponibiletest) +
                                  " a " + ImpoStr(imponibile_try) +
                                  " per evitare problemi di incoerenza dei totali.");
@@ -1809,7 +1814,7 @@ namespace estimate_default
 				}
 				cent+= passo;
 			}
-			MessageBox.Show("Non Ë stato trovato un imponibile adeguato alle esigenze di divisione");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stato trovato un imponibile adeguato alle esigenze di divisione");
 			return imponibiletest;
 		}
 
@@ -2108,7 +2113,7 @@ namespace estimate_default
 				totrigaassegnato += totaleriga;
 
                 if ((Tupb.Text.ToString().Trim() == "") && (taxable != 0 || tax != 0)) {
-                    MessageBox.Show("Riga " + suffix + ": selezionare l'UPB");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Riga " + suffix + ": selezionare l'UPB");
                     Tupb.Focus();
                     e.Cancel = true;
                     return;
@@ -2129,40 +2134,40 @@ namespace estimate_default
 
 			if (taxableassegnato<importo)
 			{
-				MessageBox.Show("L'imponibile del dettaglio originale non Ë stato interamente suddiviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("L'imponibile del dettaglio originale non Ë stato interamente suddiviso");
 				Info.Clear();
 				e.Cancel = true;
 				return;
 			}
 			if(taxassegnato<importoIva)
 			{
-				MessageBox.Show("L'Iva del dettaglio originale non Ë stata interamente suddivisa");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("L'Iva del dettaglio originale non Ë stata interamente suddivisa");
 				Info.Clear();
 				e.Cancel = true;
 				return;
 			}
 			if (taxableassegnato<importo)
 			{
-				MessageBox.Show("L'imponibile del dettaglio originale Ë inferiore alla somma dei valori ripartiti");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("L'imponibile del dettaglio originale Ë inferiore alla somma dei valori ripartiti");
 				Info.Clear();
 				e.Cancel = true;
 				return;
 			}
 			if(taxassegnato>importoIva)
 			{
-				MessageBox.Show("L'Iva del dettaglio originale Ë inferiore alla somma dei valori ripartiti");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("L'Iva del dettaglio originale Ë inferiore alla somma dei valori ripartiti");
 				Info.Clear();
 				e.Cancel = true;
 				return;
 			}
 			if(totrigaassegnato<(importoTotaleRiga)){
-				MessageBox.Show("Il totale riga del dettaglio originale non Ë stato interamente suddiviso");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Il totale riga del dettaglio originale non Ë stato interamente suddiviso");
 				Info.Clear();
 				e.Cancel = true;
 				return;
 			}
 			if(totrigaassegnato>(importoTotaleRiga)){
-				MessageBox.Show("Il totale riga del dettaglio originale Ë inferiore alla somma dei valori ripartiti");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Il totale riga del dettaglio originale Ë inferiore alla somma dei valori ripartiti");
 				Info.Clear();
 				e.Cancel = true;
 				return;
@@ -2187,7 +2192,7 @@ namespace estimate_default
 				decimal percent =CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),T.Text,"x.y.c"));		
 				if ((percent < 0) || (percent > percentmax))
 				{
-					MessageBox.Show(errmsg,"Avviso");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(errmsg,"Avviso");
 					T.Focus();
 					OK = false;
 				}
@@ -2199,7 +2204,7 @@ namespace estimate_default
 			}
 			catch 
 			{                
-				MessageBox.Show("E' necessario digitare un numero" ,"Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario digitare un numero" ,"Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
 				return false;
 			}            
 			return OK;
@@ -2225,14 +2230,14 @@ namespace estimate_default
 				}
 				else
 				{
-					MessageBox.Show(errmsg,"Avviso");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(errmsg,"Avviso");
 					OK = false;
 				}
   
 			}
 			catch 
 			{                
-				MessageBox.Show("E' necessario inserire un numero","Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario inserire un numero","Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
 				return false;
 			}
 			return OK;
@@ -2264,14 +2269,14 @@ namespace estimate_default
 				}
 				else
 				{
-					MessageBox.Show(errmsg,"Avviso");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(errmsg,"Avviso");
 					OK = false;
 				}
   
 			}
 			catch 
 			{                
-				MessageBox.Show("E' necessario inserire un numero","Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario inserire un numero","Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
 				return false;
 			}
 			return OK;
@@ -2317,14 +2322,14 @@ namespace estimate_default
 				}
 				else
 				{
-					MessageBox.Show(errmsg,"Avviso");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(errmsg,"Avviso");
 					OK = false;
 				}
   
 			}
 			catch 
 			{                
-				MessageBox.Show("E' necessario inserire un numero","Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario inserire un numero","Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
 				return false;
 			}
 			return OK;

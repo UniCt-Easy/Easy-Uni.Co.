@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -120,6 +122,9 @@ namespace epexp_default {
 		private GroupBox gBoxCausale;
 		private TextBox txtDescrCausale;
 		private TextBox txtCodiceCausale;
+		private Button btnSpalmaPrevisioni;
+		public TextBox textBox3;
+		private Label label7;
 		private Button btnCausale;
 
 		public Frm_epexp_default() {
@@ -148,6 +153,9 @@ namespace epexp_default {
 		private void InitializeComponent() {
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPrincipale = new System.Windows.Forms.TabPage();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.btnSpalmaPrevisioni = new System.Windows.Forms.Button();
 			this.gBoxCausale = new System.Windows.Forms.GroupBox();
 			this.txtDescrCausale = new System.Windows.Forms.TextBox();
 			this.txtCodiceCausale = new System.Windows.Forms.TextBox();
@@ -247,31 +255,32 @@ namespace epexp_default {
 			this.gboxClienteFornitore.SuspendLayout();
 			this.gboxConto.SuspendLayout();
 			this.tabClassificazioni.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize) (this.dgrClassificazioni)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgrClassificazioni)).BeginInit();
 			this.tabVariazioni.SuspendLayout();
 			this.groupBox4.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize) (this.GridVariazioni)).BeginInit();
-			((System.ComponentModel.ISupportInitialize) (this.DS)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.GridVariazioni)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabControl1
 			// 
-			this.tabControl1.Anchor =
-				((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-				                                         System.Windows.Forms.AnchorStyles.Bottom)
-				                                        | System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabControl1.Controls.Add(this.tabPrincipale);
 			this.tabControl1.Controls.Add(this.tabClassificazioni);
 			this.tabControl1.Controls.Add(this.tabVariazioni);
 			this.tabControl1.Location = new System.Drawing.Point(8, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(888, 528);
+			this.tabControl1.Size = new System.Drawing.Size(896, 528);
 			this.tabControl1.TabIndex = 12;
 			// 
 			// tabPrincipale
 			// 
+			this.tabPrincipale.Controls.Add(this.textBox3);
+			this.tabPrincipale.Controls.Add(this.label7);
+			this.tabPrincipale.Controls.Add(this.btnSpalmaPrevisioni);
 			this.tabPrincipale.Controls.Add(this.gBoxCausale);
 			this.tabPrincipale.Controls.Add(this.btnEditDocument);
 			this.tabPrincipale.Controls.Add(this.chkFlagVariazione);
@@ -295,10 +304,39 @@ namespace epexp_default {
 			this.tabPrincipale.Controls.Add(this.gboxConto);
 			this.tabPrincipale.Location = new System.Drawing.Point(4, 22);
 			this.tabPrincipale.Name = "tabPrincipale";
-			this.tabPrincipale.Size = new System.Drawing.Size(880, 502);
+			this.tabPrincipale.Size = new System.Drawing.Size(888, 502);
 			this.tabPrincipale.TabIndex = 0;
 			this.tabPrincipale.Text = "Principale";
 			this.tabPrincipale.UseVisualStyleBackColor = true;
+			// 
+			// textBox3
+			// 
+			this.textBox3.Location = new System.Drawing.Point(769, 221);
+			this.textBox3.Name = "textBox3";
+			this.textBox3.ReadOnly = true;
+			this.textBox3.Size = new System.Drawing.Size(104, 20);
+			this.textBox3.TabIndex = 78;
+			this.textBox3.Tag = "epexpview.totaldebit";
+			this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(692, 223);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(59, 13);
+			this.label7.TabIndex = 77;
+			this.label7.Text = "Debiti totali";
+			// 
+			// btnSpalmaPrevisioni
+			// 
+			this.btnSpalmaPrevisioni.Location = new System.Drawing.Point(501, 219);
+			this.btnSpalmaPrevisioni.Name = "btnSpalmaPrevisioni";
+			this.btnSpalmaPrevisioni.Size = new System.Drawing.Size(173, 23);
+			this.btnSpalmaPrevisioni.TabIndex = 76;
+			this.btnSpalmaPrevisioni.Text = "Ripartisci importo pluriennale";
+			this.btnSpalmaPrevisioni.UseVisualStyleBackColor = true;
+			this.btnSpalmaPrevisioni.Click += new System.EventHandler(this.btnSpalmaPrevisioni_Click);
 			// 
 			// gBoxCausale
 			// 
@@ -342,7 +380,7 @@ namespace epexp_default {
 			// 
 			// btnEditDocument
 			// 
-			this.btnEditDocument.Location = new System.Drawing.Point(501, 213);
+			this.btnEditDocument.Location = new System.Drawing.Point(501, 182);
 			this.btnEditDocument.Name = "btnEditDocument";
 			this.btnEditDocument.Size = new System.Drawing.Size(173, 23);
 			this.btnEditDocument.TabIndex = 33;
@@ -382,10 +420,8 @@ namespace epexp_default {
 			// 
 			// txtResponsabile
 			// 
-			this.txtResponsabile.Anchor =
-				((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-				                                        System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtResponsabile.Location = new System.Drawing.Point(5, 14);
 			this.txtResponsabile.Name = "txtResponsabile";
 			this.txtResponsabile.Size = new System.Drawing.Size(452, 20);
@@ -507,10 +543,8 @@ namespace epexp_default {
 			// 
 			// txtUPB
 			// 
-			this.txtUPB.Anchor =
-				((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-				                                        System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtUPB.Location = new System.Drawing.Point(8, 89);
 			this.txtUPB.Name = "txtUPB";
 			this.txtUPB.Size = new System.Drawing.Size(257, 20);
@@ -519,10 +553,8 @@ namespace epexp_default {
 			// 
 			// txtDescrUPB
 			// 
-			this.txtDescrUPB.Anchor =
-				((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-				                                        System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDescrUPB.Location = new System.Drawing.Point(112, 11);
 			this.txtDescrUPB.Multiline = true;
 			this.txtDescrUPB.Name = "txtDescrUPB";
@@ -535,8 +567,7 @@ namespace epexp_default {
 			// btnUPBCode
 			// 
 			this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
-			this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F,
-				System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.btnUPBCode.Location = new System.Drawing.Point(8, 62);
 			this.btnUPBCode.Name = "btnUPBCode";
@@ -765,6 +796,7 @@ namespace epexp_default {
 			this.txtTotaleDisp.ReadOnly = true;
 			this.txtTotaleDisp.Size = new System.Drawing.Size(104, 20);
 			this.txtTotaleDisp.TabIndex = 64;
+			this.txtTotaleDisp.TabStop = false;
 			this.txtTotaleDisp.Tag = "";
 			this.txtTotaleDisp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -775,6 +807,7 @@ namespace epexp_default {
 			this.txtCurrDisp5.ReadOnly = true;
 			this.txtCurrDisp5.Size = new System.Drawing.Size(96, 20);
 			this.txtCurrDisp5.TabIndex = 63;
+			this.txtCurrDisp5.TabStop = false;
 			this.txtCurrDisp5.Tag = "";
 			this.txtCurrDisp5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -785,6 +818,7 @@ namespace epexp_default {
 			this.txtCurrDisp4.ReadOnly = true;
 			this.txtCurrDisp4.Size = new System.Drawing.Size(96, 20);
 			this.txtCurrDisp4.TabIndex = 62;
+			this.txtCurrDisp4.TabStop = false;
 			this.txtCurrDisp4.Tag = "";
 			this.txtCurrDisp4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -795,6 +829,7 @@ namespace epexp_default {
 			this.txtCurrDisp3.ReadOnly = true;
 			this.txtCurrDisp3.Size = new System.Drawing.Size(96, 20);
 			this.txtCurrDisp3.TabIndex = 61;
+			this.txtCurrDisp3.TabStop = false;
 			this.txtCurrDisp3.Tag = "";
 			this.txtCurrDisp3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -805,6 +840,7 @@ namespace epexp_default {
 			this.txtCurrDisp2.ReadOnly = true;
 			this.txtCurrDisp2.Size = new System.Drawing.Size(96, 20);
 			this.txtCurrDisp2.TabIndex = 60;
+			this.txtCurrDisp2.TabStop = false;
 			this.txtCurrDisp2.Tag = "";
 			this.txtCurrDisp2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -815,6 +851,7 @@ namespace epexp_default {
 			this.txtCurrDisp.ReadOnly = true;
 			this.txtCurrDisp.Size = new System.Drawing.Size(96, 20);
 			this.txtCurrDisp.TabIndex = 59;
+			this.txtCurrDisp.TabStop = false;
 			this.txtCurrDisp.Tag = "";
 			this.txtCurrDisp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -835,6 +872,7 @@ namespace epexp_default {
 			this.txtTotaleCorr.ReadOnly = true;
 			this.txtTotaleCorr.Size = new System.Drawing.Size(104, 20);
 			this.txtTotaleCorr.TabIndex = 56;
+			this.txtTotaleCorr.TabStop = false;
 			this.txtTotaleCorr.Tag = "";
 			this.txtTotaleCorr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -875,6 +913,7 @@ namespace epexp_default {
 			this.txtImpCorr5.ReadOnly = true;
 			this.txtImpCorr5.Size = new System.Drawing.Size(96, 20);
 			this.txtImpCorr5.TabIndex = 8;
+			this.txtImpCorr5.TabStop = false;
 			this.txtImpCorr5.Tag = "";
 			this.txtImpCorr5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -894,6 +933,7 @@ namespace epexp_default {
 			this.txtImpCorr4.ReadOnly = true;
 			this.txtImpCorr4.Size = new System.Drawing.Size(96, 20);
 			this.txtImpCorr4.TabIndex = 6;
+			this.txtImpCorr4.TabStop = false;
 			this.txtImpCorr4.Tag = "";
 			this.txtImpCorr4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -923,6 +963,7 @@ namespace epexp_default {
 			this.txtImpCorr3.ReadOnly = true;
 			this.txtImpCorr3.Size = new System.Drawing.Size(96, 20);
 			this.txtImpCorr3.TabIndex = 4;
+			this.txtImpCorr3.TabStop = false;
 			this.txtImpCorr3.Tag = "";
 			this.txtImpCorr3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -952,6 +993,7 @@ namespace epexp_default {
 			this.txtImpCorr2.ReadOnly = true;
 			this.txtImpCorr2.Size = new System.Drawing.Size(96, 20);
 			this.txtImpCorr2.TabIndex = 2;
+			this.txtImpCorr2.TabStop = false;
 			this.txtImpCorr2.Tag = "";
 			this.txtImpCorr2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -981,6 +1023,7 @@ namespace epexp_default {
 			this.txtImpCorr.ReadOnly = true;
 			this.txtImpCorr.Size = new System.Drawing.Size(96, 20);
 			this.txtImpCorr.TabIndex = 0;
+			this.txtImpCorr.TabStop = false;
 			this.txtImpCorr.Tag = "";
 			this.txtImpCorr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -1082,24 +1125,22 @@ namespace epexp_default {
 			this.tabClassificazioni.Location = new System.Drawing.Point(4, 22);
 			this.tabClassificazioni.Name = "tabClassificazioni";
 			this.tabClassificazioni.Padding = new System.Windows.Forms.Padding(3);
-			this.tabClassificazioni.Size = new System.Drawing.Size(880, 502);
+			this.tabClassificazioni.Size = new System.Drawing.Size(888, 502);
 			this.tabClassificazioni.TabIndex = 3;
 			this.tabClassificazioni.Text = "Classificazioni";
 			this.tabClassificazioni.UseVisualStyleBackColor = true;
 			// 
 			// dgrClassificazioni
 			// 
-			this.dgrClassificazioni.Anchor =
-				((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-				                                         System.Windows.Forms.AnchorStyles.Bottom)
-				                                        | System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgrClassificazioni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgrClassificazioni.DataMember = "";
 			this.dgrClassificazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrClassificazioni.Location = new System.Drawing.Point(6, 36);
 			this.dgrClassificazioni.Name = "dgrClassificazioni";
 			this.dgrClassificazioni.ReadOnly = true;
-			this.dgrClassificazioni.Size = new System.Drawing.Size(868, 460);
+			this.dgrClassificazioni.Size = new System.Drawing.Size(876, 460);
 			this.dgrClassificazioni.TabIndex = 19;
 			this.dgrClassificazioni.Tag = "epexpsorting.default.default";
 			// 
@@ -1141,25 +1182,23 @@ namespace epexp_default {
 			this.tabVariazioni.Controls.Add(this.groupBox4);
 			this.tabVariazioni.Location = new System.Drawing.Point(4, 22);
 			this.tabVariazioni.Name = "tabVariazioni";
-			this.tabVariazioni.Size = new System.Drawing.Size(880, 502);
+			this.tabVariazioni.Size = new System.Drawing.Size(888, 502);
 			this.tabVariazioni.TabIndex = 2;
 			this.tabVariazioni.Text = "Variazioni";
 			this.tabVariazioni.UseVisualStyleBackColor = true;
 			// 
 			// groupBox4
 			// 
-			this.groupBox4.Anchor =
-				((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-				                                         System.Windows.Forms.AnchorStyles.Bottom)
-				                                        | System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox4.Controls.Add(this.btnDeleteVar);
 			this.groupBox4.Controls.Add(this.btnEditVar);
 			this.groupBox4.Controls.Add(this.btnInsertVar);
 			this.groupBox4.Controls.Add(this.GridVariazioni);
 			this.groupBox4.Location = new System.Drawing.Point(16, 16);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(844, 471);
+			this.groupBox4.Size = new System.Drawing.Size(852, 471);
 			this.groupBox4.TabIndex = 0;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Variazione impegno di budget";
@@ -1199,16 +1238,14 @@ namespace epexp_default {
 			// 
 			// GridVariazioni
 			// 
-			this.GridVariazioni.Anchor =
-				((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-				                                         System.Windows.Forms.AnchorStyles.Bottom)
-				                                        | System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.GridVariazioni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.GridVariazioni.DataMember = "";
 			this.GridVariazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.GridVariazioni.Location = new System.Drawing.Point(8, 56);
 			this.GridVariazioni.Name = "GridVariazioni";
-			this.GridVariazioni.Size = new System.Drawing.Size(828, 407);
+			this.GridVariazioni.Size = new System.Drawing.Size(836, 407);
 			this.GridVariazioni.TabIndex = 0;
 			this.GridVariazioni.Tag = "epexpvar.default.detail";
 			// 
@@ -1221,7 +1258,7 @@ namespace epexp_default {
 			// Frm_epexp_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(908, 533);
+			this.ClientSize = new System.Drawing.Size(916, 533);
 			this.Controls.Add(this.tabControl1);
 			this.Name = "Frm_epexp_default";
 			this.Text = "Impegno di Budget";
@@ -1249,20 +1286,21 @@ namespace epexp_default {
 			this.gboxConto.ResumeLayout(false);
 			this.gboxConto.PerformLayout();
 			this.tabClassificazioni.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize) (this.dgrClassificazioni)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgrClassificazioni)).EndInit();
 			this.tabVariazioni.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize) (this.GridVariazioni)).EndInit();
-			((System.ComponentModel.ISupportInitialize) (this.DS)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.GridVariazioni)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
-
+		private BudgetFunction bf;
 		public void metaData_AfterLink() {
 			Meta = MetaData.GetMetaData(this);
+			bf = new BudgetFunction(this.getInstance<IMetaDataDispatcher>() as MetaDataDispatcher);
 			controller.CanInsertCopy = false;
 			HelpForm.SetDenyNull(DS.epexp.Columns["flagvariation"], true);
 			var filteresercvariazione = toString(eq("yvar", esercizio));
@@ -1270,6 +1308,7 @@ namespace epexp_default {
 			string filteresercizio = toString(eq("ayear", esercizio));
 			setStaticFilter(DS.epexpyear, filteresercizio);
 			setStaticFilter(DS.epexptotal, filteresercizio);
+			setStaticFilter(DS.epexpview, filteresercizio);
 			var tExpSetup = getTable("config", eq("ayear", esercizio));
 			if ((tExpSetup != null) && (tExpSetup.Rows.Count > 0)) {
 				var r = tExpSetup.Rows[0];
@@ -1326,7 +1365,7 @@ namespace epexp_default {
 				DS.account.Clear();
 				DS.epexpyear.Rows[0]["idacc"] = DBNull.Value;
 				controller.ReFillControls(gboxConto.Controls);
-				MessageBox.Show("Il conto è stata azzerato poichè incorente con la causale selezionata");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Il conto è stata azzerato poichè incorente con la causale selezionata");
 			};
 		}
 
@@ -1341,7 +1380,7 @@ namespace epexp_default {
 				DS.accmotive.Clear();
 				currentRow["idaccmotive"] = DBNull.Value;
 				controller.ReFillControls(gBoxCausale.Controls);
-				MessageBox.Show("La causale è stata reimpostata poichè incorente col conto selezionato");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("La causale è stata reimpostata poichè incorente col conto selezionato");
 			}
 		}
 
@@ -1413,7 +1452,7 @@ namespace epexp_default {
 
 		public void metaData_AfterClear() {
 			btnAccount.Tag = "manage.account.tree";
-
+			btnSpalmaPrevisioni.Visible = false;
 			btnEditDocument.Visible = false;
 			txtEsercizio.Text = esercizio.ToString();
 			txtNprec.Text = "";
@@ -1510,7 +1549,7 @@ namespace epexp_default {
 
 		public void metaData_AfterFill() {
 			if (firstFillForThisRow)btnAccount.Tag = "manage.account.tree";
-
+			btnSpalmaPrevisioni.Visible = true;
 			DataRow curr = DS.epexp.Rows[0];
 			btnEditDocument.Visible = (curr["idrelated"] != DBNull.Value);
 			calcolaTotale(false);
@@ -2023,7 +2062,7 @@ namespace epexp_default {
 				rEpexpview = tEpexpview.Rows[0];
 			}
 			else {
-				MessageBox.Show("Il Preimpegno non ha disponibile.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Il Preimpegno non ha disponibile.");
 				return;
 			}
 
@@ -2081,6 +2120,30 @@ namespace epexp_default {
 			if (DS.epexp.Rows.Count == 0) return;
 			DataRow Curr = DS.epexp.Rows[0];
 			BudgetFunction.EditRelatedDocument(Meta, Curr);
+		}
+
+		private void btnSpalmaPrevisioni_Click(object sender, EventArgs e) {
+			Meta.GetFormData(true);
+			var r = DS.epexpyear.Rows[0];
+			decimal total = 0;
+			foreach (string field in new[] {"amount", "amount2", "amount3", "amount4", "amount5"}) {
+				total += CfgFn.GetNoNullDecimal(r[field]);
+			}
+			var f = new FrmAskDataInizioFine(false);
+			var res = f.ShowDialog(this);
+			if (res != DialogResult.OK) return;
+			DateTime inizio = (DateTime) HelpForm.GetObjectFromString(typeof(DateTime),
+				f.txtDataInizio.Text.ToString(), "x.y");
+			DateTime fine = (DateTime) HelpForm.GetObjectFromString(typeof(DateTime),
+				f.txtDataFine.Text.ToString(), "x.y");
+
+			var split = bf.GetAmounts(total, inizio, fine);
+			for (int i = 1; i <= 5; i++) {
+				string field = (i == 1) ? "amount" : $"amount{i}";
+				var d = split[i-1];
+				r[field] = d;
+			}
+			Meta.FreshForm(false);
 		}
 	}
 

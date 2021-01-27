@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_spesometro_legenda]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_spesometro_legenda]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_spesometro_legenda]
 GO
 
@@ -77,7 +79,7 @@ CREATE TABLE #RECORD(
 	values('FA001015','Tot.imposta sulle Note di variazione a credito')
 	
 	insert into #RECORD(quadro,descrizione)
-	values('BL','OPERAZIONI CON SOGGETTI AVENTI SEDE, RESIDENZA O DOMICILIO IN PAESI CON FISCALIT√Ä PRIVILEGIATA')
+	values('BL','OPERAZIONI CON SOGGETTI AVENTI SEDE, RESIDENZA O DOMICILIO IN PAESI CON FISCALIT¿ PRIVILEGIATA')
 	insert into #RECORD(quadro,descrizione)
 	values('BL','OPERAZIONI CON SOGGETTI NON RESIDENTI IN FORMA AGGREGATA')
 	insert into #RECORD(quadro,descrizione)
@@ -86,7 +88,7 @@ CREATE TABLE #RECORD(
 	insert into #RECORD(quadro, descrizione)
 	values('BL002001','Codice identificativi IVA')
 	insert into #RECORD(quadro, descrizione)
-	values('BL002002','Operazioni con paesi con fiscalit√† privilegiata')
+	values('BL002002','Operazioni con paesi con fiscalit‡ privilegiata')
 	insert into #RECORD(quadro, descrizione)
 	values('BL002003','Operazioni con soggetti Non Residenti')
 	insert into #RECORD(quadro, descrizione)
@@ -94,37 +96,37 @@ CREATE TABLE #RECORD(
 	insert into #RECORD(quadro, descrizione)
 	values('','Operazioni ATTIVE')
 -- Operazioni ATTIVE
--- BL003 - Operazioni imponibili, non imponibili ed esenti. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata" o "Operazioni con soggetti non residenti" 
+-- BL003 - Operazioni imponibili, non imponibili ed esenti. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata" o "Operazioni con soggetti non residenti" 
 	insert into #RECORD(quadro, descrizione)
-	values('BL003001','Importo complessivo(Op. Imponibili, non imponibili ed esenti per "Operazioni con paesi a fiscalit√† privilegiata" o "Operazioni con soggetti non residenti" )')
+	values('BL003001','Importo complessivo(Op. Imponibili, non imponibili ed esenti per "Operazioni con paesi a fiscalit‡ privilegiata" o "Operazioni con soggetti non residenti" )')
 	insert into #RECORD(quadro, descrizione)
-	values('BL003002','Imposta(Op. imponibili, non imponibili ed esenti per "Operazioni con paesi a fiscalit√† privilegiata" o "Operazioni con soggetti non residenti" )')
-	-- BL004 - Operazioni non soggette ad IVA. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata"
+	values('BL003002','Imposta(Op. imponibili, non imponibili ed esenti per "Operazioni con paesi a fiscalit‡ privilegiata" o "Operazioni con soggetti non residenti" )')
+	-- BL004 - Operazioni non soggette ad IVA. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata"
 	insert into #RECORD(quadro, descrizione)
-	values('BL004001','Cessione di beni-importo complessivo(Operazioni con paesi a fiscalit√† privilegiata, non soggette a IVA )')
+	values('BL004001','Cessione di beni-importo complessivo(Operazioni con paesi a fiscalit‡ privilegiata, non soggette a IVA )')
 	insert into #RECORD(quadro, descrizione)
-	values('BL004002','Prestazione di servizi-importo complessivo(Operazioni con paesi a fiscalit√† privilegiata, non soggette a IVA )')
---BL005 - Note di variazione. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata" (caselle BL002002) 
+	values('BL004002','Prestazione di servizi-importo complessivo(Operazioni con paesi a fiscalit‡ privilegiata, non soggette a IVA )')
+--BL005 - Note di variazione. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata" (caselle BL002002) 
 	insert into #RECORD(quadro, descrizione)
-	values('BL005001','Note di Variazione-Importo Complessivo(Operazioni con paesi a fiscalit√† privilegiata)')
+	values('BL005001','Note di Variazione-Importo Complessivo(Operazioni con paesi a fiscalit‡ privilegiata)')
 	insert into #RECORD(quadro, descrizione)
-	values('BL005002','Note di Variazione - Imposta(Operazioni con paesi a fiscalit√† privilegiata')
+	values('BL005002','Note di Variazione - Imposta(Operazioni con paesi a fiscalit‡ privilegiata')
 	insert into #RECORD(quadro, descrizione)
 	values('','Operazioni PASSIVE')
 -- Operazioni PASSIVE
---BL006 - Operazioni imponibili, non imponibili ed esenti. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata" o "Operazioni con soggetti non residenti" 
+--BL006 - Operazioni imponibili, non imponibili ed esenti. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata" o "Operazioni con soggetti non residenti" 
 	insert into #RECORD(quadro, descrizione)
-	values('BL006001','Importo complessivo(Op. Imponibili, non imponibili ed esenti per "Operazioni con paesi a fiscalit√† privilegiata" o "Operazioni con soggetti non residenti" )')
+	values('BL006001','Importo complessivo(Op. Imponibili, non imponibili ed esenti per "Operazioni con paesi a fiscalit‡ privilegiata" o "Operazioni con soggetti non residenti" )')
 	insert into #RECORD(quadro, descrizione)
-	values('BL006002','Imposta(Op. imponibili, non imponibili ed esenti per "Operazioni con paesi a fiscalit√† privilegiata" o "Operazioni con soggetti non residenti" )')
--- BL007 - Operazioni non soggette ad IVA. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata" 
+	values('BL006002','Imposta(Op. imponibili, non imponibili ed esenti per "Operazioni con paesi a fiscalit‡ privilegiata" o "Operazioni con soggetti non residenti" )')
+-- BL007 - Operazioni non soggette ad IVA. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata" 
 	insert into #RECORD(quadro, descrizione)
-	values('BL007001','Importo Complessivo(Operazioni con paesi a fiscalit√† privilegiata, Op. non soggette a IVA)')
--- BL008 - Note di variazione. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata" 
+	values('BL007001','Importo Complessivo(Operazioni con paesi a fiscalit‡ privilegiata, Op. non soggette a IVA)')
+-- BL008 - Note di variazione. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata" 
 	insert into #RECORD(quadro, descrizione)
-	values('BL008001','Note di Variazione-Importo Complessivo(Operazioni con paesi a fiscalit√† privilegiata)')
+	values('BL008001','Note di Variazione-Importo Complessivo(Operazioni con paesi a fiscalit‡ privilegiata)')
 	insert into #RECORD(quadro, descrizione)
-	values('BL008002','Note di Variazione - Imposta(Operazioni con paesi a fiscalit√† privilegiata')
+	values('BL008002','Note di Variazione - Imposta(Operazioni con paesi a fiscalit‡ privilegiata')
 
 	insert into #RECORD(quadro, descrizione)
 	values('SE','Acquisti da operatori di San Marino')
@@ -136,13 +138,13 @@ CREATE TABLE #RECORD(
 	values('SE001013','Data registrazione fattura(la data deve essere inclusa nell''anno di riferimento)')
 
 	insert into #RECORD(quadro, descrizione)
-	values('SE001014','N¬∞fattura')
+	values('SE001014','N∞fattura')
 	insert into #RECORD(quadro, descrizione)
 	values('SE001015','Imponibile')
 	insert into #RECORD(quadro, descrizione)
 	values('SE001016','Imposta')
 	insert into #RECORD(quadro, descrizione)
-	values('SE001017','Conferma importo(Dato obbligatorio se l''importo √® maggiore di 999999)')
+	values('SE001017','Conferma importo(Dato obbligatorio se l''importo Ë maggiore di 999999)')
 
 	SELECT * FROM #RECORD
 	DROP TABLE #RECORD
@@ -156,4 +158,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

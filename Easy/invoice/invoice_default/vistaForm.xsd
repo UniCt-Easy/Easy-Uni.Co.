@@ -1481,6 +1481,7 @@
               <xs:element name="idinvkind_forwarder" type="xs:int" minOccurs="0" />
               <xs:element name="yinv_forwarder" type="xs:short" minOccurs="0" />
               <xs:element name="ninv_forwarder" type="xs:int" minOccurs="0" />
+              <xs:element name="idnocigmotive" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_invkind" type="xs:string" minOccurs="0" />
               <xs:element name="flagbit" type="xs:int" minOccurs="0" />
             </xs:sequence>

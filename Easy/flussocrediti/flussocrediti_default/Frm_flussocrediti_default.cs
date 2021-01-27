@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using funzioni_configurazione;
+
+using funzioni_configurazione;
 using metadatalibrary;
 using System;
 using System.Collections.Generic;
@@ -273,6 +275,9 @@ namespace flussocrediti_default {
             scriptUpdateInvoiceDetails = builder.ToString();
         }
 
+     
+
+
         void LinkFlussocreditidetail(DataRow RigaSelezionata, string kind) {
             if (RigaSelezionata == null) return;
             // Ciclo per la creazione dei dettagli
@@ -283,6 +288,16 @@ namespace flussocrediti_default {
             metaDt.ComputeRowsAs(DS.flussocreditidetail_ca, "posting");
 
             if (kind == "invoicedetail") {
+	            string filterInv = QHC.MCmp(RigaSelezionata, "idinvkind", "yinv", "ninv");
+	            string filterInvSql = QHS.MCmp(RigaSelezionata, "idinvkind", "yinv", "ninv");
+	            object scadenza = CalcolaDataScadenza(filterInv, "I");
+	            if (scadenza == DBNull.Value || scadenza==null) {
+		            MetaFactory.factory.getSingleton<IMessageShower>().Show(
+			            $"La riga avente descrizione {RigaSelezionata["detaildescription"]} non ha scadenza e non può essere inviata.",
+			            "Errore");
+		            return;
+	            }
+
                 object flagsplit = Conn.DO_READ_VALUE("invoice",
                     QHS.AppAnd(QHS.CmpEq("idinvkind", RigaSelezionata["idinvkind"]),
                         QHS.CmpEq("yinv", RigaSelezionata["yinv"]),
@@ -296,10 +311,9 @@ namespace flussocrediti_default {
                 rNew["invrownum"] = RigaSelezionata["rownum"];
                 rNew["idaccmotiverevenue"] = RigaSelezionata["idaccmotive"];
 
-                string filterInv = QHC.MCmp(RigaSelezionata, "idinvkind", "yinv", "ninv");
-                string filterInvSql = QHS.MCmp(RigaSelezionata, "idinvkind", "yinv", "ninv");
+               
                 object idreg = Conn.DO_READ_VALUE("invoice", filterInv, "idreg");
-                rNew["expirationdate"] = CalcolaDataScadenza(filterInv, "I");
+                rNew["expirationdate"] = scadenza;
                 rNew["description"] = RigaSelezionata["detaildescription"];
                 decimal taxable_euro = CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("invoicedetailview",
                     QHS.CmpKey(RigaSelezionata), "taxable_euro"));
@@ -324,13 +338,25 @@ namespace flussocrediti_default {
 
             if (kind == "estimatedetail") {
                 metaDt.SetDefaults(DS.flussocreditidetail_ca);
+                
+                string filterEstim = QHC.MCmp(RigaSelezionata, "idestimkind", "yestim", "nestim");
+                string filterEstimSql = QHS.MCmp(RigaSelezionata, "idestimkind", "yestim", "nestim");
+                object scadenza = RigaSelezionata["proceedsexpiring"];
+                if (scadenza == DBNull.Value) {
+	                scadenza = CalcolaDataScadenza(filterEstimSql, "E");
+                }
+                if (scadenza == DBNull.Value ) {
+	                MetaFactory.factory.getSingleton<IMessageShower>().Show(
+		                $"La riga avente descrizione {RigaSelezionata["detaildescription"]} non ha scadenza e non può essere inviata.",
+		                "Errore");
+	                return;
+                }
                 DataRow rNew = metaDt.Get_New_Row(rFlusso, DS.flussocreditidetail_ca);
                 foreach (string colname in new[] { "idestimkind", "yestim", "nestim", "rownum", "idfinmotive" ,"idupb"}) {
                     rNew[colname] = RigaSelezionata[colname];
                 }
-                string filterEstim = QHC.MCmp(RigaSelezionata, "idestimkind", "yestim", "nestim");
-                string filterEstimSql = QHS.MCmp(RigaSelezionata, "idestimkind", "yestim", "nestim");
-                rNew["expirationdate"] = CalcolaDataScadenza(filterEstim, "E");
+                rNew["expirationdate"] = scadenza;
+
                 rNew["description"] = RigaSelezionata["detaildescription"];
                 decimal taxable_euro = CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("estimatedetailview", QHS.CmpKey(RigaSelezionata), "taxable_euro"));
                 rNew["importoversamento"] = taxable_euro; //RigaSelezionata["taxable_euro"];
@@ -367,8 +393,7 @@ namespace flussocrediti_default {
         /// <param name="kind">I per invoice E per estimate</param>
         /// <returns></returns>
         private object CalcolaDataScadenza(string filterkey, string kind) {
-            if (Meta.IsEmpty)
-                return null;
+            if (Meta.IsEmpty) return DBNull.Value;
             DataTable T;
             if (kind == "I") {
                 T = Meta.Conn.RUN_SELECT("invoice", "*", null, filterkey, null, true);
@@ -378,7 +403,7 @@ namespace flussocrediti_default {
             }
             DataRow R = T.Rows[0];
             object TipoScadenza = R["idexpirationkind"];
-            if (TipoScadenza == null) return null;
+            if (TipoScadenza == null) return DBNull.Value;
             DateTime emptyDate = DateTime.Now;
 
             int ngiorni = CfgFn.GetNoNullInt32(R["paymentexpiring"]);
@@ -448,6 +473,9 @@ namespace flussocrediti_default {
             return dataScadenza;
         }
 
+
+
+       
         string GetFilterForLinking_Estim(QueryHelper QH) {
             string filter = "";
             filter = QHS.AppAnd(QHS.IsNull("iduniqueformcode"), QHS.IsNull("idflussocrediti"));
@@ -567,7 +595,7 @@ namespace flussocrediti_default {
             }
 
             if (DS.flussocrediti.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono Contratti o Fatture!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono Contratti o Fatture!");
                 return null;
             }
 
@@ -583,7 +611,7 @@ namespace flussocrediti_default {
             }
 
             if (DS.HasChanges()) {
-                MessageBox.Show(this, "Per eseguire l'operazione occorre prima SALVARE.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Per eseguire l'operazione occorre prima SALVARE.");
                 return null;
             }
 
@@ -683,7 +711,7 @@ namespace flussocrediti_default {
                 btnEsportaFlussoCrediti.Enabled = true;
                 return;
             }
-            //Se l'invio Ã¨ andato a buon fine aggiorna il DS originale
+            //Se l'invio è andato a buon fine aggiorna il DS originale
             AggiornaDSdiOrigine(newDs);
             listaErrori = new List<string>();
 
@@ -730,7 +758,7 @@ namespace flussocrediti_default {
                 FrmErrori.MostraErrori(this, listaErrori);
             }
             else {
-                MessageBox.Show(this, "Flusso correttamente inviato", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Flusso correttamente inviato", "Avviso");
             }
 
 
@@ -794,8 +822,12 @@ namespace flussocrediti_default {
                 FlussoDet["description"] = Curr["detaildescription"];
                 FlussoDet["idreg"] = Curr["idreg_main"];
                 FlussoDet["cf"] = Conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", Curr["idreg_main"]), "cf");
-                string filter_estim = QHC.MCmp(Curr, "idestimkind", "yestim", "nestim");
-                FlussoDet["expirationdate"] = CalcolaDataScadenza(filter_estim, "E");
+                string filterEstimSql = QHS.MCmp(Curr, "idestimkind", "yestim", "nestim");
+                object scadenza = Curr["proceedsexpiring"];
+                if (scadenza == DBNull.Value) {
+	                scadenza = CalcolaDataScadenza(filterEstimSql, "E");
+                }
+                FlussoDet["expirationdate"] =   scadenza;
             }
             Meta.myGetData.GetTemporaryValues(DS.flussocreditidetail_ca);
             Meta.FreshForm();
@@ -865,7 +897,7 @@ namespace flussocrediti_default {
         }
 
         private void btnAnnullaInvio_Click(object sender, EventArgs e) {
-            //Solo per scopi di debug, non Ã¨ da attivare in produzione
+            //Solo per scopi di debug, non è da attivare in produzione
             Meta.GetFormData(true);
             DS.flussocrediti._forEach(r => r.istransmitted = "N");
             foreach (var r in DS.flussocreditidetail_ca) {

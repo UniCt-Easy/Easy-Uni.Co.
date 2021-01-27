@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_unified_ritenute_applicate_impon]') and OBJECTPROPERTY(id, N'IsPROCEDURE') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_unified_ritenute_applicate_impon]') and OBJECTPROPERTY(id, N'IsPROCEDURE') = 1)
 drop PROCEDURE [exp_unified_ritenute_applicate_impon]
 GO
 
@@ -135,7 +137,7 @@ BEGIN
                         birthdate as 'data Nascita', GC_title as 'Luogo Nascita',
                         GP_province as 'Prov.Nascita', GN_title as 'Stato Nascita',
                 		gender as 'Sesso',
-                        address as 'Indirizzo',location as 'Localit√†',province as 'Provincia',
+                        address as 'Indirizzo',location as 'Localit‡',province as 'Provincia',
                     	nation as 'Stato',cap as 'CAP',
                         GC_tax_title as 'Comune', 
                         fiscale_region as 'Regione Fiscale',
@@ -156,7 +158,7 @@ BEGIN
                         birthdate as 'data Nascita', GC_title as 'Luogo Nascita',
                         GP_province as 'Prov.Nascita', GN_title as 'Stato Nascita',
                 		gender as 'Sesso',
-                        address as 'Indirizzo',location as 'Localit√†',province as 'Provincia',
+                        address as 'Indirizzo',location as 'Localit‡',province as 'Provincia',
                     	nation as 'Stato',cap as 'CAP',
                         GC_tax_title as 'Comune', 
                         fiscale_region as 'Regione Fiscale',
@@ -190,7 +192,7 @@ BEGIN
 						service_description as 'Prestazione',
 						servicestart as 'Inizio Pres.',
 						servicestop as 'Fine Prest',
-						address as 'Indirizzo',location as 'Localit√†',province as 'Provincia',
+						address as 'Indirizzo',location as 'Localit‡',province as 'Provincia',
 						nation as 'Stato',cap as 'CAP',
 						GC_tax_title as 'Comune', 
                         fiscale_region as 'Regione Fiscale',
@@ -221,7 +223,7 @@ BEGIN
 						service_description as 'Prestazione',
 						servicestart as 'Inizio Pres.',
 						servicestop as 'Fine Prest',
-						address as 'Indirizzo',location as 'Localit√†',province as 'Provincia',
+						address as 'Indirizzo',location as 'Localit‡',province as 'Provincia',
 						nation as 'Stato',cap as 'CAP',
 						GC_tax_title as 'Comune', 
                         fiscale_region as 'Regione Fiscale',
@@ -254,7 +256,7 @@ BEGIN
                         birthdate as 'data Nascita', GC_title as 'Luogo Nascita',
                         GP_province as 'Prov.Nascita', GN_title as 'Stato Nascita',
                 		gender as 'Sesso',
-                        address as 'Indirizzo',location as 'Localit√†',province as 'Provincia',
+                        address as 'Indirizzo',location as 'Localit‡',province as 'Provincia',
                     	nation as 'Stato',cap as 'CAP',
                         GC_tax_title as 'Comune', 
                         fiscale_region as 'Regione Fiscale',
@@ -284,7 +286,7 @@ BEGIN
                         birthdate as 'data Nascita', GC_title as 'Luogo Nascita',
                         GP_province as 'Prov.Nascita', GN_title as 'Stato Nascita',
                 		gender as 'Sesso',
-                        address as 'Indirizzo',location as 'Localit√†',province as 'Provincia',
+                        address as 'Indirizzo',location as 'Localit‡',province as 'Provincia',
                     	nation as 'Stato',cap as 'CAP',
                         GC_tax_title as 'Comune', 
                         fiscale_region as 'Regione Fiscale',
@@ -327,7 +329,7 @@ BEGIN
 					service_description as 'Prestazione',
 					servicestart as 'Inizio Pres.',
 					servicestop as 'Fine Prest',
-					address as 'Indirizzo',location as 'Localit√†',province as 'Provincia',
+					address as 'Indirizzo',location as 'Localit‡',province as 'Provincia',
 					nation as 'Stato',cap as 'CAP',
 					GC_tax_title as 'Comune', 
 					fiscale_region as 'Regione Fiscale',
@@ -358,7 +360,7 @@ BEGIN
 						service_description as 'Prestazione',
 						servicestart as 'Inizio Pres.',
 						servicestop as 'Fine Prest',
-						address as 'Indirizzo',location as 'Localit√†',province as 'Provincia',
+						address as 'Indirizzo',location as 'Localit‡',province as 'Provincia',
 						nation as 'Stato',cap as 'CAP',
 						GC_tax_title as 'Comune', 
                         isnull(sum(taxablegross),0) as ' Imponibile Lordo',
@@ -395,4 +397,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

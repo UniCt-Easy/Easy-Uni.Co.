@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -954,7 +956,7 @@ namespace servicepayment_assegnazioneautomatica
         //    if (DS.servicepayment.Select(filter).Length > 0) {
         //        string contratto = contratto = "n." + QueryCreator.quotedstrvalue(pagamentoPrestazione["nservreg"], true) + " / " 
         //                + QueryCreator.quotedstrvalue(pagamentoPrestazione["yservreg"], true) + " semestre "+pagamentoPrestazione["semesterpay"];
-        //        MessageBox.Show("Il pagamento del contratto " + contratto + " NON sarà aggiornato perchè il pagamento è bloccato ");
+        //        MetaFactory.factory.getSingleton<IMessageShower>().Show("Il pagamento del contratto " + contratto + " NON sarà aggiornato perchè il pagamento è bloccato ");
         //        return false;
         //    }
         //    return true;
@@ -1017,12 +1019,12 @@ namespace servicepayment_assegnazioneautomatica
             Post.InitClass(DS, Conn);
             bool res = Post.DO_POST();
             if (res) {
-                MessageBox.Show("Operazione eseguita con successo.","Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Operazione eseguita con successo.","Avviso");
                 pagamenti.Clear();
                 //Il Dataset non è azzerato, è possibile ancora aggiungere i pagamenti di un altro semestre (in qualsiasi ordine)
             }
             else {
-                MessageBox.Show("Ci sono stati problemi nell'aggiornamento dei pagamenti.","Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono stati problemi nell'aggiornamento dei pagamenti.","Errore");
             }
             return res;   
         }

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Text;
@@ -46,7 +48,7 @@ namespace bankdispositionsetup_importnew {
             //Ef07  502
             if (fi.Length % 502 == 0) return "EF07";
             if (fi.Length % 503 == 0) return "EF06";
-            QueryCreator.ShowError(null, "La dimensione del file non √® un multiplo di 502 o 503.","Errore di dimensione del file");
+            QueryCreator.ShowError(null, "La dimensione del file non Ë un multiplo di 502 o 503.","Errore di dimensione del file");
 
             return null;
             
@@ -104,7 +106,7 @@ namespace bankdispositionsetup_importnew {
             if (altriEsercizi.Count > 0) {
                 string messaggio = "Nel file ci sono esitazioni relative ad esercizi diversi.\nDopo aver esitato nel "
                 + Conn.GetSys("esercizio")
-                + ", se necessario, occorrer√† ripetere l'operazione anche per ";
+                + ", se necessario, occorrer‡ ripetere l'operazione anche per ";
                 if (altriEsercizi.Count == 1) {
                     messaggio += "l'esercizio " + altriEsercizi[0];
                 }
@@ -115,8 +117,8 @@ namespace bankdispositionsetup_importnew {
                     }
                     messaggio += " e " + altriEsercizi[altriEsercizi.Count - 1];
                 }
-                messaggio += ". Non √® necessario a tal fine manipolare il file in alcun modo.";
-                MessageBox.Show( messaggio,"Avviso");
+                messaggio += ". Non Ë necessario a tal fine manipolare il file in alcun modo.";
+                MetaFactory.factory.getSingleton<IMessageShower>().Show( messaggio,"Avviso");
             }
             return true;
         }
@@ -127,15 +129,15 @@ namespace bankdispositionsetup_importnew {
             r["CODENT1"] = leggiNumerico(tr, 9);	//	7	9	N	Codice Ente
             r["ESERC1"] = leggiNumerico(tr, 4);		//	16	4	N	Esercizio
             //int tiprec = leggiNumerico(tr, 2);
-            //r["TIPREC"] = tiprec;		//	20	2	N	Tipo record ‚ÄìFisso 01
+            //r["TIPREC"] = tiprec;		//	20	2	N	Tipo record ñFisso 01
             string tiprec = leggiAlfanumerico(tr, 2);
-            r["TIPREC"] = tiprec; ////	20	2	A	Tipo record ‚ÄìFisso 01   Maria tracciato aggiornato
+            r["TIPREC"] = tiprec; ////	20	2	A	Tipo record ñFisso 01   Maria tracciato aggiornato
             r["WA035"] = leggiAlfanumerico(tr, 35);	//	22	35	A	Descrizione flusso prima parte
             r["WA040"] = leggiAlfanumerico(tr, 40);	//	57	40	A	Descrizione flusso seconda parte
             r["FILLER"] = leggiAlfanumerico(tr, 405);//	97	404	A	Campo vuoto
             Console.WriteLine(r["WA035"]);
             if (tiprec != "01") {
-                QueryCreator.ShowError(null, "Errore durante la lettura del file", "Era atteso il record 01 invece si √® incontrato il record " + tiprec);
+                QueryCreator.ShowError(null, "Errore durante la lettura del file", "Era atteso il record 01 invece si Ë incontrato il record " + tiprec);
                 return false;
             }
             return vaiACapo(tr);
@@ -146,8 +148,8 @@ namespace bankdispositionsetup_importnew {
             //			r["FILTESE"] = leggiAlfanumerico(tr, 3);//	4	3	A	Filiale Tesoreria
             //			r["CODENT1"] = leggiNumerico(tr, 9);	//	7	9	N	Codice Ente
             //			r["ESERC1"] = leggiNumerico(tr, 4);		//	16	4	N	Esercizio
-            //			r["TIPREC"] = leggiNumerico(tr, 2);		//	20	2	N	Tipo record ‚ÄìFisso 02
-            r["TIPDOC"] = leggiAlfanumerico(tr, 1);	//	22	1	A	Tipo documento ‚Äì NoteTIPDOC: I = Incasso; R = Reversale; P = Pagamento; M = Mandato
+            //			r["TIPREC"] = leggiNumerico(tr, 2);		//	20	2	N	Tipo record ñFisso 02
+            r["TIPDOC"] = leggiAlfanumerico(tr, 1);	//	22	1	A	Tipo documento ñ NoteTIPDOC: I = Incasso; R = Reversale; P = Pagamento; M = Mandato
             //			r["NUMDO1"] = leggiNumerico(tr, 7);		//	23	7	N	Numero documento
             r["NUMDO1"] = leggiAlfanumerico(tr, 7);	//	23	7	A	Numero documento (Maria tracciato aggiornato)
             //			r["PRODO1"] = leggiNumerico(tr, 7);		//	30	7	N	Progressivo documento
@@ -163,11 +165,11 @@ namespace bankdispositionsetup_importnew {
             r["PROST1"] = leggiNumerico(tr, 7);		//	84	7	N	Progressivo Quietanza
             r["ANABE"] = leggiAlfanumerico(tr, 60);	//	91	60	A	Anagrafica beneficiario/versante
             r["DCAP"] = leggiAlfanumerico(tr, 60);	//	151	60	A	Descrizione causale operazione
-            r["CODGEN"] = leggiAlfanumerico(tr, 20);//	211	20	A	Codifica generica (ad uso dell‚ÄôEnte)
+            r["CODGEN"] = leggiAlfanumerico(tr, 20);//	211	20	A	Codifica generica (ad uso dellíEnte)
             r["IMPRI1"] = leggiDecimale(tr, 15);	//	231	15	N	Importo ritenute indicato in centesimi di euro
-            r["INDREG"] = leggiAlfanumerico(tr, 1);		//	246	1	A	Indicativo regolazione ‚Äì NoteINDREG: R = Regolazione (operazione a copertura)
-            r["DESTU"] = leggiAlfanumerico(tr, 1);	//	247	1	A	Destinazione TU ‚Äì NoteDESTTU: F = Fruttifera; I = Infruttifera
-            r["INDCBI"] = leggiAlfanumerico(tr, 1); //	248	1	A	Indicativo BankItalia ‚Äì NoteINDCBI: O = Ordinaria; C = Capitale
+            r["INDREG"] = leggiAlfanumerico(tr, 1);		//	246	1	A	Indicativo regolazione ñ NoteINDREG: R = Regolazione (operazione a copertura)
+            r["DESTU"] = leggiAlfanumerico(tr, 1);	//	247	1	A	Destinazione TU ñ NoteDESTTU: F = Fruttifera; I = Infruttifera
+            r["INDCBI"] = leggiAlfanumerico(tr, 1); //	248	1	A	Indicativo BankItalia ñ NoteINDCBI: O = Ordinaria; C = Capitale
             r["CAUTS"] = leggiAlfanumerico(tr, 2);	//	249	2	A	Causale tesoreria
             //			r["NUMOA1"] = leggiNumerico(tr, 7);		//	251	7	N	Numero O A
             r["NUMOA1"] = leggiAlfanumerico(tr, 7);	//	251	7	A	Numero O A (Maria nuovo tracciato)
@@ -216,7 +218,7 @@ namespace bankdispositionsetup_importnew {
             //			r["FILTESE"] = import.leggiAlfanumerico(tr, 3);//	4	3	A	Filiale tesoriere
             //			r["CODENT1"] = import.leggiAlfanumerico(tr, 9);//	7	9	N	Codice Ente
             //			r["ESERC1"] = leggiNumerico(tr, 4);		//	16	4	N	Esercizio
-            //			r["TIPREC"] = leggiNumerico(tr, 2);		//	20	2	N	Tipo record ‚ÄìFisso 03
+            //			r["TIPREC"] = leggiNumerico(tr, 2);		//	20	2	N	Tipo record ñFisso 03
             r["NOINC"] = leggiNumerico(tr, 7);		//	22	7	N	Numero operazioni incasso
             decimal decimale;
             r["SEGNO1"] = leggiSegnoConDecimaleAoD(tr, 16, out decimale);	//	29	1	A	(Maria) Segno incasso modifica temporanea dovuta a errore nel file 
@@ -309,7 +311,7 @@ namespace bankdispositionsetup_importnew {
                 QueryCreator.ShowError(null, "Errore durante la lettura del file", "Errore nell'intestazione di un record dettaglio o record di coda");
                 return null;
             }
-            return leggiAlfanumerico(tr, 2);		//	20	2	N	Tipo record ‚ÄìFisso 01
+            return leggiAlfanumerico(tr, 2);		//	20	2	N	Tipo record ñFisso 01
         }
         #endregion
 
@@ -414,7 +416,7 @@ namespace bankdispositionsetup_importnew {
             r["NUMQUI"] = leggiNumerico(tr, 7);//  	Numero progr. quietanza 
             r["NUMDIS"] = leggiNumerico(tr, 7);//	Numero distinta
             r["IMPRIT"] = leggiDecimale(tr, 15);//  	Importo ritenute (gli ultimi due bytes sono da considerarsi decimali)   
-            r["INDREG"] = leggiAlfanumerico(tr, 1);//  	Indicativo regolazione (se contiene il valore ‚ÄúR‚Äù trattasi di regolazione)  
+            r["INDREG"] = leggiAlfanumerico(tr, 1);//  	Indicativo regolazione (se contiene il valore ìRî trattasi di regolazione)  
             r["DVALBE"] = leggiDataGMA(tr, 8);//  	Data valuta beneficiario (nel formato GGMMAAAA)  
             r["NUMPRA"] = leggiAlfanumerico(tr, 16);//  	Numero pratica  
             r["CODVER"] = leggiAlfanumerico(tr, 5);//	Codice versamento
@@ -461,7 +463,7 @@ namespace bankdispositionsetup_importnew {
             r["ANABE"] = leggiAlfanumerico(tr, 300);//	Anagrafica beneficiario
             r["INDIR"] = leggiAlfanumerico(tr, 30);//	Indirizzo beneficiario
             r["CAP"] = leggiAlfanumerico(tr, 5);//	CAP beneficiario
-            r["LOC"] = leggiAlfanumerico(tr, 30);//	Localit√† beneficiario
+            r["LOC"] = leggiAlfanumerico(tr, 30);//	Localit‡ beneficiario
             r["CFISC"] = leggiAlfanumerico(tr, 16);//	Codice fiscale beneficiario
             r["FILLER"] = leggiAlfanumerico(tr, 86);//	Campo a disposizione
             if (TIPREC != "03") {

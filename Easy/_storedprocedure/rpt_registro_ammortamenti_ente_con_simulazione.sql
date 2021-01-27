@@ -1,21 +1,20 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø--setuser'amministrazione'
---select * from inventory
---exec rpt_registro_ammortamenti_ente_con_simulazione 2015, 1, null
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_registro_ammortamenti_ente_con_simulazione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_registro_ammortamenti_ente_con_simulazione]
 GO
@@ -26,13 +25,15 @@ SET ANSI_NULLS ON
 GO
  
 -- exec rpt_registro_ammortamenti_ente_con_simulazione 2016, 1, null,'S'--'31-12-2006'
-
+--- exec rpt_registro_ammortamenti_ente_con_simulazione 2015, 1, null,'S'
 CREATE    PROCEDURE [rpt_registro_ammortamenti_ente_con_simulazione]
 (
 	@year int,
 	@idinventory int,
 	@simulation_on_to_adate datetime,
-	@mostrabenitotammortizzati char(1) ='N'
+	@mostrabenitotammortizzati char(1) ='N',
+	@ninvstart int = null,
+	@ninvstop int = null
 )
 AS BEGIN
 -- ATTENZIONE: la sp alimenta anche il report : registro_ammortamenti_ente_suduerighe.rpt, realizzato col task 8499
@@ -253,6 +254,9 @@ Begin
 				  )
 			     )
 			    )
+	and (cespite_o_accessorio.ninventory >=  @ninvstart or @ninvstart is null)
+	and (cespite_o_accessorio.ninventory <= @ninvstop or @ninvstop is null)
+
 end
 else
 Begin
@@ -406,6 +410,8 @@ Begin
 				  )
 			     )
 			    )
+	and (cespite_o_accessorio.ninventory >=  @ninvstart or @ninvstart is null)
+	and (cespite_o_accessorio.ninventory <= @ninvstop or @ninvstop is null)
 End
 	
 	--SELECT '#assetamortization',* FROM #assetamortization
@@ -557,7 +563,8 @@ BEGIN
 			OR
 			(@MostraClassificazioneCompleta = 'S' AND inventorytreelink.idparent = inventorytreelink.idchild )
 			)
-	 
+	 	and (cespite_o_accessorio.ninventory >=  @ninvstart or @ninvstart is null)
+		and (cespite_o_accessorio.ninventory <= @ninvstop or @ninvstop is null)
 
 	END
 
@@ -959,10 +966,10 @@ print datediff(ms,@ss1,@ss2)
 if (@mostrabenitotammortizzati='S')
 begin
 	-- se deve mostare anche i beni tot. ammortizzati, cancella le righe degli ammortamenti anni precedenti
-	-- prech√® se il parametro vale S le ha inserite tutte
+	-- prechË se il parametro vale S le ha inserite tutte
 	delete from #assetamortization where exists (select * from #assetamortization A where A.idasset = #assetamortization.idasset and A.idpiece = #assetamortization.idpiece and year(A.adate) = @year)
 				and year(adate)<@year
-	-- Azzare i valori per gli ammortamenti di eserc. prec. perch√® se il bene √® completamente  amm. ci saranno tante righe quanti sono gli ammort. negli anni precedenti, ma ora il suo valore sar√† sempre 0
+	-- Azzare i valori per gli ammortamenti di eserc. prec. perchË se il bene Ë completamente  amm. ci saranno tante righe quanti sono gli ammort. negli anni precedenti, ma ora il suo valore sar‡ sempre 0
 	update #assetamortization set startvalue=0, namortization=null, amortizationquota = null , amortizationvalue = null , adate=null where year(adate)<@year and finalvalue=0
 	SELECT distinct
 		idasset,
@@ -1037,5 +1044,4 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-exec rpt_registro_ammortamenti_ente_con_simulazione 2015, 1, null,'S'
-	
+--exec rpt_registro_ammortamenti_ente_con_simulazione 2015, 1, null,'S'

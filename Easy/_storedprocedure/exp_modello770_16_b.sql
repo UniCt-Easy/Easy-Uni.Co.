@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_modello770_16_b]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_modello770_16_b]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_modello770_16_b]
 GO
 
@@ -44,7 +46,7 @@ AS BEGIN
 		data datetime
 	)
 	DECLARE @2cf varchar(16)
-	DECLARE @agencyname varchar(60) -- 60 √® limite imposto per la compilazione del 770
+	DECLARE @agencyname varchar(60) -- 60 Ë limite imposto per la compilazione del 770
 	DECLARE @phonenumber varchar(20)
 	DECLARE @fax varchar(20)
 	DECLARE @email varchar(100)
@@ -173,7 +175,7 @@ SET @lenvalue = 3
 
 	DECLARE @7cfsoftwarehouse varchar(16)
 	SET @7cfsoftwarehouse = '02890460781'
-	-- Il codice attivit√† √® stato preso dalla tabella ATECOFIN2004 delle attivit√† produttive.
+	-- Il codice attivit‡ Ë stato preso dalla tabella ATECOFIN2004 delle attivit‡ produttive.
 	-- Consultare il sito del Ministero delle Finanze (www.finanze.gov.it) o dell'Agenzia delle Entrate
 	-- (www.agenziaentrate.gov.it)
 	DECLARE @codiceattivita varchar(6)
@@ -193,7 +195,7 @@ SET @lenvalue = 3
 --Dati relativi al Sostituto
 	--15 Denominazione
 	INSERT INTO #recordb (progr, quadro, riga, colonna, stringa) VALUES(1, 'HRB', 1, '015', @agencyname)
-	--23 Codice attivit√†
+	--23 Codice attivit‡
 	INSERT INTO #recordb (progr, quadro, riga, colonna, stringa) VALUES(1, 'HRB', 1, '023', @codiceattivita)
 	--24 Indirizzo di posta elettronica
 	INSERT INTO #recordb (progr, quadro, riga, colonna, stringa) VALUES(1, 'HRB', 1, '024', @email)
@@ -204,25 +206,25 @@ SET @lenvalue = 3
 
 --Codici statistici (stato, natura e situazione) Stato: il relativo codice deve essere rilevato dalla tabella SA. 
 --Natura giuridica: il relativo codice deve essere rilevato dalla tabella SB. 
---La tabella √® comprensiva di tutti i codici relativi alla diversa modulistica dichiarativa 
---ed utilizzabili solo in funzione della specificit√† di ogni singolo modello. Pertanto, 
---il soggetto che compila la dichiarazione avr√† cura di individuare il codice ad esso riferibile 
+--La tabella Ë comprensiva di tutti i codici relativi alla diversa modulistica dichiarativa 
+--ed utilizzabili solo in funzione della specificit‡ di ogni singolo modello. Pertanto, 
+--il soggetto che compila la dichiarazione avr‡ cura di individuare il codice ad esso riferibile 
 --in relazione alla natura giuridica rivestita. Situazione: il relativo codice deve essere rilevato dalla tabella SC
 
 -- 29 stato
-	-- STATO DELLA SOCIET√Ä O ENTE ALL‚ÄôATTO DELLA PRESENTAZIONE DELLA DICHIARAZIONE
+	-- STATO DELLA SOCIET¿ O ENTE ALLíATTO DELLA PRESENTAZIONE DELLA DICHIARAZIONE
 	--TABELLA SB - CLASSIFICAZIONE GENERALE NATURA GIURIDICA
-	--1) Soggetto in normale attivit√† 2) Soggetto in liquidazione per cessazione di attivit√†
+	--1) Soggetto in normale attivit‡ 2) Soggetto in liquidazione per cessazione di attivit‡
 	--3) Soggetto in fallimento o in liquidazione coatta amministrativa 4) Soggetto estinto
 
-	-- 1) Soggetto in normale attivit√† 
+	-- 1) Soggetto in normale attivit‡ 
 	INSERT INTO #recordb (progr, quadro, riga, colonna, intero)  VALUES(1, 'HRB', 1, '029', 1)  
 	--30 Natura giuridica
 	---- 14 Soggetto che sottoscrive la dichiarazione per conto di una pubblica amministrazione 
 	--INSERT INTO #recordb (progr, quadro, riga, colonna, intero)  VALUES(1, 'HRB', 1, '030', 14)
 	-- 31 situazione
-	-- SITUAZIONE DELLA SOCIET√Ä O ENTE RELATIVAMENTE AL PERIODO D‚ÄôIMPOSTA CUI SI RIFERISCE LA DICHIARAZIONE
-	-- 6) Periodo normale d‚Äôimposta
+	-- SITUAZIONE DELLA SOCIET¿ O ENTE RELATIVAMENTE AL PERIODO DíIMPOSTA CUI SI RIFERISCE LA DICHIARAZIONE
+	-- 6) Periodo normale díimposta
 
 	INSERT INTO #recordb (progr, quadro, riga, colonna, intero)  VALUES(1, 'HRB', 1, '031', 6)  
 
@@ -264,7 +266,7 @@ SET @lenvalue = 3
 	INSERT INTO #recordb (progr, quadro, riga, colonna, intero) VALUES(1, 'HRB', 1, '047',  CONVERT(INT,@manager_r_code_e) )
 -- 48	Stato federato, provincia, contea
 	INSERT INTO #recordb (progr, quadro, riga, colonna, stringa) VALUES(1, 'HRB', 1, '048', @manager_r_nation_e)
--- 49	Localit√† di residenza
+-- 49	Localit‡ di residenza
 	INSERT INTO #recordb (progr, quadro, riga, colonna, stringa) VALUES(1, 'HRB', 1, '049', @manager_r_location_e)
 -- 50	Indirizzo estero
 	INSERT INTO #recordb (progr, quadro, riga, colonna, stringa) VALUES(1, 'HRB', 1, '050', @manager_r_address_e)
@@ -318,4 +320,3 @@ GO
 --exec exp_modello770_16_b 1,1
 
  
-	

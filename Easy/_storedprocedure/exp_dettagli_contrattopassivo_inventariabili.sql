@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø--setuser'amm'
+
+--setuser'amm'
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_dettagli_contrattopassivo_inventariabili]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_dettagli_contrattopassivo_inventariabili]
 GO
@@ -71,7 +73,7 @@ SELECT mandatekind as 'Tipo Contratto',yman AS 'Esercizio', nman AS 'N.ordine', 
 	end 'Tipo bene', 
 	registry AS 'Nome fornitore',detaildescription AS 'Descrizione dettaglio', codeinv as 'Cod. Classificazione', inventorytree as 'Classificazione', 
 	taxable AS 'Imponibile', taxrate AS 'Iva %', discount AS 'Sconto', 
-	ordered as 'Quantit√†',  loaded as 'Quantit√† caricata', residual as 'Quantit√† residua'
+	ordered as 'Quantit‡',  loaded as 'Quantit‡ caricata', residual as 'Quantit‡ residua'
 	
 FROM #mandate_detail order by mandatekind, yman, nman
 
@@ -85,4 +87,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

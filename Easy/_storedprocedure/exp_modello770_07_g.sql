@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_modello770_07_g]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_modello770_07_g]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_modello770_07_g]
 GO
 
@@ -43,7 +45,7 @@ AS BEGIN
 			or @modello='770' and isnull(prest_corrente.rec770kind,'') = 'G' and isnull(prest_collegato.rec770kind,'') = 'G'
 
 
-	-- ipotesi fondamentale: Gestione del solo modulo PARASUBORDINATI poich√® √® l'unica tipologia di reddito a cui si riferisce il CUD
+	-- ipotesi fondamentale: Gestione del solo modulo PARASUBORDINATI poichË Ë l'unica tipologia di reddito a cui si riferisce il CUD
 	CREATE TABLE #modulocococo
 	(
 		idpayroll int,
@@ -58,10 +60,10 @@ AS BEGIN
 		idpayroll,
 		idcon
 	)			-- inserisco per il momento solo i dati relativi alle rit. fiscali dei soli CEDOLINI di CONGUAGLIO
-	SELECT			-- perch√® ho bisogno di prendere i dati conguagliati. C'√® un problema derivante dal conguaglio in presenza
-		co.idreg, -- di un cud presentato: Non c'√® modo di capire se il cud presentato √® un precedente contratto o altro
+	SELECT			-- perchË ho bisogno di prendere i dati conguagliati. C'Ë un problema derivante dal conguaglio in presenza
+		co.idreg, -- di un cud presentato: Non c'Ë modo di capire se il cud presentato Ë un precedente contratto o altro
 		ce.idpayroll,		-- Questo implica che gli imponibili (LE RITENUTE SONO OK) non possono essere tenuti in considerazione
-		ce.idcon		-- per la sommatoria che si far√† in seguito per calcolare i redditi
+		ce.idcon		-- per la sommatoria che si far‡ in seguito per calcolare i redditi
 		FROM  payroll ce 
 			JOIN parasubcontract co ON co.idcon = ce.idcon
 	                join parasubcontractyear im ON co.idcon = im.idcon AND im.ayear = 2006
@@ -97,14 +99,14 @@ AS BEGIN
 		@a14comune1gen varchar(50),
 		@a15prov1gen varchar(2),
 		@a16codiceComune1gen varchar(10),
-		@wb1RedditoDedArt11 decimal(19,2), --Redditi per i quali √® possibile fruire della intera deduzione di cui all‚Äôart.11 del TUIR
-		 -- Questi redditi sono quelli gi√† dedotti art.10 e quindi sono 
+		@wb1RedditoDedArt11 decimal(19,2), --Redditi per i quali Ë possibile fruire della intera deduzione di cui allíart.11 del TUIR
+		 -- Questi redditi sono quelli gi‡ dedotti art.10 e quindi sono 
 		@wb3workingdays int,
 		@wb5ritIRPEF decimal(19,2),
 		@wb6add_reg decimal(19,2),
 		@wb7add_com decimal(19,2),
 		@wb7accontoaddcom decimal(19,2),
-		@wB17notaxarea decimal(19,2),		-- Deduzione per la progressivit√† dell‚Äôimposizione (art. 11 del TUIR)
+		@wB17notaxarea decimal(19,2),		-- Deduzione per la progressivit‡ dellíimposizione (art. 11 del TUIR)
 		@wb18notaxfamilyarea decimal(19,2),	-- Deduzione per coniuge e familiari a carico (art. 12, cc. 1 e 2 del TUIR)
 		@wb19ImponibileIrpef decimal(19,2), 
 		@wb20ImpostaLorda decimal(19,2), 
@@ -132,14 +134,14 @@ AS BEGIN
 		@wc80patcode varchar(10),
 		@wc81start datetime,
 		@wc82stop datetime,
-		@zb1RedditoDedArt11 decimal(19,2), --Redditi per i quali √® possibile fruire della intera deduzione di cui all‚Äôart.11 del TUIR
-		 -- Questi redditi sono quelli gi√† dedotti art.10 e quindi sono 
+		@zb1RedditoDedArt11 decimal(19,2), --Redditi per i quali Ë possibile fruire della intera deduzione di cui allíart.11 del TUIR
+		 -- Questi redditi sono quelli gi‡ dedotti art.10 e quindi sono 
 		@zb3workingdays int,
 		@zb5ritIRPEF decimal(19,2),
 		@zb6add_reg decimal(19,2),
 		@zb7add_com decimal(19,2),
 		@zb7accontoaddcom decimal(19,2),
-		@zB17notaxarea decimal(19,2),		-- Deduzione per la progressivit√† dell‚Äôimposizione (art. 11 del TUIR)
+		@zB17notaxarea decimal(19,2),		-- Deduzione per la progressivit‡ dellíimposizione (art. 11 del TUIR)
 		@zb18notaxfamilyarea decimal(19,2),	-- Deduzione per coniuge e familiari a carico (art. 12, cc. 1 e 2 del TUIR)
 		@zb19ImponibileIrpef decimal(19,2), 
 		@zb20ImpostaLorda decimal(19,2), 
@@ -742,9 +744,9 @@ AS BEGIN
 				join tax tr on rp.taxcode=tr.taxcode
 				where idcon=@chiave and taxkind='F' and geoappliance is null)
 			begin*/
-	--DB001001 Redditi per i quali √® possibile fruire della deduzione di cui all'art. 11 del TUIR
+	--DB001001 Redditi per i quali Ë possibile fruire della deduzione di cui all'art. 11 del TUIR
 				INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '001', @zb1RedditoDedArt11)
-	--DB001002 Redditi per i quali √® possibile fruire della sola deduzione di cui all'art.11, c. 1 del TUIR
+	--DB001002 Redditi per i quali Ë possibile fruire della sola deduzione di cui all'art.11, c. 1 del TUIR
 				-- Il campo seguente viene posto a zero in quanto non riusciamo a distinguere tali prestazioni e, quindi a valorizzarlo correttamente
 				INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '002', 0)
 	--DB001003 Numero di giorni per i quali spettano le deduzioni di cui all'art. 11 commi 2 e 3 del TUIR - LAVORO DIPENDENTE
@@ -757,7 +759,7 @@ AS BEGIN
 				INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '007', @zb7add_com)
 	--DB001A07 Addizionale comunale all'Irpef - Acconto 2007
 				INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, 'A07', @zb7accontoaddcom)
-	--DB001017 Deduzione per la progressivit√† dell'imposizione(art. 11 del TUIR)
+	--DB001017 Deduzione per la progressivit‡ dell'imposizione(art. 11 del TUIR)
 				INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '017', @zb17notaxarea)
 	--DB001018 Deduzione per coniuge e familiari a carico (art. 12, cc. 1 e 2 del TUIR)
 				INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '018', @zb18notaxfamilyarea)
@@ -769,7 +771,7 @@ AS BEGIN
 				INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '021', @zb21detrazionefiscale)
 	--DB001026 Totale oneri sostenuti esclusi dai redditi indicati nei punti 1 e 2
 				INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '026', @zb26deductionart10)
-	--DB001027 Totale oneri per i quali √® prevista la detrazione d'imposta
+	--DB001027 Totale oneri per i quali Ë prevista la detrazione d'imposta
 				INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '027', @zb27oneridetraibili)
 	--DB001035 Applicazione maggiore ritenuta
 				INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '035', @zb35maggioreritenuta)
@@ -789,8 +791,8 @@ AS BEGIN
 					where idcon=@chiave and fiscalyear=2006 /*and idexhibitedcud not in
 						(select idexhibitedcud from exhibitedcud where idcon=@chiave)*/
 	
-	--DB001045 Totale redditi conguagliato gi√† compreso nel punto 1
-				INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '045', @zb45totaleredditiconguagliato)--Totale redditi conguagliato gi√† compreso nel punto 1
+	--DB001045 Totale redditi conguagliato gi‡ compreso nel punto 1
+				INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '045', @zb45totaleredditiconguagliato)--Totale redditi conguagliato gi‡ compreso nel punto 1
 
 				declare @cursorecud cursor
 				set @cursorecud = cursor for 
@@ -880,8 +882,8 @@ AS BEGIN
 			if @wb1RedditoDedArt11 < @imponibileaddreg set @wb1RedditoDedArt11 = @imponibileaddreg
 			set @wb17notaxarea = @wb1RedditoDedArt11 - @imponibilelordoirpef + @deduzioneirpef
 --sempre wizard		
-			-- Questo dato √® MOLTO fittizio in quanto non viene gestito nelle vecchie tabelle, potr√† essere valorizzato
-			-- seriamente a partire dal prossimo anno quando sar√† utilizzato il modulo COCOCO
+			-- Questo dato Ë MOLTO fittizio in quanto non viene gestito nelle vecchie tabelle, potr‡ essere valorizzato
+			-- seriamente a partire dal prossimo anno quando sar‡ utilizzato il modulo COCOCO
 			SELECT @wb3workingdays = SUM(ISNULL(DATEDIFF(DAY, expenselast.servicestart,expenselast.servicestop),1))
 				FROM expenselast
 				WHERE idexp=@chiave
@@ -893,9 +895,9 @@ AS BEGIN
 
 			
 			-- N.B. I campi da DB001015 a DB001019 non sono attualmente gestiti. Possono essere valorizzati nel prossimo anno quando
-			-- verr√† usato il modulo PARASUBORDINATI
+			-- verr‡ usato il modulo PARASUBORDINATI
 			-- Calcolo del campo DB001031 (Imponibile IRPEF):
-			-- Secondo le specifiche il risultato √® dato da DB001001 + DB001002 - DB001024 - DB001042
+			-- Secondo le specifiche il risultato Ë dato da DB001001 + DB001002 - DB001024 - DB001042
 			-- I campi DB001002 e DB001042 non vengono gestiti quindi l'espresisone diventa
 			-- DB001001 - DB001024
 			SET @wb19ImponibileIrpef = 0
@@ -906,9 +908,9 @@ AS BEGIN
 
 			set @wb20ImpostaLorda = @wb5ritIRPEF + @wb21detrazionefiscale
 --sempre wizard
-	--DB001001 Redditi per i quali √® possibile fruire della deduzione di cui all'art. 11 del TUIR
+	--DB001001 Redditi per i quali Ë possibile fruire della deduzione di cui all'art. 11 del TUIR
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '001', @wb1RedditoDedArt11)
-	--DB001002 Redditi per i quali √® possibile fruire della sola deduzione di cui all'art.11, c. 1 del TUIR
+	--DB001002 Redditi per i quali Ë possibile fruire della sola deduzione di cui all'art.11, c. 1 del TUIR
 			-- Il campo seguente viene posto a zero in quanto non riusciamo a distinguere tali prestazioni e, quindi a valorizzarlo correttamente
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '002', 0)
 	--DB001003 Numero di giorni per i quali spettano le deduzioni di cui all'art. 11 commi 2 e 3 del TUIR - LAVORO DIPENDENTE
@@ -921,7 +923,7 @@ AS BEGIN
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '007', @wb7add_com)
 	--DB001A07 Addizionale comunale all'Irpef - Acconto 2007
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, 'A07', @wb7accontoaddcom)
-	--DB001017 Deduzione per la progressivit√† dell'imposizione(art. 11 del TUIR)
+	--DB001017 Deduzione per la progressivit‡ dell'imposizione(art. 11 del TUIR)
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '017', @wb17notaxarea)
 	--DB001018 Deduzione per coniuge e familiari a carico (art. 12, cc. 1 e 2 del TUIR)
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '018', @wb18notaxfamilyarea)
@@ -933,7 +935,7 @@ AS BEGIN
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '021', @wb21detrazionefiscale)
 	--DB001026 Totale oneri sostenuti esclusi dai redditi indicati nei punti 1 e 2
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '026', @wb26deductionart10)
-	--DB001027 Totale oneri per i quali √® prevista la detrazione d'imposta
+	--DB001027 Totale oneri per i quali Ë prevista la detrazione d'imposta
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '027', @wb27oneridetraibili)
 	--DB001035 Applicazione maggiore ritenuta
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DB', 1, '035', @wb35maggioreritenuta)
@@ -992,9 +994,9 @@ AS BEGIN
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DC', 1, '014', ROUND(@wc14ritprevtrattenuta,0))
 	--DCXXX015 Contributi versati
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DC', 1, '015', ROUND(@wc15ritprevpagata,0))
-	--DCXXX016 Mesi per i quasi √® stata presentata la denuncia EMens - Tutti
+	--DCXXX016 Mesi per i quasi Ë stata presentata la denuncia EMens - Tutti
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DC', 1, '016', @wc16emensTuttiIMesi)
-	--DCXXX017 Mesi per i quasi √® stata presentata la denuncia EMens - Tutti con esclusione di
+	--DCXXX017 Mesi per i quasi Ë stata presentata la denuncia EMens - Tutti con esclusione di
 			INSERT INTO #recordg (progr, quadro, riga, colonna, stringa) VALUES(@progrComunic, 'DC', 1, '017', @wc17mesiSenzaEmens)
 
 			--Dati assicurativi INAIL
@@ -1149,9 +1151,9 @@ select * from #cedolini*/
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DC', 1, '014', @zc14ritprevtrattenuta)--Contributi a carico del collaboratore trattenuti
 	--DCXXX015 Contributi versati
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DC', 1, '015', @zc15ritprevpagata)--Contributi versati
-	--DCXXX016 Mesi per i quasi √® stata presentata la denuncia EMens - Tutti
+	--DCXXX016 Mesi per i quasi Ë stata presentata la denuncia EMens - Tutti
 			INSERT INTO #recordg (progr, quadro, riga, colonna, intero) VALUES(@progrComunic, 'DC', 1, '016', 0)
-	--DCXXX017 Mesi per i quasi √® stata presentata la denuncia EMens - Tutti con esclusione di
+	--DCXXX017 Mesi per i quasi Ë stata presentata la denuncia EMens - Tutti con esclusione di
 			INSERT INTO #recordg (progr, quadro, riga, colonna, stringa) VALUES(@progrComunic, 'DC', 1, '017', @zc17mesiSenzaEmens)
 
 			declare @cursorecedolini cursor
@@ -1213,4 +1215,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

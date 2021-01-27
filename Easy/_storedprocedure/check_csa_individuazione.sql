@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[check_csa_individuazione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[check_csa_individuazione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [check_csa_individuazione]
 GO
 SET ANSI_NULLS ON
@@ -276,7 +278,7 @@ end
   ISNULL(csa_importver.flagclawback,'N') = 'N' 
   AND (idfin_cost is  not   null or  idexp_cost is not null) and isnull(importo,0) <0)
 begin
-	INSERT INTO #errors VALUES( 'Contributi con importo negativo (non √® un errore)', 20,'N')
+	INSERT INTO #errors VALUES( 'Contributi con importo negativo (non Ë un errore)', 20,'N')
 end
 
  --21) Righe Versamenti Associate a Config. Contributi e non a Incassi
@@ -288,13 +290,13 @@ begin
 end
     
 
- --22) Righe Versamenti non configurate correttamente n√® come Contributi, n√® come Ritenute, n√® Recuperi
+ --22) Righe Versamenti non configurate correttamente nË come Contributi, nË come Ritenute, nË Recuperi
  if exists (  SELECT * FROM csa_importver WHERE idcsa_import = @idcsa_import AND
   ISNULL(csa_importver.flagclawback,'N') = 'N' 
   AND idcsa_contractkinddata is   null and  idcsa_contracttax is null  and idfin_income is   null 
   and idfin_expense is  null)
 begin
-	INSERT INTO #errors VALUES( ' Righe Versamenti non configurate correttamente n√® come Contributi, n√® come Ritenute, n√® come Recuperi', 22,'S')
+	INSERT INTO #errors VALUES( ' Righe Versamenti non configurate correttamente nË come Contributi, nË come Ritenute, nË come Recuperi', 22,'S')
 end
          
 --23) Recuperi negativi su partita di giro e diretti: idfin_cost per movimento di spesa  di costo
@@ -1113,4 +1115,3 @@ SET ANSI_NULLS ON
 GO
  
  
-	

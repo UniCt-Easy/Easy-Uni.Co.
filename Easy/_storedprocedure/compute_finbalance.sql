@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[compute_finbalance]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[compute_finbalance]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_finbalance]
 GO
 
@@ -269,7 +271,7 @@ INSERT INTO #pagamenti
 SELECT
 	ISNULL(finlink.idparent,expenseyear.idfin),
 	expenseyear.idupb,
-	SUM(ISNULL(HPV.curramount,0.0)) -- prima prendeva curramount da expensetotal, ma anche curramount di HPV √® preso da expensetotal
+	SUM(ISNULL(HPV.curramount,0.0)) -- prima prendeva curramount da expensetotal, ma anche curramount di HPV Ë preso da expensetotal
 FROM expenseyear
 JOIN historypaymentview HPV
 	ON expenseyear.idexp = HPV.idexp
@@ -531,7 +533,7 @@ BEGIN
 	UPDATE #finbalance
 	SET 
 -- Calcola  Residui Attivi x le Spese sia x i fondi che x i non fondi,  ***   COME PRIMA    ***
--- x√≤ solo x le Spese xk√® x le entrate (solo fondi) saranno calcolati in modo speculare alle S
+-- xÚ solo x le Spese xkË x le entrate (solo fondi) saranno calcolati in modo speculare alle S
 	revenue =
 		ISNULL(totcredit,0)	
 		+ ISNULL(
@@ -550,8 +552,8 @@ BEGIN
 	WHERE (finpart ='S')
 	UPDATE #finbalance
 	SET 
--- Calcola i Residui Attivi Effettivi in Entrata solo x i fondi, x i non fondi sar√† 0 (Il calcolo √® fatto speculare ai residui passivi)
--- serve  x calcolare il valore di assestamento che √® fatto solo x i fondi
+-- Calcola i Residui Attivi Effettivi in Entrata solo x i fondi, x i non fondi sar‡ 0 (Il calcolo Ë fatto speculare ai residui passivi)
+-- serve  x calcolare il valore di assestamento che Ë fatto solo x i fondi
 	revenue_E =
 		ISNULL(
 			(SELECT amount 
@@ -870,4 +872,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

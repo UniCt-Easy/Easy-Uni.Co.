@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_unified_riepilogoiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_unified_riepilogoiva]
 GO
@@ -54,7 +56,7 @@ AS BEGIN
 	
 	-- exp_unified_riepilogoiva 5,null,2011,1,12,'S'
 	
-	-- se la stampa non √® consolidata 	
+	-- se la stampa non Ë consolidata 	
 	DECLARE @codeinvkind  varchar(20)
 	SET @codeinvkind = (SELECT codeinvkind FROM invoicekind WHERE idinvkind = @idinvkind)
 	
@@ -210,7 +212,7 @@ AS BEGIN
            	registername as 'Registro', 
 			--departmentname as 'Dipartimento', 
 			attributo1 as 'Attributo1',
-			label as 'Esigibilit√†/Detraibilit√†', 
+			label as 'Esigibilit‡/Detraibilit‡', 
 			invoicekind as 'Tipo Fattura', 
 			yinv as 'Eserc. Fattura', 
 			ninv as 'Num. Fattura', 
@@ -233,8 +235,8 @@ AS BEGIN
 			reverse_charge as 'Reverse Charge',
 			intrastatoperationkind  as 'Tipo oper. Intrastat',	
 			service		as 'Servizio',		
-			paymethod	as 'Modalit√† pagamento/incasso'	,		
-			idintrastatsupplymethod as 'Modalit√† erogazione',	
+			paymethod	as 'Modalit‡ pagamento/incasso'	,		
+			idintrastatsupplymethod as 'Modalit‡ erogazione',	
 			nation_payment	as 'Paese pagam.',	
 			intrastatkind	as 'Nat. Transazione',
 			measure	 as 'Un. misura suppl.',
@@ -264,4 +266,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

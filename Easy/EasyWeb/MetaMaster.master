@@ -102,7 +102,7 @@
             </asp:ContentPlaceHolder>
         </div>
         <asp:TextBox ID="TxSavedFocus" CssClass="savefocus" runat="server" Style="display: none;"  TabIndex ="-1" Width="300px"></asp:TextBox>
-        <div  id="Div_CHPList" runat="server" style="display: inline-block; width: 800px;" >
+        <div  id="Div_CHPList" runat="server" style="display: inline-block; position: absolute; width: 80%; left: 10%;  top:10%" >
             <asp:ContentPlaceHolder ID="CHP_List" runat="server">
 
 
@@ -162,7 +162,7 @@
     </asp:ContentPlaceHolder>
     
     <script type="text/javascript" src="js/jquery.pgrid.min.js"></script>
-    <script type="text/javascript" src="js/allmine.js"></script>
+    <script type="text/javascript" src="js/allmine.js?v=1"></script>
 
 
     <asp:ContentPlaceHolder ID="JScriptAfterLibs" runat="server">

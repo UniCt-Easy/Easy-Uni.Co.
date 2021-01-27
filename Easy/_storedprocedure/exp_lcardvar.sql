@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_lcardvar]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_lcardvar]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_lcardvar]
 GO
 
@@ -57,14 +59,14 @@ WHERE	fin.idfin = @idfin_store
 		lcardview.extcode as 'Cod. esterno',
 		lcardview.manager as 'Titolare',
 		lcardview.store as 'Magazzino',
-		'nÂ° ' + convert (varchar(4),lcardvar.nlvar) +  '/' + convert (varchar(10),lcardvar.ylvar) + 'del ' +
+		'n° ' + convert (varchar(4),lcardvar.nlvar) +  '/' + convert (varchar(10),lcardvar.ylvar) + 'del ' +
 		convert(varchar(10), lcardvar.adate,105 )  as 'Richiesta Ricarica',
 		--lcardvar.adate as 'Data Rich.',
 		lcardvar.amount as 'Importo Rich.',
-		'nÂ° ' +convert (varchar(10),finvar.nvar) +  '/' + convert (varchar(4),finvar.yvar) + 'del ' + 
+		'n° ' +convert (varchar(10),finvar.nvar) +  '/' + convert (varchar(4),finvar.yvar) + 'del ' + 
 		convert(varchar(10), finvar.adate,105)  as 'Var. bilancio',
 		finvar.nofficial as 'Num. ufficiale',
-		'nÂ° ' + convert (varchar(10),enactment.nenactment) + '/' + convert (varchar(4),enactment.yenactment) as 'Atto Amministrativo',  
+		'n° ' + convert (varchar(10),enactment.nenactment) + '/' + convert (varchar(4),enactment.yenactment) as 'Atto Amministrativo',  
 		finvar.description as 'Descr. Var',
 		abs(f1.amount) as 'Importo. dett.',
 		CASE
@@ -108,4 +110,3 @@ SET ANSI_NULLS ON
 GO
 
 --[exp_lcardvar] 9, 2011
-	

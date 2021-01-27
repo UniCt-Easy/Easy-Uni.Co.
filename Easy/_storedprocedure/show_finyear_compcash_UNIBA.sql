@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[show_finyear_compcash_UNIBA]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[show_finyear_compcash_UNIBA]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [show_finyear_compcash_UNIBA]
 GO
 
@@ -591,9 +593,9 @@ DECLARE @totalpay_R decimal(19,2)
 ------------------------------------------------------------------------------------------------------------------------------------------------
 DECLARE @finphase_descr varchar(50) -- Nome della fase 'Accertamento' - 'Impegno'
 DECLARE @maxphase_descr varchar(50) -- Nome della fase 'Riga Reversale' - 'Riga Mandato'
-DECLARE @lbl_assessmentavailable varchar(150) -- Etichetta sulla disponibilit√† ad accertate
-DECLARE @lbl_appropriationavailable varchar(150) -- Etichetta sulla disponibilit√† ad impegnare che varia in base alla presenza delle operazioni del fondo economale
-DECLARE @lbl_available_firstphase varchar(150) -- Etichetta sulla disponibilit√† calcolata sulla prima fase di entrata o di spesa 
+DECLARE @lbl_assessmentavailable varchar(150) -- Etichetta sulla disponibilit‡ ad accertate
+DECLARE @lbl_appropriationavailable varchar(150) -- Etichetta sulla disponibilit‡ ad impegnare che varia in base alla presenza delle operazioni del fondo economale
+DECLARE @lbl_available_firstphase varchar(150) -- Etichetta sulla disponibilit‡ calcolata sulla prima fase di entrata o di spesa 
 IF @finpart = 'E'
 BEGIN
 	-- Gestione in c/competenza
@@ -621,12 +623,12 @@ BEGIN
 			FROM #var_finphase_C_dim
 			WHERE nphase = @phasecod
 	---------------------------------------------------------------------------------------------------------------------------------------------
-	-- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui √® imputata
+	-- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui Ë imputata
 	-- la voce di bilancio prendere in considerazione anche la previsione disponibile calcolata su questa fase 
 	---------------------------------------------------------------------------------------------------------------------------------------------
 		IF (@phasecod = @finphase and @finphase < @assessmentphase )
 		BEGIN
-			SELECT @lbl_available_firstphase = '   Disponibilit√† per ulteriore ' + '"' + @phasedescr + '"'
+			SELECT @lbl_available_firstphase = '   Disponibilit‡ per ulteriore ' + '"' + @phasedescr + '"'
 			INSERT INTO #situation VALUES(@lbl_available_firstphase,
 				ISNULL(@current_prevision, 0) -
 				ISNULL(@mov_C, 0) -
@@ -642,7 +644,7 @@ BEGIN
 				ISNULL(@mov_C,0)+
 				ISNULL(@var_C_aum,0)+
 				ISNULL(@var_C_dim,0),'')
-			SELECT @lbl_assessmentavailable = 'Disponibilit√† per ' + '"' + @phasedescr + '"' +' (Prev. Attuale - 3'
+			SELECT @lbl_assessmentavailable = 'Disponibilit‡ per ' + '"' + @phasedescr + '"' +' (Prev. Attuale - 3'
 			IF (@phasecod = @residualphase) -- Informazioni inerenti gli accertamenti
 			BEGIN
 				SELECT @lbl_assessmentavailable = @lbl_assessmentavailable + ')'
@@ -772,12 +774,12 @@ BEGIN
 			FROM #var_finphase_C_dim
 			WHERE nphase = @phasecod
 	---------------------------------------------------------------------------------------------------------------------------------------------
-	-- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui √® imputata
+	-- Se la fase corrispondente all'accertamento o impegno non coincide con la prima fase di entrata o spesa in cui Ë imputata
 	-- la voce di bilancio occorre prendere in considerazione la previsione disponibile calcolata su questa fase 
 	---------------------------------------------------------------------------------------------------------------------------------------------
 		IF (@phasecod = @finphase and @finphase < @assessmentphase )
 		BEGIN
-			SELECT @lbl_available_firstphase = '   Disponibilit√† per ulteriore ' + '"' + @phasedescr + '"'
+			SELECT @lbl_available_firstphase = '   Disponibilit‡ per ulteriore ' + '"' + @phasedescr + '"'
 			INSERT INTO #situation VALUES(@lbl_available_firstphase,
 				ISNULL(@current_prevision, 0) -
 				ISNULL(@mov_C,0) -
@@ -799,7 +801,7 @@ BEGIN
 			ISNULL(@mov_C,0) +
 			ISNULL(@var_C_aum,0) +
 			ISNULL(@var_C_dim,0), '')
-			SELECT @lbl_appropriationavailable = 'Disponibilit√† per ' + '"' + @phasedescr + '"' +' (Prev. Attuale - 3'
+			SELECT @lbl_appropriationavailable = 'Disponibilit‡ per ' + '"' + @phasedescr + '"' +' (Prev. Attuale - 3'
 			IF (@pettycash > 0)
 				BEGIN
 					INSERT INTO #situation	
@@ -957,7 +959,7 @@ BEGIN
 			ISNULL(@mov_R,0) +
 			ISNULL(@var_C,0) +
 			ISNULL(@var_R,0),'')
-		SELECT @lbl_assessmentavailable = 'Disponibilit√† per ' + '"' + @phasedescr + '"'+' (Prev. Attuale - 3'
+		SELECT @lbl_assessmentavailable = 'Disponibilit‡ per ' + '"' + @phasedescr + '"'+' (Prev. Attuale - 3'
 		IF (@phasecod = @assessmentphase)
 		BEGIN
 			SELECT @lbl_assessmentavailable = @lbl_assessmentavailable + ')'
@@ -982,7 +984,7 @@ BEGIN
 				ISNULL(@var_C,0) -
 				ISNULL(@mov_R,0) -
 				ISNULL(@var_R,0),'S')
-				INSERT INTO #situation	VALUES('Disponibilit√† ad incassare (Reversali)', 
+				INSERT INTO #situation	VALUES('Disponibilit‡ ad incassare (Reversali)', 
 				ISNULL(@current_secprevision, 0) -
 				ISNULL(@proceeds,0)
 				, 'S')
@@ -1137,7 +1139,7 @@ BEGIN
 			ISNULL(@mov_R,0) +
 			ISNULL(@var_C,0) +
 			ISNULL(@var_R,0),'')
-		SELECT @lbl_appropriationavailable = 'Disponibilit√† per ' + '"' + @phasedescr + '"' + ' (Prev. Attuale - 3'
+		SELECT @lbl_appropriationavailable = 'Disponibilit‡ per ' + '"' + @phasedescr + '"' + ' (Prev. Attuale - 3'
 		IF (@pettycash > 0)
 		BEGIN
 			INSERT INTO #situation	VALUES(
@@ -1173,7 +1175,7 @@ BEGIN
 				ISNULL(@mov_R,0) -
 				ISNULL(@var_R,0),'S')
 			INSERT INTO #situation 
-			VALUES('Disponibilit√† a pagare (Mandati)',
+			VALUES('Disponibilit‡ a pagare (Mandati)',
 				ISNULL(@current_secprevision, 0) -
 				ISNULL(@payment,0) -
 				ISNULL(@pettycash,0)
@@ -1308,4 +1310,3 @@ GO
 
 
 
-	

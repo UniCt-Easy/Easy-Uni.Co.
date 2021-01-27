@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -32,12 +34,12 @@ namespace meta_itineration//meta_missione//
 			base(Conn, Dispatcher, "itineration") {
 			EditTypes.Add("default");
 			ListingTypes.Add("lista");
-			//----------------------------------instm-------------------------------begin
+			//----------------------------------segreterie-------------------------------begin
 			Name = "Missioni";
-			EditTypes.Add("instm_instmuser");
-			ListingTypes.Add("instm_instmuser");
+			EditTypes.Add("seg");
+			ListingTypes.Add("seg");
 			//$EditTypes$
-			//----------------------------------instm-------------------------------end
+			//----------------------------------segreterie-------------------------------end
 		}
 		protected override Form GetForm(string FormName) {
 			if (FormName == "default") {
@@ -319,27 +321,9 @@ namespace meta_itineration//meta_missione//
 			}
 		}
 
-		public override string GetSorting(string ListingType) {
+		//$GetSortings$
 
-			switch (ListingType) {
-					case "instm_instmuser": {
-						return "start asc , starttime asc , stop asc , stoptime asc ";
-					}
-				//$GetSorting$
-			}
-			return base.GetSorting(ListingType);
-		}
-
-		public override string GetStaticFilter(string ListingType) {
-			switch (ListingType) {
-					case "instm_instmuser": {
-						return "(idreg='" + security.GetUsr("idreg").ToString() + "')";
-						break;
-					}
-				//$GetStaticFilter$
-			}
-			return base.GetStaticFilter(ListingType);
-		}
+		//$GetStaticFilter$
 
 		//----------------------------------instm-------------------------------end
 

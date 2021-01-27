@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[compute_pccoperation]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[compute_pccoperation]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_pccoperation]
 GO
 
@@ -22,7 +24,7 @@ GO
 SET ANSI_NULLS ON 
 GO
  
--- il parametro Ã¨ la data contabile. Quindi prendiamo tutte le operazioni emesse alla data contabile,  contabilizzate alla data, pagate alla data, scadute ala data...
+-- il parametro è la data contabile. Quindi prendiamo tutte le operazioni emesse alla data contabile,  contabilizzate alla data, pagate alla data, scadute ala data...
 -- protocollate nel R.U.
 --setuser'amm'
 -- setuser 'amministrazione'
@@ -132,7 +134,7 @@ create table #dati(
 	dataemissione datetime,
 	numerodocumento varchar(20),
 	importototaledocumento decimal(19,2),
-	descrizione varchar(100),	--> da usare quando il doc. non Ã¨ contabilizzati
+	descrizione varchar(100),	--> da usare quando il doc. non è contabilizzati
 	idexpimpegno int,
 	cigcode varchar(15),
 	cupcode varchar(15),
@@ -234,7 +236,7 @@ Begin
 								CONVERT(DECIMAL(19,10),I.exchangerate) *
 									(1 - CONVERT(DECIMAL(19,6),ISNULL(ID.discount, 0.0)))
 										,2
-								)),0) -- Se non Ã¨ contabilizzato prende il tot. riga
+								)),0) -- Se non è contabilizzato prende il tot. riga
 					when isnull(I.flag_enable_split_payment,'N') = 'S' and isnull(I.flag_reverse_charge,'N')='S'
 						then isnull(CONVERT(decimal(19,2),ROUND(ID.taxable * ISNULL(ID.npackage,ID.number) * 
 								CONVERT(DECIMAL(19,10),I.exchangerate) *
@@ -261,7 +263,7 @@ Begin
 								CONVERT(DECIMAL(19,10),I.exchangerate) *
 									(1 - CONVERT(DECIMAL(19,6),ISNULL(ID.discount, 0.0)))
 										,2
-								)),0) -- Se non Ã¨ contabilizzato prende il tot. riga
+								)),0) -- Se non è contabilizzato prende il tot. riga
 					when isnull(I.flag_enable_split_payment,'N') = 'S'  and isnull(I.flag_reverse_charge,'N')='N'
 						then isnull(CONVERT(decimal(19,2),ROUND(ID.taxable * ISNULL(ID.npackage,ID.number) * 
 								CONVERT(DECIMAL(19,10),I.exchangerate) *
@@ -294,7 +296,7 @@ Begin
 				and (
 					exists (select * from pccsend P (nolock) where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv)
 					OR 
-					I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchÃ¨ Ã¨ il SdI che le invia alla PCC e non piÃ¹ noi.
+					I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchè è il SdI che le invia alla PCC e non più noi.
 					)
 				and (
 					-- se non esiste
@@ -303,7 +305,7 @@ Begin
 					AND
 					not exists(select * from pccexpense P (nolock) where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv and P.invrownum  = ID.rownum)
 					)
-					OR -- oppure esiste ma lo stato Ã¨ diverso da quello della ultima trasmissione del dettaglio in oggetto
+					OR -- oppure esiste ma lo stato è diverso da quello della ultima trasmissione del dettaglio in oggetto
 					ID.idpccdebitstatus <>(select top 1 expensetaxkind from pccexpense P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv and P.invrownum = ID.rownum
 											order by idpcc desc)
 				)
@@ -312,7 +314,7 @@ Begin
 								join invoicedetail ID2
 									on P.idinvkind = ID2.idinvkind and P.yinv = ID2.yinv and P.ninv = ID2.ninv and P.invrownum  = ID2.rownum
 								where ID2.idinvkind = ID.idinvkind and ID2.yinv = ID.yinv and ID2.ninv = ID.ninv and ID2.idgroup  = ID.idgroup and ID2.rownum  <> ID.rownum)
-				-- non Ã¨ stata trasmessa la scadenza
+				-- non è stata trasmessa la scadenza
 				-- and not exists (select * from pccexpiring P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 				AND (@idsor01 IS NULL OR I.idsor01 = @idsor01)
 				AND (@idsor02 IS NULL OR I.idsor02 = @idsor02)
@@ -323,21 +325,15 @@ Begin
 				AND ISNULL(ID.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 				and (isnull(ID.flagbit,0) & 4) = 0
 				and RR.coderesidence='I'
-				-- non Ã¨ stata trasmesso alcun pagamento, task 7277 
+				-- non è stata trasmesso alcun pagamento, task 7277 
 				AND not exists (select TOP 1 idpcc from pccpayment P (nolock) where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 				-- non ci sono dettagli che restano negativi dopo l'aggregazione, altrimenti scarta tutta la fattura
 				AND (select count(*) from invoiceresidualmandate IR
 								where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv and (IR.taxabletotal + IR.ivatotal) <0) = 0 
 				AND isnull(I.taxable,0) >0 -- Solo fatture con imponibile maggiore di zero. Vi possono essere fatture con impon. 0 e iva >0
-				and not exists (select T.transmissiondate from expenselast 
-													JOIN payment P ON P.kpay = expenselast.kpay
-													JOIN paymenttransmission T ON T.kpaymenttransmission = P.kpaymenttransmission
-								where expenselast.idexp = ID.idexp_taxable and T.transmissiondate<=@adate and P.ypay>=2019 )
-				and not exists (select T.transmissiondate from expenselast 
-													JOIN payment P ON P.kpay = expenselast.kpay
-													JOIN paymenttransmission T ON T.kpaymenttransmission = P.kpaymenttransmission
-								where expenselast.idexp = ID.idexp_iva and T.transmissiondate<=@adate and P.ypay>=2019 )
-		 
+				and not exists (select T.idexp from expenselast T			 
+								where T.idexp = ID.idexp_taxable OR T.idexp = ID.idexp_iva )
+
 
 		-- CONTABILIZZAZIONI Fatture non collegate a C.P.
 		-- Tipo contabilizzazione:  totale e solo iva, considera solo le fatture NO Split-payment
@@ -420,7 +416,7 @@ Begin
 				or 	ID.idexp_iva IS NOT NULL and  ID.idexp_iva <> isnull(ID.idexp_taxable,''))  -- contab. totale e solo iva
 			and (exists (select * from pccsend P where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
 				OR 
-				I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchÃ¨ Ã¨ il SdI che le invia alla PCC e non piÃ¹ noi.
+				I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchè è il SdI che le invia alla PCC e non più noi.
 				)
 			and (
 				-- se non esiste
@@ -430,7 +426,7 @@ Begin
 					not exists(select * from pccexpense P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv and P.invrownum  = ID.rownum)
 					)
 				or
-				-- oppure esiste ma lo stato Ã¨ diverso da quello della ultima trasmissione del dettaglio in oggetto
+				-- oppure esiste ma lo stato è diverso da quello della ultima trasmissione del dettaglio in oggetto
 				ID.idpccdebitstatus <>(select top 1 expensetaxkind from pccexpense P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv and P.invrownum = ID.rownum
 										order by idpcc desc)
 			)
@@ -439,7 +435,7 @@ Begin
 								join invoicedetail ID2
 									on P.idinvkind = ID2.idinvkind and P.yinv = ID2.yinv and P.ninv = ID2.ninv and P.invrownum  = ID2.rownum
 								where ID2.idinvkind = ID.idinvkind and ID2.yinv = ID.yinv and ID2.ninv = ID.ninv and ID2.idgroup  = ID.idgroup and ID2.rownum  <> ID.rownum)
-			-- non Ã¨ stata trasmessa la scadenza
+			-- non è stata trasmessa la scadenza
 			--and not exists (select * from pccexpiring P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 			AND (@idsor01 IS NULL OR I.idsor01 = @idsor01)
 			AND (@idsor02 IS NULL OR I.idsor02 = @idsor02)
@@ -450,21 +446,15 @@ Begin
 			AND ISNULL(ID.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 			and (isnull(ID.flagbit,0) & 4) = 0
 			and RR.coderesidence='I'
-			-- non Ã¨ stata trasmesso alcun pagamento, task 7277 
+			-- non è stata trasmesso alcun pagamento, task 7277 
 			AND not exists (select * from pccpayment P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 			---AND not exists (select * from profservice P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )	--	RIMOSSO
 				-- non ci sono dettagli che restano negativi dopo l'aggregazione, altrimenti scarta tutta la fattura
 			AND (select count(*) from invoiceresidualmandate IR
 					where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv and (IR.taxabletotal + IR.ivatotal) <0) = 0 
 			AND isnull(I.taxable,0) >0 -- Solo fatture con imponibile maggiore di zero. Vi possono essere fatture con impon. 0 e iva >0
-			and not exists (select T.transmissiondate from expenselast 
-												JOIN payment P ON P.kpay = expenselast.kpay
-												JOIN paymenttransmission T ON T.kpaymenttransmission = P.kpaymenttransmission
-							where expenselast.idexp = ID.idexp_taxable and T.transmissiondate<=@adate and P.ypay>=2019 )
-			and not exists (select T.transmissiondate from expenselast 
-												JOIN payment P ON P.kpay = expenselast.kpay
-												JOIN paymenttransmission T ON T.kpaymenttransmission = P.kpaymenttransmission
-							where expenselast.idexp = ID.idexp_iva and T.transmissiondate<=@adate and P.ypay>=2019 )
+			and not exists (select T.idexp from expenselast T			 
+								where T.idexp = ID.idexp_taxable OR T.idexp = ID.idexp_iva )
 -- Topo contabilizzazione:  solo imponibile, considera sia le fatture Split-payment, che quelle NO split-payment
 		INSERT INTO #dati(
 			opkind,
@@ -527,7 +517,7 @@ Begin
 			and I.docdate between @1luglio2014 and @adate 
 			and (exists (select TOP 1 idpcc from pccsend P where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
 				OR 
-				I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchÃ¨ Ã¨ il SdI che le invia alla PCC e non piÃ¹ noi.
+				I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchè è il SdI che le invia alla PCC e non più noi.
 				)
 			and (
 				-- se non esiste
@@ -537,7 +527,7 @@ Begin
 					not exists(select TOP 1 idpcc from pccexpense P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv and P.invrownum  = ID.rownum)
 					)
 				or
-				-- oppure esiste ma lo stato Ã¨ diverso da quello della ultima trasmissione del dettaglio in oggetto
+				-- oppure esiste ma lo stato è diverso da quello della ultima trasmissione del dettaglio in oggetto
 				ID.idpccdebitstatus <>(select top 1 expensetaxkind from pccexpense P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv and P.invrownum = ID.rownum
 										order by idpcc desc)
 			)
@@ -546,7 +536,7 @@ Begin
 								join invoicedetail ID2
 									on P.idinvkind = ID2.idinvkind and P.yinv = ID2.yinv and P.ninv = ID2.ninv and P.invrownum  = ID2.rownum
 								where ID2.idinvkind = ID.idinvkind and ID2.yinv = ID.yinv and ID2.ninv = ID.ninv and ID2.idgroup  = ID.idgroup and ID2.rownum  <> ID.rownum)
-			-- non Ã¨ stata trasmessa la scadenza
+			-- non è stata trasmessa la scadenza
 			--and not exists (select * from pccexpiring P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 			AND (@idsor01 IS NULL OR I.idsor01 = @idsor01)
 			AND (@idsor02 IS NULL OR I.idsor02 = @idsor02)
@@ -558,21 +548,15 @@ Begin
 			AND ISNULL(ID.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 			and (isnull(ID.flagbit,0) & 4) = 0
 			and RR.coderesidence='I'
-			-- non Ã¨ stata trasmesso alcun pagamento, task 7277 
+			-- non è stata trasmesso alcun pagamento, task 7277 
 			---AND not exists (select * from profservice P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )--	RIMOSSO
 			AND not exists (select * from pccpayment P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 			-- non ci sono dettagli che restano negativi dopo l'aggregazione, altrimenti scarta tutta la fattura
 			AND (select count(*) from invoiceresidualmandate IR
 							where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv and (IR.taxabletotal + IR.ivatotal) <0) = 0 
 			AND isnull(I.taxable,0) >0 -- Solo fatture con imponibile maggiore di zero. Vi possono essere fatture con impon. 0 e iva >0
-			and not exists (select T.transmissiondate from expenselast 
-												JOIN payment P ON P.kpay = expenselast.kpay
-												JOIN paymenttransmission T ON T.kpaymenttransmission = P.kpaymenttransmission
-							where expenselast.idexp = ID.idexp_taxable and T.transmissiondate<=@adate and P.ypay>=2019 )
-			and not exists (select T.transmissiondate from expenselast 
-												JOIN payment P ON P.kpay = expenselast.kpay
-												JOIN paymenttransmission T ON T.kpaymenttransmission = P.kpaymenttransmission
-							where expenselast.idexp = ID.idexp_iva and T.transmissiondate<=@adate and P.ypay>=2019 )
+			and not exists (select T.idexp from expenselast T			 
+								where T.idexp = ID.idexp_taxable OR T.idexp = ID.idexp_iva )
 
 		-- CONTABILIZZAZIONI Fatture collegate a Parcella Professionale(nuova gestione, collegamento nei dettagli)
 
@@ -632,7 +616,7 @@ Begin
 			and ET.ayear = year(@adate)
 			and (exists (select * from pccsend S where S.idinvkind = I.idinvkind and S.yinv = I.yinv and S.ninv = I.ninv)
 				OR 
-				I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchÃ¨ Ã¨ il SdI che le invia alla PCC e non piÃ¹ noi.
+				I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchè è il SdI che le invia alla PCC e non più noi.
 				)
 			and (
 				-- se non esiste
@@ -642,11 +626,11 @@ Begin
 				not exists(select * from pccexpense P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv and P.invrownum  = ID.rownum)
 				)
 				or
-				-- oppure esiste ma lo stato Ã¨ diverso da quello della ultima trasmissione del dettaglio in oggetto
+				-- oppure esiste ma lo stato è diverso da quello della ultima trasmissione del dettaglio in oggetto
 				ID.idpccdebitstatus <>(select top 1 expensetaxkind from pccexpense C where C.idinvkind = ID.idinvkind and C.yinv = ID.yinv and C.ninv = ID.ninv and C.invrownum = ID.rownum
 										order by idpcc desc)
 			)
-			-- non Ã¨ stata trasmessa la scadenza
+			-- non è stata trasmessa la scadenza
 			--and not exists (select * from pccexpiring P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 			AND (@idsor01 IS NULL OR P.idsor01 = @idsor01)
 			AND (@idsor02 IS NULL OR P.idsor02 = @idsor02)
@@ -658,7 +642,7 @@ Begin
 			AND (isnull(ID.taxable,0) > 0  )-- le righe con imponibile a 0 vengono rifiutate
 			and (isnull(ID.flagbit,0) & 4) = 0
 				and RR.coderesidence='I'
-			-- non Ã¨ stata trasmesso alcun pagamento, task 7277 
+			-- non è stata trasmesso alcun pagamento, task 7277 
 			AND not exists (select * from pccpayment P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 			-- task 7247 se pccexpense non esiste un suo fratello trasmesso	con l'operazione di CO.
 			and not exists(select * from pccexpense P
@@ -733,7 +717,7 @@ Begin
 			and ET.ayear = year(@adate)
 			and (exists (select * from pccsend S where S.idinvkind = I.idinvkind and S.yinv = I.yinv and S.ninv = I.ninv)
 				OR 
-				I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchÃ¨ Ã¨ il SdI che le invia alla PCC e non piÃ¹ noi.
+				I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchè è il SdI che le invia alla PCC e non più noi.
 				)
 			and (
 				-- se non esiste
@@ -743,11 +727,11 @@ Begin
 				not exists(select * from pccexpense P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv and P.invrownum  = ID.rownum)
 				)
 				or
-				-- oppure esiste ma lo stato Ã¨ diverso da quello della ultima trasmissione del dettaglio in oggetto
+				-- oppure esiste ma lo stato è diverso da quello della ultima trasmissione del dettaglio in oggetto
 				ID.idpccdebitstatus <>(select top 1 expensetaxkind from pccexpense C where C.idinvkind = ID.idinvkind and C.yinv = ID.yinv and C.ninv = ID.ninv and C.invrownum = ID.rownum
 										order by idpcc desc)
 			)
-			-- non Ã¨ stata trasmessa la scadenza
+			-- non è stata trasmessa la scadenza
 			AND (@idsor01 IS NULL OR P.idsor01 = @idsor01)
 			AND (@idsor02 IS NULL OR P.idsor02 = @idsor02)
 			AND (@idsor03 IS NULL OR P.idsor03 = @idsor03)
@@ -758,7 +742,7 @@ Begin
 			AND ISNULL(ID.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 			and (isnull(ID.flagbit,0) & 4) = 0
 				and RR.coderesidence='I'
-			-- non Ã¨ stata trasmesso alcun pagamento, task 7277 
+			-- non è stata trasmesso alcun pagamento, task 7277 
 			AND not exists (select * from pccpayment P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 			-- task 7247 se pccexpense non esiste un suo fratello trasmesso	con l'operazione di CO.
 			and not exists(select * from pccexpense P
@@ -834,7 +818,7 @@ Begin
 			and NOT exists (select * from #dati D where D.idinvkind = ID.idinvkind and D.yinv = ID.yinv and D.ninv = ID.ninv and D.invrownum = ID.rownum and D.opkind in ('CO','COF'))
 			and (exists (select * from pccsend P where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
 				OR 
-				I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchÃ¨ Ã¨ il SdI che le invia alla PCC e non piÃ¹ noi.
+				I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchè è il SdI che le invia alla PCC e non più noi.
 				)
 			and (
 				-- se non esiste
@@ -844,7 +828,7 @@ Begin
 				not exists(select * from pccexpense P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv and P.invrownum  = ID.rownum)
 				)
 				OR
-				-- oppure esiste ma lo stato Ã¨ diverso da quello della ultima trasmissione del dettaglio in oggetto
+				-- oppure esiste ma lo stato è diverso da quello della ultima trasmissione del dettaglio in oggetto
 				ID.idpccdebitstatus <>(select top 1 expensetaxkind from pccexpense P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv and P.invrownum = ID.rownum
 										order by idpcc desc)
 			)
@@ -853,7 +837,7 @@ Begin
 								join invoicedetail ID2
 									on P.idinvkind = ID2.idinvkind and P.yinv = ID2.yinv and P.ninv = ID2.ninv and P.invrownum  = ID2.rownum
 								where ID2.idinvkind = ID.idinvkind and ID2.yinv = ID.yinv and ID2.ninv = ID.ninv and ID2.idgroup  = ID.idgroup and ID2.rownum  <> ID.rownum)
-			-- non Ã¨ stata trasmessa la scadenza
+			-- non è stata trasmessa la scadenza
 			--and not exists (select * from pccexpiring P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 			AND (@idsor01 IS NULL OR I.idsor01 = @idsor01)
 			AND (@idsor02 IS NULL OR I.idsor02 = @idsor02)
@@ -865,20 +849,14 @@ Begin
 			and (isnull(ID.flagbit,0) & 4) = 0
 			AND (isnull(ID.taxable,0) > 0  )-- le righe con imponibile a 0 vengono rifiutate
 			and RR.coderesidence='I'
-			-- non Ã¨ stata trasmesso alcun pagamento, task 7277 
+			-- non è stata trasmesso alcun pagamento, task 7277 
 			AND not exists (select * from pccpayment P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 			-- non ci sono dettagli che restano negativi dopo l'aggregazione, altrimenti scarta tutta la fattura
 			AND (select count(*) from invoiceresidualmandate IR
 							where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv and (IR.taxabletotal + IR.ivatotal) <0) = 0 		
 			AND isnull(I.taxable,0) >0 -- Solo fatture con imponibile maggiore di zero. Vi possono essere fatture con impon. 0 e iva >0
-			and not exists (select T.transmissiondate from expenselast 
-												JOIN payment P ON P.kpay = expenselast.kpay
-												JOIN paymenttransmission T ON T.kpaymenttransmission = P.kpaymenttransmission
-							where expenselast.idexp = ID.idexp_taxable and T.transmissiondate<=@adate and P.ypay>=2019 )
-			and not exists (select T.transmissiondate from expenselast 
-												JOIN payment P ON P.kpay = expenselast.kpay
-												JOIN paymenttransmission T ON T.kpaymenttransmission = P.kpaymenttransmission
-							where expenselast.idexp = ID.idexp_iva and T.transmissiondate<=@adate and P.ypay>=2019 )
+			and not exists (select T.idexp from expenselast T			 
+								where T.idexp = ID.idexp_taxable OR T.idexp = ID.idexp_iva )
 -- Contabilizzazione COTRATTI PASSIVI non collegabili a Fattura
 		INSERT INTO #dati(
 			opkind,
@@ -910,7 +888,7 @@ Begin
 			case	when (MD.idexp_iva = MD.idexp_taxable) then isnull(MD.iva_euro,0) + isnull(MD.taxable_euro,0)
 					when (MD.idexp_iva IS NOT NULL and  MD.idexp_iva <> isnull(MD.idexp_taxable,'')) then isnull(MD.iva_euro,0)
 					when (MD.idexp_taxable is not null  and  MD.idexp_taxable <> isnull(MD.idexp_iva,'')) then isnull(MD.taxable_euro,0)
-					when (MD.idexp_iva is null and MD.idexp_taxable is null) then isnull(MD.iva_euro,0) + isnull(MD.taxable_euro,0) --> se non Ã¨ contabilizzato prende il totale riga
+					when (MD.idexp_iva is null and MD.idexp_taxable is null) then isnull(MD.iva_euro,0) + isnull(MD.taxable_euro,0) --> se non è contabilizzato prende il totale riga
 			end,
 			case	when MD.idpccdebitstatus in ('LIQ','LIQdaSOSP', 'LIQdaNL', 'SOSPdaLIQ','NLdaLIQ') then MD.expensekind
 					else 'NA'
@@ -944,11 +922,11 @@ Begin
 				not exists(select * from pccexpense P where P.idmankind = MD.idmankind and P.yman = MD.yman and P.nman = MD.nman and P.manrownum = MD.rownum)
 				)
 				or
-				-- oppure esiste ma lo stato Ã¨ diverso da quello della ultima trasmissione del dettaglio in oggetto
+				-- oppure esiste ma lo stato è diverso da quello della ultima trasmissione del dettaglio in oggetto
 				MD.idpccdebitstatus <>(select top 1 expensetaxkind from pccexpense P where P.idmankind = MD.idmankind and P.yman = MD.yman and P.nman = MD.nman and P.manrownum = MD.rownum
 											order by idpcc desc)
 				)
-			-- non Ã¨ stata trasmessa la scadenza
+			-- non è stata trasmessa la scadenza
 			--and not exists (select * from pccexpiring P where P.idmankind = MD.idmankind and P.yman = MD.yman and P.nman = MD.nman )
 				AND (@idsor01 IS NULL OR M.idsor01 = @idsor01)
 				AND (@idsor02 IS NULL OR M.idsor02 = @idsor02)
@@ -957,7 +935,7 @@ Begin
 				AND (@idsor05 IS NULL OR M.idsor05 = @idsor05)
 				AND isnull(MD.rowtotal,0) <> 0  --non inserire righe di importo 0, task 6213
 				and RR.coderesidence='I'
-			-- non Ã¨ stata trasmesso alcun pagamento, task 7277 
+			-- non è stata trasmesso alcun pagamento, task 7277 
 			AND not exists (select * from pccpayment P  where P.idmankind = MD.idmankind and P.yman = MD.yman and P.nman = MD.nman )
 			-- task 7247 se pccexpense non esiste un suo fratello trasmesso	con l'operazione di CO.
 			and not exists(select * from pccexpense P
@@ -1019,11 +997,11 @@ Begin
 				-- se non esiste
 				not exists(select * from pccexpense P where P.ycon = C.ycon and P.ncon = C.ncon)
 				or
-				-- oppure esiste ma lo stato Ã¨ diverso da quello della ultima trasmissione del dettaglio in oggetto
+				-- oppure esiste ma lo stato è diverso da quello della ultima trasmissione del dettaglio in oggetto
 				C.idpccdebitstatus <>(select top 1 expensetaxkind from pccexpense P where P.ycon = C.ycon and P.ncon = C.ncon
 										order by idpcc desc)
 			)
-			-- non Ã¨ stata trasmessa la scadenza
+			-- non è stata trasmessa la scadenza
 			--and not exists (select * from pccexpiring P where P.ycon = C.ycon and P.ncon = C.ncon )			
 			AND (@idsor01 IS NULL OR C.idsor01 = @idsor01)
 			AND (@idsor02 IS NULL OR C.idsor02 = @idsor02)
@@ -1032,7 +1010,7 @@ Begin
 			AND (@idsor05 IS NULL OR C.idsor05 = @idsor05)
 			AND isnull(E.curramount,0) <> 0  --non inserire righe di importo 0, task 6213
 			and RR.coderesidence='I'
-			-- non Ã¨ stata trasmesso alcun pagamento, task 7277 
+			-- non è stata trasmesso alcun pagamento, task 7277 
 			AND not exists (select * from pccpayment P  where  P.ycon = C.ycon and P.ncon = C.ncon )
 
 		-- Contabilizzazioni di OCCASIONALI NON CONTABILIZZATI
@@ -1088,7 +1066,7 @@ Begin
 				C.idpccdebitstatus <>(select top 1 expensetaxkind from pccexpense P where P.ycon = C.ycon and P.ncon = C.ncon
 										order by idpcc desc)
 			)
-			-- non Ã¨ stata trasmessa la scadenza
+			-- non è stata trasmessa la scadenza
 			--and not exists (select * from pccexpiring P where P.ycon = C.ycon and P.ncon = C.ncon )	
 			AND (@idsor01 IS NULL OR C.idsor01 = @idsor01)
 			AND (@idsor02 IS NULL OR C.idsor02 = @idsor02)
@@ -1097,7 +1075,7 @@ Begin
 			AND (@idsor05 IS NULL OR C.idsor05 = @idsor05)
 			AND isnull(C.feegross,0) <> 0  --non inserire righe di importo 0, task 6213
 			and RR.coderesidence='I'
-			-- non Ã¨ stata trasmesso alcun pagamento, task 7277 
+			-- non è stata trasmesso alcun pagamento, task 7277 
 			AND not exists (select * from pccpayment P  where  P.ycon = C.ycon and P.ncon = C.ncon )
 
 END -- Fine inserimento CO
@@ -1177,14 +1155,8 @@ Begin
 			AND (@idsor04 IS NULL OR I.idsor04 = @idsor04)
 			AND (@idsor05 IS NULL OR I.idsor05 = @idsor05)
 			and RR.coderesidence='I'
-			and not exists (select T.transmissiondate from expenselast 
-												JOIN payment P ON P.kpay = expenselast.kpay
-												JOIN paymenttransmission T ON T.kpaymenttransmission = P.kpaymenttransmission
-							where expenselast.idexp = ID.idexp_taxable and T.transmissiondate<=@adate and P.ypay>=2019 )
-			and not exists (select T.transmissiondate from expenselast 
-												JOIN payment P ON P.kpay = expenselast.kpay
-												JOIN paymenttransmission T ON T.kpaymenttransmission = P.kpaymenttransmission
-							where expenselast.idexp = ID.idexp_iva and T.transmissiondate<=@adate and P.ypay>=2019 )
+			and not exists (select T.idexp from expenselast T			 
+								where T.idexp = ID.idexp_taxable OR T.idexp = ID.idexp_iva )
 		
 		-- inserisce i contratti passivi
 		INSERT INTO #dati(
@@ -1279,10 +1251,10 @@ Begin
 		AND (@idsor05 IS NULL OR C.idsor05 = @idsor05)
 		and C.idpccdebitstatus not in ('NOLIQ','NLdaLIQ','NLdaSOSP')
 		/* Vedi task n.6098
-		CS va comunicato massimo entro il 15 del mese successivo alla data scadenza fattura, e cioÃ¨:
-		se data scadenza Ã¨ 10 novembre, la CS va comunicata entro il 15 dicembre
+		CS va comunicato massimo entro il 15 del mese successivo alla data scadenza fattura, e cioè:
+		se data scadenza è 10 novembre, la CS va comunicata entro il 15 dicembre
 		quindi se data attuale >15 dicembre, fa la DELETE
-		perchÃ¨ non possiamo piÃ¹ comunicare la CS, i termini sono stati superati, e se CS fosse trasmesso il sistema darebbe errore.
+		perchè non possiamo più comunicare la CS, i termini sono stati superati, e se CS fosse trasmesso il sistema darebbe errore.
 		*/
 
 		delete from #dati 
@@ -1580,7 +1552,7 @@ Begin
 					exists (select * from pccexpense P (nolock) where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
 					or
 					exists (select * from #dati D where D.opkind  IN ('CO','COF') and D.idinvkind = I.idinvkind and D.yinv = I.yinv and D.ninv = I.ninv)
-					-- ci sono dettagli che restano negativi dopo l'aggregazione, per cui la fattura non verrÃ  trasmessa in termini di CO ma direttamente CP
+					-- ci sono dettagli che restano negativi dopo l'aggregazione, per cui la fattura non verrà trasmessa in termini di CO ma direttamente CP
 					OR (select count(*) from invoiceresidualmandate IR
 								where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv and (IR.taxabletotal + IR.ivatotal) <0) > 0 
 					-- Sono fatture con imponibile maggiore di zero. Vi possono essere fatture con impon. 0 e iva >0
@@ -1620,7 +1592,7 @@ Begin
 					exists (select * from pccexpense P where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
 					or
 					exists (select * from #dati D where D.opkind  IN ('CO','COF') and D.idinvkind = I.idinvkind and D.yinv = I.yinv and D.ninv = I.ninv)
-					-- ci sono dettagli che restano negativi dopo l'aggregazione, per cui la fattura non verrÃ  trasmessa in termini di CO ma direttamente CP
+					-- ci sono dettagli che restano negativi dopo l'aggregazione, per cui la fattura non verrà trasmessa in termini di CO ma direttamente CP
 					OR (select count(*) from invoiceresidualmandate IR
 								where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv and (IR.taxabletotal + IR.ivatotal) <0) > 0 
 					-- Sono fatture con imponibile maggiore di zero. Vi possono essere fatture con impon. 0 e iva >0
@@ -1658,7 +1630,7 @@ Begin
 					exists (select * from pccexpense P where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
 					or
 					exists (select * from #dati D where D.opkind  IN ('CO','COF') and D.idinvkind = I.idinvkind and D.yinv = I.yinv and D.ninv = I.ninv)
-					-- ci sono dettagli che restano negativi dopo l'aggregazione, per cui la fattura non verrÃ  trasmessa in termini di CO ma direttamente CP
+					-- ci sono dettagli che restano negativi dopo l'aggregazione, per cui la fattura non verrà trasmessa in termini di CO ma direttamente CP
 					OR (select count(*) from invoiceresidualmandate IR
 								where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv and (IR.taxabletotal + IR.ivatotal) <0) > 0 
 					-- Sono fatture con imponibile maggiore di zero. Vi possono essere fatture con impon. 0 e iva >0
@@ -1697,7 +1669,7 @@ Begin
 					exists (select * from pccexpense P where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
 					or
 					exists (select * from #dati D where D.opkind  IN ('CO','COF') and D.idinvkind = I.idinvkind and D.yinv = I.yinv and D.ninv = I.ninv)
-					-- ci sono dettagli che restano negativi dopo l'aggregazione, per cui la fattura non verrÃ  trasmessa in termini di CO ma direttamente CP
+					-- ci sono dettagli che restano negativi dopo l'aggregazione, per cui la fattura non verrà trasmessa in termini di CO ma direttamente CP
 					OR (select count(*) from invoiceresidualmandate IR
 								where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv and (IR.taxabletotal + IR.ivatotal) <0) > 0 
 					-- Sono fatture con imponibile maggiore di zero. Vi possono essere fatture con impon. 0 e iva >0
@@ -1893,7 +1865,7 @@ Begin
 				exists (select * from pccexpense P where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
 				or
 				exists (select * from #dati D where D.opkind IN ('CO','COF')  and D.idinvkind = I.idinvkind and D.yinv = I.yinv and D.ninv = I.ninv)
-					-- ci sono dettagli che restano negativi dopo l'aggregazione, per cui la fattura non verrÃ  trasmessa in termini di CO ma direttamente CP
+					-- ci sono dettagli che restano negativi dopo l'aggregazione, per cui la fattura non verrà trasmessa in termini di CO ma direttamente CP
 				OR (select count(*) from invoiceresidualmandate IR
 						where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv and (IR.taxabletotal + IR.ivatotal) <0) > 0 
 					-- Sono fatture con imponibile maggiore di zero. Vi possono essere fatture con impon. 0 e iva >0
@@ -2351,4 +2323,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

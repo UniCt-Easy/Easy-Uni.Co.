@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilprevisione_bozza]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilprevisione_bozza]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_bilprevisione_bozza]
 GO
 --setuser 'amm'
@@ -122,9 +124,9 @@ set @nextayear = @ayear + 1
 
 --------------------------------------------------------------------------------------------------------------------------------
 -- Attualmente in prevfindetail i capitoli articolati non vengono inseriti, per questi vengono inseriti solo gli articoli.
--- Quindi, usiamo #prevfindetail che conterr√† prevfindetail + i capitoli degli articoli presenti in prevfindetail.
+-- Quindi, usiamo #prevfindetail che conterr‡ prevfindetail + i capitoli degli articoli presenti in prevfindetail.
 -- Totalizziamo questi capitoli.
--- In questa tabella saranno inseriti SOLO i valori di 'previousprevision' e 'previoussecondaryprev', perch√® questi saranno letti da
+-- In questa tabella saranno inseriti SOLO i valori di 'previousprevision' e 'previoussecondaryprev', perchË questi saranno letti da
 -- #prevfindetail appartenente alla query esterna. Gli altri valori saranno letti da prevfindetail del DB facendo i SUM con le sub-query.
 CREATE TABLE #prevfindetail
 (
@@ -149,9 +151,9 @@ WHERE  nprevfin = @nprevfin  AND ayear = @ayear
 
 IF(@levelusable = @minlevelusable)
 BEGIN
---se sto facendo la stampa per capitolo, inserisco nella #tab anche i capitoli articolati perch√® NON sono
--- presenti in prevfindetail del DB. Questo vale anche se la stampa √® per categoria perch√® se cos√¨ fosse
--- @levelusable sar√† stato modificato da 2 a 3 da una istruzione precedente.
+--se sto facendo la stampa per capitolo, inserisco nella #tab anche i capitoli articolati perchË NON sono
+-- presenti in prevfindetail del DB. Questo vale anche se la stampa Ë per categoria perchË se cosÏ fosse
+-- @levelusable sar‡ stato modificato da 2 a 3 da una istruzione precedente.
         INSERT INTO #prevfindetail
         (
 		idfin,
@@ -490,7 +492,7 @@ select 	@descliv6=description from finlevel where ayear=@ayear and nlevel=6
 
 /*
  Se N qualora per un capitolo non esistano sott-capitoli con legami con l'upb fondo
- NON verr√† visualizzata l'indicazione del Titolo/Categoria/Capitolo
+ NON verr‡ visualizzata l'indicazione del Titolo/Categoria/Capitolo
 */
 
 IF(Upper(@MostraTutteVoci)='N' AND @suppressifblank = 'S' )
@@ -559,7 +561,7 @@ DECLARE @supposed_aa_prec decimal(19,2)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------ QUESTO CALCOLO DEVE ESSERE DEFINITO --------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
--- questa stampa √® fatta nell'anno in cui si √® eseguito il form di bil.prev. automatico
+-- questa stampa Ë fatta nell'anno in cui si Ë eseguito il form di bil.prev. automatico
 IF @finpart = 'E'
 BEGIN
 	SELECT	
@@ -781,4 +783,3 @@ go
 
 
 
-	

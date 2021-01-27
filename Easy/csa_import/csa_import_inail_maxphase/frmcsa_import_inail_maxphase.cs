@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -67,6 +69,8 @@ namespace csa_import_inail_maxphase {
 			GetData.SetStaticFilter(DS.bill_ripartizione, billfilter);
 			btnInputSospesi.ContextMenu = CMenu;
 			InitializeAllList();
+			Meta.SearchEnabled = false;
+			Meta.canInsert = false;
 
 		}
 		private void InitializeAllList() {
@@ -342,7 +346,7 @@ namespace csa_import_inail_maxphase {
 			bool res = ga.GeneraAutomatismiAfterPost(true);
 			if (!res) {
 				MessageBox.Show(this,
-					"Si √® verificato un errore o si √® deciso di non salvare! L'operazione sar√† terminata");
+					"Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
 				return false;
 			} else {
 				res = ga.doPost(Meta.Dispatcher);
@@ -351,7 +355,7 @@ namespace csa_import_inail_maxphase {
 					return true;
 				} else {
 					MessageBox.Show(this,
-						"Si √® verificato un errore o si √® deciso di non salvare! L'operazione sar√† terminata");
+						"Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
 					return false;
 				}
 			}
@@ -605,7 +609,7 @@ namespace csa_import_inail_maxphase {
 			if (IoE == "E") {
 				accountFieldName = "idaccdebit";
                 bool regolarizzazioneEffettuata = false;
-				// Se il movimento √® a regolarizzazione mette la bolletta
+				// Se il movimento Ë a regolarizzazione mette la bolletta
 				// Verifico l'esistenza di sospesi multipli
 				decimal amount = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(R["amount"]));
 				// Singolo sospeso
@@ -653,7 +657,7 @@ namespace csa_import_inail_maxphase {
 					NewLastMov["flag"] = CfgFn.GetNoNullInt32(NewLastMov["flag"]) | 1;
 				}
 				else {
-					// Se non √® a regolrizzazione, copia la modalit√† di pagamento dalla riga vecchia
+					// Se non Ë a regolrizzazione, copia la modalit‡ di pagamento dalla riga vecchia
 					string[] fields_to_copy = new string[] {
 						"cc", "cin", "flag","iban","idbank","idcab","iddeputy","idregistrypaymethod",
 						"paymentdescr","refexternaldoc","idpaymethod","biccode","extracode","paymethod_allowdeputy",
@@ -858,7 +862,7 @@ namespace csa_import_inail_maxphase {
 					DataRow RExp;
 					if (!RigheSpesaPerIdExp.TryGetValue(idexp, out RExp)) continue;
 					RExp["netto"] = CfgFn.GetNoNullDecimal(RExp["netto"]) +
-					                // l'importo √® negativo perch√® quello della variazione di azzeramento
+					                // l'importo Ë negativo perchË quello della variazione di azzeramento
 					                CfgFn.GetNoNullDecimal(r["amount"]);
 				}
 			}
@@ -878,7 +882,7 @@ namespace csa_import_inail_maxphase {
 				int faseCorrente = fasemax;
 				Mov.Columns["nphase"].DefaultValue = faseCorrente;
 				DataRow NewMovRow = MetaM.Get_New_Row(ParentR, Mov);
-				//Imposta il movimento parent tramite il livsupid. Il movimento parent √® del movimento finanziario che stiamo ri-creando
+				//Imposta il movimento parent tramite il livsupid. Il movimento parent Ë del movimento finanziario che stiamo ri-creando
 				NewMovRow[idParMovField] = parentidmov;
 
 				fillMovimento(NewMovRow, R);
@@ -898,7 +902,7 @@ namespace csa_import_inail_maxphase {
 					NewMovRow["idpayment"] = NewIdPayment[oldIdPayment];
 					// Devo propagare ala modifica alle fasi precedenti se ci sono
                     DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn,dsFinancial.Tables[tMain],null, 
-                            //non rilegge le ultime fasi in memoria, perch√® di quelle NON va aggiornato l'idpayment, visto che non sono residue e sono incassi 
+                            //non rilegge le ultime fasi in memoria, perchË di quelle NON va aggiornato l'idpayment, visto che non sono residue e sono incassi 
                             QHS.AppAnd( QHS.CmpEq("idpayment", R["idpayment"]), QHS.CmpLt("nphase",fasemax))
                             ,null,true);
 				}
@@ -940,9 +944,9 @@ namespace csa_import_inail_maxphase {
             //Meta.GetFormData(true);
             string fEsercizio = QHS.CmpEq("ayear", Meta.GetSys("esercizio"));
             if (MessageBox.Show(
-                    " Attenzione: √© necessario verificare preventivamente le singole importazioni dell'anno "+ "\r\n" +
+                    " Attenzione: È necessario verificare preventivamente le singole importazioni dell'anno "+ "\r\n" +
                     " per rilevare e correggere possibili errori nell'individuazione di Anagrafiche, Contratti, Enti. " + "\r\n" +
-                    " Premere OK per continuare lo stesso, in caso si sia gi√† provveduto, oppure " + "\r\n" + 
+                    " Premere OK per continuare lo stesso, in caso si sia gi‡ provveduto, oppure " + "\r\n" + 
                     " premere ANNULLA per interrompere l'elaborazione.", "Avviso", MessageBoxButtons.OKCancel)==DialogResult.Cancel) return;
 
             dsFinancial.Clear();
@@ -1352,7 +1356,7 @@ namespace csa_import_inail_maxphase {
 		private void btnInputSospesi_Click(object sender, EventArgs e) {
 			DialogResult dr = openInputFileDlg.ShowDialog();
 			if (dr != DialogResult.OK) {
-				MessageBox.Show("Non √® stato scelto alcun file");
+				MessageBox.Show("Non Ë stato scelto alcun file");
 				return;
 			}
 
@@ -1425,7 +1429,7 @@ namespace csa_import_inail_maxphase {
 			if (errorcode <= 0) return;
 			if (errorcode > AllList.Length) {
 				MessageBox.Show(
-					"Aggiornare il programma, la DLL di importazione CSA non √® allineata con i check del db.",
+					"Aggiornare il programma, la DLL di importazione CSA non Ë allineata con i check del db.",
 					"Errore");
 				return;
 			}
@@ -1452,5 +1456,40 @@ namespace csa_import_inail_maxphase {
 			return R;
 		}
 	}
+
+	class Fake_EpPoster : ep_poster {
+		private DataSet d = null;
+
+		private EP_Manager epm;
+
+		//public PostData p;
+		public Fake_EpPoster(EP_Manager ep_manager) : base(ep_manager) {
+			this.epm = ep_manager;
+			epm.setPostingClass(this);
+		}
+
+		public override ProcedureMessageCollection DO_POST_SERVICE() {
+			//effettua tutte le operazioni che avrebbe fatto
+			// Il beforePost Ë gi‡ stato invocato correttamente
+			epm.silent = true;
+			epm.silentBlocked = true;
+			epm.clearMessages();
+			epm.invokedByInnerPosting = true;
+			epm.afterPost(true);
+			epm.invokedByInnerPosting = false;
+			return epm.getMessages();
+		}
+
+		public override bool saveData(DataSet d, PostData post) {
+			this.d = d;
+
+			return true;
+		}
+
+		public DataSet getDataSet() {
+			return d;
+		}
+	}
+
 
 }

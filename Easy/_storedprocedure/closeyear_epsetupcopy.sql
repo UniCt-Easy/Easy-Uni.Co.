@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_epsetupcopy]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_epsetupcopy]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [closeyear_epsetupcopy]
 GO
  
@@ -141,7 +143,39 @@ BEGIN
 	VALUES('Trasferita configurazione E/P per esercizio ' + @nextayearstr)
 END
 
- 
+
+INSERT INTO accountsorting
+(
+	idsor,
+	idacc,
+	quota,
+	ct, cu, lt, lu
+)
+SELECT
+	ACCS.idsor,
+	ACCS.idacc,
+	ACCS.quota,
+	GETDATE(),ACCS.cu,GETDATE(),ACCS.lu 
+FROM accountsorting ACCS 
+JOIN sorting S ON ACCS.idsor = S.idsor
+JOIN sortingkind SK ON SK.idsorkind = S.idsorkind
+JOIN accountlookup ACCL
+	ON ACCL.oldidacc = ACCS.idacc
+JOIN account ACC 
+	ON ACCL.oldidacc = ACC.idacc 
+WHERE (SK.flag&4 <>0) -- classificazione piano dei conti
+AND ACC.ayear = @ayear
+AND NOT EXISTS /*non esistono voci del piano dei conti gi‡ classificate in nuovo esercizio*/
+	(SELECT * FROM accountsorting ACCS1
+	 JOIN sorting S1 ON ACCS1.idsor = S1.idsor
+	 JOIN sortingkind SK1 ON SK1.idsorkind = S1.idsorkind
+	 JOIN account ACC1 ON ACCS1.idacc = ACC1.idacc 
+	 WHERE ACC1.ayear = @nextayear
+	 AND (SK1.flag&4 <>0) ) -- classificazione piano dei conti
+
+INSERT INTO #log
+VALUES('Trasferita classificazione del piano dei conti per esercizio ' + @nextayearstr)
+
 INSERT INTO invoicekindyear
 (
 	ayear, idinvkind,
@@ -197,6 +231,7 @@ AND NOT EXISTS
 	(SELECT * FROM invoicekindyear I
 	WHERE I.idinvkind = invoicekindyear.idinvkind
 		AND I.ayear = @nextayear)
+
 
 
 INSERT INTO epupbkindyear
@@ -263,4 +298,3 @@ SET ANSI_NULLS ON
 GO
 
  
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø 
+
+ 
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_newpartitario_spesa_tutte_fasi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_newpartitario_spesa_tutte_fasi]
 GO
@@ -93,12 +95,12 @@ DECLARE @fourthphase varchar(50)
 
 DECLARE @second tinyint
 DECLARE @third tinyint
--- la seconda fase √® quella successiva alla prima MA non deve essere quella del pagamento
+-- la seconda fase Ë quella successiva alla prima MA non deve essere quella del pagamento
 SELECT  @secondphase = description, @second = nphase FROM expensephase WHERE nphase = @finphase+1 and nphase < @maxexpensephase
--- la terza fase √® quella successiva alla seconda MA non deve essere quella del pagamento
+-- la terza fase Ë quella successiva alla seconda MA non deve essere quella del pagamento
 SELECT  @thirdphase = description, @third = nphase FROM expensephase  WHERE nphase =  @second + 1 and nphase < @maxexpensephase
 
--- la quarta fase √® quella successiva alla terza MA non deve essere quella del pagamento
+-- la quarta fase Ë quella successiva alla terza MA non deve essere quella del pagamento
 SELECT  @fourthphase = description FROM expensephase  WHERE nphase = @third + 1 and nphase < @maxexpensephase
 
 DECLARE @level_input tinyint
@@ -392,7 +394,7 @@ BEGIN
 		AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 	GROUP by isnull(@fixedidupb,expenseyear.idupb),isnull(finlink.idparent, expenseyear.idfin)
 
--- Esegue un'altra insert per 'finphase_amount' ma questa volta ci mette le var, perch√® #expense prevede solo il campo 'finphase_amount'
+-- Esegue un'altra insert per 'finphase_amount' ma questa volta ci mette le var, perchË #expense prevede solo il campo 'finphase_amount'
 -- Nella select finale i valori saranno sommati
 
 	INSERT INTO #expense
@@ -473,7 +475,7 @@ BEGIN
 		AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 	GROUP by isnull(@fixedidupb,HPV.idupb),isnull(finlink.idparent, HPV.idfin)
 
--- Esegue un'altra insert per 'cassaphase_amount' ma questa volta ci mette le var, perch√® #expense prevede solo il campo 'cassaphase_amount'
+-- Esegue un'altra insert per 'cassaphase_amount' ma questa volta ci mette le var, perchË #expense prevede solo il campo 'cassaphase_amount'
 -- Nella select finale i valori saranno sommati
 
 	IF (@cashvaliditykind <> 4)
@@ -1184,7 +1186,7 @@ END
 -- se ho scelto di nascondere le voci di bilancio non utilizzate:
 -- cancello le righe che hanno valori pari a zero 
 -- per cui non esistono variazioni di previzioni (rowkind=2) o movimenti di entrata (rowkind >= 3 )  
-IF (@suppressifblank = 'S') AND @nlevel>2	--> se la stampa √® x un livello sottostante la categoria cancella le righe
+IF (@suppressifblank = 'S') AND @nlevel>2	--> se la stampa Ë x un livello sottostante la categoria cancella le righe
 BEGIN
 	DELETE FROM #expense WHERE 
 		ISNULL(initialprevision,0)=0 
@@ -1347,4 +1349,3 @@ GO
 
 
 --exec rpt_newpartitario_spesa_tutte_fasi 2011, 'C', '%', 3, {ts '2011-06-01 00:00:00'}, {ts '2011-12-31 00:00:00'}, 'S', 'N', 'N', 'N', null
-	

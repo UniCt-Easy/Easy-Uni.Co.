@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_buono_ordine]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_buono_ordine]
 GO
@@ -467,7 +469,7 @@ UPDATE #mandate SET cigcode = NULL
 					and D.cigcodedetail <> #mandate.cigcode )>=1
 					-- and D.cigcodedetail is not null)>=1
 	
--- Concatena i vari codice CUP, affinch√® la riga splittata, ritorni una nella stampa. Vedi task 5874. 
+-- Concatena i vari codice CUP, affinchË la riga splittata, ritorni una nella stampa. Vedi task 5874. 
 DECLARE @nman int
 DECLARE @idgroup int 
 declare @cupcode varchar(15)
@@ -497,7 +499,7 @@ CLOSE cursore
 	/*SELECT nman, idgroup, idepexp, yepexp, nepexp, epexp_amount FROM #mandatedetail_det
 	where (select count(*) from #mandatedetail_det m where m.yman = @ayear and m.nman = #mandatedetail_det.nman and m.idgroup = #mandatedetail_det.idgroup and m.idepexp is null) = 0
 	*/
--- Concatena i vari Impegni di budget, affinch√® la riga splittata, ritorni una nella stampa ( epexp_byidgroup )
+-- Concatena i vari Impegni di budget, affinchË la riga splittata, ritorni una nella stampa ( epexp_byidgroup )
 
 DECLARE @idepexp int
 declare @epexp_amount decimal(19,2)
@@ -849,4 +851,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

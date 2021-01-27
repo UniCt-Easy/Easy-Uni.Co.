@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -80,7 +82,7 @@ namespace paydispositiondetail_single {
                 DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, tRegistry, null, filter, null, true);
                 if (tRegistry.Rows.Count == 0)
                 {
-                    MessageBox.Show(this, "Nessuna anagrafica trovata in archivio");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nessuna anagrafica trovata in archivio");
                     return;
                 }
                 MetaData MetaRegistry = MetaData.GetMetaData(this, "registry");
@@ -138,7 +140,7 @@ namespace paydispositiondetail_single {
                 DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, tRegistry, null, filter, null, true);
                 if (tRegistry.Rows.Count == 0)
                 {
-                    MessageBox.Show(this, "Nessuna anagrafica trovata in archivio");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nessuna anagrafica trovata in archivio");
                     return;
                 }
                 MetaData MetaRegistry = MetaData.GetMetaData(this, "registry");
@@ -221,7 +223,7 @@ namespace paydispositiondetail_single {
             int len = CfgFn.GetNoNullInt32(Meta.Conn.DO_READ_VALUE("columntypes", f, "col_len"));
             int maxCity = len - 5;
             if (len == 0) {
-                MessageBox.Show(this, "Errore interno!\nContattare il servizio assistenza");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore interno!\nContattare il servizio assistenza");
                 return null;
             }
 
@@ -429,7 +431,7 @@ namespace paydispositiondetail_single {
             object codiceABI = Meta.Conn.DO_READ_VALUE("bank", filtroBanca, "idbank");
             if (codiceABI == null)
             {
-                MessageBox.Show("La banca inserita nel BBAN non esiste!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La banca inserita nel BBAN non esiste!");
                 return false;
             }
             string CAB = insertedBBAN.Substring(6, 5);
@@ -437,7 +439,7 @@ namespace paydispositiondetail_single {
             object codiceCAB = Meta.Conn.DO_READ_VALUE("cab", filtroBanca, "idcab");
             if (codiceCAB == null)
             {
-                MessageBox.Show("Lo sportello inserito nel BBAN non esiste!");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Lo sportello inserito nel BBAN non esiste!");
                 return false;
             }
             return true;

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_verbale_consegna_beni]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_verbale_consegna_beni]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_verbale_consegna_beni]
 GO
  
@@ -87,7 +89,7 @@ SELECT
 	1, -- era assetacquire.number,	ma non serviva a nulla	
 	assetacquire.nassetacquire,
 	assetacquire.idinv,	assetacquire.description,
-	(SELECT TOP 1 l.idlocation FROM assetlocation l WHERE l.idasset = asset.idasset and (l.start is null or l.start between @datebegin and @dateend) order by start desc),-->prende solo la pi√π recente
+	(SELECT TOP 1 l.idlocation FROM assetlocation l WHERE l.idasset = asset.idasset and (l.start is null or l.start between @datebegin and @dateend) order by start desc),-->prende solo la pi˘ recente
 	(SELECT TOP 1 l.start FROM assetlocation l WHERE l.idasset = asset.idasset and (l.start is null or l.start between @datebegin and @dateend) order by start desc),
 	R.idman,
 	(SELECT TOP 1 s.idmanager FROM assetsubmanager s WHERE s.idasset = asset.idasset and (s.start is null or s.start between @datebegin and @dateend) order by start desc),
@@ -96,7 +98,7 @@ FROM asset
 JOIN assetacquire on assetacquire.nassetacquire = asset.nassetacquire
 JOIN assetload on assetload.idassetload = assetacquire.idassetload
 JOIN assetloadkind on assetloadkind.idassetloadkind = assetload.idassetloadkind
-LEFT OUTER JOIN manager R ON R.idman = (select top 1 idman from assetmanager where idasset=asset.idasset and (start is null or start between @datebegin and @dateend) order by start desc)-->prende solo la pi√π recente
+LEFT OUTER JOIN manager R ON R.idman = (select top 1 idman from assetmanager where idasset=asset.idasset and (start is null or start between @datebegin and @dateend) order by start desc)-->prende solo la pi˘ recente
 WHERE  asset.idpiece=1		
 	AND assetacquire.idinventory= @idinventory
 	AND assetload.yassetload = @ayear
@@ -123,7 +125,7 @@ SELECT
 	assetmain.ninventory,	1, --era assetacquire.number,	
 	assetacquire.nassetacquire,	
 	assetacquire.idinv, assetacquire.description,
-	(SELECT TOP 1 l.idlocation FROM assetlocation l WHERE l.idasset = asset.idasset and (l.start is null or l.start between @datebegin and @dateend) order by start desc),-->prende solo la pi√π recente
+	(SELECT TOP 1 l.idlocation FROM assetlocation l WHERE l.idasset = asset.idasset and (l.start is null or l.start between @datebegin and @dateend) order by start desc),-->prende solo la pi˘ recente
 	(SELECT TOP 1 l.start FROM assetlocation l WHERE l.idasset = asset.idasset and (l.start is null or l.start between @datebegin and @dateend) order by start desc),
 	R.idman,
 	(SELECT TOP 1 s.idmanager FROM assetsubmanager s WHERE s.idasset = asset.idasset and (s.start is null or s.start between @datebegin and @dateend) order by start desc),
@@ -134,7 +136,7 @@ JOIN assetacquire on assetacquire.nassetacquire = asset.nassetacquire
 JOIN assetload on assetload.idassetload = assetacquire.idassetload
 JOIN assetloadkind on assetloadkind.idassetloadkind = assetload.idassetloadkind
 JOIN inventory on assetacquire.idinventory = inventory.idinventory
-LEFT OUTER JOIN manager R ON R.idman = (select top 1 idman from assetmanager where idasset=asset.idasset and (start is null or start between @datebegin and @dateend) order by start desc)-->prende solo la pi√π recente
+LEFT OUTER JOIN manager R ON R.idman = (select top 1 idman from assetmanager where idasset=asset.idasset and (start is null or start between @datebegin and @dateend) order by start desc)-->prende solo la pi˘ recente
 JOIN inventorykind 	ON inventorykind.idinventorykind = inventory.idinventorykind
 WHERE asset.idpiece>1		
 	AND assetacquire.idinventory= @idinventory
@@ -275,4 +277,3 @@ GO
 
 
  
-	

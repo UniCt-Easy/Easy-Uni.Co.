@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_interscambio_csa_record08]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_interscambio_csa_record08]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_interscambio_csa_record08]
 GO
  
@@ -107,12 +109,12 @@ CREATE TABLE #Compensi(
 	-- Record 00
 CREATE TABLE #RecordTesta(
 -- parte comune a tutti i record
-    ProgrGen    varchar(6),        -- Progressivo generale del record all‚Äôinterno del file. Viene incrementato ad ogni riga del file dati. Il record di testata ha progrGen='000000'
-    TipoOperazione    char(1),     -- Tipo operazione da fare sul record    ‚ÄòI‚Äô:  inserimento;‚ÄôM‚Äô:modifica;'C': cancellazione. Assume valore 0 nel record di testa
-    SeparatoreChr    char(1),      -- Variabile (0, 1)    Nel caso in cui nei dati da caricare in questa riga sia presente almeno un carattere '@'(separatore) √® necessario sostituire '@' con '¬ß'.
-    TotCampi    int ,              -- Per ogni riga, indica il numero totale dei campi contenuti. Tale numero corrisponde esattamente al numero totale dei caratteri ‚Äò@‚Äô.
+    ProgrGen    varchar(6),        -- Progressivo generale del record allíinterno del file. Viene incrementato ad ogni riga del file dati. Il record di testata ha progrGen='000000'
+    TipoOperazione    char(1),     -- Tipo operazione da fare sul record    ëIí:  inserimento;íMí:modifica;'C': cancellazione. Assume valore 0 nel record di testa
+    SeparatoreChr    char(1),      -- Variabile (0, 1)    Nel caso in cui nei dati da caricare in questa riga sia presente almeno un carattere '@'(separatore) Ë necessario sostituire '@' con 'ß'.
+    TotCampi    int ,              -- Per ogni riga, indica il numero totale dei campi contenuti. Tale numero corrisponde esattamente al numero totale dei caratteri ë@í.
     TipoRecord    varchar(2),      -- Tipo record (00-08; 90, 91, 92)
-    ProgrTipoRec varchar(6),	   -- Il progressivo all‚Äôinterno del tipo record. Viene incrementato ad ogni riga all‚Äôinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
+    ProgrTipoRec varchar(6),	   -- Il progressivo allíinterno del tipo record. Viene incrementato ad ogni riga allíinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
                                    -- Si azzera comunque al cambio di ogni matricola.    Inizia da 000000 fino a 999999
     Comparto char(1),              -- Il comparto del dipendente. Nerl record di testa vale 0
     Ruolo    varchar (4),          -- Variabile (2..4)    Il ruolo del dipendente. Nel rcord di testa assume valore  '0000'
@@ -122,9 +124,9 @@ CREATE TABLE #RecordTesta(
     Ateneo    varchar(5),          -- Codice ateneo di origine  
     Data    datetime ,             -- Data generazione record    GG/MM/AAAA
     Ora        datetime,--(8),     -- Ora generazione record    HH.MM.SS
-    CodFile    char(1),            -- Solo se trattasi di un file prodotto con la funzione di CSA ‚ÄúEstrazione dati dipendente Trasferito‚Äù si riporta ‚ÄòT‚Äô.
-                                   -- CodFile= '0' va usato in tutti i casi in cui il file viene utilizzato per caricamenti ‚Äúbatch.    0
-    InvioMatricola    char(1),     -- Indica se la matricola viene avvalorata nei vari record  oppure la si lascia al valore ‚Äò000000‚Äô. Nel nostro caso deve valere 1
+    CodFile    char(1),            -- Solo se trattasi di un file prodotto con la funzione di CSA ìEstrazione dati dipendente Trasferitoî si riporta ëTí.
+                                   -- CodFile= '0' va usato in tutti i casi in cui il file viene utilizzato per caricamenti ìbatch.    0
+    InvioMatricola    char(1),     -- Indica se la matricola viene avvalorata nei vari record  oppure la si lascia al valore ë000000í. Nel nostro caso deve valere 1
     InvioDatiAnagrafici    char(1) -- invioDatiAnagrafici. Nel nostro caso deve valere 1
 )
 
@@ -132,7 +134,7 @@ INSERT INTO #RecordTesta(
 -- parte comune a tutti i record
     TipoOperazione,
     TipoRecord,					  -- Tipo record (00-08; 90, 91, 92)
-    ProgrTipoRec,				  -- Il progressivo all‚Äôinterno del tipo record. Viene incrementato ad ogni riga all‚Äôinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
+    ProgrTipoRec,				  -- Il progressivo allíinterno del tipo record. Viene incrementato ad ogni riga allíinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
                                   -- Si azzera comunque al cambio di ogni matricola.    Inizia da 000000 fino a 999999
     Comparto,					  -- Nel record di testa vale 0
     Ruolo,						  -- Nel rcord di testa assume valore  '0000'
@@ -142,7 +144,7 @@ INSERT INTO #RecordTesta(
     Data ,                        -- Data generazione record    GG/MM/AAAA
     --Ora    ,                    -- Ora generazione record    HH.MM.SS
     CodFile,          
-    InvioMatricola,               -- Indica se la matricola viene avvalorata nei vari record  oppure la si lascia al valore ‚Äò000000‚Äô. Nel nostro caso deve valere 1
+    InvioMatricola,               -- Indica se la matricola viene avvalorata nei vari record  oppure la si lascia al valore ë000000í. Nel nostro caso deve valere 1
     InvioDatiAnagrafici           -- invioDatiAnagrafici. Nel nostro caso deve valere 1
 )
 SELECT
@@ -153,7 +155,7 @@ SELECT
     REPLICATE('0',4),			 -- Ruolo
     REPLICATE('0',6),			 -- Matricola
     SUBSTRING(REPLICATE('0',5),1,5 - DATALENGTH(SUBSTRING(convert(varchar(5),@ateneo),1,5))) + SUBSTRING(convert(varchar(5),@ateneo),1,5),      
-    -- CONVERT(varchar(10),@datagenerazione,103)    -- data, sar√† formattata dopo secondo le specifiche
+    -- CONVERT(varchar(10),@datagenerazione,103)    -- data, sar‡ formattata dopo secondo le specifiche
     @datagenerazione,
     '0',						 -- CodFile
     '1',						 -- InvioMatricola, vale 1, anche se le matricole sono nuove
@@ -162,12 +164,12 @@ SELECT
 	-- Record 08
 CREATE TABLE #Record08(
 -- parte comune a tutti i record
-    ProgrGen    varchar(6),			-- Progressivo generale del record all‚Äôinterno del file. Viene incrementato ad ogni riga del file dati. Il record di testata ha progrGen='000000'
-    TipoOperazione    char(1),		-- Tipo operazione da fare sul record    ‚ÄòI‚Äô:  inserimento;‚ÄôM‚Äô:modifica;'C': cancellazione. Assume valore 0 nel record di testa
-    SeparatoreChr    char(1),		-- Variabile (0, 1)    Nel caso in cui nei dati da caricare in questa riga sia presente almeno un carattere '@'(separatore) √® necessario sostituire '@' con '¬ß'.
-    TotCampi    int ,				-- Per ogni riga, indica il numero totale dei campi contenuti. Tale numero corrisponde esattamente al numero totale dei caratteri ‚Äò@‚Äô.
+    ProgrGen    varchar(6),			-- Progressivo generale del record allíinterno del file. Viene incrementato ad ogni riga del file dati. Il record di testata ha progrGen='000000'
+    TipoOperazione    char(1),		-- Tipo operazione da fare sul record    ëIí:  inserimento;íMí:modifica;'C': cancellazione. Assume valore 0 nel record di testa
+    SeparatoreChr    char(1),		-- Variabile (0, 1)    Nel caso in cui nei dati da caricare in questa riga sia presente almeno un carattere '@'(separatore) Ë necessario sostituire '@' con 'ß'.
+    TotCampi    int ,				-- Per ogni riga, indica il numero totale dei campi contenuti. Tale numero corrisponde esattamente al numero totale dei caratteri ë@í.
     TipoRecord    varchar(2),       -- Tipo record (00-08; 90, 91, 92)
-    ProgrTipoRec varchar(6),		-- Il progressivo all‚Äôinterno del tipo record. Viene incrementato ad ogni riga all‚Äôinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
+    ProgrTipoRec varchar(6),		-- Il progressivo allíinterno del tipo record. Viene incrementato ad ogni riga allíinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
 									-- Si azzera comunque al cambio di ogni matricola.    Inizia da 000000 fino a 999999
     Comparto char(1),				-- Il comparto del dipendente. Nerl record di testa vale 0
     Ruolo    varchar (4),			-- Variabile (2..4)    Il ruolo del dipendente. Nel rcord di testa assume valore  '0000'
@@ -178,7 +180,7 @@ CREATE TABLE #Record08(
     Anno_Comp_Liq int,
     Mese_Comp_Liq int,
     Voce varchar(5),
-    Progressivo varchar(2), -- Vedi convenzione su ‚ÄúProgressivo‚Äù
+    Progressivo varchar(2), -- Vedi convenzione su ìProgressivoî
 	Data_Comp_Voce datetime,
 	Stato_Voce char(1),
 	Provvedimento varchar(9),
@@ -205,7 +207,7 @@ INSERT INTO #Record08(
 -- parte comune a tutti i record
     TipoOperazione,
     TipoRecord,         -- Tipo record (00-08; 90, 91, 92)
-    ProgrTipoRec,       -- Il progressivo all‚Äôinterno del tipo record. Viene incrementato ad ogni riga all‚Äôinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
+    ProgrTipoRec,       -- Il progressivo allíinterno del tipo record. Viene incrementato ad ogni riga allíinterno dello stesso tipo record e si azzera ad ogni cambio di tipo record.
                         -- Si azzera comunque al cambio di ogni matricola.    Inizia da 000000 fino a 999999
     Comparto,           -- Nel record di testa vale 0
     Ruolo,              -- Nel rcord di testa assume valore  '0000'
@@ -215,7 +217,7 @@ INSERT INTO #Record08(
     Anno_Comp_Liq,
     Mese_Comp_Liq,
     Voce,
-    Progressivo, -- Vedi convenzione su ‚ÄúProgressivo‚Äù
+    Progressivo, -- Vedi convenzione su ìProgressivoî
 	Data_Comp_Voce,
 	Stato_Voce,
 	Provvedimento,
@@ -248,7 +250,7 @@ SELECT
     YEAR(transmissiondate),
     MONTH(transmissiondate),
     COALESCE(voce8000,voce8000refund_i,voce8000refund_e),
-    '00', -- Vedi convenzione su ‚ÄúProgressivo‚Äù
+    '00', -- Vedi convenzione su ìProgressivoî
 	transmissiondate,
 	'E',
 	'000000000',
@@ -304,7 +306,7 @@ SELECT
     ProgrTipoRec,  
     Matricola,
     '@'+ TipoOperazione
-    +'@'+ --> SeparatoreChr    char(1) Non mettiamo nulla, √® come se avesse lunghezza 0
+    +'@'+ --> SeparatoreChr    char(1) Non mettiamo nulla, Ë come se avesse lunghezza 0
     +'@'+ convert (varchar(2),15)-- Tot. Campi
     +'@'+ TipoRecord
     +'@'+ ProgrTipoRec
@@ -440,4 +442,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

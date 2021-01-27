@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- setuser'amministrazione'
+
+-- setuser'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[show_budget]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [show_budget]
 GO
@@ -225,7 +227,7 @@ INSERT INTO #situation
 		INSERT INTO #situation   VALUES('3) Totale Preimpegni (incluse le variazioni) '  , ISNULL(@totpreimpegni,0) + ISNULL(@totvarpreimpegni,0),'')
   
 		INSERT INTO #situation 
-        VALUES('Disponibilit√† per ulteriori Preimpegni (Budget attuale - 3)',
+        VALUES('Disponibilit‡ per ulteriori Preimpegni (Budget attuale - 3)',
 			ISNULL(@currmainprev, 0) -
 			ISNULL(@totpreimpegni, 0) -
 			ISNULL(@totvarpreimpegni, 0)
@@ -313,7 +315,7 @@ INSERT INTO #situation
 		INSERT INTO #situation	 VALUES('2) Variazioni Preaccertamenti '    , @totvarpreaccertamenti, '')
 		INSERT INTO #situation   VALUES('3) Totale Preaccertamenti (incluse le variazioni) '  , ISNULL(@totpreaccertamenti,0) + ISNULL(@totvarpreaccertamenti,0),'')
 		INSERT INTO #situation 
-			VALUES('Disponibilit√† per ulteriori Preaccertamenti (Budget attuale - 3)',
+			VALUES('Disponibilit‡ per ulteriori Preaccertamenti (Budget attuale - 3)',
 				ISNULL(@currmainprev, 0) -
 				ISNULL(@totpreaccertamenti, 0) -
 				ISNULL(@totvarpreaccertamenti, 0)
@@ -353,4 +355,3 @@ GO
 
 
  
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_percipienti_h_18]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_percipienti_h_18]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_certificazioneunica_percipienti_h_18]
 GO
  
@@ -23,7 +25,7 @@ CREATE PROCEDURE [exp_certificazioneunica_percipienti_h_18]
 	@cf varchar(20)
  )
  -- estraggo l'elenco dei percipienti, autonomi, che hanno eseguito prestazioni mappate con il Record H
- -- dal 2018 aggiungo anche i percipienti (creditori pignoratizi) che hanno beneficiato di somme in virt√π di pignoramenti 
+ -- dal 2018 aggiungo anche i percipienti (creditori pignoratizi) che hanno beneficiato di somme in virt˘ di pignoramenti 
  -- effettuati verso i loro debitori 
  
 AS BEGIN
@@ -73,14 +75,14 @@ AS BEGIN
 		+ ISNULL(
 			(SELECT SUM(amount) FROM expensevar
 			WHERE expensevar.idexp = expense.idexp
-			-- AND expensevar.yvar <= @annoredditi  superfluo poich√© expense di ultima fase
+			-- AND expensevar.yvar <= @annoredditi  superfluo poichÈ expense di ultima fase
 			AND ISNULL(autokind,0) <> 4)
 		,0)) > 0
 		AND (select count(*) from expensetaxofficial 
 		      where expensetaxofficial.idexp=expense.idexp
 		      AND   expensetaxofficial.stop IS NULL) > 0
 	--------------------------------------------------------------------------------
-	----- da rimuovere non appena sar√† corretto l'errore dal software sogei --------
+	----- da rimuovere non appena sar‡ corretto l'errore dal software sogei --------
 	--------------------------------------------------------------------------------
 		AND (registry.cf IS NOT NULL) 
 		AND (registry.cf = @cf OR @cf IS NULL)
@@ -127,7 +129,7 @@ WHERE  YEAR(paymenttransmission.transmissiondate)=@annoredditi
 	AND expensetotal.ayear = @annoredditi
 	AND expenseyear.ayear = @annoredditi
 --------------------------------------------------------------------------------
------ da rimuovere non appena sar√† corretto l'errore dal software sogei --------
+----- da rimuovere non appena sar‡ corretto l'errore dal software sogei --------
 --------------------------------------------------------------------------------
 		AND (R.cf IS NOT NULL) 
 		AND (R.cf = @cf OR @cf IS NULL)
@@ -165,7 +167,7 @@ JOIN paymenttransmission	ON payment.kpaymenttransmission = paymenttransmission.k
 JOIN registry R			ON R.idreg = T.idreg 
 	JOIN registry R_DISTR		ON R_DISTR.idreg = T.idreg_distrained
 --------------------------------------------------------------------------------
------ da rimuovere non appena sar√† corretto l'errore dal software sogei --------
+----- da rimuovere non appena sar‡ corretto l'errore dal software sogei --------
 --------------------------------------------------------------------------------
 		AND (R.cf IS NOT NULL) 
 		AND (R.cf = @cf OR @cf IS NULL)
@@ -191,4 +193,3 @@ GO
 
  
  
-	

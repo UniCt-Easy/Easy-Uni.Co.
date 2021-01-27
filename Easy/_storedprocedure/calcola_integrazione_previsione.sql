@@ -1,19 +1,22 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø--simulation_asset_ammortization_to_date 2011
+
+--setuser 'amministrazione'
+--simulation_asset_ammortization_to_date 2011
 IF exists (select * from dbo.sysobjects where id = object_id(N'[calcola_integrazione_previsione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure calcola_integrazione_previsione
 GO
@@ -22,13 +25,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
- 
-
+--53820
+--setuser'amministrazione'
+ --calcola_integrazione_previsione '2020', {d '2020-12-31'}, '3'
+ --calcola_integrazione_previsione '2019', {d '2019-12-31'}, '10'
 CREATE PROCEDURE calcola_integrazione_previsione
 (
 	@ayear int,  --- anno corrente
 	@adate datetime,
-	@exportazionekind int = 10, --  Se @exportazionekind √® valorizzatto, l'output alimenta una sp di esportazione.  0 = Prev. iniziali, 1 = Le previsioni triennali di costi di ammortamento,  2 = Le previsioni di ricavo per utilizzo riserve ex COFI,  3 = Rettifiche
+	@exportazionekind int = 10, --  Se @exportazionekind Ë valorizzatto, l'output alimenta una sp di esportazione.  0 = Prev. iniziali, 1 = Le previsioni triennali di costi di ammortamento,  2 = Le previsioni di ricavo per utilizzo riserve ex COFI,  3 = Rettifiche
 	@prevcorrente char(1) = 'N',
 	@creavar char(1) = 'N'
 )
@@ -37,9 +42,9 @@ AS BEGIN
 -- setuser'amm'-- setuser'amm'
 -- setuser 'amministrazione'
 -- calcola_integrazione_previsione 2017, '31-12-2017',10
--- la stored procedure GetAssetValue √® usata per valutare l'importo corrente dei cespiti
--- la stored procedure get_originalassetvalue √® usata per valutare l'importo iniziale dei cespiti, su cui calcolare l'ammortamento
--- se l'ammortamento calcolato √® tale da rendere negativo il valore corrente viene considerata una base per l'ammortamento opportunamente ridotta
+-- la stored procedure GetAssetValue Ë usata per valutare l'importo corrente dei cespiti
+-- la stored procedure get_originalassetvalue Ë usata per valutare l'importo iniziale dei cespiti, su cui calcolare l'ammortamento
+-- se l'ammortamento calcolato Ë tale da rendere negativo il valore corrente viene considerata una base per l'ammortamento opportunamente ridotta
 -- in modo da far si che l'aliquota di ammortamento per la base di ammortamento vada ad azzerare il valore residuo del cespite
 -- select @ayear
 DECLARE @dec_31_year_prec datetime
@@ -59,12 +64,12 @@ DECLARE @idacc1	varchar(38)
 DECLARE @idacc2	varchar(38)
 
 DECLARE @quota_amm float
-DECLARE @quota_amm_2 float
-DECLARE @quota_amm_3 float
+--DECLARE @quota_amm_2 float
+--DECLARE @quota_amm_3 float
 
 SET		@quota_amm = 1 
-SET		@quota_amm_2 = 2 
-SET		@quota_amm_3 = 3 
+--SET		@quota_amm_2 = 2 
+--SET		@quota_amm_3 = 3 
 
 DECLARE @min_levelusable int 
 SET		@min_levelusable = (select min(nlevel) from accountlevel where ayear = @ayear and (flagusable='S'))
@@ -162,7 +167,7 @@ from inventorytree C
 
 	JOIN accmotivedetail ON accmotivedetail.idaccmotive = 		coalesce(t4.idaccmotive,t3.idaccmotive,t2.idaccmotive,t1.idaccmotive)
 			and accmotivedetail.ayear = @ayear
-	JOIN account ON account.idacc = accmotivedetail.idacc 	AND ((account.flagaccountusage & 64) <> 0) /*costi*/
+	JOIN account ON account.idacc = accmotivedetail.idacc 	AND ( (account.flagaccountusage & 64) <> 0 OR (account.flagaccountusage & 131072)<>0 ) /*costi o ammortamento*/
 	AND account.ayear = @ayear
 
 	where 
@@ -172,7 +177,6 @@ from inventorytree C
 		and ((tr.flag & 2) <> 0) and ((tr.flag&8) <> 0)
 		and isnull(tr.active,'S')= 'S'  	and (tr.flag & 1 = 0)  
 		
- --select * from #inventorysortingamortizationyear
  	
 CREATE TABLE #automaticbudget
 (
@@ -188,6 +192,7 @@ CREATE TABLE #automaticbudget
 	rownum int,
 	adate date, 
 	idupb varchar(36), 
+	idupb_capofila varchar(36), 
 	idacc varchar(38), 
 	ayear int,
 	kind varchar(10)
@@ -299,17 +304,18 @@ BEGIN
 				SET @reval_to_date_2 = 0
 				SET @reval_to_date_3 = 0
 		END
-	print 1
-	print @idasset
-	print @idpiece
-	print @actualvalue_to_date
-	print @actualvalue_to_date_2
-	print @actualvalue_to_date_3
-	print @actual_amortizationquota
-	print @actual_amortizationquota_2
-	print @actual_amortizationquota_3
+	--print 1
+	--print @idasset
+	--print @idpiece
+	--print @actualvalue_to_date
+	--print @actualvalue_to_date_2
+	--print @actualvalue_to_date_3
+	--print @actual_amortizationquota
+	--print @actual_amortizationquota_2
+	--print @actual_amortizationquota_3
 	IF ((@idacc is not null)AND(@reval_to_date <>0)OR((@reval_to_date_2 <>0)OR(@reval_to_date_3  <>0))) 
 		BEGIN
+		 
 		--SELECT @maxidautomaticbudget = max(idautomaticbudget) from #automaticbudget
 			INSERT INTO #automaticbudget
 			(
@@ -339,21 +345,36 @@ DEALLOCATE amt_crs
 -- Applico direttamente quella a prescindere da quella configurata nella classIFicazione inventariale.
 -- Assumo che la quota sia annuale
 
+
 DECLARE amt_crs1 INSENSITIVE CURSOR FOR
 SELECT 
 	tr.idinventoryamortization,
 	b.idasset,	b.idpiece, c.idupb,
 	c.description,
 	b.amortizationquota,
-	INV.idaccmotiveload,
+	coalesce(t4.idaccmotive,t3.idaccmotive,t2.idaccmotive,t1.idaccmotive),--	INV.idaccmotiveload,
 	account.idacc
 FROM asset b
 JOIN assetacquire c							ON b.nassetacquire = C.nassetacquire
 JOIN inventorytree INV						ON INV.idinv = C.idinv
---JOIN assetview_current ac					ON ac.idasset = b.idasset and ac.idpiece=b.idpiece
-JOIN inventoryamortization tr				ON tr.idinventoryamortization = b.idinventoryamortization  -- <<<<
-JOIN accmotivedetail ON accmotivedetail.idaccmotive = INV.idaccmotiveload
-JOIN account ON account.idacc = accmotivedetail.idacc 	AND ((account.flagaccountusage & 320) <> 0) 
+	LEFT OUTER JOIN inventorytreelink IL1     		ON IL1.idchild = C.idinv AND IL1.nlevel  = 1 
+	LEFT OUTER JOIN inventorytreelink IL2  	    	ON IL2.idchild = C.idinv  AND IL2.nlevel = 2
+	LEFT OUTER JOIN inventorytreelink IL3 	    	ON IL3.idchild = C.idinv  AND IL3.nlevel = 3 
+	LEFT OUTER JOIN inventorytreelink IL4 	    	ON IL4.idchild = C.idinv  AND IL4.nlevel = 4 
+	LEFT OUTER JOIN inventorysortingamortizationyear t4		ON t4.idinv = IL4.idparent AND t4.ayear = @ayear 
+	LEFT OUTER JOIN inventorysortingamortizationyear t3		ON t3.idinv = IL3.idparent AND t3.ayear = @ayear
+								and T4.idinv is null
+	LEFT OUTER JOIN inventorysortingamortizationyear t2		ON t2.idinv = IL2.idparent  AND t2.ayear = @ayear 
+								and T4.idinv is null and T3.idinv is null	
+	LEFT OUTER JOIN inventorysortingamortizationyear t1		ON t1.idinv = IL1.idparent AND t1.ayear = @ayear
+				and T4.idinv is null and T3.idinv is null	and  T2.idinv is null
+	JOIN inventoryamortization tr				ON tr.idinventoryamortization = b.idinventoryamortization  -- <<<<
+	AND tr.idinventoryamortization = 
+		ISNULL(t4.idinventoryamortization,ISNULL(t3.idinventoryamortization,
+		ISNULL(t2.idinventoryamortization,t1.idinventoryamortization)))
+	JOIN accmotivedetail ON accmotivedetail.idaccmotive = 		coalesce(t4.idaccmotive,t3.idaccmotive,t2.idaccmotive,t1.idaccmotive)
+			and accmotivedetail.ayear = @ayear
+JOIN account ON account.idacc = accmotivedetail.idacc 	AND ( (account.flagaccountusage & 64) <> 0 OR (account.flagaccountusage & 131072)<>0 ) /*costi o ammortamento*/
 LEFT OUTER JOIN assetload					ON assetload.idassetload = c.idassetload			
 LEFT OUTER JOIN assetunload AU				ON AU.idassetunload = B.idassetunload	
 WHERE  (tr.flag & 2 <> 0) --ufficiale
@@ -377,36 +398,32 @@ BEGIN
 		--@assetvalue_to_datevalore ORIGINALE alla data del 31 12 dell'anno corrente
 		--@actualvalue _to_datevalore ATTUALE alla data del 31 12 dell'anno corrente
  
- 
-    SET @actual_amortizationquota	= @amortizationquota * @quota_amm
-	 
+     SET @actual_amortizationquota	= @amortizationquota -- * @quota_amm : la commento perchË Ë impostata a 1. 
+	 -- Ho inizializzato @actual_amortizationquota_2 e @actual_amortizationquota_3 perchË se l'IF  [*] non agisce, @actual_amortizationquota_2 e @actual_amortizationquota_3 restano a 0.
+	 -- Invece in questo caso deve valere quella impostata nel Cespite.
+	set @actual_amortizationquota_2 = @amortizationquota
+	set @actual_amortizationquota_3 = @amortizationquota
+
 	-- Formula per il ricalcolo della quota : ammortamento su base annuale
 	-- quota_simulata = quota_annuale * @dateintheyear /  @ndaysinyear
 
      IF @actualvalue_to_date > 0  
 	BEGIN
 		SET @reval_to_date=ROUND(ISNULL(@assetvalue_to_date, 0.0) * ISNULL(@actual_amortizationquota,0.0) ,2)
-		
 
 		IF   ((@reval_to_date + @actualvalue_to_date) < 0) 
 		BEGIN
 			SET @actual_amortizationquota  = -@actualvalue_to_date/@assetvalue_to_date
 		END
-			
 		SET @reval_to_date = ROUND(ISNULL(@assetvalue_to_date, 0.0) * ISNULL(@actual_amortizationquota,0.0) ,2) 
-
-
 		SET @actualvalue_to_date_2 = @actualvalue_to_date + @reval_to_date
-		
 		IF  @actualvalue_to_date_2 > 0  
 		BEGIN
 			SET @reval_to_date_2=ROUND(ISNULL(@assetvalue_to_date, 0.0) * ISNULL(@actual_amortizationquota,0.0) ,2)	 
-
-			IF   ((@reval_to_date_2 + @actualvalue_to_date_2) < 0) 
+			IF   ((@reval_to_date_2 + @actualvalue_to_date_2) < 0) -- [*]
 			BEGIN
 				SET @actual_amortizationquota_2  = -@actualvalue_to_date_2/@assetvalue_to_date
 			END
-			
 			SET @reval_to_date_2 = ROUND(ISNULL(@assetvalue_to_date, 0.0) * ISNULL(@actual_amortizationquota_2,0.0) ,2) 
 		END
 		ELSE
@@ -414,15 +431,13 @@ BEGIN
 				SET @reval_to_date_2=0
 			END
 		SET @actualvalue_to_date_3 = @actualvalue_to_date_2 + @reval_to_date_2
-		
 		IF  @actualvalue_to_date_3 > 0  
 		BEGIN
 			SET @reval_to_date_3=ROUND(ISNULL(@assetvalue_to_date, 0.0) * ISNULL(@actual_amortizationquota,0.0) ,2)	 
-			IF   ((@reval_to_date_3 + @actualvalue_to_date_3) < 0) 
+			IF   ((@reval_to_date_3 + @actualvalue_to_date_3) < 0) -- [*]
 			BEGIN
 				SET @actual_amortizationquota_3  = -@actualvalue_to_date_3/@assetvalue_to_date
 			END
-			
 			SET @reval_to_date_3 = ROUND(ISNULL(@assetvalue_to_date, 0.0) * ISNULL(@actual_amortizationquota_3,0.0) ,2) 
 		END
 		ELSE
@@ -436,15 +451,6 @@ BEGIN
 				SET @reval_to_date_2 = 0
 				SET @reval_to_date_3 = 0
 		END
-	--		print 2
-	--	print @idasset
-	--print @idpiece
-	--print @actualvalue_to_date
-	--print @actualvalue_to_date_2
-	--print @actualvalue_to_date_3
-	--print @actual_amortizationquota
-	--print @actual_amortizationquota_2
-	--print @actual_amortizationquota_3
 
 	IF ((@idacc is not null)AND(@reval_to_date <>0)OR((@reval_to_date_2 <>0)OR(@reval_to_date_3  <>0))) 
 		BEGIN
@@ -473,9 +479,9 @@ BEGIN
 	END
 DEALLOCATE amt_crs1
  
-
+ 
 -- Caso in cui il cespite ha la data di inizio esistenza NOT NULL 
--- Applico tutte le rivalutazioni UFFICIALI che nell'anno sono associate alla classIFicazione cespite con et√†¬†pari alla dIFferenza tra l'anno
+-- Applico tutte le rivalutazioni UFFICIALI che nell'anno sono associate alla classIFicazione cespite con et‡†pari alla dIFferenza tra l'anno
 -- di acquisizione del cespite e la data contabile
 -- In questo caso prima di effettuare le rivalutazioni controllo se ci sono rivalutazioni che hanno il campo ETA' valorizzato,
 -- in caso negativo provo ad effettuare rivalutazioni senza ETA' (costanti nel tempo)
@@ -519,10 +525,10 @@ BEGIN
 	WHERE   b.lifestart IS NOT NULL AND b.lifestart <= @dec_31_year_prec
 		AND t.age_min <= (DATEPART(YEAR,@dec_31) - DATEPART(YEAR,b.lifestart)) + 1
 		AND t.age_max >= (DATEPART(YEAR,@dec_31) - DATEPART(YEAR,b.lifestart)) + 1
-		-- et√† cespite secondo anno
+		-- et‡ cespite secondo anno
 		AND t1.age_min <= (DATEPART(YEAR,@dec_31_year_1) - DATEPART(YEAR,b.lifestart)) + 1
 		AND t1.age_max >= (DATEPART(YEAR,@dec_31_year_1) - DATEPART(YEAR,b.lifestart)) + 1
-		-- et√† cespite terzo anno
+		-- et‡ cespite terzo anno
 		AND t2.age_min <= (DATEPART(YEAR,@dec_31_year_2) - DATEPART(YEAR,b.lifestart)) + 1
 		AND t2.age_max >= (DATEPART(YEAR,@dec_31_year_2) - DATEPART(YEAR,b.lifestart)) + 1
 
@@ -648,11 +654,11 @@ FOR READ ONLY
 
 --	Le previsioni triennali per ammortamenti di immobiliazzazioni 
 
---Le previsioni triennali per ammortamenti delle Immobilizzazioni caricate nel Budget degli investimenti. Esempio: inserisco una variazione di budget sulla voce di Budget Mobili e arredi per 100.000 euro e calcolo l‚Äôammortamento.
---Delle var. sino alla data‚Ä¶ prendo i dettagli collegati a conti di immobilizzazione associati a budget investimenti ‚Äì considerare solo le var. approvate
+--Le previsioni triennali per ammortamenti delle Immobilizzazioni caricate nel Budget degli investimenti. Esempio: inserisco una variazione di budget sulla voce di Budget Mobili e arredi per 100.000 euro e calcolo líammortamento.
+--Delle var. sino alla dataÖ prendo i dettagli collegati a conti di immobilizzazione associati a budget investimenti ñ considerare solo le var. approvate
 --Di queste vanno considerati gli importi anno x, x+1 e x+2 e tralasciati gli altri due.
---L‚Äôimporto anno x andr√† ammortizzato  per 3 anni, quello x+1 per due anni a partire dal successivo e quello x+2 nell‚Äôanno x+2 solamente
---L‚Äôidea attuale √® di associare al dett. Variaz. Budget una class. inventariale da cui poi derivare l‚Äôaliquota di ammortamento considerando come data ‚Äúcespite‚Äù quella contabile della variazione
+--Líimporto anno x andr‡ ammortizzato  per 3 anni, quello x+1 per due anni a partire dal successivo e quello x+2 nellíanno x+2 solamente
+--Líidea attuale Ë di associare al dett. Variaz. Budget una class. inventariale da cui poi derivare líaliquota di ammortamento considerando come data ìcespiteî quella contabile della variazione
 
 /*
 SELECT * FROM #inventorysortingamortizationyear
@@ -681,10 +687,10 @@ SELECT  DISTINCT
 	 		
 		--AND t.age_min <= (DATEPART(YEAR,@dec_31) - DATEPART(YEAR,b.adate)) + 1
 		--AND t.age_max >= (DATEPART(YEAR,@dec_31) - DATEPART(YEAR,b.adate)) + 1
-		---- et√† cespite secondo anno
+		---- et‡ cespite secondo anno
 		--AND t1.age_max <= (DATEPART(YEAR,@dec_31_year_1) - DATEPART(YEAR,b.adate)) + 1
 		--AND t1.age_max >= (DATEPART(YEAR,@dec_31_year_1) - DATEPART(YEAR,b.adate)) + 1
-		---- et√† cespite terzo anno
+		---- et‡ cespite terzo anno
 		--AND t2.age_min <= (DATEPART(YEAR,@dec_31_year_2) - DATEPART(YEAR,b.adate)) + 1
 		--AND t2.age_max >= (DATEPART(YEAR,@dec_31_year_2) - DATEPART(YEAR,b.adate)) + 1
 
@@ -738,23 +744,25 @@ print @prevcorrente
 			OR
 	 		-- calcolo budget corrente: prendo le variazioni tranne le non operative alla data  
 			(
-				( @prevcorrente = 'S') AND
+				 @prevcorrente = 'S' AND
 				(
 					(b.yvar = @ayear) AND
 					(
-						(b.variationkind = 5) /*tutte quelle iniziali dell'anno indipendentemente dalla data*/) 
+						(b.variationkind = 5) /*tutte quelle iniziali dell'anno indipendentemente dalla data*/
+						
 						OR 
 						(b.variationkind <> 5 AND b.variationkind <> 6 AND b.adate <= @adate)
-					) /*tutte quelle iniziali dell'anno e storni dell'anno alla data*/  
+					)
+				) /*tutte quelle iniziali dell'anno e storni dell'anno alla data*/  
 			
 				)  
 		)
 		AND t.age_min <= (DATEPART(YEAR,@dec_31) - DATEPART(YEAR,b.adate)) + 1
 		AND t.age_max >= (DATEPART(YEAR,@dec_31) - DATEPART(YEAR,b.adate)) + 1
-		-- et√† cespite secondo anno
+		-- et‡ cespite secondo anno
 		AND t1.age_min <= (DATEPART(YEAR,@dec_31_year_1) - DATEPART(YEAR,b.adate)) + 1
 		AND t1.age_max >= (DATEPART(YEAR,@dec_31_year_1) - DATEPART(YEAR,b.adate)) + 1
-		-- et√† cespite terzo anno
+		-- et‡ cespite terzo anno
 		AND t2.age_min <= (DATEPART(YEAR,@dec_31_year_2) - DATEPART(YEAR,b.adate)) + 1
 		AND t2.age_max >= (DATEPART(YEAR,@dec_31_year_2) - DATEPART(YEAR,b.adate)) + 1
 
@@ -762,7 +770,8 @@ print @prevcorrente
 		AND	((t.valuemin is null or t.valuemin<C.amount)  and (t.valuemax is null or t.valuemax>=C.amount))
 		AND	((t1.valuemin is null or t1.valuemin<(ISNULL(C.amount, 0.0) + ISNULL(C.amount, 0.0))) and (t1.valuemax is null or t1.valuemax>=(ISNULL(C.amount, 0.0) + ISNULL(C.amount2, 0.0)        )))
 		AND	((t2.valuemin is null or t2.valuemin<(ISNULL(C.amount, 0.0) + ISNULL(C.amount2, 0.0)+ ISNULL(C.amount3, 0.0))) and (t2.valuemax is null or t2.valuemax>=(ISNULL(C.amount, 0.0) + ISNULL(C.amount2, 0.0)+ ISNULL(C.amount3, 0.0)  )))
-		AND (( a.flagaccountusage & 256) <> 0) -- immobilizzazioni 	
+		--AND (( a.flagaccountusage & 256) <> 0) -- immobilizzazioni 	
+		AND ( (A1.flagaccountusage & 64) <> 0 OR (A1.flagaccountusage & 131072)<>0 ) /*costi o ammortamento*/
 		--AND S.idsorkind = @idsorkind
 	FOR READ ONLY
 	OPEN amt_crs3
@@ -772,7 +781,7 @@ print @prevcorrente
 		SET @actual_amortizationquota	= @amortizationquota 
 		-- Formula per il ricalcolo della quota : ammortamento su base annuale
 
-		--L‚Äôimporto anno x andr√† ammortizzato  per 3 anni, quello x+1 per due anni a partire dal successivo e quello x+2 nell‚Äôanno x+2 solamente
+		--Líimporto anno x andr‡ ammortizzato  per 3 anni, quello x+1 per due anni a partire dal successivo e quello x+2 nellíanno x+2 solamente
 
 		SET @reval_to_date		=	ROUND(ISNULL(@amount, 0.0) * ISNULL(@amortizationquota,0.0) ,2) 
 		SET @reval_to_date_2	=	/*ROUND(ISNULL(@amount, 0.0) * ISNULL(@actual_amortizationquota,0.0) ,2)*/  +  ROUND(ISNULL(@amount, 0.0) * ISNULL(@amortizationquota2,0.0) ,2) + 	ROUND(ISNULL(@amount_2, 0.0) * ISNULL(@amortizationquota,0.0),2) 
@@ -835,6 +844,7 @@ CREATE TABLE #budgetupb
 CREATE TABLE #budgetsituation
 	(
 		idupb			varchar(36),
+		idupb_capofila varchar(36), 
 		amount			decimal(19,2),
 		amount2			decimal(19,2),
 		amount3			decimal(19,2),
@@ -852,26 +862,27 @@ CREATE TABLE #budgetsituation
 					amount decimal(19,2),  
 					accountkind varchar(10)
 				)
-	 
+	 --- dettagli scrittura di tipo apertura
 		INSERT INTO #reserve
 			(
 				idupb,	 			
 				amount,  
 				accountkind
 			)
-		SELECT 
-				AD.idupb,			
-				ISNULL(SUM(AD.amount),0), --totale avere > 0
-				'F'
-		FROM accountvardetail   AD 
-		JOIN account AC
-		  ON AC.idacc =  AD.idacc
-		JOIN accountvar A 
-		  ON A.yvar = AD.yvar  AND A.nvar = AD.nvar
-		WHERE ((AC.flagaccountusage & 262144)<> 0)  -- Fondi Riserve Ex COFI
-		AND AD.yvar = @ayear 		--AND A.adate = @adate
-		GROUP BY AD.idupb 
-		HAVING ISNULL(SUM(amount),0) >0
+			SELECT 
+					entrydetail.idupb,			
+					ISNULL(SUM(amount),0), --totale avere > 0
+					'F'
+			FROM entrydetail  
+			JOIN entry 
+			  ON  entry.nentry = entrydetail.nentry AND
+				  entry.yentry = entrydetail.yentry 
+			JOIN account AC
+			  ON AC.idacc =  entrydetail.idacc
+			WHERE ((AC.flagaccountusage & 262144)<> 0)  -- Fondi Riserve Ex COFI
+			AND entry.identrykind = 7 --- apertura
+			AND entry.yentry = (@ayear)  
+			GROUP BY entrydetail.idupb 
 	 
 	IF (SELECT COUNT(*) FROM #reserve ) = 0
 	BEGIN
@@ -927,8 +938,8 @@ CREATE TABLE #budgetsituation
 			join account A
 			on AVD.idacc = A.idacc
 		WHERE AV.yvar = @ayear AND AV.variationkind = 5 --- INIZIALE
-			AND ((A.flagaccountusage & 320)<> 0)  	 -- conti di Costo e Immobilizzazioni
- 
+			--AND ((A.flagaccountusage & 320)<> 0)  	 -- conti di Costo e Immobilizzazioni
+			and ( (A.flagaccountusage & 64) <> 0 OR (A.flagaccountusage & 131072)<>0 ) /*costi o ammortamento*/
 		IF (@prevcorrente = 'S') 
 		BEGIN
 		-- e stiamo facendo il budget corrente deve includere nel calcolo gli storni  e le variazioni normali alla data
@@ -957,7 +968,8 @@ CREATE TABLE #budgetsituation
 		join account A
 			on accountvardetail.idacc = A.idacc
 		where accountvar.adate <= @adate
-			AND ((A.flagaccountusage & 320)<> 0)  	 -- conti di Costo
+			--AND ((A.flagaccountusage & 320)<> 0)  	 -- conti di Costo
+			AND ( (A.flagaccountusage & 64) <> 0 OR (A.flagaccountusage & 131072)<>0 ) /*costi o ammortamento*/
 			and accountvar.yvar = @ayear
 			and accountvar.idaccountvarstatus=5 
 			and accountvar.variationkind <> 5 and accountvar.variationkind <> 6 
@@ -1042,6 +1054,7 @@ CREATE TABLE #budgetsituation
 				sum(isnull(#budgetupb.initialprevision3,0)) + sum(isnull(#budgetupb.amount3,0)),
 				CASE	WHEN ((A.flagaccountusage & 128)<> 0) THEN 'R'  	-- conti di Ricavo
 					WHEN ((A.flagaccountusage & 64)<> 0) THEN 'C'			-- conti di costo
+					WHEN ((A.flagaccountusage & 131072)<> 0) THEN 'A'			-- conti di ammortamento
 					WHEN ((A.flagaccountusage & 256)<> 0) THEN 'I'			-- o Immobilizzazioni
 				END as accountkind
 			FROM #budgetupb JOIN account A ON #budgetupb.idacc = A.idacc
@@ -1049,6 +1062,7 @@ CREATE TABLE #budgetsituation
 			GROUP BY #budgetupb.idupb,
 			CASE	WHEN ((A.flagaccountusage & 128)<> 0) THEN 'R'  		-- conti di Ricavo
 					WHEN ((A.flagaccountusage & 64)<> 0) THEN 'C'			-- conti di costo
+					WHEN ((A.flagaccountusage & 131072)<> 0) THEN 'A'			-- conti di ammortamento
 					WHEN ((A.flagaccountusage & 256)<> 0) THEN 'I'			-- o Immobilizzazioni
 			END 
 
@@ -1057,6 +1071,7 @@ CREATE TABLE #budgetsituation
 				SELECT autob.idupb, sum(isnull(autob.amount,0)),sum(isnull(autob.amount2,0)), sum(isnull(autob.amount3,0)),   
 				CASE	WHEN ((A.flagaccountusage & 128)<> 0) THEN 'R'  		-- conti di Ricavo
 					WHEN ((A.flagaccountusage & 64)<> 0) THEN 'C'			-- conti di costo
+					WHEN ((A.flagaccountusage & 131072)<> 0) THEN 'A'			-- conti di ammortamento
 					WHEN ((A.flagaccountusage & 256)<> 0) THEN 'I'			-- o Immobilizzazioni
 				END 
 			FROM #automaticbudget	 autob (nolock)  
@@ -1067,6 +1082,7 @@ CREATE TABLE #budgetsituation
 			GROUP BY autob.idupb, 
 			CASE	WHEN ((A.flagaccountusage & 128)<> 0) THEN 'R'  		-- conti di Ricavo
 					WHEN ((A.flagaccountusage & 64)<> 0) THEN 'C'			-- conti di costo
+					WHEN ((A.flagaccountusage & 131072)<> 0) THEN 'A'			-- conti di ammortamento
 					WHEN ((A.flagaccountusage & 256)<> 0) THEN 'I'			-- o Immobilizzazioni
 			END 
  
@@ -1082,7 +1098,7 @@ CREATE TABLE #budgetsituation
 	BEGIN
 			--select * from #budgetsituation where idupb =@idupb
 			SELECT @riserve_ex_cofi = (ISNULL(SUM(amount),0)) FROM #reserve where idupb = @idupb and accountkind = 'F' 
-			SELECT @totcosti_upb = (ISNULL(SUM(amount),0)) FROM #budgetsituation where idupb = @idupb and accountkind IN ('C','I') 
+			SELECT @totcosti_upb = (ISNULL(SUM(amount),0)) FROM #budgetsituation where idupb = @idupb and accountkind IN ('C','I','A') 
 			SELECT @totricavi_upb = (ISNULL(SUM(amount),0)) FROM #budgetsituation where idupb = @idupb and accountkind = 'R' 
  
 
@@ -1123,8 +1139,14 @@ CREATE TABLE #budgetsituation
 	DEALLOCATE amt_crs4
 	end
 	
- 
+declare  @tab_ricavi RevenueTableType
+			--( idupb varchar(36),	 	
+			--idacc varchar(38),			
+			--amount decimal(19,2),
+			--accountkind char(1) ); -- SEMPRE R--> RICAVI
 
+CREATE TABLE #t_risconti_ripartiti (idupb varchar(36),	idacc varchar(38), importo decimal(19,2))
+ 
 
  ----FASE 3 RETTIFICHE, INSERISCO I DATI DELLE ELABORAZIONI DEI PRECEDENTI PUNTI 1)	 E 2)
  INSERT INTO #budgetsituation
@@ -1136,6 +1158,7 @@ CREATE TABLE #budgetsituation
 				SELECT autob.idupb, sum(isnull(autob.amount,0)),sum(isnull(autob.amount2,0)), sum(isnull(autob.amount3,0)),   
 				CASE	WHEN ((A.flagaccountusage & 128)<> 0) THEN 'R'  		-- conti di Ricavo
 					WHEN ((A.flagaccountusage & 64)<> 0) THEN 'C'			-- conti di costo
+					WHEN ((A.flagaccountusage & 131072)<> 0) THEN 'A'			-- conti di ammortamento
 					WHEN ((A.flagaccountusage & 256)<> 0) THEN 'I'			-- o Immobilizzazioni
 				END 
 			FROM #automaticbudget	 autob (nolock)  
@@ -1146,6 +1169,7 @@ CREATE TABLE #budgetsituation
 			GROUP BY autob.idupb, 
 			CASE	WHEN ((A.flagaccountusage & 128)<> 0) THEN 'R'  		-- conti di Ricavo
 					WHEN ((A.flagaccountusage & 64)<> 0) THEN 'C'			-- conti di costo
+					WHEN ((A.flagaccountusage & 131072)<> 0) THEN 'A'			-- conti di ammortamento
 					WHEN ((A.flagaccountusage & 256)<> 0) THEN 'I'			-- o Immobilizzazioni
 			END 
 
@@ -1176,22 +1200,25 @@ DECLARE @importo decimal(19,2)
 SET		@rownum = 0
  --select * from #budgetsituation
  -- select * from #automaticbudget
- 
+
+UPDATE #budgetsituation SET idupb_capofila = (select idupb_capofila from upb WHERE #budgetsituation.idupb = upb.idupb)
+UPDATE #budgetsituation SET idupb_capofila = #budgetsituation.idupb where idupb_capofila IS NULL
+
 DECLARE amt_crs5 INSENSITIVE CURSOR FOR
-		select avd.idupb,  
-			(SELECT	 SUM(isnull(amount,0)) FROM #budgetsituation B  WHERE B.accountkind IN ('C','I') AND B.idupb = avd.idupb) as cost,
-			(SELECT	 SUM(isnull(amount,0)) FROM #budgetsituation B   WHERE B.accountkind = 'R' AND B.idupb = avd.idupb) as revenue,
+		select avd.idupb_capofila,  
+			(SELECT	 SUM(isnull(amount,0)) FROM #budgetsituation B   WHERE B.accountkind IN ('C','I','A') AND B.idupb_capofila = avd.idupb_capofila) as cost,
+			(SELECT	 SUM(isnull(amount,0)) FROM #budgetsituation B   WHERE B.accountkind = 'R' AND B.idupb_capofila = avd.idupb_capofila) as revenue,
 			EU.idacc_revenue, EU.idaccmotive_revenue,  year(U.stop) as yearstop, 
 			YEAR(U.start) as yearstart   
 			FROM #budgetsituation avd (nolock)  
-			join upb u (nolock) on avd.idupb = u.idupb 
+			join upb u (nolock) on avd.idupb_capofila = u.idupb 
 			join epupbkindyear EU (nolock)  on EU.idepupbkind = U.idepupbkind 
 			--join account A (nolock) on A.idacc = avd.idacc  
 			WHERE ((year(U.start) IS NULL)OR(year(U.start)<=@ayear)) AND(year(U.stop)>@ayear)
 			AND	(EU.ayear=@ayear)
 			AND	(EU.adjustmentkind='C')   
 			AND YEAR(U.stop)> @ayear
-			group by avd.idupb, EU.idacc_revenue, EU.idaccmotive_revenue,  
+			group by avd.idupb_capofila, EU.idacc_revenue, EU.idaccmotive_revenue,  
 			YEAR(U.stop),year(U.start),U.idepupbkind,U.codeupb,U.title 
 		FOR READ ONLY
 		OPEN amt_crs5
@@ -1201,9 +1228,11 @@ DECLARE amt_crs5 INSENSITIVE CURSOR FOR
 			
 			SET @importo= 0
 			SET @importo  = isnull(@cost,0)  - isnull(@revenue,0)
-			IF (@importo <> 0) 
+			-- calcola_integrazione_previsione '2019', {d '2019-12-31'}, '3'
+			IF (@importo > 0)   --- attenzione c
 			BEGIN
 				SET @rownum = @rownum +1
+				print 'ratei'
 				--SELECT @maxidautomaticbudget = isnull(max(idautomaticbudget),0) from #automaticbudget
 				INSERT INTO #automaticbudget
 				(
@@ -1224,9 +1253,50 @@ DECLARE amt_crs5 INSENSITIVE CURSOR FOR
 				SELECT
 					/*@maxidautomaticbudget + 1,*/@idaccmotive_revenue,'ADJUSTMENT',@importo,0,0,@ayear,99999,@rownum,
 						@adate, @idupb, @idacc_revenue,@ayear
-		END
+		   END
+		   ELSE
+		   IF (@importo < 0) 
+			BEGIN
+				--		select isnull(@cost,0) as cost  ,isnull(@revenue,0) as revenue
+			print 'risconti'
+			delete from @tab_ricavi
+			 INSERT INTO @tab_ricavi
+				SELECT
+				#budgetupb.idupb,
+				#budgetupb.idacc,			
+				sum(isnull(#budgetupb.initialprevision,0)) + sum(isnull(#budgetupb.amount,0)),			-- prendiamo solo il primo anno
+				'R'-- conti di Ricavo
+				FROM #budgetupb
+				WHERE #budgetupb.rowkind in (10,20)  --  = 'R'  	-- conti di Ricavo
+				AND #budgetupb.idupb = @idupb
+				GROUP by #budgetupb.idupb,#budgetupb.idacc
+				--select '@tab_ricavi',@idupb as '@idupb',- @importo as '- @importo', * from @tab_ricavi
+				--SELECT * FROM [f_ripartisci_risconto_su_ricavi_upb](- @importo,@tab_ricavi)
+			--INSERT INTO #t_risconti_ripartiti SELECT * FROM [f_ripartisci_risconto_su_ricavi_upb](@idupb,- @importo ,@tab_ricavi)
+			INSERT INTO #automaticbudget
+				(
+					--idautomaticbudget,
+					idaccmotiveload,
+					kind, 
+					amount,
+					amount2, 
+					amount3, 
+					yvar, 
+					nvar, 
+					rownum,
+					adate, 
+					idupb,
+					idacc, 
+					ayear
+				)
+				SELECT
+						@idaccmotive_revenue,'ADJUSTMENT',-TResult.importo,0,0,@ayear,99999,@rownum + TResult.ndetail,
+						@adate, @idupb, TResult.idacc,@ayear
+					FROM  [f_ripartisci_risconto_su_ricavi_upb](- @importo ,@tab_ricavi) AS TResult
+				SET @rownum = @rownum + (SELECT COUNT(*) from [f_ripartisci_risconto_su_ricavi_upb](- @importo ,@tab_ricavi) AS TResult)
+		   END
 	FETCH NEXT FROM amt_crs5 INTO @idupb,@cost, @revenue,  @idacc_revenue, @idaccmotive_revenue,@yearstop,@yearstart
-		END
+	end
 	DEALLOCATE amt_crs5
  
  --select * from #automaticbudget
@@ -1281,27 +1351,27 @@ BEGIN
 		yvar,
 		ISNULL(@maxnvar,0) +1,
 		@adate,
-		annotation,
-		ct,
-		cu,
-		description + ' non operativa'	,
-		enactment	,
-		enactmentdate	,
+		null,
+		GetDate()	,
+		'Integrazione',
+		'Budget iniziale non operativa'	,
+		null	,
+		null	,
 		4	,   --- deve essere inserita e non approvata per non incidere sul budget operativo
-		idman	,
-		idsor01	,
-		idsor02	,
-		idsor03	,
-		idsor04	,
-		idsor05	,
-		lt	,
+		null	,
+		null, -- idsor01	,
+		null, --idsor02	,
+		null, --idsor03	,
+		null, --idsor04	,
+		null, --idsor05	,
+		GetDate()	,
 		lu	,
-		nenactment	,
-		reason	,
-		rtf	,
-		txt	,
+		null	,
+		null	,
+		null	,
+		null	,
 		6, --variationkind, Integrazione previsione iniziale
-		idenactment	,
+		null	,
 		flag	
 	FROM accountvar
 	WHERE yvar = @ayear AND  nvar in (SELECT top 1  nvar from accountvar where yvar = @ayear AND variationkind = 5)
@@ -1344,8 +1414,9 @@ BEGIN
 		B.idupb,
 		GetDate(),
 		'Integrazione'
-	FROM  accountvardetail B  WHERE nvar in (select nvar from accountvar where yvar = @ayear and variationkind = 5 ) and yvar = @ayear
-	GROUP BY   B.idacc, B.idupb
+	FROM  accountvardetail B  
+	WHERE nvar in (select nvar from accountvar where yvar = @ayear and variationkind = 5 ) and yvar = @ayear
+	GROUP BY   B.idacc, B.idupb 
 	HAVING (SUM(isnull(B.amount,0))<> 0 OR  SUM(isnull(B.amount2,0)) <>0 OR  SUM(isnull(B.amount3,0)) <> 0)
 
 	--3) Inserisco i dettagli di integrazione
@@ -1375,7 +1446,7 @@ BEGIN
 	SELECT
 		ISNULL(@maxnvar,0) +1,
 		@ayear,
-		@maxrownum +ROW_NUMBER() OVER(ORDER BY  #automaticbudget.idacc, #automaticbudget.idupb ASC) ,
+		@maxrownum +ROW_NUMBER() OVER(ORDER BY  parent.idacc, B.idupb ASC) ,
 		SUM(isnull(amount,0)),
 		SUM(isnull(amount2,0)),
 		SUM(isnull(amount3,0)),
@@ -1385,19 +1456,23 @@ BEGIN
 		GetDate()	,
 		'Integrazione'	,
 		case
-			when #automaticbudget.kind ='INIZIALI' then 'Prev. iniziali' -- 0 -- 
-			when #automaticbudget.kind ='ASSET' then 'Ammortamenti da Cespiti' -- 1 --
-			when #automaticbudget.kind ='ACCOUNTVAR' then 'Ammortamenti da Budget Investimenti'-- 1 --
-			when #automaticbudget.kind ='RESERVE' then 'Prev.Ricavo'	-- 2 --
-			when #automaticbudget.kind ='ADJUSTMENT' then 'Rettifiche Commessa completata'	-- 3 --
+			when B.kind ='INIZIALI' then 'Prev. iniziali' -- 0 -- 
+			when B.kind ='ASSET' then 'Ammortamenti da Cespiti' -- 1 --
+			when B.kind ='ACCOUNTVAR' then 'Ammortamenti da Budget Investimenti'-- 1 --
+			when B.kind ='RESERVE' then 'Prev.Ricavo'	-- 2 --
+			when B.kind ='ADJUSTMENT' then 'Rettifiche Commessa completata'	-- 3 --
 		end as 'Tipologia',
-		idacc	,
-		idupb	,
+		parent.idacc	,
+	    B.idupb,	
 		GetDate()	,
 		'Integrazione'	 
-	FROM #automaticbudget
+	FROM #automaticbudget B
+	JOIN accountlevel	 minlevop		(NOLOCK) on	 minlevop.nlevel = (select min(nlevel) from accountlevel 
+																			where ayear = @ayear and flagusable = 'S')	
+																			AND @ayear = minlevop.ayear
+	JOIN account parent	(NOLOCK)	ON parent.idacc  =  substring(B.idacc, 1, 2 + 4*minlevop.nlevel) AND minlevop.nlevel =parent.nlevel
 	--WHERE yvar = @ayear 
-	GROUP BY   #automaticbudget.idacc, #automaticbudget.idupb,#automaticbudget.kind 
+	GROUP BY   parent.idacc, B.idupb,B.kind 
 END
  
 
@@ -1419,14 +1494,15 @@ Begin
 		isnull(B.amount,0)  as initialprevision ,	isnull(B.amount2,0)   as initialprevision2,	isnull(B.amount3,0) as initialprevision3
 		--operationkind,
 		--rowkind,
-	FROM accountvardetail B  join accountvar A on A.yvar = B.yvar and A.nvar = B.nvar WHERE     A.variationkind = 5  and A.yvar = @ayear --and A.adate<=@adate
+	FROM accountvardetail B  join accountvar A on A.yvar = B.yvar and A.nvar = B.nvar 
+	WHERE     A.variationkind = 5  and A.yvar = @ayear --and A.adate<=@adate
 	RETURN
 End 
 if (@exportazionekind =1)
 Begin
 	select 	 
 	--idaccmotiveload, 
-	idacc, 	idupb,
+	parent.idacc, 	idupb,
 	yvar, nvar,	
 	adate, 
 	idasset, idpiece,rownum,
@@ -1434,15 +1510,20 @@ Begin
 	amount, amount2, amount3 , 
 	null as initialprevision ,	null as initialprevision2,	null as initialprevision3 
 	--ayear,
-	FROM #automaticbudget
-	where kind in ('ASSET','ACCOUNTVAR')
+	FROM #automaticbudget B
+	JOIN accountlevel	 minlevop		(NOLOCK) on	 minlevop.nlevel = (select min(nlevel) from accountlevel 
+																			where ayear = @ayear and flagusable = 'S')	
+																			AND @ayear = minlevop.ayear
+	JOIN account parent	(NOLOCK)	ON parent.idacc  =  substring(B.idacc, 1, 2 + 4*minlevop.nlevel) AND minlevop.nlevel =parent.nlevel
+
+	WHERE B.kind in ('ASSET','ACCOUNTVAR')
 	RETURN
 End
 if (@exportazionekind =2)
 Begin
 	select 	 
 	--idaccmotiveload, 
-	idacc, 	idupb,
+	parent.idacc, 	idupb,
 	yvar, nvar,	
 	adate, 
 	idasset, idpiece,rownum,
@@ -1450,8 +1531,13 @@ Begin
 	amount, amount2, amount3 , 
 	null as initialprevision ,	null as initialprevision2,	null as initialprevision3 
 	--ayear,
-	FROM #automaticbudget
-	where kind ='RESERVE'
+	FROM #automaticbudget B
+	JOIN accountlevel	 minlevop		(NOLOCK) on	 minlevop.nlevel = (select min(nlevel) from accountlevel 
+																			where ayear = @ayear and flagusable = 'S')	
+																			AND @ayear = minlevop.ayear
+	JOIN account parent	(NOLOCK)	ON parent.idacc  =  substring(B.idacc, 1, 2 + 4*minlevop.nlevel) AND minlevop.nlevel =parent.nlevel
+
+	WHERE B.kind ='RESERVE'
 	RETURN
 End
 
@@ -1459,7 +1545,7 @@ if (@exportazionekind = 3)
 Begin
 	select 	 
 	--idaccmotiveload, 
-	idacc, 	idupb,
+	parent.idacc, idupb,
 	yvar, nvar,	
 	adate, 
 	idasset, idpiece,rownum,
@@ -1467,8 +1553,13 @@ Begin
 	amount, amount2, amount3 , 
 	null as initialprevision ,	null as initialprevision2,	null as initialprevision3 
 	--ayear,
-	FROM #automaticbudget
-	where kind ='ADJUSTMENT'
+	FROM #automaticbudget B
+	JOIN accountlevel	 minlevop		(NOLOCK) on	 minlevop.nlevel = (select min(nlevel) from accountlevel 
+																			where ayear = @ayear and flagusable = 'S')	
+																			AND @ayear = minlevop.ayear
+	JOIN account parent	(NOLOCK)	ON parent.idacc  =  substring(B.idacc, 1, 2 + 4*minlevop.nlevel) AND minlevop.nlevel =parent.nlevel
+
+	where B.kind ='ADJUSTMENT'
 	RETURN
 End
 
@@ -1487,10 +1578,11 @@ Begin
 		0 as amount2,
 		0 as amount3,
 		isnull(B.amount,0) as initialprevision ,	isnull(B.amount2,0) as initialprevision2,	isnull(B.amount3,0) as initialprevision3
-	FROM accountvardetail B  join accountvar A on A.yvar = B.yvar and A.nvar = B.nvar WHERE     A.variationkind = 5  and A.yvar = @ayear --and A.adate<=@adate
+	FROM accountvardetail B  join accountvar A on A.yvar = B.yvar and A.nvar = B.nvar 
+	WHERE     A.variationkind = 5  and A.yvar = @ayear --and A.adate<=@adate
 	union
 	select 	 
-		idacc, idupb, 
+		parent.idacc, idupb, 
 		yvar, nvar,
 		adate, 
 		idasset,
@@ -1501,7 +1593,12 @@ Begin
 		isnull(amount,0) as amount ,	isnull(amount2,0) as amount2,	isnull(amount3,0) as amount3,
 		0 as initialprevision ,	0 as initialprevision2,	0 as initialprevision3 
 		-- idaccmotiveload, 
-	FROM #automaticbudget
+	FROM #automaticbudget B
+	JOIN accountlevel	 minlevop		(NOLOCK) on	 minlevop.nlevel = (select min(nlevel) from accountlevel 
+																			where ayear = @ayear and flagusable = 'S')	
+																			AND @ayear = minlevop.ayear
+	JOIN account parent	(NOLOCK)	ON parent.idacc  =  substring(B.idacc, 1, 2 + 4*minlevop.nlevel) AND minlevop.nlevel =parent.nlevel
+
 	RETURN
 End
  
@@ -1515,5 +1612,4 @@ GO
 SET ANSI_NULLS ON 
 GO
 
- 
-	
+-- calcola_integrazione_previsione '2020', {d '2020-06-17'}, '3'

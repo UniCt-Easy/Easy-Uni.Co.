@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoicedetail_quadrovf]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoicedetail_quadrovf]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_invoicedetail_quadrovf]
 GO
  
@@ -80,28 +82,28 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 		va3type char(1)
 	)
 	-- QUADRO VE
-		--Condizioni fatture da comprendere nell‚Äôesportazione: 
+		--Condizioni fatture da comprendere nellíesportazione: 
 		--1.	Dettagli fatture di vendita, con aliquota 4% o 10% o 22%, 
 		--con esercizio anno di dichiarazione e flag IVA immediata
 		--2.	Dettagli fatture di vendita, con aliquota 4% o 10% o 22%, 
-		--con esercizio anno di dichiarazione, flag IVA differita e incassate nell‚Äôesercizio di dichiarazione
+		--con esercizio anno di dichiarazione, flag IVA differita e incassate nellíesercizio di dichiarazione
 		--3.	Dettagli fatture di vendita, con aliquota 4% o 10% o 22%, 
-		--con esercizio anni precedenti a quello di dichiarazione, flag IVA differita e incassate nell‚Äôesercizio di dichiarazione
+		--con esercizio anni precedenti a quello di dichiarazione, flag IVA differita e incassate nellíesercizio di dichiarazione
 	-- QUADRO VF
 		--1 - Operazioni imponibili distinte per aliquota  VF1-VF13
-		--Indicare gli acquisti commerciali (da fornitori IT, EU ed EXTRAUE) assoggettati ad imposta (% aliquota iva diversa da 0), per i quali si √® verificata
-		-- l‚Äôesigibilit√† ed √® stato esercitato, nel 2017, il diritto alla detrazione. Vanno inclusi anche gli acquisti effettuati negli anni precedenti e per i quali l‚Äôimposta √® divenuta esigibile.
-		--Nei righi devono essere compresi anche gli acquisti e le importazioni per i quali √® stato applicato il meccanismo del reverse-charge (% aliquota iva √® diversa da 0).
+		--Indicare gli acquisti commerciali (da fornitori IT, EU ed EXTRAUE) assoggettati ad imposta (% aliquota iva diversa da 0), per i quali si Ë verificata
+		-- líesigibilit‡ ed Ë stato esercitato, nel 2017, il diritto alla detrazione. Vanno inclusi anche gli acquisti effettuati negli anni precedenti e per i quali líimposta Ë divenuta esigibile.
+		--Nei righi devono essere compresi anche gli acquisti e le importazioni per i quali Ë stato applicato il meccanismo del reverse-charge (% aliquota iva Ë diversa da 0).
 
-		--Condizioni fatture comprese nell‚Äôesportazione:
+		--Condizioni fatture comprese nellíesportazione:
 		--1. Dettagli fatture di acquisto con data contabile anno di dichiarazione e flag IVA immediata
-		--2. Dettagli fatture di acquisto con data contabile anno di dichiarazione e flag IVA differita, pagate nell‚Äôesercizio di dichiarazione
-		--3. Dettagli fatture di acquisto con data contabile anni precedenti a quello di dichiarazione e flag IVA differita, pagate nell‚Äôesercizio di dichiarazione.
-		--Risultano esclusi dall‚Äôesportazione 1 tutti i dettagli fattura aventi Tipo aliquota IVA a percentuale 0,00.
+		--2. Dettagli fatture di acquisto con data contabile anno di dichiarazione e flag IVA differita, pagate nellíesercizio di dichiarazione
+		--3. Dettagli fatture di acquisto con data contabile anni precedenti a quello di dichiarazione e flag IVA differita, pagate nellíesercizio di dichiarazione.
+		--Risultano esclusi dallíesportazione 1 tutti i dettagli fattura aventi Tipo aliquota IVA a percentuale 0,00.
 	IF (@opkind = 1)
 	BEGIN
-	-- il segno √® da cambiare se flagdeferred oppure se kind<>registerclass
-	-- inoltre per le fatture non intracom con la doppia presenza A/V √® da cancellare la riga in vendita
+	-- il segno Ë da cambiare se flagdeferred oppure se kind<>registerclass
+	-- inoltre per le fatture non intracom con la doppia presenza A/V Ë da cancellare la riga in vendita
 
 	-- Sezione 2 IVA Immediata a DEBITO (fatt.vendita) - DATA REVERSALE
 	--1.	Dettagli fatture di vendita, con aliquota 4% o 10% o 22%, 
@@ -176,11 +178,11 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 		AND ISNULL(IVA.rate,0) <>0
 
 		and IVA.idivataxablekind not in (5,6) --> ESCLUSI i dettagli con aliquota iva con tipo imposizione = 5 - FUORI CAMPO e 6 -ESCLUSE)
-		AND IRK.flagactivity  = 2      --> 2 - attivit√† commerciale
-		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)	
+		AND IRK.flagactivity  = 2      --> 2 - attivit‡ commerciale
+		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)	
 
 
-		-- CASI DA ESCLUDERE PERCH√® COMPRESI NELLE ALTRE ESPORTAZIONI
+		-- CASI DA ESCLUDERE PERCHË COMPRESI NELLE ALTRE ESPORTAZIONI
 		AND NOT ( 
 			--'Esportazioni beni - Esp. VE.2/VF.10 '001' 
 			(ISNULL(SOR.sortcode,'') = '001' ) 
@@ -219,7 +221,7 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 
 	-- Sezione 2 IVA Differita - DATA MANDATO
 	--2.	Dettagli fatture di acquito, con aliquota <>0 
-	--con esercizio anno di dichiarazione, flag IVA differita e pagate nell‚Äôesercizio di dichiarazione
+	--con esercizio anno di dichiarazione, flag IVA differita e pagate nellíesercizio di dichiarazione
 	INSERT INTO #invoice
 	(
 		label_tipo_esportazione,idinvkind, yinv, ninv, rownum,adate,paymentcompetency,flagdeferred, flagmixed,
@@ -278,9 +280,9 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 		and (isnull(IDET.flagbit,0) & 4) = 0
 		AND ISNULL(IVA.rate,0) >0
 		and IVA.idivataxablekind not in (5,6) --> ESCLUSI i dettagli con aliquota iva con tipo imposizione = 5 - FUORI CAMPO e 6 -ESCLUSE)
-		AND IRK.flagactivity  = 2      --> 2 - attivit√† commerciale
-		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)	
-		-- CASI DA ESCLUDERE PERCH√® COMPRESI NEI PUNTI SUCCESSIVI
+		AND IRK.flagactivity  = 2      --> 2 - attivit‡ commerciale
+		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)	
+		-- CASI DA ESCLUDERE PERCHË COMPRESI NEI PUNTI SUCCESSIVI
 		AND NOT ( 
 			--'Esportazioni beni - Esp. VE.2/VF.10 '001' 
 			(ISNULL(SOR.sortcode,'') = '001' ) 
@@ -384,9 +386,9 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 		and (isnull(IDET.flagbit,0) & 4) = 0
 		AND ISNULL(IVA.rate,0) >0
 		and IVA.idivataxablekind not in (5,6) --> ESCLUSI i dettagli con aliquota iva con tipo imposizione = 5 - FUORI CAMPO e 6 -ESCLUSE)
-		AND IRK.flagactivity  = 2      --> 2 - attivit√† commerciale
-		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)	
-		-- CASI DA ESCLUDERE PERCH√® COMPRESI NEI PUNTI SUCCESSIVI
+		AND IRK.flagactivity  = 2      --> 2 - attivit‡ commerciale
+		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)	
+		-- CASI DA ESCLUDERE PERCHË COMPRESI NEI PUNTI SUCCESSIVI
 		AND NOT ( 
 			--'Esportazioni beni - Esp. VE.2/VF.10 '001' 
 			(ISNULL(SOR.sortcode,'') = '001' ) 
@@ -425,7 +427,7 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 
  -- Sezione 3 IVA Differita - DATA MANDATO
 	--3.	Dettagli fatture di acquisto, con aliquota <>0
-	--con esercizio anni precedenti a quello di dichiarazione, flag IVA differita e pagate nell‚Äôesercizio di dichiarazione
+	--con esercizio anni precedenti a quello di dichiarazione, flag IVA differita e pagate nellíesercizio di dichiarazione
 	INSERT INTO #invoice
 	(
 		label_tipo_esportazione,idinvkind, yinv, ninv, rownum,adate,paymentcompetency, flagdeferred, flagmixed,
@@ -483,9 +485,9 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 		and (isnull(IDET.flagbit,0) & 4) = 0
 		AND ISNULL(IVA.rate,0) >0
 		and IVA.idivataxablekind not in (5,6) --> ESCLUSI i dettagli con aliquota iva con tipo imposizione = 5 - FUORI CAMPO e 6 -ESCLUSE)
-		AND IRK.flagactivity  = 2      --> 2 - attivit√† commerciale
-		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)	
-		-- CASI DA ESCLUDERE PERCH√® COMPRESI NEI PUNTI SUCCESSIVI
+		AND IRK.flagactivity  = 2      --> 2 - attivit‡ commerciale
+		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)	
+		-- CASI DA ESCLUDERE PERCHË COMPRESI NEI PUNTI SUCCESSIVI
 		AND NOT ( 
 			--'Esportazioni beni - Esp. VE.2/VF.10 '001' 
 			(ISNULL(SOR.sortcode,'') = '001' ) 
@@ -527,24 +529,24 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 /*
 QUADRO VE
 	6.	Operazioni non soggette artt. 7-7-septies
-		Colonne esportazione modalit√† A: Imponibile, Imposta
-		Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
-		Condizioni fatture da comprendere nell‚Äôesportazione:
+		Colonne esportazione modalit‡ A: Imponibile, Imposta
+		Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+		Condizioni fatture da comprendere nellíesportazione:
 		1.	Dettagli fatture di vendita con esercizio anno dichiarazione e con un Tipo aliquota 
 		 classificato con un determinato codice che stabiliremo
 		 al momento non esiste una tabella di classificazione del tipo iva
 	11.
-		Condizioni fatture da comprendere nell‚Äôesportazione:
+		Condizioni fatture da comprendere nellíesportazione:
 		1. Dettagli fatture di vendita con esercizio anno dichiarazione e con un Tipo aliquota classificato con codice 006 della classificazione 016_CLASSIVAKIND.
 	12.
-		Condizioni fatture da comprendere nell‚Äôesportazione:
+		Condizioni fatture da comprendere nellíesportazione:
 		1. Dettagli fatture di vendita con esercizio anno dichiarazione e con un Tipo aliquota classificato con codice 006 della classificazione 016_CLASSIVAKIND.
 
 QUADRO VF
 	2. Acquisti non imponibili, non soggetti, altri regimi speciali VF15
-		L‚Äôesportazione conterr√† tutte le operazioni commerciali non imponibili, non soggette e regimi speciali (beni usati, attivit√† agricole connesse).
+		Líesportazione conterr‡ tutte le operazioni commerciali non imponibili, non soggette e regimi speciali (beni usati, attivit‡ agricole connesse).
 
-		Condizioni fatture comprese nell‚Äôesportazione:
+		Condizioni fatture comprese nellíesportazione:
 		Dettagli fatture di acquisto commerciale (da fornitori IT, UE, EXTRAUE) con data contabile anno dichiarazione e con un Tipo aliquota classificato 
 		con codice 005 + codice 006 + codice 007 della classificazione 016_CLASSIVAKIND
 */
@@ -608,8 +610,8 @@ BEGIN
 		AND ISNULL(IDET.rounding,'N') <>'S'
 		and (isnull(IDET.flagbit,0) & 4) = 0
 		--RIMOSSO  and IVA.idivataxablekind not in (5,6) --> ESCLUSI i dettagli con aliquota iva con tipo imposizione = 5 - FUORI CAMPO e 6 -ESCLUSE)
-		AND IRK.flagactivity  = 2      --> 2 - attivit√† commerciale
-		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)	
+		AND IRK.flagactivity  = 2      --> 2 - attivit‡ commerciale
+		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)	
 		AND (IK.flag & 1) =0 -- Acquisto
 		AND SOR.sortcode in ('005','006','007') --'Operazioni non soggette artt. 7-7-septies ( Esp. 6' ,'005)
 		-- Operazioni non imponibili a seguito di dichiarazione di intento(006)
@@ -621,17 +623,17 @@ BEGIN
  /*
  QUADRO VE
 	5.	Operazioni esenti (art. 10)
-			Colonne esportazione modalit√† A: Imponibile, Imposta
-			Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
-			Condizioni fatture da comprendere nell‚Äôesportazione:
+			Colonne esportazione modalit‡ A: Imponibile, Imposta
+			Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+			Condizioni fatture da comprendere nellíesportazione:
 			1.	Dettagli fatture di vendita con esercizio anno dichiarazione e 
 			con un Tipo aliquota classificato con un determinato codice che stabiliremo
 			al momento non esiste una tabella di classificazione dle tipo iva ivakind sorting
 QUADRO VF
 	3. Acquisti esenti art.10 e importazioni non soggette VF16
-		Acquisti all‚Äôinterno esenti art.10 (codice 004), acquisti intracomunitari esenti (art. 42, comma 1, d.l. 331/93 (codice 008)  e importazioni non soggette all‚Äôimposta (codice 009) (art. 68, esclusa la lett. a):  campioni gratuiti di modico valore;  ogni altra importazione definitiva di beni la cui cessione √® esente dall'imposta o non vi √® soggetta a norma dell'articolo 72; la reintroduzione di beni nello stato originario, da parte dello stesso soggetto che li aveva esportati, sempre che ricorrano le condizioni per la franchigia doganale; l'importazione di beni donati ad enti pubblici ovvero ad associazioni riconosciute o fondazioni aventi esclusivamente finalita' di assistenza, beneficenza, educazione, istruzione, studio o ricerca scientifica, nonche' quella di beni donati a favore delle popolazioni colpite da calamita' naturali o catastrofi dichiarate tali ai sensi della legge 8 dicembre 1970, n.996; le importazioni dei beni indicati nel terzo comma, lettera l) dell'art. 2; le importazioni di gas mediante un sistema di gas naturale o una rete connessa a un tale sistema, ovvero di gas immesso da una nave adibita al trasporto di gas in un sistema di gas naturale o in una rete di gasdotti a monte, di energia elettrica, di calore o di freddo mediante reti di riscaldamento o di raffreddamento.
+		Acquisti allíinterno esenti art.10 (codice 004), acquisti intracomunitari esenti (art. 42, comma 1, d.l. 331/93 (codice 008)  e importazioni non soggette allíimposta (codice 009) (art. 68, esclusa la lett. a):  campioni gratuiti di modico valore;  ogni altra importazione definitiva di beni la cui cessione Ë esente dall'imposta o non vi Ë soggetta a norma dell'articolo 72; la reintroduzione di beni nello stato originario, da parte dello stesso soggetto che li aveva esportati, sempre che ricorrano le condizioni per la franchigia doganale; l'importazione di beni donati ad enti pubblici ovvero ad associazioni riconosciute o fondazioni aventi esclusivamente finalita' di assistenza, beneficenza, educazione, istruzione, studio o ricerca scientifica, nonche' quella di beni donati a favore delle popolazioni colpite da calamita' naturali o catastrofi dichiarate tali ai sensi della legge 8 dicembre 1970, n.996; le importazioni dei beni indicati nel terzo comma, lettera l) dell'art. 2; le importazioni di gas mediante un sistema di gas naturale o una rete connessa a un tale sistema, ovvero di gas immesso da una nave adibita al trasporto di gas in un sistema di gas naturale o in una rete di gasdotti a monte, di energia elettrica, di calore o di freddo mediante reti di riscaldamento o di raffreddamento.
 
-		Condizioni fatture comprese nell‚Äôesportazione:
+		Condizioni fatture comprese nellíesportazione:
 		Dettagli fatture di acquisto commerciale (da fornitori IT, UE, EXTRAUE) con data contabile anno dichiarazione e
 		 con un Tipo aliquota classificato con codice 004 + 008 + 009 della classificazione 016_CLASSIVAKIND.
  */
@@ -691,8 +693,8 @@ BEGIN
 			AND ISNULL(IDET.rounding,'N') <>'S'
 			and (isnull(IDET.flagbit,0) & 4) = 0
 			--RIMOSSO  and IVA.idivataxablekind not in (5,6) --> ESCLUSI i dettagli con aliquota iva con tipo imposizione = 5 - FUORI CAMPO e 6 -ESCLUSE)
-			AND IRK.flagactivity  = 2      --> 2 - attivit√† commerciale
-			AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)	
+			AND IRK.flagactivity  = 2      --> 2 - attivit‡ commerciale
+			AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)	
 			AND (IK.flag & 1) = 0 -- ACQUISTO
 			AND SOR.sortcode in ('004','008','009')   -- Operazioni esenti (art. 10) - Esp.5E - Esp.3F
 		)
@@ -702,13 +704,13 @@ END
   /*
 QUADRO VE
 	9.	Operazioni verso PA art. 17-ter
-		Colonne esportazione modalit√† A: Ammontare complessivo (Totale imponibile)
-		Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
-		Condizioni fatture da comprendere nell‚Äôesportazione:
+		Colonne esportazione modalit‡ A: Ammontare complessivo (Totale imponibile)
+		Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+		Condizioni fatture da comprendere nellíesportazione:
 		1.	Dettagli fatture di vendita con esercizio anno dichiarazione, che hanno il flag enable split payment= S
 QUADRO VF
 	4. Acquisti da sogg. regimi agevolativi VF17
-		Condizioni fatture comprese nell‚Äôesportazione:
+		Condizioni fatture comprese nellíesportazione:
 		Dettagli fatture di acquisto commerciali con data contabile anno dichiarazione e con un Tipo aliquota classificato con 
 		codice 010 (Regime del vantaggio DL 98/2011) + codice 011 (Regime forfettario L 190/2014) della classificazione 016_CLASSIVAKIND.
 */
@@ -770,8 +772,8 @@ BEGIN
 		AND ISNULL(IDET.rounding,'N') <>'S'
 		and (isnull(IDET.flagbit,0) & 4) = 0
 		--RIMOSSO and IVA.idivataxablekind not in (5,6) --> ESCLUSI i dettagli con aliquota iva con tipo imposizione = 5 - FUORI CAMPO e 6 -ESCLUSE)
-		AND IRK.flagactivity  = 2      --> 2 - attivit√† commerciale
-		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)	
+		AND IRK.flagactivity  = 2      --> 2 - attivit‡ commerciale
+		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)	
 		AND (IK.flag & 1) = 0 -- Acquisti
 		AND ISNULL(SOR.sortcode,'') in ('010','011')
 		--RIMOSSO AND ISNULL(flag_enable_split_payment, 'N') = 'S'
@@ -797,15 +799,15 @@ END
 /*
 QUADRO VE
 	8.	Operazioni con imposta esigibile in anni successivi
-	Colonne esportazione modalit√† A: Ammontare complessivo (Totale imponibile)
-	Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
-	Condizioni fatture da comprendere nell‚Äôesportazione:
+	Colonne esportazione modalit‡ A: Ammontare complessivo (Totale imponibile)
+	Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+	Condizioni fatture da comprendere nellíesportazione:
 	1.	Dettagli fatture di vendita con esercizio anno dichiarazione, ad IVA differita,
 	non incassate al 31/12 e quindi non entrate in liquidazione nell'anno in corso.
 QUADRO VF
 	5. Acquisti registrati nell'anno con detrazione differita ad anni successivi VF21
-	Condizioni fatture comprese nell‚Äôesportazione:
-	‚Ä¢ Dettagli fatture di acquisto commerciale con data contabile anno dichiarazione, ad IVA differita, non pagate al 31/12 dell'anno dichiarazione.
+	Condizioni fatture comprese nellíesportazione:
+	ï Dettagli fatture di acquisto commerciale con data contabile anno dichiarazione, ad IVA differita, non pagate al 31/12 dell'anno dichiarazione.
 */
 
 -- VE 8.Operazioni con imposta esigibile in anni successivi => VF 5. Acquisti registrati nell'anno con detrazione differita ad anni successivi VF21
@@ -865,8 +867,8 @@ BEGIN
 		AND ISNULL(IDET.rounding,'N') <>'S'
 		and (isnull(IDET.flagbit,0) & 4) = 0
 		--RIMOSSO and IVA.idivataxablekind not in (5,6) --> ESCLUSI i dettagli con aliquota iva con tipo imposizione = 5 - FUORI CAMPO e 6 -ESCLUSE)
-		AND IRK.flagactivity  = 2      --> 2 - attivit√† commerciale
-		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)	
+		AND IRK.flagactivity  = 2      --> 2 - attivit‡ commerciale
+		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)	
 		AND (IK.flag & 1) = 0 -- Acquisti
 		AND NOT EXISTS (SELECT * FROM paymentemitted PE WHERE PE.idexp = IDET.idexp_iva 
 		AND YEAR(PE.competencydate) = @ayear
@@ -889,16 +891,16 @@ END
 /*
 QUADRO VE
 	10.	Operazioni anni precedenti con IVA esigibile nell'anno
-	Colonne esportazione modalit√† A: Ammontare complessivo (Totale imponibile)
-	Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
-	Condizioni fatture da comprendere nell‚Äôesportazione:
+	Colonne esportazione modalit‡ A: Ammontare complessivo (Totale imponibile)
+	Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+	Condizioni fatture da comprendere nellíesportazione:
 	1.	Dettagli fatture di vendita con esercizio precedente a quello in corso, ad IVA differita,
 	ad IVA, incassate nell'anno in corso e quindi entrate in liquidazione nell'anno in corso
-	Vanno esclusi i dettagli fatture di vendita con flag ‚ÄúApplica Split payment‚Äù ed emesse ad anagrafiche con flag ‚ÄúRegolarizzazione riscossioni presso TPS‚Äù, nella scheda Altri dati dell‚ÄôAnagrafica
+	Vanno esclusi i dettagli fatture di vendita con flag ìApplica Split paymentî ed emesse ad anagrafiche con flag ìRegolarizzazione riscossioni presso TPSî, nella scheda Altri dati dellíAnagrafica
 QUADRO VF
 	6. Acquisti anni precedenti con detrazione nell'anno corrente VF22
-	Condizioni fatture comprese nell‚Äôesportazione:
-	‚Ä¢ Dettagli fatture di acquisto commerciale con data contabile < anno dichiarazione, ad IVA differita, pagate nell'anno dichiarazione.
+	Condizioni fatture comprese nellíesportazione:
+	ï Dettagli fatture di acquisto commerciale con data contabile < anno dichiarazione, ad IVA differita, pagate nell'anno dichiarazione.
 
  */
 --	VE 10.	Operazioni anni precedenti con IVA esigibile nell''anno	=> VF 6. Acquisti anni precedenti con detrazione nell'anno corrente VF22
@@ -957,8 +959,8 @@ BEGIN
 		AND ISNULL(IDET.rounding,'N') <>'S'
 		and (isnull(IDET.flagbit,0) & 4) = 0
 		--RIMOSSO and IVA.idivataxablekind not in (5,6) --> ESCLUSI i dettagli con aliquota iva con tipo imposizione = 5 - FUORI CAMPO e 6 -ESCLUSE)
-		AND IRK.flagactivity  = 2      --> 2 - attivit√† commerciale
-		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)	
+		AND IRK.flagactivity  = 2      --> 2 - attivit‡ commerciale
+		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)	
 		AND (IK.flag & 1) = 0 -- Acquisto
 		AND YEAR(PE.competencydate) = @ayear  
 		and I.flagdeferred='S'
@@ -970,13 +972,13 @@ END
 /*
 	QUADRO VE
 	 3.	Cessioni intracomunitarie beni
-		Colonne esportazione modalit√† A: Imponibile, Imposta
-		Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
-		Condizioni fatture da comprendere nell‚Äôesportazione: 
+		Colonne esportazione modalit‡ A: Imponibile, Imposta
+		Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+		Condizioni fatture da comprendere nellíesportazione: 
 		1.	Dettagli fatture di vendita con esercizio anno dichiarazione e con flag intracom =I
 	QUADRO VF
 	7. Acquisti di beni IntraUE VF26
-		Condizioni fatture comprese nell‚Äôesportazione:
+		Condizioni fatture comprese nellíesportazione:
 		 Dettagli fatture di acquisto commerciale con data contabile anno dichiarazione, da fornitori 
 		 IntraUE (fatture con pallino su Fattura Intracomunitaria) e pallino su BENI nella scheda Intrastat del dettaglio.
 */
@@ -1034,8 +1036,8 @@ END
 		WHERE 	YEAR(I.adate) = @ayear
 			AND IRK.registerclass = 'A'
 			--RIMOSSO and IVA.idivataxablekind not in (5,6) --> ESCLUSI i dettagli con aliquota iva con tipo imposizione = 5 - FUORI CAMPO e 6 -ESCLUSE)
-			AND IRK.flagactivity  = 2      --> 2 - attivit√† commerciale
-			AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)	
+			AND IRK.flagactivity  = 2      --> 2 - attivit‡ commerciale
+			AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)	
 			AND IDET.intrastatoperationkind='B' ---<<< beni
 			AND ISNULL(IDET.rounding,'N') <>'S'
 			and (isnull(IDET.flagbit,0) & 4) = 0
@@ -1048,17 +1050,17 @@ END
  /*
  QUADRO VE
 	7.	Operazioni reverse charge
-		Colonne esportazione modalit√† A: Ammontare complessivo (Totale imponibile)
-		Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
-		Condizioni fatture da comprendere nell‚Äôesportazione:
+		Colonne esportazione modalit‡ A: Ammontare complessivo (Totale imponibile)
+		Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+		Condizioni fatture da comprendere nellíesportazione:
 		1.	Dettagli fatture di vendita con esercizio anno dichiarazione che hanno il flag reverse charge = S
 QUADRO VF
 	8. Acquisti di beni ExtraUE VF26
-		Per gestire questa casistica occorre modificare la sezione QuadroVF del dettaglio fattura. Se e solo se la fattura √® extraue e commerciale, 
-		se si abilita l‚Äôopzione (altri acquisti e importazioni) (solo per chi gestisce il VF task 12392) 
-		invoicedetail.VA3Type:A   l‚Äôopzione deve essere splittata in:  a) altri acquisti e importazioni beni  b) altri acquisti e importazioni servizi.
-		Condizioni fatture comprese nell‚Äôesportazione:
-		‚Ä¢ Dettagli fatture di acquisto commerciale con data contabile anno dichiarazione, da fornitori ExtraUE, con le opzioni  
+		Per gestire questa casistica occorre modificare la sezione QuadroVF del dettaglio fattura. Se e solo se la fattura Ë extraue e commerciale, 
+		se si abilita líopzione (altri acquisti e importazioni) (solo per chi gestisce il VF task 12392) 
+		invoicedetail.VA3Type:A   líopzione deve essere splittata in:  a) altri acquisti e importazioni beni  b) altri acquisti e importazioni servizi.
+		Condizioni fatture comprese nellíesportazione:
+		ï Dettagli fatture di acquisto commerciale con data contabile anno dichiarazione, da fornitori ExtraUE, con le opzioni  
 		invoicedetail.VA3Type:S, invoicedetail.VA3Type:N, invoicedetail.VA3Type:R e invoicedetail.VA3Type:A b)
 	
 */
@@ -1118,8 +1120,8 @@ BEGIN
 		AND ISNULL(IDET.rounding,'N') <>'S'
 		and (isnull(IDET.flagbit,0) & 4) = 0
 		AND (I.flagintracom) = 'X' --> Extra UE
-		AND IRK.flagactivity  = 2      --> 2 - attivit√† commerciale
-		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)	
+		AND IRK.flagactivity  = 2      --> 2 - attivit‡ commerciale
+		AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)	
 		AND (IK.flag & 1) = 0 -- Acquisto
 		AND IDET.va3type in ('N','R','S')
 		-- Escludo le fatture di quest'anno  comprese in altri punti precedenti
@@ -1140,19 +1142,19 @@ END
 	QUADRO VE 2 e 4
 	2. Esportazione Beni
 
-		Colonne esportazione modalit√† A: Imponibile, Imposta
-		Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
-		Condizioni fatture da comprendere nell‚Äôesportazione: 
+		Colonne esportazione modalit‡ A: Imponibile, Imposta
+		Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+		Condizioni fatture da comprendere nellíesportazione: 
 		1.	Dettagli fatture di vendita con esercizio anno dichiarazione e con flag intracom =X escluso San marino(*)
 		2. Determino i dettagli che sono vendite di Beni da una specifica classificazione sul tipo aliquota
 		(*)Deve escludere i dettagli che hanno come anagrafica un residente in San Marino
 			e
 		   non hanno un Tipo aliquota IVA classificato con codice 001 della classificazione 016_CLASSIVAKIND.
 	4.	Cessioni beni verso San Marino
-		Colonne esportazione modalit√† A: Imponibile, Imposta 
-		Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura  
-		Condizioni fatture da comprendere nell‚Äôesportazione:
-		1.	Dettagli fatture di vendita con esercizio anno dichiarazione, che contengono un‚Äôanagrafica con Stato estero SAN MARINO
+		Colonne esportazione modalit‡ A: Imponibile, Imposta 
+		Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura  
+		Condizioni fatture da comprendere nellíesportazione:
+		1.	Dettagli fatture di vendita con esercizio anno dichiarazione, che contengono uníanagrafica con Stato estero SAN MARINO
 		2. Determino i dettagli che sono vendite di Beni da una specifica classificazione sul tipo aliquota
 
 	VE : 2.Esportazioni beni 					VF : 10.Ripartizione totale acquisti e importazioni	
@@ -1160,10 +1162,10 @@ END
 
 	QUADRO VF
 	9. Acquisti di beni da San Marino
-		Condizioni fatture comprese nell‚Äôesportazione:
+		Condizioni fatture comprese nellíesportazione:
 		Come esportazione 8, con anagrafiche residenti a San Marino.
-		NB Le anagrafiche residenti a San Marino spesso sono inserite come ExtraUE. In tal caso non devono essere considerate nell‚Äôesportazione 8.
-		L‚Äôesportazione restituir√† dati solo se in configurazione annuale √® presente l‚Äôopzione Gestisci VF.
+		NB Le anagrafiche residenti a San Marino spesso sono inserite come ExtraUE. In tal caso non devono essere considerate nellíesportazione 8.
+		Líesportazione restituir‡ dati solo se in configurazione annuale Ë presente líopzione Gestisci VF.
 
 	10. Ripartizione totale acquisti e importazioni
 		Estrarre i dettagli fatture di acquisto (IT, UE e ExtraUE) con data contabile anno dichiarazione e riportare l'informazione 
@@ -1230,8 +1232,8 @@ END
 			and IDET.va3type is not null
 			AND (IK.flag & 1) = 0 --ACQUISTO
 			and IVA.idivataxablekind not in (5,6) --> ESCLUSI i dettagli con aliquota iva con tipo imposizione = 5 - FUORI CAMPO e 6 -ESCLUSE)
-			AND IRK.flagactivity  = 2      --> 2 - attivit√† commerciale
-			AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se √® flaggato anche Istituzionale)	
+			AND IRK.flagactivity  = 2      --> 2 - attivit‡ commerciale
+			AND ((ISNULL(IVA.flag,0)&6) <> 0) -->  Aliquota iva con flag Commerciale e\o promiscuo (indipendentemente se Ë flaggato anche Istituzionale)	
 			--- attenzione se '10. Ripartizione totale acquisti e importazioni' le fatture possono essere (IT, UE e ExtraUE)  come specificato nell'analisi 
 			AND ((I.flagintracom) = 'X' OR @opkind = 10) -- In seguito escludo San Marino ciclando sull'indirizzo di residenza cliente estero
 			AND ( SOR.sortcode is null or SOR.sortcode = '001' OR -- Esportazioni beni - Esp. 2
@@ -1364,14 +1366,14 @@ IF (@kind = 'D') --dettagliata
 													and YEAR(PE.competencydate) = @ayear)   
 		THEN 'Acquisti  anno corr. non ancora detraibili'
 		ELSE null
-	END as 'Detraibilit√†',
+	END as 'Detraibilit‡',
 	CASE 
 		WHEN #invoice.flagsplit = 'S' THEN 'SI'
 		ELSE 'NO'
 	END as 'Split Payment',
 	invoicedetailview.rownum as 'Num. riga', 
 	invoicedetailview.detaildescription as 'Descrizione', --!! 
-	invoicedetailview.number as 'Q.t√† ',  --!! 
+	invoicedetailview.number as 'Q.t‡ ',  --!! 
 	invoicedetailview.description as 'Descrizione Fattura', --!!
 	CASE WHEN (invoicedetailview.flagvariation = 'N') THEN invoicedetailview.taxable ELSE -invoicedetailview.taxable
 	END as 'Importo Unitario', --!! 
@@ -1389,7 +1391,7 @@ IF (@kind = 'D') --dettagliata
 	invoicedetailview.va3typedescription as 'Quadro VF26', --!! 
 	invoicedetailview.code as 'Cod.Nomenclatura', 
 	invoicedetailview.intrastatcode as 'Nomenclatura',  --!! 
-	invoicedetailview.intrastatmeasure as 'Unit√† di misura', --!! 
+	invoicedetailview.intrastatmeasure as 'Unit‡ di misura', --!! 
 	invoicedetailview.intrastatoperationkind as 'Beni/Servizi', --!! 
 	invoicedetailview.servicecode as 'Cod.Servizi', --!!
 	invoicedetailview.intrastatservice as 'Servizi', --!!
@@ -1492,4 +1494,3 @@ SET ANSI_NULLS ON
 GO
  
  
-	

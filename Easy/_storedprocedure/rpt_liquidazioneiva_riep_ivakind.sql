@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø--setuser 'amm'
+
+--setuser 'amm'
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_liquidazioneiva_riep_ivakind]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_liquidazioneiva_riep_ivakind]
 GO
@@ -66,8 +68,8 @@ AND		nivapay = @number
 		flagintracom char(1),
 		flag_enable_split_payment char(1)		
 	)
-	-- il segno √® da cambiare se flagdeferred oppure se kind<>registerclass
-	-- inoltre per le fatture non intracom con la doppia presenza A/V √® da cancellare la riga in vendita
+	-- il segno Ë da cambiare se flagdeferred oppure se kind<>registerclass
+	-- inoltre per le fatture non intracom con la doppia presenza A/V Ë da cancellare la riga in vendita
 
 
 	-- Sezione 1.  Calcolo dell'IVA IMMEDIATA a Debito e a Credito
@@ -85,7 +87,7 @@ AND		nivapay = @number
 		case
 			-- se fattura di acquito, legge il valore
 			when (IK.flag & 1)=0 then I.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			else I.flagdeferred
 		end,
@@ -141,7 +143,7 @@ AND		nivapay = @number
 
 	-- Sezione 2.1 IVA Differita a DEBITO (fatt.vendita) - DATA REVERSALE
 	-- Vengono inseriti tutti i dettagli delle fatture di vendita  (incluse note di variazione)
-	-- la cui REVERSALE associata √® stata EMESSA nel range di date fornito in input alla SP
+	-- la cui REVERSALE associata Ë stata EMESSA nel range di date fornito in input alla SP
 	-- aventi data competenza del dettaglio NULL
 	
 	INSERT INTO #invoicedet
@@ -157,7 +159,7 @@ AND		nivapay = @number
 		case
 			-- se fattura di acquito, legge il valore
 			when (IK.flag & 1)=0 then I.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			else I.flagdeferred
 		end,
@@ -216,12 +218,12 @@ AND		nivapay = @number
  
 	-- Sezione 2.2 IVA Differita  - DATA MANDATO
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato √® stato trasmesso nel range di date  
+	-- il cui mandato associato Ë stato trasmesso nel range di date  
 	
 
 	-- Sezione 2.2 IVA Differita  - DATA MANDATO
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato √® stato trasmesso nel range di date fornito in input alla SP
+	-- il cui mandato associato Ë stato trasmesso nel range di date fornito in input alla SP
 	INSERT INTO #invoicedet
 	(
 		idinvkind, yinv, ninv,rownum, flagdeferred, 
@@ -235,7 +237,7 @@ AND		nivapay = @number
 		case
 			-- se fattura di acquito, legge il valore
 			when (IK.flag & 1)=0 then I.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			else I.flagdeferred
 		end,
@@ -306,7 +308,7 @@ AND		nivapay = @number
 		case
 			-- se fattura di acquito, legge il valore
 			when (IK.flag & 1)=0 then I.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			else I.flagdeferred
 		end,
@@ -379,7 +381,7 @@ AND		nivapay = @number
 		case
 			-- se fattura di acquito, legge il valore
 			when (IK.flag & 1)=0 then I.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			else I.flagdeferred
 		end,
@@ -493,7 +495,7 @@ AND		nivapay = @number
 	DECLARE @flagivapaybyrow char(1)
 	SELECT @flagivapaybyrow= flagivapaybyrow from config WHERE ayear = @ayear
 
-	--Per chi scegli di applicare il calcolo sul totale, anche il promiscuo sar√† applicato sul totale.
+	--Per chi scegli di applicare il calcolo sul totale, anche il promiscuo sar‡ applicato sul totale.
 	if (@flagivapaybyrow='N') 
 	Begin
 		SET @proratarate=1 --non applica il prorata in questo caso
@@ -697,4 +699,3 @@ GO
 SET ANSI_NULLS ON 
 GO
  
-	

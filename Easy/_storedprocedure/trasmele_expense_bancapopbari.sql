@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_expense_bancapopbari]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_expense_bancapopbari]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_expense_bancapopbari]
 GO
 
@@ -53,7 +55,7 @@ AND idpaymethod IS NULL)
 BEGIN
 	INSERT INTO #error (message)
 		(SELECT ' Nella ' + @lastexpensephase + ' n.' + CONVERT(varchar(6),nmov) 
-		+ '/' + CONVERT(varchar(4),ymov) + ' non √® stata scelta una modalit√† di pagamento'
+		+ '/' + CONVERT(varchar(4),ymov) + ' non Ë stata scelta una modalit‡ di pagamento'
 		FROM paymentcommunicated
 		WHERE ypaymenttransmission = @y
 		AND npaymenttransmission = @n
@@ -71,7 +73,7 @@ AND (paymethod.methodbankcode IS NULL OR REPLACE(paymethod.methodbankcode,' ',''
 BEGIN
 	INSERT INTO #error (message)
 		(SELECT ' Nella ' + @lastexpensephase + ' n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-		+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit√† di pagamento scelta non √® configurata, Andare in Configurazione - Anagrafica - Modalit√† di Pagamento'
+		+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' la modalit‡ di pagamento scelta non Ë configurata, Andare in Configurazione - Anagrafica - Modalit‡ di Pagamento'
 		FROM paymentcommunicated
 		JOIN paymethod
 		ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -94,7 +96,7 @@ AND (paymentcommunicated.idbank IS NULL OR REPLACE(paymentcommunicated.idbank,' 
 BEGIN
 	INSERT INTO #error (message)
 		(SELECT ' Nella ' + @lastexpensephase + ' n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-		+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit√† di pagamento scelta non √® stato assegnato il codice ABI / CAB.'
+		+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' nella modalit‡ di pagamento scelta non Ë stato assegnato il codice ABI / CAB.'
 		FROM paymentcommunicated
 		JOIN paymethod
 		ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -119,7 +121,7 @@ AND (stamphandling.handlingbankcode IS NULL OR stamphandling.handlingbankcode = 
 BEGIN
 	INSERT INTO #error (message)
 		(SELECT ' Nel mandato ' + ' n.' + CONVERT(varchar(6),payment.ypay) 
-		+ '/' + CONVERT(varchar(4),payment.npay) + ' il trattamento del bollo non √® stato configurato'
+		+ '/' + CONVERT(varchar(4),payment.npay) + ' il trattamento del bollo non Ë stato configurato'
 		FROM payment
 		JOIN stamphandling
 		ON payment.idstamphandling = stamphandling.idstamphandling
@@ -255,10 +257,10 @@ BEGIN
 		
 END
 
--- Uso di modalit√† di pagamento con codice methodbankcode 
+-- Uso di modalit‡ di pagamento con codice methodbankcode 
 -- di lunghezza diversa da due
 INSERT INTO #error (message)
-SELECT distinct 'Correggere il codice della modalit√† di pagamento ' + pm.description + '. La lunghezza deve essere 2. '
+SELECT distinct 'Correggere il codice della modalit‡ di pagamento ' + pm.description + '. La lunghezza deve essere 2. '
 FROM expenselast el
 JOIN payment p
 	ON p.kpay = el.kpay
@@ -267,10 +269,10 @@ JOIN paymethod pm
 WHERE p.kpaymenttransmission = @kpaymenttransmission 
         AND len(pm.methodbankcode)<>2
 
---Uso di modalit√† di pagamento NON ammesse dalla banca-  
+--Uso di modalit‡ di pagamento NON ammesse dalla banca-  
 INSERT INTO #error (message)
 (SELECT 'Nel movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' √® stata usata una modalit√† di pagamento non prevista dalla banca.'
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' Ë stata usata una modalit‡ di pagamento non prevista dalla banca.'
 FROM paymentcommunicated
 JOIN paymethod
 	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
@@ -306,11 +308,11 @@ DECLARE @lenCAB int -- Lunghezza del codice CAB
 DECLARE @lendescrizione int -- Lunghezza della descrizione del mandato
 DECLARE @lencreditore int -- Lunghezza della denominazione del creditore
 DECLARE @lenindirizzo int -- Lunghezza dell'indirizzo
-DECLARE @lenlocalita int -- Lunghezza della localit√†
+DECLARE @lenlocalita int -- Lunghezza della localit‡
 DECLARE @lencodicepostale int -- Lunghezza del Codice Postale
 DECLARE @lenprovincia int -- Lunghezza della sigla della provincia
 DECLARE @lencodeSIOPE int -- Lunghezza del codice SIOPE
-DECLARE @lenCCmod0203 int -- Lunghezza del C/C nelle modalit√† 02 e 03
+DECLARE @lenCCmod0203 int -- Lunghezza del C/C nelle modalit‡ 02 e 03
 DECLARE @lenIBAN int -- Lunghezza del codice IBAN
 DECLARE @lencf int -- Lunghezza del Codice Fiscale
 
@@ -363,7 +365,7 @@ SET @cc_number =
 			THEN SUBSTRING(SUBSTRING(@cc_number,5,LEN(RTRIM(@cc_number))), 1, @lenCC)
 		ELSE SUBSTRING(RTRIM(@cc_number), 1, @lenCC)
 	END
--- Questa parte √® stata commentata su richiesta della banca che non vuole impostare il CIN
+-- Questa parte Ë stata commentata su richiesta della banca che non vuole impostare il CIN
 /*
 	SET @cino = 
 		CASE 
@@ -379,11 +381,11 @@ CREATE TABLE  #temp (stri varchar(400) COLLATE SQL_Latin1_General_CP1_CI_AS)
 --- RITENUTE --
 -- Creazione per ogni singolo beneficiario di due sub: 
 -- IL PRIMO per l'importo netto da riconoscere 
--- al beneficiario, a cui dovr√† essere associato il tipo di pagamento previsto dalla NOTA 2
--- IL SECONDO per l'importo delle ritenute a cui sar√† associato il tipo pagamento 01 fisso
+-- al beneficiario, a cui dovr‡ essere associato il tipo di pagamento previsto dalla NOTA 2
+-- IL SECONDO per l'importo delle ritenute a cui sar‡ associato il tipo pagamento 01 fisso
 -- azzerando le eventuali coordinate bancarie impostate 
 -- 
--- Qualora il mandato sia emesso a favore di pi√π beneficiari potranno essere caricati tanti sub quanti sono
+-- Qualora il mandato sia emesso a favore di pi˘ beneficiari potranno essere caricati tanti sub quanti sono
 -- i beneficiari stessi per l'importo netto e un unico sub riferito all'importo complessivo delle ritenute
 -- Ho inserito qui il campo Descrizione in quanto non voglio che sia ripetuto piu'
 -- volte il record a causa del fatto che ogni riga di mandato ha una descrizione diversa
@@ -497,7 +499,7 @@ SELECT @STAND = idaddress FROM address WHERE codeaddress = @codestand
 DECLARE @NOSTAND int
 SELECT @NOSTAND = idaddress FROM address WHERE codeaddress = @codenostand
 	
--- Si fissa una data di riferimento per la validit√† degli indirizzi
+-- Si fissa una data di riferimento per la validit‡ degli indirizzi
 -- Si sceglie di selezionare la data di trasmissione della distinta
 DECLARE @transdate datetime
 SELECT @transdate = transmissiondate FROM paymenttransmission WHERE ypaymenttransmission = @y
@@ -597,7 +599,7 @@ BEGIN
 END
 -- Fine Gestione degli Indirizzi
 
--- Il tipo documento √® determinato dalla Banca e vale sempre 1 per la trasmissione dei mandati
+-- Il tipo documento Ë determinato dalla Banca e vale sempre 1 per la trasmissione dei mandati
 SELECT @tipodocumento = '1'
 	
 -- La tabella viene riempita con tutti i movimenti di spesa che rientrano nella distinta di trasmissione.
@@ -796,7 +798,7 @@ GROUP BY ndoc, ndocformatted, kdoc, idreg, ISNULL(idpaymethodTRS, ''),
 -- Sezione per l'assegnazione del submovimento
 /*
   Il submovimento viene calcolato alla stregua dell'uguaglianza dei seguenti campi:
-  ID del percipiente, modalit√† di pagamento e coordinate bancarie appartenenti allo stesso mandato
+  ID del percipiente, modalit‡ di pagamento e coordinate bancarie appartenenti allo stesso mandato
 */
 
 DECLARE @idreg int
@@ -813,7 +815,7 @@ DECLARE @numdocold int
 DECLARE @idregold int
 SELECT @numsubmov = 0
 
--- Si definisce il cursore sulla tabella totale (dove i pagamenti sono stati gi√† raggruppati)
+-- Si definisce il cursore sulla tabella totale (dove i pagamenti sono stati gi‡ raggruppati)
 DECLARE #esercizio_cursor1 INSENSITIVE CURSOR FOR
 SELECT
 	ndoc, idreg, idpaymethodTRS, 
@@ -826,7 +828,7 @@ FETCH NEXT FROM #esercizio_cursor1 INTO @numdoc, @idreg, @idpaymethodTRS, @codic
 SELECT @numdoc1 = @numdoc 
 WHILE (@@FETCH_STATUS = 0)
 BEGIN		
-	-- Finch√® il numdoc1 √® uguale a numdoc si incrementa il submovimento
+	-- FinchË il numdoc1 Ë uguale a numdoc si incrementa il submovimento
 	WHILE (@numdoc1 = @numdoc) AND (@@FETCH_STATUS = 0)
 	BEGIN
 		SELECT @numsubmov = @numsubmov + 1
@@ -846,7 +848,7 @@ BEGIN
 		FETCH NEXT FROM #esercizio_cursor1 INTO @numdoc, @idreg, @idpaymethodTRS, @codiceabi, @codicecab, @contocorrente, @iban
 	END 
 
-	-- Se il submovimento √® pari a 1 viene reimpostato a zero (sono disposizioni della banca)
+	-- Se il submovimento Ë pari a 1 viene reimpostato a zero (sono disposizioni della banca)
 	IF @numsubmov = 1
 	BEGIN
 		UPDATE #totale SET nsub = 0
@@ -886,7 +888,7 @@ UPDATE #totale SET netamount = ISNULL(amount_payment, 0) - ISNULL(tax, 0)
 -- Inizializzazioni variabili fisse
 -- Ricalcolo del C/C nel caso in cui ci siano simboli separatori
 -- Si scartano i simboli "-", ".", "/" dal conto corrente, successivamente si valuta la sua lunghezza e si confronta con le lunghezze definite
--- dalla banca a seconda della modalit√† di pagamento.
+-- dalla banca a seconda della modalit‡ di pagamento.
 -- Se il C/C ha lunghezza superiore la procedura viene terminata, diversamente si procede a riempire il C/C dei caratteri mancanti
 DECLARE @strCC varchar(12)
 DECLARE @strC varchar(12)
@@ -909,12 +911,12 @@ IF PATINDEX('%.%',  @strC) > 0
 IF PATINDEX('%/%',  @strC) > 0
 	SELECT @strC = SUBSTRING(@strC,1,PATINDEX('%/%', @strC)-1)
 DECLARE @lunghezzaCC int
--- Nel caso di modalit√† di pag. 02 e 03 la lunghezza del CC deve esssere 12
+-- Nel caso di modalit‡ di pag. 02 e 03 la lunghezza del CC deve esssere 12
 IF @codmod IN ('02','03')
 BEGIN
 	SET @lunghezzaCC = @lenCCmod0203
 END
--- Nel caso di modalit√† di pag. 09 la lunghezza del CC deve essere 8
+-- Nel caso di modalit‡ di pag. 09 la lunghezza del CC deve essere 8
 IF @codmod = '09'
 BEGIN
 	SET @lunghezzaCC = @lenCC
@@ -965,7 +967,7 @@ END
 
 -- Inserimento di eventuali ritenute e assegnazione del progressivo Sub
 -- Si inserisce nella tabella dei dettagli delle trattenute le eventuali trattenute applicate ai submmovimenti
--- Successivamente si assegna un nuovo sub pari al sub del movimento principale pi√π 1
+-- Successivamente si assegna un nuovo sub pari al sub del movimento principale pi˘ 1
 INSERT INTO #tax_pag_detail (ndoc, nsub, tax, clawback, agencycode, kind, ydoc)
 SELECT ndoc, MAX(nsub), ISNULL(SUM(#totale.tax), 0), 
 ISNULL(SUM(#totale.clawback), 0), @codiceente, @tipodocumento, @y
@@ -1010,8 +1012,8 @@ CREATE TABLE #siope
 -- Le banche, purtroppo, non tenendo conto che il SIOPE si occupa di classificare il movimento di spesa al lordo
 -- vogliono sempre che il movimento di spesa venga classificato al netto e che la parte delle trattenute venga associata
 -- la parte restante della classificazione.
--- Dopo accordi con i singoli istituti, si √® arrivati alla conclusione che, ove richiesto, il movimento di spesa venga classificato al netto
--- ma le trattenute nella trasmissione dei mandati vengano classificate mediante i codici SIOPE di spesa, sar√† poi compito della trasmissione
+-- Dopo accordi con i singoli istituti, si Ë arrivati alla conclusione che, ove richiesto, il movimento di spesa venga classificato al netto
+-- ma le trattenute nella trasmissione dei mandati vengano classificate mediante i codici SIOPE di spesa, sar‡ poi compito della trasmissione
 -- delle reversali comunicare la classificazione di entrata delle trattenute.
 -- Detto questo, nel caso, quindi ci siano movimenti di spesa con trattenute, si classificano prima le trattenute con i codici SIOPE
 -- applicando la quota parte della classificazione rispetto al loro importo e poi per differenza si procede a classificare il movimento principale
@@ -1028,7 +1030,7 @@ Riga 2 80 con codice B associata alla ritenuta
 Riga 3 480 con codice A associata al movimento di spesa
 Riga 4 320 con codice B associata al movimento di spesa
 
-Nella trasmissione delle reversali la trattenuta sar√† classificata per 200 con codice C
+Nella trasmissione delle reversali la trattenuta sar‡ classificata per 200 con codice C
 */
 
 -- Caso 1. Movimento di Spesa senza trattenute
@@ -1138,9 +1140,9 @@ JOIN #totale
 WHERE #siope.rowkind = 'P'
 GROUP BY #siope.sortcode, #totale.ndoc, #totale.kdoc, #totale.nsub
 
--- Tabella che conterr√† la trasposizione della tabella #mandatoSIOPE
+-- Tabella che conterr‡ la trasposizione della tabella #mandatoSIOPE
 -- ossia le righe di #mandatoSIOPE raggruppate per submovimento diventeranno una riga di #stringaSIOPE
--- Questa operazione viene fatta perch√© la Banca Popolare di Bari destina per il SIOPE un record formato da una sola riga per submovimento
+-- Questa operazione viene fatta perchÈ la Banca Popolare di Bari destina per il SIOPE un record formato da una sola riga per submovimento
 -- dove vengono scritte tutte le classificazioni associate al submovimento. Altre banche non hanno questa limitazione
 CREATE TABLE #stringaSIOPE
 (
@@ -1178,7 +1180,7 @@ SET @lenClassificazione = @lencodeSIOPE + 15 -- 15 = Lunghezza Max Importo
 
 -- Si definisce il cursore come una join tra #mandatoSIOPE e #totale (serve per i ndoc e nsub formattati)
 -- Si procede quindi a concatenare tutte le classificazioni di un submovimento in modo da formare una unica riga
--- il formato della riga sar√† codice1 importo1 codice2 importo2...codiceN importoN
+-- il formato della riga sar‡ codice1 importo1 codice2 importo2...codiceN importoN
 DECLARE #siope INSENSITIVE CURSOR FOR
 SELECT
 	#mandatoSIOPE.ndoc, #totale.ndocformatted,
@@ -1260,7 +1262,7 @@ CLOSE #siope
 DEALLOCATE #siope
 	
 -- La stessa operazione fatta in precedenza sulle classificazioni associate al movimento di spesa principale
--- viene eseguita per le trattenute, si definisce quindi una nuova tabellea #reversaleSIOPE che verr√† poi trasformata
+-- viene eseguita per le trattenute, si definisce quindi una nuova tabellea #reversaleSIOPE che verr‡ poi trasformata
 -- in #stringaSIOPE_rit
 CREATE TABLE #reversaleSIOPE
 (
@@ -1609,17 +1611,17 @@ SELECT
 			#totale.abi +
 			-- Valuta beneficiario
 			REPLICATE ('0', 8) +
-			-- Indirizzo + localit√† + CAP + provincia percipiente
+			-- Indirizzo + localit‡ + CAP + provincia percipiente
 			#totale.address + #totale.location + #totale.cap + #totale.province +
 			-- Indirizzo contro ritiro quietanza
 			SPACE (242)
 		WHEN #totale.idpaymethodTRS IN ('05','08') THEN
 			'S' + SPACE(1) +
-			-- Indirizzo + localit√† + CAP + provincia percipiente
+			-- Indirizzo + localit‡ + CAP + provincia percipiente
 			#totale.address + #totale.location + #totale.cap + #totale.province +
 			SPACE(252)
 		WHEN #totale.idpaymethodTRS = '07' THEN
-			-- Indirizzo + localit√† + CAP + provincia percipiente
+			-- Indirizzo + localit‡ + CAP + provincia percipiente
 			#totale.address + #totale.location + #totale.cap + #totale.province +
 			SPACE(255)
 		WHEN #totale.idpaymethodTRS = '09' THEN
@@ -1714,7 +1716,7 @@ BEGIN
 		@cc_number +
 		-- CIN
 		@cino +
-		-- Contabilit√† Ordinaria
+		-- Contabilit‡ Ordinaria
 		'O' +	
 		-- Destinazione Ente T.U, (Fruttifero / Infrutttifero)
 		'F' +
@@ -1809,12 +1811,12 @@ REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(
 stri,
-'√á','c'),'√ß','c'),'‚Ç¨','e'),'|',' '),'\',' '),'¬£',' '),'¬ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'√ô','u'),
-'√ñ','o'),'√ú','u'),'√ë','n'),'√ê','d'),'√ä','e'),'√ã','e'),'√é','i'),'√è','i'),'√î','o'),'√ï','o'),'√õ','u'),'√ù','y'),
-']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'√º','u'),'√¢','a'),'√§','a'),'√•','a'),'√™','e'),'√´','e'),'√Ø','i'),
-'√Æ','i'),'√Ñ','a'),'√Ö','a'),'√¥','o'),'√∂','o'),'√ª','u'),'√ø','y'),'√±','n'),'√Ç','a'),'¬•','y'),'√£','a'),'√É','a'),
-'√µ','o'),'√Ω','y'),'√©','e'),'√†','a'),'√®','e'),'√¨','i'),'√≤','o'),'√π','u'),'√°','a'),'√≠','i'),'√≥','o'),'√â','e'),
-'√Å','a'),'√Ä','a'),'√à','e'),'√ç','i'),'√å','i'),'√ì','o'),'√í','o'),'√ö','u'),
+'«','c'),'Á','c'),'Ä','e'),'|',' '),'\',' '),'£',' '),'ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'Ÿ','u'),
+'÷','o'),'‹','u'),'—','n'),'–','d'),' ','e'),'À','e'),'Œ','i'),'œ','i'),'‘','o'),'’','o'),'€','u'),'›','y'),
+']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'¸','u'),'‚','a'),'‰','a'),'Â','a'),'Í','e'),'Î','e'),'Ô','i'),
+'Ó','i'),'ƒ','a'),'≈','a'),'Ù','o'),'ˆ','o'),'˚','u'),'ˇ','y'),'Ò','n'),'¬','a'),'•','y'),'„','a'),'√','a'),
+'ı','o'),'˝','y'),'È','e'),'‡','a'),'Ë','e'),'Ï','i'),'Ú','o'),'˘','u'),'·','a'),'Ì','i'),'Û','o'),'…','e'),
+'¡','a'),'¿','a'),'»','e'),'Õ','i'),'Ã','i'),'”','o'),'“','o'),'⁄','u'),
 CHAR(9),' '),CHAR(10),' '),CHAR(13),' ')
 SELECT SUBSTRING(stri , 1, 350) as out_str FROM #temp
 ORDER BY SUBSTRING(stri , 1, 28), SUBSTRING(stri , 1, 37)
@@ -1825,4 +1827,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

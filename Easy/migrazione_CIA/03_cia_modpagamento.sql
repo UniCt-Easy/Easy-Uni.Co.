@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_modpagamento]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_modpagamento]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_modpagamento]
 GO
 
@@ -32,8 +34,8 @@ AS BEGIN
 
 --string[] tracciato_modpag =
 --    new string[]{ "codice;Codice anagrafica;Intero;10",
---                //modalit√† di pagamento
---                "tipomodpag;tipo modalit√† di pagamento "+
+--                //modalit‡ di pagamento
+--                "tipomodpag;tipo modalit‡ di pagamento "+
 --                    "1-Assegno circolare  (non ammette delegato o coordinate bancarie) "+
 --                    "3-Bonifico presso altre banche (non ammette delegato, coord.bancarie obbligatorie) "+
 --                    "4-Bonifico presso istituto cassiere (non ammette delegato, coord.bancarie obbligatorie) "+
@@ -41,8 +43,8 @@ AS BEGIN
 --                    "6-Esclusiva cassiere (non ammette delegato o coord.bancarie) "+
 --                    "7-Sportello (ammette delegato e  non ammette coord.bancarie);"+
 --                    "Codificato;1;1|3|4|5|6|7",
---                        "nomemod;Nome modalit√†;Stringa;50",
---                        "descrmod;Nome modalit√†;Stringa;150",
+--                        "nomemod;Nome modalit‡;Stringa;50",
+--                        "descrmod;Nome modalit‡;Stringa;150",
 
 --                "abi;ABI;Stringa;10",
 --                "cab;CAB;Stringa;10",
@@ -61,7 +63,7 @@ AS BEGIN
 --                "refexternaldoc;Riferimento doc.esterno;Stringa;5",
 --                "txt;Note;Stringa;1000",
 --                "attivo;Attivo;Codificato;1;S|N",
---                    "flagstandard;Modalit√† predefinita;Codificato;1;S|N"
+--                    "flagstandard;Modalit‡ predefinita;Codificato;1;S|N"
 --    };
 
 
@@ -283,4 +285,3 @@ where not exists (select * from registrypaymethod R2
 */
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
-	

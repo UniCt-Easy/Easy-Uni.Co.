@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_opisiopeplus_var]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_opisiopeplus_var]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_income_opisiopeplus_var]
 GO
 
@@ -89,8 +91,8 @@ END
 
 DECLARE @classSIOPE int
 SELECT @classSIOPE = idsorkind FROM sortingkind WHERE codesorkind = @codeclassSIOPE
---Pu√≤ assumere i valori 
---INSERIMENTO‚Äì Inserimento  Ordinativo 
+--PuÚ assumere i valori 
+--INSERIMENTOñ Inserimento  Ordinativo 
 --VARIAZIONE- Variazione Ordinativo
 --ANNNULLO- Annullo Ordinativo
 --SOSTITUZIONE- Sostituzione Ordinativo
@@ -127,7 +129,7 @@ FROM treasurer WHERE idtreasurer = @idtreasurer
 
 
 DECLARE @codice_tramite_BT VARCHAR(20) --(NEW) -- TODO: aggiungere alla tabella treasurer FATTO
-DECLARE @codice_istat_ente	varchar(20)--(new)-- Codice ISTAT dell'ente.contiene il codice ente SIOPE in corso di validit√†.  TODO: aggiungere alla tabella treasurer. FATTO
+DECLARE @codice_istat_ente	varchar(20)--(new)-- Codice ISTAT dell'ente.contiene il codice ente SIOPE in corso di validit‡.  TODO: aggiungere alla tabella treasurer. FATTO
 declare @codice_tramite_ente  VARCHAR(20) --(NEW) -- TODO: aggiungere alla tabella treasurer FATTO
 
 SELECT  @codice_tramite_BT = ISNULL(RTRIM(tramite_bt_code),''),
@@ -164,7 +166,7 @@ WHERE kproceedstransmission = @k) = 0)
 BEGIN
 	INSERT INTO #error
 	VALUES('La distinta di trasmissione ' + CONVERT(varchar(4),@y) + '/'
-	+ CONVERT(varchar(6),@n) + ' √® vuota')
+	+ CONVERT(varchar(6),@n) + ' Ë vuota')
 END
 
 -- CONTROLLO N. 1. Presenza dei dati dell'ente
@@ -197,7 +199,7 @@ END
 --IF (DATALENGTH(@cod_department) > @len_agencycode)
 --BEGIN
 --	INSERT INTO #error
---	VALUES ('Il codice Ente inserito √® superiore alla lunghezza massima fissata a '
+--	VALUES ('Il codice Ente inserito Ë superiore alla lunghezza massima fissata a '
 --	+ CONVERT(varchar(2),@len_agencycode))
 --END
 
@@ -232,7 +234,7 @@ AND V.kproceedstransmission = @k
 
 ---- CONTROLLO N. 5  per BPS non sono ammessi annullamenti parziali
 --INSERT INTO #error (message)
---SELECT ' La reversale di incasso n¬∞' + CONVERT(varchar(6),IL.npro) + '/' + CONVERT(varchar(4),I.ymov) +
+--SELECT ' La reversale di incasso n∞' + CONVERT(varchar(6),IL.npro) + '/' + CONVERT(varchar(4),I.ymov) +
 --' deve essere annullata totalmente '
 --FROM income I
 --JOIN incomelastview IL
@@ -454,7 +456,7 @@ SELECT
 -- Partita Iva estera
 	CASE
 		WHEN ctc.flaghuman = 'N' AND c.p_iva IS NOT NULL AND ASCII(SUBSTRING(c.p_iva,1,1)) NOT BETWEEN 48 AND 57
-		-- Se √® straniera la copiamo tale e quale. Quando verrr√† inserita nel Record MP verr√† interrogata nuovamente.		
+		-- Se Ë straniera la copiamo tale e quale. Quando verrr‡ inserita nel Record MP verr‡ interrogata nuovamente.		
 		THEN c.p_iva
 		ELSE NULL
 	END,
@@ -474,9 +476,9 @@ SELECT
 	u.cupcode,
 	RegPhase.cupcode,
 	CASE
-		when ((( il.flag & 4)<> 0) and (( il.flag & 1)= 0)) then 'PRELIEVO DA CC POSTALE'
-		when (((il.flag & 8)<> 0) and (( il.flag & 1)= 0)) then 'ACCREDITO BANCA D''ITALIA'
-		when (((il.flag & 8)<> 0) and (( il.flag & 1)<>0)) then 'REGOLARIZZAZIONE ACCREDITO BANCA D''ITALIA'
+		when ((( il.flag & 4)<> 0) and (( il.flag & 1)= 0)) then 'PRELIEVODACCPOSTALE'
+		when (((il.flag & 8)<> 0) and (( il.flag & 1)= 0)) then 'ACCREDITOBANCADITALIA'
+		when (((il.flag & 8)<> 0) and (( il.flag & 1)<>0)) then 'REGOLARIZZAZIONEACCREDITOBANCADITALIA'
 		when (( il.flag & 1)<>0) then'REGOLARIZZAZIONE'
 		else 'CASSA'
 	END,
@@ -578,7 +580,7 @@ UPDATE #proceeds SET originalamount = isnull(curramount,0)
 
 -- Unificazione descrizioni di incasso per movimenti di entrata che sono stati accorpati
 UPDATE #proceeds
-SET proceedsdescr = 'ACCORPAMENTO INCASSI' -- + SPACE(350)--La formattazione l'ho postata alla fine, perch√® deve scrivere anche il CUP, ponendolo come prima info del campo 'casuale riscossione'
+SET proceedsdescr = 'ACCORPAMENTO INCASSI' -- + SPACE(350)--La formattazione l'ho postata alla fine, perchË deve scrivere anche il CUP, ponendolo come prima info del campo 'casuale riscossione'
 WHERE
 	(SELECT COUNT(*)
 	FROM #proceeds i2
@@ -646,7 +648,8 @@ JOIN expenselast el		ON p.idexp = el.idexp
 JOIN expensetotal se	ON p.idexp = se.idexp
 JOIN expenseyear sy		ON p.idexp = sy.idexp AND  se.ayear = sy.ayear
 JOIN proceeds di		ON di.kpro = il.kpro
-WHERE e.nphase = @maxincomephase	AND e.idreg = p.idreg AND ie.ayear = @y
+WHERE e.nphase = @maxincomephase	AND ((e.idreg = p.idreg) or (e.autokind = 14) /*automatismo generico, non Ë richiesta la stessa anagrafica*/) 
+AND ie.ayear = @y
  
 UPDATE #tax SET curramount = curramount + ISNULL((select SUM(amount) FROM incomevar WHERE incomevar.idinc = #tax.idinc AND incomevar.autokind NOT IN (10,11) ),0)
 UPDATE #tax SET curramount_expense = curramount_expense + ISNULL((select SUM(amount) FROM expensevar WHERE expensevar.idexp = #tax.idexp 
@@ -720,7 +723,7 @@ WHERE e.nphase = @maxincomephase
 UPDATE #proceeds SET flagcompensation = 'S' 
 WHERE idinc in (select idinc FROM #admintax)
 
- --- Mentre prima usavamo la modalit√† compensazione solo se il saldo complessivo dell'operazione (netto a pagare)
+ --- Mentre prima usavamo la modalit‡ compensazione solo se il saldo complessivo dell'operazione (netto a pagare)
  --  fosse pari a zero, adesso invece tutti gli incassi associati a pagamenti sono a compensazione,
  --  in base alle linee guida OPI
  
@@ -952,7 +955,7 @@ SELECT
 	else null
 	end,
 	-- motivo scadenza siope
-	case when  D.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL') then 'SOSP_DECORRENZA_TERMINI'
+	case when  exists (select * from invoicedetail D2 where D2.idinvkind = D.idinvkind and D2.yinv = D.yinv and D2.ninv = D.ninv and D2.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL')) then 'SOSP_DECORRENZA_TERMINI'
 		when I.idexpirationkind is not null then 'CORRETTA_SCAD_FATTURA'
 	else null
 	end
@@ -968,7 +971,7 @@ where D.idinc_taxable = D.idinc_iva -- Contabilizzazione totale
 				join ivaregisterkind RK 
 					on RK.idivaregisterkind=IRK.idivaregisterkind
 				 where  IRK.idinvkind = i.idinvkind
-					and RK.registerclass = 'A' -- il tipo documento √® associato a un registro Acquisti
+					and RK.registerclass = 'A' -- il tipo documento Ë associato a un registro Acquisti
 				) >0
 	and #proceeds.partialann <> 'S'
 INSERT INTO #DocContabilizzato(
@@ -1041,7 +1044,7 @@ SELECT
 	else null
 	end,
 	-- motivo scadenza siope
-	case when  D.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL') then 'SOSP_DECORRENZA_TERMINI'
+	case when  exists (select * from invoicedetail D2 where D2.idinvkind = D.idinvkind and D2.yinv = D.yinv and D2.ninv = D.ninv and D2.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL')) then 'SOSP_DECORRENZA_TERMINI'
 		when I.idexpirationkind is not null then 'CORRETTA_SCAD_FATTURA'
 	else null
 	end
@@ -1057,7 +1060,7 @@ where D.idinc_taxable is not null and (D.idinc_iva is null or D.idinc_taxable <>
 				join ivaregisterkind RK 
 					on RK.idivaregisterkind=IRK.idivaregisterkind
 				 where  IRK.idinvkind = i.idinvkind
-					and RK.registerclass = 'A' -- il tipo documento √® associato a un registro Acquisti
+					and RK.registerclass = 'A' -- il tipo documento Ë associato a un registro Acquisti
 				) >0
 	and #proceeds.partialann <> 'S'
 
@@ -1126,7 +1129,7 @@ SELECT
 	else null
 	end,
 	-- motivo scadenza siope
-	case when  D.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL') then 'SOSP_DECORRENZA_TERMINI'
+	case when  exists (select * from invoicedetail D2 where D2.idinvkind = D.idinvkind and D2.yinv = D.yinv and D2.ninv = D.ninv and D2.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL')) then 'SOSP_DECORRENZA_TERMINI'
 		when I.idexpirationkind is not null then 'CORRETTA_SCAD_FATTURA'
 	else null
 	end
@@ -1142,7 +1145,7 @@ where D.idinc_iva is not null and (D.idinc_taxable is null or D.idinc_taxable <>
 				join ivaregisterkind RK 
 					on RK.idivaregisterkind=IRK.idivaregisterkind
 				 where  IRK.idinvkind = i.idinvkind
-					and RK.registerclass = 'A' -- il tipo documento √® associato a un registro Acquisti
+					and RK.registerclass = 'A' -- il tipo documento Ë associato a un registro Acquisti
 				) >0
 	and #proceeds.partialann <> 'S'
 declare @15_SPLIT_PAYMENT int
@@ -1151,7 +1154,7 @@ declare @16_SPLIT_PAYMENT_C int
 select @16_SPLIT_PAYMENT_C = idclawback from clawback where clawbackref ='16_SPLIT_PAYMENT_C'
 
 
--- Inseriamo i dati delle fatture di acquisto soggette a SplitPayment il cui recupero iva √® un mov. di entrata acssociato alla reversale in oggetto.
+-- Inseriamo i dati delle fatture di acquisto soggette a SplitPayment il cui recupero iva Ë un mov. di entrata acssociato alla reversale in oggetto.
 INSERT INTO #DocContabilizzato(
 	ydoc, ndoc,	idpro, idinc, idsor_siope,
 	tipo_debito_siope, --COMMERCIALE o IVA o NON COMMERCIALE
@@ -1218,7 +1221,7 @@ SELECT
 	else null
 	end,
 	-- motivo scadenza siope
-	case when  D.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL') then 'SOSP_DECORRENZA_TERMINI'
+	case when  exists (select * from invoicedetail D2 where D2.idinvkind = D.idinvkind and D2.yinv = D.yinv and D2.ninv = D.ninv and D2.idpccdebitstatus in ('LIQdaSOSP','LIQdaNL')) then 'SOSP_DECORRENZA_TERMINI'
 		when I.idexpirationkind is not null then 'CORRETTA_SCAD_FATTURA'
 	else null
 	end,
@@ -1343,6 +1346,7 @@ CREATE TABLE #DocContabilizzatoRigheDiverse(
 	data_scadenza_pagam_siope,
 	motivo_scadenza_siope,
 	contarigheDettaglioDistinte
+	having sum(importo_siope)<>0
 
 
 CREATE TABLE #DocContabilizzatoSommaSiope(
@@ -1495,7 +1499,7 @@ INSERT INTO #siope
 	JOIN #DocContabilizzatoRigheDiverse doc		ON DOC.idinc = #proceeds.idinc
 	JOIN #incomesorted_sum						ON #proceeds.idinc = #incomesorted_sum.idinc 
 	JOIN sorting								ON sorting.idsor = #incomesorted_sum.idsor
-	WHERE #proceeds.nClassSiope=1				--vale sia con 1 o pi√π gruppi di dettagli siope
+	WHERE #proceeds.nClassSiope=1				--vale sia con 1 o pi˘ gruppi di dettagli siope
  	AND NOT EXISTS (SELECT * FROM #proceedsvar PV WHERE PV.idinc = #proceeds.idinc AND
 	((PV.autokind = 11) OR ((PV.autokind = 10) AND (ISNULL(#proceeds.curramount,0) = 0)) ) )
 	AND (#incomesorted_sum.amount) <> 0
@@ -1730,7 +1734,7 @@ JOIN incomesorted
 JOIN sorting
 	ON sorting.idsor = incomesorted.idsor
 WHERE sorting.idsorkind = @classSIOPE
-	and isnull(incomesorted.valueS1,'') <>''--Solo se il codice UE √® stato indicato
+	and isnull(incomesorted.valueS1,'') <>''--Solo se il codice UE Ë stato indicato
 	AND NOT EXISTS (SELECT * FROM #proceedsvar PV WHERE PV.idinc = #proceeds.idinc AND
 		((PV.autokind = 11) OR ((PV.autokind = 10) AND (ISNULL(#proceeds.curramount,0) = 0)) ) )
 GROUP BY #proceeds.yproceedstransmission, #proceeds.nproceedstransmission, #proceeds.ydoc,	#proceeds.ndoc, 
@@ -1846,7 +1850,7 @@ CREATE TABLE #trace
 	
 	--------------------------------------------------------------------------------------------------------------------------------------
 	----------------------------------------------------INIZIO TIPO RIGA REVERSALE -------------------------------------------------------
-    --- contiene le informazioni relative all'intera reversale. L'identificativo √® dato da ndoc (corrisponde a npro nella tabella proceeds)-- 
+    --- contiene le informazioni relative all'intera reversale. L'identificativo Ë dato da ndoc (corrisponde a npro nella tabella proceeds)-- 
 	--- KIND : REVERSALE, TIPO RIGA PADRE: TESTATA, CHIAVE: ndoc----------------------------------------------------------------------------
 	--------------------------------------------------------------------------------------------------------------------------------------
 
@@ -2093,7 +2097,7 @@ SELECT
 				   SUBSTRING(address_ver,1,30),
 				   -- C.A.P. Versante
 				   cap_ver,
-				   -- Localit√† Versante
+				   -- Localit‡ Versante
 				   SUBSTRING(location_ver,1,30),
 				   -- Provincia Versante
 				   province_ver,
@@ -2286,4 +2290,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

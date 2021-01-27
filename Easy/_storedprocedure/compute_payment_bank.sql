@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø 
+
+ 
 if exists (select * from dbo.sysobjects where id = object_id(N'[compute_payment_bank]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_payment_bank]
 GO
@@ -29,7 +31,7 @@ CREATE    PROCEDURE compute_payment_bank
 )
 AS BEGIN
 
--- Mandato gi√† esitato (anche parzialmente)
+-- Mandato gi‡ esitato (anche parzialmente)
 IF (SELECT COUNT(*)
 	FROM banktransaction
 	WHERE kpay = @kpay) > 0
@@ -62,7 +64,7 @@ UPDATE expenselast SET idpay = NULL WHERE kpay = @kpay
 	
 	
 --  Mi creo una tabella temporanea in cui inserisco il codice CUP e il codice CIG dopo averli calcolati.
---  Il calcolo del CUP e CIG, ossia la loro lettura, non √® immediata perch√® vanno letti nel modo seguente:
+--  Il calcolo del CUP e CIG, ossia la loro lettura, non Ë immediata perchË vanno letti nel modo seguente:
 --  Cup : Spesa -> Contratto passivo -> UPB -> Bilancio
 --  Cig : Spesa -> Contratto passivo
 
@@ -123,4 +125,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

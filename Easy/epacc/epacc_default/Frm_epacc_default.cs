@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -120,6 +122,9 @@ namespace epacc_default {
         private TextBox txtCodiceCausale;
         private Button btnCausale;
 		private Button btnGeneraAccertamentoBudget;
+		private Button btnSpalmaPrevisioni;
+		public TextBox textBox3;
+		private Label label7;
 		private Button btnEditDocument;
         public Frm_epacc_default() {
             InitializeComponent();
@@ -145,6 +150,8 @@ namespace epacc_default {
         private void InitializeComponent() {
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPrincipale = new System.Windows.Forms.TabPage();
+			this.btnSpalmaPrevisioni = new System.Windows.Forms.Button();
+			this.btnGeneraAccertamentoBudget = new System.Windows.Forms.Button();
 			this.btnEditDocument = new System.Windows.Forms.Button();
 			this.gBoxCausale = new System.Windows.Forms.GroupBox();
 			this.txtCausale = new System.Windows.Forms.TextBox();
@@ -229,8 +236,9 @@ namespace epacc_default {
 			this.btnEditVar = new System.Windows.Forms.Button();
 			this.btnInsertVar = new System.Windows.Forms.Button();
 			this.GridVariazioni = new System.Windows.Forms.DataGrid();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
 			this.DS = new epacc_default.dsmeta();
-			this.btnGeneraAccertamentoBudget = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPrincipale.SuspendLayout();
 			this.gBoxCausale.SuspendLayout();
@@ -267,6 +275,9 @@ namespace epacc_default {
 			// 
 			// tabPrincipale
 			// 
+			this.tabPrincipale.Controls.Add(this.textBox3);
+			this.tabPrincipale.Controls.Add(this.label7);
+			this.tabPrincipale.Controls.Add(this.btnSpalmaPrevisioni);
 			this.tabPrincipale.Controls.Add(this.btnGeneraAccertamentoBudget);
 			this.tabPrincipale.Controls.Add(this.btnEditDocument);
 			this.tabPrincipale.Controls.Add(this.gBoxCausale);
@@ -294,6 +305,26 @@ namespace epacc_default {
 			this.tabPrincipale.TabIndex = 0;
 			this.tabPrincipale.Text = "Principale";
 			this.tabPrincipale.UseVisualStyleBackColor = true;
+			// 
+			// btnSpalmaPrevisioni
+			// 
+			this.btnSpalmaPrevisioni.Location = new System.Drawing.Point(493, 219);
+			this.btnSpalmaPrevisioni.Name = "btnSpalmaPrevisioni";
+			this.btnSpalmaPrevisioni.Size = new System.Drawing.Size(172, 23);
+			this.btnSpalmaPrevisioni.TabIndex = 75;
+			this.btnSpalmaPrevisioni.Text = "Ripartisci importo pluriennale";
+			this.btnSpalmaPrevisioni.UseVisualStyleBackColor = true;
+			this.btnSpalmaPrevisioni.Click += new System.EventHandler(this.btnSpalmaPrevisioni_Click);
+			// 
+			// btnGeneraAccertamentoBudget
+			// 
+			this.btnGeneraAccertamentoBudget.Location = new System.Drawing.Point(308, 11);
+			this.btnGeneraAccertamentoBudget.Name = "btnGeneraAccertamentoBudget";
+			this.btnGeneraAccertamentoBudget.Size = new System.Drawing.Size(173, 23);
+			this.btnGeneraAccertamentoBudget.TabIndex = 37;
+			this.btnGeneraAccertamentoBudget.Text = "Genera Accertamento di Budget";
+			this.btnGeneraAccertamentoBudget.UseVisualStyleBackColor = true;
+			this.btnGeneraAccertamentoBudget.Click += new System.EventHandler(this.btnGeneraAccertamentoBudget_Click);
 			// 
 			// btnEditDocument
 			// 
@@ -398,6 +429,7 @@ namespace epacc_default {
 			this.txtTotaleDisp.ReadOnly = true;
 			this.txtTotaleDisp.Size = new System.Drawing.Size(104, 20);
 			this.txtTotaleDisp.TabIndex = 64;
+			this.txtTotaleDisp.TabStop = false;
 			this.txtTotaleDisp.Tag = "";
 			this.txtTotaleDisp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -408,6 +440,7 @@ namespace epacc_default {
 			this.txtCurrDisp5.ReadOnly = true;
 			this.txtCurrDisp5.Size = new System.Drawing.Size(96, 20);
 			this.txtCurrDisp5.TabIndex = 63;
+			this.txtCurrDisp5.TabStop = false;
 			this.txtCurrDisp5.Tag = "";
 			this.txtCurrDisp5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -418,6 +451,7 @@ namespace epacc_default {
 			this.txtCurrDisp4.ReadOnly = true;
 			this.txtCurrDisp4.Size = new System.Drawing.Size(96, 20);
 			this.txtCurrDisp4.TabIndex = 62;
+			this.txtCurrDisp4.TabStop = false;
 			this.txtCurrDisp4.Tag = "";
 			this.txtCurrDisp4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -428,6 +462,7 @@ namespace epacc_default {
 			this.txtCurrDisp3.ReadOnly = true;
 			this.txtCurrDisp3.Size = new System.Drawing.Size(96, 20);
 			this.txtCurrDisp3.TabIndex = 61;
+			this.txtCurrDisp3.TabStop = false;
 			this.txtCurrDisp3.Tag = "";
 			this.txtCurrDisp3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -438,6 +473,7 @@ namespace epacc_default {
 			this.txtCurrDisp2.ReadOnly = true;
 			this.txtCurrDisp2.Size = new System.Drawing.Size(96, 20);
 			this.txtCurrDisp2.TabIndex = 60;
+			this.txtCurrDisp2.TabStop = false;
 			this.txtCurrDisp2.Tag = "";
 			this.txtCurrDisp2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -448,6 +484,7 @@ namespace epacc_default {
 			this.txtCurrDisp.ReadOnly = true;
 			this.txtCurrDisp.Size = new System.Drawing.Size(96, 20);
 			this.txtCurrDisp.TabIndex = 59;
+			this.txtCurrDisp.TabStop = false;
 			this.txtCurrDisp.Tag = "";
 			this.txtCurrDisp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -468,6 +505,7 @@ namespace epacc_default {
 			this.txtTotaleCorr.ReadOnly = true;
 			this.txtTotaleCorr.Size = new System.Drawing.Size(104, 20);
 			this.txtTotaleCorr.TabIndex = 56;
+			this.txtTotaleCorr.TabStop = false;
 			this.txtTotaleCorr.Tag = "";
 			this.txtTotaleCorr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -508,6 +546,7 @@ namespace epacc_default {
 			this.txtImpCorr5.ReadOnly = true;
 			this.txtImpCorr5.Size = new System.Drawing.Size(96, 20);
 			this.txtImpCorr5.TabIndex = 8;
+			this.txtImpCorr5.TabStop = false;
 			this.txtImpCorr5.Tag = "";
 			this.txtImpCorr5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -527,6 +566,7 @@ namespace epacc_default {
 			this.txtImpCorr4.ReadOnly = true;
 			this.txtImpCorr4.Size = new System.Drawing.Size(96, 20);
 			this.txtImpCorr4.TabIndex = 6;
+			this.txtImpCorr4.TabStop = false;
 			this.txtImpCorr4.Tag = "";
 			this.txtImpCorr4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -556,6 +596,7 @@ namespace epacc_default {
 			this.txtImpCorr3.ReadOnly = true;
 			this.txtImpCorr3.Size = new System.Drawing.Size(96, 20);
 			this.txtImpCorr3.TabIndex = 4;
+			this.txtImpCorr3.TabStop = false;
 			this.txtImpCorr3.Tag = "";
 			this.txtImpCorr3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -585,6 +626,7 @@ namespace epacc_default {
 			this.txtImpCorr2.ReadOnly = true;
 			this.txtImpCorr2.Size = new System.Drawing.Size(96, 20);
 			this.txtImpCorr2.TabIndex = 2;
+			this.txtImpCorr2.TabStop = false;
 			this.txtImpCorr2.Tag = "";
 			this.txtImpCorr2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -614,6 +656,7 @@ namespace epacc_default {
 			this.txtImpCorr.ReadOnly = true;
 			this.txtImpCorr.Size = new System.Drawing.Size(96, 20);
 			this.txtImpCorr.TabIndex = 0;
+			this.txtImpCorr.TabStop = false;
 			this.txtImpCorr.Tag = "";
 			this.txtImpCorr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
@@ -1184,21 +1227,30 @@ namespace epacc_default {
 			this.GridVariazioni.TabIndex = 0;
 			this.GridVariazioni.Tag = "epaccvar.default.detail";
 			// 
+			// textBox3
+			// 
+			this.textBox3.Location = new System.Drawing.Point(760, 221);
+			this.textBox3.Name = "textBox3";
+			this.textBox3.ReadOnly = true;
+			this.textBox3.Size = new System.Drawing.Size(104, 20);
+			this.textBox3.TabIndex = 77;
+			this.textBox3.Tag = "epaccview.totalcredit";
+			this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(685, 224);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(61, 13);
+			this.label7.TabIndex = 76;
+			this.label7.Text = "Crediti totali";
+			// 
 			// DS
 			// 
 			this.DS.DataSetName = "vistaForm";
 			this.DS.EnforceConstraints = false;
 			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-			// 
-			// btnGeneraAccertamentoBudget
-			// 
-			this.btnGeneraAccertamentoBudget.Location = new System.Drawing.Point(308, 11);
-			this.btnGeneraAccertamentoBudget.Name = "btnGeneraAccertamentoBudget";
-			this.btnGeneraAccertamentoBudget.Size = new System.Drawing.Size(173, 23);
-			this.btnGeneraAccertamentoBudget.TabIndex = 37;
-			this.btnGeneraAccertamentoBudget.Text = "Genera Accertamento di Budget";
-			this.btnGeneraAccertamentoBudget.UseVisualStyleBackColor = true;
-			this.btnGeneraAccertamentoBudget.Click += new System.EventHandler(this.btnGeneraAccertamentoBudget_Click);
 			// 
 			// Frm_epacc_default
 			// 
@@ -1241,9 +1293,10 @@ namespace epacc_default {
         }
         #endregion
 
-
+        private BudgetFunction bf;
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
+            bf = new BudgetFunction(this.getInstance<IMetaDataDispatcher>() as MetaDataDispatcher);
             controller.CanInsertCopy = false;
             HelpForm.SetDenyNull(DS.epacc.Columns["flagvariation"], true);
             string filteresercvariazione = qhs.CmpEq("yvar", esercizio);
@@ -1251,7 +1304,8 @@ namespace epacc_default {
             string filteresercizio = qhs.CmpEq("ayear", esercizio);
             setStaticFilter(DS.epaccyear, filteresercizio);
             setStaticFilter(DS.epacctotal, filteresercizio);
-            var tExpSetup = getTable("config", eq("ayear", esercizio));
+			setStaticFilter(DS.epaccview, filteresercizio);
+			var tExpSetup = getTable("config", eq("ayear", esercizio));
             if ((tExpSetup != null) && (tExpSetup.Rows.Count > 0)) {
                 DataRow r = tExpSetup.Rows[0];
             }
@@ -1305,7 +1359,7 @@ namespace epacc_default {
 		        DS.account.Clear();
 		        DS.epaccyear.Rows[0]["idacc"] = DBNull.Value;
 		        controller.ReFillControls(gboxConto.Controls);
-		        MessageBox.Show("Il conto è stata azzerato poichè incorente con la causale selezionata");
+		        MetaFactory.factory.getSingleton<IMessageShower>().Show("Il conto è stata azzerato poichè incorente con la causale selezionata");
 	        };
         }
 
@@ -1320,7 +1374,7 @@ namespace epacc_default {
 		        DS.accmotive.Clear();
 		        currentRow["idaccmotive"] = DBNull.Value;
 		        controller.ReFillControls(gBoxCausale.Controls);
-		        MessageBox.Show("La causale è stata reimpostata poichè incorente col conto selezionato");
+		        MetaFactory.factory.getSingleton<IMessageShower>().Show("La causale è stata reimpostata poichè incorente col conto selezionato");
 	        }
         }
 
@@ -1408,6 +1462,7 @@ namespace epacc_default {
         }
 
         public void MetaData_AfterClear() {
+	        btnSpalmaPrevisioni.Visible = false;
 	        btnAccount.Tag = "manage.account.tree";
 	        btnGeneraAccertamentoBudget.Enabled = false;
             txtEsercizio.Text = esercizio.ToString();
@@ -1497,6 +1552,7 @@ namespace epacc_default {
 
 
         public void MetaData_AfterFill() {
+	        btnSpalmaPrevisioni.Visible = true;
 	        if (firstFillForThisRow)btnAccount.Tag = "manage.account.tree";
 	        abilitaDisabilitaGeneraAccertamento();
             CalcolaTotale(false);
@@ -1985,7 +2041,7 @@ namespace epacc_default {
 		        rEpAccview = tEpaccview.Rows[0];
 	        }
 	        else {
-		        MessageBox.Show("Il Preaccertamento non ha disponibile.");
+		        MetaFactory.factory.getSingleton<IMessageShower>().Show("Il Preaccertamento non ha disponibile.");
 		        return;
 	        }
 
@@ -2038,6 +2094,30 @@ namespace epacc_default {
 
 	        MetaImpegno.FreshForm(true);
         }
-    }
+
+		private void btnSpalmaPrevisioni_Click(object sender, EventArgs e) {
+			Meta.GetFormData(true);
+			var r = DS.epaccyear.Rows[0];
+			decimal total = 0;
+			foreach (string field in new[] {"amount", "amount2", "amount3", "amount4", "amount5"}) {
+				total += CfgFn.GetNoNullDecimal(r[field]);
+			}
+			var f = new FrmAskDataInizioFine(false);
+			var res = f.ShowDialog(this);
+			if (res != DialogResult.OK) return;
+			DateTime inizio = (DateTime) HelpForm.GetObjectFromString(typeof(DateTime),
+				f.txtDataInizio.Text.ToString(), "x.y");
+			DateTime fine = (DateTime) HelpForm.GetObjectFromString(typeof(DateTime),
+				f.txtDataFine.Text.ToString(), "x.y");
+
+			var split = bf.GetAmounts(total, inizio, fine);
+			for (int i = 1; i <= 5; i++) {
+				string field = (i == 1) ? "amount" : $"amount{i}";
+				var d = split[i-1];
+				r[field] = d;
+			}
+			Meta.FreshForm(false);
+		}
+	}
 
 }

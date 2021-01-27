@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ÔªøSET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -43,7 +45,7 @@ BEGIN
 	SELECT @cf = paramvalue FROM generalreportparameter WHERE idparam = 'License_P_Iva'	
 END
 
-	DECLARE @agencyname varchar(60) -- 60 √® limite imposto per la compilazione del 770
+	DECLARE @agencyname varchar(60) -- 60 Ë limite imposto per la compilazione del 770
 	DECLARE @phonenumber varchar(20)
 	DECLARE @fax varchar(20)
 	DECLARE @email varchar(100)
@@ -75,7 +77,7 @@ SELECT
 + '0'
 -- Protocollo telematico da sostituire o annullare
 + space(17)
--- Codice Fiscale dell'Universit√† [11]
+-- Codice Fiscale dell'Universit‡ [11]
 +  ISNULL(@cf,'') + SUBSTRING(SPACE(11),1, 11 - DATALENGTH(ISNULL(@cf,'')))
  --DATI ANAGRAFICI DELL'UNIVERSITA' (SOGGETTO OBBLIGATO)Denominazione [60]
 +  ISNULL(@agencyname,'') + SUBSTRING(SPACE(60),1, 60 - DATALENGTH(ISNULL(@agencyname,'')))
@@ -83,7 +85,7 @@ SELECT
 +  ISNULL(@location,'') + SUBSTRING(SPACE(40),1, 40 - DATALENGTH(ISNULL(@location,'')))
 -- provincial del domicilio fiscale [2]
 + isnull(@country, space(2))
---TIPO UNIVERSIT√†: A = Universit√† statale, B = Universit√† non statale : ** DA RIVEDERE!! **
+--TIPO UNIVERSIT‡: A = Universit‡ statale, B = Universit‡ non statale : ** DA RIVEDERE!! **
 + 'A'
 --Anno di riferimento
 + CONVERT(varchar(4),@ayear)
@@ -182,7 +184,7 @@ SELECT
 '9'+ 'SUV00' 
 + '0' -- Tipologia Invio
 + space(17) -- Protocollo telematico da sostituire o annullare
--- Codice Fiscale dell'Universit√† [11]
+-- Codice Fiscale dell'Universit‡ [11]
 +  ISNULL(@cf,'') + SUBSTRING(SPACE(11),1, 11 - DATALENGTH(ISNULL(@cf,'')))
  --DATI ANAGRAFICI DELL'UNIVERSITA' (SOGGETTO OBBLIGATO)Denominazione [60]
 +  ISNULL(@agencyname,'') + SUBSTRING(SPACE(60),1, 60 - DATALENGTH(ISNULL(@agencyname,'')))
@@ -190,7 +192,7 @@ SELECT
 +  ISNULL(@location,'') + SUBSTRING(SPACE(40),1, 40 - DATALENGTH(ISNULL(@location,'')))
 -- provincial del domicilio fiscale [2]
 + isnull(@country, space(2))
---TIPO UNIVERSIT√†: A = Universit√† statale, B = Universit√† non statale : ** DA RIVEDERE!! **
+--TIPO UNIVERSIT‡: A = Universit‡ statale, B = Universit‡ non statale : ** DA RIVEDERE!! **
 + 'A'
 --Anno di riferimento
 + CONVERT(varchar(4),@ayear)
@@ -207,4 +209,3 @@ END
 
 
 
-	

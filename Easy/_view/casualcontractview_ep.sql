@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿
+
+
 -- CREAZIONE VISTA casualcontractview
 IF EXISTS(select * from sysobjects where id = object_id(N'[casualcontractview_ep]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [casualcontractview_ep]
@@ -177,7 +179,7 @@ AS SELECT
 		when COP.expensekind='CA' then 'Conto capitale'
 		else null
 	end,
-	'casconÂ§'+ convert(varchar(10),COP.ycon) + 'Â§'+ convert(varchar(10),COP.ncon),
+	'cascon§'+ convert(varchar(10),COP.ycon) + '§'+ convert(varchar(10),COP.ncon),
 	COP.datecompleted,
 	COP.idsor_siope,
 	COP.requested_doc,
@@ -192,16 +194,16 @@ AS SELECT
 		isnull( (select sum(et2.curramount) from expense e2 join expenselast el2 on el2.idexp=e2.idexp join expensetotal et2 on et2.idexp=e2.idexp
 						where e2.idpayment= e.idexp),0) , --contributi_pagati
 		convert(varchar(20),entry.nentry)+'/'+convert(varchar(4),entry.yentry)	,		--scrittura_elenco
-		(select max(ed2.nentry) from entrydetail ed2 	where ed2.idrelated = 'expenseÂ§'+convert(varchar(15),ela.idexp)	and ed2.amount<0 )	 , --scrittura_esito
+		(select max(ed2.nentry) from entrydetail ed2 	where ed2.idrelated = 'expense§'+convert(varchar(15),ela.idexp)	and ed2.amount<0 )	 , --scrittura_esito
 		isnull( (select -sum(ed2.amount) from expense e2 join expenselast el2 on el2.idexp=e2.idexp join expensetotal et2 on et2.idexp=e2.idexp
-					join entrydetail ed2 on ed2.idrelated= 'expenseÂ§'+convert(varchar(15),el2.idexp)+'Â§debit'
+					join entrydetail ed2 on ed2.idrelated= 'expense§'+convert(varchar(15),el2.idexp)+'§debit'
 							where e2.idpayment= e.idexp
 							),0) , --chiusura_debito_contributi
 	isnull( (select -sum(ed2.amount) from expense e2 join expenselast el2 on el2.idexp=e2.idexp join expensetotal et2 on et2.idexp=e2.idexp
-					join entrydetail ed2 on ed2.idrelated= 'expenseÂ§'+convert(varchar(15),el2.idexp)
+					join entrydetail ed2 on ed2.idrelated= 'expense§'+convert(varchar(15),el2.idexp)
 							where e2.idpayment= e2.idexp
 							),0), --as 'contributi da esitare',
-		isnull((select sum(amount) from entrydetail ed2 where  ed2.idrelated= 'expenseÂ§'+convert(varchar(15),ela.idexp)),0), -- as 'importo da esitare',
+		isnull((select sum(amount) from entrydetail ed2 where  ed2.idrelated= 'expense§'+convert(varchar(15),ela.idexp)),0), -- as 'importo da esitare',
 		CONVERT(decimal(23,6),
 		COP.feegross -
 		(
@@ -272,7 +274,7 @@ left outer join expensecasualcontract ce on COP.ycon=ce.ycon and COP.ncon=ce.nco
 		left outer join paymenttransmission pt on pt.kpaymenttransmission=p.kpaymenttransmission
 		left outer join expense e on ela.idexp=e.idexp
 		left outer join expensetotal et on et.idexp=e.idexp
-		left outer join entrydetail ed on ed.idrelated= 'expenseÂ§'+convert(varchar(15),ela.idexp) and ed.amount>0 --la chiusura del debito Ã¨ in avere, 
+		left outer join entrydetail ed on ed.idrelated= 'expense§'+convert(varchar(15),ela.idexp) and ed.amount>0 --la chiusura del debito è in avere, 
 		left outer join entry on entry.yentry=ed.yentry and entry.nentry=ed.nentry
 
 
@@ -280,4 +282,3 @@ left outer join expensecasualcontract ce on COP.ycon=ce.ycon and COP.ncon=ce.nco
 
 GO
  
-	

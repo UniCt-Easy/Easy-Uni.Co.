@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_spese_2f_resp_generale_confin]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_spese_2f_resp_generale_confin]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_partitario_spese_2f_resp_generale_confin]
 GO
 
@@ -56,7 +58,7 @@ select  @previsionkind=fin_kind,
 from config
 where ayear=@ayear
 
--- dove fase 1 =@nfinphase √® anche la fase dei Residui, fase 3 = maxphase
+-- dove fase 1 =@nfinphase Ë anche la fase dei Residui, fase 3 = maxphase
 DECLARE @nfinphase tinyint
 SELECT @nfinphase = expensefinphase FROM uniconfig
 
@@ -204,7 +206,7 @@ SELECT
 		+')'	
 	end,
 	expense.idreg,	
-	E2.idexp, --IMPEGNO (in realt√† √® la prima fase)
+	E2.idexp, --IMPEGNO (in realt‡ Ë la prima fase)
 	E2.ymov,
 	E2.nmov,  
 	underwritingappropriation.amount,
@@ -317,7 +319,7 @@ SELECT
 		'/'+Convert (varchar(4),datepart(yy,expensevar.docdate))+')'
 	end,
 	expense.idreg,	
-	E2.idexp, --IMPEGNO, in relat√† √® la prima fase
+	E2.idexp, --IMPEGNO, in relat‡ Ë la prima fase
 	E2.ymov,
 	E2.nmov,  
 	expensevar.yvar,
@@ -376,7 +378,7 @@ WHERE	(@idfin IS NULL OR  isnull(FL1.idparent, expenseyear.idfin) = @idfin)
 	AND (@idsor04 IS NULL OR W.idsor04 = @idsor04)
 	AND (@idsor05 IS NULL OR W.idsor05 = @idsor05)
 
--- -L'update √® stato introdotto perch√® dobbiamo considerare con Responsabile quello della prima fase
+-- -L'update Ë stato introdotto perchË dobbiamo considerare con Responsabile quello della prima fase
 UPDATE #expense SET idman = ( select top 1 ee.idman FROM #expense ee  -- posso avere 2 righe se ho la fase 1 e la var.
                         WHERE ee.nappropriation = #expense.nappropriation 
                                 AND ee.nphase = @nfinphase
@@ -1060,8 +1062,8 @@ GROUP BY expenseyear.idupb, W.idunderwriting, ISNULL(finlink.idparent,expenseyea
 
 UPDATE #expense
 SET
--- Disp.del singolo Impegno:  Impegni  - Pagamenti, va calcolato sulla terna fin-upb-bilancio, quindi aggiungo il filtro sul Fin. perch√® se ho un impegno
--- pagato con due finanzimaneti : Ix = ‚Ç¨ 100, F1 = ‚Ç¨20, F2 = ‚Ç¨ 80 Quando visualizzo F1 devo vedere impegnato 20, disponibile 20, non devo vedere impegnato 20, disponibile 100-20! 
+-- Disp.del singolo Impegno:  Impegni  - Pagamenti, va calcolato sulla terna fin-upb-bilancio, quindi aggiungo il filtro sul Fin. perchË se ho un impegno
+-- pagato con due finanzimaneti : Ix = Ä 100, F1 = Ä20, F2 = Ä 80 Quando visualizzo F1 devo vedere impegnato 20, disponibile 20, non devo vedere impegnato 20, disponibile 100-20! 
 	available_appropriation = 
 		appropriation_amount 
 		+ ISNULL((SELECT SUM(amount)
@@ -1231,7 +1233,7 @@ UPDATE #expense SET
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------- CALCOLO DEL DISPONIBILE -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Calcola i valori totali, da cui andr√† a sottrarre gli impegni ( per esempio ) del responsabile corrente, per poter avere una situazione di bilancio che quadri con la situazione senza responsabile
+-- Calcola i valori totali, da cui andr‡ a sottrarre gli impegni ( per esempio ) del responsabile corrente, per poter avere una situazione di bilancio che quadri con la situazione senza responsabile
 
 	UPDATE #expense
 		SET 
@@ -1480,8 +1482,8 @@ END
 					
 
 
---if (@suppressifblank = 'S') and @codelevel>2	--> se la stampa √® x un livello sottostante la categoria cancella le righe
-if ( @codelevel>2 )	--> se la stampa √® x un livello sottostante la categoria cancella le righe
+--if (@suppressifblank = 'S') and @codelevel>2	--> se la stampa Ë x un livello sottostante la categoria cancella le righe
+if ( @codelevel>2 )	--> se la stampa Ë x un livello sottostante la categoria cancella le righe
 	BEGIN
 		DELETE FROM  #expense   
 		WHERE  
@@ -1636,4 +1638,3 @@ GO
 
 
 
-	

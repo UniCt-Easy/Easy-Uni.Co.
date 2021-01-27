@@ -8,36 +8,24 @@
   <Shapes>
     <Shape ID="DesignTable:ivakind" ZOrder="9" X="70" Y="70" Height="231" Width="161" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="227" />
     <Shape ID="DesignTable:ivataxablekind" ZOrder="8" X="447" Y="167" Height="129" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="125" />
-    <Shape ID="DesignTable:fenature" ZOrder="6" X="477" Y="-12" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
+    <Shape ID="DesignTable:fenature" ZOrder="6" X="477" Y="-12" Height="162" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="158" />
     <Shape ID="DesignTable:ivakindsorting" ZOrder="3" X="358" Y="388" Height="200" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="196" />
     <Shape ID="DesignTable:sortingview" ZOrder="2" X="754" Y="161" Height="257" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
   </Shapes>
   <Connectors>
-    <Connector ID="DesignRelation:ivataxablekind_ivakind" ZOrder="7" LineWidth="11">
+    <Connector ID="DesignRelation:ivakind_ivakindsorting" ZOrder="4" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>447</X>
-          <Y>217</Y>
+          <X>214</X>
+          <Y>301</Y>
         </Point>
         <Point>
-          <X>231</X>
-          <Y>217</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:FK_naturefe_ivakind" ZOrder="5" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>494</X>
-          <Y>78</Y>
+          <X>214</X>
+          <Y>405</Y>
         </Point>
         <Point>
-          <X>494</X>
-          <Y>95</Y>
-        </Point>
-        <Point>
-          <X>231</X>
-          <Y>95</Y>
+          <X>358</X>
+          <Y>405</Y>
         </Point>
       </RoutePoints>
     </Connector>
@@ -53,19 +41,31 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:ivakind_ivakindsorting" ZOrder="4" LineWidth="11">
+    <Connector ID="DesignRelation:FK_naturefe_ivakind" ZOrder="5" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>214</X>
-          <Y>301</Y>
+          <X>494</X>
+          <Y>150</Y>
         </Point>
         <Point>
-          <X>214</X>
-          <Y>405</Y>
+          <X>494</X>
+          <Y>158</Y>
         </Point>
         <Point>
-          <X>358</X>
-          <Y>405</Y>
+          <X>231</X>
+          <Y>158</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:ivataxablekind_ivakind" ZOrder="7" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>447</X>
+          <Y>217</Y>
+        </Point>
+        <Point>
+          <X>231</X>
+          <Y>217</Y>
         </Point>
       </RoutePoints>
     </Connector>

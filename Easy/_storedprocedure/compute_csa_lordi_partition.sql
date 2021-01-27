@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[compute_csa_lordi_partition]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[compute_csa_lordi_partition]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_csa_lordi_partition]
 GO
  
@@ -118,11 +120,11 @@ INSERT INTO #automov
 (	kind,idriep,ndetail, idreg,idfin,parentidexp,idsor_siope,idupb,amount,movkind,description,idcsa_contractkind ,idcsa_contract,idunderwriting )
 SELECT
 	'S', P.idriep,P.ndetail,
-	ISNULL(csa_importriep.idreg, @idreg_csa),  -- prenderÃ² la modalitÃ  di pagamento predefinita per tale anagrafica
+	ISNULL(csa_importriep.idreg, @idreg_csa),  -- prenderò la modalità di pagamento predefinita per tale anagrafica
 	P.idfin, P.idexp,	csa_importriep.idsor_siope,	P.idupb,
 	P.amount,
 	3,
-	substring('Lordi ' + 'Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150),
+	substring('Lordi ' + 'Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150),
 	csa_importriep.idcsa_contractkind ,	csa_importriep.idcsa_contract,	csa_importriep.idunderwriting 
 FROM 	csa_importriep_partition P
 	join csa_importriep on csa_importriep.idcsa_import=P.idcsa_import and csa_importriep.idriep=P.idriep
@@ -135,7 +137,7 @@ INSERT INTO #automov
 SELECT  'E', P.idriep,P.ndetail, 	ISNULL(csa_importriep.idreg, @idreg_csa),	@idfinincome_gross_csa,	@idsiopeincome_csa,
 	P.idupb,
 	- P.amount,	7,
-	substring('Ricavo Lordi ' + ' Import. Stipendi   nÂ° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150),
+	substring('Ricavo Lordi ' + ' Import. Stipendi   n° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150),
 	idcsa_contractkind,	idcsa_contract
 FROM csa_importriep_partition P 
 		join csa_importriep on csa_importriep.idcsa_import=P.idcsa_import and csa_importriep.idriep=P.idriep
@@ -198,8 +200,8 @@ END
 	SELECT	'E',P.idver,P.ndetail, ISNULL(csa_importver.idreg, @idreg_csa),	idfin_incomeclawback,	idsor_siope_incomeclawback,
 	P.idupb,  P.amount,	15,
 	CASE ISNULL(@csa_flaggroupby_income,'N')
-		WHEN 'S' THEN SUBSTRING('Incasso Recuperi '  + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
-		ELSE substring('Incasso Recuperi' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
+		WHEN 'S' THEN SUBSTRING('Incasso Recuperi '  + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
+		ELSE substring('Incasso Recuperi' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
 	END,
 	null,	null,
 	idcsa_contractkind,	idcsa_contract,
@@ -218,8 +220,8 @@ WHERE   P.idcsa_import = @idcsa_import and  P.amount> 0
 SELECT 'S', P.idver,P.ndetail,ISNULL(csa_importver.idreg, @idreg_csa),P.idfin,P.idexp,	idsor_siope_cost,
 	P.idupb,  -P.amount,	16,
 	CASE ISNULL(@csa_flaggroupby_expense,'N')
-		WHEN 'S' THEN SUBSTRING('Rimborso Recuperi ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
-		ELSE substring('Rimborso Recuperi' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
+		WHEN 'S' THEN SUBSTRING('Rimborso Recuperi ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
+		ELSE substring('Rimborso Recuperi' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
 	END,
 	null,	null,
 	idcsa_contractkind,	idcsa_contract,
@@ -246,8 +248,8 @@ SELECT 'E',P.idver,P.ndetail,
 	idfin_income,	idsor_siope_income,
 	'0001',	P.amount,	1,
 	CASE ISNULL(@csa_flaggroupby_income,'N')
-		WHEN 'S' THEN SUBSTRING('Ritenute/Contributi ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
-		ELSE substring('Ritenute/Contributi' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
+		WHEN 'S' THEN SUBSTRING('Ritenute/Contributi ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
+		ELSE substring('Ritenute/Contributi' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
 	END,
 	idacc_expense,  -- debito VS erario
 	idcsa_agency,
@@ -275,8 +277,8 @@ SELECT 'S', P.idver,P.ndetail,
 	ISNULL(csa_importver.idreg, @idreg_csa), --applicazione ritenute
 	idfin_expense, idsor_siope_expense,	'0001',	-P.amount,	8,
 	CASE ISNULL(@csa_flaggroupby_expense,'N')
-		WHEN 'S' THEN SUBSTRING('Rimborso Ritenute ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
-		ELSE substring('Rimborso Ritenute' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
+		WHEN 'S' THEN SUBSTRING('Rimborso Ritenute ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
+		ELSE substring('Rimborso Ritenute' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+'.'+@description,1,150)
 	END,
 	idacc_agency_credit,  -- credito VS erario, 
 	idcsa_agency,	idcsa_contractkind,	idcsa_contract,
@@ -285,7 +287,7 @@ FROM 	csa_importver_partition P
 		join csa_importver on csa_importver.idcsa_import=P.idcsa_import and csa_importver.idver=P.idver
 WHERE    P.idcsa_import = @idcsa_import AND P.amount < 0
 			AND	ISNULL(flagclawback,'N') <> 'S'
-			AND (P.idfin IS NULL )  -- non Ã¨ un contributo ma una ritenuta
+			AND (P.idfin IS NULL )  -- non è un contributo ma una ritenuta
 			--AND (idfin_income IS NOT NULL OR idfin_incomeclawback IS NOT NULL) 
 
 
@@ -372,4 +374,3 @@ GO
 
 
  
-	

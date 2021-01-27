@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- CREAZIONE VISTA itinerationrefundview
+
+-- CREAZIONE VISTA itinerationrefundview
 IF EXISTS(select * from sysobjects where id = object_id(N'[itinerationrefundview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [itinerationrefundview]
 GO
@@ -222,20 +224,19 @@ GO
 
 
 -- GENERAZIONE DATI PER auditcheck --
-UPDATE [auditcheck] SET message = 'Classificazione delle spese della missione %<itinerationrefundkind.codeitinerationrefundkind>% gi√† esistente' WHERE idaudit = 'SYSTM001' AND idcheck = '1' AND opkind = 'I' AND tablename = 'itinerationrefundkind'
+UPDATE [auditcheck] SET message = 'Classificazione delle spese della missione %<itinerationrefundkind.codeitinerationrefundkind>% gi‡ esistente' WHERE idaudit = 'SYSTM001' AND idcheck = '1' AND opkind = 'I' AND tablename = 'itinerationrefundkind'
 GO
 
 
 IF exists(SELECT * FROM [auditcheck] WHERE idaudit = 'SYSTM001' AND idcheck = '3' AND opkind = 'I' AND tablename = 'itinerationrefundkind')
-UPDATE [auditcheck] SET flag_both = 'S',flag_cash = 'S',flag_comp = 'S',flag_credit = 'N',flag_proceeds = 'N',lt = {ts '2007-11-13 16:10:40.640'},lu = 'SARA',message = 'Codice del tipo rimborso spese %<codeitinerationrefundkind>% gi√† esistente',precheck = 'S',sqlcmd = '[(SELECT count(*) 
+UPDATE [auditcheck] SET flag_both = 'S',flag_cash = 'S',flag_comp = 'S',flag_credit = 'N',flag_proceeds = 'N',lt = {ts '2007-11-13 16:10:40.640'},lu = 'SARA',message = 'Codice del tipo rimborso spese %<codeitinerationrefundkind>% gi‡ esistente',precheck = 'S',sqlcmd = '[(SELECT count(*) 
 from itinerationrefundkind 
 where codeitinerationrefundkind  = %<itinerationrefundkind.codeitinerationrefundkind>%)]{I} = 0' WHERE idaudit = 'SYSTM001' AND idcheck = '3' AND opkind = 'I' AND tablename = 'itinerationrefundkind'
 ELSE
-INSERT INTO [auditcheck] (idaudit,idcheck,opkind,tablename,flag_both,flag_cash,flag_comp,flag_credit,flag_proceeds,lt,lu,message,precheck,sqlcmd) VALUES ('SYSTM001','3','I','itinerationrefundkind','S','S','S','N','N',{ts '2007-11-13 16:10:40.640'},'SARA','Codice del tipo rimborso spese %<codeitinerationrefundkind>% gi√† esistente','S','[(SELECT count(*) 
+INSERT INTO [auditcheck] (idaudit,idcheck,opkind,tablename,flag_both,flag_cash,flag_comp,flag_credit,flag_proceeds,lt,lu,message,precheck,sqlcmd) VALUES ('SYSTM001','3','I','itinerationrefundkind','S','S','S','N','N',{ts '2007-11-13 16:10:40.640'},'SARA','Codice del tipo rimborso spese %<codeitinerationrefundkind>% gi‡ esistente','S','[(SELECT count(*) 
 from itinerationrefundkind 
 where codeitinerationrefundkind  = %<itinerationrefundkind.codeitinerationrefundkind>%)]{I} = 0')
 GO
 
 -- FINE GENERAZIONE SCRIPT --
 
-	

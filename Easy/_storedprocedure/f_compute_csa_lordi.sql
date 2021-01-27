@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[f_compute_csa_lordi]') and OBJECTPROPERTY(id, N'IsTableFunction') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[f_compute_csa_lordi]') and OBJECTPROPERTY(id, N'IsTableFunction') = 1)
 drop function f_compute_csa_lordi
 GO
 
@@ -437,13 +439,13 @@ INSERT INTO @automov_exp_ungrouped
 )
 SELECT
 	NULL,
-	@idreg_csa,  -- prenderÃ² la modalitÃ  di pagamento predefinita per tale anagrafica
+	@idreg_csa,  -- prenderò la modalità di pagamento predefinita per tale anagrafica
 	csa_importriep.idfin,
 	csa_importriep.idsor_siope,
 	csa_importriep.idupb,
 	csa_importriep.importo,
 	3,
-	substring('Lordi ' + 'Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+'.'+csa_import.description,1,150),
+	substring('Lordi ' + 'Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+'.'+csa_import.description,1,150),
 	csa_importriep.idcsa_contractkind ,
 	csa_importriep.idcsa_contract,
 	csa_importriep.idunderwriting 
@@ -475,7 +477,7 @@ SELECT
 	'0001', -- sempre '0001'
 	- importo,
 	7,
-	'Ricavo Lordi ' + ' Import. Stipendi   nÂ° ' + @nimportstr + '/' + @yimportstr,
+	'Ricavo Lordi ' + ' Import. Stipendi   n° ' + @nimportstr + '/' + @yimportstr,
 	idcsa_contractkind,
 	idcsa_contract
 FROM csa_importriep
@@ -498,7 +500,7 @@ SELECT
 	--csa_importriep.importo	
 	case when UA.appropriation is null then csa_importriep.importo else isnull(UA.appropriation/UA.curramount,0)* csa_importriep.importo end,	
 	3,
-	substring('Lordi ' + 'Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+'.'+csa_import.description,1,150),
+	substring('Lordi ' + 'Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+'.'+csa_import.description,1,150),
 	csa_importriep.idcsa_contractkind ,	csa_importriep.idcsa_contract,	
 	isnull(UA.idunderwriting,csa_importriep.idunderwriting)
 FROM csa_importriep 
@@ -534,7 +536,7 @@ SELECT
 	'0001', -- sempre '0001'
 	- importo,
 	7,
-	'Ricavo Lordi ' + ' Import. Stipendi   nÂ° ' + @nimportstr + '/' + @yimportstr,
+	'Ricavo Lordi ' + ' Import. Stipendi   n° ' + @nimportstr + '/' + @yimportstr,
 	idcsa_contractkind,
 	idcsa_contract
 FROM csa_importriep
@@ -562,7 +564,7 @@ SELECT
 	case when UA.appropriation is null then csa_importriep_expense.amount else isnull(UA.appropriation/UA.curramount,0)* csa_importriep_expense.amount end,	
 
 	3,
-	substring('Lordi ' + 'Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr+'.'+csa_import.description,1,150),
+	substring('Lordi ' + 'Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr+'.'+csa_import.description,1,150),
 	csa_importriep.idcsa_contractkind ,
 	csa_importriep.idcsa_contract,
 	isnull(UA.idunderwriting,csa_importriep.idunderwriting)
@@ -601,7 +603,7 @@ SELECT
 	'0001', -- sempre '0001'
 	- importo,
 	7,
-	'Ricavo Lordi ' + ' Import. Stipendi   nÂ° ' + @nimportstr + '/' + @yimportstr,
+	'Ricavo Lordi ' + ' Import. Stipendi   n° ' + @nimportstr + '/' + @yimportstr,
 	csa_importriep.idcsa_contractkind,
 	csa_importriep.idcsa_contract
 FROM csa_importriep
@@ -697,15 +699,15 @@ BEGIN
 		)
 		SELECT
 			NULL,
-			@idregauto,  -- modalitÃ  pagamento predefinita per essa
+			@idregauto,  -- modalità pagamento predefinita per essa
 			idfin_cost,
 			idsor_siope_cost,
 			idupb,
 			importo,
 			2,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Contributi '+ vocecsa +  ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-				ELSE 'Contributi ' +   ' Import. Stipendi nÂ° ' + @nimportstr + '/' + @yimportstr
+				WHEN 'S' THEN SUBSTRING('Contributi '+ vocecsa +  ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+				ELSE 'Contributi ' +   ' Import. Stipendi n° ' + @nimportstr + '/' + @yimportstr
 			END,
 			idacc_debit, --debito conto erario
 			null,
@@ -740,15 +742,15 @@ BEGIN
 			vocecsa 
 		)
 		SELECT
-			@idregauto,  -- modalitÃ  pagamento predefinita per essa
+			@idregauto,  -- modalità pagamento predefinita per essa
 			@idfinincome_gross_csa,
 			@idsiopeincome_csa,
 			idupb, 
 			-importo,
 			10,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Ricavo Contributi '  + vocecsa +  ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-				ELSE 'Ricavo Contributi '   +   ' Import. Stipendi nÂ° ' + @nimportstr + '/' + @yimportstr
+				WHEN 'S' THEN SUBSTRING('Ricavo Contributi '  + vocecsa +  ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+				ELSE 'Ricavo Contributi '   +   ' Import. Stipendi n° ' + @nimportstr + '/' + @yimportstr
 			END,
 			idacc_agency_credit, -- credito verso erario
 			idcsa_contractkind,
@@ -772,7 +774,7 @@ BEGIN
 			idcsa_agency,		idcsa_contractkind,	idcsa_contract,	idunderwriting,	vocecsa
 		)
 		SELECT
-			E.idexp, E.idman,			ISNULL(E.idreg, @idregauto), -- modalitÃ  pagamento predefinita per essa
+			E.idexp, E.idman,			ISNULL(E.idreg, @idregauto), -- modalità pagamento predefinita per essa
 			ISNULL(EY.idfin, T.idfin_cost), 
 			T.idsor_siope_cost,
 			ISNULL(EY.idupb, T.idupb),
@@ -780,8 +782,8 @@ BEGIN
 					case when UA.appropriation is null then importo else isnull(UA.appropriation/UA.curramount,0)* importo end,	
 			2,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Contributi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-				ELSE 'Contributi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+				WHEN 'S' THEN SUBSTRING('Contributi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+				ELSE 'Contributi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 			END,
 			idacc_debit,--debito conto erario
 			null,			idcsa_contractkind,			idcsa_contract,
@@ -825,8 +827,8 @@ BEGIN
 			-importo,
 			10,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Ricavo Contributi ' + vocecsa +  ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-				ELSE 'Ricavo Contributi '  +   ' Import. Stipendi nÂ° ' + @nimportstr + '/' + @yimportstr
+				WHEN 'S' THEN SUBSTRING('Ricavo Contributi ' + vocecsa +  ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+				ELSE 'Ricavo Contributi '  +   ' Import. Stipendi n° ' + @nimportstr + '/' + @yimportstr
 			END,
 			idacc_internalcredit,-- credito interno
 			idcsa_contractkind,
@@ -870,7 +872,7 @@ BEGIN
 		SELECT
 			E.idexp,
 			E.idman,
-			ISNULL(E.idreg, @idregauto), -- modalitÃ  pagamento predefinita per essa
+			ISNULL(E.idreg, @idregauto), -- modalità pagamento predefinita per essa
 			ISNULL(EY.idfin, T.idfin_cost), 
 			T.idsor_siope_cost,
 			ISNULL(EY.idupb, T.idupb),
@@ -879,8 +881,8 @@ BEGIN
 
 			2,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Contributi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-				ELSE 'Contributi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+				WHEN 'S' THEN SUBSTRING('Contributi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+				ELSE 'Contributi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 			END,
 			T.idacc_debit, --debito conto erario
 			null,
@@ -921,15 +923,15 @@ BEGIN
 			vocecsa 
 		)
 		SELECT
-			@idregauto,  -- modalitÃ  pagamento predefinita per essa
+			@idregauto,  -- modalità pagamento predefinita per essa
 			@idfinincome_gross_csa,
 			@idsiopeincome_csa,
 			'0001',
 			-importo,
 			10,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Ricavo Contributi '+ vocecsa +  ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-				ELSE 'Ricavo Contributi ' +   ' Import. Stipendi nÂ° ' + @nimportstr + '/' + @yimportstr
+				WHEN 'S' THEN SUBSTRING('Ricavo Contributi '+ vocecsa +  ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+				ELSE 'Ricavo Contributi ' +   ' Import. Stipendi n° ' + @nimportstr + '/' + @yimportstr
 			END,
 			idacc_internalcredit,-- credito  interno
 			T.idcsa_contractkind,
@@ -974,15 +976,15 @@ BEGIN
 		)
 		SELECT
 			NULL,
-			@idregauto,  -- modalitÃ  pagamento predefinita per essa
+			@idregauto,  -- modalità pagamento predefinita per essa
 			idfin_cost,
 			idsor_siope_cost,
 			idupb,
 			importo,
 			2,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Contributi '+ vocecsa +  ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-				ELSE 'Contributi ' +   ' Import. Stipendi nÂ° ' + @nimportstr + '/' + @yimportstr
+				WHEN 'S' THEN SUBSTRING('Contributi '+ vocecsa +  ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+				ELSE 'Contributi ' +   ' Import. Stipendi n° ' + @nimportstr + '/' + @yimportstr
 			END,
 			idacc_debit, --debito conto erario
 			null,
@@ -1017,15 +1019,15 @@ BEGIN
 			vocecsa 
 		)
 		SELECT
-			@idregauto,  -- modalitÃ  pagamento predefinita per essa
+			@idregauto,  -- modalità pagamento predefinita per essa
 			@idfinincome_gross_csa,
 			@idsiopeincome_csa,
 			idupb, 
 			-importo,
 			10,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Ricavo Contributi '  + vocecsa +  ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-				ELSE 'Ricavo Contributi '   +   ' Import. Stipendi nÂ° ' + @nimportstr + '/' + @yimportstr
+				WHEN 'S' THEN SUBSTRING('Ricavo Contributi '  + vocecsa +  ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+				ELSE 'Ricavo Contributi '   +   ' Import. Stipendi n° ' + @nimportstr + '/' + @yimportstr
 			END,
 			idacc_agency_credit, -- credito verso erario
 			idcsa_contractkind,
@@ -1064,15 +1066,15 @@ BEGIN
 		SELECT
 			E.idexp,
 			E.idman,
-			ISNULL(E.idreg, @idregauto), -- modalitÃ  pagamento predefinita per essa
+			ISNULL(E.idreg, @idregauto), -- modalità pagamento predefinita per essa
 			ISNULL(EY.idfin, csa_importver.idfin_cost), 
 			csa_importver.idsor_siope_cost,
 			ISNULL(EY.idupb, csa_importver.idupb),
 			importo,
 			2,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Contributi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-				ELSE 'Contributi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+				WHEN 'S' THEN SUBSTRING('Contributi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+				ELSE 'Contributi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 			END,
 			idacc_debit,--debito conto erario
 			null,
@@ -1117,8 +1119,8 @@ BEGIN
 			-importo,
 			10,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Ricavo Contributi ' + vocecsa +  ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-				ELSE 'Ricavo Contributi '  +   ' Import. Stipendi nÂ° ' + @nimportstr + '/' + @yimportstr
+				WHEN 'S' THEN SUBSTRING('Ricavo Contributi ' + vocecsa +  ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+				ELSE 'Ricavo Contributi '  +   ' Import. Stipendi n° ' + @nimportstr + '/' + @yimportstr
 			END,
 			idacc_internalcredit,-- credito interno
 			idcsa_contractkind,
@@ -1162,15 +1164,15 @@ BEGIN
 		SELECT
 			E.idexp,
 			E.idman,
-			ISNULL(E.idreg, @idregauto), -- modalitÃ  pagamento predefinita per essa
+			ISNULL(E.idreg, @idregauto), -- modalità pagamento predefinita per essa
 			ISNULL(EY.idfin, csa_importver.idfin_cost), 
 			csa_importver.idsor_siope_cost,
 			ISNULL(EY.idupb, csa_importver.idupb),
 			csa_importver_expense.amount,
 			2,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Contributi '+ vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-				ELSE 'Contributi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+				WHEN 'S' THEN SUBSTRING('Contributi '+ vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+				ELSE 'Contributi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 			END,
 			csa_importver.idacc_debit, --debito conto erario
 			null,
@@ -1211,15 +1213,15 @@ BEGIN
 			vocecsa 
 		)
 		SELECT
-			@idregauto,  -- modalitÃ  pagamento predefinita per essa
+			@idregauto,  -- modalità pagamento predefinita per essa
 			@idfinincome_gross_csa,
 			@idsiopeincome_csa,
 			csa_importver.idupb,
 			-importo,
 			10,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Ricavo Contributi '+ vocecsa +  ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-				ELSE 'Ricavo Contributi ' +   ' Import. Stipendi nÂ° ' + @nimportstr + '/' + @yimportstr
+				WHEN 'S' THEN SUBSTRING('Ricavo Contributi '+ vocecsa +  ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+				ELSE 'Ricavo Contributi ' +   ' Import. Stipendi n° ' + @nimportstr + '/' + @yimportstr
 			END,
 			idacc_internalcredit,-- credito  interno
 			csa_importver.idcsa_contractkind,
@@ -1273,8 +1275,8 @@ BEGIN
 			importo,
 			1,
 			CASE ISNULL(@csa_flaggroupby_income,'N')
-				WHEN 'S' THEN SUBSTRING('Ritenute/Contributi ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-				ELSE 'Ritenute/Contributi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+				WHEN 'S' THEN SUBSTRING('Ritenute/Contributi ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+				ELSE 'Ritenute/Contributi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 			END,
 			idacc_expense,  -- debito VS erario
 			idcsa_agency,
@@ -1321,8 +1323,8 @@ BEGIN
 			-importo,
 			12,
 			CASE ISNULL(@csa_flaggroupby_expense,'N')
-				WHEN 'S' THEN SUBSTRING('Contributi negativi' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-				ELSE 'Contributi negativi' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+				WHEN 'S' THEN SUBSTRING('Contributi negativi' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+				ELSE 'Contributi negativi' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 			END,
 			idacc_agency_credit, -- credito verso erario
 			idcsa_agency,
@@ -1372,8 +1374,8 @@ BEGIN
 				importo,
 				1,
 				CASE ISNULL(@csa_flaggroupby_income,'N')
-					WHEN 'S' THEN SUBSTRING('Ritenute/Contributi ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-					ELSE 'Ritenute/Contributi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+					WHEN 'S' THEN SUBSTRING('Ritenute/Contributi ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+					ELSE 'Ritenute/Contributi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 				END,
 				idacc_expense,  -- debito VS erario
 				idcsa_agency,
@@ -1419,8 +1421,8 @@ BEGIN
 				-importo,
 				12,
 				CASE ISNULL(@csa_flaggroupby_expense,'N')
-					WHEN 'S' THEN SUBSTRING('Contributi negativi ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-					ELSE 'Contributi negativi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+					WHEN 'S' THEN SUBSTRING('Contributi negativi ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+					ELSE 'Contributi negativi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 				END,
 				idacc_agency_credit, -- credito verso erario
 				idcsa_agency,
@@ -1475,8 +1477,8 @@ BEGIN
 		importo,
 		5,
 		CASE ISNULL(@csa_flaggroupby_income,'N')
-			WHEN 'S' THEN SUBSTRING('Incasso Recuperi '  + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-			ELSE 'Incasso Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+			WHEN 'S' THEN SUBSTRING('Incasso Recuperi '  + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+			ELSE 'Incasso Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 		END,
 		null,
 		null,
@@ -1518,8 +1520,8 @@ BEGIN
 		-importo,
 		14,
 		CASE ISNULL(@csa_flaggroupby_expense,'N')
-			WHEN 'S' THEN SUBSTRING('Rimborso Recuperi ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-			ELSE 'Rimborso Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+			WHEN 'S' THEN SUBSTRING('Rimborso Recuperi ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+			ELSE 'Rimborso Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 		END,
 		null,
 		null,
@@ -1561,8 +1563,8 @@ BEGIN
 		importo,
 		15,
 		CASE ISNULL(@csa_flaggroupby_income,'N')
-			WHEN 'S' THEN SUBSTRING('Incasso Recuperi '  + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-			ELSE 'Incasso Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+			WHEN 'S' THEN SUBSTRING('Incasso Recuperi '  + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+			ELSE 'Incasso Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 		END,
 		null,
 		null,
@@ -1605,8 +1607,8 @@ BEGIN
 		-importo,
 		16,
 		CASE ISNULL(@csa_flaggroupby_expense,'N')
-			WHEN 'S' THEN SUBSTRING('Rimborso Recuperi ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-			ELSE 'Rimborso Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+			WHEN 'S' THEN SUBSTRING('Rimborso Recuperi ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+			ELSE 'Rimborso Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 		END,
 		null,
 		null,
@@ -1648,8 +1650,8 @@ SELECT
 	importo,
 	5,
 	CASE ISNULL(@csa_flaggroupby_income,'N')
-		WHEN 'S' THEN SUBSTRING('Incasso Recuperi '  + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-		ELSE 'Incasso Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+		WHEN 'S' THEN SUBSTRING('Incasso Recuperi '  + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+		ELSE 'Incasso Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 	END,
 	null,
 	null,
@@ -1691,8 +1693,8 @@ SELECT
 	-importo,
 	14,
 	CASE ISNULL(@csa_flaggroupby_expense,'N')
-		WHEN 'S' THEN SUBSTRING('Rimborso Recuperi ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-		ELSE 'Rimborso Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+		WHEN 'S' THEN SUBSTRING('Rimborso Recuperi ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+		ELSE 'Rimborso Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 	END,
 	null,
 	null,
@@ -1734,8 +1736,8 @@ SELECT
 	importo,
 	15,
 	CASE ISNULL(@csa_flaggroupby_income,'N')
-		WHEN 'S' THEN SUBSTRING('Incasso Recuperi '  + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-		ELSE 'Incasso Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+		WHEN 'S' THEN SUBSTRING('Incasso Recuperi '  + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+		ELSE 'Incasso Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 	END,
 	null,
 	null,
@@ -1778,8 +1780,8 @@ SELECT
 	-importo,
 	16,
 	CASE ISNULL(@csa_flaggroupby_expense,'N')
-		WHEN 'S' THEN SUBSTRING('Rimborso Recuperi ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-		ELSE 'Rimborso Recuperi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+		WHEN 'S' THEN SUBSTRING('Rimborso Recuperi ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+		ELSE 'Rimborso Recuperi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 	END,
 	null,
 	null,
@@ -1826,8 +1828,8 @@ SELECT
 	importo,
 	1,
 	CASE ISNULL(@csa_flaggroupby_income,'N')
-		WHEN 'S' THEN SUBSTRING('Ritenute/Contributi ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-		ELSE 'Ritenute/Contributi ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+		WHEN 'S' THEN SUBSTRING('Ritenute/Contributi ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+		ELSE 'Ritenute/Contributi ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 	END,
 	idacc_expense,  -- debito VS erario
 	idcsa_agency,
@@ -1877,8 +1879,8 @@ SELECT
 	-importo,
 	8,
 	CASE ISNULL(@csa_flaggroupby_expense,'N')
-		WHEN 'S' THEN SUBSTRING('Rimborso Ritenute ' + vocecsa +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr,1,150)
-		ELSE 'Rimborso Ritenute ' +   ' Import. Stipendi  nÂ° ' + @nimportstr + '/' + @yimportstr
+		WHEN 'S' THEN SUBSTRING('Rimborso Ritenute ' + vocecsa +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr,1,150)
+		ELSE 'Rimborso Ritenute ' +   ' Import. Stipendi  n° ' + @nimportstr + '/' + @yimportstr
 	END,
 	idacc_agency_credit,  -- credito VS erario, 
 	idcsa_agency,
@@ -1897,7 +1899,7 @@ AND (idfin_cost IS NULL AND idexp_cost IS NULL
 AND NOT EXISTS 	(SELECT *  FROM csa_importver_expense
 		WHERE csa_importver.idcsa_import = csa_importver_expense.idcsa_import
 			AND csa_importver.idver = csa_importver_expense.idver	)
-			 )  -- non Ã¨ un contributo ma una ritenuta
+			 )  -- non è un contributo ma una ritenuta
 AND (idfin_income IS NOT NULL OR idfin_incomeclawback IS NOT NULL) 
 
 DECLARE  @automov TABLE
@@ -2055,4 +2057,3 @@ END
     
  
 
-	

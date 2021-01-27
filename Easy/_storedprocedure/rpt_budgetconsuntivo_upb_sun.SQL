@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_budgetconsuntivo_upb_sun]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_budgetconsuntivo_upb_sun]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_budgetconsuntivo_upb_sun]
 GO
 /****** Object:  StoredProcedure [amministrazione].[rpt_budgetconsuntivo_upb_sun]    Script Date: 10/11/2014 11.16.02 ******/
@@ -93,7 +95,7 @@ create table #tmp
 Insert into #tmp values ('E1', null, null, null) --PROVENTI OPERATIVI
 Insert into #tmp values ('E11', null, null, null) --PROVENTI PROPRI
 Insert into #tmp values ('E12', null, null, null) --CONTRIBUTI
-Insert into #tmp values ('E13', null, null, null) --PROVENTI PER ATTIVIT√Ä ASSISTENZIALE
+Insert into #tmp values ('E13', null, null, null) --PROVENTI PER ATTIVIT¿ ASSISTENZIALE
 Insert into #tmp values ('E14', null, null, null) --PROVENTI PER GESTIONE DIRETTA INTERVENTI PER IL DIRITTO ALLO STUDIO
 Insert into #tmp values ('E15', null, null, null) --ALTRI PROVENTI
 Insert into #tmp values ('E16', null, null, null) --VARIAZIONE LAVORI IN CORSO
@@ -101,9 +103,9 @@ Insert into #tmp values ('E17', null, null, null) --INCREMENTO DELLE IMMOBILIZZA
 Insert into #tmp values ('E2', null, null, null) --COSTI OPERATIVI
 Insert into #tmp values ('E21', null, null, null) --COSTI SPECIFICI
 Insert into #tmp values ('E211', null, null, null) --Sostegno agli Studenti
-Insert into #tmp values ('E2111', null, null, null) --Interventi in favore degli studenti e mobilit√†
+Insert into #tmp values ('E2111', null, null, null) --Interventi in favore degli studenti e mobilit‡
 Insert into #tmp values ('E2112', null, null, null) --Borse di studio post-lauream
-Insert into #tmp values ('E213', null, null, null) --Sostegno alla ricerca e attivit√† editoriale
+Insert into #tmp values ('E213', null, null, null) --Sostegno alla ricerca e attivit‡ editoriale
 Insert into #tmp values ('E214', null, null, null) --Personale dedicato alla ricerca e alla didattica
 Insert into #tmp values ('E2141', null, null, null) --Docenti
 Insert into #tmp values ('E2142', null, null, null) --Ricercatori
@@ -125,13 +127,13 @@ Insert into #tmp values ('E225', null, null, null) --Costi per il godimento di b
 Insert into #tmp values ('E226', null, null, null) --Altri costi generali
 Insert into #tmp values ('E2261', null, null, null) --Utenze e canoni
 Insert into #tmp values ('E2262', null, null, null) --Manutenzione ordinaria e gestione strutture
-Insert into #tmp values ('E2264', null, null, null) --Altri costi generali per attivit√† istituzionali
+Insert into #tmp values ('E2264', null, null, null) --Altri costi generali per attivit‡ istituzionali
 Insert into #tmp values ('E3', null, null, null) --ONERI DIVERSI DI GESTIONE
 Insert into #tmp values ('E3111', null, null, null) --Imposte varie
 Insert into #tmp values ('E3112', null, null, null) --Altri oneri
 Insert into #tmp values ('E3113', null, null, null) --Trasferimenti correnti
 Insert into #tmp values ('E3114', null, null, null) --Trasferimenti per investimenti
-Insert into #tmp values ('E4', null, null, null) --RETTIFICHE DI VALORE DI ATTIVIT√Ä FINANZIARIE
+Insert into #tmp values ('E4', null, null, null) --RETTIFICHE DI VALORE DI ATTIVIT¿ FINANZIARIE
 Insert into #tmp values ('E5', null, null, null) --PROVENTI ED ONERI FINANZIARI
 Insert into #tmp values ('E6', null, null, null) --PROVENTI ED ONERI STRAORDINARI
 Insert into #tmp values ('E611', null, null, null) --Proventi Straordinari
@@ -581,4 +583,3 @@ select * from #report
 END
 
 
-	

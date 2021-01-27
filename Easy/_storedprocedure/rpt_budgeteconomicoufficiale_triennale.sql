@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø--setuser 'amministrazione'
+
+--setuser 'amministrazione'
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_budgeteconomicoufficiale_triennale]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_budgeteconomicoufficiale_triennale]
@@ -138,7 +140,7 @@ set @A_I_ProventiPropri_prev3 = isnull(@A_I1_ProventiPerLaDidattica_prev3,0) + i
 	2)Contributi Regioni e Province autonome
 	3)Contributi altre Amministrazioni locali
 	4)Contributi Unione Europea e altri Organismi Internazionali
-	5)Contributi da Universit√†
+	5)Contributi da Universit‡
 	6)Contributi da altri (pubblici)
 	7)Contributi da altri (privati)
 */
@@ -319,7 +321,7 @@ SELECT @A_IV_ProventiPerGestioneDiretta = SUM(budgetprevision.prevision),
 		AND S.sortcode LIKE 'EA1401%'
 
 -- V.ALTRI PROVENTI E RICAVI DIVERSI
--- 1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilit√† finanziaria
+-- 1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilit‡ finanziaria
 -- 2) Altri Proventi e Ricavi Diversi
 declare @A_V1_UtilizzoRiservePatrimonioNetto decimal(19,2)
 declare @A_V1_UtilizzoRiservePatrimonioNetto_prev2 decimal(19,2)
@@ -537,7 +539,7 @@ set @B_VIII_CostiPersonale_prev3 = isnull(@B_VIII1a_CostiDocentiRicercatori_prev
 	IX.COSTI DELLA GESTIONE CORRENTE
 	1)Costi per sostegno agli studenti
 	2)Costi per il diritto allo studio
-	3)Costi per la ricerca e l'attivit√† editoriale
+	3)Costi per la ricerca e l'attivit‡ editoriale
 	4)Trasferimenti a partner di progetti coordinati
 	5)Acquisto materiale consumo per laboratori
 	6)Variazione rimanenze di materiale di consumo per laboratori
@@ -787,7 +789,7 @@ set @IX_CostiGestione_prev3 = isnull(@B_IX1_CostiSostegnoStudenti_prev3,0) + isn
 		1) Ammortamenti immobilizzazioni immateriali
 		2) Ammortamenti immobilizzazioni materiali
 		3) Svalutazioni immobilizzazioni
-		4) Svalutazioni dei crediti compresi nell'attivo circolante e nelle disponibilit√† liquide
+		4) Svalutazioni dei crediti compresi nell'attivo circolante e nelle disponibilit‡ liquide
 */
 declare @B_X1_AmmortamentiImmobImmateriali decimal(19,2)
 declare @B_X1_AmmortamentiImmobImmateriali_prev2 decimal(19,2)
@@ -1011,8 +1013,8 @@ if (@C_ProventiOneri_prev3_orig < 0) set @C_ProventiOneri_prev3 = -@C_ProventiOn
 
 /*
 	D) RETTIFICHE DI VALORE DI ATTIVITA' FINANZIARIE
-		1) Rivalutazioni di attivit√† finanziarie
-		2) Svalutazioni di attivit√† finanziarie
+		1) Rivalutazioni di attivit‡ finanziarie
+		2) Svalutazioni di attivit‡ finanziarie
 */
 declare @D_1Rivalutazioni decimal(19,2)
 declare @D_1Rivalutazioni_prev2 decimal(19,2)
@@ -1172,7 +1174,7 @@ if (@F_Imposte_prev3_orig < 0) set @F_Imposte_prev3 = -@F_Imposte_prev3_orig els
 
 
 /*
-	G) Utilizzo di riservedi Patrimonio Netto derivanti dalla contabilit√† economico-patrimoniale
+	G) Utilizzo di riservedi Patrimonio Netto derivanti dalla contabilit‡ economico-patrimoniale
 */
 declare @G_UtilizzoDiRiserve  decimal(19,2)
 declare @G_UtilizzoDiRiserve_prev2  decimal(19,2)
@@ -1209,7 +1211,7 @@ DECLARE @TOTCOSTI_prev3 decimal(19,2)
 				   + @D_2Svalutazioni
 				   - @E_2OneriStraordinari
 				   + @F_Imposte 
-				   -->  Interessi, Oneri straordinari sono col segno meno, perch√® vengono letti col segno -, ma in questo contesto vanno sommati.
+				   -->  Interessi, Oneri straordinari sono col segno meno, perchË vengono letti col segno -, ma in questo contesto vanno sommati.
 */
 declare @RisultatoEconomicoPresunto decimal(19,2)
 declare @RisultatoEconomicoPresunto_prev2 decimal(19,2)
@@ -1519,4 +1521,3 @@ GO
 
 
 
-	

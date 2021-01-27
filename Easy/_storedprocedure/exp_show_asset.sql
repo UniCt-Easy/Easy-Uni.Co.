@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_show_asset]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_show_asset]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_show_asset]
 --USE [Unina2_Easy]
 GO
@@ -318,7 +320,7 @@ BEGIN
 
 		--------------------------------------------------------------------------------------------
 		----------- Rivalutazioni ufficiali di accessori caricati di cespiti scaricati -------------
-		----  Da considerare se il cespite principale √® incluso in un buono di scarico -------------
+		----  Da considerare se il cespite principale Ë incluso in un buono di scarico -------------
 		--------------------------------------------------------------------------------------------
 
 		DECLARE @tot_amort_piece_loaded decimal(19,2)
@@ -656,7 +658,7 @@ BEGIN
 	
 			---- Rivalutazioni e svalutazioni degli accessori alla data
 
-			---- Questa SELECT √® stata scritta x offrire maggiore chiarezza all'utente
+			---- Questa SELECT Ë stata scritta x offrire maggiore chiarezza all'utente
 			SELECT
 				@tot_pieceamortization = SUM(ROUND(ISNULL(assetamortization.assetvalue,0) * 
 							 ISNULL(assetamortization.amortizationquota,0),2))
@@ -814,4 +816,3 @@ SELECT
 FROM #elenco
 order by [Ente], [Inventario], [Tipo Inventario], [Anno inizio esistenza], [Num. Inventario] 
 END
-	

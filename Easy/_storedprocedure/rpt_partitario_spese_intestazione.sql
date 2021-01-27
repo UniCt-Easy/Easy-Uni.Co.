@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_spese_intestazione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_spese_intestazione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_partitario_spese_intestazione]
 GO
 
@@ -135,12 +137,12 @@ BEGIN
 	SELECT @nfinphase = expensefinphase FROM uniconfig
 END
   
--- ovvero prendo la massima fase tra quelle che contengono o il codice di bilancio o il creditore perchÃ¨ questaÂ  Ã¨ la vera fase di impegno giuridico
+-- ovvero prendo la massima fase tra quelle che contengono o il codice di bilancio o il creditore perchè questa  è la vera fase di impegno giuridico
 DECLARE @maxexpensephase tinyint
 SELECT  @maxexpensephase = MAX(nphase)
 FROM    expensephase 
---ATTENZIONE L'ipotesi di funzionamento di questa sp Ã¨ che fase dell' impegno = fase del pagamento - 1.
---ALTRIMENTI SBALLA LE RIGHE DEL PAGAMENTO SUL REPORT (o meglio con un pÃ² di tempo si deve fare un controllo per eliminare tutte le fasi 
+--ATTENZIONE L'ipotesi di funzionamento di questa sp è che fase dell' impegno = fase del pagamento - 1.
+--ALTRIMENTI SBALLA LE RIGHE DEL PAGAMENTO SUL REPORT (o meglio con un pò di tempo si deve fare un controllo per eliminare tutte le fasi 
 --che non sono fasepagamento e faseimpegno, anzi lo faccio subito inserendo alla fine una DELETE WHERE nphase <> fase del pagamento AND nphase <> fase dell'impegno)
 INSERT INTO #expense
 (
@@ -905,13 +907,13 @@ Begin
 	END
 End
 -- cancello le righe dei figli di @idupboriginal aventi idappropriation = NULL
--- Se ho scelto l'upb ne cancello i figli perchÃ¨ li ho totalizzati tramite la nuova UPDATE
+-- Se ho scelto l'upb ne cancello i figli perchè li ho totalizzati tramite la nuova UPDATE
 IF (@showupb <>'S') and (@idupboriginal <> '%' ) AND (@showchildupb = 'S')
 		DELETE FROM #expense WHERE idappropriation is null 
 						AND substring(idupb,1,len(@idupboriginal))= @idupboriginal 	
 						AND idupb <>@idupboriginal
 -- cancello solo le righe che sono upb-figli aventi idappropriation = NULL
--- Se non ho scelto alcun upb cancello solo gli upb-figli perchÃ¨ li ho totalizzati tramite la nuova UPDATE
+-- Se non ho scelto alcun upb cancello solo gli upb-figli perchè li ho totalizzati tramite la nuova UPDATE
 IF (@showupb <>'S') 
 		DELETE FROM #expense WHERE idappropriation IS NULL 
 			AND EXISTS (SELECT * FROM #expense  R 
@@ -939,7 +941,7 @@ IF (@showupb <>'S') AND (@idupboriginal <> '%' ) AND (@showchildupb = 'S')
 
 update #expense set payment_amount = 0 where nphase <> @maxexpensephase
 
-if (@suppressifblank = 'S') and @codelevel>2	--> se la stampa Ã¨ x un livello sottostante la categoria cancella le righe
+if (@suppressifblank = 'S') and @codelevel>2	--> se la stampa è x un livello sottostante la categoria cancella le righe
 	BEGIN
 		DELETE FROM  #expense   
 		WHERE  
@@ -1228,4 +1230,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿-- CREAZIONE VISTA itinerationview
+
+-- CREAZIONE VISTA itinerationview
 IF EXISTS(select * from sysobjects where id = object_id(N'[itinerationview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [itinerationview]
 GO
@@ -21,6 +23,7 @@ GO
 --clear_table_info'itinerationview'
 
 --setuser 'amministrazione'
+--setuser 'amm'
 --select * from itinerationview
 CREATE  VIEW itinerationview 
 (
@@ -115,7 +118,8 @@ CREATE  VIEW itinerationview
 	idsor_siope,
 	iditineration_ref,
 	nref,
-	yref
+	yref,
+	iddalia_dipartimento,iddalia_funzionale
 )
 AS SELECT
 	itineration.iditineration,
@@ -213,12 +217,13 @@ AS SELECT
 	 IR.totalgross-(case when linkedsaldo>0 then IR.linkedsaldo+IR.linkedanpag else IR.linkedanpag+IR.linkedangir end),	--totresidual
 	(select sum(s.noaccount) from itinerationrefund s where s.iditineration = itineration.iditineration and s.flagadvancebalance = 'S'),
 	itineration.datecompleted,
-	'itinerationÂ§'+ convert(varchar(10),itineration.yitineration) + 'Â§'+ convert(varchar(10),itineration.nitineration),
+	'itineration§'+ convert(varchar(10),itineration.yitineration) + '§'+ convert(varchar(10),itineration.nitineration),
 	itineration.additionalannotations,
 	itineration.idsor_siope,
 	itineration.iditineration_ref,
 	ref.nitineration,
-	ref.yitineration
+	ref.yitineration,
+	itineration.iddalia_dipartimento,itineration.iddalia_funzionale
 
 FROM itineration with (nolock)	
 JOIN registry  with (nolock)					ON registry.idreg = itineration.idreg
@@ -242,4 +247,3 @@ join itinerationresidual  IR with (nolock)	on IR.iditineration= itineration.idit
 LEFT OUTER JOIN dalia_position DP (nolock)	ON DP.iddaliaposition = itineration.iddaliaposition
 	
 GO
-	

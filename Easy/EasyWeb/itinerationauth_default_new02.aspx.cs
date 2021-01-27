@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -144,34 +146,47 @@ public partial class itinerationauth_default_new02 : MetaPage {
     }
 
     bool DoApprove( DataRow rItinerationauthview) {
-        string errormsg = "";
-        bool ChangeGlobalItinerationStatus = false;
+ 
+		PostData.RemoveFalseUpdates(DS);
+		
+		if (DS.HasChanges())
+		{
+			ShowClientMessage("Ci sono modifiche da salvare prima di procedere con l'approvazione", "Errore");
+			return false;
+		}
+		string errormsg = "";
+        bool ChangeGlobalItinerationStatus = false; //se true Ë necessario cambiare lo stato della missione (itineration)
         int iditineration = CfgFn.GetNoNullInt32(rItinerationauthview["iditineration"]);
         string filter = "";
         filter = QHS.AppAnd(QHS.CmpEq("iditineration", iditineration), QHS.CmpNe("idauthagency", idauthagency),
                QHS.DoPar(QHS.AppOr(QHS.CmpEq("flagstatus", "D"), QHS.CmpEq("flagstatus", "N"))));
 
         int pendingauthcount = Conn.RUN_SELECT_COUNT("itinerationauthagency", filter, false);
-        if ( pendingauthcount == 0)
-            ChangeGlobalItinerationStatus = true;
+        if (pendingauthcount == 0) {//Non ci sono altre autorizzazioni pendenti
+	        ChangeGlobalItinerationStatus = true;//Bisogna cambiare lo stato complessivo della missione
+        }
 
         filter = "";
 
         filter = QHS.AppAnd(QHS.CmpEq("iditineration", iditineration), QHS.CmpEq("idauthagency", idauthagency));
-        DataTable DTItinerationAuthAgency = Conn.RUN_SELECT("itinerationauthagency", "*", null, filter, null, false);
-        if (DTItinerationAuthAgency == null || DTItinerationAuthAgency.Rows.Count == 0)
-            return true;
-        DTItinerationAuthAgency.Rows[0]["flagstatus"] = "S";
-        DTItinerationAuthAgency.setSkipSecurity();
-
-        if (txtAnnotazioniRifiutoApprovazione.Text != "")
-            DTItinerationAuthAgency.Rows[0]["annotationsrejectapproval"] = txtAnnotazioniRifiutoApprovazione.Text;
 
         DataSet DSNew = new DataSet();
+
+        //Imposta i campi di itinerationauthagency e aggiunge la tabella 
+        DataTable DTItinerationAuthAgency = Conn.RUN_SELECT("itinerationauthagency", "*", null, filter, null, false);
+        DTItinerationAuthAgency.setSkipSecurity();
+
+        if (DTItinerationAuthAgency == null || DTItinerationAuthAgency.Rows.Count == 0) return true;
+        DTItinerationAuthAgency.Rows[0]["flagstatus"] = "S";
+
+        if (txtAnnotazioniRifiutoApprovazione.Text != "") {
+	        DTItinerationAuthAgency.Rows[0]["annotationsrejectapproval"] = txtAnnotazioniRifiutoApprovazione.Text;
+        }
+
         DSNew.Tables.Add(DTItinerationAuthAgency);
 
-        DataTable DTItineration = Conn.CreateTableByName("itineration", "*");
 
+        DataTable DTItineration = Conn.CreateTableByName("itineration", "*");
         DTItineration.setSkipSecurity();
         filter = QHS.CmpEq("iditineration", iditineration);
         Conn.RUN_SELECT_INTO_TABLE(DTItineration, null, filter, null, false);
@@ -183,8 +198,9 @@ public partial class itinerationauth_default_new02 : MetaPage {
             DTItineration.Rows[0]["iditinerationstatus"] = 6;
             DTItineration.Rows[0]["authorizationdate"] = DateTime.Now;
         }
-        //DataRow rItinerationauthview = DS.itinerationauthview.Rows[0];
-        bool upbaggiornato = false;
+		//DataRow rItinerationauthview = DS.itinerationauthview.Rows[0];
+		//ShowClientMessage(rItinerationauthview["idupb"].ToString(), "Errore");
+		bool upbaggiornato = false;
         if (rItinerationauthview["idupb"] != DBNull.Value) {
             DTItineration.Rows[0]["idupb"] = rItinerationauthview["idupb"];//Valorizza l'UPB
             upbaggiornato = true;
@@ -201,20 +217,22 @@ public partial class itinerationauth_default_new02 : MetaPage {
         if (!PMC.CanIgnore) {
             string longMessage = "";
             foreach (ProcedureMessage pm in PMC) {
-                longMessage += pm.GetKey() + " " + pm.LongMess + (pm.CanIgnore ? ". Warning. " : ". Error. ");// + "\n\r";
+                longMessage += pm.GetKey() + " " + /*pm.LongMess +*/ (pm.CanIgnore ? ". Warning. " : ". Error. ");// + "\n\r";
             }
             
             ShowClientMessage("Regole non ignorabili hanno impedito il salvataggio. Espandere il messaggio per leggere il dettaglio.", "Errore",longMessage);
             return false;
         }
-        if (PMC.CanIgnore) {
-            PD.DO_POST_SERVICE();
-            errormsg = MissFun.WebSendMails(Conn as DataAccess, DTItineration.Rows[0]);
-            if (errormsg != "") {
-                ShowClientMessage(errormsg, "Errore");
-                return false;
-            }
+
+        if (PMC.Count > 0) {
+	        PD.DO_POST_SERVICE();
         }
+        errormsg = MissFun.WebSendMails(Conn as DataAccess, DTItineration.Rows[0]);
+        if (errormsg != "") {
+              ShowClientMessage(errormsg, "Errore");
+              return false;
+        }
+        
         return true;
     }
 
@@ -223,7 +241,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         string errormsg = "";
         // Determinare anche se sono l'ultimo ad approvare. Se si, 
         // Tutta la missione passa nello stato di approvato
-        // Cio√® se questa select count d√† come risultato 0
+        // CioË se questa select count d‡ come risultato 0
         //select count(*) from itinerationauthagency where iditineration=159 
         // and idauthagency<>9 and (flagstatus='D' or flagstatus='N')
         // Modificare inoltre la data di autorizzazione oltre a quello globale
@@ -367,7 +385,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         }
 
         if (flagownfunds == "N") {
-            //Fondi di altri √® l'agente che deve indicare l'UPB
+            //Fondi di altri Ë l'agente che deve indicare l'UPB
             PanelUpb.Enabled = true;
         }
         else {
@@ -405,7 +423,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         DataRow r = DS.itinerationauthview.Rows[0];
         string filter_upb = "";
         object idman = r["idman"];
-        if (idman != null && idman != DBNull.Value) {
+        if (idman != DBNull.Value) {
             filter_upb = QHS.AppAnd(filter_upb, QHS.NullOrEq("idman", idman));
         }
         return filter_upb;
@@ -419,12 +437,17 @@ public partial class itinerationauth_default_new02 : MetaPage {
         object importoPresuntoObj = null;
         decimal importoPresunto = 0;
 
+        
         DataRow Curr = DS.itinerationauthview.Rows[0];
         int iditineration = CfgFn.GetNoNullInt32(Curr["iditineration"]);
+        
         DataTable tItineration = Conn.CreateTableByName("itineration", "*");
         tItineration.setSkipSecurity();
         Conn.RUN_SELECT_INTO_TABLE(tItineration, null, QHS.CmpEq("iditineration", iditineration), null, true);
-
+        if (tItineration.Rows.Count == 0) {
+            ShowClientMessage($"Non si dispone delle autorizzazioni sufficienti", "Errore");
+            return;
+        }
         DataRow R = tItineration.Rows[0];
         string advanceapplied = R["advanceapplied"].ToString();
         //Importo presunto (Anticipo No)
@@ -518,7 +541,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         DT.Columns["giorni"].Caption = "Giorni";
         DT.Columns["ore"].Caption = "Ore";
         DT.Columns["description"].Caption = "Descrizione";
-        DT.Columns["foreigncountrydes"].Caption = "Localit√† Estera";
+        DT.Columns["foreigncountrydes"].Caption = "Localit‡ Estera";
         ShowFormattedResults(DT, "Tappe Missione");
         return;
 
@@ -736,4 +759,3 @@ public partial class itinerationauth_default_new02 : MetaPage {
     
 
 }
-

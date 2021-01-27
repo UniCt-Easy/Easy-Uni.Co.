@@ -78,6 +78,7 @@
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="annotations" type="xs:string" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="idlist" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -645,6 +646,7 @@
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="annotations" type="xs:string" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="idlist" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -800,6 +802,7 @@
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="annotations" type="xs:string" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="idlist" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

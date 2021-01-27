@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_modello770_07_b]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_modello770_07_b]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_modello770_07_b]
 GO
 
@@ -41,7 +43,7 @@ AS BEGIN
 		data datetime
 	)
 	DECLARE @2cf varchar(16)
-	DECLARE @agencyname varchar(60) -- 60 √® limite imposto per la compilazione del 770
+	DECLARE @agencyname varchar(60) -- 60 Ë limite imposto per la compilazione del 770
 	DECLARE @phonenumber varchar(20)
 	DECLARE @fax varchar(20)
 	DECLARE @email varchar(100)
@@ -152,7 +154,7 @@ AS BEGIN
 		END
 	DECLARE @7cfsoftwarehouse varchar(16)
 	SET @7cfsoftwarehouse = '05587470724'
-	-- Il codice attivit√† √® stato preso dalla tabella ATECOFIN2004 delle attivit√† produttive.
+	-- Il codice attivit‡ Ë stato preso dalla tabella ATECOFIN2004 delle attivit‡ produttive.
 	-- Consultare il sito del Ministero delle Finanze (www.finanze.gov.it) o dell'Agenzia delle Entrate
 	-- (www.agenziaentrate.gov.it)
 	DECLARE @codiceattivita varchar(5)
@@ -175,7 +177,7 @@ AS BEGIN
 --13-22Dati del Contribuente
 	--15 Denominazione
 	INSERT INTO #recordb (progr, quadro, riga, colonna, stringa) VALUES(1, 'HRB', 1, '015', @agencyname)
-	--19 Codice attivit√†
+	--19 Codice attivit‡
 	INSERT INTO #recordb (progr, quadro, riga, colonna, stringa) VALUES(1, 'HRB', 1, '019', @codiceattivita)
 	--20 Indirizzo di posta elettronica
 	INSERT INTO #recordb (progr, quadro, riga, colonna, stringa) VALUES(1, 'HRB', 1, '020', @email)
@@ -220,7 +222,7 @@ AS BEGIN
 	--80 Presenza di modello 770 ordinario 2007
 	INSERT INTO #recordb (progr, quadro, riga, colonna, intero)  VALUES(1, 'HRB', 1, '080', 0)
 --Dati relativi al rappresentante firmatario della dichiarazione.
---106-126La sezione √® obbligatoria per i contribuenti diversi dalle persone fisiche
+--106-126La sezione Ë obbligatoria per i contribuenti diversi dalle persone fisiche
 	--106 Codice fiscale del rappresentante
 	INSERT INTO #recordb (progr, quadro, riga, colonna, stringa) VALUES(1, 'HRB', 1, '106', @manager_cf)
 	--107 Codice carica del rappresentante
@@ -248,7 +250,7 @@ AS BEGIN
 	--121 Numero di telefono del rappresentante
 	INSERT INTO #recordb (progr, quadro, riga, colonna, stringa) VALUES(1, 'HRB', 1, '121', @manager_phonenumber)
 --	INSERT INTO #recordb (progr, quadro, riga, colonna, intero)  VALUES(1, 'HRB', 1, '214', '1')--Firma del Presidente o dei componenti dell'organo di controllo
---	INSERT INTO #recordb (progr, quadro, riga, colonna, intero)  VALUES(1, 'HRB', 1, '202', '1')--Le universit√† presentano solo il modello 770 SEMPLIFICATO (Numero Sezione)
+--	INSERT INTO #recordb (progr, quadro, riga, colonna, intero)  VALUES(1, 'HRB', 1, '202', '1')--Le universit‡ presentano solo il modello 770 SEMPLIFICATO (Numero Sezione)
 	
 	SELECT * FROM #recordb WHERE stringa IS NOT NULL OR intero IS NOT NULL OR data IS NOT NULL
 END
@@ -263,4 +265,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

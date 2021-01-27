@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[compute_flowchartcopy]') 
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[compute_flowchartcopy]') 
 and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_flowchartcopy]
 GO
@@ -48,7 +50,7 @@ END
 */
 
 -- Inserisce in #ayearDipDest tutti gli esercizi in cui deve copiare la config. dell'organigramma. 
--- Prende tutti gli esercizi per cui √® stata fatta la fase "Creazione nuovo esercizio"
+-- Prende tutti gli esercizi per cui Ë stata fatta la fase "Creazione nuovo esercizio"
 -- Se non ho specificato l'esercizio di destinazione, e quindi '@stopayear IS NULL' devo copiare la config. in tutti gli esercizi (sia precedenti che successivi),
 -- tranne quello di origine.
 SET @stopayear = ISNULL(@stopayear,0)
@@ -155,7 +157,7 @@ FETCH NEXT FROM crsayear INTO @ayearcopying
 				print @query
 				EXEC (@query)
 
--- Questi trasferimenti li fa solo se √® l'operazione la si sta facendo all'interno dello stesso dipartimento, perch√®
+-- Questi trasferimenti li fa solo se Ë l'operazione la si sta facendo all'interno dello stesso dipartimento, perchË
 -- le tabelle hanno dei riferimenti esterni a tabelle NON dbo.
 	if(@source = @dest)
 	begin
@@ -420,12 +422,12 @@ FETCH NEXT FROM crsayear INTO @ayearcopying
 /* 
 SE  ( @startayear < @ayearcopying ) vuol dire che stiamo trasferendo negli esercizio successivi, in avanti, 2006->2007,2008,...
 		l'IF controlla che in allfinlookup esista la voce di bilancio come old nell'anno start (2006) e come new nell'anno copying(2007,2008,...)
-		perch√® deve fare	old = 2006 -> new = 2007
+		perchË deve fare	old = 2006 -> new = 2007
 							old = 2006 -> new = 2008
 
 SE  ( @startayear > @ayearcopying ) vuol dire che stiamo trasferendo negli esercizio precedenti, in dietro, 2006->2005,2004,...
 		l'IF controlla che in allfinlookup esista la voce di bilancio come new nell'anno start (2006) e come old nell'anno copying(2004,2005,...)
-		perch√® deve fare new = 2006 -> old = 2004
+		perchË deve fare new = 2006 -> old = 2004
 						 new = 2006 -> old = 2005
 */
 		IF(@startayear<@ayearcopying)
@@ -536,4 +538,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

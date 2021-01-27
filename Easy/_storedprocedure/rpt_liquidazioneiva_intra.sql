@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_liquidazioneiva_intra]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_liquidazioneiva_intra]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_liquidazioneiva_intra]
 GO
  
@@ -242,13 +244,13 @@ SET currentcredit12 = @currentcredit12,
 	paymentamount12 = @paymentamount12
 
 -- Questo UPDATE serve per gestire a livello di layout di stampa una situazione molto particolare.
--- E' il caso in cui nel mese in oggetto √® stata liquidata SOLO una nota di variazione di una fattura di Acquisto Istituzionale Intracomunitaria.
--- Se la nota di variazione √® stata fatta nello stesso mese della fattura, allora non dovrebbe sorgere alcun problema
--- perch√® l'iva della nota di var. sar√† sottratta dall'iva della fattura. Ma se invece nel mese ho fatto SOLO la nota di variazione
--- nella liquidazione trover√≤ una riga "Registro Acquisti Istituzionale", con importo negativo: creditamount12 = -10 .
--- Anche nel form della liquidazione avr√≤ nel Grid dell'iva a debito : -10. Nei totali : 0 - -10 = +10 iva a credito.
+-- E' il caso in cui nel mese in oggetto Ë stata liquidata SOLO una nota di variazione di una fattura di Acquisto Istituzionale Intracomunitaria.
+-- Se la nota di variazione Ë stata fatta nello stesso mese della fattura, allora non dovrebbe sorgere alcun problema
+-- perchË l'iva della nota di var. sar‡ sottratta dall'iva della fattura. Ma se invece nel mese ho fatto SOLO la nota di variazione
+-- nella liquidazione troverÚ una riga "Registro Acquisti Istituzionale", con importo negativo: creditamount12 = -10 .
+-- Anche nel form della liquidazione avrÚ nel Grid dell'iva a debito : -10. Nei totali : 0 - -10 = +10 iva a credito.
 -- Quindi per gestire questa situazione, alquanto remota, piuttosto che visualizzare l'importo negatico nella colonna "IVA a debito"
--- si √® deciso di visualizzare questo importo negativo nella colonna "IVA a credito" con segno positivo.
+-- si Ë deciso di visualizzare questo importo negativo nella colonna "IVA a credito" con segno positivo.
 
 UPDATE #ivapayed SET currentcredit12 = - currentcredit12 where currentcredit12 <0
 UPDATE #ivapayed SET previouscredit12 = - previouscredit12 where previouscredit12 <0
@@ -288,4 +290,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -221,7 +223,7 @@ namespace ct_expenselast_reset {
         private void btnAzzera_Click(object sender, EventArgs e) {
             DataRow[] Mov_SelectedRows = GetGridSelectedRows(gridDettagli);
             if ((Mov_SelectedRows == null) || (Mov_SelectedRows.Length == 0)) {
-                MessageBox.Show("Non √® stato selezionato alcun movimento da annullare.");
+                MessageBox.Show("Non Ë stato selezionato alcun movimento da annullare.");
                 return;
             }
             Azzera(Mov_SelectedRows);
@@ -232,7 +234,7 @@ namespace ct_expenselast_reset {
                 Conn.RUN_SELECT("accountingyear", "*", null, QHS.CmpEq("ayear", esercizio), null, true);
 
             if (EsercizioTable.Rows.Count == 0) {
-                MessageBox.Show("L'esercizio " + esercizio + " non √® stato creato.");
+                MessageBox.Show("L'esercizio " + esercizio + " non Ë stato creato.");
                 return false;
             }
             return true;
@@ -421,10 +423,10 @@ namespace ct_expenselast_reset {
             rExpVar["yvar"] = Meta.GetSys("esercizio");
             rExpVar["description"] = "Azzeramento mandato";
             rExpVar["amount"] = -CfgFn.GetNoNullDecimal(R["curramount"]);
-            rExpVar["autokind"] = 11;// non c'√® un autokind particolare in questo caso
+            rExpVar["autokind"] = 11;// non c'Ë un autokind particolare in questo caso
             rExpVar["adate"] = Meta.GetSys("datacontabile");
 
-            //Ottengo un DataTable con gli importi di classificazione raggruppati per codice, cos√¨ non considero la class. parziali
+            //Ottengo un DataTable con gli importi di classificazione raggruppati per codice, cosÏ non considero la class. parziali
             int esercizio = (int)Meta.GetSys("esercizio");
             string queryF4 = " select es1.idsor, s1.sortcode, s1.idsorkind, es1.amount, s2.idsor as idsorparent, EL.idparent as idexpparent"
                              + " from expense "
@@ -478,7 +480,7 @@ namespace ct_expenselast_reset {
             }
             object newidfin = Calcola_newidfin(R["codefin"]);
             if (newidfin == null) {
-                MessageBox.Show($"Nell'anno {Conn.GetEsercizio()} non √® stata trovata una voce di bilancio mappata alla voce di "+
+                MessageBox.Show($"Nell'anno {Conn.GetEsercizio()} non Ë stata trovata una voce di bilancio mappata alla voce di "+
                     $" codice {R["codefin"]} dell'anno precedente","Errore");
                 return false;
             }

@@ -532,6 +532,7 @@
               <xs:element name="nvar" type="xs:int" />
               <xs:element name="rownum" type="xs:int" />
               <xs:element name="variationdescription" type="xs:string" />
+              <xs:element name="idenactment" type="xs:int" minOccurs="0" />
               <xs:element name="enactment" type="xs:string" minOccurs="0" />
               <xs:element name="nenactment" type="xs:string" minOccurs="0" />
               <xs:element name="enactmentdate" type="xs:dateTime" minOccurs="0" />

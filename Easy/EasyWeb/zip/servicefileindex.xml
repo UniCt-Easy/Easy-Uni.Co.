@@ -14,8 +14,8 @@
   </DLL>
   <DLL>
     <dllname>accountenactment_default.aspx</dllname>
-    <major>20170714</major>
-    <minor>120449</minor>
+    <major>20200729</major>
+    <minor>153549</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -32,8 +32,8 @@
   </DLL>
   <DLL>
     <dllname>accountvar_default_new02.aspx</dllname>
-    <major>20170928</major>
-    <minor>131358</minor>
+    <major>20200729</major>
+    <minor>153549</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -56,8 +56,8 @@
   </DLL>
   <DLL>
     <dllname>apregistry_service.aspx</dllname>
-    <major>20130926</major>
-    <minor>91128</minor>
+    <major>20201001</major>
+    <minor>142237</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -86,8 +86,8 @@
   </DLL>
   <DLL>
     <dllname>booking_default_new02.aspx</dllname>
-    <major>20151005</major>
-    <minor>80252</minor>
+    <major>20200729</major>
+    <minor>153550</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -104,8 +104,8 @@
   </DLL>
   <DLL>
     <dllname>catania_itineration_default.aspx</dllname>
-    <major>20190606</major>
-    <minor>93756</minor>
+    <major>20200520</major>
+    <minor>151054</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -128,8 +128,8 @@
   </DLL>
   <DLL>
     <dllname>enactment_default_new02.aspx</dllname>
-    <major>20160711</major>
-    <minor>112138</minor>
+    <major>20200729</major>
+    <minor>153550</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -170,8 +170,8 @@
   </DLL>
   <DLL>
     <dllname>finvar_default_new02.aspx</dllname>
-    <major>20180912</major>
-    <minor>82419</minor>
+    <major>20200729</major>
+    <minor>153550</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -224,8 +224,8 @@
   </DLL>
   <DLL>
     <dllname>itinerationattachment_default_new02.aspx</dllname>
-    <major>20160711</major>
-    <minor>112138</minor>
+    <major>20200402</major>
+    <minor>182352</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -236,8 +236,8 @@
   </DLL>
   <DLL>
     <dllname>itinerationflights_default.aspx</dllname>
-    <major>20181221</major>
-    <minor>74827</minor>
+    <major>20200520</major>
+    <minor>151054</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -248,14 +248,14 @@
   </DLL>
   <DLL>
     <dllname>itinerationrefund_default_new02.aspx</dllname>
-    <major>20190606</major>
-    <minor>93756</minor>
+    <major>20200729</major>
+    <minor>153550</minor>
     <build>0</build>
   </DLL>
   <DLL>
     <dllname>itineration_default_new02.aspx</dllname>
-    <major>20181218</major>
-    <minor>130238</minor>
+    <major>20200911</major>
+    <minor>95401</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -290,14 +290,14 @@
   </DLL>
   <DLL>
     <dllname>listino_parametri.aspx</dllname>
-    <major>20180221</major>
-    <minor>143311</minor>
+    <major>20200729</major>
+    <minor>153550</minor>
     <build>0</build>
   </DLL>
   <DLL>
     <dllname>location_tree.aspx</dllname>
-    <major>20170411</major>
-    <minor>121022</minor>
+    <major>20200729</major>
+    <minor>153550</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -314,8 +314,8 @@
   </DLL>
   <DLL>
     <dllname>LoginServizi.aspx</dllname>
-    <major>20151002</major>
-    <minor>111933</minor>
+    <major>20200728</major>
+    <minor>100743</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -356,20 +356,20 @@
   </DLL>
   <DLL>
     <dllname>mandateattachment_default_new02.aspx</dllname>
-    <major>20160711</major>
-    <minor>112138</minor>
+    <major>20200227</major>
+    <minor>124435</minor>
     <build>0</build>
   </DLL>
   <DLL>
     <dllname>mandatedetail_default_new02.aspx</dllname>
-    <major>20191106</major>
-    <minor>143053</minor>
+    <major>20200729</major>
+    <minor>153550</minor>
     <build>0</build>
   </DLL>
   <DLL>
     <dllname>mandate_default_new02.aspx</dllname>
-    <major>20191105</major>
-    <minor>142234</minor>
+    <major>20200729</major>
+    <minor>153550</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -428,14 +428,14 @@
   </DLL>
   <DLL>
     <dllname>underwriting_default_new02.aspx</dllname>
-    <major>20150922</major>
-    <minor>94601</minor>
+    <major>20200728</major>
+    <minor>100744</minor>
     <build>0</build>
   </DLL>
   <DLL>
     <dllname>upb_default_new02.aspx</dllname>
-    <major>20150922</major>
-    <minor>73300</minor>
+    <major>20200728</major>
+    <minor>100744</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -452,8 +452,8 @@
   </DLL>
   <DLL>
     <dllname>vetrina_default_new02.aspx</dllname>
-    <major>20151020</major>
-    <minor>171413</minor>
+    <major>20200729</major>
+    <minor>153550</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -542,8 +542,8 @@
   </DLL>
   <DLL>
     <dllname>AttachmentView.aspx.cs</dllname>
-    <major>20130926</major>
-    <minor>91128</minor>
+    <major>20200306</major>
+    <minor>113958</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -566,8 +566,8 @@
   </DLL>
   <DLL>
     <dllname>booking_default_new02.aspx.cs</dllname>
-    <major>20180216</major>
-    <minor>144058</minor>
+    <major>20200908</major>
+    <minor>103651</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -584,8 +584,8 @@
   </DLL>
   <DLL>
     <dllname>catania_itineration_default.aspx.cs</dllname>
-    <major>20191009</major>
-    <minor>112251</minor>
+    <major>20200626</major>
+    <minor>131501</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -680,8 +680,8 @@
   </DLL>
   <DLL>
     <dllname>IndiceReport.aspx.cs</dllname>
-    <major>20190418</major>
-    <minor>82343</minor>
+    <major>20200929</major>
+    <minor>152940</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -710,14 +710,14 @@
   </DLL>
   <DLL>
     <dllname>itinerationattachment_default_new02.aspx.cs</dllname>
-    <major>20150727</major>
-    <minor>121426</minor>
+    <major>20200228</major>
+    <minor>143131</minor>
     <build>0</build>
   </DLL>
   <DLL>
     <dllname>itinerationauth_default_new02.aspx.cs</dllname>
-    <major>20200205</major>
-    <minor>150319</minor>
+    <major>20200612</major>
+    <minor>82554</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -836,14 +836,14 @@
   </DLL>
   <DLL>
     <dllname>ManageCart.aspx.cs</dllname>
-    <major>20151020</major>
-    <minor>171413</minor>
+    <major>20200908</major>
+    <minor>100441</minor>
     <build>0</build>
   </DLL>
   <DLL>
     <dllname>mandateattachment_default_new02.aspx.cs</dllname>
-    <major>20150717</major>
-    <minor>101044</minor>
+    <major>20200227</major>
+    <minor>123142</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -854,8 +854,8 @@
   </DLL>
   <DLL>
     <dllname>mandate_default_new02.aspx.cs</dllname>
-    <major>20200221</major>
-    <minor>135825</minor>
+    <major>20200728</major>
+    <minor>100744</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -1003,6 +1003,12 @@
     <build>0</build>
   </DLL>
   <DLL>
+    <dllname>licenses.dat</dllname>
+    <major>20190430</major>
+    <minor>85849</minor>
+    <build>0</build>
+  </DLL>
+  <DLL>
     <dllname>App_Code\AssemblyInfo.cs</dllname>
     <major>20130926</major>
     <minor>91128</minor>
@@ -1040,8 +1046,8 @@
   </DLL>
   <DLL>
     <dllname>js\allmine.js</dllname>
-    <major>20190111</major>
-    <minor>92244</minor>
+    <major>20200911</major>
+    <minor>95401</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -1078,6 +1084,12 @@
     <dllname>js\bootstrap.min.js</dllname>
     <major>20130926</major>
     <minor>91128</minor>
+    <build>0</build>
+  </DLL>
+  <DLL>
+    <dllname>js\cookiemgr.js</dllname>
+    <major>20200520</major>
+    <minor>151054</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -1141,6 +1153,12 @@
     <build>0</build>
   </DLL>
   <DLL>
+    <dllname>js\scrollpositionmgr.js</dllname>
+    <major>20200520</major>
+    <minor>151054</minor>
+    <build>0</build>
+  </DLL>
+  <DLL>
     <dllname>css\ae.css</dllname>
     <major>20181121</major>
     <minor>135338</minor>
@@ -1171,6 +1189,12 @@
     <build>0</build>
   </DLL>
   <DLL>
+    <dllname>css\bootstrap.4.5.0.min.css</dllname>
+    <major>20200728</major>
+    <minor>100743</minor>
+    <build>0</build>
+  </DLL>
+  <DLL>
     <dllname>css\bootstrap.css</dllname>
     <major>20130926</major>
     <minor>91128</minor>
@@ -1180,6 +1204,12 @@
     <dllname>css\bootstrap.min.css</dllname>
     <major>20130926</major>
     <minor>91128</minor>
+    <build>0</build>
+  </DLL>
+  <DLL>
+    <dllname>css\custom.css</dllname>
+    <major>20200918</major>
+    <minor>122026</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -1208,8 +1238,8 @@
   </DLL>
   <DLL>
     <dllname>css\masterbootstrap.css</dllname>
-    <major>20181121</major>
-    <minor>175328</minor>
+    <major>20200728</major>
+    <minor>100743</minor>
     <build>0</build>
   </DLL>
   <DLL>
@@ -1359,14 +1389,14 @@
   <DLL>
     <dllname>bin\funzioni_configurazione.dll</dllname>
     <major>1</major>
-    <minor>2</minor>
-    <build>88</build>
+    <minor>3</minor>
+    <build>2</build>
   </DLL>
   <DLL>
     <dllname>bin\HelpWeb.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>5</build>
+    <build>6</build>
   </DLL>
   <DLL>
     <dllname>bin\Interop.Excel.dll</dllname>
@@ -1396,13 +1426,13 @@
     <dllname>bin\metadatalibrary.dll</dllname>
     <major>2</major>
     <minor>3</minor>
-    <build>26</build>
+    <build>67</build>
   </DLL>
   <DLL>
     <dllname>bin\metaeasylibrary.dll</dllname>
     <major>2</major>
     <minor>1</minor>
-    <build>194</build>
+    <build>204</build>
   </DLL>
   <DLL>
     <dllname>bin\metaeasylibrary.XmlSerializers.dll</dllname>
@@ -1414,7 +1444,7 @@
     <dllname>bin\meta_account.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>28</build>
+    <build>29</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_accountenactment.dll</dllname>
@@ -1444,7 +1474,7 @@
     <dllname>bin\meta_accountvardetail.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>16</build>
+    <build>17</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_accountvarview.dll</dllname>
@@ -1552,13 +1582,13 @@
     <dllname>bin\meta_itineration.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>51</build>
+    <build>55</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_itinerationattachment.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>3</build>
+    <build>4</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_itinerationauthagency.dll</dllname>
@@ -1600,7 +1630,7 @@
     <dllname>bin\meta_itinerationview.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>18</build>
+    <build>19</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_lcardcf.dll</dllname>
@@ -1708,7 +1738,7 @@
     <dllname>bin\meta_mandatedetail_extview.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>9</build>
+    <build>10</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_mandatedetail_tostock.dll</dllname>
@@ -1762,7 +1792,7 @@
     <dllname>bin\meta_sorting.dll</dllname>
     <major>1</major>
     <minor>3</minor>
-    <build>34</build>
+    <build>36</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_store.dll</dllname>
@@ -1816,7 +1846,7 @@
     <dllname>bin\meta_upb.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>19</build>
+    <build>20</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_upbitinerationavailable.dll</dllname>
@@ -1828,7 +1858,7 @@
     <dllname>bin\meta_upbview.dll</dllname>
     <major>1</major>
     <minor>0</minor>
-    <build>11</build>
+    <build>13</build>
   </DLL>
   <DLL>
     <dllname>bin\meta_viterbo_finvar.dll</dllname>
@@ -2344,6 +2374,12 @@
     <dllname>immagini\inserito.png</dllname>
     <major>20130926</major>
     <minor>91128</minor>
+    <build>0</build>
+  </DLL>
+  <DLL>
+    <dllname>immagini\pixel.png</dllname>
+    <major>20200728</major>
+    <minor>100743</minor>
     <build>0</build>
   </DLL>
   <DLL>

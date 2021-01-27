@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -100,7 +102,7 @@ namespace no_table_consolidclientiforn {
                             rCliente[campo] = CfgFn.GetNoNullInt32(rCliente[campo]) + int.Parse(valore);
                             break;
                         default:
-                            MessageBox.Show(this, "Errore nel record 1 dei clienti: '" + campo + "' campo sconosciuto.");
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel record 1 dei clienti: '" + campo + "' campo sconosciuto.");
                             break;
                     }
                 }
@@ -158,7 +160,7 @@ namespace no_table_consolidclientiforn {
                             rFornitore[campo] = CfgFn.GetNoNullInt32(rFornitore[campo]) + int.Parse(valore);
                             break;
                         default:
-                            MessageBox.Show(this, "Errore nel record 2 dei fornitori: '" + campo + "' campo sconosciuto.");
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel record 2 dei fornitori: '" + campo + "' campo sconosciuto.");
                             break;
                     }
                 }
@@ -284,7 +286,7 @@ namespace no_table_consolidclientiforn {
                     if (valore == DBNull.Value) return "00000000";
                     return ((DateTime)valore).ToString("ddMMyyyy");
                 default:
-                    MessageBox.Show(this, "Formato " + formato + " sconosciuto!");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Formato " + formato + " sconosciuto!");
                     return null;
             }
         }
@@ -319,7 +321,7 @@ namespace no_table_consolidclientiforn {
         private DataTable chiamaSP(string sp, object[] parametri) {
             DataSet ds = Meta.Conn.CallSP(sp, parametri);
             if ((ds == null) || (ds.Tables.Count == 0)) {
-                MessageBox.Show(this, "Errore nella chiamata " + sp);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nella chiamata " + sp);
                 return null;
             }
             return ds.Tables[0];
@@ -327,11 +329,11 @@ namespace no_table_consolidclientiforn {
 
         private void btnConsolida_Click(object sender, EventArgs e) {
             if (txtCartella.Text == "") {
-                MessageBox.Show(this, "Specificare la cartella contenente gli elenchi clienti/fornitori da consolidare");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Specificare la cartella contenente gli elenchi clienti/fornitori da consolidare");
                 return;
             }
             if (txtFile.Text == "") {
-                MessageBox.Show(this, "Specificare il percorso del file da salvare");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Specificare il percorso del file da salvare");
                 return;
             }
             DS.cliente.Clear();
@@ -345,7 +347,7 @@ namespace no_table_consolidclientiforn {
                     int letti = sr.Read(record, 0, 1800);
                     if (letti != 1800) {
                         sr.Close();
-                        MessageBox.Show(this, "Errore durante la lettura del file " + f.FullName + "\nLetti " + letti + " byte anzichè 1800");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore durante la lettura del file " + f.FullName + "\nLetti " + letti + " byte anzichè 1800");
                         return;
                     }
                     switch (record[0]) {
@@ -375,7 +377,7 @@ namespace no_table_consolidclientiforn {
             scriviRecord3(sw);
             scriviRecordDiTestaODiCoda(9, sw, tRecordTestaECoda.Rows[0]);
             sw.Close();
-            MessageBox.Show(this, "Elenco clienti/fornitori salvato in " + txtFile.Text);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Elenco clienti/fornitori salvato in " + txtFile.Text);
             DS.cliente.AcceptChanges();
             DS.fornitore.AcceptChanges();
             btnClienti.Enabled = true;
@@ -396,14 +398,14 @@ namespace no_table_consolidclientiforn {
 
         private void btnClienti_Click(object sender, EventArgs e) {
             if (DS.cliente.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono clienti nell'elenco consolidato");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono clienti nell'elenco consolidato");
             }
             exportclass.DataTableToExcel(DS.cliente, true);
         }
 
         private void btnFornitori_Click(object sender, EventArgs e) {
             if (DS.fornitore.Rows.Count == 0) {
-                MessageBox.Show(this, "Non ci sono fornitori nell'elenco consolidato");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non ci sono fornitori nell'elenco consolidato");
             }
             exportclass.DataTableToExcel(DS.fornitore, true);
         }

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- CREAZIONE VISTA csa_importriep_partitionview
+
+-- CREAZIONE VISTA csa_importriep_partitionview
 IF EXISTS(select * from sysobjects where id = object_id(N'[csa_importver_partitionview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [csa_importver_partitionview]
 GO
@@ -117,7 +119,8 @@ CREATE       VIEW [csa_importver_partitionview]
 	idfin,codefin, fin,
 	idsorkind, codesorkind,sortingkind,
 	idsor_siope, sortcode_siope,sorting_siope,
-	descflagaccountusage
+	descflagaccountusage,
+	idacc
 )
 AS SELECT 
 	CASE WHEN (IV.idcsa_contract = null  AND  IV.idcsa_contractkind=null AND
@@ -232,11 +235,12 @@ AS SELECT
 		 		when (( account_cost.flagaccountusage & 1024) <> 0)  then 'Avanzo vincolato'
 		 		when (( account_cost.flagaccountusage & 2048) <> 0)  then 'Riserva'
 		 		when (( account_cost.flagaccountusage & 4096) <> 0)  then 'Accantonamento'
-		 		when (( account_cost.flagaccountusage & 8192) <> 0)  then 'Disponibilit√† liquide'
+		 		when (( account_cost.flagaccountusage & 8192) <> 0)  then 'Disponibilit‡ liquide'
 		 		when (( account_cost.flagaccountusage & 32768) <> 0) then 'Fondi ammortamento'
 		 		when (( account_cost.flagaccountusage & 131072) <> 0)  then 'Ammortamento'
 		else null
-		end 
+		end ,
+		VE.idacc
 FROM csa_importver_partition VE
 JOIN csa_importver IV 	ON VE.idcsa_import = IV.idcsa_import AND VE.idver = IV.idver
 JOIN csa_import I						ON I.idcsa_import = IV.idcsa_import
@@ -277,4 +281,3 @@ GO
 --clear_table_info 'csa_importver_partitionview'
 ---select * from csa_importver_partitionview
  
-	

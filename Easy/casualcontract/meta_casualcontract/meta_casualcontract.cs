@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -52,7 +54,7 @@ namespace meta_casualcontract//meta_contrattoocc//
 			DataTable configurazione = T.DataSet.Tables["config"];
 			DataRow [] configrow = configurazione.Select(QHC.CmpEq("ayear", GetSys("esercizio")));
 			if (configrow.Length == 0) {
-				MessageBox.Show(testoMessaggio,"Prestazione Occasionale - Dati Mancanti",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(testoMessaggio,"Prestazione Occasionale - Dati Mancanti",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 				return null;
 			}
             int flag_autodocnumbering = CfgFn.GetNoNullInt32(configrow[0]["flag_autodocnumbering"]);
@@ -148,7 +150,7 @@ namespace meta_casualcontract//meta_contrattoocc//
                           "http://www.inps.it/ . Si raccomanda di informare tempestivamente \n\r " +
                           "l'ufficio competente alla trasmissione della denuncia UNIEMENS.";
                 errfield = "idser";
-                MessageBox.Show(errmess, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(errmess, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
             if (R["description"].ToString()==""){
@@ -197,7 +199,7 @@ namespace meta_casualcontract//meta_contrattoocc//
                     if (IsAdmin){
                         errmess = "L'Anagrafe delle Prestazioni Ë stata gi‡ generata, e risultano modificati i seguenti dati: \n\r"
                             + message + "Adeguare anche i dati dell'Incarico.";
-                        MessageBox.Show(errmess, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(errmess, "Avviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     else{
                         errmess = "Risultano modificati i seguenti dati: \n\r"

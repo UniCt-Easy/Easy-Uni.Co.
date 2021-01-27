@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_riepilogo_ritenute_applicate_impon_notax]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_riepilogo_ritenute_applicate_impon_notax]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_riepilogo_ritenute_applicate_impon_notax]
 GO
  
@@ -42,7 +44,7 @@ CREATE  PROCEDURE [exp_riepilogo_ritenute_applicate_impon_notax]
 
 ---------------------------------------------------------------------------------------------------------
 -- IMPORTANTE: 
--- @show_department @show_month gestisce la visualizzazione del Dip. e del mese sar√† 'S' SOLO PER ROMA!!!
+-- @show_department @show_month gestisce la visualizzazione del Dip. e del mese sar‡ 'S' SOLO PER ROMA!!!
 ---------------------------------------------------------------------------------------------------------
 
 AS
@@ -53,7 +55,7 @@ SELECT  @expensephase = expensephase,
 	    @taxvaliditykind = taxvaliditykind  -- data competenza delle ritenute
  FROM config WHERE ayear = @ayear
 
--- @mode √® un radio button di selezione modalit√†, in cui si sceglie se:
+-- @mode Ë un radio button di selezione modalit‡, in cui si sceglie se:
 -- visualizza tutti i dettagli - T
 -- visualizza i dettagli raggruppati per applicato/annullato - R
 -- visualizza solo saldo ( applicato-annullato ) - S
@@ -311,9 +313,9 @@ DELETE #address_employ
 
 -- In caso di @mode = S le righe del saldo saranno marcate con rowkind=4
 -- Nel caso di @mode = R, lui inserisce in #output la somma delle righe 1 e 2, marcando questa riga
--- con rowkind= 5, e nella SELECT finale prender√† quelle che hanno rowkind = 5 (applicate) e rowkind = 3 (annullate)
--- Questo √® il motivo per cui nasce #output.
--- Se poi ho scelto #mode = T far√† una SELECT delle rowkind =1,2,3.
+-- con rowkind= 5, e nella SELECT finale prender‡ quelle che hanno rowkind = 5 (applicate) e rowkind = 3 (annullate)
+-- Questo Ë il motivo per cui nasce #output.
+-- Se poi ho scelto #mode = T far‡ una SELECT delle rowkind =1,2,3.
 
 CREATE TABLE #output
 (
@@ -353,8 +355,8 @@ CREATE TABLE #output
 		movkind int
 )
 
--- Se non √® il Roma azzero il mese affinch√® non contribuisca a ragguppamenti sucessivi
--- se inceve √® Roma allora il mese sar√† un altro criterio di raggruppamento
+-- Se non Ë il Roma azzero il mese affinchË non contribuisca a ragguppamenti sucessivi
+-- se inceve Ë Roma allora il mese sar‡ un altro criterio di raggruppamento
 
 
 -- Se ho deciso di consolidare, non verranno visualizzate le info del mov. di spesa
@@ -501,7 +503,7 @@ WHERE #output.idreg = i1.idreg
 
 
 IF ( @unified_mov = 'S' )
--- Si √® scelto di CONSOLIDARE, quindi si vogliono consolidare i movimenti per Percipiente.
+-- Si Ë scelto di CONSOLIDARE, quindi si vogliono consolidare i movimenti per Percipiente.
 BEGIN
         IF (@show_month = 'S') 
 		BEGIN
@@ -520,7 +522,7 @@ BEGIN
 					GP.province as 'Prov.Nascita', ISNULL(GN.title,'ITALIA') as 'Stato Nascita',
 	        		R.gender as 'Sesso',
 	                #output.address as 'Indirizzo',
-	            	#output.location as 'Localit√†',
+	            	#output.location as 'Localit‡',
 	            	#output.province as 'Provincia',
 	            	#output.nation as 'Stato',
 	            	#output.cap as 'CAP',
@@ -559,7 +561,7 @@ BEGIN
 					GP.province as 'Prov.Nascita', ISNULL(GN.title,'ITALIA') as 'Stato Nascita',
 	        		R.gender as 'Sesso',
 	                #output.address as 'Indirizzo',
-	            	#output.location as 'Localit√†',
+	            	#output.location as 'Localit‡',
 	            	#output.province as 'Provincia',
 	            	#output.nation as 'Stato',
 	            	#output.cap as 'CAP',
@@ -586,7 +588,7 @@ END-- (@unified_mov = 'S')
 
 ELSE
 -- (@unified_mov = 'N')
--- vuol dire che si √® scelto di NON CONSOLIDARE, quindi si vuole distinguire i singoli movimenti per percipiente
+-- vuol dire che si Ë scelto di NON CONSOLIDARE, quindi si vuole distinguire i singoli movimenti per percipiente
 BEGIN
 	IF (@show_month='S')
 	BEGIN	
@@ -614,7 +616,7 @@ BEGIN
 				#output.servicestart as 'Inizio Pres.',
 				#output.servicestop as 'Fine Prest',
                 #output.address as 'Indirizzo',
-            	#output.location as 'Localit√†',
+            	#output.location as 'Localit‡',
                 #output.province as 'Provincia',
             	#output.nation as 'Stato',
             	#output.cap as 'CAP',
@@ -663,7 +665,7 @@ BEGIN
 				#output.servicestart as 'Inizio Pres.',
 				#output.servicestop as 'Fine Prest',
                 #output.address as 'Indirizzo',
-            	#output.location as 'Localit√†',
+            	#output.location as 'Localit‡',
                 #output.province as 'Provincia',
             	#output.nation as 'Stato',
             	#output.cap as 'CAP',
@@ -702,4 +704,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

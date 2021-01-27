@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø--setuser 'amministrazione'
+
+--setuser 'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_bccirpina_ins]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_income_bccirpina_ins]
 GO
@@ -79,10 +81,10 @@ WHERE yproceedstransmission = @y
 
 
 
-DECLARE @opkind varchar(20) -- Pu√≤ assumere il valore INSERIMENTO (vedere specifiche tracciato)
+DECLARE @opkind varchar(20) -- PuÚ assumere il valore INSERIMENTO (vedere specifiche tracciato)
 SET @opkind = 'INSERIMENTO'
---Pu√≤ assumere i valori 
---INSERIMENTO‚Äì Inserimento  Ordinativo 
+--PuÚ assumere i valori 
+--INSERIMENTOñ Inserimento  Ordinativo 
 --VARIAZIONE- Variazione Ordinativo
 --ANNNULLO- Annullo Ordinativo
 --SOSTITUZIONE- Sostituzione Ordinativo
@@ -146,7 +148,7 @@ WHERE kproceedstransmission = @k) = 0)
 BEGIN
 	INSERT INTO #error
 	VALUES('La distinta di trasmissione ' + CONVERT(varchar(4),@y) + '/'
-	+ CONVERT(varchar(6),@n) + ' √® vuota')
+	+ CONVERT(varchar(6),@n) + ' Ë vuota')
 END
 
 -- CONTROLLO N. 1. Presenza dei dati dell'ente
@@ -174,7 +176,7 @@ END
 IF (DATALENGTH(@cod_department) > @len_agencycode)
 BEGIN
 	INSERT INTO #error
-	VALUES ('Il codice Ente inserito √® superiore alla lunghezza massima fissata a '
+	VALUES ('Il codice Ente inserito Ë superiore alla lunghezza massima fissata a '
 	+ CONVERT(varchar(2),@len_agencycode))
 END
 
@@ -354,7 +356,7 @@ SELECT
 -- Partita Iva estera
 	CASE
 		WHEN ctc.flaghuman = 'N' AND c.p_iva IS NOT NULL AND ASCII(SUBSTRING(c.p_iva,1,1)) NOT BETWEEN 48 AND 57
-		-- Se √® straniera la copiamo tale e quale. Quando verrr√† inserita nel Record MP verr√† interrogata nuovamente.		
+		-- Se Ë straniera la copiamo tale e quale. Quando verrr‡ inserita nel Record MP verr‡ interrogata nuovamente.		
 		THEN c.p_iva
 		ELSE NULL
 	END,
@@ -452,8 +454,8 @@ WHERE t.kproceedstransmission = @k
  
 
 ---INSERISCO GLI INCASSI VIRTUALI OTTENUTI DAGLI INCASSI A REGOLARIZZAZIONE DI SOSPESI 
--- L'incasso reale sar√† suddiviso in due tranches, uno a regolarizzazione di importo pari al sospeso e non collegato alla spesa
--- l'altro sar√† un incasso virtuale  collegato alla spesa (in modo da ottenere complessivamente saldo zero ) e con idpro
+-- L'incasso reale sar‡ suddiviso in due tranches, uno a regolarizzazione di importo pari al sospeso e non collegato alla spesa
+-- l'altro sar‡ un incasso virtuale  collegato alla spesa (in modo da ottenere complessivamente saldo zero ) e con idpro
 -- fittizio pari a 2 (obblighiamo a fare le reversali singole in tali casi)
  
 INSERT INTO #proceeds
@@ -499,7 +501,7 @@ SELECT
 -- Partita Iva estera
 	CASE
 		WHEN ctc.flaghuman = 'N' AND c.p_iva IS NOT NULL AND ASCII(SUBSTRING(c.p_iva,1,1)) NOT BETWEEN 48 AND 57
-		-- Se √® straniera la copiamo tale e quale. Quando verrr√† inserita nel Record MP verr√† interrogata nuovamente.		
+		-- Se Ë straniera la copiamo tale e quale. Quando verrr‡ inserita nel Record MP verr‡ interrogata nuovamente.		
 		THEN c.p_iva
 		ELSE NULL
 	END,
@@ -594,7 +596,7 @@ SELECT  @maxexpensephase = MAX(nphase) FROM expensephase
 
 -- Unificazione descrizioni di incasso per movimenti di entrata che sono stati accorpati
 UPDATE #proceeds
-SET proceedsdescr = 'ACCORPAMENTO INCASSI' -- + SPACE(350)--La formattazione l'ho postata alla fine, perch√® deve scrivere anche il CUP, ponendolo come prima info del campo 'casuale riscossione'
+SET proceedsdescr = 'ACCORPAMENTO INCASSI' -- + SPACE(350)--La formattazione l'ho postata alla fine, perchË deve scrivere anche il CUP, ponendolo come prima info del campo 'casuale riscossione'
 WHERE
 	(SELECT COUNT(*)
 	FROM #proceeds i2
@@ -903,7 +905,7 @@ WHERE #siope.flagpendingincome  = 'S' and #siope.idpro = 1
 UPDATE #siope SET amount = isnull(#siope.amount,0) * (isnull(#siope.amount_expense,0)/isnull(#siope.curramount,0))
 WHERE #siope.flagpendingincome  = 'S' and #siope.idpro = 2
 
--- L'incasso virtuale viene modificato per quanto attiene il flag a copertura, in quanto non pu√≤ essere agganciato al sospeso,
+-- L'incasso virtuale viene modificato per quanto attiene il flag a copertura, in quanto non puÚ essere agganciato al sospeso,
 -- solo la porzione di importo corrente - spesa accessoria deve figurare a regolarizzazione (idpro 1)
 UPDATE #proceeds SET fulfilled = 'N'
 WHERE #proceeds.flagpendingincome  = 'S' and #proceeds.idpro = 2
@@ -1166,7 +1168,7 @@ SELECT
 				   address_ver,
 				   -- C.A.P. Versante
 				   cap_ver,
-				   -- Localit√† Versante
+				   -- Localit‡ Versante
 				   location_ver,
 				   -- Provincia Versante
 				   province_ver,
@@ -1242,4 +1244,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

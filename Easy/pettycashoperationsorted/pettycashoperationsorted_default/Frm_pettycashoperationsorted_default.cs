@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -1030,7 +1032,7 @@ namespace pettycashoperationsorted_default {
 					NumberStyles.Number,
 					NumberFormatInfo.CurrentInfo);
 				if ((percent < 0) || (percent > percentmax)) {
-					OK = (MessageBox.Show(errmsg,"Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
+					OK = (MetaFactory.factory.getSingleton<IMessageShower>().Show(errmsg,"Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
 				}
 				else {
 					OK=true;
@@ -1038,7 +1040,7 @@ namespace pettycashoperationsorted_default {
   
 			}
 			catch {                
-				MessageBox.Show("E' necessario digitare un numero" ,"Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario digitare un numero" ,"Avviso",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Exclamation);
 				return false;
 			}            
 			return OK;
@@ -1077,12 +1079,12 @@ namespace pettycashoperationsorted_default {
 					OK = true;
 				}
 				else{
-					OK = (MessageBox.Show(errmsg,"Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
+					OK = (MetaFactory.factory.getSingleton<IMessageShower>().Show(errmsg,"Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
 				}
   
 			}
 			catch {                
-				MessageBox.Show("E' necessario inserire un numero","Avviso",
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario inserire un numero","Avviso",
 					System.Windows.Forms.MessageBoxButtons.OK,
 					System.Windows.Forms.MessageBoxIcon.Exclamation);
 				return false;

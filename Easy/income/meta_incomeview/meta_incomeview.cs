@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -52,7 +54,7 @@ namespace meta_incomeview { //meta_entrataview//
 		public override bool CanSelect(DataRow R) {
 			if (R.Table.Columns["ayear"] != null) {
 				if (R["ayear"].ToString() != GetSys("esercizio").ToString()) {
-					MessageBox.Show(
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(
 						"L'entrata selezionata non Ë presente in questo esercizio quindi non Ë selezionabile.");
 					return false;
 				}
@@ -537,6 +539,7 @@ namespace meta_incomeview { //meta_entrataview//
 					DescribeAColumn(T, "manager", "Responsabile", npos++);
 					DescribeAColumn(T, "ypro", "Eserc.Rev.", npos++);
 					DescribeAColumn(T, "npro", "Num.Rev.", npos++);
+					DescribeAColumn(T, "idpro", "Num. SUB (trasmissione)",npos++);
 					DescribeAColumn(T, "doc", "Documento", npos++);
 					DescribeAColumn(T, "docdate", "Data Doc.", npos++);
 					DescribeAColumn(T, "description", "Descrizione", npos++);
@@ -545,6 +548,7 @@ namespace meta_incomeview { //meta_entrataview//
 					DescribeAColumn(T, "curramount", "Imp.Corrente", npos++);
 					DescribeAColumn(T, "available", "Disponibile", npos++);
 					DescribeAColumn(T, "unpartitioned", "Da Assegnare", npos++);
+					DescribeAColumn(T, "nbill", "Bolletta", npos++);
 					DescribeAColumn(T, "fulfilled", ".Mov.Cop.", -1);
 					DescribeAColumn(T, "autokind", ".Tipo Auto", -1);
 					DescribeAColumn(T, "flagarrear", ".Competenza", -1);

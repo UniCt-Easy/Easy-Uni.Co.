@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -358,11 +360,20 @@ namespace casualcontract_default { //contrattooccasionale//
         private TextBox txtCausaleAssunzione;
         private Button btnEsclusioneCIG;
         private CheckBox chkEP;
-        DataAccess Conn;
+		private GroupBox groupBox2;
+		private ComboBox cmbDaliaFunzionale;
+		private GroupBox gboxDipartimento;
+		private Button btnDipartimento;
+		private TextBox txtCodiceDipartimento;
+		public TextBox txtDaliaDipartimento;
+		DataAccess Conn;
 
         public Frm_casualcontract_default() {
             InitializeComponent();
             inChiusura = false;
+            cmbDaliaFunzionale.DataSource = DS.dalia_funzionale;
+            cmbDaliaFunzionale.DisplayMember = "title";
+            cmbDaliaFunzionale.ValueMember = "iddalia_funzionale";
         }
 
         /// <summary>
@@ -574,6 +585,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.label80 = new System.Windows.Forms.Label();
 			this.label81 = new System.Windows.Forms.Label();
 			this.tabEP = new System.Windows.Forms.TabPage();
+			this.chkEP = new System.Windows.Forms.CheckBox();
 			this.btnGeneraPreImpegni = new System.Windows.Forms.Button();
 			this.btnViewPreimpegni = new System.Windows.Forms.Button();
 			this.btnGeneraEpExp = new System.Windows.Forms.Button();
@@ -692,6 +704,12 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.txtAnnotazioniRU = new System.Windows.Forms.TextBox();
 			this.label84 = new System.Windows.Forms.Label();
 			this.tabDalia = new System.Windows.Forms.TabPage();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.cmbDaliaFunzionale = new System.Windows.Forms.ComboBox();
+			this.gboxDipartimento = new System.Windows.Forms.GroupBox();
+			this.btnDipartimento = new System.Windows.Forms.Button();
+			this.txtCodiceDipartimento = new System.Windows.Forms.TextBox();
+			this.txtDaliaDipartimento = new System.Windows.Forms.TextBox();
 			this.grpCausaliAssunzioneDalia = new System.Windows.Forms.GroupBox();
 			this.txtCausaleAssunzione = new System.Windows.Forms.TextBox();
 			this.btnEsclusioneCIG = new System.Windows.Forms.Button();
@@ -703,7 +721,6 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.textBox6 = new System.Windows.Forms.TextBox();
 			this.cmb_dalia_position = new System.Windows.Forms.ComboBox();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-			this.chkEP = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabContratto.SuspendLayout();
@@ -757,6 +774,8 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.grpRegistroUnico.SuspendLayout();
 			this.grpNaturadiSpesa.SuspendLayout();
 			this.tabDalia.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			this.gboxDipartimento.SuspendLayout();
 			this.grpCausaliAssunzioneDalia.SuspendLayout();
 			this.gboxDalia.SuspendLayout();
 			this.SuspendLayout();
@@ -787,7 +806,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabControl1.Location = new System.Drawing.Point(8, 8);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(860, 521);
+			this.tabControl1.Size = new System.Drawing.Size(887, 521);
 			this.tabControl1.TabIndex = 0;
 			// 
 			// tabContratto
@@ -826,7 +845,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabContratto.Controls.Add(this.label3);
 			this.tabContratto.Location = new System.Drawing.Point(4, 23);
 			this.tabContratto.Name = "tabContratto";
-			this.tabContratto.Size = new System.Drawing.Size(852, 494);
+			this.tabContratto.Size = new System.Drawing.Size(886, 494);
 			this.tabContratto.TabIndex = 0;
 			this.tabContratto.Text = "Generale";
 			this.tabContratto.UseVisualStyleBackColor = true;
@@ -1006,7 +1025,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			// chkPagabile
 			// 
 			this.chkPagabile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.chkPagabile.Location = new System.Drawing.Point(517, 106);
+			this.chkPagabile.Location = new System.Drawing.Point(551, 106);
 			this.chkPagabile.Name = "chkPagabile";
 			this.chkPagabile.Size = new System.Drawing.Size(208, 24);
 			this.chkPagabile.TabIndex = 7;
@@ -1059,7 +1078,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.grpDettagliPrevidenzialiAssistenziali.Controls.Add(this.groupBox6);
 			this.grpDettagliPrevidenzialiAssistenziali.Location = new System.Drawing.Point(8, 242);
 			this.grpDettagliPrevidenzialiAssistenziali.Name = "grpDettagliPrevidenzialiAssistenziali";
-			this.grpDettagliPrevidenzialiAssistenziali.Size = new System.Drawing.Size(836, 144);
+			this.grpDettagliPrevidenzialiAssistenziali.Size = new System.Drawing.Size(870, 144);
 			this.grpDettagliPrevidenzialiAssistenziali.TabIndex = 11;
 			this.grpDettagliPrevidenzialiAssistenziali.TabStop = false;
 			this.grpDettagliPrevidenzialiAssistenziali.Text = "Informazioni indispensabili alla redazione della denuncia E-Mens se la prestazion" +
@@ -1073,7 +1092,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.groupBox8.Controls.Add(this.SubEntity_cmbAltreFormeAssicurative);
 			this.groupBox8.Location = new System.Drawing.Point(8, 96);
 			this.groupBox8.Name = "groupBox8";
-			this.groupBox8.Size = new System.Drawing.Size(820, 40);
+			this.groupBox8.Size = new System.Drawing.Size(854, 40);
 			this.groupBox8.TabIndex = 2;
 			this.groupBox8.TabStop = false;
 			// 
@@ -1095,7 +1114,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.SubEntity_cmbAltreFormeAssicurative.ItemHeight = 13;
 			this.SubEntity_cmbAltreFormeAssicurative.Location = new System.Drawing.Point(112, 8);
 			this.SubEntity_cmbAltreFormeAssicurative.Name = "SubEntity_cmbAltreFormeAssicurative";
-			this.SubEntity_cmbAltreFormeAssicurative.Size = new System.Drawing.Size(700, 21);
+			this.SubEntity_cmbAltreFormeAssicurative.Size = new System.Drawing.Size(734, 21);
 			this.SubEntity_cmbAltreFormeAssicurative.TabIndex = 6;
 			this.SubEntity_cmbAltreFormeAssicurative.Tag = "casualcontractyear.idotherinsurance?casualcontractview.idotherinsurance";
 			this.SubEntity_cmbAltreFormeAssicurative.ValueMember = "idotherinsurance";
@@ -1108,7 +1127,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.groupBox7.Controls.Add(this.SubEntity_cmbAttPrevidenzialeINPS);
 			this.groupBox7.Location = new System.Drawing.Point(8, 56);
 			this.groupBox7.Name = "groupBox7";
-			this.groupBox7.Size = new System.Drawing.Size(820, 40);
+			this.groupBox7.Size = new System.Drawing.Size(854, 40);
 			this.groupBox7.TabIndex = 1;
 			this.groupBox7.TabStop = false;
 			// 
@@ -1130,7 +1149,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.SubEntity_cmbAttPrevidenzialeINPS.ItemHeight = 13;
 			this.SubEntity_cmbAttPrevidenzialeINPS.Location = new System.Drawing.Point(112, 8);
 			this.SubEntity_cmbAttPrevidenzialeINPS.Name = "SubEntity_cmbAttPrevidenzialeINPS";
-			this.SubEntity_cmbAttPrevidenzialeINPS.Size = new System.Drawing.Size(700, 21);
+			this.SubEntity_cmbAttPrevidenzialeINPS.Size = new System.Drawing.Size(734, 21);
 			this.SubEntity_cmbAttPrevidenzialeINPS.TabIndex = 4;
 			this.SubEntity_cmbAttPrevidenzialeINPS.Tag = "casualcontractyear.activitycode?casualcontractview.activitycode";
 			this.SubEntity_cmbAttPrevidenzialeINPS.ValueMember = "activitycode";
@@ -1143,7 +1162,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.groupBox6.Controls.Add(this.SubEntity_cmbTipoRapporto);
 			this.groupBox6.Location = new System.Drawing.Point(8, 16);
 			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(820, 40);
+			this.groupBox6.Size = new System.Drawing.Size(854, 40);
 			this.groupBox6.TabIndex = 0;
 			this.groupBox6.TabStop = false;
 			// 
@@ -1164,7 +1183,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.SubEntity_cmbTipoRapporto.DisplayMember = "description";
 			this.SubEntity_cmbTipoRapporto.Location = new System.Drawing.Point(112, 8);
 			this.SubEntity_cmbTipoRapporto.Name = "SubEntity_cmbTipoRapporto";
-			this.SubEntity_cmbTipoRapporto.Size = new System.Drawing.Size(700, 21);
+			this.SubEntity_cmbTipoRapporto.Size = new System.Drawing.Size(734, 21);
 			this.SubEntity_cmbTipoRapporto.TabIndex = 2;
 			this.SubEntity_cmbTipoRapporto.Tag = "casualcontractyear.idemenscontractkind?casualcontractview.idemenscontractkind";
 			this.SubEntity_cmbTipoRapporto.ValueMember = "idemenscontractkind";
@@ -1210,7 +1229,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.grpPercipiente.Controls.Add(this.txtPercipiente);
 			this.grpPercipiente.Location = new System.Drawing.Point(8, 72);
 			this.grpPercipiente.Name = "grpPercipiente";
-			this.grpPercipiente.Size = new System.Drawing.Size(451, 40);
+			this.grpPercipiente.Size = new System.Drawing.Size(485, 40);
 			this.grpPercipiente.TabIndex = 5;
 			this.grpPercipiente.TabStop = false;
 			this.grpPercipiente.Tag = "AutoChoose.txtPercipiente.default.((active=\'S\') and (human=\'S\'))";
@@ -1221,7 +1240,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.txtPercipiente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtPercipiente.Location = new System.Drawing.Point(8, 16);
 			this.txtPercipiente.Name = "txtPercipiente";
-			this.txtPercipiente.Size = new System.Drawing.Size(435, 20);
+			this.txtPercipiente.Size = new System.Drawing.Size(469, 20);
 			this.txtPercipiente.TabIndex = 0;
 			this.txtPercipiente.Tag = "registry.title?casualcontractview.registry";
 			// 
@@ -1339,7 +1358,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabSpese.Controls.Add(this.button1);
 			this.tabSpese.Location = new System.Drawing.Point(4, 23);
 			this.tabSpese.Name = "tabSpese";
-			this.tabSpese.Size = new System.Drawing.Size(852, 494);
+			this.tabSpese.Size = new System.Drawing.Size(886, 494);
 			this.tabSpese.TabIndex = 1;
 			this.tabSpese.Text = "Spese";
 			this.tabSpese.UseVisualStyleBackColor = true;
@@ -1354,7 +1373,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid1.Location = new System.Drawing.Point(8, 40);
 			this.dataGrid1.Name = "dataGrid1";
-			this.dataGrid1.Size = new System.Drawing.Size(836, 448);
+			this.dataGrid1.Size = new System.Drawing.Size(870, 448);
 			this.dataGrid1.TabIndex = 3;
 			this.dataGrid1.Tag = "casualcontractrefund.default";
 			// 
@@ -1393,7 +1412,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabImponibili.Controls.Add(this.groupBox1);
 			this.tabImponibili.Location = new System.Drawing.Point(4, 23);
 			this.tabImponibili.Name = "tabImponibili";
-			this.tabImponibili.Size = new System.Drawing.Size(852, 494);
+			this.tabImponibili.Size = new System.Drawing.Size(886, 494);
 			this.tabImponibili.TabIndex = 3;
 			this.tabImponibili.Text = "Imponibili";
 			this.tabImponibili.UseVisualStyleBackColor = true;
@@ -2048,7 +2067,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabRitenute.Controls.Add(this.groupBox3);
 			this.tabRitenute.Location = new System.Drawing.Point(4, 23);
 			this.tabRitenute.Name = "tabRitenute";
-			this.tabRitenute.Size = new System.Drawing.Size(852, 494);
+			this.tabRitenute.Size = new System.Drawing.Size(886, 494);
 			this.tabRitenute.TabIndex = 2;
 			this.tabRitenute.Text = "Residuo da pagare";
 			this.tabRitenute.UseVisualStyleBackColor = true;
@@ -2177,7 +2196,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.groupBox4.Controls.Add(this.label19);
 			this.groupBox4.Location = new System.Drawing.Point(8, 153);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(836, 56);
+			this.groupBox4.Size = new System.Drawing.Size(870, 56);
 			this.groupBox4.TabIndex = 3;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Ritenute c/Amministrazione";
@@ -2290,7 +2309,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.groupBox3.Controls.Add(this.label12);
 			this.groupBox3.Location = new System.Drawing.Point(8, 91);
 			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(836, 56);
+			this.groupBox3.Size = new System.Drawing.Size(870, 56);
 			this.groupBox3.TabIndex = 2;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Ritenute c/dipendente ";
@@ -2400,7 +2419,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabStorico.Controls.Add(this.groupBox13);
 			this.tabStorico.Location = new System.Drawing.Point(4, 23);
 			this.tabStorico.Name = "tabStorico";
-			this.tabStorico.Size = new System.Drawing.Size(852, 494);
+			this.tabStorico.Size = new System.Drawing.Size(886, 494);
 			this.tabStorico.TabIndex = 7;
 			this.tabStorico.Text = "Ritenute applicate nell\'anno";
 			this.tabStorico.UseVisualStyleBackColor = true;
@@ -2493,7 +2512,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.groupBox12.Controls.Add(this.label76);
 			this.groupBox12.Location = new System.Drawing.Point(6, 154);
 			this.groupBox12.Name = "groupBox12";
-			this.groupBox12.Size = new System.Drawing.Size(836, 56);
+			this.groupBox12.Size = new System.Drawing.Size(870, 56);
 			this.groupBox12.TabIndex = 17;
 			this.groupBox12.TabStop = false;
 			this.groupBox12.Text = "Ritenute c/Amministrazione";
@@ -2606,7 +2625,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.groupBox13.Controls.Add(this.label81);
 			this.groupBox13.Location = new System.Drawing.Point(6, 92);
 			this.groupBox13.Name = "groupBox13";
-			this.groupBox13.Size = new System.Drawing.Size(836, 56);
+			this.groupBox13.Size = new System.Drawing.Size(870, 56);
 			this.groupBox13.TabIndex = 16;
 			this.groupBox13.TabStop = false;
 			this.groupBox13.Text = "Ritenute c/dipendente ";
@@ -2715,10 +2734,21 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabEP.Controls.Add(this.tabControl2);
 			this.tabEP.Location = new System.Drawing.Point(4, 23);
 			this.tabEP.Name = "tabEP";
-			this.tabEP.Size = new System.Drawing.Size(852, 494);
+			this.tabEP.Size = new System.Drawing.Size(886, 494);
 			this.tabEP.TabIndex = 5;
 			this.tabEP.Text = "E/P";
 			this.tabEP.UseVisualStyleBackColor = true;
+			// 
+			// chkEP
+			// 
+			this.chkEP.AutoSize = true;
+			this.chkEP.Location = new System.Drawing.Point(667, 115);
+			this.chkEP.Name = "chkEP";
+			this.chkEP.Size = new System.Drawing.Size(156, 17);
+			this.chkEP.TabIndex = 18;
+			this.chkEP.Text = "Abilita elenco per analisi EP";
+			this.chkEP.UseVisualStyleBackColor = true;
+			this.chkEP.CheckedChanged += new System.EventHandler(this.chkEP_CheckedChanged);
 			// 
 			// btnGeneraPreImpegni
 			// 
@@ -2787,7 +2817,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabControl2.Location = new System.Drawing.Point(8, 144);
 			this.tabControl2.Name = "tabControl2";
 			this.tabControl2.SelectedIndex = 0;
-			this.tabControl2.Size = new System.Drawing.Size(836, 345);
+			this.tabControl2.Size = new System.Drawing.Size(870, 345);
 			this.tabControl2.TabIndex = 9;
 			// 
 			// tabPage1
@@ -2795,7 +2825,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabPage1.Controls.Add(this.gboxUPB);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Size = new System.Drawing.Size(828, 319);
+			this.tabPage1.Size = new System.Drawing.Size(862, 319);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Finanziario";
 			// 
@@ -3210,7 +3240,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabClassSuppl.ImageIndex = 0;
 			this.tabClassSuppl.Location = new System.Drawing.Point(4, 23);
 			this.tabClassSuppl.Name = "tabClassSuppl";
-			this.tabClassSuppl.Size = new System.Drawing.Size(852, 494);
+			this.tabClassSuppl.Size = new System.Drawing.Size(886, 494);
 			this.tabClassSuppl.TabIndex = 4;
 			this.tabClassSuppl.Text = "Classificazione";
 			this.tabClassSuppl.UseVisualStyleBackColor = true;
@@ -3225,7 +3255,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.dgrClassSuppl.Location = new System.Drawing.Point(16, 56);
 			this.dgrClassSuppl.Name = "dgrClassSuppl";
 			this.dgrClassSuppl.ReadOnly = true;
-			this.dgrClassSuppl.Size = new System.Drawing.Size(828, 424);
+			this.dgrClassSuppl.Size = new System.Drawing.Size(862, 424);
 			this.dgrClassSuppl.TabIndex = 15;
 			this.dgrClassSuppl.Tag = "casualcontractsorting.default.default";
 			// 
@@ -3266,7 +3296,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabAttributi.Location = new System.Drawing.Point(4, 23);
 			this.tabAttributi.Name = "tabAttributi";
 			this.tabAttributi.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAttributi.Size = new System.Drawing.Size(852, 494);
+			this.tabAttributi.Size = new System.Drawing.Size(886, 494);
 			this.tabAttributi.TabIndex = 8;
 			this.tabAttributi.Text = "Attributi";
 			this.tabAttributi.UseVisualStyleBackColor = true;
@@ -3280,7 +3310,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.gboxclass05.Controls.Add(this.txtDenom05);
 			this.gboxclass05.Location = new System.Drawing.Point(6, 286);
 			this.gboxclass05.Name = "gboxclass05";
-			this.gboxclass05.Size = new System.Drawing.Size(580, 64);
+			this.gboxclass05.Size = new System.Drawing.Size(614, 64);
 			this.gboxclass05.TabIndex = 33;
 			this.gboxclass05.TabStop = false;
 			this.gboxclass05.Tag = "";
@@ -3312,7 +3342,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.txtDenom05.Multiline = true;
 			this.txtDenom05.Name = "txtDenom05";
 			this.txtDenom05.ReadOnly = true;
-			this.txtDenom05.Size = new System.Drawing.Size(338, 52);
+			this.txtDenom05.Size = new System.Drawing.Size(372, 52);
 			this.txtDenom05.TabIndex = 3;
 			this.txtDenom05.TabStop = false;
 			this.txtDenom05.Tag = "sorting05.description";
@@ -3326,7 +3356,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.gboxclass04.Controls.Add(this.txtDenom04);
 			this.gboxclass04.Location = new System.Drawing.Point(6, 216);
 			this.gboxclass04.Name = "gboxclass04";
-			this.gboxclass04.Size = new System.Drawing.Size(580, 64);
+			this.gboxclass04.Size = new System.Drawing.Size(614, 64);
 			this.gboxclass04.TabIndex = 32;
 			this.gboxclass04.TabStop = false;
 			this.gboxclass04.Tag = "";
@@ -3358,7 +3388,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.txtDenom04.Multiline = true;
 			this.txtDenom04.Name = "txtDenom04";
 			this.txtDenom04.ReadOnly = true;
-			this.txtDenom04.Size = new System.Drawing.Size(338, 46);
+			this.txtDenom04.Size = new System.Drawing.Size(372, 46);
 			this.txtDenom04.TabIndex = 3;
 			this.txtDenom04.TabStop = false;
 			this.txtDenom04.Tag = "sorting04.description";
@@ -3372,7 +3402,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.gboxclass03.Controls.Add(this.txtDenom03);
 			this.gboxclass03.Location = new System.Drawing.Point(6, 146);
 			this.gboxclass03.Name = "gboxclass03";
-			this.gboxclass03.Size = new System.Drawing.Size(580, 64);
+			this.gboxclass03.Size = new System.Drawing.Size(614, 64);
 			this.gboxclass03.TabIndex = 30;
 			this.gboxclass03.TabStop = false;
 			this.gboxclass03.Tag = "";
@@ -3404,7 +3434,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.txtDenom03.Multiline = true;
 			this.txtDenom03.Name = "txtDenom03";
 			this.txtDenom03.ReadOnly = true;
-			this.txtDenom03.Size = new System.Drawing.Size(339, 52);
+			this.txtDenom03.Size = new System.Drawing.Size(373, 52);
 			this.txtDenom03.TabIndex = 3;
 			this.txtDenom03.TabStop = false;
 			this.txtDenom03.Tag = "sorting03.description";
@@ -3418,7 +3448,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.gboxclass02.Controls.Add(this.txtDenom02);
 			this.gboxclass02.Location = new System.Drawing.Point(6, 76);
 			this.gboxclass02.Name = "gboxclass02";
-			this.gboxclass02.Size = new System.Drawing.Size(580, 64);
+			this.gboxclass02.Size = new System.Drawing.Size(614, 64);
 			this.gboxclass02.TabIndex = 31;
 			this.gboxclass02.TabStop = false;
 			this.gboxclass02.Tag = "";
@@ -3450,7 +3480,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.txtDenom02.Multiline = true;
 			this.txtDenom02.Name = "txtDenom02";
 			this.txtDenom02.ReadOnly = true;
-			this.txtDenom02.Size = new System.Drawing.Size(339, 52);
+			this.txtDenom02.Size = new System.Drawing.Size(373, 52);
 			this.txtDenom02.TabIndex = 3;
 			this.txtDenom02.TabStop = false;
 			this.txtDenom02.Tag = "sorting02.description";
@@ -3464,7 +3494,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.gboxclass01.Controls.Add(this.txtDenom01);
 			this.gboxclass01.Location = new System.Drawing.Point(6, 6);
 			this.gboxclass01.Name = "gboxclass01";
-			this.gboxclass01.Size = new System.Drawing.Size(580, 64);
+			this.gboxclass01.Size = new System.Drawing.Size(614, 64);
 			this.gboxclass01.TabIndex = 29;
 			this.gboxclass01.TabStop = false;
 			this.gboxclass01.Tag = "";
@@ -3496,7 +3526,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.txtDenom01.Multiline = true;
 			this.txtDenom01.Name = "txtDenom01";
 			this.txtDenom01.ReadOnly = true;
-			this.txtDenom01.Size = new System.Drawing.Size(339, 52);
+			this.txtDenom01.Size = new System.Drawing.Size(373, 52);
 			this.txtDenom01.TabIndex = 3;
 			this.txtDenom01.TabStop = false;
 			this.txtDenom01.Tag = "sorting01.description";
@@ -3513,7 +3543,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabAnaPrest.Controls.Add(this.labAPgenerato);
 			this.tabAnaPrest.Location = new System.Drawing.Point(4, 23);
 			this.tabAnaPrest.Name = "tabAnaPrest";
-			this.tabAnaPrest.Size = new System.Drawing.Size(852, 494);
+			this.tabAnaPrest.Size = new System.Drawing.Size(886, 494);
 			this.tabAnaPrest.TabIndex = 6;
 			this.tabAnaPrest.Text = "Anagrafe Prestazioni";
 			this.tabAnaPrest.UseVisualStyleBackColor = true;
@@ -3689,7 +3719,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabRegistroUnico.Controls.Add(this.grpRegistroUnico);
 			this.tabRegistroUnico.Location = new System.Drawing.Point(4, 23);
 			this.tabRegistroUnico.Name = "tabRegistroUnico";
-			this.tabRegistroUnico.Size = new System.Drawing.Size(852, 494);
+			this.tabRegistroUnico.Size = new System.Drawing.Size(886, 494);
 			this.tabRegistroUnico.TabIndex = 9;
 			this.tabRegistroUnico.Text = "Registro Unico";
 			this.tabRegistroUnico.UseVisualStyleBackColor = true;
@@ -3712,7 +3742,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.richTextBox1.Location = new System.Drawing.Point(363, 308);
 			this.richTextBox1.Name = "richTextBox1";
-			this.richTextBox1.Size = new System.Drawing.Size(423, 33);
+			this.richTextBox1.Size = new System.Drawing.Size(457, 33);
 			this.richTextBox1.TabIndex = 76;
 			this.richTextBox1.Text = "Codice Univoco Ufficio di PCC o Codice Univoco Ufficio di IPA, prelevato dal sito" +
     " www.indicepa.gov.it.";
@@ -3734,7 +3764,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.dgrPCC.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrPCC.Location = new System.Drawing.Point(12, 390);
 			this.dgrPCC.Name = "dgrPCC";
-			this.dgrPCC.Size = new System.Drawing.Size(780, 85);
+			this.dgrPCC.Size = new System.Drawing.Size(814, 85);
 			this.dgrPCC.TabIndex = 54;
 			this.dgrPCC.Tag = "pccview.casualcontract";
 			// 
@@ -4005,6 +4035,8 @@ namespace casualcontract_default { //contrattooccasionale//
 			// 
 			// tabDalia
 			// 
+			this.tabDalia.Controls.Add(this.groupBox2);
+			this.tabDalia.Controls.Add(this.gboxDipartimento);
 			this.tabDalia.Controls.Add(this.grpCausaliAssunzioneDalia);
 			this.tabDalia.Controls.Add(this.txtVoceSpesaDalia);
 			this.tabDalia.Controls.Add(this.btnVoceSpesaDalia);
@@ -4012,18 +4044,83 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabDalia.Location = new System.Drawing.Point(4, 23);
 			this.tabDalia.Name = "tabDalia";
 			this.tabDalia.Padding = new System.Windows.Forms.Padding(3);
-			this.tabDalia.Size = new System.Drawing.Size(852, 494);
+			this.tabDalia.Size = new System.Drawing.Size(879, 494);
 			this.tabDalia.TabIndex = 10;
 			this.tabDalia.Text = "DALIA";
 			this.tabDalia.UseVisualStyleBackColor = true;
 			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.cmbDaliaFunzionale);
+			this.groupBox2.Location = new System.Drawing.Point(19, 273);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(406, 54);
+			this.groupBox2.TabIndex = 117;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Area funzionale - richiesta per il personale Tecnico / Amministrativo";
+			// 
+			// cmbDaliaFunzionale
+			// 
+			this.cmbDaliaFunzionale.FormattingEnabled = true;
+			this.cmbDaliaFunzionale.Location = new System.Drawing.Point(6, 19);
+			this.cmbDaliaFunzionale.Name = "cmbDaliaFunzionale";
+			this.cmbDaliaFunzionale.Size = new System.Drawing.Size(367, 21);
+			this.cmbDaliaFunzionale.TabIndex = 0;
+			this.cmbDaliaFunzionale.Tag = "casualcontract.iddalia_funzionale";
+			// 
+			// gboxDipartimento
+			// 
+			this.gboxDipartimento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.gboxDipartimento.Controls.Add(this.btnDipartimento);
+			this.gboxDipartimento.Controls.Add(this.txtCodiceDipartimento);
+			this.gboxDipartimento.Controls.Add(this.txtDaliaDipartimento);
+			this.gboxDipartimento.Location = new System.Drawing.Point(19, 217);
+			this.gboxDipartimento.Name = "gboxDipartimento";
+			this.gboxDipartimento.Size = new System.Drawing.Size(807, 50);
+			this.gboxDipartimento.TabIndex = 116;
+			this.gboxDipartimento.TabStop = false;
+			this.gboxDipartimento.Tag = "AutoChoose.txtDaliaDipartimento.default";
+			this.gboxDipartimento.Text = "Dipartimento (colonna  DIP-IST)";
+			// 
+			// btnDipartimento
+			// 
+			this.btnDipartimento.Location = new System.Drawing.Point(9, 18);
+			this.btnDipartimento.Name = "btnDipartimento";
+			this.btnDipartimento.Size = new System.Drawing.Size(104, 23);
+			this.btnDipartimento.TabIndex = 2;
+			this.btnDipartimento.Tag = "choose.dalia_dipartimento.default";
+			this.btnDipartimento.Text = "Dipartimento";
+			this.btnDipartimento.UseVisualStyleBackColor = true;
+			// 
+			// txtCodiceDipartimento
+			// 
+			this.txtCodiceDipartimento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCodiceDipartimento.Location = new System.Drawing.Point(694, 19);
+			this.txtCodiceDipartimento.Name = "txtCodiceDipartimento";
+			this.txtCodiceDipartimento.Size = new System.Drawing.Size(107, 20);
+			this.txtCodiceDipartimento.TabIndex = 1;
+			this.txtCodiceDipartimento.Tag = "dalia_dipartimento.codedip";
+			// 
+			// txtDaliaDipartimento
+			// 
+			this.txtDaliaDipartimento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDaliaDipartimento.Location = new System.Drawing.Point(131, 19);
+			this.txtDaliaDipartimento.Name = "txtDaliaDipartimento";
+			this.txtDaliaDipartimento.Size = new System.Drawing.Size(559, 20);
+			this.txtDaliaDipartimento.TabIndex = 0;
+			this.txtDaliaDipartimento.Tag = "dalia_dipartimento.title";
+			// 
 			// grpCausaliAssunzioneDalia
 			// 
+			this.grpCausaliAssunzioneDalia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpCausaliAssunzioneDalia.Controls.Add(this.txtCausaleAssunzione);
 			this.grpCausaliAssunzioneDalia.Controls.Add(this.btnEsclusioneCIG);
 			this.grpCausaliAssunzioneDalia.Location = new System.Drawing.Point(19, 165);
 			this.grpCausaliAssunzioneDalia.Name = "grpCausaliAssunzioneDalia";
-			this.grpCausaliAssunzioneDalia.Size = new System.Drawing.Size(783, 46);
+			this.grpCausaliAssunzioneDalia.Size = new System.Drawing.Size(807, 46);
 			this.grpCausaliAssunzioneDalia.TabIndex = 111;
 			this.grpCausaliAssunzioneDalia.TabStop = false;
 			this.grpCausaliAssunzioneDalia.Tag = "AutoChoose.txtCausaleAssunzione.default.(active = \'S\')";
@@ -4035,7 +4132,7 @@ namespace casualcontract_default { //contrattooccasionale//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCausaleAssunzione.Location = new System.Drawing.Point(121, 16);
 			this.txtCausaleAssunzione.Name = "txtCausaleAssunzione";
-			this.txtCausaleAssunzione.Size = new System.Drawing.Size(654, 20);
+			this.txtCausaleAssunzione.Size = new System.Drawing.Size(678, 20);
 			this.txtCausaleAssunzione.TabIndex = 2;
 			this.txtCausaleAssunzione.Tag = "dalia_recruitmentmotive.description?x";
 			// 
@@ -4057,7 +4154,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.txtVoceSpesaDalia.Location = new System.Drawing.Point(226, 118);
 			this.txtVoceSpesaDalia.Name = "txtVoceSpesaDalia";
 			this.txtVoceSpesaDalia.ReadOnly = true;
-			this.txtVoceSpesaDalia.Size = new System.Drawing.Size(576, 20);
+			this.txtVoceSpesaDalia.Size = new System.Drawing.Size(603, 20);
 			this.txtVoceSpesaDalia.TabIndex = 110;
 			// 
 			// btnVoceSpesaDalia
@@ -4080,7 +4177,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.gboxDalia.Controls.Add(this.cmb_dalia_position);
 			this.gboxDalia.Location = new System.Drawing.Point(19, 18);
 			this.gboxDalia.Name = "gboxDalia";
-			this.gboxDalia.Size = new System.Drawing.Size(783, 80);
+			this.gboxDalia.Size = new System.Drawing.Size(810, 80);
 			this.gboxDalia.TabIndex = 109;
 			this.gboxDalia.TabStop = false;
 			this.gboxDalia.Text = "Banca Dati DALIA";
@@ -4099,7 +4196,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			// 
 			this.label91.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label91.AutoSize = true;
-			this.label91.Location = new System.Drawing.Point(645, 21);
+			this.label91.Location = new System.Drawing.Point(672, 21);
 			this.label91.Name = "label91";
 			this.label91.Size = new System.Drawing.Size(118, 13);
 			this.label91.TabIndex = 110;
@@ -4108,7 +4205,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			// textBox6
 			// 
 			this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox6.Location = new System.Drawing.Point(647, 39);
+			this.textBox6.Location = new System.Drawing.Point(674, 39);
 			this.textBox6.Name = "textBox6";
 			this.textBox6.ReadOnly = true;
 			this.textBox6.Size = new System.Drawing.Size(116, 20);
@@ -4124,7 +4221,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.cmb_dalia_position.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmb_dalia_position.Location = new System.Drawing.Point(207, 40);
 			this.cmb_dalia_position.Name = "cmb_dalia_position";
-			this.cmb_dalia_position.Size = new System.Drawing.Size(421, 21);
+			this.cmb_dalia_position.Size = new System.Drawing.Size(448, 21);
 			this.cmb_dalia_position.TabIndex = 6;
 			this.cmb_dalia_position.Tag = "casualcontract.iddaliaposition";
 			this.cmb_dalia_position.ValueMember = "iddaliaposition";
@@ -4135,21 +4232,10 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
 			this.imageList1.Images.SetKeyName(0, "");
 			// 
-			// chkEP
-			// 
-			this.chkEP.AutoSize = true;
-			this.chkEP.Location = new System.Drawing.Point(667, 115);
-			this.chkEP.Name = "chkEP";
-			this.chkEP.Size = new System.Drawing.Size(156, 17);
-			this.chkEP.TabIndex = 18;
-			this.chkEP.Text = "Abilita elenco per analisi EP";
-			this.chkEP.UseVisualStyleBackColor = true;
-			this.chkEP.CheckedChanged += new System.EventHandler(this.chkEP_CheckedChanged);
-			// 
 			// Frm_casualcontract_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(871, 533);
+			this.ClientSize = new System.Drawing.Size(898, 533);
 			this.Controls.Add(this.tabControl1);
 			this.Name = "Frm_casualcontract_default";
 			this.Text = "frmcontrattooccasionale";
@@ -4241,6 +4327,9 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.grpNaturadiSpesa.PerformLayout();
 			this.tabDalia.ResumeLayout(false);
 			this.tabDalia.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			this.gboxDipartimento.ResumeLayout(false);
+			this.gboxDipartimento.PerformLayout();
 			this.grpCausaliAssunzioneDalia.ResumeLayout(false);
 			this.grpCausaliAssunzioneDalia.PerformLayout();
 			this.gboxDalia.ResumeLayout(false);

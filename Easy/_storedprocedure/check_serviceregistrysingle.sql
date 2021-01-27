@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[check_serviceregistrysingle]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[check_serviceregistrysingle]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [check_serviceregistrysingle]
 GO
 
@@ -35,7 +37,7 @@ CREATE TABLE #error (message varchar(400))
 
 INSERT INTO #error (message)
 (SELECT 'L'' incarico ' + CONVERT(varchar(6),serviceregistry.yservreg)  + '/'+CONVERT(varchar(6),serviceregistry.nservreg)
- + ' ha codice Attivit√† Economica non valido'
+ + ' ha codice Attivit‡ Economica non valido'
 FROM serviceregistry 
 JOIN financialactivity 
 	ON serviceregistry.idfinancialactivity = financialactivity.idfinancialactivity 
@@ -55,7 +57,7 @@ JOIN apcontractkind
 
 INSERT INTO #error (message)
 (SELECT 'L'' incarico ' + CONVERT(varchar(6),serviceregistry.yservreg)  + '/'+CONVERT(varchar(6),serviceregistry.nservreg)
- + ' ha codice Modalit√† Acquisizione non valido'
+ + ' ha codice Modalit‡ Acquisizione non valido'
 FROM serviceregistry  
 JOIN acquirekind 
 	ON serviceregistry.idacquirekind=acquirekind.idacquirekind
@@ -77,8 +79,8 @@ WHERE yservreg < year(start) OR
 
  
 INSERT INTO #error (message)
-(SELECT 'Il pagamento non sar√† trasmesso ' + CONVERT(varchar(6),servicepayment.yservreg)  + '/'+CONVERT(varchar(6),servicepayment.nservreg)
- + ' perch√® si riferisce ad un incarico con anno di riferimento diverso da quello del pagamento '
+(SELECT 'Il pagamento non sar‡ trasmesso ' + CONVERT(varchar(6),servicepayment.yservreg)  + '/'+CONVERT(varchar(6),servicepayment.nservreg)
+ + ' perchË si riferisce ad un incarico con anno di riferimento diverso da quello del pagamento '
 FROM servicepayment
 WHERE yservreg <> ypay
 	and yservreg = @ayear
@@ -111,4 +113,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

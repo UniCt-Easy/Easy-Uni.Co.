@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -29,44 +31,44 @@ public class casualcontractRow: MetaRow  {
 	///<summary>
 	///N. contratto
 	///</summary>
-	public Int32? ncon{ 
-		get {if (this["ncon"]==DBNull.Value)return null; return  (Int32?)this["ncon"];}
-		set {if (value==null) this["ncon"]= DBNull.Value; else this["ncon"]= value;}
+	public Int32 ncon{ 
+		get {return  (Int32)this["ncon"];}
+		set {this["ncon"]= value;}
 	}
 	public object nconValue { 
 		get{ return this["ncon"];}
-		set {if (value==null|| value==DBNull.Value) this["ncon"]= DBNull.Value; else this["ncon"]= value;}
+		set {this["ncon"]= value;}
 	}
-	public Int32? nconOriginal { 
-		get {if (this["ncon",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["ncon",DataRowVersion.Original];}
+	public Int32 nconOriginal { 
+		get {return  (Int32)this["ncon",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Anno contratto
 	///</summary>
-	public Int32? ycon{ 
-		get {if (this["ycon"]==DBNull.Value)return null; return  (Int32?)this["ycon"];}
-		set {if (value==null) this["ycon"]= DBNull.Value; else this["ycon"]= value;}
+	public Int32 ycon{ 
+		get {return  (Int32)this["ycon"];}
+		set {this["ycon"]= value;}
 	}
 	public object yconValue { 
 		get{ return this["ycon"];}
-		set {if (value==null|| value==DBNull.Value) this["ycon"]= DBNull.Value; else this["ycon"]= value;}
+		set {this["ycon"]= value;}
 	}
-	public Int32? yconOriginal { 
-		get {if (this["ycon",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["ycon",DataRowVersion.Original];}
+	public Int32 yconOriginal { 
+		get {return  (Int32)this["ycon",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data contabile
 	///</summary>
-	public DateTime? adate{ 
-		get {if (this["adate"]==DBNull.Value)return null; return  (DateTime?)this["adate"];}
-		set {if (value==null) this["adate"]= DBNull.Value; else this["adate"]= value;}
+	public DateTime adate{ 
+		get {return  (DateTime)this["adate"];}
+		set {this["adate"]= value;}
 	}
 	public object adateValue { 
 		get{ return this["adate"];}
-		set {if (value==null|| value==DBNull.Value) this["adate"]= DBNull.Value; else this["adate"]= value;}
+		set {this["adate"]= value;}
 	}
-	public DateTime? adateOriginal { 
-		get {if (this["adate",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["adate",DataRowVersion.Original];}
+	public DateTime adateOriginal { 
+		get {return  (DateTime)this["adate",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Contabilizzabile
@@ -127,16 +129,16 @@ public class casualcontractRow: MetaRow  {
 	///<summary>
 	///Importo lordo
 	///</summary>
-	public Decimal? feegross{ 
-		get {if (this["feegross"]==DBNull.Value)return null; return  (Decimal?)this["feegross"];}
-		set {if (value==null) this["feegross"]= DBNull.Value; else this["feegross"]= value;}
+	public Decimal feegross{ 
+		get {return  (Decimal)this["feegross"];}
+		set {this["feegross"]= value;}
 	}
 	public object feegrossValue { 
 		get{ return this["feegross"];}
-		set {if (value==null|| value==DBNull.Value) this["feegross"]= DBNull.Value; else this["feegross"]= value;}
+		set {this["feegross"]= value;}
 	}
-	public Decimal? feegrossOriginal { 
-		get {if (this["feegross",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["feegross",DataRowVersion.Original];}
+	public Decimal feegrossOriginal { 
+		get {return  (Decimal)this["feegross",DataRowVersion.Original];}
 	}
 	///<summary>
 	///id causale (tabella acccmotive)
@@ -155,16 +157,16 @@ public class casualcontractRow: MetaRow  {
 	///<summary>
 	///id anagrafica (tabella registry)
 	///</summary>
-	public Int32? idreg{ 
-		get {if (this["idreg"]==DBNull.Value)return null; return  (Int32?)this["idreg"];}
-		set {if (value==null) this["idreg"]= DBNull.Value; else this["idreg"]= value;}
+	public Int32 idreg{ 
+		get {return  (Int32)this["idreg"];}
+		set {this["idreg"]= value;}
 	}
 	public object idregValue { 
 		get{ return this["idreg"];}
-		set {if (value==null|| value==DBNull.Value) this["idreg"]= DBNull.Value; else this["idreg"]= value;}
+		set {this["idreg"]= value;}
 	}
-	public Int32? idregOriginal { 
-		get {if (this["idreg",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idreg",DataRowVersion.Original];}
+	public Int32 idregOriginal { 
+		get {return  (Int32)this["idreg",DataRowVersion.Original];}
 	}
 	///<summary>
 	///id voce upb (tabella upb)
@@ -211,16 +213,16 @@ public class casualcontractRow: MetaRow  {
 	///<summary>
 	///Durata (Giorni)
 	///</summary>
-	public Int32? ndays{ 
-		get {if (this["ndays"]==DBNull.Value)return null; return  (Int32?)this["ndays"];}
-		set {if (value==null) this["ndays"]= DBNull.Value; else this["ndays"]= value;}
+	public Int32 ndays{ 
+		get {return  (Int32)this["ndays"];}
+		set {this["ndays"]= value;}
 	}
 	public object ndaysValue { 
 		get{ return this["ndays"];}
-		set {if (value==null|| value==DBNull.Value) this["ndays"]= DBNull.Value; else this["ndays"]= value;}
+		set {this["ndays"]= value;}
 	}
-	public Int32? ndaysOriginal { 
-		get {if (this["ndays",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["ndays",DataRowVersion.Original];}
+	public Int32 ndaysOriginal { 
+		get {return  (Int32)this["ndays",DataRowVersion.Original];}
 	}
 	///<summary>
 	///allegati
@@ -239,30 +241,30 @@ public class casualcontractRow: MetaRow  {
 	///<summary>
 	///data inizio
 	///</summary>
-	public DateTime? start{ 
-		get {if (this["start"]==DBNull.Value)return null; return  (DateTime?)this["start"];}
-		set {if (value==null) this["start"]= DBNull.Value; else this["start"]= value;}
+	public DateTime start{ 
+		get {return  (DateTime)this["start"];}
+		set {this["start"]= value;}
 	}
 	public object startValue { 
 		get{ return this["start"];}
-		set {if (value==null|| value==DBNull.Value) this["start"]= DBNull.Value; else this["start"]= value;}
+		set {this["start"]= value;}
 	}
-	public DateTime? startOriginal { 
-		get {if (this["start",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["start",DataRowVersion.Original];}
+	public DateTime startOriginal { 
+		get {return  (DateTime)this["start",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data fine
 	///</summary>
-	public DateTime? stop{ 
-		get {if (this["stop"]==DBNull.Value)return null; return  (DateTime?)this["stop"];}
-		set {if (value==null) this["stop"]= DBNull.Value; else this["stop"]= value;}
+	public DateTime stop{ 
+		get {return  (DateTime)this["stop"];}
+		set {this["stop"]= value;}
 	}
 	public object stopValue { 
 		get{ return this["stop"];}
-		set {if (value==null|| value==DBNull.Value) this["stop"]= DBNull.Value; else this["stop"]= value;}
+		set {this["stop"]= value;}
 	}
-	public DateTime? stopOriginal { 
-		get {if (this["stop",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["stop",DataRowVersion.Original];}
+	public DateTime stopOriginal { 
+		get {return  (DateTime)this["stop",DataRowVersion.Original];}
 	}
 	///<summary>
 	///note testuali
@@ -281,16 +283,16 @@ public class casualcontractRow: MetaRow  {
 	///<summary>
 	///chiave prestazione (tabella service)
 	///</summary>
-	public Int32? idser{ 
-		get {if (this["idser"]==DBNull.Value)return null; return  (Int32?)this["idser"];}
-		set {if (value==null) this["idser"]= DBNull.Value; else this["idser"]= value;}
+	public Int32 idser{ 
+		get {return  (Int32)this["idser"];}
+		set {this["idser"]= value;}
 	}
 	public object idserValue { 
 		get{ return this["idser"];}
-		set {if (value==null|| value==DBNull.Value) this["idser"]= DBNull.Value; else this["idser"]= value;}
+		set {this["idser"]= value;}
 	}
-	public Int32? idserOriginal { 
-		get {if (this["idser",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idser",DataRowVersion.Original];}
+	public Int32 idserOriginal { 
+		get {return  (Int32)this["idser",DataRowVersion.Original];}
 	}
 	///<summary>
 	///id voce analitica 1(tabella sorting)
@@ -725,6 +727,28 @@ public class casualcontractRow: MetaRow  {
 	public Int32? iddaliarecruitmentmotiveOriginal { 
 		get {if (this["iddaliarecruitmentmotive",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["iddaliarecruitmentmotive",DataRowVersion.Original];}
 	}
+	public Int32? iddalia_dipartimento{ 
+		get {if (this["iddalia_dipartimento"]==DBNull.Value)return null; return  (Int32?)this["iddalia_dipartimento"];}
+		set {if (value==null) this["iddalia_dipartimento"]= DBNull.Value; else this["iddalia_dipartimento"]= value;}
+	}
+	public object iddalia_dipartimentoValue { 
+		get{ return this["iddalia_dipartimento"];}
+		set {if (value==null|| value==DBNull.Value) this["iddalia_dipartimento"]= DBNull.Value; else this["iddalia_dipartimento"]= value;}
+	}
+	public Int32? iddalia_dipartimentoOriginal { 
+		get {if (this["iddalia_dipartimento",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["iddalia_dipartimento",DataRowVersion.Original];}
+	}
+	public Int32? iddalia_funzionale{ 
+		get {if (this["iddalia_funzionale"]==DBNull.Value)return null; return  (Int32?)this["iddalia_funzionale"];}
+		set {if (value==null) this["iddalia_funzionale"]= DBNull.Value; else this["iddalia_funzionale"]= value;}
+	}
+	public object iddalia_funzionaleValue { 
+		get{ return this["iddalia_funzionale"];}
+		set {if (value==null|| value==DBNull.Value) this["iddalia_funzionale"]= DBNull.Value; else this["iddalia_funzionale"]= value;}
+	}
+	public Int32? iddalia_funzionaleOriginal { 
+		get {if (this["iddalia_funzionale",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["iddalia_funzionale",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -784,6 +808,8 @@ public class casualcontractTable : MetaTableBase<casualcontractRow> {
 			{"idsor_siope",createColumn("idsor_siope",typeof(int),true,false)},
 			{"requested_doc",createColumn("requested_doc",typeof(int),true,false)},
 			{"iddaliarecruitmentmotive",createColumn("iddaliarecruitmentmotive",typeof(int),true,false)},
+			{"iddalia_dipartimento",createColumn("iddalia_dipartimento",typeof(int),true,false)},
+			{"iddalia_funzionale",createColumn("iddalia_funzionale",typeof(int),true,false)},
 		};
 	}
 }

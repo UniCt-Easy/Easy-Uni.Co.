@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_sitclassificazioneupb]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_sitclassificazioneupb]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_sitclassificazioneupb]
 GO
 
@@ -33,7 +35,7 @@ exec rpt_sitclassificazioneupb 2013, {ts '2013-12-31 00:00:00'}, 6, 47, 3, '%', 
 CREATE  PROCEDURE [rpt_sitclassificazioneupb]
 	@ayear			int,
 	@date			datetime,
-	@idsorkind_cdr	int, --> Classificazione Centro di Responsabilit√†
+	@idsorkind_cdr	int, --> Classificazione Centro di Responsabilit‡
 	@idsorkind	int, --> Classificazione Missioni Programmi
 	@nlevel			tinyint,
 	@idupb			varchar(36),
@@ -746,7 +748,7 @@ Begin
 	END
 END -- Fine @printkind in ('A', 'C')	
 
-if(@printkind = 'A') -- Se √® la 1¬∞ o 2¬∞ stampa, quelle che mostrano le tre fasi, calcola anche la seconda fase
+if(@printkind = 'A') -- Se Ë la 1∞ o 2∞ stampa, quelle che mostrano le tre fasi, calcola anche la seconda fase
 Begin
 	INSERT INTO #situation_fin(
 		idfin, nlevel,
@@ -1174,7 +1176,7 @@ END
 --	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--				
 		
 		
-IF (@suppressifblank = 'S') AND @nlevel>=2	--> se la stampa √® x categoria o x un livello sottostante la categoria cancella le righe
+IF (@suppressifblank = 'S') AND @nlevel>=2	--> se la stampa Ë x categoria o x un livello sottostante la categoria cancella le righe
 BEGIN
 	DELETE FROM #situation_fin WHERE 
 			(isnull(main_initial_prevision,0.0) =0 AND 
@@ -1196,14 +1198,14 @@ BEGIN
 			nlevel >=2)
 END
 
-declare	@Sorkind_cdr	varchar(50) --> Classificazione Centro di Responsabilit√†
+declare	@Sorkind_cdr	varchar(50) --> Classificazione Centro di Responsabilit‡
 select @Sorkind_cdr = description from sortingkind where idsorkind = @idsorkind_cdr
 
 declare	@Sorkind	varchar(50)--> Classificazione Missioni Programmi
 select @Sorkind = description from sortingkind where idsorkind = @idsorkind
 
-declare @levelparent varchar(50) --> Nome del 1¬∞ livello della classificazione Missioni/Programmi
-declare @levelchild varchar(50)--> Nome del 2¬∞ livello della classificazione Missioni/Programmi
+declare @levelparent varchar(50) --> Nome del 1∞ livello della classificazione Missioni/Programmi
+declare @levelchild varchar(50)--> Nome del 2∞ livello della classificazione Missioni/Programmi
 select @levelparent = description from sortinglevel where idsorkind = @idsorkind and nlevel = 1
 select @levelchild = description from sortinglevel where idsorkind = @idsorkind and nlevel = 2
 
@@ -1441,4 +1443,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

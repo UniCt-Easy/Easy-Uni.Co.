@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªønamespace paydispositiondetail_default {
+
+namespace paydispositiondetail_default {
     partial class FrmPayDispositionDetail_default {
         /// <summary>
         /// Required designer variable.
@@ -552,7 +554,7 @@
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(52, 19);
 			this.label4.TabIndex = 12;
-			this.label4.Text = "Localit√†:";
+			this.label4.Text = "Localit‡:";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// txtLocalita
@@ -873,7 +875,7 @@
 			this.grpModalitaPag.Size = new System.Drawing.Size(572, 78);
 			this.grpModalitaPag.TabIndex = 18;
 			this.grpModalitaPag.TabStop = false;
-			this.grpModalitaPag.Text = "Modalit√† di Pagamento";
+			this.grpModalitaPag.Text = "Modalit‡ di Pagamento";
 			// 
 			// rdbAssegnoQuietanza
 			// 
@@ -1256,7 +1258,7 @@
 			this.label24.Name = "label24";
 			this.label24.Size = new System.Drawing.Size(280, 19);
 			this.label24.TabIndex = 9;
-			this.label24.Text = "Anno Solare in cui √® stata sostenuta la spesa rimborsata ";
+			this.label24.Text = "Anno Solare in cui Ë stata sostenuta la spesa rimborsata ";
 			this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// groupBox7

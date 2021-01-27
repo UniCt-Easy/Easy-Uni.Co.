@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_fabbisognoresiduo]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_fabbisognoresiduo]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_fabbisognoresiduo]
 GO
 
@@ -290,7 +292,9 @@ SELECT
 	PT.streamdate,
 	CASE
 		WHEN  IL.nbill IS NOT NULL THEN (SELECT adate FROM bill where bill.billkind = 'D' AND bill.ybill = @ayear AND bill.nbill = IL.nbill)
-		WHEN  IL.nbill IS NULL THEN (SELECT top 1 adate FROM bill JOIN expensebill ON bill.billkind = 'D' AND bill.ybill =expensebill.ybill AND bill.nbill = expensebill.nbill where IL.idexp = expensebill.idexp AND bill.ybill = @ayear AND bill.nbill = IL.nbill)
+		WHEN  IL.nbill IS NULL THEN (SELECT top 1 adate FROM bill 
+								JOIN expensebill ON bill.billkind = 'D' AND bill.ybill =expensebill.ybill AND bill.nbill = expensebill.nbill 
+								where IL.idexp = expensebill.idexp AND bill.ybill = @ayear AND bill.nbill = expensebill.nbill)
 	END
 FROM expense I
 	join expenselast IL on I.idexp = IL.idexp
@@ -311,7 +315,7 @@ WHERE IY.ayear = @ayear
 		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		and ES.values2 is NOT null   -- COFOG
 		
--- D: pagamenti (pagamenti che non rientrano ne in E ne in F) Prende tutto se non l'ha giï¿½ preso prima
+-- D: pagamenti (pagamenti che non rientrano ne in E ne in F) Prende tutto se non l'ha gi� preso prima
 insert into  #pagamentiincassi(
 	idexp,
 	idupb,
@@ -374,6 +378,9 @@ create table #datiout(
 	codeupb varchar(50),
 	idepupbkind int,
 	epupbkind varchar(50), -- title
+	paridupb varchar(50),
+	idsors varchar(50),
+
 	sortcode varchar(50),
 	streamdate datetime,
 	billdate datetime
@@ -398,6 +405,8 @@ insert into #datiout(
 	codeupb,
 	idepupbkind,
 	epupbkind,
+	paridupb,
+	idsors,
 	cofog,
 	cod_ue,
 	movdescription,
@@ -418,6 +427,8 @@ select
 	U.codeupb , 
 	U.idepupbkind,
 	UPK.title, 
+	PAR.codeupb,
+	IDSOR.sortcode,
 	P.cofog ,
 	P.cod_ue ,
 	P.movdescription,
@@ -432,8 +443,10 @@ select
  from #pagamentiincassi P
 	 join sorting S on P.idsor = S.idsor
 	 join upb U on P.idupb = U.idupb
+	 join upb PAR on U.paridupb = PAR.idupb
+	 join sorting IDSOR on U.idsor01 = IDSOR.idsor
 	 left outer join epupbkind UPK on UPK.idepupbkind = U.idepupbkind
- group by	 kind_ES ,	npay_npro , 	S.sortcode,	U.codeupb, 	P.cofog,	P.cod_ue,	P.movdescription, 	U.idepupbkind, UPK.title, P.streamdate  ,
+ group by	 kind_ES ,	npay_npro , 	S.sortcode,	U.codeupb, 	P.cofog,	P.cod_ue,	P.movdescription, 	U.idepupbkind, UPK.title, PAR.codeupb, IDSOR.sortcode, P.streamdate  ,
 	P.billdate 
  order by kind_ES , npay_npro, S.sortcode,	P.cofog,	P.cod_ue, U.codeupb,	 	P.movdescription, P.streamdate  ,
 	P.billdate 
@@ -478,6 +491,8 @@ select
 	P.sortcode as 'SIOPE',
 	P.codeupb as 'UPB', 
 	P.epupbkind as 'Tipo UPB', 
+	P.paridupb as 'UPB Padre',
+	P.idsors as 'Attributo Sicurezza 01',
 	P.cofog as 'Codice COFOG ',
 	P.cod_ue as 'Codice UE',
 	P.streamdate  as 'Data creazione flusso della distinta di trasmissione',
@@ -526,4 +541,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -100,7 +102,7 @@ namespace import_flow_default {
                 }
             }
             if (idtreasurer_default == DBNull.Value) {
-                MessageBox.Show("Non √® stato configurato il tesoriere predefinito.", "Errore");
+                MessageBox.Show("Non Ë stato configurato il tesoriere predefinito.", "Errore");
             }
             TrattamentoBollo = Conn.RUN_SELECT("stamphandling", "*", null, null, null, true);
             if (TrattamentoBollo.Select(QHC.CmpEq("flagdefault", "S")).Length == 1) {
@@ -112,7 +114,7 @@ namespace import_flow_default {
                 }
             }
             if (idstamphandling_default == DBNull.Value) {
-                MessageBox.Show("Non √® stato configurato il trattamento bollo predefinito.", "Errore");
+                MessageBox.Show("Non Ë stato configurato il trattamento bollo predefinito.", "Errore");
             }
             ExcelMenu = new ContextMenu();
             ExcelMenu.MenuItems.Add("Excel", new EventHandler(Excel_Click));
@@ -270,7 +272,7 @@ namespace import_flow_default {
 
         /// <summary>
         /// Crea una corrispondenza tra la idimportflow e il numero di riga che corrisponde a quell'id
-        /// Quindi dato il codice ID iflow[ID]= i dove importflow.Rows[i] √® la riga avente idimporflow=ID
+        /// Quindi dato il codice ID iflow[ID]= i dove importflow.Rows[i] Ë la riga avente idimporflow=ID
         /// </summary>
         Dictionary<string, int> iflow = new Dictionary<string, int>();
         void FillIFlow() {
@@ -377,7 +379,7 @@ namespace import_flow_default {
                 GoodData = false;
             }
             else {
-                lblMessaggi.Text = "La tabella del flusso √® ben configurata, si pu√≤ procedere alla creazione " +
+                lblMessaggi.Text = "La tabella del flusso Ë ben configurata, si puÚ procedere alla creazione " +
                     "dei movimenti finanziari.";
                 GoodData = true;
             }
@@ -791,7 +793,7 @@ namespace import_flow_default {
                         rLast["autokind"] = 14;
                     }
                     else {
-                        MessageBox.Show("Non √® possibile collegare la riga di codice "+
+                        MessageBox.Show("Non Ë possibile collegare la riga di codice "+
                             r["idimportflow"].ToString()+" alla riga "+
                             idlinkedmov+ " trattandosi di due entrate.");
                     }
@@ -963,7 +965,7 @@ namespace import_flow_default {
 
                     DataRow NewMovRow = MetaM.Get_New_Row(null, Mov);
 
-                    //Imposta il movimento parent tramite il livsupid. Il movimento parent √® quello generato nella fase precedente
+                    //Imposta il movimento parent tramite il livsupid. Il movimento parent Ë quello generato nella fase precedente
                     NewMovRow[idParMovField] = parentidmov;
 
                     parentidmov = NewMovRow[idMovField];
@@ -994,7 +996,7 @@ namespace import_flow_default {
                         DataRow NewLastRow = MetaL.Get_New_Row(NewMovRow, DS.Tables[tMainLast]);
                         if (IoE == "E") {
 
-                            //aggiungere le informazioni della modalit√† di pagamento
+                            //aggiungere le informazioni della modalit‡ di pagamento
                             NewLastRow["idregistrypaymethod"] = rv["idregistrypaymethod"];
                             NewLastRow["idpaymethod"] = rv["idpaymethod"];
                             NewLastRow["iban"] = rv["iban"];

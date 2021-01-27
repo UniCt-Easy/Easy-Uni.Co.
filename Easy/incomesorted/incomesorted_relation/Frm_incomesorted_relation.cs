@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -903,7 +905,7 @@ namespace incomesorted_relation //impclassentrata_main//
                 QHS.CmpEq("idsorkind", idsorkind), null, true);
 
             if (ConfClassMovimento.Rows.Count == 0) {
-                MessageBox.Show("Non ho trovato il tipo classificazione " + classname.ToString() +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ho trovato il tipo classificazione " + classname.ToString() +
                                 ". Provare ad aggiornare il menu da File/Menu/Aggiorna Menu ");
                 Meta.CanSave = false;
                 return;
@@ -921,7 +923,7 @@ namespace incomesorted_relation //impclassentrata_main//
             object codicefase = ConfClassMovimento.Rows[0]["nphaseincome"];
 
             if (codicefase == DBNull.Value) {
-                MessageBox.Show("Non Ë stata configurata la Fase di Entrata per il tipo classificazione " + (param) +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stata configurata la Fase di Entrata per il tipo classificazione " + (param) +
                                 ". Completare la configurazione dal menu Configurazione/Classificazione/Tipo di Classificazione ");
             }
 
@@ -1418,7 +1420,7 @@ namespace incomesorted_relation //impclassentrata_main//
                     NumberStyles.Number,
                     NumberFormatInfo.CurrentInfo);
                 if ((percent < 0) || (percent > percentmax)) {
-                    OK = (MessageBox.Show(errmsg, "Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
+                    OK = (MetaFactory.factory.getSingleton<IMessageShower>().Show(errmsg, "Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
                 }
                 else {
                     OK = true;
@@ -1426,7 +1428,7 @@ namespace incomesorted_relation //impclassentrata_main//
 
             }
             catch {
-                MessageBox.Show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Exclamation);
                 return false;
             }
@@ -1452,12 +1454,12 @@ namespace incomesorted_relation //impclassentrata_main//
                     OK = true;
                 }
                 else {
-                    OK = (MessageBox.Show(errmsg, "Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
+                    OK = (MetaFactory.factory.getSingleton<IMessageShower>().Show(errmsg, "Avviso", MessageBoxButtons.YesNo) == DialogResult.Yes);
                 }
 
             }
             catch {
-                MessageBox.Show("E' necessario inserire un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario inserire un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Exclamation);
                 return false;
             }

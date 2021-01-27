@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿using System;
+
+using System;
 using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
@@ -1068,7 +1070,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			string[] rempath = new string[1];
 			rempath[0] = txtWeb.Text.Trim();
 
-			///Legge i numeri di versione dll e report remoti e sceglie il sito di liveupdate di riferimento come il piÃ¹ veloce
+			///Legge i numeri di versione dll e report remoti e sceglie il sito di liveupdate di riferimento come il più veloce
 			int K2 = metaprofiler.StartTimer("new Download");
 
 			var download = new Download(null, rempath, m_XMLFile, m_LocalDir);
@@ -1259,17 +1261,17 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 					string fname = dirdiff + item[0] + ".zip";
 					string fnametmp = dirtemp + item[0] + ".zip";
 					if (checkList.GetItemChecked(i)) {
-						//se Ã¨ selezionato copio il file da tmp in diff
+						//se è selezionato copio il file da tmp in diff
 						lasttemp = "Sposto " + fnametmp + " in " + fname;
 						File.Copy(fnametmp, fname, true);
 					}
 					else {
 						//altrimenti lo rimuovo dalla cartella diff
 						lasttemp = "Sposto " + fname + " in " + fnametmp;
-						//se il sorgente non esiste vuol dire che Ã¨ stato
+						//se il sorgente non esiste vuol dire che è stato
 						//deselezionato in precedenza
 						if (!File.Exists(fname)) continue;
-						//Ã¨ stato deselezionato, lo elimino da diff
+						//è stato deselezionato, lo elimino da diff
 						if (File.Exists(fnametmp)) File.Delete(fnametmp);
 						//e lo sposto in tmp
 						File.Move(fname, fnametmp);
@@ -1430,7 +1432,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			}
 
 			//else {
-			//    if (MessageBox.Show("La versione "+tipoversione+" verrÃ  aggiornata. Continuare?",
+			//    if (MessageBox.Show("La versione "+tipoversione+" verrà aggiornata. Continuare?",
 			//        "Attenzione",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question)!=DialogResult.Yes) {
 			//        txtNew.Text="";
 			//        return;
@@ -1601,7 +1603,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			txtMinVersioneSw.Text = maxswversion;
 
 
-			//Aggiunge le directory presenti in piÃ¹
+			//Aggiunge le directory presenti in più
 			var DI = new DirectoryInfo(txtLocalSQL.Text);
 			foreach (var D in DI.GetDirectories()) {
 				string dirname = D.Name;

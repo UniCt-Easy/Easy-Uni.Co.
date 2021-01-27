@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -24,7 +26,7 @@ using System.Runtime.Serialization;
 namespace payment_generazioneautomatica {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -77,6 +79,12 @@ public class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenselastview 		=> Tables["expenselastview"];
+
+	///<summary>
+	///Movimento di spesa
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expense 		=> Tables["expense"];
 
 	#endregion
 
@@ -559,6 +567,59 @@ private void initClass() {
 	texpenselastview.PrimaryKey =  new DataColumn[]{texpenselastview.Columns["idexp"]};
 
 
+	//////////////////// EXPENSE /////////////////////////////////
+	var texpense= new DataTable("expense");
+	C= new DataColumn("adate", typeof(DateTime));
+	C.AllowDBNull=false;
+	texpense.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	texpense.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	texpense.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
+	C.AllowDBNull=false;
+	texpense.Columns.Add(C);
+	texpense.Columns.Add( new DataColumn("doc", typeof(string)));
+	texpense.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	texpense.Columns.Add( new DataColumn("expiration", typeof(DateTime)));
+	texpense.Columns.Add( new DataColumn("idreg", typeof(int)));
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	texpense.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	texpense.Columns.Add(C);
+	C= new DataColumn("nmov", typeof(int));
+	C.AllowDBNull=false;
+	texpense.Columns.Add(C);
+	texpense.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	texpense.Columns.Add( new DataColumn("txt", typeof(string)));
+	C= new DataColumn("ymov", typeof(short));
+	C.AllowDBNull=false;
+	texpense.Columns.Add(C);
+	texpense.Columns.Add( new DataColumn("idclawback", typeof(int)));
+	C= new DataColumn("idexp", typeof(int));
+	C.AllowDBNull=false;
+	texpense.Columns.Add(C);
+	texpense.Columns.Add( new DataColumn("parentidexp", typeof(int)));
+	texpense.Columns.Add( new DataColumn("idpayment", typeof(int)));
+	texpense.Columns.Add( new DataColumn("idformerexpense", typeof(int)));
+	C= new DataColumn("nphase", typeof(byte));
+	C.AllowDBNull=false;
+	texpense.Columns.Add(C);
+	texpense.Columns.Add( new DataColumn("idman", typeof(int)));
+	texpense.Columns.Add( new DataColumn("autokind", typeof(byte)));
+	texpense.Columns.Add( new DataColumn("autocode", typeof(int)));
+	texpense.Columns.Add( new DataColumn("cupcode", typeof(string)));
+	texpense.Columns.Add( new DataColumn("cigcode", typeof(string)));
+	texpense.Columns.Add( new DataColumn("external_reference", typeof(string)));
+	texpense.Columns.Add( new DataColumn("idinc_linked", typeof(int)));
+	Tables.Add(texpense);
+	texpense.PrimaryKey =  new DataColumn[]{texpense.Columns["idexp"]};
+
+
 	#endregion
 
 
@@ -586,6 +647,10 @@ private void initClass() {
 	cPar = new []{registry.Columns["idreg"]};
 	cChild = new []{payment.Columns["idreg"]};
 	Relations.Add(new DataRelation("registrypayment",cPar,cChild,false));
+
+	cPar = new []{expenselastview.Columns["idexp"]};
+	cChild = new []{expense.Columns["idexp"]};
+	Relations.Add(new DataRelation("expenselastview_expense",cPar,cChild,false));
 
 	#endregion
 

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_unified_riepilogoiva_dett]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_unified_riepilogoiva_dett]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_unified_riepilogoiva_dett]
 GO
 
@@ -57,7 +59,7 @@ AS BEGIN
 	-- exp_unified_riepilogoiva_dett null,null,2015,1,12,'N','N',2,'N','V'
 	
  
-	-- se la stampa non √® consolidata 	
+	-- se la stampa non Ë consolidata 	
 	DECLARE @codeinvkind  varchar(20)
 	SET @codeinvkind = (SELECT codeinvkind FROM invoicekind WHERE idinvkind = @idinvkind)
 
@@ -296,7 +298,7 @@ END
 				idivaregisterkindunified as '#Cod. consolidamento',
 				--departmentname as 'Dipartimento', 
 				attributo1 as 'Attributo1',
-				label as 'Esigibilit√†/Detraibilit√†', 
+				label as 'Esigibilit‡/Detraibilit‡', 
 				invoicekind as 'Tipo Fattura', 
 				yinv as 'Eserc. Fattura', 
 				ninv as 'Num. Fattura', 
@@ -316,13 +318,13 @@ END
 				docdate as 'Data Doc.', 
 				registry as 'Fornitore/Cliente', 
 				description  as 'Descrizione',
-				flagactivity as 'Attivit√†',
+				flagactivity as 'Attivit‡',
 				intracom	 as 'Operazione UE',
 				reverse_charge as 'Reverse Charge',
 				intrastatoperationkind  as 'Tipo oper. Intrastat',	
 				service		as 'Servizio',		
-				paymethod	as 'Modalit√† pagamento/incasso'	,		
-				idintrastatsupplymethod as 'Modalit√† erogazione',	
+				paymethod	as 'Modalit‡ pagamento/incasso'	,		
+				idintrastatsupplymethod as 'Modalit‡ erogazione',	
 				nation_payment	as 'Paese pagam.',	
 				intrastatkind	as 'Nat. Transazione',
 				measure	 as 'Un. misura suppl.',
@@ -362,7 +364,7 @@ END
            		registername as 'Registro', 
 				idivaregisterkindunified as '#Cod. consolidamento',
 				departmentname as 'Dipartimento', 
-				label as 'Esigibilit√†/Detraibilit√†', 
+				label as 'Esigibilit‡/Detraibilit‡', 
 				invoicekind as 'Tipo Fattura', 
 				yinv as 'Eserc. Fattura', 
 				ninv as 'Num. Fattura', 
@@ -379,7 +381,7 @@ END
 				docdate as 'Data Doc.', 
 				registry as 'Fornitore/Cliente', 
 				description  as 'Descrizione',
-				flagactivity as 'Attivit√†',
+				flagactivity as 'Attivit‡',
 				idupb as '# UPB',
 				codeupb as 'Cod. UPB',
 				upb as 'UPB',
@@ -398,4 +400,3 @@ SET ANSI_NULLS ON
 GO
 
  
-	

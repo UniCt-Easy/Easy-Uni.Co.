@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_check_miur]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_check_miur]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_check_miur]
 GO
 
@@ -112,25 +114,25 @@ BEGIN
 	SELECT @fase_eFUNZlast = description FROM expensephase WHERE nphase = @nphase_eFUNZlast
 
 	INSERT INTO #err
-	SELECT 'Non √® stata impostata la fase di spesa per la classificazione di codice ' + codesorkind
+	SELECT 'Non Ë stata impostata la fase di spesa per la classificazione di codice ' + codesorkind
 	FROM sortingkind
 	WHERE idsorkind = @eMIUR
 		AND nphaseexpense IS NULL
 
 	INSERT INTO #err
-	SELECT 'Non √® stata impostata la fase di spesa per la classificazione di codice ' + codesorkind
+	SELECT 'Non Ë stata impostata la fase di spesa per la classificazione di codice ' + codesorkind
 	FROM sortingkind
 	WHERE idsorkind = @eFUNZ
 		AND nphaseexpense IS NULL
 
 	INSERT INTO #err
-	SELECT 'Non √® stata impostata la fase di spesa per la classificazione di codice ' + codesorkind
+	SELECT 'Non Ë stata impostata la fase di spesa per la classificazione di codice ' + codesorkind
 	FROM sortingkind
 	WHERE idsorkind = @eSIOPE
 		AND nphaseexpense IS NULL
 
 	INSERT INTO #err
-	SELECT 'Non √® stata impostata la fase di spesa per la classificazione di codice ' + codesorkind
+	SELECT 'Non Ë stata impostata la fase di spesa per la classificazione di codice ' + codesorkind
 	FROM sortingkind
 	WHERE idsorkind = @eFUNZlast
 		AND nphaseexpense IS NULL
@@ -147,7 +149,7 @@ BEGIN
 
 	INSERT INTO #err
 	SELECT @fase_eMIUR + ' '+ CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' (residuo) non √® totalmente classificato secondo la classificazione per natura ' 
+	' (residuo) non Ë totalmente classificato secondo la classificazione per natura ' 
 	+ (select codesorkind from sortingkind where idsorkind = @eMIUR)
 	+ ' sul bilancio ' + F.codefin
 	FROM expense E
@@ -173,7 +175,7 @@ BEGIN
 
 	INSERT INTO #err
 	SELECT @fase_eSIOPE + ' ' + CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' (residuo) non √® totalmente classificato secondo la classificazione per natura '
+	' (residuo) non Ë totalmente classificato secondo la classificazione per natura '
 	+ (select codesorkind from sortingkind where idsorkind = @eSIOPE)
 	+ ' sul bilancio ' + F.codefin
 	FROM expense E
@@ -199,7 +201,7 @@ BEGIN
 
 	INSERT INTO #err
 	SELECT @fase_eMIUR + ' ' + CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' non √® totalmente classificato secondo la classificazione per natura '
+	' non Ë totalmente classificato secondo la classificazione per natura '
 	+ (select codesorkind from sortingkind where idsorkind = @eMIUR)
 	+ ' sul bilancio ' + F.codefin
 	FROM expense E
@@ -225,7 +227,7 @@ BEGIN
 
 	INSERT INTO #err
 	SELECT @fase_eSIOPE + ' ' + CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' non √® totalmente classificato secondo la classificazione per natura ' 
+	' non Ë totalmente classificato secondo la classificazione per natura ' 
 	+ (select codesorkind from sortingkind where idsorkind = @eSIOPE)
 	+ ' sul bilancio ' + F.codefin
 	FROM expense E
@@ -251,7 +253,7 @@ BEGIN
 
 	INSERT INTO #err
 	SELECT @fase_eFUNZ +' ' + CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' non √® totalmente classificato secondo la classificazione per funzione ' 
+	' non Ë totalmente classificato secondo la classificazione per funzione ' 
 	+ (select codesorkind from sortingkind where idsorkind = @eFUNZ)
 	+ ' sul bilancio ' + F.codefin
 	FROM expense E
@@ -277,7 +279,7 @@ BEGIN
 
 	INSERT INTO #err
 	SELECT @fase_eFUNZlast + ' ' + CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' non √® totalmente classificato secondo la classificazione per funzione ' 
+	' non Ë totalmente classificato secondo la classificazione per funzione ' 
 	+ (select codesorkind from sortingkind where idsorkind = @eFUNZLAST)
 	+ ' sul bilancio ' + F.codefin
 	FROM expense E
@@ -307,8 +309,8 @@ BEGIN
 	' non ha una classificazione per natura ' 
 	+ (select codesorkind from sortingkind where idsorkind = @eMIUR)
 	+ ' congrua con i suoi figli' +
-	' in quanto il classificato sul codice ' + S_M.sortcode + ' √© di ‚Ç¨.' + CONVERT(varchar(15), SUM(MIUR.amount)) +
-	' ed √® inferiore al classificato dei figli pari a ‚Ç¨.' + CONVERT(varchar(15),
+	' in quanto il classificato sul codice ' + S_M.sortcode + ' È di Ä.' + CONVERT(varchar(15), SUM(MIUR.amount)) +
+	' ed Ë inferiore al classificato dei figli pari a Ä.' + CONVERT(varchar(15),
 	ISNULL(
 		(SELECT SUM(SIOPE.amount)
 		FROM expensesorted SIOPE
@@ -363,8 +365,8 @@ BEGIN
 	' non ha una classificazione per funzione ' 
 	+ (select codesorkind from sortingkind where idsorkind = @eFUNZ)
 	+ ' congrua con i suoi figli' +
-	' in quanto il classificato sul codice ' + S_M.sortcode + ' √© di ‚Ç¨.' + CONVERT(varchar(15), SUM(FUNZ.amount)) +
-	' ed √® inferiore al classificato dei figli pari a ‚Ç¨.' + CONVERT(varchar(15),
+	' in quanto il classificato sul codice ' + S_M.sortcode + ' È di Ä.' + CONVERT(varchar(15), SUM(FUNZ.amount)) +
+	' ed Ë inferiore al classificato dei figli pari a Ä.' + CONVERT(varchar(15),
 	ISNULL(
 		(SELECT SUM(FUNZLAST.amount)
 		FROM expensesorted FUNZLAST
@@ -416,7 +418,7 @@ BEGIN
 	-- Controllo che i pagamenti di un impegno non siano classificati su codici differenti da quelli dell'impegno (MIUR - SIOPE)
 	INSERT INTO #err
 	SELECT @fase_eSIOPE + ' ' + CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' √® stato classificato per natura ' 
+	' Ë stato classificato per natura ' 
 	+ (select codesorkind from sortingkind where idsorkind = @eSIOPE)
 	+ ' con codice ' + S.sortcode + 
 	' mentre il movimento padre ' + CONVERT(varchar(4), EPADRE.ymov) + '/' + CONVERT(varchar(10), EPADRE.nmov) +
@@ -450,7 +452,7 @@ BEGIN
 	-- Controllo che i pagamenti di un impegno non siano classificati su codici differenti da quelli dell'impegno (FUNZ - FUNZ)
 	INSERT INTO #err
 	SELECT @fase_eFUNZlast+ ' ' + CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' √® stato classificato per funzione ' 
+	' Ë stato classificato per funzione ' 
 	+ (select codesorkind from sortingkind where idsorkind = @eFUNZlast)
 	+ ' con codice ' + S.sortcode + 
 	' mentre il movimento padre ' + CONVERT(varchar(4), EPADRE.ymov) + '/' + CONVERT(varchar(10), EPADRE.nmov) +
@@ -510,25 +512,25 @@ BEGIN
 	SELECT @fase_iFUNZlast = description FROM incomephase WHERE nphase = @nphase_iFUNZlast
 
 	INSERT INTO #err
-	SELECT 'Non √® stata impostata la fase di entrata per la classificazione di codice ' + codesorkind
+	SELECT 'Non Ë stata impostata la fase di entrata per la classificazione di codice ' + codesorkind
 	FROM sortingkind
 	WHERE idsorkind = @iMIUR
 		AND nphaseincome IS NULL
 
 	INSERT INTO #err
-	SELECT 'Non √® stata impostata la fase di entrata per la classificazione di codice ' + codesorkind
+	SELECT 'Non Ë stata impostata la fase di entrata per la classificazione di codice ' + codesorkind
 	FROM sortingkind
 	WHERE idsorkind = @iFUNZ
 		AND nphaseincome IS NULL
 
 	INSERT INTO #err
-	SELECT 'Non √® stata impostata la fase di entrata per la classificazione di codice ' + codesorkind
+	SELECT 'Non Ë stata impostata la fase di entrata per la classificazione di codice ' + codesorkind
 	FROM sortingkind
 	WHERE idsorkind = @iSIOPE
 		AND nphaseincome IS NULL
 
 	INSERT INTO #err
-	SELECT 'Non √® stata impostata la fase di entrata per la classificazione di codice ' + codesorkind
+	SELECT 'Non Ë stata impostata la fase di entrata per la classificazione di codice ' + codesorkind
 	FROM sortingkind
 	WHERE idsorkind = @iFUNZlast
 		AND nphaseincome IS NULL
@@ -545,7 +547,7 @@ BEGIN
 
 	INSERT INTO #err
 	SELECT @fase_iMIUR + ' ' + CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' non √® totalmente classificato secondo la classificazione per natura ' 
+	' non Ë totalmente classificato secondo la classificazione per natura ' 
 	+ (select codesorkind from sortingkind where idsorkind = @iMIUR)
 	+ ' sul bilancio ' + F.codefin
 	FROM income E
@@ -571,7 +573,7 @@ BEGIN
 
 	INSERT INTO #err
 	SELECT @fase_iMIUR + ' '+ CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' (residuo) non √® totalmente classificato secondo la classificazione per natura ' 
+	' (residuo) non Ë totalmente classificato secondo la classificazione per natura ' 
 	+ (select codesorkind from sortingkind where idsorkind = @iMIUR)
 	+ ' sul bilancio ' + F.codefin
 	FROM income E
@@ -597,7 +599,7 @@ BEGIN
 
 	INSERT INTO #err
 	SELECT @fase_iSIOPE + ' ' +CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' non √® totalmente classificato secondo la classificazione per natura ' 
+	' non Ë totalmente classificato secondo la classificazione per natura ' 
 	+ (select codesorkind from sortingkind where idsorkind = @iSIOPE)
 	+ ' sul bilancio ' + F.codefin
 	FROM income E
@@ -623,7 +625,7 @@ BEGIN
 
 	INSERT INTO #err
 	SELECT @fase_iSIOPE + ' ' + CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' non √® totalmente classificato secondo la classificazione per natura ' 
+	' non Ë totalmente classificato secondo la classificazione per natura ' 
 	+ (select codesorkind from sortingkind where idsorkind = @iSIOPE)
 	+ ' sul bilancio ' + F.codefin
 	FROM income E
@@ -649,7 +651,7 @@ BEGIN
 
 	INSERT INTO #err
 	SELECT @fase_iFUNZ + ' ' + CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' non √® totalmente classificato secondo la classificazione per funzione ' 
+	' non Ë totalmente classificato secondo la classificazione per funzione ' 
 	+ (select codesorkind from sortingkind where idsorkind = @iFUNZ)
 	+ ' sul bilancio ' + F.codefin
 	FROM income E
@@ -675,7 +677,7 @@ BEGIN
 
 	INSERT INTO #err
 	SELECT @fase_iFUNZlast + ' ' + CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' non √® totalmente classificato secondo la classificazione per funzione ' 
+	' non Ë totalmente classificato secondo la classificazione per funzione ' 
 	+ (select codesorkind from sortingkind where idsorkind = @iFUNZlast)
 	+ ' sul bilancio ' + F.codefin
 	FROM income E
@@ -705,8 +707,8 @@ BEGIN
 	' non ha una classificazione per natura ' 
 	+ (select codesorkind from sortingkind where idsorkind = @iMIUR)
 	+ ' congrua con i suoi figli' +
-	' in quanto il classificato sul codice ' + S_M.sortcode + ' √© di ‚Ç¨.' + CONVERT(varchar(15), SUM(MIUR.amount)) +
-	' ed √® inferiore al classificato dei figli pari a ‚Ç¨.' + CONVERT(varchar(15),
+	' in quanto il classificato sul codice ' + S_M.sortcode + ' È di Ä.' + CONVERT(varchar(15), SUM(MIUR.amount)) +
+	' ed Ë inferiore al classificato dei figli pari a Ä.' + CONVERT(varchar(15),
 	ISNULL(
 		(SELECT SUM(SIOPE.amount)
 		FROM incomesorted SIOPE
@@ -761,8 +763,8 @@ BEGIN
 	' non ha una classificazione per funzione ' 
 	+ (select codesorkind from sortingkind where idsorkind = @iFUNZ)
 	+ ' congrua con i suoi figli' +
-	' in quanto il classificato sul codice ' + S_M.sortcode + ' √© di ‚Ç¨.' + CONVERT(varchar(15), SUM(FUNZ.amount)) +
-	' ed √® inferiore al classificato dei figli pari a ‚Ç¨.' + CONVERT(varchar(15),
+	' in quanto il classificato sul codice ' + S_M.sortcode + ' È di Ä.' + CONVERT(varchar(15), SUM(FUNZ.amount)) +
+	' ed Ë inferiore al classificato dei figli pari a Ä.' + CONVERT(varchar(15),
 	ISNULL(
 		(SELECT SUM(FUNZLAST.amount)
 		FROM incomesorted FUNZLAST
@@ -814,7 +816,7 @@ BEGIN
 	-- Controllo che gli incassi di un accertamento non siano classificati su codici differenti da quelli dell'accertamento (MIUR - SIOPE)
 	INSERT INTO #err
 	SELECT @fase_iSIOPE + ' ' + CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' √® stato classificato per natura ' 
+	' Ë stato classificato per natura ' 
 	+ (select codesorkind from sortingkind where idsorkind = @iSIOPE)
 	+ ' con codice ' 
 	+ S.sortcode
@@ -854,7 +856,7 @@ BEGIN
 	-- Controllo che gli incassi di un accertamento non siano classificati su codici differenti da quelli dell'accertamento (FUNZ - FUNZ)
 	INSERT INTO #err
 	SELECT @fase_iFUNZlast + ' ' + CONVERT(varchar(4), E.ymov) + '/' + CONVERT(varchar(10), E.nmov) +
-	' √® stato classificato per funzione ' 
+	' Ë stato classificato per funzione ' 
 	+ (select codesorkind from sortingkind where idsorkind = @iFUNZlast)
 	+ ' con codice ' + S.sortcode + 
 	' mentre il movimento padre ' + CONVERT(varchar(4), EPADRE.ymov) + '/' + CONVERT(varchar(10), EPADRE.nmov) +
@@ -925,4 +927,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

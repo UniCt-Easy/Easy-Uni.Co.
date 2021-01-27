@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_check_siope]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_check_siope]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_check_siope]
 GO
 
@@ -56,7 +58,7 @@ CREATE TABLE #error (msg varchar(1000))
 
 -- CONTROLLO N.1
 INSERT INTO #error
-SELECT 'La voce di bilancio Entrata: ' + F.codefin + ', pur avendo un valore di previsione, NON √® stata classificata con alcun codice "' + @iSIOPEtitle + '"'
+SELECT 'La voce di bilancio Entrata: ' + F.codefin + ', pur avendo un valore di previsione, NON Ë stata classificata con alcun codice "' + @iSIOPEtitle + '"'
 FROM fin F 
 JOIN finyear FY
 	ON F.idfin = FY.idfin
@@ -79,7 +81,7 @@ WHERE F.codefin NOT IN (SELECT Fcap.codefin
 					AND Fcap.nlevel = F.nlevel
 					AND Fcap.idfin =  F.idfin)
  	AND ((F.flag&1) = 0) -- solo la parte Entrata
-	AND ISNULL(FY.prevision,0) > 0 -- Potrebbero anche essere in finyear perch√® hanno una var. a noi interessa solo se la previsione √® >0
+	AND ISNULL(FY.prevision,0) > 0 -- Potrebbero anche essere in finyear perchË hanno una var. a noi interessa solo se la previsione Ë >0
 	AND FY.ayear = @ayear
 	AND @kind = 'I'
 	AND (F.flag & 16 =0)
@@ -87,7 +89,7 @@ WHERE F.codefin NOT IN (SELECT Fcap.codefin
 GROUP BY F.codefin
 
 INSERT INTO #error
-SELECT 'La voce di bilancio Spesa: ' + F.codefin + ', pur avendo un valore di previsione, NON √® stata classificata con alcun codice "'+ @eSIOPEtitle +'"'
+SELECT 'La voce di bilancio Spesa: ' + F.codefin + ', pur avendo un valore di previsione, NON Ë stata classificata con alcun codice "'+ @eSIOPEtitle +'"'
 FROM fin F 
 JOIN finyear FY
 	ON F.idfin = FY.idfin
@@ -110,18 +112,18 @@ WHERE F.codefin NOT IN (SELECT Fcap.codefin
 					AND Fcap.nlevel = F.nlevel
 					AND Fcap.idfin =  F.idfin)
  	AND ((F.flag&1) <> 0) -- solo la parte Spesa
-	AND ISNULL(FY.prevision,0) > 0 -- Potrebbero anche essere in finyear perch√® hanno una var. a noi interessa solo se la previsione √® >0
+	AND ISNULL(FY.prevision,0) > 0 -- Potrebbero anche essere in finyear perchË hanno una var. a noi interessa solo se la previsione Ë >0
 	AND FY.ayear = @ayear
 	AND @kind = 'E'
 	AND F.nlevel = @minoplevel
 GROUP BY F.codefin
 
 -- CONTROLLO N.2
--- Sta prendendo tutto ci√≤ che √® classificato. Verifica se la SUM del class sul Macro Siope √® < 100% , se la voce
--- √® presente in FINYEAR (quindi parliamo di un capitolo) oppure in FINYEAR √® presente un suo figlio, e quidi ci riferiamo alla categoria,
--- nel senso, la class. della catagoria, per cui esitse un figlio in FY con previsione, √® < 100%.. 
+-- Sta prendendo tutto ciÚ che Ë classificato. Verifica se la SUM del class sul Macro Siope Ë < 100% , se la voce
+-- Ë presente in FINYEAR (quindi parliamo di un capitolo) oppure in FINYEAR Ë presente un suo figlio, e quidi ci riferiamo alla categoria,
+-- nel senso, la class. della catagoria, per cui esitse un figlio in FY con previsione, Ë < 100%.. 
 INSERT INTO #error
-SELECT 'La voce di bilancio Entrata: ' + F.codefin + ' non √® stata interamente classificata con la Class. "' + @iSIOPEtitle + '"'
+SELECT 'La voce di bilancio Entrata: ' + F.codefin + ' non Ë stata interamente classificata con la Class. "' + @iSIOPEtitle + '"'
 FROM fin F 
 JOIN finsorting FS 
 	ON FS.idfin = F.idfin
@@ -140,7 +142,7 @@ GROUP BY F.codefin
 HAVING ISNULL( convert(decimal(19,2), round(SUM (FS.quota),2)),0) < 1
 
 INSERT INTO #error
-SELECT 'La voce di bilancio Spesa: ' + F.codefin + ' non √® stata interamente classificata con la Class. "' + @eSIOPEtitle + '"'
+SELECT 'La voce di bilancio Spesa: ' + F.codefin + ' non Ë stata interamente classificata con la Class. "' + @eSIOPEtitle + '"'
 FROM fin F 
 JOIN finsorting FS 
 	ON FS.idfin = F.idfin
@@ -160,11 +162,11 @@ GROUP BY F.codefin
 HAVING ISNULL( convert(decimal(19,2), round(SUM (FS.quota),2)),0) < 1
 
 -- CONTROLLO N.3
--- Sta prendendo tutto ci√≤ che √® classificato. Verifica se la SUM del class sul Macro Siope √® < 100% , se la voce
--- √® presente in FINYEAR (quindi parliamo di un capitolo) oppure in FINYEAR √® presente un suo figlio, e quidi ci riferiamo alla categoria,
--- nel senso, la class. della catagoria, per cui esitse un figlio in FY con previsione, √® < 100%.. 
+-- Sta prendendo tutto ciÚ che Ë classificato. Verifica se la SUM del class sul Macro Siope Ë < 100% , se la voce
+-- Ë presente in FINYEAR (quindi parliamo di un capitolo) oppure in FINYEAR Ë presente un suo figlio, e quidi ci riferiamo alla categoria,
+-- nel senso, la class. della catagoria, per cui esitse un figlio in FY con previsione, Ë < 100%.. 
 INSERT INTO #error
-SELECT 'La voce di bilancio Entrata: ' + F.codefin + ' √® stata classificata con la Class. "' + @iSIOPEtitle + '" con una percentuale superiore a 100%'
+SELECT 'La voce di bilancio Entrata: ' + F.codefin + ' Ë stata classificata con la Class. "' + @iSIOPEtitle + '" con una percentuale superiore a 100%'
 FROM fin F 
 JOIN finsorting FS 
 	ON FS.idfin = F.idfin
@@ -183,7 +185,7 @@ GROUP BY F.codefin
 HAVING ISNULL( convert(decimal(19,2), round(SUM (FS.quota),2)),0) > 1
 
 INSERT INTO #error
-SELECT 'La voce di bilancio Spesa: ' + F.codefin + ' √® stata classificata con la Class. "' + @eSIOPEtitle + '" con una percentuale superiore a 100%'
+SELECT 'La voce di bilancio Spesa: ' + F.codefin + ' Ë stata classificata con la Class. "' + @eSIOPEtitle + '" con una percentuale superiore a 100%'
 FROM fin F 
 JOIN finsorting FS 
 	ON FS.idfin = F.idfin
@@ -217,4 +219,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[emens_daticollaboratore]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[emens_daticollaboratore]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [emens_daticollaboratore]
 GO 
 
@@ -70,8 +72,8 @@ SET @activitycode = '17'
 DECLARE @idotherinsurance varchar(3)
 SET @idotherinsurance = '001'
 
-DECLARE @validit√†_17_INPS_DIS_COLL_N datetime
-SELECT @validit√†_17_INPS_DIS_COLL_N = CONVERT(datetime, '01-06-'+ CONVERT(varchar(4), 2017), 105)	/* 01/06/2017 */
+DECLARE @validit‡_17_INPS_DIS_COLL_N datetime
+SELECT @validit‡_17_INPS_DIS_COLL_N = CONVERT(datetime, '01-06-'+ CONVERT(varchar(4), 2017), 105)	/* 01/06/2017 */
 
 DECLARE @DataStart datetime
 SELECT @DataStart = CONVERT(datetime, '01-'+ CONVERT(varchar(2), @startmonth)+'-'+ CONVERT(varchar(4), @ycommunication), 105)
@@ -110,8 +112,8 @@ SELECT
 	expensetaxofficial.taxablenet,
 	-- ISNULL(expensetaxofficial.employrate,0),
 	-- A partire da Luglio, la ritenuta 'INPS soggetti non mutuati' va comunicata con aliquota 33,23%  = 32,72 + 0,51
-	-- ove 0,51 √® l'aliquota della ritenuta 'INPS contributo DIS_COLL'
-	case when (tax.taxref = '07_INPS_N') and (@DataStart >= @validit√†_17_INPS_DIS_COLL_N) and exists(select * from expensetaxofficial TO2 
+	-- ove 0,51 Ë l'aliquota della ritenuta 'INPS contributo DIS_COLL'
+	case when (tax.taxref = '07_INPS_N') and (@DataStart >= @validit‡_17_INPS_DIS_COLL_N) and exists(select * from expensetaxofficial TO2 
 																join tax T2 ON TO2.taxcode = T2.taxcode
 																where TO2.idexp = expensetaxofficial.idexp and T2.taxref='17_INPS_DIS_COLL_N')
 		then  ISNULL(expensetaxofficial.employrate,0) + 0.0051
@@ -122,14 +124,14 @@ SELECT
 	payroll.start,
 	payroll.stop,
 	NULL,
-	NULL, -- Nel caso si voglia valorizzare questo campo bisognerebbe aggiungere il valore 003 = Universit√†
+	NULL, -- Nel caso si voglia valorizzare questo campo bisognerebbe aggiungere il valore 003 = Universit‡
 	expensetaxofficial.taxcode,
 	paymentcommunicated.idexp,
 	YEAR(paymentcommunicated.competencydate),
 	MONTH(paymentcommunicated.competencydate),
 	'COCOCO',
 	tax.taxref,
-	case when (tax.taxref = '07_INPS_N') and (@DataStart >= @validit√†_17_INPS_DIS_COLL_N)  and exists(select * from expensetaxofficial TO2 
+	case when (tax.taxref = '07_INPS_N') and (@DataStart >= @validit‡_17_INPS_DIS_COLL_N)  and exists(select * from expensetaxofficial TO2 
 															join tax T2 ON TO2.taxcode = T2.taxcode
 															where TO2.idexp = expensetaxofficial.idexp and T2.taxref='17_INPS_DIS_COLL_N')
 	then  'S'
@@ -207,7 +209,7 @@ SELECT
 	casualcontractview.start,
 	casualcontractview.stop,
 	NULL,
-	NULL, -- Nel caso si voglia valorizzare questo campo bisognerebbe aggiungere il valore 003 = Universit√É∆í√Ç¬†
+	NULL, -- Nel caso si voglia valorizzare questo campo bisognerebbe aggiungere il valore 003 = Universit√É¬†
 	expensetaxofficial.taxcode,
 	paymentcommunicated.idexp,
 	YEAR(paymentcommunicated.competencydate),
@@ -286,7 +288,7 @@ SELECT
 	profserviceview.start,
 	profserviceview.stop,
 	NULL,
-	NULL, -- Nel caso si voglia valorizzare questo campo bisognerebbe aggiungere il valore 003 = Universit√É∆í√Ç¬†
+	NULL, -- Nel caso si voglia valorizzare questo campo bisognerebbe aggiungere il valore 003 = Universit√É¬†
 	expensetaxofficial.taxcode,
 	paymentcommunicated.idexp,
 	YEAR(paymentcommunicated.competencydate),
@@ -495,7 +497,7 @@ SELECT
 	ISNULL(paymentcommunicated.servicestart,paymentcommunicated.adate),
 	ISNULL(paymentcommunicated.servicestop,paymentcommunicated.adate),
 	NULL,
-	NULL, -- Nel caso si voglia valorizzare questo campo bisognerebbe aggiungere il valore 003 = Universit√†¬†
+	NULL, -- Nel caso si voglia valorizzare questo campo bisognerebbe aggiungere il valore 003 = Universit‡†
 	expensetaxofficial.taxcode,
 	paymentcommunicated.idexp,
 	YEAR(paymentcommunicated.competencydate),
@@ -516,7 +518,7 @@ JOIN service
 WHERE tax.taxkind = 3
 	AND( tax.taxref LIKE '%INPS%')
 	AND service.module IN ('COCOCO','OCCASIONALE')
---per i cococo se il pagamento √® stato trasmesso nell'anno x e isnull(expenselast.servicestart, paymenttransmission.transmissiondate) √® < x 
+--per i cococo se il pagamento Ë stato trasmesso nell'anno x e isnull(expenselast.servicestart, paymenttransmission.transmissiondate) Ë < x 
 --allora va inserito nell'emens di dicembre dell'anno x-1; altrimenti vale il mese della data di trasmissione del mandato.
 --Per gli occasionali vale solo il mese della data di trasmissione
 	AND (	YEAR(paymentcommunicated.competencydate) = @ycommunication
@@ -603,13 +605,13 @@ UPDATE #employ SET surname =
 	REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 	REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 	surname,
-	'√á','c'),'√ß','c'),'‚Ç¨','e'),'|',' '),'\',' '),'¬£',' '),'¬ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'$',' '),
-	'√ñ','o'),'√ú','u'),'√ë','n'),'√ê','d'),'√ä','e'),'√ã','e'),'√é','i'),'√è','i'),'√î','o'),'√ï','o'),'√õ','u'),'√ù','y'),
+	'«','c'),'Á','c'),'Ä','e'),'|',' '),'\',' '),'£',' '),'ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'$',' '),
+	'÷','o'),'‹','u'),'—','n'),'–','d'),' ','e'),'À','e'),'Œ','i'),'œ','i'),'‘','o'),'’','o'),'€','u'),'›','y'),
 	':',' '),';',' '),'<',' '),'=',' '),'>',' '),'?',' '),']',' '),'_',' '),'`',' '),'{',' '),'}',' '),'~',' '),
-	'√º','u'),'√¢','a'),'√§','a'),'√•','a'),'√™','e'),'√´','e'),'√Ø','i'),'√Æ','i'),'√Ñ','a'),'√Ö','a'),'√¥','o'),'√∂','o'),
-	'√ª','u'),'√ø','y'),'√±','n'),'√Ç','a'),'¬•','y'),'√£','a'),'√É','a'),'√µ','o'),'√Ω','y'),
-	'√©','e'''),'√†','a'''),'√®','e'''),'√¨','i'''),'√≤','o'''),'√π','u'''),'√°','a'''),'√≠','i'''),'√≥','o'''),'√â','e'''),
-	'√Å','a'''),'√Ä','a'''),'√à','e'''),'√ç','i'''),'√å','i'''),'√ì','o'''),'√í','o'''),'√ö','u'''),'√ô','u'''),
+	'¸','u'),'‚','a'),'‰','a'),'Â','a'),'Í','e'),'Î','e'),'Ô','i'),'Ó','i'),'ƒ','a'),'≈','a'),'Ù','o'),'ˆ','o'),
+	'˚','u'),'ˇ','y'),'Ò','n'),'¬','a'),'•','y'),'„','a'),'√','a'),'ı','o'),'˝','y'),
+	'È','e'''),'‡','a'''),'Ë','e'''),'Ï','i'''),'Ú','o'''),'˘','u'''),'·','a'''),'Ì','i'''),'Û','o'''),'…','e'''),
+	'¡','a'''),'¿','a'''),'»','e'''),'Õ','i'''),'Ã','i'''),'”','o'''),'“','o'''),'⁄','u'''),'Ÿ','u'''),
 	1,@maxlensurname),
 	firstname = 
 	SUBSTRING(
@@ -621,13 +623,13 @@ UPDATE #employ SET surname =
 	REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 	REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 	firstname,
-	'√á','c'),'√ß','c'),'‚Ç¨','e'),'|',' '),'\',' '),'¬£',' '),'¬ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'$',' '),
-	'√ñ','o'),'√ú','u'),'√ë','n'),'√ê','d'),'√ä','e'),'√ã','e'),'√é','i'),'√è','i'),'√î','o'),'√ï','o'),'√õ','u'),'√ù','y'),
+	'«','c'),'Á','c'),'Ä','e'),'|',' '),'\',' '),'£',' '),'ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'$',' '),
+	'÷','o'),'‹','u'),'—','n'),'–','d'),' ','e'),'À','e'),'Œ','i'),'œ','i'),'‘','o'),'’','o'),'€','u'),'›','y'),
 	':',' '),';',' '),'<',' '),'=',' '),'>',' '),'?',' '),']',' '),'_',' '),'`',' '),'{',' '),'}',' '),'~',' '),
-	'√º','u'),'√¢','a'),'√§','a'),'√•','a'),'√™','e'),'√´','e'),'√Ø','i'),'√Æ','i'),'√Ñ','a'),'√Ö','a'),'√¥','o'),'√∂','o'),
-	'√ª','u'),'√ø','y'),'√±','n'),'√Ç','a'),'¬•','y'),'√£','a'),'√É','a'),'√µ','o'),'√Ω','y'),
-	'√©','e'''),'√†','a'''),'√®','e'''),'√¨','i'''),'√≤','o'''),'√π','u'''),'√°','a'''),'√≠','i'''),'√≥','o'''),'√â','e'''),
-	'√Å','a'''),'√Ä','a'''),'√à','e'''),'√ç','i'''),'√å','i'''),'√ì','o'''),'√í','o'''),'√ö','u'''),'√ô','u'''),
+	'¸','u'),'‚','a'),'‰','a'),'Â','a'),'Í','e'),'Î','e'),'Ô','i'),'Ó','i'),'ƒ','a'),'≈','a'),'Ù','o'),'ˆ','o'),
+	'˚','u'),'ˇ','y'),'Ò','n'),'¬','a'),'•','y'),'„','a'),'√','a'),'ı','o'),'˝','y'),
+	'È','e'''),'‡','a'''),'Ë','e'''),'Ï','i'''),'Ú','o'''),'˘','u'''),'·','a'''),'Ì','i'''),'Û','o'''),'…','e'''),
+	'¡','a'''),'¿','a'''),'»','e'''),'Õ','i'''),'Ã','i'''),'”','o'''),'“','o'''),'⁄','u'''),'Ÿ','u'''),
 	1,@maxlenfirstname)
 
 DECLARE @departmentname varchar(500)
@@ -639,7 +641,7 @@ SET  @departmentname = ISNULL( (SELECT paramvalue from
 
 
 -- Da decommentare, eventualmente, in futuro.
--- delete from #employ where taxref = '17_INPS_DIS_COLL_N' -- task 11241, √® stata implementata, ma al momento non si sa ancora come gestirla per cui la togliamo dall'outptu altrimenti impedisce la gerazione dell'Emens
+-- delete from #employ where taxref = '17_INPS_DIS_COLL_N' -- task 11241, Ë stata implementata, ma al momento non si sa ancora come gestirla per cui la togliamo dall'outptu altrimenti impedisce la gerazione dell'Emens
 
 IF @parentsp = 'E'
 BEGIN
@@ -725,4 +727,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

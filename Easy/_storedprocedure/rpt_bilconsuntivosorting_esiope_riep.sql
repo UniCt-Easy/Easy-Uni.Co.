@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilconsuntivosorting_esiope_riep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilconsuntivosorting_esiope_riep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_bilconsuntivosorting_esiope_riep]
 GO
  
@@ -74,10 +76,10 @@ CREATE TABLE #data
 /*
 prevision_advance:
 Nelle colonne della previsione, var di previsione, verranno visualizzati gli importi completi, siano essi capitoli normali i rappresentanti l'avanzo.
-Mentre, nel calcolo del disponiible, nel calcolo della differenza tra l'accertato e la previsione, e tutto ci√≤ che incrocia il finanziario, 
-verr√† considerata solo la previsione dei capitoli normali. 
-Questa variabile √® appunto la prev. del capitolo avanzo. Nei calcoli che incrociano il finanziario, la prev. verr√† depurata da questo importo.
-Prevision_advance √® la previsione al netto delle variazioni.
+Mentre, nel calcolo del disponiible, nel calcolo della differenza tra l'accertato e la previsione, e tutto ciÚ che incrocia il finanziario, 
+verr‡ considerata solo la previsione dei capitoli normali. 
+Questa variabile Ë appunto la prev. del capitolo avanzo. Nei calcoli che incrociano il finanziario, la prev. verr‡ depurata da questo importo.
+Prevision_advance Ë la previsione al netto delle variazioni.
 */
 
 DECLARE @infoadvance char(1)
@@ -97,7 +99,7 @@ WHERE idsorkind = @idsorkind_siope
 --WHERE idsorkind = @idsorkind_siope AND (flag&2)<>0
 
 
--- SE non √® stato selezionato il livello, prende l'ultimo livello operativo
+-- SE non Ë stato selezionato il livello, prende l'ultimo livello operativo
 if(isnull(@levelusable,0)=0 )
 Begin
 	set @levelusable = @MAXoplevel
@@ -201,7 +203,7 @@ DECLARE @maxphase tinyint
 	SELECT
 		isnull(SLK.idparent, SortSiope.idsor),
 		isnull(@fixedidupb,iy.idupb),
-	    sum(FS.amount)   --- importo classificato alla data corrente, non √® possibile storicizzare i passaggi di classificazione
+	    sum(FS.amount)   --- importo classificato alla data corrente, non Ë possibile storicizzare i passaggi di classificazione
 	FROM historyproceedsview HPV
 	JOIN incomeyear IY
 		ON IY.idinc = HPV.idinc
@@ -549,4 +551,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

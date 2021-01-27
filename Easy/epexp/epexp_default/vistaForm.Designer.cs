@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -33,7 +35,7 @@ using metadatalibrary;
 namespace epexp_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -113,6 +115,9 @@ public class dsmeta: DataSet {
 	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accmotiveTable accmotive 		=> (accmotiveTable)Tables["accmotive"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable epexpview 		=> (MetaTable)Tables["epexpview"];
 
 	#endregion
 
@@ -295,6 +300,90 @@ private void initClass() {
 	Tables.Add(taccmotive);
 	taccmotive.defineKey("idaccmotive");
 
+	//////////////////// EPEXPVIEW /////////////////////////////////
+	var tepexpview= new MetaTable("epexpview");
+	tepexpview.defineColumn("idepexp", typeof(int),false);
+	tepexpview.defineColumn("yepexp", typeof(short),false);
+	tepexpview.defineColumn("nepexp", typeof(int),false);
+	tepexpview.defineColumn("nphase", typeof(short),false);
+	tepexpview.defineColumn("phase", typeof(string),true,true);
+	tepexpview.defineColumn("flagvariation", typeof(string));
+	tepexpview.defineColumn("description", typeof(string),false);
+	tepexpview.defineColumn("amount", typeof(decimal),false);
+	tepexpview.defineColumn("amount2", typeof(decimal));
+	tepexpview.defineColumn("amount3", typeof(decimal));
+	tepexpview.defineColumn("amount4", typeof(decimal));
+	tepexpview.defineColumn("amount5", typeof(decimal));
+	tepexpview.defineColumn("amountwithsign", typeof(decimal),true,true);
+	tepexpview.defineColumn("amountwithsign2", typeof(decimal),true,true);
+	tepexpview.defineColumn("amountwithsign3", typeof(decimal),true,true);
+	tepexpview.defineColumn("amountwithsign4", typeof(decimal),true,true);
+	tepexpview.defineColumn("amountwithsign5", typeof(decimal),true,true);
+	tepexpview.defineColumn("totamount", typeof(decimal),true,true);
+	tepexpview.defineColumn("curramount", typeof(decimal));
+	tepexpview.defineColumn("curramount2", typeof(decimal));
+	tepexpview.defineColumn("curramount3", typeof(decimal));
+	tepexpview.defineColumn("curramount4", typeof(decimal));
+	tepexpview.defineColumn("curramount5", typeof(decimal));
+	tepexpview.defineColumn("totcurramount", typeof(decimal),true,true);
+	tepexpview.defineColumn("available", typeof(decimal),true,true);
+	tepexpview.defineColumn("available2", typeof(decimal),true,true);
+	tepexpview.defineColumn("available3", typeof(decimal),true,true);
+	tepexpview.defineColumn("available4", typeof(decimal),true,true);
+	tepexpview.defineColumn("available5", typeof(decimal),true,true);
+	tepexpview.defineColumn("totavailable", typeof(decimal),true,true);
+	tepexpview.defineColumn("totalcost", typeof(decimal),true,true);
+	tepexpview.defineColumn("costavailable", typeof(decimal),true,true);
+	tepexpview.defineColumn("totaldebit", typeof(decimal),true,true);
+	tepexpview.defineColumn("ayear", typeof(short),false);
+	tepexpview.defineColumn("idacc", typeof(string),false);
+	tepexpview.defineColumn("codeacc", typeof(string),false);
+	tepexpview.defineColumn("account", typeof(string),false);
+	tepexpview.defineColumn("idupb", typeof(string),false);
+	tepexpview.defineColumn("codeupb", typeof(string),false);
+	tepexpview.defineColumn("upb", typeof(string),false);
+	tepexpview.defineColumn("paridepexp", typeof(int));
+	tepexpview.defineColumn("parentyepexp", typeof(short));
+	tepexpview.defineColumn("parentnepexp", typeof(int));
+	tepexpview.defineColumn("yliv1", typeof(short),true,true);
+	tepexpview.defineColumn("nliv1", typeof(int),true,true);
+	tepexpview.defineColumn("start", typeof(DateTime));
+	tepexpview.defineColumn("stop", typeof(DateTime));
+	tepexpview.defineColumn("adate", typeof(DateTime),false);
+	tepexpview.defineColumn("idreg", typeof(int));
+	tepexpview.defineColumn("registry", typeof(string));
+	tepexpview.defineColumn("doc", typeof(string));
+	tepexpview.defineColumn("docdate", typeof(DateTime));
+	tepexpview.defineColumn("idman", typeof(int));
+	tepexpview.defineColumn("manager", typeof(string));
+	tepexpview.defineColumn("idrelated", typeof(string));
+	tepexpview.defineColumn("flagaccountusage", typeof(int));
+	tepexpview.defineColumn("rateiattivi", typeof(string),true,true);
+	tepexpview.defineColumn("rateipassivi", typeof(string),true,true);
+	tepexpview.defineColumn("riscontiattivi", typeof(string),true,true);
+	tepexpview.defineColumn("riscontipassivi", typeof(string),true,true);
+	tepexpview.defineColumn("debit", typeof(string),true,true);
+	tepexpview.defineColumn("credit", typeof(string),true,true);
+	tepexpview.defineColumn("cost", typeof(string),true,true);
+	tepexpview.defineColumn("revenue", typeof(string),true,true);
+	tepexpview.defineColumn("fixedassets", typeof(string),true,true);
+	tepexpview.defineColumn("freeusesurplus", typeof(string),true,true);
+	tepexpview.defineColumn("captiveusesurplus", typeof(string),true,true);
+	tepexpview.defineColumn("reserve", typeof(string),true,true);
+	tepexpview.defineColumn("provision", typeof(string),true,true);
+	tepexpview.defineColumn("idaccmotive", typeof(string));
+	tepexpview.defineColumn("codemotive", typeof(string));
+	tepexpview.defineColumn("lt", typeof(DateTime),false);
+	tepexpview.defineColumn("lu", typeof(string),false);
+	tepexpview.defineColumn("ct", typeof(DateTime),false);
+	tepexpview.defineColumn("cu", typeof(string),false);
+	tepexpview.defineColumn("idsor01", typeof(int));
+	tepexpview.defineColumn("idsor02", typeof(int));
+	tepexpview.defineColumn("idsor03", typeof(int));
+	tepexpview.defineColumn("idsor04", typeof(int));
+	tepexpview.defineColumn("idsor05", typeof(int));
+	Tables.Add(tepexpview);
+
 	#endregion
 
 
@@ -314,6 +403,7 @@ private void initClass() {
 	Relations.Add(new DataRelation("epexp_epexp",cPar,cChild,false));
 
 	this.defineRelation("accmotive_epexp","accmotive","epexp","idaccmotive");
+	this.defineRelation("epexp_epexpview","epexp","epexpview","idepexp");
 	#endregion
 
 }

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoicescadenza]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoicescadenza]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_invoicescadenza]
 GO
 
@@ -21,11 +23,12 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+--setuser 'amm'
  
--- exp_invoicescadenza '2015', {ts '2015-12-31 00:00:00'}, {ts '2015-12-31 00:00:00'}, {ts '2015-12-31 00:00:00'}, {ts '2015-12-31 00:00:00'}, 'N','N', NULL, NULL, NULL, NULL, NULL
+-- exp_invoicescadenza '2020', {ts '2020-12-31 00:00:00'}, {ts '2020-12-31 00:00:00'}, {ts '2020-12-31 00:00:00'}, {ts '2020-12-31 00:00:00'}, 'N','N', NULL, NULL, NULL, NULL, NULL
 CREATE  PROCEDURE [exp_invoicescadenza](
 	@year 			int,  --,
-	@data_pagamento	datetime, -- Per le fatture pagate con fondo economale √® la data di registrazione dell'operazione
+	@data_pagamento	datetime, -- Per le fatture pagate con fondo economale Ë la data di registrazione dell'operazione
 	@data_scadenza	datetime,
 	@data_emissione_start	datetime,
 	@data_emissione_stop	datetime,
@@ -172,7 +175,7 @@ SELECT distinct
 				,0)
 			)
 	)
-	END  [Tot. Da contabilizzare],
+	END  [Tot. Da trasmettere],
 
 	CASE 
 		WHEN (profservice.idinvkind is null) THEN	totinvoiceview.taxabletotal 
@@ -280,7 +283,7 @@ SELECT distinct
 				,0)
 	) 
 	
-	END [Tot. Contabilizzato],
+	END [Tot. Trasmesso],
 
 
 	CONVERT(decimal(23,5),
@@ -422,7 +425,7 @@ SELECT distinct
 			),0) <> 0 THEN 'Parcella'
 	ELSE 'Fattura'
 	END [Tipo documento], 
-	'NA' [Desc. Tipo Documento Altro], -- Per le fatture e per le parcelle √® sempre NA
+	'NA' [Desc. Tipo Documento Altro], -- Per le fatture e per le parcelle Ë sempre NA
 	invoice.doc [Fattura],
 	invoice.docdate [Data emissione],
 	isnull((select distinct top 1 ep.cigcode from expense ep join expense ef on ep.idexp=ef.idexp join expenseprofservice ei on ef.idexp =  ei.idexp  where ei.ncon = profservice.ncon and ei.ycon=profservice.ycon)
@@ -747,4 +750,3 @@ GO
 SET ANSI_NULLS ON 
 GO
  
-	

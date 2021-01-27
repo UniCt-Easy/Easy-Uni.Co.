@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -381,7 +383,6 @@ namespace expense_procmissione { //spesaproceduramissione//
         private TextBox SubEntity_txtDelegato;
         private Label label7;
         private ComboBox SubEntity_cmbModPagamento;
-        private Label label38;
         private TextBox SubEntity_txtDescrModPagamento;
         private Label label40;
         private Label label32;
@@ -438,6 +439,7 @@ namespace expense_procmissione { //spesaproceduramissione//
         private TextBox txtEsercEntrata;
         private Label label39;
         private Button btnEntrata;
+        private Label label38;
         bool monofase = false;
 
 
@@ -526,6 +528,7 @@ namespace expense_procmissione { //spesaproceduramissione//
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_expense_procmissione));
 			this.btnGerarchia = new System.Windows.Forms.Button();
 			this.btnSituazioneMovimentoSpesa = new System.Windows.Forms.Button();
@@ -550,7 +553,7 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.cmbBollo = new System.Windows.Forms.ComboBox();
 			this.groupBox17 = new System.Windows.Forms.GroupBox();
 			this.txtDescrizione = new System.Windows.Forms.TextBox();
-			this.imageList1 = new System.Windows.Forms.ImageList();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.groupBox19 = new System.Windows.Forms.GroupBox();
 			this.txtDocumento = new System.Windows.Forms.TextBox();
 			this.label10 = new System.Windows.Forms.Label();
@@ -710,7 +713,6 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.SubEntity_txtDelegato = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
 			this.SubEntity_cmbModPagamento = new System.Windows.Forms.ComboBox();
-			this.label38 = new System.Windows.Forms.Label();
 			this.SubEntity_txtDescrModPagamento = new System.Windows.Forms.TextBox();
 			this.label40 = new System.Windows.Forms.Label();
 			this.label32 = new System.Windows.Forms.Label();
@@ -791,6 +793,7 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.txtDescrContoSupplier = new System.Windows.Forms.TextBox();
 			this.txtCodiceContoSupplier = new System.Windows.Forms.TextBox();
 			this.btnContoDebito = new System.Windows.Forms.Button();
+			this.label38 = new System.Windows.Forms.Label();
 			this.gboxDocumento.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.grpMandatoPagamento.SuspendLayout();
@@ -2683,6 +2686,7 @@ namespace expense_procmissione { //spesaproceduramissione//
 			// 
 			this.groupBox12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox12.Controls.Add(this.label38);
 			this.groupBox12.Controls.Add(this.label26);
 			this.groupBox12.Controls.Add(this.SubEntity_cmbChargeHandling);
 			this.groupBox12.Controls.Add(this.label24);
@@ -2700,7 +2704,6 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.groupBox12.Controls.Add(this.SubEntity_txtDelegato);
 			this.groupBox12.Controls.Add(this.label7);
 			this.groupBox12.Controls.Add(this.SubEntity_cmbModPagamento);
-			this.groupBox12.Controls.Add(this.label38);
 			this.groupBox12.Controls.Add(this.SubEntity_txtDescrModPagamento);
 			this.groupBox12.Controls.Add(this.label40);
 			this.groupBox12.Controls.Add(this.label32);
@@ -2898,16 +2901,6 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.SubEntity_cmbModPagamento.TabIndex = 2;
 			this.SubEntity_cmbModPagamento.Tag = "expenselast.idpaymethod?expenseview.idpaymethod";
 			this.SubEntity_cmbModPagamento.ValueMember = "idpaymethod";
-			// 
-			// label38
-			// 
-			this.label38.Location = new System.Drawing.Point(237, 143);
-			this.label38.Name = "label38";
-			this.label38.Size = new System.Drawing.Size(77, 20);
-			this.label38.TabIndex = 47;
-			this.label38.Tag = "";
-			this.label38.Text = "Descrizione:";
-			this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// SubEntity_txtDescrModPagamento
 			// 
@@ -3806,6 +3799,16 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.btnContoDebito.TabStop = false;
 			this.btnContoDebito.Tag = "Choose.account.tree.((flagaccountusage&48)<>0)";
 			this.btnContoDebito.Text = "Conto";
+			// 
+			// label38
+			// 
+			this.label38.Location = new System.Drawing.Point(6, 144);
+			this.label38.Name = "label38";
+			this.label38.Size = new System.Drawing.Size(320, 20);
+			this.label38.TabIndex = 80;
+			this.label38.Tag = "";
+			this.label38.Text = "Note per il Tesoriere-Rif.doc.esterno:";
+			this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// Frm_expense_procmissione
 			// 
@@ -6163,7 +6166,7 @@ namespace expense_procmissione { //spesaproceduramissione//
             if (InChiusura) return;
             if (!Meta.DrawStateIsDone) return;
             if (txtNumeroFasePrecedente.ReadOnly) return;
-
+            HelpForm.ExtLeaveIntTextBox(txtNumeroFasePrecedente,null);
 
             if (!Meta.InsertMode) return;
             if (txtNumeroFasePrecedente.Text.Trim() == "") {

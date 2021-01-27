@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -2471,16 +2473,14 @@ namespace expense_wizardinvoicedetail {
 
                 object idfinSelected = Liquid["idfin"];
                 object idupb = Liquid["idupb"];
-                object idmanagerSelected = Liquid["idman"];
-
-                if (idmanagerSelected == DBNull.Value) {
-                    string filterupb = QHC.CmpEq("idupb", idupb);
-                    if (DS.upb.Select(filterupb).Length == 0) {
-                        DataAccess.RUN_SELECT_INTO_TABLE(Conn, DS.upb, null, filterupb, null, true);
-                    }
-                    DataRow UPB = DS.upb.Select(filterupb)[0];
-                    idmanagerSelected = UPB["idman"];
+             
+                string filterupb = QHC.CmpEq("idupb", idupb);
+                if (DS.upb.Select(filterupb).Length == 0) {
+                    DataAccess.RUN_SELECT_INTO_TABLE(Conn, DS.upb, null, filterupb, null, true);
                 }
+                DataRow UPB = DS.upb.Select(filterupb)[0];
+                object idmanagerSelected = UPB["idman"];
+
                 //DataRow ParentR= FindParentRow(Mov, R, idfield_name);
                 DataRow ParentR = null;
                 decimal amount = assegnato;
@@ -2492,7 +2492,6 @@ namespace expense_wizardinvoicedetail {
 
                     DataRow NewSpesaRow = Exp.Get_New_Row(ParentR, Mov);
                     ParentR = NewSpesaRow;
-
 
                     FillMovimento(NewSpesaRow, amount, curridmanager, idreg, currdescr);
 
@@ -2655,7 +2654,12 @@ namespace expense_wizardinvoicedetail {
             DataSet DSP = DS.Copy();
             GestioneAutomatismi ga = new GestioneAutomatismi(this, Meta.Conn, Meta.Dispatcher,
                 DSP, fasespesamax, fasespesamax, "expense", true);
-            string newcomputesorting = Meta.Conn.DO_READ_VALUE("siopekind", QHC.CmpEq("codesorkind_siopespese", Meta.GetSys("codesorkind_siopespese")), "newcomputesorting").ToString();
+            string newcomputesorting = Meta.Conn.DO_READ_VALUE("siopekind",
+            QHS.AppAnd(QHS.CmpEq("codesorkind_siopespese", Meta.GetSys("codesorkind_siopespese")),
+                        QHS.CmpEq("ayear", CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")))
+                ),
+            "newcomputesorting")?.ToString();
+
             if (newcomputesorting == "S") {
                 ManageClassificazioni = new GestioneClassificazioni(Meta, null, null, null, null, null, null, null, null);
                 ManageClassificazioni.ClassificaTramiteClassDocumento(ga.DSP, DS);

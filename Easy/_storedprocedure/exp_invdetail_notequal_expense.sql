@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø
+
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_invdetail_notequal_expense]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_invdetail_notequal_expense]
 GO 
@@ -40,9 +42,9 @@ AS BEGIN
 				WHEN 2 THEN 'Commerciale'
 				WHEN 3 THEN 'Promiscua'
 				WHEN 4 THEN 'Altro'
-		   END as 'Tipo attivit√†',
+		   END as 'Tipo attivit‡',
 		   IRK.registerclass as 'Classe registro',
-		   I.invoicekind + ' n¬∞' + CONVERT(varchar(10), I.ninv) +'/' + CONVERT( varchar(4),I.yinv)  as 'Fattura',
+		   I.invoicekind + ' n∞' + CONVERT(varchar(10), I.ninv) +'/' + CONVERT( varchar(4),I.yinv)  as 'Fattura',
 		   CASE I.flagintracom
 				WHEN 'S' THEN 'Intra - UE'
 				WHEN 'N' THEN 'Italia'
@@ -100,7 +102,7 @@ AS BEGIN
 					+  isnull(( select sum(I2.iva_euro) from invoicedetailview I2 where I2.flagvariation ='N' and I2.idexp_iva = E.idexp),0) 
 						),0)
 		OR
-			--il pagamento √® collegato alla fattura soltanto attraverso expenseinvoice, ma non attraverso invoicedetail.idexp_iva 
+			--il pagamento Ë collegato alla fattura soltanto attraverso expenseinvoice, ma non attraverso invoicedetail.idexp_iva 
 			(select count(*) from invoicedetailview I3 where I3.flagvariation ='N'and I3.idexp_iva = E.idexp)=0
 		)
 
@@ -113,4 +115,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

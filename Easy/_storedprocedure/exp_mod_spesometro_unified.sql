@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_spesometro_unified]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_spesometro_unified]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_spesometro_unified]
 GO
 
@@ -26,7 +28,7 @@ GO
 CREATE       PROCEDURE [exp_mod_spesometro_unified](
 	@ayear int,
 	@kind char(1),  --F: op.esposte in fattura, B:op.da blacklist e va indicato anche il trimestre di riferimento
-	@trimestre int, -- Per B √® possibile specificare o il trimestre o il mese
+	@trimestre int, -- Per B Ë possibile specificare o il trimestre o il mese
 	@mese int 
 )
 AS BEGIN
@@ -151,9 +153,9 @@ select
 + REPLICATE('0',6) -- Protocollo documento da sostituire o da annullare
 + '1' -- Dati aggragati
 + '0' -- Dati analitici
-+ '1'	-- Quadro FA ‚Äì Operazioni documentate da fattura esposte in forma aggregata 
-+ '0'	-- Quadro SA ‚Äì Operazioni senza fattura esposte in forma aggregata = Registri corrispettivi. DA NON COMPILARE
-		--Quadro BL - Op.con soggetti aventi sede, residenza o domicilio in paesi con fiscalit√† privilegiata;Op.con soggetti non residenti in forma aggregata;Acquisti di servizi da non residenti in forma aggregata .
++ '1'	-- Quadro FA ñ Operazioni documentate da fattura esposte in forma aggregata 
++ '0'	-- Quadro SA ñ Operazioni senza fattura esposte in forma aggregata = Registri corrispettivi. DA NON COMPILARE
+		--Quadro BL - Op.con soggetti aventi sede, residenza o domicilio in paesi con fiscalit‡ privilegiata;Op.con soggetti non residenti in forma aggregata;Acquisti di servizi da non residenti in forma aggregata .
 + case	when (@kind='F') then '0'
 		else '1'
  end
@@ -163,13 +165,13 @@ select
 + '0'-- Quadro NR - Relativo alla comunicazione analitica 
 + '0'-- Quadro DF - Relativo alla comunicazione analitica 
 + '0'-- Quadro FN - Relativo alla comunicazione analitica 
-+ '0'-- Quadro SE ‚Äì Limitatamente agli acquisti con operatori di San Marino(scritto nel pdf).  Acquisti di servizi da non residenti e Acquisti da operatori di San Marino.
++ '0'-- Quadro SE ñ Limitatamente agli acquisti con operatori di San Marino(scritto nel pdf).  Acquisti di servizi da non residenti e Acquisti da operatori di San Marino.
 		-- Per SE faremo una exp a parte!!!
-+ '0'-- Quadro TU‚Äì  Operazioni legate al turismo. DA NON COMPILARE
++ '0'-- Quadro TUñ  Operazioni legate al turismo. DA NON COMPILARE
 + '1'-- Quadro TA- Riepilogo
 
 + @PivaEnte 
-+ @cudactivitycode -- Codice attivit√† ATECO
++ @cudactivitycode -- Codice attivit‡ ATECO
 + @TelEnte
 + @FaxEnte
 + @EmailEnte
@@ -218,7 +220,7 @@ select
 
 CREATE TABLE #RECORD_C(
 	idreg int,
-	Progressivo int , -- Impostare ad 1 per il primo modulo di ogni quadro compilato, incrementando tale valore di una unit√† per ogni ulteriore modulo
+	Progressivo int , -- Impostare ad 1 per il primo modulo di ogni quadro compilato, incrementando tale valore di una unit‡ per ogni ulteriore modulo
 -->> QUADRO FA - Operazioni documentate da fattura esposte in forma aggregata
 	FA001004_num_op_attive_aggregate int,
 	FA001005_num_op_passive_aggregate int,
@@ -234,7 +236,7 @@ CREATE TABLE #RECORD_C(
 	FA001015_var_credito_acqu  int,
 	FA001016_var_credito_imposta_acqu  int,
 -->>	QUADRO BL
---	 OPERAZIONI CON SOGGETTI AVENTI SEDE, RESIDENZA O DOMICILIO IN PAESI CON FISCALIT√Ä PRIVILEGIATA
+--	 OPERAZIONI CON SOGGETTI AVENTI SEDE, RESIDENZA O DOMICILIO IN PAESI CON FISCALIT¿ PRIVILEGIATA
 --	 OPERAZIONI CON SOGGETTI NON RESIDENTI IN FORMA AGGREGATA
 --	 ACQUISTI DI SERVIZI DA NON RESIDENTI IN FORMA AGGREGATA
 -- BL002
@@ -242,22 +244,22 @@ CREATE TABLE #RECORD_C(
 	BL002003_NonResident int,
 	BL002004_Acqu_NonResidenti int,
 -- Operazioni ATTIVE
--- BL003 - Operazioni imponibili, non imponibili ed esenti. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata" o "Operazioni con soggetti non residenti" 
+-- BL003 - Operazioni imponibili, non imponibili ed esenti. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata" o "Operazioni con soggetti non residenti" 
 	BL003001_importocomplessivo int,
 	BL003002_imposta int,
--- BL004 - Operazioni non soggette ad IVA. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata"
+-- BL004 - Operazioni non soggette ad IVA. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata"
 	BL004001_cessionebeni int,
 	BL004002_servizi int,
---BL005 - Note di variazione. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata" (caselle BL002002) 
+--BL005 - Note di variazione. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata" (caselle BL002002) 
 	BL005001_importocomplessivo int,
 	BL005002_imposta int,
 -- Operazioni PASSIVE
---BL006 - Operazioni imponibili, non imponibili ed esenti. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata" o "Operazioni con soggetti non residenti" 
+--BL006 - Operazioni imponibili, non imponibili ed esenti. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata" o "Operazioni con soggetti non residenti" 
 	BL006001_importocomplessivo int,
 	BL006002_imposta int,
--- BL007 - Operazioni non soggette ad IVA. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata" 
+-- BL007 - Operazioni non soggette ad IVA. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata" 
 	BL007001_importocomplessivo int,
--- BL008 - Note di variazione. La sezione pu√≤ essere compilata solo in caso di "Operazioni con paesi con fiscalit√† privilegiata" 
+-- BL008 - Note di variazione. La sezione puÚ essere compilata solo in caso di "Operazioni con paesi con fiscalit‡ privilegiata" 
 	BL008001_importocomplessivo int,
 	BL008002_imposta int
 )
@@ -555,14 +557,14 @@ CREATE TABLE #ANAGRAFICHE(
 	BL001005_provincia varchar(2),
 	BL001006_codicestatoestero int,
 	BL001007_denominazione varchar(100),
-	BL001008_citt√†estera varchar(65),
+	BL001008_citt‡estera varchar(65),
 	BL001009_codicestatoestero varchar(20), 
 	BL001010_indirizzoestero varchar(100),
 	BL002001_CodIVA varchar(20)
 )
 	
 -- Inserire Piva e CF delle anagrafiche del quadro FA	
--- Usiamo il distinct perch√® in #RECORD_C_UNIFIED, potrebbero esserci n righe per la stessa anagrafica, ma con FA001006_noleggioleasing diverso
+-- Usiamo il distinct perchË in #RECORD_C_UNIFIED, potrebbero esserci n righe per la stessa anagrafica, ma con FA001006_noleggioleasing diverso
 if (@kind='F')
 begin
 	INSERT INTO #ANAGRAFICHE(idreg, FA_piva,FA_cf)				
@@ -591,7 +593,7 @@ Begin
 		BL001006_codicestatoestero,	--Persona Fisica
 
 		BL001007_denominazione,		-- Persona NON Fisica
-		BL001008_citt√†estera,		-- Persona NON Fisica
+		BL001008_citt‡estera,		-- Persona NON Fisica
 		BL001009_codicestatoestero, -- Persona NON Fisica
 		BL001010_indirizzoestero,	-- Persona NON Fisica
 		BL002001_CodIVA 
@@ -622,7 +624,7 @@ Begin
 		END,
 		CASE 
 			WHEN idregistryclass = 22 and RA.flagforeign='S'
-			then 'EE'-->La Provincia estera di nascita √® rappresentata dalla sigla 'EE'
+			then 'EE'-->La Provincia estera di nascita Ë rappresentata dalla sigla 'EE'
 			WHEN idregistryclass = 22 and RA.flagforeign='N' 
 			THEN CITY_BIRTH.provincecode
 			ELSE null
@@ -637,7 +639,7 @@ Begin
 			THEN R.title
 			ELSE null
 		END,
-		-- BL001008_citt√†estera: Citt√† estera delle Sede legale
+		-- BL001008_citt‡estera: Citt‡ estera delle Sede legale
 		CASE 
 			WHEN idregistryclass <> 22 and (NATION_ADDRESS.title IS NOT NULL )
 			THEN NATION_ADDRESS.title
@@ -909,7 +911,7 @@ BEGIN
 		+ CASE when (A.BL001001_cognome is not null) then 'BL001005' + BL001005_provincia else''  end
 		+ CASE when (A.BL001001_cognome is not null) then 'BL001006' + convert(varchar(4),BL001006_codicestatoestero) else''  end
 		+ case when (A.BL001007_denominazione is not null) then 'BL001007' + BL001007_denominazione else''  end
-		+ case when (A.BL001007_denominazione is not null) then 'BL001008' + BL001008_citt√†estera else''  end
+		+ case when (A.BL001007_denominazione is not null) then 'BL001008' + BL001008_citt‡estera else''  end
 		+ case when (A.BL001007_denominazione is not null) then 'BL001009' + convert(varchar(4),BL001009_codicestatoestero) else''  end
 		+ case when (A.BL001007_denominazione is not null) then 'BL001010' + BL001010_indirizzoestero else''  end
 		+ case when isnull(A.BL001001_cognome,A.BL001007_denominazione) is not null and BL002001_CodIVA is not null then 'BL002001' + BL002001_CodIVA else''  end
@@ -949,7 +951,7 @@ declare @CountFA int
 select @CountFA = max(Progressivo) from #RECORD_C_UNIFIED
 
 -- Poi andremo ad inserire 3 rige di RECORD_C_UNIFIED in 1 riga_recC di #RECORD_C_UNIFIED_FA come FA001, FA002, FA003
--- Quindi il numero di righe di #RECORD_C_UNIFIED_FA, √® il numero di Record C del file finale.
+-- Quindi il numero di righe di #RECORD_C_UNIFIED_FA, Ë il numero di Record C del file finale.
 declare @CountC int
 select @CountC = max(riga_recC) from #RECORD_C_UNIFIED_FA
 
@@ -1034,7 +1036,7 @@ FROM #traceByRecord where recordkind='E'
 
 INSERT INTO #trace (out_str, orderrow) SELECT out_str,5 FROM #traceByRecord where recordkind='Z'
 
--- Il file viene creato SOLO se √® stato compilato il Record C, contente gli importi.
+-- Il file viene creato SOLO se Ë stato compilato il Record C, contente gli importi.
 if ( select count(*) from #traceByRecord where recordkind='C')>0
 Begin
 	SELECT out_str FROM #trace order by orderrow
@@ -1054,4 +1056,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

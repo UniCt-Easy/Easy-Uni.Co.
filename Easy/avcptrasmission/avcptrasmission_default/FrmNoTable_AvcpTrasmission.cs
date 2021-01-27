@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -135,7 +137,7 @@ namespace avcptrasmission_default {
             tLottiProf.AcceptChanges();
 
             int nlotti = tLotti.Rows.Count + tLottiProf.Rows.Count;
-            MessageBox.Show("Lotti trovati:" + nlotti, "Avviso");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("Lotti trovati:" + nlotti, "Avviso");
             if (nlotti == 0) {
                 VisualizzaAvvisi();
                 return;
@@ -159,7 +161,7 @@ namespace avcptrasmission_default {
                 string filename = filedir + getSimpleDataFilename(0);
                 StringBuilder s=getDataFile(header,currDS);
                 writeStringToFile(filename, s.ToString());
-                MessageBox.Show("Creato il file " + filename, "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Creato il file " + filename, "Avviso");
                 VisualizzaAvvisi();
                 return;
             }
@@ -176,7 +178,7 @@ namespace avcptrasmission_default {
                 string fdataName = filedir + getSimpleDataFilename(num);
                 writeStringToFile(fdataName, d.ToString());
             }
-            MessageBox.Show("Creati i file: " + getSimpleIndexName + " e " + getSimpleDataFilename(1) +
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("Creati i file: " + getSimpleIndexName + " e " + getSimpleDataFilename(1) +
                   " - " + getSimpleDataFilename(allDataSet.Count) + " nella cartella " +
                   filedir, "Avviso");
             VisualizzaAvvisi();
@@ -383,7 +385,7 @@ namespace avcptrasmission_default {
                     "select a.* from mandateavcp a "+
                     "join mandateavcpdetail d "
                     + " on a.idmankind=d.idmankind and a.yman=d.yman and a.nman=d.nman "
-                    + "and isnull(a.idmain_avcp,a.idavcp)=d.idavcp " +       //10256 tutto il gruppo √® da considerarsi in blocco
+                    + "and isnull(a.idmain_avcp,a.idavcp)=d.idavcp " +       //10256 tutto il gruppo Ë da considerarsi in blocco
                     " where " + QHS.AppAnd(QHS.CmpEq("d.idmankind", rManCig["idmankind"]),
                                     QHS.CmpEq("d.yman", rManCig["yman"]),
                                     QHS.CmpEq("d.nman", rManCig["nman"]),
@@ -410,7 +412,7 @@ namespace avcptrasmission_default {
                     "select a.* from profserviceavcp a " +
                     "join profserviceavcpdetail d "
                     + " on a.ycon = d.ycon and a.ncon = d.ncon "
-                    + "and isnull(a.idmain_avcp,a.idavcp)=d.idavcp " +       //10256 tutto il gruppo √® da considerarsi in blocco
+                    + "and isnull(a.idmain_avcp,a.idavcp)=d.idavcp " +       //10256 tutto il gruppo Ë da considerarsi in blocco
                     " where " + QHS.AppAnd(QHS.CmpEq("d.ycon", rProfCig["ycon"]),
                                     QHS.CmpEq("d.ncon", rProfCig["ncon"]),
                                     QHS.CmpEq("d.cigcode", cigcode)), false);
@@ -466,7 +468,7 @@ namespace avcptrasmission_default {
         }
         string getListaAggiudicatari(DataRow rManCig, DataTable Partecipanti) {
             StringBuilder s = new StringBuilder();
-            //Stabilisce chi √® l'aggiudicatario
+            //Stabilisce chi Ë l'aggiudicatario
             object idavcp = rManCig["idavcp"];
             DataRow []found = Partecipanti.Select(QHC.CmpEq("idavcp", idavcp));
             if (found.Length == 0) {

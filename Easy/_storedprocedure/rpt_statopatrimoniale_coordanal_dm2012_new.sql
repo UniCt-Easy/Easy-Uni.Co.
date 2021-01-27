@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_statopatrimoniale_coordanal_dm2012_new]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_statopatrimoniale_coordanal_dm2012_new]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_statopatrimoniale_coordanal_dm2012_new]
 GO
 	
@@ -98,9 +100,9 @@ Begin
 		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02) AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
 End	
- -- [***] Questo riempimento di @ANALITICA1 verr√† usato solo per i conti d'ordine
+ -- [***] Questo riempimento di @ANALITICA1 verr‡ usato solo per i conti d'ordine
 
---	Il par. MOSTRA COORDINATA ANALITICA entra in gioco quando idsor1 √® null, 
+--	Il par. MOSTRA COORDINATA ANALITICA entra in gioco quando idsor1 Ë null, 
 --	se MOSTRA COORDINATA ANALITICA = S allora vogliamo vedere tutte le idsor1
 --	se MOSTRA COORDINATA ANALITICA = N vogliamo la stampa senza considerare le idsor1, ossia quella 'vecchia'
 
@@ -129,8 +131,8 @@ end
 	 kind char(10) /*Costi o Ricavi, Voce aggregata, SuTotali e Totali */, 
 	 parent_label varchar(300), segno int, 
 	 _idsor1 int,
-	 mostra char(1),-- Assume valore S o N o P.		Se S verr√† mostrata nella stampa, se N non verr√† passata al report, 
-												--	Se P verr√† passata al report e mostrata traparentesi solo l'importo, la denominazione verr√† nascosta
+	 mostra char(1),-- Assume valore S o N o P.		Se S verr‡ mostrata nella stampa, se N non verr‡ passata al report, 
+												--	Se P verr‡ passata al report e mostrata traparentesi solo l'importo, la denominazione verr‡ nascosta
 	 ordinestampa int --identity(1,1)
 	 )  
 	
@@ -142,8 +144,8 @@ end
 	 kind char(10) /*Costi o Ricavi, Voce aggregata, SuTotali e Totali */, 
 	 parent_label varchar(300), segno int, 
 	 _idsor1 int,
-	 mostra char(1),-- Assume valore S o N o P.		Se S verr√† mostrata nella stampa, se N non verr√† passata al report, 
-												--	Se P verr√† passata al report e mostrata traparentesi solo l'importo, la denominazione verr√† nascosta
+	 mostra char(1),-- Assume valore S o N o P.		Se S verr‡ mostrata nella stampa, se N non verr‡ passata al report, 
+												--	Se P verr‡ passata al report e mostrata traparentesi solo l'importo, la denominazione verr‡ nascosta
 	 ordinestampa int --identity(1,1)
 	 --ordinestampa_in int identity(1,1)
 	 )  
@@ -221,17 +223,17 @@ Begin
 			INSERT INTO #STRUTTURA  SELECT 0,'4) Crediti verso l''Unione Europea e Resto del Mondo', 'B) II 4)o', 0,0,0,0, 'A' ,'B) II 4)'					,1, _idsor1,'N',330 from  @ANALITICA1
 		end
 
-		INSERT INTO #STRUTTURA  SELECT 1,'5) Crediti verso Universit√†', 'B) II 5)', 0,0,0,0, 'A' ,'TOTALE CREDITI'	,1, _idsor1,'S' ,340 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'5) Crediti verso Universit√†', 'B) II 5)e', 0,0,0,0, 'A' ,'B) II 5)',		1, _idsor1,'P'	,341 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'5) Crediti verso Universit√†', 'B) II 5)o', 0,0,0,0, 'A' ,'B) II 5)',		1, _idsor1,'N'	,350 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 1,'5) Crediti verso Universit‡', 'B) II 5)', 0,0,0,0, 'A' ,'TOTALE CREDITI'	,1, _idsor1,'S' ,340 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'5) Crediti verso Universit‡', 'B) II 5)e', 0,0,0,0, 'A' ,'B) II 5)',		1, _idsor1,'P'	,341 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'5) Crediti verso Universit‡', 'B) II 5)o', 0,0,0,0, 'A' ,'B) II 5)',		1, _idsor1,'N'	,350 from  @ANALITICA1
 
 		INSERT INTO #STRUTTURA  SELECT 1,'6) Crediti verso studenti per tasse e contributi', 'B) II 6)', 0,0,0,0, 'A' ,'TOTALE CREDITI',1, _idsor1,'S',360 from  @ANALITICA1
 		INSERT INTO #STRUTTURA  SELECT 0,'6) Crediti verso studenti per tasse e contributi', 'B) II 6)e', 0,0,0,0, 'A' ,'B) II 6)',1, _idsor1,'P',361 from  @ANALITICA1
 		INSERT INTO #STRUTTURA  SELECT 0,'6) Crediti verso studenti per tasse e contributi', 'B) II 6)o', 0,0,0,0, 'A' ,'B) II 6)',1, _idsor1,'N',370 from  @ANALITICA1
 
-		INSERT INTO #STRUTTURA  SELECT 1,'7) Crediti verso Societ√† ed enti controllati', 'B) II 7)', 0,0,0,0, 'A' ,'TOTALE CREDITI',1, _idsor1,'S',380  from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'7) Crediti verso Societ√† ed enti controllati', 'B) II 7)e', 0,0,0,0, 'A' ,'B) II 7)',1, _idsor1,'P',381 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'7) Crediti verso Societ√† ed enti controllati', 'B) II 7)o', 0,0,0,0, 'A' ,'B) II 7)',1, _idsor1,'N' ,390 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 1,'7) Crediti verso Societ‡ ed enti controllati', 'B) II 7)', 0,0,0,0, 'A' ,'TOTALE CREDITI',1, _idsor1,'S',380  from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'7) Crediti verso Societ‡ ed enti controllati', 'B) II 7)e', 0,0,0,0, 'A' ,'B) II 7)',1, _idsor1,'P',381 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'7) Crediti verso Societ‡ ed enti controllati', 'B) II 7)o', 0,0,0,0, 'A' ,'B) II 7)',1, _idsor1,'N' ,390 from  @ANALITICA1
 
 		INSERT INTO #STRUTTURA  SELECT 1,'8) Crediti verso altri (pubblici)', 'B) II 8)', 0,0,0,0,	'A' ,'TOTALE CREDITI',1, _idsor1,'S',400 from  @ANALITICA1
 		INSERT INTO #STRUTTURA  SELECT 0,'8) Crediti verso altri (pubblici)', 'B) II 8)e', 0,0,0,0,	'A' ,'B) II 8)',1, _idsor1,'P' ,401 from  @ANALITICA1
@@ -317,7 +319,7 @@ Begin
 		INSERT INTO #STRUTTURA  SELECT 2,'D)	DEBITI (con separata indicazione, per ciascuna voce, degli importi esigibili oltre l''esercizio successivo)', null, 0,0,0,0, 'P' ,null,null , _idsor1,'S',210 from  @ANALITICA1
 		INSERT INTO #STRUTTURA  SELECT 0,null, null, 0,0,0,0, 'P' ,null, 1, null,'N' , 220 from  @ANALITICA1 -- Fittizia
 		INSERT INTO #STRUTTURA  SELECT 1,'1) Mutui e Debiti verso banche', 'D) 1)', 0,0,0,0, 'P', 'TOTALE DEBITI (D)',1   ,	_idsor1,'S' ,230 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'1) Mutui e Debiti verso banche', 'D) 1)e', 0,0,0,0, 'P', 'D) 1)',1   ,				_idsor1,'N' ,231 from  @ANALITICA1 -- hanno lo stesso ordine stampa perch√® solo P verr√† visualizzato
+		INSERT INTO #STRUTTURA  SELECT 0,'1) Mutui e Debiti verso banche', 'D) 1)e', 0,0,0,0, 'P', 'D) 1)',1   ,				_idsor1,'N' ,231 from  @ANALITICA1 -- hanno lo stesso ordine stampa perchË solo P verr‡ visualizzato
 		INSERT INTO #STRUTTURA  SELECT 0,'1) Mutui e Debiti verso banche', 'D) 1)o', 0,0,0,0, 'P', 'D) 1)',1   ,				_idsor1,'P' ,240 from  @ANALITICA1
 
 		INSERT INTO #STRUTTURA  SELECT 1,'2) Debiti verso MIUR e altre Amministrazioni centrali',  'D) 2)',	0,0,0,0, 'P'  , 'TOTALE DEBITI (D)',1  , _idsor1,'S',250 from  @ANALITICA1
@@ -344,9 +346,9 @@ Begin
 			 INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea  e Resto del Mondo', 'D) 5)e', 0,0,0,0, 'P' , 'D) 5)',1  , _idsor1,'N',311 from  @ANALITICA1
 			 INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea  e Resto del Mondo', 'D) 5)o', 0,0,0,0, 'P' ,'D) 5)',1  , _idsor1,'P' ,320 from  @ANALITICA1
 			 end
-		INSERT INTO #STRUTTURA  SELECT 1,'6) Debiti verso Universit√†',	'D) 6)', 0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , _idsor1,'S',325 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Universit√†',	'D) 6)e', 0,0,0,0, 'P' , 'D) 6)',1  , _idsor1,'N',326 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Universit√†',	'D) 6)o', 0,0,0,0, 'P' , 'D) 6)',1  , _idsor1,'P' ,330 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 1,'6) Debiti verso Universit‡',	'D) 6)', 0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , _idsor1,'S',325 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Universit‡',	'D) 6)e', 0,0,0,0, 'P' , 'D) 6)',1  , _idsor1,'N',326 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Universit‡',	'D) 6)o', 0,0,0,0, 'P' , 'D) 6)',1  , _idsor1,'P' ,330 from  @ANALITICA1
 
 
 		INSERT INTO #STRUTTURA  SELECT 1,'7) Debiti verso studenti',		'D) 7)', 0,0,0,0, 'P', 'TOTALE DEBITI (D)',1   , _idsor1,'S',340 from  @ANALITICA1
@@ -365,9 +367,9 @@ Begin
 		INSERT INTO #STRUTTURA  SELECT 0,'10) Debiti verso dipendenti',	'D) 10)e',  0,0,0,0, 'P' , 'D) 10)',1  , _idsor1,'N' ,401 from  @ANALITICA1
 		INSERT INTO #STRUTTURA  SELECT 0,'10) Debiti verso dipendenti',	'D) 10)o',  0,0,0,0, 'P' , 'D) 10)',1  , _idsor1,'P' ,410 from  @ANALITICA1
 
-		INSERT INTO #STRUTTURA  SELECT 1,'11) Debiti verso societ√† o enti controllati', 'D) 11)', 0,0,0,0, 'P'  , 'TOTALE DEBITI (D)',1  , _idsor1,'S' ,420 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso societ√† o enti controllati', 'D) 11)e', 0,0,0,0, 'P'  , 'D) 11)',1  , _idsor1,'N' ,421 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso societ√† o enti controllati', 'D) 11)o', 0,0,0,0, 'P'  , 'D) 11)',1  , _idsor1,'P',430 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 1,'11) Debiti verso societ‡ o enti controllati', 'D) 11)', 0,0,0,0, 'P'  , 'TOTALE DEBITI (D)',1  , _idsor1,'S' ,420 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso societ‡ o enti controllati', 'D) 11)e', 0,0,0,0, 'P'  , 'D) 11)',1  , _idsor1,'N' ,421 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso societ‡ o enti controllati', 'D) 11)o', 0,0,0,0, 'P'  , 'D) 11)',1  , _idsor1,'P',430 from  @ANALITICA1
 
 		INSERT INTO #STRUTTURA  SELECT 1,'12) Altri debiti',				'D) 12)', 0,0,0,0, 'P', 'TOTALE DEBITI (D)',1    , _idsor1,'S',440 from  @ANALITICA1
 		INSERT INTO #STRUTTURA  SELECT 0,'12) Altri debiti',				'D) 12)e', 0,0,0,0, 'P', 'D) 12)',1    , _idsor1,'N' ,441 from  @ANALITICA1
@@ -483,17 +485,17 @@ Begin
 			INSERT INTO #STRUTTURA  SELECT 0,'4) Crediti verso l''Unione Europea e Resto del Mondo', 'B) II 4)o', 0,0,0,0, 'A' ,'B) II 4)'					,1, @idsor1,'N',330  
 		end
 
-		INSERT INTO #STRUTTURA  SELECT 1,'5) Crediti verso Universit√†', 'B) II 5)', 0,0,0,0, 'A' ,'TOTALE CREDITI'	,1, @idsor1,'S' ,340  
-		INSERT INTO #STRUTTURA  SELECT 0,'5) Crediti verso Universit√†', 'B) II 5)e', 0,0,0,0, 'A' ,'B) II 5)',		1, @idsor1,'P'	,341  
-		INSERT INTO #STRUTTURA  SELECT 0,'5) Crediti verso Universit√†', 'B) II 5)o', 0,0,0,0, 'A' ,'B) II 5)',		1, @idsor1,'N'	,350  
+		INSERT INTO #STRUTTURA  SELECT 1,'5) Crediti verso Universit‡', 'B) II 5)', 0,0,0,0, 'A' ,'TOTALE CREDITI'	,1, @idsor1,'S' ,340  
+		INSERT INTO #STRUTTURA  SELECT 0,'5) Crediti verso Universit‡', 'B) II 5)e', 0,0,0,0, 'A' ,'B) II 5)',		1, @idsor1,'P'	,341  
+		INSERT INTO #STRUTTURA  SELECT 0,'5) Crediti verso Universit‡', 'B) II 5)o', 0,0,0,0, 'A' ,'B) II 5)',		1, @idsor1,'N'	,350  
 
 		INSERT INTO #STRUTTURA  SELECT 1,'6) Crediti verso studenti per tasse e contributi', 'B) II 6)', 0,0,0,0, 'A' ,'TOTALE CREDITI',1, @idsor1,'S',360  
 		INSERT INTO #STRUTTURA  SELECT 0,'6) Crediti verso studenti per tasse e contributi', 'B) II 6)e', 0,0,0,0, 'A' ,'B) II 6)',1, @idsor1,'P',361  
 		INSERT INTO #STRUTTURA  SELECT 0,'6) Crediti verso studenti per tasse e contributi', 'B) II 6)o', 0,0,0,0, 'A' ,'B) II 6)',1, @idsor1,'N',370  
 
-		INSERT INTO #STRUTTURA  SELECT 1,'7) Crediti verso Societ√† ed enti controllati', 'B) II 7)', 0,0,0,0, 'A' ,'TOTALE CREDITI',1, @idsor1,'S',380   
-		INSERT INTO #STRUTTURA  SELECT 0,'7) Crediti verso Societ√† ed enti controllati', 'B) II 7)e', 0,0,0,0, 'A' ,'B) II 7)',1, @idsor1,'P',381  
-		INSERT INTO #STRUTTURA  SELECT 0,'7) Crediti verso Societ√† ed enti controllati', 'B) II 7)o', 0,0,0,0, 'A' ,'B) II 7)',1, @idsor1,'N' ,390  
+		INSERT INTO #STRUTTURA  SELECT 1,'7) Crediti verso Societ‡ ed enti controllati', 'B) II 7)', 0,0,0,0, 'A' ,'TOTALE CREDITI',1, @idsor1,'S',380   
+		INSERT INTO #STRUTTURA  SELECT 0,'7) Crediti verso Societ‡ ed enti controllati', 'B) II 7)e', 0,0,0,0, 'A' ,'B) II 7)',1, @idsor1,'P',381  
+		INSERT INTO #STRUTTURA  SELECT 0,'7) Crediti verso Societ‡ ed enti controllati', 'B) II 7)o', 0,0,0,0, 'A' ,'B) II 7)',1, @idsor1,'N' ,390  
 
 		INSERT INTO #STRUTTURA  SELECT 1,'8) Crediti verso altri (pubblici)', 'B) II 8)', 0,0,0,0,	'A' ,'TOTALE CREDITI',1, @idsor1,'S',400  
 		INSERT INTO #STRUTTURA  SELECT 0,'8) Crediti verso altri (pubblici)', 'B) II 8)e', 0,0,0,0,	'A' ,'B) II 8)',1, @idsor1,'P' ,401  
@@ -579,7 +581,7 @@ Begin
 		INSERT INTO #STRUTTURA  SELECT 2,'D)	DEBITI (con separata indicazione, per ciascuna voce, degli importi esigibili oltre l''esercizio successivo)', null, 0,0,0,0, 'P' ,null,null , @idsor1,'S',210  
 		INSERT INTO #STRUTTURA  SELECT 0,null, null, 0,0,0,0, 'P' ,null, 1, null,'N' , 220   -- Fittizia
 		INSERT INTO #STRUTTURA  SELECT 1,'1) Mutui e Debiti verso banche', 'D) 1)', 0,0,0,0, 'P', 'TOTALE DEBITI (D)',1   ,	@idsor1,'S' ,230  
-		INSERT INTO #STRUTTURA  SELECT 0,'1) Mutui e Debiti verso banche', 'D) 1)e', 0,0,0,0, 'P', 'D) 1)',1   ,				@idsor1,'N' ,231   -- hanno lo stesso ordine stampa perch√® solo P verr√† visualizzato
+		INSERT INTO #STRUTTURA  SELECT 0,'1) Mutui e Debiti verso banche', 'D) 1)e', 0,0,0,0, 'P', 'D) 1)',1   ,				@idsor1,'N' ,231   -- hanno lo stesso ordine stampa perchË solo P verr‡ visualizzato
 		INSERT INTO #STRUTTURA  SELECT 0,'1) Mutui e Debiti verso banche', 'D) 1)o', 0,0,0,0, 'P', 'D) 1)',1   ,				@idsor1,'P' ,240  
 
 		INSERT INTO #STRUTTURA  SELECT 1,'2) Debiti verso MIUR e altre Amministrazioni centrali',  'D) 2)',	0,0,0,0, 'P'  , 'TOTALE DEBITI (D)',1  , @idsor1,'S',250  
@@ -606,9 +608,9 @@ Begin
 			 INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea  e Resto del Mondo', 'D) 5)e', 0,0,0,0, 'P' , 'D) 5)',1  , @idsor1,'N',311  
 			 INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea  e Resto del Mondo', 'D) 5)o', 0,0,0,0, 'P' ,'D) 5)',1  , @idsor1,'P' ,320  
 			 end
-		INSERT INTO #STRUTTURA  SELECT 1,'6) Debiti verso Universit√†',	'D) 6)', 0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , @idsor1,'S',325  
-		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Universit√†',	'D) 6)e', 0,0,0,0, 'P' , 'D) 6)',1  , @idsor1,'N',326  
-		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Universit√†',	'D) 6)o', 0,0,0,0, 'P' , 'D) 6)',1  , @idsor1,'P' ,330  
+		INSERT INTO #STRUTTURA  SELECT 1,'6) Debiti verso Universit‡',	'D) 6)', 0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , @idsor1,'S',325  
+		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Universit‡',	'D) 6)e', 0,0,0,0, 'P' , 'D) 6)',1  , @idsor1,'N',326  
+		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Universit‡',	'D) 6)o', 0,0,0,0, 'P' , 'D) 6)',1  , @idsor1,'P' ,330  
 
 
 		INSERT INTO #STRUTTURA  SELECT 1,'7) Debiti verso studenti',		'D) 7)', 0,0,0,0, 'P', 'TOTALE DEBITI (D)',1   , @idsor1,'S',340  
@@ -627,9 +629,9 @@ Begin
 		INSERT INTO #STRUTTURA  SELECT 0,'10) Debiti verso dipendenti',	'D) 10)e',  0,0,0,0, 'P' , 'D) 10)',1  , @idsor1,'N' ,401  
 		INSERT INTO #STRUTTURA  SELECT 0,'10) Debiti verso dipendenti',	'D) 10)o',  0,0,0,0, 'P' , 'D) 10)',1  , @idsor1,'P' ,410  
 
-		INSERT INTO #STRUTTURA  SELECT 1,'11) Debiti verso societ√† o enti controllati', 'D) 11)', 0,0,0,0, 'P'  , 'TOTALE DEBITI (D)',1  , @idsor1,'S' ,420  
-		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso societ√† o enti controllati', 'D) 11)e', 0,0,0,0, 'P'  , 'D) 11)',1  , @idsor1,'N' ,421  
-		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso societ√† o enti controllati', 'D) 11)o', 0,0,0,0, 'P'  , 'D) 11)',1  , @idsor1,'P',430  
+		INSERT INTO #STRUTTURA  SELECT 1,'11) Debiti verso societ‡ o enti controllati', 'D) 11)', 0,0,0,0, 'P'  , 'TOTALE DEBITI (D)',1  , @idsor1,'S' ,420  
+		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso societ‡ o enti controllati', 'D) 11)e', 0,0,0,0, 'P'  , 'D) 11)',1  , @idsor1,'N' ,421  
+		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso societ‡ o enti controllati', 'D) 11)o', 0,0,0,0, 'P'  , 'D) 11)',1  , @idsor1,'P',430  
 
 		INSERT INTO #STRUTTURA  SELECT 1,'12) Altri debiti',				'D) 12)', 0,0,0,0, 'P', 'TOTALE DEBITI (D)',1    , @idsor1,'S',440  
 		INSERT INTO #STRUTTURA  SELECT 0,'12) Altri debiti',				'D) 12)e', 0,0,0,0, 'P', 'D) 12)',1    , @idsor1,'N' ,441  
@@ -674,7 +676,7 @@ Begin
 		------------------------------------------------------------------------------------------------
 End
 
--- SE VOGLIO VEDERLE TUTTE o VOGLIO VEDERE una specifica IDSOR1 PI√π I FIGLI:
+-- SE VOGLIO VEDERLE TUTTE o VOGLIO VEDERE una specifica IDSOR1 PI˘ I FIGLI:
 if ((@idsor1 is null) or (@idsor1 is not null and @showcoordanal = 'S'))
 Begin
 		INSERT INTO #IMPORTI_CLASS(label, codepatrimony,kind, _idsor1,_curramountAttivo, ordinestampa,nlevel, parent_label, segno ,mostra)
@@ -988,7 +990,7 @@ End
 		SELECT #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, isnull(SUM(child._prevamountPassivo),0), isnull(SUM(child._curramountPassivo),0), isnull(sum(child._prevamountAttivo),0), isnull(sum(child._curramountAttivo),0),
 			#STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
 		FROM #IMPORTI_CLASS child
-		JOIN  #STRUTTURA	--√® il padre
+		JOIN  #STRUTTURA	--Ë il padre
 			ON child.parent_label = #STRUTTURA.codepatrimony and child.nlevel = 0 and #STRUTTURA._idsor1 = child._idsor1 and  #STRUTTURA.kind =child.kind
 		WHERE #STRUTTURA.nlevel = 1  
 		group by #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, #STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
@@ -998,7 +1000,7 @@ End
 		SELECT #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, isnull(SUM(child._prevamountPassivo),0), isnull(SUM(child._curramountPassivo),0), isnull(sum(child._prevamountAttivo),0), isnull(sum(child._curramountAttivo),0),
 			#STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
 		FROM #IMPORTI_CLASS child
-		JOIN  #STRUTTURA	--√® il padre
+		JOIN  #STRUTTURA	--Ë il padre
 			ON child.parent_label = isnull(#STRUTTURA.codepatrimony,#STRUTTURA.label) and child.nlevel = 1 and #STRUTTURA._idsor1 = child._idsor1 and  #STRUTTURA.kind =child.kind
 		WHERE  #STRUTTURA.nlevel = 2 --and #STRUTTURA.codepatrimony is not null
 		group by #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, #STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
@@ -1008,7 +1010,7 @@ End
 		SELECT #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, isnull(SUM(child._prevamountPassivo),0), isnull(SUM(child._curramountPassivo),0), isnull(sum(child._prevamountAttivo),0), isnull(sum(child._curramountAttivo),0),
 			#STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
 		FROM #IMPORTI_CLASS child
-		JOIN  #STRUTTURA	--√® il padre
+		JOIN  #STRUTTURA	--Ë il padre
 			ON child.parent_label = isnull(#STRUTTURA.codepatrimony,#STRUTTURA.label) and child.nlevel in(1,2) and #STRUTTURA._idsor1 = child._idsor1 and  #STRUTTURA.kind =child.kind
 		WHERE  #STRUTTURA.nlevel = 3 
 		group by #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, #STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
@@ -1017,7 +1019,7 @@ End
 		SELECT #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, isnull(SUM(child._prevamountPassivo),0), isnull(SUM(child._curramountPassivo),0), isnull(sum(child._prevamountAttivo),0), isnull(sum(child._curramountAttivo),0),
 			#STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
 		FROM #IMPORTI_CLASS child
-		JOIN  #STRUTTURA	--√® il padre
+		JOIN  #STRUTTURA	--Ë il padre
 			ON child.parent_label = isnull(#STRUTTURA.codepatrimony,#STRUTTURA.label) and child.nlevel = 3 and #STRUTTURA._idsor1 = child._idsor1 and  #STRUTTURA.kind =child.kind
 		WHERE  #STRUTTURA.nlevel = 4 
 		group by #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, #STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
@@ -1026,7 +1028,7 @@ End
 	SELECT #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, 0, 0, isnull(sum(child._prevamountAttivo),0), isnull(sum(child._curramountAttivo),0),
 		#STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
 	FROM #IMPORTI_CLASS child
-	JOIN  #STRUTTURA	--√® il padre
+	JOIN  #STRUTTURA	--Ë il padre
 		ON child.parent_label = #STRUTTURA.label and #STRUTTURA._idsor1 = child._idsor1 and  #STRUTTURA.kind =child.kind
 	WHERE #STRUTTURA.label = ('TOTALE ATTIVO') and #STRUTTURA.kind ='A' and #STRUTTURA.mostra='S'
 	group by #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, #STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
@@ -1036,7 +1038,7 @@ End
 	SELECT #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, isnull(SUM(child._prevamountPassivo),0), isnull(SUM(child._curramountPassivo),0), 0, 0,
 		#STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
 	FROM #IMPORTI_CLASS child
-	JOIN  #STRUTTURA	--√® il padre
+	JOIN  #STRUTTURA	--Ë il padre
 		ON child.parent_label = #STRUTTURA.label and #STRUTTURA._idsor1 = child._idsor1 and  #STRUTTURA.kind =child.kind
 	WHERE #STRUTTURA.label = ('TOTALE PASSIVO')  and #STRUTTURA.kind ='P' and #STRUTTURA.mostra='S'
 	group by #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, #STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
@@ -1045,7 +1047,7 @@ End
 	SELECT #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, 0, 0, isnull(sum(child._prevamountAttivo),0), isnull(sum(child._curramountAttivo),0),
 		#STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
 	FROM #IMPORTI_CLASS child
-	JOIN  #STRUTTURA	--√® il padre
+	JOIN  #STRUTTURA	--Ë il padre
 		ON child.parent_label = #STRUTTURA.label and #STRUTTURA._idsor1 = child._idsor1 and  #STRUTTURA.kind =child.kind
 	WHERE #STRUTTURA.label = ('TOTALE CREDITI(e)') and #STRUTTURA.kind ='A' and #STRUTTURA.mostra='P'
 	group by #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, #STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
@@ -1055,7 +1057,7 @@ End
 	SELECT #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, isnull(SUM(child._prevamountPassivo),0), isnull(SUM(child._curramountPassivo),0), 0, 0,
 		#STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
 	FROM #IMPORTI_CLASS child
-	JOIN  #STRUTTURA	--√® il padre
+	JOIN  #STRUTTURA	--Ë il padre
 		ON child.parent_label = #STRUTTURA.label and #STRUTTURA._idsor1 = child._idsor1 and  #STRUTTURA.kind =child.kind
 	WHERE #STRUTTURA.label = ('TOTALE DEBITI(e)')  and #STRUTTURA.kind ='P' and #STRUTTURA.mostra='P'
 	group by #STRUTTURA.label, #STRUTTURA.codepatrimony, #STRUTTURA.kind, #STRUTTURA._idsor1, #STRUTTURA.ordinestampa, #STRUTTURA.nlevel, #STRUTTURA.parent_label, #STRUTTURA.segno ,#STRUTTURA.mostra
@@ -1278,6 +1280,5 @@ end
 	GO
 	SET ANSI_NULLS ON
 	GO
-	
 	
 	

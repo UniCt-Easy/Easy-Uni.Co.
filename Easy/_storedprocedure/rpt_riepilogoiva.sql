@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_riepilogoiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_riepilogoiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_riepilogoiva]
 GO
 
@@ -50,7 +52,7 @@ AS
 	)
 	IF (@unified ='S')  --Aggiunta Unified
 	Begin
-		--in questo caso in @idivaregisterkind c'√® l'idivaregisterkindunified ed il codice iva del tipo iva scelto  
+		--in questo caso in @idivaregisterkind c'Ë l'idivaregisterkindunified ed il codice iva del tipo iva scelto  
 --		SET @idivaregisterkind = ISNULL((SELECT idivaregisterkind FROM ivaregisterkind WHERE idivaregisterkindunified = @idivaregisterkind)
 --										, (SELECT idivaregisterkind FROM ivaregisterkind WHERE codeivaregisterkind = @codeivaregisterkind))
 
@@ -127,8 +129,8 @@ CREATE TABLE #invoice
 		idivakind int,
 		flagintracom char(1)		
 	)
-	-- il segno √® da cambiare se flagdeferred oppure se kind<>registerclass
-	-- inoltre per le fatture non intracom con la doppia presenza A/V √® da cancellare la riga in vendita
+	-- il segno Ë da cambiare se flagdeferred oppure se kind<>registerclass
+	-- inoltre per le fatture non intracom con la doppia presenza A/V Ë da cancellare la riga in vendita
 	
 
 
@@ -143,7 +145,7 @@ CREATE TABLE #invoice
 	(SELECT
 		I.idinvkind,I.yinv,I.ninv, IDET.rownum,
 		case
-			-- se la fattura √® di vendita e soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë di vendita e soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			when (I.flagdeferred='S') then 'T'	 -- Ho spostato qui l'update che faceva successivament
 			when (I.flagdeferred='N') then 'N'	
@@ -204,7 +206,7 @@ CREATE TABLE #invoice
 --2)
 	-- Sezione 2.1 IVA Differita  - DATA REVERSALE
 	-- Vengono inseriti tutti i dettagli delle fatture di vendita  
-	-- 	la cui REVERSALE associata √® stata EMESSA nel range di date fornito in input alla SP
+	-- 	la cui REVERSALE associata Ë stata EMESSA nel range di date fornito in input alla SP
 	--		e aventi data competenza del dettaglio NULL
 	-- Valuta solo le fatture NON intracom
 	INSERT INTO #invoicedet
@@ -220,7 +222,7 @@ CREATE TABLE #invoice
 		/*case
 			-- se fattura di acquito, legge il valore
 			when (IK.flag & 1)=0 then I.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			else I.flagdeferred
 		end,*/
@@ -272,7 +274,7 @@ CREATE TABLE #invoice
 			or (@split_payment='N' and isnull(I.flag_enable_split_payment,'N') = 'N')	)
 		AND ISNULL(IDET.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 		and (isnull(IDET.flagbit,0) & 4) = 0
-		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perch√® vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
+		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perchË vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
 		-- solo quelle "veramente" differite
 		and( (IK.flag & 1)=0 
 			OR
@@ -287,7 +289,7 @@ CREATE TABLE #invoice
 --3)
 	-- Sezione 2.1 IVA Differita  - DATA REVERSALE
 	-- Vengono inseriti tutti i dettagli delle fatture di vendita  
-	-- 	la cui REVERSALE associata √® stata EMESSA nel range di date fornito in input alla SP
+	-- 	la cui REVERSALE associata Ë stata EMESSA nel range di date fornito in input alla SP
 	--		e aventi data competenza del dettaglio NULL
 	-- Stessa insert di prima, ma per le fatture INTRACOM
 	INSERT INTO #invoicedet
@@ -303,7 +305,7 @@ CREATE TABLE #invoice
 		/*case
 			-- se fattura di acquito, legge il valore
 			when (IK.flag & 1)=0 then I.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			else I.flagdeferred
 		end,*/
@@ -355,7 +357,7 @@ CREATE TABLE #invoice
 			or (@split_payment='N' and isnull(I.flag_enable_split_payment,'N') = 'N')	)
 		AND ISNULL(IDET.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 		and (isnull(IDET.flagbit,0) & 4) = 0
-		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perch√® vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
+		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perchË vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
 		-- solo quelle "veramente" differite
 		and( (IK.flag & 1)=0 
 			OR
@@ -384,7 +386,7 @@ CREATE TABLE #invoice
 		/*case
 			-- se fattura di acquito, legge il valore
 			when (IK.flag & 1)=0 then I.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			else I.flagdeferred
 		end,*/
@@ -440,7 +442,7 @@ CREATE TABLE #invoice
 			or (@split_payment='N' and isnull(I.flag_enable_split_payment,'N') = 'N')	)
 		AND ISNULL(IDET.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 		and (isnull(IDET.flagbit,0) & 4) = 0
-		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perch√® vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
+		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perchË vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
 		-- solo quelle "veramente" differite
 		and( (IK.flag & 1)=0 
 			OR
@@ -469,7 +471,7 @@ CREATE TABLE #invoice
 		/*case
 			-- se fattura di acquito, legge il valore
 			when (IK.flag & 1)=0 then I.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			else I.flagdeferred
 		end,*/
@@ -525,7 +527,7 @@ CREATE TABLE #invoice
 			or (@split_payment='N' and isnull(I.flag_enable_split_payment,'N') = 'N')	)
 		AND ISNULL(IDET.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 		and (isnull(IDET.flagbit,0) & 4) = 0
-		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perch√® vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
+		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perchË vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
 		-- solo quelle "veramente" differite
 		and( (IK.flag & 1)=0 
 			OR
@@ -541,7 +543,7 @@ CREATE TABLE #invoice
 --6)
 	-- Sezione 2.2 IVA Differita  - DATA MANDATO 
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato √® stato trasmesso nel range di date fornito in input alla SP
+	-- il cui mandato associato Ë stato trasmesso nel range di date fornito in input alla SP
 	-- Valuta solo le fatture NON intracom
 	INSERT INTO #invoicedet
 	(
@@ -556,7 +558,7 @@ CREATE TABLE #invoice
 		/*case
 			-- se fattura di acquito, legge il valore
 			when (IK.flag & 1)=0 then I.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			else I.flagdeferred
 		end,*/
@@ -605,7 +607,7 @@ CREATE TABLE #invoice
 			or (@split_payment='N' and isnull(I.flag_enable_split_payment,'N') = 'N')	)
 		AND ISNULL(IDET.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 		and (isnull(IDET.flagbit,0) & 4) = 0
-		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perch√® vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
+		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perchË vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
 		-- solo quelle "veramente" differite
 		and( (IK.flag & 1)=0 
 			OR
@@ -620,7 +622,7 @@ CREATE TABLE #invoice
 --7)
 	-- Sezione 2.2 IVA Differita  - DATA MANDATO 
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato √® stato trasmesso nel range di date fornito in input alla SP
+	-- il cui mandato associato Ë stato trasmesso nel range di date fornito in input alla SP
 	-- Stessa insert di prima ma solo per le fatture INTRACOM
 	INSERT INTO #invoicedet
 	(
@@ -635,7 +637,7 @@ CREATE TABLE #invoice
 		/*case
 			-- se fattura di acquito, legge il valore
 			when (IK.flag & 1)=0 then I.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			else I.flagdeferred
 		end,*/
@@ -684,7 +686,7 @@ CREATE TABLE #invoice
 			or (@split_payment='N' and isnull(I.flag_enable_split_payment,'N') = 'N')	)
 		AND ISNULL(IDET.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 		and (isnull(IDET.flagbit,0) & 4) = 0
-		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perch√® vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
+		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perchË vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
 		-- solo quelle "veramente" differite
 		and( (IK.flag & 1)=0 
 			OR
@@ -699,7 +701,7 @@ CREATE TABLE #invoice
 --8)
 	-- Sezione 2.2 IVA Differita  VARIAZIONI - DATA MANDATO 
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato √® stato trasmesso nel range di date fornito in input alla SP
+	-- il cui mandato associato Ë stato trasmesso nel range di date fornito in input alla SP
 	-- Valuta solo le fatture non intracom
 	INSERT INTO #invoicedet
 	(
@@ -714,7 +716,7 @@ CREATE TABLE #invoice
 		/*case
 			-- se fattura di acquito, legge il valore
 			when (IK.flag & 1)=0 then I.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			else I.flagdeferred
 		end,*/
@@ -768,7 +770,7 @@ CREATE TABLE #invoice
 			or (@split_payment='N' and isnull(I.flag_enable_split_payment,'N') = 'N')	)
 		AND ISNULL(IDET.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 		and (isnull(IDET.flagbit,0) & 4) = 0
-		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perch√® vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
+		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perchË vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
 		-- solo quelle "veramente" differite
 		and( (IK.flag & 1)=0 
 			OR
@@ -783,7 +785,7 @@ CREATE TABLE #invoice
 --9)
 	-- Sezione 2.2 IVA Differita  VARIAZIONI - DATA MANDATO 
 	-- Vengono inseriti tutti i dettagli delle fatture di acquisto (incluse note di variazione)
-	-- il cui mandato associato √® stato trasmesso nel range di date fornito in input alla SP
+	-- il cui mandato associato Ë stato trasmesso nel range di date fornito in input alla SP
 	-- Stessa insert di prima, ma solo per le fatture INTRACOM
 	INSERT INTO #invoicedet
 	(
@@ -798,7 +800,7 @@ CREATE TABLE #invoice
 		/*case
 			-- se fattura di acquito, legge il valore
 			when (IK.flag & 1)=0 then I.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			else I.flagdeferred
 		end,*/
@@ -853,7 +855,7 @@ CREATE TABLE #invoice
 			or (@split_payment='N' and isnull(I.flag_enable_split_payment,'N') = 'N')	)
 		AND ISNULL(IDET.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 		and (isnull(IDET.flagbit,0) & 4) = 0
-		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perch√® vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
+		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perchË vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
 		-- solo quelle "veramente" differite
 		and( (IK.flag & 1)=0 
 			OR
@@ -883,7 +885,7 @@ CREATE TABLE #invoice
 		/*case
 			-- se fattura di acquito, legge il valore
 			when (IK.flag & 1)=0 then I.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			else I.flagdeferred
 		end,*/
@@ -930,7 +932,7 @@ CREATE TABLE #invoice
 			or (@split_payment='N' and isnull(I.flag_enable_split_payment,'N') = 'N')	)
 		AND ISNULL(IDET.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 		and (isnull(IDET.flagbit,0) & 4) = 0
-		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perch√® vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
+		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perchË vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
 		-- solo quelle "veramente" differite
 		and( (IK.flag & 1)=0 
 			OR
@@ -961,7 +963,7 @@ CREATE TABLE #invoice
 		/*case
 			-- se fattura di acquito, legge il valore
 			when (IK.flag & 1)=0 then I.flagdeferred	
-			-- se la fattura √® soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
+			-- se la fattura Ë soggetta a split payment, non ha senso parlare di iva differita. Quindi viene intesa come immediata. Vedi task 6507  
 			when ((IK.flag & 1)<>0 and	isnull(I.flag_enable_split_payment,'N')='S') then 'N' 
 			else I.flagdeferred
 		end,*/
@@ -1014,7 +1016,7 @@ CREATE TABLE #invoice
 			or (@split_payment='N' and isnull(I.flag_enable_split_payment,'N') = 'N')	)		
 		AND ISNULL(IDET.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360		
 		and (isnull(IDET.flagbit,0) & 4) = 0
-		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perch√® vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
+		-- Sta prendendo quelle a iva differita, quindi se sono di acquito, ok, ma se sono di vendita soggette a split NON le deve prendere perchË vengono intese a iva immediata e rientrano nella prima SELECT, ora sta prendendo
 		-- solo quelle "veramente" differite
 		and( (IK.flag & 1)=0 
 			OR
@@ -1101,7 +1103,7 @@ JOIN #ivaregisterkind IRK
 	DECLARE @flagivapaybyrow char(1)
 	SELECT @flagivapaybyrow= flagivapaybyrow from config WHERE ayear = @year
 
-	--Per chi scegli di applicare il calcolo sul totale, anche il promiscuo sar√† applicato sul totale.
+	--Per chi scegli di applicare il calcolo sul totale, anche il promiscuo sar‡ applicato sul totale.
 	if (@flagivapaybyrow='N') 
 	Begin
 		SET @proratarate=1 --non applica il prorata in questo caso
@@ -1236,7 +1238,7 @@ JOIN #ivaregisterkind IRK
 
 
 IF ((select count(*) from #ivakind)=0)
--- Se il diparimento non usa l'IVA ossia la #output √® vuota deve restituire una riga vuota col nome del Dipartimento
+-- Se il diparimento non usa l'IVA ossia la #output Ë vuota deve restituire una riga vuota col nome del Dipartimento
 BEGIN
         SELECT
         @departmentname as departmentname,
@@ -1310,4 +1312,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

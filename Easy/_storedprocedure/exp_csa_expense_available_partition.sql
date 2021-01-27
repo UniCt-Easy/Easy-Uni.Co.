@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_csa_expense_available_partition]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)if exists (select * from dbo.sysobjects where id = object_id(N'[exp_csa_expense_available]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_csa_expense_available_partition]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)if exists (select * from dbo.sysobjects where id = object_id(N'[exp_csa_expense_available]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 
 drop procedure [exp_csa_expense_available_partition]
 
@@ -27,7 +29,7 @@ SET ANSI_NULLS ON
 
 GO
 
--- exec [exp_csa_expense_available_partition] 2018, 28 
+-- exec [exp_csa_expense_available_partition] 2020,654
 
 CREATE PROCEDURE  [exp_csa_expense_available_partition]
 	(
@@ -35,14 +37,16 @@ CREATE PROCEDURE  [exp_csa_expense_available_partition]
 		@idcsa_import int  -- ,
 
 	)
-	--setuser 'amministrazione'
+--setuser 'amministrazione'
+--setuser 'amm'
+
 AS BEGIN
 
 DECLARE @kind CHAR(1)
 -- T deve essere eseguita sia la fase Lordi che la fase Versamenti, 
 -- L deve essere eseguita solo la fase Lordi, 
 -- V deve essere eseguita solo la fase Versamenti, 
--- N movimenti finanziari gi√† generati 
+-- N movimenti finanziari gi‡ generati 
 
  
       --   + movkind 1 mov. entrata ritenute	 (fase LORDI)
@@ -123,7 +127,7 @@ create table #output_versamenti
 idcsa_import int,idriep int,  idver int, ndetail int, kind varchar(20), movkind int , parentidinc int, parentidexp int , 	parent_phase int,
 idman int,  idreg int , registry varchar(200), idcsa_agency int , idcsa_agencypaymethod int , idfin int, 
 codefin varchar(20), idsor int, sortcode varchar(50), parentidsor int , parentsortcode varchar(20),idupb varchar(36), 
-codeupb varchar(50), description varchar(200), idacc varchar(38), codeacc varchar(50), amount decimal(19,2), idcsa_contractkind int,
+codeupb varchar(50), description varchar(200), idacc varchar(38), codeacc varchar(50), amount decimal(19,2),amount_diff decimal(19,2), idcsa_contractkind int,
 idcsa_contract int, idunderwriting int, codeunderwriting varchar(50),vocecsa varchar(200)
 ) 
 
@@ -135,18 +139,49 @@ BEGIN
 	insert into #output_lordi
 	select * from f_compute_csa_lordi_partition (@ayear, @idcsa_import)
 
-	insert into #output_versamenti
+	insert into #output_versamenti (idcsa_import ,idriep ,  idver , ndetail , kind , movkind , parentidinc , parentidexp , 	parent_phase ,
+					idman ,  idreg , registry , idcsa_agency , idcsa_agencypaymethod , idfin , 
+					codefin , idsor, sortcode , parentidsor, parentsortcode,idupb , 
+					codeupb , description , idacc , codeacc , amount , idcsa_contractkind ,
+					idcsa_contract , idunderwriting , codeunderwriting ,vocecsa )
 	select * from f_compute_csa_versamenti_partition (@ayear, @idcsa_import,@lista_idcsa_import,@lista_idreg_agency)
+
+	insert into @lista_idcsa_import (n) values (@idcsa_import)
+	insert into @lista_idreg_agency (n) select distinct idreg from csa_agency where flag & 1 <> 0
+
+	insert into #output_versamenti (idcsa_import ,idriep ,  idver , ndetail , kind , movkind , parentidinc , parentidexp , 	parent_phase ,
+					idman ,  idreg , registry , idcsa_agency , idcsa_agencypaymethod , idfin , 
+					codefin , idsor, sortcode , parentidsor, parentsortcode,idupb , 
+					codeupb , description , idacc , codeacc , amount_diff , idcsa_contractkind ,
+					idcsa_contract , idunderwriting , codeunderwriting ,vocecsa )	
+	select * from f_compute_csa_versamenti_partition (@ayear, null,@lista_idcsa_import,@lista_idreg_agency)
+
 END 
 IF (@kind = 'V')
 BEGIN
-	insert into #output_versamenti
+	insert into #output_versamenti (idcsa_import ,idriep ,  idver , ndetail , kind , movkind , parentidinc , parentidexp , 	parent_phase ,
+					idman ,  idreg , registry , idcsa_agency , idcsa_agencypaymethod , idfin , 
+					codefin , idsor, sortcode , parentidsor, parentsortcode,idupb , 
+					codeupb , description , idacc , codeacc , amount , idcsa_contractkind ,
+					idcsa_contract , idunderwriting , codeunderwriting ,vocecsa )
 	select * from f_compute_csa_versamenti_partition (@ayear, @idcsa_import,@lista_idcsa_import,@lista_idreg_agency)
+
+	insert into @lista_idcsa_import (n) values (@idcsa_import)
+	insert into @lista_idreg_agency (n) select distinct idreg from csa_agency where flag & 1 <> 0
+
+	insert into #output_versamenti (idcsa_import ,idriep ,  idver , ndetail , kind , movkind , parentidinc , parentidexp , 	parent_phase ,
+					idman ,  idreg , registry , idcsa_agency , idcsa_agencypaymethod , idfin , 
+					codefin , idsor, sortcode , parentidsor, parentsortcode,idupb , 
+					codeupb , description , idacc , codeacc , amount_diff , idcsa_contractkind ,
+					idcsa_contract , idunderwriting , codeunderwriting ,vocecsa )	
+	select * from f_compute_csa_versamenti_partition (@ayear, null ,@lista_idcsa_import,@lista_idreg_agency)
 END
+
 IF (@kind = 'L')
 BEGIN
 	insert into #output_lordi
 	select * from f_compute_csa_lordi_partition (@ayear, @idcsa_import)
+
 END
 
 
@@ -181,49 +216,56 @@ select --   FASE LORDI E VERSAMENTI
 	 curramount  as 'Importo Corrente',
 	 available as 'Importo Disponibile Attuale',
 	 CASE WHEN ( @kind IN ('L','T'))  
-	 THEN  available
-	 - isnull((SELECT SUM(amount) FROM #output_lordi
-	 WHERE  #output_lordi.parentidexp = padri.idexp),0)
+	 THEN  available	 - isnull((SELECT SUM(amount) FROM #output_lordi	 WHERE  #output_lordi.parentidexp = padri.idexp),0)
 	 ELSE available
 	 END
 	  as 'Disponibile dopo elaborazione solo Lordi',
+
 	 CASE WHEN  (@kind IN ('V','T'))
-	 THEN available
-	 - isnull((SELECT SUM(amount) FROM #output_versamenti
-	 WHERE  #output_versamenti.parentidexp = padri.idexp),0)
+	 THEN available	 - isnull((SELECT SUM(amount) FROM #output_versamenti  WHERE  #output_versamenti.parentidexp = padri.idexp),0)
 	 ELSE  available
 	 END 
 	  as 'Disponibile dopo elaborazione  Versamenti',
+	
+	CASE WHEN  (@kind IN ('V','T'))
+	 THEN available	 - isnull((SELECT SUM(isnull(amount,0)+isnull(amount_diff,0)) FROM #output_versamenti  WHERE  #output_versamenti.parentidexp = padri.idexp),0)
+	 ELSE  available
+	 END 
+	  as 'Disponibile dopo elaborazione  Versamenti e V.Posticipati',     
 
 	CASE WHEN @kind = 'T'  THEN
-	 available - isnull((SELECT SUM(amount) FROM #output_lordi
-	 WHERE  #output_lordi.parentidexp = padri.idexp),0) 
-	 - isnull((SELECT SUM(amount) FROM #output_versamenti
-	 WHERE  #output_versamenti.parentidexp = padri.idexp),0)
-	 
-	 WHEN @kind = 'L'  THEN
-	 available - isnull((SELECT SUM(amount) FROM #output_lordi
-	 WHERE  #output_lordi.parentidexp = padri.idexp),0) 
-	 
-	 WHEN @kind = 'V' THEN   available
-	 - isnull((SELECT SUM(amount) FROM #output_versamenti
-	 WHERE  #output_versamenti.parentidexp = padri.idexp),0)
+	 available - isnull((SELECT SUM(amount) FROM #output_lordi  WHERE  #output_lordi.parentidexp = padri.idexp),0) 
+				- isnull((SELECT SUM(amount) FROM #output_versamenti WHERE  #output_versamenti.parentidexp = padri.idexp),0)	 
+	 WHEN @kind = 'L'  THEN	 available - isnull((SELECT SUM(amount) FROM #output_lordi	 WHERE  #output_lordi.parentidexp = padri.idexp),0) 	 
+	 WHEN @kind = 'V' THEN   available - isnull((SELECT SUM(amount) FROM #output_versamenti	 WHERE  #output_versamenti.parentidexp = padri.idexp),0)
 	 ELSE available
 	 END
 	 as 'Disponibile dopo elaborazione Lordi e Versamenti',
 
+	 CASE WHEN @kind = 'T'  THEN
+	 available - isnull((SELECT SUM(amount) FROM #output_lordi  WHERE  #output_lordi.parentidexp = padri.idexp),0) 
+				- isnull((SELECT SUM(amount) FROM #output_versamenti WHERE  #output_versamenti.parentidexp = padri.idexp),0)	 
+	 WHEN @kind = 'L'  THEN	 available - isnull((SELECT SUM(amount) FROM #output_lordi	 WHERE  #output_lordi.parentidexp = padri.idexp),0) 	 
+	 WHEN @kind = 'V' THEN   available - isnull((SELECT SUM(isnull(amount,0)+isnull(amount_diff,0)) FROM #output_versamenti	 WHERE  #output_versamenti.parentidexp = padri.idexp),0)
+	 ELSE available
+	 END
+	 as 'Disponibile dopo elaborazione Lordi e Versamenti e V.Posticipati',
+
+	 
 	flagarrear as 'C/R' ,
 	expenseview.idexp as 'idexp'
  from padri
  
 join expenseview
 	on expenseview.idexp = padri.idexp
-	and expenseview.ayear = @ayear
-	
+	and expenseview.ayear = @ayear	
 	and ( available - isnull((SELECT SUM(amount) FROM #output_lordi
 	 WHERE  #output_lordi.parentidexp = padri.idexp),0) 
 	 - isnull((SELECT SUM(amount) FROM #output_versamenti
-	 WHERE  #output_versamenti.parentidexp = padri.idexp),0) <0)
+	 WHERE  #output_versamenti.parentidexp = padri.idexp),0) 
+	 - isnull((SELECT SUM(amount_diff) FROM #output_versamenti
+	 WHERE  #output_versamenti.parentidexp = padri.idexp),0) 
+	 <0)
 
 END
 
@@ -237,4 +279,3 @@ GO
 
 
  
-	

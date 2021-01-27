@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -101,7 +103,7 @@ namespace bankdispositionsetup_siopeplus {
         private void btnGeneraFilePagamenti_Click(object sender, EventArgs e) {
             int n = CfgFn.GetNoNullInt32(txtNPaymentTransmission.Text);
             if (n == 0) {
-                MessageBox.Show(this, "E' necessario selezionare un numero per la distinta");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "E' necessario selezionare un numero per la distinta");
                 return;
             }
             int y = CfgFn.GetNoNullInt32(Conn.GetSys("esercizio"));
@@ -117,7 +119,7 @@ namespace bankdispositionsetup_siopeplus {
             if (cfgflagenabletransmission != DBNull.Value) {
                 string cfg_flag = cfgflagenabletransmission.ToString().ToUpper();
                 if ((cfg_flag == "S") && (flagtransmissionenabled.ToString().ToUpper() != "S")) {
-                    MessageBox.Show(this, "La trasmissione della distinta non √® stata autorizzata");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La trasmissione della distinta non Ë stata autorizzata");
                     return;
                 }
             }
@@ -153,10 +155,10 @@ namespace bankdispositionsetup_siopeplus {
                     TreasurerPutFile ftp = new TreasurerPutFile(Conn, idtreasurer);
                     string errori = ftp.putFile(fname, Conn.GetEsercizio() + middle + ntrasmission.ToString());
                     if (errori != null) {
-                        MessageBox.Show(errori, "Errore nel trasferimento FTP");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(errori, "Errore nel trasferimento FTP");
                     }
                     else {
-                        MessageBox.Show("File " + fname + " correttamente generato e validato.", "Avviso");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("File " + fname + " correttamente generato e validato.", "Avviso");
                     }
                 }
             }
@@ -249,7 +251,7 @@ namespace bankdispositionsetup_siopeplus {
                     QHS.CmpEq("nproceedstransmission", ntransmission)), null, false);
             }
             if (TT == null || TT.Rows.Count == 0) {
-                MessageBox.Show("Non ho trovato la distinta n." + ntransmission + " del " + ytransmission,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ho trovato la distinta n." + ntransmission + " del " + ytransmission,
                                 "Errore");
                 return null;
             }
@@ -267,12 +269,12 @@ namespace bankdispositionsetup_siopeplus {
             if (D == null || D.Tables.Count == 0) return null;
             DataTable T = D.Tables[0];
             if (T.Rows.Count == 0) {
-                MessageBox.Show("L'esportazione √® stata eseguita ma non ha restituito alcun risultato", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("L'esportazione Ë stata eseguita ma non ha restituito alcun risultato", "Errore");
                 return null;
             }
 
 			if (T.Columns.Count== 1) {
-				MessageBox.Show("L'esportazione √® stata eseguita ma  ha restituito errori bloccanti", "Errore");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("L'esportazione Ë stata eseguita ma  ha restituito errori bloccanti", "Errore");
 				FrmViewError View = new FrmViewError(D);
 				View.Show();
 				return null;
@@ -290,10 +292,10 @@ namespace bankdispositionsetup_siopeplus {
             if ((DScheck != null) && (DScheck.Tables.Count > 0)) {
                 DataTable Tcheck = DScheck.Tables[0];
                 if (Tcheck.Rows.Count > 0) {
-                    MessageBox.Show("Vi sono problemi sulla quadratura di aluni importi. \r\nIl file verr√† generato ma se trasmesso, verr√† RIFIUTATO DALLA BANCA", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Vi sono problemi sulla quadratura di aluni importi. \r\nIl file verr‡ generato ma se trasmesso, verr‡ RIFIUTATO DALLA BANCA", "Errore");
                     FrmViewError View = new FrmViewError(DScheck);
                     View.Show();
-                    // se c'√® una squadratura non invia il file al ws
+                    // se c'Ë una squadratura non invia il file al ws
                     if (Use_webservice(Conn)) {
                         return null;
                     }
@@ -325,7 +327,7 @@ namespace bankdispositionsetup_siopeplus {
 
        
         }
-        //Controlla che sar√† usato il WS
+        //Controlla che sar‡ usato il WS
 		public bool Use_webservice(DataAccess Conn) {
 			object usewebservice = Conn.DO_READ_VALUE("opisiopeplus_config", QHS.CmpEq("code", "opi_siopeplus"), "usewebservice", null);
 			if (usewebservice == null || usewebservice == DBNull.Value) return false;
@@ -344,7 +346,7 @@ namespace bankdispositionsetup_siopeplus {
                 btnGeneraFileIncassi.Enabled = true;
                 return;
             }
-            MessageBox.Show("Invio eseguito con successo.");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("Invio eseguito con successo.");
 
         }
       
@@ -352,7 +354,7 @@ namespace bankdispositionsetup_siopeplus {
         private void btnGeneraFileIncassi_Click(object sender, EventArgs e) {
             int n = CfgFn.GetNoNullInt32(txtNproceedsTransm.Text);
             if (n == 0) {
-                MessageBox.Show(this, "E' necessario selezionare un numero per la distinta");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "E' necessario selezionare un numero per la distinta");
                 return;
             }
             int y = CfgFn.GetNoNullInt32(Conn.GetSys("esercizio"));
@@ -368,7 +370,7 @@ namespace bankdispositionsetup_siopeplus {
             if (cfgflagenabletransmission != DBNull.Value) {
                 string cfg_flag = cfgflagenabletransmission.ToString().ToUpper();
                 if ((cfg_flag == "S") && (flagtransmissionenabled.ToString().ToUpper() != "S")) {
-                    MessageBox.Show(this, "La trasmissione della distinta non √® stata autorizzata");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La trasmissione della distinta non Ë stata autorizzata");
                     return;
                 }
             }

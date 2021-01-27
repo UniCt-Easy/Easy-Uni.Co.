@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -6021,7 +6023,7 @@ namespace mandate_default { //ordinegenerico//
 
             List<RowPair> Coppie = new List<RowPair>();
             // Passo 3. - Creazione nuovo dettaglio gi‡ splittato
-            int idGroup = creaDettagliSplittati(rContratto, wiz, Coppie);
+            int idGroup = creaDettagliSplittati(rContratto, wiz, Coppie); //copia tutti i campi, escluso toinvoice
 
             // Passo 4. - Raffinamento dello split (usando il form dello split gi‡ esistente)
             DataRow[] listaDettagliSplittati = DS.mandatedetail.Select(QHC.CmpEq("idgroup", idGroup), "rownum");
@@ -6044,7 +6046,7 @@ namespace mandate_default { //ordinegenerico//
             }
 
             foreach (RowPair rp in Coppie) {
-                rp.SwapValues();
+                rp.SwapValues();//non scambia idepexp, idepacc, idgroup e nemmeno la chiave quindi l'impegno rimane sul vecchio??
                 if (CfgFn.GetNoNullDecimal(rp.addedRow["taxable"]) == 0 &&
                     CfgFn.GetNoNullDecimal(rp.addedRow["tax"]) == 0 &&
                     CfgFn.GetNoNullDecimal(rp.addedRow["unabatable"]) == 0) {
@@ -6214,7 +6216,7 @@ namespace mandate_default { //ordinegenerico//
                     //rNew["expensekind"] = wiz.rListChosen["expensekind"];
                 }
 
-                // Ho modificato i valori rispetto querlli del dettaglio originale
+                // Ho modificato i valori rispetto quelli del dettaglio originale
                 if ((wiz.new_idinv != DBNull.Value) && (rNew["idinv"] != wiz.new_idinv))
                     rNew["idinv"] = wiz.new_idinv;
                 if ((wiz.new_idlist != DBNull.Value) && (rNew["idlist"] != wiz.new_idlist))

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_b_17]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_b_17]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_certificazioneunica_b_17]
 GO
  
@@ -47,7 +49,7 @@ AS BEGIN
 	)
 	DECLARE @2cf varchar(16)
 	DECLARE @p_iva varchar(11)
-	DECLARE @agencyname varchar(60) -- 60 √® limite imposto per la compilazione del 770
+	DECLARE @agencyname varchar(60) -- 60 Ë limite imposto per la compilazione del 770
 	DECLARE @phonenumber varchar(20)
 	DECLARE @fax varchar(20)
 	DECLARE @email varchar(100)
@@ -156,7 +158,7 @@ DECLARE @HRB016 varchar(50)
 	
 	DECLARE @7cfsoftwarehouse varchar(16)
 	SET @7cfsoftwarehouse = '02890460781'
-	-- Il codice attivit√† √® stato preso dalla tabella ATECOFIN2004 delle attivit√† produttive.
+	-- Il codice attivit‡ Ë stato preso dalla tabella ATECOFIN2004 delle attivit‡ produttive.
 	-- Consultare il sito del Ministero delle Finanze (www.finanze.gov.it) o dell'Agenzia delle Entrate
 	-- (www.agenziaentrate.gov.it)
 	DECLARE @codiceattivita varchar(6)
@@ -186,7 +188,7 @@ DECLARE @HRB016 varchar(50)
 	INSERT INTO #recordb (progr,  modulo,quadro, riga, colonna, stringa) VALUES(1,1, 'HRB', 1, '020', @manager_surname)
 	--21 Nome del rappresentante
 	INSERT INTO #recordb (progr, modulo, quadro, riga, colonna, stringa) VALUES(1,1, 'HRB', 1, '021', @manager_forename)
-	--22 Codice fiscale societ√† o ente dichiarante
+	--22 Codice fiscale societ‡ o ente dichiarante
 	INSERT INTO #recordb (progr, modulo,  quadro, riga, colonna, stringa) VALUES(1,1, 'HRB', 1, '022', @2cf)
 	--24 Numero comunicazioni relative a certificazioni 
 	INSERT INTO #recordb (progr, modulo, quadro, riga, colonna, intero)  VALUES(1, 1,'HRB', 1, '024', ISNULL(@numdichquadrog,0)+ ISNULL(@numdichquadroh,0))
@@ -196,7 +198,7 @@ DECLARE @HRB016 varchar(50)
 		
 	IF( @print ='S') -- solo ai fini della stampa del modello
 	BEGIN
-		-- Dicitura con la firma del rappresentante firmatario, che appare nel frontespizio, quasi in tutti i casi √® il Rettore, tranne alcuni 
+		-- Dicitura con la firma del rappresentante firmatario, che appare nel frontespizio, quasi in tutti i casi Ë il Rettore, tranne alcuni 
 		INSERT INTO #recordb (progr, modulo,quadro, riga, colonna, stringa) VALUES(1, 1, 'FIR', 1, '001', ISNULL(@manager_annotations,'F.to Il Rettore') )
 	END
 	SELECT * FROM #recordb WHERE stringa IS NOT NULL OR intero IS NOT NULL OR data IS NOT NULL
@@ -214,4 +216,3 @@ GO
  
 --exec exp_certificazioneunica_b_17 10,1
  
-	

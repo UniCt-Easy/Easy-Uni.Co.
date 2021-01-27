@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_docvendita]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_docvendita]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_docvendita]
 GO
 
@@ -127,7 +129,7 @@ BEGIN
 END
 	
 DECLARE @ivadeferred varchar(255)
-SET @ivadeferred = 'IVA ad esigibilit√† differita ai sensi dell''Articolo 6 Comma 5 D.P.R. 633/72'
+SET @ivadeferred = 'IVA ad esigibilit‡ differita ai sensi dell''Articolo 6 Comma 5 D.P.R. 633/72'
 CREATE TABLE #invoicedetail
 (
 	idinvkind int,
@@ -145,11 +147,11 @@ CREATE TABLE #invoicedetail
 	cigcode	varchar(10)
 )
 /*
-il raggrupp. serve xk√® nella stampa voglio vedere i dett. fattura ragrupp. in base al raggruppamento 
+il raggrupp. serve xkË nella stampa voglio vedere i dett. fattura ragrupp. in base al raggruppamento 
 delle righe del contratto attivo. nel caso in cui i dett.fattura non fossero associati ad alcun
 contratto attivo si raggruppa in base all'idgropu della fattura. ES:se ho due dett. preventivo ciascuno splittato in due e metto 
-tutti e 4 i dettagli in fattura nella stampa ne vedr√≤ 2. Se poi vado a splittare un dettagli di questa fattura, 
-avr√≤ 5 dett. in fattura ma nella stampa visualizzo sempre due righe (xk√® chiaramente il raggrupp. del prev non cambia.
+tutti e 4 i dettagli in fattura nella stampa ne vedrÚ 2. Se poi vado a splittare un dettagli di questa fattura, 
+avrÚ 5 dett. in fattura ma nella stampa visualizzo sempre due righe (xkË chiaramente il raggrupp. del prev non cambia.
  e non cambia neanche il raggrupp. della fattura)
 */
 DECLARE @MostraUpb varchar(20)
@@ -461,11 +463,11 @@ SELECT @banktitle = banktitle, @cabtitle = cabtitle, @cin = cin, @idbank = idban
 FROM treasurerview
 WHERE flagdefault = 'S'
 
--- Imposta il cassiere col cassiere di default, SOLO se tutte le info in fatture sono null, ossia non √® stato specificato il cassiere
+-- Imposta il cassiere col cassiere di default, SOLO se tutte le info in fatture sono null, ossia non Ë stato specificato il cassiere
 update #sellingdoc set banktitle = @banktitle, cabtitle = @cabtitle, cin = @cin, idbank = @idbank, idcab = @idcab,cc=@cc,iban=@iban,bic=@bic,header_treasurer = @header_treasurer
 					where (idtreasurer is null)
 
-DECLARE @iban_f24 varchar(50)  -- √® lo stesso conto di addebito dell'F24EP
+DECLARE @iban_f24 varchar(50)  -- Ë lo stesso conto di addebito dell'F24EP
 SELECT  @iban_f24 = iban_f24 from config WHERE ayear = @ayear
 
 
@@ -653,4 +655,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

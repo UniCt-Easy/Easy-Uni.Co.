@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -1199,7 +1201,7 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
             string dataContabile = txtDataContabile.Text;
             while (true) {
                 if (TempTable == null || TempTable.Rows.Count == 0) {
-                    if (!quiet) MessageBox.Show("Non ci sono movimenti di entrata da elaborare");
+                    if (!quiet) MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ci sono movimenti di entrata da elaborare");
                     btnSuccessivo.Enabled = false;
                     grpConferma.Enabled = false;
                     return;
@@ -1383,7 +1385,7 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
 
                 //Se impostato flusso crediti prende solo le righe associate all'elenco "incassiCrediti" e che siano collegate a tipi contratti col flag
                 //   non raggruppare per anagrafica in fase di reversale
-                if (chkCrediti.Checked && (incassiCrediti != null)&&(incassiCrediti.Count>0)) {
+                if (chkCrediti.Checked && (incassiCrediti != null)) { //&&(incassiCrediti.Count>0)
                     foreach (DataRow r in DS.incomelastview.Rows) {
                         if (!incassiCrediti.ContainsKey(CfgFn.GetNoNullInt32(r["idinc"]))) {
                             r.Delete();

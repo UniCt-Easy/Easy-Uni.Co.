@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -90,7 +92,7 @@ namespace estimate_default {
         private void btnOK_Click(object sender, EventArgs e) {
             int yestim = CfgFn.GetNoNullInt32(rContratto["yestim"]);
             if (txtStop.Text == "") {
-                MessageBox.Show(this, "Inserire la data di annullamento del dettaglio");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire la data di annullamento del dettaglio");
                 this.DialogResult = DialogResult.None;
                 return;
             }
@@ -98,57 +100,57 @@ namespace estimate_default {
                
                 object date = HelpForm.GetObjectFromString(typeof(DateTime), txtStop.Text, "x.y.g");
                 if (date == null) {
-                    MessageBox.Show(this, "Inserire la data di annullamento del dettaglio");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire la data di annullamento del dettaglio");
                     this.DialogResult = DialogResult.None;
                     return;
                 }
 
                 if (((DateTime) date).Year != Conn.GetEsercizio()) {
-                    MessageBox.Show(this, "La data di annullamento deve essere dell'esercizio corrente.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La data di annullamento deve essere dell'esercizio corrente.");
                     this.DialogResult = DialogResult.None;
                     return;
                 }
                 if (((DateTime) date).Year < yestim) {
-                    MessageBox.Show(this, "La data di annullamento deve essere successiva all'anno di creazione del contratto");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La data di annullamento deve essere successiva all'anno di creazione del contratto");
                     this.DialogResult = DialogResult.None;
                     return;
                 }
             }
 
             if (txtStart.Text == "") {
-                MessageBox.Show(this, "Inserire la data di inizio validit‡ del dettaglio");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire la data di inizio validit‡ del dettaglio");
                 this.DialogResult = DialogResult.None;
                 return;
             }
             else {
                 object date = HelpForm.GetObjectFromString(typeof(DateTime), txtStart.Text, "x.y.g");
                 if (date == null) {
-                    MessageBox.Show(this, "Inserire la data di inizio validit‡ del dettaglio");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire la data di inizio validit‡ del dettaglio");
                     this.DialogResult = DialogResult.None;
                     return;
                 }
 
                 if (((DateTime) date).Year != Conn.GetEsercizio()) {
-                    MessageBox.Show(this, "La data di inizio validit‡ deve essere dell'esercizio corrente.");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La data di inizio validit‡ deve essere dell'esercizio corrente.");
                     this.DialogResult = DialogResult.None;
                     return;
                 }
                 if (((DateTime) date).Year < yestim) {
-                    MessageBox.Show(this, "La data di inizio validit‡ deve essere successiva all'anno di creazione del contratto");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La data di inizio validit‡ deve essere successiva all'anno di creazione del contratto");
                     this.DialogResult = DialogResult.None;
                     return;
                 }
             }
 
             if (CfgFn.GetNoNullInt32(cmbNewTipoIva.SelectedValue) == 0) {
-                MessageBox.Show(this, "Inserire il tipo IVA del nuovo dettaglio");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire il tipo IVA del nuovo dettaglio");
                 this.DialogResult = DialogResult.None;
                 return;
             }
             double quantita = CfgFn.GetNoNullDouble(
               HelpForm.GetObjectFromString(typeof(double), txtNewQuantita.Text, "x.y"));
             if (quantita <= 0) {
-                MessageBox.Show(this, "Inserire una quantit‡ maggiore di 0 per il nuovo dettaglio");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire una quantit‡ maggiore di 0 per il nuovo dettaglio");
                 this.DialogResult = DialogResult.None;
                 return;
             }
@@ -156,7 +158,7 @@ namespace estimate_default {
             double imponibile = CfgFn.GetNoNullDouble(
                 HelpForm.GetObjectFromString(typeof(double), txtNewImportoUnitario.Text, "x.y"));
             if (imponibile <= 0) {
-                MessageBox.Show(this, "Inserire un imponibile unitario maggiore di 0 per il  nuovo dettaglio");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire un imponibile unitario maggiore di 0 per il  nuovo dettaglio");
                 this.DialogResult = DialogResult.None;
                 return;
             }
@@ -164,13 +166,13 @@ namespace estimate_default {
             double sconto = CfgFn.GetNoNullDouble(
               HelpForm.GetObjectFromString(typeof(double), txtNewSconto.Text, "x.y.fixed.4..%.100"));
             if (sconto < 0) {
-                MessageBox.Show(this, "Inserire una percentuale di sconto valida per il nuovo dettaglio");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire una percentuale di sconto valida per il nuovo dettaglio");
                 this.DialogResult = DialogResult.None;
                 return;
             }
 
             if (txtNewDescrizione.Text.Trim() == "") {
-                MessageBox.Show(this, "Inserire la descrizione del nuovo dettaglio");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire la descrizione del nuovo dettaglio");
                 this.DialogResult = DialogResult.None;
                 return;
             }
@@ -187,13 +189,13 @@ namespace estimate_default {
                 , QHS.IsNull("stop"));
             int count = Conn.RUN_SELECT_COUNT("estimatedetailgroupview", filter, true);
             if (count == 0) {
-                MessageBox.Show(this, "Nel contratto selezionato non esistono dettagli da annullare", "Avviso",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nel contratto selezionato non esistono dettagli da annullare", "Avviso",
                  MessageBoxButtons.OK);
                 return;
             }
             DataRow rDett = MetaDettaglio.SelectOne("dettaglio", filter, null, null);
             if (rDett == null) {
-                MessageBox.Show(this, "Non Ë stata selezionata alcuna riga", "Avviso",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non Ë stata selezionata alcuna riga", "Avviso",
                     MessageBoxButtons.OK);
                 return;
             }

@@ -4,6 +4,7 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="CHP_PC" Runat="Server">
 
 <div class="row">		
+
     <div class="col-md-12">	
 
         <cc1:hwpanel GroupingText="File allegato" CssClass="stdfieldset form-group" ID="gboxlblgroupBox1" runat="server" Tag="AutoChoose.txtCredDeb.lista.(active='S')">

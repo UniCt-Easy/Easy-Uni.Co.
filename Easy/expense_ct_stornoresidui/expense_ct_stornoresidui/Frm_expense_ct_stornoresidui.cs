@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -161,11 +163,13 @@ namespace expense_ct_stornoresidui {
         }
 
         //Restituisce il tipo classificazione di fase 4 , associata a @idsorkind, ossia al tipo classificazione di fase 1.
-        /* Al momento la situazione delle classificazioni √® la seguente:
+        /* Al momento la situazione delle classificazioni Ë la seguente:
          *7	    COAN_U	    COAN Impegni
          *8	    COAN_U3	    COAN Liquidazioni
+         * Prima c'era questa corrispondenza:
          *11	07U_MIUR	MIUR 2007 Spese
          *12	07U_SIOPE	Siope Uscite
+         * Adesso Ë MIUR_U_18 -> SIOPE_U_18
          * ove COAN Liquidazioni ha come tipo class. fase precente COAN Impegni
          * mentre in sortingtranslation troviamo
          * 7 master, 11 child
@@ -186,6 +190,11 @@ namespace expense_ct_stornoresidui {
             }
             if (codesorkindF1.ToString() == "07U_MIUR") {
                 object idsorkind_07U_SIOPE = Conn.DO_READ_VALUE("sortingkind", QHS.CmpEq("codesorkind", "07U_SIOPE"), "idsorkind");
+                return CfgFn.GetNoNullInt32(idsorkind_07U_SIOPE);
+            }
+            //Nuova corrispondenza MIUR_U_18 -> SIOPE_U_18
+            if (codesorkindF1.ToString() == "MIUR_U_18") {
+                object idsorkind_07U_SIOPE = Conn.DO_READ_VALUE("sortingkind", QHS.CmpEq("codesorkind", "SIOPE_U_18"), "idsorkind");
                 return CfgFn.GetNoNullInt32(idsorkind_07U_SIOPE);
             }
             return 0;
@@ -250,7 +259,7 @@ namespace expense_ct_stornoresidui {
             rExpVar["autokind"] = 26;//Storno CT
             rExpVar["adate"] = Meta.GetSys("datacontabile");
 
-            //Ottengo un DataTable con gli importi di classificazione raggruppati per codice, cos√¨ non considero la class. parziali
+            //Ottengo un DataTable con gli importi di classificazione raggruppati per codice, cosÏ non considero la class. parziali
             int esercizio = (int)Meta.GetSys("esercizio");
             string queryF1 = "select es1.idsor, s1.sortcode, s1.idsorkind, sum(es1.amount) as amountsorted "
            + " from expenseview "

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[split_invoicedetail_expensevar_nliqu]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[split_invoicedetail_expensevar_nliqu]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [split_invoicedetail_expensevar_nliqu]
 GO
 
@@ -156,7 +158,7 @@ WHERE invoicedetail.yinv = @ayear and expensevar.movkind = 1
 		where idinvkind = invoicedetail.idinvkind
 		    and yinv = invoicedetail.yinv 
 		    and ninv = invoicedetail.ninv)>1
-		OR -- la fattura non √® stata liquidata totalmentema parzialmente
+		OR -- la fattura non Ë stata liquidata totalmentema parzialmente
 		ISNULL((SELECT sum(ISNULL(taxabletotal,0) + ISNULL(ivatotal,0)) from invoiceresidual 
 			where idinvkind = invoicedetail.idinvkind
 			    and yinv = invoicedetail.yinv 
@@ -251,7 +253,7 @@ print @idinvkind print @yinv print @ninv print @yivapay print @nivapay
 		SET @erroredetraibileprec = 0
 	END
 
--- Servir√† dopo nello split
+-- Servir‡ dopo nello split
 	DECLARE @nrow int 
 	SELECT  @nrow = max(rownum)  from invoicedetail 
 				where idinvkind=@idinvkind and yinv = @yinv and ninv = @ninv
@@ -331,7 +333,7 @@ print '@nvar: ' print @nvar
 
 print '@fmax: 'print @fmax
 
-		WHILE (@elabora<30)-- questo cicla finch√® non quadra 
+		WHILE (@elabora<30)-- questo cicla finchË non quadra 
 		Begin
 			
 			SELECT @totimponibileeffettivo = CONVERT(DECIMAL(19,2),
@@ -431,7 +433,7 @@ print '@erroreprecedente' print @erroreprecedente
 
 		set @elabora = 0
 
-		WHILE (@elabora<30 and @epsilon_c<>1)-- questo cicla finch√® non quadra 
+		WHILE (@elabora<30 and @epsilon_c<>1)-- questo cicla finchË non quadra 
 		Begin
 
 			SELECT @totivaeffettivo =
@@ -550,7 +552,7 @@ print '@detraibiledesiderato' print @detraibiledesiderato
 --print '@fmin :' print @fmin
 --print '@fmax :' print @fmax
 
-		WHILE (@elabora<30 and @epsilon_c<>1)-- questo cicla finch√® non quadra 
+		WHILE (@elabora<30 and @epsilon_c<>1)-- questo cicla finchË non quadra 
 		Begin
 			-- E' calcolato come: (iva lorda - iva detraibile) = ina ivaindetraibile
 
@@ -620,10 +622,10 @@ print '@epsilon_ivaun_c' print @epsilon_ivaun_c
 		Begin
 			WHILE (@row_i <= @nrow)
 			Begin
--- La riga n+1 avr√† taxable[n+1] = taxable[1]*epsilon
--- La riga n+2 avr√† taxable[n+2] = taxable[2]*epsilon
+-- La riga n+1 avr‡ taxable[n+1] = taxable[1]*epsilon
+-- La riga n+2 avr‡ taxable[n+2] = taxable[2]*epsilon
 -- ...
--- la riga n+i avr√† taxable[n+i] = taxable[i]*epsilon
+-- la riga n+i avr‡ taxable[n+i] = taxable[i]*epsilon
 			if exists(SELECT * from #invoicedetail where rownum=@row_i) begin
 			Insert into #invoicedetail(idinvkind,yinv,ninv,rownum,idgroup,
 				taxable,tax,unabatable,discount,
@@ -668,8 +670,8 @@ print '@epsilon_ivaun_c' print @epsilon_ivaun_c
 
 		--imposta il residuo della fattura nei dettagli originali
 		UPDATE #invoicedetail SET 
--- la k-esima riga avr√† taxable uguale al suo taxable - la parte che ha ceduto al suo split
--- la 1 riga avr√† taxable[1]' = taxable[1]-taxable[1]*epsilon
+-- la k-esima riga avr‡ taxable uguale al suo taxable - la parte che ha ceduto al suo split
+-- la 1 riga avr‡ taxable[1]' = taxable[1]-taxable[1]*epsilon
 			taxable = 
 				ISNULL(( ISNULL(taxable,0) - 
 					round(dbo.GetImponibileNear(taxable*@epsilon_c, taxable, number,discount,@exchangerate),2)	
@@ -793,4 +795,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

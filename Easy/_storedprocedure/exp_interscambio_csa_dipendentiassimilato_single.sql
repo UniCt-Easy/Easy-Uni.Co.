@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_interscambio_csa_dipendentiassimilato_single]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_interscambio_csa_dipendentiassimilato_single]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_interscambio_csa_dipendentiassimilato_single]
 GO
 
@@ -58,7 +60,7 @@ IF (@tipoCompenso = 'T') SET  @mask = 2 --Compensi a dipendenti/ Conto Terzi
 IF (@tipoCompenso = 'B') SET  @mask = 4 --Borse di Studio
 IF (@tipoCompenso = 'M') SET  @mask = 8 --Missioni
 
--- ATTENZIONE: Questa sp Ã¨ chiamata anche da 'exp_interscambio_csa_dipendentiassimilato_dati'. Quest'ultima mostra i dati che stiamo comunicando attraverso il file.
+-- ATTENZIONE: Questa sp è chiamata anche da 'exp_interscambio_csa_dipendentiassimilato_dati'. Quest'ultima mostra i dati che stiamo comunicando attraverso il file.
 
 DECLARE @annoredditi int
 SET @annoredditi = @ayear
@@ -562,7 +564,7 @@ Begin
 		GROUP BY EL.idexp, C.idregistrylegalstatus, V.voce,	C.idreg
 
 
-		--- 8219 Rit. INPS G.S. c.d..Specificare lâ€™aliquota per lâ€™inclusione nella dichiarazione GLA (Emens)
+		--- 8219 Rit. INPS G.S. c.d..Specificare l’aliquota per l’inclusione nella dichiarazione GLA (Emens)
 		INSERT INTO #pagamenti(
 				idexp,
 				idregistrylegalstatus,
@@ -612,7 +614,7 @@ Begin
 		GROUP BY EL.idexp, C.idregistrylegalstatus, V.voce,	C.idreg
 
 
-		-- 8220 Rit. INPS G.S. c.E..Specificare lâ€™aliquota per lâ€™inclusione nella dichiarazione GLA(Emens)
+		-- 8220 Rit. INPS G.S. c.E..Specificare l’aliquota per l’inclusione nella dichiarazione GLA(Emens)
 
 		INSERT INTO #pagamenti(
 				idexp,
@@ -1248,8 +1250,8 @@ Begin
 End
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Corregge l'idregistrylegalstatus. Se facciamo l'importazione delle anagrafiche, e queste sono state giÃ  usate nei contratti, nelle tabelle dei contratti il campo
--- idregistrlegal status non sarÃ  valorizzato, quindi dobbiamo cercare di leggerlo adesso.
+-- Corregge l'idregistrylegalstatus. Se facciamo l'importazione delle anagrafiche, e queste sono state già usate nei contratti, nelle tabelle dei contratti il campo
+-- idregistrlegal status non sarà valorizzato, quindi dobbiamo cercare di leggerlo adesso.
 UPDATE #pagamenti SET idregistrylegalstatus = 
 									(select TOP 1 R1.idregistrylegalstatus -- ci sono anagrafiche con lo stesso ruolo ma aventi data decorrenza diversa
 										from registrylegalstatus R1
@@ -1274,8 +1276,8 @@ SET  @departmentname  = ISNULL( (SELECT paramvalue from
 DECLARE @iddb varchar(50)
 SET @iddb = (select user)
 
--- In Out forniamo anche idexp perchÃ¨ il file deve comunicare un record per pagamento
--- Ma l'idexp non basta, perchÃ¨ Ã¨ univoco nel dipetimento non nel DB, quindi vi concateniamo anche lo user per avere una chiave
+-- In Out forniamo anche idexp perchè il file deve comunicare un record per pagamento
+-- Ma l'idexp non basta, perchè è univoco nel dipetimento non nel DB, quindi vi concateniamo anche lo user per avere una chiave
 -- univoca del mov. di spesa all'interno del DB consolidato
 SELECT 
 		P.idreg,
@@ -1311,4 +1313,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

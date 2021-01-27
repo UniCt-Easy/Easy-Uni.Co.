@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -990,11 +992,11 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
 
 		bool GetMovimentoSelezionato(){
 			if (txtNumeroMovimento.Text.Trim()==""){
-				MessageBox.Show("Selezionare un movimento per procedere");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Selezionare un movimento per procedere");
 				return false;
 			}
 			if (currcont== tipocont.cont_none){
-				MessageBox.Show("Al movimento selezionato non Ë associata alcuna contabilizzazione.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Al movimento selezionato non Ë associata alcuna contabilizzazione.");
 				return false;
 			}
 			string filter= GetFasePrecFilter(true);
@@ -1319,7 +1321,7 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
 			PostData Post = Meta.Get_PostData();
 			Post.InitClass(DS,Conn);
 			bool res= Post.DO_POST();
-			if (res)MessageBox.Show("Rimozione della contabilizzazione eseguita con successo.");
+			if (res)MetaFactory.factory.getSingleton<IMessageShower>().Show("Rimozione della contabilizzazione eseguita con successo.");
 			return res;
 		}
 		private void cmbFaseSpesa_SelectedIndexChanged(object sender, System.EventArgs e) {

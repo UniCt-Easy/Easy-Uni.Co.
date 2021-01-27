@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_spese_intestazione_respons]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_spese_intestazione_respons]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_partitario_spese_intestazione_respons]
 GO
 
@@ -107,12 +109,12 @@ select @nfinphase = expenseregphase
 
 
 
--- ovvero prendo la massima fase tra quelle che contengono o il codice di bilancio o il creditore perch√É∆í√Ç¬® quest√É∆í√Ç¬† √É∆í√Ç¬® la vera fase di impegno giuridico
+-- ovvero prendo la massima fase tra quelle che contengono o il codice di bilancio o il creditore perch√É¬® quest√É¬† √É¬® la vera fase di impegno giuridico
 DECLARE @maxexpensephase tinyint
 SELECT  @maxexpensephase = MAX(nphase)
 FROM    expensephase 
--- ATTENZIONE L'ipotesi di funzionamento di questa sp √® che fase dell'impegno = fase del pagamento - 1.
--- ALTRIMENTI SBALLA LE RIGHE DEL PAGAMENTO SUL REPORT (o meglio con un p√≤ di tempo si deve fare un controllo per eliminare tutte le fasi 
+-- ATTENZIONE L'ipotesi di funzionamento di questa sp Ë che fase dell'impegno = fase del pagamento - 1.
+-- ALTRIMENTI SBALLA LE RIGHE DEL PAGAMENTO SUL REPORT (o meglio con un pÚ di tempo si deve fare un controllo per eliminare tutte le fasi 
 -- che non sono fasepagamento e faseimpegno, anzi lo faccio subito inserendo alla fine una DELETE WHERE nphase <> fase del pagamento AND nphase <> fase dell'impegno)
 
 CREATE TABLE #expense
@@ -235,7 +237,7 @@ JOIN expensetotal
 	ON  expenseyear.idexp = expensetotal.idexp
 	AND expenseyear.ayear = expensetotal.ayear		
 JOIN expenselink EL2
-	ON EL2.idchild = expense.idexp  AND EL2.nlevel = @nfinphase  --adesso √® la fase di registro (infatti solo il nome √® lo stesso)
+	ON EL2.idchild = expense.idexp  AND EL2.nlevel = @nfinphase  --adesso Ë la fase di registro (infatti solo il nome Ë lo stesso)
 LEFT  OUTER JOIN finlink FL
 	ON FL.idchild = expenseyear.idfin  AND FL.nlevel = @codelevel
 LEFT  OUTER JOIN finlink FL1
@@ -428,8 +430,8 @@ BEGIN
 			AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 --select  'quinta', * from #expense
 END
--- La parte eseguente l'ho commentata perch√® dovendo calcolare (non solo le var degli upb con resp.) anche le var. degli upb senza resp movimentati
--- ho sposatto questo calcolo in fondo alla SP come per il calcolo della prev. Alla fine lui calcoler√† le var di prev e la prev degli upb 
+-- La parte eseguente l'ho commentata perchË dovendo calcolare (non solo le var degli upb con resp.) anche le var. degli upb senza resp movimentati
+-- ho sposatto questo calcolo in fondo alla SP come per il calcolo della prev. Alla fine lui calcoler‡ le var di prev e la prev degli upb 
 -- inseriti nel tabellone. Il calcolo sembra anche + veloce.
 
 CREATE TABLE #appropriation_C
@@ -1147,8 +1149,8 @@ BEGIN
 				AND finvar.yvar = @ayear
 				AND ISNULL(finlink.idparent,finvardetail.idfin) = #expense.idfin 
 				AND finvardetail.idupb  like @idupb), 0),
--- il like √® stato tolto perch√® posso avere un upb figlio con responsabile <> dal padre, con il like non era possibile distinguere i casi. 
---In questo modo, invece, calcolo la var. su ciascun upb, dopo andr√≤ a fare un update sugli idupb con @idupb 
+-- il like Ë stato tolto perchË posso avere un upb figlio con responsabile <> dal padre, con il like non era possibile distinguere i casi. 
+--In questo modo, invece, calcolo la var. su ciascun upb, dopo andrÚ a fare un update sugli idupb con @idupb 
 -- e poi una stampa raggruppata per responsabile.
 	finvar_secondaryprev = ISNULL((SELECT SUM(ISNULL(finvardetail.amount,0))
 				FROM finvardetail
@@ -1408,14 +1410,14 @@ BEGIN
 --select * from #expense
 END
 -- cancello le righe dei figli di @idupboriginal aventi idappropriation = NULL
--- Se ho scelto l'upb ne cancello i figli perch√® li ho totalizzati tramite la nuova UPDATE
+-- Se ho scelto l'upb ne cancello i figli perchË li ho totalizzati tramite la nuova UPDATE
 /*IF (@showupb <>'S') and (@idupboriginal <> '%' ) AND (@showchildupb = 'S')
 		DELETE FROM #expense WHERE idappropriation is null 
 						AND substring(idupb,1,len(@idupboriginal))= @idupboriginal 	
 						AND idupb <>@idupboriginal
 */						
 -- cancello solo le righe che sono upb-figli aventi idappropriation = NULL
--- Se non ho scelto alcun upb cancello solo gli upb padri con lo stesso resp. del figlio perch√® li ho totalizzati tramite la nuova UPDATE
+-- Se non ho scelto alcun upb cancello solo gli upb padri con lo stesso resp. del figlio perchË li ho totalizzati tramite la nuova UPDATE
    
 /*IF (@showupb <>'S') 
 		DELETE FROM #expense WHERE idappropriation IS NULL 
@@ -1425,10 +1427,10 @@ END
 					WHERE U.paridupb = #expense.idupb 
 					and U.idman=#expense.idman )
 */					
--- se questa condizione √® soffisfatta √® significa che avr√≤ (x es.) due roghe, di cui una ha l0info dell'impegno
+-- se questa condizione Ë soffisfatta Ë significa che avrÚ (x es.) due roghe, di cui una ha l0info dell'impegno
 -- l'altra ma entrambe avranno i medesimi importi per le prev. e gli importi dei mov. in quanto li ho totalizzate sopra
 -- Se non procedo con questa cancellazione nell'istruzione succezziva sui esegue l'update sull'idupb
--- poi far√† il raggruppamento finale raddoppiando (erroneamente) gli importi.
+-- poi far‡ il raggruppamento finale raddoppiando (erroneamente) gli importi.
 IF (@showupb <>'S') 
 		DELETE FROM #expense WHERE idappropriation IS NULL 
 			AND EXISTS (SELECT * FROM #expense S 
@@ -1440,7 +1442,7 @@ IF (@showupb <>'S')
 	IF (@showupb <>'S') AND (@idupboriginal <> '%' ) AND (@showchildupb = 'S')
 			UPDATE #expense SET  
 				upbprintingorder = (SELECT TOP 1 printingorder
-					FROM upb--#expense -- perch√® nel tabellone posso non avere il padre quindi non avr√≤ le info che mi servono
+					FROM upb--#expense -- perchË nel tabellone posso non avere il padre quindi non avrÚ le info che mi servono
 					WHERE idupb = @idupboriginal),
 				upb = (SELECT TOP 1 title
 					FROM upb
@@ -1470,7 +1472,7 @@ CREATE TABLE #expenseprec
 	appropriation decimal(19,2),
 	var_appropriation decimal(19,2)
 )
--- questi calcoli li fa solo se vuoi vedere l'upb,perch√® sono info relative ad essso
+-- questi calcoli li fa solo se vuoi vedere l'upb,perchË sono info relative ad essso
 -- IF parametto mostra info = S  and mostra upb = S
 
 DECLARE @secprevisionkind    char(1) 
@@ -1557,7 +1559,7 @@ END
 --  ****************************************************************************************************************** --
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-if (@suppressifblank = 'S') and @codelevel>2	--> se la stampa √® x un livello sottostante la categoria cancella le righe
+if (@suppressifblank = 'S') and @codelevel>2	--> se la stampa Ë x un livello sottostante la categoria cancella le righe
 	BEGIN
 		DELETE 
 		FROM  #expense   
@@ -1749,4 +1751,3 @@ exec rpt_partitario_spese_intestazione_respons @ayear=2007,
 		@idupb='', @start={d '2007-01-01'}, @stop={d '2007-09-05'}, 
 			@codelevel=1, @codefin=null, @showupb='S', @showchildupb='S', @idman=null, @suppressifblank='S'
 */
-	

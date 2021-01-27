@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoicedetail_quadrove]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoicedetail_quadrove]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_invoicedetail_quadrove]
 GO
  
@@ -22,7 +24,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
- 
+
 --setuser 'amm'
 --[exp_invoicedetail_quadrove] 2016, 'A',1
 --[exp_invoicedetail_quadrove] 2016, 'A',2
@@ -116,19 +118,19 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 		idinc_iva int, 
 		paymentcompetency datetime
 	)
-	--Condizioni fatture da comprendere nell‚Äôesportazione: 
+	--Condizioni fatture da comprendere nellíesportazione: 
 	--1.	Dettagli fatture di vendita, con aliquota 4% o 10% o 22%, 
 	--con esercizio anno di dichiarazione e flag IVA immediata
 	--2.	Dettagli fatture di vendita, con aliquota 4% o 10% o 22%, 
-	--con esercizio anno di dichiarazione, flag IVA differita e incassate nell‚Äôesercizio di dichiarazione
+	--con esercizio anno di dichiarazione, flag IVA differita e incassate nellíesercizio di dichiarazione
 	--3.	Dettagli fatture di vendita, con aliquota 4% o 10% o 22%, 
-	--con esercizio anni precedenti a quello di dichiarazione, flag IVA differita e incassate nell‚Äôesercizio di dichiarazione
+	--con esercizio anni precedenti a quello di dichiarazione, flag IVA differita e incassate nellíesercizio di dichiarazione
 	IF (@opkind = 1)
 	BEGIN
 	
 	--sp_help invoicedetail
-	-- il segno √® da cambiare se flagdeferred oppure se kind<>registerclass
-	-- inoltre per le fatture non intracom con la doppia presenza A/V √® da cancellare la riga in vendita
+	-- il segno Ë da cambiare se flagdeferred oppure se kind<>registerclass
+	-- inoltre per le fatture non intracom con la doppia presenza A/V Ë da cancellare la riga in vendita
 
 	-- Sezione 2 IVA Immediata a DEBITO (fatt.vendita) - DATA REVERSALE
 	--1.	Dettagli fatture di vendita, con aliquota 4% o 10% o 22%, 
@@ -200,7 +202,7 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 		and (isnull(IDET.flagbit,0) & 4) = 0
 		AND (IK.flag & 1) <> 0 -- VENDITA
 		AND ISNULL(IVA.rate,0) * 100 in (4.00 , 10.00, 22.00)
-		-- CASI DA ESCLUDERE PERCH√® COMPRESI NELLE ALTRE ESPORTAZIONI
+		-- CASI DA ESCLUDERE PERCHË COMPRESI NELLE ALTRE ESPORTAZIONI
 		AND NOT ( 
 			--'Esportazioni beni - Esp. 2' '001' 
 			(ISNULL(SOR.sortcode,'') = '001' ) OR 
@@ -237,7 +239,7 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 	  
 	-- Sezione 2 IVA Differita a DEBITO (fatt.vendita) - DATA REVERSALE
 	--2.	Dettagli fatture di vendita, con aliquota 4% o 10% o 22%, 
-	--con esercizio anno di dichiarazione, flag IVA differita e incassate nell‚Äôesercizio di dichiarazione
+	--con esercizio anno di dichiarazione, flag IVA differita e incassate nellíesercizio di dichiarazione
 	INSERT INTO #invoice
 	(
 		label_tipo_esportazione,idinvkind, yinv, ninv, rownum,adate,paymentcompetency,flagdeferred, flagmixed,
@@ -294,7 +296,7 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 		AND ISNULL(IDET.rounding,'N') <>'S'
 		and (isnull(IDET.flagbit,0) & 4) = 0
 		AND ISNULL(IVA.rate,0) * 100 in (4.00 , 10.00, 22.00)
-		-- CASI DA ESCLUDERE PERCH√® COMPRESI NEI PUNTI SUCCESSIVI
+		-- CASI DA ESCLUDERE PERCHË COMPRESI NEI PUNTI SUCCESSIVI
 		AND NOT ( 
 			--'Esportazioni beni - Esp. 2' '001' 
 			(ISNULL(SOR.sortcode,'') = '001' ) OR 
@@ -392,7 +394,7 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 		AND ISNULL(IDET.rounding,'N') <>'S'
 		and (isnull(IDET.flagbit,0) & 4) = 0
 		AND ISNULL(IVA.rate,0) * 100 in (4.00 , 10.00, 22.00)
-		-- CASI DA ESCLUDERE PERCH√® COMPRESI NEI PUNTI SUCCESSIVI
+		-- CASI DA ESCLUDERE PERCHË COMPRESI NEI PUNTI SUCCESSIVI
 		AND NOT ( 
 			--'Esportazioni beni - Esp. 2' '001' 
 			(ISNULL(SOR.sortcode,'') = '001' ) OR 
@@ -435,7 +437,7 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
  
  -- Sezione 3 IVA Differita a DEBITO (fatt.vendita) - DATA REVERSALE
 	--3.	Dettagli fatture di vendita, con aliquota 4% o 10% o 22%, 
-	--con esercizio anni precedenti a quello di dichiarazione, flag IVA differita e incassate nell‚Äôesercizio di dichiarazione
+	--con esercizio anni precedenti a quello di dichiarazione, flag IVA differita e incassate nellíesercizio di dichiarazione
 	INSERT INTO #invoice
 	(
 		label_tipo_esportazione,idinvkind, yinv, ninv, rownum,adate,paymentcompetency, flagdeferred, flagmixed,
@@ -491,7 +493,7 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 		AND ISNULL(IDET.rounding,'N') <>'S'
 		and (isnull(IDET.flagbit,0) & 4) = 0
 		AND ISNULL(IVA.rate,0) * 100 in (4.00 , 10.00, 22.00)
-		-- CASI DA ESCLUDERE PERCH√® COMPRESI NEI PUNTI SUCCESSIVI
+		-- CASI DA ESCLUDERE PERCHË COMPRESI NEI PUNTI SUCCESSIVI
 		AND NOT ( 
 			--'Esportazioni beni - Esp. 2' '001' 
 			(ISNULL(SOR.sortcode,'') = '001' ) OR 
@@ -534,9 +536,9 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 	-- 2. Esportazione Beni
 	--	AND InvDet.intra12operationkind = 'B'--> Beni
 	/*
-	Colonne esportazione modalit√† A: Imponibile, Imposta
-	Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
-	Condizioni fatture da comprendere nell‚Äôesportazione: 
+	Colonne esportazione modalit‡ A: Imponibile, Imposta
+	Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+	Condizioni fatture da comprendere nellíesportazione: 
 	1.	Dettagli fatture di vendita con esercizio anno dichiarazione e con flag intracom =X escluso San marino(*)
 	2. Determino i dettagli che sono vendite di Beni da una specifica classificazione sul tipo aliquota
 	(*)Deve escludere i dettagli che hanno come anagrafica un residente in San Marino
@@ -546,10 +548,10 @@ SELECT  @idclassivakind = idsorkind FROM sortingkind WHERE codesorkind = @codecl
 
 	
 --	4-	Cessioni beni verso San Marino
---Colonne esportazione modalit√† A: Imponibile, Imposta 
---Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura  
---Condizioni fatture da comprendere nell‚Äôesportazione:
---1.	Dettagli fatture di vendita con esercizio anno dichiarazione, che contengono un‚Äôanagrafica con Stato estero SAN MARINO
+--Colonne esportazione modalit‡ A: Imponibile, Imposta 
+--Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura  
+--Condizioni fatture da comprendere nellíesportazione:
+--1.	Dettagli fatture di vendita con esercizio anno dichiarazione, che contengono uníanagrafica con Stato estero SAN MARINO
 -- 2. Determino i dettagli che sono vendite di Beni da una specifica classificazione sul tipo aliquota
 	IF ((@opkind = 2) OR (@opkind = 4)) --2. Esportazione Beni o 4-	Cessioni beni verso San Marino
 	BEGIN
@@ -678,9 +680,9 @@ END
 
 
 --	3-	Cessioni intracomunitarie beni
---Colonne esportazione modalit√† A: Imponibile, Imposta
---Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
---Condizioni fatture da comprendere nell‚Äôesportazione: 
+--Colonne esportazione modalit‡ A: Imponibile, Imposta
+--Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+--Condizioni fatture da comprendere nellíesportazione: 
 --1.	Dettagli fatture di vendita con esercizio anno dichiarazione e con flag intracom =I
 	IF (@opkind = 3) --3-	Cessioni intracomunitarie beni 
 	BEGIN
@@ -745,9 +747,9 @@ END
 
  
 --	5-	Operazioni esenti (art. 10)
---Colonne esportazione modalit√† A: Imponibile, Imposta
---Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
---Condizioni fatture da comprendere nell‚Äôesportazione:
+--Colonne esportazione modalit‡ A: Imponibile, Imposta
+--Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+--Condizioni fatture da comprendere nellíesportazione:
 --1.	Dettagli fatture di vendita con esercizio anno dichiarazione e 
 --con un Tipo aliquota classificato con un determinato codice che stabiliremo
 -- al momento non esiste una tabella di classificazione dle tipo iva ivakind sorting
@@ -811,9 +813,9 @@ BEGIN
 		)
 END
 --6-	Operazioni non soggette artt. 7-7-septies
---Colonne esportazione modalit√† A: Imponibile, Imposta
---Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
---Condizioni fatture da comprendere nell‚Äôesportazione:
+--Colonne esportazione modalit‡ A: Imponibile, Imposta
+--Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+--Condizioni fatture da comprendere nellíesportazione:
 --1.	Dettagli fatture di vendita con esercizio anno dichiarazione e con un Tipo aliquota 
 -- classificato con un determinato codice che stabiliremo
 -- al momento non esiste una tabella di classificazione del tipo iva
@@ -877,9 +879,9 @@ BEGIN
  
  END
 -- 7-	Operazioni reverse charge
---Colonne esportazione modalit√† A: Ammontare complessivo (Totale imponibile)
---Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
---Condizioni fatture da comprendere nell‚Äôesportazione:
+--Colonne esportazione modalit‡ A: Ammontare complessivo (Totale imponibile)
+--Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+--Condizioni fatture da comprendere nellíesportazione:
 --1.	Dettagli fatture di vendita con esercizio anno dichiarazione che hanno il flag reverse charge = S
 
 if (@opkind = 7)
@@ -962,9 +964,9 @@ END
 
 IF (@opkind = 8) --8-	Operazioni con imposta esigibile in anni successivi
 --8-	Operazioni con imposta esigibile in anni successivi
---Colonne esportazione modalit√† A: Ammontare complessivo (Totale imponibile)
---Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
---Condizioni fatture da comprendere nell‚Äôesportazione:
+--Colonne esportazione modalit‡ A: Ammontare complessivo (Totale imponibile)
+--Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+--Condizioni fatture da comprendere nellíesportazione:
 --1.	Dettagli fatture di vendita con esercizio anno dichiarazione, ad IVA differita,
 --non incassate al 31/12 e quindi non entrate in liquidazione nell'anno in corso.
 BEGIN
@@ -1040,9 +1042,9 @@ END
 IF (@opkind = 9) --9-	Operazioni verso PA art. 17-ter
 --9-	Operazioni verso PA art. 17-ter
 BEGIN
---Colonne esportazione modalit√† A: Ammontare complessivo (Totale imponibile)
---Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
---Condizioni fatture da comprendere nell‚Äôesportazione:
+--Colonne esportazione modalit‡ A: Ammontare complessivo (Totale imponibile)
+--Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+--Condizioni fatture da comprendere nellíesportazione:
 --1.	Dettagli fatture di vendita con esercizio anno dichiarazione, che hanno il flag enable split payment= S
 
 
@@ -1103,7 +1105,7 @@ BEGIN
 		-- AND ISNULL(R.flagbankitaliaproceeds,'N') = 'S'  task 12482
 
 		-- Escludo le fatture di quest'anno comprese in altri punti
-		AND NOT (ISNULL(SOR.sortcode,'') in ('001','002','003','004','005'))
+		AND NOT (ISNULL(SOR.sortcode,'') in ('001','002','003','004','005','012'))
 		--7-	escludo Operazioni reverse charge
 		AND ISNULL(flag_reverse_charge, 'N') = 'N'
 		--escludo --8-	Operazioni a iva differita con imposta esigibile in anni successivi
@@ -1120,12 +1122,12 @@ END
 
 IF (@opkind = 10) --10-	Operazioni anni precedenti con IVA esigibile nell'anno
 --10-	Operazioni anni precedenti con IVA esigibile nell'anno
---Colonne esportazione modalit√† A: Ammontare complessivo (Totale imponibile)
---Colonne esportazione modalit√† B: Vedi campi elenco Dettagli fattura
---Condizioni fatture da comprendere nell‚Äôesportazione:
+--Colonne esportazione modalit‡ A: Ammontare complessivo (Totale imponibile)
+--Colonne esportazione modalit‡ B: Vedi campi elenco Dettagli fattura
+--Condizioni fatture da comprendere nellíesportazione:
 --1.	Dettagli fatture di vendita con esercizio precedente a quello in corso, ad IVA differita,
 --ad IVA, incassate nell'anno in corso e quindi entrate in liquidazione nell'anno in corso
--- Vanno esclusi i dettagli fatture di vendita con flag ‚ÄúApplica Split payment‚Äù ed emesse ad anagrafiche con flag ‚ÄúRegolarizzazione riscossioni presso TPS‚Äù, nella scheda Altri dati dell‚ÄôAnagrafica
+-- Vanno esclusi i dettagli fatture di vendita con flag ìApplica Split paymentî ed emesse ad anagrafiche con flag ìRegolarizzazione riscossioni presso TPSî, nella scheda Altri dati dellíAnagrafica
 BEGIN
 	INSERT INTO #invoice
 	(
@@ -1186,7 +1188,7 @@ BEGIN
 END
 
 
---Condizioni fatture da comprendere nell‚Äôesportazione:
+--Condizioni fatture da comprendere nellíesportazione:
 --	1. Dettagli fatture di vendita con esercizio anno dichiarazione e con un Tipo aliquota classificato con codice 006 della classificazione 016_CLASSIVAKIND.
 
 IF (@opkind = 11) 
@@ -1241,7 +1243,7 @@ BEGIN
 	WHERE 	YEAR(I.adate) = @ayear
 		AND IRK.registerclass = 'V'
 		AND ISNULL(IDET.rounding,'N') <>'S'
-		and (isnull(IDET.flagbit,0) & 4) = 0  --Abbuono passivo: Il dettaglio fattura √® stato inserito per rappresentare una riduzione del ricavo a causa dei costi di incasso detratti dalla banca. Non fa parte effettivamente della fattura
+		and (isnull(IDET.flagbit,0) & 4) = 0  --Abbuono passivo: Il dettaglio fattura Ë stato inserito per rappresentare una riduzione del ricavo a causa dei costi di incasso detratti dalla banca. Non fa parte effettivamente della fattura
 		AND (IK.flag & 1) <> 0 -- VENDITA
 		AND SOR.sortcode in ('006') -- 11- Operazioni non imponibili a seguito di dichiarazione di intento
 	)
@@ -1249,7 +1251,7 @@ BEGIN
 END
 
 
---Condizioni fatture da comprendere nell‚Äôesportazione:
+--Condizioni fatture da comprendere nellíesportazione:
 --	1. Dettagli fatture di vendita con esercizio anno dichiarazione e con un Tipo aliquota classificato con codice 006 della classificazione 016_CLASSIVAKIND.
 
 IF (@opkind = 12) 
@@ -1304,7 +1306,7 @@ BEGIN
 	WHERE 	YEAR(I.adate) = @ayear
 		AND IRK.registerclass = 'V'
 		AND ISNULL(IDET.rounding,'N') <>'S'
-		and (isnull(IDET.flagbit,0) & 4) = 0  --Abbuono passivo: Il dettaglio fattura √® stato inserito per rappresentare una riduzione del ricavo a causa dei costi di incasso detratti dalla banca. Non fa parte effettivamente della fattura
+		and (isnull(IDET.flagbit,0) & 4) = 0  --Abbuono passivo: Il dettaglio fattura Ë stato inserito per rappresentare una riduzione del ricavo a causa dei costi di incasso detratti dalla banca. Non fa parte effettivamente della fattura
 		AND (IK.flag & 1) <> 0 -- VENDITA
 		AND SOR.sortcode in ('007') ---1. Dettagli fatture di vendita con esercizio anno dichiarazione e con un Tipo aliquota classificato con codice 007 della classificazione 016_CLASSIVAKIND.
 	)
@@ -1358,14 +1360,14 @@ IF (@kind = 'D') --dettagliata
 													and YEAR(PE.competencydate) = @ayear)   
 		THEN 'Vendita  anno corr. non ancora esigibili'
 		ELSE null
-	END as 'Esigibilit√†',
+	END as 'Esigibilit‡',
 	CASE 
 		WHEN #invoice.flagsplit = 'S' THEN 'SI'
 		ELSE 'NO'
 	END as 'Split Payment',
 	invoicedetailview.rownum as 'Num. riga', 
 	invoicedetailview.detaildescription as 'Descrizione', --!! 
-	invoicedetailview.number as 'Q.t√† ',  --!! 
+	invoicedetailview.number as 'Q.t‡ ',  --!! 
 	invoicedetailview.description as 'Descrizione Fattura', --!!
 	CASE WHEN (invoicedetailview.flagvariation = 'N') THEN invoicedetailview.taxable ELSE -invoicedetailview.taxable
 	END as 'Importo Unitario', --!! 
@@ -1382,7 +1384,7 @@ IF (@kind = 'D') --dettagliata
 	invoicedetailview.va3typedescription as 'Quadro VF26', --!! 
 	invoicedetailview.code as 'Cod.Nomenclatura', 
 	invoicedetailview.intrastatcode as 'Nomenclatura',  --!! 
-	invoicedetailview.intrastatmeasure as 'Unit√† di misura', --!! 
+	invoicedetailview.intrastatmeasure as 'Unit‡ di misura', --!! 
 	invoicedetailview.intrastatoperationkind as 'Beni/Servizi', --!! 
 	invoicedetailview.servicecode as 'Cod.Servizi', --!!
 	invoicedetailview.intrastatservice as 'Servizi', --!!
@@ -1463,4 +1465,3 @@ SET ANSI_NULLS ON
 GO
  
  
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_credit_surplus]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_credit_surplus]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_credit_surplus]
 GO
 
@@ -103,7 +105,7 @@ WHERE reportname = 'consentr' AND paramname = 'MostraAvanzo'
 DECLARE @cashvaliditykind tinyint
 SELECT  @cashvaliditykind = cashvaliditykind FROM config WHERE ayear = @ayear
 -- ricerca la fase equivalente all'impegno
--- se √® stata inserita nella tabella di configurazione
+-- se Ë stata inserita nella tabella di configurazione
 -- del bilancio
 
 DECLARE @finphase tinyint
@@ -111,7 +113,7 @@ SELECT  @finphase = appropriationphasecode
 FROM 	config
 WHERE 	ayear = @ayear
 
--- Se non √® stata inserita nella tabella di configurazione ipotizza che si tratti della fase dove viene identificata
+-- Se non Ë stata inserita nella tabella di configurazione ipotizza che si tratti della fase dove viene identificata
 -- la voce di bilancio
 IF @finphase IS NULL
 BEGIN
@@ -119,15 +121,15 @@ BEGIN
 	FROM uniconfig
 END
 
--- La fase di cassa √® sempre l'ultima fase della procedura  di spesa
+-- La fase di cassa Ë sempre l'ultima fase della procedura  di spesa
 DECLARE @maxexpensephase tinyint
 SELECT 	@maxexpensephase = MAX(nphase) FROM expensephase
 
 DECLARE @maxincomephase  tinyint
 SELECT 	@maxincomephase = MAX(nphase) FROM incomephase
 
--- Se @fin_kind = 1 ==> √® stata personalizzata una  previsione principale di tipo "competenza", se @fin_kind = 2
--- ==> √® stata personalizzata una previsione principale di tipo "cassa", se  @fin_kind = 3 ==> √® stata personalizzata una
+-- Se @fin_kind = 1 ==> Ë stata personalizzata una  previsione principale di tipo "competenza", se @fin_kind = 2
+-- ==> Ë stata personalizzata una previsione principale di tipo "cassa", se  @fin_kind = 3 ==> Ë stata personalizzata una
 -- previsione principale di tipo "altra previsione". 
 DECLARE @fin_kind tinyint
 SELECT  @fin_kind = fin_kind  FROM config WHERE ayear = @ayear
@@ -851,4 +853,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

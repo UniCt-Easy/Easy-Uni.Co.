@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing metadatalibrary;
+
+using metadatalibrary;
 using System;
 using System.Data;
 using System.Globalization;
@@ -26,8 +28,11 @@ namespace Unicredit {
 
 
         public static string ElaboraUbi(string fileName, out DataTable tFlussoBanca) {
-
-            var sr = getStreamReader(fileName);
+	        string all = File.ReadAllText(fileName,Encoding.UTF8);
+            
+            var sr= new StringReader(all);
+	        //var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read, 1048576);
+	        //var sr= new StreamReader(fs, Encoding.Default);
             tFlussoBanca = generaStruttura();
             while (sr.Peek() != -1) {
                 string err=null;
@@ -35,16 +40,21 @@ namespace Unicredit {
                 while (true) {
                     var rDett = tFlussoBanca.NewRow();
                     err = leggiRecordDiDettaglio(sr, rDett, "ubi");
-                    if (err != null) return err;
+                    if (err != null) {
+	                    sr.Close();
+	                    sr.Dispose();
+	                    return err;
+                    }
                     tFlussoBanca.Rows.Add(rDett);
-                    if (sr.EndOfStream) break;
+                    if (sr.Peek() == -1) break;
                     leggiAlfanumerico(sr, 0, out err);
                     //tiprec = leggiIntestazioneRecord(sr,out err);
                     //if (err != null) return err;
                 }
 
-                if (sr.EndOfStream) {
+                if (sr.Peek() == -1) {
                     sr.Close();
+                    sr.Dispose();
                     return null;
                 }
             }
@@ -56,40 +66,61 @@ namespace Unicredit {
             return ElaboraUnicredit(fileName, withHeaderTail, out tFlussoBanca);
         }
 
-        public static string Elabora(string fileName, out DataTable tFlussoBanca) {  //usata da BPS su sdiftp in paymentService NINO: non √® vero
-            var sr = getStreamReader(fileName);
+        public static string Elabora(string fileName, out DataTable tFlussoBanca) {  //usata da BPS su sdiftp in paymentService NINO: non Ë vero
+	       
+
+	        string all = File.ReadAllText(fileName,Encoding.UTF8);
+	        var sr= new StringReader(all);
+            
             tFlussoBanca = generaStruttura();
             while (sr.Peek() != -1) {
                 var err = leggiRecordDiTesta(sr);
-                if (err != null) return err; //Controllare che serva.
+                if (err != null) return "Record di testa:"+ err; //Controllare che serva.
                 var tiprec = leggiIntestazioneRecord(sr,out err);
                 if (err != null) return err;
                 while ((tiprec != "A") && (tiprec != "Z")) {
                     var rDett = tFlussoBanca.NewRow();
                     err = leggiRecordDiDettaglio(sr, rDett);
-                    if (err != null) return err;
+                    if (err != null) {
+	                    sr.Close();
+	                    sr.Dispose();
+	                    return "Record di dettaglio:"+err;
+                    }
                     tFlussoBanca.Rows.Add(rDett);
                     tiprec = leggiIntestazioneRecord(sr,out err);
-                    if (err != null) return err;
+                    if (err != null) {
+	                    sr.Close();
+	                    sr.Dispose();
+	                    return "leggiIntestazioneRecord:"+err;
+                    }
                 }
                 if (tiprec == "Z") {
                     sr.Close();
+                    sr.Dispose();
                     return null;
                 }
             }
+            sr.Close();
+            sr.Dispose();
             return "Fine file inaspettata";
         }
 
         public static bool IntestazionePresenteUnicredit(string fileName) {
-            var sr = getStreamReader(fileName);
-            while (sr.Peek() != -1) {
+	        string all = File.ReadAllText(fileName,Encoding.UTF8);
+	        var sr= new StringReader(all);
+
+	        while (sr.Peek() != -1) {
                 string err = null;
                 var tiprec = leggiIntestazioneRecord(sr, out err);
+                sr.Close();
+                sr.Dispose();
                 if (tiprec == "A") 
                     return true;
                 else
                     return false;
             }
+            sr.Close();
+            sr.Dispose();
             return false;
         }
 
@@ -101,39 +132,62 @@ namespace Unicredit {
         }
 
         public static string ElaboraUnicredit(string fileName, bool withHeaderTail, out DataTable tFlussoBanca) {
-            var sr = getStreamReader(fileName);
+	        string all = File.ReadAllText(fileName,Encoding.UTF8);
+	        var sr= new StringReader(all);
             tFlussoBanca = generaStruttura();
             while (sr.Peek() != -1) {
                 string err=null;
                 if (withHeaderTail) {
                     err= leggiRecordDiTesta(sr);
-                    if (err != null) return err; //Controllare che serva.
+                    if (err != null) {
+	                    sr.Close();
+	                    sr.Dispose();
+	                    return "Record di testa:"+err; //Controllare che serva.
+}
                 }
                 var tiprec = leggiIntestazioneRecord(sr,out err);
-                if (err != null) return err;
+                if (err != null) {
+	                sr.Close();
+	                sr.Dispose();
+	                return "leggiIntestazioneRecord:"+err; //Controllare che serva.
+                }
 
                 while ((tiprec != "A") && (tiprec != "Z") ) {
                     var rDett = tFlussoBanca.NewRow();
                     err = leggiRecordDiDettaglio(sr, rDett, "unicredit");
-                    if (err != null) return err;
+                    if (err != null) {
+	                    sr.Close();
+	                    sr.Dispose();
+	                    return "leggiRecordDiDettaglio:"+err; 
+                    }
                     tFlussoBanca.Rows.Add(rDett);
-                    if (sr.EndOfStream) break;
+                    if (sr.Peek()==-1) break;
                     tiprec = leggiIntestazioneRecord(sr,out err);
-                    if (err != null) return err;
+                    if (err != null) {
+	                    sr.Close();
+	                    sr.Dispose();
+	                    
+
+	                    return "leggiIntestazioneRecord:"+err; 
+                    }
                 }
 
-                if (tiprec == "Z" || sr.EndOfStream) {
+                if (tiprec == "Z" || sr.Peek()==-1) {
                     sr.Close();
+                    sr.Dispose();
+                    
                     return null;
                 }
             }
+            sr.Close();
+            sr.Dispose();
             return "Fine file inaspettata";
         }
 
-        private static StreamReader getStreamReader(string fileName) {
-            var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read, 1048576);
-            return new StreamReader(fs, Encoding.Default);
-        }
+        //private static StreamReader getStreamReader(string fileName) {
+        //    var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read, 1048576);
+        //    return new StreamReader(fs, Encoding.Default);
+        //}
 
         private static DataTable generaStruttura() {
             var t = new DataTable("flussobanca");
@@ -215,8 +269,14 @@ namespace Unicredit {
             if (tr.Read(buffer, 0, 2) != 2) {
                 return "ERRORE DURANTE LA LETTURA DEL FILE: Letti meno byte rispetto al previsto";                
             }
-            if ((buffer[0] != 13) || (buffer[1] != 10)) {
-                return "ERRORE DURANTE LA LETTURA DEL FILE: Manca l'interruzione di riga";
+            //var utf8 = Encoding.UTF8;
+            //byte[] utfBytes = utf8.GetBytes(buffer);
+            //if ((utfBytes[0] != 0x0a) || (utfBytes[1] != 0x0d)) {
+            //    return $"ERRORE DURANTE LA LETTURA DEL FILE : Manca l'interruzione di riga (trovato {utfBytes[0]} {utfBytes[0]} utf16 {buffer[0]} {buffer[1]})";
+            //}
+
+            if ((buffer[0] != 0x0D) || (buffer[1] != 0x0A)) {
+	            return $"ERRORE DURANTE LA LETTURA DEL FILE : Manca l'interruzione di riga (trovato {buffer[0]} {buffer[0]} ";
             }
             return null;
         }
@@ -294,9 +354,9 @@ namespace Unicredit {
 
         private static string leggiRecordDiDettaglio(TextReader tr, DataRow r, string banca = "unicredit") {
             string err;
-            //Ha gi√† letto il primo carattere, per controllare se fosse un Record di Testa o di cosa, per cui
+            //Ha gi‡ letto il primo carattere, per controllare se fosse un Record di Testa o di cosa, per cui
             if (banca.ToLower()=="unicredit") {
-                //Per CABIRIC dobbiamo leggere 4 caratteri, e non 5, tanto √® un campo a valore costante che non ci serve.
+                //Per CABIRIC dobbiamo leggere 4 caratteri, e non 5, tanto Ë un campo a valore costante che non ci serve.
                 r["CABIRIC"] = leggiNumerico(tr, 4,out err);        //len:	5	NUMERICO 	int:	5	 dec:	0	OBB	Codice Abi Istituto, deve essere uguale a quello indicato nel record di testa 
             } else {
                 r["CABIRIC"] = leggiNumerico(tr, 5,out err);        //len:	5	NUMERICO 	int:	5	 dec:	0	OBB	Codice Abi Istituto, deve essere uguale a quello indicato nel record di testa 
@@ -304,73 +364,73 @@ namespace Unicredit {
             if (err != null) return err;
             r["CSERV"] = leggiAlfanumerico(tr, 7, out err);      //len:	7	NUMERICO 	int:	7	 dec:	0	OBB	Codice Cliente censito sulla Piattaforma  Incassi ed attribuito alla PA, deve essere uguale a quello indicato nel record di testa   
             if (err != null) return err;
-            r["CSSERV"] = leggiAlfanumerico(tr, 7, out err);     //len:	7	NUMERICO 	int:	7	 dec:	0		Codice Servizio d‚Äôincasso censito sulla Piattaforma Incassi, non deve essere indicato dalla PA in quanto  recuperato in fase di upload del flusso dalla macro di normalizzazione, qualora indicato dalla PA, sar√† soggetto a controlli (presenza del dato nella Piattaforma Incassi)
+            r["CSSERV"] = leggiAlfanumerico(tr, 7, out err);     //len:	7	NUMERICO 	int:	7	 dec:	0		Codice Servizio díincasso censito sulla Piattaforma Incassi, non deve essere indicato dalla PA in quanto  recuperato in fase di upload del flusso dalla macro di normalizzazione, qualora indicato dalla PA, sar‡ soggetto a controlli (presenza del dato nella Piattaforma Incassi)
             if (err != null) return err;
-            r["CTIPSER"] = leggiAlfanumerico(tr, 3, out err);    //len:	3	CARATTERE						Codice Modello Operativo utilizzato per configurare il servizio d‚Äôincasso, non deve essere indicato dalla PA in quanto  recuperato in fase di upload del flusso in base al Servizio d‚ÄôIncasso, qualora indicato dalla PA, sar√† soggetto a controlli (presenza del dato nella Piattaforma Incassi)
+            r["CTIPSER"] = leggiAlfanumerico(tr, 3, out err);    //len:	3	CARATTERE						Codice Modello Operativo utilizzato per configurare il servizio díincasso, non deve essere indicato dalla PA in quanto  recuperato in fase di upload del flusso in base al Servizio díIncasso, qualora indicato dalla PA, sar‡ soggetto a controlli (presenza del dato nella Piattaforma Incassi)
             if (err != null) return err;
-            r["CTIPFIL"] = leggiAlfanumerico(tr, 8, out err);    //len:	8	CARATTERE					OBB	Codice Tipo Flusso censito ed associato al servizio d‚Äôincasso (es. ‚ÄúMASTER0C0‚Äù, ‚ÄúMENSA0C0‚Äù), deve essere uguale a quello indicato nel record di testa  
+            r["CTIPFIL"] = leggiAlfanumerico(tr, 8, out err);    //len:	8	CARATTERE					OBB	Codice Tipo Flusso censito ed associato al servizio díincasso (es. ìMASTER0C0î, ìMENSA0C0î), deve essere uguale a quello indicato nel record di testa  
             if (err != null) return err;
             r["DCRE"] = leggiDataAmg(tr, 8, out err);            //len:	8	NUMERICO 	int:	8	 dec:	0	OBB	Data Creazione Flusso, deve essere uguale a quella indicata nel record di testa (formato SSAAMMGG)
             if (err != null) return err;
-            r["NPRGFLS"] = leggiNumerico(tr, 11, out err);       //len:	11	NUMERICO 	int:	11	 dec:	0		Numero progressivo d‚Äôinvio flusso, la PA lo pu√≤ indicare nel caso in cui volesse avere e tenere traccia della progressivit√† dei flussi inviati giornalmente, qualora indicato dalla PA, sar√† soggetto a controlli (congruenza della progressivit√† dei flussi rispetto alla data creazione)
+            r["NPRGFLS"] = leggiNumerico(tr, 11, out err);       //len:	11	NUMERICO 	int:	11	 dec:	0		Numero progressivo díinvio flusso, la PA lo puÚ indicare nel caso in cui volesse avere e tenere traccia della progressivit‡ dei flussi inviati giornalmente, qualora indicato dalla PA, sar‡ soggetto a controlli (congruenza della progressivit‡ dei flussi rispetto alla data creazione)
             if (err != null) return err;
-            r["CODT"] = leggiAlfanumerico(tr, 2, out err);       //len:	2	CARATTERE						Canale trasmissione, non deve essere indicato dalla PA, di default assume valore ‚ÄòBT‚Äô (Batch), attualmente su tale campo non viene effettuato nessun controllo
+            r["CODT"] = leggiAlfanumerico(tr, 2, out err);       //len:	2	CARATTERE						Canale trasmissione, non deve essere indicato dalla PA, di default assume valore ëBTí (Batch), attualmente su tale campo non viene effettuato nessun controllo
             if (err != null) return err;
             r["IDTRS"] = leggiAlfanumerico(tr, 26, out err);     //len:	26	CARATTERE						Identificativo trasmissione attribuito dalla Piattaforma Incassi in fase di acquisizione ed elaborazione del flusso, non deve essere indicato dalla PA pena lo scarto del record 
             if (err != null) return err;
-            r["NPRGREC"] = leggiNumerico(tr, 13, out err);       //len:	13	NUMERICO 	int:	13	 dec:	0	OBB	Numero progressivo record all‚Äôinterno del flusso, deve essere congruente rispetto alla progressivit√† dei record presenti nel flusso
+            r["NPRGREC"] = leggiNumerico(tr, 13, out err);       //len:	13	NUMERICO 	int:	13	 dec:	0	OBB	Numero progressivo record allíinterno del flusso, deve essere congruente rispetto alla progressivit‡ dei record presenti nel flusso
             if (err != null) return err;
-            r["SOPE"] = leggiAlfanumerico(tr, 3, out err);       //len:	3	CARATTERE					OBB	TIPO OPERAZIONE. IN FASE DI ACQUISIZIONE:INS = INSERIMENTO POSIZIONE, CAN = CANCELLAZIONE LOGICA POSIZIONE, IN FASE DI RENDICONTAZIONE: RIS = RISCOSSIONE, RIV = RIVERSATO (PER RICONCILIAZIONE FINANZIARIO, OVVERO CON I PROVVISORI D‚ÄôENTRATA ASSOCIATI)
+            r["SOPE"] = leggiAlfanumerico(tr, 3, out err);       //len:	3	CARATTERE					OBB	TIPO OPERAZIONE. IN FASE DI ACQUISIZIONE:INS = INSERIMENTO POSIZIONE, CAN = CANCELLAZIONE LOGICA POSIZIONE, IN FASE DI RENDICONTAZIONE: RIS = RISCOSSIONE, RIV = RIVERSATO (PER RICONCILIAZIONE FINANZIARIO, OVVERO CON I PROVVISORI DíENTRATA ASSOCIATI)
             if (err != null) return err;
-            r["SRIFCRD"] = leggiAlfanumerico(tr, 35, out err);   //len:	35	CARATTERE					OBB	Tipo Riferimento Creditore/PA                             (ES. ‚ÄúAVVISO‚Äù, ‚ÄúFATTURA‚Äù, ‚ÄúBOLLETTA‚Äù, ‚ÄúVERBALE‚Äù), rappresenta,  in abbinamento con il campo successivo, la chiave/identificativo univoco della posizione debitoria sul repository della Piattaforma Incassi 
+            r["SRIFCRD"] = leggiAlfanumerico(tr, 35, out err);   //len:	35	CARATTERE					OBB	Tipo Riferimento Creditore/PA                             (ES. ìAVVISOî, ìFATTURAî, ìBOLLETTAî, ìVERBALEî), rappresenta,  in abbinamento con il campo successivo, la chiave/identificativo univoco della posizione debitoria sul repository della Piattaforma Incassi 
             if (err != null) return err;
             r["CRIFCRD"] = leggiAlfanumerico(tr, 35, out err);   //len:	35	CARATTERE					OBB	Codice Riferimento Creditore (codice/identificativo che si riferisce al campo precedente), rappresenta, in abbinamento con il campo precedente, la chiave/identificativo univoco della posizione debitoria sul repository della Piattaforma Incassi
             if (err != null) return err;
-            r["SRIFPRS"] = leggiAlfanumerico(tr, 6, out err);    //len:	6	CARATTERE						Tipo Riferimento Presentatore/Debitore (ES. ‚ÄúAVVISO‚Äù), deve essere valorizzato, pena lo scarto del record, dalla PA qualora la generazione del N.Avviso/IUV sia a proprio carico, attualmente la Piattaforma Incassi effettua solo un controllo sulla presenza del dato 
+            r["SRIFPRS"] = leggiAlfanumerico(tr, 6, out err);    //len:	6	CARATTERE						Tipo Riferimento Presentatore/Debitore (ES. ìAVVISOî), deve essere valorizzato, pena lo scarto del record, dalla PA qualora la generazione del N.Avviso/IUV sia a proprio carico, attualmente la Piattaforma Incassi effettua solo un controllo sulla presenza del dato 
             if (err != null) return err;
-            r["CRIFPRS"] = leggiAlfanumerico(tr, 35, out err);   //len:	35	CARATTERE						Codice Identificativo Presentatore, deve essere valorizzato, pena lo scarto del record,  dalla PA qualora la generazione del N.Avviso (che implica anche la generazione dell‚ÄôIUV) sia a proprio carico, la Piattaforma Incassi effettua un controllo di congruenza con il campo successivo (IUV) rispetto alla regole definite dalle Linee Guida Agid, ovvero l‚ÄôIUV deve essere preceduta da tre cifre rappresentate dall‚Äôaux digit (1 cifra- sempre ‚Äò0‚Äô) e application code (2 cifre) censite in anagrafica della Piattaforma Incassi a livello di Servizio
+            r["CRIFPRS"] = leggiAlfanumerico(tr, 35, out err);   //len:	35	CARATTERE						Codice Identificativo Presentatore, deve essere valorizzato, pena lo scarto del record,  dalla PA qualora la generazione del N.Avviso (che implica anche la generazione dellíIUV) sia a proprio carico, la Piattaforma Incassi effettua un controllo di congruenza con il campo successivo (IUV) rispetto alla regole definite dalle Linee Guida Agid, ovvero líIUV deve essere preceduta da tre cifre rappresentate dallíaux digit (1 cifra- sempre ë0í) e application code (2 cifre) censite in anagrafica della Piattaforma Incassi a livello di Servizio
             if (err != null) return err;
-            r["CIUV"] = leggiAlfanumerico(tr, 35, out err);      //len:	35	CARATTERE						Identificativo Univoco Versamento (ultimi 15 caratteri del campo precedente relativo al N. Avviso), deve essere valorizzato, pena lo scarto del record, dalla PA qualora la generazione dell‚ÄôIUV (che implica anche la generazione del N. Avviso) sia a proprio carico, la Piattaforma Incassi verifica che tale campo sia rappresentato dalle ultime 15 cifre del campo precedente (N. Avviso)
+            r["CIUV"] = leggiAlfanumerico(tr, 35, out err);      //len:	35	CARATTERE						Identificativo Univoco Versamento (ultimi 15 caratteri del campo precedente relativo al N. Avviso), deve essere valorizzato, pena lo scarto del record, dalla PA qualora la generazione dellíIUV (che implica anche la generazione del N. Avviso) sia a proprio carico, la Piattaforma Incassi verifica che tale campo sia rappresentato dalle ultime 15 cifre del campo precedente (N. Avviso)
             if (err != null) return err;
-            r["CKEY1"] = leggiAlfanumerico(tr, 35, out err);     //len:	35	CARATTERE						Valore Chiave ID 1, Identificativo custom che pu√≤ essere determinato in fase di configurazione dell‚ÄôIPRS  all‚Äôinterno della Piattaforma Incassi e che pu√≤ essere utilizzato come Chiave di ricerca di Back Office  (valore modello operativo standard ‚ÄúRata‚Äù)
+            r["CKEY1"] = leggiAlfanumerico(tr, 35, out err);     //len:	35	CARATTERE						Valore Chiave ID 1, Identificativo custom che puÚ essere determinato in fase di configurazione dellíIPRS  allíinterno della Piattaforma Incassi e che puÚ essere utilizzato come Chiave di ricerca di Back Office  (valore modello operativo standard ìRataî)
             if (err != null) return err;
-            r["CKEY2"] = leggiAlfanumerico(tr, 35, out err);     //len:	35	CARATTERE						Valore Chiave ID 2 (vedere specifiche CKEY1) (valore modello operativo standard ‚ÄúId. Lotto‚Äù, pu√≤ essere utilizzato per la bollettazione del File Lotto)
+            r["CKEY2"] = leggiAlfanumerico(tr, 35, out err);     //len:	35	CARATTERE						Valore Chiave ID 2 (vedere specifiche CKEY1) (valore modello operativo standard ìId. Lottoî, puÚ essere utilizzato per la bollettazione del File Lotto)
             if (err != null) return err;
-            r["CKEY3"] = leggiAlfanumerico(tr, 35, out err);     //len:	35	CARATTERE						Valore Chiave ID 3 (vedere specifiche CKEY1) (valore modello operativo standard ‚ÄúCodice Lotto‚Äù, pu√≤ essere utilizzato per la bollettazione del File Lotto )
+            r["CKEY3"] = leggiAlfanumerico(tr, 35, out err);     //len:	35	CARATTERE						Valore Chiave ID 3 (vedere specifiche CKEY1) (valore modello operativo standard ìCodice Lottoî, puÚ essere utilizzato per la bollettazione del File Lotto )
             if (err != null) return err;
-            r["CKEY4"] = leggiAlfanumerico(tr, 35, out err);     //len:	35	CARATTERE						Valore Chiave ID 4 (vedere specifiche CKEY1) (valore modello operativo standard ‚ÄúId. Utenza‚Äù, pu√≤ essere utilizzato per indicare il codice debitore cos√¨ come conosciuto dalla PA)
+            r["CKEY4"] = leggiAlfanumerico(tr, 35, out err);     //len:	35	CARATTERE						Valore Chiave ID 4 (vedere specifiche CKEY1) (valore modello operativo standard ìId. Utenzaî, puÚ essere utilizzato per indicare il codice debitore cosÏ come conosciuto dalla PA)
             if (err != null) return err;
-            r["CKEY5"] = leggiAlfanumerico(tr, 35, out err);     //len:	35	CARATTERE						Valore Chiave ID 5 (vedere specifiche CKEY1) (valore modello operativo standard ‚ÄúIdentificativo 1‚Äù, pu√≤ essere utilizzato per indicare un identificativo generico utile alla PA per particolari esigenze rispetto a quel determinato servizio d‚Äôincasso)
+            r["CKEY5"] = leggiAlfanumerico(tr, 35, out err);     //len:	35	CARATTERE						Valore Chiave ID 5 (vedere specifiche CKEY1) (valore modello operativo standard ìIdentificativo 1î, puÚ essere utilizzato per indicare un identificativo generico utile alla PA per particolari esigenze rispetto a quel determinato servizio díincasso)
             if (err != null) return err;
-            r["CKEY6"] = leggiAlfanumerico(tr, 35, out err);     //len:	35	CARATTERE						Valore Chiave ID 6 (vedere specifiche CKEY1) (valore modello operativo standard ‚ÄúIdentificativo 2‚Äù, pu√≤ essere utilizzato per indicare un identificativo generico utile alla PA per particolari esigenze rispetto a quel determinato servizio d‚Äôincasso)
+            r["CKEY6"] = leggiAlfanumerico(tr, 35, out err);     //len:	35	CARATTERE						Valore Chiave ID 6 (vedere specifiche CKEY1) (valore modello operativo standard ìIdentificativo 2î, puÚ essere utilizzato per indicare un identificativo generico utile alla PA per particolari esigenze rispetto a quel determinato servizio díincasso)
             if (err != null) return err;
             r["DSCA"] = leggiDataAmg(tr, 8, out err);            //len:	8	NUMERICO 	int:	8	 dec:	0	OBB	DATA SCADENZA, deve essere una data valida, in ottica Nodo dei Pagamenti la data rappresenta un dato obbligatorio ed in caso di pagamento post data scadenza il Nodo non consente il pagamento (formato SSAAMMGG)
             if (err != null) return err;
             r["IIMPVER"] = leggiDecimale(tr, 15, out err);       //len:	15	NUMERICO 	int:	13	 dec:	2	OBB	Importo Totale Versamento
             if (err != null) return err;
-            r["IIMPDEB"] = leggiDecimale(tr, 15, out err);       //len:	15	NUMERICO 	int:	13	 dec:	2		Importo a debito, non deve essere valorizzato dalla PA, attualmente non √® previsto nessun controllo dalla Piattaforma Incassi 
+            r["IIMPDEB"] = leggiDecimale(tr, 15, out err);       //len:	15	NUMERICO 	int:	13	 dec:	2		Importo a debito, non deve essere valorizzato dalla PA, attualmente non Ë previsto nessun controllo dalla Piattaforma Incassi 
             if (err != null) return err;
-            r["IIMPCRT"] = leggiDecimale(tr, 15, out err);       //len:	15	NUMERICO 	int:	13	 dec:	2		Importo a credito, non deve essere valorizzato dalla PA, attualmente non √® previsto nessun controllo dalla Piattaforma Incassi
+            r["IIMPCRT"] = leggiDecimale(tr, 15, out err);       //len:	15	NUMERICO 	int:	13	 dec:	2		Importo a credito, non deve essere valorizzato dalla PA, attualmente non Ë previsto nessun controllo dalla Piattaforma Incassi
             if (err != null) return err;
-            r["IIMPCOM"] = leggiDecimale(tr, 15, out err);       //len:	15	NUMERICO 	int:	13	 dec:	2		Importo commissioni, non deve essere valorizzato dalla PA, attualmente non √® previsto nessun controllo dalla Piattaforma Incassi 
+            r["IIMPCOM"] = leggiDecimale(tr, 15, out err);       //len:	15	NUMERICO 	int:	13	 dec:	2		Importo commissioni, non deve essere valorizzato dalla PA, attualmente non Ë previsto nessun controllo dalla Piattaforma Incassi 
             if (err != null) return err;
             r["ZCAU"] = leggiAlfanumerico(tr, 140, out err);     //len:	140	CARATTERE					OBB	Causale Versamento
             if (err != null) return err;
             r["SAVV"] = leggiAlfanumerico(tr, 3, out err);       //len:	3	CARATTERE						Tipologia Avvisatura.Valorizzare come concordato in sede di attivazione del servizio. Possibili valori:SE,PO,PM,SS,RS,RR,AG,DE,EM
             if (err != null) return err;
-            r["SDATPA"] = leggiAlfanumerico(tr, 3, out err);     //len:	3	CARATTERE						Tipologia Dato PA:0 = Capitolo e articolo di entrata del bilancio dello Stato,1 = Numero della contabilit√† speciale, 2 = Codice SIOPE, 9 = Altro codice ad uso dell'ente creditore
+            r["SDATPA"] = leggiAlfanumerico(tr, 3, out err);     //len:	3	CARATTERE						Tipologia Dato PA:0 = Capitolo e articolo di entrata del bilancio dello Stato,1 = Numero della contabilit‡ speciale, 2 = Codice SIOPE, 9 = Altro codice ad uso dell'ente creditore
             if (err != null) return err;
-            r["ZDATPA"] = leggiAlfanumerico(tr, 50, out err);    //len:	50	CARATTERE						Dato PA,Rappresenta l'indicazione dell'imputazione della specifica entrata a fronte della Tipologia Dato PA indicato nel campo precedente (Tale dato obbligatorio per Il Nodo dei Pagamenti ai fini dell‚Äôemissione RPT √® presente a livello di configurazione del Servizio, pertanto, occorre valorizzare il dato sull‚ÄôIPRS solo nel caso di eccezione rispetto a quello presente in anagrafica della Piattaforma Incassi a livello di Servizio)   
+            r["ZDATPA"] = leggiAlfanumerico(tr, 50, out err);    //len:	50	CARATTERE						Dato PA,Rappresenta l'indicazione dell'imputazione della specifica entrata a fronte della Tipologia Dato PA indicato nel campo precedente (Tale dato obbligatorio per Il Nodo dei Pagamenti ai fini dellíemissione RPT Ë presente a livello di configurazione del Servizio, pertanto, occorre valorizzare il dato sullíIPRS solo nel caso di eccezione rispetto a quello presente in anagrafica della Piattaforma Incassi a livello di Servizio)   
             if (err != null) return err;
-            r["STIPVER"] = leggiAlfanumerico(tr, 3, out err);    //len:	3	CARATTERE						Tipologia  Versante:‚ÄòF‚Äô = Persona Fisica,‚ÄòG‚Äô = Persona Giuridica
+            r["STIPVER"] = leggiAlfanumerico(tr, 3, out err);    //len:	3	CARATTERE						Tipologia  Versante:ëFí = Persona Fisica,ëGí = Persona Giuridica
             if (err != null) return err;
-            r["SIDNVER"] = leggiAlfanumerico(tr, 2, out err);    //len:	2	CARATTERE					OBB	Tipo Id Versante:‚ÄòCF ‚Äò = CODICE FISCALE (default in caso la PA non indichi nulla),‚ÄòPI‚Äô = PARTITA IVA
+            r["SIDNVER"] = leggiAlfanumerico(tr, 2, out err);    //len:	2	CARATTERE					OBB	Tipo Id Versante:ëCF ë = CODICE FISCALE (default in caso la PA non indichi nulla),ëPIí = PARTITA IVA
             if (err != null) return err;
-            r["CIDNVER"] = leggiAlfanumerico(tr, 35, out err);   //len:	35	CARATTERE					OBB	Codice Id Versante:Campo alfanumerico che pu√≤ contenere il codice fiscale o, in alternativa, la partita IVA del soggetto pagatore. Quando non √® possibile identificare fiscalmente il soggetto, pu√≤ essere utilizzato il valore "ANONIMO"
+            r["CIDNVER"] = leggiAlfanumerico(tr, 35, out err);   //len:	35	CARATTERE					OBB	Codice Id Versante:Campo alfanumerico che puÚ contenere il codice fiscale o, in alternativa, la partita IVA del soggetto pagatore. Quando non Ë possibile identificare fiscalmente il soggetto, puÚ essere utilizzato il valore "ANONIMO"
             if (err != null) return err;
-            r["ZANAVER"] = leggiAlfanumerico(tr, 50, out err);   //len:	50	CARATTERE					OBB	Anagrafica Versante.Campo alfanumerico che pu√≤ contenere l‚Äôanagrafica del soggetto pagatore. Quando non √® possibile identificare fiscalmente il soggetto, pu√≤ essere utilizzato il valore "ANONIMO"
+            r["ZANAVER"] = leggiAlfanumerico(tr, 50, out err);   //len:	50	CARATTERE					OBB	Anagrafica Versante.Campo alfanumerico che puÚ contenere líanagrafica del soggetto pagatore. Quando non Ë possibile identificare fiscalmente il soggetto, puÚ essere utilizzato il valore "ANONIMO"
             if (err != null) return err;
-            r["IBANVER"] = leggiAlfanumerico(tr, 35, out err);   //len:	35	CARATTERE						IBAN Addebito Versante per l‚Äôeventuale addebito in conto
+            r["IBANVER"] = leggiAlfanumerico(tr, 35, out err);   //len:	35	CARATTERE						IBAN Addebito Versante per líeventuale addebito in conto
             if (err != null) return err;
             r["ZINDVER"] = leggiAlfanumerico(tr, 50, out err);   //len:	50	CARATTERE						Indirizzo Versante, nessun controllo da parte della piattaforma incassi
             if (err != null) return err;
@@ -378,7 +438,7 @@ namespace Unicredit {
             if (err != null) return err;
             r["NCAPVER"] = leggiAlfanumerico(tr, 5, out err);    //len:	5	CARATTERE						Numero CAP Versante, nessun controllo da parte della piattaforma incassi
             if (err != null) return err;
-            r["ZLOCVER"] = leggiAlfanumerico(tr, 50, out err);   //len:	50	CARATTERE						Localita‚Äô Versante, nessun controllo da parte della piattaforma incassi
+            r["ZLOCVER"] = leggiAlfanumerico(tr, 50, out err);   //len:	50	CARATTERE						Localitaí Versante, nessun controllo da parte della piattaforma incassi
             if (err != null) return err;
             r["ZPROVER"] = leggiAlfanumerico(tr, 2, out err);    //len:	2	CARATTERE						Provincia Versante, nessun controllo da parte della piattaforma incassi
             if (err != null) return err;
@@ -388,37 +448,37 @@ namespace Unicredit {
             if (err != null) return err;
             r["NCELVER"] = leggiAlfanumerico(tr, 35, out err);   //len:	35	CARATTERE						Cellulare Versante, nessun controllo da parte della piattaforma incassi
             if (err != null) return err;
-            r["DDATPAG"] = leggiDataAmg(tr, 8, out err);         //len:	8	NUMERICO 	int:	8	 dec:	0		Data effettivo pagamento da parte del Versante, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ‚ÄòRIS‚Äô/‚ÄôRIV‚Äô), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record(formato SSAAMMGG)
+            r["DDATPAG"] = leggiDataAmg(tr, 8, out err);         //len:	8	NUMERICO 	int:	8	 dec:	0		Data effettivo pagamento da parte del Versante, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ëRISí/íRIVí), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record(formato SSAAMMGG)
             if (err != null) return err;
-            r["DDATINC"] = leggiDataAmg(tr, 8, out err);         //len:	8	NUMERICO 	int:	8	 dec:	0		Data di registrazione dell‚Äôincasso sulla Piattaforma Incassi, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ‚ÄòRIS‚Äô/‚ÄôRIV‚Äô), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record(formato SSAAMMGG)
+            r["DDATINC"] = leggiDataAmg(tr, 8, out err);         //len:	8	NUMERICO 	int:	8	 dec:	0		Data di registrazione dellíincasso sulla Piattaforma Incassi, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ëRISí/íRIVí), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record(formato SSAAMMGG)
             if (err != null) return err;
-            r["CESE"] = leggiNumerico(tr, 4, out err);           //len:	4	NUMERICO 	int:	4	 dec:	0		Esercizio di riferimento del provvisorio di Tesoreria associato all‚Äôincasso, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione del riconciliato (SOPE = ‚ÄôRIV‚Äô), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
+            r["CESE"] = leggiNumerico(tr, 4, out err);           //len:	4	NUMERICO 	int:	4	 dec:	0		Esercizio di riferimento del provvisorio di Tesoreria associato allíincasso, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione del riconciliato (SOPE = íRIVí), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
             if (err != null) return err;
-            r["NPRO"] = leggiNumerico(tr, 7, out err);           //len:	7	NUMERICO 	int:	7	 dec:	0		Numero del provvisorio della Procedura di Tesoreria, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione del riconciliato (SOPE = ‚ÄôRIV‚Äô), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
+            r["NPRO"] = leggiNumerico(tr, 7, out err);           //len:	7	NUMERICO 	int:	7	 dec:	0		Numero del provvisorio della Procedura di Tesoreria, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione del riconciliato (SOPE = íRIVí), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
             if (err != null) return err;
-            r["CRTE"] = leggiAlfanumerico(tr, 3, out err);       //len:	3	CARATTERE						Codice Rete d‚Äôincasso(ES. ‚ÄòUNI‚Äô = UNICREDIT, ‚ÄòNDP‚Äô = NODO DEI PAGAMENTI), dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ‚ÄòRIS‚Äô/‚ÄôRIV‚Äô), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
+            r["CRTE"] = leggiAlfanumerico(tr, 3, out err);       //len:	3	CARATTERE						Codice Rete díincasso(ES. ëUNIí = UNICREDIT, ëNDPí = NODO DEI PAGAMENTI), dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ëRISí/íRIVí), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
             if (err != null) return err;
-            r["CCNL"] = leggiAlfanumerico(tr, 3, out err);       //len:	3	CARATTERE						Codice Canale d‚Äôincasso(ES. ‚ÄòATM‚Äô = ATM, ‚ÄòSPO‚Äô = SPORTELLO, ‚ÄòWEB‚Äô = INTERNET BANKING, ‚ÄòNDP‚Äô = NODO DEI PAGAMENTI), dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ‚ÄòRIS‚Äô/‚ÄôRIV‚Äô), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record  
+            r["CCNL"] = leggiAlfanumerico(tr, 3, out err);       //len:	3	CARATTERE						Codice Canale díincasso(ES. ëATMí = ATM, ëSPOí = SPORTELLO, ëWEBí = INTERNET BANKING, ëNDPí = NODO DEI PAGAMENTI), dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ëRISí/íRIVí), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record  
             if (err != null) return err;
-            r["CSTR"] = leggiAlfanumerico(tr, 3, out err);       //len:	3	CARATTERE						Codice Strumento d‚Äôincasso(ES. ‚ÄôADC‚Äô = ADDEBITO IN CONTO, ‚ÄòCON‚Äô = CONTANTI, ‚ÄòNDP‚Äô = NODO DEI PAGAMENTI), dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ‚ÄòRIS‚Äô/‚ÄôRIV‚Äô), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
+            r["CSTR"] = leggiAlfanumerico(tr, 3, out err);       //len:	3	CARATTERE						Codice Strumento díincasso(ES. íADCí = ADDEBITO IN CONTO, ëCONí = CONTANTI, ëNDPí = NODO DEI PAGAMENTI), dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ëRISí/íRIVí), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
             if (err != null) return err;
-            r["NBOLIVV"] = leggiAlfanumerico(tr, 13, out err);       //len:	13	NUMERICO 	int:	13	 dec:	0		Numero Bolletta interno alla Piattaforma Incassi, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ‚ÄòRIS‚Äô/‚ÄôRIV‚Äô), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
+            r["NBOLIVV"] = leggiAlfanumerico(tr, 13, out err);       //len:	13	NUMERICO 	int:	13	 dec:	0		Numero Bolletta interno alla Piattaforma Incassi, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ëRISí/íRIVí), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
             if (err != null) return err;
-            r["IIMPPAG"] = leggiDecimale(tr, 15, out err);       //len:	15	NUMERICO 	int:	13	 dec:	2		Importo Pagato, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ‚ÄòRIS‚Äô/‚ÄôRIV‚Äô), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
+            r["IIMPPAG"] = leggiDecimale(tr, 15, out err);       //len:	15	NUMERICO 	int:	13	 dec:	2		Importo Pagato, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ëRISí/íRIVí), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
             if (err != null) return err;
-            r["CTIPPAG"] = leggiAlfanumerico(tr, 3, out err);    //len:	3	CARATTERE						Tipo ID Canale di pagamento (Es. ‚ÄòATM‚Äô, ‚ÄòSPO‚Äô, ‚ÄòWEB‚Äô, ‚ÄòNDP‚Äô), dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ‚ÄòRIS‚Äô/‚ÄôRIV‚Äô), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
+            r["CTIPPAG"] = leggiAlfanumerico(tr, 3, out err);    //len:	3	CARATTERE						Tipo ID Canale di pagamento (Es. ëATMí, ëSPOí, ëWEBí, ëNDPí), dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ëRISí/íRIVí), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
             if (err != null) return err;
-            r["CCNTPAG"] = leggiAlfanumerico(tr, 50, out err);    //len:	50	CARATTERE						ID Canale di pagamento, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ‚ÄòRIS‚Äô/‚ÄôRIV‚Äô), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
+            r["CCNTPAG"] = leggiAlfanumerico(tr, 50, out err);    //len:	50	CARATTERE						ID Canale di pagamento, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ëRISí/íRIVí), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
             if (err != null) return err;
-            r["ICOMPA"] = leggiDecimale(tr, 15, out err);        //len:	15	NUMERICO 	int:	13	 dec:	2		Importo Commissione a carico PA, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ‚ÄòRIS‚Äô/‚ÄôRIV‚Äô), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
+            r["ICOMPA"] = leggiDecimale(tr, 15, out err);        //len:	15	NUMERICO 	int:	13	 dec:	2		Importo Commissione a carico PA, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ëRISí/íRIVí), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
             if (err != null) return err;
-            r["ICOMVER"] = leggiDecimale(tr, 15, out err);       //len:	15	NUMERICO 	int:	13	 dec:	2		Importo Commissione a carico Versante, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ‚ÄòRIS‚Äô/‚ÄôRIV‚Äô), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
+            r["ICOMVER"] = leggiDecimale(tr, 15, out err);       //len:	15	NUMERICO 	int:	13	 dec:	2		Importo Commissione a carico Versante, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ëRISí/íRIVí), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
             if (err != null) return err;
-            r["CBICADD"] = leggiAlfanumerico(tr, 11, out err);   //len:	11	CARATTERE						BIC Addebito Debitore per l‚Äôeventuale addebito in conto
+            r["CBICADD"] = leggiAlfanumerico(tr, 11, out err);   //len:	11	CARATTERE						BIC Addebito Debitore per líeventuale addebito in conto
             if (err != null) return err;
-            r["SALTPAG"] = leggiAlfanumerico(tr, 3, out err);    //len:	3	CARATTERE						Tipo Alert Pagatore:‚ÄòE-M‚Äô = E-mail, ‚ÄòPEC‚Äô = PEC, ‚ÄòSMS‚Äô =SMS
+            r["SALTPAG"] = leggiAlfanumerico(tr, 3, out err);    //len:	3	CARATTERE						Tipo Alert Pagatore:ëE-Mí = E-mail, ëPECí = PEC, ëSMSí =SMS
             if (err != null) return err;
-            r["SSOLPAG"] = leggiAlfanumerico(tr, 3, out err);    //len:	3	CARATTERE						Tipo Sollecito Pagatore:‚ÄòE-M‚Äô = E-mail, ‚ÄòPEC‚Äô = PEC,‚ÄòSMS‚Äô = SMS
+            r["SSOLPAG"] = leggiAlfanumerico(tr, 3, out err);    //len:	3	CARATTERE						Tipo Sollecito Pagatore:ëE-Mí = E-mail, ëPECí = PEC,ëSMSí = SMS
             if (err != null) return err;
             r["ZEMLPAG"] = leggiAlfanumerico(tr, 120, out err);  //len:	120	CARATTERE						E-MAIL/PEC Pagatore, nessun controllo da parte della Piattaforma Incassi
             if (err != null) return err;
@@ -432,7 +492,7 @@ namespace Unicredit {
             if (err != null) return err;
             r["ZINDPST5"] = leggiAlfanumerico(tr, 50, out err);  //len:	50	CARATTERE						Indirizzo Postale 5, nessun controllo da parte della Piattaforma Incassi
             if (err != null) return err;
-            r["NCCP"] = leggiNumerico(tr, 12, out err);          //len:	12	NUMERICO						Numero CCP qualora la PA voglia ricevere in unico flusso anche la rendicontazione dei pagamenti effettuati sui CCP, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ‚ÄòRIS‚Äô/‚ÄôRIV‚Äô), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
+            r["NCCP"] = leggiNumerico(tr, 12, out err);          //len:	12	NUMERICO						Numero CCP qualora la PA voglia ricevere in unico flusso anche la rendicontazione dei pagamenti effettuati sui CCP, dato trasmesso dalla Piattaforma Incassi alla PA in fase di rendicontazione sia del riscosso che del riconciliato (SOPE = ëRISí/íRIVí), pertanto, la PA non lo deve valorizzare in fase di invio del flusso pena lo scarto del record
             if (err != null) return err;
             r["FILLER"] = leggiAlfanumerico(tr, 399, out err);   //len:	399	CARATTERE						Campo a disposizione
             if (err != null) return err;

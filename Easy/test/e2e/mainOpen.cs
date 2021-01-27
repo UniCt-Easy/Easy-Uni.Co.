@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using metadatalibrary;
 using System.Data;
@@ -75,7 +77,7 @@ namespace e2e {
             f.isUnderTest = true;
             MethodInfo dynMethod = f.GetType().GetMethod("connect", BindingFlags.NonPublic | BindingFlags.Instance);
             dynMethod.Invoke(f, new object[] { });
-            
+
             Assert.IsNotNull(f.MyDataAccess);
             Assert.IsNotNull(f.MyDataAccess.Security);
             f.Close();
@@ -366,7 +368,7 @@ namespace e2e {
             testGenericForm("estimatedetail", "default");
             testGenericForm("underwriting", "default");
             testGenericForm("underwriter", "lista");
-            testGenericForm("store", "default");  //√® form modale
+            testGenericForm("store", "default");  //Ë form modale
             testGenericForm("expense", "gerarchico");
             testGenericForm("expense", "levels");
             testGenericForm("income", "gerarchico");
@@ -416,6 +418,7 @@ namespace e2e {
                 tester.clearErrors();
                 string meta = r["metadata"].ToString();
                 if (meta=="license")continue;
+                //if (meta != "epilogo") continue;
                 if (!testFormDataSet(meta, r["edittype"].ToString())) result = false;
                 Assert.AreEqual(0, tester.ls.Errors.Length, $"No errors opening {meta} edittype: {r["edittype"]} ");
             }

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[RicezioneBanca]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[RicezioneBanca]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [RicezioneBanca]
 GO
 
@@ -161,17 +163,17 @@ DECLARE @par1 char(1)
 DECLARE @par2 char(1)
 DECLARE @CodCausaleMov  varchar(3)
 -- BancaRxUscite
--- √® una table dove scarico il file della banca temporaneamente con il bulk insert
+-- Ë una table dove scarico il file della banca temporaneamente con il bulk insert
 
 -- BancaRxUsciteDef
--- √® la table dove tengo traccia dei dati che mi arrivano dalla banca e aggiorno i campi
--- DataLoad	data in cui carico il file, e qsta data √® valorizzata a prescindere 
+-- Ë la table dove tengo traccia dei dati che mi arrivano dalla banca e aggiorno i campi
+-- DataLoad	data in cui carico il file, e qsta data Ë valorizzata a prescindere 
 -- dal fatto che elaboro la riga
 
--- DataElab	data elaborazione del file e qsta data √® valorizzata solo se 
+-- DataElab	data elaborazione del file e qsta data Ë valorizzata solo se 
 -- ho elaboro la riga
 
--- ParCheck √® il flag che metto a 1 se l'elaborazione della riga √® 
+-- ParCheck Ë il flag che metto a 1 se l'elaborazione della riga Ë 
 -- risultata ok (controlli sintattici)
 
 DECLARE @CodIstituto2  varchar(9) 
@@ -375,11 +377,11 @@ IF @test ='S'
 	 FROM #TipoRecord02
 
 -- Prima di procedere verifico se: 
--- il totale dei movimenti gi√† esitati sul db
+-- il totale dei movimenti gi‡ esitati sul db
 -- +
 -- il totale dei movimenti da esitare e presenti in record1
 -- = totali che ho in record02
--- se √® cosi procedo, se no segnalo l'errore e non faccio nulla
+-- se Ë cosi procedo, se no segnalo l'errore e non faccio nulla
 -----------------------------------------------------------------
 --SELECT * FROM #TipoRecord01
 --SELECT * FROM #TipoRecord02
@@ -543,7 +545,7 @@ BEGIN
 		SET @idpro = @NumProgrSub
 	END
 	-- ci sono due casi: 
-	-- esiste gi√† un record in banktransaction, con un di cui.
+	-- esiste gi‡ un record in banktransaction, con un di cui.
 	-- non esiste 
 	
 	SELECT @totbancario = 0
@@ -676,7 +678,7 @@ BEGIN
 		Col001 = @col001
 	END
 
-	-- @ImportoEuro  √® un di cui dell'importo complessivo = @ImportolORDO, quindi devo sommare
+	-- @ImportoEuro  Ë un di cui dell'importo complessivo = @ImportolORDO, quindi devo sommare
 	IF @test ='S'
 	BEGIN
 		SELECT @CodIstituto1 
@@ -1082,8 +1084,8 @@ BEGIN
 		@ESERCIZIO,  -- yban
 		@NEWNBAN + 1, -- nba
 		@kind,
-		-- kind = 'D' per i mandati e npay che √® il numero del mandato
-		-- kind = 'C' per le reve  e npro che √® il numero della reve
+		-- kind = 'D' per i mandati e npay che Ë il numero del mandato
+		-- kind = 'C' per le reve  e npro che Ë il numero della reve
 		SUBSTRING(ISNULL(@causale1,'') +'-'+
 		 ISNULL(@causale2,'')  +'-'+
 		 ISNULL(@causale3,''), 1, 50), --rif-banca = bankreference
@@ -1271,4 +1273,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

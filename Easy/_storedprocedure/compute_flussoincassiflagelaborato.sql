@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[compute_flussoincassiflagelaborato]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[compute_flussoincassiflagelaborato]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 DROP PROCEDURE [compute_flussoincassiflagelaborato]
 GO
 
@@ -42,7 +44,7 @@ not exists(  --NON esiste un dettaglio NON incassato
 	where flussoincassidetail.idflusso=flussoincassi.idflusso AND
 	
 	--chiedo che il dettaglio non sia incassato, ossia che non esista un incasso
-	-- attenzione perÃ² che l'incasso potrebbe essere parziale e questa update imposterebbe comunque il flusso come elaborato=S
+	-- attenzione però che l'incasso potrebbe essere parziale e questa update imposterebbe comunque il flusso come elaborato=S
   NOT(  --prendo la condizione che vuol dire 'incassato' e la nego
    
    --incassata come dettaglio contratto attivo
@@ -120,7 +122,7 @@ update flussoincassi
 				and not exists ( select * from invoicedetail where idinvkind=f3.idinvkind and iduniqueformcode=f3. iduniqueformcode and yinv=f3.yinv and ninv=f3.ninv and rownum=f3.invrownum and idinc_taxable is not null)				
 	)
 
---pongo a N se collegato a tipo contratto attivo e c'Ã¨ la contabilizzazione del dett.contratto attivo ma non Ã¨ incassato
+--pongo a N se collegato a tipo contratto attivo e c'è la contabilizzazione del dett.contratto attivo ma non è incassato
 update flussoincassi 
  set elaborato='N' , lu='flagelaboratoStoN_cause_estim2', lt = getdate()
  where idflusso = @idflusso and 
@@ -149,4 +151,3 @@ SET ANSI_NULLS ON
 GO
 
  
-	

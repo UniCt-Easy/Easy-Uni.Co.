@@ -312,8 +312,11 @@
               <xs:element name="idfiscaltaxregion" type="xs:string" minOccurs="0" />
               <xs:element name="idlinkeddbdepartment" type="xs:string" minOccurs="0" />
               <xs:element name="irpefgross" type="xs:decimal" minOccurs="0" />
+              <xs:element name="earnings_based_abatements2020" type="xs:decimal" minOccurs="0" />
               <xs:element name="earnings_based_abatements" type="xs:decimal" minOccurs="0" />
+              <xs:element name="fiscalbonusnotapplied2020" type="xs:decimal" minOccurs="0" />
               <xs:element name="fiscalbonusnotapplied" type="xs:decimal" minOccurs="0" />
+              <xs:element name="fiscalbonusapplied2020" type="xs:decimal" minOccurs="0" />
               <xs:element name="fiscalbonusapplied" type="xs:decimal" minOccurs="0" />
               <xs:element name="flagbonusaccredited" type="xs:int" minOccurs="0" />
               <xs:element name="totabatements" type="xs:decimal" minOccurs="0" />

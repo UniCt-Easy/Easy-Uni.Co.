@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_varazzeramento]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_varazzeramento]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_varazzeramento]
 GO
 
@@ -62,7 +64,7 @@ AND exists (select *  from documento_contabile D2
 			and isnull(D2.ammontare,0) <> isnull(D.AMMONTARE,0))
 group by D.esercizio, D.bilancio, D.CHIAVE_COMPLETA_DOCUMENTO
 )
- --Variazioni di Azzeramento 1 Â° fase ENTRATA/SPESA
+ --Variazioni di Azzeramento 1 ° fase ENTRATA/SPESA
 select 
 	LK.kind as 'tipo',
 	LK.nphase as 'nliv',
@@ -99,7 +101,7 @@ LEFT OUTER JOIN numerovariazione NV
 	AND D.BILANCIO = @bilancio 
 
 UNION ALL
--- Variazioni di Azzeramento 2 Â° fase ENTRATA
+-- Variazioni di Azzeramento 2 ° fase ENTRATA
 select 
 	LK.kind as 'tipo',
 	LK.nphase as 'nliv',
@@ -143,7 +145,7 @@ WHERE   D.BILANCIO = @bilancio
 		and isnull(RDD.ammontare,0)<>0
 
 UNION ALL
--- Variazioni di Azzeramento 2 Â° fase SPESA
+-- Variazioni di Azzeramento 2 ° fase SPESA
 select 
 	LK.kind as 'tipo',
 	LK.nphase as 'nliv',
@@ -246,7 +248,7 @@ WHERE   D.BILANCIO = @bilancio
 		AND D.data_storno is not null
 		and isnull(RDD.ammontare,0)<>0
 UNION ALL
--- Variazioni di Azzeramento 3Â°  fase SPESA
+-- Variazioni di Azzeramento 3°  fase SPESA
 select 
 	LK.kind as 'tipo',
 	LK.nphase as 'nliv',
@@ -329,4 +331,3 @@ GO
                         amount: Pos.  277 lunghezza   22 Tipo:          Numero Descrizione: Importo variazione
                      numelenco: Pos.  299 lunghezza    6 Tipo:          Intero Descrizione: Numero elenco di trasmissione
 */
-	

@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -300,7 +302,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 				foreach(DataRow rStorno in tStorno.Select()) 
 				{
 					string errore =	"Riga da stornare non trovata:\n'" + QueryCreator.WHERE_CLAUSE(rStorno,DataRowVersion.Current,false,false);
-					dialogResult = MessageBox.Show(this, errore, "Errore 3 nello storno", MessageBoxButtons.OKCancel);
+					dialogResult = MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore, "Errore 3 nello storno", MessageBoxButtons.OKCancel);
 					if (dialogResult == DialogResult.Cancel) 
 					{
 						buttonInterrompi.Visible = false;
@@ -376,7 +378,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 					+ line
 					+ "'\nIl messaggio di errore Ë il seguente: \n"
 					+ meta.Conn.LastError;
-				DialogResult dialogResult = MessageBox.Show(this, errore, "Errore nella chiamata a stored procedure", MessageBoxButtons.OKCancel);
+				DialogResult dialogResult = MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore, "Errore nella chiamata a stored procedure", MessageBoxButtons.OKCancel);
 				if (dialogResult == DialogResult.Cancel) return dialogResult;
 			}
 			DataRow r = t.Rows[0];
@@ -438,7 +440,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 						+ line
 						+ "'\nIl messaggio di errore Ë il seguente: \n"
 						+ "IMPOSSIBILE RICONOSCERE IL TIPO DI MOVIMENTO";
-					DialogResult dialogResult = MessageBox.Show(this, errore, "Errore nella chiamata a stored procedure", MessageBoxButtons.OKCancel);
+					DialogResult dialogResult = MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore, "Errore nella chiamata a stored procedure", MessageBoxButtons.OKCancel);
 					if (dialogResult == DialogResult.Cancel) return dialogResult;
 					storno = false;
 					break;
@@ -476,7 +478,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 						+ "'\nIl messaggio di errore Ë il seguente: \n"
 						+ rDaStornare.Length+" movimenti nel file col seguente filtro\n"
 						+ filtroBolletta;
-					DialogResult dialogResult = MessageBox.Show(this, errore, "Errore 1 nello storno", MessageBoxButtons.OKCancel);
+					DialogResult dialogResult = MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore, "Errore 1 nello storno", MessageBoxButtons.OKCancel);
 					if (dialogResult == DialogResult.Cancel) return dialogResult;
 				}
 				if (rDaStornare.Length > 0) 
@@ -516,7 +518,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 							+ "'\nIl messaggio di errore Ë il seguente: \n"
 							+ rStorno.Length+" storni nel file col seguente filtro\n"
 							+ filtroBolletta;
-						DialogResult dialogResult = MessageBox.Show(this, errore, "Errore 2 nello storno", MessageBoxButtons.OKCancel);
+						DialogResult dialogResult = MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore, "Errore 2 nello storno", MessageBoxButtons.OKCancel);
 						if (dialogResult == DialogResult.Cancel) return dialogResult;
 					}
 					if (rStorno.Length == 1) 
@@ -1193,7 +1195,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 					string messaggio = "Errore durante la scrittura sul db\n"+filtroDocumentoSQL
 						+ "\n\nPremere OK per ignorare questo documento e procedere col successivo."
 						+ "\nPremere ANNULLA per annullare l'importazione dei dati.";
-					if (MessageBox.Show(this, messaggio, "Errore!", MessageBoxButtons.OKCancel)
+					if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this, messaggio, "Errore!", MessageBoxButtons.OKCancel)
 						== DialogResult.Cancel) 
 					{
 						buttonScriviSulDB.Enabled = false;
@@ -1208,7 +1210,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 			buttonInterrompi.Visible = false;
 			progressBar1.Visible = false;
 			buttonScriviSulDB.Visible = true;
-			MessageBox.Show(this, contaScritture+" su "+contaDocumenti+" documenti aggiornati");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show(this, contaScritture+" su "+contaDocumenti+" documenti aggiornati");
 		}
 
 		#endregion

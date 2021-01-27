@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_consuntivo_es]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_consuntivo_es]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_consuntivo_es]
 GO
  
@@ -41,7 +43,7 @@ BEGIN
  
 set @idupb = isnull(@idupb,'%')
 -- SE vogliamo vedere anche i figli, @idupb diventa '0001%'
--- altrimenti resta '0001' o '%', se non c'Ã¨ stata alcuna selezione
+-- altrimenti resta '0001' o '%', se non c'è stata alcuna selezione
 if (@showchildupb = 'S') 
 begin
 	set @idupb = @idupb+'%'
@@ -83,7 +85,7 @@ CREATE TABLE #PREVISIONE_PRINCIPALE_INIZIALE(
 	
 INSERT INTO #PREVISIONE_PRINCIPALE_INIZIALE( idupb,amount)  
 SELECT U.idupb, SUM(isnull(U.prevision,0))
-	FROM finyear U --> Lasciamo il totalizzatore, perchÃ¨ totalizza i figli. Altrimenti dobbiamo distinguere tra capitoli e articoli
+	FROM finyear U --> Lasciamo il totalizzatore, perchè totalizza i figli. Altrimenti dobbiamo distinguere tra capitoli e articoli
 	JOIN upb 
 		on upb.idupb = U.idupb	
 	JOIN fin
@@ -138,7 +140,7 @@ CREATE TABLE #PREVISIONE_PRINCIPALE_INIZIALE_ENTRATA(
 	
 INSERT INTO #PREVISIONE_PRINCIPALE_INIZIALE_ENTRATA( idupb, amount)  
 SELECT U.idupb,sum(isnull(U.prevision,0))
-	FROM finyear U --> Lasciamo il totalizzatore, perchÃ¨ totalizza i figli. Altrimenti dobbiamo distinguere tra capitoli e articoli
+	FROM finyear U --> Lasciamo il totalizzatore, perchè totalizza i figli. Altrimenti dobbiamo distinguere tra capitoli e articoli
 	JOIN upb 
 		on upb.idupb = U.idupb	
 	JOIN fin
@@ -987,4 +989,3 @@ GO
 
   
   
-	

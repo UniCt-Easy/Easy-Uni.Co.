@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -55,7 +57,7 @@ namespace moneytransfer_default {
         ////    //        HelpForm.GetObjectFromString(typeof(decimal), txtImporto.Text,
         ////    //                    "x.y.c"));
         ////    //if (importocorrente!=CfgFn.GetNoNullDecimal(Assegnazione["moneytotransfer"])){
-        ////    //    if (MessageBox.Show("Aggiorno il campo Importo col valore da Girofondare?",
+        ////    //    if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Aggiorno il campo Importo col valore da Girofondare?",
         ////    //        "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK)
         ////    //        txtImporto.Text = Assegnazione["moneytotransfer"].ToString();
         ////    //}
@@ -214,7 +216,7 @@ namespace moneytransfer_default {
         //                        "x.y.c"));
         //    if (importocorrente != CfgFn.GetNoNullDecimal(Choosen["moneytotransfer"]))
         //    {
-        //        if (MessageBox.Show("Aggiorno il campo Importo col valore da trasferire?",
+        //        if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Aggiorno il campo Importo col valore da trasferire?",
         //            "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK)
         //            Curr["amount"] = CfgFn.GetNoNullDecimal(Choosen["moneytotransfer"]);
         //    }
@@ -257,7 +259,7 @@ namespace moneytransfer_default {
         //                        "x.y.c"));
         //    if (importocorrente != CfgFn.GetNoNullDecimal(Choosen["moneytotransfer"]))
         //    {
-        //        if (MessageBox.Show("Aggiorno il campo Importo col valore da trasferire?",
+        //        if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Aggiorno il campo Importo col valore da trasferire?",
         //            "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK)
         //            Curr["amount"] = CfgFn.GetNoNullDecimal(Choosen["moneytotransfer"]);
         //    }

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- CREAZIONE VISTA accountview
+
+-- CREAZIONE VISTA accountview
 IF EXISTS(select * from sysobjects where id = object_id(N'[accountview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [accountview]
 GO
@@ -72,7 +74,7 @@ CREATE   VIEW [accountview]
 		captiveusesurplus,--Avanzo vincolato
 		reserve,	   --Riserva
 		provision,     --Accantonamento
-		cash,		   --Disponibilit√† liquide
+		cash,		   --Disponibilit‡ liquide
 		otheritems_A,  --Altre voci dell'attivo
 		otheritems_P,  --Altre voci del passivo
 		amortization,  --Ammortamento
@@ -140,7 +142,7 @@ CREATE   VIEW [accountview]
 		CASE 		when (( account.flagaccountusage & 1024) = 0)  then 'N'  ELSE 'S' END, -- Avanzo vincolato
 		CASE 		when (( account.flagaccountusage & 2048) = 0)  then 'N'  ELSE 'S' END, -- Riserva
 		CASE 		when (( account.flagaccountusage & 4096) = 0)  then 'N'  ELSE 'S' END, --Accantonamento
-		CASE 		when (( account.flagaccountusage & 8192) = 0)  then 'N'  ELSE 'S' END, --Disponibilit√† liquide
+		CASE 		when (( account.flagaccountusage & 8192) = 0)  then 'N'  ELSE 'S' END, --Disponibilit‡ liquide
 		CASE 		when (( account.flagaccountusage & 16384) = 0)  then 'N'  ELSE 'S' END, --Altre voci dell'attivo
 		CASE 		when (( account.flagaccountusage & 65536) = 0)  then 'N'  ELSE 'S' END, --Altre voci del passivo
 		CASE 		when (( account.flagaccountusage & 131072) = 0)  then 'N'  ELSE 'S' END, --Ammortamento
@@ -164,4 +166,3 @@ CREATE   VIEW [accountview]
 		LEFT OUTER JOIN sorting SI	(NOLOCK)	ON account.idsor_investmentbudget = SI.idsor
 
 GO
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªønamespace assetacquire_massive {
+
+namespace assetacquire_massive {
     partial class FormHint {
         /// <summary>
         /// Variabile di progettazione necessaria.
@@ -61,7 +63,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(328, 40);
             this.label5.TabIndex = 29;
-            this.label5.Text = "Pu√≤ essere importante per fare quadrare le imposte unitarie con quelle totali";
+            this.label5.Text = "PuÚ essere importante per fare quadrare le imposte unitarie con quelle totali";
             // 
             // button1
             // 
@@ -182,7 +184,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 16);
             this.label2.TabIndex = 16;
-            this.label2.Text = "Quantit√†";
+            this.label2.Text = "Quantit‡";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label1

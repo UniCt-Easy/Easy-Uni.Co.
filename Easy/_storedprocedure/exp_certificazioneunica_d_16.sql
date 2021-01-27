@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_d_16]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_d_16]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_certificazioneunica_d_16]
 GO
  
@@ -78,7 +80,7 @@ create table #recordd
 	INSERT INTO #recordd (progr, modulo, quadro, riga, colonna, intero) VALUES(@progrCert, @progrModulo,'HRD', 1, '05', @progrCert)
 	 
 	-----------------------------------------------------------------------------------------------------------------------
-	----- Sezione da compilare per la sostituzione di una singola certificazione gi√† trasmessa e accolta (Campi 6 e 7) ----
+	----- Sezione da compilare per la sostituzione di una singola certificazione gi‡ trasmessa e accolta (Campi 6 e 7) ----
 	-----------------------------------------------------------------------------------------------------------------------
 	--- (non la compiliamo)---
 	--------------------------
@@ -92,15 +94,15 @@ create table #recordd
 	--------------------------------------------------------------------------------------------
 	DECLARE @DA001001 VARCHAR(16)  -- Codice Fiscale
 	DECLARE @DA001002 VARCHAR(60)  -- Cognome o Denominazione
-	DECLARE @DA001003 VARCHAR(200) -- Nome (non utilizzato in quanto il sostituto d'imposta non √® persona fisica)
+	DECLARE @DA001003 VARCHAR(200) -- Nome (non utilizzato in quanto il sostituto d'imposta non Ë persona fisica)
 	DECLARE @DA001004 VARCHAR(200) -- Comune di Residenza
 	DECLARE @DA001005 VARCHAR(2)   -- Provincia di Residenza (sigla)
 	DECLARE	@DA001006 VARCHAR(5)   -- CAP
 	DECLARE @DA001007 VARCHAR(200) -- Via e numero civico
 	DECLARE @DA001008 VARCHAR(50)  -- Telefono/Fax
 	DECLARE @DA001009 VARCHAR(100) -- Indirizzo di posta elettronica del sostituto
-	DECLARE @DA001010 VARCHAR(50)  -- Codice Attivit√†
-	DECLARE @DA001011 VARCHAR(50)  -- Codice Sede  (solo per chi ha pi√π sedi)
+	DECLARE @DA001010 VARCHAR(50)  -- Codice Attivit‡
+	DECLARE @DA001011 VARCHAR(50)  -- Codice Sede  (solo per chi ha pi˘ sedi)
 	
 	DECLARE @phonenumber varchar(20)
 	DECLARE @fax varchar(20)
@@ -124,7 +126,7 @@ create table #recordd
 		WHEN ((ISNULL(@phonenumber,'') = '')  AND (ISNULL(@fax,'') = ''))  THEN NULL
 		ELSE NULL 
 	END
-			 	 		-- (www.agenziaentrate.gov.it)	DECLARE @codiceattivita varchar(6)  --‚óæ85.42.00‚óæ85.42.00
+			 	 		-- (www.agenziaentrate.gov.it)	DECLARE @codiceattivita varchar(6)  --?85.42.00?85.42.00
 	-- http://www.codiciateco.it/istruzione-universitaria-e-post-universitaria--accademie-e-conservatori/P-85-4-2-0
 	-- 85.42.00 Istruzione universitaria e post-universitaria; accademie e conservatori
 	-- istruzione di livello superiore all'istruzione secondaria che consente il conseguimento di una laurea, di un diploma universitario o di un titolo equipollente
@@ -142,8 +144,8 @@ create table #recordd
 	--2016	DA001	007	Via e numero civico	AN
 	--2016	DA001	008	Telefono/Fax	AN
 	--2016	DA001	009	Indirizzo di posta elettronica del sostituto	AN
-	--2016	DA001	010	Codice Attivit√†	AN
-	--2016	DA001	011	Codice Sede	AN (solo per chi ha pi√π sedi)
+	--2016	DA001	010	Codice Attivit‡	AN
+	--2016	DA001	011	Codice Sede	AN (solo per chi ha pi˘ sedi)
 	
 	INSERT INTO #recordd (progr,modulo, quadro, riga, colonna, stringa) VALUES(@progrCert, @progrModulo, 'DA001', 1, '001', @DA001001)
 	INSERT INTO #recordd (progr,modulo, quadro, riga, colonna, stringa) VALUES(@progrCert, @progrModulo, 'DA001', 1, '002', @DA001002)
@@ -424,18 +426,18 @@ SELECT @DA002044 = codice_iso_nazione FROM #address WHERE nation <> 'ITALIA'
 	--2016	DA002	025	Codice comune	PR  (Domicilio fiscale al 1/1/2016)
 	--2016	DA002	030	Dati relativi al rappresentante	CF  -- minori, incapaci ecc.. (non compiliamo)
 	--2016	DA002	040	Codice di identificazione fiscale estero	AN
-	--2016	DA002	041	Localit√† di residenza estera	AN
+	--2016	DA002	041	Localit‡ di residenza estera	AN
 	--2016	DA002	042	Via e numero civico	AN
 	--2016	DA002	043	Non Residenti Shumacker CB
 	--2016	DA002	044	Codice stato estero	N3
 
-	--Mentre verr√† valorizzato con il codice 2 
+	--Mentre verr‡ valorizzato con il codice 2 
 	--nel caso siano stati cerificati soltanto dati previdenziali ed assistenziali E/O quadro relativo alle annotazioni.
 	--Pertanto una CU che abbia un reddito esente dal punto di vista fiscale e NON anche dal punto di vista 
-	-- previdenziale o assistenziale, dovr√† essere indicato il valore 2.
+	-- previdenziale o assistenziale, dovr‡ essere indicato il valore 2.
 	--Una CU che abbia un reddito completamente esente, sia dal punto di vista fiscale che previdenziale e assistenziale, 
-    --dovr√† essere indicato comunque il valore 2 in presenza della sezione relativa alle annotazioni.
-    --Secondo me anche in caso di redditi non esenti perch√® si scriveranno le annotazioni
+    --dovr‡ essere indicato comunque il valore 2 in presenza della sezione relativa alle annotazioni.
+    --Secondo me anche in caso di redditi non esenti perchË si scriveranno le annotazioni
 	INSERT INTO #recordd (progr, modulo,quadro, riga, colonna, stringa) VALUES(@progrCert, @progrModulo, 'DA002', 1, '001', @DA002001)
 	INSERT INTO #recordd (progr, modulo,quadro, riga, colonna, stringa) VALUES(@progrCert, @progrModulo, 'DA002', 1, '002', @DA002002)
 	INSERT INTO #recordd (progr, modulo,quadro, riga, colonna, stringa) VALUES(@progrCert, @progrModulo, 'DA002', 1, '003', @DA002003)
@@ -443,7 +445,7 @@ SELECT @DA002044 = codice_iso_nazione FROM #address WHERE nation <> 'ITALIA'
 	INSERT INTO #recordd (progr, modulo,quadro, riga, colonna, data)	VALUES(@progrCert, @progrModulo, 'DA002', 1, '005', @DA002005)
 	INSERT INTO #recordd (progr, modulo,quadro, riga, colonna, stringa) VALUES(@progrCert, @progrModulo, 'DA002', 1, '006', @DA002006)
 	INSERT INTO #recordd (progr, modulo,quadro, riga, colonna, stringa) VALUES(@progrCert, @progrModulo, 'DA002', 1, '007', @DA002007)
-	-- Casi di esclusione dalla  precompilata, per ora non lo compiliamo perch√® determina lo scarto di tutte le certificazioni 
+	-- Casi di esclusione dalla  precompilata, per ora non lo compiliamo perchË determina lo scarto di tutte le certificazioni 
 	-- molto probabilmente per un bug del software dell' Ag. Entrate
 	--IF (@tipoRecord <> 'H')
 	--BEGIN
@@ -500,4 +502,3 @@ SET ANSI_NULLS ON
 GO
 
  
-	

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="apppages">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="additionaltables" type="xs:string" minOccurs="0" />
+              <xs:element name="anonimous" type="xs:string" minOccurs="0" />
+              <xs:element name="autosearch" type="xs:string" />
+              <xs:element name="calendarstart" type="xs:string" minOccurs="0" />
+              <xs:element name="calendarstop" type="xs:string" minOccurs="0" />
+              <xs:element name="calendartitle" type="xs:string" minOccurs="0" />
+              <xs:element name="cancancel" type="xs:string" />
+              <xs:element name="cancmdclose" type="xs:string" />
+              <xs:element name="caninsert" type="xs:string" />
+              <xs:element name="caninsertcopy" type="xs:string" />
+              <xs:element name="cansave" type="xs:string" />
+              <xs:element name="cansearch" type="xs:string" />
+              <xs:element name="canshowlast" type="xs:string" />
+              <xs:element name="customcode" type="xs:string" minOccurs="0" />
+              <xs:element name="customjavascript" type="xs:string" minOccurs="0" />
+              <xs:element name="customreference" type="xs:string" minOccurs="0" />
+              <xs:element name="customusing" type="xs:string" minOccurs="0" />
+              <xs:element name="editlistingtype" type="xs:string" minOccurs="0" />
+              <xs:element name="footer" type="xs:string" minOccurs="0" />
+              <xs:element name="header" type="xs:string" minOccurs="0" />
+              <xs:element name="icon" type="xs:string" minOccurs="0" />
+              <xs:element name="idapplicazione" type="xs:int" />
+              <xs:element name="idapppages" type="xs:int" />
+              <xs:element name="idmenuweb" type="xs:int" minOccurs="0" />
+              <xs:element name="isvalid" type="xs:string" minOccurs="0" />
+              <xs:element name="othersapp" type="xs:string" minOccurs="0" />
+              <xs:element name="principale" type="xs:string" minOccurs="0" />
+              <xs:element name="staticfilter" type="xs:string" minOccurs="0" />
+              <xs:element name="tablename" type="xs:string" minOccurs="0" />
+              <xs:element name="testcustom" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="vocabolario" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:apppages" />
+      <xs:field xpath="mstns:idapppages" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

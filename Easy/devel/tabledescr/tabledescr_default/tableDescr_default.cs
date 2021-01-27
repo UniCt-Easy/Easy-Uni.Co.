@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -114,7 +116,7 @@ namespace tabledescr_default {
         }
 
         /// <summary>
-        /// Cerca di calcolare il nome di una tabella dai form ad essa collegati, sempre se non √® gi√† valorizzata
+        /// Cerca di calcolare il nome di una tabella dai form ad essa collegati, sempre se non Ë gi‡ valorizzata
         /// </summary>
         /// <param name="table"></param>
         void leggiNome(string table) {
@@ -156,7 +158,7 @@ namespace tabledescr_default {
                     DataRow[] found = DS.coldescr.Select(q.CmpEq("colname", c.ColumnName));
                     if (found.Length == 0) continue;
                     DataRow f = found[0];
-                    string caption = f["description"].ToString();  //Valorizza le caption ove non gi√† valorizzate
+                    string caption = f["description"].ToString();  //Valorizza le caption ove non gi‡ valorizzate
                     if (caption != "") continue;
                     string newCaption = c.Caption;
                     if (newCaption.StartsWith(".")) {
@@ -348,7 +350,7 @@ namespace tabledescr_default {
                     continue;
                 }
                 bool found = false;
-                foreach(DataRow rDb in t.Rows) {     //vede se la relazione rDB √® proprio r
+                foreach(DataRow rDb in t.Rows) {     //vede se la relazione rDB Ë proprio r
                     
                     //Prende le colonne della relazione rDB
                     DataTable rCols = conn.RUN_SELECT("relationcol", "*", null, QHS.CmpEq("idrelation", rDb["idrelation"]), null, false);

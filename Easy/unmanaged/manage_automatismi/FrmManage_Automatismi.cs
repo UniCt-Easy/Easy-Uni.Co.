@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -22,6 +24,8 @@ using metadatalibrary;
 using funzioni_configurazione;
 using System.Data;
 using System.Collections.Generic;
+using q = metadatalibrary.MetaExpression;
+
 
 
 namespace manage_automatismi {
@@ -144,466 +148,466 @@ namespace manage_automatismi {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabSpesa = new System.Windows.Forms.TabPage();
-            this.tabCrediti = new System.Windows.Forms.TabControl();
-            this.tabClassificazioni = new System.Windows.Forms.TabPage();
-            this.btnDeleteClassE = new System.Windows.Forms.Button();
-            this.btnInsertClassE = new System.Windows.Forms.Button();
-            this.btnUpdateClassE = new System.Windows.Forms.Button();
-            this.dgClassSpesa = new System.Windows.Forms.DataGrid();
-            this.tabFinanziamenti = new System.Windows.Forms.TabPage();
-            this.btnDelFinanziamentoCrediti = new System.Windows.Forms.Button();
-            this.btnAddFinanziamentoCrediti = new System.Windows.Forms.Button();
-            this.btnEditFinanziamentoCrediti = new System.Windows.Forms.Button();
-            this.dgCrediti = new System.Windows.Forms.DataGrid();
-            this.tabCassa = new System.Windows.Forms.TabPage();
-            this.btnDelFinanziamentoCassa = new System.Windows.Forms.Button();
-            this.btnAddFinanziamentoCassa = new System.Windows.Forms.Button();
-            this.btnEditFinanziamentoCassa = new System.Windows.Forms.Button();
-            this.dgCassa = new System.Windows.Forms.DataGrid();
-            this.dgSpesa = new System.Windows.Forms.DataGrid();
-            this.tabEntrata = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnDeleteClassI = new System.Windows.Forms.Button();
-            this.btnUpdateClassI = new System.Windows.Forms.Button();
-            this.btnInsertClassI = new System.Windows.Forms.Button();
-            this.dgClassEntrata = new System.Windows.Forms.DataGrid();
-            this.dgEntrata = new System.Windows.Forms.DataGrid();
-            this.tabVarEntrata = new System.Windows.Forms.TabPage();
-            this.dgVarEntrata = new System.Windows.Forms.DataGrid();
-            this.tabVarSpesa = new System.Windows.Forms.TabPage();
-            this.dgVarSpesa = new System.Windows.Forms.DataGrid();
-            this.dsMov = new manage_automatismi.dsMov();
-            this.btnOk = new System.Windows.Forms.Button();
-            this.btnAnnulla = new System.Windows.Forms.Button();
-            this.tabControl1.SuspendLayout();
-            this.tabSpesa.SuspendLayout();
-            this.tabCrediti.SuspendLayout();
-            this.tabClassificazioni.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgClassSpesa)).BeginInit();
-            this.tabFinanziamenti.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgCrediti)).BeginInit();
-            this.tabCassa.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgCassa)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgSpesa)).BeginInit();
-            this.tabEntrata.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgClassEntrata)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgEntrata)).BeginInit();
-            this.tabVarEntrata.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgVarEntrata)).BeginInit();
-            this.tabVarSpesa.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgVarSpesa)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dsMov)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabSpesa = new System.Windows.Forms.TabPage();
+			this.tabCrediti = new System.Windows.Forms.TabControl();
+			this.tabClassificazioni = new System.Windows.Forms.TabPage();
+			this.btnDeleteClassE = new System.Windows.Forms.Button();
+			this.btnInsertClassE = new System.Windows.Forms.Button();
+			this.btnUpdateClassE = new System.Windows.Forms.Button();
+			this.dgClassSpesa = new System.Windows.Forms.DataGrid();
+			this.tabFinanziamenti = new System.Windows.Forms.TabPage();
+			this.btnDelFinanziamentoCrediti = new System.Windows.Forms.Button();
+			this.btnAddFinanziamentoCrediti = new System.Windows.Forms.Button();
+			this.btnEditFinanziamentoCrediti = new System.Windows.Forms.Button();
+			this.dgCrediti = new System.Windows.Forms.DataGrid();
+			this.tabCassa = new System.Windows.Forms.TabPage();
+			this.btnDelFinanziamentoCassa = new System.Windows.Forms.Button();
+			this.btnAddFinanziamentoCassa = new System.Windows.Forms.Button();
+			this.btnEditFinanziamentoCassa = new System.Windows.Forms.Button();
+			this.dgCassa = new System.Windows.Forms.DataGrid();
+			this.dgSpesa = new System.Windows.Forms.DataGrid();
+			this.tabEntrata = new System.Windows.Forms.TabPage();
+			this.label1 = new System.Windows.Forms.Label();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.btnDeleteClassI = new System.Windows.Forms.Button();
+			this.btnUpdateClassI = new System.Windows.Forms.Button();
+			this.btnInsertClassI = new System.Windows.Forms.Button();
+			this.dgClassEntrata = new System.Windows.Forms.DataGrid();
+			this.dgEntrata = new System.Windows.Forms.DataGrid();
+			this.tabVarEntrata = new System.Windows.Forms.TabPage();
+			this.dgVarEntrata = new System.Windows.Forms.DataGrid();
+			this.tabVarSpesa = new System.Windows.Forms.TabPage();
+			this.dgVarSpesa = new System.Windows.Forms.DataGrid();
+			this.dsMov = new manage_automatismi.dsMov();
+			this.btnOk = new System.Windows.Forms.Button();
+			this.btnAnnulla = new System.Windows.Forms.Button();
+			this.tabControl1.SuspendLayout();
+			this.tabSpesa.SuspendLayout();
+			this.tabCrediti.SuspendLayout();
+			this.tabClassificazioni.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgClassSpesa)).BeginInit();
+			this.tabFinanziamenti.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgCrediti)).BeginInit();
+			this.tabCassa.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgCassa)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgSpesa)).BeginInit();
+			this.tabEntrata.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgClassEntrata)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgEntrata)).BeginInit();
+			this.tabVarEntrata.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgVarEntrata)).BeginInit();
+			this.tabVarSpesa.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgVarSpesa)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dsMov)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// tabControl1
+			// 
+			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-            this.tabControl1.Controls.Add(this.tabSpesa);
-            this.tabControl1.Controls.Add(this.tabEntrata);
-            this.tabControl1.Controls.Add(this.tabVarEntrata);
-            this.tabControl1.Controls.Add(this.tabVarSpesa);
-            this.tabControl1.Location = new System.Drawing.Point(8, 8);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(623, 422);
-            this.tabControl1.TabIndex = 0;
-            // 
-            // tabSpesa
-            // 
-            this.tabSpesa.Controls.Add(this.tabCrediti);
-            this.tabSpesa.Controls.Add(this.dgSpesa);
-            this.tabSpesa.Location = new System.Drawing.Point(4, 25);
-            this.tabSpesa.Name = "tabSpesa";
-            this.tabSpesa.Size = new System.Drawing.Size(615, 393);
-            this.tabSpesa.TabIndex = 0;
-            this.tabSpesa.Text = "Spesa";
-            // 
-            // tabCrediti
-            // 
-            this.tabCrediti.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+			this.tabControl1.Controls.Add(this.tabSpesa);
+			this.tabControl1.Controls.Add(this.tabEntrata);
+			this.tabControl1.Controls.Add(this.tabVarEntrata);
+			this.tabControl1.Controls.Add(this.tabVarSpesa);
+			this.tabControl1.Location = new System.Drawing.Point(8, 8);
+			this.tabControl1.Name = "tabControl1";
+			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.Size = new System.Drawing.Size(623, 422);
+			this.tabControl1.TabIndex = 0;
+			// 
+			// tabSpesa
+			// 
+			this.tabSpesa.Controls.Add(this.tabCrediti);
+			this.tabSpesa.Controls.Add(this.dgSpesa);
+			this.tabSpesa.Location = new System.Drawing.Point(4, 25);
+			this.tabSpesa.Name = "tabSpesa";
+			this.tabSpesa.Size = new System.Drawing.Size(615, 393);
+			this.tabSpesa.TabIndex = 0;
+			this.tabSpesa.Text = "Spesa";
+			// 
+			// tabCrediti
+			// 
+			this.tabCrediti.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabCrediti.Controls.Add(this.tabClassificazioni);
-            this.tabCrediti.Controls.Add(this.tabFinanziamenti);
-            this.tabCrediti.Controls.Add(this.tabCassa);
-            this.tabCrediti.Location = new System.Drawing.Point(8, 195);
-            this.tabCrediti.Name = "tabCrediti";
-            this.tabCrediti.SelectedIndex = 0;
-            this.tabCrediti.Size = new System.Drawing.Size(599, 195);
-            this.tabCrediti.TabIndex = 4;
-            // 
-            // tabClassificazioni
-            // 
-            this.tabClassificazioni.Controls.Add(this.btnDeleteClassE);
-            this.tabClassificazioni.Controls.Add(this.btnInsertClassE);
-            this.tabClassificazioni.Controls.Add(this.btnUpdateClassE);
-            this.tabClassificazioni.Controls.Add(this.dgClassSpesa);
-            this.tabClassificazioni.Location = new System.Drawing.Point(4, 22);
-            this.tabClassificazioni.Name = "tabClassificazioni";
-            this.tabClassificazioni.Padding = new System.Windows.Forms.Padding(3);
-            this.tabClassificazioni.Size = new System.Drawing.Size(591, 169);
-            this.tabClassificazioni.TabIndex = 0;
-            this.tabClassificazioni.Text = "Classificazioni";
-            this.tabClassificazioni.UseVisualStyleBackColor = true;
-            // 
-            // btnDeleteClassE
-            // 
-            this.btnDeleteClassE.Location = new System.Drawing.Point(198, 6);
-            this.btnDeleteClassE.Name = "btnDeleteClassE";
-            this.btnDeleteClassE.Size = new System.Drawing.Size(75, 23);
-            this.btnDeleteClassE.TabIndex = 5;
-            this.btnDeleteClassE.Text = "Cancella";
-            this.btnDeleteClassE.Click += new System.EventHandler(this.btnDeleteClassE_Click);
-            // 
-            // btnInsertClassE
-            // 
-            this.btnInsertClassE.Location = new System.Drawing.Point(6, 6);
-            this.btnInsertClassE.Name = "btnInsertClassE";
-            this.btnInsertClassE.Size = new System.Drawing.Size(75, 23);
-            this.btnInsertClassE.TabIndex = 3;
-            this.btnInsertClassE.Text = "Inserisci";
-            this.btnInsertClassE.Click += new System.EventHandler(this.btnInsertClassE_Click);
-            // 
-            // btnUpdateClassE
-            // 
-            this.btnUpdateClassE.Location = new System.Drawing.Point(102, 6);
-            this.btnUpdateClassE.Name = "btnUpdateClassE";
-            this.btnUpdateClassE.Size = new System.Drawing.Size(75, 23);
-            this.btnUpdateClassE.TabIndex = 4;
-            this.btnUpdateClassE.Text = "Correggi";
-            this.btnUpdateClassE.Click += new System.EventHandler(this.btnUpdateClassE_Click);
-            // 
-            // dgClassSpesa
-            // 
-            this.dgClassSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.tabCrediti.Controls.Add(this.tabClassificazioni);
+			this.tabCrediti.Controls.Add(this.tabFinanziamenti);
+			this.tabCrediti.Controls.Add(this.tabCassa);
+			this.tabCrediti.Location = new System.Drawing.Point(8, 195);
+			this.tabCrediti.Name = "tabCrediti";
+			this.tabCrediti.SelectedIndex = 0;
+			this.tabCrediti.Size = new System.Drawing.Size(599, 195);
+			this.tabCrediti.TabIndex = 4;
+			// 
+			// tabClassificazioni
+			// 
+			this.tabClassificazioni.Controls.Add(this.btnDeleteClassE);
+			this.tabClassificazioni.Controls.Add(this.btnInsertClassE);
+			this.tabClassificazioni.Controls.Add(this.btnUpdateClassE);
+			this.tabClassificazioni.Controls.Add(this.dgClassSpesa);
+			this.tabClassificazioni.Location = new System.Drawing.Point(4, 22);
+			this.tabClassificazioni.Name = "tabClassificazioni";
+			this.tabClassificazioni.Padding = new System.Windows.Forms.Padding(3);
+			this.tabClassificazioni.Size = new System.Drawing.Size(591, 169);
+			this.tabClassificazioni.TabIndex = 0;
+			this.tabClassificazioni.Text = "Classificazioni";
+			this.tabClassificazioni.UseVisualStyleBackColor = true;
+			// 
+			// btnDeleteClassE
+			// 
+			this.btnDeleteClassE.Location = new System.Drawing.Point(198, 6);
+			this.btnDeleteClassE.Name = "btnDeleteClassE";
+			this.btnDeleteClassE.Size = new System.Drawing.Size(75, 23);
+			this.btnDeleteClassE.TabIndex = 5;
+			this.btnDeleteClassE.Text = "Cancella";
+			this.btnDeleteClassE.Click += new System.EventHandler(this.btnDeleteClassE_Click);
+			// 
+			// btnInsertClassE
+			// 
+			this.btnInsertClassE.Location = new System.Drawing.Point(6, 6);
+			this.btnInsertClassE.Name = "btnInsertClassE";
+			this.btnInsertClassE.Size = new System.Drawing.Size(75, 23);
+			this.btnInsertClassE.TabIndex = 3;
+			this.btnInsertClassE.Text = "Inserisci";
+			this.btnInsertClassE.Click += new System.EventHandler(this.btnInsertClassE_Click);
+			// 
+			// btnUpdateClassE
+			// 
+			this.btnUpdateClassE.Location = new System.Drawing.Point(102, 6);
+			this.btnUpdateClassE.Name = "btnUpdateClassE";
+			this.btnUpdateClassE.Size = new System.Drawing.Size(75, 23);
+			this.btnUpdateClassE.TabIndex = 4;
+			this.btnUpdateClassE.Text = "Correggi";
+			this.btnUpdateClassE.Click += new System.EventHandler(this.btnUpdateClassE_Click);
+			// 
+			// dgClassSpesa
+			// 
+			this.dgClassSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgClassSpesa.DataMember = "";
-            this.dgClassSpesa.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgClassSpesa.Location = new System.Drawing.Point(6, 38);
-            this.dgClassSpesa.Name = "dgClassSpesa";
-            this.dgClassSpesa.Size = new System.Drawing.Size(579, 125);
-            this.dgClassSpesa.TabIndex = 2;
-            // 
-            // tabFinanziamenti
-            // 
-            this.tabFinanziamenti.Controls.Add(this.btnDelFinanziamentoCrediti);
-            this.tabFinanziamenti.Controls.Add(this.btnAddFinanziamentoCrediti);
-            this.tabFinanziamenti.Controls.Add(this.btnEditFinanziamentoCrediti);
-            this.tabFinanziamenti.Controls.Add(this.dgCrediti);
-            this.tabFinanziamenti.Location = new System.Drawing.Point(4, 22);
-            this.tabFinanziamenti.Name = "tabFinanziamenti";
-            this.tabFinanziamenti.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFinanziamenti.Size = new System.Drawing.Size(591, 169);
-            this.tabFinanziamenti.TabIndex = 1;
-            this.tabFinanziamenti.Text = "Finanziamento Crediti";
-            this.tabFinanziamenti.UseVisualStyleBackColor = true;
-            // 
-            // btnDelFinanziamentoCrediti
-            // 
-            this.btnDelFinanziamentoCrediti.Location = new System.Drawing.Point(198, 6);
-            this.btnDelFinanziamentoCrediti.Name = "btnDelFinanziamentoCrediti";
-            this.btnDelFinanziamentoCrediti.Size = new System.Drawing.Size(75, 23);
-            this.btnDelFinanziamentoCrediti.TabIndex = 9;
-            this.btnDelFinanziamentoCrediti.Text = "Cancella";
-            this.btnDelFinanziamentoCrediti.Click += new System.EventHandler(this.btnDelFinanziamentoCrediti_Click);
-            // 
-            // btnAddFinanziamentoCrediti
-            // 
-            this.btnAddFinanziamentoCrediti.Location = new System.Drawing.Point(6, 6);
-            this.btnAddFinanziamentoCrediti.Name = "btnAddFinanziamentoCrediti";
-            this.btnAddFinanziamentoCrediti.Size = new System.Drawing.Size(75, 23);
-            this.btnAddFinanziamentoCrediti.TabIndex = 7;
-            this.btnAddFinanziamentoCrediti.Text = "Inserisci";
-            this.btnAddFinanziamentoCrediti.Click += new System.EventHandler(this.btnAddFinanziamentoCrediti_Click);
-            // 
-            // btnEditFinanziamentoCrediti
-            // 
-            this.btnEditFinanziamentoCrediti.Location = new System.Drawing.Point(102, 6);
-            this.btnEditFinanziamentoCrediti.Name = "btnEditFinanziamentoCrediti";
-            this.btnEditFinanziamentoCrediti.Size = new System.Drawing.Size(75, 23);
-            this.btnEditFinanziamentoCrediti.TabIndex = 8;
-            this.btnEditFinanziamentoCrediti.Text = "Correggi";
-            this.btnEditFinanziamentoCrediti.Click += new System.EventHandler(this.btnEditFinanziamentoCrediti_Click);
-            // 
-            // dgCrediti
-            // 
-            this.dgCrediti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dgClassSpesa.DataMember = "";
+			this.dgClassSpesa.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgClassSpesa.Location = new System.Drawing.Point(6, 38);
+			this.dgClassSpesa.Name = "dgClassSpesa";
+			this.dgClassSpesa.Size = new System.Drawing.Size(579, 125);
+			this.dgClassSpesa.TabIndex = 2;
+			// 
+			// tabFinanziamenti
+			// 
+			this.tabFinanziamenti.Controls.Add(this.btnDelFinanziamentoCrediti);
+			this.tabFinanziamenti.Controls.Add(this.btnAddFinanziamentoCrediti);
+			this.tabFinanziamenti.Controls.Add(this.btnEditFinanziamentoCrediti);
+			this.tabFinanziamenti.Controls.Add(this.dgCrediti);
+			this.tabFinanziamenti.Location = new System.Drawing.Point(4, 22);
+			this.tabFinanziamenti.Name = "tabFinanziamenti";
+			this.tabFinanziamenti.Padding = new System.Windows.Forms.Padding(3);
+			this.tabFinanziamenti.Size = new System.Drawing.Size(591, 169);
+			this.tabFinanziamenti.TabIndex = 1;
+			this.tabFinanziamenti.Text = "Finanziamento Crediti";
+			this.tabFinanziamenti.UseVisualStyleBackColor = true;
+			// 
+			// btnDelFinanziamentoCrediti
+			// 
+			this.btnDelFinanziamentoCrediti.Location = new System.Drawing.Point(198, 6);
+			this.btnDelFinanziamentoCrediti.Name = "btnDelFinanziamentoCrediti";
+			this.btnDelFinanziamentoCrediti.Size = new System.Drawing.Size(75, 23);
+			this.btnDelFinanziamentoCrediti.TabIndex = 9;
+			this.btnDelFinanziamentoCrediti.Text = "Cancella";
+			this.btnDelFinanziamentoCrediti.Click += new System.EventHandler(this.btnDelFinanziamentoCrediti_Click);
+			// 
+			// btnAddFinanziamentoCrediti
+			// 
+			this.btnAddFinanziamentoCrediti.Location = new System.Drawing.Point(6, 6);
+			this.btnAddFinanziamentoCrediti.Name = "btnAddFinanziamentoCrediti";
+			this.btnAddFinanziamentoCrediti.Size = new System.Drawing.Size(75, 23);
+			this.btnAddFinanziamentoCrediti.TabIndex = 7;
+			this.btnAddFinanziamentoCrediti.Text = "Inserisci";
+			this.btnAddFinanziamentoCrediti.Click += new System.EventHandler(this.btnAddFinanziamentoCrediti_Click);
+			// 
+			// btnEditFinanziamentoCrediti
+			// 
+			this.btnEditFinanziamentoCrediti.Location = new System.Drawing.Point(102, 6);
+			this.btnEditFinanziamentoCrediti.Name = "btnEditFinanziamentoCrediti";
+			this.btnEditFinanziamentoCrediti.Size = new System.Drawing.Size(75, 23);
+			this.btnEditFinanziamentoCrediti.TabIndex = 8;
+			this.btnEditFinanziamentoCrediti.Text = "Correggi";
+			this.btnEditFinanziamentoCrediti.Click += new System.EventHandler(this.btnEditFinanziamentoCrediti_Click);
+			// 
+			// dgCrediti
+			// 
+			this.dgCrediti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgCrediti.DataMember = "";
-            this.dgCrediti.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgCrediti.Location = new System.Drawing.Point(6, 38);
-            this.dgCrediti.Name = "dgCrediti";
-            this.dgCrediti.Size = new System.Drawing.Size(579, 125);
-            this.dgCrediti.TabIndex = 6;
-            // 
-            // tabCassa
-            // 
-            this.tabCassa.Controls.Add(this.btnDelFinanziamentoCassa);
-            this.tabCassa.Controls.Add(this.btnAddFinanziamentoCassa);
-            this.tabCassa.Controls.Add(this.btnEditFinanziamentoCassa);
-            this.tabCassa.Controls.Add(this.dgCassa);
-            this.tabCassa.Location = new System.Drawing.Point(4, 22);
-            this.tabCassa.Name = "tabCassa";
-            this.tabCassa.Size = new System.Drawing.Size(591, 169);
-            this.tabCassa.TabIndex = 2;
-            this.tabCassa.Text = "Finanziamento Cassa";
-            this.tabCassa.UseVisualStyleBackColor = true;
-            // 
-            // btnDelFinanziamentoCassa
-            // 
-            this.btnDelFinanziamentoCassa.Location = new System.Drawing.Point(198, 6);
-            this.btnDelFinanziamentoCassa.Name = "btnDelFinanziamentoCassa";
-            this.btnDelFinanziamentoCassa.Size = new System.Drawing.Size(75, 23);
-            this.btnDelFinanziamentoCassa.TabIndex = 13;
-            this.btnDelFinanziamentoCassa.Text = "Cancella";
-            this.btnDelFinanziamentoCassa.Click += new System.EventHandler(this.btnDelFinanziamentoCassa_Click);
-            // 
-            // btnAddFinanziamentoCassa
-            // 
-            this.btnAddFinanziamentoCassa.Location = new System.Drawing.Point(6, 6);
-            this.btnAddFinanziamentoCassa.Name = "btnAddFinanziamentoCassa";
-            this.btnAddFinanziamentoCassa.Size = new System.Drawing.Size(75, 23);
-            this.btnAddFinanziamentoCassa.TabIndex = 11;
-            this.btnAddFinanziamentoCassa.Text = "Inserisci";
-            this.btnAddFinanziamentoCassa.Click += new System.EventHandler(this.btnAddFinanziamentoCassa_Click);
-            // 
-            // btnEditFinanziamentoCassa
-            // 
-            this.btnEditFinanziamentoCassa.Location = new System.Drawing.Point(102, 6);
-            this.btnEditFinanziamentoCassa.Name = "btnEditFinanziamentoCassa";
-            this.btnEditFinanziamentoCassa.Size = new System.Drawing.Size(75, 23);
-            this.btnEditFinanziamentoCassa.TabIndex = 12;
-            this.btnEditFinanziamentoCassa.Text = "Correggi";
-            this.btnEditFinanziamentoCassa.Click += new System.EventHandler(this.btnEditFinanziamentoCassa_Click);
-            // 
-            // dgCassa
-            // 
-            this.dgCassa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dgCrediti.DataMember = "";
+			this.dgCrediti.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgCrediti.Location = new System.Drawing.Point(6, 38);
+			this.dgCrediti.Name = "dgCrediti";
+			this.dgCrediti.Size = new System.Drawing.Size(579, 125);
+			this.dgCrediti.TabIndex = 6;
+			// 
+			// tabCassa
+			// 
+			this.tabCassa.Controls.Add(this.btnDelFinanziamentoCassa);
+			this.tabCassa.Controls.Add(this.btnAddFinanziamentoCassa);
+			this.tabCassa.Controls.Add(this.btnEditFinanziamentoCassa);
+			this.tabCassa.Controls.Add(this.dgCassa);
+			this.tabCassa.Location = new System.Drawing.Point(4, 22);
+			this.tabCassa.Name = "tabCassa";
+			this.tabCassa.Size = new System.Drawing.Size(591, 169);
+			this.tabCassa.TabIndex = 2;
+			this.tabCassa.Text = "Finanziamento Cassa";
+			this.tabCassa.UseVisualStyleBackColor = true;
+			// 
+			// btnDelFinanziamentoCassa
+			// 
+			this.btnDelFinanziamentoCassa.Location = new System.Drawing.Point(198, 6);
+			this.btnDelFinanziamentoCassa.Name = "btnDelFinanziamentoCassa";
+			this.btnDelFinanziamentoCassa.Size = new System.Drawing.Size(75, 23);
+			this.btnDelFinanziamentoCassa.TabIndex = 13;
+			this.btnDelFinanziamentoCassa.Text = "Cancella";
+			this.btnDelFinanziamentoCassa.Click += new System.EventHandler(this.btnDelFinanziamentoCassa_Click);
+			// 
+			// btnAddFinanziamentoCassa
+			// 
+			this.btnAddFinanziamentoCassa.Location = new System.Drawing.Point(6, 6);
+			this.btnAddFinanziamentoCassa.Name = "btnAddFinanziamentoCassa";
+			this.btnAddFinanziamentoCassa.Size = new System.Drawing.Size(75, 23);
+			this.btnAddFinanziamentoCassa.TabIndex = 11;
+			this.btnAddFinanziamentoCassa.Text = "Inserisci";
+			this.btnAddFinanziamentoCassa.Click += new System.EventHandler(this.btnAddFinanziamentoCassa_Click);
+			// 
+			// btnEditFinanziamentoCassa
+			// 
+			this.btnEditFinanziamentoCassa.Location = new System.Drawing.Point(102, 6);
+			this.btnEditFinanziamentoCassa.Name = "btnEditFinanziamentoCassa";
+			this.btnEditFinanziamentoCassa.Size = new System.Drawing.Size(75, 23);
+			this.btnEditFinanziamentoCassa.TabIndex = 12;
+			this.btnEditFinanziamentoCassa.Text = "Correggi";
+			this.btnEditFinanziamentoCassa.Click += new System.EventHandler(this.btnEditFinanziamentoCassa_Click);
+			// 
+			// dgCassa
+			// 
+			this.dgCassa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgCassa.DataMember = "";
-            this.dgCassa.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgCassa.Location = new System.Drawing.Point(6, 38);
-            this.dgCassa.Name = "dgCassa";
-            this.dgCassa.Size = new System.Drawing.Size(579, 125);
-            this.dgCassa.TabIndex = 10;
-            // 
-            // dgSpesa
-            // 
-            this.dgSpesa.AllowNavigation = false;
-            this.dgSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dgCassa.DataMember = "";
+			this.dgCassa.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgCassa.Location = new System.Drawing.Point(6, 38);
+			this.dgCassa.Name = "dgCassa";
+			this.dgCassa.Size = new System.Drawing.Size(579, 125);
+			this.dgCassa.TabIndex = 10;
+			// 
+			// dgSpesa
+			// 
+			this.dgSpesa.AllowNavigation = false;
+			this.dgSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgSpesa.DataMember = "";
-            this.dgSpesa.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgSpesa.Location = new System.Drawing.Point(8, 8);
-            this.dgSpesa.Name = "dgSpesa";
-            this.dgSpesa.Size = new System.Drawing.Size(599, 181);
-            this.dgSpesa.TabIndex = 0;
-            this.dgSpesa.CurrentCellChanged += new System.EventHandler(this.dgSpesa_CurrentCellChanged);
-            this.dgSpesa.DoubleClick += new System.EventHandler(this.dgSpesa_DoubleClick);
-            // 
-            // tabEntrata
-            // 
-            this.tabEntrata.Controls.Add(this.label1);
-            this.tabEntrata.Controls.Add(this.groupBox2);
-            this.tabEntrata.Controls.Add(this.dgEntrata);
-            this.tabEntrata.Location = new System.Drawing.Point(4, 25);
-            this.tabEntrata.Name = "tabEntrata";
-            this.tabEntrata.Size = new System.Drawing.Size(615, 393);
-            this.tabEntrata.TabIndex = 1;
-            this.tabEntrata.Text = "Entrata";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(5, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(395, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Doppio click su una riga  per cambiare la descrizione o associare un finanziament" +
+			this.dgSpesa.DataMember = "";
+			this.dgSpesa.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgSpesa.Location = new System.Drawing.Point(8, 8);
+			this.dgSpesa.Name = "dgSpesa";
+			this.dgSpesa.Size = new System.Drawing.Size(599, 181);
+			this.dgSpesa.TabIndex = 0;
+			this.dgSpesa.CurrentCellChanged += new System.EventHandler(this.dgSpesa_CurrentCellChanged);
+			this.dgSpesa.DoubleClick += new System.EventHandler(this.dgSpesa_DoubleClick);
+			// 
+			// tabEntrata
+			// 
+			this.tabEntrata.Controls.Add(this.label1);
+			this.tabEntrata.Controls.Add(this.groupBox2);
+			this.tabEntrata.Controls.Add(this.dgEntrata);
+			this.tabEntrata.Location = new System.Drawing.Point(4, 25);
+			this.tabEntrata.Name = "tabEntrata";
+			this.tabEntrata.Size = new System.Drawing.Size(615, 393);
+			this.tabEntrata.TabIndex = 1;
+			this.tabEntrata.Text = "Entrata";
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
+			this.label1.Location = new System.Drawing.Point(5, 11);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(395, 13);
+			this.label1.TabIndex = 6;
+			this.label1.Text = "Doppio click su una riga  per cambiare la descrizione o associare un finanziament" +
     "o";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.btnDeleteClassI);
-            this.groupBox2.Controls.Add(this.btnUpdateClassI);
-            this.groupBox2.Controls.Add(this.btnInsertClassI);
-            this.groupBox2.Controls.Add(this.dgClassEntrata);
-            this.groupBox2.Location = new System.Drawing.Point(8, 189);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(599, 201);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Classificazioni";
-            // 
-            // btnDeleteClassI
-            // 
-            this.btnDeleteClassI.Location = new System.Drawing.Point(200, 16);
-            this.btnDeleteClassI.Name = "btnDeleteClassI";
-            this.btnDeleteClassI.Size = new System.Drawing.Size(75, 23);
-            this.btnDeleteClassI.TabIndex = 8;
-            this.btnDeleteClassI.Text = "Cancella";
-            this.btnDeleteClassI.Click += new System.EventHandler(this.btnDeleteClassI_Click);
-            // 
-            // btnUpdateClassI
-            // 
-            this.btnUpdateClassI.Location = new System.Drawing.Point(104, 16);
-            this.btnUpdateClassI.Name = "btnUpdateClassI";
-            this.btnUpdateClassI.Size = new System.Drawing.Size(75, 23);
-            this.btnUpdateClassI.TabIndex = 7;
-            this.btnUpdateClassI.Text = "Correggi";
-            this.btnUpdateClassI.Click += new System.EventHandler(this.btnUpdateClassI_Click);
-            // 
-            // btnInsertClassI
-            // 
-            this.btnInsertClassI.Location = new System.Drawing.Point(8, 16);
-            this.btnInsertClassI.Name = "btnInsertClassI";
-            this.btnInsertClassI.Size = new System.Drawing.Size(75, 23);
-            this.btnInsertClassI.TabIndex = 6;
-            this.btnInsertClassI.Text = "Inserisci";
-            this.btnInsertClassI.Click += new System.EventHandler(this.btnInsertClassI_Click);
-            // 
-            // dgClassEntrata
-            // 
-            this.dgClassEntrata.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox2.Controls.Add(this.btnDeleteClassI);
+			this.groupBox2.Controls.Add(this.btnUpdateClassI);
+			this.groupBox2.Controls.Add(this.btnInsertClassI);
+			this.groupBox2.Controls.Add(this.dgClassEntrata);
+			this.groupBox2.Location = new System.Drawing.Point(8, 189);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(599, 201);
+			this.groupBox2.TabIndex = 5;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Classificazioni";
+			// 
+			// btnDeleteClassI
+			// 
+			this.btnDeleteClassI.Location = new System.Drawing.Point(200, 16);
+			this.btnDeleteClassI.Name = "btnDeleteClassI";
+			this.btnDeleteClassI.Size = new System.Drawing.Size(75, 23);
+			this.btnDeleteClassI.TabIndex = 8;
+			this.btnDeleteClassI.Text = "Cancella";
+			this.btnDeleteClassI.Click += new System.EventHandler(this.btnDeleteClassI_Click);
+			// 
+			// btnUpdateClassI
+			// 
+			this.btnUpdateClassI.Location = new System.Drawing.Point(104, 16);
+			this.btnUpdateClassI.Name = "btnUpdateClassI";
+			this.btnUpdateClassI.Size = new System.Drawing.Size(75, 23);
+			this.btnUpdateClassI.TabIndex = 7;
+			this.btnUpdateClassI.Text = "Correggi";
+			this.btnUpdateClassI.Click += new System.EventHandler(this.btnUpdateClassI_Click);
+			// 
+			// btnInsertClassI
+			// 
+			this.btnInsertClassI.Location = new System.Drawing.Point(8, 16);
+			this.btnInsertClassI.Name = "btnInsertClassI";
+			this.btnInsertClassI.Size = new System.Drawing.Size(75, 23);
+			this.btnInsertClassI.TabIndex = 6;
+			this.btnInsertClassI.Text = "Inserisci";
+			this.btnInsertClassI.Click += new System.EventHandler(this.btnInsertClassI_Click);
+			// 
+			// dgClassEntrata
+			// 
+			this.dgClassEntrata.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgClassEntrata.DataMember = "";
-            this.dgClassEntrata.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgClassEntrata.Location = new System.Drawing.Point(8, 48);
-            this.dgClassEntrata.Name = "dgClassEntrata";
-            this.dgClassEntrata.Size = new System.Drawing.Size(583, 145);
-            this.dgClassEntrata.TabIndex = 4;
-            // 
-            // dgEntrata
-            // 
-            this.dgEntrata.AllowNavigation = false;
-            this.dgEntrata.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dgClassEntrata.DataMember = "";
+			this.dgClassEntrata.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgClassEntrata.Location = new System.Drawing.Point(8, 48);
+			this.dgClassEntrata.Name = "dgClassEntrata";
+			this.dgClassEntrata.Size = new System.Drawing.Size(583, 145);
+			this.dgClassEntrata.TabIndex = 4;
+			// 
+			// dgEntrata
+			// 
+			this.dgEntrata.AllowNavigation = false;
+			this.dgEntrata.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgEntrata.DataMember = "";
-            this.dgEntrata.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgEntrata.Location = new System.Drawing.Point(8, 27);
-            this.dgEntrata.Name = "dgEntrata";
-            this.dgEntrata.Size = new System.Drawing.Size(599, 156);
-            this.dgEntrata.TabIndex = 1;
-            this.dgEntrata.CurrentCellChanged += new System.EventHandler(this.dgEntrata_CurrentCellChanged);
-            this.dgEntrata.DoubleClick += new System.EventHandler(this.dgEntrata_DoubleClick);
-            // 
-            // tabVarEntrata
-            // 
-            this.tabVarEntrata.Controls.Add(this.dgVarEntrata);
-            this.tabVarEntrata.Location = new System.Drawing.Point(4, 25);
-            this.tabVarEntrata.Name = "tabVarEntrata";
-            this.tabVarEntrata.Size = new System.Drawing.Size(615, 393);
-            this.tabVarEntrata.TabIndex = 3;
-            this.tabVarEntrata.Text = "Var. Entrata";
-            // 
-            // dgVarEntrata
-            // 
-            this.dgVarEntrata.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dgEntrata.DataMember = "";
+			this.dgEntrata.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgEntrata.Location = new System.Drawing.Point(8, 27);
+			this.dgEntrata.Name = "dgEntrata";
+			this.dgEntrata.Size = new System.Drawing.Size(599, 156);
+			this.dgEntrata.TabIndex = 1;
+			this.dgEntrata.CurrentCellChanged += new System.EventHandler(this.dgEntrata_CurrentCellChanged);
+			this.dgEntrata.DoubleClick += new System.EventHandler(this.dgEntrata_DoubleClick);
+			// 
+			// tabVarEntrata
+			// 
+			this.tabVarEntrata.Controls.Add(this.dgVarEntrata);
+			this.tabVarEntrata.Location = new System.Drawing.Point(4, 25);
+			this.tabVarEntrata.Name = "tabVarEntrata";
+			this.tabVarEntrata.Size = new System.Drawing.Size(615, 393);
+			this.tabVarEntrata.TabIndex = 3;
+			this.tabVarEntrata.Text = "Var. Entrata";
+			// 
+			// dgVarEntrata
+			// 
+			this.dgVarEntrata.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgVarEntrata.DataMember = "";
-            this.dgVarEntrata.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgVarEntrata.Location = new System.Drawing.Point(8, 8);
-            this.dgVarEntrata.Name = "dgVarEntrata";
-            this.dgVarEntrata.Size = new System.Drawing.Size(599, 382);
-            this.dgVarEntrata.TabIndex = 1;
-            this.dgVarEntrata.DoubleClick += new System.EventHandler(this.dgVarEntrata_DoubleClick);
-            // 
-            // tabVarSpesa
-            // 
-            this.tabVarSpesa.Controls.Add(this.dgVarSpesa);
-            this.tabVarSpesa.Location = new System.Drawing.Point(4, 25);
-            this.tabVarSpesa.Name = "tabVarSpesa";
-            this.tabVarSpesa.Size = new System.Drawing.Size(615, 393);
-            this.tabVarSpesa.TabIndex = 2;
-            this.tabVarSpesa.Text = "Var. Spesa";
-            // 
-            // dgVarSpesa
-            // 
-            this.dgVarSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dgVarEntrata.DataMember = "";
+			this.dgVarEntrata.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgVarEntrata.Location = new System.Drawing.Point(8, 8);
+			this.dgVarEntrata.Name = "dgVarEntrata";
+			this.dgVarEntrata.Size = new System.Drawing.Size(599, 382);
+			this.dgVarEntrata.TabIndex = 1;
+			this.dgVarEntrata.DoubleClick += new System.EventHandler(this.dgVarEntrata_DoubleClick);
+			// 
+			// tabVarSpesa
+			// 
+			this.tabVarSpesa.Controls.Add(this.dgVarSpesa);
+			this.tabVarSpesa.Location = new System.Drawing.Point(4, 25);
+			this.tabVarSpesa.Name = "tabVarSpesa";
+			this.tabVarSpesa.Size = new System.Drawing.Size(615, 393);
+			this.tabVarSpesa.TabIndex = 2;
+			this.tabVarSpesa.Text = "Var. Spesa";
+			// 
+			// dgVarSpesa
+			// 
+			this.dgVarSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgVarSpesa.DataMember = "";
-            this.dgVarSpesa.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgVarSpesa.Location = new System.Drawing.Point(8, 8);
-            this.dgVarSpesa.Name = "dgVarSpesa";
-            this.dgVarSpesa.Size = new System.Drawing.Size(599, 382);
-            this.dgVarSpesa.TabIndex = 1;
-            this.dgVarSpesa.DoubleClick += new System.EventHandler(this.dgVarSpesa_DoubleClick);
-            // 
-            // dsMov
-            // 
-            this.dsMov.DataSetName = "dsMov";
-            this.dsMov.EnforceConstraints = false;
-            this.dsMov.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // btnOk
-            // 
-            this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOk.Location = new System.Drawing.Point(440, 438);
-            this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(75, 23);
-            this.btnOk.TabIndex = 1;
-            this.btnOk.Text = "Ok";
-            // 
-            // btnAnnulla
-            // 
-            this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAnnulla.Location = new System.Drawing.Point(536, 438);
-            this.btnAnnulla.Name = "btnAnnulla";
-            this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
-            this.btnAnnulla.TabIndex = 2;
-            this.btnAnnulla.Text = "Annulla";
-            // 
-            // FrmManage_Automatismi
-            // 
-            this.AcceptButton = this.btnOk;
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(639, 468);
-            this.Controls.Add(this.btnAnnulla);
-            this.Controls.Add(this.btnOk);
-            this.Controls.Add(this.tabControl1);
-            this.Name = "FrmManage_Automatismi";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Gestione Automatismi";
-            this.tabControl1.ResumeLayout(false);
-            this.tabSpesa.ResumeLayout(false);
-            this.tabCrediti.ResumeLayout(false);
-            this.tabClassificazioni.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgClassSpesa)).EndInit();
-            this.tabFinanziamenti.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgCrediti)).EndInit();
-            this.tabCassa.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgCassa)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgSpesa)).EndInit();
-            this.tabEntrata.ResumeLayout(false);
-            this.tabEntrata.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgClassEntrata)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgEntrata)).EndInit();
-            this.tabVarEntrata.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgVarEntrata)).EndInit();
-            this.tabVarSpesa.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgVarSpesa)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dsMov)).EndInit();
-            this.ResumeLayout(false);
+			this.dgVarSpesa.DataMember = "";
+			this.dgVarSpesa.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgVarSpesa.Location = new System.Drawing.Point(8, 8);
+			this.dgVarSpesa.Name = "dgVarSpesa";
+			this.dgVarSpesa.Size = new System.Drawing.Size(599, 382);
+			this.dgVarSpesa.TabIndex = 1;
+			this.dgVarSpesa.DoubleClick += new System.EventHandler(this.dgVarSpesa_DoubleClick);
+			// 
+			// dsMov
+			// 
+			this.dsMov.DataSetName = "dsMov";
+			this.dsMov.EnforceConstraints = false;
+			this.dsMov.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// btnOk
+			// 
+			this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.btnOk.Location = new System.Drawing.Point(440, 438);
+			this.btnOk.Name = "btnOk";
+			this.btnOk.Size = new System.Drawing.Size(75, 23);
+			this.btnOk.TabIndex = 1;
+			this.btnOk.Text = "Ok";
+			// 
+			// btnAnnulla
+			// 
+			this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnAnnulla.Location = new System.Drawing.Point(536, 438);
+			this.btnAnnulla.Name = "btnAnnulla";
+			this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
+			this.btnAnnulla.TabIndex = 2;
+			this.btnAnnulla.Text = "Annulla";
+			// 
+			// FrmManage_Automatismi
+			// 
+			this.AcceptButton = this.btnOk;
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(639, 468);
+			this.Controls.Add(this.btnAnnulla);
+			this.Controls.Add(this.btnOk);
+			this.Controls.Add(this.tabControl1);
+			this.Name = "FrmManage_Automatismi";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.Text = "Gestione Automatismi";
+			this.tabControl1.ResumeLayout(false);
+			this.tabSpesa.ResumeLayout(false);
+			this.tabCrediti.ResumeLayout(false);
+			this.tabClassificazioni.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgClassSpesa)).EndInit();
+			this.tabFinanziamenti.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgCrediti)).EndInit();
+			this.tabCassa.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgCassa)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgSpesa)).EndInit();
+			this.tabEntrata.ResumeLayout(false);
+			this.tabEntrata.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgClassEntrata)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgEntrata)).EndInit();
+			this.tabVarEntrata.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgVarEntrata)).EndInit();
+			this.tabVarSpesa.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgVarSpesa)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dsMov)).EndInit();
+			this.ResumeLayout(false);
 
         }
         #endregion
@@ -682,6 +686,8 @@ namespace manage_automatismi {
             string parentidfield = "parent" + idfield;
             object esercizio = Conn.GetSys("esercizio");
             object fasemax = IoE == "I" ? maxincomephase : maxexpensephase;
+
+           
             Cache.registry.ReadValuesRelatedTo(DS.Tables[tName], "idreg");
             if (IoE == "I")
                 Cache.underwriting.ReadValuesRelatedTo(DS.Tables[tName], "idunderwriting");
@@ -749,6 +755,7 @@ namespace manage_automatismi {
                     }
 
                     if (r["idupb"] != DBNull.Value) {
+                        rMovLocal["idupb"] = r["idupb"] ;
                         object codeUpb = Cache.upb.ReadValuesFor(r["idupb"])["codeupb"];
                         //Conn.DO_READ_VALUE("upb", QHS.CmpEq("idupb", r["idupb"]), "codeupb");
                         if (codeUpb != DBNull.Value) rMovLocal["codeupb"] = codeUpb;
@@ -883,6 +890,7 @@ namespace manage_automatismi {
                 dsMov.Tables[tName].Columns["codefin"].Caption = "Cod. Bilancio";
                 dsMov.Tables[tName].Columns["finance"].Caption = "Bilancio";
                 dsMov.Tables[tName].Columns["codeupb"].Caption = "UPB";
+                dsMov.Tables[tName].Columns["idupb"].Caption = ".#UPB";
             }
 
             if (MoV == "M" && IoE == "I") {
@@ -997,6 +1005,18 @@ namespace manage_automatismi {
         }
 
 
+       private DataRow[] ImpClassChilds(DataRow row) {
+          
+            string filterChilds =QHC.AppAnd( QHC.CmpEq("paridsor", row["idsor"]),QHC.CmpEq("paridsubclass", row["idsubclass"]),
+                (row.Table.TableName.StartsWith("expense")) ?
+                QHC.CmpEq("idexp", row["idexp"]) :
+                QHC.CmpEq("idinc", row["idinc"]));
+
+             DataRow[] rChilds = row.Table.Select(filterChilds);
+             return rChilds;
+        }
+
+
         private DataRow ottieniRiga(DataGrid dg) {
             DataSet DSV = (DataSet)dg.DataSource;
             if (DSV == null) return null;
@@ -1041,6 +1061,11 @@ namespace manage_automatismi {
             string tNameSource = (IoE == "I") ? "incomesorted" : "expensesorted";
             string tName = (IoE == "I") ? "incomesorted" : "expensesorted";
             string idfield = (IoE == "I") ? "idinc" : "idexp";
+            
+            object codesorkind_siope = (IoE == "I")
+			? Conn.Security.GetSys("codesorkind_siopeentrate")
+			: Conn.Security.GetSys("codesorkind_siopespese");
+			object idsorkind_siope = Conn.readValue("sortingkind", q.eq("codesorkind", codesorkind_siope), "idsorkind");
 
             string filter = QHC.CmpEq(idfield, rMov[idfield]);
             DataRow[] Classificazioni = DS.Tables[tNameSource].Select(filter);
@@ -1071,6 +1096,7 @@ namespace manage_automatismi {
                 rClassDest["!sortcode"] = descr_sor;
 
                 object idsorkind = Cache.sorting.ReadValuesFor(idsor)["idsorkind"];
+
                 //Conn.DO_READ_VALUE("sorting", f_sorting, "idsorkind");
                 //string f_sortingkind = QHS.CmpEq("idsorkind", idsorkind);
                 object descr_sorkind = Cache.sortingkind.ReadValuesFor(idsorkind)["description"];
@@ -1078,6 +1104,19 @@ namespace manage_automatismi {
                 rClassDest["!sorting"] = descr_sorkind;
 
                 dsMov.Tables[tName].Rows.Add(rClassDest);
+                // Solo per Siope
+                if ((idsorkind.ToString() == idsorkind_siope.ToString())&&(IoE == "E"))
+                {
+            //         MetaFactory.factory.getSingleton<IMessageShower>().Show(
+				        // "UPB" + rMov["idupb"].ToString() +  "Cod" + rMov["codeupb"] +  "idsorkind"+ idsorkind.ToString()  +"idsorkind_siope"+ idsorkind_siope.ToString()
+				        //,
+				        //"Avviso", 
+				        //MessageBoxButtons.OK);
+                    object uesiopecode = Cache.upb.ReadValuesFor(rMov["idupb"])["uesiopecode"];
+                    object cofogmpcode = Cache.upb.ReadValuesFor(rMov["idupb"])["cofogmpcode"];
+                    rClassDest["values1"] = uesiopecode;
+                    rClassDest["values2"] = cofogmpcode;
+                }
                 rClassDest.AcceptChanges();
             }
 
@@ -1107,8 +1146,18 @@ namespace manage_automatismi {
             if ((row == null) || (rMov == null)) return;
             DataRow newRow;
             bool res = EditDataRow("E", row, "all", out newRow);
-
             if (res) {
+
+                  if (ImpClassChilds(newRow).Length>0) {
+			            MetaFactory.factory.getSingleton<IMessageShower>().Show(
+				        "La classificazione selezionata non può essere modificata poiché ci sono classificazioni "
+				        +" subordinate ad essa. Per cambiarne i dati sarà necessario rimuoverla."
+				        ,
+				        "Avviso", 
+				        MessageBoxButtons.OK);
+			        return;
+			    }
+
                 allineaDatiInDS("E", newRow);
                 aggiornaClassificazioni("E", rMov, dgClassSpesa);
             }
@@ -1117,7 +1166,22 @@ namespace manage_automatismi {
         private void btnDeleteClassE_Click(object sender, System.EventArgs e) {
             DataRow row = ottieniRiga(dgClassSpesa);
             if (row == null) return;
-            row.Delete();
+             if (ImpClassChilds(row).Length>0) {
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
+					"Cancello la classificazione selezionata e le relative subordinate?",
+					"Richiesta di conferma", 
+					MessageBoxButtons.YesNo)!=DialogResult.Yes) return;
+			}
+			else {
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
+					"Cancello la classificazione selezionata?",
+					"Richiesta di conferma", 
+					MessageBoxButtons.YesNo)!=DialogResult.Yes) return;
+			}
+
+            DeleteImpClassMov(row,"E");
+            
+
             allineaDatiInDS("E", row);
             HelpForm.SetDataGrid(dgClassSpesa, dsMov.Tables["expensesorted"]);
         }
@@ -1138,6 +1202,7 @@ namespace manage_automatismi {
             }
             aggiornaClassificazioni("I", Parent, dgClassEntrata);
         }
+ 
 
         private void btnUpdateClassI_Click(object sender, System.EventArgs e) {
             DataRow row = ottieniRiga(dgClassEntrata);
@@ -1146,15 +1211,53 @@ namespace manage_automatismi {
             DataRow newRow;
             bool res = EditDataRow("I", row, "all", out newRow);
             if (res) {
+                  if (ImpClassChilds(newRow).Length>0) {
+			            MetaFactory.factory.getSingleton<IMessageShower>().Show(
+				        "La classificazione selezionata non può essere modificata poiché ci sono classificazioni "
+				        +" subordinate ad essa. Per cambiarne i dati sarà necessario rimuoverla."
+				        ,
+				        "Avviso", 
+				        MessageBoxButtons.OK);
+			        return;
+			    }
                 allineaDatiInDS("I", newRow);
                 aggiornaClassificazioni("I", rMov, dgClassEntrata);
             }
         }
 
+
+        /// <summary>
+		/// Deletes impclassspesa with all sub-autoclasses
+		/// </summary>
+		/// <param name="R"></param>
+		void DeleteImpClassMov(DataRow R, string kind ) {
+			DataRow [] Childs =  ImpClassChilds(R);
+			foreach (DataRow Child in Childs) {
+				DeleteImpClassMov(Child,kind);
+                allineaDatiInDS(kind, Child);
+			}
+             
+			R.Delete();
+		}
+
         private void btnDeleteClassI_Click(object sender, System.EventArgs e) {
             DataRow row = ottieniRiga(dgClassEntrata);
             if (row == null) return;
-            row.Delete();
+            if (ImpClassChilds(row).Length>0) {
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
+					"Cancello la classificazione selezionata e le relative subordinate?",
+					"Richiesta di conferma", 
+					MessageBoxButtons.YesNo)!=DialogResult.Yes) return;
+			}
+			else {
+				if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
+					"Cancello la classificazione selezionata?",
+					"Richiesta di conferma", 
+					MessageBoxButtons.YesNo)!=DialogResult.Yes) return;
+			}
+
+			DeleteImpClassMov(row,"I");
+    
             allineaDatiInDS("I", row);
             HelpForm.SetDataGrid(dgClassEntrata, dsMov.Tables["incomesorted"]);
         }
@@ -1204,7 +1307,7 @@ namespace manage_automatismi {
             MetaData.SetDefault(SourceTable, "amount", Parent["amount"]);
             DataRow R = M.Get_New_Row(Parent, SourceTable);
             if (R == null) {
-                MessageBox.Show(this, "La tabella " + SourceTable.TableName +
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "La tabella " + SourceTable.TableName +
                     " contiene dati non validi. Contattare il servizio di assistenza.");
                 return null;
             }
@@ -1639,7 +1742,7 @@ namespace manage_automatismi {
                                 });
             }
             catch (Exception E) {
-                MessageBox.Show(E.Message);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
                 return result;
             }
             if ((OutDS == null) || (OutDS.Tables.Count == 0)) return result; //no autoclass
@@ -1835,7 +1938,7 @@ namespace manage_automatismi {
                                       });
             }
             catch (Exception E) {
-                MessageBox.Show(E.Message);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(E.Message);
             }
             if ((OutDS != null) && (OutDS.Tables.Count > 0)) {
                 if (TipoClassAllowed == null) {

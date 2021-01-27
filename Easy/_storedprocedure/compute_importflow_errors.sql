@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[compute_importflow_errors]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[compute_importflow_errors]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_importflow_errors]
 GO
 
@@ -65,19 +67,19 @@ SET @ayearstr = CONVERT(varchar(4), @ayear)
 --IF EXISTS (SELECT * FROM import_flowview WHERE esercizio = @ayear AND id_liq is null and  id_inc is null AND idregistrypaymethod is null and E_S = 'S')
 --BEGIN
 	INSERT INTO #errors 
-	SELECT idimportflow,'idregistrypaymethod non valorizzato(codice modalit√† pagamento anagrafica).'
+	SELECT idimportflow,'idregistrypaymethod non valorizzato(codice modalit‡ pagamento anagrafica).'
 	FROM import_flowview WHERE esercizio = @ayear AND id_liq is null and  id_inc is null AND idregistrypaymethod is null and E_S = 'S'
 --END
 
 --------------------------------------------------------------------
------ 4 modalit√† pagamento anagrafica non trovata ------------------
+----- 4 modalit‡ pagamento anagrafica non trovata ------------------
 --------------------------------------------------------------------
 --IF EXISTS (SELECT * FROM import_flowview WHERE esercizio = @ayear AND id_liq is null and  id_inc is null 
 --AND idregistrypaymethod is not null and E_S = 'S' AND NOT EXISTS (select * from registrypaymethod R where 
 --R.idreg = idreg and R.idregistrypaymethod = idregistrypaymethod))
 --BEGIN
 	INSERT INTO #errors 
-	SELECT idimportflow,'idregistrypaymethod non trovato(codice modalit√† pagamento anagrafica).'
+	SELECT idimportflow,'idregistrypaymethod non trovato(codice modalit‡ pagamento anagrafica).'
 	FROM import_flowview WHERE esercizio = @ayear AND id_liq is null and  id_inc is null 
 	AND idregistrypaymethod is not null and E_S = 'S' AND NOT EXISTS (select * from registrypaymethod R where 
 	R.idreg = idreg and R.idregistrypaymethod = idregistrypaymethod) and E_S = 'S'
@@ -425,4 +427,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

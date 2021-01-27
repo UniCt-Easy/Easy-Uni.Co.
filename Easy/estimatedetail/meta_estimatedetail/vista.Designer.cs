@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -30,57 +32,57 @@ public class estimatedetailRow: MetaRow  {
 	///chiave tipo contratto attivo (tabella estimatekind)
 	///</summary>
 	public String idestimkind{ 
-		get {if (this["idestimkind"]==DBNull.Value)return null; return  (String)this["idestimkind"];}
-		set {if (value==null) this["idestimkind"]= DBNull.Value; else this["idestimkind"]= value;}
+		get {return  (String)this["idestimkind"];}
+		set {this["idestimkind"]= value;}
 	}
 	public object idestimkindValue { 
 		get{ return this["idestimkind"];}
-		set {if (value==null|| value==DBNull.Value) this["idestimkind"]= DBNull.Value; else this["idestimkind"]= value;}
+		set {this["idestimkind"]= value;}
 	}
 	public String idestimkindOriginal { 
-		get {if (this["idestimkind",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idestimkind",DataRowVersion.Original];}
+		get {return  (String)this["idestimkind",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Anno contratto attivo
 	///</summary>
-	public Int16? yestim{ 
-		get {if (this["yestim"]==DBNull.Value)return null; return  (Int16?)this["yestim"];}
-		set {if (value==null) this["yestim"]= DBNull.Value; else this["yestim"]= value;}
+	public Int16 yestim{ 
+		get {return  (Int16)this["yestim"];}
+		set {this["yestim"]= value;}
 	}
 	public object yestimValue { 
 		get{ return this["yestim"];}
-		set {if (value==null|| value==DBNull.Value) this["yestim"]= DBNull.Value; else this["yestim"]= value;}
+		set {this["yestim"]= value;}
 	}
-	public Int16? yestimOriginal { 
-		get {if (this["yestim",DataRowVersion.Original]==DBNull.Value)return null; return  (Int16?)this["yestim",DataRowVersion.Original];}
+	public Int16 yestimOriginal { 
+		get {return  (Int16)this["yestim",DataRowVersion.Original];}
 	}
 	///<summary>
 	///N.contratto attivo
 	///</summary>
-	public Int32? nestim{ 
-		get {if (this["nestim"]==DBNull.Value)return null; return  (Int32?)this["nestim"];}
-		set {if (value==null) this["nestim"]= DBNull.Value; else this["nestim"]= value;}
+	public Int32 nestim{ 
+		get {return  (Int32)this["nestim"];}
+		set {this["nestim"]= value;}
 	}
 	public object nestimValue { 
 		get{ return this["nestim"];}
-		set {if (value==null|| value==DBNull.Value) this["nestim"]= DBNull.Value; else this["nestim"]= value;}
+		set {this["nestim"]= value;}
 	}
-	public Int32? nestimOriginal { 
-		get {if (this["nestim",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["nestim",DataRowVersion.Original];}
+	public Int32 nestimOriginal { 
+		get {return  (Int32)this["nestim",DataRowVersion.Original];}
 	}
 	///<summary>
 	///N. riga
 	///</summary>
-	public Int32? rownum{ 
-		get {if (this["rownum"]==DBNull.Value)return null; return  (Int32?)this["rownum"];}
-		set {if (value==null) this["rownum"]= DBNull.Value; else this["rownum"]= value;}
+	public Int32 rownum{ 
+		get {return  (Int32)this["rownum"];}
+		set {this["rownum"]= value;}
 	}
 	public object rownumValue { 
 		get{ return this["rownum"];}
-		set {if (value==null|| value==DBNull.Value) this["rownum"]= DBNull.Value; else this["rownum"]= value;}
+		set {this["rownum"]= value;}
 	}
-	public Int32? rownumOriginal { 
-		get {if (this["rownum",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["rownum",DataRowVersion.Original];}
+	public Int32 rownumOriginal { 
+		get {return  (Int32)this["rownum",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Annotazioni
@@ -99,30 +101,30 @@ public class estimatedetailRow: MetaRow  {
 	///<summary>
 	///data creazione
 	///</summary>
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome utente creazione
 	///</summary>
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Descrizione dettaglio
@@ -169,30 +171,30 @@ public class estimatedetailRow: MetaRow  {
 	///<summary>
 	///data ultima modifica
 	///</summary>
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome ultimo utente modifica
 	///</summary>
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///n. dettagli in fattura (non usato, usare quello della vista)
@@ -653,6 +655,17 @@ public class estimatedetailRow: MetaRow  {
 	public Int32? idepacc_preOriginal { 
 		get {if (this["idepacc_pre",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idepacc_pre",DataRowVersion.Original];}
 	}
+	public Int32? rownum_main{ 
+		get {if (this["rownum_main"]==DBNull.Value)return null; return  (Int32?)this["rownum_main"];}
+		set {if (value==null) this["rownum_main"]= DBNull.Value; else this["rownum_main"]= value;}
+	}
+	public object rownum_mainValue { 
+		get{ return this["rownum_main"];}
+		set {if (value==null|| value==DBNull.Value) this["rownum_main"]= DBNull.Value; else this["rownum_main"]= value;}
+	}
+	public Int32? rownum_mainOriginal { 
+		get {if (this["rownum_main",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["rownum_main",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -707,6 +720,7 @@ public class estimatedetailTable : MetaTableBase<estimatedetailRow> {
 			{"nform",createColumn("nform",typeof(string),true,false)},
 			{"idsor_siope",createColumn("idsor_siope",typeof(int),true,false)},
 			{"idepacc_pre",createColumn("idepacc_pre",typeof(int),true,false)},
+			{"rownum_main",createColumn("rownum_main",typeof(int),true,false)},
 		};
 	}
 }

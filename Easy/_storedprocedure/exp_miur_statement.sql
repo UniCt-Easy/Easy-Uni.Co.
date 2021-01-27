@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_miur_statement]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_miur_statement]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_miur_statement]
 GO
 
@@ -40,7 +42,7 @@ DECLARE @codeFUNZ int -- Variabile per indivisuare la classificazione MIURFUNZ
 SELECT @codeFUNZ = sortcode FROM miursetup WHERE internalcode = 'MIURFUNZ'
 if @codeFUNZ is null select @codeFUNZ=idsorkind from sortingkind where codesorkind='MIURFUNZ'
 
--- Creazione della Tabella che visualizzer√† il riepilogo dei dati su foglio Excel
+-- Creazione della Tabella che visualizzer‡ il riepilogo dei dati su foglio Excel
 CREATE TABLE #MIUR_balance
 (
 	idsor varchar(31), 
@@ -404,4 +406,3 @@ join parasubcontract on parasubcontract.idcon=payroll.idcon
 JOIN service ON service.idser = parasubcontract.idser  
 where parasubcontract.idreg='130' AND ISNULL(service.certificatekind,'') = 'U'  
 and not exists (select * from exhibitedcud where exhibitedcud.idlinkedcon=payroll.idcon) and flagbalance='S' and disbursementdate is not null and fiscalyear='2007' and payroll.idcon<>'06000059' and not exists (select * from exhibitedcud where idcon=parasubcontract.idcon and idlinkedcon='06000059' and fiscalyear='2007')
-	

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_budgetprevision]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_budgetprevision]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_budgetprevision]
 GO
  
@@ -62,7 +64,7 @@ DECLARE @MostraTutteVoci char(1)
 SELECT @MostraTutteVoci = isnull(paramvalue,'N') 
 FROM generalreportparameter WHERE idparam = 'MostraTutteVoci'
 DECLARE @oplevel tinyint
-SELECT @oplevel = MAX(nlevel) --> Prendiamo il max perchÃ¨ le prev. vengono messe sui nodi foglia, enon sui capitolo come avviene per il bilancio.
+SELECT @oplevel = MAX(nlevel) --> Prendiamo il max perchè le prev. vengono messe sui nodi foglia, enon sui capitolo come avviene per il bilancio.
 FROM sortinglevel
 WHERE  (flag&2)<>0 and idsorkind = @idsorkind
 	
@@ -142,7 +144,7 @@ group by budgetprevision.idsor, budgetprevision.idupb
 
 
 UPDATE #data SET tosuppress = 'N'
-/* PoichÃ¨ la classificazione Ã¨ nota imposto manualmente la lunghezza*/
+/* Poichè la classificazione è nota imposto manualmente la lunghezza*/
 DECLARE @lencod_lev1 int
 SELECT @lencod_lev1 = 1--flag / 256 FROM sortinglevel WHERE nlevel = 1 and idsorkind = @idsorkind
 DECLARE @startpos1 int
@@ -514,4 +516,3 @@ SET ANSI_NULLS ON
 GO
 
  
-	

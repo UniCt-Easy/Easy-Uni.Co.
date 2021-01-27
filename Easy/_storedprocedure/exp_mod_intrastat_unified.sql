@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_intrastat_unified]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_intrastat_unified]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_intrastat_unified]
 GO
 
@@ -28,7 +30,7 @@ exp_mod_intrastat_unified {ts '2017-06-07 00:00:00.000'} ,'2017' ,'6' ,'2', 'A',
 */
 CREATE  PROCEDURE [exp_mod_intrastat_unified] (
 	@datainterchange datetime,
--- A seconda della periodicit√† ossia T o M, si dovr√† indicare il periodo di riferimento
+-- A seconda della periodicit‡ ossia T o M, si dovr‡ indicare il periodo di riferimento
 	@anno int,
 	@mese int, 
 	@trimestre int,
@@ -78,27 +80,27 @@ End
 -- record  frontespizio e record dettagli
 -- Scadenza di presentazione in dogana
 -- Elenchi mensili: entro il 20 del mese successivo a quello di riferimento (es. mensile di gennaio 2007 entro il 20 febbraio 2007 - eccezione del mese di luglio 
---																			per il quale la scadenza √® entro il 6 settembre)
+--																			per il quale la scadenza Ë entro il 6 settembre)
 -- Elenchi Trimestrali: entro la fine del mese successivo al trimestre di riferimento (es. I trimestre 2007 entro il 30 aprile 2007)
--- Elenchi annuali: entro la fine di gennaio dell‚Äôanno successivo a quello di riferimento (es. annuale 2007 entro il 31 gennaio 2008)
+-- Elenchi annuali: entro la fine di gennaio dellíanno successivo a quello di riferimento (es. annuale 2007 entro il 31 gennaio 2008)
 
--- [**]	Se vale I vuol dire che il file sar√† elaborato con Intr@Web, quindi il record di Testa sar√† generato solo per la Trasmissione, non per la Validazione;
---		Se vale E vuol dire che il ifle sar√† elaborato con EntraTel, quindi dovremo generare anche il record di Testa.
--- Quindi il file di test alo generiamo se √® una trasmissione Intr@Web o vogliamo fare un elaborazione con Entratel
+-- [**]	Se vale I vuol dire che il file sar‡ elaborato con Intr@Web, quindi il record di Testa sar‡ generato solo per la Trasmissione, non per la Validazione;
+--		Se vale E vuol dire che il ifle sar‡ elaborato con EntraTel, quindi dovremo generare anche il record di Testa.
+-- Quindi il file di test alo generiamo se Ë una trasmissione Intr@Web o vogliamo fare un elaborazione con Entratel
 
 -- Valori ammessi per la Casella 2 = Frontespizio pos 46.
--- ‚Ä¢ 0 = le operazioni sono riferite al periodo indicato dai campi 7, 8 e 9
--- ‚Ä¢ 8 = cambio di periodicit√† - le operazioni riepilogate nell‚Äôelenco trimestrale sono riferite solo al primo mese
--- ‚Ä¢ 9 = cambio di periodicit√† - le operazioni riepilogate nell‚Äôelenco trimestrale sono riferite al primo e al secondo mese
+-- ï 0 = le operazioni sono riferite al periodo indicato dai campi 7, 8 e 9
+-- ï 8 = cambio di periodicit‡ - le operazioni riepilogate nellíelenco trimestrale sono riferite solo al primo mese
+-- ï 9 = cambio di periodicit‡ - le operazioni riepilogate nellíelenco trimestrale sono riferite al primo e al secondo mese
 DECLARE @casella1 char(1)
 SET @casella1 = '0' 
 
 -- Valori ammessi per la Caselle 2 = Frontespizio pos 47
 --Casi particolari riferiti al soggetto obbligato
--- ‚Ä¢ 7 = Primo elenco presentato
--- ‚Ä¢ 8 = Cessazione di attivit√† o variazione della partita IVA
--- ‚Ä¢ 9 = Primo elenco presentato da un soggetto che, nel periodo di riferimento ha, contestualmente, cessato l‚Äôattivit√† oppure ha variato la propria partita IVA riferite solo al primo mese
--- ‚Ä¢ 0 = nessuno dei casi sopra riportati
+-- ï 7 = Primo elenco presentato
+-- ï 8 = Cessazione di attivit‡ o variazione della partita IVA
+-- ï 9 = Primo elenco presentato da un soggetto che, nel periodo di riferimento ha, contestualmente, cessato líattivit‡ oppure ha variato la propria partita IVA riferite solo al primo mese
+-- ï 0 = nessuno dei casi sopra riportati
 
 IF (@casella2 <> 0)
 Begin
@@ -128,7 +130,7 @@ CREATE TABLE #Frontespizio
 
 	tipoRiepilogo char(1),				-- Tipo Riepilogo A=acquisti, C = cessioni
 	anno varchar(2),					-- numerico -- Anno
-	periodicita char(1),				-- Periodicit√†
+	periodicita char(1),				-- Periodicit‡
 	periodo varchar(2),					-- numerico -- Periodo
 	piva_contribuente varchar(11),		-- numerico -- Partita IVA del contribuente
 	casella1 char(1),					-- numerico: 0 = non barrata, 1 = barrata
@@ -160,14 +162,14 @@ CREATE TABLE #RecordDettaglio1_BENI
 	NumeroProgressivoelenco_provvisorio int IDENTITY(1,1),
 	NUM int,
 	
-	codiceIVA varchar(14),				-- - Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo d‚Äôimposta con il quale √® stata effettuata 
-										--	l‚Äôoperazione intracomunitaria
+	codiceIVA varchar(14),				-- - Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo díimposta con il quale Ë stata effettuata 
+										--	líoperazione intracomunitaria
 	ammontareinEuro int,				-- numerico Len.13 -- Ammontare delle operazioni in euro
 	ammontareinValuta int,				-- numerico Len.13 -- Ammontare delle operazioni in valuta
 	codTransazione char(1),				-- Codice della natura dela transazione
 	codNomenclatura varchar(8),			-- numerico -- codice della nomenclatuta combinata della merce (solo nel caso di elenchi trimestrali)
 	massainkg int,						-- numerico Len. 10 -- Massa netta in kilogrammi
-	unitasupp int,						-- numerico Len. 10 -- Unit√† supplementari per l'acquisto / Quantit√† espressa nell'unit√† di misura supplementare
+	unitasupp int,						-- numerico Len. 10 -- Unit‡ supplementari per l'acquisto / Quantit‡ espressa nell'unit‡ di misura supplementare
 	valorestatisticoinEuro varchar(13), -- numerico -- Valore statistico in euro
 	codConsegna char(1),				-- Codice delle condizioni di consegna
 	codTrasporto char(1),				-- numerico -- Codice del modo di trasporto
@@ -192,15 +194,15 @@ CREATE TABLE #RecordDettaglio3_SERVIZI
 	NumeroProgressivoelenco_provvisorio int IDENTITY(1,1),
 	NUM int,
 	
-	codiceIVA varchar(14),				--  Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo d‚Äôimposta con il quale √® stata effettuata 
-										--	l‚Äôoperazione intracomunitaria
+	codiceIVA varchar(14),				--  Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo díimposta con il quale Ë stata effettuata 
+										--	líoperazione intracomunitaria
 	ammontareinEuro int,				-- numerico Len.13 -- Ammontare delle operazioni in euro
 	ammontareinValuta int,				-- numerico Len.13 -- Ammontare delle operazioni in valuta > > >  SOLO per i Servizi ricevuti
 	numerofattura varchar(15),			-- Numero Fattura
 	datafattura varchar(6),				-- Data fattura formato (ggmmaa)
 	codServizio varchar(6),				-- numerico -- Codice del Servizio
-	modErogazione char(1),				-- Modalit√† di erogazione
-	modpagamento char(1),				-- Modalit√† pagamento/incasso 
+	modErogazione char(1),				-- Modalit‡ di erogazione
+	modpagamento char(1),				-- Modalit‡ pagamento/incasso 
 	codPaesePagamento char(2)			-- Codice del paese di Pagamento
 )
 
@@ -283,7 +285,7 @@ INSERT INTO #Frontespizio
 
 	tipoRiepilogo,			-- Tipo Riepilogo A=acquisti, C = cessioni
 	anno,					-- numerico -- Anno
-	periodicita,			-- Periodicit√†
+	periodicita,			-- Periodicit‡
 	periodo,				-- numerico -- Periodo: se M indica il mese, se T indica il numero di trimestre
 	piva_contribuente,		-- numerico -- Partita IVA del contribuente
 	casella1,				-- numerico
@@ -312,18 +314,18 @@ SELECT
 	@casella2,								
 	REPLICATE('0',11)
 
--- AmmontareinEuro = va riportato l‚Äôimporto in euro della merce oggetto dell‚Äôoperazione intracomunitaria + eventuali spese accessorie direttamente imputabili e 
--- 		opportunamente ripartite (trasporto, imballaggio, assicurazioni, etc.). L‚Äôimporto va arrotondato all‚Äôunit√† secondo le regole dell‚Äôeuro (per difetto se frazione 
--- 		inferiore a 0,5‚Ç¨; per eccesso se frazione superiore o uguale a 0,5‚Ç¨).
--- AmmontareinValuta = va indicato l‚Äôimporto in valuta del paese con il quale √® stata effettuata l‚Äôoperazione intracomunitaria applicando il tasso di cambio alla 
--- 		data di fattura; √® obbligatorio per operazioni con paesi che non hanno aderito all‚Äôeuro. L‚Äôimporto va arrotondato all‚Äôunit√† secondo le regole matematiche 
--- 		(per difetto se frazione inferiore o uguale a 0,5‚Ç¨; per eccesso se frazione superiore a 0,5‚Ç¨).
--- Valore Statistico in Euro = il valore statistico √® costituito dal valore della merce pi√π le spese di consegna (trasporto, assicurazione, etc.) fino al confine 
---		italiano (valore franco confine italiano). Per calcolare il valore statistico √® necessario tenere conto delle condizioni di consegna concordate in base alle 
---		clausole ‚Äúincoterms‚Äù.
+-- AmmontareinEuro = va riportato líimporto in euro della merce oggetto dellíoperazione intracomunitaria + eventuali spese accessorie direttamente imputabili e 
+-- 		opportunamente ripartite (trasporto, imballaggio, assicurazioni, etc.). Líimporto va arrotondato allíunit‡ secondo le regole dellíeuro (per difetto se frazione 
+-- 		inferiore a 0,5Ä; per eccesso se frazione superiore o uguale a 0,5Ä).
+-- AmmontareinValuta = va indicato líimporto in valuta del paese con il quale Ë stata effettuata líoperazione intracomunitaria applicando il tasso di cambio alla 
+-- 		data di fattura; Ë obbligatorio per operazioni con paesi che non hanno aderito allíeuro. Líimporto va arrotondato allíunit‡ secondo le regole matematiche 
+-- 		(per difetto se frazione inferiore o uguale a 0,5Ä; per eccesso se frazione superiore a 0,5Ä).
+-- Valore Statistico in Euro = il valore statistico Ë costituito dal valore della merce pi˘ le spese di consegna (trasporto, assicurazione, etc.) fino al confine 
+--		italiano (valore franco confine italiano). Per calcolare il valore statistico Ë necessario tenere conto delle condizioni di consegna concordate in base alle 
+--		clausole ìincotermsî.
 
 -- Codice della natura dela transazione = Natura della transazione (colonna 5 cessioni; colonna 6 acquisti): va indicato un codice tra quelli riportati nella tabella 
--- relativa del decreto 27 ottobre 2000. In presenza di operazione triangolare comunitaria in cui l‚Äôoperatore italiano assume la veste di acquirente/cedente, come natura 
+-- relativa del decreto 27 ottobre 2000. In presenza di operazione triangolare comunitaria in cui líoperatore italiano assume la veste di acquirente/cedente, come natura 
 -- della transazione va utilizzato il codice alfabetico. In tutti gli altri casi va utilizzato il codice numerico=> USIAMO SOLO QUELLO NUMERICO 
 
 
@@ -380,7 +382,7 @@ Begin
 			codTransazione,			-- Codice della natura dela transazione
 			codNomenclatura,		-- numerico -- codice della nomenclatuta combinata della merce (solo nel caso di elenchi trimestrali)
 			massainkg,				-- numerico -- Massa netta in kilogrammi
-			unitasupp,				-- numerico -- Unit√† supplementari per l'acquisto / Quantit√† espressa nell'unit√† di misura supplementare
+			unitasupp,				-- numerico -- Unit‡ supplementari per l'acquisto / Quantit‡ espressa nell'unit‡ di misura supplementare
 			valorestatisticoinEuro, -- numerico -- Valore statistico in euro
 			codConsegna,			-- Codice delle condizioni di consegna
 			codTrasporto,			-- numerico -- Codice del modo di trasporto
@@ -405,8 +407,8 @@ Begin
 				numerofattura ,				-- Numero Fattura
 				datafattura ,				-- Data fattura formato (ggmmaa)
 				codServizio ,				-- numerico -- Codice del Servizio
-				modErogazione ,				-- Modalit√† di erogazione
-				modpagamento ,				-- Modalit√† pagamento/incasso 
+				modErogazione ,				-- Modalit‡ di erogazione
+				modpagamento ,				-- Modalit‡ pagamento/incasso 
 				codPaesePagamento 			-- Codice del paese di Pagamento
 			)
 		
@@ -443,7 +445,7 @@ while @@fetch_status=0 begin
 			codTransazione,			-- Codice della natura dela transazione
 			codNomenclatura,		-- numerico -- codice della nomenclatuta combinata della merce (solo nel caso di elenchi trimestrali)
 			massainkg,				-- numerico -- Massa netta in kilogrammi
-			unitasupp,				-- numerico -- Unit√† supplementari per l'acquisto / Quantit√† espressa nell'unit√† di misura supplementare
+			unitasupp,				-- numerico -- Unit‡ supplementari per l'acquisto / Quantit‡ espressa nell'unit‡ di misura supplementare
 			valorestatisticoinEuro, -- numerico -- Valore statistico in euro
 			codConsegna,			-- Codice delle condizioni di consegna
 			codTrasporto,			-- numerico -- Codice del modo di trasporto
@@ -469,8 +471,8 @@ while @@fetch_status=0 begin
 			numerofattura ,				-- Numero Fattura
 			datafattura ,				-- Data fattura formato (ggmmaa)
 			codServizio ,				-- numerico -- Codice del Servizio
-			modErogazione ,				-- Modalit√† di erogazione
-			modpagamento ,				-- Modalit√† pagamento/incasso 
+			modErogazione ,				-- Modalit‡ di erogazione
+			modpagamento ,				-- Modalit‡ pagamento/incasso 
 			codPaesePagamento 			-- Codice del paese di Pagamento
 		)
 		Exec @s @anno,@mese,@trimestre,@tipoRiepilogo,@periodicita, 'S'
@@ -971,4 +973,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

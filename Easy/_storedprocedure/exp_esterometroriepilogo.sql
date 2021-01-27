@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_esterometroriepilogo]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_esterometroriepilogo]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_esterometroriepilogo]
 GO
 
@@ -63,7 +65,7 @@ END
     idreg int,
 	address varchar(60),	
 	location varchar(60),
-	cap varchar(10),	 -- deve essere 5, lo pongo a 10 per consentire l'esportazione. Cmq, la sp di check elencher√† le anagrafiche con lunghezza cap errata	
+	cap varchar(10),	 -- deve essere 5, lo pongo a 10 per consentire l'esportazione. Cmq, la sp di check elencher‡ le anagrafiche con lunghezza cap errata	
 	province varchar(2),
 	nation varchar(2)
 )
@@ -80,8 +82,8 @@ SELECT * FROM f_get_esterometrosede(	@esercizio, @trimestre,@mese, @kind   )
 		null as 'Natura',
 		isnull(sum(ID.taxable_euro),0) as 'ImponibileImporto',
 		isnull(sum(ID.iva_euro),0) as 'Imposta',
-		0 as 'Detraibile', -- √® un campo facoltativo, per cui lo escludiamo
-		'' as 'Deducibile', -- √® un campo facoltativo, per cui lo escludiamo
+		0 as 'Detraibile', -- Ë un campo facoltativo, per cui lo escludiamo
+		'' as 'Deducibile', -- Ë un campo facoltativo, per cui lo escludiamo
 		case 
 			when isnull(I.flag_enable_split_payment,'N')='S' then 'S' --> Scissione dei pagamenti
 			when isnull(I.flagdeferred,'N')='S' then 'D'
@@ -127,8 +129,8 @@ SELECT * FROM f_get_esterometrosede(	@esercizio, @trimestre,@mese, @kind   )
 		ivakind.idfenature as 'Natura',
 		sum(ID.taxable_euro) as 'ImponibileImporto',
 		isnull(sum(ID.iva_euro),0) as 'Imposta',
-		0 as 'Detraibile', -- √® un campo facoltativo, per cui lo escludiamo
-		'' as 'Deducibile', -- √® un campo facoltativo, per cui lo escludiamo
+		0 as 'Detraibile', -- Ë un campo facoltativo, per cui lo escludiamo
+		'' as 'Deducibile', -- Ë un campo facoltativo, per cui lo escludiamo
 		case 
 			when isnull(I.flag_enable_split_payment,'N')='S' then 'S' --> Scissione dei pagamenti
 			when isnull(I.flagdeferred,'N')='S' then 'D'
@@ -173,4 +175,3 @@ GO
 SET ANSI_NULLS ON 
 GO
   
-	

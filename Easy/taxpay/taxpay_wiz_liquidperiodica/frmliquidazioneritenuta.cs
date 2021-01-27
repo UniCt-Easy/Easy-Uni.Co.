@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -46,8 +48,6 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
 
         Hashtable hAppGroupLiq = new Hashtable();
         Hashtable hAppGroupFin = new Hashtable();
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -77,7 +77,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
         private Crownwood.Magic.Controls.TabPage tabPage3;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnBack;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtIniziale;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtImporto2;
         private System.Windows.Forms.TextBox txtImporto1;
@@ -126,7 +126,6 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
         /// </summary>
         private void InitializeComponent() {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_taxpay_wiz_liquidperiodica));
-			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.cmbRitenuta = new System.Windows.Forms.ComboBox();
 			this.DS = new taxpay_wiz_liquidperiodica.vistaForm();
@@ -145,7 +144,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
 			this.dgDettaglioRitenute = new System.Windows.Forms.DataGrid();
 			this.tabController = new Crownwood.Magic.Controls.TabControl();
 			this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.txtIniziale = new System.Windows.Forms.TextBox();
 			this.tabPage2 = new Crownwood.Magic.Controls.TabPage();
 			this.btnSelezionaTutto = new System.Windows.Forms.Button();
 			this.label8 = new System.Windows.Forms.Label();
@@ -165,17 +164,6 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
 			this.tabPage3.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// label1
-			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.label1.Location = new System.Drawing.Point(4, 8);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(1107, 30);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "Questa procedura permette di effettuare tutte le operazioni di contabilit‡ finanz" +
-    "iaria connesse con la liquidazione periodica di una ritenuta.";
 			// 
 			// label2
 			// 
@@ -365,26 +353,26 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
 			this.tabPage1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tabPage1.Controls.Add(this.textBox1);
+			this.tabPage1.Controls.Add(this.txtIniziale);
 			this.tabPage1.Location = new System.Drawing.Point(0, 0);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Size = new System.Drawing.Size(1119, 483);
 			this.tabPage1.TabIndex = 3;
 			this.tabPage1.Title = "Presentazione";
 			// 
-			// textBox1
+			// txtIniziale
 			// 
-			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtIniziale.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox1.Location = new System.Drawing.Point(8, 8);
-			this.textBox1.Multiline = true;
-			this.textBox1.Name = "textBox1";
-			this.textBox1.ReadOnly = true;
-			this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.textBox1.Size = new System.Drawing.Size(1099, 464);
-			this.textBox1.TabIndex = 0;
-			this.textBox1.Text = resources.GetString("textBox1.Text");
+			this.txtIniziale.Location = new System.Drawing.Point(8, 8);
+			this.txtIniziale.Multiline = true;
+			this.txtIniziale.Name = "txtIniziale";
+			this.txtIniziale.ReadOnly = true;
+			this.txtIniziale.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.txtIniziale.Size = new System.Drawing.Size(1099, 464);
+			this.txtIniziale.TabIndex = 0;
+			this.txtIniziale.Text = resources.GetString("txtIniziale.Text");
 			// 
 			// tabPage2
 			// 
@@ -402,7 +390,6 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
 			this.tabPage2.Controls.Add(this.label3);
 			this.tabPage2.Controls.Add(this.label2);
 			this.tabPage2.Controls.Add(this.label4);
-			this.tabPage2.Controls.Add(this.label1);
 			this.tabPage2.Location = new System.Drawing.Point(0, 0);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Selected = false;

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_operazione_fondo_economale]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_operazione_fondo_economale]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_operazione_fondo_economale]
 GO
 SET QUOTED_IDENTIFIER ON 
@@ -206,7 +208,7 @@ WHERE pc.idpettycash = @codicefondo
 		  AND  pos.idpettycash= pco.idpettycash
 	)
 
---- 3) Operazioni in cui l'imputazione Ã¨ stata fatta direttamente
+--- 3) Operazioni in cui l'imputazione è stata fatta direttamente
 --  e  direttamente classificate 
 INSERT INTO #piccola_spesa (rowkind, yoperation, noperation, yrestore, nrestore, adate, amount, description, doc, docdate, pettycash,
 idupb, codeupb, title, idfin, codefin, ymov, nmov,idexpIx, txt, nphase, class_operation, code_class_operation,
@@ -260,7 +262,7 @@ WHERE pc.idpettycash = @codicefondo
         AND   pco.noperation BETWEEN @startnop AND @stopnop
         AND   (pco.flag & 8) != 0 
 
---- 4) Operazioni in cui l'imputazione Ã¨ stata fatta direttamente
+--- 4) Operazioni in cui l'imputazione è stata fatta direttamente
 --  e  non direttamente classificate 
 INSERT INTO #piccola_spesa (rowkind, yoperation, noperation, yrestore, nrestore, adate, amount, description, doc, docdate, pettycash,
 idupb, codeupb, title, idfin, codefin, ymov, nmov,idexpIx, txt, nphase, class_operation, code_class_operation,
@@ -410,7 +412,7 @@ DECLARE cursore CURSOR FORWARD_ONLY for
 	WHILE (@@fetch_status=0) 
 	BEGIN
 	
-		UPDATE #piccola_spesa SET payment = isnull(payment,'') + ' nÂ° '+isnull(convert(varchar(10),@npay),'') + '; '
+		UPDATE #piccola_spesa SET payment = isnull(payment,'') + ' n° '+isnull(convert(varchar(10),@npay),'') + '; '
 		WHERE #piccola_spesa.idexpIx = @idexpIx and #piccola_spesa.noperation  = @noperation 
 		
 	FETCH NEXT FROM cursore INTO @npay, @idexpIx, @noperation
@@ -467,4 +469,3 @@ GO
 
 --exec rpt_operazione_fondo_economale 2015, 5, 1, 111, 21
 
-	

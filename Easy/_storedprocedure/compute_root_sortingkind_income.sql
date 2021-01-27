@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿SET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -91,7 +93,7 @@ WHERE
 			)
 	)
 	
---rimuove quelli meno specifici ove presenti altri piÃ¹ specifici
+--rimuove quelli meno specifici ove presenti altri più specifici
 DELETE from #tmp where 
 	(select count(*) from #tmp T2 
 	JOIN finlink FLK 
@@ -109,7 +111,7 @@ DELETE from #tmp where
 			  (#tmp.idsorreg is null and T2.idsorreg is not null) or (#tmp.idsorreg is not null and T2.idsorreg is null) or (#tmp.idsorreg<>T2.idsorreg) 
 
 			) AND
-			--l'insieme individuato da T2  deve essere piÃ¹ specifico di quello di #tmp
+			--l'insieme individuato da T2  deve essere più specifico di quello di #tmp
 			(#tmp.idautosort<>T2.idautosort) AND
 			((#tmp.idfin IS NULL) or (FLK.idchild = #tmp.idfin )) AND
 			((#tmp.idman is null) or (T2.idman = #tmp.idman)) AND 
@@ -138,7 +140,7 @@ BEGIN
 END
 ELSE
 BEGIN
-	--Elimina i filtri con idsor = null se nella stesso tipo  classificazione Ã¨ presente un altra riga a NOT NULL
+	--Elimina i filtri con idsor = null se nella stesso tipo  classificazione è presente un altra riga a NOT NULL
 	DELETE from #tmp where (idsor is  null) and 
 			not exists (SELECT * from #tmp T where T.idsorkind=#tmp.idsorkind and T.idsorkind is not null)
 
@@ -161,4 +163,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

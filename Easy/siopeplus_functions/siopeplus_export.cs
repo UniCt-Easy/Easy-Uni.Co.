@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -74,7 +76,7 @@ namespace siopeplus_functions {
             Rmandato.ufficio_responsabile = R["ufficio_responsabile"].ToString();
 
             if (Rmandato == null) {
-                MessageBox.Show("Saltato mandato n." + R["ndoc"].ToString() + " per errore di dati");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Saltato mandato n." + R["ndoc"].ToString() + " per errore di dati");
                 return null;
             }
             return Rmandato;
@@ -100,7 +102,7 @@ namespace siopeplus_functions {
             Rreversale.importo_reversale = CfgFn.GetNoNullDecimal(R["importo_reversale"]);
             Rreversale.conto_evidenza =  GetStringValue(R["conto_evidenza"]); 
             if (Rreversale == null) {
-                MessageBox.Show("Saltata reversale n." + R["ndoc"].ToString() + " per errore di dati");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Saltata reversale n." + R["ndoc"].ToString() + " per errore di dati");
                 return null;
             }
             return Rreversale;
@@ -309,7 +311,7 @@ namespace siopeplus_functions {
                 return (T) Enum.Parse(typeof(T), value, ignoreCase);
             }
             catch {
-                MessageBox.Show("Valore non previsto:" + value + " per il tipo " + typeof(T).Name);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Valore non previsto:" + value + " per il tipo " + typeof(T).Name);
                 return null; 
             }
             
@@ -320,7 +322,7 @@ namespace siopeplus_functions {
                 return (T) Enum.Parse(typeof(T), value, ignoreCase);
             }
             catch {
-                MessageBox.Show("Valore non previsto:" + value + " per il tipo " + typeof(T).Name);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Valore non previsto:" + value + " per il tipo " + typeof(T).Name);
                 return default(T);
             }
             
@@ -329,7 +331,7 @@ namespace siopeplus_functions {
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="T">tabella output della SP (contiene uno o pi√π movimenti)</param>
+		/// <param name="T">tabella output della SP (contiene uno o pi˘ movimenti)</param>
 		/// <param name="R">Pagamento considerato</param>
 		/// <returns></returns>
 		/// 
@@ -373,7 +375,7 @@ namespace siopeplus_functions {
 				}
 				else {
 					//2) trattamento spese non esente,
-					// Filtro a parit√† di anagrafica i trattamenti spese gi√† considerati
+					// Filtro a parit‡ di anagrafica i trattamenti spese gi‡ considerati
 
 				List<pagamenti.mandatoInformazioni_beneficiarioSpese> lista_TrattSpese = trattamentoSpesePerAnagrafica[anagrafica];
 				bool trovato = false;
@@ -381,7 +383,7 @@ namespace siopeplus_functions {
 					 if (singoloTratt.soggetto_destinatario_delle_spese.ToString() == R["soggetto_destinatario_delle_spese"].ToString())
 						 trovato = true;
 				}
-				//  se per l'anagrafica √® il primo di quella tipologia lasciamo quello
+				//  se per l'anagrafica Ë il primo di quella tipologia lasciamo quello
 				if (!trovato) {
 					RSpese.soggetto_destinatario_delle_spese = ToForcedEnum<pagamenti.mandatoInformazioni_beneficiarioSpeseSoggetto_destinatario_delle_spese>(
 					R["soggetto_destinatario_delle_spese"].ToString());
@@ -390,7 +392,7 @@ namespace siopeplus_functions {
 					return RSpese;
 				}
 				else
-				// per quell'anagrafica, √® stata gi√† introdotta quella tipologia di  pagamento non esente,  la cambiamo in quella  esente
+				// per quell'anagrafica, Ë stata gi‡ introdotta quella tipologia di  pagamento non esente,  la cambiamo in quella  esente
 				{
 						RSpese = tratt_spese_esente_mandati_multipli;
 				}
@@ -426,12 +428,18 @@ namespace siopeplus_functions {
                     Rinfomazioni_beneficiario.data_scadenza_pagamentoSpecified = true;
                 }
             }
-
+            
+            
             if (R["destinazione"] != DBNull.Value) {
                 Rinfomazioni_beneficiario.destinazione =
                     ToForcedEnum<pagamenti.mandatoInformazioni_beneficiarioDestinazione>(R["destinazione"].ToString());
             }
-            Rinfomazioni_beneficiario.numero_conto_banca_italia_ente_ricevente= GetStringValue(R["numero_conto_banca_italia_ente_ricevente"]);
+
+            if (Rinfomazioni_beneficiario.tipo_pagamento !=
+                pagamenti.mandatoInformazioni_beneficiarioTipo_pagamento.REGOLARIZZAZIONE) {
+	            Rinfomazioni_beneficiario.numero_conto_banca_italia_ente_ricevente= GetStringValue(R["numero_conto_banca_italia_ente_ricevente"]);
+            }
+           
             if (R["tipo_contabilita_ente_ricevente"] != DBNull.Value) {
                 Rinfomazioni_beneficiario.tipo_contabilita_ente_ricevente =
                 ToForcedEnum<pagamenti.mandatoInformazioni_beneficiarioTipo_contabilita_ente_ricevente>(
@@ -575,7 +583,7 @@ namespace siopeplus_functions {
 				string anagrafica = R["anagrafica_beneficiario"].ToString();
 				if (R["kind"].ToString().Trim() == "INFO_BENEFICIARIO") {
                     if (idexpMain == 0) {
-                        MessageBox.Show("Ci sono problemi per il pagamento numero " + R["nmov"]);
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono problemi per il pagamento numero " + R["nmov"]);
                         return null;
                     }
 					var benef = get_informazioni_beneficiario(R);
@@ -658,7 +666,7 @@ namespace siopeplus_functions {
             string selettore = "(kind='TESTATA')";
             DataRow[] rTestate = T.Select(selettore);
             if (rTestate.Length == 0) {
-                MessageBox.Show("Riga flusso_ordinativi non trovata, filtro utilizzato = " + selettore,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Riga flusso_ordinativi non trovata, filtro utilizzato = " + selettore,
                                         "Errore");
                 return null;
             }
@@ -670,7 +678,7 @@ namespace siopeplus_functions {
 
             var rMandati = T.Select("(kind='MANDATO')");
             if (rMandati.Length == 0) {
-                MessageBox.Show("Nessun mandato trovato.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessun mandato trovato.");
                 return null;
             }
             F.testata_flusso.codice_ABI_BT = GetStringValue(rTestata["codice_ABI_BT"]);
@@ -725,7 +733,7 @@ namespace siopeplus_functions {
             foreach (var mandato in mandati) {
                 var m = mandato.toXml(Encoding.GetEncoding("ISO-8859-1"));
                 if (m.Length>=  limiteOPIinByte) {
-                    MessageBox.Show(
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
                         $"Invio non eseguibile!\r\n Il mandato n.{mandato.Value.numero_mandato} supera la dimensione massima consentita.{m.Length}");
                     return null;
                 }
@@ -752,7 +760,7 @@ namespace siopeplus_functions {
                 System.IO.File.Delete(tempfilename);
             }
             catch {
-                MessageBox.Show("Errore nella cancellazione del file temporaneo " + tempfilename);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella cancellazione del file temporaneo " + tempfilename);
             }
             return SizeinByte;
         }
@@ -1054,7 +1062,7 @@ namespace siopeplus_functions {
                 int idinc = CfgFn.GetNoNullInt32(R["idinc"]);
                 if (R["kind"].ToString().Trim()=="INFO_VERSANTE") {
                         if (idinc == 0) {
-                            MessageBox.Show("Ci sono problemi per l'incasso numero " + R["nmov"]);
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono problemi per l'incasso numero " + R["nmov"]);
                             return null;
                         }
 
@@ -1117,7 +1125,7 @@ namespace siopeplus_functions {
             string selettore = "(kind='TESTATA')";
             DataRow[] rTestate = T.Select(selettore);
             if (rTestate.Length == 0) {
-                MessageBox.Show("Riga flusso_ordinativi non trovata, filtro utilizzato = " + selettore,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Riga flusso_ordinativi non trovata, filtro utilizzato = " + selettore,
                                         "Errore");
                 return null;
             }
@@ -1128,7 +1136,7 @@ namespace siopeplus_functions {
 
             var rReversali = T.Select("(kind='REVERSALE')");
             if (rReversali.Length == 0) {
-                MessageBox.Show("Nessuna reversale trovata.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Nessuna reversale trovata.");
                 return null;
             }
             F.testata_flusso.codice_ABI_BT = GetStringValue(rTestata["codice_ABI_BT"]);
@@ -1180,7 +1188,7 @@ namespace siopeplus_functions {
             foreach (var reversale in reversali) {
                 string r = reversale.toXml(Encoding.GetEncoding("ISO-8859-1"));
                 if (r.Length>=  limiteOPIinByte) {
-                    MessageBox.Show(
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
                         $" Invio non eseguibile!\r\n Il La reversale n.{reversale.Value.numero_reversale} supera la dimensione massima consentita ({r.Length}).");
                     return null;
                 }

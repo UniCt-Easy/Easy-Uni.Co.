@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -1708,7 +1710,7 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
             if (UsoSiope) {
                 Dictionary<int, DataRow> admitted;
                 string res = pp.Meta_proceeds.SimulaGenerazioneOrdinativo(Conn as DataAccess, DS.incomelastview, out  admitted);
-                if (res!=null)MessageBox.Show(res, "Informazione");
+                if (res!=null)MetaFactory.factory.getSingleton<IMessageShower>().Show(res, "Informazione");
                 
             }
         }
@@ -1729,7 +1731,7 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
             if (UsoSiope) {
                 Dictionary<int, DataRow> admitted;
                 string res = pp.Meta_proceeds.SimulaGenerazioneOrdinativo(Conn as DataAccess, DS.incomelastview, out  admitted);
-                if (res!=null)MessageBox.Show(res, "Informazione");
+                if (res!=null)MetaFactory.factory.getSingleton<IMessageShower>().Show(res, "Informazione");
             }
         }
 
@@ -1744,7 +1746,7 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
             if (UsoSiope) {
                 Dictionary<int, DataRow> admitted;
                 string res = pp.Meta_proceeds.SimulaGenerazioneOrdinativo(Conn as DataAccess, DS.incomelastview, out  admitted);
-                if (res!=null)MessageBox.Show(res, "Informazione");
+                if (res!=null)MetaFactory.factory.getSingleton<IMessageShower>().Show(res, "Informazione");
             }
         }
 
@@ -1965,7 +1967,7 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
             var f = new frmFlussoCrediti(Conn as DataAccess,dispatcher as MetaDataDispatcher);
             if (f.errore) {
                 btnFlussoCrediti.Visible = true;
-                MessageBox.Show("Errore leggendo gli incassi da includere", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore leggendo gli incassi da includere", "Avviso");
                 return;
             }
             if (f.ShowDialog(this) != DialogResult.OK) {
@@ -2036,7 +2038,7 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
             if (UsoSiope) {
                 Dictionary<int, DataRow> admitted;
                 string res = pp.Meta_proceeds.SimulaGenerazioneOrdinativo(Conn as DataAccess, DS.incomelastview, out  admitted);
-                if (res!=null)MessageBox.Show(res, "Informazione");
+                if (res!=null)MetaFactory.factory.getSingleton<IMessageShower>().Show(res, "Informazione");
             }
 
             btnFlussoCrediti.Visible = true;
@@ -2054,7 +2056,7 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
             Dictionary<int, DataRow> admitted;
             var res = pp.Meta_proceeds.SimulaGenerazioneOrdinativo(Conn as DataAccess, DS.incomelastview, out  admitted);
             if (res == null) {
-                MessageBox.Show("L'ordinativo ha gi‡ una dimensione accettabile.","Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("L'ordinativo ha gi‡ una dimensione accettabile.","Avviso");
                 return;
             }
 
@@ -2076,7 +2078,7 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
                 }
             }
 
-            MessageBox.Show($"Sono stati rimossi {n} incassi dalla reversale.", "Avviso");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show($"Sono stati rimossi {n} incassi dalla reversale.", "Avviso");
         }
     }
 }

@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -20,6 +22,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using metadatalibrary;
 using System.Data;
+using ep_functions;
 using funzioni_configurazione;
 
 namespace accountvardetail_single {
@@ -95,6 +98,7 @@ namespace accountvardetail_single {
 		private TextBox txtDescClassif;
 		private TextBox txtCodClassif;
 		private Button btnClassif;
+		private Button btnSpalmaPrevisioni;
 		CQueryHelper QHC;
 		public Frm_accountvardetail_single() {
 			InitializeComponent();
@@ -183,6 +187,7 @@ namespace accountvardetail_single {
 			this.txtDescClassif = new System.Windows.Forms.TextBox();
 			this.txtCodClassif = new System.Windows.Forms.TextBox();
 			this.btnClassif = new System.Windows.Forms.Button();
+			this.btnSpalmaPrevisioni = new System.Windows.Forms.Button();
 			this.grpImporto5.SuspendLayout();
 			this.grpImporto4.SuspendLayout();
 			this.grpImporto3.SuspendLayout();
@@ -864,11 +869,22 @@ namespace accountvardetail_single {
 			this.btnClassif.Tag = "manage.inventorytreeview.tree";
 			this.btnClassif.Text = "Classificazione";
 			// 
+			// btnSpalmaPrevisioni
+			// 
+			this.btnSpalmaPrevisioni.Location = new System.Drawing.Point(504, 108);
+			this.btnSpalmaPrevisioni.Name = "btnSpalmaPrevisioni";
+			this.btnSpalmaPrevisioni.Size = new System.Drawing.Size(217, 23);
+			this.btnSpalmaPrevisioni.TabIndex = 74;
+			this.btnSpalmaPrevisioni.Text = "Ripartisci previsione pluriennale";
+			this.btnSpalmaPrevisioni.UseVisualStyleBackColor = true;
+			this.btnSpalmaPrevisioni.Click += new System.EventHandler(this.btnSpalmaPrevisioni_Click);
+			// 
 			// Frm_accountvardetail_single
 			// 
 			this.AcceptButton = this.btnOK;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(837, 589);
+			this.Controls.Add(this.btnSpalmaPrevisioni);
 			this.Controls.Add(this.grpInventario);
 			this.Controls.Add(this.grpPrevCassaDI);
 			this.Controls.Add(this.groupBox2);
@@ -968,10 +984,14 @@ namespace accountvardetail_single {
             }
         }
 
+        private BudgetFunction bf;
+
         public void MetaData_AfterLink(){
 			Meta = MetaData.GetMetaData(this);
             QHC = new CQueryHelper();
             QHS = Meta.Conn.GetQueryHelper();
+			
+			bf = new BudgetFunction(this.getInstance<IMetaDataDispatcher>() as MetaDataDispatcher);
 
             string filter = QHS.CmpEq("ayear", Meta.GetSys("esercizio"));
             string filterenablebudgetprev = QHS.NullOrEq("flagenablebudgetprev", "S");
@@ -1195,5 +1215,34 @@ namespace accountvardetail_single {
         private void txtCodiceConto_Enter(object sender, EventArgs e) {
             lastCodiceConto = txtCodiceConto.Text;
         }
-    }
+
+		private void btnSpalmaPrevisioni_Click(object sender, EventArgs e) {
+			Meta.GetFormData(true);
+			var r = DS.accountvardetail.Rows[0];
+			decimal total = 0;
+			foreach (string field in new[] {"amount", "amount2", "amount3", "amount4", "amount5"}) {
+				total += CfgFn.GetNoNullDecimal(r[field]);
+			}
+			var f = new FrmAskDataInizioFine(false);
+			var res = f.ShowDialog(this);
+			if (res != DialogResult.OK) return;
+			DateTime inizio = (DateTime) HelpForm.GetObjectFromString(typeof(DateTime),
+				f.txtDataInizio.Text.ToString(), "x.y");
+			DateTime fine = (DateTime) HelpForm.GetObjectFromString(typeof(DateTime),
+				f.txtDataFine.Text.ToString(), "x.y");
+
+			var split = bf.GetAmounts(total, inizio, fine);
+			for (int i = 1; i <= 5; i++) {
+				string field = (i == 1) ? "amount" : $"amount{i}";
+				var d = split[i-1];
+				if (d == 0) {
+					r[field] = DBNull.Value;
+				}
+				else {
+					r[field] = d;
+				}
+			}
+			Meta.FreshForm(false);
+		}
+	}
 }

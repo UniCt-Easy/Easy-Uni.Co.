@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -2271,7 +2273,7 @@ namespace estimatedetail_single {
                                 "max(idupb)");
                 if (Curr["idupb_iva"] == DBNull.Value && (Curr["idupb"].ToString()!=idupb_iva.ToString())) {
                     if (Meta.IsFirstFillForThisRow) {
-                        if (MessageBox.Show(this,
+                        if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                             "Aggiorno l'upb dell'iva in base a quello usato in fase di contabilizzazione?", "Avviso",
                             MessageBoxButtons.YesNo) == DialogResult.Yes) {
                             Curr["idupb_iva"] = idupb_iva;
@@ -2289,7 +2291,7 @@ namespace estimatedetail_single {
                                 "max(idupb)");
                 if (Curr["idupb"] == DBNull.Value && (Curr["idupb"].ToString() != idupb_taxable.ToString())){
                     if (Meta.IsFirstFillForThisRow){
-                        if (MessageBox.Show(this,
+                        if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                             "Aggiorno l'upb in base a quello usato in fase di contabilizzazione?", "Avviso",
                             MessageBoxButtons.YesNo) == DialogResult.Yes){
                             Curr["idupb"] = idupb_taxable;
@@ -2476,7 +2478,7 @@ namespace estimatedetail_single {
         }
 
         private void btnRemoveIva_Click(object sender, System.EventArgs e) {
-            if (MessageBox.Show(this,
+            if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                 "Rimuovendo la contabilizzazione del DETTAGLIO il movimento finanziario continuer‡ " +
                 "comunque a contabilizzare il contratto attivo, tuttavia in forma 'generica'. Per rimuovere la contabilizzazione " +
                 "del contratto Ë necessario eseguire la procedura guidata 'Rimuovi contabilizzazione'.\r" +
@@ -2498,7 +2500,7 @@ namespace estimatedetail_single {
         }
 
         private void btnRemoveImponibile_Click(object sender, System.EventArgs e) {
-            if (MessageBox.Show(this,
+            if (MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                 "Rimuovendo la contabilizzazione del DETTAGLIO il movimento finanziario continuer‡ " +
                 "comunque a contabilizzare il contratto attivo, tuttavia in forma 'generica'. Per rimuovere la contabilizzazione " +
                 "del contratto Ë necessario eseguire la procedura guidata 'Rimuovi contabilizzazione'.\r" +
@@ -2575,7 +2577,7 @@ namespace estimatedetail_single {
             DataRow Curr = DS.estimatedetail.Rows[0];
             if (txtDescrizione.Text != "") {
                 if (CfgFn.GetNoNullInt32(Curr["idlist"]) != CfgFn.GetNoNullInt32(Choosen["idlist"])) {
-                    if (MessageBox.Show("Aggiorno il campo descrizione in base al listino selezionato?",
+                    if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Aggiorno il campo descrizione in base al listino selezionato?",
                         "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         txtDescrizione.Text = Choosen["description"].ToString();
                     Curr["detaildescription"] = Choosen["description"].ToString();
@@ -2695,7 +2697,7 @@ namespace estimatedetail_single {
             var Curr = DS.estimatedetail.First();
             MetaData.GetFormData(this, true);
             if (Curr["idepacc"] != DBNull.Value) {
-                MessageBox.Show("Non Ë possibile collegare un preimpegno avendo gi‡ generato l'impegno di budget",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë possibile collegare un preimpegno avendo gi‡ generato l'impegno di budget",
                     "Errore");
                 return;
             }
@@ -2721,7 +2723,7 @@ namespace estimatedetail_single {
 
             DataRow Curr = DS.estimatedetail.Rows[0];
             if (Curr["idepacc"] != DBNull.Value) {
-                MessageBox.Show("Non Ë possibile scollegare un preimpegno avendo gi‡ generato l'accertamento di budget",
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë possibile scollegare un preimpegno avendo gi‡ generato l'accertamento di budget",
                     "Errore");
                 return;
             }
@@ -2739,13 +2741,13 @@ namespace estimatedetail_single {
             object d = HelpForm.GetObjectFromString(typeof(DateTime), txtstop.Text, txtstop.Tag.ToString());
             if (d==null)return;
             if (((DateTime) d).Year != Conn.GetEsercizio()) {
-                MessageBox.Show("E' necessario che la data di fine validit‡ sia dell'esercizio.", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario che la data di fine validit‡ sia dell'esercizio.", "Errore");
                 txtstop.Text = "";
             }
             if (Meta.DrawStateIsDone &&!Meta.IsEmpty) {
                 var curr = DS.estimatedetail[0];
                 if (((DateTime) d).Year < curr.yestim) {
-                    MessageBox.Show("E' necessario che la data di fine validit‡ non preceda l'anno di creazione del contratto.", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario che la data di fine validit‡ non preceda l'anno di creazione del contratto.", "Errore");
                     txtstop.Text = "";
                 }
             }
@@ -2757,13 +2759,13 @@ namespace estimatedetail_single {
             object d = HelpForm.GetObjectFromString(typeof(DateTime), txtstart.Text, txtstart.Tag.ToString());
             if (d==null)return;
             if (((DateTime) d).Year != Conn.GetEsercizio()) {
-                MessageBox.Show("E' necessario che la data di inizio validit‡ sia dell'esercizio.", "Errore");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario che la data di inizio validit‡ sia dell'esercizio.", "Errore");
                 txtstart.Text = "";
             }
             if (Meta.DrawStateIsDone &&!Meta.IsEmpty) {
                 var curr = DS.estimatedetail[0];
                 if (((DateTime) d).Year < curr.yestim) {
-                    MessageBox.Show("E' necessario che la data di inizio validit‡ non preceda l'anno di creazione del contratto.", "Errore");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario che la data di inizio validit‡ non preceda l'anno di creazione del contratto.", "Errore");
                     txtstart.Text = "";
                 }
             }

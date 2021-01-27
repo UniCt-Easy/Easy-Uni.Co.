@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- setuser'amministrazione'
+
+-- setuser'amministrazione'
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_intrastat_unified_rec4]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_intrastat_unified_rec4]
@@ -43,32 +45,32 @@ CREATE TABLE #RecordDettaglio3_SERVIZI
 	segno_variazione char(1),
 
 	TipoRecord char(1),							-- Tipo Record 0 = frontespizio, 1 = righe dettaglio sezione 1, 3 = righe dettaglio sezione 3
-	codiceIVA varchar(14),				--  Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo d‚Äôimposta con il quale √® stata effettuata 
-										--	l‚Äôoperazione intracomunitaria
+	codiceIVA varchar(14),				--  Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo díimposta con il quale Ë stata effettuata 
+										--	líoperazione intracomunitaria
 	ammontareinEuro int,				-- numerico Len.13 -- Ammontare delle operazioni in euro
 	ammontareinValuta int,				-- numerico Len.13 -- Ammontare delle operazioni in valuta > > >  SOLO per i Servizi ricevuti
 	numerofattura varchar(15),			-- Numero Fattura
 	datafattura varchar(6),				-- Data fattura formato (ggmmaa)
 	codServizio varchar(6),				-- numerico -- Codice del Servizio
-	modErogazione char(1),				-- Modalit√† di erogazione
+	modErogazione char(1),				-- Modalit‡ di erogazione
 	modErogazioneDescr varchar(50),
-	modpagamento char(1),				-- Modalit√† pagamento/incasso 
+	modpagamento char(1),				-- Modalit‡ pagamento/incasso 
 	modpagamentoDescr varchar(50),
 	codPaesePagamento char(2)			-- Codice del paese di Pagamento
 )
 
--- AmmontareinEuro = va riportato l‚Äôimporto in euro della merce oggetto dell‚Äôoperazione intracomunitaria + eventuali spese accessorie direttamente imputabili e 
--- 		opportunamente ripartite (trasporto, imballaggio, assicurazioni, etc.). L‚Äôimporto va arrotondato all‚Äôunit√† secondo le regole dell‚Äôeuro (per difetto se frazione 
--- 		inferiore a 0,5‚Ç¨; per eccesso se frazione superiore o uguale a 0,5‚Ç¨).
--- AmmontareinValuta = va indicato l‚Äôimporto in valuta del paese con il quale √® stata effettuata l‚Äôoperazione intracomunitaria applicando il tasso di cambio alla 
--- 		data di fattura; √® obbligatorio per operazioni con paesi che non hanno aderito all‚Äôeuro. L‚Äôimporto va arrotondato all‚Äôunit√† secondo le regole matematiche 
--- 		(per difetto se frazione inferiore o uguale a 0,5‚Ç¨; per eccesso se frazione superiore a 0,5‚Ç¨).
--- Valore Statistico in Euro = il valore statistico √® costituito dal valore della merce pi√π le spese di consegna (trasporto, assicurazione, etc.) fino al confine 
---		italiano (valore franco confine italiano). Per calcolare il valore statistico √® necessario tenere conto delle condizioni di consegna concordate in base alle 
---		clausole ‚Äúincoterms‚Äù.
+-- AmmontareinEuro = va riportato líimporto in euro della merce oggetto dellíoperazione intracomunitaria + eventuali spese accessorie direttamente imputabili e 
+-- 		opportunamente ripartite (trasporto, imballaggio, assicurazioni, etc.). Líimporto va arrotondato allíunit‡ secondo le regole dellíeuro (per difetto se frazione 
+-- 		inferiore a 0,5Ä; per eccesso se frazione superiore o uguale a 0,5Ä).
+-- AmmontareinValuta = va indicato líimporto in valuta del paese con il quale Ë stata effettuata líoperazione intracomunitaria applicando il tasso di cambio alla 
+-- 		data di fattura; Ë obbligatorio per operazioni con paesi che non hanno aderito allíeuro. Líimporto va arrotondato allíunit‡ secondo le regole matematiche 
+-- 		(per difetto se frazione inferiore o uguale a 0,5Ä; per eccesso se frazione superiore a 0,5Ä).
+-- Valore Statistico in Euro = il valore statistico Ë costituito dal valore della merce pi˘ le spese di consegna (trasporto, assicurazione, etc.) fino al confine 
+--		italiano (valore franco confine italiano). Per calcolare il valore statistico Ë necessario tenere conto delle condizioni di consegna concordate in base alle 
+--		clausole ìincotermsî.
 
 -- Codice della natura dela transazione = Natura della transazione (colonna 5 cessioni; colonna 6 acquisti): va indicato un codice tra quelli riportati nella tabella 
--- relativa del decreto 27 ottobre 2000. In presenza di operazione triangolare comunitaria in cui l‚Äôoperatore italiano assume la veste di acquirente/cedente, come natura 
+-- relativa del decreto 27 ottobre 2000. In presenza di operazione triangolare comunitaria in cui líoperatore italiano assume la veste di acquirente/cedente, come natura 
 -- della transazione va utilizzato il codice alfabetico. In tutti gli altri casi va utilizzato il codice numerico=> USIAMO SOLO QUELLO NUMERICO 
 
 DECLARE @s varchar(300)
@@ -88,9 +90,9 @@ Begin
 			numerofattura ,				-- Numero Fattura
 			datafattura ,				-- Data fattura formato (ggmmaa)
 			codServizio ,				-- numerico -- Codice del Servizio
-			modErogazione ,				-- Modalit√† di erogazione
+			modErogazione ,				-- Modalit‡ di erogazione
 			modErogazioneDescr,
-			modpagamento ,				-- Modalit√† pagamento/incasso 
+			modpagamento ,				-- Modalit‡ pagamento/incasso 
 			modpagamentoDescr,
 			codPaesePagamento 			-- Codice del paese di Pagamento
 		)
@@ -124,9 +126,9 @@ while @@fetch_status=0 begin
 			numerofattura,				-- Numero Fattura
 			datafattura ,				-- Data fattura formato (ggmmaa)
 			codServizio ,				-- numerico -- Codice del Servizio
-			modErogazione ,				-- Modalit√† di erogazione
+			modErogazione ,				-- Modalit‡ di erogazione
 			modErogazioneDescr,
-			modpagamento ,				-- Modalit√† pagamento/incasso 
+			modpagamento ,				-- Modalit‡ pagamento/incasso 
 			modpagamentoDescr,
 			codPaesePagamento 			-- Codice del paese di Pagamento
 		)
@@ -192,4 +194,3 @@ GO
 
 
 
-	

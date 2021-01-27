@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using funzioni_configurazione;
 using metadatalibrary;
@@ -615,10 +617,10 @@ namespace flussoincassi_default {
 
                     string err2= pagoPaService.PagoPaService.elaboraRendicontoPagoPA(Conn, null, fileName);
                     if (err2 != null) {
-                        MessageBox.Show(this, err2);
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, err2);
                         return;
                     }
-                    MessageBox.Show(this, "Elaborazione del file completata");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Elaborazione del file completata");
                     return;
                 case "unicredit":
                 case "ubibanca":
@@ -630,7 +632,7 @@ namespace flussoincassi_default {
 					string err = Unicredit.FlussoIncassi.Elabora(fileName, Intestazione, out tFlussoBanca, partner);
 
 					if (err!=null) {
-                        MessageBox.Show(this, err);
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, err);
                         return;
                     }
 
@@ -693,7 +695,7 @@ namespace flussoincassi_default {
                     FlussoIncassi flussoIncassi;
                     string errore = FlussoIncassi.Elabora(fileName, out flussoIncassi);
                     if (!string.IsNullOrEmpty(errore)) {
-                        MessageBox.Show(this, errore, "Errore");
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore, "Errore");
                         return;
                     }
 
@@ -703,13 +705,22 @@ namespace flussoincassi_default {
                         rFlussoIncassi["codiceflusso"] = DBNull.Value;
                         rFlussoIncassi["trn"] = DBNull.Value;
                         rFlussoIncassi["causale"] = disposizione.RiferimentoDebito;
-                        rFlussoIncassi["dataincasso"] = disposizione.DataQuietanza;//era DataPagamento ma Ë la scadenza
-                        rFlussoIncassi["nbill"] = disposizione.NumeroProvvisorio;
+                        rFlussoIncassi["dataincasso"] = disposizione.DataAccredito;//era DataPagamento ma Ë la scadenza
+                        if (disposizione.DataAccredito != null) rFlussoIncassi["ayear"] = disposizione.DataAccredito.Year;
+                        if (disposizione.NumeroProvvisorio!=null) {
+	                        rFlussoIncassi["nbill"] = Convert.ToInt32(disposizione.NumeroProvvisorio);
+                        }
+
                         rFlussoIncassi["importo"] = disposizione.Importo;
 
                         DataRow rFlussoIncassiDetail = MetaFlussoIncassiDetail.Get_New_Row(rFlussoIncassi,
                             DS.flussoincassidetail);
                         rFlussoIncassiDetail["iuv"] = disposizione.IUV;
+
+                        //if (disposizione.CodiceDebitore != null) {
+	                       // rFlussoIncassiDetail["iduniqueformcode"] = disposizione.NumeroDisposizione;
+                        //}  task 15409, pare non sia il codice giusto
+
                         rFlussoIncassiDetail["importo"] = disposizione.Importo;
 
                         string filterIUV = QHS.CmpEq("iuv", disposizione.IUV);
@@ -742,7 +753,7 @@ namespace flussoincassi_default {
                     break;
             }
 
-            MessageBox.Show(this, "Elaborazione del file completata");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Elaborazione del file completata");
 
             Meta.DoMainCommand("mainsave");
         }

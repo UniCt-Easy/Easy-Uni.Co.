@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -679,6 +681,7 @@ namespace meta_expenseview { //meta_spesaview//
 					DescribeAColumn(T, "adate", "Data Contabile", nPos++);
 					DescribeAColumn(T, "ypay", "Eserc.Mand.", nPos++);
 					DescribeAColumn(T, "npay", "Num.Mand.", nPos++);
+					DescribeAColumn(T, "idpay", "Num. SUB (trasmissione)",nPos++);
 					DescribeAColumn(T, "paymentadate", "Data Cont. Mand.", nPos++);
 					DescribeAColumn(T, "npaymenttransmission", "Distinta Trasmissione", nPos++);
 					DescribeAColumn(T, "transmissiondate", "Data Trasmissione", nPos++);
@@ -686,6 +689,7 @@ namespace meta_expenseview { //meta_spesaview//
 					DescribeAColumn(T, "cupcode", "CUP", nPos++);
 					DescribeAColumn(T, "codeaccdebit", "Cod.Causale Debito", nPos++);
 					DescribeAColumn(T, "accountdebit", "Causale Debito", nPos++);
+					DescribeAColumn(T, "nbill", "Bolletta", nPos++);
 					DescribeAColumn(T, "idregistrypaymethod", ".#", -1);
 					DescribeAColumn(T, "idpaymethod", ".Codice Mod.Pag.", -1);
 					DescribeAColumn(T, "cin", ".Cin", -1);

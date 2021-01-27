@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_compensi_dalia]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_compensi_dalia]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_compensi_dalia]
 GO
 
@@ -50,14 +52,14 @@ CREATE TABLE #service
 	flagdalia char(1)  -- abilita trasmissione a Dalia
 )
 INSERT INTO #service (idser, codeser, description, module,itinerationvisible,flagdalia)
-SELECT service.idser, service.codeser, 
-service.description,  
+SELECT service.idser, service.codeser, service.description,  
 CASE 
 	 WHEN service.module IS NOT NULL THEN service.module
 	 WHEN (service.module IS NULL AND ISNULL(service.itinerationvisible,'N') = 'S') THEN 'MISSIONE'
 	 ELSE NULL
 END,
-service.itinerationvisible,service.flagdalia
+service.itinerationvisible,
+service.flagdalia
 FROM service
 WHERE (UPPER(ISNULL(module,'')) = @module  OR @module IS NULL OR (@module = 'MISSIONE' AND ISNULL(service.itinerationvisible,'N') = 'S'))
 AND codeser  NOT IN ('11_PIGNORA_ESE', '11_PIGNORA') 
@@ -76,55 +78,35 @@ CREATE TABLE #payroll
 
 CREATE TABLE #contratti
 (
-	idser int, 
-	idreg int,
-	idexp int,
+	idser int, 	idreg int,	idexp int,
 	module varchar(15),
-	idcon  int,
-	iditineration int,
-	ycon int,
-	ncon int,
-	transmissiondate datetime,
-	pettycashdate datetime,
+	idcon  int,	iditineration int,	ycon int,	ncon int,
+	transmissiondate datetime,	pettycashdate datetime,
 	amount decimal(19,2),  -- importo totale pagato
 	pettycashamount decimal(19,2) , -- importo totale pagato con il fondo economale
-	idpettycash int,
-	yoperation int,
-	noperation int,
-	classdalia varchar(20),
-	sortcode_01 varchar(20)
+	idpettycash int,	yoperation int,	noperation int,
+	classdalia varchar(20),	sortcode_01 varchar(20),
+	codedip varchar(20),	codefunz varchar(20)
 )
 
 --1) COCOCO --  
 
 INSERT INTO #contratti
-	(idser, 
-	idreg,
-	module,
-	idcon,
-	ycon,
-	ncon,
-	classdalia,
-	sortcode_01)
+	(idser, 	idreg,	module,	idcon,	ycon,	ncon,	classdalia,	sortcode_01,	codedip,codefunz)
 SELECT  
-	parasubcontract.idser, 
-	parasubcontract.idreg,
+	parasubcontract.idser, 	parasubcontract.idreg,
 	#service.module,
-	parasubcontract.idcon,
-	parasubcontract.ycon,
-	parasubcontract.ncon,
-	SOR.sortcode,
-	S01.sortcode
+	parasubcontract.idcon,	parasubcontract.ycon,	parasubcontract.ncon,
+	SOR.sortcode,	S01.sortcode,	
+	dalia_dipartimento.codedip,dalia_funzionale.codefunz
 FROM parasubcontract 
-JOIN #service 
-	ON parasubcontract.idser = #service.idser
-LEFT OUTER JOIN parasubcontractsorting PS
-	ON PS.idcon = parasubcontract.idcon
-LEFT OUTER JOIN sorting SOR
-	ON PS.idsor = SOR.idsor
-    AND SOR.idsorkind = @idsortingdalia
-LEFT OUTER JOIN sorting S01
-	ON parasubcontract.idsor01 = S01.idsor
+JOIN #service								ON parasubcontract.idser = #service.idser
+LEFT OUTER JOIN parasubcontractsorting PS	ON PS.idcon = parasubcontract.idcon
+LEFT OUTER JOIN sorting SOR					ON PS.idsor = SOR.idsor   AND SOR.idsorkind = @idsortingdalia
+LEFT OUTER JOIN sorting S01					ON parasubcontract.idsor01 = S01.idsor
+left outer join dalia_dipartimento on parasubcontract.iddalia_dipartimento=dalia_dipartimento.iddalia_dipartimento
+left outer join dalia_funzionale on parasubcontract.iddalia_funzionale=dalia_funzionale.iddalia_funzionale
+
 WHERE 
 EXISTS (SELECT payroll.idpayroll from payroll 
 		join expensepayroll on payroll.idpayroll = expensepayroll.idpayroll
@@ -174,51 +156,27 @@ AND    paymenttransmission.transmissiondate BETWEEN @start AND @stop
 
 --2) DIPENDENTE
 INSERT INTO #contratti
-	(idser, 
-	idreg,
-	idexp,
-	module,
-	ycon,
-	ncon,
-	transmissiondate,
-	amount,
-	classdalia,
-	sortcode_01)
+	(idser, 	idreg,	idexp,	module,	ycon,	ncon,	transmissiondate,	amount,	classdalia,	sortcode_01,codedip,codefunz)
 SELECT  
-	wageaddition.idser, 
-	wageaddition.idreg,
-	expenseyear.idexp,
+	wageaddition.idser, 	wageaddition.idreg,	expenseyear.idexp,
 	#service.module,
-	wageaddition.ycon,
-	wageaddition.ncon,
-	paymenttransmission.transmissiondate,
-	expenseyear.amount,
-	SOR.sortcode,
-	S01.sortcode
+	wageaddition.ycon,	wageaddition.ncon,
+	paymenttransmission.transmissiondate,	expenseyear.amount,
+	SOR.sortcode,	S01.sortcode,	dalia_dipartimento.codedip,dalia_funzionale.codefunz
 FROM wageaddition 
-JOIN #service 
-	 ON wageaddition.idser = #service.idser
-JOIN expensewageaddition 
-	 ON expensewageaddition.ycon = wageaddition.ycon
-	 AND expensewageaddition.ncon = wageaddition.ncon
-JOIN expenselink 
-	ON expenselink.idparent = expensewageaddition.idexp
-JOIN expenselast 
-	ON expenselast.idexp    = expenselink.idchild
-JOIN expenseyear 
-	ON expenselast.idexp    = expenseyear.idexp AND expenseyear.ayear = @ayear
-JOIN payment     
-	ON payment.kpay         = expenselast.kpay
-JOIN paymenttransmission  
-	ON payment.kpaymenttransmission  = paymenttransmission.kpaymenttransmission
-LEFT OUTER JOIN wageadditionsorting WGS
-	ON WGS.ycon = wageaddition.ycon
-	AND WGS.ncon = wageaddition.ncon
-LEFT OUTER JOIN sorting SOR
-	ON WGS.idsor = SOR.idsor
-    AND SOR.idsorkind = @idsortingdalia
-LEFT OUTER JOIN sorting S01
-	ON wageaddition.idsor01 = S01.idsor
+JOIN #service			 ON wageaddition.idser = #service.idser
+JOIN expensewageaddition  ON expensewageaddition.ycon = wageaddition.ycon AND expensewageaddition.ncon = wageaddition.ncon
+JOIN expenselink			ON expenselink.idparent = expensewageaddition.idexp
+JOIN expenselast			ON expenselast.idexp    = expenselink.idchild
+JOIN expenseyear			ON expenselast.idexp    = expenseyear.idexp AND expenseyear.ayear = @ayear
+JOIN payment				ON payment.kpay         = expenselast.kpay
+JOIN paymenttransmission	ON payment.kpaymenttransmission  = paymenttransmission.kpaymenttransmission
+LEFT OUTER JOIN wageadditionsorting WGS	ON WGS.ycon = wageaddition.ycon	AND WGS.ncon = wageaddition.ncon
+LEFT OUTER JOIN sorting SOR	ON WGS.idsor = SOR.idsor    AND SOR.idsorkind = @idsortingdalia
+LEFT OUTER JOIN sorting S01	ON wageaddition.idsor01 = S01.idsor
+left outer join dalia_dipartimento on wageaddition.iddalia_dipartimento=dalia_dipartimento.iddalia_dipartimento
+left outer join dalia_funzionale on wageaddition.iddalia_funzionale=dalia_funzionale.iddalia_funzionale
+
 WHERE paymenttransmission.ypaymenttransmission = @ayear
 AND    paymenttransmission.transmissiondate BETWEEN @start AND @stop 
 AND (wageaddition.idreg = @idreg OR @idreg IS NULL)
@@ -227,106 +185,46 @@ AND (wageaddition.idreg = @idreg OR @idreg IS NULL)
 --sp_help paymenttransmission
 --3) MISSIONE
 
-INSERT INTO #contratti
-	(
-	idser, 
-	idreg,
-	idexp,
-	module,
-	iditineration,
-	ycon,
-	ncon,
-	transmissiondate,
-	amount,
-	classdalia,
-	sortcode_01)
+INSERT INTO #contratti	(
+	idser, 	idreg,	idexp,	module,	iditineration,	ycon,	ncon,	transmissiondate,	amount,	classdalia,	sortcode_01,codedip,codefunz)
 SELECT  
-	itineration.idser, 
-	itineration.idreg,
-	expenseyear.idexp,
-	#service.module,
-	itineration.iditineration,
-	itineration.yitineration,
-	itineration.nitineration,
-	paymenttransmission.transmissiondate,
-	expenseyear.amount,
-	SOR.sortcode,
-	S01.sortcode
+	itineration.idser,	itineration.idreg,	expenseyear.idexp,	#service.module,	itineration.iditineration,	itineration.yitineration,
+	itineration.nitineration,	paymenttransmission.transmissiondate,	expenseyear.amount,	SOR.sortcode,	S01.sortcode,
+	dalia_dipartimento.codedip,dalia_funzionale.codefunz
 FROM itineration 
-JOIN #service 
-	 ON itineration.idser = #service.idser
-JOIN expenseitineration
-	 ON expenseitineration.iditineration = itineration.iditineration
-JOIN expenselink 
-	 ON expenselink.idparent = expenseitineration.idexp
-JOIN expenselast 
-	 ON expenselast.idexp    = expenselink.idchild
-JOIN expenseyear 
-	 ON expenselast.idexp    = expenseyear.idexp 
-	AND expenseyear.ayear   = @ayear
-JOIN payment     
-	 ON payment.kpay         = expenselast.kpay
-JOIN paymenttransmission  
-	 ON payment.kpaymenttransmission  = paymenttransmission.kpaymenttransmission
-LEFT OUTER JOIN itinerationsorting ITS
-	 ON ITS.iditineration = itineration.iditineration
-LEFT OUTER JOIN sorting SOR
-	ON ITS.idsor = SOR.idsor
-    AND SOR.idsorkind = @idsortingdalia
-LEFT OUTER JOIN sorting S01
-	ON itineration.idsor01 = S01.idsor
+JOIN #service				ON itineration.idser = #service.idser
+JOIN expenseitineration		 ON expenseitineration.iditineration = itineration.iditineration
+JOIN expenselink			 ON expenselink.idparent = expenseitineration.idexp
+JOIN expenselast			 ON expenselast.idexp    = expenselink.idchild
+JOIN expenseyear			 ON expenselast.idexp    = expenseyear.idexp AND expenseyear.ayear   = @ayear
+JOIN payment				 ON payment.kpay         = expenselast.kpay
+JOIN paymenttransmission  	 ON payment.kpaymenttransmission  = paymenttransmission.kpaymenttransmission
+LEFT OUTER JOIN itinerationsorting ITS	 ON ITS.iditineration = itineration.iditineration
+LEFT OUTER JOIN sorting SOR	ON ITS.idsor = SOR.idsor    AND SOR.idsorkind = @idsortingdalia
+LEFT OUTER JOIN sorting S01	ON itineration.idsor01 = S01.idsor
+left outer join dalia_dipartimento on itineration.iddalia_dipartimento=dalia_dipartimento.iddalia_dipartimento
+left outer join dalia_funzionale on itineration.iddalia_funzionale=dalia_funzionale.iddalia_funzionale
+
 WHERE paymenttransmission.ypaymenttransmission = @ayear
 AND    paymenttransmission.transmissiondate BETWEEN @start AND @stop 
 AND (itineration.idreg = @idreg OR @idreg IS NULL)
 
 INSERT INTO #contratti
-	(idser, 
-	idreg,
-	idexp,
-	module,
-	ycon,
-	ncon,
-	pettycashdate,
-	pettycashamount,
-	idpettycash,
-	yoperation,
-	noperation ,
-	classdalia,
-	sortcode_01)
+	(idser, 	idreg,	idexp,	module,	ycon,	ncon,	pettycashdate,	pettycashamount,	idpettycash,	yoperation,	noperation ,
+	classdalia,	sortcode_01,codedip,codefunz)
 SELECT  
-itin.idser, 
-	itin.idreg,
-	null,
-	#service.module,
-	itin.yitineration,
-	itin.nitineration,
-	p.adate,
-	p.amount,
-	p.idpettycash,
-	p.yoperation,
-	p.noperation,
-	SOR.sortcode ,
-	S01.sortcode
+itin.idser, 	itin.idreg,	null,	#service.module,	itin.yitineration,	itin.nitineration,	p.adate,	p.amount,	p.idpettycash,	p.yoperation,	p.noperation,
+	SOR.sortcode ,	S01.sortcode, dalia_dipartimento.codedip,dalia_funzionale.codefunz
 FROM pettycashoperationitineration mov
-JOIN itineration itin 
-	ON  itin.iditineration = mov.iditineration
-    JOIN #service 
-	 ON itin.idser = #service.idser
-	JOIN pettycashoperation p
-		ON mov.idpettycash = p.idpettycash
-		AND mov.yoperation = p.yoperation
-		AND mov.noperation = p.noperation
-	LEFT OUTER JOIN pettycashoperation rest
-		ON rest.idpettycash = p.idpettycash
-		AND rest.yoperation = p.yrestore
-		AND rest.noperation = p.nrestore
-LEFT OUTER JOIN itinerationsorting ITS
-	 ON ITS.iditineration = itin.iditineration
-LEFT OUTER JOIN sorting SOR
-	ON ITS.idsor = SOR.idsor
-    AND SOR.idsorkind = @idsortingdalia
-LEFT OUTER JOIN sorting S01
-	ON itin.idsor01 = S01.idsor
+JOIN itineration itin 	ON  itin.iditineration = mov.iditineration
+JOIN #service			 ON itin.idser = #service.idser
+JOIN pettycashoperation p	ON mov.idpettycash = p.idpettycash	AND mov.yoperation = p.yoperation	AND mov.noperation = p.noperation
+LEFT OUTER JOIN pettycashoperation rest		ON rest.idpettycash = p.idpettycash	AND rest.yoperation = p.yrestore	AND rest.noperation = p.nrestore
+LEFT OUTER JOIN itinerationsorting ITS		 ON ITS.iditineration = itin.iditineration
+LEFT OUTER JOIN sorting SOR					ON ITS.idsor = SOR.idsor    AND SOR.idsorkind = @idsortingdalia
+LEFT OUTER JOIN sorting S01					ON itin.idsor01 = S01.idsor
+left outer join dalia_dipartimento on itin.iddalia_dipartimento=dalia_dipartimento.iddalia_dipartimento
+left outer join dalia_funzionale on itin.iddalia_funzionale=dalia_funzionale.iddalia_funzionale
 WHERE p.yoperation = @ayear AND p.adate BETWEEN @start AND @stop 
 
 
@@ -335,105 +233,46 @@ WHERE p.yoperation = @ayear AND p.adate BETWEEN @start AND @stop
 --4) OCCASIONALE
 
 INSERT INTO #contratti
-	(idser, 
-	idreg,
-	idexp,
-	module,
-	ycon,
-	ncon,
-	transmissiondate,
-	amount,
-	classdalia,
-	sortcode_01)
+	(idser, 	idreg,	idexp,	module,	ycon,	ncon,	transmissiondate,	amount,	classdalia,	sortcode_01,codedip,codefunz)
 SELECT  
-	casualcontract.idser, 
-	casualcontract.idreg,
-	expenseyear.idexp,
-	#service.module,
-	casualcontract.ycon,
-	casualcontract.ncon,
-	paymenttransmission.transmissiondate,
-	expenseyear.amount,
-	SOR.sortcode,
-	S01.sortcode
+	casualcontract.idser, 	casualcontract.idreg,	expenseyear.idexp,	#service.module,	casualcontract.ycon,casualcontract.ncon,
+	paymenttransmission.transmissiondate,	expenseyear.amount,	SOR.sortcode,	S01.sortcode,dalia_dipartimento.codedip,dalia_funzionale.codefunz
 FROM casualcontract 
-JOIN #service 
-	 ON casualcontract.idser = #service.idser
-JOIN expensecasualcontract
-	 ON expensecasualcontract.ycon = casualcontract.ycon
-	 AND expensecasualcontract.ncon = casualcontract.ncon
-JOIN expenselink 
-	 ON expenselink.idparent = expensecasualcontract.idexp
-JOIN expenselast 
-	 ON expenselast.idexp    = expenselink.idchild
-JOIN expenseyear 
-	 ON expenselast.idexp    = expenseyear.idexp AND expenseyear.ayear = @ayear
-JOIN payment     
-	 ON payment.kpay         = expenselast.kpay
-JOIN paymenttransmission  
-	 ON payment.kpaymenttransmission  = paymenttransmission.kpaymenttransmission
-LEFT OUTER JOIN casualcontractsorting CCS
-	ON CCS.ycon = casualcontract.ycon
-	AND CCS.ncon = casualcontract.ncon
-LEFT OUTER JOIN sorting SOR
-	ON CCS.idsor = SOR.idsor
-    AND SOR.idsorkind = @idsortingdalia
-LEFT OUTER JOIN sorting S01
-	ON casualcontract.idsor01 = S01.idsor
+JOIN #service				 ON casualcontract.idser = #service.idser
+JOIN expensecasualcontract	 ON expensecasualcontract.ycon = casualcontract.ycon AND expensecasualcontract.ncon = casualcontract.ncon
+JOIN expenselink			 ON expenselink.idparent = expensecasualcontract.idexp
+JOIN expenselast			 ON expenselast.idexp    = expenselink.idchild
+JOIN expenseyear			 ON expenselast.idexp    = expenseyear.idexp AND expenseyear.ayear = @ayear
+JOIN payment				 ON payment.kpay         = expenselast.kpay
+JOIN paymenttransmission  	 ON payment.kpaymenttransmission  = paymenttransmission.kpaymenttransmission
+LEFT OUTER JOIN casualcontractsorting CCS	ON CCS.ycon = casualcontract.ycon	AND CCS.ncon = casualcontract.ncon
+LEFT OUTER JOIN sorting SOR	ON CCS.idsor = SOR.idsor    AND SOR.idsorkind = @idsortingdalia
+LEFT OUTER JOIN sorting S01	ON casualcontract.idsor01 = S01.idsor
+left outer join dalia_dipartimento on casualcontract.iddalia_dipartimento=dalia_dipartimento.iddalia_dipartimento
+left outer join dalia_funzionale on casualcontract.iddalia_funzionale=dalia_funzionale.iddalia_funzionale
+
 WHERE paymenttransmission.ypaymenttransmission = @ayear
 AND    paymenttransmission.transmissiondate BETWEEN @start AND @stop 
 AND (casualcontract.idreg = @idreg OR @idreg IS NULL)
 
 INSERT INTO #contratti
-	(idser, 
-	idreg,
-	idexp,
-	module,
-	ycon,
-	ncon,
-	pettycashdate,
-	pettycashamount,
-	idpettycash,
-	yoperation,
-	noperation,
-	classdalia,
-	sortcode_01)
+	(idser, 	idreg,	idexp,	module,	ycon,	ncon,	pettycashdate,	pettycashamount,	idpettycash,	yoperation,	noperation,	classdalia,	sortcode_01,
+			codedip,codefunz)
 SELECT  
-cas.idser, 
-	cas.idreg,
-	null,
-	#service.module,
-	cas.ycon,
-	cas.ncon,
-	p.adate,
-	p.amount,
-	p.idpettycash,
-	p.yoperation,
-	p.noperation ,
-	SOR.sortcode,
-	S01.sortcode
+cas.idser, 	cas.idreg,	null,	#service.module,	cas.ycon,	cas.ncon,	p.adate,
+	p.amount,	p.idpettycash,	p.yoperation,	p.noperation ,	SOR.sortcode,	S01.sortcode,
+	dalia_dipartimento.codedip,dalia_funzionale.codefunz
 FROM pettycashoperationcasualcontract mov
-JOIN casualcontract cas 
-	ON  cas.ycon = mov.ycon
-    AND  cas.ncon = mov.ncon
-    JOIN #service 
-	 ON cas.idser = #service.idser
-	JOIN pettycashoperation p
-		ON mov.idpettycash = p.idpettycash
-		AND mov.yoperation = p.yoperation
-		AND mov.noperation = p.noperation
-	LEFT OUTER JOIN pettycashoperation rest
-		ON rest.idpettycash = p.idpettycash
-		AND rest.yoperation = p.yrestore
-		AND rest.noperation = p.nrestore
-LEFT OUTER JOIN casualcontractsorting CCS
-	ON CCS.ycon = cas.ycon
-	AND CCS.ncon = cas.ncon
-LEFT OUTER JOIN sorting SOR
-	ON CCS.idsor = SOR.idsor
-    AND SOR.idsorkind = @idsortingdalia
-LEFT OUTER JOIN sorting S01
-	ON cas.idsor01 = S01.idsor
+JOIN casualcontract cas 	ON  cas.ycon = mov.ycon    AND  cas.ncon = mov.ncon    
+JOIN #service				 ON cas.idser = #service.idser
+JOIN pettycashoperation p	ON mov.idpettycash = p.idpettycash	AND mov.yoperation = p.yoperation	AND mov.noperation = p.noperation
+LEFT OUTER JOIN pettycashoperation rest		ON rest.idpettycash = p.idpettycash		AND rest.yoperation = p.yrestore	AND rest.noperation = p.nrestore
+LEFT OUTER JOIN casualcontractsorting CCS	ON CCS.ycon = cas.ycon	AND CCS.ncon = cas.ncon
+LEFT OUTER JOIN sorting SOR	ON CCS.idsor = SOR.idsor    AND SOR.idsorkind = @idsortingdalia
+LEFT OUTER JOIN sorting S01	ON cas.idsor01 = S01.idsor
+left outer join dalia_dipartimento on cas.iddalia_dipartimento=dalia_dipartimento.iddalia_dipartimento
+left outer join dalia_funzionale on cas.iddalia_funzionale=dalia_funzionale.iddalia_funzionale
+
 WHERE p.yoperation = @ayear and p.adate   BETWEEN @start AND @stop 
 --SELECT * FROM #contratti
 --5) PROFESSIONALE
@@ -454,109 +293,46 @@ WHERE p.yoperation = @ayear and p.adate   BETWEEN @start AND @stop
 
 
 INSERT INTO #contratti
-	(idser, 
-	idreg,
-	idexp,
-	module,
-	ycon,
-	ncon,
-	transmissiondate,
-	amount,
-	classdalia,
-	sortcode_01)
+	(idser, 	idreg,	idexp,	module,	ycon,	ncon,	transmissiondate,	amount,	classdalia,	sortcode_01,codedip,codefunz)
 SELECT  
-	profservice.idser, 
-	profservice.idreg,
-	expenseyear.idexp,
-	#service.module,
-	profservice.ycon,
-	profservice.ncon,
-	paymenttransmission.transmissiondate,
-	expenseyear.amount,
-	SOR.sortcode,
-	S01.sortcode
+	profservice.idser, 	profservice.idreg,	expenseyear.idexp,	#service.module,	profservice.ycon,	profservice.ncon,	paymenttransmission.transmissiondate,
+	expenseyear.amount,	SOR.sortcode,	S01.sortcode,dalia_dipartimento.codedip,dalia_funzionale.codefunz
 FROM profservice 
-JOIN #service 
-	 ON profservice.idser = #service.idser
---JOIN expenseprofservice
---	 ON expenseprofservice.ycon = profservice.ycon
---	 AND expenseprofservice.ncon = profservice.ncon
---JOIN expenselink 
---	ON expenselink.idparent = expenseprofservice.idexp
---JOIN expenselast 
---	ON expenselast.idexp    = expenselink.idchild
-join expenseinvoice					
-	on profservice.idinvkind = expenseinvoice.idinvkind and profservice.yinv = expenseinvoice.yinv and profservice.ninv = expenseinvoice.ninv
-JOIN expenselast 
-	ON expenselast.idexp    = expenseinvoice.idexp
-JOIN expenseyear 
-	ON expenselast.idexp    = expenseyear.idexp AND expenseyear.ayear = @ayear
-JOIN payment     
-	ON payment.kpay         = expenselast.kpay
-JOIN paymenttransmission  
-	ON payment.kpaymenttransmission  = paymenttransmission.kpaymenttransmission
-LEFT OUTER JOIN profservicesorting PSS
-	ON PSS.ycon = profservice.ycon
-	AND PSS.ncon = profservice.ncon
-LEFT OUTER JOIN sorting SOR
-	ON PSS.idsor = SOR.idsor
-    AND SOR.idsorkind = @idsortingdalia
-LEFT OUTER JOIN sorting S01
-	ON profservice.idsor01 = S01.idsor
+JOIN #service 	 ON profservice.idser = #service.idser
+--JOIN expenseprofservice	 ON expenseprofservice.ycon = profservice.ycon	 AND expenseprofservice.ncon = profservice.ncon
+--JOIN expenselink 	ON expenselink.idparent = expenseprofservice.idexp
+-- JOIN expenselast 	ON expenselast.idexp    = expenselink.idchild
+join expenseinvoice		on profservice.idinvkind = expenseinvoice.idinvkind and profservice.yinv = expenseinvoice.yinv and profservice.ninv = expenseinvoice.ninv
+JOIN expenselast		ON expenselast.idexp    = expenseinvoice.idexp
+JOIN expenseyear		ON expenselast.idexp    = expenseyear.idexp AND expenseyear.ayear = @ayear
+JOIN payment			ON payment.kpay         = expenselast.kpay
+JOIN paymenttransmission		ON payment.kpaymenttransmission  = paymenttransmission.kpaymenttransmission
+LEFT OUTER JOIN profservicesorting PSS		ON PSS.ycon = profservice.ycon	AND PSS.ncon = profservice.ncon
+LEFT OUTER JOIN sorting SOR		ON PSS.idsor = SOR.idsor    AND SOR.idsorkind = @idsortingdalia
+LEFT OUTER JOIN sorting S01		ON profservice.idsor01 = S01.idsor
+left outer join dalia_dipartimento on profservice.iddalia_dipartimento=dalia_dipartimento.iddalia_dipartimento
+left outer join dalia_funzionale on profservice.iddalia_funzionale=dalia_funzionale.iddalia_funzionale
 WHERE paymenttransmission.ypaymenttransmission = @ayear
 AND    paymenttransmission.transmissiondate BETWEEN @start AND @stop 
 AND (profservice.idreg = @idreg OR @idreg IS NULL)
  
  INSERT INTO #contratti
-	(idser, 
-	idreg,
-	idexp,
-	module,
-	ycon,
-	ncon,
-	pettycashdate,
-	pettycashamount,
-	idpettycash,
-	yoperation,
-	noperation  ,
-	classdalia,
-	sortcode_01)
+	(idser, 	idreg,	idexp,	module,	ycon,	ncon,	pettycashdate,	pettycashamount,	idpettycash,	yoperation,	noperation  ,	classdalia,
+	sortcode_01,codedip,codefunz)
 SELECT  
-prof.idser, 
-	prof.idreg,
-	null,
-	#service.module,
-	prof.ycon,
-	prof.ncon,
-	p.adate,
-	p.amount,
-	p.idpettycash,
-	p.yoperation,
-	p.noperation ,
-	SOR.sortcode,
-	S01.sortcode
+prof.idser, 	prof.idreg,	null,	#service.module,	prof.ycon,	prof.ncon,	p.adate,	p.amount,	p.idpettycash,	p.yoperation,	p.noperation ,
+	SOR.sortcode,	S01.sortcode,dalia_dipartimento.codedip,dalia_funzionale.codefunz
 FROM pettycashoperationprofservice mov
-JOIN profservice prof 
-	ON  prof.ycon = mov.ycon
-    AND  prof.ncon = mov.ncon
-    JOIN #service 
-	 ON prof.idser = #service.idser
-	JOIN pettycashoperation p
-		ON mov.idpettycash = p.idpettycash
-		AND mov.yoperation = p.yoperation
-		AND mov.noperation = p.noperation
-	LEFT OUTER JOIN pettycashoperation rest
-		ON rest.idpettycash = p.idpettycash
-		AND rest.yoperation = p.yrestore
-		AND rest.noperation = p.nrestore
-LEFT OUTER JOIN profservicesorting PSS
-	ON PSS.ycon = prof.ycon
-	AND PSS.ncon = prof.ncon
-LEFT OUTER JOIN sorting SOR
-	ON PSS.idsor = SOR.idsor
-    AND SOR.idsorkind = @idsortingdalia
-LEFT OUTER JOIN sorting S01
-	ON prof.idsor01 = S01.idsor
+JOIN profservice prof 	ON  prof.ycon = mov.ycon    AND  prof.ncon = mov.ncon
+JOIN #service 	 ON prof.idser = #service.idser
+JOIN pettycashoperation p		ON mov.idpettycash = p.idpettycash	AND mov.yoperation = p.yoperation	AND mov.noperation = p.noperation
+LEFT OUTER JOIN pettycashoperation rest		ON rest.idpettycash = p.idpettycash		AND rest.yoperation = p.yrestore	AND rest.noperation = p.nrestore
+LEFT OUTER JOIN profservicesorting PSS	ON PSS.ycon = prof.ycon	AND PSS.ncon = prof.ncon
+LEFT OUTER JOIN sorting SOR		ON PSS.idsor = SOR.idsor    AND SOR.idsorkind = @idsortingdalia
+LEFT OUTER JOIN sorting S01		ON prof.idsor01 = S01.idsor
+left outer join dalia_dipartimento on prof.iddalia_dipartimento=dalia_dipartimento.iddalia_dipartimento
+left outer join dalia_funzionale on prof.iddalia_funzionale=dalia_funzionale.iddalia_funzionale
+
 WHERE p.yoperation = @ayear and p.adate BETWEEN @start AND @stop 
 
 --SELECT * FROM #contratti
@@ -566,7 +342,7 @@ WHERE p.yoperation = @ayear and p.adate BETWEEN @start AND @stop
 
 SELECT sortcode_01 as 'Dip. Afferenza',
 #service.codeser as 'Cod. Prest.',#service.description as 'Prestazione', 
-'Cedolino nÂ°'  + CONVERT(varchar(4), #payroll.npayroll) + ' del Contratto Es.' + CONVERT(varchar(4), #contratti.ycon)  + '/' + CONVERT(varchar(10), #contratti.ncon)  as 'Compenso',
+'Cedolino n°'  + CONVERT(varchar(4), #payroll.npayroll) + ' del Contratto Es.' + CONVERT(varchar(4), #contratti.ycon)  + '/' + CONVERT(varchar(10), #contratti.ncon)  as 'Compenso',
 CASE 
 	WHEN flagdalia  = 'N' AND classdalia IS NOT NULL   THEN 'Non applicabile ma valorizzato (Errore)'
 	WHEN flagdalia  = 'N' AND classdalia IS NULL   THEN 'Non applicabile e non valorizzato sui compensi'
@@ -576,9 +352,10 @@ END as 'Trasmissione DALIA',
 classdalia as 'Voce Spesa DALIA',
 registry.title as 'Percipiente', ISNULL(registry.cf,registry.p_iva)   as 'CF/P. IVA', 
 expenseview.phase as 'Fase',
-CONVERT(varchar(4),expenseview.ymov)  + '/'+ CONVERT(varchar(4),expenseview.nmov) as 'Eserc./nÂ°', 
+CONVERT(varchar(4),expenseview.ymov)  + '/'+ CONVERT(varchar(4),expenseview.nmov) as 'Eserc./n°', 
 expenseview.description as 'Descrizione',
-#payroll.amount as 'Importo pagato',#payroll.transmissiondate as 'Data Trasm.'
+#payroll.amount as 'Importo pagato',#payroll.transmissiondate as 'Data Trasm.',
+
 FROM #payroll
 JOIN #contratti
 	 ON #contratti.idcon = #payroll.idcon
@@ -610,7 +387,7 @@ END as 'Trasmissione DALIA',
 classdalia as 'Voce Spesa DALIA',
 registry.title as 'Percipiente', ISNULL(registry.cf,registry.p_iva)   as 'CF/P. IVA', 
 expenseview.phase as 'Fase',
-CONVERT(varchar(4),expenseview.ymov)  + '/'+ CONVERT(varchar(4),expenseview.nmov)  as 'Eserc./nÂ°', 
+CONVERT(varchar(4),expenseview.ymov)  + '/'+ CONVERT(varchar(4),expenseview.nmov)  as 'Eserc./n°', 
 expenseview.description as 'Descrizione',
 #contratti.amount as 'Importo pagato', #contratti.transmissiondate as 'Data Trasm.'
 FROM #contratti
@@ -641,7 +418,7 @@ END as 'Trasmissione DALIA',
 classdalia as 'Voce Spesa DALIA',
 registry.title as 'Percipiente', ISNULL(registry.cf,registry.p_iva)   as 'CF/P. IVA', 
 'Contabilizzato con fondo Economale ' + pettycash.description as 'Fase',
-CONVERT(varchar(4),#contratti.yoperation)  + '/'+ CONVERT(varchar(4),#contratti.noperation)  as 'Eserc./nÂ° Op.', 
+CONVERT(varchar(4),#contratti.yoperation)  + '/'+ CONVERT(varchar(4),#contratti.noperation)  as 'Eserc./n° Op.', 
 
 pettycashoperation.description as 'Descrizione',
 #contratti.pettycashamount as 'Importo pagato', #contratti.pettycashdate as 'Data Trasm.'
@@ -675,4 +452,3 @@ GO
 
 
  
-	

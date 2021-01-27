@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿SET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -84,13 +86,13 @@ declare @is_variation char(1)
 	--vogliamo che @amount abbia un segno tale che sommato sia conforme alla chiusura dell'impegno
 	--le scritture sui conti di costo passano l'importo giusto, ossia negativo se in dare e positivo se in avere
 	
-	--visto che di norma il costo Ã¨ in dare e quindi Ã¨ negativo, per gli impegni normali basta sommarlo col suo valore
-	--per le variazioni di impegno invece il costo vogliamo che si chiuda in avere ossia quando Ã¨ positivo,
+	--visto che di norma il costo è in dare e quindi è negativo, per gli impegni normali basta sommarlo col suo valore
+	--per le variazioni di impegno invece il costo vogliamo che si chiuda in avere ossia quando è positivo,
 	--  quindi in questo caso dobbiamo cambiarlo di segno
 	if  (@is_variation = 'S')
 	Begin
-		-- se NON Ã¨ una variazione, il costo diventa di nuovo NORMALIZZATO 
-		-- se E' una variazione, il costo "rimane" OPPOSTO perchÃ¨ deve essere trattato diversamente  
+		-- se NON è una variazione, il costo diventa di nuovo NORMALIZZATO 
+		-- se E' una variazione, il costo "rimane" OPPOSTO perchè deve essere trattato diversamente  
 		SET @amount = - isnull(@amount,0)
 		SET @amount2 = - isnull(@amount2,0)	
 		SET @amount3 = - isnull(@amount3,0)	
@@ -171,4 +173,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

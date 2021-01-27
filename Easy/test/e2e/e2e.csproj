@@ -35,14 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ep_functions, Version=1.1.432.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\unmanaged\ep_functions\bin\Debug\ep_functions.dll</HintPath>
-    </Reference>
-    <Reference Include="gestioneclassificazioni, Version=1.1.73.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\unmanaged\gestioneclassificazioni\bin\Debug\gestioneclassificazioni.dll</HintPath>
-    </Reference>
     <Reference Include="ImportazioneSiopePlus">
       <HintPath>..\..\dll\ImportazioneSiopePlus.dll</HintPath>
     </Reference>
@@ -86,6 +78,10 @@
     <ProjectReference Include="..\..\mainform\mainform.csproj">
       <Project>{e04c2cef-078b-4b25-904c-6374c88e0ee7}</Project>
       <Name>mainform</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\unmanaged\ep_functions\ep_functions.csproj">
+      <Project>{13e495ef-b62d-494e-aec7-e06e7826dce6}</Project>
+      <Name>ep_functions</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
       <Project>{c0dacf4d-2f3e-44d6-a718-7c9821a1bdcd}</Project>

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[read_taxable_sdi_acquisto]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[read_taxable_sdi_acquisto]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [read_taxable_sdi_acquisto]
 GO
 SET ANSI_NULLS ON
@@ -40,7 +42,7 @@ BEGIN
 	from ivakind where idivakind = @idivakind
 	SET @myrate = @myrate *100
 
-	-- Il SUM √® stato introdotto perch√® nel riepilogo potrebbero esserci due righe : una con imponibile associato a Aliquota 0 e Natura N3, l'altra con imponibile associato a Aliquota 0 e natura N4, 
+	-- Il SUM Ë stato introdotto perchË nel riepilogo potrebbero esserci due righe : una con imponibile associato a Aliquota 0 e Natura N3, l'altra con imponibile associato a Aliquota 0 e natura N4, 
 	-- per cui, se stiamo calcolando l'imponibile per l'aliquota 0 dobbiamo sommare
 	
 	SET @res =0
@@ -61,4 +63,3 @@ END
 
 GO
 
-	

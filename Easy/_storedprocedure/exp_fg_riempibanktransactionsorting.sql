@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_fg_riempibanktransactionsorting]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_fg_riempibanktransactionsorting]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_fg_riempibanktransactionsorting]
 GO
 
@@ -114,11 +116,11 @@ begin
 
 	drop table #transazspesa
 
---poichÃ¨ prima ho fatto delle proporzioni, posso aver sgarrato di qualche centesimo
+--poichè prima ho fatto delle proporzioni, posso aver sgarrato di qualche centesimo
 --cerco di sistemare il tutto
 
 --comincio col riempire una tabella dei residui 
---(quanto c'Ã¨ ancora da classificare per ogni yban, nban, idsorkind, idsor di banktransactionsoring rispetto ad expensesorted)
+--(quanto c'è ancora da classificare per ogni yban, nban, idsorkind, idsor di banktransactionsoring rispetto ad expensesorted)
 	select banktransaction.idexp, idsorkind, banktransactionsorting.idsor, 
 		classificatosubanca=sum(banktransactionsorting.amount), 
 		classificatosuspesa=(select sum(expensesorted.amount) from expensesorted 
@@ -165,7 +167,7 @@ begin
 	while @@fetch_status=0
 	begin
 		--per ogni movimento bancario mi cerco l'idsor su cui andare ad aggiungere eventuali centesimi sbagliati nel calcolo di prima
-		--e aggiungo ciÃ² che manca
+		--e aggiungo ciò che manca
 		while @residuospesa>0
 		begin
 			declare @tappo dec(19,2)
@@ -288,7 +290,7 @@ begin
 	drop table #transazentrata
 
 --riempimento della tabella dei residui 
---(quanto c'Ã¨ ancora da classificare per ogni yban, nban, idsorkind, idsor di banktransactionsoring rispetto ad incomesorted)
+--(quanto c'è ancora da classificare per ogni yban, nban, idsorkind, idsor di banktransactionsoring rispetto ad incomesorted)
 	select banktransaction.idinc, sorting.idsorkind, banktransactionsorting.idsor, 
 		classificatosubanca=sum(banktransactionsorting.amount), 
 		classificatosuentrata=(select sum(incomesorted.amount) from incomesorted 
@@ -375,7 +377,7 @@ begin
 	drop table #situazioneentrata
 
 	select banktransactionsorting.yban as 'Anno', 
-		banktransactionsorting.nban as 'NÂ°trans.banc.', 
+		banktransactionsorting.nban as 'N°trans.banc.', 
 		sortingkind.description as 'Tipo class.', 
 		sorting.sortcode as 'Codice class.', 
 		sorting.description as 'Classificazione', 
@@ -401,4 +403,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

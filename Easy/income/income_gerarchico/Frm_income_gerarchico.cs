@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -393,6 +395,7 @@ namespace income_gerarchico//EntrataGerarchico//
 			this.Tip = new System.Windows.Forms.ToolTip(this.components);
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabMovFin1 = new System.Windows.Forms.TabPage();
+			this.btnScrittureCollegate = new System.Windows.Forms.Button();
 			this.gboxfinanziamento = new System.Windows.Forms.GroupBox();
 			this.txtFinanziamento = new System.Windows.Forms.TextBox();
 			this.btnFinanziamento = new System.Windows.Forms.Button();
@@ -473,7 +476,6 @@ namespace income_gerarchico//EntrataGerarchico//
 			this.txtDescrContoCustomer = new System.Windows.Forms.TextBox();
 			this.txtCodiceContoCustomer = new System.Windows.Forms.TextBox();
 			this.btnContoCredito = new System.Windows.Forms.Button();
-			this.btnScrittureCollegate = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox15.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DGridDettagliClassificazioni)).BeginInit();
@@ -1305,6 +1307,15 @@ namespace income_gerarchico//EntrataGerarchico//
 			this.tabMovFin1.TabIndex = 0;
 			this.tabMovFin1.Text = "Movimento Finanziario";
 			// 
+			// btnScrittureCollegate
+			// 
+			this.btnScrittureCollegate.Location = new System.Drawing.Point(634, 467);
+			this.btnScrittureCollegate.Name = "btnScrittureCollegate";
+			this.btnScrittureCollegate.Size = new System.Drawing.Size(123, 22);
+			this.btnScrittureCollegate.TabIndex = 84;
+			this.btnScrittureCollegate.Text = "Scritture collegate";
+			this.btnScrittureCollegate.Click += new System.EventHandler(this.btnScrittureCollegate_Click);
+			// 
 			// gboxfinanziamento
 			// 
 			this.gboxfinanziamento.Controls.Add(this.txtFinanziamento);
@@ -2048,11 +2059,11 @@ namespace income_gerarchico//EntrataGerarchico//
 			// 
 			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox1.Location = new System.Drawing.Point(198, 8);
+			this.textBox1.Location = new System.Drawing.Point(353, 8);
 			this.textBox1.Multiline = true;
 			this.textBox1.Name = "textBox1";
 			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(596, 56);
+			this.textBox1.Size = new System.Drawing.Size(441, 56);
 			this.textBox1.TabIndex = 20;
 			this.textBox1.Text = "il numero della reversale di incasso viene riempito solo quando verrà emessa la r" +
     "eversale da associare al movimento di entrata";
@@ -2210,15 +2221,6 @@ namespace income_gerarchico//EntrataGerarchico//
 			this.btnContoCredito.TabStop = false;
 			this.btnContoCredito.Tag = "Choose.account.tree.((flagaccountusage&48)<>0)";
 			this.btnContoCredito.Text = "Conto";
-			// 
-			// btnScrittureCollegate
-			// 
-			this.btnScrittureCollegate.Location = new System.Drawing.Point(634, 467);
-			this.btnScrittureCollegate.Name = "btnScrittureCollegate";
-			this.btnScrittureCollegate.Size = new System.Drawing.Size(123, 22);
-			this.btnScrittureCollegate.TabIndex = 84;
-			this.btnScrittureCollegate.Text = "Scritture collegate";
-			this.btnScrittureCollegate.Click += new System.EventHandler(this.btnScrittureCollegate_Click);
 			// 
 			// Frm_income_gerarchico
 			// 
@@ -2966,7 +2968,7 @@ namespace income_gerarchico//EntrataGerarchico//
             fasespesamax = CfgFn.GetNoNullInt32(Meta.GetSys("maxexpensephase"));
 
 			if ((fasespesamax==0)||(faseentratamax==0)) {
-				MessageBox.Show("Non è presente la configurazione delle entrate o delle spese");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è presente la configurazione delle entrate o delle spese");
 				MustClose=true;
 				return;
 			}
@@ -3009,7 +3011,7 @@ namespace income_gerarchico//EntrataGerarchico//
 				btnEditClass, btnInsertClass, btnDelClass);
 
             if (DS.config.Rows.Count == 0) {
-                MessageBox.Show(this,
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
                                 "Non è stata effettuata la configurazione delle entrate o ci sono problemi con la connessione al db, è necessario chiudere la maschera.",
                                 "Errore");
                 MustClose = true;
@@ -3212,6 +3214,7 @@ namespace income_gerarchico//EntrataGerarchico//
 		private void txtNumeroFasePrecedente_Leave(object sender, System.EventArgs e) {
 			if (InChiusura) return;
 			if (txtNumeroFasePrecedente.ReadOnly)return;
+			HelpForm.ExtLeaveIntTextBox(txtNumeroFasePrecedente,null);
 			CalcolaStartFilter(null);
 
 			///TODO: Deve effettuare un controllo sull'esistenza del movimento precedente
@@ -3938,7 +3941,7 @@ namespace income_gerarchico//EntrataGerarchico//
                         )
                         ) {
                         if ((getman==DBNull.Value) ||
-                            MessageBox.Show("Cambio il responsabile in base alla voce di bilancio selezionata?",
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show("Cambio il responsabile in base alla voce di bilancio selezionata?",
                             "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) {
                             SetResponsabile(R["idman"]);
                         }
@@ -3973,7 +3976,7 @@ namespace income_gerarchico//EntrataGerarchico//
         void ManageBollettaChange(DataRow Bolletta) {
             if (Meta.IsEmpty) return;
             if (txtDescrizione.Text != "") {
-                if (MessageBox.Show("Aggiorno il campo descrizione in base alla Bolletta selezionata?",
+                if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Aggiorno il campo descrizione in base alla Bolletta selezionata?",
                     "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     txtDescrizione.Text = Bolletta["motive"].ToString();
             }
@@ -3998,7 +4001,7 @@ namespace income_gerarchico//EntrataGerarchico//
                 SetImporto(importo);
                 SubEntity_txtImportoMovimento.Text = importo.ToString("c");
                 if (avvisare) {
-                    MessageBox.Show("L'importo del movimento è stato impostato al valore della bolletta", "Avviso");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("L'importo del movimento è stato impostato al valore della bolletta", "Avviso");
                 }
             }
             //}
@@ -4413,7 +4416,7 @@ namespace income_gerarchico//EntrataGerarchico//
                         QHS.CmpEq("ayear", Meta.GetSys("esercizio"))), null, true);
                 }
                 if (DS.incometotal.Rows.Count == 0) {
-                    MessageBox.Show(
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(
                         "Attenzione, c'è un problema nei totalizzatori di entrata, contattare il servizio assistenza ("+ identrata+")",
                         "Errore");
                     Meta.LogError("problema nei totalizzatori di entrata");
@@ -4705,7 +4708,7 @@ namespace income_gerarchico//EntrataGerarchico//
 			DataRow DREntrata = DS.Tables["income"].Rows[0];
 
 			if (DS.incometotal.Rows.Count==0) {
-				MessageBox.Show("Importo entrata  was empty");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Importo entrata  was empty");
 				return;
 			}
 			DataRow DRImportoEntrata = DS.Tables["incometotal"].Rows[0];
@@ -4875,7 +4878,7 @@ namespace income_gerarchico//EntrataGerarchico//
 
 		    if (TreeTable == null) {
                 Meta.ErroreIrrecuperabile = true;
-		        MessageBox.Show("Errore nell'accedere alla informazioni sulla gerarchia, è necessario chiudere la maschera.", "Errore");
+		        MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nell'accedere alla informazioni sulla gerarchia, è necessario chiudere la maschera.", "Errore");
                 MovTree.Enabled = false;
                 MovTree.Nodes.Clear();
 		        return;
@@ -5730,7 +5733,7 @@ namespace income_gerarchico//EntrataGerarchico//
 
 					int NEXP=Meta.Conn.RUN_SELECT_COUNT("incomeview",filterprec,false);
 					if (NEXP==0){
-						MessageBox.Show("Non è stato trovato un movimento di entrata a cui agganciare questo incasso,"+
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stato trovato un movimento di entrata a cui agganciare questo incasso,"+
 							" ai fini di una corretta associazione contratto attivo - fattura.");
 						break;
 					}
@@ -5738,7 +5741,7 @@ namespace income_gerarchico//EntrataGerarchico//
 					DataRow MyDR2 = null;
 			
 					while (MyDR2==null) {
-						if (NEXP>1) MessageBox.Show("E' ora necessario scegliere il mov. di entrata a cui agganciare questo incasso,"+
+						if (NEXP>1) MetaFactory.factory.getSingleton<IMessageShower>().Show("E' ora necessario scegliere il mov. di entrata a cui agganciare questo incasso,"+
 										" ai fini di una corretta associazione contratto attivo - fattura.");
 						MyDR2 =	MFase.SelectOne("elencofaseprec",filterprec,null,null);					
 					}
@@ -6076,7 +6079,7 @@ namespace income_gerarchico//EntrataGerarchico//
 
 			if (MetaData.Empty(this)) return;
 			if (IvaLinked==null){
-				MessageBox.Show("E' necessario selezionare prima la fattura");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima la fattura");
 				return;
 			}
 			MetaData.GetFormData(this,true);
@@ -6090,7 +6093,7 @@ namespace income_gerarchico//EntrataGerarchico//
 				tablename="invoicedetail_iva";
 			}
             if (tablename == "") {
-                MessageBox.Show("E' necessario selezionare prima una causale", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima una causale", "Avviso");
                 return;
             }
             string command = "choose."+tablename+".listaentrata." + MyFilter;
@@ -6108,7 +6111,7 @@ namespace income_gerarchico//EntrataGerarchico//
 			
 			if (Meta.IsEmpty) return;
 			if (IvaLinked==null){
-				MessageBox.Show("E' necessario selezionare prima la fattura");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima la fattura");
 				return;
 			}
 			Meta.GetFormData(true);
@@ -6122,7 +6125,7 @@ namespace income_gerarchico//EntrataGerarchico//
                 Meta.MarkTableAsNotEntityChild(DS.invoicedetail_iva, "incomeinvoicedetail_iva");
 			}
             if (ToLink == null) {
-                MessageBox.Show("E' necessario selezionare prima la causale");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima la causale");
                 return;
             }
             string MyFilter = CalculateFilterForInvoiceDetailLinking(false);
@@ -6143,7 +6146,7 @@ namespace income_gerarchico//EntrataGerarchico//
 		private void btnScollegaDettInvoice_Click(object sender, System.EventArgs e) {
 			if (Meta.IsEmpty) return;
 			if (IvaLinked==null){
-				MessageBox.Show("E' necessario selezionare prima la fattura");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima la fattura");
 				return;
 			}
 			Meta.GetFormData(true);
@@ -6259,7 +6262,7 @@ namespace income_gerarchico//EntrataGerarchico//
 			}
 			CalcolaImportoInBaseADettagliFattura();
             if ((DS.invoicedetail_iva.Rows.Count == 0) && (DS.invoicedetail_taxable.Rows.Count == 0)){
-                MessageBox.Show("Non sono stati trovati dettagli coerenti con UPB e Causale selezionati.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non sono stati trovati dettagli coerenti con UPB e Causale selezionati.");
                 return;
             }
 
@@ -6431,7 +6434,7 @@ namespace income_gerarchico//EntrataGerarchico//
 			}*/
 
 			if ((currphase>1)&& (importo> DisponibileDaFasePrecedente)) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione di importo inferiore poiché la "+
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Sarà effettuata una contabilizzazione di importo inferiore poiché la "+
 					"disponibilità del movimento selezionato è inferiore a "+importo.ToString());
 				importo=DisponibileDaFasePrecedente;				
 			}
@@ -6925,7 +6928,7 @@ namespace income_gerarchico//EntrataGerarchico//
 
 			if (MetaData.Empty(this)) return;
 			if (EstimateLinked==null){
-				MessageBox.Show("E' necessario selezionare prima il contratto attivo");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima il contratto attivo");
 				return;
 			}
 			MetaData.GetFormData(this,true);
@@ -6939,7 +6942,7 @@ namespace income_gerarchico//EntrataGerarchico//
 				tablename="estimatedetail_iva";
 			}
             if (tablename == "") {
-                MessageBox.Show("E' necessario selezionare prima una causale", "Avviso");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima una causale", "Avviso");
                 return;
             }
             string command = "choose."+tablename+".listaentrata." + MyFilter;
@@ -6957,7 +6960,7 @@ namespace income_gerarchico//EntrataGerarchico//
 			
 			if (Meta.IsEmpty) return;
 			if (EstimateLinked==null){
-				MessageBox.Show("E' necessario selezionare prima il contratto attivo");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima il contratto attivo");
 				return;
 			}
 			Meta.GetFormData(true);
@@ -6971,7 +6974,7 @@ namespace income_gerarchico//EntrataGerarchico//
                 Meta.MarkTableAsNotEntityChild(DS.estimatedetail_iva, "incomeestimatedetail_iva");
 			}
             if (ToLink == null) {
-                MessageBox.Show("E' necessario selezionare prima la causale");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima la causale");
                 return;
             }
             string MyFilter = CalculateFilterForEstimateDetailLinking(false);
@@ -6992,7 +6995,7 @@ namespace income_gerarchico//EntrataGerarchico//
 		private void btnScollegaDettContratto_Click(object sender, System.EventArgs e) {
 			if (Meta.IsEmpty) return;
 			if (EstimateLinked==null){
-				MessageBox.Show("E' necessario selezionare prima il contratto attivo");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima il contratto attivo");
 				return;
 			}
 			Meta.GetFormData(true);
@@ -7245,7 +7248,7 @@ namespace income_gerarchico//EntrataGerarchico//
 			}*/
 
 			if ((currphase>1)&& (importo> DisponibileDaFasePrecedente)) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione di importo inferiore poiché la "+
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Sarà effettuata una contabilizzazione di importo inferiore poiché la "+
 					"disponibilità del movimento selezionato è inferiore a "+importo.ToString());
 				importo=DisponibileDaFasePrecedente;				
 			}

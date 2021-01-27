@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -20,6 +22,7 @@ using funzioni_configurazione;//funzioni_configurazione
 using System.Globalization;
 using System.Collections;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace calcolocedolino { //calcolocedolino//
@@ -43,10 +46,7 @@ namespace calcolocedolino { //calcolocedolino//
 
         int esercizio;
 
-        // imponibile minimo e massimo ai fini dell'applicazione del bonus finscale
-        decimal minAnnualTaxable = 24600; // task 11853
-
-        decimal maxAnnualTaxable = 26600;
+      
 
         /// <summary>
         /// Costruttore di base
@@ -171,8 +171,10 @@ namespace calcolocedolino { //calcolocedolino//
             public object idFiscalTaxRegion;
             public decimal irpefGross;
             public decimal earnings_based_abatements;
+            public decimal earnings_based_abatements2020;
             public decimal totabatements;
             public decimal fiscalBonusApplied;
+            public decimal fiscalBonusApplied2020;
         }
 
         /// <summary>
@@ -245,12 +247,13 @@ namespace calcolocedolino { //calcolocedolino//
                 sommaContributiDovuti(Conn, idContratto, idDbDepartment, out Cud.contributiTrattenuti);
             Cud.irpefApplicata = sommaRitenutaFiscaleApplicata(Conn, idContratto, idDbDepartment, null);
             Cud.totabatements = sommaDetrazioniApplicateinConguaglio(Conn, idContratto, idDbDepartment,
-                out Cud.earnings_based_abatements, out Cud.irpefGross);
+                out Cud.earnings_based_abatements,  out Cud.earnings_based_abatements2020,out Cud.irpefGross);
             Cud.addRegApplicata = sommaRitenutaFiscaleApplicata(Conn, idContratto, idDbDepartment, "R");
             //addComApplicata    = sommaAddizionaleComunaleApplicata(Conn, idContratto);
             Cud.accontoAddComunale = sommaAccontoAddizionaleComunale(Conn, idContratto, idDbDepartment);
             Cud.addComApplicata = sommaRitenutaFiscaleApplicata(Conn, idContratto, idDbDepartment, "C");
-            Cud.fiscalBonusApplied = sommaBonusFiscaleApplicato(Conn, idContratto, idDbDepartment);
+            Cud.fiscalBonusApplied = sommaBonusFiscaleApplicato(Conn, idContratto, idDbDepartment,"14_BONUS_FISCALE","fiscalbonusapplied");
+            Cud.fiscalBonusApplied2020 = sommaBonusFiscaleApplicato(Conn, idContratto, idDbDepartment,"20_BONUS_FISCALE","fiscalbonusapplied2020");
 
             DateTime gen01 = new DateTime(esercizio, 1, 1);
             DateTime dec31 = new DateTime(esercizio, 12, 31);
@@ -438,10 +441,15 @@ namespace calcolocedolino { //calcolocedolino//
             // per avere il risultato della ritenuta fiscale applicata.
             // Si lavora con il solo cedolino di conguaglio che ha dentro di se sia il dato relativo ai CUD associati
             // al contratto corrente sia il dato del contratto corrente
+               object[] BonusArray = new object[2];
+               BonusArray[0] ="14_BONUS_FISCALE";
+              BonusArray[1] ="20_BONUS_FISCALE";
+    
+
             foreach (DataRow rCedolino in rCedolini) {
                 string tipoAppGeo = QHS.CmpEq("geoappliance", tipoApplicazioneGeografica);
                 string filtro = QHS.AppAnd(tipoAppGeo, QHS.CmpEq("idpayroll", rCedolino["idpayroll"]),
-                    QHS.CmpEq("taxkind", 1), QHS.Not(QHS.CmpEq("taxref", "14_BONUS_FISCALE")));
+                    QHS.CmpEq("taxkind", 1), QHS.Not(QHS.FieldIn("taxref", BonusArray)));
                 string query = "SELECT employtax,admintax,annualpayedemploytax FROM " + idDbDepartment +
                                ".payrolltaxview" +
                                " WHERE " + filtro;
@@ -481,7 +489,16 @@ namespace calcolocedolino { //calcolocedolino//
             return ritenutaFiscale;
         }
 
-        private static decimal sommaBonusFiscaleApplicato(DataAccess Conn, object idContratto, object idDbDepartment) {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Conn"></param>
+        /// <param name="idContratto"></param>
+        /// <param name="idDbDepartment"></param>
+        /// <param name="taxRefRitenuta">14_BONUS_FISCALE o 20_BONUS_FISCALE</param>
+        /// <param name="campoCud">fiscalbonusapplied o fiscalbonusapplied2020</param>
+        /// <returns></returns>
+        private static decimal sommaBonusFiscaleApplicato(DataAccess Conn, object idContratto, object idDbDepartment,string taxRefRitenuta,string campoCud) {
             decimal bonusFiscale = 0;
             // Cedolino di conguaglio del contratto corrente
             DataRow[] rCedolini = ottieniCedoliniErogatiPerContratto(Conn, idContratto, idDbDepartment, true);
@@ -496,12 +513,12 @@ namespace calcolocedolino { //calcolocedolino//
             foreach (DataRow rCedolino in rCedolini) {
                 string tipoAppGeo = QHS.IsNull("geoappliance"); //ritenuta fiscale non ad applicazione geografica
                 string filtro = QHS.AppAnd(tipoAppGeo, QHS.CmpEq("idpayroll", rCedolino["idpayroll"]),
-                    QHS.CmpEq("taxkind", 1), QHS.CmpEq("taxref", "14_BONUS_FISCALE"));
+                    QHS.CmpEq("taxkind", 1), QHS.CmpEq("taxref", taxRefRitenuta));
                 string query1 = "SELECT annualcreditapplied, employtax FROM " + idDbDepartment + ".payrolltaxview" +
                                 " WHERE " + filtro;
                 DataTable tCedRit = Conn.SQLRunner(query1, true, 0);
                 if ((tCedRit == null) || (tCedRit.Rows.Count == 0)) {
-                    bonusFiscale += calcolaTotaleRicorsivoCud(Conn, idContratto, idDbDepartment, "fiscalbonusapplied",
+                    bonusFiscale += calcolaTotaleRicorsivoCud(Conn, idContratto, idDbDepartment, campoCud,
                         null, false);
                 }
                 else {
@@ -516,26 +533,27 @@ namespace calcolocedolino { //calcolocedolino//
         }
 
         private static decimal sommaDetrazioniApplicateinConguaglio(DataAccess Conn, object idContratto,
-            object idDbDepartment, out decimal earnings_based_abatements, out decimal employtaxgross) {
+            object idDbDepartment, out decimal earnings_based_abatements, out decimal earnings_based_abatements2020, out decimal employtaxgross) {
             // Cedolino di conguaglio del contratto corrente
             DataRow[] rCedolini = ottieniCedoliniErogatiPerContratto(Conn, idContratto, idDbDepartment, true);
             earnings_based_abatements = 0;
+            earnings_based_abatements2020 = 0;
             employtaxgross = 0;
             if (rCedolini.Length == 0) {
                 return 0;
             }
             QueryHelper QHS = Conn.GetQueryHelper();
             decimal detrazioniApplicate = 0;
-            object idabatement = Conn.DO_READ_VALUE("abatement", QHS.CmpEq("description", "Detrazioni per reddito"),
-                "idabatement");
+            object idabatement = Conn.DO_READ_VALUE("abatement", QHS.CmpEq("description", "Detrazioni per reddito"), "idabatement");
 
             // Si sommano le detrazioni fiscali, e in particolare il dettaglio delle detrazioni per reddito 
             // Si lavora con il solo cedolino di conguaglio che ha dentro di se sia il dato relativo ai CUD associati
             // al contratto corrente sia il dato del contratto corrente
             foreach (DataRow rCedolino in rCedolini) {
                 string tipoAppGeo = QHS.IsNull("geoappliance"); //ritenuta fiscale non ad applicazione geografica
+                
                 string filtro = QHS.AppAnd(tipoAppGeo, QHS.CmpEq("idpayroll", rCedolino["idpayroll"]),
-                    QHS.CmpEq("taxkind", 1), QHS.Not(QHS.CmpEq("taxref", "14_BONUS_FISCALE")));
+                    QHS.CmpEq("taxkind", 1), QHS.Not(QHS.FieldIn("taxref", new []{"14_BONUS_FISCALE","20_BONUS_FISCALE"})));
                 string query = "SELECT employtaxgross, taxcode FROM " + idDbDepartment + ".payrolltaxview" +
                                " WHERE " + filtro;
                 DataTable tCedRit = Conn.SQLRunner(query, true, 0);
@@ -558,6 +576,38 @@ namespace calcolocedolino { //calcolocedolino//
                             earnings_based_abatements += CfgFn.GetNoNullDecimal(d["curramount"]);
                     }
                 }
+
+            }
+
+            // Si sommano le detrazioni fiscali, e in particolare il dettaglio delle detrazioni per reddito 
+            // Si lavora con il solo cedolino di conguaglio che ha dentro di se sia il dato relativo ai CUD associati
+            // al contratto corrente sia il dato del contratto corrente
+            foreach (DataRow rCedolino in rCedolini) {
+	            string tipoAppGeo = QHS.IsNull("geoappliance"); //ritenuta fiscale non ad applicazione geografica
+	            string filtro = QHS.AppAnd(tipoAppGeo, QHS.CmpEq("idpayroll", rCedolino["idpayroll"]),
+		            QHS.CmpEq("taxkind", 1), QHS.Not(QHS.CmpEq("taxref", "20_BONUS_FISCALE")));
+	            string query = "SELECT employtaxgross, taxcode FROM " + idDbDepartment + ".payrolltaxview" +
+	                           " WHERE " + filtro;
+	            DataTable tCedRit = Conn.SQLRunner(query, true, 0);
+	            if ((tCedRit == null) || (tCedRit.Rows.Count == 0)) continue;
+
+	            foreach (DataRow rCedRit in tCedRit.Rows) {
+		            string filterDetrCed = QHS.AppAnd(QHS.CmpEq("idpayroll", rCedolino["idpayroll"]),
+			            QHS.CmpEq("taxcode", rCedRit["taxcode"])
+		            );
+		            string query1 = "SELECT * FROM " + idDbDepartment + ".payrollabatement" +
+		                            " WHERE " + filterDetrCed;
+
+		            employtaxgross = CfgFn.GetNoNullDecimal(rCedRit["employtaxgross"]);
+
+		            DataTable rDetrCed = Conn.SQLRunner(query1, true, 0);
+
+		            foreach (DataRow d in rDetrCed.Rows) {
+			            detrazioniApplicate += CfgFn.GetNoNullDecimal(d["curramount"]);
+			            if (CfgFn.GetNoNullInt32(idabatement) == CfgFn.GetNoNullInt32(d["idabatement"]))
+				            earnings_based_abatements2020 += CfgFn.GetNoNullDecimal(d["curramount"]);
+		            }
+	            }
 
             }
 
@@ -740,7 +790,7 @@ namespace calcolocedolino { //calcolocedolino//
                         imponibileDiRiferimento
                     );
             }
-            MessageBox.Show("Errore interno - non trovata la spcalcoloimponibileriferimento " +
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore interno - non trovata la spcalcoloimponibileriferimento " +
                             spcalcoloimponibileriferimento);
             return -1;
         }
@@ -986,7 +1036,7 @@ namespace calcolocedolino { //calcolocedolino//
             return compensoLordo;
         }
 
-        public decimal calcola_bonus_erogato_annuo(object idContratto, int annoFiscale, DateTime dataInizioCedolino) {
+        public decimal calcola_bonus_erogato_annuo(object idContratto, int annoFiscale, DateTime dataInizioCedolino,string taxref) {
             decimal bonus_erogato_annuo = 0;
             string payrollList = QueryCreator.ColumnValues(DS.payroll,
                 QHC.AppAnd(QHC.CmpEq("idcon", idContratto), QHC.CmpEq("flagbalance", "N"),
@@ -995,7 +1045,7 @@ namespace calcolocedolino { //calcolocedolino//
 
             if (payrollList != "") {
                 string filterCedolini = QHC.AppAnd(QHC.FieldInList("idpayroll", payrollList),
-                    QHC.FieldIn("taxcode", DS.tax.Select(QHC.CmpEq("taxref", "14_BONUS_FISCALE"))));
+                    QHC.FieldIn("taxcode", DS.tax.Select(QHC.CmpEq("taxref", taxref))));
 
                 DataRow[] rCedRit = DS.payrolltax.Select(filterCedolini);
 
@@ -1007,17 +1057,48 @@ namespace calcolocedolino { //calcolocedolino//
             return -bonus_erogato_annuo;
         }
 
-        public decimal calcola_bonus_teorico_annuo(
-            decimal redditoAnnuoComplessivo
+
+        // imponibile minimo e massimo ai fini dell'applicazione del bonus finscale
+        decimal minAnnualTaxable = 24600; // task 11853
+        decimal maxAnnualTaxable = 26600;
+
+        public decimal calcola_bonus_teorico_annuo_2020(
+	        decimal redditoAnnuoComplessivo, int anno
         ) {
+
+
+
+	        decimal maxAnnuoConsiderato = 100 * 12;
+	        if (anno < 2020) maxAnnuoConsiderato = 0;
+	        //if (anno == 2020) maxAnnuoConsiderato = 6 * 100;
+	        if (anno > 2021) maxAnnuoConsiderato = 0;
+
+	        
+	        return maxAnnuoConsiderato;
+        }
+
+
+        public decimal calcola_bonus_teorico_annuo(
+            decimal redditoAnnuoComplessivo, int anno
+        ) {
+
+
+
+	        decimal maxAnnuoConsiderato = 80 * 12;
+	        //if (anno == 2020) maxAnnuoConsiderato = 6 * 80;
+	        if (anno == 2021) maxAnnuoConsiderato = 0;
 
             decimal bonus_teorico_annuo = 0;
             if (redditoAnnuoComplessivo > maxAnnualTaxable) {
                 bonus_teorico_annuo = 0;
             }
             else {
-                if (redditoAnnuoComplessivo <= minAnnualTaxable) bonus_teorico_annuo = 960;
-                else bonus_teorico_annuo = 960 * (maxAnnualTaxable - redditoAnnuoComplessivo) / 2000;
+	            if (redditoAnnuoComplessivo <= minAnnualTaxable) {
+		            bonus_teorico_annuo = maxAnnuoConsiderato;
+	            }
+	            else {
+		            bonus_teorico_annuo = maxAnnuoConsiderato * (maxAnnualTaxable - redditoAnnuoComplessivo) / 2000;// perchË divide per 2000????
+	            }
             }
             return bonus_teorico_annuo;
         }
@@ -1061,6 +1142,8 @@ namespace calcolocedolino { //calcolocedolino//
 
         }
 
+      
+
         public decimal calcola_imponibile_bonus_fiscale_2014(
             object idCedolino, string natura, object idContratto, int annoFiscale
         ) {
@@ -1088,69 +1171,71 @@ namespace calcolocedolino { //calcolocedolino//
         }
 
         public decimal calcola_deduzioni_per_ritenute_bonus_fiscale(
-            object idCedolino, string natura, object idContratto, int annoFiscale
+	        object idCedolino, string natura, object idContratto, int annoFiscale
         ) {
 
-            decimal deduzione_annua_per_ritenute = 0;
-            // Dall'imponibile di riferimento devo sottrarre le ritenute assistenziali e previdenziali carico lavoratore del presente contratto,
-            // Non Ë possibile fare un calcolo delle ritenute globale a livello di contratto, perciÚ effettueremo una perequazione sul cedolino rata
-            // natura vale C (cedolino Conguaglio), R (cedolino Rata)
-            if (natura == "R") // Cedolino Rata
-            {
-                // Si considerano per il presente  cedolino rata la somma delle ritenute previdenziali ed assicurative
-                // (INPS e INAIL) che saranno delle deduzioni per l'imponibile di riferimento del Bonus
-                string filterPayrollList = QHC.CmpEq("idpayroll", idCedolino);
+	        decimal deduzione_annua_per_ritenute = 0;
+	        // Dall'imponibile di riferimento devo sottrarre le ritenute assistenziali e previdenziali carico lavoratore del presente contratto,
+	        // Non Ë possibile fare un calcolo delle ritenute globale a livello di contratto, perciÚ effettueremo una perequazione sul cedolino rata
+	        // natura vale C (cedolino Conguaglio), R (cedolino Rata)
+	        if (natura == "R") { // Cedolino Rata: somma delle ritenute previdenziali * numero giorni cedolino / totale giorni contratto
 
-                string filterRitenute = QHC.AppAnd(filterPayrollList,
-                    QHC.FieldIn("taxcode", DS.tax.Select(QHC.FieldIn("taxkind", new object[] {3, 4}))));
+		        // Si considerano per il presente  cedolino rata la somma delle ritenute previdenziali ed assicurative
+		        // (INPS e INAIL) che saranno delle deduzioni per l'imponibile di riferimento del Bonus
+		        string filterPayrollList = QHC.CmpEq("idpayroll", idCedolino);
 
-                DataRow[] rCedRit = DS.payrolltax.Select(filterRitenute);
-                decimal sommaRitPrevidenziali = 0;
-                foreach (DataRow r in rCedRit) {
-                    sommaRitPrevidenziali += CfgFn.GetNoNullDecimal(r["employtax"]);
-                }
-                // Importo Ritenute Previdenziali / Assicurative calcolate nel presente cedolino
-                decimal importoRitenute = CfgFn.GetNoNullDecimal(sommaRitPrevidenziali);
-                // numero Giorni lavorati nel cedolino
-                DataRow[] rCedolino = DS.payroll.Select(filterPayrollList);
-                int giorniCedolino = 0;
-                if (rCedolino.Length > 0)
-                    giorniCedolino = CfgFn.GetNoNullInt32(rCedolino[0]["workingdays"]);
+		        string filterRitenute = QHC.AppAnd(filterPayrollList,
+			        QHC.FieldIn("taxcode", DS.tax.Select(QHC.FieldIn("taxkind", new object[] {3, 4}))));
 
-                // numero giorni lavorati nel contratto, leggo ndays di parasubcontractyear
-                string filterContratto = QHC.AppAnd(QHC.CmpEq("idcon", idContratto),
-                    QHC.CmpEq("ayear", annoFiscale));
+		        DataRow[] rCedRit = DS.payrolltax.Select(filterRitenute);
+		        decimal sommaRitPrevidenziali = 0;
+		        foreach (DataRow r in rCedRit) {
+			        sommaRitPrevidenziali += CfgFn.GetNoNullDecimal(r["employtax"]);
+		        }
 
-                // Si ottiene la riga di imputazione per determinare il totale giorni lavorati nell'anno  
-                DataRow[] imputazioneAnnuale = DS.parasubcontractyear.Select(filterContratto);
-                int giorniContratto = 0;
-                if (imputazioneAnnuale.Length > 0)
-                    giorniContratto = CfgFn.GetNoNullInt32(imputazioneAnnuale[0]["ndays"]);
+		        // Importo Ritenute Previdenziali / Assicurative calcolate nel presente cedolino
+		        decimal importoRitenute = CfgFn.GetNoNullDecimal(sommaRitPrevidenziali);
+		        // numero Giorni lavorati nel cedolino
+		        DataRow[] rCedolino = DS.payroll.Select(filterPayrollList);
+		        int giorniCedolino = 0;
+		        if (rCedolino.Length > 0)
+			        giorniCedolino = CfgFn.GetNoNullInt32(rCedolino[0]["workingdays"]);
 
-                // Si effettua la perequazione sulla base di 
-                // deduzione_annua_per_ritenute : giorniContratto =  importoRitenute : giorniCedolino
-                deduzione_annua_per_ritenute = CfgFn.RoundValuta((importoRitenute * giorniContratto) / giorniCedolino);
-            }
-            else {
-                //natura == "C" // Cedolino di Conguaglio
-                decimal sommaRitPrevidenziali = 0;
-                string payrollList = QueryCreator.ColumnValues(DS.payroll,
-                    QHC.AppAnd(QHC.CmpEq("fiscalyear", annoFiscale), QHC.CmpEq("idcon", idContratto),
-                        QHC.CmpEq("flagbalance", "N")), "idpayroll", false);
-                if (payrollList != "") {
-                    string filterCedolini = QHC.AppAnd(QHC.FieldInList("idpayroll", payrollList),
-                        QHC.FieldIn("taxcode", DS.tax.Select(QHC.FieldIn("taxkind", new object[] {3, 4}))));
+		        // numero giorni lavorati nel contratto, leggo ndays di parasubcontractyear
+		        string filterContratto = QHC.AppAnd(QHC.CmpEq("idcon", idContratto),
+			        QHC.CmpEq("ayear", annoFiscale));
 
-                    DataRow[] rCedRit = DS.payrolltax.Select(filterCedolini);
+		        // Si ottiene la riga di imputazione per determinare il totale giorni lavorati nell'anno  
+		        DataRow[] imputazioneAnnuale = DS.parasubcontractyear.Select(filterContratto);
+		        int giorniContratto = 0;
+		        if (imputazioneAnnuale.Length > 0)
+			        giorniContratto = CfgFn.GetNoNullInt32(imputazioneAnnuale[0]["ndays"]);
 
-                    foreach (DataRow r in rCedRit) {
-                        sommaRitPrevidenziali += CfgFn.GetNoNullDecimal(r["employtax"]);
-                    }
+		        // Si effettua la perequazione sulla base di 
+		        // deduzione_annua_per_ritenute : giorniContratto =  importoRitenute : giorniCedolino
+		        deduzione_annua_per_ritenute = CfgFn.RoundValuta((importoRitenute * giorniContratto) / giorniCedolino);
+	        }
+	        else {
+		        //natura == "C" // Cedolino di Conguaglio
+		        decimal sommaRitPrevidenziali = 0;
+		        string payrollList = QueryCreator.ColumnValues(DS.payroll,
+			        QHC.AppAnd(QHC.CmpEq("fiscalyear", annoFiscale), QHC.CmpEq("idcon", idContratto),
+				        QHC.CmpEq("flagbalance", "N")), "idpayroll", false);
+		        if (payrollList != "") {
+			        string filterCedolini = QHC.AppAnd(QHC.FieldInList("idpayroll", payrollList),
+				        QHC.FieldIn("taxcode", DS.tax.Select(QHC.FieldIn("taxkind", new object[] {3, 4}))));
 
-                    deduzione_annua_per_ritenute = sommaRitPrevidenziali;
-                }
-            }
-            return deduzione_annua_per_ritenute;
+			        DataRow[] rCedRit = DS.payrolltax.Select(filterCedolini);
+
+			        foreach (DataRow r in rCedRit) {
+				        sommaRitPrevidenziali += CfgFn.GetNoNullDecimal(r["employtax"]);
+			        }
+
+			        deduzione_annua_per_ritenute = sommaRitPrevidenziali;
+		        }
+	        }
+
+	        return deduzione_annua_per_ritenute;
         }
 
 
@@ -1435,7 +1520,7 @@ namespace calcolocedolino { //calcolocedolino//
                 else {
                     imponibileCud = (decimal) r["taxablepension"];
                     //La logica di exhibitedcuddeduction Ë cambiata, ossia li troviamo il LORDO e non il netto
-                    MessageBox.Show("E' necessario specificare l'imponibile fiscale lordo per tutti i CUD presentati",
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario specificare l'imponibile fiscale lordo per tutti i CUD presentati",
                         "Errore");
                     //foreach(DataRow rDed in r.GetChildRows("exhibitedcudexhibitedcuddeduction")) {
                     //    DataRow deduzione = DS.deduction.Select(QHC.CmpEq("iddeduction",rDed["iddeduction"]))[0];
@@ -1523,7 +1608,7 @@ namespace calcolocedolino { //calcolocedolino//
 
 
 
-            int ggLavorati = contaGiorniLavorati(tData, annoFiscale);
+            int ggLavorati = contaGiorniLavoratiBonus(tData, annoFiscale,start,stop);
             return ggLavorati;
         }
 
@@ -1540,17 +1625,26 @@ namespace calcolocedolino { //calcolocedolino//
                 if (r["flagignoreprevcud"].ToString().ToUpper() == "S") {
                     impostaLorda = CfgFn.GetNoNullDecimal(r["irpefgross"]);
                     detrazioniReddito = CfgFn.GetNoNullDecimal(r["earnings_based_abatements"]);
+                    detrazioniReddito += CfgFn.GetNoNullDecimal(r["earnings_based_abatements2020"]);
                 }
                 else {
                     impostaLorda += CfgFn.GetNoNullDecimal(r["irpefgross"]);
                     detrazioniReddito += CfgFn.GetNoNullDecimal(r["earnings_based_abatements"]);
+                    detrazioniReddito += CfgFn.GetNoNullDecimal(r["earnings_based_abatements2020"]);
                 }
             }
             return impostaLorda - detrazioniReddito;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="annoFiscale"></param>
+        /// <param name="idContratto"></param>
+        /// <param name="fieldCud">fiscalbonusapplied o fiscalbonusapplied2020</param>
+        /// <returns></returns>
         private decimal somma_bonus_erogati_cud(int annoFiscale,
-            object idContratto) {
+            object idContratto,string fieldCud) {
             string query = QHC.AppAnd(QHC.CmpEq("fiscalyear", annoFiscale), QHC.CmpEq("idcon", idContratto));
             DataRow[] rCud = DS.exhibitedcud.Select(query, "idexhibitedcud");
             // Per ogni CUD associato al contratto si considera la differenza tra Imposta Lorda e le sole Detrazioni per Reddito.
@@ -1559,10 +1653,10 @@ namespace calcolocedolino { //calcolocedolino//
 
             foreach (DataRow r in rCud) {
                 if (r["flagignoreprevcud"].ToString().ToUpper() == "S") {
-                    bonusErogati = CfgFn.GetNoNullDecimal(r["fiscalbonusapplied"]);
+                    bonusErogati = CfgFn.GetNoNullDecimal(r[fieldCud]);
                 }
                 else {
-                    bonusErogati += CfgFn.GetNoNullDecimal(r["fiscalbonusapplied"]);
+                    bonusErogati += CfgFn.GetNoNullDecimal(r[fieldCud]);
 
                 }
             }
@@ -1606,6 +1700,42 @@ namespace calcolocedolino { //calcolocedolino//
                 gglavorati = giorniAnnoSolare;
             }
             return gglavorati;
+        }
+
+        private int contaGiorniLavoratiBonus(DataTable tData, int annoFiscale, DateTime minData, DateTime maxData) {
+	        if ((tData == null) || (tData.Rows.Count == 0)) return 0;
+	     
+
+	        int giorniAnnoFiscale = 1 + (maxData - minData).Days;
+	        // Si definisce un bitarray della dimensione della differenza tra la minima data di inizio e la massima data di fine
+	        BitArray lav = new BitArray(giorniAnnoFiscale);
+
+	        // Per ogni riga di tData si cicla sul periodo e si accende il bit corrispondente
+	        foreach (DataRow r in tData.Rows) {
+		        if (r["start"] == DBNull.Value) continue;
+		        if (r["stop"] == DBNull.Value) continue;
+		        DateTime dataInizio = (DateTime) r["start"];
+		        if (dataInizio.CompareTo(minData) < 0) dataInizio=minData;
+		        DateTime dataFine = (DateTime) r["stop"];
+		        if (dataFine.CompareTo(maxData) > 0) dataFine = maxData;
+		        for (DateTime d = dataInizio; d <= dataFine; d = d.AddDays(1)) {
+			        lav[(d - minData).Days] = true;
+		        }
+	        }
+
+	        int gglavorati = 0;
+	        // Per contare i giorni lavorati baster‡ contare i bit accesi nell'array
+	        foreach (bool b in lav) {
+		        if (b) {
+			        gglavorati++;
+		        }
+	        }
+	        int giorniAnnoSolare = DateTime.IsLeapYear(annoFiscale) ? 366 : 365;
+	        // Calcolo del numero di giorni dell'anno (se si superano i giorni dell'anno si pone il numero pari ad esso)
+	        if (gglavorati > giorniAnnoSolare) {
+		        gglavorati = giorniAnnoSolare;
+	        }
+	        return gglavorati;
         }
 
         #endregion
@@ -1928,7 +2058,7 @@ namespace calcolocedolino { //calcolocedolino//
                         out deduzioneannua
                     );
             }
-            MessageBox.Show("Errore interno - non trovata la spdeduzione " + spdeduzione);
+            MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore interno - non trovata la spdeduzione " + spdeduzione);
             return -1;
         }
 
@@ -2119,6 +2249,9 @@ namespace calcolocedolino { //calcolocedolino//
             return CfgFn.Round(ritenuteApplicate, 6);
         }
 
+
+
+        /*
         //TODO: Eliminare il parametro applicaagevolazionifiscali
         //TODO: Eliminare o gglavorati o totalegiorni (tanto restituiscono la stessa cosa)
 
@@ -2264,6 +2397,8 @@ namespace calcolocedolino { //calcolocedolino//
             return CfgFn.RoundValuta(importo_deduzione);
         }
 
+
+        */
         /// <summary>
         /// Calcola la deduzione per i familiari a carico (somma delle deduzioni
         /// per il coniuge, i figli e altri familiari)
@@ -2670,21 +2805,26 @@ namespace calcolocedolino { //calcolocedolino//
                             imponibilenetto, idComuneAddRegionale, dataContabile, addizionaleRegionale,
                             idFiscalTaxRegion);
                     }
+
                     default: {
-                        //if (maggioreRitenuta != 0) {
-                        //    return creaRitenutaConAliquotaPrefissata(idCedolino, imponibilenetto, 
-                        //                maggioreRitenuta, codiceRitenuta);
-                        //}
-                        // IRPEF
-                        // Bonus Fiscale
-                        if (taxref == "14_BONUS_FISCALE") {
-                            return calcola_bonus_fiscale_2014(idCedolino, natura, dataInizioCedolino, dataFineCedolino,
-                                idContratto, annoFiscale, imponibilenetto, codiceRitenuta);
-                        }
-                        else {
-                            return conguaglioFiscale(idCedolino, progrCedolino, idContratto,
-                                annoFiscale, codiceRitenuta, imponibilenetto, maggioreRitenuta);
-                        }
+	                    //if (maggioreRitenuta != 0) {
+	                    //    return creaRitenutaConAliquotaPrefissata(idCedolino, imponibilenetto, 
+	                    //                maggioreRitenuta, codiceRitenuta);
+	                    //}
+	                    // IRPEF
+	                    // Bonus Fiscale
+	                    if (taxref == "14_BONUS_FISCALE") {
+		                    return calcola_bonus_fiscale_2014(idCedolino, natura, dataInizioCedolino, dataFineCedolino,
+			                    idContratto, annoFiscale, imponibilenetto, codiceRitenuta);
+	                    }
+
+	                    if (taxref == "20_BONUS_FISCALE") {
+		                    return calcola_bonus_fiscale_2020(idCedolino, natura, dataInizioCedolino, dataFineCedolino,
+			                    idContratto, annoFiscale, imponibilenetto, codiceRitenuta);
+	                    }
+
+	                    return conguaglioFiscale(idCedolino, progrCedolino, idContratto,
+		                    annoFiscale, codiceRitenuta, imponibilenetto, maggioreRitenuta);
                     }
                 }
             }
@@ -2721,6 +2861,10 @@ namespace calcolocedolino { //calcolocedolino//
                                     dataFineCedolino, idContratto, annoFiscale, imponibilenetto, codiceRitenuta);
                             }
                             else {
+	                            if (taxref == "20_BONUS_FISCALE") {
+		                            return calcola_bonus_fiscale_2020(idCedolino, natura, dataInizioCedolino,
+			                            dataFineCedolino, idContratto, annoFiscale, imponibilenetto, codiceRitenuta);
+	                            }
                                 if (maggioreRitenuta != 0) {
                                     decimal imponibileAnnuoNonRapportato =
                                         imponibilenetto / numeratoreAnno * denominatoreAnno;
@@ -3543,10 +3687,18 @@ namespace calcolocedolino { //calcolocedolino//
             return rCedRitenuta;
         }
 
-        private static decimal aggiungiBonusDaCud(DataAccess Conn, object idContratto, object idDbDepartment) {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Conn"></param>
+        /// <param name="idContratto"></param>
+        /// <param name="idDbDepartment"></param>
+        /// <param name="fieldCud">fiscalbonusapplied o fiscalbonusapplied2020</param>
+        /// <returns></returns>
+        private static decimal aggiungiBonusDaCud(DataAccess Conn, object idContratto, object idDbDepartment,string fieldCud) {
 
             decimal bonusApplicato =
-                calcolaTotaleRicorsivoCud(Conn, idContratto, idDbDepartment, "fiscalbonusapplied", null, false);
+                calcolaTotaleRicorsivoCud(Conn, idContratto, idDbDepartment, fieldCud, null, false);
             return bonusApplicato;
         }
 
@@ -4207,7 +4359,7 @@ namespace calcolocedolino { //calcolocedolino//
 
 
             if (nRateCafInCedolino > nRateDaPagare) {
-                MessageBox.Show(
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "Per il cedolino corrente risultano " + nRateCafInCedolino +
                     " rate da pagare, che Ë inferiore al numero totale rate da pagare (" +
                     nRateDaPagare + ") pertanto si assumer‡ che per il cedolino corrente ci sono " + nRateDaPagare +
@@ -4233,7 +4385,7 @@ namespace calcolocedolino { //calcolocedolino//
             }
 
             if (nRatePrimaRataIrpefInCedolino > numeroRatePrimaRataIrpef) {
-                MessageBox.Show(
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "Per il la prima rata irpef cedolino corrente risultano " + nRatePrimaRataIrpefInCedolino +
                     " rate irpef da pagare, che Ë inferiore al numero totale rate da pagare (" +
                     nRateDaPagare + ") pertanto si assumer‡ che per il cedolino corrente ci sono " +
@@ -4251,7 +4403,7 @@ namespace calcolocedolino { //calcolocedolino//
             }
 
             if (nRateSecondaRataIrpefInCedolino > numeroRateSecondaRataIrpef) {
-                MessageBox.Show(
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "Per il la seconda rata irpef cedolino corrente risultano " + nRateSecondaRataIrpefInCedolino +
                     " rate irpef da pagare, che Ë inferiore al numero totale rate da pagare (" +
                     nRateDaPagare + ") pertanto si assumer‡ che per il cedolino corrente ci sono " +
@@ -4471,6 +4623,122 @@ namespace calcolocedolino { //calcolocedolino//
                 idCedolino, scaglioni, codiceRitenuta, 1, 1);
         }
 
+        public DataRow calcola_bonus_fiscale_2020(
+	        object idCedolino,
+	        string natura,
+	        DateTime dataInizioCedolino,
+	        DateTime dataFineCedolino,
+	        object idContratto, int annoFiscale,
+	        decimal imponibileCorrente,
+	        object codiceRitenuta
+        ) {
+	        DateTime inizioApplicazione = new DateTime(2020, 7, 1);
+	        DateTime fineApplicazione = new DateTime(2021, 12, 31);
+			//Bonus 2020
+			if (dataInizioCedolino.CompareTo(inizioApplicazione) < 0) dataInizioCedolino = inizioApplicazione;
+			if (dataFineCedolino.CompareTo(fineApplicazione) > 0) dataFineCedolino = fineApplicazione;
+			if (dataInizioCedolino.CompareTo(dataFineCedolino) > 0) return null;
+
+              // Valutiamo se si Ë deciso di non applicare il Bonus al Contratto nell'anno fiscale in corso
+            DataRow rImputContr = DS.parasubcontractyear.Select(QHC.CmpEq("idcon", idContratto))[0];
+            string applicazioneBonus = rImputContr["flagbonusappliance"].ToString();
+
+            if (applicazioneBonus == "N") return null;
+
+            DataRow rContr = DS.parasubcontract.Select(QHC.CmpEq("idcon", idContratto))[0];
+            object idSer = rContr["idser"];
+            // Condizione applicabilit‡  1): Reddito complessivo annuo al netto delle ritenute previdenziali e assistenziali < maxAnnualTaxable
+            // Al fine del calcolo del Reddito complessivo annuo non consideriamo le deduzioni inerenti la rendita catastale dell'abitazione principale, 
+            // sebbene previsto dal decreto, in quanto in Easy non gestiamo
+            // redditi di natura diversa  dai redditi da lavoro  
+            decimal RedditoComplessivo;
+            //non mi pare che nel calcolo dell'imponibile ci siano differenze col nuovo bonus
+            RedditoComplessivo = calcola_imponibile_bonus_fiscale_2014(idCedolino, natura, idContratto, annoFiscale);
+            // Vado avanti onde gestire eventuali restituzioni di bonus gi‡ erogati, nonostante il requisito di applicabilit‡
+            // del reddito non sia rispettato
+            // if (RedditoComplessivo > maxAnnualTaxable) return null;   
+
+            // Condizione applicabilit‡  2): Ritenuta IRPEF al netto delle sole detrazioni per reddito da lavoro dipendente  > 0
+
+            //questo metodo considera tutte le detrazioni per reddito (sia nuove che vecchie) e mi sembra giusto ai fini della determinazione della capienza
+            bool applicaIrpef = verifica_capienza_bonus_fiscale(idSer, idCedolino, idContratto, natura, annoFiscale);
+            // Vado avanti onde gestire eventuali restituzioni di bonus gi‡ erogati, nonostante il requisito di applicabilit‡
+            // del reddito non sia rispettato
+
+            // if (!applicaIrpef) return null;commento
+
+            decimal bonus_teorico_annuo = calcola_bonus_teorico_annuo_2020(RedditoComplessivo,dataInizioCedolino.Year);
+
+            // Calcolo cedolino di conguaglio dell'anno fiscale corrente
+
+            DataRow[] rCedolinoConguaglio = DS.payroll.Select(QHC.AppAnd(QHC.CmpEq("idcon", rImputContr["idcon"]),
+                QHC.CmpEq("fiscalyear", annoFiscale),
+                QHC.CmpEq("flagbalance", "S")));
+
+            if (rCedolinoConguaglio.Length == 0) return null;
+            // Per la competenza consideriamo inizio e fine del cedolino di conguaglio dell'anno fiscale corrente
+            DateTime datainiziocompetenza = (DateTime) rCedolinoConguaglio[0]["start"];
+            if (datainiziocompetenza.Year == 2020 && datainiziocompetenza.Month < 7)
+	            datainiziocompetenza = inizioApplicazione;
+            DateTime datafinecompetenza = (DateTime) rCedolinoConguaglio[0]["stop"];
+
+            // Stima dei giorni lavorati nell'anno ai fini del calcolo del bonus totale spettante: 
+            // durata in giorni del contratto nell'esercizio corrente + 
+            // giorni lavorati eventuali CUD da rapporti di lavoro precedenti (non solo in fase conguaglio ma sempre)
+            // Per calcolare esattamente i giorni lavorati in qualsiasi cedolino. Per i CUD sovrapposti i giorni in comune 
+            // si conteggiano una sola volta
+            DateTime emptyDate = QueryCreator.EmptyDate();
+
+            int ggLavoratiAnno = calcolaTotGiorniLavoratiBonus(annoFiscale, rImputContr["idcon"], "S", datainiziocompetenza, datafinecompetenza);
+
+            // Si calcolano i giorni di lavoro del presente contratto
+            int totggLavoroContratto = 1 + (datafinecompetenza - datainiziocompetenza).Days;
+            int giorniAnnoSolare = DateTime.IsLeapYear(annoFiscale) ? 366 : 365;
+            if (totggLavoroContratto > giorniAnnoSolare) totggLavoroContratto = giorniAnnoSolare;
+
+            // Si calcolano i giorni lavorati effettivamente solo per il presente contratto fino alla data odierna, ovvero
+            // dalla data inizio contratto fino al giorno precedente l'inizio di questo cedolino, nell'anno Fiscale
+            int ggLavoratiContratto = 0;
+
+            DateTime datafineUltimoCedolinoPrecedente = emptyDate;
+            datafineUltimoCedolinoPrecedente = dataInizioCedolino.AddDays(-1);
+
+            if (datafineUltimoCedolinoPrecedente > datainiziocompetenza)
+                ggLavoratiContratto = 1 + (datafineUltimoCedolinoPrecedente - datainiziocompetenza).Days;
+
+            // Si calcolano i giorni del Cedolino, su di essi andr‡ ripartito il Bonus Residuo
+            int ggCedolino = 0;
+            ggCedolino = 1 + (dataFineCedolino - dataInizioCedolino).Days;
+
+            // Bonus effettivo spettante, proporzionato alla stima dei giorni di lavoro nell'anno sui 365, inclusi eventuali CUD inseriti
+            decimal bonus_effettivo_spettante = calcola_bonus_effettivo_annuo(bonus_teorico_annuo, annoFiscale, ggLavoratiAnno);
+
+            // A questo punto calcoliamo il Bonus da applicare al presente cedolino. Si deve tenere conto dei Bonus gi‡
+            // erogati nel corso dell'anno fiscale, il residuo va ripartito tra i cedolini ancora da erogare.
+            // Nota: a tale scopo il periodo del presente cedolino in elaborazione deve essere computato tra i giorni ancora da lavorare
+
+            // Calcoliamo il Bonus gi‡ erogato nei precedenti cedolini calcolati cosÏ come nei CUD precedenti presentati dal lavoratore
+            decimal bonus_erogati_in_cedolini_2020 = calcola_bonus_erogato_annuo(idContratto, annoFiscale, dataInizioCedolino,"20_BONUS_FISCALE");
+            decimal bonus_erogati_in_cud2020 = somma_bonus_erogati_cud(annoFiscale, idContratto,"fiscalbonusapplied2020"); // credito applicato
+
+            // E il Bonus residuo spettante per differenza
+            decimal bonus_residuo = bonus_effettivo_spettante - bonus_erogati_in_cedolini_2020 - bonus_erogati_in_cud2020;
+
+            if (((!applicaIrpef) || (RedditoComplessivo > maxAnnualTaxable)) && (bonus_residuo > 0)) return null;
+            // Il Bonus Residuo va ripartito in proporzione sui giorni di lavoro che rimangono nel presente contratto fino a fine anno per 
+            // ottenere l'importo da accreditare sul presente cedolino, incluso il periodo di lavoro del cedolino stesso
+            decimal bonus_cedolino = calcola_bonus_spettante_cedolino(bonus_residuo, natura, ggCedolino, totggLavoroContratto, ggLavoratiContratto, annoFiscale);
+
+            if (annoFiscale == 2020 && bonus_cedolino + bonus_erogati_in_cedolini_2020 + bonus_erogati_in_cud2020> 6 * 100) {
+	            bonus_cedolino = 6 * 100 - bonus_erogati_in_cedolini_2020 - bonus_erogati_in_cud2020;
+            }
+	            
+            //if (!(bonus_cedolino==0))
+            creaRitenutaBonusFiscale(idCedolino, bonus_erogati_in_cud2020, bonus_cedolino, codiceRitenuta, natura);
+
+			return null;
+        }
+
         public DataRow calcola_bonus_fiscale_2014(
             object idCedolino,
             string natura,
@@ -4480,6 +4748,15 @@ namespace calcolocedolino { //calcolocedolino//
             decimal imponibileCorrente,
             object codiceRitenuta
         ) {
+            DateTime nuovaApplicazione= new DateTime(2020,7,1);
+            DateTime fineApplicazione= new DateTime(2020,6,30);
+            DateTime ripristinoApplicazione= new DateTime(2022,1,1);
+
+            //Bonus 2014
+            if (dataInizioCedolino.CompareTo(fineApplicazione)>0 && dataInizioCedolino.CompareTo(ripristinoApplicazione) < 0  ) dataInizioCedolino = ripristinoApplicazione;
+            if (dataFineCedolino.CompareTo(fineApplicazione) > 0 && dataFineCedolino.CompareTo(ripristinoApplicazione)<=0) dataFineCedolino = fineApplicazione;
+            if (dataInizioCedolino.CompareTo(dataFineCedolino) > 0) return null;
+
             // Valutiamo se si Ë deciso di non applicare il Bonus al Contratto nell'anno fiscale in corso
             DataRow rImputContr = DS.parasubcontractyear.Select(QHC.CmpEq("idcon", idContratto))[0];
             string applicazioneBonus = rImputContr["flagbonusappliance"].ToString();
@@ -4506,7 +4783,7 @@ namespace calcolocedolino { //calcolocedolino//
 
             // if (!applicaIrpef) return null;commento
 
-            decimal bonus_teorico_annuo = calcola_bonus_teorico_annuo(RedditoComplessivo);
+            decimal bonus_teorico_annuo = calcola_bonus_teorico_annuo(RedditoComplessivo,dataInizioCedolino.Year);
 
             // Calcolo cedolino di conguaglio dell'anno fiscale corrente
 
@@ -4519,6 +4796,10 @@ namespace calcolocedolino { //calcolocedolino//
             DateTime datainiziocompetenza = (DateTime) rCedolinoConguaglio[0]["start"];
             DateTime datafinecompetenza = (DateTime) rCedolinoConguaglio[0]["stop"];
 
+            if (datafinecompetenza.Year == 2020 && datafinecompetenza.Month >= 7)
+	            datafinecompetenza = fineApplicazione;
+
+
             // Stima dei giorni lavorati nell'anno ai fini del calcolo del bonus totale spettante: 
             // durata in giorni del contratto nell'esercizio corrente + 
             // giorni lavorati eventuali CUD da rapporti di lavoro precedenti (non solo in fase conguaglio ma sempre)
@@ -4526,8 +4807,7 @@ namespace calcolocedolino { //calcolocedolino//
             // si conteggiano una sola volta
             DateTime emptyDate = QueryCreator.EmptyDate();
 
-            int ggLavoratiAnno = calcolaTotGiorniLavoratiBonus(annoFiscale, rImputContr["idcon"], "S", 
-                datainiziocompetenza, datafinecompetenza);
+            int ggLavoratiAnno = calcolaTotGiorniLavoratiBonus(annoFiscale, rImputContr["idcon"], "S", datainiziocompetenza, datafinecompetenza);
 
             // Si calcolano i giorni di lavoro del presente contratto
             int totggLavoroContratto = 1 + (datafinecompetenza - datainiziocompetenza).Days;
@@ -4549,16 +4829,16 @@ namespace calcolocedolino { //calcolocedolino//
             ggCedolino = 1 + (dataFineCedolino - dataInizioCedolino).Days;
 
             // Bonus effettivo spettante, proporzionato alla stima dei giorni di lavoro nell'anno sui 365, inclusi eventuali CUD inseriti
-            decimal bonus_effettivo_spettante =
-                calcola_bonus_effettivo_annuo(bonus_teorico_annuo, annoFiscale, ggLavoratiAnno);
+            decimal bonus_effettivo_spettante = calcola_bonus_effettivo_annuo(bonus_teorico_annuo, annoFiscale, ggLavoratiAnno);
+       
+
             // A questo punto calcoliamo il Bonus da applicare al presente cedolino. Si deve tenere conto dei Bonus gi‡
             // erogati nel corso dell'anno fiscale, il residuo va ripartito tra i cedolini ancora da erogare.
             // Nota: a tale scopo il periodo del presente cedolino in elaborazione deve essere computato tra i giorni ancora da lavorare
 
             // Calcoliamo il Bonus gi‡ erogato nei precedenti cedolini calcolati cosÏ come nei CUD precedenti presentati dal lavoratore
-            decimal bonus_erogati_in_cedolini =
-                calcola_bonus_erogato_annuo(idContratto, annoFiscale, dataInizioCedolino);
-            decimal bonus_erogati_in_cud = somma_bonus_erogati_cud(annoFiscale, idContratto); // credito applicato
+            decimal bonus_erogati_in_cedolini = calcola_bonus_erogato_annuo(idContratto, annoFiscale, dataInizioCedolino, "14_BONUS_FISCALE");
+            decimal bonus_erogati_in_cud = somma_bonus_erogati_cud(annoFiscale, idContratto,"fiscalbonusapplied"); // credito applicato
 
             // E il Bonus residuo spettante per differenza
             decimal bonus_residuo = bonus_effettivo_spettante - bonus_erogati_in_cedolini - bonus_erogati_in_cud;
@@ -4566,9 +4846,13 @@ namespace calcolocedolino { //calcolocedolino//
             if (((!applicaIrpef) || (RedditoComplessivo > maxAnnualTaxable)) && (bonus_residuo > 0)) return null;
             // Il Bonus Residuo va ripartito in proporzione sui giorni di lavoro che rimangono nel presente contratto fino a fine anno per 
             // ottenere l'importo da accreditare sul presente cedolino, incluso il periodo di lavoro del cedolino stesso
-            decimal bonus_cedolino = calcola_bonus_spettante_cedolino(bonus_residuo, natura,
-                ggCedolino,
+            decimal bonus_cedolino = calcola_bonus_spettante_cedolino(bonus_residuo, natura,ggCedolino,
                 totggLavoroContratto, ggLavoratiContratto, annoFiscale);
+
+            if (annoFiscale == 2020 && bonus_cedolino + bonus_erogati_in_cedolini + bonus_erogati_in_cud> 6 * 80) {
+	            bonus_cedolino = 6 * 80 - bonus_erogati_in_cedolini - bonus_erogati_in_cud;
+            }
+
             //if (!(bonus_cedolino==0))
             creaRitenutaBonusFiscale(idCedolino, bonus_erogati_in_cud, bonus_cedolino, codiceRitenuta, natura);
 
@@ -4793,8 +5077,13 @@ namespace calcolocedolino { //calcolocedolino//
                             giorniCedolino, dataInizioCedolino, dataFineCedolino,
                             applicazioneDetrazione, out detrazioneAnnua);
                         break;
+                    case "calcola_detrazione_3_2020":
+	                    detrazionecorr = calcola_detrazione_reddito_3_2020(imponibileNetto, idcontratto, natura, annoFiscale,
+		                    giorniCedolino, dataInizioCedolino, dataFineCedolino,
+		                    applicazioneDetrazione, out detrazioneAnnua);
+	                    break;
                     default:
-                        MessageBox.Show("Errore interno - non trovata la spcalcolo " + spcalcolo);
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore interno - non trovata la spcalcolo " + spcalcolo);
                         break;
                 }
                 detrazionecorr = CfgFn.Round(detrazionecorr, 2);
@@ -4982,6 +5271,72 @@ namespace calcolocedolino { //calcolocedolino//
             return totale_onere;
         }
 
+        
+	    private decimal calcola_detrazione_reddito_3_2020(
+            decimal imponibilelordo,
+            object idcontratto,
+            string natura,
+            int annofiscale,
+            int giornicedolino,
+            DateTime dataInizioCedolino,
+            DateTime dataFineCedolino,
+            string applicazioneDetrazione,
+            out decimal detrazioneannua
+        ) {
+
+		    
+
+
+            detrazioneannua = 0;
+
+            // Abbiamo deciso che se le detrazioni per reddito non devono essere applicate, questo vale sia per i cedolini rata sia per il conguaglio
+            if (applicazioneDetrazione == "N") {
+                return 0;
+            }
+
+            DateTime inizioApplicazione = new DateTime(2020, 7, 1);
+            DateTime fineApplicazione = new DateTime(2020, 12, 31);
+            //Bonus 2020
+            if (dataInizioCedolino.CompareTo(inizioApplicazione) < 0) dataInizioCedolino = inizioApplicazione;
+            if (dataFineCedolino.CompareTo(fineApplicazione) > 0) dataFineCedolino = fineApplicazione;
+            if (dataInizioCedolino.CompareTo(dataFineCedolino) > 0) return 0;
+
+            
+            // Si calcolano i giorni lavorati tramite il metodo calcolaGiorniLavorati che agisce in modo differente se siamo
+            // su di un cedolino rata o su di un conguaglio
+            int gglavorati = calcolaGiorniLavorati(idcontratto, dataInizioCedolino, dataFineCedolino, natura);
+
+            decimal quotaCedolinoContratto =
+                calcolaQuotaMesi(dataInizioCedolino, dataFineCedolino, idcontratto, natura);
+
+            // Si proporzione il reddito complessivo facendone una proporzione sulla durata di competenza del contratto
+            // nel caso l'imponibile lordo sia di un cedolino rata (quindi vale per la sua durata)
+            decimal redditoComplessivo = imponibilelordo / quotaCedolinoContratto;
+
+            if (redditoComplessivo <= 28000) return 0;
+
+            decimal max_fascia1 = 35000;
+            decimal max_fascia2 = 40000;
+
+
+            // La detrazione verr‡ calcolata in base alla fascia di reddito come richiede la Legge
+            // Fascia 1:
+            if (redditoComplessivo <= max_fascia1) {
+                detrazioneannua = detrazione_reddito_fascia1_3_2020(redditoComplessivo, gglavorati);
+            }
+
+            // Fascia 2:
+            if (redditoComplessivo > max_fascia1 && redditoComplessivo <= max_fascia2) {
+                detrazioneannua = detrazione_reddito_fascia2_3_2020(redditoComplessivo, gglavorati);
+            }
+
+            // Fascia 3: Nessuna Detrazione
+
+            detrazioneannua = CfgFn.RoundValuta(detrazioneannua);
+            return CfgFn.RoundValuta(detrazioneannua * quotaCedolinoContratto);
+        }
+
+
         /// <summary>
         /// Metodo che calcola la detrazione per reddito
         /// </summary>
@@ -5053,6 +5408,66 @@ namespace calcolocedolino { //calcolocedolino//
             detrazioneannua = CfgFn.RoundValuta(detrazioneannua);
             return CfgFn.RoundValuta(detrazioneannua * quotaCedolinoContratto);
         }
+        
+
+        /// <summary>
+        /// Metodo che calcola la detrazione per reddito sulla fascia 1, rapportata ai giorni di competenza del contratto
+        /// </summary>
+        /// <param name="reddito"></param>
+        /// <param name="numAnno"></param>
+        /// <param name="denAnno"></param>
+        /// <param name="giorniCompetenza"></param>
+        /// <param name="detrazioneannua"></param>
+        /// <returns></returns>
+        private decimal detrazione_reddito_fascia1_3_2020(decimal reddito, int giorniCompetenza) {
+	        
+
+	        // La minima detrazione non Ë 690 ma 1380 perchÈ sono lavoratori a tempo determinato
+
+	        DateTime dec_31 = new DateTime(CfgFn.GetNoNullInt32(Conn.GetSys("esercizio")), 12, 31);
+	        int giorniAnno = dec_31.DayOfYear;
+	        // Se i giorni di competenza superano l'anno sono posti pari all'anno
+	        if (giorniCompetenza > giorniAnno) {
+		        giorniCompetenza = giorniAnno;
+	        }
+
+
+	        decimal detrazioneannua = 480+120*(35000-reddito)/7000;
+
+	        decimal importoDetrazione = (detrazioneannua / giorniAnno) * giorniCompetenza;
+
+	        return importoDetrazione;
+        }
+
+        /// <summary>
+        /// Metodo che calcola la detrazione per reddito sulla fascia 1, rapportata ai giorni di competenza del contratto
+        /// </summary>
+        /// <param name="reddito"></param>
+        /// <param name="numAnno"></param>
+        /// <param name="denAnno"></param>
+        /// <param name="giorniCompetenza"></param>
+        /// <param name="detrazioneannua"></param>
+        /// <returns></returns>
+        private decimal detrazione_reddito_fascia2_3_2020(decimal reddito, int giorniCompetenza) {
+	        
+
+	        // La minima detrazione non Ë 690 ma 1380 perchÈ sono lavoratori a tempo determinato
+
+	        DateTime dec_31 = new DateTime(CfgFn.GetNoNullInt32(Conn.GetSys("esercizio")), 12, 31);
+	        int giorniAnno = dec_31.DayOfYear;
+	        // Se i giorni di competenza superano l'anno sono posti pari all'anno
+	        if (giorniCompetenza > giorniAnno) {
+		        giorniCompetenza = giorniAnno;
+	        }
+
+
+	        decimal detrazioneannua = 480*(35000-reddito)/5000;
+
+	        decimal importoDetrazione = (detrazioneannua / giorniAnno) * giorniCompetenza;
+
+	        return importoDetrazione;
+        }
+
 
         /// <summary>
         /// Metodo che calcola la detrazione per reddito sulla fascia 1, rapportata ai giorni di competenza del contratto

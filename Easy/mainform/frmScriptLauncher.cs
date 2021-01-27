@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -66,7 +68,7 @@ namespace mainform {
                 //bool res = msg == null;
                 //if (res) {
                 //    res = DC.Open();
-                //    msg = "Non √® stato possibile effettuare il collegamento al dipartimento.";
+                //    msg = "Non Ë stato possibile effettuare il collegamento al dipartimento.";
                 //    dettaglio = DC.LastError;
                 //}
                 //if (!res) {
@@ -90,12 +92,12 @@ namespace mainform {
 
             string[] rempath = GetLiveUpdateAddress();
             EntityDispatcher Disp = new EntityDispatcher(DepConn);
-            //Forzo la creazione perch√© posso aver aggiornato
+            //Forzo la creazione perchÈ posso aver aggiornato
             //la configurazione locale
             Download MyDownloadDB = new Download(Disp, rempath, C_FILEINDEXNAME,
                 AppDomain.CurrentDomain.BaseDirectory);
 
-            //Si pu√≤ verififcare quando durante l'attesa per la connessione
+            //Si puÚ verififcare quando durante l'attesa per la connessione
             //al server web ci si disconnette dal Database
             DataAccess DownloadDBConnection = DepConn.Duplicate();
             MyDownloadDB.Connessione = DownloadDBConnection;
@@ -155,7 +157,7 @@ namespace mainform {
                 bool res = msg == null;
                 if (res) {
                     res = DC.Open();
-                    msg = "Non √® stato possibile effettuare il collegamento al dipartimento.\r\n";
+                    msg = "Non Ë stato possibile effettuare il collegamento al dipartimento.\r\n";
                     dettaglio = DC.LastError;
                 }
                 if (!res) {

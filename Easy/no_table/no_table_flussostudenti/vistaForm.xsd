@@ -270,6 +270,7 @@
               <xs:element name="_x0021_registry" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_totaleriga" type="xs:decimal" minOccurs="0" />
               <xs:element name="idepacc_pre" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_estimkind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[calc_barcode]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[calc_barcode]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [calc_barcode]
 GO
 SET ANSI_NULLS ON
@@ -22,7 +24,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE    PROCEDURE [calc_barcode]
-	@chaine varchar(128), /* Chaine cod√©e */
+	@chaine varchar(128), /* Chaine codÈe */
 	@barcode varchar(100) OUTPUT
 
 AS BEGIN
@@ -36,10 +38,10 @@ select @barcode
 DECLARE @Code128 varchar(100)
 DECLARE @tableB bit --boolean  
 DECLARE @checksum int
-DECLARE @mini int /* nbr de caract√®res num√©riques en suivant */
-DECLARE @dummy int  /* Traitement de 2 caract√®res √† la fois */
+DECLARE @mini int /* nbr de caractËres numÈriques en suivant */
+DECLARE @dummy int  /* Traitement de 2 caractËres ‡ la fois */
 
-DECLARE @ind int /* Indice d'avancement dans la chaine de caract√®re */
+DECLARE @ind int /* Indice d'avancement dans la chaine de caractËre */
 
 SET @ind = 1
 
@@ -55,7 +57,7 @@ END
 
 --###############################################
 --#                     #
---# Premi√®re partie : v√©rification de la chaine #
+--# PremiËre partie : vÈrification de la chaine #
 --#                     #
 --###############################################  
 	
@@ -89,8 +91,8 @@ SET @ind = 1
 WHILE @ind <= Len(@chaine)
 	BEGIN 
 			IF @tableB = 1 --is true
-			--Voir si c'est int√©ressant de passer en table C
-			--Oui pour 4 chiffres au d√©but ou a la fin, sinon pour 6 chiffres
+			--Voir si c'est intÈressant de passer en table C
+			--Oui pour 4 chiffres au dÈbut ou a la fin, sinon pour 6 chiffres
       
 			BEGIN	 			
 				IF ((@ind = 1) Or (@ind + 3 = Len(@chaine)))
@@ -98,7 +100,7 @@ WHILE @ind <= Len(@chaine)
 				ELSE 
 					SET @mini = 6 
 					
-				 --TestNum : si les mini caract√®res √† partir de ind son num√©riques, alors mini = 0
+				 --TestNum : si les mini caractËres ‡ partir de ind son numÈriques, alors mini = 0
 				SET @mini = @mini - 1
 				
 				IF (@ind + @mini) <= Len(@chaine)
@@ -119,7 +121,7 @@ WHILE @ind <= Len(@chaine)
 				 --Si mini < 0 on passe en table C 
 				IF @mini < 0 
 				BEGIN        
-					IF @ind = 1    --D√©buter sur la table C         
+					IF @ind = 1    --DÈbuter sur la table C         
 						SET @Code128 =   CHAR(210) 
 					ELSE --Commuter sur la table C
 						SET @Code128 = @Code128 + CHAR(204)  
@@ -206,4 +208,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

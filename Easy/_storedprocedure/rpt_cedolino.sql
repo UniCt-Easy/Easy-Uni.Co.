@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_cedolino]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_cedolino]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_cedolino]
 GO
 
@@ -283,9 +285,9 @@ UPDATE #rptcedolino SET
 			AND #computetax.idpayrolltax=#rptcedolino.idpayrolltax
 			AND #computetax.nbracket=#rptcedolino.nbracket),0.0)
 
--- per le ritenute 'IRPEF' e le addizionali su 1 o piÃ¹ scaglioni prendo 
+-- per le ritenute 'IRPEF' e le addizionali su 1 o più scaglioni prendo 
 -- l'importo totale e non i singoli scaglioni
--- Laddove ci sono piÃ¹ scaglioni non visualizzo l'aliquota perchÃ¨ non ha senso. 2Â° UPDATE
+-- Laddove ci sono più scaglioni non visualizzo l'aliquota perchè non ha senso. 2° UPDATE
 UPDATE  #rptcedolino 
 SET  	tax =  ISNULL((
 		SELECT #computetax.totimportotax  
@@ -412,10 +414,10 @@ delete #indirizzopagamento
 		where #indirizzopagamento.idreg=r2.idreg
 	)>1
 
--- Cancello quelle righe per cui 'taxcode' Ã¨ valorizzato ma l'importo della ritenuta Ã¨ zero. Faccio la delete perchÃ¨ in seguito all'introduzione del
+-- Cancello quelle righe per cui 'taxcode' è valorizzato ma l'importo della ritenuta è zero. Faccio la delete perchè in seguito all'introduzione del
 -- LEFT OUTER JOIN nella SELECT principale potrei avere anche l'IRAP tra le ritenute.
 
--- Questa delete non la facciamo piÃ¹, perchÃ¨ consideriamo le rit c/dip in base all'aliquita, e non piÃ¹ in base all'importo. Vedi task 5432
+-- Questa delete non la facciamo più, perchè consideriamo le rit c/dip in base all'aliquita, e non più in base all'importo. Vedi task 5432
 -- DELETE FROM #rptcedolino where taxablecode is not null and isnull(tax,0) = 0
 
 SELECT  
@@ -469,4 +471,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

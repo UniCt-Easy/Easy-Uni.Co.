@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[compute_creastorni_roma]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[compute_creastorni_roma]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_creastorni_roma]
 GO
 
@@ -68,7 +70,7 @@ End
 
 if(	@codefin_origine is null)
 Begin
-	INSERT INTO #error	VALUES('Non √® stata indicata la voce di spesa da cui stornare.')
+	INSERT INTO #error	VALUES('Non Ë stata indicata la voce di spesa da cui stornare.')
 End
 
 if(	@codefin_destinazione is null)
@@ -86,8 +88,8 @@ BEGIN
 	RETURN
 END
 
--- Se @fin_kind = 1 ==> √® stata personalizzata una previsione principale di tipo "competenza", se @fin_kind = 2
--- ==> √® stata personalizzata una previsione principale di tipo "cassa", se  @fin_kind = 3 ==> √® stata personalizzata una
+-- Se @fin_kind = 1 ==> Ë stata personalizzata una previsione principale di tipo "competenza", se @fin_kind = 2
+-- ==> Ë stata personalizzata una previsione principale di tipo "cassa", se  @fin_kind = 3 ==> Ë stata personalizzata una
 -- previsione principale di tipo "altra previsione". 
 DECLARE @fin_kind tinyint
 SELECT @fin_kind = ISNULL(fin_kind,0) FROM config WHERE ayear = @ayear
@@ -317,4 +319,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

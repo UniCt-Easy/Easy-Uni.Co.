@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_fincopy]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_fincopy]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [closeyear_fincopy]
 GO
 
@@ -209,7 +211,7 @@ BEGIN
 			    WHERE F.oldidfin = #finlookup.oldidfin
                             AND   F.newidfin = #finlookup.newidfin)
 
-	-- Non devo inserire finlink, lo fa gi√† il trigger
+	-- Non devo inserire finlink, lo fa gi‡ il trigger
 
 	INSERT INTO #info
 	VALUES('Le voci di bilancio per l''esercizio ' + @nextayearstr+' sono state copiate')
@@ -280,7 +282,7 @@ BEGIN
 	
 		
 	INSERT INTO #info
-	VALUES('Il Saldo iniziale di Cassa per l''esercizio ' + @nextayearstr+' √® stato copiato.')
+	VALUES('Il Saldo iniziale di Cassa per l''esercizio ' + @nextayearstr+' Ë stato copiato.')
 			
 END
 
@@ -345,4 +347,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	

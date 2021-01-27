@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿SET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -30,11 +32,11 @@ AS BEGIN
 	SELECT @ayear = ayear FROM inserted
 	SET @newayear = @ayear + 1
 /*
-Il campo idfinincomesurplus Ã¨ stato rimosso dal form, per cui vale sempre null.
-In un primo momento era stato aggiunto il RETURN, perchÃ¨ si voleva che il fondo cassa al 01/01 fosse inserito a mano dall'utente
-in virtÃ¹ delle varie importazioni di movimenti pregressi che potevano sfalsare il valore, se magari si stava lavorando nel nuovo esercizio, col giusto startfloatfund
+Il campo idfinincomesurplus è stato rimosso dal form, per cui vale sempre null.
+In un primo momento era stato aggiunto il RETURN, perchè si voleva che il fondo cassa al 01/01 fosse inserito a mano dall'utente
+in virtù delle varie importazioni di movimenti pregressi che potevano sfalsare il valore, se magari si stava lavorando nel nuovo esercizio, col giusto startfloatfund
 e nel mentre si continuava ad inserire movimentazione pregressi
-Invece sembra che la valorizzazione debba avvenire in maniera automatica, per cui Ã¨ stato rimosso il primo IF perchÃ¨ ridondante dato che idfinincomesurplus vale sempre null,
+Invece sembra che la valorizzazione debba avvenire in maniera automatica, per cui è stato rimosso il primo IF perchè ridondante dato che idfinincomesurplus vale sempre null,
 per cui il primo IF si sarebbe limitato ad eseguire il rebuild_currentfloatfund
 e lasciato solo il secondo.
 

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_mps]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_mps]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_income_mps]
 GO
 
@@ -169,7 +171,7 @@ WHERE kproceedstransmission = @kproceedstransmission) = 0)
 BEGIN
 	INSERT INTO #error
 	VALUES ('La distinta di trasmissione ' + CONVERT(varchar(4),@y) + '/'
-	+ CONVERT(varchar(6),@n) + ' √® vuota')
+	+ CONVERT(varchar(6),@n) + ' Ë vuota')
 END
 -- CONTROLLO N. 1. Presenza dei dati dell'ente
 DECLARE @errore char(1)
@@ -199,13 +201,13 @@ END
 -- CONTROLLO N. 2. Lunghezza del codice ente
 IF (DATALENGTH(@codiceente)>@lencodiceente)
 BEGIN
-	INSERT INTO #error VALUES ( 'Il codice Ente inserito √® superiore alla lunghezza massima fissata a '
+	INSERT INTO #error VALUES ( 'Il codice Ente inserito Ë superiore alla lunghezza massima fissata a '
 	+ CONVERT(varchar(2),@lencodiceente))
 END
 -- CONTROLLO N. 3. Lunghezza del codice filiale
 IF (DATALENGTH(@codicefiliale)>@lencodicefiliale)
 BEGIN
-	INSERT INTO #error VALUES (  'Il codice Filiale inserito √® superiore alla lunghezza massima fissata a '
+	INSERT INTO #error VALUES (  'Il codice Filiale inserito Ë superiore alla lunghezza massima fissata a '
 	+ CONVERT(varchar(2),@lencodicefiliale))
 END
 
@@ -225,7 +227,7 @@ BEGIN
 END
 
 -- Attenzione! Altri controlli sono presenti nel testo della SP in quanto non era possibile calcolarli a priori
--- I controlli vengono riconosciuti in quanto il prefisso adoperato come linea di commento sar√† CONTROLLO N. x.
+-- I controlli vengono riconosciuti in quanto il prefisso adoperato come linea di commento sar‡ CONTROLLO N. x.
 -- Fine Sezione Controlli
 SET @codiceente = SUBSTRING(REPLICATE('0',@lencodiceente),1,@lencodiceente - DATALENGTH(@codiceente)) + @codiceente
 SET @codicefiliale = SUBSTRING(REPLICATE('0',@lencodicefiliale),1,@lencodicefiliale - DATALENGTH(@codicefiliale)) + @codicefiliale
@@ -621,7 +623,7 @@ CASE
 	ELSE SUBSTRING(CONVERT(varchar(3),progressive),1,@lenprogressivo)
 END
 	
--- CONTROLLO N. 11 Il numero di classificazioni non pu√≤ superare il limite massimo per ogni beneficiario
+-- CONTROLLO N. 11 Il numero di classificazioni non puÚ superare il limite massimo per ogni beneficiario
 DECLARE @limiteclassificazioni int
 SET @limiteclassificazioni = 15
 
@@ -632,7 +634,7 @@ IF EXISTS(
 BEGIN
 	INSERT INTO #error (message)
 	(SELECT 'Il mandato n. ' + CONVERT(varchar(6),ndoc) + '/' + CONVERT(varchar(4),ydoc)
-	+ ' contiene pi√π di ' + CONVERT(varchar(2),@limiteclassificazioni) + ' classificazioni SIOPE'
+	+ ' contiene pi˘ di ' + CONVERT(varchar(2),@limiteclassificazioni) + ' classificazioni SIOPE'
 	FROM #siope WHERE
 		(SELECT COUNT(*) FROM #siope s2
 		WHERE s2.y = #siope.y
@@ -691,7 +693,7 @@ SUBSTRING('00',1,2 - DATALENGTH(CONVERT(varchar(2),DAY(proceeds_adate)))) +
 CONVERT(varchar(2),DAY(proceeds_adate)) +
 -- Capitolo e Articolo di Bilancio
 REPLICATE('0',10) +
--- Competenza - Residui (Valorizzo sempre a ZERO perch√© √® un dato facoltativo)
+-- Competenza - Residui (Valorizzo sempre a ZERO perchÈ Ë un dato facoltativo)
 '0' +
 -- Fruttifero - Infruttfero (per le spese vale sempre ZERO)
 fruitfull +
@@ -744,7 +746,7 @@ REPLICATE('0',8) +
 reg_title +
 -- Indirizzo Beneficiario
 reg_address +
--- Localit√† Beneficiario
+-- Localit‡ Beneficiario
 reg_location +
 -- CAP Beneficiario
 reg_cap +
@@ -756,9 +758,9 @@ CASE
 END +
 -- Descrizione Pagamento
 proceedsdescr +
--- Modalit√† di Esecuzione
--- Parte di RIDEFINIZIONE in base alla Modalit√† di Pagamento adoperata
--- Se la bolletta √® valorizzata allora R (a regolarizzazione), altrimenti C (cassa)
+-- Modalit‡ di Esecuzione
+-- Parte di RIDEFINIZIONE in base alla Modalit‡ di Pagamento adoperata
+-- Se la bolletta Ë valorizzata allora R (a regolarizzazione), altrimenti C (cassa)
 CASE 
 	WHEN ((idpayment is not null) AND (nbill = REPLICATE('0',7))) THEN 'T' + REPLICATE('0',19) + SPACE(31) 
 	WHEN (nbill <> REPLICATE('0',7)) THEN 'R' + nbill + SPACE(43)
@@ -767,8 +769,8 @@ END
 +
 -- Dati riservati all'ente
 SPACE(7) +
--- Conto Corrente di Riferimento (L'universit√† ha sempre un solo CC, tuttavia
--- pu√≤ avere pi√π sottoconti vincolati corrispondenti ai vari dipartimenti nella gestione Bilancio Unico)
+-- Conto Corrente di Riferimento (L'universit‡ ha sempre un solo CC, tuttavia
+-- puÚ avere pi˘ sottoconti vincolati corrispondenti ai vari dipartimenti nella gestione Bilancio Unico)
 @cc_vincolato +
 -- Esenzione del bollo
 '0' +
@@ -854,7 +856,7 @@ INSERT INTO #tracciato (y, n, ndoc, progr_submovimento, rownum, stringa)
 SELECT yproceedstransmission, nproceedstransmission, 999999, 999999, 9,
 '09' + '00000' + @dataformattata + '0'
 + @codicefiliale + @codiceente +
--- Numero Reversali (Le reversali sono trasmesse da un'altra procedura, ci√≤ che qui trasmetto sono le tratenute)
+-- Numero Reversali (Le reversali sono trasmesse da un'altra procedura, ciÚ che qui trasmetto sono le tratenute)
 REPLICATE('0',5 - DATALENGTH(CONVERT(varchar(5),@numreversali))) + CONVERT(varchar(5),@numreversali) +
 -- Totale Entrate
 SUBSTRING(REPLICATE('0',@lenimporto),1,1 + @lenimporto -
@@ -919,12 +921,12 @@ REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(
 stringa,
-'√á','c'),'√ß','c'),'‚Ç¨','e'),'|',' '),'\',' '),'¬£',' '),'¬ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'√ô','u'),
-'√ñ','o'),'√ú','u'),'√ë','n'),'√ê','d'),'√ä','e'),'√ã','e'),'√é','i'),'√è','i'),'√î','o'),'√ï','o'),'√õ','u'),'√ù','y'),
-']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'√º','u'),'√¢','a'),'√§','a'),'√•','a'),'√™','e'),'√´','e'),'√Ø','i'),
-'√Æ','i'),'√Ñ','a'),'√Ö','a'),'√¥','o'),'√∂','o'),'√ª','u'),'√ø','y'),'√±','n'),'√Ç','a'),'¬•','y'),'√£','a'),'√É','a'),
-'√µ','o'),'√Ω','y'),'√©','e'),'√†','a'),'√®','e'),'√¨','i'),'√≤','o'),'√π','u'),'√°','a'),'√≠','i'),'√≥','o'),'√â','e'),
-'√Å','a'),'√Ä','a'),'√à','e'),'√ç','i'),'√å','i'),'√ì','o'),'√í','o'),'√ö','u'),
+'«','c'),'Á','c'),'Ä','e'),'|',' '),'\',' '),'£',' '),'ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'Ÿ','u'),
+'÷','o'),'‹','u'),'—','n'),'–','d'),' ','e'),'À','e'),'Œ','i'),'œ','i'),'‘','o'),'’','o'),'€','u'),'›','y'),
+']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'¸','u'),'‚','a'),'‰','a'),'Â','a'),'Í','e'),'Î','e'),'Ô','i'),
+'Ó','i'),'ƒ','a'),'≈','a'),'Ù','o'),'ˆ','o'),'˚','u'),'ˇ','y'),'Ò','n'),'¬','a'),'•','y'),'„','a'),'√','a'),
+'ı','o'),'˝','y'),'È','e'),'‡','a'),'Ë','e'),'Ï','i'),'Ú','o'),'˘','u'),'·','a'),'Ì','i'),'Û','o'),'…','e'),
+'¡','a'),'¿','a'),'»','e'),'Õ','i'),'Ã','i'),'”','o'),'“','o'),'⁄','u'),
 CHAR(9),' '),CHAR(10),' '),CHAR(13),' ')
 )
 -- Assegnazione del progressivo del flusso
@@ -965,4 +967,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

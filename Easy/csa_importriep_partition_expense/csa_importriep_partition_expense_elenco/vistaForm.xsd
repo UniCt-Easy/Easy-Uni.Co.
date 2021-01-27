@@ -322,6 +322,7 @@
     <xs:unique name="expenseview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:expenseview" />
       <xs:field xpath="mstns:idexp" />
+      <xs:field xpath="mstns:ayear" />
     </xs:unique>
     <xs:unique name="csa_importriep_partition_expense_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:csa_importriep_partition_expense" />
@@ -366,11 +367,11 @@
       <msdata:Relationship name="expenseview_csa_importriep_partition_expense" msdata:parent="expenseview" msdata:child="csa_importriep_partition_expense" msdata:parentkey="idexp" msdata:childkey="idexp" />
       <msdata:Relationship name="csa_importriep_csa_importriep_partition_expense" msdata:parent="csa_importriep" msdata:child="csa_importriep_partition_expense" msdata:parentkey="idcsa_import idriep" msdata:childkey="idcsa_import idriep" />
       <msdata:Relationship name="csa_import_csa_importriep_partition_expense" msdata:parent="csa_import" msdata:child="csa_importriep_partition_expense" msdata:parentkey="idcsa_import" msdata:childkey="idcsa_import" />
-      <msdata:Relationship name="csa_contract_csa_importriep" msdata:parent="csa_contract" msdata:child="csa_importriep" msdata:parentkey="idcsa_contract ayear idcsa_contractkind" msdata:childkey="idcsa_contract ayear idcsa_contractkind" />
       <msdata:Relationship name="csa_contractkind_csa_importriep" msdata:parent="csa_contractkind" msdata:child="csa_importriep" msdata:parentkey="idcsa_contractkind" msdata:childkey="idcsa_contractkind" />
       <msdata:Relationship name="registry_csa_importriep" msdata:parent="registry" msdata:child="csa_importriep" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="csa_movkind_csa_importriep_partition_expense" msdata:parent="csa_movkind" msdata:child="csa_importriep_partition_expense" msdata:parentkey="movkind" msdata:childkey="movkind" />
       <msdata:Relationship name="registry_main_expenseview" msdata:parent="registry_main" msdata:child="expenseview" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="csa_contract_csa_importriep" msdata:parent="csa_contract" msdata:child="csa_importriep" msdata:parentkey="idcsa_contract ayear idcsa_contractkind" msdata:childkey="idcsa_contract ayear idcsa_contractkind" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_intrastat]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_intrastat]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_intrastat]
 GO
  
@@ -27,7 +29,7 @@ GO
 SET ANSI_NULLS ON 
 GO
 CREATE  PROCEDURE [exp_mod_intrastat] (
--- A seconda della periodicit√† ossia T o M, si dovr√† indicare il periodo di riferimento
+-- A seconda della periodicit‡ ossia T o M, si dovr‡ indicare il periodo di riferimento
 	@anno int,
 	@mese int, 
 	@trimestre int,
@@ -49,14 +51,14 @@ CREATE TABLE #Dettaglio1_BENI
 	is_variation char(1),
 	flagpaired char(1),
 
-	codiceIVA varchar(14),				-- - Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo d‚Äôimposta con il quale √® stata effettuata 
-										-- l‚Äôoperazione intracomunitaria
+	codiceIVA varchar(14),				-- - Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo díimposta con il quale Ë stata effettuata 
+										-- líoperazione intracomunitaria
 	ammontareinEuro int,				-- numerico Len.13 -- Ammontare delle operazioni in euro
 	ammontareinValuta int,				-- numerico Len.13 -- Ammontare delle operazioni in valuta
 	codTransazione char(1),				-- Codice della natura dela transazione
 	codNomenclatura varchar(8),			-- numerico -- codice della nomenclatuta combinata della merce (solo nel caso di elenchi trimestrali)
 	massainkg int,						-- numerico Len. 10 -- Massa netta in kilogrammi
-	unitasupp int,						-- numerico Len. 10 -- Unit√† supplementari per l'acquisto / Quantit√† espressa nell'unit√† di misura supplementare
+	unitasupp int,						-- numerico Len. 10 -- Unit‡ supplementari per l'acquisto / Quantit‡ espressa nell'unit‡ di misura supplementare
 	codDest_codProv char(2),			-- Codice del paese di destinazione/provenienza
 	codOrigineMerce char(2),			-- Codice del paese di origine della merce
 	provOrigine_Dest char (2)				-- Codice della provincia di origine/destinazione della merce	
@@ -74,15 +76,15 @@ CREATE TABLE #Dettaglio3_SERVIZI
 	is_variation char(1),
 	flagpaired char(1),
 
-	codiceIVA varchar(14),				--  Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo d‚Äôimposta con il quale √® stata effettuata 
-										--	l‚Äôoperazione intracomunitaria
+	codiceIVA varchar(14),				--  Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo díimposta con il quale Ë stata effettuata 
+										--	líoperazione intracomunitaria
 	ammontareinEuro int,				-- numerico Len.13 -- Ammontare delle operazioni in euro
 	ammontareinValuta int,				-- numerico Len.13 -- Ammontare delle operazioni in valuta > > >  SOLO per i Servizi ricevuti
 	numerofattura varchar(15),			-- Numero Fattura
 	datafattura varchar(6),				-- Data fattura formato (ggmmaa)
 	codServizio varchar(6),				-- numerico -- Codice del Servizio
-	modErogazione char(1),				-- Modalit√† di erogazione
-	modpagamento char(1),				-- Modalit√† pagamento/incasso 
+	modErogazione char(1),				-- Modalit‡ di erogazione
+	modpagamento char(1),				-- Modalit‡ pagamento/incasso 
 	codPaesePagamento char(2)			-- Codice del paese di Pagamento
 
 )
@@ -155,7 +157,7 @@ INSERT INTO #Dettaglio1_BENI
 	codTransazione,			-- Codice della natura dela transazione
 	codNomenclatura,		-- numerico -- codice della nomenclatuta combinata della merce (solo nel caso di elenchi trimestrali)
 	massainkg,				-- numerico -- Massa netta in kilogrammi
-	unitasupp,				-- numerico -- Unit√† supplementari per l'acquisto / Quantit√† espressa nell'unit√† di misura supplementare
+	unitasupp,				-- numerico -- Unit‡ supplementari per l'acquisto / Quantit‡ espressa nell'unit‡ di misura supplementare
 	codDest_codProv,		-- Codice del paese di destinazione/provenienza
 	codOrigineMerce,		-- Codice del paese di origine della merce
 	provOrigine_Dest		-- Codice della provincia di origine/destinazione della merce	
@@ -192,7 +194,7 @@ SELECT
 	SUM(Case
 		When InvDet.weight is not null THEN  ROUND( ISNULL(InvDet.npackage,InvDet.number) * InvDet.weight,0)* (CASE   WHEN (InvDet.taxable>=0) THEN 1 ELSE -1 END) 	--ROUND(ISNULL(InvDet.weight,0),0)
 		Else 1 END)	,	
-	-- Unitasupp -> solo la quantit√†
+	-- Unitasupp -> solo la quantit‡
 	SUM(Case 
 		When InvDet.idintrastatmeasure is not null THEN		ROUND ( ISNULL(InvDet.npackage,InvDet.number) ,0)* (CASE   WHEN (InvDet.taxable>=0) THEN 1 ELSE -1 END)
 		Else 0
@@ -273,8 +275,8 @@ INSERT INTO #Dettaglio3_SERVIZI
 	numerofattura ,				-- Numero Fattura
 	datafattura ,				-- Data fattura formato (ggmmaa)
 	codServizio ,				-- numerico -- Codice del Servizio
-	modErogazione ,				-- Modalit√† di erogazione
-	modpagamento ,				-- Modalit√† pagamento/incasso 
+	modErogazione ,				-- Modalit‡ di erogazione
+	modpagamento ,				-- Modalit‡ pagamento/incasso 
 	codPaesePagamento 			-- Codice del paese di Pagamento
 )
 SELECT 
@@ -307,8 +309,8 @@ SELECT
 		+ SUBSTRING(CONVERT(varchar(4),YEAR(I.docdate)),3,2),
 	--  Codice del Servizio
 	CONVERT(varchar(6),S.code),
-	E.code,					-- Modalit√† di erogazione
-	P.code ,				-- Modalit√† pagamento/incasso 
+	E.code,					-- Modalit‡ di erogazione
+	P.code ,				-- Modalit‡ pagamento/incasso 
 	Pag.idintrastatnation 	-- Codice del paese di Pagamento
 FROM  invoice as I 
 JOIN  registry as R
@@ -394,7 +396,7 @@ update #Dettaglio3_SERVIZI set ammontareinEuro=-ammontareinEuro,ammontareinValut
 update #Dettaglio1_BENI set annorif=null, meserif=null,trimrif=null where flagvariation='N' or flagpaired='S'
 update #Dettaglio3_SERVIZI set annorif=null, meserif=null,trimrif=null where flagvariation='N' or flagpaired='S'
 
---questo perch√© nella group by vanno raggruppate
+--questo perchÈ nella group by vanno raggruppate
 
 
 
@@ -413,7 +415,7 @@ Begin
 	codTransazione,			-- Codice della natura dela transazione
 	codNomenclatura,		-- numerico -- codice della nomenclatuta combinata della merce (solo nel caso di elenchi trimestrali)
 	massainkg,				-- numerico -- Massa netta in kilogrammi
-	unitasupp,				-- numerico -- Unit√† supplementari per l'acquisto / Quantit√† espressa nell'unit√† di misura supplementare
+	unitasupp,				-- numerico -- Unit‡ supplementari per l'acquisto / Quantit‡ espressa nell'unit‡ di misura supplementare
 	REPLICATE('0',13) as valorestatisticoinEuro,	-- valorestatisticoinEuro  numerico -- Valore statistico in euro
 	REPLICATE(' ',1) as codConsegna,	-- codConsegna,		 Codice delle condizioni di consegna	
 	REPLICATE('0',1) as codTrasporto,	-- codTrasporto,	numerico -- Codice del modo di trasporto		
@@ -441,8 +443,8 @@ Begin
 	numerofattura ,				-- Numero Fattura
 	datafattura ,				-- Data fattura formato (ggmmaa)
 	codServizio ,				-- numerico -- Codice del Servizio
-	modErogazione ,				-- Modalit√† di erogazione
-	modpagamento ,				-- Modalit√† pagamento/incasso 
+	modErogazione ,				-- Modalit‡ di erogazione
+	modpagamento ,				-- Modalit‡ pagamento/incasso 
 	codPaesePagamento 			-- Codice del paese di Pagamento
  FROM #Dettaglio3_SERVIZI
 	group by annorif,meserif,trimrif,segno_variazione,codiceIVA,numerofattura,datafattura,codServizio,modErogazione,
@@ -471,4 +473,3 @@ GO
 --select 3/3+1
 
 --EXEC exp_mod_intrastat 2014,5,null,'A','M','B'
-	

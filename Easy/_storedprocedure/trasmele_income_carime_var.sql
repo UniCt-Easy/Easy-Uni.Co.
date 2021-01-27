@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_carime_var]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_carime_var]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_income_carime_var]
 GO
 
@@ -120,8 +122,8 @@ BEGIN
 END
 
 DECLARE @opkind char(3) 
---Pu√≤ assumere i valori 
---INS‚Äì Inserimento  Ordinativo 
+--PuÚ assumere i valori 
+--INSñ Inserimento  Ordinativo 
 --VAR- Variazione Ordinativo
 --ANN- Annullo Ordinativo
 --SOS- Sostituzione Ordinativo
@@ -156,7 +158,7 @@ WHERE kproceedstransmission = @k) = 0)
 BEGIN
 	INSERT INTO #error
 	VALUES('La distinta di trasmissione ' + CONVERT(varchar(4),@y) + '/'
-	+ CONVERT(varchar(6),@n) + ' √® vuota')
+	+ CONVERT(varchar(6),@n) + ' Ë vuota')
 END
 
 -- CONTROLLO N. 1. Presenza dei dati dell'ente
@@ -184,14 +186,14 @@ END
 IF (DATALENGTH(@cod_department) > @len_agencycode)
 BEGIN
 	INSERT INTO #error
-	VALUES ('Il codice Ente inserito √® superiore alla lunghezza massima fissata a '
+	VALUES ('Il codice Ente inserito Ë superiore alla lunghezza massima fissata a '
 	+ CONVERT(varchar(2),@len_agencycode))
 END
 
 IF (DATALENGTH(@cod_department) < @len_agencycode)
 BEGIN
 	INSERT INTO #error
-	VALUES ('Il codice Ente inserito √® inferiore alla lunghezza massima fissata a '
+	VALUES ('Il codice Ente inserito Ë inferiore alla lunghezza massima fissata a '
 	+ CONVERT(varchar(2),@len_agencycode))
 END
 
@@ -252,8 +254,8 @@ SELECT  @incomeregphase = incomeregphase FROM uniconfig
 -- ATTENZIONE! Bisogna importare tutti i mov. di spesa associati ai mandati associati alle reversali
 -- che stiamo processando in quanto bisogna assegnare il progressivo del beneficiario che deve necessariamente
 -- corrispondere a quello calcolato nella SP inerente i pagamenti. Diversamente si ha che i riferimenti verrebbero
--- ricalcolati in modo differente. C'√® un problema, nel caso in cui si decida di inserire successivamente
--- dei mov. di spesa nel mandato, in tal caso probabilmente il progressivo beneficiario pu√≤ cambiare.
+-- ricalcolati in modo differente. C'Ë un problema, nel caso in cui si decida di inserire successivamente
+-- dei mov. di spesa nel mandato, in tal caso probabilmente il progressivo beneficiario puÚ cambiare.
 CREATE TABLE #payment
 (
 	ydoc int,
@@ -522,8 +524,8 @@ LEFT OUTER JOIN expensetotal et
 WHERE d.kpro IN (SELECT kpro FROM #proceedsvar) -- prendo le reversali variate considerati nella presente distinta
 
 ---INSERISCO GLI INCASSI VIRTUALI OTTENUTI DAGLI INCASSI A REGOLARIZZAZIONE DI SOSPESI 
--- L'incasso reale sar√† suddiviso in due tranches, uno a regolarizzazione di importo pari al sospeso e non collegato alla spesa
--- l'altro sar√† un incasso virtuale  collegato alla spesa (in modo da ottenere complessivamente saldo zero ) e con idpro
+-- L'incasso reale sar‡ suddiviso in due tranches, uno a regolarizzazione di importo pari al sospeso e non collegato alla spesa
+-- l'altro sar‡ un incasso virtuale  collegato alla spesa (in modo da ottenere complessivamente saldo zero ) e con idpro
 -- fittizio pari a 2 (obblighiamo a fare le reversali singole in tali casi)
 INSERT INTO #proceeds
 (
@@ -796,7 +798,7 @@ SELECT  @maxincomephase = MAX(nphase) FROM incomephase
 INSERT INTO #error (message)
 SELECT 'Il movimento di entrata ' + CONVERT(varchar(6),I.nmov) + '/' + CONVERT(varchar(4),I.ymov)
 + ' associato al movimento di spesa ' + CONVERT(varchar(6),E.nmov) + '/' + CONVERT(varchar(4),E.nmov)
-+ ' non √® stato inserito in una distinta di trasmissione'
++ ' non Ë stato inserito in una distinta di trasmissione'
 FROM #proceeds P
 JOIN income I
 	ON I.idpayment = P.idexp	
@@ -1045,7 +1047,7 @@ WHERE #siope.flagpendingincome  = 'S' and #siope.idpro = 1
 UPDATE #siope SET amount= isnull(#siope.amount,0) * (isnull(#siope.amount_expense,0)/isnull(#siope.curramount,0))
 WHERE #siope.flagpendingincome  = 'S' and #siope.idpro = 2
 
--- L'incasso virtuale viene modificato per quanto attiene il flag a copertura, in quanto non pu√≤ essere agganciato al sospeso,
+-- L'incasso virtuale viene modificato per quanto attiene il flag a copertura, in quanto non puÚ essere agganciato al sospeso,
 -- solo la porzione di importo corrente - spesa accessoria deve figurare a regolarizzazione (idpro 1)
 UPDATE #proceeds SET fulfilled = 'N'
 WHERE #proceeds.flagpendingincome  = 'S' and #proceeds.idpro = 2
@@ -1059,7 +1061,7 @@ WHERE #proceeds.flagpendingincome  = 'S' and #proceeds.idpro = 2
 
 
 -- Calcolo del progressivo SIOPE
--- Anche la classificazione ha un suo progressivo che √® pari al numero di codici classificazione distinti precedente al corrente,
+-- Anche la classificazione ha un suo progressivo che Ë pari al numero di codici classificazione distinti precedente al corrente,
 -- legati allo stesso progressivo percipiente.
 UPDATE #siope
 SET progressive = 1 +
@@ -1276,7 +1278,7 @@ SELECT
 	END + 
 	-- Importo Bollo, valorizzare con zero
 	REPLICATE('0',9) +
-	-- Codice trattamento spese: da valorizzare sempre a ‚Äú000‚Äù(zero), sar√† gestito dalla banca
+	-- Codice trattamento spese: da valorizzare sempre a ì000î(zero), sar‡ gestito dalla banca
 	REPLICATE('0',3) +
 	-- Importo Spese, valorizzare con zero
 	REPLICATE('0',9) +
@@ -1302,7 +1304,7 @@ SELECT
 	[dbo].getstringformatted_r(address_ver,@len_tranche) +
 	-- C.A.P. Versante
 	[dbo].getstringformatted_r(cap_ver,5) + 
-	-- Localit√† Versante
+	-- Localit‡ Versante
 	[dbo].getstringformatted_r(location_ver,28) +
 	-- Provincia Versante
 	[dbo].getstringformatted_r(province_ver,2) +
@@ -1348,7 +1350,7 @@ SELECT
 		 
 
 ----------------------------------------------	
------- REVERSALI RECORD 4 ‚Äì TIPO V  ----------
+------ REVERSALI RECORD 4 ñ TIPO V  ----------
 ----------------------------------------------	
 -- RECORD SUPPLEMENTARE PER QUEI VERSANTI	
 -- CHE HANNO UN NOME PIU' LUNGO DI 30 CAR.
@@ -1391,7 +1393,7 @@ yproceedstransmission, nproceedstransmission, ydoc, ndoc,
 ndocformatted, idpro,title_ver,ISNULL(opkind,'VAR') 
 
 ----------------------------------------------------	
--------- REVERSALI RECORD 4 ‚Äì TIPO C  --------------
+-------- REVERSALI RECORD 4 ñ TIPO C  --------------
 ----------------------------------------------------	
 -- RECORD SUPPLEMENTARE PER QUELLE RISCOSSIONI	
 -- CHE HANNO UNA DESCRIZIONE PIU' LUNGA DEI 
@@ -1611,12 +1613,12 @@ REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 REPLACE(REPLACE(REPLACE(
 out_str,
-'√á','c'),'√ß','c'),'‚Ç¨','e'),'|',' '),'\',' '),'¬£',' '),'¬ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'√ô','u'),
-'√ñ','o'),'√ú','u'),'√ë','n'),'√ê','d'),'√ä','e'),'√ã','e'),'√é','i'),'√è','i'),'√î','o'),'√ï','o'),'√õ','u'),'√ù','y'),
-']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'√º','u'),'√¢','a'),'√§','a'),'√•','a'),'√™','e'),'√´','e'),'√Ø','i'),
-'√Æ','i'),'√Ñ','a'),'√Ö','a'),'√¥','o'),'√∂','o'),'√ª','u'),'√ø','y'),'√±','n'),'√Ç','a'),'¬•','y'),'√£','a'),'√É','a'),
-'√µ','o'),'√Ω','y'),'√©','e'),'√†','a'),'√®','e'),'√¨','i'),'√≤','o'),'√π','u'),'√°','a'),'√≠','i'),'√≥','o'),'√â','e'),
-'√Å','a'),'√Ä','a'),'√à','e'),'√ç','i'),'√å','i'),'√ì','o'),'√í','o'),'√ö','u'),
+'«','c'),'Á','c'),'Ä','e'),'|',' '),'\',' '),'£',' '),'ß',' '),'@',' '),'[',' '),'#',' '),'!',' '),'Ÿ','u'),
+'÷','o'),'‹','u'),'—','n'),'–','d'),' ','e'),'À','e'),'Œ','i'),'œ','i'),'‘','o'),'’','o'),'€','u'),'›','y'),
+']',' '),'`',' '),'{',' '),'}',' '),'~',' '),'¸','u'),'‚','a'),'‰','a'),'Â','a'),'Í','e'),'Î','e'),'Ô','i'),
+'Ó','i'),'ƒ','a'),'≈','a'),'Ù','o'),'ˆ','o'),'˚','u'),'ˇ','y'),'Ò','n'),'¬','a'),'•','y'),'„','a'),'√','a'),
+'ı','o'),'˝','y'),'È','e'),'‡','a'),'Ë','e'),'Ï','i'),'Ú','o'),'˘','u'),'·','a'),'Ì','i'),'Û','o'),'…','e'),
+'¡','a'),'¿','a'),'»','e'),'Õ','i'),'Ã','i'),'”','o'),'“','o'),'⁄','u'),
 CHAR(9),' '),CHAR(10),' '),CHAR(13),' '),CHAR(31),' ' )
 
 SELECT out_str FROM #trace ORDER BY substring(out_str, 1,38) --y, n, ndoc, nrow, kind
@@ -1632,4 +1634,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

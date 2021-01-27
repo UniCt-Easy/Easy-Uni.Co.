@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøif exists (select * from dbo.sysobjects where id = object_id(N'[rpt_docintegrativo_intracom]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_docintegrativo_intracom]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_docintegrativo_intracom]
 GO
 
@@ -120,7 +122,7 @@ BEGIN
 END
 	
 DECLARE @ivadeferred varchar(255)
-SET @ivadeferred = 'IVA ad esigibilit√† differita ai sensi dell''Articolo 6 Comma 5 D.P.R. 633/72'
+SET @ivadeferred = 'IVA ad esigibilit‡ differita ai sensi dell''Articolo 6 Comma 5 D.P.R. 633/72'
 CREATE TABLE #invoicedetail
 (
 	idinvkind int,
@@ -131,7 +133,7 @@ CREATE TABLE #invoicedetail
 	detaildescription varchar(150),
 	npackage decimal(19,2),
 	discount float,
-	taxable decimal(19,5), -- pu√≤ essere in euro o in valuta
+	taxable decimal(19,5), -- puÚ essere in euro o in valuta
 	tax decimal(19,6),	 -- solo euro
 	idintrastatcode int, 
 	idintrastatmeasure int, 
@@ -143,11 +145,11 @@ CREATE TABLE #invoicedetail
 	annotations varchar(400)
 )
 /*
-il raggrupp. serve xk√® nella stampa voglio vedere i dett. fattura ragrupp. in base al raggruppamento 
+il raggrupp. serve xkË nella stampa voglio vedere i dett. fattura ragrupp. in base al raggruppamento 
 delle righe del contratto passivo. nel caso in cui i dett.fattura non fossero associati ad alcun
 contratto passivo si raggruppa in base all'idgropu della fattura. ES:se ho due dett. preventivo ciascuno splittato in due e metto 
-tutti e 4 i dettagli in fattura nella stampa ne vedr√≤ 2. Se poi vado a splittare un dettagli di questa fattura, 
-avr√≤ 5 dett. in fattura ma nella stampa visualizzo sempre due righe (xk√® chiaramente il raggrupp. del prev non cambia.
+tutti e 4 i dettagli in fattura nella stampa ne vedrÚ 2. Se poi vado a splittare un dettagli di questa fattura, 
+avrÚ 5 dett. in fattura ma nella stampa visualizzo sempre due righe (xkË chiaramente il raggrupp. del prev non cambia.
  e non cambia neanche il raggrupp. della fattura)
 */
 INSERT INTO #invoicedetail
@@ -503,9 +505,9 @@ SELECT
 	ITK.idivataxablekind,
 	ITK.description as ivataxablekind,
 	CASE #invoice.flagactivity
-		WHEN 2 THEN 'Attivit√† commerciale'
-		WHEN 3 THEN 'Attivit√† commerciale/istituzionale'
-		WHEN 1 THEN 'Attivit√† istituzionale'
+		WHEN 2 THEN 'Attivit‡ commerciale'
+		WHEN 3 THEN 'Attivit‡ commerciale/istituzionale'
+		WHEN 1 THEN 'Attivit‡ istituzionale'
 	END AS 'activity',
 	intrastatkind.description as 'intrastatkind',
 	#invoice.iso_origin,
@@ -582,4 +584,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-	

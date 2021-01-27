@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿-- CREAZIONE VISTA profserviceview
+
+-- CREAZIONE VISTA profserviceview
 IF EXISTS(select * from sysobjects where id = object_id(N'[profserviceview]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [profserviceview]
 GO
@@ -85,7 +87,8 @@ CREATE VIEW [profserviceview]
 	idrelated,
 	epkind,
 	idsor_siope,
-	requested_doc
+	requested_doc,
+	iddalia_dipartimento,iddalia_funzionale
 )
 AS SELECT 
 	COP.ycon,
@@ -147,10 +150,11 @@ AS SELECT
 	COP.authdoc,
 	COP.authdocdate,
 	COP.noauthreason,
-	'profserviceÂ§'+ convert(varchar(10),COP.ycon) + 'Â§'+ convert(varchar(10),COP.ncon) ,
+	'profservice§'+ convert(varchar(10),COP.ycon) + '§'+ convert(varchar(10),COP.ncon) ,
 	COP.epkind,
 	COP.idsor_siope,
-	COP.requested_doc
+	COP.requested_doc,
+	COP.iddalia_dipartimento,COP.iddalia_funzionale
 FROM profservice COP  with (nolock)
 left OUTER JOIN ivakind with (nolock)		ON ivakind.idivakind = COP.idivakind
 LEFT OUTER JOIN registry with (nolock)		ON registry.idreg = COP.idreg
@@ -167,4 +171,3 @@ LEFT OUTER JOIN dalia_position DP				ON DP.iddaliaposition = COP.iddaliaposition
 GO
  
  
-	

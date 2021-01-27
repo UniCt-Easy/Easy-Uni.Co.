@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿namespace contarighe {
+
+namespace contarighe {
 	partial class Form1 {
 		/// <summary>
 		/// Required designer variable.
@@ -70,13 +72,13 @@
 			this.txtToSearch = new System.Windows.Forms.TextBox();
 			this.txtElencoMetaMsgBox = new System.Windows.Forms.TextBox();
 			this.btnCercaMsgBox = new System.Windows.Forms.Button();
+			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.label13 = new System.Windows.Forms.Label();
+			this.txtMetodi = new System.Windows.Forms.TextBox();
+			this.btnContaMetodi = new System.Windows.Forms.Button();
 			this.btnSelezionaRoot = new System.Windows.Forms.Button();
 			this.txtRoot = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.tabPage3 = new System.Windows.Forms.TabPage();
-			this.btnContaMetodi = new System.Windows.Forms.Button();
-			this.txtMetodi = new System.Windows.Forms.TextBox();
-			this.label13 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
@@ -247,7 +249,7 @@
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(141, 13);
 			this.label9.TabIndex = 21;
-			this.label9.Text = "Form con piÃ¹ di (soglia) righe";
+			this.label9.Text = "Form con più di (soglia) righe";
 			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// txtForm1000
@@ -392,6 +394,7 @@
 			this.txtElencoMetaMsgBox.Location = new System.Drawing.Point(6, 45);
 			this.txtElencoMetaMsgBox.Multiline = true;
 			this.txtElencoMetaMsgBox.Name = "txtElencoMetaMsgBox";
+			this.txtElencoMetaMsgBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
 			this.txtElencoMetaMsgBox.Size = new System.Drawing.Size(977, 380);
 			this.txtElencoMetaMsgBox.TabIndex = 5;
 			// 
@@ -404,6 +407,50 @@
 			this.btnCercaMsgBox.Text = "Cerca";
 			this.btnCercaMsgBox.UseVisualStyleBackColor = true;
 			this.btnCercaMsgBox.Click += new System.EventHandler(this.btnCercaMsgBox_Click);
+			// 
+			// tabPage3
+			// 
+			this.tabPage3.Controls.Add(this.label13);
+			this.tabPage3.Controls.Add(this.txtMetodi);
+			this.tabPage3.Controls.Add(this.btnContaMetodi);
+			this.tabPage3.Location = new System.Drawing.Point(4, 22);
+			this.tabPage3.Name = "tabPage3";
+			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage3.Size = new System.Drawing.Size(1003, 444);
+			this.tabPage3.TabIndex = 2;
+			this.tabPage3.Text = "Conta metodi";
+			this.tabPage3.UseVisualStyleBackColor = true;
+			// 
+			// label13
+			// 
+			this.label13.AutoSize = true;
+			this.label13.Location = new System.Drawing.Point(127, 25);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(130, 13);
+			this.label13.TabIndex = 7;
+			this.label13.Text = "Conta i metodi MetaData_";
+			// 
+			// txtMetodi
+			// 
+			this.txtMetodi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtMetodi.Location = new System.Drawing.Point(6, 49);
+			this.txtMetodi.Multiline = true;
+			this.txtMetodi.Name = "txtMetodi";
+			this.txtMetodi.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.txtMetodi.Size = new System.Drawing.Size(977, 380);
+			this.txtMetodi.TabIndex = 6;
+			// 
+			// btnContaMetodi
+			// 
+			this.btnContaMetodi.Location = new System.Drawing.Point(6, 20);
+			this.btnContaMetodi.Name = "btnContaMetodi";
+			this.btnContaMetodi.Size = new System.Drawing.Size(75, 23);
+			this.btnContaMetodi.TabIndex = 5;
+			this.btnContaMetodi.Text = "Cerca";
+			this.btnContaMetodi.UseVisualStyleBackColor = true;
+			this.btnContaMetodi.Click += new System.EventHandler(this.btnContaMetodi_Click);
 			// 
 			// btnSelezionaRoot
 			// 
@@ -431,49 +478,6 @@
 			this.label1.Size = new System.Drawing.Size(63, 13);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Cartella root";
-			// 
-			// tabPage3
-			// 
-			this.tabPage3.Controls.Add(this.label13);
-			this.tabPage3.Controls.Add(this.txtMetodi);
-			this.tabPage3.Controls.Add(this.btnContaMetodi);
-			this.tabPage3.Location = new System.Drawing.Point(4, 22);
-			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(1003, 444);
-			this.tabPage3.TabIndex = 2;
-			this.tabPage3.Text = "Conta metodi";
-			this.tabPage3.UseVisualStyleBackColor = true;
-			// 
-			// btnContaMetodi
-			// 
-			this.btnContaMetodi.Location = new System.Drawing.Point(6, 20);
-			this.btnContaMetodi.Name = "btnContaMetodi";
-			this.btnContaMetodi.Size = new System.Drawing.Size(75, 23);
-			this.btnContaMetodi.TabIndex = 5;
-			this.btnContaMetodi.Text = "Cerca";
-			this.btnContaMetodi.UseVisualStyleBackColor = true;
-			this.btnContaMetodi.Click += new System.EventHandler(this.btnContaMetodi_Click);
-			// 
-			// txtMetodi
-			// 
-			this.txtMetodi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtMetodi.Location = new System.Drawing.Point(6, 49);
-			this.txtMetodi.Multiline = true;
-			this.txtMetodi.Name = "txtMetodi";
-			this.txtMetodi.Size = new System.Drawing.Size(977, 380);
-			this.txtMetodi.TabIndex = 6;
-			// 
-			// label13
-			// 
-			this.label13.AutoSize = true;
-			this.label13.Location = new System.Drawing.Point(127, 25);
-			this.label13.Name = "label13";
-			this.label13.Size = new System.Drawing.Size(130, 13);
-			this.label13.TabIndex = 7;
-			this.label13.Text = "Conta i metodi MetaData_";
 			// 
 			// Form1
 			// 

@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø-- CREAZIONE VISTA invoiceresidual
+
+-- CREAZIONE VISTA invoiceresidual
 IF EXISTS(select * from sysobjects where id = object_id(N'[invoiceresidual]') and OBJECTPROPERTY(id, N'IsView') = 1)
 DROP VIEW [invoiceresidual]
 GO
@@ -77,8 +79,8 @@ CREATE     VIEW [invoiceresidual]
 	   ),0)
 	),  --ivatotal
 	-- residuo :somma dei dett. fattura non contabilizzati 
-	-- oppure 0 se la fattura √® di ACQUISTO contabilizzata con fondo economale
-	-- (la contabilizzazione totale √® obbligatoria in questo caso)
+	-- oppure 0 se la fattura Ë di ACQUISTO contabilizzata con fondo economale
+	-- (la contabilizzazione totale Ë obbligatoria in questo caso)
 	CASE 
 	WHEN (((invoicekind.flag&1)=0) AND pettycashoperationinvoice.idinvkind IS NOT NULL)
 	THEN 0
@@ -281,4 +283,3 @@ CREATE     VIEW [invoiceresidual]
 
 
 GO
-	

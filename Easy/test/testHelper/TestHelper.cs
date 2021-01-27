@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿using System;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -255,7 +257,8 @@ namespace TestHelper {
             foreach (DataRow r in t.Rows) {
                 q filter = q.keyCmp(r);
                 string err = dest.DO_DELETE(t.TableName, dest.compile(filter));
-                if (err != null) result = false;
+                
+                if (err != null && !err.StartsWith("There was no row in table")) result = false;
             }
 
             return result;
@@ -420,7 +423,7 @@ namespace TestHelper {
         /// <param name="filter"></param>
         /// <param name="tableNames"></param>
         public void binaryCopySet(q filter,string[] tableNames, UpdateType tipoCopia=UpdateType.insertAndUpdate) {
-            foreach (string tableName in tableNames.Reverse().ToArray()) {
+            foreach (string tableName in tableNames.ToArray()) {
                 binaryCopy(tableName,filter,tipoCopia);                
             }
         }
@@ -539,8 +542,34 @@ namespace TestHelper {
             //    MetaData.SetDefault(ds.Tables["estimatekind"],"idestimkind",ds.Tables["estimatekind"].Rows[0]["idestimkind"]+"_1");
             //}
             if (!mSource.EditNewCopy()) return null;
-            return saveFormDataNoBL(mSource,dest);
+            var res= saveFormDataNoBL(mSource,dest);
+            DataSet dd = null;
+            if (res.Count==0) {
+	            dd = mSource.ds.Copy();
+            }
+            mSource.DontWarnOnInsertCancel = true;
+            mSource.ds.AcceptChanges();
+            mSource.linkedForm.Close();
+
+            return dd;
          
+        }
+
+        
+        /// <summary>
+        /// Salva il dataset del form collegato al metadato nel db di destinazione
+        /// </summary>
+        /// <param name="metaForm"></param>
+        /// <param name="dest"></param>
+        /// <returns></returns>
+        public  EasyProcedureMessageCollection saveFormData(MetaData metaForm,IDataAccess dest=null) {
+	        if (dest == null) dest = testConn;
+	        var ds = metaForm.ds;
+	        //A questo punto salva il DS nel db di destinazione
+	        var post = metaForm.Get_PostData();
+	        post.initClass(ds, dest);
+	        PostData.setInnerPosting(ds, null);
+	        return  (EasyProcedureMessageCollection) post.DO_POST_SERVICE();
         }
 
         /// <summary>
@@ -549,27 +578,16 @@ namespace TestHelper {
         /// <param name="metaForm"></param>
         /// <param name="dest"></param>
         /// <returns></returns>
-        public static DataSet saveFormDataNoBL(MetaData metaForm,IDataAccess dest) {
+        public static ProcedureMessageCollection saveFormDataNoBL(MetaData metaForm,IDataAccess dest) {
             var ds = metaForm.ds;
             //A questo punto salva il DS nel db di destinazione
             var post = new Easy_PostData_NoBL();
             post.initClass(ds, dest);
             PostData.setInnerPosting(ds, null);
-            var res =post.DO_POST_SERVICE();
-            if (res.Count > 0) {
-                foreach (ProcedureMessage msg in res) {
-                    QueryCreator.MarkEvent(msg.GetKey()+":"+msg.LongMess);
-                }
-                return null;
-            }
-            var resDataSet = ds.Copy();
-            metaForm.DontWarnOnInsertCancel = true;
-            ds.AcceptChanges();
-            metaForm.formController.linkedForm.Close();            
-            return resDataSet;
+            return post.DO_POST_SERVICE();
         }
 
-        public  DataSet saveFormDataNoBL(MetaData metaForm) {
+        public  ProcedureMessageCollection saveFormDataNoBL(MetaData metaForm) {
             return saveFormDataNoBL(metaForm, testConn);
         }
 
@@ -690,8 +708,8 @@ namespace TestHelper {
         /// Cancella movimenti e scritture sulla riga r. 
         /// </summary>
         /// <param name="r"></param>
-        public void deleteEp(DataRow r) {
-            generaCancellaImpegniScritture(r, true);
+        public ProcedureMessageCollection deleteEp(DataRow r) {
+            return generaCancellaImpegniScritture(r, true,false);
         }
 
         /// <summary>
@@ -853,6 +871,7 @@ namespace TestHelper {
             }
 
             foreach (DataRow entry in entries) {
+	            Conn.RUN_SELECT_INTO_TABLE(D.Tables["entrytotal"], null, QHS.CmpKey(entry), null, true);
                 Conn.RUN_SELECT_INTO_TABLE(D.Tables["entrydetail"], null, QHS.CmpKey(entry), null, true);
                 Conn.RUN_SELECT_INTO_TABLE(D.Tables["entrydetailaccrual"], null, QHS.CmpKey(entry), null, true);                
             }
@@ -863,6 +882,7 @@ namespace TestHelper {
             string idForEntry = EP_functions.GetIdForDocument(document);
             string idForMov = BudgetFunction.GetIdForDocument(document);
             var ds = BudgetFunction.CreateDataset(conn);
+            ds.Tables.Add(conn.CreateTableByName("entrytotal", "*"));
             if (idForMov!=null) getEpMovForDocument(ds, conn, idForMov);
             if (idForEntry!=null)  GetEntryForDocument(ds,conn,idForEntry);
             return ds;
@@ -883,6 +903,7 @@ namespace TestHelper {
                   DataTable tvar = D.Tables[table + "var"];
                   DataTable tEntryDetail = D.Tables["entrydetail"];
                   DataTable tEntryDetailAccrual = D.Tables["entrydetailaccrual"];
+                  DataTable tEntryTotal = D.Tables["entrytotal"];
 
                   string filterAlias = BudgetFunction.getDocChildCondition(table + ".idrelated", QHS, idrelated);
                   string querySortColumns = DataTools.aliasColumns(tsort, tsort.TableName);
@@ -927,7 +948,6 @@ namespace TestHelper {
                                              table + "." + idmov +
                                              //" and " + tEntryDetail.TableName + ".yentry = " + QHS.quote(esercizio) +
                                              " and " + filterAlias;
-                  
                   DataTools.MergeRows(Conn as DataAccess, tEntryDetail, queryEntryDetails);
 
 
@@ -1053,7 +1073,71 @@ namespace TestHelper {
             return binaryCopyEp(r,rebuildEP);
         }
 
-        void generaCancellaImpegniScritture(DataRow r,bool cancella) {
+
+        public ProcedureMessageCollection generaAccertamentiScritture(DataRow r) {
+	        string metaTableName = r.Table.TableName;
+	        Meta_EasyDispatcher md = new Meta_EasyDispatcher(testConn);
+	        var meta = md.Get(metaTableName);
+
+            var ds = SampleDataSet(r);
+	        var getd = new GetData();
+	        getd.InitClass(ds, testConn, metaTableName);
+
+            //riempie il dataset
+            ds.Tables[metaTableName]._getFromDb(testConn, q.keyCmp(r));
+            getd.DO_GET(false, null);
+            meta.ds = ds;
+
+            r = ds.Tables[metaTableName]._Filter(q.keyCmp(r))._First();
+
+            EP_Manager ep= new EP_Manager(meta,null,null,null,null,null,null,null,null,metaTableName);
+	        ep.metaTableForPosting = "epacc";
+	        ep.silentPosting = true;
+	        ep.autoIgnore = false;
+	        ep.disableIntegratedPosting();
+	        ep.setForcedCurrentRow(r);
+	        ep.beforePost(false);
+	        ep.afterPost(true);
+	        var res = ep.EPRules;
+	       
+
+	        return res;
+
+        }
+
+        public ProcedureMessageCollection generaImpegniScritture(DataRow r) {
+	        string metaTableName = r.Table.TableName;
+	        Meta_EasyDispatcher md = new Meta_EasyDispatcher(testConn);
+	        var meta = md.Get(metaTableName);
+
+	        var ds = SampleDataSet(r);
+            var getd = new GetData();
+	        getd.InitClass(ds, testConn, metaTableName);
+
+            //riempie il dataset
+            ds.Tables[metaTableName]._getFromDb(testConn, q.keyCmp(r));
+            getd.DO_GET(false, null);
+            meta.ds = ds;
+
+            r = ds.Tables[metaTableName]._Filter(q.keyCmp(r))._First();
+
+            EP_Manager ep= new EP_Manager(meta,null,null,null,null,null,null,null,null,metaTableName);
+	        ep.metaTableForPosting = "epexp";
+	        ep.silentPosting = true;
+	        ep.autoIgnore = false;
+	        ep.disableIntegratedPosting();
+	        ep.setForcedCurrentRow(r);
+	        ep.beforePost(false);
+	        ep.afterPost(true);
+	        var res = ep.EPRules;
+	       
+
+	        return res;
+
+        }
+
+
+        ProcedureMessageCollection generaCancellaImpegniScritture(DataRow r,bool cancella, bool autoignore) {
             string metaTableName = r.Table.TableName;
             Meta_EasyDispatcher md = new Meta_EasyDispatcher(testConn);
             var meta = md.Get(metaTableName);
@@ -1083,12 +1167,12 @@ namespace TestHelper {
             EP_Manager ep= new EP_Manager(meta,null,null,null,null,null,null,null,null,metaTableName);
             ep.metaTableForPosting = cancella?"nobusinessrule":"epexp";
             ep.silentPosting = true;
-            ep.autoIgnore = !cancella;
+            ep.autoIgnore = autoignore;
             ep.disableIntegratedPosting();
             ep.setForcedCurrentRow(r);
             ep.beforePost(cancella);
             ep.afterPost(true);
-
+            var res = ep.EPRules;
             if (cancella) {
                 if (metaTableName == "mandate") {
                     testConn.DO_UPDATE("mandatedetail", testConn.compile(q.keyCmp(r)),
@@ -1103,10 +1187,13 @@ namespace TestHelper {
                         new[] {"idepexp","idepacc"}, new[] {"null","null"}, 2);
                 }
             }
+
+            return res;
         }
 
-        public void generateEP(DataRow r) {
-            generaCancellaImpegniScritture(r, false);
+        
+        public ProcedureMessageCollection generateEP(DataRow r) {
+            return generaCancellaImpegniScritture(r, false,true);
         }
         public bool checkScrittura(DataRow doc,   string codiceConto = null, string codiceUPB = null, string codiceCausale=null, q filterDetail=null) {
             q filter = q.eq("idrelated", EP_functions.GetIdForDocument(doc));

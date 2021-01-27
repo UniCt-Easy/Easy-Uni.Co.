@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -36,8 +38,9 @@ using System.Linq;
 namespace csa_import_default {
 	/// <summary>
 	/// </summary>
-	public class Frm_csa_import_default :System.Windows.Forms.Form {
+	public class Frm_csa_import_default : System.Windows.Forms.Form {
 		private System.Windows.Forms.ImageList images;
+
 		//private System.Data.DataTable mData = new System.Data.DataTable();
 		public vistaForm DS;
 		private Label label2;
@@ -56,7 +59,9 @@ namespace csa_import_default {
 		private Button btnRiepToExcel;
 		private GroupBox groupBox1;
 		private TextBox txtInputFile;
+
 		private Button btnInputRiepiloghi;
+
 		//private string ConnectionString;
 		private System.Windows.Forms.OpenFileDialog openInputFileDlg;
 		private System.Windows.Forms.SaveFileDialog saveOutputFileDlg;
@@ -70,10 +75,13 @@ namespace csa_import_default {
 		private Label lblRigheVer;
 		private Label lblRigheRiep;
 		private GroupBox grpVerifiche;
+
 		private DataAccess Conn;
+
 		//private Hashtable RighePadriIncome;
 		//private Hashtable RighePadriExpense;
 		MyListener TS;
+
 		/// <summary>
 		/// Ouutput raggruppato della SP 
 		/// </summary>
@@ -137,6 +145,8 @@ namespace csa_import_default {
 		private Button btnEditBolletta;
 		private ToolTip toolTipSospesi;
 		private Button btnSimulaEPGenera;
+		private Label label9;
+		private TextBox txtRefExternalDoc;
 
 		// Lookup di Csa_Agency
 		Dictionary<object, bool> entiCsa = new Dictionary<object, bool>();
@@ -156,6 +166,7 @@ namespace csa_import_default {
 					components.Dispose();
 				}
 			}
+
 			base.Dispose(disposing);
 		}
 
@@ -163,8 +174,9 @@ namespace csa_import_default {
 		private QueryHelper QHS;
 		private EP_Manager epm;
 		private EP_Manager epm_debit;
-		bool   usePartition = false;
+		bool usePartition = false;
 		public ISecurity security;
+
 		public void MetaData_AfterLink() {
 			Meta = MetaData.GetMetaData(this);
 			Conn = Meta.Conn;
@@ -181,7 +193,8 @@ namespace csa_import_default {
 			DataAccess.SetTableForReading(DS.bill_ripartizione, "bill");
 			DS.bill_netti.setStaticFilter(QHS.CmpEq("billkind", "D"));
 			DS.bill_versamenti.setStaticFilter(QHS.CmpEq("billkind", "D"));
-			DS.bill_ripartizione.setStaticFilter(QHS.AppAnd(QHS.CmpEq("billkind", "D"), QHS.CmpEq("ybill", Meta.GetSys("esercizio"))));
+			DS.bill_ripartizione.setStaticFilter(QHS.AppAnd(QHS.CmpEq("billkind", "D"),
+				QHS.CmpEq("ybill", Meta.GetSys("esercizio"))));
 
 			//string filterbill_netti = QHS.AppAnd(QHS.CmpEq("bill", Meta.GetSys("esercizio")), QHS.CmpEq("billkind","D"));
 			//string filterbill_versamenti = QHS.AppAnd(QHS.CmpEq("bill", Meta.GetSys("esercizio")), QHS.CmpEq("billkind", "D"));
@@ -201,10 +214,11 @@ namespace csa_import_default {
 				Debug.Listeners.Add(TS);
 			}
 
-            btnSimulaEPGenera.Visible = UsaBudget();
+			btnSimulaEPGenera.Visible = UsaBudget();
 
 			btnInputSospesi.ContextMenu = CMenu;
-			toolTipSospesi.SetToolTip(btnInputSospesi, "Il file deve contenere le intestazioni. Tasto destro per visualizzare il tracciato");
+			toolTipSospesi.SetToolTip(btnInputSospesi,
+				"Il file deve contenere le intestazioni. Tasto destro per visualizzare il tracciato");
 		}
 
 		private void InitializeAllList() {
@@ -377,6 +391,23 @@ namespace csa_import_default {
 			AllList[77] = this.btn78_Click;
 			//79) Anagrafiche enti di versamento non sono a regolarizzazione e non hanno il tipo trattamento spese nella modalità specifica configurata per il CSA   
 			AllList[78] = this.btn79_Click;
+
+			//80) ( 12 siope ) Ritenute senza SIOPE Cap. Entrata
+			AllList[79] = this.btn80_Click;
+			//81 (13 siope )  Ritenute senza SIOPE Cap. Spesa
+			AllList[80] = this.btn81_Click;
+			//82) ( 7 SIOPE ) Recupero senza SIOPE di Entrata (Lordi)
+			AllList[81] = this.btn82_Click;
+
+			//83) ( 9 SIOPE ) Recupero senza SIOPE sul capitolo di spesa
+			AllList[82] = this.btn83_Click;
+
+			//84) ( 11 SIOPE ) Contributi senza SIOPE sul Capitolo di Costo
+			AllList[83] = this.btn84_Click;
+
+			//85) Riepiloghi con   Anagrafica Ente non valorizzati
+			AllList[84] = this.btn85_Click;
+
 		}
 
 		private void InitializeAllListEP() {
@@ -494,6 +525,8 @@ namespace csa_import_default {
 			this.btnVerificaIndividuazione = new System.Windows.Forms.Button();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.label9 = new System.Windows.Forms.Label();
+			this.txtRefExternalDoc = new System.Windows.Forms.TextBox();
 			this.btnVerificaIndividuazioneEP = new System.Windows.Forms.Button();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
 			this.dgrVerificheEP = new System.Windows.Forms.DataGrid();
@@ -530,11 +563,11 @@ namespace csa_import_default {
 			this.txtNumBollettaVersamenti = new System.Windows.Forms.TextBox();
 			this.txtEsercBollettaVersamenti = new System.Windows.Forms.TextBox();
 			this.btnBollettaVersamenti = new System.Windows.Forms.Button();
-			this.DS = new csa_import_default.vistaForm();
 			this.CMenu = new System.Windows.Forms.ContextMenu();
 			this.MenuEnterPwd = new System.Windows.Forms.MenuItem();
 			this.dsFinancial = new csa_import_default.dsFinancial();
 			this.toolTipSospesi = new System.Windows.Forms.ToolTip(this.components);
+			this.DS = new csa_import_default.vistaForm();
 			this.grpImportazione.SuspendLayout();
 			this.grpExcel.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -553,8 +586,8 @@ namespace csa_import_default {
 			((System.ComponentModel.ISupportInitialize)(this.dgrSospesi)).BeginInit();
 			this.gboxBollettaNetti.SuspendLayout();
 			this.gBoxBollettaVersamenti.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dsFinancial)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// images
@@ -952,6 +985,8 @@ namespace csa_import_default {
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.label9);
+			this.tabPage1.Controls.Add(this.txtRefExternalDoc);
 			this.tabPage1.Controls.Add(this.btnVerificaIndividuazioneEP);
 			this.tabPage1.Controls.Add(this.groupBox5);
 			this.tabPage1.Controls.Add(this.grpExcel);
@@ -964,8 +999,28 @@ namespace csa_import_default {
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
 			this.tabPage1.Size = new System.Drawing.Size(988, 464);
 			this.tabPage1.TabIndex = 0;
+			this.tabPage1.Tag = "csa_import.refexternaldoc";
 			this.tabPage1.Text = "Principale";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// label9
+			// 
+			this.label9.Location = new System.Drawing.Point(460, 390);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(336, 16);
+			this.label9.TabIndex = 19;
+			this.label9.Text = "Rif. doc esterno per Fase Lordi:";
+			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtRefExternalDoc
+			// 
+			this.txtRefExternalDoc.Location = new System.Drawing.Point(463, 409);
+			this.txtRefExternalDoc.Multiline = true;
+			this.txtRefExternalDoc.Name = "txtRefExternalDoc";
+			this.txtRefExternalDoc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtRefExternalDoc.Size = new System.Drawing.Size(344, 41);
+			this.txtRefExternalDoc.TabIndex = 20;
+			this.txtRefExternalDoc.Tag = "csa_import.refexternaldoc";
 			// 
 			// btnVerificaIndividuazioneEP
 			// 
@@ -1350,12 +1405,6 @@ namespace csa_import_default {
 			this.btnBollettaVersamenti.Text = "N. sospeso";
 			this.btnBollettaVersamenti.Click += new System.EventHandler(this.btnBollettaVersamenti_Click);
 			// 
-			// DS
-			// 
-			this.DS.DataSetName = "vistaForm";
-			this.DS.EnforceConstraints = false;
-			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-			// 
 			// CMenu
 			// 
 			this.CMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
@@ -1372,6 +1421,12 @@ namespace csa_import_default {
 			this.dsFinancial.DataSetName = "dsFinancial";
 			this.dsFinancial.EnforceConstraints = false;
 			this.dsFinancial.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
 			// 
 			// Frm_csa_import_default
 			// 
@@ -1406,6 +1461,7 @@ namespace csa_import_default {
 			this.groupBox3.PerformLayout();
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
+			this.tabPage1.PerformLayout();
 			this.groupBox5.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dgrVerificheEP)).EndInit();
 			this.tabPage2.ResumeLayout(false);
@@ -1418,8 +1474,8 @@ namespace csa_import_default {
 			this.gboxBollettaNetti.PerformLayout();
 			this.gBoxBollettaVersamenti.ResumeLayout(false);
 			this.gBoxBollettaVersamenti.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dsFinancial)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1428,9 +1484,9 @@ namespace csa_import_default {
 		#endregion
 
 		bool anyGenerated() {
-			if (esistonoMovFinanziari("L", false)) return true;
-			if (esistonoMovFinanziari("V", false)) return true;
-			if (esistonoScritture(false)) return true;
+			if (esistonoMovFinanziari("L")) return true;
+			if (esistonoMovFinanziari("V")) return true;
+			if (esistonoScritture()) return true;
 			return false;
 		}
 
@@ -1457,18 +1513,28 @@ namespace csa_import_default {
 				else {
 					btnDelete.Enabled = true;
 				}
-			} 
+			}
+ 
 			else {
 				EnableDisableDatiImport(true);
 				btnDelete.Enabled = false;
 				btnInputRiepiloghi.Enabled = false;
 				btnInputVersamenti.Enabled = false;
+				txtRefExternalDoc.ReadOnly = false;
 			}
 
 			if (Meta.InsertMode) {
 				btnInputRiepiloghi.Enabled = false;
 				btnInputVersamenti.Enabled = false;
 				btnInputSospesi.Enabled = false;
+				
+			}
+			
+			if ((Meta.EditMode)&&(esistonoMovFinanziari("L"))) {
+				txtRefExternalDoc.ReadOnly = true;
+			}
+			else{
+				txtRefExternalDoc.ReadOnly = false;
 			}
 		}
 
@@ -1489,12 +1555,12 @@ namespace csa_import_default {
 			int countVer = CfgFn.GetNoNullInt32(Meta.Conn.DO_READ_VALUE("csa_importver",
 				QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), "count(*)"));
 			int countSospesi = CfgFn.GetNoNullInt32(Meta.Conn.DO_READ_VALUE("csa_bill",
-			   QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), "count(*)"));
+				QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), "count(*)"));
 
 			if (Meta.EditMode) {
-				bool checkElab = anyGenerated()==false;
-				btnInputRiepiloghi.Enabled = checkElab||(countRiep==0);
-				btnInputVersamenti.Enabled = checkElab||(countVer==0);
+				bool checkElab = anyGenerated() == false;
+				btnInputRiepiloghi.Enabled = checkElab || (countRiep == 0);
+				btnInputVersamenti.Enabled = checkElab || (countVer == 0);
 				btnInputSospesi.Enabled = true;
 			}
 			else {
@@ -1507,15 +1573,17 @@ namespace csa_import_default {
 			return (countRiep > 0) || (countVer > 0) || (countSospesi > 0);
 		}
 
-		private bool esistonoMovFinanziari(string kind, bool message) {
+		private bool esistonoMovFinanziari(string kind) {
 			//if (Meta.IsEmpty) return false;
 			string filterMovKind = null;
 			string listaMovKind = null;
 			if (kind == "L") {
 				listaMovKind = QHS.List(1, 2, 3, 5, 7, 8, 12, 14, 15, 16);
-			} else {
+			}
+			else {
 				listaMovKind = QHS.List(4, 6, 9, 11, 13, 17);
 			}
+
 			filterMovKind = QHS.FieldInList("movkind", listaMovKind);
 
 			DataRow Curr = DS.csa_import.Rows[0];
@@ -1531,15 +1599,14 @@ namespace csa_import_default {
 						Curr["idcsa_import"])),
 				"count(*)"));
 			if ((countIncome > 0) || (countExpense > 0)) {
-				if (message)
-					MessageBox.Show("Esistono Movimenti finanziari collegati all'Importazione. " +
-									"Operazione annullata");
+				
 				return true;
 			}
+
 			return false;
 		}
 
-		private bool esistonoScritture(bool message) {
+		private bool esistonoScritture() {
 			//if (Meta.IsEmpty) return false;
 			DataRow Curr = DS.csa_import.Rows[0];
 
@@ -1550,12 +1617,10 @@ namespace csa_import_default {
 			DataTable T = Conn.RUN_SELECT("entry", "*", null, filterrelated, null, true);
 
 			if (T.Rows.Count > 0) {
-				if (message) {
-					MessageBox.Show("Esistono Scritture in PD collegate all'Importazione. " +
-									"Operazione annullata");
-				}
+
 				return true;
 			}
+
 			return false;
 		}
 
@@ -1565,7 +1630,7 @@ namespace csa_import_default {
 			bool usa_partizioni = nuovaGestione();
 			string sp_name = "check_csa_individuazione";
 			if (usa_partizioni) sp_name = "check_csa_individuazione_partition";
-			Button button = (Button)sender;
+			Button button = (Button) sender;
 			DataGrid dgr = dgrVerificheFin;
 
 			if (button.Name == "btnVerificaIndividuazioneEP") {
@@ -1573,10 +1638,11 @@ namespace csa_import_default {
 				if (usa_partizioni) sp_name = "check_csa_individuazione_partition_ep";
 				dgr = dgrVerificheEP;
 			}
+
 			DataRow Curr = DS.csa_import.Rows[0];
 			object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
 			string errMess;
-			
+
 
 			DataSet ds = Conn.CallSP(sp_name,
 				new object[] {Curr["idcsa_import"], Meta.GetSys("esercizio")}, 600, out errMess);
@@ -1584,6 +1650,7 @@ namespace csa_import_default {
 				MessageBox.Show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
 				return false;
 			}
+
 			DataTable tResult = ds.Tables[0];
 			if (tResult.Rows.Count != 0) {
 				// Visualizzazione del grid
@@ -1599,7 +1666,8 @@ namespace csa_import_default {
 				else {
 					return true;
 				}
-			} else return true;
+			}
+			else return true;
 		}
 
 
@@ -1612,10 +1680,12 @@ namespace csa_import_default {
 			if (TV.Rows.Count == 0) return null;
 			DataRowView DV = null;
 			try {
-				DV = (DataRowView)G.BindingContext[DSV, TV.TableName].Current;
-			} catch {
+				DV = (DataRowView) G.BindingContext[DSV, TV.TableName].Current;
+			}
+			catch {
 				DV = null;
 			}
+
 			if (DV == null) return null;
 
 			DataRow R = DV.Row;
@@ -1627,6 +1697,7 @@ namespace csa_import_default {
 			foreach (DataColumn C in tResult.Columns) {
 				tResult.Columns[C.ColumnName].Caption = "";
 			}
+
 			tResult.Columns["errorcode"].Caption = "#";
 			tResult.Columns["errordescr"].Caption = "Descrizione";
 			tResult.Columns["blockingerror"].Caption = "Bloccante";
@@ -1658,6 +1729,7 @@ namespace csa_import_default {
 			EnableDisableDatiImport(true);
 			dgrVerificheFin.DataSource = null;
 			dgrVerificheEP.DataSource = null;
+			txtRefExternalDoc.ReadOnly = false;
 		}
 
 
@@ -1680,31 +1752,31 @@ namespace csa_import_default {
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
 			string sqlCmd = " SELECT " +
-                            //" ayear as 'Eserc.', " +
-                            " idriep as 'Numero Riepilogo'," +
-                            //" yimport as 'Eserc. Import'," +
-                            //" nimport as 'Num. Import.'," +
-                            " ycontract as 'Eserc Contr.'," +
-							" ncontract as 'Num. Contr.'," +
-							" csa_contractkind as 'Regola generale CSA'," +
-							" competenza ," +
-							" ruolocsa as 'Ruolo CSA'," +
-							" capitolocsa as 'Capitolo CSA'," +
-							" matricola as 'Matricola'," +
-							" importo as 'Importo'," +
-							" registry as 'Anagrafica'," +
-							" flagcr as 'Comp./Residui'," +
-							" codeupb as 'Cod. UPB'," +
-							" upb as 'UPB'," +
-							" codeacc as 'Cod. C/Costo'," +
-							" account as 'C/Costo'," +
-							" codefin as 'Cod. Bilancio Spesa'," +
-							" fin as 'Bilancio Spesa'," +
-							" phase as 'Fase Mov. spesa'," +
-							" ymov as 'Eserc. Mov.'," +
-							" nmov as 'Num. Mov.'" +
-							" FROM csa_importriepview " +
-							" WHERE " + filter;
+			                //" ayear as 'Eserc.', " +
+			                " idriep as 'Numero Riepilogo'," +
+			                //" yimport as 'Eserc. Import'," +
+			                //" nimport as 'Num. Import.'," +
+			                " ycontract as 'Eserc Contr.'," +
+			                " ncontract as 'Num. Contr.'," +
+			                " csa_contractkind as 'Regola generale CSA'," +
+			                " competenza ," +
+			                " ruolocsa as 'Ruolo CSA'," +
+			                " capitolocsa as 'Capitolo CSA'," +
+			                " matricola as 'Matricola'," +
+			                " importo as 'Importo'," +
+			                " registry as 'Anagrafica'," +
+			                " flagcr as 'Comp./Residui'," +
+			                " codeupb as 'Cod. UPB'," +
+			                " upb as 'UPB'," +
+			                " codeacc as 'Cod. C/Costo'," +
+			                " account as 'C/Costo'," +
+			                " codefin as 'Cod. Bilancio Spesa'," +
+			                " fin as 'Bilancio Spesa'," +
+			                " phase as 'Fase Mov. spesa'," +
+			                " ymov as 'Eserc. Mov.'," +
+			                " nmov as 'Num. Mov.'" +
+			                " FROM csa_importriepview " +
+			                " WHERE " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -1724,28 +1796,30 @@ namespace csa_import_default {
 
 			switch (testInt) {
 				case 1: {
-						Excel_Click(sender, e, T);
-						break;
-					}
+					Excel_Click(sender, e, T);
+					break;
+				}
+
 				case 2: {
-						Csv_Click(sender, e, T);
-						break;
-					}
+					Csv_Click(sender, e, T);
+					break;
+				}
 
 				case 3: {
-						Listing_Click(sender, e, dataTable, view, "default", null, filter, filterView);
-						break;
-					}
+					Listing_Click(sender, e, dataTable, view, "default", null, filter, filterView);
+					break;
+				}
+
 				default: {
-						Excel_Click(sender, e, T);
-						break;
-					}
+					Excel_Click(sender, e, T);
+					break;
+				}
 			}
 
 		}
 
 		private void VisualizzaDati3(object sender, EventArgs e, DataTable T, string dataTable, string view,
-		   string listType, string editType, string filter, string filterView) {
+			string listType, string editType, string filter, string filterView) {
 			int testInt = 0;
 
 			testInt = (rdbExpToExcel.Checked) ? 1 : testInt;
@@ -1754,22 +1828,24 @@ namespace csa_import_default {
 
 			switch (testInt) {
 				case 1: {
-						Excel_Click(sender, e, T);
-						break;
-					}
+					Excel_Click(sender, e, T);
+					break;
+				}
+
 				case 2: {
-						Csv_Click(sender, e, T);
-						break;
-					}
+					Csv_Click(sender, e, T);
+					break;
+				}
 
 				case 3: {
-						Listing_Click(sender, e, dataTable, view, "default", editType, filter, filterView);
-						break;
-					}
+					Listing_Click(sender, e, dataTable, view, "default", editType, filter, filterView);
+					break;
+				}
+
 				default: {
-						Excel_Click(sender, e, T);
-						break;
-					}
+					Excel_Click(sender, e, T);
+					break;
+				}
 			}
 
 		}
@@ -1797,14 +1873,17 @@ namespace csa_import_default {
 						"Errore");
 					return;
 				}
+
 				AllListEP[errorcode - 1](null, null);
-			} else {
+			}
+			else {
 				if (errorcode > AllList.Length) {
 					MessageBox.Show(
 						"Aggiornare il programma, la DLL di importazione CSA non è allineata con i check del db.",
 						"Errore");
 					return;
 				}
+
 				AllList[errorcode - 1](null, null);
 			}
 		}
@@ -1814,12 +1893,14 @@ namespace csa_import_default {
 				MessageBox.Show("Nessun elemento trovato");
 				return;
 			}
+
 			exportclass.DataTableToExcel(T, true);
 		}
 
 
 
-		private void Listing_Click(object sender, EventArgs e, string dataTable, string view, string listType, string editType,
+		private void Listing_Click(object sender, EventArgs e, string dataTable, string view, string listType,
+			string editType,
 			string filter, string filterView) {
 			if (editType == null) editType = "default";
 			MetaData MElenco = MetaData.GetMetaData(this, dataTable);
@@ -1842,6 +1923,7 @@ namespace csa_import_default {
 				MessageBox.Show("Nessun elemento trovato");
 				return;
 			}
+
 			OpenFileDialog FD = new OpenFileDialog();
 			FD.Title = "Seleziona il file CSV da creare";
 			FD.AddExtension = true;
@@ -1859,7 +1941,8 @@ namespace csa_import_default {
 			try {
 				exportclass.dataTableToCommaSeparatedValues(T, true, FD.FileName);
 				Process.Start(FD.FileName);
-			} catch (Exception E) {
+			}
+			catch (Exception E) {
 				QueryCreator.ShowException(E);
 			}
 
@@ -1872,47 +1955,47 @@ namespace csa_import_default {
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
 			string sqlCmd = " SELECT " +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versam.'," +
-							" yimport as 'Eserc. Import'," +
-							" nimport as 'Num. Import.'," +
-							" ycontract as 'Eserc Contr.'," +
-							" ncontract as 'Num. Contr.'," +
-							" csa_contractkind as 'Regola generale CSA'," +
-							" ruolocsa as 'Ruolo CSA'," +
-							" capitolocsa as 'Capitolo CSA'," +
-							" matricola as 'Matricola'," +
-							" ente as 'Ente'," +
-							" vocecsa as 'Voce CSA'," +
-							" importo as 'Importo'," +
-							" registry as 'Anagrafica'," +
-							" agency as 'Ente CSA'," +
-							" registry_agency as 'Anagr. Ente CSA'," +
-							" codeacc_debit as 'Cod. C/Debito'," +
-							" account_debit as 'C/Debito'," +
-							" codeacc_expense as 'Cod. C/Vers. Imposte'," +
-							" account_expense as 'C/Vers. Imposte'," +
-							" codeacc_internalcredit as 'Cod. C/Credito Interno'," +
-							" account_internalcredit as 'C/Credito Interno'," +
-							" codeacc_cost as 'Cod. C/Costo'," +
-							" account_cost as 'C/Costo'," +
-							" codeupb as 'Cod. UPB'," +
-							" upb as 'UPB'," +
-							" codefin_income as 'Cod. Bil. Entrata'," +
-							" fin_income as 'Bil. Entrata'," +
-							" codefin_expense as 'Cod. Bil. Spesa'," +
-							" fin_expense as 'Cod. Bil. Spesa'," +
-							" codefin_incomeclawback as 'Cod. Bil. Entrata per Recuperi'," +
-							" fin_incomeclawback as 'Bil. Entrata per Recuperi'," +
-							" codefin_cost as 'Cod. Bilancio Spesa Costo'," +
-							" fin_cost as 'Bilancio Spesa Costo'," +
-							" phase_cost as 'Fase Mov. spesa Costo'," +
-							" ymov_cost as 'Eserc. Mov. Costo'," +
-							" nmov_cost as 'Num. Mov. Costo'," +
-							" flagcr as 'Comp./Residui'," +
-							" flagclawback as 'Recupero'" +
-							" FROM csa_importverview " +
-							" WHERE " + filter;
+			                " ayear as 'Eserc.', " +
+			                " idver as 'Numero Versam.'," +
+			                " yimport as 'Eserc. Import'," +
+			                " nimport as 'Num. Import.'," +
+			                " ycontract as 'Eserc Contr.'," +
+			                " ncontract as 'Num. Contr.'," +
+			                " csa_contractkind as 'Regola generale CSA'," +
+			                " ruolocsa as 'Ruolo CSA'," +
+			                " capitolocsa as 'Capitolo CSA'," +
+			                " matricola as 'Matricola'," +
+			                " ente as 'Ente'," +
+			                " vocecsa as 'Voce CSA'," +
+			                " importo as 'Importo'," +
+			                " registry as 'Anagrafica'," +
+			                " agency as 'Ente CSA'," +
+			                " registry_agency as 'Anagr. Ente CSA'," +
+			                " codeacc_debit as 'Cod. C/Debito'," +
+			                " account_debit as 'C/Debito'," +
+			                " codeacc_expense as 'Cod. C/Vers. Imposte'," +
+			                " account_expense as 'C/Vers. Imposte'," +
+			                " codeacc_internalcredit as 'Cod. C/Credito Interno'," +
+			                " account_internalcredit as 'C/Credito Interno'," +
+			                " codeacc_cost as 'Cod. C/Costo'," +
+			                " account_cost as 'C/Costo'," +
+			                " codeupb as 'Cod. UPB'," +
+			                " upb as 'UPB'," +
+			                " codefin_income as 'Cod. Bil. Entrata'," +
+			                " fin_income as 'Bil. Entrata'," +
+			                " codefin_expense as 'Cod. Bil. Spesa'," +
+			                " fin_expense as 'Cod. Bil. Spesa'," +
+			                " codefin_incomeclawback as 'Cod. Bil. Entrata per Recuperi'," +
+			                " fin_incomeclawback as 'Bil. Entrata per Recuperi'," +
+			                " codefin_cost as 'Cod. Bilancio Spesa Costo'," +
+			                " fin_cost as 'Bilancio Spesa Costo'," +
+			                " phase_cost as 'Fase Mov. spesa Costo'," +
+			                " ymov_cost as 'Eserc. Mov. Costo'," +
+			                " nmov_cost as 'Num. Mov. Costo'," +
+			                " flagcr as 'Comp./Residui'," +
+			                " flagclawback as 'Recupero'" +
+			                " FROM csa_importverview " +
+			                " WHERE " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -1931,6 +2014,7 @@ namespace csa_import_default {
 				MessageBox.Show(this, "Non ci sono dati da elaborare");
 				return;
 			}
+
 			lblIndividuazione.Text = "Individuazione Contratti, Anagrafiche, Enti. Attendere...";
 			dgrVerificheFin.DataSource = null;
 			dgrVerificheEP.DataSource = null;
@@ -1941,18 +2025,23 @@ namespace csa_import_default {
 				new object[2] {
 					Curr["idcsa_import"],
 					Meta.GetSys("esercizio"),
-				},false,3600);
+				}, false, 3600);
 			lblIndividuazione.Text = "";
 			if (OutDS == null) {
 				btnElabora.Visible = true;
 				return;
 			}
-			Conn.RUN_SELECT_INTO_TABLE(DS.csa_importriep, null, QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), null, false);
-			Conn.RUN_SELECT_INTO_TABLE(DS.csa_importver, null, QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), null, false);
 
-			Conn.RUN_SELECT_INTO_TABLE(DS.csa_importriep_partition, null, QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), null,
+			Conn.RUN_SELECT_INTO_TABLE(DS.csa_importriep, null, QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), null,
 				false);
-			Conn.RUN_SELECT_INTO_TABLE(DS.csa_importver_partition, null, QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), null,
+			Conn.RUN_SELECT_INTO_TABLE(DS.csa_importver, null, QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), null,
+				false);
+
+			Conn.RUN_SELECT_INTO_TABLE(DS.csa_importriep_partition, null,
+				QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), null,
+				false);
+			Conn.RUN_SELECT_INTO_TABLE(DS.csa_importver_partition, null,
+				QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), null,
 				false);
 
 			//Conn.RUN_SELECT_INTO_TABLE(DS.csa_importriep_partitionview, null, QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), null,
@@ -1978,14 +2067,16 @@ namespace csa_import_default {
 				foreach (DataRow r in DS.csa_importriep.Rows) {
 					if (r["idexp"] != DBNull.Value) continue;
 					if (r["idcsa_contract"] == DBNull.Value) continue;
-					if (DS.csa_importriep_expense.Select(QHC.AppAnd( QHC.CmpEq("idriep", r["idriep"]),QHC.CmpEq("idcsa_import", r["idcsa_import"]))).Length == 0)
+					if (DS.csa_importriep_expense.Select(QHC.AppAnd(QHC.CmpEq("idriep", r["idriep"]),
+						    QHC.CmpEq("idcsa_import", r["idcsa_import"]))).Length == 0)
 						fillcsa_importriep_expense(r);
 				}
 
 				foreach (DataRow r in DS.csa_importriep.Rows) {
 					if (r["idexp"] != DBNull.Value) continue;
 					if (r["idcsa_contract"] == DBNull.Value) continue;
-					if (DS.csa_importriep_epexp.Select(QHC.AppAnd( QHC.CmpEq("idriep", r["idriep"]),QHC.CmpEq("idcsa_import", r["idcsa_import"]))).Length == 0)
+					if (DS.csa_importriep_epexp.Select(QHC.AppAnd(QHC.CmpEq("idriep", r["idriep"]),
+						    QHC.CmpEq("idcsa_import", r["idcsa_import"]))).Length == 0)
 						fillcsa_importriep_epexp(r);
 				}
 
@@ -1993,14 +2084,16 @@ namespace csa_import_default {
 				foreach (DataRow r in DS.csa_importver.Rows) {
 					if (r["idexp_cost"] != DBNull.Value) continue;
 					if (r["idcsa_contracttax"] == DBNull.Value) continue;
-					if (DS.csa_importver_expense.Select(QHC.AppAnd( QHC.CmpEq("idver", r["idver"]),QHC.CmpEq("idcsa_import", r["idcsa_import"]))).Length == 0)
+					if (DS.csa_importver_expense.Select(QHC.AppAnd(QHC.CmpEq("idver", r["idver"]),
+						    QHC.CmpEq("idcsa_import", r["idcsa_import"]))).Length == 0)
 						fillcsa_importver_expense(r);
 				}
 
 				foreach (DataRow r in DS.csa_importver.Rows) {
 					if (r["idepexp"] != DBNull.Value) continue;
 					if (r["idcsa_contracttax"] == DBNull.Value) continue;
-					if (DS.csa_importver_epexp.Select(QHC.AppAnd( QHC.CmpEq("idver", r["idver"]),QHC.CmpEq("idcsa_import", r["idcsa_import"]))).Length == 0)
+					if (DS.csa_importver_epexp.Select(QHC.AppAnd(QHC.CmpEq("idver", r["idver"]),
+						    QHC.CmpEq("idcsa_import", r["idcsa_import"]))).Length == 0)
 						fillcsa_importver_epexp(r);
 				}
 
@@ -2017,6 +2110,7 @@ namespace csa_import_default {
 				MessageBox.Show(this, "Elaborazione fallita, è necessario cancellarla e rifarla.", "Errore");
 				return;
 			}
+
 			//Meta.FreshForm();
 			MessageBox.Show(this, "Elaborazione effettuata.");
 			btnElabora.Visible = true;
@@ -2034,8 +2128,9 @@ namespace csa_import_default {
 				string fileName = openInputFileDlg.FileName;
 				//ConnectionString = ExcelImport.ExcelConnString(fileName);
 				t = createTable(task);
-				readCurrentSheet(t,fileName);
-			} catch (Exception ex) {
+				readCurrentSheet(t, fileName);
+			}
+			catch (Exception ex) {
 				MessageBox.Show(this, "Errore nell'apertura del file! Processo Terminato\n" + ex.Message);
 				return null;
 			}
@@ -2081,16 +2176,18 @@ namespace csa_import_default {
 					//ConnectionString = ExcelImport.ExcelConnString(fileName);
 					x.ImportTable(fileName, t, true, 2);
 				}
+
 				lblTask.Text = "";
-			} catch (Exception ex) {
+			}
+			catch (Exception ex) {
 				MessageBox.Show(this, ex.Message);
 			}
 		}
 
 
-		
+
 		string[] tracciato_sospeso =
-			new string[]{
+			new string[] {
 				"DENOMINAZIONE_ANAGRAFICA;Anagrafica;Stringa;150",
 				"N_SOSPESO;Numero sospeso(nbill);Intero;8",
 				"IMPORTO;Importo;Numero;22"
@@ -2101,38 +2198,40 @@ namespace csa_import_default {
 			t.CaseSensitive = false;
 			switch (kind) {
 				case "R": {
-						t.Columns.Add("RUOLO", typeof(string));
-						t.Columns.Add("CAPITOLO", typeof(string));
-						t.Columns.Add("COMPETENZA", typeof(int));
-						t.Columns.Add("MATRICOLA", typeof(string));
-						t.Columns.Add("LORDO", typeof(decimal));
-						break;
-					}
+					t.Columns.Add("RUOLO", typeof(string));
+					t.Columns.Add("CAPITOLO", typeof(string));
+					t.Columns.Add("COMPETENZA", typeof(int));
+					t.Columns.Add("MATRICOLA", typeof(string));
+					t.Columns.Add("LORDO", typeof(decimal));
+					break;
+				}
+
 				case "V": {
-						t.Columns.Add("ENTE", typeof(string));
-						t.Columns.Add("ENTE_DESCR", typeof(string));
-						t.Columns.Add("VOCE", typeof(string));
-						t.Columns.Add("RUOLO", typeof(string));
-						t.Columns.Add("CAPITOLO", typeof(string));
-						t.Columns.Add("COMPETENZA", typeof(int));
-						t.Columns.Add("MATRICOLA", typeof(string));
-						t.Columns.Add("IMP_TOT", typeof(decimal));
-						break;
-					}
+					t.Columns.Add("ENTE", typeof(string));
+					t.Columns.Add("ENTE_DESCR", typeof(string));
+					t.Columns.Add("VOCE", typeof(string));
+					t.Columns.Add("RUOLO", typeof(string));
+					t.Columns.Add("CAPITOLO", typeof(string));
+					t.Columns.Add("COMPETENZA", typeof(int));
+					t.Columns.Add("MATRICOLA", typeof(string));
+					t.Columns.Add("IMP_TOT", typeof(decimal));
+					break;
+				}
+
 				case "S": {
-						t.Columns.Add("DENOMINAZIONE_ANAGRAFICA", typeof(string));
-						t.Columns.Add("N_SOSPESO", typeof(int));
-						t.Columns.Add("IMPORTO", typeof(decimal));
-						break;
-					}
+					t.Columns.Add("DENOMINAZIONE_ANAGRAFICA", typeof(string));
+					t.Columns.Add("N_SOSPESO", typeof(int));
+					t.Columns.Add("IMPORTO", typeof(decimal));
+					break;
+				}
 			}
 			//foreach (DataColumn c in t.Columns) c.ColumnName = c.ColumnName.ToLowerInvariant();
-			
+
 
 			return t;
 		}
 
-		
+
 
 		private void btnInputFile_Click(object sender, EventArgs e) {
 			if (Meta.IsEmpty) return;
@@ -2154,9 +2253,9 @@ namespace csa_import_default {
 				case "btnInputRiepiloghi": {
 					var res = interrogaFileExcel("R");
 					if (res == null) return;
-						fillRiepiloghi(res);
-						break;
-					}
+					fillRiepiloghi(res);
+					break;
+				}
 
 				case "btnInputVersamenti": {
 					var res = interrogaFileExcel("V");
@@ -2167,11 +2266,12 @@ namespace csa_import_default {
 
 				case "btnInputSospesi": {
 					var res = interrogaFileExcel("S");
-						fillSospesi(res);
-						break;
-					}
+					fillSospesi(res);
+					break;
+				}
 
 			}
+
 			CalcolaRighe();
 		}
 
@@ -2181,7 +2281,7 @@ namespace csa_import_default {
 		/// </summary>
 		private void fillRiepiloghi(DataTable t) {
 			if (Meta.IsEmpty) return;
-			int step = t.Rows.Count/100;
+			int step = t.Rows.Count / 100;
 			if (step < 100) step = 100;
 			progressBarImport.Visible = true;
 			progressBarImport.Value = 0;
@@ -2216,6 +2316,7 @@ namespace csa_import_default {
 
 
 				}
+
 				if (numparz == step) {
 					//Salva i dati
 					if (!SaveData()) return;
@@ -2227,6 +2328,7 @@ namespace csa_import_default {
 					RowChange.ClearMaxCache(DS.csa_importriep);
 				}
 			}
+
 			if (numparz > 0) {
 				//Salva i dati
 				if (!SaveData()) return;
@@ -2235,6 +2337,7 @@ namespace csa_import_default {
 				DS.csa_importriep.Clear();
 				RowChange.ClearMaxCache(DS.csa_importriep);
 			}
+
 			progressBarImport.Visible = false;
 			lblTask.Text = "";
 
@@ -2253,8 +2356,8 @@ namespace csa_import_default {
 			metaImportRiep_Expense.SetDefaults(DS.csa_importriep_expense);
 			foreach (DataRow r in t.Rows) {
 				decimal quotaCorrente = CfgFn.GetNoNullDecimal(r["quota"]);
-				decimal quotaDaConsiderare = quotaCorrente/totaleperc_residuo;
-				decimal quotaImporto = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(quotaDaConsiderare)*totale_residuo);
+				decimal quotaDaConsiderare = quotaCorrente / totaleperc_residuo;
+				decimal quotaImporto = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(quotaDaConsiderare) * totale_residuo);
 				MetaData.SetDefault(DS.csa_importriep_expense, "ndetail", r["ndetail"]);
 				MetaData.SetDefault(DS.csa_importriep_expense, "idriep", rImportRiep["idriep"]);
 				DataRow newR = metaImportRiep_Expense.Get_New_Row(Curr, DS.csa_importriep_expense);
@@ -2284,8 +2387,8 @@ namespace csa_import_default {
 			foreach (DataRow r in t.Rows) {
 				if (totale_residuo == 0 || totaleperc_residuo == 0) break;
 				decimal quotaCorrente = CfgFn.GetNoNullDecimal(r["quota"]);
-				decimal quotaDaConsiderare = quotaCorrente/totaleperc_residuo;
-				decimal quotaImporto = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(quotaDaConsiderare)*totale_residuo);
+				decimal quotaDaConsiderare = quotaCorrente / totaleperc_residuo;
+				decimal quotaImporto = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(quotaDaConsiderare) * totale_residuo);
 				MetaData.SetDefault(DS.csa_importver_expense, "ndetail", r["ndetail"]);
 				MetaData.SetDefault(DS.csa_importver_expense, "idver", rImportVer["idver"]);
 				DataRow newR = metaImportVer_Expense.Get_New_Row(Curr, DS.csa_importver_expense);
@@ -2309,7 +2412,7 @@ namespace csa_import_default {
 			if (t == null || t.Rows.Count == 0) return;
 			MetaData metaImportRiep_EpExp = Meta.Dispatcher.Get("csa_importriep_epexp");
 			metaImportRiep_EpExp.SetDefaults(DS.csa_importriep_epexp
-				);
+			);
 			foreach (DataRow r in t.Rows) {
 				MetaData.SetDefault(DS.csa_importriep_epexp, "ndetail", r["ndetail"]);
 				MetaData.SetDefault(DS.csa_importriep_epexp, "idriep", rImportRiep["idriep"]);
@@ -2344,7 +2447,7 @@ namespace csa_import_default {
 		/// </summary>
 		private void fillVersamenti(DataTable t) {
 			if (Meta.IsEmpty) return;
-			int step = t.Rows.Count/100;
+			int step = t.Rows.Count / 100;
 			if (step < 100) step = 100;
 			progressBarImport.Visible = true;
 			progressBarImport.Value = 0;
@@ -2377,7 +2480,8 @@ namespace csa_import_default {
 					rNew["matricola"] = rFile["matricola"];
 					if (rFile["ente_descr"] == DBNull.Value) {
 						rNew["ente"] = rFile["ente"];
-					} else {
+					}
+					else {
 						rNew["ente"] = rFile["ente"] + " - " + rFile["ente_descr"];
 					}
 
@@ -2390,6 +2494,7 @@ namespace csa_import_default {
 
 
 				}
+
 				if (numparz == step) {
 					//Salva i dati
 					if (!SaveData()) return;
@@ -2401,6 +2506,7 @@ namespace csa_import_default {
 					RowChange.ClearMaxCache(DS.csa_importver);
 				}
 			}
+
 			if (numparz > 0) {
 				//Salva i dati
 				if (!SaveData()) return;
@@ -2409,6 +2515,7 @@ namespace csa_import_default {
 				DS.csa_importver.Clear();
 				RowChange.ClearMaxCache(DS.csa_importver);
 			}
+
 			lblTask.Text = "";
 			progressBarImport.Visible = false;
 		}
@@ -2453,10 +2560,12 @@ namespace csa_import_default {
 				}
 
 			}
+
 			for (int i = 0; i < DS.csa_bill.Rows.Count; i++) {
 				if (DS.csa_bill.Rows[i].RowState == DataRowState.Deleted) continue;
 				VisualizzaVociCollegate(DS.csa_bill.Rows[i]);
 			}
+
 			if (numparz > 0) {
 				//Salva i dati
 				if (!SaveData()) return;
@@ -2512,38 +2621,43 @@ namespace csa_import_default {
 					case "importo":
 
 						if (CfgFn.GetNoNullDecimal(val) <= 0) {
-							string err = "Valore non previsto per il campo " + fieldname + " di tipo " + ftype + " e di valore " +
-							val.Trim() + " alla riga " + rownum + ": inserire un importo maggiore di zero";
+							string err = "Valore non previsto per il campo " + fieldname + " di tipo " + ftype +
+							             " e di valore " +
+							             val.Trim() + " alla riga " + rownum + ": inserire un importo maggiore di zero";
 							DataRow row = errors.NewRow();
 							row["errors"] = err;
 							errors.Rows.Add(row);
 							ok = false;
 						}
+
 						break;
 					case "denominazione_anagrafica":
 						if ((GetAnagrafica(val) == DBNull.Value) || (GetAnagrafica(val) == null)) {
 							string err = "Anagrafica non trovata nella decodifica del campo " + fieldname +
-											" di tipo " + ftype + " e di valore " +
-							val.Trim() + " alla riga " + rownum;
+							             " di tipo " + ftype + " e di valore " +
+							             val.Trim() + " alla riga " + rownum;
 							DataRow row = errors.NewRow();
 							row["errors"] = err;
 							errors.Rows.Add(row);
 							ok = false;
 						}
+
 						break;
 					case "n_sospeso":
 						if (CheckSospeso(val) == false) {
 							string err = "Sospeso di uscita non valido nella decodifica del campo " + fieldname +
-											" di tipo " + ftype + " e di valore " +
-							val.Trim() + " alla riga " + rownum;
+							             " di tipo " + ftype + " e di valore " +
+							             val.Trim() + " alla riga " + rownum;
 							DataRow row = errors.NewRow();
 							row["errors"] = err;
 							errors.Rows.Add(row);
 							ok = false;
 						}
+
 						break;
 				}
 			}
+
 			return ok;
 		}
 
@@ -2556,10 +2670,12 @@ namespace csa_import_default {
 			if (R["nbill"] == DBNull.Value) return;
 			R["!motive"] = GetMotiveForNbill(R["nbill"]);
 		}
+
 		void VisualizzaDataSospeso(DataRow R) {
 			if (R["nbill"] == DBNull.Value) return;
 			R["!datasospeso"] = GetDateForNbill(R["nbill"]);
 		}
+
 		void VisualizzaVociCollegate(DataRow Row) {
 
 			if (Row.Table.TableName == "csa_bill") {
@@ -2577,10 +2693,13 @@ namespace csa_import_default {
 			int n = Convert.ToInt32(nbill);
 			if (__billMotive.ContainsKey(n))
 				return __billMotive[n];
-			object motive = Conn.DO_READ_VALUE("bill", QHS.AppAnd( QHS.CmpEq("nbill", nbill), QHS.CmpEq("billkind", "D"), QHS.CmpEq("ybill", Meta.GetSys ("esercizio"))), "motive");
+			object motive = Conn.DO_READ_VALUE("bill",
+				QHS.AppAnd(QHS.CmpEq("nbill", nbill), QHS.CmpEq("billkind", "D"),
+					QHS.CmpEq("ybill", Meta.GetSys("esercizio"))), "motive");
 			if (motive == null) {
 				motive = "[sospeso numero " + nbill + "]";
 			}
+
 			__billMotive[n] = motive.ToString();
 			return motive.ToString();
 		}
@@ -2594,10 +2713,13 @@ namespace csa_import_default {
 			int n = Convert.ToInt32(nbill);
 			if (__billDate.ContainsKey(n))
 				return __billDate[n];
-			object date = Conn.DO_READ_VALUE("bill", QHS.AppAnd(QHS.CmpEq("nbill", nbill), QHS.CmpEq("billkind", "D"), QHS.CmpEq("ybill", Meta.GetSys("esercizio"))), "adate");
+			object date = Conn.DO_READ_VALUE("bill",
+				QHS.AppAnd(QHS.CmpEq("nbill", nbill), QHS.CmpEq("billkind", "D"),
+					QHS.CmpEq("ybill", Meta.GetSys("esercizio"))), "adate");
 			if (date == null) {
 				date = "[data sospeso numero " + nbill + "]";
 			}
+
 			__billDate[n] = date.ToString();
 			return date;
 		}
@@ -2618,9 +2740,9 @@ namespace csa_import_default {
 		private void btnDelete_Click(object sender, EventArgs e) {
 			if (Meta.IsEmpty) return;
 			if (Meta.InsertMode) return;
-			if (esistonoMovFinanziari("L", false)) return;
-			if (esistonoMovFinanziari("V", false)) return;
-			if (esistonoScritture(false)) return;
+			if (esistonoMovFinanziari("L")) return;
+			if (esistonoMovFinanziari("V")) return;
+			if (esistonoScritture()) return;
 
 			if (!CalcolaRighe()) {
 				MessageBox.Show(this, "Non ci sono dati da elaborare");
@@ -2629,9 +2751,10 @@ namespace csa_import_default {
 
 			DataRow Curr = DS.csa_import.Rows[0];
 
-			if (MessageBox.Show("Confermi la cancellazione dei dati importati (File Riepiloghi, Versamenti e Ripartizione in Sospesi)?",
-				"Cancella",
-				MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) != DialogResult.Yes)
+			if (MessageBox.Show(
+				    "Confermi la cancellazione dei dati importati (File Riepiloghi, Versamenti e Ripartizione in Sospesi)?",
+				    "Cancella",
+				    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) != DialogResult.Yes)
 				return;
 
 			string deleteFrom = "";
@@ -2658,10 +2781,12 @@ namespace csa_import_default {
 			deleteFrom = " DELETE FROM csa_importriep_epexp WHERE " + QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
 			Conn.SQLRunner(deleteFrom);
 
-			deleteFrom = " DELETE FROM csa_importriep_partition WHERE " + QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
+			deleteFrom = " DELETE FROM csa_importriep_partition WHERE " +
+			             QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
 			Conn.SQLRunner(deleteFrom);
 
-			deleteFrom = " DELETE FROM csa_importver_partition WHERE " + QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
+			deleteFrom = " DELETE FROM csa_importver_partition WHERE " +
+			             QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
 			Conn.SQLRunner(deleteFrom);
 
 			deleteFrom = " DELETE FROM csa_bill WHERE " + QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
@@ -2718,17 +2843,17 @@ namespace csa_import_default {
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
 				QHS.IsNull("idcsa_contractkind"));
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idriep as 'Numero Riepilogo', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview " +
-							" WHERE  " + filter;
+			                " idriep as 'Numero Riepilogo', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview " +
+			                " WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -2746,17 +2871,17 @@ namespace csa_import_default {
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
 				QHS.IsNull("ayear"));
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idriep as 'Numero Riepilogo', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview " +
-							" WHERE  " + filter;
+			                " idriep as 'Numero Riepilogo', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview " +
+			                " WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -2814,47 +2939,50 @@ namespace csa_import_default {
 			string filter = "";
 			if (!usePartition) {
 				filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
-			  QHS.IsNull("idupb"), QHS.IsNull("idexp"));
+					QHS.IsNull("idupb"), QHS.IsNull("idexp"));
 
 				string filter_ripartizione = " NOT EXISTS  (SELECT * FROM csa_contractexpense " +
-												 "  WHERE csa_importriepview.idcsa_contract = csa_contractexpense.idcsa_contract " +
-												 " 	AND csa_importriepview.ayear = csa_contractexpense.ayear)";
+				                             "  WHERE csa_importriepview.idcsa_contract = csa_contractexpense.idcsa_contract " +
+				                             " 	AND csa_importriepview.ayear = csa_contractexpense.ayear)";
 
 				filter = QHS.AppAnd(filter, filter_ripartizione);
-			} else {
+			}
+			else {
 				filter = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
 				filter +=
-				" and (not exists(select * from csa_importriep_partition CP where " +
-					   "  CP.idcsa_import = csa_importriepview.idcsa_import and " +
-					   "  CP.idriep = csa_importriepview.idriep " +
-					   "  )  OR " +
-					  " exists(select * from csa_importriep_partition CP where " +
-					  "  CP.idcsa_import = csa_importriepview.idcsa_import and " +
-					  "  CP.idriep = csa_importriepview.idriep and " +
-					  "  CP.idupb is null " +
-					  "  ))";
+					" and (not exists(select * from csa_importriep_partition CP where " +
+					"  CP.idcsa_import = csa_importriepview.idcsa_import and " +
+					"  CP.idriep = csa_importriepview.idriep " +
+					"  )  OR " +
+					" exists(select * from csa_importriep_partition CP where " +
+					"  CP.idcsa_import = csa_importriepview.idcsa_import and " +
+					"  CP.idriep = csa_importriepview.idriep and " +
+					"  CP.idupb is null " +
+					"  ))";
 			}
+
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idriep as 'Numero Riepilogo', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview " +
-							" WHERE  " + filter;
+			                " idriep as 'Numero Riepilogo', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
-				VisualizzaDati2(sender, e, T, "csa_importriep", "csa_importriepview", "default", filter.Replace("csa_importriepview", "csa_importriep"), filter);
+				VisualizzaDati2(sender, e, T, "csa_importriep", "csa_importriepview", "default",
+					filter.Replace("csa_importriepview", "csa_importriep"), filter);
 			}
 		}
 
-		
+
 
 		private void btn77_Click(object sender, EventArgs e) {
 			// 77) Riepiloghi senza capitolo , 
@@ -2863,43 +2991,46 @@ namespace csa_import_default {
 			string filter = "";
 			if (!usePartition) {
 				filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
-			  QHS.IsNull("idupb"), QHS.IsNull("idexp"));
+					QHS.IsNull("idupb"), QHS.IsNull("idexp"));
 
 				string filter_ripartizione = " NOT EXISTS  (SELECT * FROM csa_contractexpense " +
-												 "  WHERE csa_importriepview.idcsa_contract = csa_contractexpense.idcsa_contract " +
-												 " 	AND csa_importriepview.ayear = csa_contractexpense.ayear)";
+				                             "  WHERE csa_importriepview.idcsa_contract = csa_contractexpense.idcsa_contract " +
+				                             " 	AND csa_importriepview.ayear = csa_contractexpense.ayear)";
 
 				filter = QHS.AppAnd(filter, filter_ripartizione);
-			} else {
+			}
+			else {
 				filter = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
 				filter +=
-				" and (not exists(select * from csa_importriep_partition CP where " +
-					   "  CP.idcsa_import = csa_importriepview.idcsa_import and " +
-					   "  CP.idriep = csa_importriepview.idriep " +
-					   "  )  OR " +
-					  " exists(select * from csa_importriep_partition CP where " +
-					  "  CP.idcsa_import = csa_importriepview.idcsa_import and " +
-					  "  CP.idriep = csa_importriepview.idriep and " +
-					  "  CP.idfin is null " +
-					  "  ))";
+					" and (not exists(select * from csa_importriep_partition CP where " +
+					"  CP.idcsa_import = csa_importriepview.idcsa_import and " +
+					"  CP.idriep = csa_importriepview.idriep " +
+					"  )  OR " +
+					" exists(select * from csa_importriep_partition CP where " +
+					"  CP.idcsa_import = csa_importriepview.idcsa_import and " +
+					"  CP.idriep = csa_importriepview.idriep and " +
+					"  CP.idfin is null " +
+					"  ))";
 			}
+
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idriep as 'Numero Riepilogo', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview " +
-							" WHERE  " + filter;
+			                " idriep as 'Numero Riepilogo', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
-				VisualizzaDati2(sender, e, T, "csa_importriep", "csa_importriepview", "default", filter.Replace("csa_importriepview", "csa_importriep"), filter);
+				VisualizzaDati2(sender, e, T, "csa_importriep", "csa_importriepview", "default",
+					filter.Replace("csa_importriepview", "csa_importriep"), filter);
 			}
 		}
 
@@ -2910,33 +3041,36 @@ namespace csa_import_default {
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
 				QHS.IsNotNull("idreg_agency"), QHS.IsNull("idcsa_agencypaymethod"));
-	 
-			filter = QHS.AppAnd(filter, " NOT EXISTS(SELECT * FROM registrypaymethod  RGP WHERE RGP.idreg = csa_importverview.idreg_agency AND RGP.flagstandard = 'S' AND RGP.idchargehandling IS NOT NULL " + ") ");
+
+			filter = QHS.AppAnd(filter,
+				" NOT EXISTS(SELECT * FROM registrypaymethod  RGP WHERE RGP.idreg = csa_importverview.idreg_agency AND RGP.flagstandard = 'S' AND RGP.idchargehandling IS NOT NULL " +
+				") ");
 			filter = QHS.AppAnd(filter, " (ISNULL(csa_agency.flag, 0)&2) <> 0 "); /*_agency_not_use_nbill*/
 
-			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" csa_importverview.ente as 'Ente CSA', " +
-							" csa_importverview.vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry_agency as 'Anagrafica Ente', " +
-							" agency as 'Ente', " +
-							" csa_importverview.idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" codefin_income as 'Cod. Capitolo Entrata'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" JOIN csa_agency " +
-							" ON csa_agency.idcsa_agency = csa_importverview.idcsa_agency " +
-							" WHERE  " + filter;
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" csa_importverview.ente as 'Ente CSA', " +
+				" csa_importverview.vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry_agency as 'Anagrafica Ente', " +
+				" agency as 'Ente', " +
+				" csa_importverview.idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" JOIN csa_agency " +
+				" ON csa_agency.idcsa_agency = csa_importverview.idcsa_agency " +
+				" WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -2956,36 +3090,39 @@ namespace csa_import_default {
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
 				QHS.IsNotNull("idreg_agency"), QHS.IsNotNull("csa_importverview.idcsa_agencypaymethod"));
 
-			filter = QHS.AppAnd(filter, " NOT EXISTS(SELECT * FROM registrypaymethod  RGP WHERE RGP.idreg = csa_importverview.idreg_agency "+
-                " AND RGP.idregistrypaymethod = csa_agencypaymethod.idregistrypaymethod AND RGP.idchargehandling IS NOT NULL " + ") ");
+			filter = QHS.AppAnd(filter,
+				" NOT EXISTS(SELECT * FROM registrypaymethod  RGP WHERE RGP.idreg = csa_importverview.idreg_agency " +
+				" AND RGP.idregistrypaymethod = csa_agencypaymethod.idregistrypaymethod AND RGP.idchargehandling IS NOT NULL " +
+				") ");
 			filter = QHS.AppAnd(filter, " (ISNULL(csa_agency.flag, 0)&2) <> 0 "); // /*_agency_not_use_nbill*/
 
-			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" csa_importverview.ente as 'Ente CSA', " +
-							" csa_importverview.vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry_agency as 'Anagrafica Ente', " +
-							" agency as 'Ente', " +
-							" csa_importverview.idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" codefin_income as 'Cod. Capitolo Entrata'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" JOIN csa_agency " + 
-							" ON csa_agency.idcsa_agency = csa_importverview.idcsa_agency " +
-							" JOIN csa_agencypaymethod " +
-							" ON csa_agencypaymethod.idcsa_agency = csa_importverview.idcsa_agency " +
-                            " AND csa_agencypaymethod.idcsa_agencypaymethod = csa_importverview.idcsa_agencypaymethod " +
-							" WHERE  " + filter;
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" csa_importverview.ente as 'Ente CSA', " +
+				" csa_importverview.vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry_agency as 'Anagrafica Ente', " +
+				" agency as 'Ente', " +
+				" csa_importverview.idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" JOIN csa_agency " +
+				" ON csa_agency.idcsa_agency = csa_importverview.idcsa_agency " +
+				" JOIN csa_agencypaymethod " +
+				" ON csa_agencypaymethod.idcsa_agency = csa_importverview.idcsa_agency " +
+				" AND csa_agencypaymethod.idcsa_agencypaymethod = csa_importverview.idcsa_agencypaymethod " +
+				" WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -3008,14 +3145,17 @@ namespace csa_import_default {
 				QHS.IsNull("idupb"));
 			if (usePartition) {
 				string filter_partition = " AND ( NOT EXISTS(select * from  csa_importver_partition CP  where " +
-				QHS.AppAnd(QHS.CmpEq("CP.idcsa_import", QHS.Field("csa_importverview.idcsa_import")),
-				  QHS.CmpEq("CP.idver", QHS.Field("csa_importverview.idver"))
-				  ) + ")";
+				                          QHS.AppAnd(
+					                          QHS.CmpEq("CP.idcsa_import", QHS.Field("csa_importverview.idcsa_import")),
+					                          QHS.CmpEq("CP.idver", QHS.Field("csa_importverview.idver"))
+				                          ) + ")";
 
 				filter_partition += " OR ( EXISTS(select * from  csa_importver_partition CP  where " +
-				QHS.AppAnd(QHS.CmpEq("CP.idcsa_import", QHS.Field("csa_importverview.idcsa_import")),
-				QHS.CmpEq("CP.idver", QHS.Field("csa_importverview.idver")), QHS.IsNull("CP.idupb")
-				) + ")))";
+				                    QHS.AppAnd(
+					                    QHS.CmpEq("CP.idcsa_import", QHS.Field("csa_importverview.idcsa_import")),
+					                    QHS.CmpEq("CP.idver", QHS.Field("csa_importverview.idver")),
+					                    QHS.IsNull("CP.idupb")
+				                    ) + ")))";
 				filter += filter_partition;
 			}
 
@@ -3058,13 +3198,13 @@ namespace csa_import_default {
 				QHS.DoPar(QHS.AppOr(
 					QHS.IsNotNull("idcsa_contractkinddata"),
 					QHS.IsNotNull("idcsa_contracttax"))
-					),
+				),
 				//QHS.IsNotNull("idcsa_incomesetup"),
 				QHS.IsNull("idupb"), QHS.IsNull("idexp_cost"));
 			string filter_ripartizione = " NOT EXISTS  (SELECT * FROM csa_contracttaxexpense " +
-										 " WHERE csa_importverview.idcsa_contract = csa_contracttaxexpense.idcsa_contract " +
-										 "	AND csa_importverview.idcsa_contracttax = csa_contracttaxexpense.idcsa_contracttax " +
-										 "	AND csa_importverview.ayear = csa_contracttaxexpense.ayear)";
+			                             " WHERE csa_importverview.idcsa_contract = csa_contracttaxexpense.idcsa_contract " +
+			                             "	AND csa_importverview.idcsa_contracttax = csa_contracttaxexpense.idcsa_contracttax " +
+			                             "	AND csa_importverview.ayear = csa_contracttaxexpense.ayear)";
 
 			filter = QHS.AppAnd(filter, filter_ripartizione);
 
@@ -3141,24 +3281,25 @@ namespace csa_import_default {
 			if (Meta.IsEmpty) return;
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
-				QHS.DoPar(QHS.AppOr(QHS.IsNull("idcsa_agency"),QHS.NullOrEq("idreg_agency",0))));
-			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+				QHS.DoPar(QHS.AppOr(QHS.IsNull("idcsa_agency"), QHS.NullOrEq("idreg_agency", 0))));
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -3184,32 +3325,35 @@ namespace csa_import_default {
 
 				filterBilancioEntrata = QHS.AppOr(filterBilancioEntrata,
 					QHS.DoPar(QHS.AppAnd(QHS.CmpEq("flagdirectcsaclawback", "S"), QHS.IsNull("idfin_incomeclawback"))));
-			} else {
+			}
+			else {
 				filterBilancioEntrata = QHS.IsNull("idfin_incomeclawback");
 			}
+
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
 				QHS.CmpEq("flagclawback", "S"),
 				filterBilancioEntrata);
 
-			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" flagcr as 'Comp./Residui', " +
-							" codefin_income as 'Cap. Entrata Recupero'," +
-							" codefin_incomeclawback as 'Cap. Entrata Recupero Diretto'" +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" flagcr as 'Comp./Residui', " +
+				" codefin_income as 'Cap. Entrata Recupero'," +
+				" codefin_incomeclawback as 'Cap. Entrata Recupero Diretto'" +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -3218,6 +3362,45 @@ namespace csa_import_default {
 			}
 		}
 
+		private void btn82_Click(object sender, EventArgs e) {
+			// SIOPE Speculare al 7
+			if (Meta.IsEmpty) return;
+			DataRow Curr = DS.csa_import.Rows[0];
+			//object flagdirectcsaclawback = Get_Flag_Direct_Revenue_CSA();
+			string filterBilancioEntrata = null;
+
+			filterBilancioEntrata = QHS.AppAnd(QHS.IsNull("idsor_siope_incomeclawback"), QHS.IsNotNull("idfin_incomeclawback"));
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.CmpEq("flagclawback", "S"),
+				filterBilancioEntrata);
+
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" flagcr as 'Comp./Residui', " +
+				" codefin_income as 'Cap. Entrata Recupero'," +
+				" codefin_incomeclawback as 'Cap. Entrata Recupero Diretto'" +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+
+			if (T != null) {
+				VisualizzaDati(sender, e, T, "csa_importver", "default", filter);
+			}
+		}
 		private void btn08_Click(object sender, EventArgs e) {
 			//8) Recupero su partita di giro: idfin_expense-- > idfin_income e viceversa
 			if (Meta.IsEmpty) return;
@@ -3227,32 +3410,33 @@ namespace csa_import_default {
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
 				QHS.CmpEq("flagclawback", "S"), QHS.CmpEq("flagdirectcsaclawback", "N"),
 				QHS.DoPar(QHS.AppOr(QHS.DoPar(QHS.AppAnd(QHS.IsNull("idfin_expense"),
-					QHS.IsNotNull("idfin_income"))),
+						QHS.IsNotNull("idfin_income"))),
 					QHS.DoPar(QHS.AppAnd(QHS.IsNull("idfin_income"),
 						QHS.IsNotNull("idfin_expense")))))
-				);
+			);
 
-			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" codefin_income as 'Cod. Capitolo Entrata'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -3272,49 +3456,123 @@ namespace csa_import_default {
 
 			if (!usePartition) {
 				filter = QHS.AppAnd(filter, QHS.IsNull("idfin_cost"), QHS.IsNull("idexp_cost"),
-				 QHS.IsNull("idfin_expense")
-				 );
+					QHS.IsNull("idfin_expense")
+				);
 				filter += " AND NOT EXISTS(select * from csa_contracttaxexpense CE where " +
-			   QHS.AppAnd(QHS.CmpEq("CE.idcsa_contract", QHS.Field("csa_importverview.idcsa_contract")),
-				   QHS.CmpEq("CE.idcsa_contracttax", QHS.Field("csa_importverview.idcsa_contracttax")),
-				   QHS.CmpEq("CE.ayear", Conn.GetSys("esercizio"))
-				   )
-			   + ")";
-			} else {
+				          QHS.AppAnd(QHS.CmpEq("CE.idcsa_contract", QHS.Field("csa_importverview.idcsa_contract")),
+					          QHS.CmpEq("CE.idcsa_contracttax", QHS.Field("csa_importverview.idcsa_contracttax")),
+					          QHS.CmpEq("CE.ayear", Conn.GetSys("esercizio"))
+				          )
+				          + ")";
+			}
+			else {
 				string filter_partition = " AND ( NOT EXISTS(select * from  csa_importver_partition CP  where " +
-				QHS.AppAnd(QHS.CmpEq("CP.idcsa_import", QHS.Field("csa_importverview.idcsa_import")),
-				  QHS.CmpEq("CP.idver", QHS.Field("csa_importverview.idver"))
-				  ) + ")";
+				                          QHS.AppAnd(
+					                          QHS.CmpEq("CP.idcsa_import", QHS.Field("csa_importverview.idcsa_import")),
+					                          QHS.CmpEq("CP.idver", QHS.Field("csa_importverview.idver"))
+				                          ) + ")";
 
 				filter_partition += " OR ( EXISTS(select * from  csa_importver_partition CP  where " +
-				QHS.AppAnd(QHS.CmpEq("CP.idcsa_import", QHS.Field("csa_importverview.idcsa_import")),
-				QHS.CmpEq("CP.idver", QHS.Field("csa_importverview.idver")), QHS.DoPar(QHS.AppOr(QHS.IsNull("CP.idfin"), QHS.IsNull("CP.idupb")))
-				) + ")))";
+				                    QHS.AppAnd(
+					                    QHS.CmpEq("CP.idcsa_import", QHS.Field("csa_importverview.idcsa_import")),
+					                    QHS.CmpEq("CP.idver", QHS.Field("csa_importverview.idver")),
+					                    QHS.DoPar(QHS.AppOr(QHS.IsNull("CP.idfin"), QHS.IsNull("CP.idupb")))
+				                    ) + ")))";
 				filter += filter_partition;
 			}
 
 
-			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" codefin_income as 'Cod. Capitolo Entrata'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
+
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+
+			if (T != null) {
+				VisualizzaDati2(sender, e, T, "csa_importver", "csa_importverview", "default",
+					filter, filter);
+			}
+		}
+
+		private void btn84_Click(object sender, EventArgs e) {
+			//SIOPE Speculare a 11
+			if (Meta.IsEmpty) return;
+			DataRow Curr = DS.csa_import.Rows[0];
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.DoPar(QHS.AppOr(QHS.IsNotNull("idcsa_contractkinddata"), QHS.IsNotNull("idcsa_contracttax"))),
+				QHS.NullOrEq("flagclawback", "N"));
+
+			if (!usePartition) {
+				filter = QHS.AppAnd(filter, QHS.IsNull("idfin_cost"), QHS.IsNull("idexp_cost"),
+					QHS.IsNull("idfin_expense")
+				);
+				filter += " AND NOT EXISTS(select * from csa_contracttaxexpense CE where " +
+						  QHS.AppAnd(QHS.CmpEq("CE.idcsa_contract", QHS.Field("csa_importverview.idcsa_contract")),
+							  QHS.CmpEq("CE.idcsa_contracttax", QHS.Field("csa_importverview.idcsa_contracttax")),
+							  QHS.CmpEq("CE.ayear", Conn.GetSys("esercizio"))
+						  )
+						  + ")";
+			}
+			else {
+				string filter_partition = " AND ( NOT EXISTS(select * from  csa_importver_partition CP  where " +
+										  QHS.AppAnd(
+											  QHS.CmpEq("CP.idcsa_import", QHS.Field("csa_importverview.idcsa_import")),
+											  QHS.CmpEq("CP.idver", QHS.Field("csa_importverview.idver"))
+										  ) + ")";
+
+				filter_partition += " OR ( EXISTS(select * from  csa_importver_partition CP  where " +
+									QHS.AppAnd(
+										QHS.CmpEq("CP.idcsa_import", QHS.Field("csa_importverview.idcsa_import")),
+										QHS.CmpEq("CP.idver", QHS.Field("csa_importverview.idver")),
+										QHS.IsNull("idsor_siope"),
+										QHS.DoPar(QHS.AppOr(QHS.IsNotNull("CP.idfin"), QHS.IsNotNull("CP.idexp")))
+									) + ")))";
+				filter += filter_partition;
+			}
+
+
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -3327,6 +3585,34 @@ namespace csa_import_default {
 
 
 
+		private void btn85_Click(object sender, EventArgs e) {
+			//1) Anagrafica non valorizzata in riepiloghi
+			if (Meta.IsEmpty) return;
+			DataRow Curr = DS.csa_import.Rows[0];
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.DoPar(QHS.AppOr(QHS.IsNull("idreg"),QHS.CmpEq("idreg", 0))));
+			string sqlCmd = " SELECT ayear as 'Eserc.', " +
+			                " idriep as 'Numero Riepilogo', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview " +
+			                " WHERE  " + filter +" order by matricola ";
+
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+
+			if (T != null) {
+				VisualizzaDati(sender, e, T, "csa_importriep", "default", filter);
+			}
+		}
+
+
 		private void btn12_Click(object sender, EventArgs e) {
 			//12)  Ritenuta : idfin_expense --> idfin_income
 			if (Meta.IsEmpty) return;
@@ -3336,27 +3622,28 @@ namespace csa_import_default {
 				QHS.IsNull("idfin_income"),
 				QHS.IsNotNull("idfin_expense"));
 
-			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" codefin_income as 'Cod. Capitolo Entrata'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -3365,6 +3652,44 @@ namespace csa_import_default {
 			}
 		}
 
+		private void btn80_Click(object sender, EventArgs e) {
+			// Specula al Check 12
+			if (Meta.IsEmpty) return;
+			DataRow Curr = DS.csa_import.Rows[0];
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.NullOrEq("flagclawback", "N"),
+				QHS.IsNull("idsor_siope_expense"),
+				QHS.IsNotNull("idfin_expense"));
+
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+
+			if (T != null) {
+				VisualizzaDati(sender, e, T, "csa_importver", "default", filter);
+			}
+		}
 		private void btn13_Click(object sender, EventArgs e) {
 			//13)  Ritenuta: idfin_income --> idfin_expense
 			if (Meta.IsEmpty) return;
@@ -3374,27 +3699,28 @@ namespace csa_import_default {
 				QHS.IsNotNull("idfin_income"),
 				QHS.IsNull("idfin_expense"));
 
-			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" codefin_income as 'Cod. Capitolo Entrata'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -3403,6 +3729,44 @@ namespace csa_import_default {
 			}
 		}
 
+		private void btn81_Click(object sender, EventArgs e) {
+			// SIOPE - speculare a 13
+			if (Meta.IsEmpty) return;
+			DataRow Curr = DS.csa_import.Rows[0];
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.NullOrEq("flagclawback", "N"),
+				QHS.IsNotNull("idfin_income"),
+				QHS.IsNull("idsor_siope_income"));
+
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+
+			if (T != null) {
+				VisualizzaDati(sender, e, T, "csa_importver", "default", filter);
+			}
+		}
 		object _myreg_CSA = null;
 
 		/// <summary>
@@ -3520,6 +3884,7 @@ namespace csa_import_default {
 			if ((t == null) || (t.Rows.Count == 0)) {
 				t = Conn.RUN_SELECT("csa_contracttax_partition", "*", null, filter, null, null, true);
 			}
+
 			if ((t == null) || (t.Rows.Count == 0)) return false;
 			else return true;
 		}
@@ -3604,7 +3969,10 @@ namespace csa_import_default {
 				return;
 			}
 
-			if (esistonoMovFinanziari(kind, true)) return;
+			if (esistonoMovFinanziari(kind)) {
+				MessageBox.Show("Esistono Movimenti finanziari collegati all'Importazione. Operazione annullata");
+				return;
+			}
 			if (!CalcolaRighe()) {
 				MessageBox.Show(this, "Non ci sono dati da elaborare");
 				return;
@@ -3677,12 +4045,14 @@ namespace csa_import_default {
 					scollegaEntratedaSpese();
 				}
 
-				doSave();
+				doSave(kind);
 			}
 		}
+
 		Hashtable hashFin = new Hashtable();
 		Hashtable hashUpb = new Hashtable();
 		Hashtable hashReg = new Hashtable();
+
 		private void AddVoceBilancio(object ID, string codbil) {
 			if (ID == DBNull.Value) return;
 			if (hashFin.ContainsKey(ID.ToString())) return;
@@ -3760,6 +4130,7 @@ namespace csa_import_default {
 				if (Auto.Table.Columns[field] == null) continue;
 				if (E_S.Table.Columns.Contains(field)) E_S[field] = Auto[field];
 			}
+
 			E_S.EndEdit();
 		}
 
@@ -3773,12 +4144,15 @@ namespace csa_import_default {
 			if (ImportMovRow.Table.Columns.Contains("idriep")) {
 				ImportMovRow["idriep"] = Auto["idriep"];
 			}
+
 			if (ImportMovRow.Table.Columns.Contains("ndetail")) {
 				ImportMovRow["ndetail"] = Auto["ndetail"];
 			}
+
 			if (ImportMovRow.Table.Columns.Contains("idver")) {
 				ImportMovRow["idver"] = Auto["idver"];
 			}
+
 			if (ImportMovRow.Table.Columns.Contains("amount")) {
 				ImportMovRow["amount"] = Auto["amount"];
 			}
@@ -3796,15 +4170,18 @@ namespace csa_import_default {
 			if (RUnGrouped == null || RUnGrouped.Length == 0) {
 				return -1;
 			}
+
 			object idsor = RUnGrouped[0]["parentidsor"];
 			int nidsor = Convert.ToInt32(idsor);
 			int idsorkind = 0;
 			if (__kind_of_sorting.ContainsKey(nidsor)) {
 				idsorkind = __kind_of_sorting[nidsor];
-			} else {
+			}
+			else {
 				idsorkind = CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("sorting", QHS.CmpEq("idsor", idsor), "idsorkind"));
 				__kind_of_sorting[nidsor] = idsorkind;
 			}
+
 			Dictionary<int, int> myphasedict = (IoE == "I") ? __i_phase_sorkind : __e_phase_sorkind;
 			if (myphasedict.ContainsKey(idsorkind)) {
 				return myphasedict[idsorkind];
@@ -3816,7 +4193,8 @@ namespace csa_import_default {
 
 			if (nphase == null || nphase == DBNull.Value) {
 				myphasedict[idsorkind] = -1;
-			} else {
+			}
+			else {
 				myphasedict[idsorkind] = CfgFn.GetNoNullInt32(nphase);
 			}
 
@@ -3838,9 +4216,10 @@ namespace csa_import_default {
 			DataRow[] RUnGrouped;
 			if (vecchiaGestione()) {
 				RUnGrouped = OutTable.Select(QHC.AppAnd(QHC.CmpEq("nriga", index), QHC.CmpEq("kind", kind)));
-			} else {
+			}
+			else {
 				//nriga è sempre l'indice della riga stessa
-				RUnGrouped = new DataRow[] { SP_Result.Rows[index] }; //penso che potesse andare bene anche con la vecchia
+				RUnGrouped = new DataRow[] {SP_Result.Rows[index]}; //penso che potesse andare bene anche con la vecchia
 			}
 
 			if (RUnGrouped.Length == 0) return;
@@ -3878,12 +4257,13 @@ namespace csa_import_default {
 			string kind = "Spesa";
 
 			//Ottiene tutte le righe NON raggruppate che puntano alla riga in esame
-			DataRow[] RUnGrouped ;//= OutTable.Select(QHC.AppAnd(QHC.CmpEq("nriga", index), QHC.CmpEq("kind", kind)));
+			DataRow[] RUnGrouped; //= OutTable.Select(QHC.AppAnd(QHC.CmpEq("nriga", index), QHC.CmpEq("kind", kind)));
 			if (vecchiaGestione()) {
 				RUnGrouped = OutTable.Select(QHC.AppAnd(QHC.CmpEq("nriga", index), QHC.CmpEq("kind", kind)));
-			} else {
+			}
+			else {
 				//nriga è sempre l'indice della riga stessa
-				RUnGrouped = new DataRow[] { SP_Result.Rows[index] }; //penso che potesse andare bene anche con la vecchia
+				RUnGrouped = new DataRow[] {SP_Result.Rows[index]}; //penso che potesse andare bene anche con la vecchia
 			}
 
 			if (RUnGrouped.Length == 0) return;
@@ -3949,7 +4329,7 @@ namespace csa_import_default {
 				DataRow[] UnderwritingPayment = dsFinancial.Tables[tUnderwritingPayment].Select(filter);
 				if (UnderwritingPayment.Length > 0)
 					UnderwritingPayment[0]["amount"] = CfgFn.GetNoNullDecimal(UnderwritingPayment[0]["amount"]) +
-													   CfgFn.GetNoNullDecimal(R["amount"]);
+					                                   CfgFn.GetNoNullDecimal(R["amount"]);
 				else {
 					DataRow UnderwritingPaymentRow = MetaUnderwritingPayment.Get_New_Row(NewMovRow,
 						dsFinancial.Tables[tUnderwritingPayment]);
@@ -4068,16 +4448,20 @@ namespace csa_import_default {
 					DataRow toadd = MetaUA.Get_New_Row(Curr, dsFinancial.Tables["underwritingpayment"]);
 					toadd["idunderwriting"] = idunderwriting_found;
 					newrow = toadd;
-				} else {
+				}
+				else {
 					newrow = dsFinancial.Tables["underwritingpayment"].Select(filterpay)[0];
 				}
+
 				if (to_cover <= available) {
 					newrow["amount"] = CfgFn.GetNoNullDecimal(newrow["amount"]) + to_cover;
 					to_cover = 0;
-				} else {
+				}
+				else {
 					newrow["amount"] = CfgFn.GetNoNullDecimal(newrow["amount"]) + available;
 					to_cover -= available;
 				}
+
 				if (to_cover == 0) break;
 			}
 
@@ -4108,7 +4492,8 @@ namespace csa_import_default {
 			//Legge l'elenco di tutti i finanziamenti aventi previsione disponibile per il pagamento
 			//  per la voce upb/bilancio del movimento di spesa, in ordine crescente di disponibilità
 			DataTable F = Conn.RUN_SELECT("upbunderwritingyearview", "*", fieldtouse + " asc",
-				QHS.AppAnd(QHS.CmpEq("idfin", idfin), QHS.CmpEq("idupb", idupb), QHS.CmpGt(fieldtouse, 0)), null, false);
+				QHS.AppAnd(QHS.CmpEq("idfin", idfin), QHS.CmpEq("idupb", idupb), QHS.CmpGt(fieldtouse, 0)), null,
+				false);
 
 			if (F == null || F.Rows.Count == 0) {
 				//MessageBox.Show(this, "Non ci sono finanziamenti per questa coppia progetto-voce di bilancio",
@@ -4125,7 +4510,7 @@ namespace csa_import_default {
 				string filterunderwriting = QHC.AppAnd(
 					QHC.CmpEq("idexp", Curr["idexp"]),
 					QHC.CmpEq("idunderwriting", idunderwriting_found)
-					);
+				);
 				DataRow newrow = null;
 				decimal available = CfgFn.GetNoNullDecimal(Rf[fieldtouse]);
 
@@ -4136,17 +4521,20 @@ namespace csa_import_default {
 					toadd["idunderwriting"] = idunderwriting_found;
 
 					newrow = toadd;
-				} else {
+				}
+				else {
 					newrow = dsFinancial.Tables["underwritingpayment"].Select(filterunderwriting)[0];
 				}
 
 				if (to_cover <= available) {
 					newrow["amount"] = CfgFn.GetNoNullDecimal(newrow["amount"]) + to_cover;
 					to_cover = 0;
-				} else {
+				}
+				else {
 					newrow["amount"] = CfgFn.GetNoNullDecimal(newrow["amount"]) + available;
 					to_cover -= available;
 				}
+
 				if (to_cover == 0) break;
 			}
 
@@ -4200,8 +4588,8 @@ namespace csa_import_default {
 			return false;
 		}
 
-		
-		 
+
+
 		string __myflagproceeds = null;
 
 		/// <summary>
@@ -4212,6 +4600,7 @@ namespace csa_import_default {
 			if (__myflagproceeds != null) {
 				return __myflagproceeds == "S";
 			}
+
 			object esercizio = Meta.GetSys("esercizio");
 			string filter = QHS.CmpEq("ayear", Conn.GetSys("esercizio"));
 			DataTable t = Conn.RUN_SELECT("config", "*", null, filter, null, null, true);
@@ -4234,6 +4623,7 @@ namespace csa_import_default {
 			if (__myfin_kind != -1) {
 				return (__myfin_kind == 1 || __myfin_kind == 3);
 			}
+
 			object esercizio = Meta.GetSys("esercizio");
 			string filter = QHS.CmpEq("ayear", Conn.GetSys("esercizio"));
 			DataTable t = Conn.RUN_SELECT("config", "*", null, filter, null, null, true);
@@ -4253,6 +4643,7 @@ namespace csa_import_default {
 			if (__myfin_kind != -1) {
 				return (__myfin_kind == 2 || __myfin_kind == 3);
 			}
+
 			object esercizio = Meta.GetSys("esercizio");
 			string filter = QHS.CmpEq("ayear", Conn.GetSys("esercizio"));
 			DataTable t = Conn.RUN_SELECT("config", "*", null, filter, null, null, true);
@@ -4265,6 +4656,7 @@ namespace csa_import_default {
 		}
 
 		string __flagEpExp = null;
+
 		bool UsaBudget() {
 			if (__flagEpExp != null) {
 				return __flagEpExp == "S";
@@ -4281,6 +4673,7 @@ namespace csa_import_default {
 				return true;
 			return false;
 		}
+
 		private void FillImputazioneMovimento(DataRow ImpMov, DataRow Auto) {
 			string[] fields_to_copy = new string[] {
 				"idfin", "idupb", "codefin"
@@ -4290,6 +4683,7 @@ namespace csa_import_default {
 				if (ImpMov.Table.Columns[field] == null) continue;
 				ImpMov[field] = Auto[field];
 			}
+
 			ImpMov["amount"] = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Auto["amount"]));
 		}
 
@@ -4336,23 +4730,27 @@ namespace csa_import_default {
 
 			string procName = "";
 			procName = kind == "L" ? "compute_csa_lordi" : "compute_csa_versamenti";
-			if (nuovaGestione()) procName = kind == "L" ? "compute_csa_lordi_partition" : "compute_csa_versamenti_partition";
+			if (nuovaGestione())
+				procName = kind == "L" ? "compute_csa_lordi_partition" : "compute_csa_versamenti_partition";
 			DataSet Out = new DataSet();
 			if (kind == "L") {
 				Out = Conn.CallSP(procName,
-					new object[] { esercizio, Curr["idcsa_import"] });
-			} else {
+					new object[] {esercizio, Curr["idcsa_import"]});
+			}
+			else {
 				StringBuilder sb = new StringBuilder();
 				sb.AppendLine("DECLARE @lista_idcsa_import AS int_list;");
 				sb.AppendLine("");
 				sb.AppendLine("DECLARE @lista_idreg AS int_list;");
-				sb.AppendLine($"exec  compute_csa_versamenti_partition {esercizio},{Curr["idcsa_import"]},@lista_idcsa_import, @lista_idreg");
+				sb.AppendLine(
+					$"exec  compute_csa_versamenti_partition {esercizio},{Curr["idcsa_import"]},@lista_idcsa_import, @lista_idreg");
 				DataTable T = Conn.SQLRunner(sb.ToString());
 				if (T == null) return false;
 				if (T.Rows.Count == 0) return false;
 				Out.Tables.Add(T);
 
 			}
+
 			if (Out == null) return false;
 			if (Out.Tables.Count == 0) return false; //no answer from sp
 			movimentiRaggruppati = null;
@@ -4381,6 +4779,7 @@ namespace csa_import_default {
 						if (CfgFn.GetNoNullDecimal(r["netto"]) != 0) {
 							r["nbill"] = nBill;
 						}
+
 						// Per alcuni enti versamento non si deve specificare il sospeso sui movimenti di tipo 4, Versamento Contributi e Ritenute
 						if ((kind == "V") && (agency_not_use_nbill(r["idcsa_agency"]))) {
 							r["nbill"] = DBNull.Value;
@@ -4402,7 +4801,8 @@ namespace csa_import_default {
 			return true;
 		}
 
-		private QuoteCsa movimentiRaggruppati=null;
+		private QuoteCsa movimentiRaggruppati = null;
+
 		object getSospeso(bool lordi) {
 			//TODO: ottenere il n. di sospeso dal dataset
 			if (lordi) return DS.csa_import.Rows[0]["nbill_netti"];
@@ -4410,11 +4810,14 @@ namespace csa_import_default {
 		}
 
 		Dictionary<object, bool> _agency_not_use_nbill = new Dictionary<object, bool>();
+
 		bool agency_not_use_nbill(object idcsa_agency) {
 			if (_agency_not_use_nbill.ContainsKey(idcsa_agency)) {
 				return _agency_not_use_nbill[idcsa_agency];
-			} else {
-				int flag = CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("csa_agency", QHS.CmpEq("idcsa_agency", idcsa_agency), "(ISNULL(csa_agency.flag, 0)&2)"));
+			}
+			else {
+				int flag = CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("csa_agency",
+					QHS.CmpEq("idcsa_agency", idcsa_agency), "(ISNULL(csa_agency.flag, 0)&2)"));
 				_agency_not_use_nbill[idcsa_agency] = flag != 0;
 				return _agency_not_use_nbill[idcsa_agency];
 			}
@@ -4505,7 +4908,8 @@ namespace csa_import_default {
 				if (incomeAmount > expenseAmount) {
 					R["amount"] = incomeAmount - expenseAmount;
 					RExpense["amount"] = 0;
-				} else {
+				}
+				else {
 					R["amount"] = 0;
 					RExpense["amount"] = expenseAmount - incomeAmount;
 				}
@@ -4573,14 +4977,17 @@ namespace csa_import_default {
 					foreach (DataRow RRInc in RIncome) {
 						RRInc["indice"] = DBNull.Value;
 					}
+
 					string filterLinked = QHC.AppAnd(QHC.CmpEq("kind", "Spesa"), QHC.CmpEq("nriga", R["nriga"]));
 					DataRow[] RExpLinked = AutoNoGrouped.Select(filterLinked);
 					foreach (DataRow RRExp in RExpLinked) {
 						RRExp.Delete();
 					}
+
 					R.Delete();
 				}
 			}
+
 			Auto.AcceptChanges();
 			AutoNoGrouped.AcceptChanges();
 			return Auto;
@@ -4621,7 +5028,7 @@ namespace csa_import_default {
 				//Visto che raggruppiamo anche per idreg non abbiamo problemi             
 
 				string filter = QHC.MCmp(R, "kind", "movkind", "parentidexp", "idreg", "idcsa_agency",
-					"idcsa_agencypaymethod", "idfin", "idupb", "idman","description", "idacc", "vocecsa");
+					"idcsa_agencypaymethod", "idfin", "idupb", "idman", "description", "idacc", "vocecsa");
 
 				//cerca nelle righe raggruppata una riga in cui inserire R, aumentandone l'importo
 				DataRow[] RGrouped = AutoGrouped.Select(filter);
@@ -4639,13 +5046,14 @@ namespace csa_import_default {
 					groupedRows[indice] = new List<DataRow>();
 					groupedRows[indice].Add(R);
 					speseRaggruppate[indice] = CfgFn.GetNoNullDecimal(R["amount"]);
-				} else {
+				}
+				else {
 					//il campo indice della riga non raggruppata è pari al campo indice della riga raggruppata
 					int indice = CfgFn.GetNoNullInt32(RGrouped[0]["indice"]);
 					R["indice"] = indice;
 					R["nriga"] = indice;
 					RGrouped[0]["amount"] = CfgFn.GetNoNullDecimal(RGrouped[0]["amount"]) +
-											CfgFn.GetNoNullDecimal(R["amount"]);
+					                        CfgFn.GetNoNullDecimal(R["amount"]);
 					groupedRows[indice].Add(R);
 					speseRaggruppate[indice] = CfgFn.GetNoNullDecimal(RGrouped[0]["amount"]);
 				}
@@ -4669,7 +5077,7 @@ namespace csa_import_default {
 					continue; // escludo anche i rimborsi contributi negativi da erario (solo fase versamenti)
 				if (CfgFn.GetNoNullInt32(R["movkind"]) == 17)
 					continue; // escludo anche i recuperi negativi su partita di giro (fase versamenti)
-							  // se l'Ente CSA è configurato in modo da non collegare automatismi allora non ccrea l'associazione entrata-spesa
+				// se l'Ente CSA è configurato in modo da non collegare automatismi allora non ccrea l'associazione entrata-spesa
 				object idcsa_agency = R["idcsa_agency"];
 				// Su questi movimenti di entrata della fase lordi non deve interrogare la configurazione dell'ENTE CSA
 				// movkind 1 mov.entrata ritenute/ contributi su partite di giro (fase LORDI)
@@ -4694,18 +5102,19 @@ namespace csa_import_default {
 					filterexp = QHC.AppAnd(QHC.MCmp(R, "idreg"
 							//, "idcsa_contract"
 							, "idcsa_contractkind"
-							),
+						),
 						QHC.CmpEq("kind", "Spesa"),
 						QHC.CmpEq("movkind", 3) //lordi positivi
-						);
-				} else {
+					);
+				}
+				else {
 					// Cerca qui di associare cosa, movimenti di entrata di incasso ritenute  da erario, 
 					// a movimenti di spesa di tipo 4 (Versamento di ritenute , contributi , recuperi).
 					// Quindi si tratta di movimenti  di entrata di tipo 9
 					filterexp = QHC.AppAnd(QHC.MCmp(R, "idreg", "idcsa_agency", "vocecsa"
-								//,"idcsa_contract"
-								, "idcsa_contractkind"
-						 ),
+							//,"idcsa_contract"
+							, "idcsa_contractkind"
+						),
 						QHC.CmpEq("kind", "Spesa"), QHC.CmpEq("movkind", 4));
 				}
 
@@ -4718,13 +5127,16 @@ namespace csa_import_default {
 
 					int indice = CfgFn.GetNoNullInt32(r["indice"]);
 					decimal amountPagamento = speseRaggruppate[indice]; //CfgFn.GetNoNullDecimal(r["amount"]);
-					if (amountPagamento < amountReve[indice] + amountIncasso) continue; //il raggruppamento non ha capienza
+					if (amountPagamento < amountReve[indice] + amountIncasso)
+						continue; //il raggruppamento non ha capienza
 					if (nReve[indice] < 30) {
 						rExpFound = r; //Il pagamento ha capienza e meno di 30 incassi
 						break;
 					}
+
 					rExpFoundFull = r; //Il pagamento ha capienza ma già 30 incassi
 				}
+
 				//
 				if (rExpFound != null) {
 					int indice = CfgFn.GetNoNullInt32(rExpFound["indice"]);
@@ -4755,6 +5167,7 @@ namespace csa_import_default {
 					newAmount += CfgFn.GetNoNullDecimal(r["amount"]);
 					oldAmount -= CfgFn.GetNoNullDecimal(r["amount"]);
 				}
+
 				if (newAmount > amountIncasso) {
 					//E' riuscito a sottrarre dal vecchio movimento un tot di movimenti atti a coprire le vecchie reversali
 					//  inoltre nel movimento rimanente c'è capienza per l'incasso
@@ -4770,11 +5183,12 @@ namespace csa_import_default {
 						r["indice"] = nuovoIndice;
 						r["nriga"] = nuovoIndice;
 					}
+
 					//rExpFoundFull["amount"] = oldAmount; //Imposta il nuovo importo del vecchio movimento
 					AutoGrouped.Rows[vecchioIndice]["amount"] = oldAmount;
 					speseRaggruppate[vecchioIndice] = oldAmount;
 
-					NewR["amount"] = newAmount;//assegna l'importo del nuovo raggruppamento
+					NewR["amount"] = newAmount; //assegna l'importo del nuovo raggruppamento
 					speseRaggruppate[nuovoIndice] = newAmount;
 					groupedRows[nuovoIndice] = newList;
 
@@ -4783,6 +5197,7 @@ namespace csa_import_default {
 					nReve[nuovoIndice] += 1;
 					continue;
 				}
+
 				DataRow rUnicoFound = null;
 
 
@@ -4793,6 +5208,7 @@ namespace csa_import_default {
 					rUnicoFound = r;
 					break;
 				}
+
 				if (rUnicoFound == null) continue;
 
 				//Dobbiamo creare una riga in Auto con gli stessi valori di rUnicoFound
@@ -4804,8 +5220,10 @@ namespace csa_import_default {
 				foreach (DataColumn C in Auto.Columns) {
 					NewRAuto[C.ColumnName] = rUnicoFound[C.ColumnName];
 				}
+
 				NewRAuto["amount"] = amountIncasso;
-				rUnicoFound["amount"] = CfgFn.GetNoNullDecimal(rUnicoFound["amount"]) - CfgFn.GetNoNullDecimal(NewRAuto["amount"]);
+				rUnicoFound["amount"] = CfgFn.GetNoNullDecimal(rUnicoFound["amount"]) -
+				                        CfgFn.GetNoNullDecimal(NewRAuto["amount"]);
 				int indicerUnico = CfgFn.GetNoNullInt32(rUnicoFound["indice"]);
 				speseRaggruppate[indicerUnico] -= amountIncasso;
 				AutoGrouped.Rows[indicerUnico]["amount"] = speseRaggruppate[indicerUnico];
@@ -4839,7 +5257,7 @@ namespace csa_import_default {
 				if (R["kind"].ToString() == "Spesa")
 					continue;
 				string filter = QHC.MCmp(R, "kind", "movkind", "indice", "idreg", "idcsa_agency",
-					"idcsa_agencypaymethod", "idfin", "idupb","description", "idacc");
+					"idcsa_agencypaymethod", "idfin", "idupb", "description", "idacc");
 
 				DataRow[] RGrouped = AutoGrouped.Select(filter);
 				//il campo nriga del DataRow  raggruppato punta al DataRow di entrata raggruppata
@@ -4848,9 +5266,10 @@ namespace csa_import_default {
 					DataRow NewR = AddRowToTableGrouped(R, AutoGrouped);
 					NewR["nriga"] = AutoGrouped.Rows.Count - 1;
 					R["nriga"] = AutoGrouped.Rows.Count - 1;
-				} else {
+				}
+				else {
 					RGrouped[0]["amount"] = CfgFn.GetNoNullDecimal(RGrouped[0]["amount"]) +
-											CfgFn.GetNoNullDecimal(R["amount"]);
+					                        CfgFn.GetNoNullDecimal(R["amount"]);
 					R["nriga"] = RGrouped[0]["nriga"];
 				}
 			}
@@ -4869,6 +5288,7 @@ namespace csa_import_default {
 			foreach (DataColumn C in T.Columns) {
 				NewR[C.ColumnName] = R[C.ColumnName];
 			}
+
 			T.Rows.Add(NewR);
 			return NewR;
 		}
@@ -4878,9 +5298,11 @@ namespace csa_import_default {
 			if (T.TableName == "incomeview") {
 				NewR["idinc"] = i;
 			}
+
 			if (T.TableName == "expenseview") {
 				NewR["idexp"] = i;
 			}
+
 			foreach (DataColumn C in R.Table.Columns) {
 				if (C.ColumnName == "idmovimento") continue;
 				if (C.ColumnName == "indice") continue;
@@ -4900,6 +5322,7 @@ namespace csa_import_default {
 				if (!T.Columns.Contains(C.ColumnName)) continue;
 				NewR[C.ColumnName] = R[C.ColumnName];
 			}
+
 			T.Rows.Add(NewR);
 		}
 
@@ -4919,6 +5342,7 @@ namespace csa_import_default {
 				DataRow R = Automatismi.Rows[i];
 				AddRowToTable(R, dsFinancial.incomeview, i);
 			}
+
 			dsFinancial.expenseview.AcceptChanges();
 			dsFinancial.incomeview.AcceptChanges();
 		}
@@ -4952,9 +5376,11 @@ namespace csa_import_default {
 						R["idpayment"] = r["idexp"];
 						break;
 					}
+
 					if (vocecsa_pagamento == null || vocecsa_incasso == null) {
 						continue;
 					}
+
 					if (vocecsa_pagamento.ToString() == vocecsa_incasso.ToString()) {
 						R["idpayment"] = r["idexp"];
 						break;
@@ -4965,6 +5391,7 @@ namespace csa_import_default {
 
 
 			}
+
 			return;
 		}
 
@@ -5022,6 +5449,7 @@ namespace csa_import_default {
 				MessageBox.Show(
 					"Sono stati scollegati alcuni movimenti di entrata dai relativi movimenti di spesa per evitare mandati con importo netto negativo");
 			}
+
 			return;
 		}
 
@@ -5036,7 +5464,7 @@ namespace csa_import_default {
 		//Dictionary<int, Dictionary<int,decimal>> elencoSospesi = new Dictionary<int, Dictionary<int, decimal>>();
 
 		Dictionary<int, Dictionary<int, decimal>> getElencoSospesi(DataTable t) {
-			var l=new Dictionary<int, Dictionary<int, decimal>>();
+			var l = new Dictionary<int, Dictionary<int, decimal>>();
 			foreach (DataRow r in t.Rows) {
 				//campi nbill, idreg, amount
 				int nBill = (int) r["nbill"];
@@ -5054,24 +5482,30 @@ namespace csa_import_default {
 
 				listaSospesi[nBill] += amount;
 			}
+
 			//MessageBox.Show("sospesi " + l.Count.ToString());
 			return l;
 		}
 
 
 		string getHash(DataRow r, string[] listaCampi) {
-			if ((listaCampi != null) && (listaCampi.Length > 0)) return string.Join("§", (from field in listaCampi select r[field].ToString()).ToArray());
+			if ((listaCampi != null) && (listaCampi.Length > 0))
+				return string.Join("§", (from field in listaCampi select r[field].ToString()).ToArray());
 
-			string []fields = null;
+			string[] fields = null;
 			if (r.Table.TableName.ToString() == "epexpyear") {
-				fields = new[] { "ayear", "idepexp" };
+				fields = new[] {"ayear", "idepexp"};
 			}
+
 			if (r.Table.TableName.ToString() == "epaccyear") {
-				fields = new[] { "ayear", "idepacc" };
+				fields = new[] {"ayear", "idepacc"};
 			}
+
 			return string.Join("§", (from field in fields select r[field].ToString()).ToArray());
 		}
-		Dictionary<int, decimal> getSospesiPerAnagrafica(int idReg, Dictionary<int, Dictionary<int, decimal>> sospesi, decimal amountToCover) {
+
+		Dictionary<int, decimal> getSospesiPerAnagrafica(int idReg, Dictionary<int, Dictionary<int, decimal>> sospesi,
+			decimal amountToCover) {
 			var l = new Dictionary<int, decimal>();
 
 			if (!sospesi.ContainsKey(idReg)) return l;
@@ -5080,7 +5514,7 @@ namespace csa_import_default {
 				//MessageBox.Show("sospeso " + nbill.ToString() + idReg.ToString());
 				decimal residuo = listaSospesi[nbill];
 				if (residuo == 0) continue; //superflua ma toglierla appare controintuitivo
-				decimal amount = (residuo > amountToCover) ? amountToCover : residuo;//minimo tra i due
+				decimal amount = (residuo > amountToCover) ? amountToCover : residuo; //minimo tra i due
 				residuo -= amount;
 				amountToCover -= amount;
 				listaSospesi[nbill] = residuo;
@@ -5098,7 +5532,8 @@ namespace csa_import_default {
 		/// </summary>
 		/// <param name="IoE"></param>
 		/// <returns></returns>
-		private bool generaMovPrincipali(string IoE, bool nonPagareNettiPositivi, Dictionary<int, Dictionary<int, decimal>> sospesi, bool lordi) {
+		private bool generaMovPrincipali(string IoE, bool nonPagareNettiPositivi,
+			Dictionary<int, Dictionary<int, decimal>> sospesi, bool lordi) {
 
 			//for (int i = 0; i < SP_Result.Rows.Count; i++)
 			//{
@@ -5115,8 +5550,10 @@ namespace csa_import_default {
 			string tMainBill = (IoE == "I") ? "incomebill" : "expensebill";
 			string tMainSorted = (IoE == "I") ? "incomesorted" : "expensesorted";
 			string tImportMain = (IoE == "I") ? "csa_import_income" : "csa_import_expense";
-			string tImportMainVerPlus = (IoE == "I") ? "csa_importver_partition_income" : "csa_importver_partition_expense";
-			string tImportMainRiepPlus = (IoE == "I") ? "csa_importriep_partition_income" : "csa_importriep_partition_expense";
+			string tImportMainVerPlus =
+				(IoE == "I") ? "csa_importver_partition_income" : "csa_importver_partition_expense";
+			string tImportMainRiepPlus =
+				(IoE == "I") ? "csa_importriep_partition_income" : "csa_importriep_partition_expense";
 
 			MetaData MetaM = Meta.Dispatcher.Get(tMain);
 			MetaM.SetDefaults(dsFinancial.Tables[tMain]);
@@ -5146,8 +5583,8 @@ namespace csa_import_default {
 			int esercizio = getIntSys("esercizio");
 
 			DataRow csa = DS.csa_import.Rows[0];
-			string csaDescr=  $"Importazione n.{csa["nimport"]}/{csa["yimport"]} {csa["description"]}";
-			string descrLoV  = (lordi)?"Lordi ":"Versamenti ";
+			string csaDescr = $"Importazione n.{csa["nimport"]}/{csa["yimport"]} {csa["description"]}";
+			string descrLoV = (lordi) ? "Lordi " : "Versamenti ";
 
 			DataTable Mov = dsFinancial.Tables[tMain];
 			DataTable ImpMov = dsFinancial.Tables[tMainYear];
@@ -5167,6 +5604,7 @@ namespace csa_import_default {
 				RowChange.SetOptimized(ImportMovVerPlus, true);
 				RowChange.ClearMaxCache(ImportMovVerPlus);
 			}
+
 			RowChange.SetOptimized(dsFinancial.Tables[tMainSorted], true);
 			RowChange.ClearMaxCache(dsFinancial.Tables[tMainSorted]);
 
@@ -5182,8 +5620,9 @@ namespace csa_import_default {
 			string kind = (IoE == "I") ? "Entrata" : "Spesa";
 			//DataRow[] Auto = SP_Result.Select(filterAuto);
 			EP_functions EP = new EP_functions(Meta.Dispatcher);
+			object idreg_csa = Get_Registry_Csa();
 			if (EP.attivo) {
-				object idreg_csa = Get_Registry_Csa();
+
 				object idaccSupplierAccountForRegistry = EP.GetSupplierAccountForRegistry(null, idreg_csa);
 				object idaccCustomerAccountForRegistry = EP.GetCustomerAccountForRegistry(null, idreg_csa);
 
@@ -5191,25 +5630,27 @@ namespace csa_import_default {
 					if (R["kind"].ToString() != kind) continue;
 
 					if (CfgFn.GetNoNullInt32(R["movkind"]) == 3 || // movimento spesa lordi (fase LORDI)
-						CfgFn.GetNoNullInt32(R["movkind"]) == 8) {
+					    CfgFn.GetNoNullInt32(R["movkind"]) == 8) {
 						// movimento spesa ritenute (negative) (fase LORDI)                                      
 						// conto di debito verso fornitori (anagrafica CSA "diversi")
 						R["idacc"] = idaccSupplierAccountForRegistry;
 					}
+
 					if ((CfgFn.GetNoNullInt32(R["movkind"]) == 5) || // entrata recuperi (lordi)
-						(CfgFn.GetNoNullInt32(R["movkind"]) == 7)) {
+					    (CfgFn.GetNoNullInt32(R["movkind"]) == 7)) {
 						// entrata lordi (negativi) (fase LORDI)                                         
 						// conto di credito verso clienti (anagrafica CSA "diversi")
 						R["idacc"] = idaccCustomerAccountForRegistry;
 					}
 				}
 			}
-			List <DataRow > Auto= new List<DataRow>();
+
+			List<DataRow> Auto = new List<DataRow>();
 			bool flagEsenteBancaPredefinita = LeggiFlagEsenteBancaPredefinita();
 			bool _nuovaGestione = nuovaGestione();
 			bool _vecchiaGestione = !_nuovaGestione;
-			object csa_flaglinktoexp = Get_FlagLinkToExp() ;
-			Dictionary<int,bool> ExpenseToPreserve = new Dictionary<int, bool>();
+			object csa_flaglinktoexp = Get_FlagLinkToExp();
+			Dictionary<int, bool> ExpenseToPreserve = new Dictionary<int, bool>();
 			for (int ii = 0; ii < SP_Result.Rows.Count; ii++) {
 				DataRow R = SP_Result.Rows[ii];
 				if (R["kind"].ToString() != kind) continue;
@@ -5259,7 +5700,7 @@ namespace csa_import_default {
 
 					FillMovimento(NewMovRow, R);
 
-					string  description = NewMovRow["description"].ToString();
+					string description = NewMovRow["description"].ToString();
 					if (!description.Contains(descrLoV))
 						description = "Fase " + descrLoV + description;
 					if (description.Length > 150) description = description.Substring(0, 150);
@@ -5272,20 +5713,21 @@ namespace csa_import_default {
 					}
 
 					if (movkind == 1 || movkind == 2 || movkind == 4 ||
-						movkind == 5 || movkind == 6 || movkind == 8 ||
-						movkind == 9 || movkind == 10 || movkind == 11 || movkind == 12 ||
-						movkind == 13 || movkind == 14 || movkind == 15 || movkind == 16 || movkind == 17 ||
-						movkind == 18 || movkind == 19) {
+					    movkind == 5 || movkind == 6 || movkind == 8 ||
+					    movkind == 9 || movkind == 10 || movkind == 11 || movkind == 12 ||
+					    movkind == 13 || movkind == 14 || movkind == 15 || movkind == 16 || movkind == 17 ||
+					    movkind == 18 || movkind == 19) {
 						if (!_nuovaGestione)
 							NewMovRow["autokind"] = 20; //Ritenute/Contributi/Recuperi da Importazione Stipendi CSA
 						else
 							NewMovRow["autokind"] = 31;
 
 					}
+
 					if ((movkind == 3) || (movkind == 7)) {
 						if (!_nuovaGestione)
 							NewMovRow["autokind"] = 21; //Lordo da Importazione Stipendi CSA (movimento principale, 
-														//marcato come auto solo per consentire mandati automatici)
+						//marcato come auto solo per consentire mandati automatici)
 						else
 							NewMovRow["autokind"] = 30;
 					}
@@ -5303,22 +5745,25 @@ namespace csa_import_default {
 						if (R["indice"] != DBNull.Value)
 							if (IdExpPerIndice[CfgFn.GetNoNullInt32(R["indice"])] != null) {
 								NewMovRow["idpayment"] = IdExpPerIndice[CfgFn.GetNoNullInt32(R["indice"])];
-							} else {
+							}
+							else {
 								MessageBox.Show("Errore di programma, indice interno non trovato");
 							}
 					}
 
 					//Se sta generando questa fase, deve generare i finanziamenti
-					if ((faseCorrente == faseBilancio) && (IoE == "E")) {  //&& R["idmovimento"] != DBNull.Value
-																		   //Riempimento UnderWritingAppropriation
+					if ((faseCorrente == faseBilancio) && (IoE == "E")) { //&& R["idmovimento"] != DBNull.Value
+						//Riempimento UnderWritingAppropriation
 						FillUnderwritingAppropriation(NRIGA, NewMovRow);
 					}
 
-					R["idmovimento"] = currIdMov;   //r["idmovimento"] è valorizzata con l'id del mov. di spesa corrispondente alla riga della sp considerata
+					R["idmovimento"] =
+						currIdMov; //r["idmovimento"] è valorizzata con l'id del mov. di spesa corrispondente alla riga della sp considerata
 
 					if (faseCorrente == faseSortingPARENT) {
 						FillMovSortedFaseParent(NRIGA, IoE, NewMovRow);
 					}
+
 					//QueryCreator.MarkEvent($"reached NRIGA {NRIGA}-{R["indice"]}-fase {faseCorrente}");
 					if (faseCorrente == fasemax) {
 						if (R["indice"] != DBNull.Value) {
@@ -5326,7 +5771,8 @@ namespace csa_import_default {
 							if (IoE == "E") {
 								voceCsaPerIdExp[currIdMov] = SP_Result.Rows[indice]["vocecsa"];
 								enteCsaPerIdExp[currIdMov] = SP_Result.Rows[indice]["idcsa_agency"];
-							} else {
+							}
+							else {
 								voceCsaPerIdInc[currIdMov] = SP_Result.Rows[indice]["vocecsa"];
 							}
 
@@ -5334,17 +5780,18 @@ namespace csa_import_default {
 								IdExpPerIndice[indice] = currIdMov;
 							}
 						}
+
 						DataRow NewLastRow = MetaL.Get_New_Row(NewMovRow, dsFinancial.Tables[tMainLast]);
 						if (IoE == "E") {
 							object codicecreddeb = R["idreg"];
 							DataRow ModPagam = null;
 							if (!lordi) { //if (movkind == 4)
-										  // versamento imposte o recuperi
-										  // modalità pagamento Ente CSA
-										  // solo se non deve essere a regolarizzazione
+								// versamento imposte o recuperi
+								// modalità pagamento Ente CSA
+								// solo se non deve essere a regolarizzazione
 								if (agency_not_use_nbill(R["idcsa_agency"])) {
 									ModPagam = GetModalitaPagamento(codicecreddeb, R["idcsa_agency"],
-									R["idcsa_agencypaymethod"]);
+										R["idcsa_agencypaymethod"]);
 								}
 							}
 
@@ -5352,11 +5799,13 @@ namespace csa_import_default {
 								string key = codicecreddeb.ToString();
 								if (__myModPagam.ContainsKey(key)) {
 									ModPagam = __myModPagam[key];
-								} else {
+								}
+								else {
 									ModPagam = CfgFn.ModalitaPagamentoDefault(Conn, codicecreddeb);
 									__myModPagam[key] = ModPagam;
 								}
 							}
+
 							if ((ModPagam == null) && (!_nuovaGestione)) {
 								object registry = GetTitleForIdReg(codicecreddeb);
 								MessageBox.Show(this,
@@ -5368,11 +5817,12 @@ namespace csa_import_default {
 
 							NewLastRow["flag"] = 0;
 							int datiModPagam = 0;
-							object idchargehandling= DBNull.Value;
+							object idchargehandling = DBNull.Value;
 							if (ModPagam != null) { // vecchia gestione o pagamenti non a regolarizzazione
 								datiModPagam = CfgFn.GetNoNullInt32(ModPagam["flag"]);
 								idchargehandling = ModPagam["idchargehandling"];
-							} else {
+							}
+							else {
 								// nuova gestione
 								datiModPagam = CfgFn.GetNoNullInt32(Get_FlagEsenteSpese_CSA());
 								idchargehandling = Get_idchargehandling_CSA();
@@ -5389,16 +5839,19 @@ namespace csa_import_default {
 								decimal netto = CfgFn.GetNoNullDecimal(R["netto"]);
 
 								if (netto != 0) {
-									var bill = getSospesiPerAnagrafica(CfgFn.GetNoNullInt32(codicecreddeb), sospesi, amount);
+									var bill = getSospesiPerAnagrafica(CfgFn.GetNoNullInt32(codicecreddeb), sospesi,
+										amount);
 									if (bill.Keys.Count == 1) {
 										var Bill = bill.First();
 										NewLastRow["nbill"] = Bill.Key;
 										NewLastRow["flag"] = CfgFn.GetNoNullInt32(NewLastRow["flag"]) | 1;
 										regolarizzazioneEffettuata = true;
 									}
+
 									if (bill.Keys.Count > 1) {
 										foreach (int nBill in bill.Keys) {
-											var newBill = MetaMBill.Get_New_Row(NewMovRow, dsFinancial.Tables[tMainBill]);
+											var newBill = MetaMBill.Get_New_Row(NewMovRow,
+												dsFinancial.Tables[tMainBill]);
 											newBill["nbill"] = nBill;
 											newBill["ybill"] = esercizio;
 											newBill["amount"] = bill[nBill];
@@ -5407,27 +5860,33 @@ namespace csa_import_default {
 											//MessageBox.Show("ripartizione sospeso su movimento " + NewLastRow["nbill"].ToString() + " " + "anagr." + codicecreddeb.ToString());
 										}
 									}
+
 									if ((bill.Keys.Count == 0) && (R["nbill"] != DBNull.Value)) {
 										NewLastRow["nbill"] = R["nbill"];
 										NewLastRow["flag"] = CfgFn.GetNoNullInt32(NewLastRow["flag"]) | 1;
 										regolarizzazioneEffettuata = true;
 									}
+
 									// Questo caso include la fase lordi, nei casi in cui non sia stato impostato un sospeso
 									if ((bill.Keys.Count == 0) && (R["nbill"] == DBNull.Value)) {
 										string key = codicecreddeb.ToString();
 										if (__myModPagam.ContainsKey(key)) {
 											ModPagam = __myModPagam[key];
-										} else {
+										}
+										else {
 											ModPagam = CfgFn.ModalitaPagamentoDefault(Conn, codicecreddeb);
 											__myModPagam[key] = ModPagam;
 										}
 									}
 								}
+
 								NewLastRow["paymethod_flag"] = 0;
 								//MessageBox.Show("sospeso su movimento " + NewLastRow["nbill"].ToString() + " " + "anagr." + codicecreddeb.ToString());
 							}
+
 							if (ModPagam != null && regolarizzazioneEffettuata == false) {
 								#region riempimento mod. pagamento
+
 								//aggiungere le informazioni della modalità di pagamento
 								NewLastRow["idregistrypaymethod"] = ModPagam["idregistrypaymethod"];
 								NewLastRow["idpaymethod"] = ModPagam["idpaymethod"];
@@ -5438,7 +5897,26 @@ namespace csa_import_default {
 								NewLastRow["cc"] = ModPagam["cc"];
 								NewLastRow["iddeputy"] = ModPagam["iddeputy"];
 								NewLastRow["refexternaldoc"] = ModPagam["refexternaldoc"];
-								NewLastRow["paymentdescr"] = ModPagam["paymentdescr"];
+								DataRow RImport = null;
+								if (DS.csa_import.Rows.Count>0)  
+									 RImport = DS.csa_import.Rows[0];
+								// Pagamento Lordi- Ritenute Negative - Recuperi negativi, metto eventuale riferimento CBI scritto nell'importazione
+								// dovrebbe apparire nel flusso solo in caso di pagamento cumulativo con disposizione
+								// esterna allegata
+								if ((RImport!=null)&&
+									
+									((movkind == 3 /*3 mov. spesa lordi (positivi)*/ )||
+									(movkind == 8 /*8 mov. spesa ritenute  (negativi) */ )||
+									(movkind == 16 /*16 mov. spesa recuperi diretti (negativi)*/))&&
+
+									(CfgFn.GetNoNullInt32(codicecreddeb) == CfgFn.GetNoNullInt32(idreg_csa))&&
+									(RImport["refexternaldoc"]!=DBNull.Value)) {
+											NewLastRow["paymentdescr"] = RImport["refexternaldoc"];
+								}
+								else {
+											NewLastRow["paymentdescr"] = ModPagam["paymentdescr"];
+								}
+							
 								NewLastRow["biccode"] = ModPagam["biccode"];
 								NewLastRow["extracode"] = ModPagam["extracode"];
 
@@ -5453,12 +5931,14 @@ namespace csa_import_default {
 									NewLastRow["paymethod_allowdeputy"] = paymethod_allowdeputy;
 									NewLastRow["paymethod_flag"] = paymethod_flag;
 								}
+
 								#endregion
 							}
+
 							if (flagEsenteBancaPredefinita) {
 								int flag = CfgFn.GetNoNullInt32(NewLastRow["flag"]);
 								int flag_exemption = (CfgFn.GetNoNullInt32(NewLastRow["flag"]) & 0xF7) |
-													 ((datiModPagam & 1) << 3);
+								                     ((datiModPagam & 1) << 3);
 								NewLastRow["flag"] = flag_exemption;
 							}
 
@@ -5474,7 +5954,8 @@ namespace csa_import_default {
 							if (R["parentidexp"] == DBNull.Value) {
 								//Riempimento UnderWritingPayment a partire dai finanziamenti delle righe non raggruppate
 								FillUnderwritingPayment(NRIGA, NewMovRow);
-							} else {
+							}
+							else {
 								CercaFinanziamentoCassa(NRIGA, NewMovRow);
 								// if movkind == 3
 								// si tratta del pagamento del lordo di una prestazione agganciata 
@@ -5499,9 +5980,10 @@ namespace csa_import_default {
 						NewImpMov["idfin"] = DBNull.Value;
 						NewImpMov["idupb"] = DBNull.Value;
 					}
+
 					ImpMov.Rows.Add(NewImpMov);
 
-					object idcsa_import = _nuovaGestione ? R["idcsa_import"] :DS.csa_import.Rows[0]["idcsa_import"];
+					object idcsa_import = _nuovaGestione ? R["idcsa_import"] : DS.csa_import.Rows[0]["idcsa_import"];
 
 					DataRow NewImportMovRow = ImportMov.NewRow();
 					FillImportMov(NewImportMovRow, R, idcsa_import);
@@ -5514,28 +5996,33 @@ namespace csa_import_default {
 							if (R["idver"] != DBNull.Value) {
 								DataRow NewImportMovPlusRow = ImportMovVerPlus.NewRow();
 								FillImportMov(NewImportMovPlusRow, R, idcsa_import);
-								NewImportMovPlusRow[idMovField] = currIdMov; //R["idmovimento"];//R è la stessa della riga di spesa collegata alla riga della sp in oggetto
+								NewImportMovPlusRow[idMovField] =
+									currIdMov; //R["idmovimento"];//R è la stessa della riga di spesa collegata alla riga della sp in oggetto
 								ImportMovVerPlus.Rows.Add(NewImportMovPlusRow);
 
-							} else { // Riepiloghi, solo fase Lordi
+							}
+							else { // Riepiloghi, solo fase Lordi
 								DataRow NewImportMovPlusRow = ImportMovRiepPlus.NewRow();
 								FillImportMov(NewImportMovPlusRow, R, idcsa_import);
 								NewImportMovPlusRow[idMovField] = currIdMov; // R["idmovimento"];
 								ImportMovRiepPlus.Rows.Add(NewImportMovPlusRow);
 							}
-						} else {
+						}
+						else {
 							foreach (var rQuota in movimentiRaggruppati.getLinkedToMov(R)) {
-									if (R["idver"] != DBNull.Value) {
+								if (R["idver"] != DBNull.Value) {
 									//MessageBox.Show(/*"idriep" + rQuota.mov["idriep"].ToString() +*/ "idver " + rQuota.mov["idver"].ToString() + " curridmov " + currIdMov + " ndetail " +
 									//			 rQuota.mov["ndetail"].ToString() + "amount " + rQuota.mov["amount"].ToString());
 									////MessageBox.Show(rQuota.ToString(), "quota");
 									DataRow NewImportMovPlusRow = ImportMovVerPlus.NewRow();
 									rQuota.mov["amount"] = rQuota.quota;
 									FillImportMov(NewImportMovPlusRow, rQuota.mov, idcsa_import);
-									NewImportMovPlusRow[idMovField] = currIdMov; //R["idmovimento"];//R è la stessa della riga di spesa collegata alla riga della sp in oggetto
+									NewImportMovPlusRow[idMovField] =
+										currIdMov; //R["idmovimento"];//R è la stessa della riga di spesa collegata alla riga della sp in oggetto
 									//NewImportMovPlusRow["idver"] = R["idver"];
 									ImportMovVerPlus.Rows.Add(NewImportMovPlusRow);
-								} else { // Riepiloghi, solo fase Lordi
+								}
+								else { // Riepiloghi, solo fase Lordi
 									DataRow NewImportMovPlusRow = ImportMovRiepPlus.NewRow();
 									rQuota.mov["amount"] = rQuota.quota;
 									//MessageBox.Show(/*"idriep" + rQuota.mov["idriep"].ToString() +*/ "idriep " + rQuota.mov["idriep"].ToString() + " curridmov " + currIdMov + " ndetail " +
@@ -5583,11 +6070,13 @@ namespace csa_import_default {
 				if (sl.ContainsKey(n)) continue;
 				sl.Add(n, true);
 			}
+
 			string res = "";
 			foreach (int k in sl.Keys) {
 				if (res.Length > 0) res += ",";
 				res += k.ToString();
 			}
+
 			return res;
 		}
 
@@ -5599,17 +6088,18 @@ namespace csa_import_default {
 			int n = Convert.ToInt32(idreg);
 			if (__regTitles.ContainsKey(n))
 				return __regTitles[n];
-			object title = Meta.Conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", idreg),"title");
+			object title = Meta.Conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", idreg), "title");
 			if (title == null) {
 				title = "[anagrafica di codice " + idreg + "]";
 			}
+
 			__regTitles[n] = title.ToString();
 			return title.ToString();
 		}
 
 
 
-		private void doSave() {
+		private void doSave(string kind) {
 			int faseMax = CfgFn.GetNoNullInt32(Meta.GetSys("maxexpensephase"));
 
 			GestioneAutomatismi ga = new GestioneAutomatismi(this, Meta.Conn, Meta.Dispatcher, dsFinancial,
@@ -5622,20 +6112,40 @@ namespace csa_import_default {
 			if (!res) {
 				MessageBox.Show(this,
 					"Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
-			} else {
-				if (!esistonoScritture(false))
-				{
-					MessageBox.Show(this, "Non sono state ancora generate le scritture in PD, non sarà possibile generare i movimenti finanziari ", "Errore");
-					//return;
+			}
+			else {
+				if (kind == "V") {
+					//Verifica, se ci sono riepiloghi, che siano stati generati i movimenti finanziari dei riepiloghi
+					int countRiep = CfgFn.GetNoNullInt32(Meta.Conn.DO_READ_VALUE("csa_importriep",QHS.CmpEq("idcsa_import", DS.csa_import.Rows[0]["idcsa_import"]), "count(*)"));
+					if (countRiep > 0) {
+						if (!esistonoMovFinanziari("L")) {
+							MessageBox.Show(this,
+								"Non sono stati ancora generati i movimenti finanziari dei lordi, non sarà possibile generare i movimenti finanziari dei versamenti.",
+								"Errore");
+							dsFinancial.Clear();
+							dsFinancial.AcceptChanges();
+							Meta.FreshForm();
+							return;
+						}
+					}
 				}
+				if (!esistonoScritture()) {
+					MessageBox.Show(this,
+						"Non sono state ancora generate le scritture in PD, non sarà possibile generare i movimenti finanziari ",
+						"Errore");
+					return;
+				}
+
 				res = ga.doPost(Meta.Dispatcher);
 				if (res) {
 					MessageBox.Show(this, "Salvataggio dei movimenti finanziari avvenuto con successo");
-				} else {
+				}
+				else {
 					MessageBox.Show(this,
 						"Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
 				}
 			}
+
 			dsFinancial.Clear();
 			dsFinancial.AcceptChanges();
 			Meta.FreshForm();
@@ -5643,16 +6153,18 @@ namespace csa_import_default {
 
 		private void btnVersamenti_Click(object sender, EventArgs e) {
 			if (executing) return;
-			
+
 			btnVersamenti.Visible = false;
 			executing = true;
 
 			try {
 				btnGeneraMovFin_Click(sender, e, "V");
-			} catch {
+			}
+			catch {
 				executing = false;
 				throw;
 			}
+
 			btnVersamenti.Visible = true;
 			executing = false; // Consente di rieseguire la procedura
 		}
@@ -5673,11 +6185,13 @@ namespace csa_import_default {
 			executing = true;
 			try {
 				btnGeneraMovFin_Click(sender, e, "L");
-			} catch (Exception E) {
+			}
+			catch (Exception E) {
 				executing = false;
 				QueryCreator.ShowException(E);
 
 			}
+
 			btnLordi.Visible = true;
 			executing = false; // Consente di rieseguire la procedura
 		}
@@ -5687,10 +6201,12 @@ namespace csa_import_default {
 			executing = true;
 			try {
 				//GeneraScritture();
-			} catch (Exception E) {
+			}
+			catch (Exception E) {
 				executing = false;
 				QueryCreator.ShowException(E);
 			}
+
 			executing = false; // Consente di rieseguire la procedura
 		}
 
@@ -5707,6 +6223,7 @@ namespace csa_import_default {
 					entiCsa[RCA["idcsa_agency"]] = collegaAutomatismi;
 				}
 			}
+
 			return entiCsa[idcsa_agency];
 		}
 
@@ -5718,7 +6235,8 @@ namespace csa_import_default {
 			if (__myNBill.ContainsKey(key))
 				return true;
 
-			string filtro = QHS.AppAnd(QHS.CmpEq("nbill", n_sospeso), QHS.CmpEq("ybill",Meta.GetSys("esercizio")), QHS.CmpEq("billkind", "D"));
+			string filtro = QHS.AppAnd(QHS.CmpEq("nbill", n_sospeso), QHS.CmpEq("ybill", Meta.GetSys("esercizio")),
+				QHS.CmpEq("billkind", "D"));
 			DataTable Bill = Conn.RUN_SELECT("bill", "*", null, filtro, null, true);
 			if (Bill.Rows.Count == 0) return false;
 			DataRow DefRow = Bill.Rows[0];
@@ -5735,7 +6253,7 @@ namespace csa_import_default {
 			if (__myidReg.ContainsKey(key))
 				return __myidReg[key];
 
-			string filtro =  QHS.CmpEq("title", denominazione_anagrafica);
+			string filtro = QHS.CmpEq("title", denominazione_anagrafica);
 			DataTable Registry = Conn.RUN_SELECT("registry", "*", null, filtro, null, true);
 			if (Registry.Rows.Count == 0) return null;
 			DataRow DefRow = Registry.Rows[0];
@@ -5760,6 +6278,7 @@ namespace csa_import_default {
 				__myModPagam[key] = CfgFn.ModalitaPagamentoDefault(Conn, idreg_agency);
 				return __myModPagam[key];
 			}
+
 			DataRow DefRow = AgencyPagam.Rows[0];
 			object idregistrypaymethod = DefRow["idregistrypaymethod"];
 
@@ -5772,7 +6291,8 @@ namespace csa_import_default {
 				// cerco la modalità di pagamento di default 
 				__myModPagam[key] = CfgFn.ModalitaPagamentoDefault(Conn, idreg_agency);
 				return __myModPagam[key];
-			} else {
+			}
+			else {
 				__myModPagam[key] = ModPagam.Rows[0];
 				return ModPagam.Rows[0];
 			}
@@ -5790,7 +6310,7 @@ namespace csa_import_default {
 		}
 
 		private void btnVisualizzaScritture_Click(object sender, EventArgs e) {
-			if (esistonoScritture(false)) //esistono scritture in PD
+			if (esistonoScritture()) //esistono scritture in PD
 				EditEntry();
 		}
 
@@ -5801,20 +6321,20 @@ namespace csa_import_default {
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
 				QHS.IsNull("idcsa_contractkind"));
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -5831,20 +6351,20 @@ namespace csa_import_default {
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
 				QHS.IsNull("ayear"));
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -5863,26 +6383,26 @@ namespace csa_import_default {
 					QHS.IsNotNull("idcsa_contractkinddata"), QHS.IsNotNull("idcsa_contracttax"))),
 				QHS.CmpLt("importo", 0));
 			string sqlCmd = " SELECT 'Contributo' as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" codefin_income as 'Cod. Capitolo Entrata'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			                " ayear as 'Eserc.', " +
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+			                " codefin_cost as 'Cod. Capitolo Costo'," +
+			                " codefin_income as 'Cod. Capitolo Entrata'," +
+			                " codefin_expense as 'Cod. Capitolo Spesa'," +
+			                " codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -5891,7 +6411,7 @@ namespace csa_import_default {
 				VisualizzaDati(sender, e, T, "csa_importver", "default", filter);
 			}
 		}
-
+		
 		private void btn14_Click(object sender, EventArgs e) {
 			//14)   Errata configurazione ripartizione delle regole specifiche CSA
 			if (Meta.IsEmpty) return;
@@ -5900,13 +6420,14 @@ namespace csa_import_default {
 			string sqlCmd = "";
 			if (!usePartition) {
 				sqlCmd =
-				  "SELECT C.idcsa_contract , C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero, sum(CE.quota) " +
-				  " from csa_contractexpense CE " +
-				  "	join csa_contract C on C.idcsa_contract=CE.idcsa_contract and CE.ayear=C.ayear " +
-				  " where " + filter +
-				  " group by  C.ycontract,C.ncontract, C.idcsa_contract  " +
-				  "	having abs(sum(CE.quota)-1) > 0.000001";
-			} else {
+					"SELECT C.idcsa_contract , C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero, sum(CE.quota) " +
+					" from csa_contractexpense CE " +
+					"	join csa_contract C on C.idcsa_contract=CE.idcsa_contract and CE.ayear=C.ayear " +
+					" where " + filter +
+					" group by  C.ycontract,C.ncontract, C.idcsa_contract  " +
+					"	having abs(sum(CE.quota)-1) > 0.000001";
+			}
+			else {
 				sqlCmd =
 					"SELECT C.idcsa_contract , C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero, sum(CP.quota) " +
 					" from csa_contract_partition CP " +
@@ -5915,6 +6436,7 @@ namespace csa_import_default {
 					" group by  C.ycontract,C.ncontract, C.idcsa_contract  " +
 					"	having abs(sum(CP.quota)-1) > 0.000001";
 			}
+
 			DataTable TT = Conn.SQLRunner(sqlCmd);
 			if (TT == null) return;
 			if (TT.Rows.Count == 0) return;
@@ -5924,23 +6446,25 @@ namespace csa_import_default {
 					filter);
 			if (!usePartition) {
 				sqlCmd = "select  C.ycontract as 'Eserc.Regola specifica CSA', " +
-				"C.ncontract as Numero, sum(quota) as Quota, " +
-				"C.title as 'Regola specifica CSA', C.description as Descrizione " +
-				"from csa_contractexpense CE " +
-				"	join csa_contract C on C.idcsa_contract=CE.idcsa_contract and CE.ayear=C.ayear " +
-				" where " + filter2 +
-				" group by C.idcsa_contract, C.ayear, C.ycontract,C.ncontract ,C.description,C.title " +
-				"	having abs(sum(quota)-1) > 0.000001";
-			} else {
-				sqlCmd = "select  C.ycontract as 'Eserc.Regola specifica CSA', " +
-		   "C.ncontract as Numero, sum(quota) as Quota, " +
-		   "C.title as 'Regola specifica CSA', C.description as Descrizione " +
-		   "from csa_contract_partition CP " +
-		   "	join csa_contract C on C.idcsa_contract=CP.idcsa_contract and CP.ayear=C.ayear " +
-		   " where " + filter2 +
-		   " group by C.idcsa_contract, C.ayear, C.ycontract,C.ncontract ,C.description,C.title " +
-		   "	having abs(sum(quota)-1) > 0.000001";
+				         "C.ncontract as Numero, sum(quota) as Quota, " +
+				         "C.title as 'Regola specifica CSA', C.description as Descrizione " +
+				         "from csa_contractexpense CE " +
+				         "	join csa_contract C on C.idcsa_contract=CE.idcsa_contract and CE.ayear=C.ayear " +
+				         " where " + filter2 +
+				         " group by C.idcsa_contract, C.ayear, C.ycontract,C.ncontract ,C.description,C.title " +
+				         "	having abs(sum(quota)-1) > 0.000001";
 			}
+			else {
+				sqlCmd = "select  C.ycontract as 'Eserc.Regola specifica CSA', " +
+				         "C.ncontract as Numero, sum(quota) as Quota, " +
+				         "C.title as 'Regola specifica CSA', C.description as Descrizione " +
+				         "from csa_contract_partition CP " +
+				         "	join csa_contract C on C.idcsa_contract=CP.idcsa_contract and CP.ayear=C.ayear " +
+				         " where " + filter2 +
+				         " group by C.idcsa_contract, C.ayear, C.ycontract,C.ncontract ,C.description,C.title " +
+				         "	having abs(sum(quota)-1) > 0.000001";
+			}
+
 			// MessageBox.Show(sqlCmd);
 			string filtercontract = QHS.AppAnd(QHS.FieldIn("idcsa_contract", TT.Select()),
 				QHS.CmpEq("ayear", Conn.GetSys("esercizio")));
@@ -5957,32 +6481,34 @@ namespace csa_import_default {
 				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
 				return;
 			}
+
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.AppAnd(QHS.CmpEq("C.active", "S"), QHS.CmpEq("C.ayear", Conn.GetSys("esercizio")));
 			string sqlCmd = "";
 			if (!usePartition)
 				sqlCmd =
-			  "select C.idcsa_contract,  C.ycontract as 'Eserc.Regola specifica CSA',C.ncontract as Numero, " +
-			  " C.description as 'Descrizione',vocecsa, sum(quota) as Quota " +
-			  " from csa_contracttaxexpense CTE " +
-			  " join csa_contracttax CT on CTE.idcsa_contract=CT.idcsa_contract and " +
-			  " CTE.idcsa_contracttax = CT.idcsa_contracttax and " +
-			  " CTE.ayear = CT.ayear " +
-			  " join csa_contract C on C.idcsa_contract=CTE.idcsa_contract and CTE.ayear=C.ayear " +
-			  " where " + filter +
-			  " group by C.idcsa_contract,  C.ycontract,C.ncontract ,vocecsa, C.description " +
-			  " having abs(sum(quota)-1) > 0.000001 ";
+					"select C.idcsa_contract,  C.ycontract as 'Eserc.Regola specifica CSA',C.ncontract as Numero, " +
+					" C.description as 'Descrizione',vocecsa, sum(quota) as Quota " +
+					" from csa_contracttaxexpense CTE " +
+					" join csa_contracttax CT on CTE.idcsa_contract=CT.idcsa_contract and " +
+					" CTE.idcsa_contracttax = CT.idcsa_contracttax and " +
+					" CTE.ayear = CT.ayear " +
+					" join csa_contract C on C.idcsa_contract=CTE.idcsa_contract and CTE.ayear=C.ayear " +
+					" where " + filter +
+					" group by C.idcsa_contract,  C.ycontract,C.ncontract ,vocecsa, C.description " +
+					" having abs(sum(quota)-1) > 0.000001 ";
 			else {
-				sqlCmd = "select C.idcsa_contract,  C.ycontract as 'Eserc.Regola specifica CSA',C.ncontract as Numero, " +
-					 " C.description as 'Descrizione',vocecsa, sum(quota) as Quota " +
-					 " from csa_contracttax_partition CTE " +
-					 " join csa_contracttax CT on CTE.idcsa_contract=CT.idcsa_contract and " +
-					 " CTE.idcsa_contracttax = CT.idcsa_contracttax and " +
-					 " CTE.ayear = CT.ayear " +
-					 " join csa_contract C on C.idcsa_contract=CTE.idcsa_contract and CTE.ayear=C.ayear " +
-					 " where " + filter +
-					 " group by C.idcsa_contract,  C.ycontract,C.ncontract ,vocecsa, C.description " +
-					 " having abs(sum(quota)-1) > 0.000001 ";
+				sqlCmd =
+					"select C.idcsa_contract,  C.ycontract as 'Eserc.Regola specifica CSA',C.ncontract as Numero, " +
+					" C.description as 'Descrizione',vocecsa, sum(quota) as Quota " +
+					" from csa_contracttax_partition CTE " +
+					" join csa_contracttax CT on CTE.idcsa_contract=CT.idcsa_contract and " +
+					" CTE.idcsa_contracttax = CT.idcsa_contracttax and " +
+					" CTE.ayear = CT.ayear " +
+					" join csa_contract C on C.idcsa_contract=CTE.idcsa_contract and CTE.ayear=C.ayear " +
+					" where " + filter +
+					" group by C.idcsa_contract,  C.ycontract,C.ncontract ,vocecsa, C.description " +
+					" having abs(sum(quota)-1) > 0.000001 ";
 			}
 
 
@@ -5996,29 +6522,31 @@ namespace csa_import_default {
 
 			if (!usePartition)
 
-				sqlCmd = "select    C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero, vocecsa as 'Voce CSA', " +
-						 "sum(quota) as Quota,  " +
-						 "C.title as 'Regola specifica CSA', C.description as Descrizione " +
-						 " from csa_contracttaxexpense CTE " +
-						 " join csa_contracttax CT on CTE.idcsa_contract=CT.idcsa_contract and " +
-						 " CTE.idcsa_contracttax = CT.idcsa_contracttax and " +
-						 " CTE.ayear = CT.ayear " +
-						 " join csa_contract C on C.idcsa_contract=CTE.idcsa_contract and CTE.ayear=C.ayear " +
-						 " where " + filter2 +
-						 " group by C.idcsa_contract, C.ayear, C.ycontract,C.ncontract ,vocecsa, C.description,C.title " +
-						 " having abs(sum(quota)-1) > 0.000001 ";
+				sqlCmd =
+					"select    C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero, vocecsa as 'Voce CSA', " +
+					"sum(quota) as Quota,  " +
+					"C.title as 'Regola specifica CSA', C.description as Descrizione " +
+					" from csa_contracttaxexpense CTE " +
+					" join csa_contracttax CT on CTE.idcsa_contract=CT.idcsa_contract and " +
+					" CTE.idcsa_contracttax = CT.idcsa_contracttax and " +
+					" CTE.ayear = CT.ayear " +
+					" join csa_contract C on C.idcsa_contract=CTE.idcsa_contract and CTE.ayear=C.ayear " +
+					" where " + filter2 +
+					" group by C.idcsa_contract, C.ayear, C.ycontract,C.ncontract ,vocecsa, C.description,C.title " +
+					" having abs(sum(quota)-1) > 0.000001 ";
 			else
-				sqlCmd = "select    C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero, vocecsa as 'Voce CSA', " +
-				   "sum(quota) as Quota,  " +
-				   "C.title as 'Regola specifica CSA', C.description as Descrizione " +
-				   " from csa_contracttax_partition CTE " +
-				   " join csa_contracttax CT on CTE.idcsa_contract=CT.idcsa_contract and " +
-				   " CTE.idcsa_contracttax = CT.idcsa_contracttax and " +
-				   " CTE.ayear = CT.ayear " +
-				   " join csa_contract C on C.idcsa_contract=CTE.idcsa_contract and CTE.ayear=C.ayear " +
-				   " where " + filter2 +
-				   " group by C.idcsa_contract, C.ayear, C.ycontract,C.ncontract ,vocecsa, C.description,C.title " +
-				   " having abs(sum(quota)-1) > 0.000001 ";
+				sqlCmd =
+					"select    C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero, vocecsa as 'Voce CSA', " +
+					"sum(quota) as Quota,  " +
+					"C.title as 'Regola specifica CSA', C.description as Descrizione " +
+					" from csa_contracttax_partition CTE " +
+					" join csa_contracttax CT on CTE.idcsa_contract=CT.idcsa_contract and " +
+					" CTE.idcsa_contracttax = CT.idcsa_contracttax and " +
+					" CTE.ayear = CT.ayear " +
+					" join csa_contract C on C.idcsa_contract=CTE.idcsa_contract and CTE.ayear=C.ayear " +
+					" where " + filter2 +
+					" group by C.idcsa_contract, C.ayear, C.ycontract,C.ncontract ,vocecsa, C.description,C.title " +
+					" having abs(sum(quota)-1) > 0.000001 ";
 			//MessageBox.Show(sqlCmd);
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -6038,24 +6566,25 @@ namespace csa_import_default {
 				QHS.DoPar(QHS.AppOr(QHS.IsNotNull("idcsa_contractkinddata"), QHS.IsNotNull("idcsa_contracttax"))),
 				QHS.IsNull("idcsa_incomesetup"));
 
-			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui', " +
-							" idcsa_contracttax as 'Conf. Contributi CSA  - Regola specifica ', " +
-							" idcsa_contractkinddata as 'Attribuzione da Regola generale CSA', " +
-							" idcsa_incomesetup as 'Conf. Incassi'" +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" flagcr as 'Comp./Residui', " +
+				" idcsa_contracttax as 'Conf. Contributi CSA  - Regola specifica ', " +
+				" idcsa_contractkinddata as 'Attribuzione da Regola generale CSA', " +
+				" idcsa_incomesetup as 'Conf. Incassi'" +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -6065,34 +6594,36 @@ namespace csa_import_default {
 			}
 
 		}
+
 		private void btn22_Click(object sender, EventArgs e) {
 			//22) Righe Versamenti Associate non configurate correttamente nè come Contributi, nè come Ritenute, nè Recuperi
 			if (Meta.IsEmpty) return;
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
-				QHS.NullOrEq("flagclawback","N"),
+				QHS.NullOrEq("flagclawback", "N"),
 				QHS.IsNull("idcsa_contractkinddata"),
 				QHS.IsNull("idcsa_contracttax"),
 				QHS.IsNull("idfin_income"), QHS.IsNull("idfin_expense"));
 
-			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui', " +
-							" idcsa_contracttax as 'Conf. Contributi CSA  - Regola specifica ', " +
-							" idcsa_contractkinddata as 'Attribuzione da Regola generale CSA', " +
-							" idcsa_incomesetup as 'Conf. Incassi'" +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" flagcr as 'Comp./Residui', " +
+				" idcsa_contracttax as 'Conf. Contributi CSA  - Regola specifica ', " +
+				" idcsa_contractkinddata as 'Attribuzione da Regola generale CSA', " +
+				" idcsa_incomesetup as 'Conf. Incassi'" +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -6111,24 +6642,25 @@ namespace csa_import_default {
 				QHS.IsNull("idfin_cost"),
 				QHS.CmpLt("importo", 0));
 
-			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui', " +
-							" idcsa_contracttax as 'Conf. Contributi CSA  - Regola specifica ', " +
-							" idcsa_contractkinddata as 'Attribuzione da Regola generale CSA', " +
-							" idcsa_incomesetup as 'Conf. Incassi'" +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" flagcr as 'Comp./Residui', " +
+				" idcsa_contracttax as 'Conf. Contributi CSA  - Regola specifica ', " +
+				" idcsa_contractkinddata as 'Attribuzione da Regola generale CSA', " +
+				" idcsa_incomesetup as 'Conf. Incassi'" +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -6180,27 +6712,28 @@ namespace csa_import_default {
 
 			filter = QHS.AppAnd(filter, filter1);
 
-			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" codefin_income as 'Cod. Capitolo Entrata'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview T " +
-							" WHERE  " + filter;
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview T " +
+				" WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -6220,27 +6753,28 @@ namespace csa_import_default {
 				QHS.IsNull("idfin_incomeclawback"));
 
 
-			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" codefin_income as 'Cod. Capitolo Entrata'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -6257,16 +6791,18 @@ namespace csa_import_default {
 			// dobbiamo introdurre una distinzione nel filtro, tra chi usa le ripartizioni e chi no
 
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
-				QHS.CmpEq("flagclawback", "S"), QHS.CmpLt("importo",0));
-			if (!usePartition) filter = QHS.AppAnd(filter, QHS.CmpEq("flagdirectcsaclawback", "S"), QHS.IsNull("idfin_cost"));
+				QHS.CmpEq("flagclawback", "S"), QHS.CmpLt("importo", 0));
+			if (!usePartition)
+				filter = QHS.AppAnd(filter, QHS.CmpEq("flagdirectcsaclawback", "S"), QHS.IsNull("idfin_cost"));
 			else {
-				string filter_partition = QHS.DoPar(QHS.AppOr("not exists(select * from csa_importver_partition CP where " +
-																   " CP.idcsa_import = csa_importverview.idcsa_import and " +
-																   " CP.idver = csa_importverview.idver ) ",
-													   " exists (select * from csa_importver_partition CP where " +
-													   " CP.idcsa_import = csa_importverview.idcsa_import and " +
-													   " CP.idver = csa_importverview.idver and " +
-													   " CP.idfin is null) "));
+				string filter_partition = QHS.DoPar(QHS.AppOr(
+					"not exists(select * from csa_importver_partition CP where " +
+					" CP.idcsa_import = csa_importverview.idcsa_import and " +
+					" CP.idver = csa_importverview.idver ) ",
+					" exists (select * from csa_importver_partition CP where " +
+					" CP.idcsa_import = csa_importverview.idcsa_import and " +
+					" CP.idver = csa_importverview.idver and " +
+					" CP.idfin is null) "));
 				filter = QHS.AppAnd(filter, filter_partition);
 			}
 
@@ -6274,27 +6810,28 @@ namespace csa_import_default {
 
 
 
-			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" codefin_income as 'Cod. Capitolo Entrata'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -6304,7 +6841,62 @@ namespace csa_import_default {
 			}
 		}
 
+		private void btn83_Click(object sender, EventArgs e) {
+			//SIOPE speculare 9
+			if (Meta.IsEmpty) return;
+			DataRow Curr = DS.csa_import.Rows[0];
+			// dobbiamo introdurre una distinzione nel filtro, tra chi usa le ripartizioni e chi no
 
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.CmpEq("flagclawback", "S"), QHS.CmpLt("importo", 0));
+			if (!usePartition)
+				filter = QHS.AppAnd(filter, QHS.CmpEq("flagdirectcsaclawback", "S"), QHS.IsNull("idfin_cost"));
+			else {
+				string filter_partition = QHS.DoPar(QHS.AppOr(
+					"not exists(select * from csa_importver_partition CP where " +
+					" CP.idcsa_import = csa_importverview.idcsa_import and " +
+					" CP.idver = csa_importverview.idver ) ",
+					" exists (select * from csa_importver_partition CP where " +
+					" CP.idcsa_import = csa_importverview.idcsa_import and " +
+					" CP.idver = csa_importverview.idver and " +
+					" CP.idfin is not null  and CP.idsor_siope is null) "));
+				filter = QHS.AppAnd(filter, filter_partition);
+			}
+
+
+
+
+
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
+
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+
+			if (T != null) {
+				VisualizzaDati(sender, e, T, "csa_importver", "default", filter);
+			}
+		}
 		private void btn28_Click(object sender, EventArgs e) {
 			//28) Ente CSA associato ad anagrafiche non attive in righe versamenti 
 			if (Meta.IsEmpty) return;
@@ -6313,26 +6905,26 @@ namespace csa_import_default {
 			filter +=
 				" AND EXISTS (SELECT * FROM registry WHERE registry.idreg = idreg_agency AND ISNULL (active, 'S') = 'N')";
 			string sqlCmd = " SELECT 'Contributo' as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" agency as 'Ente', " +
-							" registry_agency as 'Anagrafica Ente CSA', " +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" codefin_income as 'Cod. Capitolo Entrata'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview" +
-							" WHERE  " + filter
+			                " ayear as 'Eserc.', " +
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " agency as 'Ente', " +
+			                " registry_agency as 'Anagrafica Ente CSA', " +
+			                " idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+			                " codefin_cost as 'Cod. Capitolo Costo'," +
+			                " codefin_income as 'Cod. Capitolo Entrata'," +
+			                " codefin_expense as 'Cod. Capitolo Spesa'," +
+			                " codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview" +
+			                " WHERE  " + filter
 				;
 
 
@@ -6352,12 +6944,13 @@ namespace csa_import_default {
 				QHS.IsNotNull("C.idexp_main"));
 
 			filter += " and exists (select * from csa_contractexpense CE where " +
-					  " C.idcsa_contract = CE.idcsa_contract and C.ayear = CE.ayear) ";
+			          " C.idcsa_contract = CE.idcsa_contract and C.ayear = CE.ayear) ";
 
-			string sqlCmd = " SELECT C.idcsa_contract , C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero, " +
-							" C.idexp_main as '#idexp_main'  " +
-							" from csa_contract C " +
-							" where " + filter;
+			string sqlCmd =
+				" SELECT C.idcsa_contract , C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero, " +
+				" C.idexp_main as '#idexp_main'  " +
+				" from csa_contract C " +
+				" where " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 			if (T != null) {
@@ -6374,9 +6967,9 @@ namespace csa_import_default {
 				QHS.IsNotNull("CT.idexp"));
 
 			filter += " and exists (select * from csa_contracttaxexpense CTE where " +
-					  " CTE.idcsa_contract = CT.idcsa_contract and " +
-					  " CTE.idcsa_contracttax = CT.idcsa_contracttax and " +
-					  " CTE.ayear = CT.ayear) ";
+			          " CTE.idcsa_contract = CT.idcsa_contract and " +
+			          " CTE.idcsa_contracttax = CT.idcsa_contracttax and " +
+			          " CTE.ayear = CT.ayear) ";
 			string sqlCmd =
 				" select distinct C.idcsa_contract,  C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero, " +
 				" C.description as 'Descrizione'" +
@@ -6401,30 +6994,30 @@ namespace csa_import_default {
 				QHS.IsNotNull("idexp_cost"),
 				QHS.IsNotNull("idcsa_contracttax"));
 			filter += "AND EXISTS(select * from csa_importver_expense CE where " +
-					  " CE.idcsa_import = csa_importverview.idcsa_import and " +
-					  " CE.idver = csa_importverview.idver) ";
+			          " CE.idcsa_import = csa_importverview.idcsa_import and " +
+			          " CE.idver = csa_importverview.idver) ";
 
 			string sqlCmd = " SELECT 'Contributo' as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" agency as 'Ente', " +
-							" registry_agency as 'Anagrafica Ente CSA', " +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" codefin_income as 'Cod. Capitolo Entrata'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview" +
-							" WHERE  " + filter
+			                " ayear as 'Eserc.', " +
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " agency as 'Ente', " +
+			                " registry_agency as 'Anagrafica Ente CSA', " +
+			                " idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+			                " codefin_cost as 'Cod. Capitolo Costo'," +
+			                " codefin_income as 'Cod. Capitolo Entrata'," +
+			                " codefin_expense as 'Cod. Capitolo Spesa'," +
+			                " codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview" +
+			                " WHERE  " + filter
 				;
 
 
@@ -6443,21 +7036,22 @@ namespace csa_import_default {
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), QHS.IsNotNull("idcsa_contract"),
 				QHS.IsNotNull("idexp"));
 
-			filter += " AND EXISTS(SELECT * FROM csa_importriep_expense C where C.idcsa_import = csa_importriepview.idcsa_import " +
-					  " and C.idriep = csa_importriepview.idriep) ";
+			filter +=
+				" AND EXISTS(SELECT * FROM csa_importriep_expense C where C.idcsa_import = csa_importriepview.idcsa_import " +
+				" and C.idriep = csa_importriepview.idriep) ";
 
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idriep as 'Numero Riepilogo', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview " +
-							" WHERE  " + filter;
+			                " idriep as 'Numero Riepilogo', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview " +
+			                " WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -6476,27 +7070,29 @@ namespace csa_import_default {
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), QHS.IsNotNull("idcsa_contract"),
 				QHS.IsNotNull("idepexp"));
 
-			filter += " AND EXISTS(SELECT * FROM csa_importriep_epexp C where C.idcsa_import = csa_importriepview.idcsa_import " +
-					  " and C.idriep = csa_importriepview.idriep) ";
+			filter +=
+				" AND EXISTS(SELECT * FROM csa_importriep_epexp C where C.idcsa_import = csa_importriepview.idcsa_import " +
+				" and C.idriep = csa_importriepview.idriep) ";
 
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idriep as 'Numero Riepilogo', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview " +
-							" WHERE  " + filter;
+			                " idriep as 'Numero Riepilogo', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview " +
+			                " WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
-				VisualizzaDati2(sender, e, T, "csa_importriep", "csa_importriepview", "default", filter.Replace("csa_importriepview", "csa_importriep"), filter);
+				VisualizzaDati2(sender, e, T, "csa_importriep", "csa_importriepview", "default",
+					filter.Replace("csa_importriepview", "csa_importriep"), filter);
 			}
 		}
 
@@ -6509,30 +7105,30 @@ namespace csa_import_default {
 				QHS.IsNotNull("idepexp"),
 				QHS.IsNotNull("idcsa_contracttax"));
 			filter += " AND EXISTS(select * from csa_importver_epexp CE where " +
-					  " CE.idcsa_import = csa_importverview.idcsa_import and " +
-					  " CE.idver = csa_importverview.idver) ";
+			          " CE.idcsa_import = csa_importverview.idcsa_import and " +
+			          " CE.idver = csa_importverview.idver) ";
 
 			string sqlCmd = " SELECT 'Contributo' as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" agency as 'Ente', " +
-							" registry_agency as 'Anagrafica Ente CSA', " +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" codefin_income as 'Cod. Capitolo Entrata'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview" +
-							" WHERE  " + filter
+			                " ayear as 'Eserc.', " +
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " agency as 'Ente', " +
+			                " registry_agency as 'Anagrafica Ente CSA', " +
+			                " idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+			                " codefin_cost as 'Cod. Capitolo Costo'," +
+			                " codefin_income as 'Cod. Capitolo Entrata'," +
+			                " codefin_expense as 'Cod. Capitolo Spesa'," +
+			                " codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview" +
+			                " WHERE  " + filter
 				;
 
 
@@ -6553,12 +7149,13 @@ namespace csa_import_default {
 				QHS.IsNotNull("C.idepexp_main"));
 
 			filter += " and exists (select * from csa_contractepexp CE where " +
-					  " C.idcsa_contract = CE.idcsa_contract and C.ayear = CE.ayear) ";
+			          " C.idcsa_contract = CE.idcsa_contract and C.ayear = CE.ayear) ";
 
-			string sqlCmd = " SELECT C.idcsa_contract , C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero, " +
-							" C.idepexp_main as '#idepexp_main'  " +
-							" from csa_contract C " +
-							" where " + filter;
+			string sqlCmd =
+				" SELECT C.idcsa_contract , C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero, " +
+				" C.idepexp_main as '#idepexp_main'  " +
+				" from csa_contract C " +
+				" where " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 			if (T != null) {
@@ -6580,9 +7177,9 @@ namespace csa_import_default {
 				QHS.IsNotNull("CT.idepexp"));
 
 			filter += " and exists (select * from csa_contracttaxepexp CTE where " +
-					  " CTE.idcsa_contract = CT.idcsa_contract and " +
-					  " CTE.idcsa_contracttax = CT.idcsa_contracttax and " +
-					  " CTE.ayear = CT.ayear) ";
+			          " CTE.idcsa_contract = CT.idcsa_contract and " +
+			          " CTE.idcsa_contracttax = CT.idcsa_contracttax and " +
+			          " CTE.ayear = CT.ayear) ";
 			string sqlCmd =
 				" select distinct C.idcsa_contract,  C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero, " +
 				" C.description as 'Descrizione'" +
@@ -6608,38 +7205,38 @@ namespace csa_import_default {
 
 				QHS.IsNull("idfin_cost"), QHS.IsNull("idexp_cost"),
 				QHS.IsNotNull("idfin_expense"), QHS.IsNotNull("idfin_income")
-				);
+			);
 			filter += " AND NOT EXISTS(select * from csa_contracttaxexpense CE where " +
-					  QHS.AppAnd(QHS.CmpEq("CE.idcsa_contract", QHS.Field("csa_importverview.idcsa_contract")),
-						  QHS.CmpEq("CE.idcsa_contracttax", QHS.Field("csa_importverview.idcsa_contracttax")),
-						  QHS.CmpEq("CE.ayear", Conn.GetSys("esercizio"))
-						  )
-					  + ")";
+			          QHS.AppAnd(QHS.CmpEq("CE.idcsa_contract", QHS.Field("csa_importverview.idcsa_contract")),
+				          QHS.CmpEq("CE.idcsa_contracttax", QHS.Field("csa_importverview.idcsa_contracttax")),
+				          QHS.CmpEq("CE.ayear", Conn.GetSys("esercizio"))
+			          )
+			          + ")";
 
 			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" phase_cost as 'Fase Mov.Costo', " +
-							" ymov_cost  as 'Eserc. Mov. Costo'," +
-							" nmov_cost  as 'Numero. Mov. Costo'," +
-							" codefin_income as 'Cod. Capitolo Entrata'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			                " ayear as 'Eserc.', " +
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+			                " codefin_cost as 'Cod. Capitolo Costo'," +
+			                " phase_cost as 'Fase Mov.Costo', " +
+			                " ymov_cost  as 'Eserc. Mov. Costo'," +
+			                " nmov_cost  as 'Numero. Mov. Costo'," +
+			                " codefin_income as 'Cod. Capitolo Entrata'," +
+			                " codefin_expense as 'Cod. Capitolo Spesa'," +
+			                " codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -6661,37 +7258,42 @@ namespace csa_import_default {
 
 			if (!usePartition) {
 
-				filter += " AND EXISTS(SELECT * FROM csa_importriep_expense CE where  csa_importriepview.idcsa_import = CE.idcsa_import and  csa_importriepview.idriep = CE.idriep  " +
-						  " ) ";
+				filter +=
+					" AND EXISTS(SELECT * FROM csa_importriep_expense CE where  csa_importriepview.idcsa_import = CE.idcsa_import and  csa_importriepview.idriep = CE.idriep  " +
+					" ) ";
 
-				filter += " AND (SELECT sum(CE.amount)  from csa_importriep_expense CE WHERE  csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep  " +
-						  " ) <>  csa_importriepview.importo ";
-			} else {
-				filter += " AND (SELECT sum(CE.amount)  from csa_importriep_partition CE WHERE  csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep  " +
-					   " ) <>  csa_importriepview.importo ";
+				filter +=
+					" AND (SELECT sum(CE.amount)  from csa_importriep_expense CE WHERE  csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep  " +
+					" ) <>  csa_importriepview.importo ";
+			}
+			else {
+				filter +=
+					" AND (SELECT sum(CE.amount)  from csa_importriep_partition CE WHERE  csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep  " +
+					" ) <>  csa_importriepview.importo ";
 			}
 
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idriep as 'Numero Riepilogo', " +
-							" (select sum(CE.amount)  from csa_importriep_partition CE " +
-							" where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep) as Somma, " +
+			                " idriep as 'Numero Riepilogo', " +
+			                " (select sum(CE.amount)  from csa_importriep_partition CE " +
+			                " where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep) as Somma, " +
 
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview  " +
-							" WHERE  " + filter;
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview  " +
+			                " WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
-				VisualizzaDati2(sender, e, T, "csa_importriep", "csa_importriepview", "default", filter.Replace("csa_importriepview", "csa_importriep"), filter);
+				VisualizzaDati2(sender, e, T, "csa_importriep", "csa_importriepview", "default",
+					filter.Replace("csa_importriepview", "csa_importriep"), filter);
 			}
 		}
 
@@ -6703,40 +7305,45 @@ namespace csa_import_default {
 
 
 			if (!usePartition) {
-				filter += " AND EXISTS(SELECT * FROM csa_importver_expense CE where csa_importverview.idcsa_import = CE.idcsa_import and  csa_importverview.idver = CE.idver  " +
-						  " ) ";
-				filter += " AND (SELECT sum(CE.amount)  from csa_importver_expense CE WHERE csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver  " +
-						  " ) <> csa_importverview.importo ";
-			} else {
-				filter += " AND (SELECT sum(CE.amount)  from csa_importver_partition CE WHERE csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver  " +
-						 " ) <> csa_importverview.importo ";
+				filter +=
+					" AND EXISTS(SELECT * FROM csa_importver_expense CE where csa_importverview.idcsa_import = CE.idcsa_import and  csa_importverview.idver = CE.idver  " +
+					" ) ";
+				filter +=
+					" AND (SELECT sum(CE.amount)  from csa_importver_expense CE WHERE csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver  " +
+					" ) <> csa_importverview.importo ";
+			}
+			else {
+				filter +=
+					" AND (SELECT sum(CE.amount)  from csa_importver_partition CE WHERE csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver  " +
+					" ) <> csa_importverview.importo ";
 
 			}
 
 			string sqlCmd = " SELECT    CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" (select sum(CE.amount)  from csa_importver_expense CE " +
-							" where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver) as Somma, " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" agency as 'Ente', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			                " ayear as 'Eserc.', " +
+			                " idver as 'Numero Versamento', " +
+			                " (select sum(CE.amount)  from csa_importver_expense CE " +
+			                " where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver) as Somma, " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " agency as 'Ente', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
-				VisualizzaDati2(sender, e, T, "csa_importver", "csa_importverview", "default", filter.Replace("csa_importverview", "csa_importver"), filter);
+				VisualizzaDati2(sender, e, T, "csa_importver", "csa_importverview", "default",
+					filter.Replace("csa_importverview", "csa_importver"), filter);
 			}
 
 		}
@@ -6747,27 +7354,29 @@ namespace csa_import_default {
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
 
-			filter += " AND EXISTS(SELECT * FROM csa_importriep_epexp CE where csa_importriepview.idcsa_import = CE.idcsa_import and  csa_importriepview.idriep = CE.idriep  " +
-					  " ) ";
+			filter +=
+				" AND EXISTS(SELECT * FROM csa_importriep_epexp CE where csa_importriepview.idcsa_import = CE.idcsa_import and  csa_importriepview.idriep = CE.idriep  " +
+				" ) ";
 
-			filter += " AND (select abs(sum(CE.quota) - 1) from csa_importriep_epexp CE WHERE csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep  " +
-					  " ) > 0.000001 ";
+			filter +=
+				" AND (select abs(sum(CE.quota) - 1) from csa_importriep_epexp CE WHERE csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep  " +
+				" ) > 0.000001 ";
 
 			string sqlCmd = " SELECT csa_importriepview.ayear as 'Eserc.', " +
-							" csa_importriepview.idriep as 'Numero Riepilogo', " +
-							" (select sum(CE.quota)  from csa_importriep_epexp CE " +
-							" where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep) as Quota, " +
+			                " csa_importriepview.idriep as 'Numero Riepilogo', " +
+			                " (select sum(CE.quota)  from csa_importriep_epexp CE " +
+			                " where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep) as Quota, " +
 
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview " +
-							" WHERE  " + filter;
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview " +
+			                " WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -6784,30 +7393,32 @@ namespace csa_import_default {
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
 
-			filter += " AND EXISTS(SELECT * FROM csa_importver_epexp CE where csa_importverview.idcsa_import = CE.idcsa_import and  csa_importverview.idver = CE.idver  " +
-					  " ) ";
+			filter +=
+				" AND EXISTS(SELECT * FROM csa_importver_epexp CE where csa_importverview.idcsa_import = CE.idcsa_import and  csa_importverview.idver = CE.idver  " +
+				" ) ";
 
-			filter += " AND ( select abs(sum(CE.quota) - 1)  from csa_importver_epexp CE WHERE csa_importverview.idcsa_import = CE.idcsa_import and  csa_importverview.idver = CE.idver  " +
-					  " ) > 0.000001 ";
+			filter +=
+				" AND ( select abs(sum(CE.quota) - 1)  from csa_importver_epexp CE WHERE csa_importverview.idcsa_import = CE.idcsa_import and  csa_importverview.idver = CE.idver  " +
+				" ) > 0.000001 ";
 
 			string sqlCmd = " SELECT    CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" (select sum(CE.quota)  from csa_importver_epexp CE " +
-							" where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver) as Quota, " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" agency as 'Ente', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview  " +
-							" WHERE  " + filter;
+			                " ayear as 'Eserc.', " +
+			                " idver as 'Numero Versamento', " +
+			                " (select sum(CE.quota)  from csa_importver_epexp CE " +
+			                " where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver) as Quota, " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " agency as 'Ente', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview  " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 			if (T != null) {
@@ -6821,26 +7432,28 @@ namespace csa_import_default {
 
 			if (Meta.IsEmpty) return;
 			DataRow Curr = DS.csa_import.Rows[0];
-			string filter = QHS.AppAnd( QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), QHS.IsNotNull("idcsa_contract"), QHS.IsNotNull("idexp"));
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), QHS.IsNotNull("idcsa_contract"),
+				QHS.IsNotNull("idexp"));
 
-			filter += " AND EXISTS(SELECT * FROM csa_importriep_expense CE where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep  " +
-					  " ) ";
+			filter +=
+				" AND EXISTS(SELECT * FROM csa_importriep_expense CE where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep  " +
+				" ) ";
 
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idriep as 'Numero Riepilogo', " +
-							" (select sum(CE.amount)  from csa_importriep_expense CE " +
-							" where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep) as Importo, " +
+			                " idriep as 'Numero Riepilogo', " +
+			                " (select sum(CE.amount)  from csa_importriep_expense CE " +
+			                " where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep) as Importo, " +
 
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview  " +
-							" WHERE  " + filter;
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview  " +
+			                " WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -6855,31 +7468,33 @@ namespace csa_import_default {
 		private void btn43_Click(object sender, EventArgs e) {
 			if (Meta.IsEmpty) return;
 			DataRow Curr = DS.csa_import.Rows[0];
-			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), QHS.IsNotNull("idcsa_contracttax"),
-									   QHS.IsNotNull("idexp_cost"), QHS.NullOrEq("flagclawback", "N"));
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.IsNotNull("idcsa_contracttax"),
+				QHS.IsNotNull("idexp_cost"), QHS.NullOrEq("flagclawback", "N"));
 
-			filter += " AND EXISTS(SELECT * FROM csa_importver_expense CE where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver  " +
-					  " ) ";
+			filter +=
+				" AND EXISTS(SELECT * FROM csa_importver_expense CE where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver  " +
+				" ) ";
 
 
 			string sqlCmd = " SELECT    CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" (select sum(CE.amount)  from csa_importver_expense CE " +
-							" where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver) as Importo, " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" agency as 'Ente', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview  " +
-							" WHERE  " + filter;
+			                " ayear as 'Eserc.', " +
+			                " idver as 'Numero Versamento', " +
+			                " (select sum(CE.amount)  from csa_importver_expense CE " +
+			                " where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver) as Importo, " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " agency as 'Ente', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview  " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 			if (T != null) {
@@ -6893,31 +7508,34 @@ namespace csa_import_default {
 
 			if (Meta.IsEmpty) return;
 			DataRow Curr = DS.csa_import.Rows[0];
-			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), QHS.IsNotNull("idcsa_contract"), QHS.IsNotNull("idepexp"));
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), QHS.IsNotNull("idcsa_contract"),
+				QHS.IsNotNull("idepexp"));
 
-			filter += " AND EXISTS(SELECT * FROM csa_importriep_epexp CE where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep  " +
-					  " ) ";
+			filter +=
+				" AND EXISTS(SELECT * FROM csa_importriep_epexp CE where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep  " +
+				" ) ";
 
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idriep as 'Numero Riepilogo', " +
-							" (select sum(CE.quota)  from csa_importriep_epexp CE " +
-							" where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep) as Quota, " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview  " +
-							" WHERE  " + filter;
+			                " idriep as 'Numero Riepilogo', " +
+			                " (select sum(CE.quota)  from csa_importriep_epexp CE " +
+			                " where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep) as Quota, " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview  " +
+			                " WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
-				VisualizzaDati2(sender, e, T, "csa_importriep", "csa_importriepview", "default", filter.Replace("csa_importriepview", "csa_importriep"), filter);
+				VisualizzaDati2(sender, e, T, "csa_importriep", "csa_importriepview", "default",
+					filter.Replace("csa_importriepview", "csa_importriep"), filter);
 			}
 
 
@@ -6928,31 +7546,33 @@ namespace csa_import_default {
 
 			if (Meta.IsEmpty) return;
 			DataRow Curr = DS.csa_import.Rows[0];
-			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), QHS.IsNotNull("idcsa_contracttax"),
-									   QHS.IsNotNull("idepexp"), QHS.NullOrEq("flagclawback", "N"));
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.IsNotNull("idcsa_contracttax"),
+				QHS.IsNotNull("idepexp"), QHS.NullOrEq("flagclawback", "N"));
 
-			filter += " AND EXISTS(SELECT * FROM csa_importver_epexp CE where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver  " +
-					  " ) ";
+			filter +=
+				" AND EXISTS(SELECT * FROM csa_importver_epexp CE where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver  " +
+				" ) ";
 
 
 			string sqlCmd = " SELECT    CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" (select sum(CE.quota)  from csa_importver_epexp CE " +
-							" where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver) as Quota, " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" agency as 'Ente', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview  " +
-							" WHERE  " + filter;
+			                " ayear as 'Eserc.', " +
+			                " idver as 'Numero Versamento', " +
+			                " (select sum(CE.quota)  from csa_importver_epexp CE " +
+			                " where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver) as Quota, " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " agency as 'Ente', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview  " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 			if (T != null) {
@@ -6965,34 +7585,35 @@ namespace csa_import_default {
 			if (Meta.IsEmpty) return;
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
-				QHS.CmpEq("flagclawback", "N"), QHS.CmpLt("importo",0),
+				QHS.CmpEq("flagclawback", "N"), QHS.CmpLt("importo", 0),
 				QHS.IsNull("idfin_cost"), QHS.IsNull("idexp_cost"),
-				QHS.IsNotNull("idfin_income"),QHS.IsNotNull("idfin_expense"),
+				QHS.IsNotNull("idfin_income"), QHS.IsNotNull("idfin_expense"),
 				QHS.IsNull("idacc_agency_credit"));
 
-			string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" codeacc_agency_credit as 'Codice Conto Credito V/Ente'," +
-							" account_agency_credit as 'Conto Credito V/Ente' ," +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" codefin_income as 'Cod. Capitolo Entrata'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" codeacc_agency_credit as 'Codice Conto Credito V/Ente'," +
+				" account_agency_credit as 'Conto Credito V/Ente' ," +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -7011,32 +7632,33 @@ namespace csa_import_default {
 				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
 				return;
 			}
+
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = " not exists ( " +
-							" select * from csa_contractexpenseview RipFin " +
-							" where csa_contractepexpview.idcsa_contract = RipFin.idcsa_contract " +
-							" and  csa_contractepexpview.ayear =RipFin.ayear " +
-							" and  csa_contractepexpview.ndetail =RipFin.ndetail " +
-							" and  csa_contractepexpview.idupb = RipFin.idupb " +
-							" and csa_contractepexpview.quota = RipFin.quota) ";
+			                " select * from csa_contractexpenseview RipFin " +
+			                " where csa_contractepexpview.idcsa_contract = RipFin.idcsa_contract " +
+			                " and  csa_contractepexpview.ayear =RipFin.ayear " +
+			                " and  csa_contractepexpview.ndetail =RipFin.ndetail " +
+			                " and  csa_contractepexpview.idupb = RipFin.idupb " +
+			                " and csa_contractepexpview.quota = RipFin.quota) ";
 			filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), filter);
 			// ayear, contractkindcode, contractkind, ycontract,ncontract, phase, yepexp, nepexp, quota, codeupb,upb
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idcsa_contractkind as '#id Regola generale CSA', " +
-							" contractkindcode as 'Cod. Regola generale CSA', " +
-							" contractkind as 'Regola generale CSA', " +
-							" idcsa_contract as '#id Regola specifica CSA', " +
-							" ycontract as 'Eserc. Regola specifica CSA', " +
-							" ncontract as 'Num. Regola specifica CSA', " +
-							" ndetail as '#id. dettaglio ripart.', " +
-							" quota as 'Quota Ripartizione Regola specifica CSA', " +
-							" phase as 'Fase', " +
-							" yepexp as 'Eserc. Preimpegno', " +
-							" nepexp as 'Num. Preimpegno', " +
-							" codeupb as 'Codice UPB Preimpegno', " +
-							" upb as 'UPB Preimpegno' " +
-							" FROM csa_contractepexpview " +
-							" WHERE  " + filter;
+			                " idcsa_contractkind as '#id Regola generale CSA', " +
+			                " contractkindcode as 'Cod. Regola generale CSA', " +
+			                " contractkind as 'Regola generale CSA', " +
+			                " idcsa_contract as '#id Regola specifica CSA', " +
+			                " ycontract as 'Eserc. Regola specifica CSA', " +
+			                " ncontract as 'Num. Regola specifica CSA', " +
+			                " ndetail as '#id. dettaglio ripart.', " +
+			                " quota as 'Quota Ripartizione Regola specifica CSA', " +
+			                " phase as 'Fase', " +
+			                " yepexp as 'Eserc. Preimpegno', " +
+			                " nepexp as 'Num. Preimpegno', " +
+			                " codeupb as 'Codice UPB Preimpegno', " +
+			                " upb as 'UPB Preimpegno' " +
+			                " FROM csa_contractepexpview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -7052,39 +7674,41 @@ namespace csa_import_default {
 				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
 				return;
 			}
+
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = " not exists ( " +
-							" select * from csa_contracttaxexpenseview RipFIN" +
-							" where RipFIN.idcsa_contract = csa_contracttaxepexpview.idcsa_contract " +
-							" and  RipFIN.ayear =csa_contracttaxepexpview.ayear " +
-							" and  RipFIN.ndetail =csa_contracttaxepexpview.ndetail " +
-							" and  RipFIN.idupb = csa_contracttaxepexpview.idupb " +
-							" and RipFIN.quota = csa_contracttaxepexpview.quota) ";
+			                " select * from csa_contracttaxexpenseview RipFIN" +
+			                " where RipFIN.idcsa_contract = csa_contracttaxepexpview.idcsa_contract " +
+			                " and  RipFIN.ayear =csa_contracttaxepexpview.ayear " +
+			                " and  RipFIN.ndetail =csa_contracttaxepexpview.ndetail " +
+			                " and  RipFIN.idupb = csa_contracttaxepexpview.idupb " +
+			                " and RipFIN.quota = csa_contracttaxepexpview.quota) ";
 			filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), filter);
 			// ayear, contractkindcode, contractkind, ycontract,ncontract, phase, yepexp, nepexp, quota, codeupb,upb
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idcsa_contractkind as '#id Regola generale CSA', " +
-							" contractkindcode as 'Cod. Regola generale CSA', " +
-							" contractkind as 'Regola generale CSA', " +
-							" idcsa_contract as '#id Regola specifica CSA', " +
-							" ycontract as 'Eserc. Regola specifica CSA', " +
-							" ncontract as 'Num. Regola specifica CSA', " +
-							" idcsa_contracttax as '#id rip. contributo', " +
-							" voceCSA as 'Voce CSA', " +
-							" ndetail as '#id. dettaglio ripart.' ," +
-							" quota as 'Quota Ripartizione Regola specifica CSA', " +
-							" phase as 'Fase', " +
-							  " yepexp as 'Eserc. Preimpegno', " +
-							" nepexp as 'Num. Preimpegno', " +
-							" codeupb as 'Codice UPB Preimpegno', " +
-							" upb as 'UPB Preimpegno' " +
-							" FROM csa_contracttaxepexpview " +
-							" WHERE  " + filter;
+			                " idcsa_contractkind as '#id Regola generale CSA', " +
+			                " contractkindcode as 'Cod. Regola generale CSA', " +
+			                " contractkind as 'Regola generale CSA', " +
+			                " idcsa_contract as '#id Regola specifica CSA', " +
+			                " ycontract as 'Eserc. Regola specifica CSA', " +
+			                " ncontract as 'Num. Regola specifica CSA', " +
+			                " idcsa_contracttax as '#id rip. contributo', " +
+			                " voceCSA as 'Voce CSA', " +
+			                " ndetail as '#id. dettaglio ripart.' ," +
+			                " quota as 'Quota Ripartizione Regola specifica CSA', " +
+			                " phase as 'Fase', " +
+			                " yepexp as 'Eserc. Preimpegno', " +
+			                " nepexp as 'Num. Preimpegno', " +
+			                " codeupb as 'Codice UPB Preimpegno', " +
+			                " upb as 'UPB Preimpegno' " +
+			                " FROM csa_contracttaxepexpview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
-				VisualizzaDati2(sender, e, T, "csa_contracttaxexpenseview", "csa_contracttaxexpense", "default", filter, filter);
+				VisualizzaDati2(sender, e, T, "csa_contracttaxexpenseview", "csa_contracttaxexpense", "default", filter,
+					filter);
 			}
 		}
 
@@ -7095,27 +7719,33 @@ namespace csa_import_default {
 				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
 				return;
 			}
+
 			DataRow Curr = DS.csa_import.Rows[0];
 
 
 			// ayear, contractkindcode, contractkind, ycontract,ncontract, phase, yepexp, nepexp, quota, codeupb,upb
 			string sqlCmd = "select distinct ymov as 'eserc. mov.', " +
-							" nmov as 'n.mov'," +
-							" curramount as 'importo movimento'," +
-							" (select sum(E2.appropriation) from expensecreditproceedsview E2 where E1.idexp = E2.idexp and E1.ayear = E2.ayear) as 'finanziamento'," +
-							" description as 'descrizione'," +
-							" upb, underwriting as 'finanziamento' from expensecreditproceedsview E1 " +
-							" join expenselink EL on EL.idparent = E1.idexp " +
-							" where curramount<> " +
-							"(select sum(E2.appropriation) from expensecreditproceedsview E2 where E1.idexp = E2.idexp and E1.ayear = E2.ayear) " +
-							" and E1.ayear = " + QHS.quote(Curr["yimport"]) + " and " +
-							" (EL.idchild in (select idexp from csa_importriep where idcsa_import = " +QHS.quote(Curr["idcsa_import"]) + ") OR " +
-							" EL.idchild in (select idexp_cost from csa_importver where idcsa_import = "+ QHS.quote(Curr["idcsa_import"])+") OR " +
-							" EL.idchild in (select idexp from csa_importriep_expense where idcsa_import = "+ QHS.quote(Curr["idcsa_import"])+") OR " +
-							" EL.idchild in (select idexp from csa_importver_expense where idcsa_import = "+ QHS.quote(Curr["idcsa_import"])+")  OR " +
-							" EL.idchild in (select idexp from csa_importver_partition where idcsa_import = " + QHS.quote(Curr["idcsa_import"]) + ") " +
-							" ) " +
-							" order by ymov, nmov ";
+			                " nmov as 'n.mov'," +
+			                " curramount as 'importo movimento'," +
+			                " (select sum(E2.appropriation) from expensecreditproceedsview E2 where E1.idexp = E2.idexp and E1.ayear = E2.ayear) as 'finanziamento'," +
+			                " description as 'descrizione'," +
+			                " upb, underwriting as 'finanziamento' from expensecreditproceedsview E1 " +
+			                " join expenselink EL on EL.idparent = E1.idexp " +
+			                " where curramount<> " +
+			                "(select sum(E2.appropriation) from expensecreditproceedsview E2 where E1.idexp = E2.idexp and E1.ayear = E2.ayear) " +
+			                " and E1.ayear = " + QHS.quote(Curr["yimport"]) + " and " +
+			                " (EL.idchild in (select idexp from csa_importriep where idcsa_import = " +
+			                QHS.quote(Curr["idcsa_import"]) + ") OR " +
+			                " EL.idchild in (select idexp_cost from csa_importver where idcsa_import = " +
+			                QHS.quote(Curr["idcsa_import"]) + ") OR " +
+			                " EL.idchild in (select idexp from csa_importriep_expense where idcsa_import = " +
+			                QHS.quote(Curr["idcsa_import"]) + ") OR " +
+			                " EL.idchild in (select idexp from csa_importver_expense where idcsa_import = " +
+			                QHS.quote(Curr["idcsa_import"]) + ")  OR " +
+			                " EL.idchild in (select idexp from csa_importver_partition where idcsa_import = " +
+			                QHS.quote(Curr["idcsa_import"]) + ") " +
+			                " ) " +
+			                " order by ymov, nmov ";
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -7136,32 +7766,34 @@ namespace csa_import_default {
 			if (!usePartition) {
 				filter = QHS.AppAnd(filter, QHS.IsNotNull("R.idexp"));
 				filter += " AND NOT EXISTS (select * from expenseyear EY where " +
-						  " EY.idexp = R.idexp AND " +
-						  " R.ayear = EY.ayear) ";
-			} else {
-				filter += " AND EXISTS (select * from csa_importriep_partition RP where " +
-					  " R.idcsa_import = RP.idcsa_import AND " +
-					  " R.idriep = RP.idriep AND" +
-					  " RP.idexp IS NOT NULL) ";
-				filter += " AND NOT EXISTS (select * from expenseyear EY " +
-					  " JOIN csa_importriep_partition RP ON " +
-					  " R.idcsa_import = RP.idcsa_import AND " +
-					  " R.idriep = RP.idriep AND " +
-					  " EY.idexp = RP.idexp AND " +
-					  " R.ayear = EY.ayear ) ";
+				          " EY.idexp = R.idexp AND " +
+				          " R.ayear = EY.ayear) ";
 			}
+			else {
+				filter += " AND EXISTS (select * from csa_importriep_partition RP where " +
+				          " R.idcsa_import = RP.idcsa_import AND " +
+				          " R.idriep = RP.idriep AND" +
+				          " RP.idexp IS NOT NULL) ";
+				filter += " AND NOT EXISTS (select * from expenseyear EY " +
+				          " JOIN csa_importriep_partition RP ON " +
+				          " R.idcsa_import = RP.idcsa_import AND " +
+				          " R.idriep = RP.idriep AND " +
+				          " EY.idexp = RP.idexp AND " +
+				          " R.ayear = EY.ayear ) ";
+			}
+
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idriep as 'Numero Riepilogo', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview R" +
-							" WHERE  " + filter;
+			                " idriep as 'Numero Riepilogo', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview R" +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -7180,36 +7812,37 @@ namespace csa_import_default {
 			if (!usePartition) {
 				filter = QHS.AppAnd(filter, QHS.IsNotNull("R.idexp_cost"));
 				filter += " AND NOT EXISTS (select * from expenseyear EY where " +
-						  " EY.idexp = R.idexp_cost AND " +
-						  " R.ayear = EY.ayear) ";
-			} else {
+				          " EY.idexp = R.idexp_cost AND " +
+				          " R.ayear = EY.ayear) ";
+			}
+			else {
 				filter += " AND EXISTS (select * from csa_importver_partition RP where " +
-					  " R.idcsa_import = RP.idcsa_import AND " +
-					  " R.idver = RP.idver AND" +
-					  " RP.idexp IS NOT NULL) ";
+				          " R.idcsa_import = RP.idcsa_import AND " +
+				          " R.idver = RP.idver AND" +
+				          " RP.idexp IS NOT NULL) ";
 				filter += " AND NOT EXISTS (select * from expenseyear EY " +
-					  " JOIN csa_importver_partition RP ON " +
-					  " R.idcsa_import = RP.idcsa_import AND " +
-					  " R.idver = RP.idver AND " +
-					  " EY.idexp = RP.idexp AND " +
-					  " R.ayear = EY.ayear ) ";
+				          " JOIN csa_importver_partition RP ON " +
+				          " R.idcsa_import = RP.idcsa_import AND " +
+				          " R.idver = RP.idver AND " +
+				          " EY.idexp = RP.idexp AND " +
+				          " R.ayear = EY.ayear ) ";
 			}
 
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview R " +
-							" WHERE  " + filter;
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview R " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -7225,6 +7858,7 @@ namespace csa_import_default {
 				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
 				return;
 			}
+
 			var Curr = DS.csa_import.Rows[0];
 			var idcsa_import = Curr["idcsa_import"];
 			string sqlCmd = "";
@@ -7235,43 +7869,47 @@ namespace csa_import_default {
 					QHS.IsNotNull("idexp_main"));
 
 				filter += " and not exists (select * from expenseyear EY where " +
-						  "                  EY.idexp = csa_contract.idexp_main AND " +
-						  "                  csa_contract.ayear = EY.ayear) ";
+				          "                  EY.idexp = csa_contract.idexp_main AND " +
+				          "                  csa_contract.ayear = EY.ayear) ";
 
 				filter +=
 					$" and exists (select * from csa_importriep R where idcsa_import = {idcsa_import} and idcsa_contract=csa_contract.idcsa_contract )		";
 
-				sqlCmd = " SELECT idcsa_contract , ycontract as 'Eserc.Regola specifica CSA', ncontract as Numero, description as Descrizione " +
-								" from csa_contract  " +
-								" where " + filter;
+				sqlCmd =
+					" SELECT idcsa_contract , ycontract as 'Eserc.Regola specifica CSA', ncontract as Numero, description as Descrizione " +
+					" from csa_contract  " +
+					" where " + filter;
 				DataTable T = Conn.SQLRunner(sqlCmd);
 				if (T != null) {
 					VisualizzaDati(sender, e, T, "csa_contract", "default", filter);
 				}
-			} else {
+			}
+			else {
 				filter = QHS.AppAnd(QHS.CmpEq("C.active", "S"),
-						QHS.CmpEq("C.ayear", Conn.GetSys("esercizio")));
+					QHS.CmpEq("C.ayear", Conn.GetSys("esercizio")));
 				filter = QHS.AppAnd(filter, QHS.IsNotNull("CP.idexp"));
 
 				filter += " and not exists (select * from expenseyear EY where " +
-					   "                  EY.idexp = CP.idexp AND " +
-					   "                  CP.ayear = EY.ayear) ";
+				          "                  EY.idexp = CP.idexp AND " +
+				          "                  CP.ayear = EY.ayear) ";
 				filter +=
 					$" and exists (select * from csa_importriep R where idcsa_import = {idcsa_import} and idcsa_contract=C.idcsa_contract )		";
 
-				sqlCmd = " SELECT CP.idcsa_contract , CP.ycontract as 'Eserc.Regola specifica CSA', CP.ncontract as Numero, " +
-							   " CP.ndetail as 'Dett'," +
-							   " CP.ymov as 'Eserc.Movimento', " +
-							   " CP.nmov as 'Eserc.Movimento' " +
-							   " from csa_contract_partitionview CP " +
-							   " join csa_contract C " +
-							   " on C.idcsa_contract = CP.idcsa_contract " +
-							   " and C.ayear = CP.ayear " +
-						  " where " + filter;
+				sqlCmd =
+					" SELECT CP.idcsa_contract , CP.ycontract as 'Eserc.Regola specifica CSA', CP.ncontract as Numero, " +
+					" CP.ndetail as 'Dett'," +
+					" CP.ymov as 'Eserc.Movimento', " +
+					" CP.nmov as 'Eserc.Movimento' " +
+					" from csa_contract_partitionview CP " +
+					" join csa_contract C " +
+					" on C.idcsa_contract = CP.idcsa_contract " +
+					" and C.ayear = CP.ayear " +
+					" where " + filter;
 
 				DataTable T = Conn.SQLRunner(sqlCmd);
 				if (T != null) {
-					VisualizzaDati2(sender, e, T, "csa_contract_partition", "csa_contract_partitionview", "default", filter, filter);
+					VisualizzaDati2(sender, e, T, "csa_contract_partition", "csa_contract_partitionview", "default",
+						filter, filter);
 				}
 			}
 
@@ -7285,6 +7923,7 @@ namespace csa_import_default {
 				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
 				return;
 			}
+
 			var Curr = DS.csa_import.Rows[0];
 			var idcsa_import = Curr["idcsa_import"];
 
@@ -7292,21 +7931,22 @@ namespace csa_import_default {
 			string filter = "";
 			if (!usePartition) {
 
-				filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), QHS.IsNotNull("idexp"), QHS.CmpEq("active", "S"));
+				filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), QHS.IsNotNull("idexp"),
+					QHS.CmpEq("active", "S"));
 				filter += " and not exists (select * from expenseyear EY where " +
-					   "                  EY.idexp = csa_contracttaxview.idexp AND " +
-					   "                  csa_contracttaxview.ayear = EY.ayear) ";
+				          "                  EY.idexp = csa_contracttaxview.idexp AND " +
+				          "                  csa_contracttaxview.ayear = EY.ayear) ";
 				filter +=
 					$" and exists (select * from csa_importriep R where idcsa_import = {idcsa_import} and idcsa_contract=csa_contracttaxview.idcsa_contract )		";
 				sqlCmd = " SELECT ayear as 'Eserc.', " +
-								" ycontract as 'Eserc. Regola specifica CSA', " +
-								" ncontract as 'Num. Regola specifica CSA.', " +
-								" contractkindcode as 'Cod. Regola generale CSA', " +
-								" contractkind as 'Regola generale CSA', " +
-								" voceCSA as 'Voce CSA' " +
-								" FROM csa_contracttaxview " +
-								" WHERE  " + filter;
-				
+				         " ycontract as 'Eserc. Regola specifica CSA', " +
+				         " ncontract as 'Num. Regola specifica CSA.', " +
+				         " contractkindcode as 'Cod. Regola generale CSA', " +
+				         " contractkind as 'Regola generale CSA', " +
+				         " voceCSA as 'Voce CSA' " +
+				         " FROM csa_contracttaxview " +
+				         " WHERE  " + filter;
+
 
 				DataTable T = Conn.SQLRunner(sqlCmd);
 				string filterT = filter.Replace("csa_contracttaxview", "csa_contracttax");
@@ -7314,34 +7954,38 @@ namespace csa_import_default {
 					//VisualizzaDati(sender, e, T, "csa_contracttax", "elenco", filter);
 					VisualizzaDati2(sender, e, T, "csa_contracttax", "csa_contracttaxview", "elenco", filterT, filter);
 				}
-			} else {
+			}
+			else {
 				filter = QHS.AppAnd(QHS.CmpEq("C.active", "S"),
-					   QHS.CmpEq("C.ayear", Conn.GetSys("esercizio")));
+					QHS.CmpEq("C.ayear", Conn.GetSys("esercizio")));
 				filter = QHS.AppAnd(filter, QHS.IsNotNull("CP.idexp"));
 
 				filter += " and not exists (select * from expenseyear EY where " +
-					   "                  EY.idexp = CP.idexp AND " +
-					   "                  CP.ayear = EY.ayear)";
+				          "                  EY.idexp = CP.idexp AND " +
+				          "                  CP.ayear = EY.ayear)";
 				filter +=
 					$" and exists (select * from csa_importriep R where idcsa_import = {idcsa_import} and idcsa_contract=C.idcsa_contract )		";
 
-				sqlCmd = " SELECT CP.idcsa_contract , CP.ycontract as 'Eserc.Regola specifica CSA', CP.ncontract as Numero, " +
-							   " CP.ndetail as 'Dett'," +
-							   " CP.ymov as 'Eserc.Movimento', " +
-							   " CP.nmov as 'Eserc.Movimento', " +
-							   " CP.voceCSA as 'Voce CSA' " +
-							   " from csa_contracttax_partitionview CP " +
-							   " join csa_contract C " +
-							   " on C.idcsa_contract = CP.idcsa_contract " +
-							   " and C.ayear = CP.ayear " +
-						  " where " + filter;
+				sqlCmd =
+					" SELECT CP.idcsa_contract , CP.ycontract as 'Eserc.Regola specifica CSA', CP.ncontract as Numero, " +
+					" CP.ndetail as 'Dett'," +
+					" CP.ymov as 'Eserc.Movimento', " +
+					" CP.nmov as 'Eserc.Movimento', " +
+					" CP.voceCSA as 'Voce CSA' " +
+					" from csa_contracttax_partitionview CP " +
+					" join csa_contract C " +
+					" on C.idcsa_contract = CP.idcsa_contract " +
+					" and C.ayear = CP.ayear " +
+					" where " + filter;
 				DataTable T = Conn.SQLRunner(sqlCmd);
 				if (T != null) {
-					VisualizzaDati2(sender, e, T, "csa_contracttax_partition", "csa_contracttax_partitionview", "default", filter, filter);
+					VisualizzaDati2(sender, e, T, "csa_contracttax_partition", "csa_contracttax_partitionview",
+						"default", filter, filter);
 				}
 
 			}
 		}
+
 		private void btn54_Click(object sender, EventArgs e) {
 			//54)    Movimento di spesa principale impostato nella ripartizione dei contributi senza imputazione nell'esercizio corrente
 			if (Meta.IsEmpty) return;
@@ -7349,27 +7993,30 @@ namespace csa_import_default {
 				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
 				return;
 			}
+
 			DataRow Curr = DS.csa_import.Rows[0];
 
-			string filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), QHS.IsNotNull("idexp"), QHS.CmpEq("active", "S"));
+			string filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), QHS.IsNotNull("idexp"),
+				QHS.CmpEq("active", "S"));
 			// aggiungere active alla view csa_contracttaxexpenseview
 			filter += " and not exists (select * from expenseyear EY where " +
-				   "                  EY.idexp = csa_contracttaxexpenseview.idexp AND " +
-				   "                  csa_contracttaxexpenseview.ayear = EY.ayear)";
+			          "                  EY.idexp = csa_contracttaxexpenseview.idexp AND " +
+			          "                  csa_contracttaxexpenseview.ayear = EY.ayear)";
 
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" ycontract as 'Eserc. Regola specifica CSA', " +
-							" ncontract as 'Num. Regola specifica CSA.', " +
-							" contractkindcode as 'Cod. Regola generale CSA', " +
-							" contractkind as 'Regola generale CSA', " +
-							" voceCSA as 'Voce CSA' " +
-							" from csa_contracttaxexpenseview   " +
-							" where " + filter;
+			                " ycontract as 'Eserc. Regola specifica CSA', " +
+			                " ncontract as 'Num. Regola specifica CSA.', " +
+			                " contractkindcode as 'Cod. Regola generale CSA', " +
+			                " contractkind as 'Regola generale CSA', " +
+			                " voceCSA as 'Voce CSA' " +
+			                " from csa_contracttaxexpenseview   " +
+			                " where " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
-				VisualizzaDati2(sender, e, T, "csa_contracttaxexpense", "csa_contracttaxexpenseview", "elenco", filter, filter);
+				VisualizzaDati2(sender, e, T, "csa_contracttaxexpense", "csa_contracttaxexpenseview", "elenco", filter,
+					filter);
 			}
 		}
 
@@ -7380,33 +8027,36 @@ namespace csa_import_default {
 				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
 				return;
 			}
+
 			DataRow Curr = DS.csa_import.Rows[0];
-			string filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), QHS.IsNotNull("idexp"), QHS.CmpEq("active", "S"));
+			string filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), QHS.IsNotNull("idexp"),
+				QHS.CmpEq("active", "S"));
 			filter += " and not exists (select * from expenseyear EY where " +
-				   "                  EY.idexp = csa_contractexpenseview.idexp AND " +
-				   "                  csa_contractexpenseview.ayear = EY.ayear)";
+			          "                  EY.idexp = csa_contractexpenseview.idexp AND " +
+			          "                  csa_contractexpenseview.ayear = EY.ayear)";
 
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-						   " idcsa_contractkind as '#id Regola generale CSA', " +
-						   " contractkindcode as 'Cod. Regola generale CSA', " +
-						   " contractkind as 'Regola generale CSA', " +
-						   " idcsa_contract as '#id Regola specifica CSA', " +
-						   " ycontract as 'Eserc. Regola specifica CSA', " +
-						   " ncontract as 'Num. Regola specifica CSA', " +
-						   " ndetail as '#id. dettaglio ripart.', " +
-						   " quota as 'Quota Ripartizione Regola specifica CSA', " +
-						   " phase as 'Fase', " +
-						   " ymov as 'Eserc. Mov. Fin.', " +
-						   " nmov as 'Num. Mov. Fin.', " +
-						   " codeupb as 'Codice UPB Mov. Fin.', " +
-						   " upb as 'UPB Preimpegno' " +
-						   " FROM csa_contractexpenseview " +
-						   " WHERE  " + filter;
+			                " idcsa_contractkind as '#id Regola generale CSA', " +
+			                " contractkindcode as 'Cod. Regola generale CSA', " +
+			                " contractkind as 'Regola generale CSA', " +
+			                " idcsa_contract as '#id Regola specifica CSA', " +
+			                " ycontract as 'Eserc. Regola specifica CSA', " +
+			                " ncontract as 'Num. Regola specifica CSA', " +
+			                " ndetail as '#id. dettaglio ripart.', " +
+			                " quota as 'Quota Ripartizione Regola specifica CSA', " +
+			                " phase as 'Fase', " +
+			                " ymov as 'Eserc. Mov. Fin.', " +
+			                " nmov as 'Num. Mov. Fin.', " +
+			                " codeupb as 'Codice UPB Mov. Fin.', " +
+			                " upb as 'UPB Preimpegno' " +
+			                " FROM csa_contractexpenseview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
-				VisualizzaDati2(sender, e, T, "csa_contractexpenseview", "csa_contractexpense", "default", filter, filter);
+				VisualizzaDati2(sender, e, T, "csa_contractexpenseview", "csa_contractexpense", "default", filter,
+					filter);
 			}
 		}
 
@@ -7417,26 +8067,27 @@ namespace csa_import_default {
 				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
 				return;
 			}
+
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
-									   QHS.IsNotNull("csa_importriepview.idexp"),
-									   QHS.IsNotNull("csa_importriepview.idepexp"));
+				QHS.IsNotNull("csa_importriepview.idexp"),
+				QHS.IsNotNull("csa_importriepview.idepexp"));
 
 			string sqlCmd = " SELECT csa_importriepview.ayear as 'Eserc.', " +
-							" csa_importriepview.idriep as 'Numero Riepilogo', " +
-							" csa_importriepview.yimport as 'Eserc. Import', " +
-							" csa_importriepview.nimport as 'Num. Import.', " +
-							" csa_importriepview.ruolocsa as 'Ruolo CSA', " +
-							" csa_importriepview.capitolocsa as 'Capitolo CSA', " +
-							" csa_importriepview.matricola  as 'Matricola', " +
-							" csa_importriepview.importo as 'Importo', " +
-							" csa_importriepview.registry as 'Anagrafica', " +
-							" csa_importriepview.flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview " +
-							" left outer join expenseyear EY ON EY.idexp = csa_importriepview.idexp AND  csa_importriepview.ayear = EY.ayear " +
-							" left outer join epexpyear   EPY ON EPY.idepexp = csa_importriepview.idepexp AND csa_importriepview.ayear = EPY.ayear " +
-							" WHERE  " + filter +
-							" AND isnull(EY.idupb, '0001') <> isnull(EPY.idupb, '0001') ";
+			                " csa_importriepview.idriep as 'Numero Riepilogo', " +
+			                " csa_importriepview.yimport as 'Eserc. Import', " +
+			                " csa_importriepview.nimport as 'Num. Import.', " +
+			                " csa_importriepview.ruolocsa as 'Ruolo CSA', " +
+			                " csa_importriepview.capitolocsa as 'Capitolo CSA', " +
+			                " csa_importriepview.matricola  as 'Matricola', " +
+			                " csa_importriepview.importo as 'Importo', " +
+			                " csa_importriepview.registry as 'Anagrafica', " +
+			                " csa_importriepview.flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview " +
+			                " left outer join expenseyear EY ON EY.idexp = csa_importriepview.idexp AND  csa_importriepview.ayear = EY.ayear " +
+			                " left outer join epexpyear   EPY ON EPY.idepexp = csa_importriepview.idepexp AND csa_importriepview.ayear = EPY.ayear " +
+			                " WHERE  " + filter +
+			                " AND isnull(EY.idupb, '0001') <> isnull(EPY.idupb, '0001') ";
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
@@ -7451,29 +8102,30 @@ namespace csa_import_default {
 				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
 				return;
 			}
+
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.AppAnd(QHS.CmpEq("csa_importverview.idcsa_import", Curr["idcsa_import"]),
-									   QHS.IsNotNull("csa_importverview.idexp_cost"),
-									   QHS.IsNotNull("csa_importverview.idepexp"));
+				QHS.IsNotNull("csa_importverview.idexp_cost"),
+				QHS.IsNotNull("csa_importverview.idepexp"));
 
 			string sqlCmd = " SELECT csa_importverview.ayear as 'Eserc.', " +
-							" csa_importverview.idver as 'Numero Versamento', " +
-							" csa_importverview.yimport as 'Eserc. Import', " +
-							" csa_importverview.nimport as 'Num. Import.', " +
-							" csa_importverview.ruolocsa as 'Ruolo CSA', " +
-							" csa_importverview.capitolocsa as 'Capitolo CSA', " +
-							" csa_importverview.ente as 'Ente CSA', " +
-							" csa_importverview.vocecsa as 'Voce CSA', " +
-							" csa_importverview.matricola as 'Matricola', " +
-							" csa_importverview.importo as 'Importo', " +
-							" csa_importverview.registry as 'Anagrafica', " +
-							" csa_importverview.agency as 'Ente', " +
-							" csa_importverview.flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" left outer join expenseyear EY ON EY.idexp = csa_importverview.idexp_cost AND  csa_importverview.ayear = EY.ayear " +
-							" left outer join epexpyear   EPY ON EPY.idepexp = csa_importverview.idepexp AND csa_importverview.ayear = EPY.ayear " +
-							" WHERE  " + filter +
-							" AND isnull(EY.idupb, '0001') <> isnull(EPY.idupb, '0001') ";
+			                " csa_importverview.idver as 'Numero Versamento', " +
+			                " csa_importverview.yimport as 'Eserc. Import', " +
+			                " csa_importverview.nimport as 'Num. Import.', " +
+			                " csa_importverview.ruolocsa as 'Ruolo CSA', " +
+			                " csa_importverview.capitolocsa as 'Capitolo CSA', " +
+			                " csa_importverview.ente as 'Ente CSA', " +
+			                " csa_importverview.vocecsa as 'Voce CSA', " +
+			                " csa_importverview.matricola as 'Matricola', " +
+			                " csa_importverview.importo as 'Importo', " +
+			                " csa_importverview.registry as 'Anagrafica', " +
+			                " csa_importverview.agency as 'Ente', " +
+			                " csa_importverview.flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " left outer join expenseyear EY ON EY.idexp = csa_importverview.idexp_cost AND  csa_importverview.ayear = EY.ayear " +
+			                " left outer join epexpyear   EPY ON EPY.idepexp = csa_importverview.idepexp AND csa_importverview.ayear = EPY.ayear " +
+			                " WHERE  " + filter +
+			                " AND isnull(EY.idupb, '0001') <> isnull(EPY.idupb, '0001') ";
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -7489,39 +8141,42 @@ namespace csa_import_default {
 				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
 				return;
 			}
+
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = " not exists ( " +
-							" select * from csa_contractepexpview RipEP " +
-							" where csa_contractexpenseview.idcsa_contract = RipEP.idcsa_contract " +
-							" and  csa_contractexpenseview.ayear =RipEP.ayear " +
-							" and  csa_contractexpenseview.ndetail =RipEP.ndetail " +
-							" and  csa_contractexpenseview.idupb = RipEP.idupb " +
-							" and  csa_contractexpenseview.quota = RipEP.quota) ";
+			                " select * from csa_contractepexpview RipEP " +
+			                " where csa_contractexpenseview.idcsa_contract = RipEP.idcsa_contract " +
+			                " and  csa_contractexpenseview.ayear =RipEP.ayear " +
+			                " and  csa_contractexpenseview.ndetail =RipEP.ndetail " +
+			                " and  csa_contractexpenseview.idupb = RipEP.idupb " +
+			                " and  csa_contractexpenseview.quota = RipEP.quota) ";
 			filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), filter);
 			// ayear, contractkindcode, contractkind, ycontract,ncontract, phase, ymov, nmov, quota, codeupb,upb
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idcsa_contractkind as '#id Regola generale CSA', " +
-							" contractkindcode as 'Cod. Regola generale CSA', " +
-							" contractkind as 'Regola generale CSA', " +
-							" idcsa_contract as '#id Regola specifica CSA', " +
-							" ycontract as 'Eserc. Regola specifica CSA', " +
-							" ncontract as 'Num. Regola specifica CSA', " +
-							" ndetail as '#id. dettaglio ripart.', " +
-							" quota as 'Quota Ripartizione Regola specifica CSA', " +
-							" phase as 'Fase', " +
-							" ymov as 'Eserc. Movimento', " +
-							" nmov as 'Num. Movimento', " +
-							" codeupb as 'Codice UPB Movimento', " +
-							" upb as 'UPB Movimento' " +
-							" FROM csa_contractexpenseview " +
-							" WHERE  " + filter;
+			                " idcsa_contractkind as '#id Regola generale CSA', " +
+			                " contractkindcode as 'Cod. Regola generale CSA', " +
+			                " contractkind as 'Regola generale CSA', " +
+			                " idcsa_contract as '#id Regola specifica CSA', " +
+			                " ycontract as 'Eserc. Regola specifica CSA', " +
+			                " ncontract as 'Num. Regola specifica CSA', " +
+			                " ndetail as '#id. dettaglio ripart.', " +
+			                " quota as 'Quota Ripartizione Regola specifica CSA', " +
+			                " phase as 'Fase', " +
+			                " ymov as 'Eserc. Movimento', " +
+			                " nmov as 'Num. Movimento', " +
+			                " codeupb as 'Codice UPB Movimento', " +
+			                " upb as 'UPB Movimento' " +
+			                " FROM csa_contractexpenseview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
-				VisualizzaDati2(sender, e, T, "csa_contractexpenseview", "csa_contractexpense", "default", filter, filter);
+				VisualizzaDati2(sender, e, T, "csa_contractexpenseview", "csa_contractexpense", "default", filter,
+					filter);
 			}
 		}
+
 		private void btn62_63_64_Click(object sender, EventArgs e, int errcode) {
 
 			//62) Sospeso uscita per elaborazione dei lordi non valorizzato
@@ -7535,13 +8190,14 @@ namespace csa_import_default {
 				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
 				return;
 			}
+
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter_62 = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), QHS.IsNull("ybill_netti"));
 			string filter_63 = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
-							   QHS.NullOrEq("ybill_versamenti", esercizio));
+				QHS.NullOrEq("ybill_versamenti", esercizio));
 			string filter_64 = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
-							   QHS.NullOrEq("ybill_versamenti", new_esercizio),
-							   QHS.CmpEq("month(adate)", 12));
+				QHS.NullOrEq("ybill_versamenti", new_esercizio),
+				QHS.CmpEq("month(adate)", 12));
 			string filter = "";
 			if (errcode == 62) filter = filter_62;
 			if (errcode == 63) filter = filter_63;
@@ -7549,16 +8205,16 @@ namespace csa_import_default {
 
 
 			string sqlCmd = " SELECT yimport as 'Eserc. importazione', " +
-							" nimport as 'Numero importazione ', " +
-							" adate as 'Data contabile', " +
-							" month(adate) as 'Mese', " +
-							" ybill_netti as 'Eserc. sospeso netti', " +
-							" nbill_netti as 'Num. sospeso netti', " +
-							" ybill_versamenti as 'Eserc. sospeso versamenti', " +
-							" nbill_versamenti as 'Num. sospeso versamenti' " +
+			                " nimport as 'Numero importazione ', " +
+			                " adate as 'Data contabile', " +
+			                " month(adate) as 'Mese', " +
+			                " ybill_netti as 'Eserc. sospeso netti', " +
+			                " nbill_netti as 'Num. sospeso netti', " +
+			                " ybill_versamenti as 'Eserc. sospeso versamenti', " +
+			                " nbill_versamenti as 'Num. sospeso versamenti' " +
 
-							" FROM csa_import  " +
-							" WHERE  " + filter;
+			                " FROM csa_import  " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -7570,9 +8226,11 @@ namespace csa_import_default {
 		private void btn62_Click(object sender, EventArgs e) {
 			btn62_63_64_Click(sender, e, 62);
 		}
+
 		private void btn63_Click(object sender, EventArgs e) {
 			btn62_63_64_Click(sender, e, 63);
 		}
+
 		private void btn64_Click(object sender, EventArgs e) {
 			btn62_63_64_Click(sender, e, 64);
 		}
@@ -7585,39 +8243,41 @@ namespace csa_import_default {
 				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
 				return;
 			}
+
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = " not exists ( " +
-							" select * from csa_contracttaxepexpview RipEP " +
-							" where csa_contracttaxexpenseview.idcsa_contract = RipEP.idcsa_contract " +
-							" and  csa_contracttaxexpenseview.ayear =RipEP.ayear " +
-							" and  csa_contracttaxexpenseview.ndetail =RipEP.ndetail " +
-							" and  csa_contracttaxexpenseview.idupb = RipEP.idupb " +
-							" and csa_contracttaxexpenseview.quota = RipEP.quota) ";
+			                " select * from csa_contracttaxepexpview RipEP " +
+			                " where csa_contracttaxexpenseview.idcsa_contract = RipEP.idcsa_contract " +
+			                " and  csa_contracttaxexpenseview.ayear =RipEP.ayear " +
+			                " and  csa_contracttaxexpenseview.ndetail =RipEP.ndetail " +
+			                " and  csa_contracttaxexpenseview.idupb = RipEP.idupb " +
+			                " and csa_contracttaxexpenseview.quota = RipEP.quota) ";
 			filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), filter);
 			// ayear, contractkindcode, contractkind, ycontract,ncontract, phase, ymov, nmov, quota, codeupb,upb
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idcsa_contractkind as '#id Regola generale CSA', " +
-							" contractkindcode as 'Cod. Regola generale CSA', " +
-							" contractkind as 'Regola generale CSA', " +
-							" idcsa_contract as '#id Regola specifica CSA', " +
-							" ycontract as 'Eserc. Regola specifica CSA', " +
-							" ncontract as 'Num. Regola specifica CSA', " +
-							" idcsa_contracttax as '#id rip. contributo', " +
-							" voceCSA as 'Voce CSA', " +
-							" ndetail as '#id. dettaglio ripart.' ," +
-							" quota as 'Quota Ripartizione Regola specifica CSA', " +
-							" phase as 'Fase', " +
-							" ymov as 'Eserc. Mov. Fin.', " +
-							" nmov as 'Num. Mov. Fin.', " +
-							" codeupb as 'Codice UPB Mov. Fin.', " +
-							" upb as 'UPB Mov. Fin.' " +
-							" FROM csa_contracttaxexpenseview  " +
-							" WHERE  " + filter;
+			                " idcsa_contractkind as '#id Regola generale CSA', " +
+			                " contractkindcode as 'Cod. Regola generale CSA', " +
+			                " contractkind as 'Regola generale CSA', " +
+			                " idcsa_contract as '#id Regola specifica CSA', " +
+			                " ycontract as 'Eserc. Regola specifica CSA', " +
+			                " ncontract as 'Num. Regola specifica CSA', " +
+			                " idcsa_contracttax as '#id rip. contributo', " +
+			                " voceCSA as 'Voce CSA', " +
+			                " ndetail as '#id. dettaglio ripart.' ," +
+			                " quota as 'Quota Ripartizione Regola specifica CSA', " +
+			                " phase as 'Fase', " +
+			                " ymov as 'Eserc. Mov. Fin.', " +
+			                " nmov as 'Num. Mov. Fin.', " +
+			                " codeupb as 'Codice UPB Mov. Fin.', " +
+			                " upb as 'UPB Mov. Fin.' " +
+			                " FROM csa_contracttaxexpenseview  " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
-				VisualizzaDati2(sender, e, T, "csa_contracttaxexpenseview", "csa_contracttaxexpense", "default", filter, filter);
+				VisualizzaDati2(sender, e, T, "csa_contracttaxexpenseview", "csa_contracttaxexpense", "default", filter,
+					filter);
 			}
 		}
 
@@ -7627,30 +8287,32 @@ namespace csa_import_default {
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
 
-			filter += " AND NOT EXISTS(SELECT * FROM csa_importver_partition CE where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver  " +
-					  " ) ";
+			filter +=
+				" AND NOT EXISTS(SELECT * FROM csa_importver_partition CE where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver  " +
+				" ) ";
 
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
-				VisualizzaDati2(sender, e, T, "csa_importver", "csa_importverview", "default", filter.Replace("csa_importverview", "csa_importver"), filter);
+				VisualizzaDati2(sender, e, T, "csa_importver", "csa_importverview", "default",
+					filter.Replace("csa_importverview", "csa_importver"), filter);
 			}
 		}
 
@@ -7661,23 +8323,24 @@ namespace csa_import_default {
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]));
 
-			filter += " AND NOT EXISTS(SELECT * FROM csa_importriep_partition CE where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep  " +
-					  " ) ";
+			filter +=
+				" AND NOT EXISTS(SELECT * FROM csa_importriep_partition CE where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep  " +
+				" ) ";
 
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idriep as 'Numero Riepilogo', " +
-							" (select sum(CE.quota)  from csa_importriep_epexp CE " +
-							" where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep) as Quota, " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview  " +
-							" WHERE  " + filter;
+			                " idriep as 'Numero Riepilogo', " +
+			                " (select sum(CE.quota)  from csa_importriep_epexp CE " +
+			                " where csa_importriepview.idcsa_import = CE.idcsa_import and csa_importriepview.idriep = CE.idriep) as Quota, " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview  " +
+			                " WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -7694,39 +8357,40 @@ namespace csa_import_default {
 
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
-			   QHS.CmpGt("importo", 0));
+				QHS.CmpGt("importo", 0));
 			if (!usePartition)
 				filter = QHS.AppAnd(filter, QHS.IsNull("idacc"));
 			else
 
 				filter += " AND NOT EXISTS (select * from csa_importriep_partition RP where " +
-					   " csa_importriepview.idcsa_import = RP.idcsa_import AND " +
-					   " csa_importriepview.idriep = RP.idriep" +
-					   " ) ";
+				          " csa_importriepview.idcsa_import = RP.idcsa_import AND " +
+				          " csa_importriepview.idriep = RP.idriep" +
+				          " ) ";
 			filter += " OR EXISTS (select * from csa_importriep_partition RP where " +
-				  " csa_importriepview.idcsa_import = RP.idcsa_import AND " +
-				  " csa_importriepview.idriep = RP.idriep AND" +
-				  " RP.idacc IS NULL) ";
+			          " csa_importriepview.idcsa_import = RP.idcsa_import AND " +
+			          " csa_importriepview.idriep = RP.idriep AND" +
+			          " RP.idacc IS NULL) ";
 
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idriep as 'Numero Riepilogo', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview " +
-							" WHERE  " + filter;
+			                " idriep as 'Numero Riepilogo', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview " +
+			                " WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
 				if (T != null) {
-					VisualizzaDati2(sender, e, T, "csa_importriep", "csa_importriepview", "default", filter.Replace("csa_importriepview", "csa_importriep"), filter);
+					VisualizzaDati2(sender, e, T, "csa_importriep", "csa_importriepview", "default",
+						filter.Replace("csa_importriepview", "csa_importriep"), filter);
 				}
 
 			}
@@ -7738,19 +8402,19 @@ namespace csa_import_default {
 			if (Meta.IsEmpty) return;
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
-				   QHS.CmpLt("importo", 0));
+				QHS.CmpLt("importo", 0));
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idriep as 'Numero Riepilogo', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview " +
-							" WHERE  " + filter;
+			                " idriep as 'Numero Riepilogo', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -7772,31 +8436,31 @@ namespace csa_import_default {
 				filter = QHS.AppAnd(filter, QHS.IsNull("idacc_cost"));
 			else {
 				filter += " AND (NOT EXISTS (select * from csa_importver_partition RP where " +
-			   " csa_importverview.idcsa_import = RP.idcsa_import AND " +
-			   " csa_importverview.idver= RP.idver" +
-			   " )  ";
+				          " csa_importverview.idcsa_import = RP.idcsa_import AND " +
+				          " csa_importverview.idver= RP.idver" +
+				          " )  ";
 				filter += " OR EXISTS (select * from csa_importver_partition RP where " +
-					  " csa_importverview.idcsa_import = RP.idcsa_import AND " +
-					  " csa_importverview.idver= RP.idver AND" +
-					  " RP.idacc IS NULL)) ";
+				          " csa_importverview.idcsa_import = RP.idcsa_import AND " +
+				          " csa_importverview.idver= RP.idver AND" +
+				          " RP.idacc IS NULL)) ";
 
 			}
 
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							  " idver as 'Numero Versamento', " +
-							  " yimport as 'Eserc. Import', " +
-							  " nimport as 'Num. Import.', " +
-							  " ruolocsa as 'Ruolo CSA', " +
-							  " capitolocsa as 'Capitolo CSA', " +
-							  " ente as 'Ente CSA', " +
-							  " vocecsa as 'Voce CSA', " +
-							  " matricola as 'Matricola', " +
-							  " importo as 'Importo', " +
-							  " registry as 'Anagrafica', " +
-							  " agency as 'Ente', " +
-							  " flagcr as 'Comp./Residui' " +
-							  " FROM csa_importverview " +
-							  " WHERE  " + filter;
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -7818,20 +8482,20 @@ namespace csa_import_default {
 			if (!usePartition)
 				filter += QHS.IsNull("idacc_debit");
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -7846,34 +8510,35 @@ namespace csa_import_default {
 
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), QHS.CmpEq("flagclawback", "S")
-			   , QHS.CmpLt("importo", 0));
+				, QHS.CmpLt("importo", 0));
 			if (!usePartition)
 				filter = QHS.AppAnd(filter, QHS.IsNull("idacc_cost"));
 			else {
 				filter += " AND NOT EXISTS (select * from csa_importver_partition RP where " +
-					   " csa_importverview.idcsa_import = RP.idcsa_import AND " +
-					   " csa_importverview.idver= RP.idver" +
-					   " ) ";
+				          " csa_importverview.idcsa_import = RP.idcsa_import AND " +
+				          " csa_importverview.idver= RP.idver" +
+				          " ) ";
 				filter += " AND EXISTS (select * from csa_importver_partition RP where " +
-					  " csa_importverview.idcsa_import = RP.idcsa_import AND " +
-					  " csa_importverview.idver= RP.idver AND " +
-					  " RP.idacc IS NULL) ";
+				          " csa_importverview.idcsa_import = RP.idcsa_import AND " +
+				          " csa_importverview.idver= RP.idver AND " +
+				          " RP.idacc IS NULL) ";
 			}
+
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -7891,20 +8556,20 @@ namespace csa_import_default {
 				//QHS.IsNotNull("idcsa_incomesetup"),
 				QHS.IsNull("idacc_revenue"), QHS.CmpLt("importo", 0));
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -7920,20 +8585,20 @@ namespace csa_import_default {
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), QHS.CmpEq("flagclawback", "S"),
 				QHS.IsNull("idacc_revenue"), QHS.CmpGt("importo", 0));
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -7951,20 +8616,20 @@ namespace csa_import_default {
 				QHS.IsNotNull("idcsa_incomesetup"),
 				QHS.IsNull("idacc_expense"), QHS.CmpGt("importo", 0));
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -7982,20 +8647,20 @@ namespace csa_import_default {
 				QHS.IsNotNull("idcsa_incomesetup"),
 				QHS.IsNull("idacc_agency_credit"), QHS.CmpLt("importo", 0));
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -8013,20 +8678,20 @@ namespace csa_import_default {
 				//QHS.IsNotNull("idcsa_incomesetup"),
 				QHS.IsNull("idacc_agency_credit"), QHS.CmpLt("importo", 0));
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -8040,29 +8705,30 @@ namespace csa_import_default {
 			if (Meta.IsEmpty) return;
 			DataRow Curr = DS.csa_import.Rows[0];
 
-			string filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]),QHS.CmpEq("active", "S"));
+			string filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), QHS.CmpEq("active", "S"));
 			if (!usePartition)
 				filter = QHS.AppAnd(filter, QHS.IsNull("idacc_main"));
 			else {
 				filter += " AND (NOT EXISTS (select * from csa_contract_partition RP where " +
-					 " csa_contractview.idcsa_contract = RP.idcsa_contract AND " +
-					 " csa_contractview.ayear= RP.ayear" +
-					 " ) ";
+				          " csa_contractview.idcsa_contract = RP.idcsa_contract AND " +
+				          " csa_contractview.ayear= RP.ayear" +
+				          " ) ";
 				filter += " OR EXISTS (select * from csa_contract_partition RP where " +
-					 " csa_contractview.idcsa_contract = RP.idcsa_contract AND " +
-					  " csa_contractview.ayear= RP.ayear AND" +
-					  " RP.idacc IS NULL)) ";
+				          " csa_contractview.idcsa_contract = RP.idcsa_contract AND " +
+				          " csa_contractview.ayear= RP.ayear AND" +
+				          " RP.idacc IS NULL)) ";
 			}
+
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idcsa_contract as '#id Regola specifica CSA', " +
-							" ycontract as 'Eserc. Regola specifica CSA', " +
-							" ncontract as 'Num. Regola specifica CSA.', " +
-							" csa_contractkindcode as 'Cod. Regola generale CSA', " +
-							" csa_contractkind as 'Regola generale CSA', " +
-							" title as 'Denominazione', " +
-							" description as 'Descrizione' " +
-							" FROM csa_contractview   " +
-							" WHERE  " + filter;
+			                " idcsa_contract as '#id Regola specifica CSA', " +
+			                " ycontract as 'Eserc. Regola specifica CSA', " +
+			                " ncontract as 'Num. Regola specifica CSA.', " +
+			                " csa_contractkindcode as 'Cod. Regola generale CSA', " +
+			                " csa_contractkind as 'Regola generale CSA', " +
+			                " title as 'Denominazione', " +
+			                " description as 'Descrizione' " +
+			                " FROM csa_contractview   " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -8077,32 +8743,33 @@ namespace csa_import_default {
 		private void btnEP11_Click(object sender, EventArgs e) {
 			if (Meta.IsEmpty) return;
 			DataRow Curr = DS.csa_import.Rows[0];
-			string filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]),QHS.CmpEq("active", "S"));
+			string filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), QHS.CmpEq("active", "S"));
 
 			if (!usePartition)
 				filter = filter = QHS.AppAnd(filter, QHS.IsNull("idacc"));
 			else {
 				filter += " AND NOT EXISTS (select * from csa_contracttax_partition RP where " +
-					 " csa_contracttaxview.idcsa_contract = RP.idcsa_contract AND " +
-					 " csa_contracttaxview.idcsa_contracttax = RP.idcsa_contracttax AND " +
-					 " csa_contracttaxview.ayear= RP.ayear" +
-					 " ) ";
+				          " csa_contracttaxview.idcsa_contract = RP.idcsa_contract AND " +
+				          " csa_contracttaxview.idcsa_contracttax = RP.idcsa_contracttax AND " +
+				          " csa_contracttaxview.ayear= RP.ayear" +
+				          " ) ";
 				filter += " OR EXISTS (select * from csa_contracttax_partition RP where " +
-					 " csa_contracttaxview.idcsa_contract = RP.idcsa_contract AND " +
-					 " csa_contracttaxview.idcsa_contracttax = RP.idcsa_contracttax AND " +
-					  " csa_contracttaxview.ayear= RP.ayear AND" +
-					  " RP.idacc IS NULL) ";
+				          " csa_contracttaxview.idcsa_contract = RP.idcsa_contract AND " +
+				          " csa_contracttaxview.idcsa_contracttax = RP.idcsa_contracttax AND " +
+				          " csa_contracttaxview.ayear= RP.ayear AND" +
+				          " RP.idacc IS NULL) ";
 			}
+
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idcsa_contract as '#id Regola specifica CSA', " +
-							" idcsa_contracttax as '#id Regola specifica CSA', " +
-							" ycontract as 'Eserc. Regola specifica CSA', " +
-							" ncontract as 'Num. Regola specifica CSA.', " +
-							" contractkindcode as 'Cod. Regola generale CSA', " +
-							" contractkind as 'Regola generale CSA', " +
-							" voceCSA as 'Voce CSA' " +
-							" FROM csa_contracttaxview  " +
-							" WHERE  " + filter;
+			                " idcsa_contract as '#id Regola specifica CSA', " +
+			                " idcsa_contracttax as '#id Regola specifica CSA', " +
+			                " ycontract as 'Eserc. Regola specifica CSA', " +
+			                " ncontract as 'Num. Regola specifica CSA.', " +
+			                " contractkindcode as 'Cod. Regola generale CSA', " +
+			                " contractkind as 'Regola generale CSA', " +
+			                " voceCSA as 'Voce CSA' " +
+			                " FROM csa_contracttaxview  " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -8116,13 +8783,14 @@ namespace csa_import_default {
 		private void btnEP12_Click(object sender, EventArgs e) {
 			if (Meta.IsEmpty) return;
 			DataRow Curr = DS.csa_import.Rows[0];
-			string filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), QHS.IsNull("idacc_main"), QHS.CmpEq("active", "S"));
+			string filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), QHS.IsNull("idacc_main"),
+				QHS.CmpEq("active", "S"));
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idcsa_contractkind as '#id Regola generale CSA', " +
-							" contractkindcode as 'Cod. Regola generale CSA', " +
-							" description as 'Regola generale CSA' " +
-							" FROM csa_contractkindview " +
-							" WHERE  " + filter;
+			                " idcsa_contractkind as '#id Regola generale CSA', " +
+			                " contractkindcode as 'Cod. Regola generale CSA', " +
+			                " description as 'Regola generale CSA' " +
+			                " FROM csa_contractkindview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
@@ -8138,17 +8806,18 @@ namespace csa_import_default {
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), QHS.IsNull("idacc"));
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idcsa_contractkind as '#id Regola generale CSA', " +
-							" csa_contractkindcode as 'Cod. Regola generale CSA', " +
-							" csa_contractkind as 'Regola generale CSA', " +
-							" voceCSA as 'Voce CSA' " +
-							" FROM csa_contractkinddataview " +
-							" WHERE  " + filter;
+			                " idcsa_contractkind as '#id Regola generale CSA', " +
+			                " csa_contractkindcode as 'Cod. Regola generale CSA', " +
+			                " csa_contractkind as 'Regola generale CSA', " +
+			                " voceCSA as 'Voce CSA' " +
+			                " FROM csa_contractkinddataview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
-				VisualizzaDati2(sender, e, T, "csa_contractkinddata", "csa_contractkinddata", "default", filter, filter);
+				VisualizzaDati2(sender, e, T, "csa_contractkinddata", "csa_contractkinddata", "default", filter,
+					filter);
 			}
 		}
 
@@ -8162,39 +8831,40 @@ namespace csa_import_default {
 				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
 				return;
 			}
+
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = " not exists ( " +
-							" select * from csa_contractexpenseview Ripfin " +
-							" where csa_contractepexpview.idcsa_contract = Ripfin.idcsa_contract " +
-							" and  csa_contractepexpview.ayear = Ripfin.ayear " +
-							" and  csa_contractepexpview.ndetail = Ripfin.ndetail " +
-							" and  csa_contractepexpview.idupb = Ripfin.idupb " +
-							" and  csa_contractepexpview.quota = Ripfin.quota) ";
+			                " select * from csa_contractexpenseview Ripfin " +
+			                " where csa_contractepexpview.idcsa_contract = Ripfin.idcsa_contract " +
+			                " and  csa_contractepexpview.ayear = Ripfin.ayear " +
+			                " and  csa_contractepexpview.ndetail = Ripfin.ndetail " +
+			                " and  csa_contractepexpview.idupb = Ripfin.idupb " +
+			                " and  csa_contractepexpview.quota = Ripfin.quota) ";
 			filter = QHS.AppAnd(QHS.CmpEq("ayear", Curr["yimport"]), filter);
 			// ayear, contractkindcode, contractkind, ycontract,ncontract, phase, yepexp, nepexp, quota, codeupb,upb
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idcsa_contractkind as '#id Regola generale CSA', " +
-							" contractkindcode as 'Cod. Regola generale CSA', " +
-							" contractkind as 'Regola generale CSA', " +
-							" idcsa_contract as '#id Regola specifica CSA', " +
-							" ycontract as 'Eserc. Regola specifica CSA', " +
-							" ncontract as 'Num. Regola specifica CSA', " +
-							" ndetail as '#id. dettaglio ripart.', " +
-							" quota as 'Quota Ripartizione Regola specifica CSA', " +
-							" phase as 'Fase', " +
-							" yepexp as 'Eserc. Preimpegno', " +
-							" nepexp as 'Num. Preimpegno', " +
-							" codeupb as 'Codice UPB Preimpegno', " +
-							" upb as 'UPB Preimpegno' " +
-							" FROM csa_contractepexpview  " +
-							" WHERE  " + filter;
+			                " idcsa_contractkind as '#id Regola generale CSA', " +
+			                " contractkindcode as 'Cod. Regola generale CSA', " +
+			                " contractkind as 'Regola generale CSA', " +
+			                " idcsa_contract as '#id Regola specifica CSA', " +
+			                " ycontract as 'Eserc. Regola specifica CSA', " +
+			                " ncontract as 'Num. Regola specifica CSA', " +
+			                " ndetail as '#id. dettaglio ripart.', " +
+			                " quota as 'Quota Ripartizione Regola specifica CSA', " +
+			                " phase as 'Fase', " +
+			                " yepexp as 'Eserc. Preimpegno', " +
+			                " nepexp as 'Num. Preimpegno', " +
+			                " codeupb as 'Codice UPB Preimpegno', " +
+			                " upb as 'UPB Preimpegno' " +
+			                " FROM csa_contractepexpview  " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
 				//VisualizzaDati(sender, e, T, "csa_contractepexp", "elenco", filter);
 				VisualizzaDati2(sender, e, T, "csa_contractepexp", "csa_contractepexpview", "elenco",
-				 filter, filter);
+					filter, filter);
 			}
 		}
 
@@ -8210,40 +8880,41 @@ namespace csa_import_default {
 
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = " not exists ( " +
-							" select * from csa_contracttaxexpenseview RipTaxfin " +
-							" where csa_contracttaxepexpview.idcsa_contract = RipTaxfin.idcsa_contract " +
-							" and  csa_contracttaxepexpview.ayear = RipTaxfin.ayear " +
-							" and  csa_contracttaxepexpview.ndetail = RipTaxfin.ndetail " +
-							" and  csa_contracttaxepexpview.idupb = RipTaxfin.idupb " +
-							" and  csa_contracttaxepexpview.quota = RipTaxfin.quota) ";
-			filter = QHS.AppAnd(QHS.CmpEq("csa_contracttaxepexpview.ayear", Curr["yimport"]), filter, QHS.CmpEq("csa_contract.active", "S"));
+			                " select * from csa_contracttaxexpenseview RipTaxfin " +
+			                " where csa_contracttaxepexpview.idcsa_contract = RipTaxfin.idcsa_contract " +
+			                " and  csa_contracttaxepexpview.ayear = RipTaxfin.ayear " +
+			                " and  csa_contracttaxepexpview.ndetail = RipTaxfin.ndetail " +
+			                " and  csa_contracttaxepexpview.idupb = RipTaxfin.idupb " +
+			                " and  csa_contracttaxepexpview.quota = RipTaxfin.quota) ";
+			filter = QHS.AppAnd(QHS.CmpEq("csa_contracttaxepexpview.ayear", Curr["yimport"]), filter,
+				QHS.CmpEq("csa_contract.active", "S"));
 			// ayear, contractkindcode, contractkind, ycontract,ncontract, phase, yepexp, nepexp, quota, codeupb,upb
 			string sqlCmd = " SELECT csa_contracttaxepexpview.ayear as 'Eserc.', " +
-							" csa_contracttaxepexpview.idcsa_contractkind as '#id Regola generale CSA', " +
-							" csa_contracttaxepexpview.contractkindcode as 'Cod. Regola generale CSA', " +
-							" csa_contracttaxepexpview.contractkind as 'Regola generale CSA', " +
-							" csa_contracttaxepexpview.idcsa_contract as '#id Regola specifica CSA', " +
-							" csa_contracttaxepexpview.idcsa_contracttax as '#id Regola specifica CSA', " +
-							" csa_contracttaxepexpview.ycontract as 'Eserc. Regola specifica CSA', " +
-							" csa_contracttaxepexpview.ncontract as 'Num. Regola specifica CSA', " +
-							" csa_contracttaxepexpview.voceCSA as 'Voce CSA', " +
-							" csa_contracttaxepexpview.ndetail as '#id. dettaglio ripart.', " +
-							" csa_contracttaxepexpview.phase as 'Fase', " +
-							" csa_contracttaxepexpview.yepexp as 'Eserc. Preimpegno', " +
-							" csa_contracttaxepexpview.nepexp as 'Num. Preimpegno', " +
-							" csa_contracttaxepexpview.quota as 'Quota Ripartizione Regola specifica CSA', " +
-							" csa_contracttaxepexpview.codeupb as 'Codice UPB Preimpegno', " +
-							" upb as 'UPB Preimpegno' " +
-							" FROM csa_contracttaxepexpview " +
-							" join csa_contract  on csa_contract.idcsa_contract =csa_contracttaxepexpview.idcsa_contract " +
-							" WHERE  " + filter;
+			                " csa_contracttaxepexpview.idcsa_contractkind as '#id Regola generale CSA', " +
+			                " csa_contracttaxepexpview.contractkindcode as 'Cod. Regola generale CSA', " +
+			                " csa_contracttaxepexpview.contractkind as 'Regola generale CSA', " +
+			                " csa_contracttaxepexpview.idcsa_contract as '#id Regola specifica CSA', " +
+			                " csa_contracttaxepexpview.idcsa_contracttax as '#id Regola specifica CSA', " +
+			                " csa_contracttaxepexpview.ycontract as 'Eserc. Regola specifica CSA', " +
+			                " csa_contracttaxepexpview.ncontract as 'Num. Regola specifica CSA', " +
+			                " csa_contracttaxepexpview.voceCSA as 'Voce CSA', " +
+			                " csa_contracttaxepexpview.ndetail as '#id. dettaglio ripart.', " +
+			                " csa_contracttaxepexpview.phase as 'Fase', " +
+			                " csa_contracttaxepexpview.yepexp as 'Eserc. Preimpegno', " +
+			                " csa_contracttaxepexpview.nepexp as 'Num. Preimpegno', " +
+			                " csa_contracttaxepexpview.quota as 'Quota Ripartizione Regola specifica CSA', " +
+			                " csa_contracttaxepexpview.codeupb as 'Codice UPB Preimpegno', " +
+			                " upb as 'UPB Preimpegno' " +
+			                " FROM csa_contracttaxepexpview " +
+			                " join csa_contract  on csa_contract.idcsa_contract =csa_contracttaxepexpview.idcsa_contract " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 
 			if (T != null) {
 				//VisualizzaDati(sender, e, T, "csa_contracttaxepexp", "elenco", filter);
 				VisualizzaDati2(sender, e, T, "csa_contracttaxepexp", "csa_contracttaxepexpview", "elenco",
-				  filter, filter);
+					filter, filter);
 			}
 		}
 
@@ -8252,31 +8923,31 @@ namespace csa_import_default {
 			//' non configurati nella scheda Voce CSA del contruto (idacc_expense, idacc_agency_credit, idacc_revenue in csa_importver)
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = " (exists ( " +
-							" select * from csa_contracttax  " +
-							" where csa_contracttax.vocecsa = csa_incomesetupview.vocecsa " +
-							" and  csa_contracttax.ayear = csa_incomesetupview.ayear) " +
-							" or exists ( " +
-							" select * from csa_contractkinddata  " +
-							" where csa_contractkinddata.vocecsa = csa_incomesetupview.vocecsa " +
-							" and  csa_contractkinddata.ayear = csa_incomesetupview.ayear)) ";
+			                " select * from csa_contracttax  " +
+			                " where csa_contracttax.vocecsa = csa_incomesetupview.vocecsa " +
+			                " and  csa_contracttax.ayear = csa_incomesetupview.ayear) " +
+			                " or exists ( " +
+			                " select * from csa_contractkinddata  " +
+			                " where csa_contractkinddata.vocecsa = csa_incomesetupview.vocecsa " +
+			                " and  csa_contractkinddata.ayear = csa_incomesetupview.ayear)) ";
 			filter = QHS.AppAnd(QHS.CmpEq("ayear", Meta.GetSys("esercizio")), filter,
-												   QHS.DoPar(QHS.AppOr(QHS.IsNull("idacc_revenue"),
-												   QHS.IsNull("idacc_ente"), QHS.IsNull("idacc_agency_credit"))), QHS.IsNull("idfin_income"));
+				QHS.DoPar(QHS.AppOr(QHS.IsNull("idacc_revenue"),
+					QHS.IsNull("idacc_ente"), QHS.IsNull("idacc_agency_credit"))), QHS.IsNull("idfin_income"));
 			string sqlCmd = " SELECT csa_incomesetupview.ayear as 'Eserc.', " +
-						  " csa_incomesetupview.vocecsa as 'Voce CSA', " +
-						  " csa_incomesetupview.codeupb as 'Cod. UPB', " +
-						  " csa_incomesetupview.upb as 'UPB', " +
-						  " csa_incomesetupview.codeacc_ente as 'Conto di Debito Verso Ente', " +
-						  " csa_incomesetupview.codeacc_revenue as 'Conto di Ricavo', " +
-						  " csa_incomesetupview.codeacc_agency_credit as 'Conto di Credito verso ente' " +
-						  " FROM csa_incomesetupview " +
-						  " WHERE  " + filter;
+			                " csa_incomesetupview.vocecsa as 'Voce CSA', " +
+			                " csa_incomesetupview.codeupb as 'Cod. UPB', " +
+			                " csa_incomesetupview.upb as 'UPB', " +
+			                " csa_incomesetupview.codeacc_ente as 'Conto di Debito Verso Ente', " +
+			                " csa_incomesetupview.codeacc_revenue as 'Conto di Ricavo', " +
+			                " csa_incomesetupview.codeacc_agency_credit as 'Conto di Credito verso ente' " +
+			                " FROM csa_incomesetupview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 			if (T != null) {
 				//VisualizzaDati(sender, e, T, "csa_contracttaxepexp", "elenco", filter);
 				VisualizzaDati2(sender, e, T, "csa_incomesetup", "csa_incomesetupview", "default",
-				  filter, filter);
+					filter, filter);
 			}
 		}
 
@@ -8286,33 +8957,33 @@ namespace csa_import_default {
 			//' non configurati nella scheda Voce CSA del contruto (idacc_expense, idacc_agency_credit, idacc_revenue in csa_incomesetup)
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = " (exists ( " +
-							" select * from csa_contracttax  " +
-							" where csa_contracttax.vocecsa = csa_incomesetupview.vocecsa " +
-							" and  csa_contracttax.ayear = csa_incomesetupview.ayear) " +
-							" or exists ( " +
-							" select * from csa_contractkinddata  " +
-							" where csa_contractkinddata.vocecsa = csa_incomesetupview.vocecsa " +
-							" and  csa_contractkinddata.ayear = csa_incomesetupview.ayear)) ";
+			                " select * from csa_contracttax  " +
+			                " where csa_contracttax.vocecsa = csa_incomesetupview.vocecsa " +
+			                " and  csa_contracttax.ayear = csa_incomesetupview.ayear) " +
+			                " or exists ( " +
+			                " select * from csa_contractkinddata  " +
+			                " where csa_contractkinddata.vocecsa = csa_incomesetupview.vocecsa " +
+			                " and  csa_contractkinddata.ayear = csa_incomesetupview.ayear)) ";
 			filter = QHS.AppAnd(QHS.CmpEq("ayear", Meta.GetSys("esercizio")), filter,
-												   QHS.DoPar(QHS.AppOr(QHS.IsNull("idacc_debit"),
-												   QHS.IsNull("idacc_ente"), QHS.IsNull("idacc_agency_credit"), QHS.IsNull("idacc_revenue"))),
-												   QHS.IsNull("idfin_income"));
+				QHS.DoPar(QHS.AppOr(QHS.IsNull("idacc_debit"),
+					QHS.IsNull("idacc_ente"), QHS.IsNull("idacc_agency_credit"), QHS.IsNull("idacc_revenue"))),
+				QHS.IsNull("idfin_income"));
 			string sqlCmd = " SELECT csa_incomesetupview.ayear as 'Eserc.', " +
-						  " csa_incomesetupview.vocecsa as 'Voce CSA', " +
-						  " csa_incomesetupview.codeupb as 'Cod. UPB', " +
-						  " csa_incomesetupview.upb as 'UPB', " +
-						  " csa_incomesetupview.codeacc_ente as 'Conto di Debito Verso Ente', " +
-						  " csa_incomesetupview.codeacc_debit as 'Conto di Debito Conto Ente', " +
-						  " csa_incomesetupview.codeacc_agency_credit as 'Conto di Credito verso ente', " +
-						  " csa_incomesetupview.codeacc_revenue as 'Conto di Ricavo' " +
-						  " FROM csa_incomesetupview " +
-						  " WHERE  " + filter;
+			                " csa_incomesetupview.vocecsa as 'Voce CSA', " +
+			                " csa_incomesetupview.codeupb as 'Cod. UPB', " +
+			                " csa_incomesetupview.upb as 'UPB', " +
+			                " csa_incomesetupview.codeacc_ente as 'Conto di Debito Verso Ente', " +
+			                " csa_incomesetupview.codeacc_debit as 'Conto di Debito Conto Ente', " +
+			                " csa_incomesetupview.codeacc_agency_credit as 'Conto di Credito verso ente', " +
+			                " csa_incomesetupview.codeacc_revenue as 'Conto di Ricavo' " +
+			                " FROM csa_incomesetupview " +
+			                " WHERE  " + filter;
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
 			if (T != null) {
 				//VisualizzaDati(sender, e, T, "csa_contracttaxepexp", "elenco", filter);
 				VisualizzaDati2(sender, e, T, "csa_incomesetup", "csa_incomesetupview", "default",
-				  filter, filter);
+					filter, filter);
 			}
 		}
 
@@ -8323,7 +8994,8 @@ namespace csa_import_default {
 			if (Meta.IsEmpty) return;
 
 			DataRow Curr = DS.csa_import.Rows[0];
-            string filter = QHS.AppAnd( QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), QHS.CmpEq("ayear",Conn.GetEsercizio()));
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.CmpEq("ayear", Conn.GetEsercizio()));
 
 
 			//filter += " AND EXISTS (select * from csa_importver_partition RP where " +
@@ -8331,45 +9003,46 @@ namespace csa_import_default {
 			//	  " R.idver = RP.idver AND" +
 			//	  " RP.idepexp IS NOT NULL) ";
 			filter += " AND EXISTS (select * from epexpyear EY " +
-				  " JOIN csa_importver_partition RP ON " +
-				  " csa_importverview.idcsa_import = RP.idcsa_import AND " +
-				  " csa_importverview.idver = RP.idver AND " +
-				  " EY.idepexp = RP.idepexp AND " +
-				  " EY.idacc <> RP.idacc AND " +
-				  " csa_importverview.ayear = EY.ayear ) ";
-	 
+			          " JOIN csa_importver_partition RP ON " +
+			          " csa_importverview.idcsa_import = RP.idcsa_import AND " +
+			          " csa_importverview.idver = RP.idver AND " +
+			          " EY.idepexp = RP.idepexp AND " +
+			          " EY.idacc <> RP.idacc AND " +
+			          " csa_importverview.ayear = EY.ayear ) ";
 
-		string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview  " +
-							" WHERE  " + filter;
 
-		DataTable T = Conn.SQLRunner(sqlCmd);
+			string sqlCmd = " SELECT ayear as 'Eserc.', " +
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview  " +
+			                " WHERE  " + filter;
 
-            if (T != null) {
+			DataTable T = Conn.SQLRunner(sqlCmd);
 
-				VisualizzaDati(sender, e, T, "csa_importver", "default",  filter.Replace("csa_importverview.","csa_importver."));
-	}
-}
+			if (T != null) {
+
+				VisualizzaDati(sender, e, T, "csa_importver", "default",
+					filter.Replace("csa_importverview.", "csa_importver."));
+			}
+		}
 
 //--23)  Righe di versamento con preimpegno di budget avente UPB incoerente con quello della ripartizione nell''esercizio corrente
-private void btnEP22_Click(object sender, EventArgs e) {
+		private void btnEP22_Click(object sender, EventArgs e) {
 			if (Meta.IsEmpty) return;
 
 			DataRow Curr = DS.csa_import.Rows[0];
-			string filter = QHS.AppAnd( QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), 
-				QHS.CmpEq("ayear",Conn.GetEsercizio()));
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.CmpEq("ayear", Conn.GetEsercizio()));
 
 
 			//filter += " AND EXISTS (select * from csa_importver_partition RP where " +
@@ -8377,36 +9050,37 @@ private void btnEP22_Click(object sender, EventArgs e) {
 			//	  " R.idver = RP.idver AND" +
 			//	  " RP.idepexp IS NOT NULL) ";
 			filter += " AND EXISTS (select * from epexpyear EY " +
-				  " JOIN csa_importver_partition VP ON " +
-				  " csa_importverview.idcsa_import = VP.idcsa_import AND " +
-				  " csa_importverview.idver = VP.idver AND " +
-				  " EY.idepexp = VP.idepexp AND " +
-				  " EY.idupb <> VP.idupb AND " +
-				  " csa_importverview.ayear = EY.ayear ) ";
-		  
+			          " JOIN csa_importver_partition VP ON " +
+			          " csa_importverview.idcsa_import = VP.idcsa_import AND " +
+			          " csa_importverview.idver = VP.idver AND " +
+			          " EY.idepexp = VP.idepexp AND " +
+			          " EY.idupb <> VP.idupb AND " +
+			          " csa_importverview.ayear = EY.ayear ) ";
 
-		string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
 
-		DataTable T = Conn.SQLRunner(sqlCmd, false, 600);
+			string sqlCmd = " SELECT ayear as 'Eserc.', " +
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
-		if (T != null) {
-			VisualizzaDati(sender, e, T, "csa_importver", "default",filter.Replace("csa_importverview.", "csa_importver."));
+			DataTable T = Conn.SQLRunner(sqlCmd, false, 600);
+
+			if (T != null) {
+				VisualizzaDati(sender, e, T, "csa_importver", "default",
+					filter.Replace("csa_importverview.", "csa_importver."));
+			}
 		}
-}
 
 //--24)  Righe di riepilogo con preimpegno di budget avente conto incoerente con quello della ripartizione nell''esercizio corrente
 		private void btnEP23_Click(object sender, EventArgs e) {
@@ -8414,49 +9088,51 @@ private void btnEP22_Click(object sender, EventArgs e) {
 			if (Meta.IsEmpty) return;
 
 			DataRow Curr = DS.csa_import.Rows[0];
-            string filter = QHS.AppAnd( QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), QHS.CmpEq("ayear",Conn.GetEsercizio()));
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.CmpEq("ayear", Conn.GetEsercizio()));
 
 			//filter += " AND EXISTS (select * from csa_importriep_partition RP where " +
 			//	  " R.idcsa_import = RP.idcsa_import AND " +
 			//	  " R.idriep = RP.idriep AND" +
 			//	  " RP.idepexp IS NOT NULL) ";
 			filter += " AND EXISTS (select * from epexpyear EY " +
-				  " JOIN csa_importriep_partition RP ON " +
-				  " csa_importriepview.idcsa_import = RP.idcsa_import AND " +
-				  " csa_importriepview.idriep = RP.idriep AND " +
-				  " EY.idepexp = RP.idepexp AND " +
-				  " EY.idacc <> RP.idacc AND " +
-				  " csa_importriepview.ayear = EY.ayear ) ";
-		 
+			          " JOIN csa_importriep_partition RP ON " +
+			          " csa_importriepview.idcsa_import = RP.idcsa_import AND " +
+			          " csa_importriepview.idriep = RP.idriep AND " +
+			          " EY.idepexp = RP.idepexp AND " +
+			          " EY.idacc <> RP.idacc AND " +
+			          " csa_importriepview.ayear = EY.ayear ) ";
 
-		string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idriep as 'Numero Riepilogo', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview " +
-							" WHERE  " + filter;
 
-		DataTable T = Conn.SQLRunner(sqlCmd, false, 600);
+			string sqlCmd = " SELECT ayear as 'Eserc.', " +
+			                " idriep as 'Numero Riepilogo', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview " +
+			                " WHERE  " + filter;
 
-            if (T != null) {
+			DataTable T = Conn.SQLRunner(sqlCmd, false, 600);
 
-				VisualizzaDati(sender, e, T, "csa_importriep", "default", filter.Replace("csa_importriepview.","csa_importriep."));
-	}
-}
+			if (T != null) {
+
+				VisualizzaDati(sender, e, T, "csa_importriep", "default",
+					filter.Replace("csa_importriepview.", "csa_importriep."));
+			}
+		}
 
 //--25)  Righe di riepilogo con preimpegno di budget avente UPB incoerente con quello della ripartizione nell''esercizio corrente
-private void btnEP24_Click(object sender, EventArgs e) {
+		private void btnEP24_Click(object sender, EventArgs e) {
 			if (Meta.IsEmpty) return;
 
 			DataRow Curr = DS.csa_import.Rows[0];
-            string filter = QHS.AppAnd( QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), 
-                QHS.CmpEq("ayear",Conn.GetEsercizio()));
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.CmpEq("ayear", Conn.GetEsercizio()));
 
 
 			//filter += " AND EXISTS (select * from csa_importriep_partition RP where " +
@@ -8464,468 +9140,480 @@ private void btnEP24_Click(object sender, EventArgs e) {
 			//	  " R.idriep = RP.idriep AND" +
 			//	  " RP.idepexp IS NOT NULL) ";
 			filter += " AND EXISTS (select * from epexpyear EY " +
-				              " JOIN csa_importriep_partition RP ON " +
-				              " csa_importriepview.idcsa_import = RP.idcsa_import AND " +
-				              " csa_importriepview.idriep = RP.idriep AND " +
-				              " EY.idepexp = RP.idepexp AND " +
-				              " EY.idupb <> RP.idupb AND " +
-				              " csa_importriepview.ayear = EY.ayear ) ";
-	 
+			          " JOIN csa_importriep_partition RP ON " +
+			          " csa_importriepview.idcsa_import = RP.idcsa_import AND " +
+			          " csa_importriepview.idriep = RP.idriep AND " +
+			          " EY.idepexp = RP.idepexp AND " +
+			          " EY.idupb <> RP.idupb AND " +
+			          " csa_importriepview.ayear = EY.ayear ) ";
 
-		string sqlCmd = " SELECT ayear as 'Eserc.', " +
-							" idriep as 'Numero Riepilogo', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importriepview " +
-							" WHERE  " + filter;
 
-		DataTable T = Conn.SQLRunner(sqlCmd);
+			string sqlCmd = " SELECT ayear as 'Eserc.', " +
+			                " idriep as 'Numero Riepilogo', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview " +
+			                " WHERE  " + filter;
 
-		if (T != null) {
+			DataTable T = Conn.SQLRunner(sqlCmd);
 
-			VisualizzaDati(sender, e, T, "csa_importriep", "default",
-				filter.Replace("csa_importriepview.", "csa_importriep."));
+			if (T != null) {
+
+				VisualizzaDati(sender, e, T, "csa_importriep", "default",
+					filter.Replace("csa_importriepview.", "csa_importriep."));
+			}
 		}
-}
+
 		private void dgrVerifiche_DoubleClick(object sender, EventArgs e) {
-            DataGrid dataGrid = (DataGrid)sender;
-            DataRow RigheSelezionata = GetGridSelectedRows(dataGrid);
-            string kind_of_errors = "FIN";
-            if (dataGrid.Name == "dgrVerificheEP")
-                kind_of_errors = "EP";
-
-            if (RigheSelezionata == null)
-                return;
-
-            if (CfgFn.GetNoNullInt32(RigheSelezionata["errorcode"]) > 0)
-                VisualizzaElenchi(kind_of_errors, CfgFn.GetNoNullInt32(RigheSelezionata["errorcode"]));
-        }
-
-        private void dgrSospesi_DoubleClick(object sender, EventArgs e) {
-            DataGrid dataGrid = (DataGrid)sender;
-            DataRow RigheSelezionata = GetGridSelectedRows(dataGrid);
-           
-            if (RigheSelezionata == null)
-                return;
-            VisualizzaRigaSelezionata(RigheSelezionata, "csa_bill", null, "default", "default");
-        }
-
-        private void VisualizzaRigaSelezionata(DataRow Riga, string table, string view, string listType, string editType) {
-            if (Riga == null) return;
-            string filter = QueryCreator.WHERE_KEY_CLAUSE(Riga, DataRowVersion.Default, true);
-            if (editType == null) editType = "default";
-            var MElenco   = MetaData.GetMetaData(this, table);
-
-            if (MElenco == null) return;
-
-            bool result = MElenco.Edit(this, editType, false);
-            DataRow R = MElenco.SelectOne(listType, filter, null, null);
-            MElenco.SelectRow(R, listType);
-        }
-       
-
-
-        private void btnVerificaIndividuazione_Click(object sender, EventArgs e) {
-            VerificaIndividuazione(sender);
-        }
-
-        private void btn25_Click(object sender, EventArgs e) {
-            //25) Movimenti padre con disponibile insufficiente
-            if (Meta.IsEmpty) return;
-            DataRow Curr = DS.csa_import.Rows[0];
-            object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
-            string errMess;
-            DataSet ds = Conn.CallSP("exp_csa_expense_available_partition",
-                new object[] {Meta.GetSys("esercizio"), Curr["idcsa_import"]}, 600, out errMess);
-            if (errMess != null) {
-                MessageBox.Show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
-            }
-
-
-
-            DataTable tResult = ds.Tables[0];
-            if (tResult.Rows.Count != 0) {
-                string filter = QHC.FieldIn("idexp", tResult.Select(), "idexp");
-                string filterview = QHC.AppAnd(filter, QHC.CmpEq("ayear", esercizio));
-
-                VisualizzaDati2(sender, e, tResult, "expense", "expenseview", "default",
-                    filter, filterview);
-            }
-        }
-
-        private void btn65_Click(object sender, EventArgs e) {
-            //65) Ripartizione unica non creata per ripartizioni di partenza errate
-            if (Meta.IsEmpty) return;
-            if (rdbExpToListing.Checked) {
-                MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
-                return;
-            }
-            DataRow Curr = DS.csa_import.Rows[0];
-            object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
-            string errMess;
-            String sp_name = "check_csa_partition_not_created";
-            if (!usePartition)
-                sp_name = "check_csa_partition_inconsistent";
-            DataSet ds = Conn.CallSP(sp_name,
-                new object[] { Meta.GetSys("esercizio")}, 600, out errMess);
-            if (errMess != null) {
-                MessageBox.Show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
-            }
-
-            DataTable tResult = ds.Tables[0];
-            if (tResult.Rows.Count != 0) {
-                VisualizzaDati(sender, e, tResult, "csa_contract", "default", null);
-            }
-        }
-
-        private void btn66_Click(object sender, EventArgs e) {
-            //66) Riepiloghi, ripartizioni incoerenti
-            if (Meta.IsEmpty) return;
-
-            DataRow Curr = DS.csa_import.Rows[0];
-            if (rdbExpToListing.Checked) {
-                MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
-                return;
-            }
-            string filter = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
-            object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
-            string errMess;
-            string sp_name = "check_csa_partition_inconsistent_riep";
-            DataSet ds = Conn.CallSP(sp_name,
-                new object[] { Meta.GetSys("esercizio"), Curr["idcsa_import"] }, 600, out errMess);
-            if (errMess != null) {
-                MessageBox.Show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
-            }
-
-            DataTable tResult = ds.Tables[0];
-            if (tResult.Rows.Count != 0) {
-                VisualizzaDati(sender, e, tResult, "csa_importriep", "default", null);
-            }
-        }
-
-        private void btn67_Click(object sender, EventArgs e) {
-            //67) Versamenti, ripartizioni incoerenti
-            if (Meta.IsEmpty) return;
-
-            DataRow Curr = DS.csa_import.Rows[0];
-           
-            string filter = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
-            object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
-            string errMess;
-
-            string sp_name = "check_csa_partition_inconsistent_ver";
-            DataSet ds = Conn.CallSP(sp_name,
-                new object[] { Meta.GetSys("esercizio"), Curr["idcsa_import"] }, 600, out errMess);
-            if (errMess != null) {
-                MessageBox.Show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
-            }
-
-            DataTable tResult = ds.Tables[0];
-            if (tResult.Rows.Count != 0) {
-                VisualizzaDati(sender, e, tResult, "csa_importver", "default", null);
-            }
-        }
-
-        private void btn68_Click(object sender, EventArgs e) {
-            //68) ANAGRAFICHE RIEPILOGHI PRIVE DI MODALITA' DI PAGAMENTO STANDARD
-            // NON SERVE , IL NETTO A PAGARE DEVE ESSERE A REGOLARIZZAZIONE
-            /*
-            if (Meta.IsEmpty) return;
-
-            DataRow Curr = DS.csa_import.Rows[0];
-
-            string filter_import = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
-            string filter_modpag = "(SELECT count(*)  " +
-                                              " FROM registrypaymethod " +
-                                              " WHERE flagstandard = 'S' " +
-                                              " AND  idreg = registry.idreg) = 0  ";
-            string filter = QHS.AppAnd(filter_import, filter_modpag);
-
-            string filter_registry = "  idreg in (SELECT idreg " +
-                                             " FROM csa_importriep " +
-                                             " WHERE " + filter_import + ")";  
-
-            string sqlCmd = " SELECT DISTINCT registry.idreg as '#idreg'," +
-                            " registry.title as 'Denominazione', " +
-                            " registry.cf as 'Codice Fiscale' " +
-                            " FROM  registry " +
-                            " JOIN csa_importriep  on registry.idreg = csa_importriep.idreg " +
-                            " WHERE  " + filter;
-
-            DataTable T = Conn.SQLRunner(sqlCmd);
-
-            if (T != null) {
-                VisualizzaDati3(sender, e, T, "registry", "registrymainview", "anagrafica","anagrafica", QHS.AppAnd(filter_registry, filter_modpag), 
-                                                                                     QHS.AppAnd(filter_registry, filter_modpag.Replace("registry.", "registrymainview.")));
-            }
-            */
-
-        }
-
-        private void btn69_Click(object sender, EventArgs e) {
-            //69) ANAGRAFICHE ENTI VERSAMENTO CSA PRIVE DI MODALITA' DI PAGAMENTO STANDARD
-            if (Meta.IsEmpty) return;
-
-            DataRow Curr = DS.csa_import.Rows[0];
-
-            string filter_import = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
-            //string filter_agency = QHS.CmpEq("csa_importver.idcsa_agency", Curr["idcsa_agency"]);
-            string filter_modpag = "(SELECT count(*)  " +
-                                              " FROM registrypaymethod " +
-                                              " WHERE flagstandard = 'S' " +
-                                              " AND  idreg = registry.idreg) = 0  ";
-            string filter = QHS.AppAnd(filter_import, filter_modpag);
-
-            string filter_registry = "  idreg in (SELECT idreg_agency " +
-                                             " FROM csa_importver " +
-                                             " WHERE " + filter_import + ")" +
-                                     "   AND (SELECT count(*) " +
-                                     "   FROM csa_agency " +
-                                     "   WHERE (ISNULL(csa_agency.flag,0) &2) <>0  " +
-                                     "   AND csa_agency.idcsa_agency= csa_importver.idcsa_agency) <> 0 ";
-
-
-
-            string sqlCmd = " SELECT DISTINCT registry.idreg as '#idreg'," +
-                            " registry.title as 'Denominazione', " +
-                            " registry.cf as 'Codice Fiscale' " +
-                            " FROM  registry " +
-                            " JOIN csa_importver  on registry.idreg = csa_importver.idreg_agency " +
-                            " WHERE  " + filter;
-
-            DataTable T = Conn.SQLRunner(sqlCmd);
-
-            if (T != null) {
-                VisualizzaDati3(sender, e, T, "registry", "registrymainview", "anagrafica", "anagrafica", QHS.AppAnd(filter_registry, filter_modpag),
-                                                                                     QHS.AppAnd(filter_registry, filter_modpag.Replace("registry.", "registrymainview.")));
-            }
-        }
-
-        private void btn70_Click(object sender, EventArgs e) {
-            //70)  ANAGRAFICHE RIEPILOGHI INCOERENTI CON QUELLE DEI MOVIMENTI FINANZIARI DELLA RIPARTIZIONE -- SOLO NUOVA GESTIONE
-            if (Meta.IsEmpty) return;
-            DataRow Curr = DS.csa_import.Rows[0];
-            string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), QHS.IsNotNull("csa_importriepview.idreg"));
-
-            filter = QHS.AppAnd(filter, " (SELECT COUNT(csa_importriep_partition.idexp) FROM expense JOIN csa_importriep_partition ON expense.idexp = csa_importriep_partition.idexp " +
-                                        " WHERE csa_importriep_partition.idcsa_import = csa_importriepview.idcsa_import " +
-                                        " AND csa_importriep_partition.idriep = csa_importriepview.idriep " +
-                                        " AND csa_importriep_partition.idexp IS NOT NULL AND expense.idreg IS NOT NULL  AND ISNULL(expense.idreg, 0) <> ISNULL(csa_importriepview.idreg, 0)) <> 0 ");
-
-            string sqlCmd = " SELECT ayear as 'Eserc.', " +
-                            " idriep as 'Numero Riepilogo', " +
-                            " yimport as 'Eserc. Import', " +
-                            " nimport as 'Num. Import.', " +
-                            " ruolocsa as 'Ruolo CSA', " +
-                            " capitolocsa as 'Capitolo CSA', " +
-                            " matricola as 'Matricola', " +
-                            " importo as 'Importo', " +
-                            " registry as 'Anagrafica', " +
-                            " flagcr as 'Comp./Residui' " +
-                            " FROM csa_importriepview  " + 
-                            " WHERE  " + filter;
-
-            DataTable T = Conn.SQLRunner(sqlCmd);
-
-            if (T != null) {
-                VisualizzaDati2(sender, e, T, "csa_importriep", "csa_importriepview", "default", filter.Replace("csa_importriepview", "csa_importriep"), filter);
-            }
-
-        }
-
-
-        private void btn71_Click(object sender, EventArgs e) {
-            //71)  Regole specifiche ripartite con movimenti di spesa con anagrafica
-            if (Meta.IsEmpty) return;
-
-            if (rdbExpToListing.Checked) {
-                MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
-                return;
-            }
-
-            DataRow Curr = DS.csa_import.Rows[0];
-            object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
-            string errMess;
-            string filter = QHS.AppAnd(QHS.CmpEq("CP.ayear", Conn.GetSys("esercizio")), QHS.IsNotNull("CP.idexp") );
-            filter += " AND EXISTS  (SELECT * FROM  expense  E WHERE " +
-            " E.idexp = CP.idexp AND " +
-            " E.idreg IS NOT NULL)  ";
-            string sqlCmd =
-                             "SELECT C.idcsa_contract , C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero " +
-                             " from csa_contract_partition CP " +
-                             " join csa_contract C on C.idcsa_contract=CP.idcsa_contract and CP.ayear=C.ayear " +
-                             " where " + filter;
-       
-            DataTable TT = Conn.SQLRunner(sqlCmd);
-            if (TT == null) return;
-            if (TT.Rows.Count == 0) return;
- 
-            
-        // MessageBox.Show(sqlCmd);
-        string filtercontract = QHS.AppAnd(QHS.FieldIn("idcsa_contract", TT.Select()),
-            QHS.CmpEq("ayear", Conn.GetSys("esercizio")));
-        DataTable T = Conn.SQLRunner(sqlCmd);
-                    if (T != null) {
-                        VisualizzaDati(sender, e, T, "csa_contract", "default", filtercontract);
-                    }
-        }
-
-        private void btn72_Click(object sender, EventArgs e) {
-            //72)  Contributi Regole specifiche ripartite con movimenti di spesa con anagrafica
-            if (Meta.IsEmpty) return;
-
-            if (rdbExpToListing.Checked) {
-                MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
-                return;
-            }
-
-            DataRow Curr = DS.csa_import.Rows[0];
-            object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
-            string errMess;
-            string filter = QHS.AppAnd(QHS.CmpEq("CTP.ayear", Conn.GetSys("esercizio")), QHS.IsNotNull("CTP.idexp"));
-            filter += " AND EXISTS  (SELECT * FROM  expense  E WHERE " +
-            " E.idexp = CTP.idexp AND " +
-            " E.idreg IS NOT NULL)  ";
-            string sqlCmd =
-                             "SELECT C.idcsa_contract , C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero, CT.voceCSA as 'Voce CSA', CTP.ndetail as '# Dett.' " +
-                             " from csa_contracttax_partition CTP " +
-                             " join csa_contracttax CT on CTP.idcsa_contract=CT.idcsa_contract and  CTP.idcsa_contracttax=CT.idcsa_contracttax and CTP.ayear=CT.ayear " +
-                             " join csa_contract C on C.idcsa_contract=CT.idcsa_contract and CT.ayear=C.ayear " +
-                             " where " + filter;
-
-            DataTable TT = Conn.SQLRunner(sqlCmd);
-            if (TT == null) return;
-            if (TT.Rows.Count == 0) return;
-
-
-            // MessageBox.Show(sqlCmd);
-            string filtercontract = QHS.AppAnd(QHS.FieldIn("idcsa_contract", TT.Select()),
-                QHS.CmpEq("CP.ayear", Conn.GetSys("esercizio")));
-            DataTable T = Conn.SQLRunner(sqlCmd);
-            if (T != null) {
-                VisualizzaDati(sender, e, T, "csa_contracttax", "default", filtercontract);
-            }
-        }
-
-
-        private void btn73_Click(object sender, EventArgs e) {
-            //73)  Movimenti spesa con netto negativo nella fase versamenti
-            if (Meta.IsEmpty) return;
-
-            if (rdbExpToListing.Checked) {
-                MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
-                return;
-            }
-
-            DataRow Curr = DS.csa_import.Rows[0];
-            object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
-            string errMess;
-            string filter = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
-            string sqlCmd =
-                             " SELECT sum(importo) as 'Importo Netto', idreg_agency as '#idreg Anagr. Ente', registry_agency as 'Anagr. Ente' FROM csa_importverview " +
-                             " WHERE " + filter +
-                             " GROUP BY idreg_agency,registry_agency HAVING sum(importo)<0 ";
-
-            DataTable TT = Conn.SQLRunner(sqlCmd);
-            if (TT == null) return;
-            if (TT.Rows.Count == 0) return;
-
-            DataTable T = Conn.SQLRunner(sqlCmd);
-            if (T != null) {
-                VisualizzaDati(sender, e, T, "csa_importver", "default", filter );
-            }
-        }
-
-
-        private void btn74_Click(object sender, EventArgs e) {
-            //74)    Ritenuta con capitolo  costo o movimento spesa costo valorizzato 
-            if (Meta.IsEmpty) return;
-            DataRow Curr = DS.csa_import.Rows[0];
-            string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
-                QHS.IsNull("idcsa_contractkinddata"), QHS.IsNull("idcsa_contracttax"),
-                QHS.NullOrEq("flagclawback", "N"), QHS.IsNotNull("idfin_income"), QHS.DoPar(QHS.AppOr(QHS.IsNotNull("idfin_cost"), QHS.IsNotNull("idexp_cost"))));
-
-
-
-            string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-                            " ayear as 'Eserc.', " +
-                            " idver as 'Numero Versamento', " +
-                            " yimport as 'Eserc. Import', " +
-                            " nimport as 'Num. Import.', " +
-                            " ruolocsa as 'Ruolo CSA', " +
-                            " capitolocsa as 'Capitolo CSA', " +
-                            " ente as 'Ente CSA', " +
-                            " vocecsa as 'Voce CSA', " +
-                            " matricola as 'Matricola', " +
-                            " importo as 'Importo', " +
-                            " registry as 'Anagrafica', " +
-                            " agency as 'Ente', " +
-                            " idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-                            " codefin_cost as 'Cod. Capitolo Costo'," +
-                            " codefin_income as 'Cod. Capitolo Entrata'," +
-                            " codefin_expense as 'Cod. Capitolo Spesa'," +
-                            " codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-                            " flagcr as 'Comp./Residui' " +
-                            " FROM csa_importverview " +
-                            " WHERE  " + filter;
-
-
-            DataTable T = Conn.SQLRunner(sqlCmd);
-
-            if (T != null) {
-                VisualizzaDati2(sender, e, T, "csa_importver", "csa_importverview", "default",
-                    filter, filter);
-            }
-        }
-
-
-        private void btn75_Click(object sender, EventArgs e) {
-            // 75) Ripartizione Ritenuta con capitolo di costo valorizzato
-            if (Meta.IsEmpty) return;
-            DataRow Curr = DS.csa_import.Rows[0];
-            string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
-                QHS.IsNull("idcsa_contractkinddata"), QHS.IsNull("idcsa_contracttax"),
-                QHS.NullOrEq("flagclawback", "N"), QHS.IsNotNull("idfin_income"));
-
-            filter =QHS.AppAnd(filter, " EXISTS(SELECT * FROM csa_importver_partition CE where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver  " +
-                 " AND (CE.idfin IS NOT NULL or CE.idexp IS NOT NULL)) " );
-
-            string sqlCmd = " SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
-                            " ayear as 'Eserc.', " +
-                            " idver as 'Numero Versamento', " +
-                            " yimport as 'Eserc. Import', " +
-                            " nimport as 'Num. Import.', " +
-                            " ruolocsa as 'Ruolo CSA', " +
-                            " capitolocsa as 'Capitolo CSA', " +
-                            " ente as 'Ente CSA', " +
-                            " vocecsa as 'Voce CSA', " +
-                            " matricola as 'Matricola', " +
-                            " importo as 'Importo', " +
-                            " registry as 'Anagrafica', " +
-                            " agency as 'Ente', " +
-                            " idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-                            " codefin_cost as 'Cod. Capitolo Costo'," +
-                            " codefin_income as 'Cod. Capitolo Entrata'," +
-                            " codefin_expense as 'Cod. Capitolo Spesa'," +
-                            " codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
-                            " flagcr as 'Comp./Residui' " +
-                            " FROM csa_importverview " +
-                            " WHERE  " + filter;
-
-
-            DataTable T = Conn.SQLRunner(sqlCmd);
-
-            if (T != null) {
-                VisualizzaDati2(sender, e, T, "csa_importver", "csa_importverview", "default",
-                    filter, filter);
-            }
-        }
+			DataGrid dataGrid = (DataGrid) sender;
+			DataRow RigheSelezionata = GetGridSelectedRows(dataGrid);
+			string kind_of_errors = "FIN";
+			if (dataGrid.Name == "dgrVerificheEP")
+				kind_of_errors = "EP";
+
+			if (RigheSelezionata == null)
+				return;
+
+			if (CfgFn.GetNoNullInt32(RigheSelezionata["errorcode"]) > 0)
+				VisualizzaElenchi(kind_of_errors, CfgFn.GetNoNullInt32(RigheSelezionata["errorcode"]));
+		}
+
+		private void dgrSospesi_DoubleClick(object sender, EventArgs e) {
+			DataGrid dataGrid = (DataGrid) sender;
+			DataRow RigheSelezionata = GetGridSelectedRows(dataGrid);
+
+			if (RigheSelezionata == null)
+				return;
+			VisualizzaRigaSelezionata(RigheSelezionata, "csa_bill", null, "default", "default");
+		}
+
+		private void VisualizzaRigaSelezionata(DataRow Riga, string table, string view, string listType,
+			string editType) {
+			if (Riga == null) return;
+			string filter = QueryCreator.WHERE_KEY_CLAUSE(Riga, DataRowVersion.Default, true);
+			if (editType == null) editType = "default";
+			var MElenco = MetaData.GetMetaData(this, table);
+
+			if (MElenco == null) return;
+
+			bool result = MElenco.Edit(this, editType, false);
+			DataRow R = MElenco.SelectOne(listType, filter, null, null);
+			MElenco.SelectRow(R, listType);
+		}
+
+
+
+		private void btnVerificaIndividuazione_Click(object sender, EventArgs e) {
+			VerificaIndividuazione(sender);
+		}
+
+		private void btn25_Click(object sender, EventArgs e) {
+			//25) Movimenti padre con disponibile insufficiente
+			if (Meta.IsEmpty) return;
+			DataRow Curr = DS.csa_import.Rows[0];
+			object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
+			string errMess;
+			DataSet ds = Conn.CallSP("exp_csa_expense_available_partition",
+				new object[] {Meta.GetSys("esercizio"), Curr["idcsa_import"]}, 600, out errMess);
+			if (errMess != null) {
+				MessageBox.Show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
+			}
+
+
+
+			DataTable tResult = ds.Tables[0];
+			if (tResult.Rows.Count != 0) {
+				string filter = QHC.FieldIn("idexp", tResult.Select(), "idexp");
+				string filterview = QHC.AppAnd(filter, QHC.CmpEq("ayear", esercizio));
+
+				VisualizzaDati2(sender, e, tResult, "expense", "expenseview", "default",
+					filter, filterview);
+			}
+		}
+
+		private void btn65_Click(object sender, EventArgs e) {
+			//65) Ripartizione unica non creata per ripartizioni di partenza errate
+			if (Meta.IsEmpty) return;
+			if (rdbExpToListing.Checked) {
+				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
+				return;
+			}
+
+			DataRow Curr = DS.csa_import.Rows[0];
+			object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
+			string errMess;
+			String sp_name = "check_csa_partition_not_created";
+			if (!usePartition)
+				sp_name = "check_csa_partition_inconsistent";
+			DataSet ds = Conn.CallSP(sp_name,
+				new object[] {Meta.GetSys("esercizio")}, 600, out errMess);
+			if (errMess != null) {
+				MessageBox.Show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
+			}
+
+			DataTable tResult = ds.Tables[0];
+			if (tResult.Rows.Count != 0) {
+				VisualizzaDati(sender, e, tResult, "csa_contract", "default", null);
+			}
+		}
+
+		private void btn66_Click(object sender, EventArgs e) {
+			//66) Riepiloghi, ripartizioni incoerenti
+			if (Meta.IsEmpty) return;
+
+			DataRow Curr = DS.csa_import.Rows[0];
+			if (rdbExpToListing.Checked) {
+				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
+				return;
+			}
+
+			string filter = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
+			object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
+			string errMess;
+			string sp_name = "check_csa_partition_inconsistent_riep";
+			DataSet ds = Conn.CallSP(sp_name,
+				new object[] {Meta.GetSys("esercizio"), Curr["idcsa_import"]}, 600, out errMess);
+			if (errMess != null) {
+				MessageBox.Show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
+			}
+
+			DataTable tResult = ds.Tables[0];
+			if (tResult.Rows.Count != 0) {
+				VisualizzaDati(sender, e, tResult, "csa_importriep", "default", null);
+			}
+		}
+
+		private void btn67_Click(object sender, EventArgs e) {
+			//67) Versamenti, ripartizioni incoerenti
+			if (Meta.IsEmpty) return;
+
+			DataRow Curr = DS.csa_import.Rows[0];
+
+			string filter = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
+			object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
+			string errMess;
+
+			string sp_name = "check_csa_partition_inconsistent_ver";
+			DataSet ds = Conn.CallSP(sp_name,
+				new object[] {Meta.GetSys("esercizio"), Curr["idcsa_import"]}, 600, out errMess);
+			if (errMess != null) {
+				MessageBox.Show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
+			}
+
+			DataTable tResult = ds.Tables[0];
+			if (tResult.Rows.Count != 0) {
+				VisualizzaDati(sender, e, tResult, "csa_importver", "default", null);
+			}
+		}
+
+		private void btn68_Click(object sender, EventArgs e) {
+			//68) ANAGRAFICHE RIEPILOGHI PRIVE DI MODALITA' DI PAGAMENTO STANDARD
+			// NON SERVE , IL NETTO A PAGARE DEVE ESSERE A REGOLARIZZAZIONE
+			/*
+			if (Meta.IsEmpty) return;
+
+			DataRow Curr = DS.csa_import.Rows[0];
+
+			string filter_import = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
+			string filter_modpag = "(SELECT count(*)  " +
+			                                  " FROM registrypaymethod " +
+			                                  " WHERE flagstandard = 'S' " +
+			                                  " AND  idreg = registry.idreg) = 0  ";
+			string filter = QHS.AppAnd(filter_import, filter_modpag);
+
+			string filter_registry = "  idreg in (SELECT idreg " +
+			                                 " FROM csa_importriep " +
+			                                 " WHERE " + filter_import + ")";  
+
+			string sqlCmd = " SELECT DISTINCT registry.idreg as '#idreg'," +
+			                " registry.title as 'Denominazione', " +
+			                " registry.cf as 'Codice Fiscale' " +
+			                " FROM  registry " +
+			                " JOIN csa_importriep  on registry.idreg = csa_importriep.idreg " +
+			                " WHERE  " + filter;
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+
+			if (T != null) {
+			    VisualizzaDati3(sender, e, T, "registry", "registrymainview", "anagrafica","anagrafica", QHS.AppAnd(filter_registry, filter_modpag), 
+			                                                                         QHS.AppAnd(filter_registry, filter_modpag.Replace("registry.", "registrymainview.")));
+			}
+			*/
+
+		}
+
+		private void btn69_Click(object sender, EventArgs e) {
+			//69) ANAGRAFICHE ENTI VERSAMENTO CSA PRIVE DI MODALITA' DI PAGAMENTO STANDARD
+			if (Meta.IsEmpty) return;
+
+			DataRow Curr = DS.csa_import.Rows[0];
+
+			string filter_import = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
+			//string filter_agency = QHS.CmpEq("csa_importver.idcsa_agency", Curr["idcsa_agency"]);
+			string filter_modpag = "(SELECT count(*)  " +
+			                       " FROM registrypaymethod " +
+			                       " WHERE flagstandard = 'S' " +
+			                       " AND  idreg = registry.idreg) = 0  ";
+			string filter = QHS.AppAnd(filter_import, filter_modpag);
+
+			string filter_registry = "  idreg in (SELECT idreg_agency " +
+			                         " FROM csa_importver " +
+			                         " WHERE " + filter_import + ")" +
+			                         "   AND (SELECT count(*) " +
+			                         "   FROM csa_agency " +
+			                         "   WHERE (ISNULL(csa_agency.flag,0) &2) <>0  " +
+			                         "   AND csa_agency.idcsa_agency= csa_importver.idcsa_agency) <> 0 ";
+
+
+
+			string sqlCmd = " SELECT DISTINCT registry.idreg as '#idreg'," +
+			                " registry.title as 'Denominazione', " +
+			                " registry.cf as 'Codice Fiscale' " +
+			                " FROM  registry " +
+			                " JOIN csa_importver  on registry.idreg = csa_importver.idreg_agency " +
+			                " WHERE  " + filter;
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+
+			if (T != null) {
+				VisualizzaDati3(sender, e, T, "registry", "registrymainview", "anagrafica", "anagrafica",
+					QHS.AppAnd(filter_registry, filter_modpag),
+					QHS.AppAnd(filter_registry, filter_modpag.Replace("registry.", "registrymainview.")));
+			}
+		}
+
+		private void btn70_Click(object sender, EventArgs e) {
+			//70)  ANAGRAFICHE RIEPILOGHI INCOERENTI CON QUELLE DEI MOVIMENTI FINANZIARI DELLA RIPARTIZIONE -- SOLO NUOVA GESTIONE
+			if (Meta.IsEmpty) return;
+			DataRow Curr = DS.csa_import.Rows[0];
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.IsNotNull("csa_importriepview.idreg"));
+
+			filter = QHS.AppAnd(filter,
+				" (SELECT COUNT(csa_importriep_partition.idexp) FROM expense JOIN csa_importriep_partition ON expense.idexp = csa_importriep_partition.idexp " +
+				" WHERE csa_importriep_partition.idcsa_import = csa_importriepview.idcsa_import " +
+				" AND csa_importriep_partition.idriep = csa_importriepview.idriep " +
+				" AND csa_importriep_partition.idexp IS NOT NULL AND expense.idreg IS NOT NULL  AND ISNULL(expense.idreg, 0) <> ISNULL(csa_importriepview.idreg, 0)) <> 0 ");
+
+			string sqlCmd = " SELECT ayear as 'Eserc.', " +
+			                " idriep as 'Numero Riepilogo', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview  " +
+			                " WHERE  " + filter;
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+
+			if (T != null) {
+				VisualizzaDati2(sender, e, T, "csa_importriep", "csa_importriepview", "default",
+					filter.Replace("csa_importriepview", "csa_importriep"), filter);
+			}
+
+		}
+
+
+		private void btn71_Click(object sender, EventArgs e) {
+			//71)  Regole specifiche ripartite con movimenti di spesa con anagrafica
+			if (Meta.IsEmpty) return;
+
+			if (rdbExpToListing.Checked) {
+				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
+				return;
+			}
+
+			DataRow Curr = DS.csa_import.Rows[0];
+			object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
+			string errMess;
+			string filter = QHS.AppAnd(QHS.CmpEq("CP.ayear", Conn.GetSys("esercizio")), QHS.IsNotNull("CP.idexp"));
+			filter += " AND EXISTS  (SELECT * FROM  expense  E WHERE " +
+			          " E.idexp = CP.idexp AND " +
+			          " E.idreg IS NOT NULL)  ";
+			string sqlCmd =
+				"SELECT C.idcsa_contract , C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero " +
+				" from csa_contract_partition CP " +
+				" join csa_contract C on C.idcsa_contract=CP.idcsa_contract and CP.ayear=C.ayear " +
+				" where " + filter;
+
+			DataTable TT = Conn.SQLRunner(sqlCmd);
+			if (TT == null) return;
+			if (TT.Rows.Count == 0) return;
+
+
+			// MessageBox.Show(sqlCmd);
+			string filtercontract = QHS.AppAnd(QHS.FieldIn("idcsa_contract", TT.Select()),
+				QHS.CmpEq("ayear", Conn.GetSys("esercizio")));
+			DataTable T = Conn.SQLRunner(sqlCmd);
+			if (T != null) {
+				VisualizzaDati(sender, e, T, "csa_contract", "default", filtercontract);
+			}
+		}
+
+		private void btn72_Click(object sender, EventArgs e) {
+			//72)  Contributi Regole specifiche ripartite con movimenti di spesa con anagrafica
+			if (Meta.IsEmpty) return;
+
+			if (rdbExpToListing.Checked) {
+				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
+				return;
+			}
+
+			DataRow Curr = DS.csa_import.Rows[0];
+			object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
+			string errMess;
+			string filter = QHS.AppAnd(QHS.CmpEq("CTP.ayear", Conn.GetSys("esercizio")), QHS.IsNotNull("CTP.idexp"));
+			filter += " AND EXISTS  (SELECT * FROM  expense  E WHERE " +
+			          " E.idexp = CTP.idexp AND " +
+			          " E.idreg IS NOT NULL)  ";
+			string sqlCmd =
+				"SELECT C.idcsa_contract , C.ycontract as 'Eserc.Regola specifica CSA', C.ncontract as Numero, CT.voceCSA as 'Voce CSA', CTP.ndetail as '# Dett.' " +
+				" from csa_contracttax_partition CTP " +
+				" join csa_contracttax CT on CTP.idcsa_contract=CT.idcsa_contract and  CTP.idcsa_contracttax=CT.idcsa_contracttax and CTP.ayear=CT.ayear " +
+				" join csa_contract C on C.idcsa_contract=CT.idcsa_contract and CT.ayear=C.ayear " +
+				" where " + filter;
+
+			DataTable TT = Conn.SQLRunner(sqlCmd);
+			if (TT == null) return;
+			if (TT.Rows.Count == 0) return;
+
+
+			// MessageBox.Show(sqlCmd);
+			string filtercontract = QHS.AppAnd(QHS.FieldIn("idcsa_contract", TT.Select()),
+				QHS.CmpEq("CP.ayear", Conn.GetSys("esercizio")));
+			DataTable T = Conn.SQLRunner(sqlCmd);
+			if (T != null) {
+				VisualizzaDati(sender, e, T, "csa_contracttax", "default", filtercontract);
+			}
+		}
+
+
+		private void btn73_Click(object sender, EventArgs e) {
+			//73)  Movimenti spesa con netto negativo nella fase versamenti
+			if (Meta.IsEmpty) return;
+
+			if (rdbExpToListing.Checked) {
+				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
+				return;
+			}
+
+			DataRow Curr = DS.csa_import.Rows[0];
+			object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
+			string errMess;
+			string filter = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
+			string sqlCmd =
+				" SELECT sum(importo) as 'Importo Netto', idreg_agency as '#idreg Anagr. Ente', registry_agency as 'Anagr. Ente' FROM csa_importverview " +
+				" WHERE " + filter +
+				" GROUP BY idreg_agency,registry_agency HAVING sum(importo)<0 ";
+
+			DataTable TT = Conn.SQLRunner(sqlCmd);
+			if (TT == null) return;
+			if (TT.Rows.Count == 0) return;
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+			if (T != null) {
+				VisualizzaDati(sender, e, T, "csa_importver", "default", filter);
+			}
+		}
+
+
+		private void btn74_Click(object sender, EventArgs e) {
+			//74)    Ritenuta con capitolo  costo o movimento spesa costo valorizzato 
+			if (Meta.IsEmpty) return;
+			DataRow Curr = DS.csa_import.Rows[0];
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.IsNull("idcsa_contractkinddata"), QHS.IsNull("idcsa_contracttax"),
+				QHS.NullOrEq("flagclawback", "N"), QHS.IsNotNull("idfin_income"),
+				QHS.DoPar(QHS.AppOr(QHS.IsNotNull("idfin_cost"), QHS.IsNotNull("idexp_cost"))));
+
+
+
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
+
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+
+			if (T != null) {
+				VisualizzaDati2(sender, e, T, "csa_importver", "csa_importverview", "default",
+					filter, filter);
+			}
+		}
+
+
+		private void btn75_Click(object sender, EventArgs e) {
+			// 75) Ripartizione Ritenuta con capitolo di costo valorizzato
+			if (Meta.IsEmpty) return;
+			DataRow Curr = DS.csa_import.Rows[0];
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.IsNull("idcsa_contractkinddata"), QHS.IsNull("idcsa_contracttax"),
+				QHS.NullOrEq("flagclawback", "N"), QHS.IsNotNull("idfin_income"));
+
+			filter = QHS.AppAnd(filter,
+				" EXISTS(SELECT * FROM csa_importver_partition CE where csa_importverview.idcsa_import = CE.idcsa_import and csa_importverview.idver = CE.idver  " +
+				" AND (CE.idfin IS NOT NULL or CE.idexp IS NOT NULL)) ");
+
+			string sqlCmd =
+				" SELECT CASE flagclawback WHEN 'S' THEN 'Recupero' ELSE 'Ritenuta/Contributo' END as 'Tipo'," +
+				" ayear as 'Eserc.', " +
+				" idver as 'Numero Versamento', " +
+				" yimport as 'Eserc. Import', " +
+				" nimport as 'Num. Import.', " +
+				" ruolocsa as 'Ruolo CSA', " +
+				" capitolocsa as 'Capitolo CSA', " +
+				" ente as 'Ente CSA', " +
+				" vocecsa as 'Voce CSA', " +
+				" matricola as 'Matricola', " +
+				" importo as 'Importo', " +
+				" registry as 'Anagrafica', " +
+				" agency as 'Ente', " +
+				" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+				" codefin_cost as 'Cod. Capitolo Costo'," +
+				" codefin_income as 'Cod. Capitolo Entrata'," +
+				" codefin_expense as 'Cod. Capitolo Spesa'," +
+				" codefin_incomeclawback as 'Cod. Capitolo Entrata Interno'," +
+				" flagcr as 'Comp./Residui' " +
+				" FROM csa_importverview " +
+				" WHERE  " + filter;
+
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+
+			if (T != null) {
+				VisualizzaDati2(sender, e, T, "csa_importver", "csa_importverview", "default",
+					filter, filter);
+			}
+		}
 
 		private void btn76_Click(object sender, EventArgs e) {
 			//76) Contributi con importo negativo senza capitolo di entrata o classificazione Siope entrata configurati
@@ -8934,29 +9622,29 @@ private void btnEP24_Click(object sender, EventArgs e) {
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
 				QHS.NullOrEq("flagclawback", "N"), QHS.DoPar(QHS.AppOr(
 					QHS.IsNotNull("idcsa_contractkinddata"), QHS.IsNotNull("idcsa_contracttax"))),
-				QHS.CmpLt("importo", 0),  QHS.DoPar(QHS.AppOr(
+				QHS.CmpLt("importo", 0), QHS.DoPar(QHS.AppOr(
 					QHS.IsNull("idfin_incomeclawback"), QHS.IsNull("idsor_siope_incomeclawback"))));
 			string sqlCmd = " SELECT 'Contributo' as 'Tipo'," +
-							" ayear as 'Eserc.', " +
-							" idver as 'Numero Versamento', " +
-							" yimport as 'Eserc. Import', " +
-							" nimport as 'Num. Import.', " +
-							" ruolocsa as 'Ruolo CSA', " +
-							" capitolocsa as 'Capitolo CSA', " +
-							" ente as 'Ente CSA', " +
-							" vocecsa as 'Voce CSA', " +
-							" matricola as 'Matricola', " +
-							" importo as 'Importo', " +
-							" registry as 'Anagrafica', " +
-							" agency as 'Ente', " +
-							" idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
-							" codefin_cost as 'Cod. Capitolo Costo'," +
-							" codefin_expense as 'Cod. Capitolo Spesa'," +
-							" codefin_incomeclawback as 'Cod. Capitolo Entrata Contr. Negativi'," +
-							" sortcode_incomeclawback as 'Siope Entrata Contr. Negativi'," +
-							" flagcr as 'Comp./Residui' " +
-							" FROM csa_importverview " +
-							" WHERE  " + filter;
+			                " ayear as 'Eserc.', " +
+			                " idver as 'Numero Versamento', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " ente as 'Ente CSA', " +
+			                " vocecsa as 'Voce CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " agency as 'Ente', " +
+			                " idcsa_agencypaymethod as ' # Mod. Pagamento Ente', " +
+			                " codefin_cost as 'Cod. Capitolo Costo'," +
+			                " codefin_expense as 'Cod. Capitolo Spesa'," +
+			                " codefin_incomeclawback as 'Cod. Capitolo Entrata Contr. Negativi'," +
+			                " sortcode_incomeclawback as 'Siope Entrata Contr. Negativi'," +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importverview " +
+			                " WHERE  " + filter;
 
 
 			DataTable T = Conn.SQLRunner(sqlCmd);
@@ -8967,218 +9655,222 @@ private void btnEP24_Click(object sender, EventArgs e) {
 		}
 
 		private void btn26_Click(object sender, EventArgs e) {
-            //26) Coppie Bilancio - UPB con previsione disponibile insufficiente 
-            if (Meta.IsEmpty) return;
+			//26) Coppie Bilancio - UPB con previsione disponibile insufficiente 
+			if (Meta.IsEmpty) return;
 
-            if (rdbExpToListing.Checked) {
-                MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
-                return;
-            }
+			if (rdbExpToListing.Checked) {
+				MessageBox.Show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
+				return;
+			}
 
-            DataRow Curr = DS.csa_import.Rows[0];
-            object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
-            string errMess;
-            DataSet ds = Conn.CallSP("exp_csa_fin_upb_available",
-                new object[] {Meta.GetSys("esercizio"), Curr["idcsa_import"]}, 600, out errMess);
-            if (errMess != null) {
-                MessageBox.Show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
-            }
+			DataRow Curr = DS.csa_import.Rows[0];
+			object esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
+			string errMess;
+			DataSet ds = Conn.CallSP("exp_csa_fin_upb_available",
+				new object[] {Meta.GetSys("esercizio"), Curr["idcsa_import"]}, 600, out errMess);
+			if (errMess != null) {
+				MessageBox.Show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
+			}
 
-            DataTable tResult = ds.Tables[0];
-            if (tResult.Rows.Count != 0) {
-                
-
-                VisualizzaDati2(sender, e, tResult, "finview", "finview", "relation",
-                    null, null);
-            }
-
-        }
-
-        private void btn27_Click(object sender, EventArgs e) {
-            // 27) Voce di Bilancio e Movimento finanziario non determinati in righe riepiloghi
-            if (Meta.IsEmpty) return;
-            DataRow Curr = DS.csa_import.Rows[0];
-            string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
-                QHS.IsNotNull("idcsa_contractkind"), QHS.IsNull("idfin"), QHS.IsNull("idexp"));
-            string sqlCmd = " SELECT ayear as 'Eserc.', " +
-                            " idriep as 'Numero Riepilogo', " +
-                            " yimport as 'Eserc. Import', " +
-                            " nimport as 'Num. Import.', " +
-                            " ruolocsa as 'Ruolo CSA', " +
-                            " capitolocsa as 'Capitolo CSA', " +
-                            " matricola as 'Matricola', " +
-                            " importo as 'Importo', " +
-                            " registry as 'Anagrafica', " +
-                            " flagcr as 'Comp./Residui' " +
-                            " FROM csa_importriepview " +
-                            " WHERE  " + filter +
-                            " AND NOT EXISTS(SELECT * FROM csa_contractexpense C where C.ayear=csa_importriepview.ayear " +
-                            " and C.idcsa_contract = csa_importriepview.idcsa_contract)";
+			DataTable tResult = ds.Tables[0];
+			if (tResult.Rows.Count != 0) {
 
 
-            DataTable T = Conn.SQLRunner(sqlCmd,false,60);
+				VisualizzaDati2(sender, e, tResult, "finview", "finview", "relation",
+					null, null);
+			}
 
-            if (T != null) {
-                VisualizzaDati(sender, e, T, "csa_importriep", "default", filter);
-            }
-        }
+		}
 
-        private void dataGrid2_Navigate(object sender, NavigateEventArgs ne) {
-
-        }
-
-        private void btnVerificaIndividuazioneEP_Click(object sender, EventArgs e) {
-             
-        }
-
-        private void button1_Click(object sender, EventArgs e) {
-            btnEP15_Click(sender, e);
-        }
-
-        private void btnShowOutput_Click(object sender, EventArgs e) {
-            TS.ShowErrors();
-        }
-
-        private void btnBolletta_Click(object sender, EventArgs e) {
-            if (Meta.IsEmpty) return;
-            DataRow curr = DS.csa_import.Rows[0];
-            MetaData.GetFormData(this, true);
-           
-            string filter = QHS.CmpEq("ybill", Meta.GetSys("esercizio"));
-            filter =QHS.AppAnd(filter, QHS.CmpEq("billkind","D"),QHS.CmpGt("toregularize", 0));
-
-            string VistaScelta = "billview";
-
-            MetaData meta_bill = Meta.Dispatcher.Get(VistaScelta);
-            meta_bill.FilterLocked = true;
-            meta_bill.DS = DS;
-            DataRow myDr = meta_bill.SelectOne("default", filter, null, null);
-
-            if (myDr != null) {
-                curr["ybill_netti"] = myDr["ybill"];
-                curr["nbill_netti"] = myDr["nbill"];
-                DS.bill_netti.Clear();
-                Meta.Conn.RUN_SELECT_INTO_TABLE(DS.bill_netti, null,
-                    QHS.AppAnd(QHS.CmpEq("ybill", myDr["ybill"]),
-                               QHS.CmpEq("nbill", myDr["nbill"]),
-                                QHS.CmpEq("billkind", "D")),
-                    null, true);
-                //txtEsercBollettaNetti.Text= myDr["ybill"].ToString();
-                //txtNumBollettaNetti.Text = myDr["nbill"].ToString();
- 
-                Meta.FreshForm();
-            }
-        }
-
-        private void btnBollettaVersamenti_Click(object sender, EventArgs e) {
-            if (Meta.IsEmpty) return;
-            DataRow curr = DS.csa_import.Rows[0];
-            MetaData.GetFormData(this, true);
-            string filteresercizio = QHS.CmpEq("ybill", Meta.GetSys("esercizio"));
-            int annosuccessivo = Convert.ToInt32(Meta.GetSys("esercizio")) + 1;
-            string filteresercizionew = QHS.CmpEq("ybill", annosuccessivo);
-
-            string filter =(QHS.DoPar (QHS.AppOr(filteresercizio, filteresercizionew)));
-
-            filter = QHS.AppAnd(filter, QHS.CmpEq("billkind", "D"),QHS.CmpGt("toregularize",0));
-
-            string VistaScelta = "billview";
-
-            MetaData meta_bill = Meta.Dispatcher.Get(VistaScelta);
-            meta_bill.FilterLocked = true;
-            meta_bill.DS = DS;
-            DataRow myDr = meta_bill.SelectOne("default", filter, null, null);
-            if (myDr != null) {
-                curr["ybill_versamenti"] = myDr["ybill"];
-                curr["nbill_versamenti"] = myDr["nbill"];
-                DS.bill_netti.Clear();
-                Meta.Conn.RUN_SELECT_INTO_TABLE(DS.bill_netti, null,
-                    QHS.AppAnd(QHS.CmpEq("ybill", myDr["ybill"]),
-                               QHS.CmpEq("nbill", myDr["nbill"]),
-                                QHS.CmpEq("billkind", "D")),
-                    null, true);
-                //txtEsercBollettaVersamenti.Text = myDr["ybill"].ToString();
-                //txtNumBollettaVersamenti.Text = myDr["nbill"].ToString();
-
-                Meta.FreshForm();
-            }
-        }
-
-        #region importazione bollette
-        private void ImpostaColonneTracciatoDettagli(DataTable mData) {
-            mData.Columns.Clear();
-            mData.Columns.Add("denominazione_anagrafica", typeof(string));
-            mData.Columns.Add("n_sospeso", typeof(int));
-            mData.Columns.Add("importo", typeof(decimal));
-        }
-
-        //private bool verificaValiditaCampiExcel(DataTable mData) {
+		private void btn27_Click(object sender, EventArgs e) {
+			// 27) Voce di Bilancio e Movimento finanziario non determinati in righe riepiloghi
+			if (Meta.IsEmpty) return;
+			DataRow Curr = DS.csa_import.Rows[0];
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.IsNotNull("idcsa_contractkind"), QHS.IsNull("idfin"), QHS.IsNull("idexp"));
+			string sqlCmd = " SELECT ayear as 'Eserc.', " +
+			                " idriep as 'Numero Riepilogo', " +
+			                " yimport as 'Eserc. Import', " +
+			                " nimport as 'Num. Import.', " +
+			                " ruolocsa as 'Ruolo CSA', " +
+			                " capitolocsa as 'Capitolo CSA', " +
+			                " matricola as 'Matricola', " +
+			                " importo as 'Importo', " +
+			                " registry as 'Anagrafica', " +
+			                " flagcr as 'Comp./Residui' " +
+			                " FROM csa_importriepview " +
+			                " WHERE  " + filter +
+			                " AND NOT EXISTS(SELECT * FROM csa_contractexpense C where C.ayear=csa_importriepview.ayear " +
+			                " and C.idcsa_contract = csa_importriepview.idcsa_contract)";
 
 
-        //    bool ok = true;
-        //    DataSet Out = new DataSet();
-        //    DataTable T = new DataTable();
-        //    T.Columns.Add("errors", typeof(System.String), "");
-        //    for (int i = 0; i < tracciato_sospeso.Length; i++) {
-        //        string fmt = tracciato_sospeso[i];
-        //        bool datiValidi = GetField(fmt, T, mData);
-        //        if (!datiValidi) ok = false;
-        //    }
+			DataTable T = Conn.SQLRunner(sqlCmd, false, 60);
 
-        //    Out.Tables.Add(T);
+			if (T != null) {
+				VisualizzaDati(sender, e, T, "csa_importriep", "default", filter);
+			}
+		}
 
-        //    if (!ok) {
-        //        FrmViewError View = new FrmViewError(Out);
-        //        View.Show();
-        //    }
+		private void dataGrid2_Navigate(object sender, NavigateEventArgs ne) {
 
-        //    return ok;
-        //}
- 
-        public string GetTracciato(string[] tracciato) {
-            string res = "";
-            int pos = 0;
-            foreach (string t in tracciato) {
-                string[] ss = t.Split(';');
-                string field = ss[0].PadLeft(30) + ": Pos." + pos.ToString().PadLeft(5) + " lunghezza " +
-                               ss[3].PadLeft(4) +
-                               " Tipo: " + ss[2].PadLeft(15);
-                if (ss[2].ToLower() == "codificato") {
-                    field += " Codifica:" + ss[4];
-                }
-                field += " Descrizione: " + ss[1];
-                field += "\r\n";
-                pos += CfgFn.GetNoNullInt32(ss[3]);
-                res += field;
-            }
-            return res;
-        }
+		}
 
-        public DataTable GetTableTracciato(string[] tracciato) {
-            int pos = 0;
-            DataTable T = new DataTable("t");
-            T.Columns.Add("nome", typeof(string));
-            T.Columns.Add("posizione", typeof(int));
-            T.Columns.Add("lunghezza", typeof(string));
-            T.Columns.Add("tipo", typeof(string));
-            T.Columns.Add("codifica", typeof(string));
-            T.Columns.Add("Descrizione", typeof(string));
+		private void btnVerificaIndividuazioneEP_Click(object sender, EventArgs e) {
 
-            foreach (string t in tracciato) {
-                DataRow r = T.NewRow();
-                string[] ss = t.Split(';');
-                r["nome"] = ss[0];
-                r["posizione"] = pos;
-                r["lunghezza"] = CfgFn.GetNoNullInt32(ss[3]);
-                r["tipo"] = ss[2];
-                if (ss.Length == 5) r["codifica"] = ss[4];
-                r["Descrizione"] = ss[1];
-                pos += CfgFn.GetNoNullInt32(ss[3]); 
+		}
+
+		private void button1_Click(object sender, EventArgs e) {
+			btnEP15_Click(sender, e);
+		}
+
+		private void btnShowOutput_Click(object sender, EventArgs e) {
+			TS.ShowErrors();
+		}
+
+		private void btnBolletta_Click(object sender, EventArgs e) {
+			if (Meta.IsEmpty) return;
+			DataRow curr = DS.csa_import.Rows[0];
+			MetaData.GetFormData(this, true);
+
+			string filter = QHS.CmpEq("ybill", Meta.GetSys("esercizio"));
+			filter = QHS.AppAnd(filter, QHS.CmpEq("billkind", "D"), QHS.CmpGt("toregularize", 0));
+
+			string VistaScelta = "billview";
+
+			MetaData meta_bill = Meta.Dispatcher.Get(VistaScelta);
+			meta_bill.FilterLocked = true;
+			meta_bill.DS = DS;
+			DataRow myDr = meta_bill.SelectOne("default", filter, null, null);
+
+			if (myDr != null) {
+				curr["ybill_netti"] = myDr["ybill"];
+				curr["nbill_netti"] = myDr["nbill"];
+				DS.bill_netti.Clear();
+				Meta.Conn.RUN_SELECT_INTO_TABLE(DS.bill_netti, null,
+					QHS.AppAnd(QHS.CmpEq("ybill", myDr["ybill"]),
+						QHS.CmpEq("nbill", myDr["nbill"]),
+						QHS.CmpEq("billkind", "D")),
+					null, true);
+				//txtEsercBollettaNetti.Text= myDr["ybill"].ToString();
+				//txtNumBollettaNetti.Text = myDr["nbill"].ToString();
+
+				Meta.FreshForm();
+			}
+		}
+
+		private void btnBollettaVersamenti_Click(object sender, EventArgs e) {
+			if (Meta.IsEmpty) return;
+			DataRow curr = DS.csa_import.Rows[0];
+			MetaData.GetFormData(this, true);
+			string filteresercizio = QHS.CmpEq("ybill", Meta.GetSys("esercizio"));
+			int annosuccessivo = Convert.ToInt32(Meta.GetSys("esercizio")) + 1;
+			string filteresercizionew = QHS.CmpEq("ybill", annosuccessivo);
+
+			string filter = (QHS.DoPar(QHS.AppOr(filteresercizio, filteresercizionew)));
+
+			filter = QHS.AppAnd(filter, QHS.CmpEq("billkind", "D"), QHS.CmpGt("toregularize", 0));
+
+			string VistaScelta = "billview";
+
+			MetaData meta_bill = Meta.Dispatcher.Get(VistaScelta);
+			meta_bill.FilterLocked = true;
+			meta_bill.DS = DS;
+			DataRow myDr = meta_bill.SelectOne("default", filter, null, null);
+			if (myDr != null) {
+				curr["ybill_versamenti"] = myDr["ybill"];
+				curr["nbill_versamenti"] = myDr["nbill"];
+				DS.bill_netti.Clear();
+				Meta.Conn.RUN_SELECT_INTO_TABLE(DS.bill_netti, null,
+					QHS.AppAnd(QHS.CmpEq("ybill", myDr["ybill"]),
+						QHS.CmpEq("nbill", myDr["nbill"]),
+						QHS.CmpEq("billkind", "D")),
+					null, true);
+				//txtEsercBollettaVersamenti.Text = myDr["ybill"].ToString();
+				//txtNumBollettaVersamenti.Text = myDr["nbill"].ToString();
+
+				Meta.FreshForm();
+			}
+		}
+
+		#region importazione bollette
+
+		private void ImpostaColonneTracciatoDettagli(DataTable mData) {
+			mData.Columns.Clear();
+			mData.Columns.Add("denominazione_anagrafica", typeof(string));
+			mData.Columns.Add("n_sospeso", typeof(int));
+			mData.Columns.Add("importo", typeof(decimal));
+		}
+
+		//private bool verificaValiditaCampiExcel(DataTable mData) {
+
+
+		//    bool ok = true;
+		//    DataSet Out = new DataSet();
+		//    DataTable T = new DataTable();
+		//    T.Columns.Add("errors", typeof(System.String), "");
+		//    for (int i = 0; i < tracciato_sospeso.Length; i++) {
+		//        string fmt = tracciato_sospeso[i];
+		//        bool datiValidi = GetField(fmt, T, mData);
+		//        if (!datiValidi) ok = false;
+		//    }
+
+		//    Out.Tables.Add(T);
+
+		//    if (!ok) {
+		//        FrmViewError View = new FrmViewError(Out);
+		//        View.Show();
+		//    }
+
+		//    return ok;
+		//}
+
+		public string GetTracciato(string[] tracciato) {
+			string res = "";
+			int pos = 0;
+			foreach (string t in tracciato) {
+				string[] ss = t.Split(';');
+				string field = ss[0].PadLeft(30) + ": Pos." + pos.ToString().PadLeft(5) + " lunghezza " +
+				               ss[3].PadLeft(4) +
+				               " Tipo: " + ss[2].PadLeft(15);
+				if (ss[2].ToLower() == "codificato") {
+					field += " Codifica:" + ss[4];
+				}
+
+				field += " Descrizione: " + ss[1];
+				field += "\r\n";
+				pos += CfgFn.GetNoNullInt32(ss[3]);
+				res += field;
+			}
+
+			return res;
+		}
+
+		public DataTable GetTableTracciato(string[] tracciato) {
+			int pos = 0;
+			DataTable T = new DataTable("t");
+			T.Columns.Add("nome", typeof(string));
+			T.Columns.Add("posizione", typeof(int));
+			T.Columns.Add("lunghezza", typeof(string));
+			T.Columns.Add("tipo", typeof(string));
+			T.Columns.Add("codifica", typeof(string));
+			T.Columns.Add("Descrizione", typeof(string));
+
+			foreach (string t in tracciato) {
+				DataRow r = T.NewRow();
+				string[] ss = t.Split(';');
+				r["nome"] = ss[0];
+				r["posizione"] = pos;
+				r["lunghezza"] = CfgFn.GetNoNullInt32(ss[3]);
+				r["tipo"] = ss[2];
+				if (ss.Length == 5) r["codifica"] = ss[4];
+				r["Descrizione"] = ss[1];
+				pos += CfgFn.GetNoNullInt32(ss[3]);
 
 				T.Rows.Add(r);
-            }
-            return T;
-        }
+			}
+
+			return T;
+		}
 
 
 
@@ -9187,8 +9879,10 @@ private void btnEP24_Click(object sender, EventArgs e) {
 			sb.AppendLine("DECLARE @lista_idacc_idupb AS account_upb_list;");
 			//int currblockLen = 0;
 			foreach (object[] id in idAccIdupbList) {
-					sb.Append($"insert into @lista_idacc_idupb values ({QHS.quote(id[0])},{QHS.quote(id[1])},{QHS.quote(CfgFn.GetNoNullDecimal(id[2]))})");
+				sb.Append(
+					$"insert into @lista_idacc_idupb values ({QHS.quote(id[0])},{QHS.quote(id[1])},{QHS.quote(CfgFn.GetNoNullDecimal(id[2]))})");
 			}
+
 			//if (currblockLen > 0)
 			sb.AppendLine(";");
 			sb.AppendLine($"exec  compute_account_upb_prevision {Conn.GetEsercizio()},@lista_idacc_idupb");
@@ -9200,9 +9894,10 @@ private void btnEP24_Click(object sender, EventArgs e) {
 			sb.AppendLine("DECLARE @lista_idepexp AS epexp_list;");
 			//int currblockLen = 0;
 			foreach (object[] id in epexp_list) {
-				sb.Append($"insert into @lista_idepexp values ({QHS.quote(id[0])},{QHS.quote( id[1])})");
-				sb.AppendLine(";"); 
+				sb.Append($"insert into @lista_idepexp values ({QHS.quote(id[0])},{QHS.quote(id[1])})");
+				sb.AppendLine(";");
 			}
+
 			sb.AppendLine($"exec  compute_epexp_available {Conn.GetEsercizio()},@lista_idepexp");
 			return Conn.SQLRunner(sb.ToString());
 		}
@@ -9211,9 +9906,10 @@ private void btnEP24_Click(object sender, EventArgs e) {
 			StringBuilder sb = new StringBuilder();
 			sb.AppendLine("DECLARE @lista_idepacc AS epacc_list;");
 			foreach (object[] id in epacc_list) {
-				sb.Append($"insert into @lista_idepacc values ({QHS.quote(id[0])},{QHS.quote( id[1])})");
+				sb.Append($"insert into @lista_idepacc values ({QHS.quote(id[0])},{QHS.quote(id[1])})");
 				sb.AppendLine(";");
 			}
+
 			sb.AppendLine($"exec  compute_epacc_available {Conn.GetEsercizio()},@lista_idepacc");
 			return Conn.SQLRunner(sb.ToString());
 		}
@@ -9222,21 +9918,22 @@ private void btnEP24_Click(object sender, EventArgs e) {
 		public DataTable GetTableAccountUpb() {
 			// Legge da Db la disponibilità attuale delle coppie idacc idupb movimentate nella creazione di nuovi PreImpegni o Preaccertamenti
 			// al fine di verificare che, nell'eseguire relamente la generazione, non vadano in negativo
-			List<object[]>  param = new List<object[]>();
+			List<object[]> param = new List<object[]>();
 			if (AccountUpb_Pre.Count == 0) return null;
 			DataTable T = new DataTable();
 
 			foreach (string key in AccountUpb_Pre.Keys) {
 				string[] ss = key.Split('§');
-				param.Add(new object[] { ss[0], ss[1], AccountUpb_Pre[key] }); 
+				param.Add(new object[] {ss[0], ss[1], AccountUpb_Pre[key]});
 			}
 
-			T = callSpAccountUpbPrevision(Conn, (from r in param select r).ToList()) ;
+			T = callSpAccountUpbPrevision(Conn, (from r in param select r).ToList());
 			if (T == null || !T.Columns.Contains("Upb")) {
 				return null;
 			}
+
 			return T;
-			}
+		}
 
 		public DataTable GetDataPreEpexp() {
 			// Legge da Db la disponibilità attuale di PreImpegni già memorizzati sul db
@@ -9245,14 +9942,17 @@ private void btnEP24_Click(object sender, EventArgs e) {
 			foreach (string key in Pre_Epexp_Existing_Childs.Keys) {
 				string[] ss = key.Split('§');
 				int idepexp = CfgFn.GetNoNullInt32(ss[0]);
-				param.Add(new object[] { idepexp, Pre_Epexp_Existing_Childs[key]});
+				param.Add(new object[] {idepexp, Pre_Epexp_Existing_Childs[key]});
 			}
-			DataTable T =  callSpEpexpAvailable(Conn,(from r in param select r).ToList());
+
+			DataTable T = callSpEpexpAvailable(Conn, (from r in param select r).ToList());
 			if (T == null || !T.Columns.Contains("Upb")) {
 				return null;
 			}
+
 			return T;
 		}
+
 		public DataTable GetDataPreEpacc() {
 			// Legge da Db la disponibilità attuale di PreAccertamenti già memorizzati sul db
 			List<object[]> param = new List<object[]>();
@@ -9260,12 +9960,14 @@ private void btnEP24_Click(object sender, EventArgs e) {
 			foreach (string key in Pre_Epacc_Existing_Childs.Keys) {
 				string[] ss = key.Split('§');
 				int idepacc = CfgFn.GetNoNullInt32(ss[0]);
-				param.Add(new object[] {idepacc, Pre_Epacc_Existing_Childs[key] });
+				param.Add(new object[] {idepacc, Pre_Epacc_Existing_Childs[key]});
 			}
-			DataTable T =  callSpEpaccAvailable(Conn,(from r in param select r).ToList());
+
+			DataTable T = callSpEpaccAvailable(Conn, (from r in param select r).ToList());
 			if (T == null || !T.Columns.Contains("Upb")) {
 				return null;
 			}
+
 			return T;
 		}
 
@@ -9301,33 +10003,34 @@ private void btnEP24_Click(object sender, EventArgs e) {
 
 
 		private void MenuEnterPwd_Click(object sender, EventArgs e) {
-            if (sender == null) return;
-            if (!(typeof(MenuItem).IsAssignableFrom(sender.GetType()))) return;
-            object mysender = ((MenuItem)sender).Parent.GetContextMenu().SourceControl;
-            string tracciato = "";
-            DataTable TableTracciato = null;
+			if (sender == null) return;
+			if (!(typeof(MenuItem).IsAssignableFrom(sender.GetType()))) return;
+			object mysender = ((MenuItem) sender).Parent.GetContextMenu().SourceControl;
+			string tracciato = "";
+			DataTable TableTracciato = null;
 
-            tracciato = GetTracciato(tracciato_sospeso);
-            TableTracciato = GetTableTracciato(tracciato_sospeso);
-            FrmShowTracciato FT = new FrmShowTracciato(tracciato, TableTracciato, "struttura");
-            FT.ShowDialog();
-        }
+			tracciato = GetTracciato(tracciato_sospeso);
+			TableTracciato = GetTableTracciato(tracciato_sospeso);
+			FrmShowTracciato FT = new FrmShowTracciato(tracciato, TableTracciato, "struttura");
+			FT.ShowDialog();
+		}
 
 
 
 		#endregion
+
 		Dictionary<string, decimal> AccountUpb_Pre = new Dictionary<string, decimal>();
 		Dictionary<string, decimal> Pre_Epexp_Childs = new Dictionary<string, decimal>();
-		Dictionary<string, decimal> Pre_Epexp_Existing_Childs = new Dictionary<string,  decimal>();
+		Dictionary<string, decimal> Pre_Epexp_Existing_Childs = new Dictionary<string, decimal>();
 		Dictionary<string, DataRow> Pre_Epexp_New = new Dictionary<string, DataRow>();
 		Dictionary<string, DataRow> Pre_Epacc_New = new Dictionary<string, DataRow>();
 		Dictionary<string, DataRow> Epexp = new Dictionary<string, DataRow>();
 		Dictionary<string, decimal> Pre_Epacc_Childs = new Dictionary<string, decimal>();
-		Dictionary<string,decimal> Pre_Epacc_Existing_Childs = new Dictionary<string, decimal>();
-		Dictionary<string,  DataRow> Epacc = new Dictionary<string, DataRow>();
+		Dictionary<string, decimal> Pre_Epacc_Existing_Childs = new Dictionary<string, decimal>();
+		Dictionary<string, DataRow> Epacc = new Dictionary<string, DataRow>();
 
 		private void ClearSimulaEpGenera() {
-			AccountUpb_Pre.Clear(); 
+			AccountUpb_Pre.Clear();
 			Pre_Epexp_Childs.Clear();
 			Pre_Epexp_Existing_Childs.Clear();
 			Pre_Epexp_New.Clear();
@@ -9337,30 +10040,32 @@ private void btnEP24_Click(object sender, EventArgs e) {
 			Pre_Epacc_Existing_Childs.Clear();
 			Epacc.Clear();
 		}
+
 		private void btnSimulaEPGenera_Click(object sender, EventArgs e) {
 			ClearSimulaEpGenera();
 			var epManager = new EP_Manager(Meta, null, null, null, null, null, null, null, null, "csa_import");
-			 
-            var fakePosting = new Fake_EpPoster(epManager);
-		 
-            var res = fakePosting.DO_POST_SERVICE();
- 
+
+			var fakePosting = new Fake_EpPoster(epManager);
+
+			var res = fakePosting.DO_POST_SERVICE();
+
 			//PostData post = Meta.Get_PostData();
 			//DataSet d = new DataSet();
 			//var res1 = fakePosting.saveData(d,post);
 			DataSet toAnalyze = fakePosting.getDataSet();
 			bool message = false;
-			string      keyRow;
+			string keyRow;
 			if (toAnalyze == null) {
 				MessageBox.Show("Non ci sono dati da mostrare");
 				return;
 			}
+
 			if (toAnalyze.Tables.Contains("epexp")) {
-				DataTable tEpexp =  toAnalyze.Tables["epexp"];
+				DataTable tEpexp = toAnalyze.Tables["epexp"];
 				int minTemp = tEpexp.getMinimumTempValue("idepexp");
 				foreach (DataRow rEpexp in tEpexp.Rows) {
 					if ((CfgFn.GetNoNullInt32(rEpexp["nphase"]) == 1)) {
-						keyRow = getHash(rEpexp, new[] { "idepexp" });
+						keyRow = getHash(rEpexp, new[] {"idepexp"});
 
 						if (CfgFn.GetNoNullInt32(rEpexp["idepexp"]) > minTemp)
 							// riga di nuova creazione
@@ -9370,15 +10075,17 @@ private void btnEP24_Click(object sender, EventArgs e) {
 								Pre_Epexp_Childs[keyRow] = 0;
 								// andrò poi a inserire le righe con gli importi da epexpyear
 							}
-					} else {  // nphase = 2
+					}
+					else { // nphase = 2
 						if (CfgFn.GetNoNullInt32(rEpexp["idepexp"]) > minTemp) {
 							// riga di nuova creazione
-							keyRow = getHash(rEpexp, new[] { "idepexp"});
-								Epexp[keyRow] = rEpexp;
+							keyRow = getHash(rEpexp, new[] {"idepexp"});
+							Epexp[keyRow] = rEpexp;
 						}
+
 						if (CfgFn.GetNoNullInt32(rEpexp["paridepexp"]) < minTemp) {
 							// pre-impegni esistenti, valorizzo solo le chiavi
-							keyRow = getHash(rEpexp, new[] { "paridepexp" });
+							keyRow = getHash(rEpexp, new[] {"paridepexp"});
 							if ((Pre_Epexp_Existing_Childs != null) && (Pre_Epexp_Existing_Childs.ContainsKey(keyRow)))
 								continue;
 							else {
@@ -9391,12 +10098,12 @@ private void btnEP24_Click(object sender, EventArgs e) {
 			}
 
 			if (toAnalyze.Tables.Contains("epacc")) {
-					DataTable tEpacc =  toAnalyze.Tables["epacc"];
-					int minTemp1 = tEpacc.getMinimumTempValue("idepacc");
-					foreach (DataRow rEpacc in tEpacc.Rows) {
-						if ((CfgFn.GetNoNullInt32(rEpacc["nphase"]) == 1)) {
-							keyRow = getHash(rEpacc, new[] { "idepacc" });
-							if (CfgFn.GetNoNullInt32(rEpacc["idepacc"]) > minTemp1)
+				DataTable tEpacc = toAnalyze.Tables["epacc"];
+				int minTemp1 = tEpacc.getMinimumTempValue("idepacc");
+				foreach (DataRow rEpacc in tEpacc.Rows) {
+					if ((CfgFn.GetNoNullInt32(rEpacc["nphase"]) == 1)) {
+						keyRow = getHash(rEpacc, new[] {"idepacc"});
+						if (CfgFn.GetNoNullInt32(rEpacc["idepacc"]) > minTemp1)
 							// riga di preaccertamento di nuova creazione, valorizzo solo le chiavi
 							if ((Pre_Epacc_Childs != null) && (Pre_Epacc_Childs.ContainsKey(keyRow)))
 								continue;
@@ -9405,16 +10112,17 @@ private void btnEP24_Click(object sender, EventArgs e) {
 								// andrò poi a inserire le righe con gli importi da epaccyear
 							}
 
-					} else {  // nphase = 2
-							if (CfgFn.GetNoNullInt32(rEpacc["idepacc"]) > minTemp1) {
-								// riga di nuova creazione
-								keyRow = getHash(rEpacc, new[] { "idepacc" });
-								Epacc[keyRow] = rEpacc;
-							}
-						
+					}
+					else { // nphase = 2
+						if (CfgFn.GetNoNullInt32(rEpacc["idepacc"]) > minTemp1) {
+							// riga di nuova creazione
+							keyRow = getHash(rEpacc, new[] {"idepacc"});
+							Epacc[keyRow] = rEpacc;
+						}
+
 						if (CfgFn.GetNoNullInt32(rEpacc["paridepacc"]) < minTemp1) {
 							//pre-accertamenti esistenti, valorizzo solo le chiavi
-							keyRow = getHash(rEpacc, new[] { "paridepacc" });
+							keyRow = getHash(rEpacc, new[] {"paridepacc"});
 							if ((Pre_Epacc_Existing_Childs != null) && (Pre_Epacc_Existing_Childs.ContainsKey(keyRow)))
 								continue;
 							else {
@@ -9422,20 +10130,21 @@ private void btnEP24_Click(object sender, EventArgs e) {
 								// andrò poi a inserire le righe dei figli con gli importi da epaccyear
 							}
 						}
- 
+
 					}
 				}
 			}
-			
-			
+
+
 
 			if (toAnalyze.Tables.Contains("epexpyear")) {
 				//raggruppamenti su conto, upb, 
 				// il dictionary AccountUpb_Pre associa alla chiave idacc idupb una lista dei preimpegni di nuova creazione ad essa imputati ai fini del calcolo 
 				// della previsione disponibile post salvataggio
 				foreach (DataRow rEpexpYear in toAnalyze.Tables["epexpyear"].Rows) {
-					if (rEpexpYear.RowState != DataRowState.Added) continue;  // Considero solo le righe di nuova creazione ai fini del calcolo della disponibilità
-					string keyRowMov = getHash(rEpexpYear, new[] { "idepexp" });
+					if (rEpexpYear.RowState != DataRowState.Added)
+						continue; // Considero solo le righe di nuova creazione ai fini del calcolo della disponibilità
+					string keyRowMov = getHash(rEpexpYear, new[] {"idepexp"});
 					// Considero solo le righe di prima fase , le seconde fasi non interessano 
 					if (!Pre_Epexp_Childs.ContainsKey(keyRowMov)) continue;
 
@@ -9443,29 +10152,32 @@ private void btnEP24_Click(object sender, EventArgs e) {
 					if (!Pre_Epexp_New.ContainsKey(keyRowMov)) Pre_Epacc_New[keyRowMov] = rEpexpYear;
 
 					//Aggiungo l'importo del preimpegno di nuova creazione al dictionary AccountUpb_Pre, in corrispondenza della chiave idacc idupb
-					keyRow = getHash(rEpexpYear, new[] { "idacc", "idupb" });
-					if ((AccountUpb_Pre != null)&&(AccountUpb_Pre.ContainsKey(keyRow)))
-						AccountUpb_Pre[keyRow]+= CfgFn.GetNoNullDecimal(rEpexpYear["amount"]);
+					keyRow = getHash(rEpexpYear, new[] {"idacc", "idupb"});
+					if ((AccountUpb_Pre != null) && (AccountUpb_Pre.ContainsKey(keyRow)))
+						AccountUpb_Pre[keyRow] += CfgFn.GetNoNullDecimal(rEpexpYear["amount"]);
 					else {
 						AccountUpb_Pre[keyRow] = 0;
-						AccountUpb_Pre[keyRow]+= CfgFn.GetNoNullDecimal(rEpexpYear["amount"]);
+						AccountUpb_Pre[keyRow] += CfgFn.GetNoNullDecimal(rEpexpYear["amount"]);
 					}
 				}
+
 				// Il seguente ciclo consente di riempire i dictionary  Pre_Epexp_Childs e Pre_Epexp_Existing_Childs (già valorizzati prima con le chiavi dei preimpegni)
 				// associando a ogni chiave idepexp, l'importo totale degli impegni figli che saranno generati. I Dictionary sono due: 
 				// 1) Pre_Epexp_Childs ha come chiave un preimpegno che si sta generando ora
 				// 2) Pre_Epexp_Existing_Childs ha come chiave un preimpegno già memorizzato su db (presente in configurazione ecc.)
 				foreach (DataRow rEpexpYear in toAnalyze.Tables["epexpyear"].Rows) {
 					// Considero solo gli impegni di nuova creazione ai fini del calcolo della disponibilità del relativo preimpegno
-					if (rEpexpYear.RowState != DataRowState.Added) continue;  
-					string keyRowMov = getHash(rEpexpYear, new[] { "idepexp" });
+					if (rEpexpYear.RowState != DataRowState.Added) continue;
+					string keyRowMov = getHash(rEpexpYear, new[] {"idepexp"});
 					if (!Epexp.ContainsKey(keyRowMov)) continue; // Non è di seconda fase, non interessa 
-					DataRow REpexp =  Epexp[keyRowMov];
-					string keyRowPreMov = getHash(REpexp, new[] { "paridepexp" });
+					DataRow REpexp = Epexp[keyRowMov];
+					string keyRowPreMov = getHash(REpexp, new[] {"paridepexp"});
 					// Se la riga impegno è figlia di un preimpegno di nuova creazione, ne aggiungo l'importo al relativo dictionary
-					if (Pre_Epexp_Childs.ContainsKey(keyRowPreMov)) Pre_Epexp_Childs[keyRowPreMov]+= CfgFn.GetNoNullDecimal(rEpexpYear["amount"]);
+					if (Pre_Epexp_Childs.ContainsKey(keyRowPreMov))
+						Pre_Epexp_Childs[keyRowPreMov] += CfgFn.GetNoNullDecimal(rEpexpYear["amount"]);
 					// Se la riga impegno è figlia di un preimpegno preesistente, ne aggiungo l'importo al relativo  dictionary
-					if (Pre_Epexp_Existing_Childs.ContainsKey(keyRowPreMov)) Pre_Epexp_Existing_Childs[keyRowPreMov]+= CfgFn.GetNoNullDecimal(rEpexpYear["amount"]);
+					if (Pre_Epexp_Existing_Childs.ContainsKey(keyRowPreMov))
+						Pre_Epexp_Existing_Childs[keyRowPreMov] += CfgFn.GetNoNullDecimal(rEpexpYear["amount"]);
 
 				}
 			}
@@ -9477,83 +10189,90 @@ private void btnEP24_Click(object sender, EventArgs e) {
 				foreach (DataRow rEpaccYear in toAnalyze.Tables["epaccyear"].Rows) {
 					// Considero solo le righe di prima fase e nuova creazione ai fini del calcolo della disponibilità
 					if (rEpaccYear.RowState != DataRowState.Added) continue;
-					string keyRowMov = getHash(rEpaccYear, new[] { "idepacc" });
+					string keyRowMov = getHash(rEpaccYear, new[] {"idepacc"});
 					// Se non è un preaccertamento lo salto, si tratta di un accertamento
 					if (!Pre_Epacc_Childs.ContainsKey(keyRowMov)) continue;
-					
+
 					// Memorizzo i preaccertamenti di nuova creazione nel relativo Dictionary
 					if (!Pre_Epacc_New.ContainsKey(keyRowMov)) Pre_Epacc_New[keyRowMov] = rEpaccYear;
 
 					//Aggiungo l'importo del preaccertamento di nuova creazione al dictionary AccountUpb_Pre, in corrispondenza della chiave idacc idupb
-					keyRow = getHash(rEpaccYear, new[] { "idacc", "idupb" });
+					keyRow = getHash(rEpaccYear, new[] {"idacc", "idupb"});
 					if ((AccountUpb_Pre != null) && (AccountUpb_Pre.ContainsKey(keyRow)))
-						AccountUpb_Pre[keyRow] += CfgFn.GetNoNullDecimal(rEpaccYear["amount"]); 
+						AccountUpb_Pre[keyRow] += CfgFn.GetNoNullDecimal(rEpaccYear["amount"]);
 					else {
 						AccountUpb_Pre[keyRow] = 0;
 						AccountUpb_Pre[keyRow] += CfgFn.GetNoNullDecimal(rEpaccYear["amount"]);
 					}
 				}
+
 				// il seguente ciclo consente di riempire i dictionary  Pre_Epacc_Childs e Pre_Epacc_Existing_Childs (già valorizzati prima con le chiavi dei preaccertamenti)
 				// associando a ogni chiave, importo totale  degli accertamenti figli che saranno generati 
 				foreach (DataRow rEpaccYear in toAnalyze.Tables["epaccyear"].Rows) {
-					if (rEpaccYear.RowState != DataRowState.Added) continue;  // Considero solo le righe di nuova creazione ai fini del calcolo della disponibilità
-					string keyRowMov = getHash(rEpaccYear, new[] { "idepacc" });
+					if (rEpaccYear.RowState != DataRowState.Added)
+						continue; // Considero solo le righe di nuova creazione ai fini del calcolo della disponibilità
+					string keyRowMov = getHash(rEpaccYear, new[] {"idepacc"});
 					// Considero solo le righe di seconda fase  di nuova creazione,
 					if (!Epacc.ContainsKey(keyRowMov)) continue;
-					DataRow REpacc =  Epacc[keyRowMov];
-					string keyRowPreMov = getHash(REpacc, new[] { "paridepacc" });
+					DataRow REpacc = Epacc[keyRowMov];
+					string keyRowPreMov = getHash(REpacc, new[] {"paridepacc"});
 					// Se la riga accertamento è figlia di un preaccertamento di nuova creazione, aggiungo l'importo al relativo dictionary
-					if (Pre_Epacc_Childs.ContainsKey(keyRowPreMov)) Pre_Epacc_Childs[keyRowPreMov] += CfgFn.GetNoNullDecimal(rEpaccYear["amount"]);
+					if (Pre_Epacc_Childs.ContainsKey(keyRowPreMov))
+						Pre_Epacc_Childs[keyRowPreMov] += CfgFn.GetNoNullDecimal(rEpaccYear["amount"]);
 					// Se la riga accertamento è figlia di un preaccertamento esistente, aggiungo l'importo  al relativo dictionary
-					if (Pre_Epacc_Existing_Childs.ContainsKey(keyRowPreMov)) Pre_Epacc_Existing_Childs[keyRowPreMov] += CfgFn.GetNoNullDecimal(REpacc["amount"]);
+					if (Pre_Epacc_Existing_Childs.ContainsKey(keyRowPreMov))
+						Pre_Epacc_Existing_Childs[keyRowPreMov] += CfgFn.GetNoNullDecimal(REpacc["amount"]);
 				}
 			}
 
 			// Recuperare le informazioni da DB relativamente alle coppie Conto UPB movimentate, Preimpegni e Preaccertamenti
-			DataTable T  = GetDataPreEpacc();
-			if (T!=null) exportclass.DataTableToExcel(T, true);
+			DataTable T = GetDataPreEpacc();
+			if (T != null) exportclass.DataTableToExcel(T, true);
 			DataTable T1 = GetDataPreEpexp();
 			if (T1 != null) exportclass.DataTableToExcel(T1, true);
 			DataTable T2 = GetTableAccountUpb();
 			if (T2 != null) exportclass.DataTableToExcel(T2, true);
 			if ((T == null) && (T1 == null) && (T2 == null)) message = true;
-			if (message) MessageBox.Show("Non ci sono dati da mostrare. Controllare l'eventuale presenza di errori bloccanti");
+			if (message)
+				MessageBox.Show("Non ci sono dati da mostrare. Controllare l'eventuale presenza di errori bloccanti");
 			//visualizzazione
 
 
 		}
-    }
+	}
 
 
-	class Fake_EpPoster :ep_poster {
-        private DataSet d=null;
-        private EP_Manager epm;
+	class Fake_EpPoster : ep_poster {
+		private DataSet d = null;
+
+		private EP_Manager epm;
+
 		//public PostData p;
 		public Fake_EpPoster(EP_Manager ep_manager) : base(ep_manager) {
-            this.epm = ep_manager;
-            epm.setPostingClass(this);
-        }
+			this.epm = ep_manager;
+			epm.setPostingClass(this);
+		}
 
 		public override ProcedureMessageCollection DO_POST_SERVICE() {
-            //effettua tutte le operazioni che avrebbe fatto
-            // Il beforePost è già stato invocato correttamente
-            epm.silent = true;
-            epm.silentBlocked = true;
-            epm.clearMessages();            
-            epm.invokedByInnerPosting = true;
-            epm.afterPost(true);
-            epm.invokedByInnerPosting = false;
-            return epm.getMessages();
-        }
+			//effettua tutte le operazioni che avrebbe fatto
+			// Il beforePost è già stato invocato correttamente
+			epm.silent = true;
+			epm.silentBlocked = true;
+			epm.clearMessages();
+			epm.invokedByInnerPosting = true;
+			epm.afterPost(true);
+			epm.invokedByInnerPosting = false;
+			return epm.getMessages();
+		}
 
-        public override bool saveData(DataSet d,PostData post) {
-            this.d = d;
-		
+		public override bool saveData(DataSet d, PostData post) {
+			this.d = d;
+
 			return true;
-        }
+		}
 
-        public DataSet getDataSet() {
-            return d;
-        }
-    }
+		public DataSet getDataSet() {
+			return d;
+		}
+	}
 }

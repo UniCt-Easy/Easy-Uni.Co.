@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ÔªøSET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -110,7 +112,7 @@ BEGIN
 	IF @nphase >= @finphase AND
 	((@oldidfin <> @newidfin) OR (@oldidupb <> @newidupb))
 	BEGIN
-		-- Se √® cambiata solo la voce di bilancio aggiorno solo UPBINCOMETOTAL
+		-- Se Ë cambiata solo la voce di bilancio aggiorno solo UPBINCOMETOTAL
 		EXECUTE trg_upd_upbmovtotal
 		'I', 
 		@oldidfin, 
@@ -128,7 +130,7 @@ BEGIN
 		@newcurrentamount
 
 	-- Se cambio il finanziamento non posso modificare nient'altro. E' stato creato un task per consentire la modifica al finanziamento col wizard.
-	-- Quindi se ho modificato l'importo, o idfin, o idupb, vuol dire che il finanziamento non √® cambiato
+	-- Quindi se ho modificato l'importo, o idfin, o idupb, vuol dire che il finanziamento non Ë cambiato
 
 		EXECUTE trg_upd_underwritingmovtotal		
 		'I', 
@@ -148,7 +150,7 @@ BEGIN
 		@nphase, 
 		@newcurrentamount		
 		
-		-- Se √® cambiato l'UPB aggiorno sia UPBINCOMETOTAL sia UPBTOTAL
+		-- Se Ë cambiato l'UPB aggiorno sia UPBINCOMETOTAL sia UPBTOTAL
 		DECLARE @lessamount decimal(19,2)
 		IF (@oldidupb <> @newidupb)
 		BEGIN
@@ -241,7 +243,7 @@ BEGIN
 		@diff
 	
 		-- Se cambio il finanziamento non posso modificare nient'altro. E' stato creato un task per consentire la modifica al finanziamento col wizard.
-		-- Quindi se ho modificato l'importo, o idfin, o idupb, vuol dire che il finanziamento non √® cambiato
+		-- Quindi se ho modificato l'importo, o idfin, o idupb, vuol dire che il finanziamento non Ë cambiato
 		EXECUTE trg_upd_underwritingmovtotal		
 		'I', 
 		@idunderwritingCurr, 

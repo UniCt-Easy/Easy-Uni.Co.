@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Drawing;
@@ -428,11 +430,11 @@ namespace expense_gerarchico { //SpesaGerarchico//
 		private TextBox txtTotaleSospesi;
 		private Button btnScrittureCollegate;
 		private GroupBox gboxEntrata;
-		private TextBox txtNumEntrata;
 		private Label label31;
-		private TextBox txtEsercEntrata;
 		private Label label39;
 		private Button btnEntrata;
+		private TextBox txtNumEntrata;
+		private TextBox txtEsercEntrata;
 		bool MustRefreshImportoSpesa = false;
 
 		#endregion
@@ -661,8 +663,8 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			this.tabPageAltro = new System.Windows.Forms.TabPage();
 			this.gboxEntrata = new System.Windows.Forms.GroupBox();
 			this.txtNumEntrata = new System.Windows.Forms.TextBox();
-			this.label31 = new System.Windows.Forms.Label();
 			this.txtEsercEntrata = new System.Windows.Forms.TextBox();
+			this.label31 = new System.Windows.Forms.Label();
 			this.label39 = new System.Windows.Forms.Label();
 			this.btnEntrata = new System.Windows.Forms.Button();
 			this.label27 = new System.Windows.Forms.Label();
@@ -2400,8 +2402,8 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			this.gboxEntrata.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.gboxEntrata.Controls.Add(this.txtNumEntrata);
-			this.gboxEntrata.Controls.Add(this.label31);
 			this.gboxEntrata.Controls.Add(this.txtEsercEntrata);
+			this.gboxEntrata.Controls.Add(this.label31);
 			this.gboxEntrata.Controls.Add(this.label39);
 			this.gboxEntrata.Controls.Add(this.btnEntrata);
 			this.gboxEntrata.Location = new System.Drawing.Point(121, 374);
@@ -2415,13 +2417,20 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			// 
 			this.txtNumEntrata.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtNumEntrata.Location = new System.Drawing.Point(255, 39);
+			this.txtNumEntrata.Location = new System.Drawing.Point(256, 40);
 			this.txtNumEntrata.Name = "txtNumEntrata";
 			this.txtNumEntrata.Size = new System.Drawing.Size(102, 20);
-			this.txtNumEntrata.TabIndex = 4;
+			this.txtNumEntrata.TabIndex = 6;
 			this.txtNumEntrata.Tag = "income_linked.nmov?expenseview.ninc_linked";
 			this.txtNumEntrata.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.txtNumEntrata.Leave += new System.EventHandler(this.txtNumEntrata_Leave);
+			// 
+			// txtEsercEntrata
+			// 
+			this.txtEsercEntrata.Location = new System.Drawing.Point(152, 40);
+			this.txtEsercEntrata.Name = "txtEsercEntrata";
+			this.txtEsercEntrata.Size = new System.Drawing.Size(56, 20);
+			this.txtEsercEntrata.TabIndex = 5;
+			this.txtEsercEntrata.Tag = "income_linked.ymov?expenseview.yinc_linked";
 			// 
 			// label31
 			// 
@@ -2431,15 +2440,6 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			this.label31.TabIndex = 4;
 			this.label31.Text = "Num.";
 			this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtEsercEntrata
-			// 
-			this.txtEsercEntrata.Location = new System.Drawing.Point(151, 39);
-			this.txtEsercEntrata.Name = "txtEsercEntrata";
-			this.txtEsercEntrata.Size = new System.Drawing.Size(56, 20);
-			this.txtEsercEntrata.TabIndex = 3;
-			this.txtEsercEntrata.Tag = "income_linked.ymov?expenseview.yinc_linked";
-			this.txtEsercEntrata.Leave += new System.EventHandler(this.txtEsercEntrata_Leave);
 			// 
 			// label39
 			// 
@@ -3319,12 +3319,12 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			// 
 			// label38
 			// 
-			this.label38.Location = new System.Drawing.Point(230, 138);
+			this.label38.Location = new System.Drawing.Point(30, 138);
 			this.label38.Name = "label38";
-			this.label38.Size = new System.Drawing.Size(96, 20);
+			this.label38.Size = new System.Drawing.Size(296, 20);
 			this.label38.TabIndex = 47;
 			this.label38.Tag = "";
-			this.label38.Text = "Descrizione:";
+			this.label38.Text = "Note per il Tesoriere-Rif.doc.esterno:";
 			this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// SubEntity_txtDescrModPagamento
@@ -6340,6 +6340,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			if (InChiusura) return;
 			if (!Meta.DrawStateIsDone) return;
 			if (txtNumeroFasePrecedente.ReadOnly) return;
+			HelpForm.ExtLeaveIntTextBox(txtNumeroFasePrecedente,null);
 			CalcolaStartFilter(null);
 
 			if (!Meta.InsertMode) return;

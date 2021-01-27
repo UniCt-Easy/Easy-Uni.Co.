@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
@@ -507,7 +509,7 @@ namespace BancaSondrio {
         [XmlElement("numero_disposizioni", DataType = "nonNegativeInteger", Order = 0)]
         public string NumeroDisposizioni {
             get { return Pagamenti.Count.ToString(); }
-            set { throw new NotSupportedException("Questo √® un campo calcolato"); }
+            set { throw new NotSupportedException("Questo Ë un campo calcolato"); }
         }
 
         [XmlElement("informazioni_banca", Order = 1)]
@@ -569,7 +571,7 @@ namespace BancaSondrio {
         public string CAP;
 
         [XmlElement("localita_debitore", IsNullable = false)]
-        public string Localit√†;
+        public string Localit‡;
 
         [XmlElement("provincia_debitore", IsNullable = false)]
         public string Provincia;
@@ -602,17 +604,17 @@ namespace BancaSondrio {
         public DateTime Scadenza;
 
         [XmlElement("data_inizio_validita", DataType = "date")]
-        public DateTime? InizioValidit√†;
+        public DateTime? InizioValidit‡;
 
-        public bool ShouldSerializeInizioValidit√†() {
-            return InizioValidit√†.HasValue;
+        public bool ShouldSerializeInizioValidit‡() {
+            return InizioValidit‡.HasValue;
         }
 
         [XmlElement("data_fine_validita", DataType = "date")]
-        public DateTime? FineValidit√†;
+        public DateTime? FineValidit‡;
 
-        public bool ShouldSerializeFineValidit√†() {
-            return FineValidit√†.HasValue;
+        public bool ShouldSerializeFineValidit‡() {
+            return FineValidit‡.HasValue;
         }
 
         [XmlElement("anno_riferimento")]
@@ -649,10 +651,10 @@ namespace BancaSondrio {
     public class DatiRiscossione {
 
         [XmlElement("tipo_contabilita")]
-        public string TipoContabilit√†;
+        public string TipoContabilit‡;
 
         [XmlElement("codice_contabilita")]
-        public string CodiceContabilit√†;
+        public string CodiceContabilit‡;
 
     }
 

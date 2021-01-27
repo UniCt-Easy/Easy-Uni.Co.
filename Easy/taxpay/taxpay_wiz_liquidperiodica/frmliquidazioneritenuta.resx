@@ -120,24 +120,27 @@
   <metadata name="DS.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="textBox1.Text" xml:space="preserve">
-    <value>LIQUIDAZIONE PERIODICA DELLE RITENUTE (E DEI CONTRIBUTI) - procedura automatica
+  <data name="txtIniziale.Text" xml:space="preserve">
+    <value>
+Questa procedura deve essere utilizzata SOLO SE il pagamento effettivo delle ritenute e/o contributi deve essere registrato nell'esercizio.   
+In caso contrario occorre accedere all''esercizio successivo  per effettuare il calcolo.
 
-FASE 1: SCELTA DELLE RITENUTE DA LIQUIDARE
+FASE 1: SCELTA DEI DETTAGLI IMPOSTA DA LIQUIDARE
+- L'utente seleziona il Tipo imposta che intende liquidare. Nel menu a tendina vengono mostrati SOLO i Tipi imposta per i quali esistono dei dettagli imposte 
+da liquidare.
+- Vengono mostrati tutti i dettagli imposte del tipo selezionato, che non sono state ancora liquidate e che rientrano nel periodo di liquidazione.
+- Il periodo di liquidazione è impostato in automatico e dipende da quanto configurato sul singolo Tipo imposta (Opzioni>Compensi>Imposte>Automatismi imposte).
+- L'utente seleziona tutti i dettagli ritenuta che intende liquidare
 
-L'utente sceglie il tipo delle ritenute che si intende liquidare. 
-Vengono mostrati i dettagli di tutte le ritenute del tipo specificato che si possono liquidare.
-La data di competenza di tale ritenute deve essere compresa in un periodo che dipende da quanto configurato nella finestra "Configurazione - Compensi - Ritenute - Automatismi delle ritenute".
-NOVITA': L'utente può ora scegliere le ritenute che si vuole liquidare; non è più obbligatorio liquidare tutte le ritenute nel periodo specificato e nello stesso periodo si possono effettuare più liquidazioni.
-Non appena si scelgono le ritenute da liquidare, il programma calcola l’importo cumulativo di tutte le ritenute selezionate. 
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+FASE 2: GENERAZIONE DEI MOVIMENTI FINANZIARI e SCRITTURE EP
+- Viene mostrata l'anteprima dei movimenti finanziari che il programma sta per generare ed è possibile modificare la voce di Bilancio o collegare il pagamento
+ad una fase di spesa già creata in precedenza.
+- Cliccando su "Salva" si conferma l’operazione e il programma genera i movimenti di spesa relativi. Non è possibile calcolare la liquidazione imposte senza
+generare i movimenti finanziari e gli stessi movimenti finanziari non saranno più modificabili.
 
-FASE 2: GENERAZIONE DELLE LIQUIDAZIONI (e dei movimenti relativi)
-
-Vengono mostrate le liquidazioni che verranno generate per liquidare le ritenute selezionate nella fase precedente.
-Cliccando su "Salva" si conferma l’operazione e il programma genera i movimenti di spesa relativi.
-
----
-L’utente dovrà ripetere la procedura (prima e seconda fase) per ogni tipologia di ritenuta applicata.</value>
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+L’utente deve ripetere le FASI 1 e 2 per tutti i Tipi imposte visualizzati nel menu a tendina a pagina 2. </value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>40</value>

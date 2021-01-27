@@ -1,27 +1,26 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Università degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit� degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿if exists (select * from dbo.sysobjects where id = object_id(N'[exp_statopatrimoniale_dm2012_dett]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-drop procedure [exp_statopatrimoniale_dm2012_dett]
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
+
+if OBJECTPROPERTY(object_id('exp_statopatrimoniale_dm2012_dett'), 'IsProcedure') = 1
+	drop procedure exp_statopatrimoniale_dm2012_dett
+go
 -- setuser 'amministrazione' 
---setuser 'amm'
+-- setuser 'amm'
 CREATE  PROCEDURE [exp_statopatrimoniale_dm2012_dett]
 
 	@ayear			int,
@@ -43,10 +42,11 @@ CREATE  PROCEDURE [exp_statopatrimoniale_dm2012_dett]
 	@showregistry	char(1),
 	@flag_soloapertura char(1)='N',
 	@flag_noepilogo char(1)='S',
-	@flag_noassestamentoprogp char(1)='S'  -- no assestamento progetti pluriennali
+	@flag_noassestamentoprogp char(1)='S',  -- no assestamento progetti pluriennali,
+	@flag_idrelated char(1) = 'S'
 	AS
 
--- exp_statopatrimoniale_dm2012_dett '2018', {d '2018-01-01'}, {d '2018-11-08'}, '3', null, 'E', null, 'N', null, null, 'S', '%', 'N', 'S', 'S', 'N', 'S'
+-- exp_statopatrimoniale_dm2012_dett 2018, {d '2018-01-01'}, {d '2018-11-08'}, '3', null, 'E', null, 'N', null, null, null,null,'S', '%', 'N', 'S', 'S', 'N', 'S'
 
 	BEGIN
 
@@ -77,7 +77,8 @@ SET @lenfilteracc = DATALENGTH(RTRIM(ISNULL(@filteraccount,''))) PRINT @lenfilte
 		account varchar(150), 
 		nlevel char(1),
 		idreg int,
-		idsor1 int,idsor2 int,idsor3 int
+		idsor1 int,idsor2 int,idsor3 int,
+		idrelated varchar(100)
 	)
 
 	
@@ -121,7 +122,8 @@ SET @lenfilteracc = DATALENGTH(RTRIM(ISNULL(@filteraccount,''))) PRINT @lenfilte
 		idacc,
 		nlevel,
 		idreg,
-		idsor1,idsor2,idsor3 
+		idsor1,idsor2,idsor3,
+		idrelated
 		)
 		SELECT 
 			patrimony.idpatrimony,		
@@ -131,7 +133,8 @@ SET @lenfilteracc = DATALENGTH(RTRIM(ISNULL(@filteraccount,''))) PRINT @lenfilte
 			SUBSTRING(account.idacc, 1, @newnlevel),  	
 			patrimony.nlevel,
 			entrydetail.idreg,
-			entrydetail.idsor1,entrydetail.idsor2,entrydetail.idsor3 
+			entrydetail.idsor1,entrydetail.idsor2,entrydetail.idsor3,
+			case when @flag_idrelated='S' then entrydetail.idrelated else null end			 
 		FROM entry
 		JOIN entrydetail			ON entry.yentry  = entrydetail.yentry 	AND entry.nentry = entrydetail.nentry 
 		JOIN account				ON account.idacc = entrydetail.idacc
@@ -165,8 +168,7 @@ BEGIN
 				0,0,
 				SUBSTRING(account.idacc, 1, @newnlevel)
 			FROM patrimony
-			JOIN account
-				ON patrimony.idpatrimony = account.idpatrimony
+			JOIN account				ON patrimony.idpatrimony = account.idpatrimony
 			WHERE (@filterpatrimony IS NULL OR SUBSTRING(patrimony.codepatrimony, 1,@lenfilter) = @filterpatrimony)
 				and patrimony.ayear = @ayear
 				and (select count(*)  from #bilanciostatopatrimoniale P
@@ -207,6 +209,7 @@ Begin
 						SELECT  
 							account.codeacc as 'Codice conto',
 							account.title	as 'Conto',
+							#bilanciostatopatrimoniale.idrelated as 'Chiave EP dettaglio',
 							patrimony.codepatrimony   as 'Codice voce schema ufficiale associata al conto',
 							patrimony.patpart   as 'Parte schema ufficiale',
 							patrimony.title  as 'Descrizione voce schema ufficiale associata al conto',
@@ -214,26 +217,27 @@ Begin
 							sum(#bilanciostatopatrimoniale.avere) as 'Avere',
 							sum(isnull(#bilanciostatopatrimoniale.dare,0) + isnull(#bilanciostatopatrimoniale.avere,0)) as 'Saldo'
 							FROM patrimony 
-							join #bilanciostatopatrimoniale 
-								on #bilanciostatopatrimoniale.idpatrimony = patrimony.idpatrimony
+							join #bilanciostatopatrimoniale on #bilanciostatopatrimoniale.idpatrimony = patrimony.idpatrimony
 							join account on #bilanciostatopatrimoniale.idacc = account.idacc
 							where patrimony.ayear = @ayear and (@patpart = 'E' or patrimony.patpart = @patpart)
-							GROUP BY account.codeacc,account.title, patrimony.codepatrimony, patrimony.patpart,patrimony.title
+							GROUP BY account.codeacc,account.title, patrimony.codepatrimony, patrimony.patpart,patrimony.title, 
+									#bilanciostatopatrimoniale.idrelated
 							HAVING (@suppressifblank='N' OR sum(#bilanciostatopatrimoniale.dare)<>0 or sum(#bilanciostatopatrimoniale.avere) <>0)
-							ORDER BY account.codeacc
+							ORDER BY account.codeacc,#bilanciostatopatrimoniale.idrelated
 					END
 				IF (@showupb ='S')
 					BEGIN
 						SELECT  
 							account.codeacc as 'Codice conto',
 							account.title	as 'Conto',
+							#bilanciostatopatrimoniale.idrelated as 'Chiave EP dettaglio',
 							upb.codeupb	    as 'Codice UPB',
 							upb.title		as 'UPB',
 							CASE upb.flagactivity
 									 when 4 then 'Qualsiasi/Non specificata'
 									 when 1 then 'Istituzionale'
 									 when 2 then 'Commerciale'
-							END  as 'Tipo attivitÃ ',
+							END  as 'Tipo attività',
 							epupbkind.description as 'Tipo UPB ai fini dell''Economico Patrimoniale',
 							CASE upb.flagkind
 								 when 0 then 'Didattica'
@@ -254,9 +258,10 @@ Begin
 							left outer join epupbkind 					on epupbkind.idepupbkind = upb.idepupbkind
 							where patrimony.ayear = @ayear and (@patpart = 'E' or patrimony.patpart = @patpart)
 							GROUP BY account.codeacc, account.title, patrimony.codepatrimony, patrimony.patpart,patrimony.title, 
-							upb.codeupb, upb.title,upb.idepupbkind, upb.flagactivity, upb.flagkind, upb.start, upb.stop,epupbkind.description
+							upb.codeupb, upb.title,upb.idepupbkind, upb.flagactivity, upb.flagkind, upb.start, upb.stop,epupbkind.description, 
+								#bilanciostatopatrimoniale.idrelated
 							HAVING (@suppressifblank='N' OR sum(#bilanciostatopatrimoniale.dare)<>0 or sum(#bilanciostatopatrimoniale.avere) <>0)
-							ORDER BY account.codeacc
+							ORDER BY account.codeacc,#bilanciostatopatrimoniale.idrelated
 					END
 		End
 
@@ -269,6 +274,7 @@ Begin
 							registry.idreg as 'Cod.Anagrafica',
 							account.codeacc as 'Codice conto',
 							account.title	as 'Conto',
+							#bilanciostatopatrimoniale.idrelated as 'Chiave EP dettaglio',
 							patrimony.codepatrimony   as 'Codice voce schema ufficiale associata al conto',
 							patrimony.patpart   as 'Parte schema ufficiale',
 							patrimony.title  as 'Descrizione voce schema ufficiale associata al conto',
@@ -280,9 +286,10 @@ Begin
 							join account						on #bilanciostatopatrimoniale.idacc = account.idacc
 							left  outer join registry			on #bilanciostatopatrimoniale.idreg = registry.idreg
 							where patrimony.ayear = @ayear and (@patpart = 'E' or patrimony.patpart = @patpart)
-							GROUP BY registry.title, registry.idreg, account.codeacc,account.title, patrimony.codepatrimony, patrimony.patpart,patrimony.title
+							GROUP BY registry.title, registry.idreg, account.codeacc,account.title, patrimony.codepatrimony, patrimony.patpart,patrimony.title,
+								 #bilanciostatopatrimoniale.idrelated
 							HAVING (@suppressifblank='N' OR sum(#bilanciostatopatrimoniale.dare)<>0 or sum(#bilanciostatopatrimoniale.avere) <>0)
-							ORDER BY  registry.title, account.codeacc
+							ORDER BY  registry.title, account.codeacc, #bilanciostatopatrimoniale.idrelated
 					END
 				IF (@showupb ='S')
 					BEGIN
@@ -291,13 +298,14 @@ Begin
 							registry.idreg as 'Cod.Anagrafica',
 							account.codeacc as 'Codice conto',
 							account.title	as 'Conto',
+							#bilanciostatopatrimoniale.idrelated as 'Chiave EP dettaglio',
 							upb.codeupb	    as 'Codice UPB',
 							upb.title		as 'UPB',
 							CASE upb.flagactivity
 									 when 4 then 'Qualsiasi/Non specificata'
 									 when 1 then 'Istituzionale'
 									 when 2 then 'Commerciale'
-							END  as 'Tipo attivitÃ ',
+							END  as 'Tipo attività',
 							epupbkind.description as 'Tipo UPB ai fini dell''Economico Patrimoniale',
 							CASE upb.flagkind
 								 when 0 then 'Didattica'
@@ -320,7 +328,7 @@ Begin
 							left outer join epupbkind 			on epupbkind.idepupbkind = upb.idepupbkind
 							where patrimony.ayear = @ayear and (@patpart = 'E' or patrimony.patpart = @patpart)
 							GROUP BY registry.title, registry.idreg, account.codeacc, account.title, patrimony.codepatrimony,patrimony.patpart, patrimony.title, 
-							upb.codeupb, upb.title,upb.idepupbkind, upb.flagactivity, upb.flagkind, upb.start, upb.stop,epupbkind.description
+							upb.codeupb, upb.title,upb.idepupbkind, upb.flagactivity, upb.flagkind, upb.start, upb.stop,epupbkind.description, #bilanciostatopatrimoniale.idrelated
 							HAVING (@suppressifblank='N' OR sum(#bilanciostatopatrimoniale.dare)<>0 or sum(#bilanciostatopatrimoniale.avere) <>0)
 							ORDER BY  registry.title, account.codeacc
 					END
@@ -336,6 +344,7 @@ Begin
 						SELECT  
 							account.codeacc as 'Codice conto',
 							account.title	as 'Conto',
+							#bilanciostatopatrimoniale.idrelated as 'Chiave EP dettaglio',
 							patrimony.codepatrimony   as 'Codice voce schema ufficiale associata al conto',
 							patrimony.patpart   as 'Parte schema ufficiale',
 							patrimony.title  as 'Descrizione voce schema ufficiale associata al conto',
@@ -354,21 +363,23 @@ Begin
 							LEFT OUTER JOIN sorting S3 ON #bilanciostatopatrimoniale.idsor3 = S3.idsor
 							where patrimony.ayear = @ayear and (@patpart = 'E' or patrimony.patpart = @patpart)
 							GROUP BY account.codeacc,account.title, patrimony.codepatrimony, patrimony.patpart,patrimony.title, S1.sortcode,S2.sortcode,S3.sortcode
+							, #bilanciostatopatrimoniale.idrelated
 							HAVING (@suppressifblank='N' OR sum(#bilanciostatopatrimoniale.dare)<>0 or sum(#bilanciostatopatrimoniale.avere) <>0)
-							ORDER BY account.codeacc
+							ORDER BY account.codeacc, #bilanciostatopatrimoniale.idrelated
 					END
 				IF (@showupb ='S')
 					BEGIN
 						SELECT  
 							account.codeacc as 'Codice conto',
 							account.title	as 'Conto',
+							#bilanciostatopatrimoniale.idrelated as 'Chiave EP dettaglio',
 							upb.codeupb	    as 'Codice UPB',
 							upb.title		as 'UPB',
 							CASE upb.flagactivity
 									 when 4 then 'Qualsiasi/Non specificata'
 									 when 1 then 'Istituzionale'
 									 when 2 then 'Commerciale'
-							END  as 'Tipo attivitÃ ',
+							END  as 'Tipo attività',
 							epupbkind.description as 'Tipo UPB ai fini dell''Economico Patrimoniale',
 							CASE upb.flagkind
 								 when 0 then 'Didattica'
@@ -396,9 +407,9 @@ Begin
 							where patrimony.ayear = @ayear and (@patpart = 'E' or patrimony.patpart = @patpart)
 							GROUP BY account.codeacc, account.title, patrimony.codepatrimony, patrimony.patpart,patrimony.title, 
 							upb.codeupb, upb.title,upb.idepupbkind, upb.flagactivity, upb.flagkind, upb.start, upb.stop,epupbkind.description,
-							S1.sortcode,S2.sortcode,S3.sortcode
+							S1.sortcode,S2.sortcode,S3.sortcode, #bilanciostatopatrimoniale.idrelated
 							HAVING (@suppressifblank='N' OR sum(#bilanciostatopatrimoniale.dare)<>0 or sum(#bilanciostatopatrimoniale.avere) <>0)
-							ORDER BY account.codeacc
+							ORDER BY account.codeacc, #bilanciostatopatrimoniale.idrelated
 					END
 		End
 
@@ -411,6 +422,7 @@ Begin
 							registry.idreg as 'Cod.Anagrafica',
 							account.codeacc as 'Codice conto',
 							account.title	as 'Conto',
+							#bilanciostatopatrimoniale.idrelated as 'Chiave EP dettaglio',
 							patrimony.codepatrimony   as 'Codice voce schema ufficiale associata al conto',
 							patrimony.patpart   as 'Parte schema ufficiale',
 							patrimony.title  as 'Descrizione voce schema ufficiale associata al conto',
@@ -429,9 +441,9 @@ Begin
 							LEFT OUTER JOIN sorting S3 ON #bilanciostatopatrimoniale.idsor3 = S3.idsor
 							where patrimony.ayear = @ayear and (@patpart = 'E' or patrimony.patpart = @patpart)
 							GROUP BY registry.title, registry.idreg, account.codeacc,account.title, patrimony.codepatrimony, patrimony.patpart,patrimony.title,
-							S1.sortcode,S2.sortcode,S3.sortcode
+							S1.sortcode,S2.sortcode,S3.sortcode, #bilanciostatopatrimoniale.idrelated
 							HAVING (@suppressifblank='N' OR sum(#bilanciostatopatrimoniale.dare)<>0 or sum(#bilanciostatopatrimoniale.avere) <>0)
-							ORDER BY  registry.title, account.codeacc
+							ORDER BY  registry.title, account.codeacc, #bilanciostatopatrimoniale.idrelated
 					END
 				IF (@showupb ='S')
 					BEGIN
@@ -440,13 +452,14 @@ Begin
 							registry.idreg as 'Cod.Anagrafica',
 							account.codeacc as 'Codice conto',
 							account.title	as 'Conto',
+							#bilanciostatopatrimoniale.idrelated as 'Chiave EP dettaglio',
 							upb.codeupb	    as 'Codice UPB',
 							upb.title		as 'UPB',
 							CASE upb.flagactivity
 									 when 4 then 'Qualsiasi/Non specificata'
 									 when 1 then 'Istituzionale'
 									 when 2 then 'Commerciale'
-							END  as 'Tipo attivitÃ ',
+							END  as 'Tipo attività',
 							epupbkind.description as 'Tipo UPB ai fini dell''Economico Patrimoniale',
 							CASE upb.flagkind
 								 when 0 then 'Didattica'
@@ -476,9 +489,9 @@ Begin
 							where patrimony.ayear = @ayear and (@patpart = 'E' or patrimony.patpart = @patpart)
 							GROUP BY registry.title, registry.idreg, account.codeacc, account.title, patrimony.codepatrimony,patrimony.patpart, patrimony.title, 
 							upb.codeupb, upb.title,upb.idepupbkind, upb.flagactivity, upb.flagkind, upb.start, upb.stop,epupbkind.description,
-							S1.sortcode,S2.sortcode,S3.sortcode
+							S1.sortcode,S2.sortcode,S3.sortcode, #bilanciostatopatrimoniale.idrelated
 							HAVING (@suppressifblank='N' OR sum(#bilanciostatopatrimoniale.dare)<>0 or sum(#bilanciostatopatrimoniale.avere) <>0)
-							ORDER BY  registry.title, account.codeacc
+							ORDER BY  registry.title, account.codeacc, #bilanciostatopatrimoniale.idrelated
 					END
 		End
 END
@@ -488,11 +501,6 @@ End -- fine sp
  
  
  
-GO
-SET QUOTED_IDENTIFIER OFF 
-GO
-SET ANSI_NULLS ON 
-GO
 
  
 
@@ -503,4 +511,3 @@ GO
 
 
 
-	

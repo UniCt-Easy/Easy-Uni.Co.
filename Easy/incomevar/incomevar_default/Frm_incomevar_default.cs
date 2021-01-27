@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Data;
@@ -2152,7 +2154,7 @@ namespace incomevar_default
 			if (!Meta.DrawStateIsDone) return;
 			if (DS.config.Rows.Count==0 && !ControlloEseguito) {
 				ControlloEseguito=true;
-				MessageBox.Show("Non Ë stata effettuata la configurazione della gestione IVA relativa all'esercizio corrente",
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stata effettuata la configurazione della gestione IVA relativa all'esercizio corrente",
 					"Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				Meta.CanSave=false;
 				return;
@@ -2270,7 +2272,7 @@ namespace incomevar_default
 			if (CurrDR==null) return;
 
 			
-			if (MessageBox.Show(
+			if (MetaFactory.factory.getSingleton<IMessageShower>().Show(
 				"Cancello la classificazione selezionata?",
 				"Richiesta di conferma", 
 				MessageBoxButtons.YesNo)!=DialogResult.Yes) return;
@@ -2471,7 +2473,7 @@ namespace incomevar_default
             if (DS.incomevar.Rows.Count == 0) return;
 
             if (!verificaDocIvaSelezionato()) {
-                MessageBox.Show(this, "Bisogna selezionare la nota di credito");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Bisogna selezionare la nota di credito");
                 return;
             }
 
@@ -2630,7 +2632,7 @@ namespace incomevar_default
 			Meta.GetFormData(true);
             if (DS.incomevar.Rows.Count == 0) return;
             if (!verificaDocIvaSelezionato()) {
-                MessageBox.Show(this, "Bisogna selezionare la nota di credito");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Bisogna selezionare la nota di credito");
                 return;
             }
 			MetaData.Unlink_Grid(dgrDettagliFattura);
@@ -2649,7 +2651,7 @@ namespace incomevar_default
             if (DS.incomevar.Rows.Count == 0) return;
             DataRow Curr = DS.incomevar.Rows[0];
             if (!verificaDocIvaSelezionato()) {
-                MessageBox.Show(this, "Bisogna selezionare la nota di credito");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Bisogna selezionare la nota di credito");
                 return;
             }
 
@@ -2661,7 +2663,7 @@ namespace incomevar_default
 				ToLink=DS.invoicedetail_iva;
 			}
             if (ToLink == null) {
-                MessageBox.Show("E' necessario selezionare prima la causale");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario selezionare prima la causale");
                 return;
             }
             string MyFilter = CalculateFilterForInvoiceDetailLinking(false);
@@ -2718,7 +2720,7 @@ namespace incomevar_default
 			CalcolaImportoInBaseADettagliFattura();
 
             if ((DS.invoicedetail_iva.Rows.Count == 0) && (DS.invoicedetail_taxable.Rows.Count == 0)) {
-                MessageBox.Show("Non sono stati trovati dettagli coerenti con UPB e Causale selezionati.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non sono stati trovati dettagli coerenti con UPB e Causale selezionati.");
                 return;
             }
 

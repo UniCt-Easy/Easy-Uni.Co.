@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø--setuser 'amministrazione'
+
+--setuser 'amministrazione'
 
 --exp_invoice_intrastatunified '2019', null, null, 'A', 'M', 'B', 'N'
 
@@ -32,7 +34,7 @@ GO
 SET ANSI_NULLS ON 
 GO
 CREATE  PROCEDURE [exp_invoice_intrastat] (
--- A seconda della periodicit√† ossia T o M, si dovr√† indicare il periodo di riferimento
+-- A seconda della periodicit‡ ossia T o M, si dovr‡ indicare il periodo di riferimento
 	@anno int,
 	@mese int, 
 	@trimestre int,
@@ -60,8 +62,8 @@ CREATE TABLE #Dettaglio1_BENI
 	rownum int,							-- dettaglio fattura
 	numerofattura varchar(15),			-- Numero Protocollo Fattura (Registro)
 	datafattura varchar(6),				-- Data fattura formato (ggmmaa)
-	codiceIVA varchar(14),				-- Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo d‚Äôimposta con il quale √® stata effettuata 
-										-- L‚Äôoperazione intracomunitaria
+	codiceIVA varchar(14),				-- Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo díimposta con il quale Ë stata effettuata 
+										-- Líoperazione intracomunitaria
 	ammontareinEuro decimal(19,2),		-- numerico Len.13 -- Ammontare delle operazioni in euro
 	ammontareinValuta decimal(19,2),	-- numerico Len.13 -- Ammontare delle operazioni in valuta
 	iva decimal(19,2),
@@ -70,7 +72,7 @@ CREATE TABLE #Dettaglio1_BENI
 	codTransazione char(1),				-- Codice della natura dela transazione
 	codNomenclatura varchar(8),			-- numerico -- codice della nomenclatuta combinata della merce (solo nel caso di elenchi trimestrali)
 	massainkg int,						-- numerico Len. 10 -- Massa netta in kilogrammi
-	unitasupp int,						-- numerico Len. 10 -- Unit√† supplementari per l'acquisto / Quantit√† espressa nell'unit√† di misura supplementare
+	unitasupp int,						-- numerico Len. 10 -- Unit‡ supplementari per l'acquisto / Quantit‡ espressa nell'unit‡ di misura supplementare
 	codDest_codProv char(2),			-- Codice del paese di destinazione/provenienza
 	codOrigineMerce char(2),			-- Codice del paese di origine della merce
 	provOrigine_Dest char (2)			-- Codice della provincia di origine/destinazione della merce	
@@ -90,8 +92,8 @@ CREATE TABLE #Dettaglio3_SERVIZI
 	is_variation char(1),
 	flagpaired char(1),
 
-	codiceIVA varchar(14),				--  Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo d‚Äôimposta con il quale √® stata effettuata 
-										--	l‚Äôoperazione intracomunitaria
+	codiceIVA varchar(14),				--  Codice dello Stato membro dell'acquirente/fornitore+  Codice IVA dell'acquitente /fornitore =il numero di partita iva del soggetto passivo díimposta con il quale Ë stata effettuata 
+										--	líoperazione intracomunitaria
 	ammontareinEuro decimal(19,2),		-- numerico Len.13 -- Ammontare delle operazioni in euro
 	ammontareinValuta decimal(19,2),	-- numerico Len.13 -- Ammontare delle operazioni in valuta > > >  SOLO per i Servizi ricevuti
 	iva decimal(19,2),
@@ -104,8 +106,8 @@ CREATE TABLE #Dettaglio3_SERVIZI
 	numerofattura varchar(15),			-- Numero Protocollo Fattura (Registro)
 	datafattura varchar(6),				-- Data fattura formato (ggmmaa)
 	codServizio varchar(6),				-- numerico -- Codice del Servizio
-	modErogazione char(1),				-- Modalit√† di erogazione
-	modpagamento char(1),				-- Modalit√† pagamento/incasso 
+	modErogazione char(1),				-- Modalit‡ di erogazione
+	modpagamento char(1),				-- Modalit‡ pagamento/incasso 
 	codPaesePagamento char(2)			-- Codice del paese di Pagamento
 
 )
@@ -190,7 +192,7 @@ INSERT INTO #Dettaglio1_BENI
 	codTransazione,			-- Codice della natura dela transazione
 	codNomenclatura,		-- numerico -- codice della nomenclatuta combinata della merce (solo nel caso di elenchi trimestrali)
 	massainkg,				-- numerico -- Massa netta in kilogrammi
-	unitasupp,				-- numerico -- Unit√† supplementari per l'acquisto / Quantit√† espressa nell'unit√† di misura supplementare
+	unitasupp,				-- numerico -- Unit‡ supplementari per l'acquisto / Quantit‡ espressa nell'unit‡ di misura supplementare
 	codDest_codProv,		-- Codice del paese di destinazione/provenienza
 	codOrigineMerce,		-- Codice del paese di origine della merce
 	provOrigine_Dest		-- Codice della provincia di origine/destinazione della merce	
@@ -252,7 +254,7 @@ SELECT
 		When InvDet.idintrastatmeasure is not null THEN ROUND(ISNULL(InvDet.weight,0),0)
 		Else ROUND (InvDet.npackage,0)
 	End,			
-	-- Unitasupp -> solo la quantit√†
+	-- Unitasupp -> solo la quantit‡
 	Case 
 		When InvDet.idintrastatmeasure is not null THEN		ROUND (InvDet.npackage,0)
 		Else 0
@@ -333,8 +335,8 @@ INSERT INTO #Dettaglio3_SERVIZI
 	numerofattura ,				-- Numero Fattura
 	datafattura ,				-- Data fattura formato (ggmmaa)
 	codServizio ,				-- numerico -- Codice del Servizio
-	modErogazione ,				-- Modalit√† di erogazione
-	modpagamento ,				-- Modalit√† pagamento/incasso 
+	modErogazione ,				-- Modalit‡ di erogazione
+	modpagamento ,				-- Modalit‡ pagamento/incasso 
 	codPaesePagamento 			-- Codice del paese di Pagamento
 )
 SELECT 
@@ -382,8 +384,8 @@ SELECT
 		+ SUBSTRING(CONVERT(varchar(4),YEAR(I.adate)),3,2),
 	--  Codice del Servizio
 	CONVERT(varchar(6),S.code),
-	E.code,					-- Modalit√† di erogazione
-	P.code ,				-- Modalit√† pagamento/incasso 
+	E.code,					-- Modalit‡ di erogazione
+	P.code ,				-- Modalit‡ pagamento/incasso 
 	Pag.idintrastatnation 	-- Codice del paese di Pagamento
 FROM  invoice as I		
 JOIN  registry as R							ON R.idreg = I.idreg
@@ -458,7 +460,7 @@ update #Dettaglio3_SERVIZI set ammontareinEuro=-ammontareinEuro,ammontareinValut
 update #Dettaglio1_BENI set annorif=null, meserif=null,trimrif=null where flagvariation='N' or flagpaired='S'
 update #Dettaglio3_SERVIZI set annorif=null, meserif=null,trimrif=null where flagvariation='N' or flagpaired='S'
 
---questo perch√© nella group by vanno raggruppate
+--questo perchÈ nella group by vanno raggruppate
 
 --SELECT 'DETTAGLIO BENI', * FROM #Dettaglio1_BENI
 --SELECT 'DETTAGLIO SERVIZI', * FROM #Dettaglio3_SERVIZI
@@ -475,7 +477,7 @@ SELECT
 	CASE @periodicita
 		WHEN 'T' THEN 'Trimestrale'
 		WHEN 'M' THEN 'Mensile'
-	END as 'Periodicit√†',
+	END as 'Periodicit‡',
 	@anno as 'Anno',
 	(SELECT title from monthname where code=@mese)
 		as 'Mese Rif.',
@@ -516,7 +518,7 @@ SELECT
 	K.description as 'Natura Transazione',
 	InvDet.code as 'Cod. Nomencl. Combinata',
 	C.description as 'Nomencl. Combinata',
-	InvDet.intrastatmeasure as 'Unit√† di Misura Suppl.',
+	InvDet.intrastatmeasure as 'Unit‡ di Misura Suppl.',
 	InvDet.weight as 'Peso in Kg',
 	Orig.description as 'Paese Orig.',
 	Prov.description as 'Paese Proven.',
@@ -527,13 +529,13 @@ SELECT
 	null as 'Data fattura formato (ggmmaa)',			
 	Convert(varchar(6),intrastatservice.code) as 'Codice del Servizio', 	
 	intrastatservice.description as 'Servizio',							
-	intrastatsupplymethod.description as 'Modalit√† di erogazione',				
-	null as 'Modalit√† pagamento/incasso',				
+	intrastatsupplymethod.description as 'Modalit‡ di erogazione',				
+	null as 'Modalit‡ pagamento/incasso',				
 	null as 'Codice del paese di Pagamento', 			
 	I.adate as 'Data Fattura',
 	InvDet.detaildescription as 'Descr. Dettaglio',
 	D.importounitario as 'Impon. Unitario',
-	InvDet.npackage as 'Quantit√†',
+	InvDet.npackage as 'Quantit‡',
 	InvDet.discount as 'Sconto',
 	InvDet.ivakind as 'Tipo Iva',
 	--InvDet.iva_euro 
@@ -580,7 +582,7 @@ SELECT
 	CASE @periodicita
 		WHEN 'T' THEN 'Trimestrale'
 		WHEN 'M' THEN 'Mensile'
-	END as 'Periodicit√†',
+	END as 'Periodicit‡',
 	@anno as 'Anno',
 	(SELECT title from monthname where code=@mese)
 		as 'Mese Rif.',
@@ -620,7 +622,7 @@ SELECT
 	null as 'Natura Transazione',
 	InvDet.code as 'Cod. Nomencl. Combinata',
 	C.description as 'Nomencl. Combinata',
-	InvDet.intrastatmeasure as 'Unit√† di Misura Suppl.',
+	InvDet.intrastatmeasure as 'Unit‡ di Misura Suppl.',
 	InvDet.weight as 'Peso in Kg',
 	null as 'Paese Orig.',
 	null as 'Paese Proven.',
@@ -631,13 +633,13 @@ SELECT
 	datafattura as 'Data fattura formato (ggmmaa)',			
 	Convert(varchar(6),intrastatservice.code) as 'Codice del Servizio', 	
 	intrastatservice.description as 'Servizio',					
-	intrastatsupplymethod.description as 'Modalit√† di erogazione',						
-	intrastatpaymethod.description  as 'Modalit√† pagamento/incasso',	
+	intrastatsupplymethod.description as 'Modalit‡ di erogazione',						
+	intrastatpaymethod.description  as 'Modalit‡ pagamento/incasso',	
 	intrastatnation.description as 'Codice del paese di Pagamento', 			
 	I.adate as 'Data Fattura',
 	InvDet.detaildescription as 'Descr. Dettaglio',
 	D.importounitario as 'Impon. Unitario',
-	InvDet.npackage as 'Quantit√†',
+	InvDet.npackage as 'Quantit‡',
 	InvDet.discount as 'Sconto',
 	InvDet.ivakind as 'Tipo Iva',
 	--InvDet.iva_euro 
@@ -706,7 +708,7 @@ SELECT
 	CASE @periodicita
 		WHEN 'T' THEN 'Trimestrale'
 		WHEN 'M' THEN 'Mensile'
-	END as 'Periodicit√†',
+	END as 'Periodicit‡',
 	@anno as 'Anno',
 	(SELECT title from monthname where code=@mese)
 		as 'Mese Rif.',
@@ -747,7 +749,7 @@ SELECT
 	K.description as 'Natura Transazione',
 	InvDet.code as 'Cod. Nomencl. Combinata',
 	C.description as 'Nomencl. Combinata',
-	InvDet.intrastatmeasure as 'Unit√† di Misura Suppl.',
+	InvDet.intrastatmeasure as 'Unit‡ di Misura Suppl.',
 	InvDet.weight as 'Peso in Kg',
 	Orig.description as 'Paese Orig.',
 	Prov.description as 'Paese Proven.',
@@ -758,13 +760,13 @@ SELECT
 	null as 'Data fattura formato (ggmmaa)',
 	Convert(varchar(6),intrastatservice.code) as 'Codice del Servizio', 	
 	intrastatservice.description as 'Servizio',				
-	intrastatsupplymethod.description as 'Modalit√† di erogazione',						
-	null as 'Modalit√† pagamento/incasso',				
+	intrastatsupplymethod.description as 'Modalit‡ di erogazione',						
+	null as 'Modalit‡ pagamento/incasso',				
 	null as 'Codice del paese di Pagamento', 				
 	I.adate as 'Data Fattura',
 	InvDet.detaildescription as 'Descr. Dettaglio',
 	D.importounitario as 'Impon. Unitario',
-	InvDet.npackage as 'Quantit√†',
+	InvDet.npackage as 'Quantit‡',
 	InvDet.discount as 'Sconto',
 	InvDet.ivakind as 'Tipo Iva',
 	--InvDet.iva_euro 
@@ -830,7 +832,7 @@ UNION
 	CASE @periodicita
 		WHEN 'T' THEN 'Trimestrale'
 		WHEN 'M' THEN 'Mensile'
-	END as 'Periodicit√†',
+	END as 'Periodicit‡',
 	@anno as 'Anno',
 	(SELECT title from monthname where code=@mese)
 		as 'Mese Rif.',
@@ -872,7 +874,7 @@ UNION
 	null as 'Natura Transazione',
 	InvDet.code as 'Cod. Nomencl. Combinata',
 	C.description as 'Nomencl. Combinata',
-	InvDet.intrastatmeasure as 'Unit√† di Misura Suppl.',
+	InvDet.intrastatmeasure as 'Unit‡ di Misura Suppl.',
 	InvDet.weight as 'Peso in Kg',
 	null as 'Paese Orig.',
 	null as 'Paese Proven.',
@@ -883,13 +885,13 @@ UNION
 	datafattura as 'Data fattura formato (ggmmaa)',		
 	Convert(varchar(6),intrastatservice.code) as 'Codice del Servizio', 
 	intrastatservice.description as 'Servizio',				
-	intrastatsupplymethod.description as 'Modalit√† di erogazione',						
-	intrastatpaymethod.description  as 'Modalit√† pagamento/incasso',				
+	intrastatsupplymethod.description as 'Modalit‡ di erogazione',						
+	intrastatpaymethod.description  as 'Modalit‡ pagamento/incasso',				
 	intrastatnation.description as 'Codice del paese di Pagamento', 			
 	I.adate as 'Data Fattura',
 	InvDet.detaildescription as 'Descr. Dettaglio',
 	D.importounitario as 'Impon. Unitario',
-	InvDet.npackage as 'Quantit√†',
+	InvDet.npackage as 'Quantit‡',
 	InvDet.discount as 'Sconto',
 	InvDet.ivakind as 'Tipo Iva',
 	--InvDet.iva_euro 
@@ -963,4 +965,3 @@ GO
 
 --  select * from registry R left outer join expense E on E.idreg= R.idreg+999999999 where isnull(E.idreg,-2) is null
 --  EXEC exp_mod_intrastat 2010,5,null,'A','M','B'
-	

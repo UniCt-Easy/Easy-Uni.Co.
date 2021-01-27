@@ -1,17 +1,19 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections;
@@ -536,9 +538,18 @@ namespace EasyWebReport {
             CQueryHelper QHC = new CQueryHelper();
             QueryHelper QHS = UsrConn.GetQueryHelper();
 
-            string fitermenu = QHS.FieldInList("metadata",
-                QHS.List("upb", "underwriting", "mandate", "finvar", "accountvar", "enactment", "accountenactment", "itineration"));
-            DataTable DT = UsrConn.RUN_SELECT("menu", "*", "ordernumber,paridmenu", fitermenu, null, false);
+            DataTable DT;
+            var sec = UsrConn.SelectCondition("menu",true);
+            var usrMenu = UsrConn.GetUsr("menu")?.ToString();
+            if (!string.IsNullOrEmpty(sec) && string.IsNullOrEmpty(usrMenu)) {
+	            DT = UsrConn.CreateTableByName("menu", "*");
+            }
+            else {
+	            string fitermenu = QHS.FieldInList("metadata",
+		            QHS.List("upb", "underwriting", "mandate", "finvar", "accountvar", "enactment", "accountenactment", "itineration"));
+	            DT = UsrConn.RUN_SELECT("menu", "*", "ordernumber,paridmenu", fitermenu, null, false);
+            }
+
 
 
             UsrConn.Security.DeleteAllUnselectable(DT);
@@ -780,8 +791,11 @@ namespace EasyWebReport {
                     mis.AddChild(m);
                 }
                 if (CataniaMissioni) {
-                    MyMenuClass m = new MyMenuClass("Missioni(Catania)", "f", "itineration.ct_default");
+                    MyMenuClass m = new MyMenuClass("Richiesta Missione(Catania)", "f", "itineration.ct_default");
                     mis.AddChild(m);
+
+                    MyMenuClass m3 = new MyMenuClass("Elenco Missioni(Catania)", "f", "itineration.ct_autolist");
+                    mis.AddChild(m3);
                 }
             }
 
@@ -873,4 +887,3 @@ namespace EasyWebReport {
         }
     }
 }
-

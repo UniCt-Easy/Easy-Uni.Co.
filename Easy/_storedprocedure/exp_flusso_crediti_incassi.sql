@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªø if exists (select * from dbo.sysobjects where id = object_id(N'[exp_flusso_crediti_incassi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+
+ if exists (select * from dbo.sysobjects where id = object_id(N'[exp_flusso_crediti_incassi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_flusso_crediti_incassi]
 GO
 
@@ -45,6 +47,9 @@ CREATE  PROCEDURE [exp_flusso_crediti_incassi]
 )
 AS BEGIN
 
+-- exp_flusso_crediti_incassi 2019, null,null, null, null,null,'R',{d '2019-01-01'},{d '2019-03-31'}
+
+
 select 
 	I.dataincasso as 'Data Incasso',
 	C.idflusso  as 'N.Flusso crediti', 
@@ -68,7 +73,7 @@ select
 	C.p_iva as 'Piva',
     C.iuv as 'IUV',
     C.annulment as 'Data annullamento',
-    C.stop as 'Data fine validit√†',
+    C.stop as 'Data fine validit‡',
     C.datacreazioneflusso as 'data creazione flusso',
     C.causalecredito as 'causale credito',
     C.casualeentroanno as 'casuale entro anno',
@@ -83,7 +88,6 @@ select
 	----- flusso incassi
 	I.ayear as 'Esercizio incasso',
 	I.iddetail as 'n.dettaglio',
-
 	I.causale as 'Causale',
 	I.importotale as 'Importo Totale',
 	I.nbill as 'N.Bolletta',
@@ -91,18 +95,38 @@ select
 	I.iduniqueformcode as 'Codice Bollettino',
 	I.importo as 'Importo',
 	I.active as 'Attivo',
-	I.elaborato as 'Elaborato'
+	I.elaborato as 'Elaborato',
 
+	INCF.ymov as 'Eserc.Incasso fattura',
+	INCF.nmov as 'Num.Incasso fattura',
+	PF.ypro as 'Eserc.Reversale fattura',
+	PF.npro as 'Num.Reversale fattura',
+	INCCA.ymov as 'Eserc.Incasso Contratto attivo',
+	INCCA.nmov as 'Num.Incasso Contratto attivo',
+	PCA.ypro as 'Eserc.Reversale Contratto attivo',
+	PCA.npro as 'Num.Reversale Contratto attivo'
 	from flussocreditidetailview C
-	left outer join flussoincassidetailview I
-	ON C.IUV = I.IUV or C.iduniqueformcode = I.iduniqueformcode
+	left outer join flussoincassidetailview I	ON C.IUV = I.IUV or C.iduniqueformcode = I.iduniqueformcode
+	--FATTURA
+	left outer join invoicedetail ID			ON (C.idinvkind = ID.idinvkind AND C.yinv = ID.yinv AND C.ninv = ID.ninv AND C.invrownum = ID.rownum)
+	left outer join incomelast IL1				ON ID.idinc_taxable = IL1.idinc
+	left outer join income INCF					ON INCF.idinc = IL1.idinc 
+	left outer join proceeds PF					ON IL1.kpro = PF.kpro
+
+	--CONTRATTO ATTIVO
+	left outer join estimatedetail ED			ON (C.idestimkind = ED.idestimkind AND C.yestim = ED.yestim AND C.nestim = ED.nestim AND C.rownum = ED.rownum)
+	left outer join incomelink					ON incomelink.idparent = ED.idinc_taxable --and incomelink.idparent <>incomelink.idchild
+    left outer join incomelast IL2				ON incomelink.idchild = IL2.idinc	
+    left outer join income INCCA				ON IL2.idinc= INCCA.idinc
+	left outer join proceeds PCA				ON IL2.kpro = PCA.kpro
 	
 	WHERE (@ayear is null OR YEAR(C.datacreazioneflusso) = @ayear) AND
 		  (C.idflusso   = @idflussocrediti OR @idflussocrediti IS NULL) AND
 		  (I.idflusso   = @idflussoincassi OR @idflussoincassi IS NULL) AND
 		  (C.idreg = @idreg OR @idreg IS NULL) AND
 		  (C.iuv = @iuv OR @iuv IS NULL) AND
-		  (C.iduniqueformcode = @iduniqueformcode OR @iduniqueformcode IS NULL)
+		  (C.iduniqueformcode = @iduniqueformcode OR @iduniqueformcode IS NULL) AND
+		  (incomelink.idchild is null or incomelink.idchild= IL2.idinc )
 		  AND
 		  (
 			(@kind = 'T')  		  --- tutti    T
@@ -127,5 +151,5 @@ GO
 SET ANSI_NULLS ON 
 GO
 
- 
-	
+
+

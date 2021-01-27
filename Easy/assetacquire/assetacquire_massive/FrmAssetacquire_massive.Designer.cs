@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªønamespace assetacquire_massive {
+
+namespace assetacquire_massive {
     partial class FrmAssetacquire_massive {
         /// <summary>
         /// Variabile di progettazione necessaria.
@@ -739,7 +741,7 @@
             this.chkDati.Size = new System.Drawing.Size(235, 22);
             this.chkDati.TabIndex = 25;
             this.chkDati.TabStop = false;
-            this.chkDati.Text = "Mantieni informazione su valori e quantit√†";
+            this.chkDati.Text = "Mantieni informazione su valori e quantit‡";
             this.chkDati.UseVisualStyleBackColor = true;
             // 
             // chkHideTipoCarico
@@ -906,7 +908,7 @@
             this.radioPosseduto.Size = new System.Drawing.Size(600, 24);
             this.radioPosseduto.TabIndex = 3;
             this.radioPosseduto.Tag = "assetacquire.flag::1";
-            this.radioPosseduto.Text = "Cespite posseduto (il valore del cespite o dell\'accessorio √® gi√† incluso nella si" +
+            this.radioPosseduto.Text = "Cespite posseduto (il valore del cespite o dell\'accessorio Ë gi‡ incluso nella si" +
     "tuazione patrimoniale)";
             this.radioPosseduto.CheckedChanged += new System.EventHandler(this.radioPosseduto_CheckedChanged);
             // 
@@ -1124,7 +1126,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(66, 16);
             this.label10.TabIndex = 4;
-            this.label10.Text = "Quantit√†";
+            this.label10.Text = "Quantit‡";
             // 
             // label8
             // 

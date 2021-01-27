@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿SET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -57,7 +59,7 @@ insert into #lookup(impegni, fontidaterzi, fontidaindebitamento, fontidarisorsep
 /* 	Questa sp si basa su una specifica classificazione creata ad hoc per Lecce.
 	Tipo classificazione "fontitype Finanziamento per Budget Investimenti = fonti_BI"
 	A	VBE - Contributi da terzi finalizzati.
-	B	VBE â€“ Risorse Proprie
+	B	VBE – Risorse Proprie
 	C	Contributi da terzi finalizzati.
 	D	Risorse da indebitamento
 	E	Risorse Proprie
@@ -178,7 +180,7 @@ WHERE f.ayear = @ayear
 GROUP BY u.idupb,fs.idsor,	s.sortcode
 
 -- Prende le UPB, aventi delle voci di entrata con previsione imputate ad esso, e classificate con la class. 'fontitype Finanziamento per Budget Investimenti' 
--- Per ogni UPB, le voci di entrata aventi previsione su quell'ubp, saranno classificate tutte allo stesso modo, cioÃ¨ con lo stesso codice di classificazione "fonti_BI".
+-- Per ogni UPB, le voci di entrata aventi previsione su quell'ubp, saranno classificate tutte allo stesso modo, cioè con lo stesso codice di classificazione "fonti_BI".
 -- Quindi o tutte con A, o tutte con B, etc...
 -- Il codice di classificazione sulle entrate, ci indica la colonna della stampa
 CREATE TABLE #budgetColonne(
@@ -346,4 +348,3 @@ SET ANSI_NULLS ON
 GO
 
 
-	

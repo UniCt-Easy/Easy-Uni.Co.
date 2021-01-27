@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 Universit√† degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Universit‡ degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ôªøusing System;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -179,7 +181,7 @@ namespace ct_finyear_asscred_reset
                     }
                 }
                 if (amountVar == 0) {
-                    // Se il saldo √® zero, cancella le righe dalla tabella Errore, che mostrer√† dopo nel formettino
+                    // Se il saldo Ë zero, cancella le righe dalla tabella Errore, che mostrer‡ dopo nel formettino
                     foreach (DataRow RR in Tdett_previsioniError.Select(QHC.AppAnd(QHC.CmpEq("idupb", idupb), QHC.CmpEq("prevision", prevision)))) {
                         RR.Delete();
                         Tdett_previsioniError.AcceptChanges();
@@ -275,7 +277,7 @@ namespace ct_finyear_asscred_reset
             DataRow[] Mov_SelectedRows = GetGridSelectedRows(gridDettagli);
             if ((Mov_SelectedRows == null) || (Mov_SelectedRows.Length == 0))
             {
-                MessageBox.Show("Non √® stato selezionato alcun movimento da annullare.");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("Non Ë stato selezionato alcun movimento da annullare.");
                 return;
             }
             Azzera(Mov_SelectedRows);
@@ -355,7 +357,7 @@ namespace ct_finyear_asscred_reset
             if (res){
 
                 string mess = "Operazione Eseguita con successo.";
-                MessageBox.Show(mess);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(mess);
                 btnAzzera.Visible = false;
                 btnAnnulla.Text = "Chiudi";
             }

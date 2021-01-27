@@ -1,19 +1,21 @@
+
 /*
-    Easy
-    Copyright (C) 2020 UniversitÃ  degli Studi di Catania (www.unict.it)
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Easy
+Copyright (C) 2021 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-ï»¿SET QUOTED_IDENTIFIER ON 
+
+SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
@@ -38,7 +40,7 @@ DECLARE @maxphase tinyint
 -- Viene implementato un cursore che cambia le coppie idupb/idfin solo x i figli diretti
 IF @movkind = 'I'
 BEGIN
-	-- IF usato altrimenti nel caso non ci sono righe il cursore puÃ² andare in errore
+	-- IF usato altrimenti nel caso non ci sono righe il cursore può andare in errore
 	IF (SELECT COUNT(*) FROM income WHERE parentidinc = @idmov) = 0 RETURN
 	DECLARE @idinc int
 	DECLARE @crs_inc CURSOR
@@ -74,8 +76,8 @@ BEGIN
 END
 ELSE
 BEGIN
-	-- IF usato altrimenti nel caso non ci sono righe il cursore puÃ² andare in errore
-	-- N.B. Quando viene adoperato un cursore in una SP che puÃ² essere chiamata in modo ciclico
+	-- IF usato altrimenti nel caso non ci sono righe il cursore può andare in errore
+	-- N.B. Quando viene adoperato un cursore in una SP che può essere chiamata in modo ciclico
 	-- bisogna adoperare la dichiarazione del cursore come se fosse una var. locale e non con
 	-- INSENSITIVE CURSOR FOR
 	IF (SELECT COUNT(*) FROM expense WHERE parentidexp = @idmov) = 0 RETURN
@@ -122,4 +124,3 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-	
