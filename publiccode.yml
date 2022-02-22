@@ -232,5 +232,7 @@ description:
       - Riconciliazione automatica degli incassi provenienti da PagoPA
       - Portale Web per la vendita di servizi e transazioni PagoPA
       - Gestione integrata della fatturazione elettronica (Canale SDIFtp)
+      - Gestione integrata dei progetti di ricerca
+      - Monitoraggio delle Performance
     documentation: 'https://www.temposrl.com/downloads/Brochure_Easy.pdf'
 logo: 'Logo_Easy.svg'
